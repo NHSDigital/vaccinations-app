@@ -24,6 +24,8 @@ We will increase appointment attendance and reduce the number of 'Did not attend
 - [Licence](#licence)
 
 ## Setup
+- As per NHS guidelines, make your GitHub email private by going [here](https://github.com/settings/emails). There is a checkbox named "Keep my email addresses private". Not down your private email from this setting.
+- Follow these [instructions](https://nhsd-confluence.digital.nhs.uk/display/CSP/How+to+access+GitHub). Remember to use your private email, noted above, in GitHub config 'user.email'.
 
 ### Prerequisites
 TODO
