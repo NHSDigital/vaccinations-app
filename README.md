@@ -28,7 +28,8 @@ We will increase appointment attendance and reduce the number of 'Did not attend
 - Follow these [instructions](https://nhsd-confluence.digital.nhs.uk/display/CSP/How+to+access+GitHub). Remember to use your private email, noted above, in GitHub config 'user.email'.
 
 ### Prerequisites
-TODO
+Tools to install:
+- Volta (version manager for Node and Yarn) [Installation instructions](https://docs.volta.sh/guide/getting-started)
 
 ### Configuration
 TODO
