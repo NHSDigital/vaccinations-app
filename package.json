@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "yarn esbuild src/app.ts --bundle --format=esm --platform=node --target=node22.13 --packages=external --outfile=dist/app.js",
+    "build": "node build.js",
     "start": "node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
