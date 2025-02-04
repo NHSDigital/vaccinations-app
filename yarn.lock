@@ -646,6 +646,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"esbuild-plugin-tsc@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "esbuild-plugin-tsc@npm:0.4.0"
+  dependencies:
+    strip-comments: "npm:^2.0.1"
+  peerDependencies:
+    typescript: ^4.0.0 || ^5.0.0
+  checksum: 10c0/80d80327b87c27c6054bea2d1236c1295420f05d392d6e7c3069e57f4359666bd005b70fb6cb44c2e5d0c3c4875c5c0358908f6a83e587a6025966977356bfff
+  languageName: node
+  linkType: hard
+
 "esbuild@npm:^0.24.2":
   version: 0.24.2
   resolution: "esbuild@npm:0.24.2"
@@ -1406,6 +1417,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"strip-comments@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "strip-comments@npm:2.0.1"
+  checksum: 10c0/984321b1ec47a531bdcfddd87f217590934e2d2f142198a080ec88588280239a5b58a81ca780730679b6195e52afef83673c6d6466c07c2277f71f44d7d9553d
+  languageName: node
+  linkType: hard
+
 "supports-preserve-symlinks-flag@npm:^1.0.0":
   version: 1.0.0
   resolution: "supports-preserve-symlinks-flag@npm:1.0.0"
@@ -1530,6 +1548,7 @@ __metadata:
     "@types/express": "npm:^5.0.0"
     "@types/node": "npm:^22.13.1"
     esbuild: "npm:^0.24.2"
+    esbuild-plugin-tsc: "npm:^0.4.0"
     express: "npm:^4.21.2"
     pug: "npm:^3.0.3"
     ts-node: "npm:^10.9.2"

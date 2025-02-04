@@ -2,13 +2,12 @@
   "name": "vaccinations-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "directories": {
     "doc": "docs",
     "test": "tests"
   },
   "scripts": {
-    "build-server": "esbuild app.js --bundle --format=esm --platform=node --target=node22.13 --packages=external --outfile=dist/app.js",
+    "build": "yarn esbuild src/app.ts --bundle --format=esm --platform=node --target=node22.13 --packages=external --outfile=dist/app.js",
     "start": "node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -29,6 +28,7 @@
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.1",
+    "esbuild-plugin-tsc": "^0.4.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   },
