@@ -1,15 +1,16 @@
-const { build } = require("esbuild");
-const { dependencies } = require('./package.json')
+import * as esbuild from 'esbuild';
+// import * as PackageJson from './package.json' with { type: "json" };
 
 const sharedConfig = {
   entryPoints: ["src/app.ts"],
   bundle: true,
-  minify: true,
-  external: Object.keys(dependencies)
+  minify: false,
+  external: ["express", "pug"]
 };
 
-build({
+await esbuild.build({
   ...sharedConfig,
   platform: 'node', // for CJS
-  outfile: "dist/app.js",
+  outfile: "dist/bundle.js",
+  format: "esm",
 });

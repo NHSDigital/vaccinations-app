@@ -2,13 +2,14 @@
   "name": "vaccinations-app",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "directories": {
     "doc": "docs",
     "test": "tests"
   },
   "scripts": {
     "build": "node build.js",
-    "start": "node dist/app.js",
+    "start": "node dist/bundle.js",
     "lint": "yarn eslint src",
     "check": "yarn prettier src --check",
     "format": "yarn prettier src --write",
