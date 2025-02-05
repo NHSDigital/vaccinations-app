@@ -9,6 +9,7 @@
   "scripts": {
     "build": "node build.js",
     "start": "node dist/app.js",
+    "lint": "yarn eslint src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,12 +27,16 @@
     "yarn": "4.6.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.19.0",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.1",
     "esbuild": "^0.24.2",
     "esbuild-plugin-tsc": "^0.4.0",
+    "eslint": "^9.19.0",
+    "globals": "^15.14.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.23.0"
   },
   "dependencies": {
     "express": "^4.21.2",
