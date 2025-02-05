@@ -1,4 +1,7 @@
 import * as esbuild from 'esbuild';
+import CopyPluginPackage from '@sprout2000/esbuild-copy-plugin';
+const { copyPlugin } = CopyPluginPackage;
+
 import PackageJson from './package.json' with { type: "json" };
 
 const sharedConfig = {
@@ -10,7 +13,17 @@ const sharedConfig = {
 
 await esbuild.build({
   ...sharedConfig,
-  platform: 'node', // for CJS
+  platform: 'node',
   outfile: "dist/bundle.js",
   format: "esm",
-});
+  plugins: [
+    copyPlugin({
+      src: "./src/views",
+      dest: "./dist/views",
+    }),
+    copyPlugin({
+      src: "./src/public",
+      dest: "./dist/public",
+    }),
+  ],
+}).catch(() => process.exit(1));

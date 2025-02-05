@@ -392,6 +392,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sprout2000/esbuild-copy-plugin@npm:^1.1.16":
+  version: 1.1.16
+  resolution: "@sprout2000/esbuild-copy-plugin@npm:1.1.16"
+  checksum: 10c0/85020aa72521c8526c9f48ec679a15a03531402f96a330191e16ccf0c7925b53338d78afc234c19b41b5ec8b1e57649c68e72c67467248082a65ff037158de22
+  languageName: node
+  linkType: hard
+
 "@tsconfig/node10@npm:^1.0.7":
   version: 1.0.11
   resolution: "@tsconfig/node10@npm:1.0.11"
@@ -2584,6 +2591,7 @@ __metadata:
   resolution: "vaccinations-app@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.19.0"
+    "@sprout2000/esbuild-copy-plugin": "npm:^1.1.16"
     "@types/express": "npm:^5.0.0"
     "@types/node": "npm:^22.13.1"
     esbuild: "npm:^0.24.2"
