@@ -1,11 +1,11 @@
 import * as esbuild from 'esbuild';
-// import * as PackageJson from './package.json' with { type: "json" };
+import PackageJson from './package.json' with { type: "json" };
 
 const sharedConfig = {
   entryPoints: ["src/app.ts"],
   bundle: true,
   minify: false,
-  external: ["express", "pug"]
+  external: Object.keys(PackageJson.dependencies),
 };
 
 await esbuild.build({
