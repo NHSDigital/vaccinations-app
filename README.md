@@ -29,13 +29,34 @@ We will increase appointment attendance and reduce the number of 'Did not attend
 
 ### Prerequisites
 Tools to install:
-- Volta (version manager for Node and Yarn) [Installation instructions](https://docs.volta.sh/guide/getting-started)
+- **Volta** - version manager for Node and Yarn
+  - [Installation instructions](https://docs.volta.sh/guide/getting-started)
+  - ```
+    brew install volta
+    volta install node
+    volta install yarn
+    ```
+- **pre-commit** - configure hooks to run automatically before each commit 
+  - `brew install pre-commit`
+- **Talisman** - security scanner preventing secrets and sensitive information from being committed
+  - [Install instructions as pre-commit hook](https://github.com/thoughtworks/talisman)
 
 ### Configuration
-TODO
+1. Install and setup pre-commit hooks for this project
+   - `pre-commit install`
+1. Using Yarn package manager, install dependencies from package.json
+   - `yarn` (equivalent of yarn install)
 
 ## Usage
-TODO
+### Build
+`yarn run build`
+
+### Run service locally
+`yarn run start`
+
+### Run pre-commit script manually
+`yarn run pre-commit`
+(Note that this has also been configured as a pre-commit hook that will run automatically before each commit)
 
 ### Testing
 TODO
