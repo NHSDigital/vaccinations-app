@@ -18,6 +18,7 @@ await esbuild
     platform: "node",
     outfile: "dist/bundle.js",
     format: "esm",
+    logLevel: "info",
     plugins: [
       copyPlugin({
         src: "./src/views",
@@ -29,4 +30,7 @@ await esbuild
       }),
     ],
   })
-  .catch(() => process.exit(1));
+  .catch((err) => {
+    console.log(err);
+    process.exit(1);}
+  );
