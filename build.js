@@ -6,7 +6,7 @@ const { copyPlugin } = CopyPluginPackage;
 import PackageJson from "./package.json" with { type: "json" };
 
 const sharedConfig = {
-  entryPoints: ["src/app.ts"],
+  entryPoints: ["src/app.ts", "src/server.ts" ],
   bundle: true,
   minify: false,
   external: Object.keys(PackageJson.dependencies),
@@ -16,7 +16,7 @@ await esbuild
   .build({
     ...sharedConfig,
     platform: "node",
-    outfile: "dist/bundle.js",
+    outdir: "dist",
     format: "esm",
     logLevel: "info",
     plugins: [
