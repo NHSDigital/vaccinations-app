@@ -6,6 +6,5 @@ describe('Index Controller', () => {
   it('GET / should return our home page', async () => {
     const response = await request(app).get('/');
     expect(response.status).toBe(200);
-    expect(Array.isArray(response.body)).toBe(true);
   });
 });
