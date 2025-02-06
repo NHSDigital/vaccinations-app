@@ -29,3 +29,4 @@ await esbuild
       }),
     ],
   })
+  .catch(() => process.exit(1));
