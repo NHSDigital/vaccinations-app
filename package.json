@@ -8,11 +8,13 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "node build.js",
+    "clean": "rm -rf ./dist",
+    "build": "yarn run clean && node build.js",
     "start": "node dist/bundle.js",
     "lint": "yarn eslint src",
     "check": "yarn prettier src --check",
     "format": "yarn prettier src --write",
+    "pre-commit": "yarn run lint && yarn run format && yarn run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
