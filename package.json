@@ -14,7 +14,7 @@
     "lint": "yarn eslint src",
     "check": "yarn prettier src --check",
     "format": "yarn prettier src --write",
-    "pre-commit": "yarn run lint && yarn run format && yarn run build",
+    "pre-commit": "yarn run lint && yarn run format && yarn run build && yarn run test",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest)"
   },
   "repository": {
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
-    "@jest/globals": "^29.2.5",
+    "@jest/globals": "^29.7.0",
     "@sprout2000/esbuild-copy-plugin": "^1.1.16",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.1",
@@ -42,7 +42,7 @@
     "esbuild-plugin-tsc": "^0.4.0",
     "eslint": "^9.19.0",
     "globals": "^15.14.0",
-    "jest": "^29.2.5",
+    "jest": "^29.7.0",
     "prettier": "3.4.2",
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",

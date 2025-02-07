@@ -828,7 +828,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/globals@npm:^29.2.5, @jest/globals@npm:^29.7.0":
+"@jest/globals@npm:^29.7.0":
   version: 29.7.0
   resolution: "@jest/globals@npm:29.7.0"
   dependencies:
@@ -3878,7 +3878,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:^29.2.5":
+"jest@npm:^29.7.0":
   version: 29.7.0
   resolution: "jest@npm:29.7.0"
   dependencies:
@@ -5677,7 +5677,7 @@ __metadata:
   resolution: "vaccinations-app@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.19.0"
-    "@jest/globals": "npm:^29.2.5"
+    "@jest/globals": "npm:^29.7.0"
     "@sprout2000/esbuild-copy-plugin": "npm:^1.1.16"
     "@types/express": "npm:^5.0.0"
     "@types/node": "npm:^22.13.1"
@@ -5687,7 +5687,7 @@ __metadata:
     eslint: "npm:^9.19.0"
     express: "npm:^4.21.2"
     globals: "npm:^15.14.0"
-    jest: "npm:^29.2.5"
+    jest: "npm:^29.7.0"
     prettier: "npm:3.4.2"
     pug: "npm:^3.0.3"
     supertest: "npm:^7.0.0"
