@@ -36,10 +36,10 @@ Tools to install:
     volta install node
     volta install yarn
     ```
-- **pre-commit** - configure hooks to run automatically before each commit 
+- **pre-commit** - configure hooks to run automatically before each commit
   - `brew install pre-commit`
 - **Talisman** - security scanner preventing secrets and sensitive information from being committed
-  - [Install instructions as pre-commit hook](https://github.com/thoughtworks/talisman)
+  - ``` brew install talisman ```
 
 ### Configuration
 1. Install and setup pre-commit hooks for this project
