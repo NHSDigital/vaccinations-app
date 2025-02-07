@@ -1,4 +1,6 @@
 fileignoreconfig:
 - filename: yarn.lock
   checksum: 662b746b202f97125c1a96cb356f97475107ee4e0c877637f667b00248216007
+- filename: src/public/nhsuk-frontend-9.1.0/css/nhsuk-9.1.0.min.css
+  checksum: 8339ca320a600c83aa7f065987896da61c94ebf501c7efdfb51352eff7cd54f3
 version: ""
