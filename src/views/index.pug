@@ -2,4 +2,7 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p It's important that vaccines are given on time for the best protection, but if you or your child missed a vaccine, contact your GP to catch up.
+  each cardText in ['Get vaccinated', 'Your vaccination record']
+    include ./nhs-html-elements/card.pug
+  p Vaccinations are one of the most effective ways to save lives and improve health, second only to clean water
