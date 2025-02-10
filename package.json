@@ -10,6 +10,7 @@
   "scripts": {
     "clean": "rm -rf ./dist",
     "build": "yarn run clean && node build.js",
+    "dev": "yarn tsx src/server.ts",
     "start": "node dist/server.js",
     "lint": "yarn eslint src",
     "check": "yarn prettier src --check",
@@ -47,6 +48,7 @@
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.23.0"
   },
