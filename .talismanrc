@@ -5,4 +5,6 @@ fileignoreconfig:
   checksum: 8339ca320a600c83aa7f065987896da61c94ebf501c7efdfb51352eff7cd54f3
 - filename: src/public/nhsapp-frontend-2.3.0/nhsapp-2.3.0.min.css
   checksum: f3441db59663f4927588a624aa4add4d696eb034e6438cd27bfc65c8a342a76b
+- filename: .gitleaksignore
+  checksum: 5d1293143f51dd753719de709a82cf5725a17b92a936abb95a2ef2ab55098296
 version: ""
