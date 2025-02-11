@@ -9,4 +9,6 @@ fileignoreconfig:
   checksum: 5d1293143f51dd753719de709a82cf5725a17b92a936abb95a2ef2ab55098296
 - filename: .github/actions/create-lines-of-code-report/action.yaml
   checksum: cd4db4aa0776227f6b7ab2df48d6e8f035f3870f2a55f49917d1a2adf96e7578
+- filename: .github/actions/scan-dependencies/action.yaml
+  checksum: b9bee9c547adf24678125e97b7eb8b79e4230c1c2b53bb46623bd7d6ed7b2e2f
 version: ""
