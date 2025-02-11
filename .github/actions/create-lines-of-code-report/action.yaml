@@ -32,26 +32,26 @@ runs:
       run: zip lines-of-code-report.json.zip lines-of-code-report.json
     - name: "Upload CLOC report as an artefact"
       if: ${{ !env.ACT }}
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: lines-of-code-report.json.zip
         path: ./lines-of-code-report.json.zip
         retention-days: 21
-    - name: "Check prerequisites for sending the report"
-      shell: bash
-      id: check
-      run: |
-        echo "secrets_exist=${{ inputs.idp_aws_report_upload_role_name != '' && inputs.idp_aws_report_upload_bucket_endpoint != '' }}" >> $GITHUB_OUTPUT
-    - name: "Authenticate to send the report"
-      if: steps.check.outputs.secrets_exist == 'true'
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        role-to-assume: arn:aws:iam::${{ inputs.idp_aws_report_upload_account_id }}:role/${{ inputs.idp_aws_report_upload_role_name }}
-        aws-region: ${{ inputs.idp_aws_report_upload_region }}
-    - name: "Send the CLOC report to the central location"
-      shell: bash
-      if: steps.check.outputs.secrets_exist == 'true'
-      run: |
-        aws s3 cp \
-          ./lines-of-code-report.json.zip \
-          ${{ inputs.idp_aws_report_upload_bucket_endpoint }}/${{ inputs.build_timestamp }}-lines-of-code-report.json.zip
+#    - name: "Check prerequisites for sending the report"
+#      shell: bash
+#      id: check
+#      run: |
+#        echo "secrets_exist=${{ inputs.idp_aws_report_upload_role_name != '' && inputs.idp_aws_report_upload_bucket_endpoint != '' }}" >> $GITHUB_OUTPUT
+#    - name: "Authenticate to send the report"
+#      if: steps.check.outputs.secrets_exist == 'true'
+#      uses: aws-actions/configure-aws-credentials@v2
+#      with:
+#        role-to-assume: arn:aws:iam::${{ inputs.idp_aws_report_upload_account_id }}:role/${{ inputs.idp_aws_report_upload_role_name }}
+#        aws-region: ${{ inputs.idp_aws_report_upload_region }}
+#    - name: "Send the CLOC report to the central location"
+#      shell: bash
+#      if: steps.check.outputs.secrets_exist == 'true'
+#      run: |
+#        aws s3 cp \
+#          ./lines-of-code-report.json.zip \
+#          ${{ inputs.idp_aws_report_upload_bucket_endpoint }}/${{ inputs.build_timestamp }}-lines-of-code-report.json.zip

@@ -7,4 +7,6 @@ fileignoreconfig:
   checksum: f3441db59663f4927588a624aa4add4d696eb034e6438cd27bfc65c8a342a76b
 - filename: .gitleaksignore
   checksum: 5d1293143f51dd753719de709a82cf5725a17b92a936abb95a2ef2ab55098296
+- filename: .github/actions/create-lines-of-code-report/action.yaml
+  checksum: cd4db4aa0776227f6b7ab2df48d6e8f035f3870f2a55f49917d1a2adf96e7578
 version: ""
