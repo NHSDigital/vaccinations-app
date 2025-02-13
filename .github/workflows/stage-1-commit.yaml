@@ -124,16 +124,25 @@ jobs:
           idp_aws_report_upload_region: "${{ secrets.IDP_AWS_REPORT_UPLOAD_REGION }}"
           idp_aws_report_upload_role_name: "${{ secrets.IDP_AWS_REPORT_UPLOAD_ROLE_NAME }}"
           idp_aws_report_upload_bucket_endpoint: "${{ secrets.IDP_AWS_REPORT_UPLOAD_BUCKET_ENDPOINT }}"
-  test-lint:
+  lint-project:
     name: "Linting"
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
-      - name: "Run linting"
+      - name: "Install Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.13.1
+      - name: "Install Yarn"
         run: |
-          make test-lint
+          corepack enable
+          yarn set version 4.6.0
+          yarn install
+      - name: "Run linting check"
+        run: |
+          yarn run lint
       - name: "Save the linting result"
         run: |
           echo "Nothing to save"
