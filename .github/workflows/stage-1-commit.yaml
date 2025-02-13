@@ -124,8 +124,8 @@ jobs:
           idp_aws_report_upload_region: "${{ secrets.IDP_AWS_REPORT_UPLOAD_REGION }}"
           idp_aws_report_upload_role_name: "${{ secrets.IDP_AWS_REPORT_UPLOAD_ROLE_NAME }}"
           idp_aws_report_upload_bucket_endpoint: "${{ secrets.IDP_AWS_REPORT_UPLOAD_BUCKET_ENDPOINT }}"
-  lint-project:
-    name: "Linting"
+  lint-application:
+    name: "Lint Application"
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
