@@ -3,6 +3,8 @@
 [![CI/CD Pull Request](https://github.com/NHSDigital/vaccinations-app/actions/workflows/cicd-1-pull-request.yaml/badge.svg)](https://github.com/NHSDigital/vaccinations-app/actions/workflows/cicd-1-pull-request.yaml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=repository-template&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=repository-template) TODO
 
+## Project Overview
+
 Within the NHS app, vaccinations app will increase the rate of booking by:
 - Informing individuals with personalised information about which vaccinations they still need to have and how to book
 - Providing information on eligibility and how to book where eligibility is not available
@@ -11,11 +13,14 @@ Within the NHS app, vaccinations app will increase the rate of booking by:
 We will increase appointment attendance and reduce the number of 'did not attend' and therefore increase appointment availability by:
 - Providing people with details of all their upcoming vaccination appointments, with simple, easy options to cancel or change.
 
-## Setup
-- As per NHS guidelines, make your GitHub email private by going [here](https://github.com/settings/emails). There is a checkbox named "Keep my email addresses private". Not down your private email from this setting.
+## Developer Setup
+
+### GitHub
+- As per NHS guidelines, make your GitHub email private by going [here](https://github.com/settings/emails). There is a checkbox named "Keep my email addresses private". Note down your private email from this setting.
 - Follow these [instructions](https://nhsd-confluence.digital.nhs.uk/display/CSP/How+to+access+GitHub).
   - Remember to use your private email, noted above, in GitHub config 'user.email'.
   - When on the step to create personal access tokens, remember to also tick 'workflow'. This will allow developers to update workflows
+- Get your NHS GitHub username added to the VitA team to gain access to the repository
 
 ### Prerequisites
 Tools to install:
@@ -60,7 +65,7 @@ Tools to install:
       act -W .github/workflows/cicd-1-pull-request.yaml --defaultbranch main
       ```
 
-### Configuration
+### Local Configuration
 1. Install and setup pre-commit hooks for this project
    - ```
      pre-commit install
@@ -71,6 +76,7 @@ Tools to install:
      ```
 
 ## Usage
+
 ### Build
 ```
 yarn run build
@@ -82,16 +88,16 @@ Serves web content from src folder, so make changes and refresh the browser to s
 yarn run dev
 ```
 
+### Run unit tests
+```
+yarn run test
+```
+
 ### Run pre-commit script manually
 ```
 yarn run pre-commit
 ```
 (Note that this has also been configured as a pre-commit hook that will run automatically before each commit)
-
-### Run unit tests
-```
-yarn run test
-```
 
 ## Design
 TODO
