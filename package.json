@@ -37,7 +37,7 @@
     "@jest/globals": "^29.7.0",
     "@sprout2000/esbuild-copy-plugin": "^1.1.16",
     "@types/express": "^5.0.0",
-    "@types/node": "^22.13.4",
+    "@types/node": "^22.13.5",
     "@types/supertest": "^6.0.2",
     "esbuild": "^0.25.0",
     "esbuild-plugin-tsc": "^0.4.0",
