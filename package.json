@@ -33,7 +33,7 @@
     "yarn": "4.6.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.20.0",
+    "@eslint/js": "^9.21.0",
     "@jest/globals": "^29.7.0",
     "@sprout2000/esbuild-copy-plugin": "^1.1.16",
     "@types/express": "^5.0.0",
