@@ -50,7 +50,7 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.19.3",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.24.0"
+    "typescript-eslint": "^8.25.0"
   },
   "dependencies": {
     "express": "^4.21.2",
