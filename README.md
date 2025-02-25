@@ -24,7 +24,29 @@ We will increase appointment attendance and reduce the number of 'did not attend
 
 ### Prerequisites
 Tools to install:
-- **Volta** - version manager for Node and Yarn. Documentation can be found [here](https://docs.volta.sh/guide/getting-started)
+
+From NHS repository template:
+- **make** - 
+  - ```
+    brew install make
+    ``` 
+- **asdf** - version manager with support for multiple languages
+  - ```
+    brew install asdf
+    ``` 
+  - ```
+    echo 'export PATH="${HOME}.asdf/shims:$PATH' >> ~/.zshrc
+    source ~/.zshrc
+    ```
+  - Install nodejs plugin for asdf (and required dependencies)
+  - ```
+    brew install gpg gawk
+    asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+    ``` 
+- **Colima** - or any equivalent Docker container runtime, e.g. [Rancher Desktop](https://rancherdesktop.io/), etc.
+ 
+From vaccinations-app specific dependencies
+- **Volta** - (todo: required for yarn; remove if not needed) version manager for Node and Yarn. Documentation can be found [here](https://docs.volta.sh/guide/getting-started)
   - ```
     brew install volta
     ```
@@ -37,7 +59,7 @@ Tools to install:
     volta install node
     volta install yarn
     ```
-- **pre-commit** - configure hooks to run automatically before each commit
+- **pre-commit** - (todo: asdf conflict; confirm if this is still required) configure hooks to run automatically before each commit
   - ```
     brew install pre-commit
     ```
@@ -45,7 +67,6 @@ Tools to install:
   - ```
     brew install talisman
     ```
-- **Colima** - or any equivalent Docker container runtime, e.g. [Rancher Desktop](https://rancherdesktop.io/), etc.
 - **Act** - tool to run GitHub actions locally. Usage guide is available [here](https://nektosact.com/usage/index.html)
     - ```
       brew install act
@@ -66,11 +87,15 @@ Tools to install:
       ```
 
 ### Local Configuration
-1. Install and setup pre-commit hooks for this project
-   - ```
-     pre-commit install
-     ```
-2. Using Yarn package manager, install dependencies from package.json
+1. Install toolchain dependencies and load .tool-versions into asdf
+  - ```
+    make config
+    ```
+1. Install and setup pre-commit hooks for this project (todo: confirm if this is still needed with make setup)
+  - ```
+    pre-commit install
+    ```
+1. Using Yarn package manager, install dependencies from package.json
    - ```
      yarn install
      ```
