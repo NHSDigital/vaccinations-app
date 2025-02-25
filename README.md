@@ -62,10 +62,6 @@ From vaccinations-app specific dependencies
     volta install node
     volta install yarn
     ```
-- **pre-commit** - (todo: asdf conflict; confirm if this is still required) configure hooks to run automatically before each commit
-  - ```
-    brew install pre-commit
-    ```
 - **Talisman** - security scanner preventing secrets and sensitive information from being committed
   - ```
     brew install talisman
@@ -96,7 +92,8 @@ From vaccinations-app specific dependencies
     ```
 1. Install and setup pre-commit hooks for this project (todo: confirm if this is still needed with make setup)
   - ```
-    pre-commit install
+    make githooks-config
+    make githooks-run
     ```
 1. Using Yarn package manager, install dependencies from package.json
    - ```
