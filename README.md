@@ -30,6 +30,7 @@ From NHS repository template:
   - ```
     brew install make
     ``` 
+  - Follow instructions in homebrew output to fix your $PATH variable
 - **asdf** - version manager with support for multiple languages
   - ```
     brew install asdf
