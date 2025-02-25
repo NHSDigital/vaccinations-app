@@ -2385,14 +2385,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-plugin-tsc@npm:^0.4.0":
-  version: 0.4.0
-  resolution: "esbuild-plugin-tsc@npm:0.4.0"
+"esbuild-plugin-tsc@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "esbuild-plugin-tsc@npm:0.5.0"
   dependencies:
     strip-comments: "npm:^2.0.1"
   peerDependencies:
     typescript: ^4.0.0 || ^5.0.0
-  checksum: 10c0/80d80327b87c27c6054bea2d1236c1295420f05d392d6e7c3069e57f4359666bd005b70fb6cb44c2e5d0c3c4875c5c0358908f6a83e587a6025966977356bfff
+  checksum: 10c0/9278cb096f80a16690f6d277727c8a7fc82e7cc6a534b4d88f6aaea6032d5c83786fb911e34dd056417c0b9b1f5e6ac894866fc6f160d15d66b1d247510c74fa
   languageName: node
   linkType: hard
 
@@ -5731,7 +5731,7 @@ __metadata:
     "@types/node": "npm:^22.13.5"
     "@types/supertest": "npm:^6.0.2"
     esbuild: "npm:^0.25.0"
-    esbuild-plugin-tsc: "npm:^0.4.0"
+    esbuild-plugin-tsc: "npm:^0.5.0"
     eslint: "npm:^9.21.0"
     express: "npm:^4.21.2"
     globals: "npm:^16.0.0"
