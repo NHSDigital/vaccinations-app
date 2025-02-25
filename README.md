@@ -26,26 +26,28 @@ We will increase appointment attendance and reduce the number of 'did not attend
 Tools to install:
 
 From NHS repository template:
-- **make** - 
+- **make** -
+  - The version of GNU make available by default on macOS is earlier than 3.82. You will need to upgrade it or certain make tasks will fail.
+  On macOS, you will need Homebrew installed, then to install make, like so:
   - ```
     brew install make
-    ``` 
+    ```
   - Follow instructions in homebrew output to fix your $PATH variable
 - **asdf** - version manager with support for multiple languages
   - ```
     brew install asdf
-    ``` 
+    ```
   - ```
-    echo 'export PATH="${HOME}.asdf/shims:$PATH' >> ~/.zshrc
+    echo 'export PATH="${HOME}.asdf/shims:$PATH"' >> ~/.zshrc
     source ~/.zshrc
     ```
   - Install nodejs plugin for asdf (and required dependencies)
   - ```
     brew install gpg gawk
     asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-    ``` 
+    ```
 - **Colima** - or any equivalent Docker container runtime, e.g. [Rancher Desktop](https://rancherdesktop.io/), etc.
- 
+
 From vaccinations-app specific dependencies
 - **Volta** - (todo: required for yarn; remove if not needed) version manager for Node and Yarn. Documentation can be found [here](https://docs.volta.sh/guide/getting-started)
   - ```
