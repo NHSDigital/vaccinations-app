@@ -137,8 +137,7 @@ jobs:
         run: yarn install --immutable
       - name: "Run linting check"
         run: |
-          yarn run lint
-          yarn run check
+          make test-lint
       - name: "Save the linting result"
         run: |
           echo "Nothing to save"

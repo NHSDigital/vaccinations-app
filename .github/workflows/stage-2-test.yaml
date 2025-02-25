@@ -46,7 +46,7 @@ jobs:
         run: yarn install --immutable
       - name: "Run unit test suite"
         run: |
-          yarn run test
+          make test-unit
       - name: "Save the result of fast test suite"
         run: |
           echo "Nothing to save"
