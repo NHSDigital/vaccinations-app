@@ -62,10 +62,6 @@ From vaccinations-app specific dependencies
     volta install node
     volta install yarn
     ```
-- **Talisman** - security scanner preventing secrets and sensitive information from being committed
-  - ```
-    brew install talisman
-    ```
 - **Act** - tool to run GitHub actions locally. Usage guide is available [here](https://nektosact.com/usage/index.html)
     - ```
       brew install act
