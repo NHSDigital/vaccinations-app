@@ -64,6 +64,7 @@ node_modules/
 .env.test.local
 .env.production.local
 .env.local
+.envrc
 
 # yarn v2
 .yarn/*
@@ -71,3 +72,26 @@ node_modules/
 
 # ESbuild output directory
 dist/
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+next-env.d.ts
