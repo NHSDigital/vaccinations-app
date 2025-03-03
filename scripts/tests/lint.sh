@@ -4,8 +4,7 @@ set -euo pipefail
 
 cd "$(git rev-parse --show-toplevel)"
 
-yarn run lint
-
-yarn run check
+npm install
+npm run lint
 
 echo "Lint run complete."

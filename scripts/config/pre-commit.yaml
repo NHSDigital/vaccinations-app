@@ -3,7 +3,7 @@ repos:
   hooks:
   - id: project-precommit
     name: Project pre-commit hook
-    entry: yarn run pre-commit
+    entry: npm run pre-commit
     language: system
     pass_filenames: false
     verbose: true
