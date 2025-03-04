@@ -95,10 +95,14 @@ From NHS repository template:
     make githooks-config
     make githooks-run
     ```
-3. Install dependencies from package.json
-   - ```
-     npm install
-     ```
+3. Set environment variable to disable telemetry collection in next.js: add the following to .zshrc
+  - ```
+    export NEXT_TELEMETRY_DISABLED=1
+    ```
+4. Install dependencies from package.json
+  - ```
+    npm install
+    ```
 
 ## Usage
 
