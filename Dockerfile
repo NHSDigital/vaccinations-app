@@ -1,33 +1,24 @@
 ARG NODE_VERSION=22.13.1
 
-FROM node:${NODE_VERSION}-slim as build_stage
+FROM node:${NODE_VERSION}-slim as BUILD_IMAGE
 
-ENV YARN_VERSION 4.6.0
-RUN yarn policies set-version $YARN_VERSION
+WORKDIR /home/app
 
-RUN mkdir /home/appBuild
-WORKDIR /home/appBuild
+COPY package*.json ./
 
+RUN npm ci
 COPY . .
-
-RUN yarn install
-RUN yarn run build
+RUN npm run build
 
 FROM node:${NODE_VERSION}-alpine
 
-ENV YARN_VERSION 4.6.0
-RUN yarn policies set-version $YARN_VERSION
-
-RUN mkdir -p /app
-
 WORKDIR /app
 
-COPY package.json ./
-RUN touch yarn.lock
+COPY --from=BUILD_IMAGE /home/app/package*.json ./
+COPY --from=BUILD_IMAGE /home/app/.next ./.next
+COPY --from=BUILD_IMAGE /home/app/public ./public
+COPY --from=BUILD_IMAGE /home/app/node_modules ./node_modules
 
-RUN yarn workspaces focus --production
-
-COPY --from=build_stage /home/appBuild/dist/ ./dist
-
+ENV NODE_ENV=production
 EXPOSE 3000
-CMD [ "yarn", "start"]
+CMD [ "npm", "start"]
