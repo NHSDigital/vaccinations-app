@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
 import { JSX } from "react";
+import "../../public/nhsuk-frontend-9.1.0/css/nhsuk-9.1.0.min.css"
+import "../../public/nhsapp-frontend-2.3.0/nhsapp-2.3.0.min.css"
+
 
 export const metadata: Metadata = {
   title: 'Default Layout Title'
@@ -13,8 +16,6 @@ export default function RootLayout({
   return (
     <html lang="en">
     <head>
-      <link rel="stylesheet" href="/nhsuk-frontend-9.1.0/css/nhsuk-9.1.0.min.css"/>
-      <link rel="stylesheet" href="/nhsapp-frontend-2.3.0/nhsapp-2.3.0.min.css"/>
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
       <script src="/nhsuk-frontend-9.1.0/js/nhsuk-9.1.0.min.js" defer></script>
