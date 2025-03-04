@@ -7,6 +7,11 @@ repos:
     language: system
     pass_filenames: false
     verbose: true
+  - id: prettier
+    name: Run prettier
+    entry: ./scripts/githooks/format-prettier.sh
+    language: script
+    pass_filenames: true
 - repo: local
   hooks:
   - id: scan-secrets

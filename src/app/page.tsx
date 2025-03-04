@@ -1,28 +1,32 @@
-import Card from '@/app/_components/_nhs/card';
+import Card from "@/app/_components/_nhs/card";
 import type { Metadata } from "next";
 
 const cardTitles = [
-  { id: 1, title: 'Get vaccinated'},
-  { id: 2, title: 'Your vaccination record'}
+  { id: 1, title: "Get vaccinated" },
+  { id: 2, title: "Your vaccination record" },
 ];
 
 export const metadata: Metadata = {
-  title: 'Vaccinations'
-}
+  title: "Vaccinations",
+};
 
 const Home = () => {
   return (
     <div>
       <h1>Vaccinations</h1>
-      <p>It&#39;s important that vaccines are given on time for the best protection, but if you or your child missed a
-        vaccine, contact your GP to catch up.</p>
+      <p>
+        It&#39;s important that vaccines are given on time for the best
+        protection, but if you or your child missed a vaccine, contact your GP
+        to catch up.
+      </p>
 
-      {cardTitles.map(cardTitle =>
+      {cardTitles.map((cardTitle) => (
         <Card key={cardTitle.id} title={cardTitle.title}></Card>
-      )
-      }
-      <p>Vaccinations are one of the most effective ways to save lives and improve health, second only to clean
-        water</p>
+      ))}
+      <p>
+        Vaccinations are one of the most effective ways to save lives and
+        improve health, second only to clean water
+      </p>
     </div>
   );
 };
