@@ -1,7 +1,7 @@
 # Vaccinations in the app
 
 [![CI/CD Pull Request](https://github.com/NHSDigital/vaccinations-app/actions/workflows/cicd-1-pull-request.yaml/badge.svg)](https://github.com/NHSDigital/vaccinations-app/actions/workflows/cicd-1-pull-request.yaml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=repository-template&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=repository-template) TODO
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=NHSDigital_vaccinations-app&metric=alert_status&token=34589a103a488086afb39b2bf2bbd0304e501c19)](https://sonarcloud.io/summary/new_code?id=NHSDigital_vaccinations-app)
 
 ## Project Overview
 
@@ -29,7 +29,7 @@ From NHS repository template:
 - **Make and GNU tooling** - The version of GNU make available by default on macOS is earlier than 3.82. You will need to upgrade it or certain make tasks will fail.
   On macOS, you will need Homebrew installed, then to install make, like so:
   - ```
-    brew install make gnu-sed gawk coreutils binutils 
+    brew install make gnu-sed gawk coreutils binutils
     ```
   - Add the following to .zshrc to override default OSX tools with their GNU equivalents
     - On M1 Macs:
