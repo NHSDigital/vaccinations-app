@@ -49,19 +49,6 @@ From NHS repository template:
 - **Colima** - or any equivalent Docker container runtime, e.g. [Rancher Desktop](https://rancherdesktop.io/), etc.
 
 From vaccinations-app specific dependencies
-- **Volta** - (todo: required for yarn; remove if not needed) version manager for Node and Yarn. Documentation can be found [here](https://docs.volta.sh/guide/getting-started)
-  - ```
-    brew install volta
-    ```
-  - ```
-    echo 'export VOLTA_HOME=${HOME}/.volta' >> ~/.zshrc
-    echo 'export PATH="${VOLTA_HOME}/bin:${PATH}"' >> ~/.zshrc
-    source ~/.zshrc
-    ```
-  - ```
-    volta install node
-    volta install yarn
-    ```
 - **Act** - tool to run GitHub actions locally. Usage guide is available [here](https://nektosact.com/usage/index.html)
     - ```
       brew install act
@@ -91,32 +78,32 @@ From vaccinations-app specific dependencies
     make githooks-config
     make githooks-run
     ```
-1. Using Yarn package manager, install dependencies from package.json
+1. Install dependencies from package.json
    - ```
-     yarn install
+     npm install
      ```
 
 ## Usage
 
 ### Build
 ```
-yarn run build
+npm run build
 ```
 
 ### Run service locally
 Serves web content from src folder, so make changes and refresh the browser to see changes immediately.
 ```
-yarn run dev
+npm run dev
 ```
 
 ### Run unit tests
 ```
-yarn run test
+npm run test
 ```
 
 ### Run pre-commit script manually
 ```
-yarn run pre-commit
+npm run pre-commit
 ```
 (Note that this has also been configured as a pre-commit hook that will run automatically before each commit)
 
