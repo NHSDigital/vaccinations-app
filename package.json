@@ -13,6 +13,7 @@
     "start": "next start",
     "lint": "next lint",
     "clean": "rm -rf ./build",
+    "test": "echo 'Unit tests not yet configured, exiting'",
     "pre-commit": "npm run lint"
   },
   "repository": {
