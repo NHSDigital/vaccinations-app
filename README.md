@@ -26,13 +26,30 @@ We will increase appointment attendance and reduce the number of 'did not attend
 Tools to install:
 
 From NHS repository template:
-- **make** -
-  - The version of GNU make available by default on macOS is earlier than 3.82. You will need to upgrade it or certain make tasks will fail.
+- **Make and GNU tooling** - The version of GNU make available by default on macOS is earlier than 3.82. You will need to upgrade it or certain make tasks will fail.
   On macOS, you will need Homebrew installed, then to install make, like so:
   - ```
-    brew install make
+    brew install make gnu-sed gawk coreutils binutils 
     ```
-  - Follow instructions in homebrew output to fix your $PATH variable
+  - Add the following to .zshrc to override default OSX tools with their GNU equivalents
+    - On M1 Macs:
+    - ```
+      export HOMEBREW_PATH="/opt/homebrew"
+      ```
+    - For Intel Macs:
+    - ```
+      export HOMEBREW_PATH="/usr/local"
+      ```
+    - Then:
+    - ```
+      export PATH="$HOMEBREW_PATH/opt/make/libexec/gnubin:$PATH"
+      export PATH="$HOMEBREW_PATH/opt/gnu-sed/libexec/gnubin:$PATH"
+      export PATH="$HOMEBREW_PATH/opt/gawk/libexec/gnubin:$PATH"
+      export PATH="$HOMEBREW_PATH/opt/coreutils/libexec/gnubin:$PATH"
+      export PATH="$HOMEBREW_PATH/opt/binutils/bin:$PATH"
+      export LDFLAGS="-L$HOMEBREW_PATH/opt/binutils/lib"
+      export CPPFLAGS="-I$HOMEBREW_PATH/opt/binutils/include"
+      ```
 - **asdf** - version manager with support for multiple languages
   - ```
     brew install asdf
@@ -46,9 +63,9 @@ From NHS repository template:
     brew install gpg gawk
     asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
     ```
+
 - **Colima** - or any equivalent Docker container runtime, e.g. [Rancher Desktop](https://rancherdesktop.io/), etc.
 
-From vaccinations-app specific dependencies
 - **Act** - tool to run GitHub actions locally. Usage guide is available [here](https://nektosact.com/usage/index.html)
     - ```
       brew install act
@@ -73,12 +90,12 @@ From vaccinations-app specific dependencies
   - ```
     make config
     ```
-1. Install and setup pre-commit hooks for this project (todo: confirm if this is still needed with make setup)
+2. Install and setup pre-commit hooks for this project (todo: confirm if this is still needed with make setup)
   - ```
     make githooks-config
     make githooks-run
     ```
-1. Install dependencies from package.json
+3. Install dependencies from package.json
    - ```
      npm install
      ```
