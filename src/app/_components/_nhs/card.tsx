@@ -1,8 +1,8 @@
-interface cardProps {
+interface CardProps {
   title: string;
 }
 
-const Card = (cardProps: cardProps) => {
+const Card = (cardProps: CardProps) => {
   return (
     <div className="nhsapp-card">
       <div className="nhsapp-card__container">
