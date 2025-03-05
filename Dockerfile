@@ -4,11 +4,15 @@ FROM node:${NODE_VERSION}-slim as BUILD_IMAGE
 
 WORKDIR /home/app
 
-COPY package*.json ./
+COPY package.json .
+COPY package-lock.json .
+COPY tsconfig.json .
+COPY next.config.ts .
 
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm ci
-COPY . .
+COPY public public
+COPY src src
 RUN npm run build
 
 FROM node:${NODE_VERSION}-alpine
