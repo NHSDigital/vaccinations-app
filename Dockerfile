@@ -10,7 +10,7 @@ COPY tsconfig.json .
 COPY next.config.ts .
 
 ENV NEXT_TELEMETRY_DISABLED=1
-RUN npm ci
+RUN npm ci --ignore-scripts
 COPY public public
 COPY src src
 RUN npm run build
