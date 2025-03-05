@@ -46,23 +46,12 @@ jobs:
       - name: "Run unit test suite"
         run: |
           make test-unit
-      - name: "Save the result of fast test suite"
-        run: |
-          echo "Nothing to save"
-  test-coverage:
-    name: "Test coverage"
-    needs: [test-unit]
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: "Checkout code"
-        uses: actions/checkout@v4
-      - name: "Run test coverage check"
-        run: |
-          make test-coverage
       - name: "Save the coverage check result"
-        run: |
-          echo "Nothing to save"
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-coverage-report
+          path: "coverage/lcov.info"
+        if: always()
   perform-static-analysis:
     name: "Perform static analysis"
     needs: [test-unit]
@@ -76,6 +65,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Full history is needed to improving relevancy of reporting
+      - name: "Download coverage report from Unit Test artifacts"
+        uses: actions/download-artifact@v4
+        with:
+          name: code-coverage-report
       - name: "Perform static analysis"
         uses: ./.github/actions/perform-static-analysis
         with:
