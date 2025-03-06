@@ -42,7 +42,7 @@ jobs:
         uses: actions/checkout@v4
       - name: "Install NPM packages"
         run: |
-          npm ci
+          npm ci --ignore-scripts
       - name: "Run unit test suite"
         run: |
           make test-unit
@@ -51,6 +51,7 @@ jobs:
         with:
           name: code-coverage-report
           path: "coverage/lcov.info"
+          retention-days: 21
         if: always()
   perform-static-analysis:
     name: "Perform static analysis"
