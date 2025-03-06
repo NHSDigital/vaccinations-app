@@ -1,17 +1,29 @@
 repos:
 - repo: local
   hooks:
-  - id: project-precommit
-    name: Project pre-commit hook
-    entry: npm run pre-commit
-    language: system
-    pass_filenames: false
-    verbose: true
-  - id: prettier
+  - id: run-prettier
     name: Run prettier
     entry: ./scripts/githooks/format-prettier.sh
     language: script
     pass_filenames: true
+  - id: run-lint
+    name: Run linter
+    entry: npm run lint
+    language: system
+    pass_filenames: false
+    verbose: true
+  - id: run-build
+    name: Run build
+    entry: npm run build
+    language: system
+    pass_filenames: false
+    verbose: true
+  - id: run-tests
+    name: Run tests
+    entry: npm run test
+    language: system
+    pass_filenames: false
+    verbose: true
 - repo: local
   hooks:
   - id: scan-secrets

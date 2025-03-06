@@ -12,12 +12,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "clean": "rm -rf ./build",
     "format": "npx prettier . --write",
     "check": "npx prettier . --check",
     "test": "jest --collectCoverage",
-    "test:watch": "jest --watch",
-    "pre-commit": "npm run lint && npm run build && npm run test"
+    "test:watch": "jest --watch"
   },
   "repository": {
     "type": "git",

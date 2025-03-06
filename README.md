@@ -33,15 +33,15 @@ From NHS repository template:
     ```
   - Add the following to .zshrc to override default OSX tools with their GNU equivalents
     - On M1 Macs:
-    - ```
+      ```
       export HOMEBREW_PATH="/opt/homebrew"
       ```
     - For Intel Macs:
-    - ```
+      ```
       export HOMEBREW_PATH="/usr/local"
       ```
     - Then:
-    - ```
+      ```
       export PATH="$HOMEBREW_PATH/opt/make/libexec/gnubin:$PATH"
       export PATH="$HOMEBREW_PATH/opt/gnu-sed/libexec/gnubin:$PATH"
       export PATH="$HOMEBREW_PATH/opt/gawk/libexec/gnubin:$PATH"
@@ -122,9 +122,9 @@ npm run dev
 npm run test
 ```
 
-### Run pre-commit script manually
+### Run pre-commit hooks manually
 ```
-npm run pre-commit
+make githooks-run
 ```
 (Note that this has also been configured as a pre-commit hook that will run automatically before each commit)
 
