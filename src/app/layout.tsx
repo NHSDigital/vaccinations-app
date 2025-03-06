@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { JSX } from "react";
-import "../../public/nhsuk-frontend-9.1.0/css/nhsuk-9.1.0.min.css";
-import "../../public/nhsapp-frontend-2.3.0/nhsapp-2.3.0.min.css";
-
+import "@public/nhsapp-frontend-2.3.0/nhsapp-2.3.0.min.css";
+import "@public/nhsuk-frontend-9.1.0/css/nhsuk-9.1.0.min.css";
 export const metadata: Metadata = {
   title: "Default Layout Title",
 };

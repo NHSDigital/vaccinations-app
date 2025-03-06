@@ -1,4 +1,4 @@
-import Card from "@/app/_components/_nhs/card";
+import Card from "@src/app/_components/nhs/card";
 import type { Metadata } from "next";
 
 const cardTitles = [
