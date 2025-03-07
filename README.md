@@ -86,6 +86,11 @@ From NHS repository template:
       ```
 
 ### Local Configuration
+1. Create environment variables file .env.local:
+    ```
+    CONTENT_API_ENDPOINT=...
+    CONTENT_API_VACCINATIONS_PATH=/vaccinations
+    ```
 1. Install toolchain dependencies and load .tool-versions into asdf
   - ```
     make config

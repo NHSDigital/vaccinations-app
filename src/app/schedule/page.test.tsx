@@ -1,10 +1,23 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import Schedule from "./page";
+import getContent from "@src/services/contentService";
+
+jest.mock("@src/services/contentService");
 
 describe("Schedule Page", () => {
-  it("renders the correct page heading", () => {
-    render(<Schedule />);
+  const mockDescription = "mock description";
+
+  beforeEach(() => {
+    const mockContent = {
+      description: mockDescription,
+    };
+    (getContent as jest.Mock).mockResolvedValue(mockContent);
+  });
+
+  it("renders the correct page heading", async () => {
+    const SchedulePage = await Schedule();
+    render(SchedulePage);
 
     const heading = screen.getByRole("heading", {
       level: 1,
@@ -14,9 +27,11 @@ describe("Schedule Page", () => {
     expect(heading).toBeInTheDocument();
   });
 
-  it("renders the section headings", () => {
-    render(<Schedule />);
+  it("renders the section headings", async () => {
     const expectedSectionText = ["Vaccines for babies under 1 year old"];
+
+    const SchedulePage = await Schedule();
+    render(SchedulePage);
 
     expectedSectionText.forEach((headingText) => {
       const sectionHeading = screen.getByRole("heading", {
@@ -25,6 +40,28 @@ describe("Schedule Page", () => {
       });
 
       expect(sectionHeading).toBeInTheDocument();
+    });
+  });
+
+  it("renders description text from the content API", async () => {
+    const SchedulePage = await Schedule();
+    render(SchedulePage);
+
+    const description = screen.getByText(mockDescription);
+
+    expect(description).toBeInTheDocument();
+  });
+
+  it("renders card component with props", async () => {
+    const expectedCardTitles = ["6-in-1 vaccine"];
+
+    const SchedulePage = await Schedule();
+    render(SchedulePage);
+
+    expectedCardTitles.forEach((cardTitle) => {
+      const card = screen.getByText(cardTitle);
+
+      expect(card).toBeInTheDocument();
     });
   });
 });
