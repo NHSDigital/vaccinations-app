@@ -60,6 +60,9 @@ jobs:
         run: |
           echo "Building docker image for artefact"
           docker build . --file Dockerfile --tag $DOCKER_IMAGE_NAME:$RELEASE_VERSION
+        env:
+          CONTENT_API_ENDPOINT: ${{ vars.CONTENT_API_ENDPOINT }}
+          CONTENT_API_VACCINATIONS_PATH: ${{ vars.CONTENT_API_VACCINATIONS_PATH }}
       - name: "Upload artefact"
         run: |
           echo "Uploading artefact ..."
