@@ -1,4 +1,4 @@
-import Card from "@src/app/_components/nhs/card";
+import CardLink from "@src/app/_components/nhs/cardLink";
 import type { Metadata } from "next";
 
 const cardTitles = [
@@ -21,7 +21,11 @@ const Home = () => {
       </p>
 
       {cardTitles.map((cardTitle) => (
-        <Card key={cardTitle.id} title={cardTitle.title}></Card>
+        <CardLink
+          key={cardTitle.id}
+          title={cardTitle.title}
+          link={"#"}
+        ></CardLink>
       ))}
       <p>
         Vaccinations are one of the most effective ways to save lives and

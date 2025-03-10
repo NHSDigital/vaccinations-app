@@ -1,14 +1,15 @@
 interface CardProps {
   title: string;
+  link: string;
 }
 
-const Card = (cardProps: CardProps) => {
+const CardLink = (cardProps: CardProps) => {
   return (
     <div className="nhsapp-card">
       <div className="nhsapp-card__container">
         <div className="nhsapp-card__content">
           <a
-            href="#"
+            href={cardProps.link}
             className="nhsapp-card__link nhsuk-link--no-visited-state"
           >
             {cardProps.title}
@@ -24,4 +25,4 @@ const Card = (cardProps: CardProps) => {
   );
 };
 
-export default Card;
+export default CardLink;

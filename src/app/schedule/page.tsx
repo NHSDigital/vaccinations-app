@@ -1,4 +1,4 @@
-import Card from "@src/app/_components/nhs/card";
+import CardLink from "@src/app/_components/nhs/cardLink";
 import getContent from "@src/services/contentService";
 
 export const dynamic = "force-dynamic";
@@ -10,7 +10,7 @@ const Schedule = async () => {
       <h1 className="app-dynamic-page-title__heading">Vaccination schedule</h1>
       <p className="">{content.description}</p>
       <h2 className="nhsuk-heading-s">Vaccines for babies under 1 year old</h2>
-      <Card title={"6-in-1 vaccine"} />
+      <CardLink title={"6-in-1 vaccine"} link={"/vaccines/6-in-1"} />
     </div>
   );
 };

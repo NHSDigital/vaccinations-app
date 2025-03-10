@@ -53,15 +53,21 @@ describe("Schedule Page", () => {
   });
 
   it("renders card component with props", async () => {
-    const expectedCardTitles = ["6-in-1 vaccine"];
+    const expectedVaccines = [
+      {
+        name: "6-in-1 vaccine",
+        href: "/vaccines/6-in-1",
+      },
+    ];
 
     const SchedulePage = await Schedule();
     render(SchedulePage);
 
-    expectedCardTitles.forEach((cardTitle) => {
-      const card = screen.getByText(cardTitle);
+    expectedVaccines.forEach((vaccine) => {
+      const card = screen.getByText(vaccine.name);
 
       expect(card).toBeInTheDocument();
+      expect(card.getAttribute("href")).toBe(vaccine.href);
     });
   });
 });
