@@ -1,6 +1,8 @@
 import Card from "@src/app/_components/nhs/card";
 import getContent from "@src/services/contentService";
 
+export const dynamic = "force-dynamic";
+
 const Schedule = async () => {
   const content = await getContent();
   return (
