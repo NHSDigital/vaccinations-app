@@ -3,4 +3,6 @@ enum VaccineTypes {
   RSV = "/test",
 }
 
-export { VaccineTypes };
+const CONTENT_API_VACCINATIONS_PATH = "/vaccinations";
+
+export { VaccineTypes, CONTENT_API_VACCINATIONS_PATH };

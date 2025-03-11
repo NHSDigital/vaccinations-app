@@ -16,8 +16,7 @@ const fetchMock = jest
   );
 
 jest.mock("@src/utils/config", () => () => ({
-  CONTENT_API_ENDPOINT: "http://content-endpoint",
-  CONTENT_API_VACCINATIONS_PATH: "/vaccinations-path",
+  CONTENT_API_ENDPOINT: "https://content-endpoint",
 }));
 
 describe("Content service", () => {
@@ -33,7 +32,7 @@ describe("Content service", () => {
   describe("getContentForVaccine", () => {
     it("should return response for 6-in-1 vaccine from content API", async () => {
       const expected6in1VaccinePath =
-        "http://content-endpoint/vaccinations-path/6-in-1-vaccine";
+        "https://content-endpoint/vaccinations/6-in-1-vaccine";
 
       const content = await getContentForVaccine(VaccineTypes.VACCINE_6_IN_1);
 
