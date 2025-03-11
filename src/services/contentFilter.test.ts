@@ -11,6 +11,8 @@ describe("Content Filter", () => {
       const expectedPageCopyFor6in1 = {
         overview:
           "The generic vaccine helps protect against serious illnesses.",
+        whatVaccineIsFor:
+          '<p>Benefits Health Aspect:</p><ul><li><a href="https://www.nhs.uk/conditions/diphtheria/">diphtheria</a></li></ul><p>Second paragraph Benefits Health Aspect.</p><ul><li>Some list</li></ul>',
       };
       (getContentForVaccine as jest.Mock).mockResolvedValue(
         genericMockVaccineData,

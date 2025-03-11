@@ -96,7 +96,12 @@ const genericMockVaccineData = {
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>The generic vaccine protects babies against 6 serious illnesses:</p><ul><li><a href=\"https://www.nhs.uk/conditions/diphtheria/\">diphtheria</a></li><li><a href=\"https://www.nhs.uk/conditions/hepatitis-b/\">hepatitis B</a></li><li><a href=\"https://www.nhs.uk/conditions/hib/\">Hib (Haemophilus influenzae type b)</a></li><li><a href=\"https://www.nhs.uk/conditions/polio/\">polio</a></li><li><a href=\"https://www.nhs.uk/conditions/tetanus/\">tetanus</a></li><li><a href=\"https://www.nhs.uk/conditions/whooping-cough/\">whooping cough</a></li></ul>"
+          "text": "<p>Benefits Health Aspect:</p><ul><li><a href=\"https://www.nhs.uk/conditions/diphtheria/\">diphtheria</a></li></ul>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Second paragraph Benefits Health Aspect.</p><ul><li>Some list</li></ul>"
         }
       ],
       "headline": "What the generic vaccine is for"
@@ -110,7 +115,12 @@ const genericMockVaccineData = {
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>Babies are given 3 doses of the generic vaccine as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>They are given the vaccine at:</p><ul><li>8 weeks old</li><li>12 weeks old</li><li>16 weeks old</li></ul><p>If your child has missed their generic vaccinations, contact their GP surgery. It's best to have them on time, but they can still have the generic vaccine up to the age of 10.</p>"
+          "text": "<p>Babies are given 3 doses of the generic vaccine as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><ul><li>8 weeks old</li></ul>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Second paragraph NHS vaccination schedule.</p><ul><li>Some list</li></ul>"
         }
       ],
       "headline": "When babies should have the generic vaccine"
