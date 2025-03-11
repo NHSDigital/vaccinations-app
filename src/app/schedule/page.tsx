@@ -1,5 +1,5 @@
 import CardLink from "@src/app/_components/nhs-app/CardLink";
-import getContent from "@src/services/contentService";
+import { getContent } from "@src/services/contentService";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

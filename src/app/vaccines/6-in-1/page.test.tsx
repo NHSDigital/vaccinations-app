@@ -1,8 +1,20 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import Vaccine6in1 from "@src/app/vaccines/6-in-1/page";
+import { getContentForVaccine } from "@src/services/contentService";
+
+jest.mock("@src/services/contentService");
 
 describe("6-in-1 vaccine page", () => {
+  const mockDescription = "mock description";
+
+  beforeEach(() => {
+    const mockContent = {
+      description: mockDescription,
+    };
+    (getContentForVaccine as jest.Mock).mockResolvedValue(mockContent);
+  });
+
   it("should contain back link to vaccination schedule page", async () => {
     const pathToSchedulePage = "/schedule";
 
@@ -13,4 +25,6 @@ describe("6-in-1 vaccine page", () => {
 
     expect(linkToSchedulePage.getAttribute("href")).toBe(pathToSchedulePage);
   });
+
+  it("should contain overview text", () => {});
 });

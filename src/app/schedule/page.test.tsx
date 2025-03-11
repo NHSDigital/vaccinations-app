@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import Schedule from "./page";
-import getContent from "@src/services/contentService";
+import { getContent } from "@src/services/contentService";
 
 jest.mock("@src/services/contentService");
 
