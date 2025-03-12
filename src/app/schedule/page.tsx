@@ -1,6 +1,7 @@
 import CardLink from "@src/app/_components/nhs-app/CardLink";
 import { getContent } from "@src/services/content-api/contentService";
 import type { Metadata } from "next";
+import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 
 export const metadata: Metadata = {
   title: "Vaccination schedule",
@@ -12,6 +13,7 @@ const Schedule = async () => {
   const content = await getContent();
   return (
     <div>
+      <BackLink link="/" />
       <h1 className="app-dynamic-page-title__heading">
         {metadata.title as string}
       </h1>

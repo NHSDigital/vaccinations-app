@@ -70,4 +70,15 @@ describe("Schedule Page", () => {
       expect(card.getAttribute("href")).toBe(vaccine.href);
     });
   });
+
+  it("should contain back link to vaccination hub page", async () => {
+    const pathToHubPage = "/";
+
+    const schedulePage = await Schedule();
+    render(schedulePage);
+
+    const linkToHubPage = screen.getByRole("link", { name: "Go back" });
+
+    expect(linkToHubPage.getAttribute("href")).toBe(pathToHubPage);
+  });
 });
