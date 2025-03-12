@@ -30,8 +30,11 @@ describe("Content Filter", () => {
 
     it("should return all text for whatVaccineIsFor section", async () => {
       const expectedWhatVaccineIsFor = {
-        whatVaccineIsFor:
-          '<p>Benefits Health Aspect:</p><ul><li><a href="https://www.nhs.uk/conditions/diphtheria/">diphtheria</a></li></ul><p>Second paragraph Benefits Health Aspect.</p><ul><li>Some list</li></ul>',
+        whatVaccineIsFor: {
+          heading: "What the generic vaccine is for",
+          bodyText:
+            '<p>Benefits Health Aspect:</p><ul><li><a href="https://www.nhs.uk/conditions/diphtheria/">diphtheria</a></li></ul><p>Second paragraph Benefits Health Aspect.</p><ul><li>Some list</li></ul>',
+        },
       };
       (getContentForVaccine as jest.Mock).mockResolvedValue(
         genericMockVaccineData,
@@ -64,8 +67,11 @@ describe("Content Filter", () => {
 
     it("should include howToGetVaccine section", async () => {
       const expectedHowToGet = {
-        howToGetVaccine:
-          "<p>How to get part 1</p><p>Second paragraph</p><ul>\n<li>\n  how to get part 2 bullet 1 \n </li>\n<li>\n  how to get part 2 bullet 2\n </li>\n<li>\n  how to get part 2 bullet 3\n </li></ul>\n<p>\n How to get part 2 paragraph 2.\n</p>\n",
+        howToGetVaccine: {
+          heading: "How to get the generic vaccine",
+          bodyText:
+            "<p>How to get part 1</p><p>Second paragraph</p><ul>\n<li>\n  how to get part 2 bullet 1 \n </li>\n<li>\n  how to get part 2 bullet 2\n </li>\n<li>\n  how to get part 2 bullet 3\n </li></ul>\n<p>\n How to get part 2 paragraph 2.\n</p>\n",
+        },
       };
       (getContentForVaccine as jest.Mock).mockResolvedValue(
         genericMockVaccineData,

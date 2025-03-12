@@ -28,6 +28,15 @@ export type ContentApiVaccineResponse = {
   hasPart: ContentApiHasPart[];
 };
 
+type VaccinePageSection = { heading: string; bodyText: string };
+
+type VaccinePageContent = {
+  overview: string;
+  whatVaccineIsFor: VaccinePageSection;
+  whoVaccineIsFor: string;
+  howToGetVaccine: VaccinePageSection;
+};
+
 const findAspect = (
   contentApiVaccineText: ContentApiVaccineResponse,
   aspect: Aspect,
@@ -49,6 +58,14 @@ const extractAllPartsTextForAspect = (
   return aspectText;
 };
 
+const extractHeadlineForAspect = (
+  contentApiVaccineText: ContentApiVaccineResponse,
+  aspect: Aspect,
+): string => {
+  const aspectInfo = findAspect(contentApiVaccineText, aspect);
+  return aspectInfo!.headline;
+};
+
 const extractDescriptionForAspect = (
   contentApiVaccineText: ContentApiVaccineResponse,
   aspect: Aspect,
@@ -57,17 +74,26 @@ const extractDescriptionForAspect = (
   return aspectInfo!.description;
 };
 
-const getPageCopyForVaccine = async (vaccineName: VaccineTypes) => {
+const getPageCopyForVaccine = async (
+  vaccineName: VaccineTypes,
+): Promise<VaccinePageContent> => {
   const contentApiVaccineText = await getContentForVaccine(vaccineName);
 
   const overview = extractDescriptionForAspect(
     contentApiVaccineText,
     "OverviewHealthAspect",
   );
-  const whatVaccineIsFor = extractAllPartsTextForAspect(
-    contentApiVaccineText,
-    "BenefitsHealthAspect",
-  );
+
+  const whatVaccineIsFor = {
+    heading: extractHeadlineForAspect(
+      contentApiVaccineText,
+      "BenefitsHealthAspect",
+    ),
+    bodyText: extractAllPartsTextForAspect(
+      contentApiVaccineText,
+      "BenefitsHealthAspect",
+    ),
+  };
 
   const whoVaccineIsFor = extractAllPartsTextForAspect(
     contentApiVaccineText,
@@ -79,10 +105,16 @@ const getPageCopyForVaccine = async (vaccineName: VaccineTypes) => {
     ),
   );
 
-  const howToGetVaccine = extractAllPartsTextForAspect(
-    contentApiVaccineText,
-    "GettingAccessHealthAspect",
-  );
+  const howToGetVaccine = {
+    heading: extractHeadlineForAspect(
+      contentApiVaccineText,
+      "GettingAccessHealthAspect",
+    ),
+    bodyText: extractAllPartsTextForAspect(
+      contentApiVaccineText,
+      "GettingAccessHealthAspect",
+    ),
+  };
 
   return {
     overview,
