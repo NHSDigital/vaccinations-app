@@ -8,7 +8,10 @@ jest.mock("@src/services/content-api/contentFilter");
 describe("6-in-1 vaccine page", () => {
   const mockContent = {
     overview: "Overview text",
-    whatVaccineIsFor: { heading: "what-heading", bodyText: "what-text" },
+    whatVaccineIsFor: {
+      heading: "what-heading",
+      bodyText: "<p data-testid='what-text-paragraph'>what-text</p>",
+    },
     whoVaccineIsFor: "Who text",
     howToGetVaccine: { heading: "how-heading", bodyText: "how-text" },
   };
@@ -35,5 +38,17 @@ describe("6-in-1 vaccine page", () => {
     const overviewBlock = screen.getByText("Overview text");
 
     expect(overviewBlock).toBeInTheDocument();
+  });
+
+  it("should contain whatItIsFor expander block", async () => {
+    const vaccine6in1Page = await Vaccine6in1();
+    render(vaccine6in1Page);
+
+    const whatItIsForHeading = screen.getByText("what-heading");
+    const whatItIsForText = screen.getByTestId("what-text-paragraph");
+
+    expect(whatItIsForHeading).toBeInTheDocument();
+    expect(whatItIsForText).toBeInTheDocument();
+    expect(whatItIsForText).toHaveTextContent("what-text");
   });
 });

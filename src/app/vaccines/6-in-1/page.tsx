@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
+import Details from "@src/app/_components/nhs-frontend/Details";
+
 import {
   getPageCopyForVaccine,
   VaccinePageContent,
@@ -24,6 +26,14 @@ const Vaccine6in1 = async () => {
         {metadata.title as string}
       </h1>
       <div>{sixInOneContent.overview}</div>
+
+      <h2 className="nhsuk-heading-s">More information</h2>
+      <div className="nhsuk-expander-group">
+        <Details
+          summaryText={sixInOneContent.whatVaccineIsFor.heading}
+          text={sixInOneContent.whatVaccineIsFor.bodyText}
+        />
+      </div>
     </div>
   );
 };
