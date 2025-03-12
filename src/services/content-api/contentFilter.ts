@@ -1,5 +1,5 @@
-import { VaccineTypes } from "@src/utils/Constants";
-import { getContentForVaccine } from "@src/services/contentService";
+import { getContentForVaccine } from "@src/services/content-api/contentService";
+import { VaccineTypes } from "@src/models/vaccine";
 
 type ContentApiHasPartSubsection = {
   text: string;
@@ -22,10 +22,10 @@ type ContentApiVaccineResponse = {
 
 const extractTextFromAllPartsForAspect = (
   contentApiVaccineText: ContentApiVaccineResponse,
-  aspectUrl: string,
+  aspect: string,
 ) => {
   const aspectInfo = contentApiVaccineText.hasPart.find(
-    (part: ContentApiHasPart) => part.hasHealthAspect === aspectUrl,
+    (part: ContentApiHasPart) => part.hasHealthAspect.endsWith(aspect),
   );
   const aspectText = aspectInfo!.hasPart
     .map((part: ContentApiHasPartSubsection) => part.text)
@@ -37,12 +37,12 @@ const getPageCopyForVaccine = async (vaccineName: VaccineTypes) => {
   const contentApiVaccineText = await getContentForVaccine(vaccineName);
   const description = contentApiVaccineText.hasPart.find(
     (part: ContentApiHasPart) =>
-      part.hasHealthAspect === "http://schema.org/OverviewHealthAspect",
+      part.hasHealthAspect.endsWith("OverviewHealthAspect"),
   ).description;
 
   const whatVaccineIsFor = extractTextFromAllPartsForAspect(
     contentApiVaccineText,
-    "http://schema.org/BenefitsHealthAspect",
+    "BenefitsHealthAspect",
   );
 
   return {

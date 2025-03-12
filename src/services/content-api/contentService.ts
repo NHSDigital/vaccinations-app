@@ -1,8 +1,9 @@
 import configProvider from "@src/utils/config";
 import {
-  VaccineTypes,
   CONTENT_API_VACCINATIONS_PATH,
-} from "@src/utils/Constants";
+  vaccineTypeToPath,
+} from "@src/services/content-api/constants";
+import { VaccineTypes } from "@src/models/vaccine";
 
 const config = configProvider();
 
@@ -13,8 +14,9 @@ const getContent = async () => {
   return response.json();
 };
 
-const getContentForVaccine = async (vaccine: VaccineTypes) => {
-  const vaccineContentUrl = `${contentApiVaccinationsUrl}${vaccine}`;
+const getContentForVaccine = async (vaccineType: VaccineTypes) => {
+  const vaccineContentPath = vaccineTypeToPath[vaccineType];
+  const vaccineContentUrl = `${contentApiVaccinationsUrl}${vaccineContentPath}`;
 
   const response: Response = await fetch(vaccineContentUrl);
   return response.json();

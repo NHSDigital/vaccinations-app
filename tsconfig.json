@@ -21,7 +21,8 @@
     ],
     "paths": {
       "@src/*": ["./src/*"],
-      "@public/*": ["./public/*"]
+      "@public/*": ["./public/*"],
+      "@test-data/*": ["./mocks/test-data/*"]
     }
   },
   "types": ["node", "jest", "@testing-library/jest-dom"],

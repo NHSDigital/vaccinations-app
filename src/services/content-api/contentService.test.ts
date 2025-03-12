@@ -2,8 +2,11 @@
  * @jest-environment node
  */
 
-import { getContent, getContentForVaccine } from "@src/services/contentService";
-import { VaccineTypes } from "@src/utils/Constants";
+import {
+  getContent,
+  getContentForVaccine,
+} from "@src/services/content-api/contentService";
+import { VaccineTypes } from "@src/models/vaccine";
 
 const mockContentApiResponse = { description: "mockDescription" };
 
@@ -34,7 +37,7 @@ describe("Content service", () => {
       const expected6in1VaccinePath =
         "https://content-endpoint/vaccinations/6-in-1-vaccine";
 
-      const content = await getContentForVaccine(VaccineTypes.VACCINE_6_IN_1);
+      const content = await getContentForVaccine(VaccineTypes.SIX_IN_ONE);
 
       expect(fetchMock).toHaveBeenCalledTimes(1);
       expect(fetchMock).toHaveBeenCalledWith(expected6in1VaccinePath);

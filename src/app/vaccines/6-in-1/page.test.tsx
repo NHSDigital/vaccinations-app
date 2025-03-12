@@ -1,9 +1,9 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import Vaccine6in1 from "@src/app/vaccines/6-in-1/page";
-import { getContentForVaccine } from "@src/services/contentService";
+import { getContentForVaccine } from "@src/services/content-api/contentService";
 
-jest.mock("@src/services/contentService");
+jest.mock("@src/services/content-api/contentService");
 
 describe("6-in-1 vaccine page", () => {
   const mockDescription = "mock description";

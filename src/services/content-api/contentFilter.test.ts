@@ -1,9 +1,9 @@
-import { getPageCopyForVaccine } from "@src/services/contentFilter";
-import { VaccineTypes } from "@src/utils/Constants";
-import { getContentForVaccine } from "@src/services/contentService";
-import genericMockVaccineData from "../../mocks/content_api_responses/genericMockVaccineData";
+import { getPageCopyForVaccine } from "@src/services/content-api/contentFilter";
+import { VaccineTypes } from "@src/models/vaccine";
+import { getContentForVaccine } from "@src/services/content-api/contentService";
+import genericMockVaccineData from "@test-data/genericMockVaccineData";
 
-jest.mock("@src/services/contentService");
+jest.mock("@src/services/content-api/contentService");
 
 describe("Content Filter", () => {
   describe("getPageCopyForVaccine", () => {
@@ -18,7 +18,7 @@ describe("Content Filter", () => {
         genericMockVaccineData,
       );
       const pageCopyFor6in1 = await getPageCopyForVaccine(
-        VaccineTypes.VACCINE_6_IN_1,
+        VaccineTypes.SIX_IN_ONE,
       );
 
       expect(pageCopyFor6in1).toEqual(expectedPageCopyFor6in1);
