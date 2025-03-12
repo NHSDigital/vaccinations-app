@@ -1,6 +1,7 @@
 import { JSX } from "react";
 import { getContentForVaccine } from "@src/services/content-api/contentService";
 import { VaccineTypes } from "@src/models/vaccine";
+import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 
 export const dynamic = "force-dynamic";
 
@@ -9,6 +10,7 @@ const VaccineRsv = async (): Promise<JSX.Element> => {
 
   return (
     <div>
+      <BackLink link="/schedule" />
       <h1 className="app-dynamic-page-title__heading">{content.about.name}</h1>
       <p className="">{content.hasPart[0].description}</p>
       <h2 className="nhsuk-heading-s">More information</h2>

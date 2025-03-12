@@ -20,6 +20,7 @@ const Schedule = async () => {
       <p className="">{content.description}</p>
       <h2 className="nhsuk-heading-s">Vaccines for babies under 1 year old</h2>
       <CardLink title={"6-in-1 vaccine"} link={"/vaccines/6-in-1"} />
+      <CardLink title={"RSV vaccine"} link={"/vaccines/rsv"} />
     </div>
   );
 };

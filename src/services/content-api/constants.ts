@@ -2,7 +2,7 @@ import { VaccineTypes } from "@src/models/vaccine";
 
 enum VaccineContentPaths {
   SIX_IN_ONE = "/6-in-1-vaccine",
-  RSV = "/test",
+  RSV = "/rsv-vaccine",
 }
 
 const vaccineTypeToPath: Record<VaccineTypes, VaccineContentPaths> = {
@@ -10,7 +10,7 @@ const vaccineTypeToPath: Record<VaccineTypes, VaccineContentPaths> = {
   [VaccineTypes.RSV]: VaccineContentPaths.RSV,
 };
 
-const CONTENT_API_VACCINATIONS_PATH = "/vaccinations";
+const CONTENT_API_VACCINATIONS_PATH = "/nhs-website-content/vaccinations";
 
 export {
   VaccineContentPaths,

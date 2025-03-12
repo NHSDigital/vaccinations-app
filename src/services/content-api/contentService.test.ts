@@ -7,6 +7,10 @@ import {
   getContentForVaccine,
 } from "@src/services/content-api/contentService";
 import { VaccineTypes } from "@src/models/vaccine";
+import {
+  CONTENT_API_VACCINATIONS_PATH,
+  VaccineContentPaths,
+} from "@src/services/content-api/constants";
 
 const mockContentApiResponse = { description: "mockDescription" };
 
@@ -34,8 +38,7 @@ describe("Content service", () => {
 
   describe("getContentForVaccine", () => {
     it("should return response for 6-in-1 vaccine from content API", async () => {
-      const expected6in1VaccinePath =
-        "https://content-endpoint/vaccinations/6-in-1-vaccine";
+      const expected6in1VaccinePath = `https://content-endpoint${CONTENT_API_VACCINATIONS_PATH}${VaccineContentPaths.SIX_IN_ONE}`;
 
       const content = await getContentForVaccine(VaccineTypes.SIX_IN_ONE);
 

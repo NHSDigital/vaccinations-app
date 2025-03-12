@@ -58,4 +58,15 @@ describe("RSV Page", () => {
 
     expect(moreInformationLink).toBeInTheDocument();
   });
+
+  it("contains back link to schedule page", async () => {
+    const pathToSchedulePage = "/schedule";
+
+    const RsvPage: JSX.Element = await VaccineRsv();
+    render(RsvPage);
+
+    const linkToSchedulePage = screen.getByRole("link", { name: "Go back" });
+
+    expect(linkToSchedulePage.getAttribute("href")).toBe(pathToSchedulePage);
+  });
 });
