@@ -5,12 +5,13 @@ type Aspect = "OverviewHealthAspect" | "BenefitsHealthAspect";
 
 type ContentApiHasPartSubsection = {
   text: string;
-  type: string;
+  "@type": string;
   headline?: string;
+  identifier?: string;
 };
 
 type ContentApiHasPart = {
-  type: string;
+  "@type": string;
   hasHealthAspect: string;
   description: string;
   headline: string;
@@ -18,7 +19,7 @@ type ContentApiHasPart = {
   hasPart: ContentApiHasPartSubsection[];
 };
 
-type ContentApiVaccineResponse = {
+export type ContentApiVaccineResponse = {
   hasPart: ContentApiHasPart[];
 };
 
