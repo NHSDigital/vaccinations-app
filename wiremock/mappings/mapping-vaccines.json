@@ -1,0 +1,30 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/nhs-website-content/vaccinations/6-in-1-vaccine"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "six-in-one-vaccine.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/nhs-website-content/vaccinations/rsv-vaccine"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "generic-vaccine.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}

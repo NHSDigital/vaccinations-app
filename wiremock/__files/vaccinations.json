@@ -1,0 +1,267 @@
+{
+  "@context": "http://schema.org",
+  "@type": "MedicalWebPage",
+  "name": "Vaccinations",
+  "copyrightHolder": {
+    "name": "Crown Copyright",
+    "@type": "Organization"
+  },
+  "license": "https://developer.api.nhs.uk/terms",
+  "author": {
+    "url": "https://www.nhs.uk",
+    "logo": "https://assets.nhs.uk/nhsuk-cms/images/nhs-attribution.width-510.png",
+    "email": "nhswebsite.servicedesk@nhs.net",
+    "@type": "Organization",
+    "name": "NHS website"
+  },
+  "about": {
+    "@type": "WebPage",
+    "name": "Vaccinations",
+    "alternateName": ""
+  },
+  "description": "Find out about vaccinations for babies, children and adults, including why they're important and how to get them.",
+  "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
+  "genre": [],
+  "keywords": "",
+  "dateModified": "2024-04-02T06:41:25+00:00",
+  "hasPart": [],
+  "breadcrumb": {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 0,
+        "item": {
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "name": "Vaccinations",
+          "genre": []
+        }
+      }
+    ]
+  },
+  "headline": "Vaccinations",
+  "contentSubTypes": [],
+  "mainEntityOfPage": [
+    {
+      "identifier": "23",
+      "@type": "WebPageElement",
+      "name": "toptasks",
+      "headline": "",
+      "text": "",
+      "mainEntityOfPage": [
+        {
+          "@type": "WebPageElement",
+          "headline": "View vaccinations in your GP health record",
+          "url": "https://api.service.nhs.uk/nhs-website-content/nhs-services/gps/view-your-gp-health-record/",
+          "identifier": "26",
+          "text": "",
+          "name": "link"
+        }
+      ]
+    },
+    {
+      "identifier": "24",
+      "@type": "WebPageElement",
+      "name": "canonicallinks",
+      "headline": "",
+      "text": "",
+      "mainEntityOfPage": [
+        {
+          "@type": "WebPageElement",
+          "headline": "NHS vaccinations and when to have them",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/nhs-vaccinations-and-when-to-have-them/",
+          "identifier": "26",
+          "text": "<p>Check the NHS vaccination schedule to find out what vaccines are recommended for you or your child</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Why vaccination is important and the safest way to protect yourself",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/",
+          "identifier": "26",
+          "text": "<p>Find out how vaccines work, what they contain and common side effects</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Booking your child's vaccination appointment",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/booking-your-childs-vaccination-appointment/",
+          "identifier": "26",
+          "text": "<p>Find out how to book vaccination appointments for your child</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Vaccination tips for parents",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/vaccination-tips-for-parents/",
+          "identifier": "26",
+          "text": "<p>Advice about how to help your child&#x27;s vaccination appointment go smoothly and what to expect afterwards</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Vaccinations in pregnancy",
+          "url": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/vaccinations/",
+          "identifier": "26",
+          "text": "<p>Advice about vaccinations during pregnancy, including recommended vaccines such as the whooping cough vaccine</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Travel vaccinations",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/travel-vaccinations/",
+          "identifier": "26",
+          "text": "<p>Advice about getting vaccinated before travelling abroad and information about common travel vaccines such as the yellow fever vaccine</p>",
+          "name": "link"
+        }
+      ]
+    },
+    {
+      "identifier": "24",
+      "@type": "WebPageElement",
+      "name": "secondarycanonicallinks",
+      "headline": "",
+      "text": "",
+      "mainEntityOfPage": [
+        {
+          "@type": "WebPageElement",
+          "headline": "4-in-1 pre-school booster",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/4-in-1-preschool-booster-vaccine/",
+          "identifier": "26",
+          "text": "<p>For children aged 3 years, 4 months old to help protect against 4 serious illnesses</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "6-in-1 vaccine",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/",
+          "identifier": "26",
+          "text": "<p>For babies when they&#x27;re 8, 12 and 16 weeks old to help protect against 6 serious illnesses</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "BCG vaccine for tuberculosis (TB)",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/bcg-vaccine-for-tuberculosis-tb/",
+          "identifier": "26",
+          "text": "<p>For babies, children and adults at higher risk of getting tuberculosis (TB)</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Chickenpox vaccine",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/chickenpox-vaccine/",
+          "identifier": "26",
+          "text": "<p>For people in close contact with someone at a higher risk of getting seriously ill from chickenpox</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "COVID-19 vaccination",
+          "url": "https://api.service.nhs.uk/nhs-website-content/conditions/covid-19/covid-19-vaccination/",
+          "identifier": "26",
+          "text": "<p>For people at higher risk from COVID-19, including adults aged 65 and over and people with certain health conditions</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Flu vaccine",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/",
+          "identifier": "26",
+          "text": "<p>For people at higher risk from flu, including adults aged 65 and over and people with certain health conditions</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Flu vaccine for children",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/",
+          "identifier": "26",
+          "text": "<p>For most children to help stop them catching or spreading flu</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Hepatitis B vaccine",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/hepatitis-b-vaccine/",
+          "identifier": "26",
+          "text": "<p>For babies, children and adults at higher risk of getting hepatitis B</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Hib/MenC vaccine",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/hib-menc-vaccine/",
+          "identifier": "26",
+          "text": "<p>For babies when they’re 1 year old to help protect against Hib and meningitis</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "HPV vaccine",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/hpv-vaccine/",
+          "identifier": "26",
+          "text": "<p>For all children aged 12 to 13 years old and people at higher risk of getting HPV</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "MenACWY vaccine",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/",
+          "identifier": "26",
+          "text": "<p>For all teenagers and people at higher risk of getting meningitis</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "MenB vaccine",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine/",
+          "identifier": "26",
+          "text": "<p>For babies when they&#x27;re 8 weeks, 16 weeks and 1 year old to help protect against meningitis</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "MMR vaccine",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/",
+          "identifier": "26",
+          "text": "<p>For children when they&#x27;re 1 year old and 3 years, 4 months old to help protect against measles, mumps and rubella</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Pneumococcal vaccine",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/",
+          "identifier": "26",
+          "text": "<p>For people at higher risk of pneumococcal infections, such as babies and adults aged 65 and over</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Rotavirus vaccine",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/",
+          "identifier": "26",
+          "text": "<p>For babies when they&#x27;re 8 and 12 weeks old to help protect against a common stomach bug called rotavirus</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Shingles vaccine",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/",
+          "identifier": "26",
+          "text": "<p>For people at higher risk from shingles, including adults turning 65 years old and those aged 70 to 79</p>",
+          "name": "link"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Td/IPV vaccine (3-in-1 teenage booster)",
+          "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/",
+          "identifier": "26",
+          "text": "<p>For all teenagers and people at higher risk of tetanus, diphtheria or polio</p>",
+          "name": "link"
+        }
+      ]
+    }
+  ],
+  "webpage": "https://www.nhs.uk/vaccinations/"
+}

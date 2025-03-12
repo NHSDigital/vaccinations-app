@@ -15,7 +15,8 @@
     "format": "npx prettier . --write",
     "check": "npx prettier . --check",
     "test": "jest --collectCoverage",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "content-api": "wiremock --root-dir ./wiremock --port 8081"
   },
   "repository": {
     "type": "git",
@@ -43,7 +44,8 @@
     "jest-environment-jsdom": "^29.7.0",
     "prettier": "3.5.3",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "wiremock": "^3.12.1"
   },
   "dependencies": {
     "next": "15.2.1",

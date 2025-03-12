@@ -120,6 +120,15 @@ Serves web content from src folder, so make changes and refresh the browser to s
 ```
 npm run dev
 ```
+#### Mocking API Responses with Wiremock
+Our project utilizes Wiremock to provide mock responses for API endpoints. To configure these responses:
+- Place request-response mapping files (JSON) within the `wiremock/mappings` directory.
+- Store the corresponding JSON response bodies in the `wiremock/__files` directory.
+
+To run the wiremock server locally:
+```
+npm run content-api
+```
 
 ### Run unit tests
 ```
