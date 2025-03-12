@@ -1,7 +1,12 @@
 import { getContentForVaccine } from "@src/services/content-api/contentService";
 import { VaccineTypes } from "@src/models/vaccine";
 
-type Aspect = "OverviewHealthAspect" | "BenefitsHealthAspect";
+type Aspect =
+  | "OverviewHealthAspect"
+  | "BenefitsHealthAspect"
+  | "SuitabilityHealthAspect"
+  | "ContraindicationsHealthAspect"
+  | "GettingAccessHealthAspect";
 
 type ContentApiHasPartSubsection = {
   text: string;
@@ -36,7 +41,7 @@ const findAspect = (
 const extractAllPartsTextForAspect = (
   contentApiVaccineText: ContentApiVaccineResponse,
   aspect: Aspect,
-) => {
+): string => {
   const aspectInfo = findAspect(contentApiVaccineText, aspect);
   const aspectText = aspectInfo!.hasPart
     .map((part: ContentApiHasPartSubsection) => part.text)
@@ -47,7 +52,7 @@ const extractAllPartsTextForAspect = (
 const extractDescriptionForAspect = (
   contentApiVaccineText: ContentApiVaccineResponse,
   aspect: Aspect,
-) => {
+): string => {
   const aspectInfo = findAspect(contentApiVaccineText, aspect);
   return aspectInfo!.description;
 };
@@ -64,9 +69,26 @@ const getPageCopyForVaccine = async (vaccineName: VaccineTypes) => {
     "BenefitsHealthAspect",
   );
 
+  const whoVaccineIsFor = extractAllPartsTextForAspect(
+    contentApiVaccineText,
+    "SuitabilityHealthAspect",
+  ).concat(
+    extractAllPartsTextForAspect(
+      contentApiVaccineText,
+      "ContraindicationsHealthAspect",
+    ),
+  );
+
+  const howToGetVaccine = extractAllPartsTextForAspect(
+    contentApiVaccineText,
+    "GettingAccessHealthAspect",
+  );
+
   return {
     overview,
     whatVaccineIsFor,
+    whoVaccineIsFor,
+    howToGetVaccine,
   };
 };
 

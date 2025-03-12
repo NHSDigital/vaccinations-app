@@ -115,12 +115,12 @@ const genericMockVaccineData = {
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>Babies are given 3 doses of the generic vaccine as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><ul><li>8 weeks old</li></ul>"
+          "text": "<p>Suitability text part 1 <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p>"
         },
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>Second paragraph NHS vaccination schedule.</p><ul><li>Some list</li></ul>"
+          "text": "<p>Suitability text part 2</p>"
         }
       ],
       "headline": "When babies should have the generic vaccine"
@@ -134,12 +134,12 @@ const genericMockVaccineData = {
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>Most babies can have the generic vaccine.</p><p>They only cannot have the vaccine if:</p><ul><li>they've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine</li><li>they've had a serious allergic reaction to anything in the vaccine (including neomycin, polymyxin, formaldehyde or polysorbate 80)</li></ul><p>If your child has a condition that affects their brain, such as epilepsy, speak to a doctor, nurse or health visitor before they have the vaccine.</p>"
+          "text": "<p>Contraindications text part 1</p><ul><li>Contraindication list 1</li><li>Contraindication list 2</li></ul>"
         },
         {
           "@type": "WebPageElement",
           "headline": "Information",
-          "text": "<h3>Getting vaccinated if your child is unwell</h3><p>If your child has a high temperature, wait until they're feeling better before having the vaccine.</p><p>If they are unwell but do not have a high temperature, check with a doctor, nurse or health visitor if they can still have the vaccine.</p>"
+          "text": "<h3>Contraindication text part 2 Header</h3><p>Contraindications text part 2 paragraph</p>"
         }
       ],
       "headline": "Babies who cannot have the generic vaccine"
@@ -167,13 +167,13 @@ const genericMockVaccineData = {
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>Your GP surgery will usually contact you about your child's generic vaccinations. This will usually be by letter, text, phone call or email.</p><p>It's best to have the vaccinations on time, but your child can still have the generic vaccine up to the age of 10.</p>"
+          "text": "<p>How to get part 1</p><p>Second paragraph</p>"
         },
         {
           "@type": "WebPageElement",
           "identifier": "primary",
           "headline": "Speak to your GP surgery if:",
-          "text": "<ul>\n<li>\n  you have not been contacted to get your child's generic vaccinations\n </li>\n<li>\n  your child has missed their generic vaccinations, or you're not sure if they've had all 3 doses of the vaccine\n </li>\n<li>\n  your child is unwell and is due to have the vaccine – they may need to wait until they're feeling better before having the vaccine\n </li>\n<li>\n  you need to change a vaccination appointment\n </li>\n</ul>\n<p>\n Your GP surgery can book or rearrange an appointment.\n</p>\n"
+          "text": "<ul>\n<li>\n  how to get part 2 bullet 1 \n </li>\n<li>\n  how to get part 2 bullet 2\n </li>\n<li>\n  how to get part 2 bullet 3\n </li></ul>\n<p>\n How to get part 2 paragraph 2.\n</p>\n"
         }
       ],
       "headline": "How to get the generic vaccine"

@@ -28,7 +28,7 @@ describe("Content Filter", () => {
       );
     });
 
-    it("should return all text for what vaccine is for section", async () => {
+    it("should return all text for whatVaccineIsFor section", async () => {
       const expectedWhatVaccineIsFor = {
         whatVaccineIsFor:
           '<p>Benefits Health Aspect:</p><ul><li><a href="https://www.nhs.uk/conditions/diphtheria/">diphtheria</a></li></ul><p>Second paragraph Benefits Health Aspect.</p><ul><li>Some list</li></ul>',
@@ -42,6 +42,40 @@ describe("Content Filter", () => {
 
       expect(pageCopyFor6in1).toEqual(
         expect.objectContaining(expectedWhatVaccineIsFor),
+      );
+    });
+
+    it("should include both Suitability and Contraindications text in whoItIsFor section", async () => {
+      const expectedWhoVaccineIsFor = {
+        whoVaccineIsFor:
+          '<p>Suitability text part 1 <a href="https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/">NHS vaccination schedule</a>.</p><p>Suitability text part 2</p><p>Contraindications text part 1</p><ul><li>Contraindication list 1</li><li>Contraindication list 2</li></ul><h3>Contraindication text part 2 Header</h3><p>Contraindications text part 2 paragraph</p>',
+      };
+      (getContentForVaccine as jest.Mock).mockResolvedValue(
+        genericMockVaccineData,
+      );
+      const pageCopyFor6in1 = await getPageCopyForVaccine(
+        VaccineTypes.SIX_IN_ONE,
+      );
+
+      expect(pageCopyFor6in1).toEqual(
+        expect.objectContaining(expectedWhoVaccineIsFor),
+      );
+    });
+
+    it("should include howToGetVaccine section", async () => {
+      const expectedHowToGet = {
+        howToGetVaccine:
+          "<p>How to get part 1</p><p>Second paragraph</p><ul>\n<li>\n  how to get part 2 bullet 1 \n </li>\n<li>\n  how to get part 2 bullet 2\n </li>\n<li>\n  how to get part 2 bullet 3\n </li></ul>\n<p>\n How to get part 2 paragraph 2.\n</p>\n",
+      };
+      (getContentForVaccine as jest.Mock).mockResolvedValue(
+        genericMockVaccineData,
+      );
+      const pageCopyFor6in1 = await getPageCopyForVaccine(
+        VaccineTypes.SIX_IN_ONE,
+      );
+
+      expect(pageCopyFor6in1).toEqual(
+        expect.objectContaining(expectedHowToGet),
       );
     });
   });
