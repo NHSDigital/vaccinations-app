@@ -30,7 +30,7 @@ export type ContentApiVaccineResponse = {
 
 type VaccinePageSection = { heading: string; bodyText: string };
 
-type VaccinePageContent = {
+export type VaccinePageContent = {
   overview: string;
   whatVaccineIsFor: VaccinePageSection;
   whoVaccineIsFor: string;
