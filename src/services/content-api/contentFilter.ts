@@ -69,4 +69,8 @@ const getPageCopyForVaccine = async (vaccineName: VaccineTypes) => {
   };
 };
 
-export { getPageCopyForVaccine };
+export {
+  getPageCopyForVaccine,
+  extractDescriptionForAspect,
+  extractAllPartsTextForAspect,
+};
