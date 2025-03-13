@@ -20,7 +20,7 @@
       },
       "response": {
         "status": 200,
-        "bodyFileName": "generic-vaccine.json",
+        "bodyFileName": "rsv-vaccine.json",
         "headers": {
           "Content-Type": "application/json"
         }
