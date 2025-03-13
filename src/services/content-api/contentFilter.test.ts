@@ -1,6 +1,7 @@
 import {
   extractAllPartsTextForAspect,
   extractDescriptionForAspect,
+  generateWhoVaccineIsForHeading,
   getPageCopyForVaccine,
 } from "@src/services/content-api/contentFilter";
 import { VaccineTypes } from "@src/models/vaccine";
@@ -50,8 +51,11 @@ describe("Content Filter", () => {
 
     it("should include both Suitability and Contraindications text in whoItIsFor section", async () => {
       const expectedWhoVaccineIsFor = {
-        whoVaccineIsFor:
-          '<p>Suitability text part 1 <a href="https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/">NHS vaccination schedule</a>.</p><p>Suitability text part 2</p><p>Contraindications text part 1</p><ul><li>Contraindication list 1</li><li>Contraindication list 2</li></ul><h3>Contraindication text part 2 Header</h3><p>Contraindications text part 2 paragraph</p>',
+        whoVaccineIsFor: {
+          heading: "Who should have the 6-in-1 vaccine",
+          bodyText:
+            '<p>Suitability text part 1 <a href="https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/">NHS vaccination schedule</a>.</p><p>Suitability text part 2</p><p>Contraindications text part 1</p><ul><li>Contraindication list 1</li><li>Contraindication list 2</li></ul><h3>Contraindication text part 2 Header</h3><p>Contraindications text part 2 paragraph</p>',
+        },
       };
       (getContentForVaccine as jest.Mock).mockResolvedValue(
         genericMockVaccineData,
@@ -111,6 +115,18 @@ describe("Content Filter", () => {
       );
 
       expect(extractedDescription).toEqual(expectedDescription);
+    });
+  });
+
+  describe("generateWhoVaccineIsForHeading", () => {
+    it("should return string containing the vaccine name", () => {
+      const whoVaccineIsForHeading = generateWhoVaccineIsForHeading(
+        VaccineTypes.SIX_IN_ONE,
+      );
+
+      expect(whoVaccineIsForHeading).toEqual(
+        "Who should have the 6-in-1 vaccine",
+      );
     });
   });
 });

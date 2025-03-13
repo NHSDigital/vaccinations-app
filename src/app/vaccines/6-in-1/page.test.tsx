@@ -12,8 +12,14 @@ describe("6-in-1 vaccine page", () => {
       heading: "what-heading",
       bodyText: "<p data-testid='what-text-paragraph'>what-text</p>",
     },
-    whoVaccineIsFor: "Who text",
-    howToGetVaccine: { heading: "how-heading", bodyText: "how-text" },
+    whoVaccineIsFor: {
+      heading: "who-heading",
+      bodyText: "<p data-testid='who-text-paragraph'>who-text</p>",
+    },
+    howToGetVaccine: {
+      heading: "how-heading",
+      bodyText: "<p data-testid='how-text-paragraph'>how-text</p>",
+    },
   };
 
   beforeEach(() => {
@@ -50,5 +56,29 @@ describe("6-in-1 vaccine page", () => {
     expect(whatItIsForHeading).toBeInTheDocument();
     expect(whatItIsForText).toBeInTheDocument();
     expect(whatItIsForText).toHaveTextContent("what-text");
+  });
+
+  it("should contain whoVaccineIsFor expander block", async () => {
+    const vaccine6in1Page = await Vaccine6in1();
+    render(vaccine6in1Page);
+
+    const whoVaccineIsForHeading = screen.getByText("who-heading");
+    const whoVaccineIsForText = screen.getByTestId("who-text-paragraph");
+
+    expect(whoVaccineIsForHeading).toBeInTheDocument();
+    expect(whoVaccineIsForText).toBeInTheDocument();
+    expect(whoVaccineIsForText).toHaveTextContent("who-text");
+  });
+
+  it("should contain howToGetVaccine expander block", async () => {
+    const vaccine6in1Page = await Vaccine6in1();
+    render(vaccine6in1Page);
+
+    const howToGetVaccineHeading = screen.getByText("how-heading");
+    const howToGetVaccineText = screen.getByTestId("how-text-paragraph");
+
+    expect(howToGetVaccineHeading).toBeInTheDocument();
+    expect(howToGetVaccineText).toBeInTheDocument();
+    expect(howToGetVaccineText).toHaveTextContent("how-text");
   });
 });

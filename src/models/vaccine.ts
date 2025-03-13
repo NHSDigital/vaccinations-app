@@ -3,4 +3,9 @@ enum VaccineTypes {
   RSV = "RSV",
 }
 
-export { VaccineTypes };
+const VaccineDisplayNames: Record<VaccineTypes, string> = {
+  [VaccineTypes.SIX_IN_ONE]: "6-in-1",
+  [VaccineTypes.RSV]: "RSV",
+};
+
+export { VaccineTypes, VaccineDisplayNames };

@@ -1,5 +1,5 @@
 import { getContentForVaccine } from "@src/services/content-api/contentService";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineDisplayNames, VaccineTypes } from "@src/models/vaccine";
 
 type Aspect =
   | "OverviewHealthAspect"
@@ -33,7 +33,7 @@ type VaccinePageSection = { heading: string; bodyText: string };
 export type VaccinePageContent = {
   overview: string;
   whatVaccineIsFor: VaccinePageSection;
-  whoVaccineIsFor: string;
+  whoVaccineIsFor: VaccinePageSection;
   howToGetVaccine: VaccinePageSection;
 };
 
@@ -74,6 +74,10 @@ const extractDescriptionForAspect = (
   return aspectInfo!.description;
 };
 
+const generateWhoVaccineIsForHeading = (vaccineType: VaccineTypes) => {
+  return `Who should have the ${VaccineDisplayNames[vaccineType]} vaccine`;
+};
+
 const getPageCopyForVaccine = async (
   vaccineName: VaccineTypes,
 ): Promise<VaccinePageContent> => {
@@ -95,15 +99,18 @@ const getPageCopyForVaccine = async (
     ),
   };
 
-  const whoVaccineIsFor = extractAllPartsTextForAspect(
-    contentApiVaccineText,
-    "SuitabilityHealthAspect",
-  ).concat(
-    extractAllPartsTextForAspect(
+  const whoVaccineIsFor = {
+    heading: generateWhoVaccineIsForHeading(vaccineName),
+    bodyText: extractAllPartsTextForAspect(
       contentApiVaccineText,
-      "ContraindicationsHealthAspect",
+      "SuitabilityHealthAspect",
+    ).concat(
+      extractAllPartsTextForAspect(
+        contentApiVaccineText,
+        "ContraindicationsHealthAspect",
+      ),
     ),
-  );
+  };
 
   const howToGetVaccine = {
     heading: extractHeadlineForAspect(
@@ -128,4 +135,5 @@ export {
   getPageCopyForVaccine,
   extractDescriptionForAspect,
   extractAllPartsTextForAspect,
+  generateWhoVaccineIsForHeading,
 };

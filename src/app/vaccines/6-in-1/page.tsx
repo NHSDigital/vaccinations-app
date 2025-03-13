@@ -33,6 +33,14 @@ const Vaccine6in1 = async () => {
           summaryText={sixInOneContent.whatVaccineIsFor.heading}
           text={sixInOneContent.whatVaccineIsFor.bodyText}
         />
+        <Details
+          summaryText={sixInOneContent.whoVaccineIsFor.heading}
+          text={sixInOneContent.whoVaccineIsFor.bodyText}
+        />
+        <Details
+          summaryText={sixInOneContent.howToGetVaccine.heading}
+          text={sixInOneContent.howToGetVaccine.bodyText}
+        />
       </div>
     </div>
   );
