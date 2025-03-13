@@ -49,7 +49,7 @@
   },
   "dependencies": {
     "isomorphic-dompurify": "^2.22.0",
-    "next": "15.2.1",
+    "next": "15.2.2",
     "nhsuk-react-components": "^5.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
