@@ -1,60 +1,69 @@
 {
   "@context": "http://schema.org",
   "@type": "MedicalWebPage",
+  "name": "RSV vaccine",
+  "copyrightHolder": {
+    "name": "Crown Copyright",
+    "@type": "Organization"
+  },
+  "license": "https://developer.api.nhs.uk/terms",
+  "author": {
+    "url": "https://www.nhs.uk",
+    "logo": "https://assets.nhs.uk/nhsuk-cms/images/nhs-attribution.width-510.png",
+    "email": "nhswebsite.servicedesk@nhs.net",
+    "@type": "Organization",
+    "name": "NHS website"
+  },
   "about": {
     "@type": "WebPage",
+    "name": "RSV vaccine",
     "alternateName": [
       "Respiratory syncytial virus (RSV) vaccine"
-    ],
-    "name": "RSV vaccine"
+    ]
   },
-  "author": {
-    "@type": "Organization",
-    "email": "nhswebsite.servicedesk@nhs.net",
-    "logo": "https://assets.nhs.uk/nhsuk-cms/images/nhs-attribution.width-510.png",
-    "name": "NHS website",
-    "url": "https://www.nhs.uk"
-  },
+  "description": "Find out about the RSV vaccine, including who it's for, how to get it and common side effects.",
+  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rsv-vaccine/",
+  "genre": [
+    "Vaccine"
+  ],
+  "keywords": "",
+  "dateModified": "2025-02-06T17:10:35+00:00",
+  "lastReviewed": [
+    "2024-09-01T11:40:00+00:00",
+    "2027-09-01T11:40:00+00:00"
+  ],
   "breadcrumb": {
     "@context": "http://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
       {
         "@type": "ListItem",
+        "position": 0,
         "item": {
-          "@id": "https://www.nhs.uk/vaccinations/",
-          "genre": [],
-          "name": "Vaccinations"
-        },
-        "position": 0
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "name": "Vaccinations",
+          "genre": []
+        }
       },
       {
         "@type": "ListItem",
+        "position": 1,
         "item": {
-          "@id": "https://www.nhs.uk/vaccinations/rsv-vaccine/",
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rsv-vaccine/",
+          "name": "RSV vaccine",
           "genre": [
             "Vaccine"
-          ],
-          "name": "RSV vaccine"
-        },
-        "position": 1
+          ]
+        }
       }
     ]
   },
-  "copyrightHolder": {
-    "@type": "Organization",
-    "name": "Crown Copyright"
-  },
-  "dateModified": "2025-02-06T17:10:35+00:00",
-  "description": "Find out about the RSV vaccine, including who it's for, how to get it and common side effects.",
-  "genre": [
-    "Vaccine"
-  ],
   "hasPart": [
     {
       "@type": "HealthTopicContent",
-      "description": "The RSV vaccine helps protect against respiratory syncytial virus, a common virus that can sometimes make young babies and older adults seriously ill.",
       "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rsv-vaccine/#overview",
+      "description": "The RSV vaccine helps protect against respiratory syncytial virus, a common virus that can sometimes make young babies and older adults seriously ill.",
       "hasPart": [
         {
           "@type": "WebPageElement",
@@ -82,52 +91,52 @@
           "text": "Side effects"
         },
         {
-          "@type": "WebPageElement",
-          "text": "<p>The RSV vaccine is given to protect babies and older adults from serious chest and lung infections such as bronchiolitis and pneumonia.</p> "
+          "text": "<p>The RSV vaccine is given to protect babies and older adults from serious chest and lung infections such as bronchiolitis and pneumonia.</p> ",
+          "@type": "WebPageElement"
         },
         {
-          "@type": "WebPageElement",
-          "text": "<p>The RSV vaccine is recommended if you're pregnant or aged 75 to 79. It's given in pregnancy to help protect babies from RSV after they're born.</p> "
+          "text": "<p>The RSV vaccine is recommended if you're pregnant or aged 75 to 79. It's given in pregnancy to help protect babies from RSV after they're born.</p> ",
+          "@type": "WebPageElement"
         },
         {
-          "@type": "WebPageElement",
-          "text": "<p>If you're aged 75 to 79, contact your GP surgery to book your RSV vaccination. If you're pregnant, speak to your maternity service or GP.</p> "
+          "text": "<p>If you're aged 75 to 79, contact your GP surgery to book your RSV vaccination. If you're pregnant, speak to your maternity service or GP.</p> ",
+          "@type": "WebPageElement"
         },
         {
-          "@type": "WebPageElement",
-          "text": "<p>Most people who need the RSV vaccine can have it. You only need to avoid it if you've had a serious allergic reaction to it or an ingredient in it.</p> "
+          "text": "<p>Most people who need the RSV vaccine can have it. You only need to avoid it if you've had a serious allergic reaction to it or an ingredient in it.</p> ",
+          "@type": "WebPageElement"
         },
         {
-          "@type": "WebPageElement",
-          "text": "<p>Common side effects of the RSV vaccine include swelling or pain where the injection was given. Serious side effects are very rare.</p> "
+          "text": "<p>Common side effects of the RSV vaccine include swelling or pain where the injection was given. Serious side effects are very rare.</p> ",
+          "@type": "WebPageElement"
         }
       ],
-      "headline": "",
-      "url": "https://www.nhs.uk/vaccinations/rsv-vaccine/#overview"
+      "headline": ""
     },
     {
       "@type": "HealthTopicContent",
-      "description": "The RSV vaccine is given to protect babies and older adults from serious chest and lung infections such as bronchiolitis and pneumonia.",
       "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rsv-vaccine/#why-its-done",
+      "description": "The RSV vaccine is given to protect babies and older adults from serious chest and lung infections such as bronchiolitis and pneumonia.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>The RSV vaccine helps protect against <a href=\"/conditions/respiratory-syncytial-virus-rsv/\">respiratory syncytial virus (RSV)</a>.</p><p>RSV is a common cause of coughs and colds. Most people get it several times during their life.</p><p>It usually gets better by itself, but in some people (especially babies and older adults) it can cause illnesses such as:</p><ul><li><a href=\"/conditions/pneumonia/\">pneumonia</a> (a lung infection)</li><li><a href=\"/conditions/bronchiolitis/\">bronchiolitis</a> (a chest infection that affects babies)</li></ul><p>These illnesses can cause serious breathing problems. They may need to be treated in hospital and can be life-threatening.</p><p>Getting RSV can also make your symptoms worse if you have a lung condition, such as <a href=\"/conditions/chronic-obstructive-pulmonary-disease-copd/\">chronic obstructive pulmonary disorder (COPD)</a>.</p><p>The RSV vaccine helps reduce the risk of serious breathing problems like pneumonia and bronchiolitis.</p>"
+          "text": "<p>The RSV vaccine helps protect against <a href=\"https://www.nhs.uk/conditions/respiratory-syncytial-virus-rsv/\">respiratory syncytial virus (RSV)</a>.</p><p>RSV is a common cause of coughs and colds. Most people get it several times during their life.</p><p>It usually gets better by itself, but in some people (especially babies and older adults) it can cause illnesses such as:</p><ul><li><a href=\"https://www.nhs.uk/conditions/pneumonia/\">pneumonia</a> (a lung infection)</li><li><a href=\"https://www.nhs.uk/conditions/bronchiolitis/\">bronchiolitis</a> (a chest infection that affects babies)</li></ul><p>These illnesses can cause serious breathing problems. They may need to be treated in hospital and can be life-threatening.</p><p>Getting RSV can also make your symptoms worse if you have a lung condition, such as <a href=\"https://www.nhs.uk/conditions/chronic-obstructive-pulmonary-disease-copd/\">chronic obstructive pulmonary disorder (COPD)</a>.</p><p>The RSV vaccine helps reduce the risk of serious breathing problems like pneumonia and bronchiolitis.</p>"
         }
       ],
-      "headline": "What the RSV vaccine is for",
-      "url": "https://www.nhs.uk/vaccinations/rsv-vaccine/#why-its-done"
+      "headline": "What the RSV vaccine is for"
     },
     {
       "@type": "HealthTopicContent",
-      "description": "The RSV vaccine is recommended if you're pregnant or aged 75 to 79. It's given in pregnancy to help protect babies from RSV after they're born.",
       "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rsv-vaccine/#who-its-for",
+      "description": "The RSV vaccine is recommended if you're pregnant or aged 75 to 79. It's given in pregnancy to help protect babies from RSV after they're born.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>The RSV vaccine is recommended if:</p><ul><li>you're pregnant \u2013 the vaccine is recommended during every pregnancy (from 28 weeks onwards) to help protect your baby after they're born</li><li>you're aged 75 to 79</li></ul>"
+          "text": "<p>The RSV vaccine is recommended if:</p><ul><li>you're pregnant – the vaccine is recommended during every pregnancy (from 28 weeks onwards) to help protect your baby after they're born</li><li>you're aged 75 to 79</li></ul>"
         },
         {
           "@type": "WebPageElement",
@@ -135,13 +144,13 @@
           "text": "<h3>If you're aged 80 or over</h3><p>If you turned 80 after 1 September 2024, you're eligible for the RSV vaccine until 31 August 2025.</p><p>You're not eligible for the RSV vaccine if you turned 80 on or before 1 September 2024.</p>"
         }
       ],
-      "headline": "Who should have the RSV vaccine",
-      "url": "https://www.nhs.uk/vaccinations/rsv-vaccine/#who-its-for"
+      "headline": "Who should have the RSV vaccine"
     },
     {
       "@type": "HealthTopicContent",
-      "description": "If you're aged 75 to 79, contact your GP surgery to book your RSV vaccination. If you're pregnant, speak to your maternity service or GP.",
       "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rsv-vaccine/#how-to-get-it",
+      "description": "If you're aged 75 to 79, contact your GP surgery to book your RSV vaccination. If you're pregnant, speak to your maternity service or GP.",
       "hasPart": [
         {
           "@type": "WebPageElement",
@@ -149,13 +158,13 @@
           "text": "<p>There are different ways to get the RSV vaccine.</p><h3>If you're pregnant</h3><p>You should be offered the RSV vaccine around the time of your 28-week antenatal appointment.</p><p>Getting vaccinated as soon as possible from 28 weeks will provide the best protection for your baby. But the vaccine can be given later if needed, including up until you go into labour.</p><p>Speak to your maternity service or GP surgery if you're 28 weeks pregnant or more and have not been offered the vaccine.</p><h3>If you're aged 75 to 79</h3><p>Contact your GP surgery to book your RSV vaccination.</p><p>Your GP surgery may contact you about getting the RSV vaccine. This may be by letter, text, phone call or email.</p><p>You do not need to wait to be contacted before booking your vaccination.</p>"
         }
       ],
-      "headline": "How to get the RSV vaccine",
-      "url": "https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it"
+      "headline": "How to get the RSV vaccine"
     },
     {
       "@type": "HealthTopicContent",
-      "description": "Older adults only need 1 dose of the RSV vaccine. If you're pregnant, you should have a dose during every pregnancy to protect each baby you have.",
       "hasHealthAspect": "http://schema.org/UsageOrScheduleHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rsv-vaccine/#how-its-used-previously-dosage-and-administration",
+      "description": "Older adults only need 1 dose of the RSV vaccine. If you're pregnant, you should have a dose during every pregnancy to protect each baby you have.",
       "hasPart": [
         {
           "@type": "WebPageElement",
@@ -163,18 +172,18 @@
           "text": "<p>The RSV vaccine is given as an injection into your upper arm.</p><p>Unlike some vaccines (such as flu or COVID-19 vaccines), the RSV vaccine is given all year round.</p><p>If you're pregnant, you should have the vaccine during every pregnancy. This will help make sure each baby is protected for the first 6 months after they're born, when they're most likely to get seriously ill if they get RSV.</p><p>Older adults only need 1 dose, which should protect them for several years.</p><h3><b>Having the RSV vaccine at the same time as other vaccines</b></h3><p>If you're pregnant, you can have the RSV vaccine at the same time as other pregnancy vaccines, such as the whooping cough and flu vaccines.</p><p>But it's best to have them as soon as they're offered rather than waiting to have them at the same time.</p><p>If you're aged 75 to 79, the RSV vaccine is not usually given at the same appointment as your flu or COVID-19 vaccines, but you can have them at the same time if a doctor or nurse thinks it's needed.</p><p>You can have it at the same time as other vaccines, such as the shingles and pneumococcal vaccines.</p>"
         }
       ],
-      "headline": "How the RSV vaccine is given",
-      "url": "https://www.nhs.uk/vaccinations/rsv-vaccine/#how-its-used-previously-dosage-and-administration"
+      "headline": "How the RSV vaccine is given"
     },
     {
       "@type": "HealthTopicContent",
-      "description": "Most people who need the RSV vaccine can have it. You only need to avoid it if you've had a serious allergic reaction to it or an ingredient in it.",
       "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rsv-vaccine/#contraindications",
+      "description": "Most people who need the RSV vaccine can have it. You only need to avoid it if you've had a serious allergic reaction to it or an ingredient in it.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>Most people who are eligible for the RSV vaccine can have it.</p><p>You only cannot have the vaccine if you've had a serious allergic reaction (<a href=\"/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine or an ingredient in the vaccine.</p>"
+          "text": "<p>Most people who are eligible for the RSV vaccine can have it.</p><p>You only cannot have the vaccine if you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine or an ingredient in the vaccine.</p>"
         },
         {
           "@type": "WebPageElement",
@@ -182,13 +191,13 @@
           "text": "<h3><b>Getting vaccinated if you're unwell</b></h3><p>If you have a high temperature, wait until you're feeling better before having the vaccine. Contact your GP surgery or maternity service to rearrange your appointment.</p>"
         }
       ],
-      "headline": "Who cannot have the RSV vaccine",
-      "url": "https://www.nhs.uk/vaccinations/rsv-vaccine/#contraindications"
+      "headline": "Who cannot have the RSV vaccine"
     },
     {
       "@type": "HealthTopicContent",
-      "description": "You can check the ingredients in the RSV vaccine by asking to see the patient leaflet or searching for it online.",
       "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rsv-vaccine/#ingredients",
+      "description": "You can check the ingredients in the RSV vaccine by asking to see the patient leaflet or searching for it online.",
       "hasPart": [
         {
           "@type": "WebPageElement",
@@ -196,40 +205,325 @@
           "text": "<p>There is 1 type of RSV vaccine given in the UK. You can check the ingredients in the patient leaflet:</p><p><a href=\"https://www.medicines.org.uk/emc/product/15309/pil\">Abrysvo RSV vaccine patient leaflet (Electronic Medicines Compendium website)</a></p>"
         }
       ],
-      "headline": "RSV vaccine ingredients",
-      "url": "https://www.nhs.uk/vaccinations/rsv-vaccine/#ingredients"
+      "headline": "RSV vaccine ingredients"
     },
     {
       "@type": "HealthTopicContent",
-      "description": "Common side effects of the RSV vaccine include swelling or pain where the injection was given. Serious side effects are very rare.",
       "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rsv-vaccine/#side-effects",
+      "description": "Common side effects of the RSV vaccine include swelling or pain where the injection was given. Serious side effects are very rare.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>The most common side effects of the RSV vaccine are mild and do not last long.</p><p>They can include:</p><ul><li>swelling or pain where the injection was given</li><li>a headache</li><li>an aching body</li></ul><p>More serious side effects such as a severe allergic reaction are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p><p>There have been very rare cases of <a href=\"/conditions/guillain-barre-syndrome/\">Guillain-Barr\u00e9 syndrome</a> (a condition that affects the nerves) in older adults who've had the RSV vaccine. But overall it's safer for you to have the vaccine than risk having a potentially serious RSV infection.</p><p>Talk to your doctor or the person vaccinating you if you're worried about side effects.</p><h3>Is the vaccine safe for my baby?</h3><p>Studies have shown that having the vaccine during pregnancy is much safer than the risk of your baby getting RSV.</p><p>Many thousands of pregnant women have now had the RSV vaccine around the world.</p>"
+          "text": "<p>The most common side effects of the RSV vaccine are mild and do not last long.</p><p>They can include:</p><ul><li>swelling or pain where the injection was given</li><li>a headache</li><li>an aching body</li></ul><p>More serious side effects such as a severe allergic reaction are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p><p>There have been very rare cases of <a href=\"https://www.nhs.uk/conditions/guillain-barre-syndrome/\">Guillain-Barré syndrome</a> (a condition that affects the nerves) in older adults who've had the RSV vaccine. But overall it's safer for you to have the vaccine than risk having a potentially serious RSV infection.</p><p>Talk to your doctor or the person vaccinating you if you're worried about side effects.</p><h3>Is the vaccine safe for my baby?</h3><p>Studies have shown that having the vaccine during pregnancy is much safer than the risk of your baby getting RSV.</p><p>Many thousands of pregnant women have now had the RSV vaccine around the world.</p>"
         }
       ],
-      "headline": "Side effects of the RSV vaccine",
-      "url": "https://www.nhs.uk/vaccinations/rsv-vaccine/#side-effects"
+      "headline": "Side effects of the RSV vaccine"
     }
   ],
-  "keywords": "",
-  "lastReviewed": [
-    "2024-09-01T11:40:00+00:00",
-    "2027-09-01T11:40:00+00:00"
-  ],
-  "license": "https://developer.api.nhs.uk/terms",
-  "name": "RSV vaccine",
   "relatedLink": [
     {
       "@type": "LinkRole",
-      "linkRelationship": "Navigation",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
       "name": "Vaccinations",
-      "position": 0,
-      "url": "https://www.nhs.uk/vaccinations/"
+      "linkRelationship": "Navigation",
+      "position": 0
     }
   ],
-  "schemaVersion": "https://schema.org/version/13.0",
-  "url": "https://www.nhs.uk/vaccinations/rsv-vaccine/"
+  "contentSubTypes": [],
+  "mainEntityOfPage": [
+    {
+      "position": 0,
+      "identifier": 0,
+      "text": "The RSV vaccine helps protect against respiratory syncytial virus (RSV), a common virus that can make babies and older adults seriously ill. It's recommended during pregnancy and for adults aged 75 to 79.",
+      "name": "lead paragraph",
+      "@type": "WebPageElement"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 1,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The RSV vaccine helps protect against <a href=\"https://www.nhs.uk/conditions/respiratory-syncytial-virus-rsv/\">respiratory syncytial virus (RSV)</a>.</p><p>RSV is a common cause of coughs and colds. Most people get it several times during their life.</p><p>It usually gets better by itself, but in some people (especially babies and older adults) it can cause illnesses such as:</p><ul><li><a href=\"https://www.nhs.uk/conditions/pneumonia/\">pneumonia</a> (a lung infection)</li><li><a href=\"https://www.nhs.uk/conditions/bronchiolitis/\">bronchiolitis</a> (a chest infection that affects babies)</li></ul><p>These illnesses can cause serious breathing problems. They may need to be treated in hospital and can be life-threatening.</p><p>Getting RSV can also make your symptoms worse if you have a lung condition, such as <a href=\"https://www.nhs.uk/conditions/chronic-obstructive-pulmonary-disease-copd/\">chronic obstructive pulmonary disorder (COPD)</a>.</p><p>The RSV vaccine helps reduce the risk of serious breathing problems like pneumonia and bronchiolitis.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "The RSV vaccine is given to protect babies and older adults from serious chest and lung infections such as bronchiolitis and pneumonia.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The RSV vaccine helps protect against <a href=\"https://www.nhs.uk/conditions/respiratory-syncytial-virus-rsv/\">respiratory syncytial virus (RSV)</a>.</p><p>RSV is a common cause of coughs and colds. Most people get it several times during their life.</p><p>It usually gets better by itself, but in some people (especially babies and older adults) it can cause illnesses such as:</p><ul><li><a href=\"https://www.nhs.uk/conditions/pneumonia/\">pneumonia</a> (a lung infection)</li><li><a href=\"https://www.nhs.uk/conditions/bronchiolitis/\">bronchiolitis</a> (a chest infection that affects babies)</li></ul><p>These illnesses can cause serious breathing problems. They may need to be treated in hospital and can be life-threatening.</p><p>Getting RSV can also make your symptoms worse if you have a lung condition, such as <a href=\"https://www.nhs.uk/conditions/chronic-obstructive-pulmonary-disease-copd/\">chronic obstructive pulmonary disorder (COPD)</a>.</p><p>The RSV vaccine helps reduce the risk of serious breathing problems like pneumonia and bronchiolitis.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
+      "headline": "What the RSV vaccine is for"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 2,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The RSV vaccine is recommended if:</p><ul><li>you're pregnant – the vaccine is recommended during every pregnancy (from 28 weeks onwards) to help protect your baby after they're born</li><li>you're aged 75 to 79</li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>If you're aged 80 or over</h3><p>If you turned 80 after 1 September 2024, you're eligible for the RSV vaccine until 31 August 2025.</p><p>You're not eligible for the RSV vaccine if you turned 80 on or before 1 September 2024.</p>"
+        }
+      ],
+      "description": "The RSV vaccine is recommended if you're pregnant or aged 75 to 79. It's given in pregnancy to help protect babies from RSV after they're born.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The RSV vaccine is recommended if:</p><ul><li>you're pregnant – the vaccine is recommended during every pregnancy (from 28 weeks onwards) to help protect your baby after they're born</li><li>you're aged 75 to 79</li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>If you're aged 80 or over</h3><p>If you turned 80 after 1 September 2024, you're eligible for the RSV vaccine until 31 August 2025.</p><p>You're not eligible for the RSV vaccine if you turned 80 on or before 1 September 2024.</p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
+      "headline": "Who should have the RSV vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 3,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There are different ways to get the RSV vaccine.</p><h3>If you're pregnant</h3><p>You should be offered the RSV vaccine around the time of your 28-week antenatal appointment.</p><p>Getting vaccinated as soon as possible from 28 weeks will provide the best protection for your baby. But the vaccine can be given later if needed, including up until you go into labour.</p><p>Speak to your maternity service or GP surgery if you're 28 weeks pregnant or more and have not been offered the vaccine.</p><h3>If you're aged 75 to 79</h3><p>Contact your GP surgery to book your RSV vaccination.</p><p>Your GP surgery may contact you about getting the RSV vaccine. This may be by letter, text, phone call or email.</p><p>You do not need to wait to be contacted before booking your vaccination.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "If you're aged 75 to 79, contact your GP surgery to book your RSV vaccination. If you're pregnant, speak to your maternity service or GP.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There are different ways to get the RSV vaccine.</p><h3>If you're pregnant</h3><p>You should be offered the RSV vaccine around the time of your 28-week antenatal appointment.</p><p>Getting vaccinated as soon as possible from 28 weeks will provide the best protection for your baby. But the vaccine can be given later if needed, including up until you go into labour.</p><p>Speak to your maternity service or GP surgery if you're 28 weeks pregnant or more and have not been offered the vaccine.</p><h3>If you're aged 75 to 79</h3><p>Contact your GP surgery to book your RSV vaccination.</p><p>Your GP surgery may contact you about getting the RSV vaccine. This may be by letter, text, phone call or email.</p><p>You do not need to wait to be contacted before booking your vaccination.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "headline": "How to get the RSV vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 4,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The RSV vaccine is given as an injection into your upper arm.</p><p>Unlike some vaccines (such as flu or COVID-19 vaccines), the RSV vaccine is given all year round.</p><p>If you're pregnant, you should have the vaccine during every pregnancy. This will help make sure each baby is protected for the first 6 months after they're born, when they're most likely to get seriously ill if they get RSV.</p><p>Older adults only need 1 dose, which should protect them for several years.</p><h3><b>Having the RSV vaccine at the same time as other vaccines</b></h3><p>If you're pregnant, you can have the RSV vaccine at the same time as other pregnancy vaccines, such as the whooping cough and flu vaccines.</p><p>But it's best to have them as soon as they're offered rather than waiting to have them at the same time.</p><p>If you're aged 75 to 79, the RSV vaccine is not usually given at the same appointment as your flu or COVID-19 vaccines, but you can have them at the same time if a doctor or nurse thinks it's needed.</p><p>You can have it at the same time as other vaccines, such as the shingles and pneumococcal vaccines.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "Older adults only need 1 dose of the RSV vaccine. If you're pregnant, you should have a dose during every pregnancy to protect each baby you have.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The RSV vaccine is given as an injection into your upper arm.</p><p>Unlike some vaccines (such as flu or COVID-19 vaccines), the RSV vaccine is given all year round.</p><p>If you're pregnant, you should have the vaccine during every pregnancy. This will help make sure each baby is protected for the first 6 months after they're born, when they're most likely to get seriously ill if they get RSV.</p><p>Older adults only need 1 dose, which should protect them for several years.</p><h3><b>Having the RSV vaccine at the same time as other vaccines</b></h3><p>If you're pregnant, you can have the RSV vaccine at the same time as other pregnancy vaccines, such as the whooping cough and flu vaccines.</p><p>But it's best to have them as soon as they're offered rather than waiting to have them at the same time.</p><p>If you're aged 75 to 79, the RSV vaccine is not usually given at the same appointment as your flu or COVID-19 vaccines, but you can have them at the same time if a doctor or nurse thinks it's needed.</p><p>You can have it at the same time as other vaccines, such as the shingles and pneumococcal vaccines.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/UsageOrScheduleHealthAspect",
+      "headline": "How the RSV vaccine is given"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 5,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most people who are eligible for the RSV vaccine can have it.</p><p>You only cannot have the vaccine if you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine or an ingredient in the vaccine.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3><b>Getting vaccinated if you're unwell</b></h3><p>If you have a high temperature, wait until you're feeling better before having the vaccine. Contact your GP surgery or maternity service to rearrange your appointment.</p>"
+        }
+      ],
+      "description": "Most people who need the RSV vaccine can have it. You only need to avoid it if you've had a serious allergic reaction to it or an ingredient in it.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most people who are eligible for the RSV vaccine can have it.</p><p>You only cannot have the vaccine if you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine or an ingredient in the vaccine.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3><b>Getting vaccinated if you're unwell</b></h3><p>If you have a high temperature, wait until you're feeling better before having the vaccine. Contact your GP surgery or maternity service to rearrange your appointment.</p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
+      "headline": "Who cannot have the RSV vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 6,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There is 1 type of RSV vaccine given in the UK. You can check the ingredients in the patient leaflet:</p><p><a href=\"https://www.medicines.org.uk/emc/product/15309/pil\">Abrysvo RSV vaccine patient leaflet (Electronic Medicines Compendium website)</a></p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "You can check the ingredients in the RSV vaccine by asking to see the patient leaflet or searching for it online.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There is 1 type of RSV vaccine given in the UK. You can check the ingredients in the patient leaflet:</p><p><a href=\"https://www.medicines.org.uk/emc/product/15309/pil\">Abrysvo RSV vaccine patient leaflet (Electronic Medicines Compendium website)</a></p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
+      "headline": "RSV vaccine ingredients"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 7,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The most common side effects of the RSV vaccine are mild and do not last long.</p><p>They can include:</p><ul><li>swelling or pain where the injection was given</li><li>a headache</li><li>an aching body</li></ul><p>More serious side effects such as a severe allergic reaction are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p><p>There have been very rare cases of <a href=\"https://www.nhs.uk/conditions/guillain-barre-syndrome/\">Guillain-Barré syndrome</a> (a condition that affects the nerves) in older adults who've had the RSV vaccine. But overall it's safer for you to have the vaccine than risk having a potentially serious RSV infection.</p><p>Talk to your doctor or the person vaccinating you if you're worried about side effects.</p><h3>Is the vaccine safe for my baby?</h3><p>Studies have shown that having the vaccine during pregnancy is much safer than the risk of your baby getting RSV.</p><p>Many thousands of pregnant women have now had the RSV vaccine around the world.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "Common side effects of the RSV vaccine include swelling or pain where the injection was given. Serious side effects are very rare.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The most common side effects of the RSV vaccine are mild and do not last long.</p><p>They can include:</p><ul><li>swelling or pain where the injection was given</li><li>a headache</li><li>an aching body</li></ul><p>More serious side effects such as a severe allergic reaction are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p><p>There have been very rare cases of <a href=\"https://www.nhs.uk/conditions/guillain-barre-syndrome/\">Guillain-Barré syndrome</a> (a condition that affects the nerves) in older adults who've had the RSV vaccine. But overall it's safer for you to have the vaccine than risk having a potentially serious RSV infection.</p><p>Talk to your doctor or the person vaccinating you if you're worried about side effects.</p><h3>Is the vaccine safe for my baby?</h3><p>Studies have shown that having the vaccine during pregnancy is much safer than the risk of your baby getting RSV.</p><p>Many thousands of pregnant women have now had the RSV vaccine around the world.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
+      "headline": "Side effects of the RSV vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 8,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3><b>More about vaccine safety</b></h3><p>The RSV vaccine has been approved by the Medicines and Healthcare products Regulatory Agency (MHRA) and meets the MHRA's strict standards of safety and effectiveness.</p><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccinations are important and the safest way to protect yourself</a></p>"
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3><b>More about vaccine safety</b></h3><p>The RSV vaccine has been approved by the Medicines and Healthcare products Regulatory Agency (MHRA) and meets the MHRA's strict standards of safety and effectiveness.</p><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccinations are important and the safest way to protect yourself</a></p>"
+        }
+      ]
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 9,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<ul><li><a href=\"https://www.gov.uk/government/publications/respiratory-syncytial-virus-rsv-maternal-vaccination/a-guide-to-rsv-vaccination-for-pregnant-women\">GOV.UK: a guide to RSV vaccination for pregnant women</a></li><li><a href=\"https://www.gov.uk/government/publications/respiratory-syncytial-virus-rsv-vaccination-for-older-adults/your-guide-to-the-rsv-vaccine-for-older-adults\">GOV.UK: your guide to the RSV vaccine for older adults</a></li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<ul><li><a href=\"https://www.gov.uk/government/publications/respiratory-syncytial-virus-rsv-maternal-vaccination/a-guide-to-rsv-vaccination-for-pregnant-women\">GOV.UK: a guide to RSV vaccination for pregnant women</a></li><li><a href=\"https://www.gov.uk/government/publications/respiratory-syncytial-virus-rsv-vaccination-for-older-adults/your-guide-to-the-rsv-vaccine-for-older-adults\">GOV.UK: your guide to the RSV vaccine for older adults</a></li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "Find out more"
+    }
+  ],
+  "webpage": "https://www.nhs.uk/vaccinations/rsv-vaccine/"
 }

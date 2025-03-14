@@ -20,7 +20,7 @@
     "alternateName": ""
   },
   "description": "NHS information about the 6-in-1 vaccine, including what the vaccine helps protect against, who should have it, how to get it and side effects.",
-  "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/",
+  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/",
   "genre": [
     "Vaccine"
   ],
@@ -38,7 +38,7 @@
         "@type": "ListItem",
         "position": 0,
         "item": {
-          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
           "name": "Vaccinations",
           "genre": []
         }
@@ -47,7 +47,7 @@
         "@type": "ListItem",
         "position": 1,
         "item": {
-          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/",
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/",
           "name": "6-in-1 vaccine",
           "genre": [
             "Vaccine"
@@ -60,8 +60,34 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#overview",
       "description": "The 6-in-1 vaccine helps protect against serious illnesses like polio and whooping cough. It's given to babies when they're 8, 12 and 16 weeks old.",
       "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "6-in-1 vaccine",
+          "text": "Why it's done"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "6-in-1 vaccine",
+          "text": "Who it's for"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "6-in-1 vaccine",
+          "text": "Contraindications"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "6-in-1 vaccine",
+          "text": "How to get it"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "6-in-1 vaccine",
+          "text": "Side effects"
+        },
         {
           "text": "<p>The 6-in-1 vaccine protects babies against diphtheria, hepatitis B, Hib (haemophilus influenzae type b), polio, tetanus and whooping cough.</p> ",
           "@type": "WebPageElement"
@@ -83,13 +109,12 @@
           "@type": "WebPageElement"
         }
       ],
-      "headline": "",
-      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#overview"
+      "headline": ""
     },
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
-      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#why-its-done",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#why-its-done",
       "description": "The 6-in-1 vaccine protects babies against diphtheria, hepatitis B, Hib (haemophilus influenzae type b), polio, tetanus and whooping cough.",
       "hasPart": [
         {
@@ -103,7 +128,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
-      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#who-its-for",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#who-its-for",
       "description": "The 6-in-1 vaccine is for babies. They're given a dose of the vaccine at 8 weeks old, 12 weeks old and 16 weeks old.",
       "hasPart": [
         {
@@ -117,7 +142,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
-      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#contraindications",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#contraindications",
       "description": "Most babies can have the 6-in-1 vaccine. They only cannot have it if they've had a serious allergic reaction to the vaccine or an ingredient in it.",
       "hasPart": [
         {
@@ -136,7 +161,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
-      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#ingredients",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#ingredients",
       "description": "You can check the ingredients in the 6-in-1 vaccine by asking to see the patient leaflet or searching for it online.",
       "hasPart": [
         {
@@ -150,7 +175,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
-      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#how-to-get-it",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#how-to-get-it",
       "description": "Your GP surgery will usually contact you to arrange your child's 6-in-1 vaccinations. Speak to your GP surgery if you have not been contacted.",
       "hasPart": [
         {
@@ -170,7 +195,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
-      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#side-effects",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#side-effects",
       "description": "Common side effects of the 6-in-1 vaccine include swelling or pain where the injection was given, a high temperature, tiredness and loss of appetite.",
       "hasPart": [
         {
@@ -196,7 +221,7 @@
   "relatedLink": [
     {
       "@type": "LinkRole",
-      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
       "name": "Vaccinations",
       "linkRelationship": "Navigation",
       "position": 0
