@@ -42,6 +42,9 @@ const Vaccine6in1 = async () => {
           text={sixInOneContent.howToGetVaccine.bodyText}
         />
       </div>
+      <a href={sixInOneContent.webpageLink}>
+        Find out more about 6-in-1 vaccination on the NHS.uk
+      </a>
     </div>
   );
 };

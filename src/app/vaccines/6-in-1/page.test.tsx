@@ -20,6 +20,7 @@ describe("6-in-1 vaccine page", () => {
       heading: "how-heading",
       bodyText: "<p data-testid='how-text-paragraph'>how-text</p>",
     },
+    webpageLink: "https://www.test.com/",
   };
 
   beforeEach(() => {
@@ -80,5 +81,17 @@ describe("6-in-1 vaccine page", () => {
     expect(howToGetVaccineHeading).toBeInTheDocument();
     expect(howToGetVaccineText).toBeInTheDocument();
     expect(howToGetVaccineText).toHaveTextContent("how-text");
+  });
+
+  it("should contain webpage link", async () => {
+    const vaccine6in1Page = await Vaccine6in1();
+    render(vaccine6in1Page);
+
+    const webpageLink = screen.getByRole("link", {
+      name: "Find out more about 6-in-1 vaccination on the NHS.uk",
+    });
+
+    expect(webpageLink).toBeInTheDocument();
+    expect(webpageLink).toHaveAttribute("href", "https://www.test.com/");
   });
 });

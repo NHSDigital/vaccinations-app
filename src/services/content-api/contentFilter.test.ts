@@ -88,6 +88,23 @@ describe("Content Filter", () => {
         expect.objectContaining(expectedHowToGet),
       );
     });
+
+    it("should include nhs webpage link to vaccine info", async () => {
+      const expectedWebpageLink = {
+        webpageLink: "https://www.nhs.uk/vaccinations/generic-vaccine/",
+      };
+
+      (getContentForVaccine as jest.Mock).mockResolvedValue(
+        genericMockVaccineData,
+      );
+      const pageCopyFor6in1 = await getPageCopyForVaccine(
+        VaccineTypes.SIX_IN_ONE,
+      );
+
+      expect(pageCopyFor6in1).toEqual(
+        expect.objectContaining(expectedWebpageLink),
+      );
+    });
   });
 
   describe("extractAllPartsTextForAspect", () => {

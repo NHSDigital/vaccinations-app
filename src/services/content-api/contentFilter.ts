@@ -35,6 +35,7 @@ export type VaccinePageContent = {
   whatVaccineIsFor: VaccinePageSection;
   whoVaccineIsFor: VaccinePageSection;
   howToGetVaccine: VaccinePageSection;
+  webpageLink: string;
 };
 
 const findAspect = (
@@ -123,11 +124,14 @@ const getPageCopyForVaccine = async (
     ),
   };
 
+  const webpageLink = contentApiVaccineText.webpage;
+
   return {
     overview,
     whatVaccineIsFor,
     whoVaccineIsFor,
     howToGetVaccine,
+    webpageLink,
   };
 };
 
