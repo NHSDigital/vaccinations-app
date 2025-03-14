@@ -25,7 +25,7 @@ const Vaccine6in1 = async () => {
       <h1 className="app-dynamic-page-title__heading">
         {metadata.title as string}
       </h1>
-      <div>{sixInOneContent.overview}</div>
+      <p>{sixInOneContent.overview}</p>
 
       <h2 className="nhsuk-heading-s">More information</h2>
       <div className="nhsuk-expander-group">
