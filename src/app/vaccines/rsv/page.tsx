@@ -1,22 +1,21 @@
-import { JSX } from "react";
-import { getContentForVaccine } from "@src/services/content-api/contentService";
-import { VaccineTypes } from "@src/models/vaccine";
+import type { Metadata } from "next";
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
+
+import { VaccineTypes } from "@src/models/vaccine";
+import Vaccine from "@src/app/_components/vaccine/vaccine";
+import { JSX } from "react";
 
 export const dynamic = "force-dynamic";
 
-const VaccineRsv = async (): Promise<JSX.Element> => {
-  const content = await getContentForVaccine(VaccineTypes.RSV);
+export const metadata: Metadata = {
+  title: "RSV Vaccine - NHS App",
+};
 
+const VaccineRsv = async (): Promise<JSX.Element> => {
   return (
     <div>
       <BackLink link="/schedule" />
-      <h1 className="app-dynamic-page-title__heading">{content.about.name}</h1>
-      <p className="">{content.hasPart[0].description}</p>
-      <h2 className="nhsuk-heading-s">More information</h2>
-      <a href={content.webpage}>
-        Find out more about RSV vaccination on the NHS.uk
-      </a>
+      <Vaccine name={"RSV"} vaccine={VaccineTypes.RSV} />
     </div>
   );
 };

@@ -1,72 +1,56 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import VaccineRsv from "@src/app/vaccines/rsv/page";
-import { getContentForVaccine } from "@src/services/content-api/contentService";
-import { JSX } from "react";
+import { getPageCopyForVaccine } from "@src/services/content-api/contentFilter";
+import Vaccine from "@src/app/_components/vaccine/vaccine";
+import { VaccineTypes } from "@src/models/vaccine";
 
-jest.mock("@src/services/content-api/contentService");
+jest.mock("@src/services/content-api/contentFilter");
+jest.mock("@src/app/_components/vaccine/vaccine", () => jest.fn(() => <div />));
 
-describe("RSV Page", () => {
-  const mockHeading: string = "mock heading";
-  const mockSubheading: string = "mock subheading";
+describe("RSV vaccine page", () => {
+  const mockContent = {
+    overview: "Overview text",
+    whatVaccineIsFor: {
+      heading: "what-heading",
+      bodyText: "<p data-testid='what-text-paragraph'>what-text</p>",
+    },
+    whoVaccineIsFor: {
+      heading: "who-heading",
+      bodyText: "<p data-testid='who-text-paragraph'>who-text</p>",
+    },
+    howToGetVaccine: {
+      heading: "how-heading",
+      bodyText: "<p data-testid='how-text-paragraph'>how-text</p>",
+    },
+    webpageLink: "https://www.test.com/",
+  };
 
   beforeEach(() => {
-    const mockContent = {
-      about: { name: mockHeading },
-      hasPart: [{ description: mockSubheading }],
-    };
-    (getContentForVaccine as jest.Mock).mockResolvedValue(mockContent);
+    (getPageCopyForVaccine as jest.Mock).mockResolvedValue(mockContent);
   });
 
-  it("renders the correct page heading", async () => {
-    const RsvPage: JSX.Element = await VaccineRsv();
-    render(RsvPage);
-
-    const heading: HTMLElement = screen.getByRole("heading", {
-      level: 1,
-      name: "mock heading",
-    });
-
-    expect(heading).toBeInTheDocument();
-  });
-
-  it("renders the correct subheading", async () => {
-    const RsvPage: JSX.Element = await VaccineRsv();
-    render(RsvPage);
-
-    const subheading: HTMLElement = screen.getByText(mockSubheading);
-
-    expect(subheading).toBeInTheDocument();
-  });
-
-  it("renders the correct more information heading", async () => {
-    const RsvPage: JSX.Element = await VaccineRsv();
-    render(RsvPage);
-
-    const moreInformation: HTMLElement = screen.getByText("More information");
-
-    expect(moreInformation).toBeInTheDocument();
-  });
-
-  it("renders the correct link text to more information", async () => {
-    const RsvPage: JSX.Element = await VaccineRsv();
-    render(RsvPage);
-
-    const moreInformationLink: HTMLElement = screen.getByText(
-      "Find out more about RSV vaccination on the NHS.uk",
-    );
-
-    expect(moreInformationLink).toBeInTheDocument();
-  });
-
-  it("contains back link to schedule page", async () => {
+  it("should contain back link to vaccination schedule page", async () => {
     const pathToSchedulePage = "/schedule";
 
-    const RsvPage: JSX.Element = await VaccineRsv();
-    render(RsvPage);
+    const vaccineRsvPage = await VaccineRsv();
+    render(vaccineRsvPage);
 
     const linkToSchedulePage = screen.getByRole("link", { name: "Go back" });
 
     expect(linkToSchedulePage.getAttribute("href")).toBe(pathToSchedulePage);
+  });
+
+  it("should contain vaccine component", async () => {
+    const vaccineRsvPage = await VaccineRsv();
+    render(vaccineRsvPage);
+
+    expect(Vaccine).toHaveBeenCalledWith(
+      {
+        name: "RSV",
+        vaccine: VaccineTypes.RSV,
+      },
+      undefined,
+    );
   });
 });
