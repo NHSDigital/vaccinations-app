@@ -218,9 +218,339 @@ const genericMockVaccineData = {
     {
       "position": 0,
       "identifier": 0,
-      "text": "The generic vaccine helps protect against serious illnesses like polio and whooping cough. It's given to babies when they're 8, 12 and 16 weeks old.",
+      "text": "Vaccine Lead Paragraph",
       "name": "lead paragraph",
       "@type": "WebPageElement"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 1,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Benefits Health Aspect paragraph 1</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "Benefits Health Aspect description",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Benefits Health Aspect paragraph 1</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
+      "headline": "Benefits Health Aspect headline"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 2,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Suitability Health Aspect paragraph 1</p><p>Suitability Health Aspect paragraph 2</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "identifier": "1",
+          "text": "<p>Suitability Health Aspect paragraph 3</p><p>Suitability Health Aspect paragraph 4</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "Suitability Health Aspect description",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Suitability Health Aspect paragraph 1</p><p>Suitability Health Aspect paragraph 2</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "identifier": "1",
+          "text": "<p>Suitability Health Aspect paragraph 3</p><p>Suitability Health Aspect paragraph 4</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
+      "headline": "Suitability Health Aspect headline"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 3,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Contraindications Health Aspect paragraph 1</p><p>Contraindications Health Aspect paragraph 2</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Contraindications Health Aspect information heading</h3><p>Contraindications Health Aspect information paragraph</p>"
+        }
+      ],
+      "description": "Contraindications Health Aspect description",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Contraindications Health Aspect paragraph 1</p><p>Contraindications Health Aspect paragraph 2</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Contraindications Health Aspect information heading</h3><p>Contraindications Health Aspect information paragraph</p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
+      "headline": "Contraindications Health Aspect headline"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 4,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Ingredients Health Aspect paragraph 1</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "identifier": "1",
+          "text": "<p>Ingredients Health Aspect paragraph 2</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 2,
+          "identifier": "1",
+          "text": "<p>Ingredients Health Aspect paragraph 3</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "Ingredients Health Aspect description",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Ingredients Health Aspect paragraph 1</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "identifier": "1",
+          "text": "<p>Ingredients Health Aspect paragraph 1</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 2,
+          "identifier": "1",
+          "text": "<p>Ingredients Health Aspect paragraph 1</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
+      "headline": "Ingredients Health Aspect headline"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 5,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Getting Access Health Aspect paragraph 1</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "non-urgent",
+          "identifier": "5",
+          "text": "<h3>Getting Access Health Aspect urgent heading</h3><div>Getting Access Health Aspect urgent div</div>"
+        }
+      ],
+      "description": "Getting Access Health Aspect description",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Getting Access Health Aspect paragraph 1</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "non-urgent",
+          "identifier": "5",
+          "text": "<h3>Getting Access Health Aspect urgent heading</h3><div>Getting Access Health Aspect urgent div</div>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "headline": "Getting Access Health Aspect headline"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 6,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Appointment advice for parents</h3><ul><li><a href=\"https://www.nhs.uk/vaccinations/booking-your-childs-vaccination-appointment/\">Booking your child's vaccination appointment</a></li><li><a href=\"https://www.nhs.uk/vaccinations/vaccination-tips-for-parents/\">Vaccination tips for parents</a></li></ul>"
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Appointment advice for parents</h3><ul><li><a href=\"https://www.nhs.uk/vaccinations/booking-your-childs-vaccination-appointment/\">Booking your child's vaccination appointment</a></li><li><a href=\"https://www.nhs.uk/vaccinations/vaccination-tips-for-parents/\">Vaccination tips for parents</a></li></ul>"
+        }
+      ]
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 7,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Like all medicines, the generic vaccine can cause side effects, but not all babies get them.</p><h3>Common side effects</h3><p>Common side effects of the generic vaccine include:</p><ul><li>swelling or pain where the injection was given</li><li>a high temperature</li><li>feeling tired</li><li>loss of appetite</li><li>being sick or diarrhoea</li><li>irritability</li></ul><p>You can give babies <a href=\"https://www.nhs.uk/medicines/paracetamol-for-children/\">child's paracetamol</a> to ease any symptoms.</p><p>Check the packaging or leaflet to make sure the medicine is suitable for your child, or speak to a pharmacist or doctor if you're not sure.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "urgent",
+          "identifier": "5",
+          "text": "<h3>Ask for an urgent GP appointment or call 111 if your baby:</h3><div class=\"block-richtext\">\n<ul><li>is under 3 months old and has a temperature of 38C or higher, or you think they have a high temperature</li><li>is 3 to 6 months old and has a temperature of 39C or higher, or you think they have a high temperature</li><li>is unwell and you're worried about them</li></ul>\n</div>"
+        },
+        {
+          "position": 2,
+          "identifier": "1",
+          "text": "<p>More serious side effects such as a severe allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) are very rare and usually happen within minutes.</p><p>The person who vaccinates your child will be trained to deal with allergic reactions and treat them immediately.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": "Allergic reactions"
+        }
+      ],
+      "description": "Common side effects of the generic vaccine include swelling or pain where the injection was given, a high temperature, tiredness and loss of appetite.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Like all medicines, the generic vaccine can cause side effects, but not all babies get them.</p><h3>Common side effects</h3><p>Common side effects of the generic vaccine include:</p><ul><li>swelling or pain where the injection was given</li><li>a high temperature</li><li>feeling tired</li><li>loss of appetite</li><li>being sick or diarrhoea</li><li>irritability</li></ul><p>You can give babies <a href=\"https://www.nhs.uk/medicines/paracetamol-for-children/\">child's paracetamol</a> to ease any symptoms.</p><p>Check the packaging or leaflet to make sure the medicine is suitable for your child, or speak to a pharmacist or doctor if you're not sure.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "urgent",
+          "identifier": "5",
+          "text": "<h3>Ask for an urgent GP appointment or call 111 if your baby:</h3><div class=\"block-richtext\">\n<ul><li>is under 3 months old and has a temperature of 38C or higher, or you think they have a high temperature</li><li>is 3 to 6 months old and has a temperature of 39C or higher, or you think they have a high temperature</li><li>is unwell and you're worried about them</li></ul>\n</div>"
+        },
+        {
+          "position": 2,
+          "identifier": "1",
+          "text": "<p>More serious side effects such as a severe allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) are very rare and usually happen within minutes.</p><p>The person who vaccinates your child will be trained to deal with allergic reactions and treat them immediately.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": "Allergic reactions"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
+      "headline": "Side effects of the generic vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 8,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>More about vaccine safety</h3><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccinations are important and the safest way to protect yourself</a></p>"
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>More about vaccine safety</h3><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccinations are important and the safest way to protect yourself</a></p>"
+        }
+      ]
     }
   ],
   "webpage": "https://www.nhs.uk/vaccinations/generic-vaccine/"
