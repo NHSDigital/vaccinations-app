@@ -11,15 +11,15 @@ describe("Any vaccine page", () => {
     overview: "Overview text",
     whatVaccineIsFor: {
       heading: "what-heading",
-      bodyText: "<p data-testid='what-text-paragraph'>what-text</p>",
+      text: "<p data-testid='what-text-paragraph'>what-text</p>",
     },
     whoVaccineIsFor: {
       heading: "who-heading",
-      bodyText: "<p data-testid='who-text-paragraph'>who-text</p>",
+      text: "<p data-testid='who-text-paragraph'>who-text</p>",
     },
     howToGetVaccine: {
       heading: "how-heading",
-      bodyText: "<p data-testid='how-text-paragraph'>how-text</p>",
+      text: "<p data-testid='how-text-paragraph'>how-text</p>",
     },
     webpageLink: "https://www.test.com/",
   };

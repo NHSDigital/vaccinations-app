@@ -20,15 +20,15 @@ const Vaccine = async (props: VaccineProps): Promise<JSX.Element> => {
       <div className="nhsuk-expander-group">
         <Details
           summaryText={content.whatVaccineIsFor.heading}
-          text={content.whatVaccineIsFor.bodyText}
+          text={content.whatVaccineIsFor.text}
         />
         <Details
           summaryText={content.whoVaccineIsFor.heading}
-          text={content.whoVaccineIsFor.bodyText}
+          text={content.whoVaccineIsFor.text}
         />
         <Details
           summaryText={content.howToGetVaccine.heading}
-          text={content.howToGetVaccine.bodyText}
+          text={content.howToGetVaccine.text}
         />
       </div>
       <a href={content.webpageLink}>
