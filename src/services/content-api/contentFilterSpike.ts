@@ -26,7 +26,7 @@ type ContentApiVaccineResponse = {
   mainEntityOfPage: MainEntityOfPage[];
 };
 
-type VaccinePageSubsection = {
+export type VaccinePageSubsection = {
   headline: string;
   text: string;
   name: string;
