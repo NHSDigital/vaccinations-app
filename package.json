@@ -16,7 +16,7 @@
     "check": "npx prettier . --check",
     "test": "jest --collectCoverage",
     "test:watch": "jest --watch",
-    "content-api": "wiremock --root-dir ./wiremock --port 8081"
+    "content-api": "wiremock --root-dir ./wiremock --port 8081 --verbose"
   },
   "repository": {
     "type": "git",

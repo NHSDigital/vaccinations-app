@@ -4,12 +4,13 @@ import {
   vaccineTypeToPath,
 } from "@src/services/content-api/constants";
 import { VaccineTypes } from "@src/models/vaccine";
+import { ContentApiVaccinationsResponse } from "@src/services/content-api/types";
 
 const config = configProvider();
 
 const contentApiVaccinationsUrl = `${config.CONTENT_API_ENDPOINT}${CONTENT_API_VACCINATIONS_PATH}`;
 
-const getContent = async () => {
+const getContent = async (): Promise<ContentApiVaccinationsResponse> => {
   const response: Response = await fetch(contentApiVaccinationsUrl);
   return response.json();
 };

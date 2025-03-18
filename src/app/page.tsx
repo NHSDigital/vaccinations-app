@@ -5,8 +5,9 @@ import styles from "./styles.module.css";
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import { useContent } from "@src/app/_components/providers/ContentProvider";
 import { use } from "react";
+import Link from "next/link";
 
-// export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 const VaccinationsHub = () => {
   const { contentPromise } = useContent();
@@ -22,7 +23,9 @@ const VaccinationsHub = () => {
           <h3>{content.about.name}</h3>
         </div>
         <div>
-          <a href="/schedule">View all</a>
+          <Link prefetch={false} href="/schedule">
+            View all
+          </Link>
         </div>
       </div>
       <p>

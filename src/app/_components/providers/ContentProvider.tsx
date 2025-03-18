@@ -1,9 +1,10 @@
 "use client";
 
 import { createContext, useContext, ReactNode } from "react";
+import { ContentApiVaccinationsResponse } from "@src/services/content-api/types";
 
 type ContentContextType = {
-  contentPromise: Promise<any>;
+  contentPromise: Promise<ContentApiVaccinationsResponse>;
 };
 
 const ContentContext = createContext<ContentContextType | null>(null);
@@ -21,7 +22,7 @@ export function ContentProvider({
   contentPromise,
 }: {
   children: ReactNode;
-  contentPromise: Promise<any>;
+  contentPromise: Promise<ContentApiVaccinationsResponse>;
 }) {
   return (
     <ContentContext.Provider value={{ contentPromise: contentPromise }}>
