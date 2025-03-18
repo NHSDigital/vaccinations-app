@@ -1,5 +1,4 @@
 import CardLink from "@src/app/_components/nhs-app/CardLink";
-import { getContent } from "@src/services/content-api/contentService";
 import type { Metadata } from "next";
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 
@@ -7,18 +6,19 @@ export const metadata: Metadata = {
   title: "Vaccination schedule - NHS App",
 };
 
-export const dynamic = "force-dynamic";
-
 const Schedule = async () => {
-  const content = await getContent();
   return (
     <div>
       <BackLink link="/" />
       <h1 className="app-dynamic-page-title__heading">Vaccination schedule</h1>
-      <p className="">{content.description}</p>
+      <p className="">
+        Find out about vaccinations for babies, children and adults, including
+        why they&#39;re important and how to get them.
+      </p>
+      <h2 className="nhsuk-heading-s">Vaccines for Adults</h2>
+      <CardLink title={"RSV vaccine"} link={"/vaccines/rsv"} />
       <h2 className="nhsuk-heading-s">Vaccines for babies under 1 year old</h2>
       <CardLink title={"6-in-1 vaccine"} link={"/vaccines/6-in-1"} />
-      <CardLink title={"RSV vaccine"} link={"/vaccines/rsv"} />
     </div>
   );
 };

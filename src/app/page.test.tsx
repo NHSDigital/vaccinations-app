@@ -2,31 +2,17 @@ import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "@jest/globals";
 import VaccinationsHub from "./page";
-import { getContent } from "@src/services/content-api/contentService";
 import { JSX } from "react";
 
 jest.mock("@src/services/content-api/contentService");
 
 describe("Vaccination Hub Page", () => {
-  const mockHeading: string = "Vaccinations";
-  const mockTextUnderHeading: string =
-    "Find out about vaccinations for babies," +
-    " children and adults, including why they're important and how to get them.";
-
-  beforeEach(() => {
-    const mockContent = {
-      about: { name: mockHeading },
-      description: mockTextUnderHeading,
-    };
-    (getContent as jest.Mock).mockResolvedValue(mockContent);
-  });
-
   it("renders all headings", async () => {
     const VaccinationsHubPage: JSX.Element = await VaccinationsHub();
     render(VaccinationsHubPage);
 
     const headings: HTMLElement[] = screen.getAllByRole("heading", {
-      name: mockHeading,
+      name: "Vaccinations",
     });
 
     expect(headings.length).toBe(2);
@@ -36,7 +22,10 @@ describe("Vaccination Hub Page", () => {
     const VaccinationsHubPage: JSX.Element = await VaccinationsHub();
     render(VaccinationsHubPage);
 
-    const heading: HTMLElement = screen.getByText(mockTextUnderHeading);
+    const heading: HTMLElement = screen.getByText(
+      "Find out about vaccinations for babies, " +
+        "children and adults, including why they're important and how to get them.",
+    );
 
     expect(heading).toBeInTheDocument();
   });
