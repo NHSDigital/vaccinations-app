@@ -8,20 +8,19 @@ type Aspect =
   | "ContraindicationsHealthAspect"
   | "GettingAccessHealthAspect";
 
-type HasPartSubsection = {
-  text: string;
-  "@type": string;
-  headline?: string;
-  identifier?: string;
-};
-
 type HasPart = {
   "@type": string;
   hasHealthAspect: string;
   description: string;
   headline: string;
-  url: string;
   hasPart: HasPartSubsection[];
+};
+
+type HasPartSubsection = {
+  text: string;
+  "@type": string;
+  headline?: string;
+  identifier?: string;
 };
 
 export type ContentApiVaccineResponse = {

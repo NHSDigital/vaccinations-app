@@ -218,7 +218,7 @@ const genericMockVaccineData = {
     {
       "position": 0,
       "identifier": 0,
-      "text": "Vaccine Lead Paragraph",
+      "text": "Generic Vaccine Lead Paragraph (overview)",
       "name": "lead paragraph",
       "@type": "WebPageElement"
     },
