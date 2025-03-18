@@ -32,7 +32,7 @@ export type VaccinePageSubsection = {
   name: string;
 };
 
-type VaccinePageSection = {
+export type VaccinePageSection = {
   headline: string;
   subsections: VaccinePageSubsection[];
 };
