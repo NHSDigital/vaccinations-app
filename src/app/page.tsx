@@ -1,18 +1,16 @@
-import { getContent } from "@src/services/content-api/contentService";
+"use client";
+
 import CardLink from "@src/app/_components/nhs-app/CardLink";
 import styles from "./styles.module.css";
-import { JSX } from "react";
-import type { Metadata } from "next";
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
+import { useContent } from "@src/app/_components/providers/ContentProvider";
+import { use } from "react";
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Vaccinations - NHS App",
-};
-
-const VaccinationsHub = async (): Promise<JSX.Element> => {
-  const content = await getContent();
+const VaccinationsHub = () => {
+  const { contentPromise } = useContent();
+  const content = use(contentPromise);
 
   return (
     <div>

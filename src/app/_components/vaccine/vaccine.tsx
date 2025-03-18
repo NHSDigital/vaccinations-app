@@ -1,15 +1,18 @@
-import { JSX } from "react";
-import { getPageCopyForVaccine } from "@src/services/content-api/contentFilter";
+"use client";
+
+import React, { use } from "react";
 import { VaccineTypes } from "@src/models/vaccine";
 import Details from "@src/app/_components/nhs-frontend/Details";
+import { useVaccineContent } from "@src/app/_components/providers/VaccineContentProvider";
 
 interface VaccineProps {
   name: string;
   vaccine: VaccineTypes;
 }
 
-const Vaccine = async (props: VaccineProps): Promise<JSX.Element> => {
-  const content = await getPageCopyForVaccine(props.vaccine);
+const Vaccine = (props: VaccineProps): React.JSX.Element => {
+  const { contentPromise } = useVaccineContent();
+  const content = use(contentPromise);
 
   return (
     <div>
