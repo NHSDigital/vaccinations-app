@@ -3,7 +3,7 @@ import {
   VaccinePageContent,
   VaccinePageSection,
   VaccinePageSubsection,
-} from "@src/services/content-api/contentFilterSpike";
+} from "@src/services/content-api/contentFilter";
 import stringToHtml from "@src/utils/stringToHtml";
 import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";

@@ -11,11 +11,11 @@ import {
   getFilteredContentForVaccine,
   VaccinePageContent,
   VaccinePageSection,
-} from "@src/services/content-api/contentFilterSpike";
+} from "@src/services/content-api/contentFilter";
 import { VaccineTypes } from "@src/models/vaccine";
 import { isValidElement } from "react";
 
-jest.mock("@src/services/content-api/contentFilterSpike");
+jest.mock("@src/services/content-api/contentFilter");
 
 describe("ContentStyleService", () => {
   const mockMarkdownSubsection = {
