@@ -37,7 +37,7 @@ export type VaccinePageSection = {
   subsections: VaccinePageSubsection[];
 };
 
-type VaccinePageContent = {
+export type VaccinePageContent = {
   overview: string;
   whatVaccineIsFor: VaccinePageSection;
   whoVaccineIsFor: VaccinePageSection;

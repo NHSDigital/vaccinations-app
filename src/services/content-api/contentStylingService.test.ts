@@ -1,11 +1,21 @@
 import {
+  getStyledContentForVaccine,
+  StyledPageSection,
+  StyledVaccineContent,
   styleSection,
   styleSubsection,
 } from "@src/services/content-api/contentStylingService";
 import { render, screen } from "@testing-library/react";
 import { expect } from "@jest/globals";
-import { VaccinePageSection } from "@src/services/content-api/contentFilterSpike";
-import { JSX } from "react";
+import {
+  getFilteredContentForVaccine,
+  VaccinePageContent,
+  VaccinePageSection,
+} from "@src/services/content-api/contentFilterSpike";
+import { VaccineTypes } from "@src/models/vaccine";
+import { isValidElement } from "react";
+
+jest.mock("@src/services/content-api/contentFilterSpike");
 
 describe("ContentStyleService", () => {
   const mockMarkdownSubsection = {
@@ -90,16 +100,13 @@ describe("ContentStyleService", () => {
   describe("styleSection", () => {
     it("should display several subsections of a concrete vaccine in one section", () => {
       const mockSection: VaccinePageSection = {
-        headline: "",
+        headline: "This is a heading",
         subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
       };
 
-      const styledSection: JSX.Element = styleSection(mockSection);
-      render(styledSection);
+      const styledSection: StyledPageSection = styleSection(mockSection);
+      render(styledSection.component);
 
-      const heading: HTMLElement = screen.getByRole("heading", {
-        name: "Headline",
-      });
       const text1: HTMLElement = screen.getByText(
         "This is a styled paragraph markdown subsection",
       );
@@ -107,9 +114,62 @@ describe("ContentStyleService", () => {
         "This is a styled paragraph non-urgent subsection",
       );
 
-      expect(heading).toBeInTheDocument();
+      expect(styledSection.heading).toEqual(mockSection.headline);
       expect(text1).toBeInTheDocument();
       expect(text2).toBeInTheDocument();
+    });
+  });
+
+  describe("getStyledContentForVaccine", () => {
+    it("should return styled content for a specific vaccine", async () => {
+      const mockWhatSection: VaccinePageSection = {
+        headline: "What Vaccine Is For",
+        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
+      };
+      const mockWhoSection: VaccinePageSection = {
+        headline: "Who is this Vaccine For",
+        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
+      };
+      const mockHowSection: VaccinePageSection = {
+        headline: "How to get this Vaccine",
+        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
+      };
+      const mockContent: VaccinePageContent = {
+        overview: "This is an overview",
+        whatVaccineIsFor: mockWhatSection,
+        whoVaccineIsFor: mockWhoSection,
+        howToGetVaccine: mockHowSection,
+        webpageLink: "This is a link",
+      };
+
+      (getFilteredContentForVaccine as jest.Mock).mockResolvedValue(
+        mockContent,
+      );
+
+      const styledVaccineContent: StyledVaccineContent =
+        await getStyledContentForVaccine(VaccineTypes.RSV);
+
+      expect(styledVaccineContent).not.toBeNull();
+      expect(styledVaccineContent.overview).toEqual("This is an overview");
+      expect(styledVaccineContent.whatVaccineIsFor.heading).toEqual(
+        "What Vaccine Is For",
+      );
+      expect(styledVaccineContent.whoVaccineIsFor.heading).toEqual(
+        "Who is this Vaccine For",
+      );
+      expect(styledVaccineContent.howToGetVaccine.heading).toEqual(
+        "How to get this Vaccine",
+      );
+      expect(
+        isValidElement(styledVaccineContent.whatVaccineIsFor.component),
+      ).toBe(true);
+      expect(
+        isValidElement(styledVaccineContent.whoVaccineIsFor.component),
+      ).toBe(true);
+      expect(
+        isValidElement(styledVaccineContent.howToGetVaccine.component),
+      ).toBe(true);
+      expect(styledVaccineContent.webpageLink).toEqual("This is a link");
     });
   });
 });
