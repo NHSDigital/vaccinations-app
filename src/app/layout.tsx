@@ -1,21 +1,12 @@
-import type { Metadata } from "next";
 import React, { JSX } from "react";
 import "@public/nhsapp-frontend-2.3.0/nhsapp-2.3.0.min.css";
 import "@public/nhsuk-frontend-9.1.0/css/nhsuk-9.1.0.min.css";
-import { getContent } from "@src/services/content-api/contentService";
-import { ContentProvider } from "@src/app/_components/providers/ContentProvider";
-
-export const metadata: Metadata = {
-  title: "Default Layout Title",
-};
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>): JSX.Element {
-  const contentPromise = getContent();
-
   return (
     <html lang="en">
       <head>
@@ -36,9 +27,7 @@ export default function RootLayout({
 
         <div className="nhsuk-width-container ">
           <main className="nhsuk-main-wrapper " id="maincontent" role="main">
-            <ContentProvider contentPromise={contentPromise}>
-              {children}
-            </ContentProvider>
+            {children}
           </main>
         </div>
       </body>

@@ -1,20 +1,10 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import Schedule from "./page";
-import { getContent } from "@src/services/content-api/contentService";
 
 jest.mock("@src/services/content-api/contentService");
 
 describe("Schedule Page", () => {
-  const mockDescription = "mock description";
-
-  beforeEach(() => {
-    const mockContent = {
-      description: mockDescription,
-    };
-    (getContent as jest.Mock).mockResolvedValue(mockContent);
-  });
-
   it("renders the correct page heading", async () => {
     const SchedulePage = await Schedule();
     render(SchedulePage);
@@ -43,11 +33,13 @@ describe("Schedule Page", () => {
     });
   });
 
-  it("renders description text from the content API", async () => {
+  it("renders static description text", async () => {
     const SchedulePage = await Schedule();
     render(SchedulePage);
 
-    const description = screen.getByText(mockDescription);
+    const description = screen.getByText(
+      "Find out about vaccinations for babies, children and adults, including why they're important and how to get them.",
+    );
 
     expect(description).toBeInTheDocument();
   });

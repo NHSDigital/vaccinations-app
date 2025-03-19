@@ -3,24 +3,23 @@
 import CardLink from "@src/app/_components/nhs-app/CardLink";
 import styles from "./styles.module.css";
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
-import { useContent } from "@src/app/_components/providers/ContentProvider";
-import { use } from "react";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
 const VaccinationsHub = () => {
-  const { contentPromise } = useContent();
-  const content = use(contentPromise);
-
   return (
     <div>
+      <title>Vaccinations - NHS App</title>
       <BackLink link="/" />
-      <h1>{content.about.name}</h1>
-      <p>{content.description}</p>
+      <h1>Vaccinations</h1>
+      <p>
+        Find out about vaccinations for babies, children and adults, including
+        why they&#39;re important and how to get them.
+      </p>
       <div className={styles.subheading}>
         <div>
-          <h3>{content.about.name}</h3>
+          <h3>Vaccinations</h3>
         </div>
         <div>
           <Link prefetch={false} href="/schedule">
@@ -32,8 +31,10 @@ const VaccinationsHub = () => {
         Based on your age, these vaccinations may be relevant - some
         vaccinations may not be needed or have already been given.
       </p>
-      <CardLink title={"6-in-1 vaccine"} link={"/vaccines/6-in-1"} />
-      <CardLink title={"RSV vaccine"} link={"/vaccines/rsv"} />
+      <div className="nhsapp-cards nhsapp-cards--stacked">
+        <CardLink title={"6-in-1 vaccine"} link={"/vaccines/6-in-1"} />
+        <CardLink title={"RSV vaccine"} link={"/vaccines/rsv"} />
+      </div>
     </div>
   );
 };

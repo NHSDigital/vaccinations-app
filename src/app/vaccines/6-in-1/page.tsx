@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 
 import { VaccineTypes } from "@src/models/vaccine";
@@ -9,15 +8,12 @@ import { VaccineContentProvider } from "@src/app/_components/providers/VaccineCo
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "6-in-1 Vaccine - NHS App",
-};
-
-const Vaccine6in1 = async (): Promise<JSX.Element> => {
+const Vaccine6in1 = (): JSX.Element => {
   const contentPromise = getPageCopyForVaccine(VaccineTypes.SIX_IN_ONE);
 
   return (
     <div>
+      <title>6-in-1 Vaccine - NHS App</title>
       <BackLink link="/schedule" />
       <VaccineContentProvider contentPromise={contentPromise}>
         <Vaccine name={"6-in-1"} vaccine={VaccineTypes.SIX_IN_ONE} />
