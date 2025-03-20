@@ -34,20 +34,18 @@ describe("RSV vaccine page", () => {
     );
   });
 
-  it("should contain back link to vaccination schedule page", async () => {
+  it("should contain back link to vaccination schedule page", () => {
     const pathToSchedulePage = "/schedule";
 
-    const vaccineRsvPage = await VaccineRsv();
-    render(vaccineRsvPage);
+    render(VaccineRsv());
 
     const linkToSchedulePage = screen.getByRole("link", { name: "Go back" });
 
     expect(linkToSchedulePage.getAttribute("href")).toBe(pathToSchedulePage);
   });
 
-  it("should contain vaccine component", async () => {
-    const vaccineRsvPage = await VaccineRsv();
-    render(vaccineRsvPage);
+  it("should contain vaccine component", () => {
+    render(VaccineRsv());
 
     expect(Vaccine).toHaveBeenCalledWith(
       {

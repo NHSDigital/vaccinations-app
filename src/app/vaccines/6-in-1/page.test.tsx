@@ -34,19 +34,17 @@ describe("6-in-1 vaccine page", () => {
     );
   });
 
-  it("should contain back link to vaccination schedule page", async () => {
+  it("should contain back link to vaccination schedule page", () => {
     const pathToSchedulePage = "/schedule";
 
-    const vaccine6in1Page = await Vaccine6in1();
-    render(vaccine6in1Page);
+    render(Vaccine6in1());
 
     const linkToSchedulePage = screen.getByRole("link", { name: "Go back" });
     expect(linkToSchedulePage.getAttribute("href")).toBe(pathToSchedulePage);
   });
 
-  it("should contain vaccine component", async () => {
-    const vaccine6in1Page = await Vaccine6in1();
-    render(vaccine6in1Page);
+  it("should contain vaccine component", () => {
+    render(Vaccine6in1());
 
     expect(Vaccine).toHaveBeenCalledWith(
       {
