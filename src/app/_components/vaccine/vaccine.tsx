@@ -3,7 +3,7 @@
 import React, { use } from "react";
 import { VaccineTypes } from "@src/models/vaccine";
 import Details from "@src/app/_components/nhs-frontend/Details";
-import { useVaccineContent } from "@src/app/_components/providers/VaccineContentProvider";
+import { useVaccineContentContextValue } from "@src/app/_components/providers/VaccineContentProvider";
 
 interface VaccineProps {
   name: string;
@@ -11,7 +11,7 @@ interface VaccineProps {
 }
 
 const Vaccine = (props: VaccineProps): React.JSX.Element => {
-  const { contentPromise } = useVaccineContent();
+  const { contentPromise } = useVaccineContentContextValue();
   const content = use(contentPromise);
 
   return (

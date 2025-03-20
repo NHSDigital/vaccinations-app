@@ -3,20 +3,19 @@
 import { createContext, useContext, ReactNode } from "react";
 import { VaccinePageContent } from "@src/services/content-api/contentFilter";
 
-type VaccineContentContextType = {
+type VaccineContentContextValueType = {
   contentPromise: Promise<VaccinePageContent>;
 };
 
-const VaccineContentContext = createContext<VaccineContentContextType | null>(
-  null,
-);
+const vaccineContentContext =
+  createContext<VaccineContentContextValueType | null>(null);
 
-export function useVaccineContent(): VaccineContentContextType {
-  const context = useContext(VaccineContentContext);
-  if (context === null) {
-    throw new Error("useUser must be used within a UserProvider");
+export function useVaccineContentContextValue(): VaccineContentContextValueType {
+  const contextValue = useContext(vaccineContentContext);
+  if (contextValue === null) {
+    throw new Error("vaccine context value is null");
   }
-  return context;
+  return contextValue;
 }
 
 export function VaccineContentProvider({
@@ -27,8 +26,8 @@ export function VaccineContentProvider({
   contentPromise: Promise<VaccinePageContent>;
 }) {
   return (
-    <VaccineContentContext.Provider value={{ contentPromise: contentPromise }}>
+    <vaccineContentContext.Provider value={{ contentPromise: contentPromise }}>
       {children}
-    </VaccineContentContext.Provider>
+    </vaccineContentContext.Provider>
   );
 }
