@@ -12,12 +12,6 @@ repos:
     language: system
     pass_filenames: false
     verbose: true
-  - id: run-build
-    name: Run build
-    entry: npm run build
-    language: system
-    pass_filenames: false
-    verbose: true
   - id: run-tests
     name: Run tests
     entry: npm run test
