@@ -1,10 +1,10 @@
 "use client";
 
 import { createContext, useContext, ReactNode } from "react";
-import { VaccinePageContent } from "@src/services/content-api/contentFilter";
+import { StyledVaccineContent } from "@src/services/content-api/contentStylingService";
 
 type VaccineContentContextValueType = {
-  contentPromise: Promise<VaccinePageContent>;
+  contentPromise: Promise<StyledVaccineContent>;
 };
 
 const vaccineContentContext =
@@ -23,7 +23,7 @@ export function VaccineContentProvider({
   contentPromise,
 }: {
   children: ReactNode;
-  contentPromise: Promise<VaccinePageContent>;
+  contentPromise: Promise<StyledVaccineContent>;
 }) {
   return (
     <vaccineContentContext.Provider value={{ contentPromise: contentPromise }}>

@@ -1,7 +1,7 @@
 "use server";
 
-import { getContentForVaccine } from "@src/services/content-api/contentService";
 import { VaccineDisplayNames, VaccineTypes } from "@src/models/vaccine";
+import { getContentForVaccine } from "@src/services/content-api/contentService";
 
 type Aspect =
   | "OverviewHealthAspect"
@@ -10,26 +10,34 @@ type Aspect =
   | "ContraindicationsHealthAspect"
   | "GettingAccessHealthAspect";
 
-type HasPart = {
-  "@type": string;
-  hasHealthAspect: string;
-  description: string;
+type HasPartSubsection = {
+  text: string;
+  name: string;
   headline: string;
+};
+
+type MainEntityOfPage = {
+  hasHealthAspect?: string;
+  headline: string;
+  text: string;
+  name: string;
   hasPart: HasPartSubsection[];
 };
 
-type HasPartSubsection = {
+type ContentApiVaccineResponse = {
+  mainEntityOfPage: MainEntityOfPage[];
+};
+
+export type VaccinePageSubsection = {
+  headline: string;
   text: string;
-  "@type": string;
-  headline?: string;
-  identifier?: string;
+  name: string;
 };
 
-export type ContentApiVaccineResponse = {
-  hasPart: HasPart[];
+export type VaccinePageSection = {
+  headline: string;
+  subsections: VaccinePageSubsection[];
 };
-
-type VaccinePageSection = { heading: string; text: string };
 
 export type VaccinePageContent = {
   overview: string;
@@ -43,74 +51,77 @@ const findAspect = (
   response: ContentApiVaccineResponse,
   aspectName: Aspect,
 ) => {
-  const aspect = response.hasPart.find((part: HasPart) =>
-    part.hasHealthAspect.endsWith(aspectName),
+  const aspect = response.mainEntityOfPage.find((page: MainEntityOfPage) =>
+    page.hasHealthAspect?.endsWith(aspectName),
   );
-  return aspect;
-};
-
-const extractAllPartsTextForAspect = (
-  response: ContentApiVaccineResponse,
-  aspectName: Aspect,
-): string => {
-  const aspectInfo = findAspect(response, aspectName);
-  const aspect = aspectInfo!.hasPart
-    .map((part: HasPartSubsection) => part.text)
-    .join("");
-  return aspect;
+  return aspect!;
 };
 
 const extractHeadlineForAspect = (
-  contentApiVaccineText: ContentApiVaccineResponse,
+  response: ContentApiVaccineResponse,
   aspectName: Aspect,
 ): string => {
-  const aspect = findAspect(contentApiVaccineText, aspectName);
-  return aspect!.headline;
+  const aspect: MainEntityOfPage = findAspect(response, aspectName);
+  return aspect.headline;
 };
 
-const extractDescriptionForAspect = (
-  contentApiVaccineText: ContentApiVaccineResponse,
+const extractPartsForAspect = (
+  response: ContentApiVaccineResponse,
   aspectName: Aspect,
-): string => {
-  const aspect = findAspect(contentApiVaccineText, aspectName);
-  return aspect!.description;
+): VaccinePageSubsection[] => {
+  const aspect: MainEntityOfPage = findAspect(response, aspectName);
+  const subsections: VaccinePageSubsection[] = aspect!.hasPart.map(
+    (part: HasPartSubsection) => {
+      return {
+        headline: part.headline,
+        text: part.text,
+        name: part.name,
+      };
+    },
+  );
+  return subsections;
 };
 
-const generateWhoVaccineIsForHeading = (vaccineType: VaccineTypes) => {
+const extractDescriptionForVaccine = (
+  response: ContentApiVaccineResponse,
+  name: string,
+): string => {
+  const mainEntity = response.mainEntityOfPage.find(
+    (page: MainEntityOfPage) => page.name === name,
+  );
+  return mainEntity!.text;
+};
+
+const generateWhoVaccineIsForHeading = (vaccineType: VaccineTypes): string => {
   return `Who should have the ${VaccineDisplayNames[vaccineType]} vaccine`;
 };
 
-const getPageCopyForVaccine = async (
+const getFilteredContentForVaccine = async (
   vaccineName: VaccineTypes,
 ): Promise<VaccinePageContent> => {
   const response = await getContentForVaccine(vaccineName);
 
-  const overview = extractDescriptionForAspect(
-    response,
-    "OverviewHealthAspect",
-  );
+  const overview = extractDescriptionForVaccine(response, "lead paragraph");
 
   const whatVaccineIsFor: VaccinePageSection = {
-    heading: extractHeadlineForAspect(response, "BenefitsHealthAspect"),
-    text: extractAllPartsTextForAspect(response, "BenefitsHealthAspect"),
+    headline: extractHeadlineForAspect(response, "BenefitsHealthAspect"),
+    subsections: extractPartsForAspect(response, "BenefitsHealthAspect"),
   };
 
   const whoVaccineIsFor: VaccinePageSection = {
-    heading: generateWhoVaccineIsForHeading(vaccineName),
-    text: extractAllPartsTextForAspect(
+    headline: generateWhoVaccineIsForHeading(vaccineName),
+    subsections: extractPartsForAspect(
       response,
       "SuitabilityHealthAspect",
-    ).concat(
-      extractAllPartsTextForAspect(response, "ContraindicationsHealthAspect"),
-    ),
+    ).concat(extractPartsForAspect(response, "ContraindicationsHealthAspect")),
   };
 
   const howToGetVaccine: VaccinePageSection = {
-    heading: extractHeadlineForAspect(response, "GettingAccessHealthAspect"),
-    text: extractAllPartsTextForAspect(response, "GettingAccessHealthAspect"),
+    headline: extractHeadlineForAspect(response, "GettingAccessHealthAspect"),
+    subsections: extractPartsForAspect(response, "GettingAccessHealthAspect"),
   };
 
-  const webpageLink = response.webpage;
+  const webpageLink: string = response.webpage;
 
   return {
     overview,
@@ -122,8 +133,9 @@ const getPageCopyForVaccine = async (
 };
 
 export {
-  getPageCopyForVaccine,
-  extractDescriptionForAspect,
-  extractAllPartsTextForAspect,
+  getFilteredContentForVaccine,
+  extractPartsForAspect,
+  extractHeadlineForAspect,
+  extractDescriptionForVaccine,
   generateWhoVaccineIsForHeading,
 };

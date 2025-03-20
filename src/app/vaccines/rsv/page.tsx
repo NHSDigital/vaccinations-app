@@ -3,13 +3,13 @@ import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import { VaccineTypes } from "@src/models/vaccine";
 import Vaccine from "@src/app/_components/vaccine/vaccine";
 import { JSX } from "react";
-import { getPageCopyForVaccine } from "@src/services/content-api/contentFilter";
 import { VaccineContentProvider } from "@src/app/_components/providers/VaccineContentProvider";
+import { getStyledContentForVaccine } from "@src/services/content-api/contentStylingService";
 
 export const dynamic = "force-dynamic";
 
 const VaccineRsv = (): JSX.Element => {
-  const contentPromise = getPageCopyForVaccine(VaccineTypes.RSV);
+  const contentPromise = getStyledContentForVaccine(VaccineTypes.RSV);
 
   return (
     <div>

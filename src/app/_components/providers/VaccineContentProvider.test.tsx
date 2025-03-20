@@ -3,14 +3,14 @@ import {
   VaccineContentProvider,
 } from "@src/app/_components/providers/VaccineContentProvider";
 import { renderHook } from "@testing-library/react";
-import {
-  getPageCopyForVaccine,
-  VaccinePageContent,
-} from "@src/services/content-api/contentFilter";
 import { VaccineTypes } from "@src/models/vaccine";
 import React from "react";
+import {
+  getStyledContentForVaccine,
+  StyledVaccineContent,
+} from "@src/services/content-api/contentStylingService";
 
-jest.mock("@src/services/content-api/contentFilter");
+jest.mock("@src/services/content-api/contentStylingService");
 
 const mockContent = {
   overview: "Overview text",
@@ -29,11 +29,11 @@ const mockContent = {
   webpageLink: "https://www.test.com/",
 };
 
-let contentPromise: Promise<VaccinePageContent>;
+let contentPromise: Promise<StyledVaccineContent>;
 
 beforeEach(() => {
-  (getPageCopyForVaccine as jest.Mock).mockResolvedValue(mockContent);
-  contentPromise = getPageCopyForVaccine(VaccineTypes.SIX_IN_ONE);
+  (getStyledContentForVaccine as jest.Mock).mockResolvedValue(mockContent);
+  contentPromise = getStyledContentForVaccine(VaccineTypes.SIX_IN_ONE);
 });
 
 describe("vaccine content context", () => {

@@ -1,8 +1,9 @@
 import stringToHtml from "@src/utils/stringToHtml";
+import { JSX } from "react";
 
 interface DetailsProps {
-  summaryText: string;
-  text: string;
+  title: string;
+  component: JSX.Element;
 }
 
 const Details = (detailsProps: DetailsProps) => {
@@ -10,15 +11,10 @@ const Details = (detailsProps: DetailsProps) => {
     <details className="nhsuk-details nhsuk-expander">
       <summary className="nhsuk-details__summary">
         <span className="nhsuk-details__summary-text">
-          <div
-            dangerouslySetInnerHTML={stringToHtml(detailsProps.summaryText)}
-          />
+          <div dangerouslySetInnerHTML={stringToHtml(detailsProps.title)} />
         </span>
       </summary>
-      <div
-        className="nhsuk-details__text"
-        dangerouslySetInnerHTML={stringToHtml(detailsProps.text)}
-      />
+      <div className="nhsuk-details__text">{detailsProps.component}</div>
     </details>
   );
 };

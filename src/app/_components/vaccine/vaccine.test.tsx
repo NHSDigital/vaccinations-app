@@ -1,39 +1,41 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import Vaccine from "@src/app/_components/vaccine/vaccine";
-import {
-  getPageCopyForVaccine,
-  VaccinePageContent,
-} from "@src/services/content-api/contentFilter";
 import { VaccineTypes } from "@src/models/vaccine";
+import {
+  getStyledContentForVaccine,
+  StyledVaccineContent,
+} from "@src/services/content-api/contentStylingService";
 import { VaccineContentProvider } from "@src/app/_components/providers/VaccineContentProvider";
 import { act } from "react";
 
-jest.mock("@src/services/content-api/contentFilter");
+jest.mock("@src/services/content-api/contentStylingService.tsx");
 
 describe("Any vaccine page", () => {
-  const mockContent = {
+  const mockStyledContent: StyledVaccineContent = {
     overview: "Overview text",
     whatVaccineIsFor: {
       heading: "what-heading",
-      text: "<p data-testid='what-text-paragraph'>what-text</p>",
+      component: <p>What Section styled component</p>,
     },
     whoVaccineIsFor: {
       heading: "who-heading",
-      text: "<p data-testid='who-text-paragraph'>who-text</p>",
+      component: <h2>Who Section styled component</h2>,
     },
     howToGetVaccine: {
       heading: "how-heading",
-      text: "<p data-testid='how-text-paragraph'>how-text</p>",
+      component: <div>How Section styled component</div>,
     },
     webpageLink: "https://www.test.com/",
   };
   const mockVaccineName = "Test-Name";
-  let contentPromise: Promise<VaccinePageContent>;
+  let contentPromise: Promise<StyledVaccineContent>;
 
   beforeEach(() => {
-    (getPageCopyForVaccine as jest.Mock).mockResolvedValue(mockContent);
-    contentPromise = getPageCopyForVaccine(VaccineTypes.SIX_IN_ONE);
+    (getStyledContentForVaccine as jest.Mock).mockResolvedValue(
+      mockStyledContent,
+    );
+    contentPromise = getStyledContentForVaccine(VaccineTypes.SIX_IN_ONE);
   });
 
   const renderVaccinePage = async () => {
@@ -55,34 +57,34 @@ describe("Any vaccine page", () => {
   it("should contain whatItIsFor expander block", async () => {
     await renderVaccinePage();
 
-    const whatItIsForHeading = screen.getByText("what-heading");
-    const whatItIsForText = screen.getByTestId("what-text-paragraph");
+    const heading = screen.getByText("what-heading");
+    const content = screen.getByText("What Section styled component");
 
-    expect(whatItIsForHeading).toBeInTheDocument();
-    expect(whatItIsForText).toBeInTheDocument();
-    expect(whatItIsForText).toHaveTextContent("what-text");
+    expect(heading).toBeInTheDocument();
+    expect(content).toBeInTheDocument();
   });
 
   it("should contain whoVaccineIsFor expander block", async () => {
     await renderVaccinePage();
 
-    const whoVaccineIsForHeading = screen.getByText("who-heading");
-    const whoVaccineIsForText = screen.getByTestId("who-text-paragraph");
+    const heading = screen.getByText("who-heading");
+    const content = screen.getByRole("heading", {
+      level: 2,
+      name: "Who Section styled component",
+    });
 
-    expect(whoVaccineIsForHeading).toBeInTheDocument();
-    expect(whoVaccineIsForText).toBeInTheDocument();
-    expect(whoVaccineIsForText).toHaveTextContent("who-text");
+    expect(heading).toBeInTheDocument();
+    expect(content).toBeInTheDocument();
   });
 
   it("should contain howToGetVaccine expander block", async () => {
     await renderVaccinePage();
 
-    const howToGetVaccineHeading = screen.getByText("how-heading");
-    const howToGetVaccineText = screen.getByTestId("how-text-paragraph");
+    const heading = screen.getByText("how-heading");
+    const content = screen.getByText("How Section styled component");
 
-    expect(howToGetVaccineHeading).toBeInTheDocument();
-    expect(howToGetVaccineText).toBeInTheDocument();
-    expect(howToGetVaccineText).toHaveTextContent("how-text");
+    expect(heading).toBeInTheDocument();
+    expect(content).toBeInTheDocument();
   });
 
   it("should contain webpage link", async () => {
