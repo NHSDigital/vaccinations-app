@@ -8,7 +8,7 @@ jest.mock("@src/services/content-api/contentService");
 
 describe("Vaccination Hub Page", () => {
   it("renders all headings", async () => {
-    const VaccinationsHubPage: JSX.Element = await VaccinationsHub();
+    const VaccinationsHubPage: JSX.Element = VaccinationsHub();
     render(VaccinationsHubPage);
 
     const headings: HTMLElement[] = screen.getAllByRole("heading", {
@@ -19,7 +19,7 @@ describe("Vaccination Hub Page", () => {
   });
 
   it("renders the text below heading", async () => {
-    const VaccinationsHubPage: JSX.Element = await VaccinationsHub();
+    const VaccinationsHubPage: JSX.Element = VaccinationsHub();
     render(VaccinationsHubPage);
 
     const heading: HTMLElement = screen.getByText(
@@ -31,7 +31,7 @@ describe("Vaccination Hub Page", () => {
   });
 
   it("renders View all link", async () => {
-    const VaccinationsHubPage: JSX.Element = await VaccinationsHub();
+    const VaccinationsHubPage: JSX.Element = VaccinationsHub();
     render(VaccinationsHubPage);
 
     const link: HTMLElement = screen.getByRole("link", { name: "View all" });
@@ -40,7 +40,7 @@ describe("Vaccination Hub Page", () => {
   });
 
   it("renders the text below 2nd heading", async () => {
-    const VaccinationsHubPage: JSX.Element = await VaccinationsHub();
+    const VaccinationsHubPage: JSX.Element = VaccinationsHub();
     render(VaccinationsHubPage);
 
     const heading: HTMLElement = screen.getByText(
@@ -52,7 +52,7 @@ describe("Vaccination Hub Page", () => {
   });
 
   it("renders 6-in-1 link", async () => {
-    const VaccinationsHubPage: JSX.Element = await VaccinationsHub();
+    const VaccinationsHubPage: JSX.Element = VaccinationsHub();
     render(VaccinationsHubPage);
 
     const link: HTMLElement = screen.getByRole("link", {
@@ -63,7 +63,7 @@ describe("Vaccination Hub Page", () => {
   });
 
   it("renders RSV vaccine link", async () => {
-    const VaccinationsHubPage: JSX.Element = await VaccinationsHub();
+    const VaccinationsHubPage: JSX.Element = VaccinationsHub();
     render(VaccinationsHubPage);
 
     const link: HTMLElement = screen.getByRole("link", { name: "RSV vaccine" });

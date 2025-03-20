@@ -1,8 +1,13 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import Vaccine from "@src/app/_components/vaccine/vaccine";
-import { getPageCopyForVaccine } from "@src/services/content-api/contentFilter";
+import {
+  getPageCopyForVaccine,
+  VaccinePageContent,
+} from "@src/services/content-api/contentFilter";
 import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineContentProvider } from "@src/app/_components/providers/VaccineContentProvider";
+import { act } from "react";
 
 jest.mock("@src/services/content-api/contentFilter");
 
@@ -24,29 +29,31 @@ describe("Any vaccine page", () => {
     webpageLink: "https://www.test.com/",
   };
   const mockVaccineName = "Test-Name";
+  let contentPromise: Promise<VaccinePageContent>;
 
   beforeEach(() => {
     (getPageCopyForVaccine as jest.Mock).mockResolvedValue(mockContent);
+    contentPromise = getPageCopyForVaccine(VaccineTypes.SIX_IN_ONE);
   });
 
-  it("should contain overview text", async () => {
-    const vaccinePage = await Vaccine({
-      name: mockVaccineName,
-      vaccine: VaccineTypes.RSV,
+  const renderVaccinePage = async () => {
+    await act(async () => {
+      render(
+        <VaccineContentProvider contentPromise={contentPromise}>
+          <Vaccine name={mockVaccineName} vaccine={VaccineTypes.SIX_IN_ONE} />
+        </VaccineContentProvider>,
+      );
     });
-    render(vaccinePage);
+  };
 
+  it("should contain overview text", async () => {
+    await renderVaccinePage();
     const overviewBlock = screen.getByText("Overview text");
-
     expect(overviewBlock).toBeInTheDocument();
   });
 
   it("should contain whatItIsFor expander block", async () => {
-    const vaccinePage = await Vaccine({
-      name: mockVaccineName,
-      vaccine: VaccineTypes.RSV,
-    });
-    render(vaccinePage);
+    await renderVaccinePage();
 
     const whatItIsForHeading = screen.getByText("what-heading");
     const whatItIsForText = screen.getByTestId("what-text-paragraph");
@@ -57,11 +64,7 @@ describe("Any vaccine page", () => {
   });
 
   it("should contain whoVaccineIsFor expander block", async () => {
-    const vaccinePage = await Vaccine({
-      name: mockVaccineName,
-      vaccine: VaccineTypes.RSV,
-    });
-    render(vaccinePage);
+    await renderVaccinePage();
 
     const whoVaccineIsForHeading = screen.getByText("who-heading");
     const whoVaccineIsForText = screen.getByTestId("who-text-paragraph");
@@ -72,11 +75,7 @@ describe("Any vaccine page", () => {
   });
 
   it("should contain howToGetVaccine expander block", async () => {
-    const vaccinePage = await Vaccine({
-      name: mockVaccineName,
-      vaccine: VaccineTypes.RSV,
-    });
-    render(vaccinePage);
+    await renderVaccinePage();
 
     const howToGetVaccineHeading = screen.getByText("how-heading");
     const howToGetVaccineText = screen.getByTestId("how-text-paragraph");
@@ -87,11 +86,7 @@ describe("Any vaccine page", () => {
   });
 
   it("should contain webpage link", async () => {
-    const vaccinePage = await Vaccine({
-      name: mockVaccineName,
-      vaccine: VaccineTypes.RSV,
-    });
-    render(vaccinePage);
+    await renderVaccinePage();
 
     const webpageLink = screen.getByRole("link", {
       name: `Find out more about ${mockVaccineName} vaccination on the NHS.uk`,
