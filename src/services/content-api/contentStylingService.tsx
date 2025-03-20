@@ -10,10 +10,22 @@ import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCa
 import { JSX } from "react";
 import { VaccineTypes } from "@src/models/vaccine";
 
+enum SubsectionTypes {
+  INFORMATION = "INFORMATION",
+  NON_URGENT = "NON_URGENT",
+}
+
+const Subsections: Record<SubsectionTypes, string> = {
+  [SubsectionTypes.INFORMATION]: "Information",
+  [SubsectionTypes.NON_URGENT]: "non-urgent",
+};
+
 export type StyledPageSection = {
   heading: string;
   component: JSX.Element;
 };
+
+export type NonUrgentContent = { heading: string; content: string };
 
 export type StyledVaccineContent = {
   overview: string;
@@ -23,19 +35,21 @@ export type StyledVaccineContent = {
   webpageLink: string;
 };
 
-const styleSubsection = (subsection: VaccinePageSubsection, id: number) => {
-  let text = subsection.text;
+const styleSubsection = (
+  subsection: VaccinePageSubsection,
+  id: number,
+): JSX.Element => {
+  let text: string = subsection.text;
   if (subsection.headline) {
     text = `<h3 key={id}>${subsection.headline}</h3>`.concat(text);
   }
-  if (subsection.name === "markdown") {
-    return <div key={id} dangerouslySetInnerHTML={stringToHtml(text)} />;
-  }
-  if (subsection.name === "Information") {
+  if (subsection.name === Subsections.INFORMATION) {
     return <InsetText key={id} content={text} />;
-  }
-  if (subsection.name === "non-urgent") {
-    return <NonUrgentCareCard key={id} content={text} />;
+  } else if (subsection.name === Subsections.NON_URGENT) {
+    const { heading, content } = extractHeadingAndContent(subsection.text);
+    return <NonUrgentCareCard key={id} heading={heading} content={content} />;
+  } else {
+    return <div key={id} dangerouslySetInnerHTML={stringToHtml(text)} />;
   }
 };
 
@@ -53,6 +67,23 @@ const styleSection = (section: VaccinePageSection): StyledPageSection => {
     heading,
     component: styledComponent,
   };
+};
+
+const extractHeadingAndContent = (text: string): NonUrgentContent => {
+  const pattern: RegExp = /<h3>(.*?)<\/h3>/;
+  const match: RegExpMatchArray | null = text.match(pattern);
+
+  if (match) {
+    const firstOccurrence: string = match[1];
+    const remainingText: string = text.replace(pattern, "").trim();
+
+    return { heading: firstOccurrence, content: remainingText };
+  } else {
+    return {
+      heading: "",
+      content: "",
+    };
+  }
 };
 
 const getStyledContentForVaccine = async (
@@ -81,4 +112,9 @@ const getStyledContentForVaccine = async (
   };
 };
 
-export { styleSubsection, styleSection, getStyledContentForVaccine };
+export {
+  styleSubsection,
+  styleSection,
+  getStyledContentForVaccine,
+  extractHeadingAndContent,
+};
