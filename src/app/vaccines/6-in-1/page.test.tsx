@@ -2,7 +2,6 @@ import { render, screen } from "@testing-library/react";
 import Vaccine6in1 from "@src/app/vaccines/6-in-1/page";
 import { getStyledContentForVaccine } from "@src/services/content-api/contentStylingService";
 import Vaccine from "@src/app/_components/vaccine/vaccine";
-import { VaccineTypes } from "@src/models/vaccine";
 import { mockStyledContent } from "@test-data/content-api/data";
 
 jest.mock("@src/services/content-api/contentStylingService.tsx");
@@ -30,7 +29,6 @@ describe("6-in-1 vaccine page", () => {
     expect(Vaccine).toHaveBeenCalledWith(
       {
         name: "6-in-1",
-        vaccine: VaccineTypes.SIX_IN_ONE,
       },
       undefined,
     );

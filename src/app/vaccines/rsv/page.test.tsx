@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import VaccineRsv from "@src/app/vaccines/rsv/page";
 import Vaccine from "@src/app/_components/vaccine/vaccine";
-import { VaccineTypes } from "@src/models/vaccine";
 import { getStyledContentForVaccine } from "@src/services/content-api/contentStylingService";
 import { mockStyledContent } from "@test-data/content-api/data";
 
@@ -31,7 +30,6 @@ describe("RSV vaccine page", () => {
     expect(Vaccine).toHaveBeenCalledWith(
       {
         name: "RSV",
-        vaccine: VaccineTypes.RSV,
       },
       undefined,
     );

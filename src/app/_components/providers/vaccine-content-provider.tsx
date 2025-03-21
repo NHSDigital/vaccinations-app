@@ -1,9 +1,14 @@
 "use client";
 
-import { createContext, useContext, ReactNode } from "react";
+import { createContext, useContext, ReactNode, useMemo } from "react";
 import { StyledVaccineContent } from "@src/services/content-api/contentStylingService";
 
 type VaccineContentContextValueType = {
+  contentPromise: Promise<StyledVaccineContent>;
+};
+
+type VaccineContentProviderProps = {
+  children: ReactNode;
   contentPromise: Promise<StyledVaccineContent>;
 };
 
@@ -21,12 +26,14 @@ export function useVaccineContentContextValue(): VaccineContentContextValueType 
 export function VaccineContentProvider({
   children,
   contentPromise,
-}: {
-  children: ReactNode;
-  contentPromise: Promise<StyledVaccineContent>;
-}) {
+}: Readonly<VaccineContentProviderProps>) {
+  const contentPromiseProp = useMemo(
+    () => ({ contentPromise: contentPromise }),
+    [contentPromise],
+  );
+
   return (
-    <vaccineContentContext.Provider value={{ contentPromise: contentPromise }}>
+    <vaccineContentContext.Provider value={contentPromiseProp}>
       {children}
     </vaccineContentContext.Provider>
   );

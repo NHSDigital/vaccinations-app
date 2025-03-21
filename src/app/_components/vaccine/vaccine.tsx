@@ -1,13 +1,11 @@
 "use client";
 
 import React, { use } from "react";
-import { VaccineTypes } from "@src/models/vaccine";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import { useVaccineContentContextValue } from "@src/app/_components/providers/vaccine-content-provider";
 
 interface VaccineProps {
   name: string;
-  vaccine: VaccineTypes;
 }
 
 const Vaccine = (props: VaccineProps): React.JSX.Element => {
