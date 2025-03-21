@@ -71,7 +71,7 @@ const styleSection = (section: VaccinePageSection): StyledPageSection => {
 
 const extractHeadingAndContent = (text: string): NonUrgentContent => {
   const pattern: RegExp = /^<h3>(.*?)<\/h3>/;
-  const match: RegExpMatchArray | null = text.match(pattern);
+  const match: RegExpMatchArray | null = pattern.exec(text);
 
   if (match) {
     const firstOccurrence: string = match[1];
