@@ -30,11 +30,13 @@ describe("Vaccination Hub Page", () => {
     expect(heading).toBeInTheDocument();
   });
 
-  it("renders View all link", async () => {
+  it("renders View all vaccinations link", async () => {
     const VaccinationsHubPage: JSX.Element = VaccinationsHub();
     render(VaccinationsHubPage);
 
-    const link: HTMLElement = screen.getByRole("link", { name: "View all" });
+    const link: HTMLElement = screen.getByRole("link", {
+      name: "View all vaccinations",
+    });
 
     expect(link).toBeInTheDocument();
   });

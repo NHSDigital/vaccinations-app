@@ -21,11 +21,6 @@ const VaccinationsHub = () => {
         <div>
           <h3>Vaccinations</h3>
         </div>
-        <div>
-          <Link prefetch={false} href="/schedule">
-            View all
-          </Link>
-        </div>
       </div>
       <p>
         Based on your age, these vaccinations may be relevant - some
@@ -34,6 +29,11 @@ const VaccinationsHub = () => {
       <div className="nhsapp-cards nhsapp-cards--stacked">
         <CardLink title={"6-in-1 vaccine"} link={"/vaccines/6-in-1"} />
         <CardLink title={"RSV vaccine"} link={"/vaccines/rsv"} />
+      </div>
+      <div>
+        <Link prefetch={false} href="/schedule">
+          View all vaccinations
+        </Link>
       </div>
     </div>
   );
