@@ -27,11 +27,22 @@ describe("Any vaccine page", () => {
     await act(async () => {
       render(
         <VaccineContentProvider contentPromise={contentPromise}>
-          <Vaccine name={mockVaccineName} vaccine={VaccineTypes.SIX_IN_ONE} />
+          <Vaccine name={mockVaccineName} />
         </VaccineContentProvider>,
       );
     });
   };
+
+  it("should contain correct vaccine name in heading", async () => {
+    await renderVaccinePage();
+
+    const heading = screen.getByRole("heading", {
+      level: 1,
+      name: `${mockVaccineName} vaccine`,
+    });
+
+    expect(heading).toBeInTheDocument();
+  });
 
   it("should contain overview text", async () => {
     await renderVaccinePage();

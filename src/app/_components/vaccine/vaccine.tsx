@@ -14,7 +14,7 @@ const Vaccine = (props: VaccineProps): React.JSX.Element => {
 
   return (
     <div>
-      <h1 className="app-dynamic-page-title__heading">{props.name} Vaccine</h1>
+      <h1 className="app-dynamic-page-title__heading">{`${props.name} vaccine`}</h1>
       <p>{styledContent.overview}</p>
 
       <h2 className="nhsuk-heading-s">More information</h2>
