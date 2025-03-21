@@ -6,7 +6,7 @@ jest.mock("@src/services/content-api/contentService");
 
 describe("Schedule Page", () => {
   it("renders the correct page heading", async () => {
-    const SchedulePage = await Schedule();
+    const SchedulePage = Schedule();
     render(SchedulePage);
 
     const heading = screen.getByRole("heading", {
@@ -20,7 +20,7 @@ describe("Schedule Page", () => {
   it("renders the section headings", async () => {
     const expectedSectionText = ["Vaccines for babies under 1 year old"];
 
-    const SchedulePage = await Schedule();
+    const SchedulePage = Schedule();
     render(SchedulePage);
 
     expectedSectionText.forEach((headingText) => {
@@ -34,7 +34,7 @@ describe("Schedule Page", () => {
   });
 
   it("renders static description text", async () => {
-    const SchedulePage = await Schedule();
+    const SchedulePage = Schedule();
     render(SchedulePage);
 
     const description = screen.getByText(
@@ -52,7 +52,7 @@ describe("Schedule Page", () => {
       },
     ];
 
-    const SchedulePage = await Schedule();
+    const SchedulePage = Schedule();
     render(SchedulePage);
 
     expectedVaccines.forEach((vaccine) => {
@@ -66,7 +66,7 @@ describe("Schedule Page", () => {
   it("should contain back link to vaccination hub page", async () => {
     const pathToHubPage = "/";
 
-    const schedulePage = await Schedule();
+    const schedulePage = Schedule();
     render(schedulePage);
 
     const linkToHubPage = screen.getByRole("link", { name: "Go back" });

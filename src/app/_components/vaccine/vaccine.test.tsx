@@ -8,26 +8,11 @@ import {
 } from "@src/services/content-api/contentStylingService";
 import { VaccineContentProvider } from "@src/app/_components/providers/VaccineContentProvider";
 import { act } from "react";
+import { mockStyledContent } from "@test-data/content-api/data";
 
 jest.mock("@src/services/content-api/contentStylingService.tsx");
 
 describe("Any vaccine page", () => {
-  const mockStyledContent: StyledVaccineContent = {
-    overview: "Overview text",
-    whatVaccineIsFor: {
-      heading: "what-heading",
-      component: <p>What Section styled component</p>,
-    },
-    whoVaccineIsFor: {
-      heading: "who-heading",
-      component: <h2>Who Section styled component</h2>,
-    },
-    howToGetVaccine: {
-      heading: "how-heading",
-      component: <div>How Section styled component</div>,
-    },
-    webpageLink: "https://www.test.com/",
-  };
   const mockVaccineName = "Test-Name";
   let contentPromise: Promise<StyledVaccineContent>;
 
