@@ -6,7 +6,7 @@ import {
   getStyledContentForVaccine,
   StyledVaccineContent,
 } from "@src/services/content-api/contentStylingService";
-import { VaccineContentProvider } from "@src/app/_components/providers/VaccineContentProvider";
+import { VaccineContentProvider } from "@src/app/_components/providers/vaccine-content-provider";
 import { act } from "react";
 import { mockStyledContent } from "@test-data/content-api/data";
 

@@ -1,7 +1,7 @@
 import {
   useVaccineContentContextValue,
   VaccineContentProvider,
-} from "@src/app/_components/providers/VaccineContentProvider";
+} from "@src/app/_components/providers/vaccine-content-provider";
 import { renderHook } from "@testing-library/react";
 import { VaccineTypes } from "@src/models/vaccine";
 import React from "react";
@@ -9,30 +9,16 @@ import {
   getStyledContentForVaccine,
   StyledVaccineContent,
 } from "@src/services/content-api/contentStylingService";
+import { mockStyledContent } from "@test-data/content-api/data";
 
 jest.mock("@src/services/content-api/contentStylingService");
-
-const mockContent = {
-  overview: "Overview text",
-  whatVaccineIsFor: {
-    heading: "what-heading",
-    text: "<p data-testid='what-text-paragraph'>what-text</p>",
-  },
-  whoVaccineIsFor: {
-    heading: "who-heading",
-    text: "<p data-testid='who-text-paragraph'>who-text</p>",
-  },
-  howToGetVaccine: {
-    heading: "how-heading",
-    text: "<p data-testid='how-text-paragraph'>how-text</p>",
-  },
-  webpageLink: "https://www.test.com/",
-};
 
 let contentPromise: Promise<StyledVaccineContent>;
 
 beforeEach(() => {
-  (getStyledContentForVaccine as jest.Mock).mockResolvedValue(mockContent);
+  (getStyledContentForVaccine as jest.Mock).mockResolvedValue(
+    mockStyledContent,
+  );
   contentPromise = getStyledContentForVaccine(VaccineTypes.SIX_IN_ONE);
 });
 

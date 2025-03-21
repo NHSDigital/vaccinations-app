@@ -3,7 +3,7 @@ import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import { VaccineTypes } from "@src/models/vaccine";
 import Vaccine from "@src/app/_components/vaccine/vaccine";
 import { JSX } from "react";
-import { VaccineContentProvider } from "@src/app/_components/providers/VaccineContentProvider";
+import { VaccineContentProvider } from "@src/app/_components/providers/vaccine-content-provider";
 import { getStyledContentForVaccine } from "@src/services/content-api/contentStylingService";
 
 export const dynamic = "force-dynamic";

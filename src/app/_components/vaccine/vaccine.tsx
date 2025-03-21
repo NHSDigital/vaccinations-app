@@ -3,7 +3,7 @@
 import React, { use } from "react";
 import { VaccineTypes } from "@src/models/vaccine";
 import Details from "@src/app/_components/nhs-frontend/Details";
-import { useVaccineContentContextValue } from "@src/app/_components/providers/VaccineContentProvider";
+import { useVaccineContentContextValue } from "@src/app/_components/providers/vaccine-content-provider";
 
 interface VaccineProps {
   name: string;
