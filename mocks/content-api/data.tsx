@@ -1,5 +1,6 @@
+import { StyledVaccineContent } from "@src/services/content-api/contentStylingService";
 
-const genericMockVaccineData = {
+export const genericMockVaccineData = {
   "@context": "http://schema.org",
   "@type": "MedicalWebPage",
   "name": "generic vaccine",
@@ -554,6 +555,21 @@ const genericMockVaccineData = {
     }
   ],
   "webpage": "https://www.nhs.uk/vaccinations/generic-vaccine/"
-}
+};
 
-export default genericMockVaccineData;
+export const mockStyledContent: StyledVaccineContent = {
+  overview: "Overview text",
+  whatVaccineIsFor: {
+    heading: "what-heading",
+    component: <p>What Section styled component</p>
+  },
+  whoVaccineIsFor: {
+    heading: "who-heading",
+    component: <h2>Who Section styled component</h2>
+  },
+  howToGetVaccine: {
+    heading: "how-heading",
+    component: <div>How Section styled component</div>
+  },
+  webpageLink: "https://www.test.com/"
+};

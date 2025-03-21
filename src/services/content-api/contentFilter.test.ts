@@ -1,6 +1,6 @@
 import { getContentForVaccine } from "@src/services/content-api/contentService";
 import { getFilteredContentForVaccine } from "@src/services/content-api/contentFilter";
-import genericMockVaccineData from "@test-data/genericMockVaccineData";
+import { genericMockVaccineData } from "@test-data/content-api/data";
 import { VaccineTypes } from "@src/models/vaccine";
 
 jest.mock("@src/services/content-api/contentService");

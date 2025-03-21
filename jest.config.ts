@@ -16,7 +16,7 @@ const config: Config = {
   moduleNameMapper: {
     "^@public/(.*)$": "<rootDir>/public/$1",
     "^@src/(.*)$": "<rootDir>/src/$1",
-    "^@test-data/(.*)$": "<rootDir>/mocks/test-data/$1"
+    "^@test-data/(.*)$": "<rootDir>/mocks/$1"
   },
 };
 
