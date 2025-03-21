@@ -223,5 +223,16 @@ describe("ContentStylingService", () => {
       expect(headingAndContent.heading).toEqual("");
       expect(headingAndContent.content).toEqual("");
     });
+
+    it("should return content as is, and empty heading from string that does not begin with h3 tags", () => {
+      const headingAndContent: NonUrgentContent = extractHeadingAndContent(
+        "<p>Some content<h3>Heading</h3></p>",
+      );
+
+      expect(headingAndContent.heading).toEqual("");
+      expect(headingAndContent.content).toEqual(
+        "<p>Some content<h3>Heading</h3></p>",
+      );
+    });
   });
 });

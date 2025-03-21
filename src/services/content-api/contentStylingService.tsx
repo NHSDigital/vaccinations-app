@@ -70,7 +70,7 @@ const styleSection = (section: VaccinePageSection): StyledPageSection => {
 };
 
 const extractHeadingAndContent = (text: string): NonUrgentContent => {
-  const pattern: RegExp = /<h3>(.*?)<\/h3>/;
+  const pattern: RegExp = /^<h3>(.*?)<\/h3>/;
   const match: RegExpMatchArray | null = text.match(pattern);
 
   if (match) {
@@ -81,7 +81,7 @@ const extractHeadingAndContent = (text: string): NonUrgentContent => {
   } else {
     return {
       heading: "",
-      content: "",
+      content: text,
     };
   }
 };
