@@ -140,44 +140,4 @@ describe("Content Filter", () => {
       );
     });
   });
-
-  // describe("extractAllPartsTextForAspect", () => {
-  //   it("should concatenate multiple hasParts text into a single string", () => {
-  //     const expectedConcatenatedPartsText =
-  //       '<p>Benefits Health Aspect:</p><ul><li><a href="https://www.nhs.uk/conditions/diphtheria/">diphtheria</a></li></ul><p>Second paragraph Benefits Health Aspect.</p><ul><li>Some list</li></ul>';
-  //
-  //     const allPartsText = extractAllPartsTextForAspect(
-  //       genericMockVaccineData,
-  //       "BenefitsHealthAspect",
-  //     );
-  //
-  //     expect(allPartsText).toEqual(expectedConcatenatedPartsText);
-  //   });
-  // });
-  //
-  // describe("extractDescriptionForAspect", () => {
-  //   it("should return description field from aspect contentApi text", () => {
-  //     const expectedDescription =
-  //       "The generic vaccine helps protect against serious illnesses.";
-  //
-  //     const extractedDescription = extractDescriptionForAspect(
-  //       genericMockVaccineData,
-  //       "OverviewHealthAspect",
-  //     );
-  //
-  //     expect(extractedDescription).toEqual(expectedDescription);
-  //   });
-  // });
-  //
-  // describe("generateWhoVaccineIsForHeading", () => {
-  //   it("should return string containing the vaccine name", () => {
-  //     const whoVaccineIsForHeading = generateWhoVaccineIsForHeading(
-  //       VaccineTypes.SIX_IN_ONE,
-  //     );
-  //
-  //     expect(whoVaccineIsForHeading).toEqual(
-  //       "Who should have the 6-in-1 vaccine",
-  //     );
-  //   });
-  // });
 });

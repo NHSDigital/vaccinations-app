@@ -70,7 +70,7 @@ const extractPartsForAspect = (
   aspectName: Aspect,
 ): VaccinePageSubsection[] => {
   const aspect: MainEntityOfPage = findAspect(response, aspectName);
-  const subsections: VaccinePageSubsection[] = aspect!.hasPart.map(
+  const subsections: VaccinePageSubsection[] = aspect.hasPart.map(
     (part: HasPartSubsection) => {
       return {
         headline: part.headline,
