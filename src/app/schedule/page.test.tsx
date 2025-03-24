@@ -1,14 +1,17 @@
 import { render, screen } from "@testing-library/react";
 import Schedule from "./page";
+import { JSX } from "react";
 
 jest.mock("@src/services/content-api/contentService");
 
 describe("Schedule Page", () => {
-  it("renders the correct page heading", async () => {
-    const SchedulePage = Schedule();
+  beforeEach(() => {
+    const SchedulePage: JSX.Element = Schedule();
     render(SchedulePage);
+  });
 
-    const heading = screen.getByRole("heading", {
+  it("renders the correct page heading", async () => {
+    const heading: HTMLElement = screen.getByRole("heading", {
       level: 1,
       name: "Vaccination schedule",
     });
@@ -17,13 +20,12 @@ describe("Schedule Page", () => {
   });
 
   it("renders the section headings", async () => {
-    const expectedSectionText = ["Vaccines for babies under 1 year old"];
-
-    const SchedulePage = Schedule();
-    render(SchedulePage);
+    const expectedSectionText: string[] = [
+      "Vaccines for babies under 1 year old",
+    ];
 
     expectedSectionText.forEach((headingText) => {
-      const sectionHeading = screen.getByRole("heading", {
+      const sectionHeading: HTMLElement = screen.getByRole("heading", {
         level: 2,
         name: headingText,
       });
@@ -33,10 +35,7 @@ describe("Schedule Page", () => {
   });
 
   it("renders static description text", async () => {
-    const SchedulePage = Schedule();
-    render(SchedulePage);
-
-    const description = screen.getByText(
+    const description: HTMLElement = screen.getByText(
       "Find out about vaccinations for babies, children and adults, including why they're important and how to get them.",
     );
 
@@ -51,11 +50,8 @@ describe("Schedule Page", () => {
       },
     ];
 
-    const SchedulePage = Schedule();
-    render(SchedulePage);
-
     expectedVaccines.forEach((vaccine) => {
-      const card = screen.getByText(vaccine.name);
+      const card: HTMLElement = screen.getByText(vaccine.name);
 
       expect(card).toBeInTheDocument();
       expect(card.getAttribute("href")).toBe(vaccine.href);
@@ -63,12 +59,11 @@ describe("Schedule Page", () => {
   });
 
   it("should contain back link to vaccination hub page", async () => {
-    const pathToHubPage = "/";
+    const pathToHubPage: string = "/";
 
-    const schedulePage = Schedule();
-    render(schedulePage);
-
-    const linkToHubPage = screen.getByRole("link", { name: "Go back" });
+    const linkToHubPage: HTMLElement = screen.getByRole("link", {
+      name: "Go back",
+    });
 
     expect(linkToHubPage.getAttribute("href")).toBe(pathToHubPage);
   });
