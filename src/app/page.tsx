@@ -19,7 +19,7 @@ const VaccinationsHub = () => {
       </p>
       <div className={styles.subheading}>
         <div>
-          <h3>Vaccinations</h3>
+          <h2>Vaccinations</h2>
         </div>
       </div>
       <p>

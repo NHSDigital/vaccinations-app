@@ -50,11 +50,13 @@ describe("Vaccination Hub Page", () => {
     });
 
     expect(link).toBeInTheDocument();
+    expect(link.getAttribute("href")).toEqual("/vaccines/6-in-1");
   });
 
   it("renders RSV vaccine link", async () => {
     const link: HTMLElement = screen.getByRole("link", { name: "RSV vaccine" });
 
     expect(link).toBeInTheDocument();
+    expect(link.getAttribute("href")).toEqual("/vaccines/rsv");
   });
 });
