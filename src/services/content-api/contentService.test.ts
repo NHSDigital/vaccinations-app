@@ -2,11 +2,11 @@
  * @jest-environment node
  */
 
+import { VaccineTypes } from "@src/models/vaccine";
 import {
   getContent,
   getContentForVaccine,
 } from "@src/services/content-api/contentService";
-import { VaccineTypes } from "@src/models/vaccine";
 import {
   CONTENT_API_VACCINATIONS_PATH,
   VaccineContentPaths,

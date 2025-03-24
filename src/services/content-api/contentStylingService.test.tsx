@@ -1,3 +1,6 @@
+import { render, screen } from "@testing-library/react";
+import { VaccineTypes } from "@src/models/vaccine";
+import { isValidElement, JSX } from "react";
 import {
   extractHeadingAndContent,
   getStyledContentForVaccine,
@@ -7,15 +10,11 @@ import {
   styleSection,
   styleSubsection,
 } from "@src/services/content-api/contentStylingService";
-import { render, screen } from "@testing-library/react";
-import { expect } from "@jest/globals";
 import {
   getFilteredContentForVaccine,
   VaccinePageContent,
   VaccinePageSection,
 } from "@src/services/content-api/contentFilter";
-import { VaccineTypes } from "@src/models/vaccine";
-import { isValidElement, JSX } from "react";
 
 jest.mock("@src/services/content-api/contentFilter");
 

@@ -1,14 +1,14 @@
+import stringToHtml from "@src/utils/stringToHtml";
+import InsetText from "@src/app/_components/nhs-frontend/InsetText";
+import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
+import { JSX } from "react";
+import { VaccineTypes } from "@src/models/vaccine";
 import {
   getFilteredContentForVaccine,
   VaccinePageContent,
   VaccinePageSection,
   VaccinePageSubsection,
 } from "@src/services/content-api/contentFilter";
-import stringToHtml from "@src/utils/stringToHtml";
-import InsetText from "@src/app/_components/nhs-frontend/InsetText";
-import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
-import { JSX } from "react";
-import { VaccineTypes } from "@src/models/vaccine";
 
 enum SubsectionTypes {
   INFORMATION = "INFORMATION",

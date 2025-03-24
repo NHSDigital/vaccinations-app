@@ -33,7 +33,7 @@ const Vaccine = (props: VaccineProps): React.JSX.Element => {
         />
       </div>
       <a href={styledContent.webpageLink}>
-        Find out more about {props.name} vaccination on the NHS.uk
+        Learn more about the {props.name} vaccination on nhs.uk
       </a>
     </div>
   );

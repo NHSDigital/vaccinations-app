@@ -2,13 +2,13 @@ import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import Vaccine from "@src/app/_components/vaccine/vaccine";
 import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineContentProvider } from "@src/app/_components/providers/vaccine-content-provider";
+import { act } from "react";
+import { mockStyledContent } from "@test-data/content-api/data";
 import {
   getStyledContentForVaccine,
   StyledVaccineContent,
 } from "@src/services/content-api/contentStylingService";
-import { VaccineContentProvider } from "@src/app/_components/providers/vaccine-content-provider";
-import { act } from "react";
-import { mockStyledContent } from "@test-data/content-api/data";
 
 jest.mock("@src/services/content-api/contentStylingService.tsx");
 
@@ -87,7 +87,7 @@ describe("Any vaccine page", () => {
     await renderVaccinePage();
 
     const webpageLink = screen.getByRole("link", {
-      name: `Find out more about ${mockVaccineName} vaccination on the NHS.uk`,
+      name: `Learn more about the ${mockVaccineName} vaccination on nhs.uk`,
     });
 
     expect(webpageLink).toBeInTheDocument();

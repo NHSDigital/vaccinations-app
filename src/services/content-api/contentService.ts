@@ -1,10 +1,12 @@
+"use server";
+
 import configProvider from "@src/utils/config";
+import { VaccineTypes } from "@src/models/vaccine";
+import { ContentApiVaccinationsResponse } from "@src/services/content-api/types";
 import {
   CONTENT_API_VACCINATIONS_PATH,
   vaccineTypeToPath,
 } from "@src/services/content-api/constants";
-import { VaccineTypes } from "@src/models/vaccine";
-import { ContentApiVaccinationsResponse } from "@src/services/content-api/types";
 
 const config = configProvider();
 

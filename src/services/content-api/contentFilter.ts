@@ -1,5 +1,3 @@
-"use server";
-
 import { VaccineDisplayNames, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/contentService";
 
