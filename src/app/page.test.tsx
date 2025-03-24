@@ -5,10 +5,12 @@ import { JSX } from "react";
 jest.mock("@src/services/content-api/contentService");
 
 describe("Vaccination Hub Page", () => {
-  it("renders all headings", async () => {
+  beforeEach(() => {
     const VaccinationsHubPage: JSX.Element = VaccinationsHub();
     render(VaccinationsHubPage);
+  });
 
+  it("renders all headings", async () => {
     const headings: HTMLElement[] = screen.getAllByRole("heading", {
       name: "Vaccinations",
     });
@@ -17,9 +19,6 @@ describe("Vaccination Hub Page", () => {
   });
 
   it("renders the text below heading", async () => {
-    const VaccinationsHubPage: JSX.Element = VaccinationsHub();
-    render(VaccinationsHubPage);
-
     const heading: HTMLElement = screen.getByText(
       "Find out about vaccinations for babies, " +
         "children and adults, including why they're important and how to get them.",
@@ -29,9 +28,6 @@ describe("Vaccination Hub Page", () => {
   });
 
   it("renders View all vaccinations link", async () => {
-    const VaccinationsHubPage: JSX.Element = VaccinationsHub();
-    render(VaccinationsHubPage);
-
     const link: HTMLElement = screen.getByRole("link", {
       name: "View all vaccinations",
     });
@@ -40,9 +36,6 @@ describe("Vaccination Hub Page", () => {
   });
 
   it("renders the text below 2nd heading", async () => {
-    const VaccinationsHubPage: JSX.Element = VaccinationsHub();
-    render(VaccinationsHubPage);
-
     const heading: HTMLElement = screen.getByText(
       "Based on your age, these vaccinations may be relevant - some" +
         " vaccinations may not be needed or have already been given.",
@@ -52,9 +45,6 @@ describe("Vaccination Hub Page", () => {
   });
 
   it("renders 6-in-1 link", async () => {
-    const VaccinationsHubPage: JSX.Element = VaccinationsHub();
-    render(VaccinationsHubPage);
-
     const link: HTMLElement = screen.getByRole("link", {
       name: "6-in-1 vaccine",
     });
@@ -63,9 +53,6 @@ describe("Vaccination Hub Page", () => {
   });
 
   it("renders RSV vaccine link", async () => {
-    const VaccinationsHubPage: JSX.Element = VaccinationsHub();
-    render(VaccinationsHubPage);
-
     const link: HTMLElement = screen.getByRole("link", { name: "RSV vaccine" });
 
     expect(link).toBeInTheDocument();
