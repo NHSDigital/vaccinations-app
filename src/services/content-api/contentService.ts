@@ -12,17 +12,22 @@ const config = configProvider();
 
 const contentApiVaccinationsUrl = `${config.CONTENT_API_ENDPOINT}${CONTENT_API_VACCINATIONS_PATH}`;
 
-const getContent = async (): Promise<ContentApiVaccinationsResponse> => {
-  const response: Response = await fetch(contentApiVaccinationsUrl);
+async function callContentApi(url: string) {
+  console.log(`Calling Content API ${url}`);
+  const response: Response = await fetch(url);
+  console.log(`Content API response ${response.status} ${url} `);
   return response.json();
+}
+
+const getContent = async (): Promise<ContentApiVaccinationsResponse> => {
+  return await callContentApi(contentApiVaccinationsUrl);
 };
 
 const getContentForVaccine = async (vaccineType: VaccineTypes) => {
   const vaccineContentPath = vaccineTypeToPath[vaccineType];
   const vaccineContentUrl = `${contentApiVaccinationsUrl}${vaccineContentPath}`;
 
-  const response: Response = await fetch(vaccineContentUrl);
-  return response.json();
+  return await callContentApi(vaccineContentUrl);
 };
 
 export { getContent, getContentForVaccine };
