@@ -101,3 +101,6 @@ next-env.d.ts
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# open-next
+/.open-next/
