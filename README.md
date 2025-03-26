@@ -84,6 +84,10 @@ From NHS repository template:
       ```
       act -W .github/workflows/cicd-1-pull-request.yaml --defaultbranch main
       ```
+- **Playwright** - Install browser drivers for running UI-driven acceptance tests.
+  ```
+  npx playwright install
+  ```
 
 ### Local Configuration
 1. Create environment variables file .env.local:
@@ -134,6 +138,16 @@ npm run content-api
 ```
 npm run test
 ```
+
+### Run UI driven tests
+- in headless mode
+  ```
+  npm run e2e
+  ```
+- or with interactive developer UI
+  ```
+  npm run e2e
+  ```
 
 ### Run pre-commit hooks manually
 ```

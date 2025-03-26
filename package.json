@@ -16,6 +16,8 @@
     "check": "npx prettier . --check",
     "test": "jest --collectCoverage",
     "test:watch": "jest --watch",
+    "e2e": "npx playwright test",
+    "e2e:ui": "npx playwright test --ui",
     "content-api": "wiremock --root-dir ./wiremock --port 8081 --verbose"
   },
   "repository": {
@@ -30,6 +32,7 @@
   "homepage": "https://github.com/NHSDigital/vaccinations-app#readme",
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.0",
+    "@playwright/test": "^1.51.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
