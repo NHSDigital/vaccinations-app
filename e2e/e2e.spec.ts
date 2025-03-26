@@ -1,13 +1,13 @@
 import { expect, test } from "@playwright/test";
 
 test('go to Vaccination Hub', async ({ page }) => {
-  await page.goto('http://localhost:3000/');
+  await page.goto('/');
 
   await expect(page).toHaveTitle("Vaccinations - NHS App");
 });
 
 test('go to Vaccinations Schedule page', async ({ page }) => {
-  await page.goto('http://localhost:3000/');
+  await page.goto('/');
 
   await page.getByRole('link', { name: 'View all vaccinations' }).click();
 
@@ -15,7 +15,7 @@ test('go to Vaccinations Schedule page', async ({ page }) => {
 });
 
 test('go to RSV page', async ({ page }) => {
-  await page.goto('http://localhost:3000/');
+  await page.goto('/');
 
   await page.getByRole('link', { name: 'RSV vaccine' }).click();
 
