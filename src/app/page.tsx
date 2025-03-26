@@ -19,7 +19,7 @@ const VaccinationsHub = () => {
       </p>
       <div className={styles.subheading}>
         <div>
-          <h2>Vaccinations</h2>
+          <h2 className="nhsuk-heading-s">Vaccinations</h2>
         </div>
       </div>
       <p>
@@ -27,7 +27,6 @@ const VaccinationsHub = () => {
         vaccinations may not be needed or have already been given.
       </p>
       <div className="nhsapp-cards nhsapp-cards--stacked">
-        <CardLink title={"6-in-1 vaccine"} link={"/vaccines/6-in-1"} />
         <CardLink title={"RSV vaccine"} link={"/vaccines/rsv"} />
       </div>
       <div>
