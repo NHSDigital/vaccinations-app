@@ -22,7 +22,7 @@ provider "aws" {
     tags = {
       ManagedBy   = "Terraform"
       Project     = local.project_identifier
-      Environment = var.environment
+      Environment = local.environment
     }
   }
 }
