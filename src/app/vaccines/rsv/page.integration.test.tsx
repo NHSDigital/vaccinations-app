@@ -6,14 +6,14 @@ import { act } from "react";
 
 jest.mock("@src/services/content-api/contentStylingService.tsx");
 
-describe("RSV vaccine page", () => {
+describe("RSV vaccine page - integration test", () => {
   beforeEach(() => {
     (getStyledContentForVaccine as jest.Mock).mockResolvedValue(
       mockStyledContent,
     );
   });
 
-  it("should contain page content from embedded vaccine component", async () => {
+  it("should display RSV content from embedded vaccine component", async () => {
     await act(async () => {
       render(VaccineRsv());
     });
