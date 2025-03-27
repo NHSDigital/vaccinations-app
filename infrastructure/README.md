@@ -1,4 +1,4 @@
-## One time setup
+## One time setup (per environment)
 - In the dev AWS account, create a bucket with name "vaccinations-app-tfstate" and following settings:
   - Object Ownership: ACLs disabled (all objects owned by account)
   - Block all public access: checked
@@ -28,20 +28,11 @@
     ```
 
 ## Terraform commands to deploy from local
-In this directory:
-- export the AWS profile to use for the commands below
   ```
   export AWS_PROFILE=vita-dev
-  ```
-- init
-  ```
-   terraform init"
-  ```
-- plan
-  ```
-   terraform plan --var-file=environments/dev/dev.tfvars"
-  ```
-- apply
-  ```
-   terraform apply --var-file=environments/dev/dev.tfvars"
+  export STACK=infrastructure/environments/dev
+  make terraform-init
+  make terraform-plan
+  make terraform-apply opts="-auto-approve"
+  make terraform-destroy opts="-auto-approve"
   ```

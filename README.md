@@ -55,7 +55,7 @@ From NHS repository template:
     brew install asdf
     ```
   - ```
-    echo 'export PATH="${HOME}.asdf/shims:$PATH"' >> ~/.zshrc
+    echo 'export PATH="${HOME}/.asdf/shims:$PATH"' >> ~/.zshrc
     source ~/.zshrc
     ```
   - Install nodejs plugin for asdf (and required dependencies)

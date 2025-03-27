@@ -17,11 +17,11 @@ terraform {
 }
 
 provider "aws" {
-  region = var.region
+  region = local.region
   default_tags {
     tags = {
       ManagedBy   = "Terraform"
-      Project     = var.project_identifier
+      Project     = local.project_identifier
       Environment = var.environment
     }
   }
