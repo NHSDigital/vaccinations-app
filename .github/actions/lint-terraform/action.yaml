@@ -11,6 +11,10 @@ runs:
       shell: bash
       run: |
         check_only=true scripts/githooks/check-terraform-format.sh
+    - name: "Install Terraform"
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: "1.11.2"
     - name: "Validate Terraform"
       shell: bash
       run: |

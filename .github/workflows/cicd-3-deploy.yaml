@@ -57,6 +57,10 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
+      - name: "Install Terraform"
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "${{ TERRAFORM_VERSION }}"
       - name: "Deploy"
         id: deploy
         run: |
