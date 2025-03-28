@@ -91,7 +91,7 @@ From NHS repository template:
 - **AWS CLI** - Install aws cli for local deployments.
   ```
   brew install awscli
-  aws configure
+  aws configure sso
   ```
 
 ### Local Configuration
