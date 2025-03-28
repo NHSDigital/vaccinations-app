@@ -4,7 +4,7 @@ import { VaccineDisplayNames, VaccineTypes } from "@src/models/vaccine";
 import Vaccine from "@src/app/_components/vaccine/vaccine";
 import { JSX } from "react";
 import { VaccineContentProvider } from "@src/app/_components/providers/vaccine-content-provider";
-import { getStyledContentForVaccine } from "@src/services/content-api/parsers/contentStylingService";
+import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
 
 export const dynamic = "force-dynamic";
 

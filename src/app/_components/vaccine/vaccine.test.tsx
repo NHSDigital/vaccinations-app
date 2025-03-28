@@ -7,9 +7,9 @@ import { mockStyledContent } from "@test-data/content-api/data";
 import {
   getStyledContentForVaccine,
   StyledVaccineContent,
-} from "@src/services/content-api/parsers/contentStylingService";
+} from "@src/services/content-api/parsers/content-styling-service";
 
-jest.mock("@src/services/content-api/parsers/contentStylingService.tsx");
+jest.mock("@src/services/content-api/parsers/content-styling-service.tsx");
 
 describe("Any vaccine page", () => {
   const mockVaccineName = "Test-Name";

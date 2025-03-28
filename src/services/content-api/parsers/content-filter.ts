@@ -1,5 +1,5 @@
 import { VaccineDisplayNames, VaccineTypes } from "@src/models/vaccine";
-import { getContentForVaccine } from "@src/services/content-api/gateway/contentService";
+import { getContentForVaccine } from "@src/services/content-api/gateway/content-service";
 
 type Aspect =
   | "OverviewHealthAspect"

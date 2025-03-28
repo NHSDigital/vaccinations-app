@@ -8,7 +8,7 @@ import {
   VaccinePageContent,
   VaccinePageSection,
   VaccinePageSubsection,
-} from "@src/services/content-api/parsers/contentFilter";
+} from "@src/services/content-api/parsers/content-filter";
 
 enum SubsectionTypes {
   INFORMATION = "INFORMATION",

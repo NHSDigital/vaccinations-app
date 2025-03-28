@@ -5,7 +5,7 @@
 import {
   getStyledContentForVaccine,
   StyledVaccineContent,
-} from "@src/services/content-api/parsers/contentStylingService";
+} from "@src/services/content-api/parsers/content-styling-service";
 import { VaccineTypes } from "@src/models/vaccine";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 

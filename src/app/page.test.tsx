@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import VaccinationsHub from "./page";
 import { JSX } from "react";
 
-jest.mock("@src/services/content-api/gateway/contentService");
+jest.mock("@src/services/content-api/gateway/content-service");
 
 describe("Vaccination Hub Page", () => {
   beforeEach(() => {

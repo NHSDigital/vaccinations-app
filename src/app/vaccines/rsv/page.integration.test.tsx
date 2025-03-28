@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import VaccineRsv from "@src/app/vaccines/rsv/page";
-import { getStyledContentForVaccine } from "@src/services/content-api/parsers/contentStylingService";
+import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
 import { mockStyledContent } from "@test-data/content-api/data";
 import { act } from "react";
 
-jest.mock("@src/services/content-api/parsers/contentStylingService.tsx");
+jest.mock("@src/services/content-api/parsers/content-styling-service.tsx");
 
 describe("RSV vaccine page - integration test", () => {
   beforeEach(() => {
