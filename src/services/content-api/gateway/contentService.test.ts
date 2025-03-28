@@ -6,7 +6,7 @@ import { VaccineTypes } from "@src/models/vaccine";
 import {
   getContent,
   getContentForVaccine,
-} from "@src/services/content-api/contentService";
+} from "@src/services/content-api/gateway/contentService";
 import {
   CONTENT_API_VACCINATIONS_PATH,
   VaccineContentPaths,

@@ -1,9 +1,9 @@
-import { getContentForVaccine } from "@src/services/content-api/contentService";
-import { getFilteredContentForVaccine } from "@src/services/content-api/contentFilter";
+import { getContentForVaccine } from "@src/services/content-api/gateway/contentService";
+import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/contentFilter";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 import { VaccineTypes } from "@src/models/vaccine";
 
-jest.mock("@src/services/content-api/contentService");
+jest.mock("@src/services/content-api/gateway/contentService");
 
 describe("Content Filter", () => {
   describe("getPageCopyForVaccine", () => {

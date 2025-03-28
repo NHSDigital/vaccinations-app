@@ -8,10 +8,10 @@ import React from "react";
 import {
   getStyledContentForVaccine,
   StyledVaccineContent,
-} from "@src/services/content-api/contentStylingService";
+} from "@src/services/content-api/parsers/contentStylingService";
 import { mockStyledContent } from "@test-data/content-api/data";
 
-jest.mock("@src/services/content-api/contentStylingService");
+jest.mock("@src/services/content-api/parsers/contentStylingService");
 
 let contentPromise: Promise<StyledVaccineContent>;
 

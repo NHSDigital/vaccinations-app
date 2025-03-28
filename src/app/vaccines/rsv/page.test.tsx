@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import VaccineRsv from "@src/app/vaccines/rsv/page";
 import Vaccine from "@src/app/_components/vaccine/vaccine";
-import { getStyledContentForVaccine } from "@src/services/content-api/contentStylingService";
+import { getStyledContentForVaccine } from "@src/services/content-api/parsers/contentStylingService";
 import { mockStyledContent } from "@test-data/content-api/data";
 
-jest.mock("@src/services/content-api/contentStylingService.tsx");
+jest.mock("@src/services/content-api/parsers/contentStylingService.tsx");
 jest.mock("@src/app/_components/vaccine/vaccine", () => jest.fn(() => <div />));
 
 describe("RSV vaccine page", () => {

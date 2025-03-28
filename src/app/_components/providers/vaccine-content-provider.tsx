@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, ReactNode, useMemo } from "react";
-import { StyledVaccineContent } from "@src/services/content-api/contentStylingService";
+import { StyledVaccineContent } from "@src/services/content-api/parsers/contentStylingService";
 
 type VaccineContentContextValueType = {
   contentPromise: Promise<StyledVaccineContent>;

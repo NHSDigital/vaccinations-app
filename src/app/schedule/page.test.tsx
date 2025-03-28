@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import Schedule from "./page";
 import { JSX } from "react";
 
-jest.mock("@src/services/content-api/contentService");
+jest.mock("@src/services/content-api/gateway/contentService");
 
 describe("Schedule Page", () => {
   beforeEach(() => {

@@ -9,14 +9,14 @@ import {
   StyledVaccineContent,
   styleSection,
   styleSubsection,
-} from "@src/services/content-api/contentStylingService";
+} from "@src/services/content-api/parsers/contentStylingService";
 import {
   getFilteredContentForVaccine,
   VaccinePageContent,
   VaccinePageSection,
-} from "@src/services/content-api/contentFilter";
+} from "@src/services/content-api/parsers/contentFilter";
 
-jest.mock("@src/services/content-api/contentFilter");
+jest.mock("@src/services/content-api/parsers/contentFilter");
 
 describe("ContentStylingService", () => {
   const mockMarkdownSubsection = {
