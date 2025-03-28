@@ -4,9 +4,9 @@ locals {
   project_identifier           = "vaccinations-app"
   project_identifier_shortcode = "vita"
 
-  environment   = "dev"
-  git_branch    = coalesce(data.external.git_branch.result.output, "main")
-  deploy_source = coalesce(data.external.deploy_source.result.output, "lo")
+  environment      = "dev"
+  git_branch       = coalesce(data.external.git_branch.result.output, "na")
+  deploy_workspace = terraform.workspace == "default" ? "gh" : terraform.workspace
 
   default_tags = {
     ManagedBy   = "Terraform"
