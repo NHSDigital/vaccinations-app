@@ -57,6 +57,12 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
+      - name: "Deploy"
+        id: deploy
+        run: |
+          TF_ENV=dev make terraform-init
+          TF_ENV=dev make terraform-plan opts="-out=terraform.tfplan"
+          TF_ENV=dev make terraform-apply opts="-auto-approve terraform.tfplan"
   # TODO: More jobs or/and steps here
   # success:
   #   name: "Success notification"
