@@ -1,6 +1,6 @@
 import { getContentForVaccine } from "@src/services/content-api/contentService";
 import { getFilteredContentForVaccine } from "@src/services/content-api/contentFilter";
-import { genericMockVaccineData } from "@test-data/content-api/data";
+import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 import { VaccineTypes } from "@src/models/vaccine";
 
 jest.mock("@src/services/content-api/contentService");
@@ -13,7 +13,7 @@ describe("Content Filter", () => {
       };
 
       (getContentForVaccine as jest.Mock).mockResolvedValue(
-        genericMockVaccineData,
+        genericVaccineContentAPIResponse,
       );
 
       const pageCopyFor6in1 = await getFilteredContentForVaccine(
@@ -40,7 +40,7 @@ describe("Content Filter", () => {
       };
 
       (getContentForVaccine as jest.Mock).mockResolvedValue(
-        genericMockVaccineData,
+        genericVaccineContentAPIResponse,
       );
 
       const pageCopyFor6in1 = await getFilteredContentForVaccine(
@@ -81,7 +81,7 @@ describe("Content Filter", () => {
       };
 
       (getContentForVaccine as jest.Mock).mockResolvedValue(
-        genericMockVaccineData,
+        genericVaccineContentAPIResponse,
       );
 
       const pageCopyFor6in1 = await getFilteredContentForVaccine(
@@ -112,7 +112,7 @@ describe("Content Filter", () => {
       };
 
       (getContentForVaccine as jest.Mock).mockResolvedValue(
-        genericMockVaccineData,
+        genericVaccineContentAPIResponse,
       );
       const pageCopyFor6in1 = await getFilteredContentForVaccine(
         VaccineTypes.SIX_IN_ONE,
@@ -129,7 +129,7 @@ describe("Content Filter", () => {
       };
 
       (getContentForVaccine as jest.Mock).mockResolvedValue(
-        genericMockVaccineData,
+        genericVaccineContentAPIResponse,
       );
       const pageCopyFor6in1 = await getFilteredContentForVaccine(
         VaccineTypes.SIX_IN_ONE,

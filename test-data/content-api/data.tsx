@@ -1,6 +1,6 @@
 import { StyledVaccineContent } from "@src/services/content-api/contentStylingService";
 
-export const genericMockVaccineData = {
+export const genericVaccineContentAPIResponse = {
   "@context": "http://schema.org",
   "@type": "MedicalWebPage",
   "name": "generic vaccine",
