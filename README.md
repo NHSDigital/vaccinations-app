@@ -17,7 +17,7 @@ We will increase appointment attendance and reduce the number of 'did not attend
 
 ### GitHub
 - As per NHS guidelines, make your GitHub email private by going [here](https://github.com/settings/emails). There is a checkbox named "Keep my email addresses private". Note down your private email from this setting.
-- Follow these [instructions](https://nhsd-confluence.digital.nhs.uk/display/CSP/How+to+access+GitHub).
+- Follow these [instructions](https://nhsd-confluence.digital.nhs.uk/display/Vacc/Developer+setup%3A+Github).
   - Remember to use your private email, noted above, in GitHub config 'user.email'.
   - When on the step to create personal access tokens, remember to also tick 'workflow'. This will allow developers to update workflows
 - Get your NHS GitHub username added to the VitA team to gain access to the repository
@@ -88,6 +88,11 @@ From NHS repository template:
   ```
   npx playwright install
   ```
+- **AWS CLI** - Install aws cli for local deployments.
+  ```
+  brew install awscli
+  aws configure
+  ```
 
 ### Local Configuration
 1. Create environment variables file .env.local:
@@ -147,7 +152,7 @@ npm run test
   ```
 - or with interactive developer UI
   ```
-  npm run e2e
+  npm run e2e:ui
   ```
 
 ### Run pre-commit hooks manually
