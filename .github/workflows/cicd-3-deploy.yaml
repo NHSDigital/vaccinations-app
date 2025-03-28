@@ -60,7 +60,7 @@ jobs:
       - name: "Install Terraform"
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "${{ TERRAFORM_VERSION }}"
+          terraform_version: "$TERRAFORM_VERSION"
       - name: "Deploy"
         id: deploy
         run: |
