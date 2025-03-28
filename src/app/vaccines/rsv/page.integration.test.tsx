@@ -23,5 +23,8 @@ describe("RSV vaccine page - integration test", () => {
       name: `RSV vaccine`,
     });
     expect(rsvHeading).toBeInTheDocument();
+    expect(screen.getByTestId("overview-text")).toHaveTextContent(
+      mockStyledContent.overview,
+    );
   });
 });

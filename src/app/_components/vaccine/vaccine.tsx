@@ -3,6 +3,7 @@
 import React, { use } from "react";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import { useVaccineContentContextValue } from "@src/app/_components/providers/vaccine-content-provider";
+import { StyledVaccineContent } from "@src/services/content-api/contentStylingService";
 
 interface VaccineProps {
   name: string;
@@ -10,12 +11,12 @@ interface VaccineProps {
 
 const Vaccine = (props: VaccineProps): React.JSX.Element => {
   const { contentPromise } = useVaccineContentContextValue();
-  const styledContent = use(contentPromise);
+  const styledContent: StyledVaccineContent = use(contentPromise);
 
   return (
     <div>
       <h1 className="app-dynamic-page-title__heading">{`${props.name} vaccine`}</h1>
-      <p>{styledContent.overview}</p>
+      <p data-testid="overview-text">{styledContent.overview}</p>
 
       <h2 className="nhsuk-heading-s">More information</h2>
       <div className="nhsuk-expander-group">

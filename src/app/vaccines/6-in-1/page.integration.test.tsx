@@ -23,5 +23,8 @@ describe("6-in-1 vaccine page - integration test", () => {
       name: `6-in-1 vaccine`,
     });
     expect(sixInOneHeading).toBeInTheDocument();
+    expect(screen.getByTestId("overview-text")).toHaveTextContent(
+      mockStyledContent.overview,
+    );
   });
 });
