@@ -77,7 +77,9 @@ jobs:
       - name: "Download OpenNext Package From S3"
         run: |
           mkdir -p .opennext
-          aws s3 cp "s3://${AWS_S3_PACKAGE_BUCKET}/${TAG}/" ".open-next/" --recursive --exclude "*" --include "*.*"
+          aws s3 cp "s3://${AWS_S3_PACKAGE_BUCKET}/${TAG}/open-next.zip" .open-next.zip
+      - name: "Unzip OpenNext Package"
+        run: unzip .open-next.zip -d .open-next
       - name: "Deploy"
         id: deploy
         run: |
