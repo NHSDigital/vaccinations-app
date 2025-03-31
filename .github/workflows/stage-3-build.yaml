@@ -41,21 +41,24 @@ jobs:
     name: "Build & Upload OpenNext package"
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
       - name: Get current date
         id: date
-        run: echo "{date}={$(date +'%Y%m%d')}" >> $GITHUB_OUTPUT
+        run: echo "{today_date}={$(date +'%Y%m%d')}" >> $GITHUB_OUTPUT
       - name: Get short SHA
         id: sha
-        run: echo "{short}={$(echo ${GITHUB_SHA} | cut -c1-7)}" >> $GITHUB_OUTPUT
+        run: echo "{short_sha}={$(echo ${GITHUB_SHA} | cut -c1-7)}" >> $GITHUB_OUTPUT
       - name: Get the release version
         id: strip-branch-name
         run: |
-          release_version=$(echo "${{ steps.date.outputs.date }}\
+          release_version=$(echo "${{ steps.date.outputs.today_date }}\
           -${{ github.run_id }}_${{ github.run_number }}\
-          _${{ github.run_attempt }}-${{ steps.sha.outputs.short }}")
+          _${{ github.run_attempt }}-${{ steps.sha.outputs.short_sha }}")
           echo "Building release version $release_version"
           echo "RELEASE_VERSION=$release_version" >> $GITHUB_ENV
       - name: "Build OpenNext Package"
