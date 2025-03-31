@@ -75,4 +75,4 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       - name: "Upload OpenNext Package To S3"
         run: |
-          aws s3 cp open-next.zip "s3://${AWS_S3_PACKAGE_BUCKET}/${RELEASE_VERSION}"
+          aws s3 cp open-next.zip "s3://${AWS_S3_PACKAGE_BUCKET}/${RELEASE_VERSION}/open-next.zip"
