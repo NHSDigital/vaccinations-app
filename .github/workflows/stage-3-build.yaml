@@ -31,23 +31,25 @@ on:
         description: "Version of the software, set by the CI/CD pipeline workflow"
         required: true
         type: string
+
 env:
-  DOCKER_IMAGE_NAME: vita-app
+  AWS_REGION: eu-west-2
+  AWS_S3_PACKAGE_BUCKET: vaccinations-app-github
 
 jobs:
-  build-docker-image:
-    name: "Build Docker image"
+  build-opennext-package:
+    name: "Build & Upload OpenNext package"
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    timeout-minutes: 5
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
       - name: Get current date
         id: date
-        run: echo "::set-output name=date::$(date +'%Y%m%d')"
+        run: echo "{date}={$(date +'%Y%m%d')}" >> $GITHUB_OUTPUT
       - name: Get short SHA
         id: sha
-        run: echo "::set-output name=short::$(echo ${GITHUB_SHA} | cut -c1-7)"
+        run: echo "{short}={$(echo ${GITHUB_SHA} | cut -c1-7)}" >> $GITHUB_OUTPUT
       - name: Get the release version
         id: strip-branch-name
         run: |
@@ -56,12 +58,16 @@ jobs:
           _${{ github.run_attempt }}-${{ steps.sha.outputs.short }}")
           echo "Building release version $release_version"
           echo "RELEASE_VERSION=$release_version" >> $GITHUB_ENV
-      - name: "Build Docker Image"
+      - name: "Build OpenNext Package"
         run: |
-          echo "Building docker image for artefact"
-          docker build . --file Dockerfile --tag $DOCKER_IMAGE_NAME:$RELEASE_VERSION
-      - name: "Upload artefact"
+          npm ci --ignore-scripts
+          npm run build:opennext
+      - name: "Configure AWS credentials"
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-session-name: GitHubActionsSession
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: "Upload OpenNext Package To S3"
         run: |
-          echo "Uploading artefact ..."
-          # TODO: Use either action/cache or action/upload-artifact
-          # TODO: Will be done in the future
+          aws s3 sync .open-next/ "s3://${AWS_S3_PACKAGE_BUCKET}/${RELEASE_VERSION}" --delete

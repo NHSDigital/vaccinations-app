@@ -4,9 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "This is the tag that is oging to be deployed"
+        description: "This is the tag that is going to be deployed"
         required: true
         default: "latest"
+
+env:
+  AWS_REGION: eu-west-2
+  AWS_S3_PACKAGE_BUCKET: vaccinations-app-github
 
 jobs:
   metadata:
@@ -61,6 +65,16 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "$TERRAFORM_VERSION"
+      - name: "Configure AWS credentials"
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-session-name: GitHubActionsSession
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: "Download OpenNext Package From S3"
+        run: |
+          mkdir -p .opennext
+          aws s3 cp "s3://s3://${AWS_S3_PACKAGE_BUCKET}/${TAG}/" ".open-next/" --recursive --exclude "*" --include "*.*"
       - name: "Deploy"
         id: deploy
         run: |
