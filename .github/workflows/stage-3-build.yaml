@@ -65,6 +65,8 @@ jobs:
         run: |
           npm ci --ignore-scripts
           npm run build:opennext
+      - name: "Zip OpenNext Package"
+        run: zip -r open-next.zip .open-next/
       - name: "Configure AWS credentials"
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -73,4 +75,4 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       - name: "Upload OpenNext Package To S3"
         run: |
-          aws s3 sync .open-next/ "s3://${AWS_S3_PACKAGE_BUCKET}/${RELEASE_VERSION}" --delete
+          aws s3 cp open-next.zip "s3://${AWS_S3_PACKAGE_BUCKET}/${RELEASE_VERSION}"
