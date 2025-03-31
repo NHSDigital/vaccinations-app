@@ -1,7 +1,7 @@
 import {
   useVaccineContentContextValue,
   VaccineContentProvider,
-} from "@src/app/_components/providers/vaccine-content-provider";
+} from "@src/app/_components/providers/VaccineContentProvider";
 import { renderHook } from "@testing-library/react";
 import { VaccineTypes } from "@src/models/vaccine";
 import React from "react";

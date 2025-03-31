@@ -1,11 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import Vaccine6in1 from "@src/app/vaccines/6-in-1/page";
 import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
-import Vaccine from "@src/app/_components/vaccine/vaccine";
+import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { mockStyledContent } from "@test-data/content-api/data";
 
 jest.mock("@src/services/content-api/parsers/content-styling-service.tsx");
-jest.mock("@src/app/_components/vaccine/vaccine", () => jest.fn(() => <div />));
+jest.mock("@src/app/_components/vaccine/Vaccine", () => jest.fn(() => <div />));
 
 describe("6-in-1 vaccine page", () => {
   beforeEach(() => {

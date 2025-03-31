@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import Vaccine from "@src/app/_components/vaccine/vaccine";
+import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { VaccineTypes } from "@src/models/vaccine";
-import { VaccineContentProvider } from "@src/app/_components/providers/vaccine-content-provider";
+import { VaccineContentProvider } from "@src/app/_components/providers/VaccineContentProvider";
 import { act } from "react";
 import { mockStyledContent } from "@test-data/content-api/data";
 import {
