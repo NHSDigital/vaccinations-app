@@ -7,11 +7,6 @@ on:
         description: "This is the tag that is going to be deployed"
         required: true
         default: "latest"
-      destroy:
-        description: "Destroy infrastructure?"
-        required: true
-        default: false
-        type: boolean
 
 env:
   AWS_REGION: eu-west-2
@@ -31,7 +26,6 @@ jobs:
       terraform_version: ${{ steps.variables.outputs.terraform_version }}
       version: ${{ steps.variables.outputs.version }}
       tag: ${{ steps.variables.outputs.tag }}
-      should_destroy: ${{ steps.variables.outputs.should_destroy }}
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
@@ -48,7 +42,6 @@ jobs:
           # TODO: Get the version, but it may not be the .version file as this should come from the CI/CD Pull Request Workflow
           echo "version=$(head -n 1 .version 2> /dev/null || echo unknown)" >> $GITHUB_OUTPUT
           echo "tag=${{ github.event.inputs.tag }}" >> $GITHUB_OUTPUT
-          echo "should_destroy=${{ github.event.inputs.destroy }}" >> $GITHUB_OUTPUT
       - name: "List variables"
         run: |
           export BUILD_DATETIME="${{ steps.variables.outputs.build_datetime }}"
@@ -59,7 +52,6 @@ jobs:
           export TERRAFORM_VERSION="${{ steps.variables.outputs.terraform_version }}"
           export VERSION="${{ steps.variables.outputs.version }}"
           export TAG="${{ steps.variables.outputs.tag }}"
-          export SHOULD_DESTROY="${{ steps.variables.outputs.should_destroy }}"
           make list-variables
   deploy:
     name: "Deploy to an environment"
@@ -83,26 +75,17 @@ jobs:
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
       - name: "Download OpenNext Package From S3"
-        if: "${{ needs.metadata.outputs.should_destroy == 'false' }}"
         run: aws s3 cp "s3://${AWS_S3_PACKAGE_BUCKET}/${{ needs.metadata.outputs.tag }}/open-next.zip" .
       - name: "Unzip OpenNext Package"
-        if: "${{ needs.metadata.outputs.should_destroy == 'false' }}"
         run: |
           unzip open-next.zip
           rm -rf open-next.zip
       - name: "Deploy"
-        if: "${{ needs.metadata.outputs.should_destroy == 'false' }}"
         id: deploy
         run: |
           TF_ENV=dev make terraform-init
           TF_ENV=dev make terraform-plan opts="-out=terraform.tfplan"
           TF_ENV=dev make terraform-apply opts="-auto-approve terraform.tfplan"
-      - name: "Destroy"
-        if: "${{ needs.metadata.outputs.should_destroy == 'true' }}"
-        id: destroy
-        run: |
-          TF_ENV=dev make terraform-init
-          TF_ENV=dev make terraform-destroy opts="-auto-approve"
   # TODO: More jobs or/and steps here
   # success:
   #   name: "Success notification"
