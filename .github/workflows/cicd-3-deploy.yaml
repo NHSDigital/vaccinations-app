@@ -67,7 +67,7 @@ jobs:
       - name: "Install Terraform"
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "$TERRAFORM_VERSION"
+          terraform_version: "${{ needs.metadata.outputs.terraform_version }}"
       - name: "Configure AWS credentials"
         uses: aws-actions/configure-aws-credentials@v4
         with:
