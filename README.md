@@ -89,10 +89,16 @@ From NHS repository template:
   npx playwright install
   ```
 - **AWS CLI** - Install aws cli for local deployments.
-  ```
-  brew install awscli
-  aws configure sso
-  ```
+  - For the following commands, use the settings from your [AWS access portal](https://d-9c67018f89.awsapps.com/start/#/?tab=accounts) "Access keys". Give the name 'vita-dev' to your new profile.
+    ```
+    brew install awscli
+    aws configure sso
+    ```
+  - Add the profile 'vita-dev' to your shell to avoid having to provide it repeatedly.
+    ```
+    echo 'export AWS_PROFILE=vita-dev' >> ~/.zshrc
+    source ~/.zshrc
+    ```
 
 ### Local Configuration
 1. Create environment variables file .env.local:
@@ -160,6 +166,24 @@ npm run test
 make githooks-run
 ```
 (Note that this has also been configured as a pre-commit hook that will run automatically before each commit)
+
+### Deploy your local changes to AWS dev environment
+We use terraform workspaces to distinguish each developer.
+So make sure you use your own unique combination of initials, to set the workspace.
+Use maximum 4 chars, otherwise you might not be able to deploy due to max limits on resource names.
+Avoid 'gh' as it is reserved for GitHub.
+
+- In the [dev](infrastructure/environments/dev) directory
+  ```
+  terraform workspace new <unique name>
+  ```
+  - In the [home]() directory
+    ```
+    TF_ENV=dev make terraform-init          # initialises the modules
+    TF_ENV=dev make terraform-plan          # compares local vs. remote state, and shows the plan
+    TF_ENV=dev make terraform-apply         # applies the plan, asks for approval
+    TF_ENV=dev make terraform-destroy       # deprovisions infrastructure, asks for approval
+    ```
 
 ## Design
 TODO

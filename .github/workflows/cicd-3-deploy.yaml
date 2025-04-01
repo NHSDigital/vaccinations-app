@@ -56,7 +56,7 @@ jobs:
   deploy:
     name: "Deploy to an environment"
     runs-on: ubuntu-latest
-    needs: [metadata]
+    needs: [ metadata ]
     timeout-minutes: 10
     permissions:
       id-token: write
