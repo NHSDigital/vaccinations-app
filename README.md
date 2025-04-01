@@ -181,13 +181,13 @@ Avoid 'gh' as it is reserved for GitHub.
   ```
   terraform workspace new <unique name>
   ```
-  - In the [home]() directory
-    ```
-    TF_ENV=dev make terraform-init          # initialises the modules
-    TF_ENV=dev make terraform-plan          # compares local vs. remote state, and shows the plan
-    TF_ENV=dev make terraform-apply         # applies the plan, asks for approval
-    TF_ENV=dev make terraform-destroy       # deprovisions infrastructure, asks for approval
-    ```
+- In the [home]() directory
+  ```
+  TF_ENV=dev make terraform-init          # initialises the modules
+  TF_ENV=dev make terraform-plan          # compares local vs. remote state, and shows the plan
+  TF_ENV=dev make terraform-apply         # applies the plan, asks for approval
+  TF_ENV=dev make terraform-destroy       # deprovisions infrastructure, asks for approval
+  ```
 
 ## Design
 TODO
