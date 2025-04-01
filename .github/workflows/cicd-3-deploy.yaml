@@ -8,7 +8,7 @@ on:
         required: true
         default: "latest"
       destroy:
-        description: "Set to 'true' to destroy the infrastructure"
+        description: "Destroy infrastructure?"
         required: true
         default: false
         type: boolean
