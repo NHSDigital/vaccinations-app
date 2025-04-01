@@ -7,6 +7,10 @@ on:
         description: "This is the tag that is going to be deployed"
         required: true
         default: "latest"
+      destroy:
+        description: "Set to 'true' to destroy the infrastructure"
+        required: true
+        default: "false"
 
 env:
   AWS_REGION: eu-west-2
@@ -75,17 +79,26 @@ jobs:
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
       - name: "Download OpenNext Package From S3"
+        if: ${{ needs.metadata.outputs.destroy == 'false' }}
         run: aws s3 cp "s3://${AWS_S3_PACKAGE_BUCKET}/${{ needs.metadata.outputs.tag }}/open-next.zip" .
       - name: "Unzip OpenNext Package"
+        if: ${{ needs.metadata.outputs.destroy == 'false' }}
         run: |
           unzip open-next.zip
           rm -rf open-next.zip
       - name: "Deploy"
+        if: ${{ needs.metadata.outputs.destroy == 'false' }}
         id: deploy
         run: |
           TF_ENV=dev make terraform-init
           TF_ENV=dev make terraform-plan opts="-out=terraform.tfplan"
           TF_ENV=dev make terraform-apply opts="-auto-approve terraform.tfplan"
+      - name: "Destroy"
+        if: ${{ needs.metadata.outputs.destroy == 'true' }}
+        id: destroy
+        run: |
+          TF_ENV=dev make terraform-init
+          TF_ENV=dev make terraform-destroy opts="-auto-approve"
   # TODO: More jobs or/and steps here
   # success:
   #   name: "Success notification"
