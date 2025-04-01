@@ -173,6 +173,10 @@ So make sure you use your own unique combination of initials, to set the workspa
 Use maximum 4 chars, otherwise you might not be able to deploy due to max limits on resource names.
 Avoid 'gh' as it is reserved for GitHub.
 
+- Make sure to build first using
+  ```
+  npm run build:opennext
+  ```
 - In the [dev](infrastructure/environments/dev) directory
   ```
   terraform workspace new <unique name>
