@@ -10,7 +10,8 @@ on:
       destroy:
         description: "Set to 'true' to destroy the infrastructure"
         required: true
-        default: "false"
+        default: false
+        type: boolean
 
 env:
   AWS_REGION: eu-west-2
@@ -30,6 +31,7 @@ jobs:
       terraform_version: ${{ steps.variables.outputs.terraform_version }}
       version: ${{ steps.variables.outputs.version }}
       tag: ${{ steps.variables.outputs.tag }}
+      should_destroy: ${{ steps.variables.outputs.should_destroy }}
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
@@ -81,22 +83,22 @@ jobs:
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
       - name: "Download OpenNext Package From S3"
-        if: ${{ SHOULD_DESTROY == 'false' }}
+        if: ${{ !needs.metadata.outputs.should_destroy }}
         run: aws s3 cp "s3://${AWS_S3_PACKAGE_BUCKET}/${{ needs.metadata.outputs.tag }}/open-next.zip" .
       - name: "Unzip OpenNext Package"
-        if: ${{ SHOULD_DESTROY == 'false' }}
+        if: ${{ !needs.metadata.outputs.should_destroy }}
         run: |
           unzip open-next.zip
           rm -rf open-next.zip
       - name: "Deploy"
-        if: ${{ SHOULD_DESTROY == 'false' }}
+        if: ${{ !needs.metadata.outputs.should_destroy }}
         id: deploy
         run: |
           TF_ENV=dev make terraform-init
           TF_ENV=dev make terraform-plan opts="-out=terraform.tfplan"
           TF_ENV=dev make terraform-apply opts="-auto-approve terraform.tfplan"
       - name: "Destroy"
-        if: ${{ SHOULD_DESTROY == 'true' }}
+        if: ${{ needs.metadata.outputs.should_destroy }}
         id: destroy
         run: |
           TF_ENV=dev make terraform-init
