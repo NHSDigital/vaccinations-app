@@ -83,22 +83,22 @@ jobs:
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
       - name: "Download OpenNext Package From S3"
-        if: ${{ !needs.metadata.outputs.should_destroy }}
+        if: "${{ needs.metadata.outputs.should_destroy == 'false' }}"
         run: aws s3 cp "s3://${AWS_S3_PACKAGE_BUCKET}/${{ needs.metadata.outputs.tag }}/open-next.zip" .
       - name: "Unzip OpenNext Package"
-        if: ${{ !needs.metadata.outputs.should_destroy }}
+        if: "${{ needs.metadata.outputs.should_destroy == 'false' }}"
         run: |
           unzip open-next.zip
           rm -rf open-next.zip
       - name: "Deploy"
-        if: ${{ !needs.metadata.outputs.should_destroy }}
+        if: "${{ needs.metadata.outputs.should_destroy == 'false' }}"
         id: deploy
         run: |
           TF_ENV=dev make terraform-init
           TF_ENV=dev make terraform-plan opts="-out=terraform.tfplan"
           TF_ENV=dev make terraform-apply opts="-auto-approve terraform.tfplan"
       - name: "Destroy"
-        if: ${{ needs.metadata.outputs.should_destroy }}
+        if: "${{ needs.metadata.outputs.should_destroy == 'true' }}"
         id: destroy
         run: |
           TF_ENV=dev make terraform-init
