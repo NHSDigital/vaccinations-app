@@ -24,6 +24,7 @@ const fetchMock = jest
 
 jest.mock("@src/utils/config", () => () => ({
   CONTENT_API_ENDPOINT: "https://content-endpoint",
+  CONTENT_API_KEY: "x",
 }));
 
 describe("Content service", () => {
@@ -43,7 +44,10 @@ describe("Content service", () => {
       const content = await getContentForVaccine(VaccineTypes.SIX_IN_ONE);
 
       expect(fetchMock).toHaveBeenCalledTimes(1);
-      expect(fetchMock).toHaveBeenCalledWith(expected6in1VaccinePath);
+      expect(fetchMock).toHaveBeenCalledWith(expected6in1VaccinePath, {
+        headers: { accept: "application/json", apikey: "x" },
+        method: "GET",
+      });
       expect(content).toEqual(mockContentApiResponse);
     });
   });

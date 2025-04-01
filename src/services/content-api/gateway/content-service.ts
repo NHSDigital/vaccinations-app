@@ -14,7 +14,14 @@ const contentApiVaccinationsUrl = `${config.CONTENT_API_ENDPOINT}${CONTENT_API_V
 
 async function callContentApi(url: string) {
   console.log(`Calling Content API ${url}`);
-  const response: Response = await fetch(url);
+  const apiKey = config.CONTENT_API_KEY;
+  const response: Response = await fetch(url, {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      apikey: apiKey,
+    },
+  });
   console.log(`Content API response ${response.status} ${url} `);
   return response.json();
 }
