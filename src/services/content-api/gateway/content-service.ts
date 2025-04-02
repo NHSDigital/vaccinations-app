@@ -2,18 +2,14 @@
 
 import configProvider from "@src/utils/config";
 import { VaccineTypes } from "@src/models/vaccine";
-import { ContentApiVaccinationsResponse } from "@src/services/content-api/types";
 import {
   CONTENT_API_VACCINATIONS_PATH,
   vaccineTypeToPath,
 } from "@src/services/content-api/constants";
 
-const config = configProvider();
-
-const contentApiVaccinationsUrl = `${config.CONTENT_API_ENDPOINT}${CONTENT_API_VACCINATIONS_PATH}`;
-
 async function callContentApi(url: string) {
   console.log(`Calling Content API ${url}`);
+  const config = await configProvider();
   const apiKey = config.CONTENT_API_KEY;
   const response: Response = await fetch(url, {
     method: "GET",
@@ -26,15 +22,13 @@ async function callContentApi(url: string) {
   return response.json();
 }
 
-const getContent = async (): Promise<ContentApiVaccinationsResponse> => {
-  return await callContentApi(contentApiVaccinationsUrl);
-};
-
 const getContentForVaccine = async (vaccineType: VaccineTypes) => {
+  const config = await configProvider();
+  const contentApiVaccinationsUrl = `${config.CONTENT_API_ENDPOINT}${CONTENT_API_VACCINATIONS_PATH}`;
   const vaccineContentPath = vaccineTypeToPath[vaccineType];
   const vaccineContentUrl = `${contentApiVaccinationsUrl}${vaccineContentPath}`;
 
   return await callContentApi(vaccineContentUrl);
 };
 
-export { getContent, getContentForVaccine };
+export { getContentForVaccine };

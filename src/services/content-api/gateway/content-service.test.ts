@@ -3,10 +3,7 @@
  */
 
 import { VaccineTypes } from "@src/models/vaccine";
-import {
-  getContent,
-  getContentForVaccine,
-} from "@src/services/content-api/gateway/content-service";
+import { getContentForVaccine } from "@src/services/content-api/gateway/content-service";
 import {
   CONTENT_API_VACCINATIONS_PATH,
   VaccineContentPaths,
@@ -28,15 +25,6 @@ jest.mock("@src/utils/config", () => () => ({
 }));
 
 describe("Content service", () => {
-  describe("getContent", () => {
-    it("should return response from content API", async () => {
-      const content = await getContent();
-
-      expect(fetchMock).toHaveBeenCalled();
-      expect(content).toEqual(mockContentApiResponse);
-    });
-  });
-
   describe("getContentForVaccine", () => {
     it("should return response for 6-in-1 vaccine from content API", async () => {
       const expected6in1VaccinePath = `https://content-endpoint${CONTENT_API_VACCINATIONS_PATH}${VaccineContentPaths.SIX_IN_ONE}`;

@@ -3,7 +3,9 @@ import type { GetParameterCommandOutput } from "@aws-sdk/client-ssm";
 
 export const AWS_PRIMARY_REGION = "eu-west-2";
 
-const getSSMParam = (name: string): string | undefined => {
+const getSSMParam = async (name: string): Promise<string | undefined> => {
+  console.log(`getSSMParam: ${name}`);
+
   const client = new SSMClient({
     region: AWS_PRIMARY_REGION,
   });
@@ -13,21 +15,14 @@ const getSSMParam = (name: string): string | undefined => {
     WithDecryption: true,
   });
 
-  let value: string | undefined = undefined;
-  client
-    .send(command)
-    .then((result: GetParameterCommandOutput) => {
-      if (result && result.Parameter) {
-        value = result.Parameter.Value;
-      } else {
-        console.error(`Could not find SSM parameter ${name}`);
-      }
-    })
-    .catch((err) => {
-      console.error(err.message);
-    });
+  const response: GetParameterCommandOutput = await client.send(command);
+  if (response.$metadata.httpStatusCode === 200) {
+    return response.Parameter?.Value;
+  } else {
+    console.error(response.$metadata);
+  }
 
-  return value;
+  return undefined;
 };
 
 export default getSSMParam;

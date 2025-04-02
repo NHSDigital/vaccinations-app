@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "next build --experimental-build-mode compile",
     "build:opennext": "npx --yes @opennextjs/aws@latest build",
     "start": "next start",
     "lint": "next lint",
