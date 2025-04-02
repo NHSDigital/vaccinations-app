@@ -1,7 +1,7 @@
 module "deploy" {
   source = "../../modules/deploy_app"
 
-  open-next-path = "../../../.open-next"
-  prefix         = "${local.deploy_workspace}-${local.git_branch}-${local.project_identifier_shortcode}"
+  open-next-path = local.open_next_path
+  prefix         = local.prefix
   default_tags   = local.default_tags
 }

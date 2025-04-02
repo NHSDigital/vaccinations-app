@@ -10,6 +10,10 @@ module "deploy_app" {
     aws.global          = aws.global
   }
 
-  prefix      = "${var.prefix}-${data.aws_caller_identity.current.account_id}"
+  server_function = {
+    additional_iam_policies = [aws_iam_policy.server_lambda_additional_policy]
+  }
+
+  prefix      = var.prefix
   folder_path = var.open-next-path
 }
