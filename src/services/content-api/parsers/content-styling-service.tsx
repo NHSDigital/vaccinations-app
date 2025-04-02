@@ -1,4 +1,4 @@
-import stringToHtml from "@src/utils/stringToHtml";
+import sanitiseHtml from "@src/utils/sanitise-html";
 import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import { JSX } from "react";
@@ -49,7 +49,7 @@ const styleSubsection = (
     const { heading, content } = extractHeadingAndContent(subsection.text);
     return <NonUrgentCareCard key={id} heading={heading} content={content} />;
   } else {
-    return <div key={id} dangerouslySetInnerHTML={stringToHtml(text)} />;
+    return <div key={id} dangerouslySetInnerHTML={sanitiseHtml(text)} />;
   }
 };
 

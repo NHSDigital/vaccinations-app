@@ -1,4 +1,4 @@
-import stringToHtml from "@src/utils/stringToHtml";
+import sanitiseHtml from "@src/utils/sanitise-html";
 import { JSX } from "react";
 
 interface DetailsProps {
@@ -11,7 +11,7 @@ const Details = (detailsProps: DetailsProps) => {
     <details className="nhsuk-details nhsuk-expander">
       <summary className="nhsuk-details__summary">
         <span className="nhsuk-details__summary-text">
-          <div dangerouslySetInnerHTML={stringToHtml(detailsProps.title)} />
+          <div dangerouslySetInnerHTML={sanitiseHtml(detailsProps.title)} />
         </span>
       </summary>
       <div className="nhsuk-details__text">{detailsProps.component}</div>

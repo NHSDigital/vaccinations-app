@@ -14,6 +14,10 @@ module "deploy_app" {
     additional_iam_policies = [aws_iam_policy.server_lambda_additional_policy]
   }
 
+  website_bucket = {
+    force_destroy = true
+  }
+
   prefix      = var.prefix
   folder_path = var.open-next-path
 }

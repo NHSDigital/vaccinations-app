@@ -6,7 +6,6 @@ on:
       tag:
         description: "This is the tag that is going to be deployed"
         required: true
-        default: "latest"
 
 env:
   AWS_REGION: eu-west-2

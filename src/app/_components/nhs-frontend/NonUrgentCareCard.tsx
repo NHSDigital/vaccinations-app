@@ -1,4 +1,4 @@
-import stringToHtml from "@src/utils/stringToHtml";
+import sanitiseHtml from "@src/utils/sanitise-html";
 
 interface NonUrgentCareCardProps {
   heading: string;
@@ -20,7 +20,7 @@ const NonUrgentCareCard = ({ heading, content }: NonUrgentCareCardProps) => {
 
       <div
         className="nhsuk-card__content"
-        dangerouslySetInnerHTML={stringToHtml(content)}
+        dangerouslySetInnerHTML={sanitiseHtml(content)}
       />
     </div>
   );
