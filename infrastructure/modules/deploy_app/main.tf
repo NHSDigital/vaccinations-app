@@ -12,6 +12,9 @@ module "deploy_app" {
 
   server_function = {
     additional_iam_policies = [aws_iam_policy.server_lambda_additional_policy]
+    additional_environment_variables = {
+      SSM_PREFIX = var.ssm_prefix
+    }
   }
 
   website_bucket = {
