@@ -84,9 +84,13 @@ jobs:
 #        env:
 #          TF_LOG: "INFO" #INFO/DEBUG
         run: |
-          TF_ENV=dev make terraform-init
-          TF_ENV=dev make terraform-plan opts="-out=terraform.tfplan"
-          TF_ENV=dev make terraform-apply opts="-auto-approve terraform.tfplan"
+#          TF_ENV=dev make terraform-init
+#          TF_ENV=dev make terraform-plan opts="-out=terraform.tfplan"
+#          TF_ENV=dev make terraform-apply opts="-auto-approve terraform.tfplan"
+          cd infrastructure/environments/dev
+          terraform init
+          terraform plan -out=terraform.tfplan
+          terraform apply -auto-approve terraform.tfplan
   # TODO: More jobs or/and steps here
   # success:
   #   name: "Success notification"
