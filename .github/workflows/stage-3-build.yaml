@@ -38,7 +38,7 @@ env:
 
 jobs:
   build-opennext-package:
-    name: "Build & Upload OpenNext package"
+    name: "OpenNext package"
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
@@ -47,13 +47,13 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
-      - name: Get current date
+      - name: "Get current date"
         id: date
         run: echo "today_date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
-      - name: Get short SHA
+      - name: "Get short SHA"
         id: sha
         run: echo "short_sha=$(echo ${GITHUB_SHA} | cut -c1-7)" >> $GITHUB_OUTPUT
-      - name: Get the release version
+      - name: "Get the release version"
         id: strip-branch-name
         run: |
           release_version=$(echo "${{ steps.date.outputs.today_date }}\
