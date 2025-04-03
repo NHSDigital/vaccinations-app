@@ -25,7 +25,6 @@ const getFromEnvironmentOrSSM = async (
     throw new Error(`Unable to get param: ${param}`);
   }
 
-  console.log(`Configuration: ${ssmPrefix}${param}: ${value}`);
   return value;
 };
 

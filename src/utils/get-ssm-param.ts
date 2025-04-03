@@ -4,7 +4,7 @@ import type { GetParameterCommandOutput } from "@aws-sdk/client-ssm";
 export const AWS_PRIMARY_REGION = "eu-west-2";
 
 const getSSMParam = async (name: string): Promise<string | undefined> => {
-  console.log(`getSSMParam: ${name}`);
+  console.log(`in getSSMParam(${name})`);
 
   const client = new SSMClient({
     region: AWS_PRIMARY_REGION,
