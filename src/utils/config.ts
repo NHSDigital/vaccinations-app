@@ -19,7 +19,7 @@ const getFromEnvironmentOrSSM = async (
   param: string,
 ): Promise<string> => {
   const value =
-    process.env[param] || (await getSSMParam(`${ssmPrefix}${param}`));
+    process.env[param] ?? (await getSSMParam(`${ssmPrefix}${param}`));
 
   if (value === undefined || value === null) {
     throw new Error(`Unable to get param: ${param}`);
