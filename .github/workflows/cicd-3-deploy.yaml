@@ -79,18 +79,27 @@ jobs:
         run: |
           unzip open-next.zip
           rm -rf open-next.zip
-      - name: "Deploy"
-        id: deploy
+#      - name: "Deploy"
+#        id: deploy
 #        env:
 #          TF_LOG: "INFO" #INFO/DEBUG
-        run: |
-          cd infrastructure/environments/dev
-          terraform init
-          terraform plan -out=terraform.tfplan
-          terraform apply -auto-approve terraform.tfplan
+#        run: |
+#          cd infrastructure/environments/dev
+#          terraform init
+#          terraform plan -out=terraform.tfplan
+#          terraform apply -auto-approve terraform.tfplan
 #          TF_ENV=dev make terraform-init
 #          TF_ENV=dev make terraform-plan opts="-out=terraform.tfplan"
 #          TF_ENV=dev make terraform-apply opts="-auto-approve terraform.tfplan"
+      - name: "Terraform init"
+        id: init
+        run: TF_ENV=dev make terraform-init
+      - name: "Terraform plan"
+        id: plan
+        run: TF_ENV=dev make terraform-plan opts="-out=terraform.tfplan"
+      - name: "Terraform apply"
+        id: apply
+        run: TF_ENV=dev make terraform-apply opts="-auto-approve terraform.tfplan"
   # TODO: More jobs or/and steps here
   # success:
   #   name: "Success notification"
