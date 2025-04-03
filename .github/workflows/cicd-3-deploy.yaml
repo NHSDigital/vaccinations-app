@@ -82,7 +82,7 @@ jobs:
       - name: "Deploy"
         id: deploy
         env:
-          TF_LOG: "DEBUG"
+          TF_LOG: "INFO" #INFO/DEBUG
         run: |
           TF_ENV=dev make terraform-init
           TF_ENV=dev make terraform-plan opts="-out=terraform.tfplan"
