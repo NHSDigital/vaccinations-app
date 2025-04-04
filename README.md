@@ -179,17 +179,23 @@ Avoid 'gh' as it is reserved for GitHub.
   ```
   npm run build:opennext
   ```
-- In the [dev](infrastructure/environments/dev) directory
+- In the [home]() directory
   ```
-  terraform workspace new <unique name>
+  TF_ENV=dev make terraform-init         # initialises the modules
+  ```
+- In the environment:[dev](infrastructure/environments/dev) directory
+  ```
+  terraform workspace new <unique 4 char name>
   ```
 - In the [home]() directory
   ```
-  TF_ENV=dev make terraform-init          # initialises the modules
   TF_ENV=dev make terraform-plan          # compares local vs. remote state, and shows the plan
   TF_ENV=dev make terraform-apply         # applies the plan, asks for approval
   TF_ENV=dev make terraform-destroy       # deprovisions infrastructure, asks for approval
   ```
+- Once the deployment is successful, do these post-deployment steps: -
+  - Update the environment: the variables are accessible in [Systems Manager / Parameter Store](https://eu-west-2.console.aws.amazon.com/systems-manager/parameters/?region=eu-west-2&tab=Table)
+  - The app is accessible via the CDN URL printed after the deployment as an output.
 
 ## Design
 TODO
