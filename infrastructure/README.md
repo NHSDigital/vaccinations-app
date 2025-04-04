@@ -45,7 +45,7 @@ We need an IAM role policy and identity provider for GitHub actions to provision
   - Audience: select the one created above
   - GitHub organisation: NHSDigital
   - GitHub repository: vaccinations-app
-  - GitHub branch: <leave empty> and `Next`
+  - GitHub branch: _leave empty_ and `Next`
   - Skip adding permissions
   - Give the new role a name `vaccinations-app-github-iam-role`
   - Give Tags: refer [above](#tags)
@@ -73,6 +73,7 @@ The second one did not work for us as it lagged behind in its support for OpenNe
 So, we decided to go ahead with the first option.
 
 ### Terraform
-We are using [single zone module](https://github.com/RJPearson94/terraform-aws-open-next/tree/main/modules/tf-aws-open-next-zone), which allows you to deploy lambda, S3 and CloudFront.
-The module will allow you to configure the following resources.
+We are using [single zone module](https://github.com/RJPearson94/terraform-aws-open-next/tree/main/modules/tf-aws-open-next-zone),
+which allows us to deploy lambda, S3 and CloudFront. The module configures the following resources.
+
 ![single-zone-architecture](https://raw.githubusercontent.com/RJPearson94/terraform-aws-open-next/v3.5.0/docs/diagrams/Single%20Zone.png)
