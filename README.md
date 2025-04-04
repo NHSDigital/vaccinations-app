@@ -168,6 +168,8 @@ make githooks-run
 (Note that this has also been configured as a pre-commit hook that will run automatically before each commit)
 
 ### Deploy your local changes to AWS dev environment
+A detailed description of our infrastructure is outlined [here](infrastructure/README.md).
+
 We use terraform workspaces to distinguish each developer.
 So make sure you use your own unique combination of initials, to set the workspace.
 Use maximum 4 chars, otherwise you might not be able to deploy due to max limits on resource names.
