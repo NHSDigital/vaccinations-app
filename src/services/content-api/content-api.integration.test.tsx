@@ -2,6 +2,8 @@
  * @jest-environment node
  */
 
+import { readContentFromCache } from "@src/services/content-api/cache/reader/content-cache-reader";
+import { vaccineTypeToPath } from "@src/services/content-api/constants";
 import {
   getStyledContentForVaccine,
   StyledVaccineContent,
@@ -9,25 +11,24 @@ import {
 import { VaccineTypes } from "@src/models/vaccine";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 
+jest.mock("@src/services/content-api/cache/reader/content-cache-reader");
 jest.mock("@src/utils/config", () => () => ({
-  CONTENT_API_ENDPOINT: "https://content-endpoint",
+  CONTENT_CACHE_PATH: "test-path",
 }));
 
-const fetchMock = jest.spyOn(global, "fetch").mockImplementation(
-  jest.fn(() =>
-    Promise.resolve({
-      status: 200,
-      json: () => Promise.resolve(genericVaccineContentAPIResponse),
-    }),
-  ) as jest.Mock,
-);
+describe("Content API Read Integration Test ", () => {
+  it("should return processed data from external cache", async () => {
+    (readContentFromCache as jest.Mock).mockResolvedValue(
+      JSON.stringify(genericVaccineContentAPIResponse),
+    );
 
-describe("Content API Integration Test ", () => {
-  it("should return processed data from external Content API", async () => {
     const styledVaccineContent: StyledVaccineContent =
       await getStyledContentForVaccine(VaccineTypes.RSV);
 
-    expect(fetchMock).toHaveBeenCalled();
+    expect(readContentFromCache).toHaveBeenCalledWith(
+      "test-path",
+      `${vaccineTypeToPath[VaccineTypes.RSV]}.json`,
+    );
     expect(styledVaccineContent).not.toBeNull();
     expect(styledVaccineContent.overview).toEqual(
       genericVaccineContentAPIResponse.mainEntityOfPage[0].text,
