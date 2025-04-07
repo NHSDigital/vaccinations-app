@@ -26,12 +26,12 @@ const readFileS3 = async (bucket: string, key: string): Promise<string> => {
         Body.on("error", reject);
       });
     }
-
-    throw new Error("Unexpected response type");
   } catch (error) {
     console.error("Error reading file from S3:", error);
     throw error;
   }
+
+  throw new Error("Unexpected response type");
 };
 
 const readContentFromCache = async (
