@@ -20,6 +20,7 @@
       }
     ],
     "paths": {
+      "@project/*": ["./*"],
       "@src/*": ["./src/*"],
       "@public/*": ["./public/*"],
       "@test-data/*": ["./test-data/*"]

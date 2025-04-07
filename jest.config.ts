@@ -14,6 +14,7 @@ const config: Config = {
   // Add more setup options before each test is run
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   moduleNameMapper: {
+    "^@project/(.*)$": "<rootDir>/$1",
     "^@public/(.*)$": "<rootDir>/public/$1",
     "^@src/(.*)$": "<rootDir>/src/$1",
     "^@test-data/(.*)$": "<rootDir>/mocks/$1"
