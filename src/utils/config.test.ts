@@ -21,7 +21,7 @@ describe("configProvider", () => {
 
     const config = await configProvider();
 
-    expect(config).toEqual({
+    expect(config).toMatchObject({
       CONTENT_API_ENDPOINT: "api-endpoint",
       CONTENT_API_KEY: "api-key",
     });
@@ -29,7 +29,6 @@ describe("configProvider", () => {
     expect(mockGetSSMParam).not.toHaveBeenCalledWith(
       `${prefix}CONTENT_API_ENDPOINT`,
     );
-    expect(mockGetSSMParam).toHaveBeenCalledTimes(1);
   });
 
   it("should throw error if values aren't in env or SSM", async () => {

@@ -11,6 +11,10 @@ const configProvider = async () => {
       SSM_PREFIX,
       "CONTENT_API_KEY",
     ),
+    CONTENT_CACHE_PATH: await getFromEnvironmentOrSSM(
+      SSM_PREFIX,
+      "CONTENT_CACHE_PATH",
+    ),
   };
 };
 
