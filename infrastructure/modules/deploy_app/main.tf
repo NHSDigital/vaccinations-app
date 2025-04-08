@@ -16,6 +16,15 @@ module "deploy_app" {
       SSM_PREFIX         = var.ssm_prefix
       CONTENT_CACHE_PATH = var.content_cache_path
     }
+    runtime = "nodejs22.x"
+  }
+
+  image_optimisation_function = {
+    runtime = "nodejs22.x"
+  }
+
+  revalidation_function = {
+    runtime = "nodejs22.x"
   }
 
   website_bucket = {
