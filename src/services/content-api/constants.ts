@@ -1,8 +1,8 @@
 import { VaccineTypes } from "@src/models/vaccine";
 
 enum VaccineContentPaths {
-  SIX_IN_ONE = "/6-in-1-vaccine",
-  RSV = "/rsv-vaccine",
+  SIX_IN_ONE = "6-in-1-vaccine",
+  RSV = "rsv-vaccine",
 }
 
 const vaccineTypeToPath: Record<VaccineTypes, VaccineContentPaths> = {
