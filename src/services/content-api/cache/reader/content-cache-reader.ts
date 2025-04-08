@@ -1,13 +1,8 @@
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { AWS_PRIMARY_REGION } from "@src/utils/constants";
+import { isS3Path, S3_PREFIX } from "@src/utils/path";
 import { readFile } from "node:fs/promises";
 import { Readable } from "stream";
-
-const S3_PREFIX = "s3://";
-
-const isS3Path = (path: string): boolean => {
-  return path.startsWith(S3_PREFIX);
-};
 
 const readFileS3 = async (bucket: string, key: string): Promise<string> => {
   try {
@@ -43,4 +38,4 @@ const readContentFromCache = async (
     : await readFile(`${cacheLocation}${cachePath}`, { encoding: "utf8" });
 };
 
-export { isS3Path, readContentFromCache };
+export default readContentFromCache;

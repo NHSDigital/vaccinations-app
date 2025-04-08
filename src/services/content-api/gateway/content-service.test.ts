@@ -3,7 +3,7 @@
  */
 
 import { VaccineTypes } from "@src/models/vaccine";
-import { readContentFromCache } from "@src/services/content-api/cache/reader/content-cache-reader";
+import readContentFromCache from "@src/services/content-api/cache/reader/content-cache-reader";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-service";
 import { vaccineTypeToPath } from "@src/services/content-api/constants";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";

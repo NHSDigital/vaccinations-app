@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 
-import { readContentFromCache } from "@src/services/content-api/cache/reader/content-cache-reader";
+import readContentFromCache from "@src/services/content-api/cache/reader/content-cache-reader";
 import { vaccineTypeToPath } from "@src/services/content-api/constants";
 import {
   getStyledContentForVaccine,
