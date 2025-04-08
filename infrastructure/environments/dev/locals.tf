@@ -11,6 +11,8 @@ locals {
   ssm_prefix       = "/${local.prefix}/"
   open_next_path   = "../../../.open-next"
 
+  content_cache_bucket_name = "${local.prefix}-content-cache"
+
   default_tags = {
     ManagedBy   = "Terraform"
     Project     = local.project_identifier

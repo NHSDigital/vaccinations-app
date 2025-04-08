@@ -17,3 +17,8 @@ variable "ssm_prefix" {
   type = string
   description = "Prefix to be applied to SSM parameters"
 }
+
+variable "content_cache_path" {
+  type = string
+  description = "The s3 bucket for storing content cache"
+}
