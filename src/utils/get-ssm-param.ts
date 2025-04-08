@@ -1,10 +1,11 @@
 import { GetParameterCommand, SSMClient } from "@aws-sdk/client-ssm";
 import type { GetParameterCommandOutput } from "@aws-sdk/client-ssm";
 import { AWS_PRIMARY_REGION } from "@src/utils/constants";
+import { logger } from "@src/utils/logger";
+
+const log = logger.child({ module: "get-ssm-param" });
 
 const getSSMParam = async (name: string): Promise<string | undefined> => {
-  console.log(`in getSSMParam(${name})`);
-
   const client = new SSMClient({
     region: AWS_PRIMARY_REGION,
   });
@@ -18,7 +19,7 @@ const getSSMParam = async (name: string): Promise<string | undefined> => {
   if (response.$metadata.httpStatusCode === 200) {
     return response.Parameter?.Value;
   } else {
-    console.error(response.$metadata);
+    log.error(response.$metadata);
   }
 
   return undefined;

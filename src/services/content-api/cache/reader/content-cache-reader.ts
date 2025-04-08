@@ -3,6 +3,9 @@ import { AWS_PRIMARY_REGION } from "@src/utils/constants";
 import { isS3Path, S3_PREFIX } from "@src/utils/path";
 import { readFile } from "node:fs/promises";
 import { Readable } from "stream";
+import { logger } from "@src/utils/logger";
+
+const log = logger.child({ module: "content-cache-reader" });
 
 const readFileS3 = async (bucket: string, key: string): Promise<string> => {
   try {
@@ -22,7 +25,7 @@ const readFileS3 = async (bucket: string, key: string): Promise<string> => {
       });
     }
   } catch (error) {
-    console.error("Error reading file from S3:", error);
+    log.error(`Error reading file from S3: ${error}`);
     throw error;
   }
 
@@ -33,6 +36,7 @@ const readContentFromCache = async (
   cacheLocation: string,
   cachePath: string,
 ): Promise<string> => {
+  log.info(`Reading file from cache: ${cacheLocation}${cachePath}`);
   return isS3Path(cacheLocation)
     ? await readFileS3(cacheLocation.slice(S3_PREFIX.length), cachePath)
     : await readFile(`${cacheLocation}${cachePath}`, { encoding: "utf8" });

@@ -11,7 +11,7 @@ const log = logger.child({ module: "content-service" });
 const getContentForVaccine = async (vaccineType: VaccineTypes) => {
   const config = await configProvider();
   const vaccineContentPath = vaccineTypeToPath[vaccineType];
-  log.info(`Fetching content from cache`);
+  log.info(`Fetching content from cache for vaccine: ${vaccineType}`);
   const vaccineContent = await readContentFromCache(
     config.CONTENT_CACHE_PATH,
     `${vaccineContentPath}.json`,
