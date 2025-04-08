@@ -13,8 +13,13 @@ module "deploy_app" {
   server_function = {
     additional_iam_policies = [aws_iam_policy.server_lambda_additional_policy]
     additional_environment_variables = {
-      SSM_PREFIX         = var.ssm_prefix
-      CONTENT_CACHE_PATH = var.content_cache_path
+      SSM_PREFIX          = var.ssm_prefix
+      CONTENT_CACHE_PATH  = var.content_cache_path
+      PINO_LOG_LEVEL      = var.pino_log_level
+    }
+    cloudwatch_log = {
+      skip_destroy      = true
+      retention_in_days = var.log_retention_in_days
     }
     runtime = "nodejs22.x"
   }

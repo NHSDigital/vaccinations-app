@@ -191,11 +191,17 @@ Avoid 'gh' as it is reserved for GitHub.
   ```
   TF_ENV=dev make terraform-plan          # compares local vs. remote state, and shows the plan
   TF_ENV=dev make terraform-apply         # applies the plan, asks for approval
-  TF_ENV=dev make terraform-destroy       # deprovisions infrastructure, asks for approval
   ```
 - Once the deployment is successful, do these post-deployment steps: -
   - Update the environment: the variables are accessible in [Systems Manager / Parameter Store](https://eu-west-2.console.aws.amazon.com/systems-manager/parameters/?region=eu-west-2&tab=Table)
   - The app is accessible via the CDN URL printed after the deployment as an output.
+
+#### Destroying and Re-deploying resources in AWS
+To destroy resources in AWS, run the command:
+```
+ TF_ENV=dev make terraform-destroy       # deprovisions infrastructure, asks for approval
+```
+Note: AWS has been configured to ensure that server function log group is not deleted when destroy is run. When re-deploying from local, this means that developers will need to go into AWS and manually delete the log group before re-provisioning.
 
 ## Design
 TODO

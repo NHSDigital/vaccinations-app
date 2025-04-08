@@ -4,10 +4,14 @@ import readContentFromCache from "@src/services/content-api/cache/reader/content
 import configProvider from "@src/utils/config";
 import { VaccineTypes } from "@src/models/vaccine";
 import { vaccineTypeToPath } from "@src/services/content-api/constants";
+import { logger } from "@src/utils/logger";
+
+const log = logger.child({ module: "content-service" });
 
 const getContentForVaccine = async (vaccineType: VaccineTypes) => {
   const config = await configProvider();
   const vaccineContentPath = vaccineTypeToPath[vaccineType];
+  log.info(`Fetching content from cache`);
   const vaccineContent = await readContentFromCache(
     config.CONTENT_CACHE_PATH,
     `${vaccineContentPath}.json`,
