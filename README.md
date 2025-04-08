@@ -179,6 +179,10 @@ Avoid 'gh' as it is reserved for GitHub.
   ```
   npm run build:opennext
   ```
+- (optional) Log into AWS if session has expired - run the following command, ignore the browser window that automatically opens and copy the URL output in terminal into browser for HSCIC profile
+  ```
+  aws sso login
+  ```
 - In the [home]() directory
   ```
   TF_ENV=dev make terraform-init         # initialises the modules
@@ -202,6 +206,23 @@ To destroy resources in AWS, run the command:
  TF_ENV=dev make terraform-destroy       # deprovisions infrastructure, asks for approval
 ```
 Note: AWS has been configured to ensure that server function log group is not deleted when destroy is run. When re-deploying from local, this means that developers will need to go into AWS and manually delete the log group before re-provisioning.
+
+#### Accessing application logs in AWS
+Logs are kept in AWS CloudWatch in a Log Group for the server
+
+In AWS Console:
+- CloudWatch > Log Groups > `/aws/lambda/{workspace}-main-vita-{accountid}-server-function`
+
+Use the Logs Insights UI to query logs:
+- CloudWatch > Log Insights
+- Select the log group in the dropdown
+- Sample query:
+  ```
+  fields @timestamp, level, module, msg, @message
+  | filter level = "INFO"
+  | sort @timestamp desc
+  | limit 10000
+  ```
 
 ## Design
 TODO
