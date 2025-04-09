@@ -2,39 +2,59 @@
  * @jest-environment node
  */
 
-import { vaccineTypeToPath } from "@src/services/content-api/constants";
-import { _readContentFromCache } from "@src/services/content-api/gateway/content-reader-service";
+import { S3Client } from "@aws-sdk/client-s3";
 import {
   getStyledContentForVaccine,
   StyledVaccineContent,
 } from "@src/services/content-api/parsers/content-styling-service";
 import { VaccineTypes } from "@src/models/vaccine";
-import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
+import configProvider from "@src/utils/config";
+import mockRsvVaccineJson from "@project/wiremock/__files/rsv-vaccine.json";
+import { Readable } from "stream";
 
-jest.mock("@src/services/content-api/gateway/content-reader-service");
-jest.mock("@src/utils/config", () => () => ({
-  CONTENT_CACHE_PATH: "test-path",
-}));
+jest.mock("@src/utils/config");
+jest.mock("@aws-sdk/client-s3");
 
 describe("Content API Read Integration Test ", () => {
-  it("should return processed data from external cache", async () => {
-    (_readContentFromCache as jest.Mock).mockResolvedValue(
-      JSON.stringify(genericVaccineContentAPIResponse),
-    );
-
+  it("should return processed data from local cache", async () => {
+    (configProvider as jest.Mock).mockImplementation(() => ({
+      CONTENT_CACHE_PATH: "wiremock/__files/",
+    }));
     const styledVaccineContent: StyledVaccineContent =
       await getStyledContentForVaccine(VaccineTypes.RSV);
 
-    expect(_readContentFromCache).toHaveBeenCalledWith(
-      "test-path",
-      `${vaccineTypeToPath[VaccineTypes.RSV]}.json`,
-    );
     expect(styledVaccineContent).not.toBeNull();
     expect(styledVaccineContent.overview).toEqual(
-      genericVaccineContentAPIResponse.mainEntityOfPage[0].text,
+      mockRsvVaccineJson.mainEntityOfPage[0].text,
     );
     expect(styledVaccineContent.webpageLink).toEqual(
-      genericVaccineContentAPIResponse.webpage,
+      mockRsvVaccineJson.webpage,
+    );
+  });
+
+  it("should return processed data from external cache", async () => {
+    (configProvider as jest.Mock).mockImplementation(() => ({
+      CONTENT_CACHE_PATH: "s3://test-bucket",
+    }));
+    (S3Client as jest.Mock).mockImplementation(() => ({
+      send: () => ({
+        Body: new Readable({
+          read() {
+            this.push(JSON.stringify(mockRsvVaccineJson));
+            this.push(null); // End of stream
+          },
+        }),
+      }),
+    }));
+    const styledVaccineContent: StyledVaccineContent =
+      await getStyledContentForVaccine(VaccineTypes.RSV);
+
+    expect(styledVaccineContent).not.toBeNull();
+    expect(styledVaccineContent.overview).toEqual(
+      mockRsvVaccineJson.mainEntityOfPage[0].text,
+    );
+    expect(styledVaccineContent.webpageLink).toEqual(
+      mockRsvVaccineJson.webpage,
     );
   });
 });
