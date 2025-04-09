@@ -36,7 +36,7 @@ const readContentFromCache = async (
   cacheLocation: string,
   cachePath: string,
 ): Promise<string> => {
-  log.info(`Reading file from cache: ${cacheLocation}${cachePath}`);
+  log.info(`Reading file from cache: loc=${cacheLocation}, path=${cachePath}`);
   return isS3Path(cacheLocation)
     ? await readFileS3(cacheLocation.slice(S3_PREFIX.length), cachePath)
     : await readFile(`${cacheLocation}${cachePath}`, { encoding: "utf8" });
