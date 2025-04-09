@@ -21,15 +21,15 @@ module "deploy_app" {
       skip_destroy      = true
       retention_in_days = var.log_retention_in_days
     }
-    runtime = "nodejs22.x"
+    runtime = var.nodejs_version
   }
 
   image_optimisation_function = {
-    runtime = "nodejs22.x"
+    runtime = var.nodejs_version
   }
 
   revalidation_function = {
-    runtime = "nodejs22.x"
+    runtime = var.nodejs_version
   }
 
   website_bucket = {

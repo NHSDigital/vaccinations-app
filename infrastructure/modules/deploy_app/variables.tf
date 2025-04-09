@@ -3,6 +3,11 @@ variable "prefix" {
   description = "Prefix to be applied to resources created"
 }
 
+variable "nodejs_version" {
+  type        = string
+  description = "Version of the nodejs to use, e.g. 'nodejs22.x'"
+}
+
 variable "open-next-path" {
   type        = string
   description = "Relative path to open next output directory"

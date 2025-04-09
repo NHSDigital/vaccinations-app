@@ -3,6 +3,7 @@ module "deploy" {
 
   open-next-path        = local.open_next_path
   prefix                = local.prefix
+  nodejs_version        = "nodejs22.x"
   default_tags          = local.default_tags
   ssm_prefix            = local.ssm_prefix
   content_cache_path    = "s3://${module.content_cache_s3_bucket.s3_bucket_id}"
