@@ -14,9 +14,9 @@ import {
   getFilteredContentForVaccine,
   VaccinePageContent,
   VaccinePageSection,
-} from "@src/services/content-api/parsers/content-filter";
+} from "@src/services/content-api/parsers/content-filter-service";
 
-jest.mock("@src/services/content-api/parsers/content-filter");
+jest.mock("@src/services/content-api/parsers/content-filter-service");
 
 describe("ContentStylingService", () => {
   const mockMarkdownSubsection = {

@@ -1,16 +1,21 @@
+"use server";
+
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import configProvider from "@src/utils/config";
+import { VaccineTypes } from "@src/models/vaccine";
+import { vaccineTypeToPath } from "@src/services/content-api/constants";
 import { AWS_PRIMARY_REGION } from "@src/utils/constants";
+import { logger } from "@src/utils/logger";
 import { isS3Path, S3_PREFIX } from "@src/utils/path";
 import { readFile } from "node:fs/promises";
 import { Readable } from "stream";
-import { logger } from "@src/utils/logger";
 
-const log = logger.child({ module: "content-cache-reader" });
+const log = logger.child({ module: "content-reader-service" });
 
-const readFileS3 = async (bucket: string, key: string): Promise<string> => {
+const _readFileS3 = async (bucket: string, key: string): Promise<string> => {
   try {
     const s3Client = new S3Client({
-      region: AWS_PRIMARY_REGION,
+      region: AWS_PRIMARY_REGION
     });
 
     const getObjectCommand = new GetObjectCommand({ Bucket: bucket, Key: key });
@@ -32,14 +37,31 @@ const readFileS3 = async (bucket: string, key: string): Promise<string> => {
   throw new Error("Unexpected response type");
 };
 
-const readContentFromCache = async (
+const _readContentFromCache = async (
   cacheLocation: string,
-  cachePath: string,
+  cachePath: string
 ): Promise<string> => {
   log.info(`Reading file from cache: loc=${cacheLocation}, path=${cachePath}`);
   return isS3Path(cacheLocation)
-    ? await readFileS3(cacheLocation.slice(S3_PREFIX.length), cachePath)
+    ? await _readFileS3(cacheLocation.slice(S3_PREFIX.length), cachePath)
     : await readFile(`${cacheLocation}${cachePath}`, { encoding: "utf8" });
 };
 
-export default readContentFromCache;
+const getContentForVaccine = async (vaccineType: VaccineTypes) => {
+  const config = await configProvider();
+  const vaccineContentPath = vaccineTypeToPath[vaccineType];
+  log.info(`Fetching content from cache for vaccine: ${vaccineType}`);
+  const vaccineContent = await _readContentFromCache(
+    config.CONTENT_CACHE_PATH,
+    `${vaccineContentPath}.json`
+  );
+  log.info(`Finished fetching content from cache for vaccine: ${vaccineType}`);
+
+  return JSON.parse(vaccineContent);
+};
+
+export {
+  _readFileS3,
+  _readContentFromCache,
+  getContentForVaccine
+};
