@@ -1,5 +1,5 @@
 import writeContentToCache from "@src/_lambda/content-cache-hydrator/content-cache-writer";
-import handler from "@src/_lambda/content-cache-hydrator/handler";
+import { handler } from "@src/_lambda/content-cache-hydrator/handler";
 import type {
   HydrateEvent,
   HydrateResponse,
