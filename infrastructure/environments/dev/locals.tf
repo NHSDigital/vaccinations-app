@@ -12,6 +12,7 @@ locals {
   open_next_path        = "../../../.open-next"
   log_retention_in_days = 7
   pino_log_level        = "info"
+  node_version          = "nodejs22.x"
 
   content_cache_bucket_name = "${local.prefix}-content-cache"
 
