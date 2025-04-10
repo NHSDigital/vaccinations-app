@@ -15,7 +15,7 @@ const log = logger.child({ module: "content-reader-service" });
 const _readFileS3 = async (bucket: string, key: string): Promise<string> => {
   try {
     const s3Client = new S3Client({
-      region: AWS_PRIMARY_REGION
+      region: AWS_PRIMARY_REGION,
     });
 
     const getObjectCommand = new GetObjectCommand({ Bucket: bucket, Key: key });
@@ -39,7 +39,7 @@ const _readFileS3 = async (bucket: string, key: string): Promise<string> => {
 
 const _readContentFromCache = async (
   cacheLocation: string,
-  cachePath: string
+  cachePath: string,
 ): Promise<string> => {
   log.info(`Reading file from cache: loc=${cacheLocation}, path=${cachePath}`);
   return isS3Path(cacheLocation)
@@ -53,15 +53,11 @@ const getContentForVaccine = async (vaccineType: VaccineTypes) => {
   log.info(`Fetching content from cache for vaccine: ${vaccineType}`);
   const vaccineContent = await _readContentFromCache(
     config.CONTENT_CACHE_PATH,
-    `${vaccineContentPath}.json`
+    `${vaccineContentPath}.json`,
   );
   log.info(`Finished fetching content from cache for vaccine: ${vaccineType}`);
 
   return JSON.parse(vaccineContent);
 };
 
-export {
-  _readFileS3,
-  _readContentFromCache,
-  getContentForVaccine
-};
+export { _readFileS3, _readContentFromCache, getContentForVaccine };
