@@ -26,10 +26,10 @@ module "deploy_app" {
 
   warmer_function = {
     enabled = true
-    additional_iam_policies = [aws_iam_policy.content_cache_hydrator_lambda_additional_policy]
+    additional_iam_policies = [aws_iam_policy.cache_lambda_additional_policy]
     runtime = var.nodejs_version
     concurrency = 1
-    schedule = "rate(5 minutes)"
+    schedule = "rate(2 days)"
     additional_environment_variables = {
       SSM_PREFIX          = var.ssm_prefix
       CONTENT_CACHE_PATH  = var.content_cache_path
