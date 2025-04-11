@@ -37,8 +37,8 @@ env:
   AWS_S3_PACKAGE_BUCKET: vaccinations-app-github
 
 jobs:
-  build-opennext-package:
-    name: "OpenNext package"
+  build-and-package:
+    name: "Build and package"
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
@@ -65,14 +65,20 @@ jobs:
         run: |
           npm ci --ignore-scripts
           npm run build:opennext
+      - name: "Build Lambda Package"
+        run: |
+          npm run build:lambda
       - name: "Zip OpenNext Package"
         run: zip -r open-next.zip .open-next/
+      - name: "Zip Lambda Package"
+        run: zip -j -r lambda.zip dist/
       - name: "Configure AWS credentials"
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-session-name: GitHubActionsSession
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
-      - name: "Upload OpenNext Package To S3"
+      - name: "Upload Packages To S3"
         run: |
           aws s3 cp open-next.zip "s3://${AWS_S3_PACKAGE_BUCKET}/${RELEASE_VERSION}/open-next.zip"
+          aws s3 cp lambda.zip "s3://${AWS_S3_PACKAGE_BUCKET}/${RELEASE_VERSION}/lambda.zip"
