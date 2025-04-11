@@ -8,7 +8,7 @@ module "content_cache_hydrator_lambda_function" {
   runtime       = var.nodejs_version
 
   create_package         = false
-  local_existing_package = "${path.module}/../../../dist/lambda.zip"
+  local_existing_package = "${path.module}/../../../lambda.zip"
 
   tags = var.default_tags
 }

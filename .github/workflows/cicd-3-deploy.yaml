@@ -73,11 +73,14 @@ jobs:
           role-session-name: GitHubActionsSession
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
-      - name: "Download OpenNext Package From S3"
+      - name: "Download Packages From S3"
         run: |
-          s3_path="s3://${AWS_S3_PACKAGE_BUCKET}/${{ needs.metadata.outputs.tag }}/open-next.zip"
-          echo "Artefact path: $s3_path"
-          aws s3 cp "$s3_path" .
+          app_s3_path="s3://${AWS_S3_PACKAGE_BUCKET}/${{ needs.metadata.outputs.tag }}/open-next.zip"
+          echo "Artefact path: app_s3_path"
+          aws s3 cp "app_s3_path" .
+          lambda_s3_path="s3://${AWS_S3_PACKAGE_BUCKET}/${{ needs.metadata.outputs.tag }}/lambda.zip"
+          echo "Artefact path: lambda_s3_path"
+          aws s3 cp "lambda_s3_path" .
       - name: "Unzip OpenNext Package"
         run: |
           unzip open-next.zip
