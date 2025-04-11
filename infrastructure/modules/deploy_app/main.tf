@@ -24,11 +24,37 @@ module "deploy_app" {
     runtime = var.nodejs_version
   }
 
+  warmer_function = {
+    enabled = true
+    additional_iam_policies = [aws_iam_policy.content_cache_hydrator_lambda_additional_policy]
+    runtime = var.nodejs_version
+    concurrency = 1
+    schedule = "rate(5 minutes)"
+    additional_environment_variables = {
+      SSM_PREFIX          = var.ssm_prefix
+      CONTENT_CACHE_PATH  = var.content_cache_path
+      PINO_LOG_LEVEL      = var.pino_log_level
+    }
+    cloudwatch_log = {
+      skip_destroy      = true
+      retention_in_days = var.log_retention_in_days
+    }
+    function_code = {
+      handler = "lambda.handler"
+      zip = {
+        path = var.lambda_zip_path
+        hash = filemd5(var.lambda_zip_path)
+      }
+    }
+  }
+
   image_optimisation_function = {
+    create = false
     runtime = var.nodejs_version
   }
 
   revalidation_function = {
+    create = false
     runtime = var.nodejs_version
   }
 

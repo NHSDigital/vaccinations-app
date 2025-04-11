@@ -13,6 +13,11 @@ variable "open-next-path" {
   description = "Relative path to open next output directory"
 }
 
+variable "lambda_zip_path" {
+  type        = string
+  description = "Path to lambda zip artifact"
+}
+
 variable "default_tags" {
   type        = map(string)
   description = "Map of default key-value pair of tags to add to resources"

@@ -13,6 +13,7 @@ locals {
   log_retention_in_days = 7
   pino_log_level        = "info"
   node_version          = "nodejs22.x"
+  cache_lambda_zip_path = "../../../lambda.zip"
 
   content_cache_bucket_name = "${local.prefix}-content-cache"
 
