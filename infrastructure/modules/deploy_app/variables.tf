@@ -13,7 +13,7 @@ variable "open-next-path" {
   description = "Relative path to open next output directory"
 }
 
-variable "lambda_zip_path" {
+variable "cache_lambda_zip_path" {
   type        = string
   description = "Path to lambda zip artifact"
 }

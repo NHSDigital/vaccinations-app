@@ -42,19 +42,17 @@ module "deploy_app" {
     function_code = {
       handler = "lambda.handler"
       zip = {
-        path = var.lambda_zip_path
-        hash = filemd5(var.lambda_zip_path)
+        path = var.cache_lambda_zip_path
+        hash = filemd5(var.cache_lambda_zip_path)
       }
     }
   }
 
   image_optimisation_function = {
-    create = false
     runtime = var.nodejs_version
   }
 
   revalidation_function = {
-    create = false
     runtime = var.nodejs_version
   }
 
