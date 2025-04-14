@@ -14,7 +14,7 @@ import { writeFile } from "node:fs/promises";
 import { vaccineTypeToPath } from "@src/services/content-api/constants";
 
 jest.mock("@src/utils/config");
-let mockSend = jest.fn();
+let mockSend: jest.Mock = jest.fn();
 jest.mock("@aws-sdk/client-s3", () => {
   return {
     S3Client: jest.fn(() => ({
@@ -49,10 +49,10 @@ describe("Content Writer Service", () => {
     });
 
     it("should throw and log on error", async () => {
-      const s3Error = "S3 error";
+      const s3Error: string = "S3 error";
       mockSend = jest.fn().mockRejectedValue(new Error(s3Error));
 
-      const consoleErrorSpy = jest
+      const consoleErrorSpy: jest.SpyInstance = jest
         .spyOn(console, "error")
         .mockImplementation(() => {});
 
@@ -92,7 +92,7 @@ describe("Content Writer Service", () => {
     }));
 
     it("should return response for 6-in-1 vaccine from content cache", async () => {
-      const vaccine = VaccineTypes.SIX_IN_ONE;
+      const vaccine: VaccineTypes = VaccineTypes.SIX_IN_ONE;
       await writeContentForVaccine(vaccine, content);
       expect(writeFile).toHaveBeenCalledWith(
         `${location}${vaccineTypeToPath[vaccine]}.json`,

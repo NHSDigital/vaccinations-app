@@ -18,7 +18,7 @@ jest.mock("@src/utils/config");
 
 describe("Content Reader Service", () => {
   describe("_readContentFromCache()", () => {
-    const mockSend = jest.fn();
+    const mockSend: jest.Mock = jest.fn();
     beforeEach(() => {
       (S3Client as jest.Mock).mockImplementation(() => ({
         send: mockSend,
@@ -26,7 +26,7 @@ describe("Content Reader Service", () => {
     });
 
     it("returns content when object uri is local", async () => {
-      const actual = await _readContentFromCache(
+      const actual: string = await _readContentFromCache(
         "wiremock/__files",
         "/rsv-vaccine.json",
       );
@@ -43,7 +43,10 @@ describe("Content Reader Service", () => {
         }),
       }));
 
-      const actual = await _readContentFromCache("s3://bucket", "/file");
+      const actual: string = await _readContentFromCache(
+        "s3://bucket",
+        "/file",
+      );
       expect(JSON.parse(actual)).toStrictEqual(mockRsvVaccineJson);
     });
 
@@ -52,7 +55,10 @@ describe("Content Reader Service", () => {
         Body: {},
       }));
 
-      const actualPromise = _readContentFromCache("s3://bucket", "/file");
+      const actualPromise: Promise<string> = _readContentFromCache(
+        "s3://bucket",
+        "/file",
+      );
       await expect(actualPromise).rejects.toThrow("Unexpected response type");
     });
 
@@ -65,7 +71,10 @@ describe("Content Reader Service", () => {
         }),
       }));
 
-      const actualPromise = _readContentFromCache("s3://bucket", "/file");
+      const actualPromise: Promise<string> = _readContentFromCache(
+        "s3://bucket",
+        "/file",
+      );
       await expect(actualPromise).rejects.toThrow("test error");
     });
   });
@@ -76,7 +85,7 @@ describe("Content Reader Service", () => {
     }));
 
     it("should return response for 6-in-1 vaccine from content cache", async () => {
-      const vaccine = VaccineTypes.SIX_IN_ONE;
+      const vaccine: VaccineTypes = VaccineTypes.SIX_IN_ONE;
       const actual = await getContentForVaccine(vaccine);
       expect(actual).toEqual(mockSixInOneVaccineJson);
     });

@@ -6,8 +6,9 @@ import { AWS_PRIMARY_REGION } from "@src/utils/constants";
 import { logger } from "@src/utils/logger";
 import { isS3Path, S3_PREFIX } from "@src/utils/path";
 import { writeFile } from "node:fs/promises";
+import { Logger } from "pino";
 
-const log = logger.child({ module: "content-writer-service" });
+const log: Logger = logger.child({ module: "content-writer-service" });
 
 const _writeFileS3 = async (
   bucket: string,
@@ -15,11 +16,11 @@ const _writeFileS3 = async (
   data: string,
 ): Promise<void> => {
   try {
-    const s3Client = new S3Client({
+    const s3Client: S3Client = new S3Client({
       region: AWS_PRIMARY_REGION,
     });
 
-    const putObjectCommand = new PutObjectCommand({
+    const putObjectCommand: PutObjectCommand = new PutObjectCommand({
       Bucket: bucket,
       Key: key,
       Body: data,
