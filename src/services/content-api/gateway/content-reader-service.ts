@@ -3,7 +3,10 @@
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import configProvider from "@src/utils/config";
 import { VaccineTypes } from "@src/models/vaccine";
-import { vaccineTypeToPath } from "@src/services/content-api/constants";
+import {
+  VaccineContentPaths,
+  vaccineTypeToPath,
+} from "@src/services/content-api/constants";
 import { AWS_PRIMARY_REGION } from "@src/utils/constants";
 import { logger } from "@src/utils/logger";
 import { isS3Path, S3_PREFIX } from "@src/utils/path";
@@ -14,11 +17,14 @@ const log = logger.child({ module: "content-reader-service" });
 
 const _readFileS3 = async (bucket: string, key: string): Promise<string> => {
   try {
-    const s3Client = new S3Client({
+    const s3Client: S3Client = new S3Client({
       region: AWS_PRIMARY_REGION,
     });
 
-    const getObjectCommand = new GetObjectCommand({ Bucket: bucket, Key: key });
+    const getObjectCommand: GetObjectCommand = new GetObjectCommand({
+      Bucket: bucket,
+      Key: key,
+    });
     const { Body } = await s3Client.send(getObjectCommand);
 
     if (Body instanceof Readable) {
@@ -49,7 +55,8 @@ const _readContentFromCache = async (
 
 const getContentForVaccine = async (vaccineType: VaccineTypes) => {
   const config = await configProvider();
-  const vaccineContentPath = vaccineTypeToPath[vaccineType];
+  const vaccineContentPath: VaccineContentPaths =
+    vaccineTypeToPath[vaccineType];
   log.info(`Fetching content from cache for vaccine: ${vaccineType}`);
   const vaccineContent = await _readContentFromCache(
     config.CONTENT_CACHE_PATH,
