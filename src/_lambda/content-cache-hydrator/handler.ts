@@ -2,7 +2,7 @@ import { writeContentForVaccine } from "@src/_lambda/content-cache-hydrator/cont
 import { VaccineTypes } from "@src/models/vaccine";
 import { logger } from "@src/utils/logger";
 
-const log = logger.child({ module: "content-writer-service" });
+const log = logger.child({ module: "content-writer-lambda" });
 
 type HydrateResponse = {
   statusCode: number;
