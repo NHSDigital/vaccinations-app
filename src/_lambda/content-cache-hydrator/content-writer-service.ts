@@ -1,9 +1,15 @@
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { VaccineTypes } from "@src/models/vaccine";
+import { vaccineTypeToPath } from "@src/services/content-api/constants";
+import configProvider from "@src/utils/config";
 import { AWS_PRIMARY_REGION } from "@src/utils/constants";
+import { logger } from "@src/utils/logger";
 import { isS3Path, S3_PREFIX } from "@src/utils/path";
 import { writeFile } from "node:fs/promises";
 
-const writeFileS3 = async (
+const log = logger.child({ module: "content-writer-service" });
+
+const _writeFileS3 = async (
   bucket: string,
   key: string,
   data: string,
@@ -25,13 +31,13 @@ const writeFileS3 = async (
   }
 };
 
-const writeContentToCache = async (
+const _writeContentToCache = async (
   cacheLocation: string,
   cachePath: string,
   cacheContent: string,
 ): Promise<void> => {
   return isS3Path(cacheLocation)
-    ? await writeFileS3(
+    ? await _writeFileS3(
         cacheLocation.slice(S3_PREFIX.length),
         cachePath,
         cacheContent,
@@ -39,4 +45,19 @@ const writeContentToCache = async (
     : await writeFile(`${cacheLocation}${cachePath}`, cacheContent);
 };
 
-export default writeContentToCache;
+const writeContentForVaccine = async (
+  vaccineType: VaccineTypes,
+  vaccineContent: string,
+) => {
+  const config = await configProvider();
+  const vaccineContentPath = vaccineTypeToPath[vaccineType];
+  log.info(`Writing content to cache for vaccine: ${vaccineType}`);
+  await _writeContentToCache(
+    config.CONTENT_CACHE_PATH,
+    `${vaccineContentPath}.json`,
+    vaccineContent,
+  );
+  log.info(`Finished writing content to cache for vaccine: ${vaccineType}`);
+};
+
+export { _writeFileS3, _writeContentToCache, writeContentForVaccine };

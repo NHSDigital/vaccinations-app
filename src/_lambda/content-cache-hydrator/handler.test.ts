@@ -1,9 +1,9 @@
-import writeContentToCache from "@src/_lambda/content-cache-hydrator/content-cache-writer";
+import { writeContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-writer-service";
 import { handler } from "@src/_lambda/content-cache-hydrator/handler";
 import type { HydrateResponse } from "@src/_lambda/content-cache-hydrator/handler";
 import configProvider from "@src/utils/config";
 
-jest.mock("@src/_lambda/content-cache-hydrator/content-cache-writer");
+jest.mock("@src/_lambda/content-cache-hydrator/content-writer-service");
 jest.mock("@src/utils/config");
 
 describe("Lambda Handler", () => {
@@ -12,14 +12,14 @@ describe("Lambda Handler", () => {
   }));
 
   it("returns 200 when cache hydration is successful", async () => {
-    (writeContentToCache as jest.Mock).mockResolvedValue(undefined);
+    (writeContentForVaccine as jest.Mock).mockResolvedValue(undefined);
 
     const actual: HydrateResponse = await handler({} as never);
     expect(actual.statusCode).toEqual(200);
   });
 
   it("returns 500 when cache hydration has failed", async () => {
-    (writeContentToCache as jest.Mock).mockRejectedValue(new Error("test"));
+    (writeContentForVaccine as jest.Mock).mockRejectedValue(new Error("test"));
 
     const actual: HydrateResponse = await handler({} as never);
     expect(actual.statusCode).toEqual(500);

@@ -1,10 +1,8 @@
-import writeContentToCache from "@src/_lambda/content-cache-hydrator/content-cache-writer";
+import { writeContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-writer-service";
 import { VaccineTypes } from "@src/models/vaccine";
-import { vaccineTypeToPath } from "@src/services/content-api/constants";
-import configProvider from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 
-const log = logger.child({ module: "content-cache-hydrator" });
+const log = logger.child({ module: "content-writer-service" });
 
 type HydrateResponse = {
   statusCode: number;
@@ -13,15 +11,12 @@ type HydrateResponse = {
 
 export const handler = async (event: never): Promise<HydrateResponse> => {
   log.info(event, "Received event, hydrating content cache.");
-  const config = await configProvider();
 
   let failureCount: number = 0;
   for (const vaccine of Object.values(VaccineTypes)) {
     let content: string;
     try {
-      log.info("Fetching content for %s", vaccine);
       content = "{}"; //TODO: fetch real content
-      log.info("Successfully fetched content for %s", vaccine);
     } catch (error) {
       log.error("Error occurred in fetching vaccine %s, %s", vaccine, error);
       failureCount++;
@@ -31,13 +26,7 @@ export const handler = async (event: never): Promise<HydrateResponse> => {
     //TODO: run contract checks
 
     try {
-      log.info("Writing content for %s", vaccine);
-      await writeContentToCache(
-        config.CONTENT_CACHE_PATH,
-        `${vaccineTypeToPath[vaccine]}.json`,
-        content,
-      );
-      log.info("Successfully wrote content for %s", vaccine);
+      await writeContentForVaccine(vaccine, content);
     } catch (error) {
       log.error(
         "Error occurred in writing content for vaccine %s, %s",

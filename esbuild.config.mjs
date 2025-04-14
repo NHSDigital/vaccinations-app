@@ -3,7 +3,7 @@ import * as fs from "node:fs";
 
 const OUTPUT_DIR = "dist";
 
-const rmDistDirectory = async () => {
+const removeDistDirectory = async () => {
   fs.rm(OUTPUT_DIR, { recursive: true, force: true }, (err) => {
     if (err) throw err;
     console.log(`Directory '${OUTPUT_DIR}' deleted!`);
@@ -22,7 +22,7 @@ const buildLambda = async () => {
 };
 
 try {
-  await rmDistDirectory();
+  await removeDistDirectory();
   await buildLambda();
   console.log(`Built lambda successfully -> ${OUTPUT_DIR}/lambda.js`);
 } catch (e) {
