@@ -3,7 +3,7 @@
  */
 
 import { configProvider } from "@src/utils/config";
-import { getClientConfig } from "@src/app/auth/authLib";
+import { getAuthConfig } from "@src/app/auth/authLib";
 
 jest.mock("@src/utils/config");
 
@@ -20,9 +20,9 @@ const mockVaccinationAppUrl = "vita-base-url";
 }));
 
 describe("Auth Library", () => {
-  describe("clientConfig", () => {
+  describe("getAuthConfig", () => {
     it("is constructed with values from configProvider", async () => {
-      const expectedConfig = {
+      const expectedAuthConfig = {
         url: mockVaccinationAppUrl,
         audience: mockVaccinationAppUrl,
         client_id: mockNhsLoginClientId,
@@ -33,9 +33,9 @@ describe("Auth Library", () => {
         post_login_route: `${mockVaccinationAppUrl}`,
       };
 
-      const clientConfig = await getClientConfig();
+      const authConfig = await getAuthConfig();
 
-      expect(clientConfig).toEqual(expectedConfig);
+      expect(authConfig).toEqual(expectedAuthConfig);
     });
   });
 });

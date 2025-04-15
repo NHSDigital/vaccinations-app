@@ -1,8 +1,19 @@
 import { AppConfig, configProvider } from "@src/utils/config";
 
+type AuthConfig = {
+  url: string;
+  audience: string;
+  client_id: string;
+  scope: string;
+  redirect_uri: string;
+  response_type: string;
+  grant_type: string;
+  post_login_route: string;
+};
+
 let config: AppConfig;
 
-export const getClientConfig = async () => {
+export const getAuthConfig = async (): Promise<AuthConfig> => {
   if (!config) {
     config = await configProvider();
   }
