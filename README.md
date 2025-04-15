@@ -104,7 +104,8 @@ From NHS repository template:
 1. Create environment variables file .env.local:
     ```
     CONTENT_API_ENDPOINT=...
-    VACCINATION_APP_URL=... # used by playwright e2e tests
+    VACCINATION_APP_URL=...
+    NHS_LOGIN_URL=...
     ```
 1. Install toolchain dependencies and load .tool-versions into asdf
   - ```

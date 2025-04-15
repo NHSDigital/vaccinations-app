@@ -1,9 +1,13 @@
 import getSSMParam from "@src/utils/get-ssm-param";
 
 type AppConfig = {
+  VACCINATION_APP_URL: string;
   CONTENT_CACHE_PATH: string;
   CONTENT_API_KEY: string;
   CONTENT_API_ENDPOINT: string;
+  NHS_LOGIN_URL: string;
+  NHS_LOGIN_CLIENT_ID: string;
+  NHS_LOGIN_SCOPE: string;
 };
 
 const configProvider = async (): Promise<AppConfig> => {
@@ -20,6 +24,19 @@ const configProvider = async (): Promise<AppConfig> => {
     CONTENT_CACHE_PATH: await getFromEnvironmentOrSSM(
       SSM_PREFIX,
       "CONTENT_CACHE_PATH",
+    ),
+    NHS_LOGIN_URL: await getFromEnvironmentOrSSM(SSM_PREFIX, "NHS_LOGIN_URL"),
+    NHS_LOGIN_CLIENT_ID: await getFromEnvironmentOrSSM(
+      SSM_PREFIX,
+      "NHS_LOGIN_CLIENT_ID",
+    ),
+    NHS_LOGIN_SCOPE: await getFromEnvironmentOrSSM(
+      SSM_PREFIX,
+      "NHS_LOGIN_SCOPE",
+    ),
+    VACCINATION_APP_URL: await getFromEnvironmentOrSSM(
+      SSM_PREFIX,
+      "VACCINATION_APP_URL",
     ),
   };
 };
