@@ -1,7 +1,7 @@
 "use server";
 
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import configProvider from "@src/utils/config";
+import { AppConfig, configProvider } from "@src/utils/config";
 import { VaccineTypes } from "@src/models/vaccine";
 import {
   VaccineContentPaths,
@@ -54,7 +54,7 @@ const _readContentFromCache = async (
 };
 
 const getContentForVaccine = async (vaccineType: VaccineTypes) => {
-  const config = await configProvider();
+  const config: AppConfig = await configProvider();
   const vaccineContentPath: VaccineContentPaths =
     vaccineTypeToPath[vaccineType];
   log.info(`Fetching content from cache for vaccine: ${vaccineType}`);

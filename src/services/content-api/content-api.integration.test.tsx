@@ -8,7 +8,7 @@ import {
   StyledVaccineContent,
 } from "@src/services/content-api/parsers/content-styling-service";
 import { VaccineTypes } from "@src/models/vaccine";
-import configProvider from "@src/utils/config";
+import { configProvider } from "@src/utils/config";
 import mockRsvVaccineJson from "@project/wiremock/__files/rsv-vaccine.json";
 import { Readable } from "stream";
 

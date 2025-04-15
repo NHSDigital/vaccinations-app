@@ -1,4 +1,4 @@
-import configProvider from "./config";
+import { configProvider } from "./config";
 import getSSMParam from "@src/utils/get-ssm-param";
 
 jest.mock("@src/utils/get-ssm-param");

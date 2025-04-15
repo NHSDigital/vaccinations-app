@@ -10,7 +10,7 @@ import {
   _readContentFromCache,
   getContentForVaccine,
 } from "@src/services/content-api/gateway/content-reader-service";
-import configProvider from "@src/utils/config";
+import { configProvider } from "@src/utils/config";
 import { Readable } from "stream";
 
 jest.mock("@aws-sdk/client-s3");

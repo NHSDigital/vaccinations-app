@@ -1,6 +1,12 @@
 import getSSMParam from "@src/utils/get-ssm-param";
 
-const configProvider = async () => {
+type AppConfig = {
+  CONTENT_CACHE_PATH: string;
+  CONTENT_API_KEY: string;
+  CONTENT_API_ENDPOINT: string;
+};
+
+const configProvider = async (): Promise<AppConfig> => {
   const SSM_PREFIX = await getFromEnvironmentOrSSM("", "SSM_PREFIX");
   return {
     CONTENT_API_ENDPOINT: await getFromEnvironmentOrSSM(
@@ -32,4 +38,5 @@ const getFromEnvironmentOrSSM = async (
   return value;
 };
 
-export default configProvider;
+export { configProvider };
+export type { AppConfig };
