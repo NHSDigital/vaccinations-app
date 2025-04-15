@@ -13,7 +13,7 @@ describe("Lambda Handler", () => {
 
     const actual: HydrateResponse = await handler({} as never);
     expect(actual.statusCode).toEqual(200);
-    expect(actual.body).toEqual("0 failures")
+    expect(actual.body).toEqual("0 failures");
   });
 
   it("returns 500 when cache hydration has failed", async () => {
@@ -22,6 +22,6 @@ describe("Lambda Handler", () => {
 
     const actual: HydrateResponse = await handler({} as never);
     expect(actual.statusCode).toEqual(500);
-    expect(actual.body).toEqual("2 failures")
+    expect(actual.body).toEqual("2 failures");
   });
 });

@@ -1,7 +1,7 @@
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { VaccineTypes } from "@src/models/vaccine";
 import { vaccineTypeToPath } from "@src/services/content-api/constants";
-import configProvider from "@src/utils/config";
+import { AppConfig, configProvider } from "@src/utils/config";
 import { AWS_PRIMARY_REGION } from "@src/utils/constants";
 import { logger } from "@src/utils/logger";
 import { isS3Path, S3_PREFIX } from "@src/utils/path";
@@ -27,7 +27,7 @@ const _writeFileS3 = async (
     });
     await s3Client.send(putObjectCommand);
   } catch (error) {
-    console.error("Error writing file to S3:", error);
+    log.error("Error writing file to S3: %s", error);
     throw error;
   }
 };
@@ -50,7 +50,7 @@ const writeContentForVaccine = async (
   vaccineType: VaccineTypes,
   vaccineContent: string,
 ) => {
-  const config = await configProvider();
+  const config: AppConfig = await configProvider();
   const vaccineContentPath = vaccineTypeToPath[vaccineType];
   log.info(`Writing content to cache for vaccine: ${vaccineType}`);
   await _writeContentToCache(

@@ -9,11 +9,13 @@ import {
   writeContentForVaccine,
 } from "@src/_lambda/content-cache-hydrator/content-writer-service";
 import { VaccineTypes } from "@src/models/vaccine";
-import configProvider from "@src/utils/config";
+import { configProvider } from "@src/utils/config";
 import { writeFile } from "node:fs/promises";
 import { vaccineTypeToPath } from "@src/services/content-api/constants";
 
 jest.mock("@src/utils/config");
+jest.mock("node:fs/promises");
+
 let mockSend: jest.Mock = jest.fn();
 jest.mock("@aws-sdk/client-s3", () => {
   return {
@@ -23,8 +25,6 @@ jest.mock("@aws-sdk/client-s3", () => {
     PutObjectCommand: jest.fn(),
   };
 });
-
-jest.mock("node:fs/promises");
 
 describe("Content Writer Service", () => {
   const location: string = "test-location";
@@ -48,23 +48,13 @@ describe("Content Writer Service", () => {
       expect(mockSend).toHaveBeenCalled();
     });
 
-    it("should throw and log on error", async () => {
+    it("should throw on error", async () => {
       const s3Error: string = "S3 error";
       mockSend = jest.fn().mockRejectedValue(new Error(s3Error));
-
-      const consoleErrorSpy: jest.SpyInstance = jest
-        .spyOn(console, "error")
-        .mockImplementation(() => {});
 
       await expect(
         _writeFileS3("bad-bucket", "bad-key", "oops"),
       ).rejects.toThrow(s3Error);
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        expect.stringContaining("Error writing file to S3:"),
-        expect.any(Error),
-      );
-
-      consoleErrorSpy.mockRestore();
     });
   });
 
