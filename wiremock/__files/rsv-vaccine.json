@@ -68,7 +68,7 @@
         {
           "@type": "WebPageElement",
           "headline": "RSV vaccine",
-          "text": "Why it's done"
+          "text": "What it's for"
         },
         {
           "@type": "WebPageElement",
@@ -116,7 +116,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rsv-vaccine/#why-its-done",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rsv-vaccine/#what-its-for",
       "description": "The RSV vaccine is given to protect babies and older adults from serious chest and lung infections such as bronchiolitis and pneumonia.",
       "hasPart": [
         {
