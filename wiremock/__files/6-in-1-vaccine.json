@@ -66,7 +66,7 @@
         {
           "@type": "WebPageElement",
           "headline": "6-in-1 vaccine",
-          "text": "Why it's done"
+          "text": "What it's for"
         },
         {
           "@type": "WebPageElement",
@@ -114,7 +114,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#why-its-done",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#what-its-for",
       "description": "The 6-in-1 vaccine protects babies against diphtheria, hepatitis B, Hib (haemophilus influenzae type b), polio, tetanus and whooping cough.",
       "hasPart": [
         {
