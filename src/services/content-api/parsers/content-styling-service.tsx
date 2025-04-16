@@ -4,8 +4,6 @@ import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCa
 import { JSX } from "react";
 import { VaccineTypes } from "@src/models/vaccine";
 import {
-  ContentApiVaccineResponse,
-  getFilteredContentForVaccine,
   VaccinePageContent,
   VaccinePageSection,
   VaccinePageSubsection
