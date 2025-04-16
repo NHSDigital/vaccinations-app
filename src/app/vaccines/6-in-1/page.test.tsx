@@ -1,19 +1,17 @@
 import { VaccineTypes } from "@src/models/vaccine";
+import { configProvider } from "@src/utils/config";
 import { render, screen } from "@testing-library/react";
 import Vaccine6in1 from "@src/app/vaccines/6-in-1/page";
-import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
-import { mockStyledContent } from "@test-data/content-api/data";
 
-jest.mock("@src/services/content-api/parsers/content-styling-service.tsx");
+jest.mock("@src/utils/config");
 jest.mock("@src/app/_components/vaccine/Vaccine", () => jest.fn(() => <div />));
 
 describe("6-in-1 vaccine page", () => {
-  beforeEach(() => {
-    (getStyledContentForVaccine as jest.Mock).mockResolvedValue(
-      mockStyledContent,
-    );
-  });
+  (configProvider as jest.Mock).mockImplementation(() => ({
+    CONTENT_CACHE_PATH: "wiremock/__files/",
+    PINO_LOG_LEVEL: "info"
+  }));
 
   it("should contain back link to vaccination schedule page", () => {
     const pathToSchedulePage = "/schedule";

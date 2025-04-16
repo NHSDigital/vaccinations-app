@@ -29,7 +29,7 @@ describe("ContentStylingService", () => {
   };
 
   describe("styleSubsection", () => {
-    it("should return styled markdown component for subsection beginning with headline", () => {
+    it("should return styled markdown component for subsection beginning with headline", async () => {
       const styledSubsection: JSX.Element | undefined = styleSubsection(
         mockMarkdownSubsection,
         1,
@@ -71,7 +71,7 @@ describe("ContentStylingService", () => {
       },
     );
 
-    it("should return styled information component for subsection", () => {
+    it("should return styled information component for subsection", async () => {
       const mockInformationSubsection = {
         text: "<p>This is a styled paragraph information subsection</p>",
         name: "Information",
@@ -94,7 +94,7 @@ describe("ContentStylingService", () => {
       expect(text).toBeInTheDocument();
     });
 
-    it("should return styled non-urgent component for subsection", () => {
+    it("should return styled non-urgent component for subsection", async () => {
       const styledSubsection: JSX.Element = styleSubsection(
         mockNonUrgentSubsection,
         1,
@@ -116,7 +116,7 @@ describe("ContentStylingService", () => {
   });
 
   describe("styleSection", () => {
-    it("should display several subsections of a concrete vaccine in one section", () => {
+    it("should display several subsections of a concrete vaccine in one section", async () => {
       const mockSection: VaccinePageSection = {
         headline: "This is a heading",
         subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
@@ -188,7 +188,7 @@ describe("ContentStylingService", () => {
   });
 
   describe("extractHeadingAndContent", () => {
-    it("should extract heading and content from non-urgent html string", () => {
+    it("should extract heading and content from non-urgent html string", async () => {
       const headingAndContent: NonUrgentContent = extractHeadingAndContent(
         "<h3>Heading</h3><div><ul><li>you have not been contacted</li></ul></div>",
       );
@@ -199,7 +199,7 @@ describe("ContentStylingService", () => {
       );
     });
 
-    it("should extract heading and content from non-urgent html string", () => {
+    it("should extract heading and content from non-urgent html string", async () => {
       const headingAndContent: NonUrgentContent = extractHeadingAndContent(
         "<h3>Heading</h3><p>you have not been contacted</p>",
       );
@@ -210,14 +210,14 @@ describe("ContentStylingService", () => {
       );
     });
 
-    it("should return empty heading and content from empty string", () => {
+    it("should return empty heading and content from empty string", async () => {
       const headingAndContent: NonUrgentContent = extractHeadingAndContent("");
 
       expect(headingAndContent.heading).toEqual("");
       expect(headingAndContent.content).toEqual("");
     });
 
-    it("should return content as is, and empty heading from string that does not begin with h3 tags", () => {
+    it("should return content as is, and empty heading from string that does not begin with h3 tags", async () => {
       const headingAndContent: NonUrgentContent = extractHeadingAndContent(
         "<p>Some content<h3>Heading</h3></p>",
       );
