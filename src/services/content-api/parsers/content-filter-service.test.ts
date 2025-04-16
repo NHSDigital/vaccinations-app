@@ -1,5 +1,4 @@
 import {
-  ContentApiVaccineResponse,
   getFilteredContentForVaccine
 } from "@src/services/content-api/parsers/content-filter-service";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";

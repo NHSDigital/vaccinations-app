@@ -2,7 +2,6 @@
 
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import {
-  ContentApiVaccineResponse,
   getFilteredContentForVaccine, VaccinePageContent
 } from "@src/services/content-api/parsers/content-filter-service";
 import {

@@ -11,7 +11,6 @@ import {
   styleSubsection,
 } from "@src/services/content-api/parsers/content-styling-service";
 import {
-  ContentApiVaccineResponse,
   VaccinePageContent,
   VaccinePageSection
 } from "@src/services/content-api/parsers/content-filter-service";
@@ -115,6 +114,7 @@ describe("ContentStylingService", () => {
       expect(nonUrgent).toBeInTheDocument();
     });
   });
+
   describe("styleSection", () => {
     it("should display several subsections of a concrete vaccine in one section", () => {
       const mockSection: VaccinePageSection = {
