@@ -1,32 +1,30 @@
-import { render, screen } from "@testing-library/react";
+import { VaccineContentProvider } from "@src/app/_components/providers/VaccineContentProvider";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { VaccineTypes } from "@src/models/vaccine";
-import { VaccineContentProvider } from "@src/app/_components/providers/VaccineContentProvider";
-import { act } from "react";
+import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
+import { StyledVaccineContent } from "@src/services/content-api/parsers/content-styling-service";
 import { mockStyledContent } from "@test-data/content-api/data";
-import {
-  getStyledContentForVaccine,
-  StyledVaccineContent,
-} from "@src/services/content-api/parsers/content-styling-service";
+import { render, screen } from "@testing-library/react";
+import { act } from "react";
 
-jest.mock("@src/services/content-api/parsers/content-styling-service.tsx");
+jest.mock("@src/services/content-api/gateway/content-reader-service");
 
 describe("Any vaccine page", () => {
   const mockVaccineName = "Test-Name";
   let contentPromise: Promise<StyledVaccineContent>;
 
   beforeEach(() => {
-    (getStyledContentForVaccine as jest.Mock).mockResolvedValue(
+    (getContentForVaccine as jest.Mock).mockResolvedValue(
       mockStyledContent,
     );
-    contentPromise = getStyledContentForVaccine(VaccineTypes.SIX_IN_ONE);
+    contentPromise = getContentForVaccine(VaccineTypes.SIX_IN_ONE);
   });
 
   const renderVaccinePage = async () => {
     await act(async () => {
       render(
         <VaccineContentProvider contentPromise={contentPromise}>
-          <Vaccine name={mockVaccineName} />
+          <Vaccine name={mockVaccineName} vaccine={VaccineTypes.SIX_IN_ONE} />
         </VaccineContentProvider>,
       );
     });
