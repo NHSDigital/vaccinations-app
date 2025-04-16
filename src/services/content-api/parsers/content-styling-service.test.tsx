@@ -11,9 +11,10 @@ import {
   styleSubsection,
 } from "@src/services/content-api/parsers/content-styling-service";
 import {
+  ContentApiVaccineResponse,
   getFilteredContentForVaccine,
   VaccinePageContent,
-  VaccinePageSection,
+  VaccinePageSection
 } from "@src/services/content-api/parsers/content-filter-service";
 
 jest.mock("@src/services/content-api/parsers/content-filter-service");
@@ -167,7 +168,7 @@ describe("ContentStylingService", () => {
       );
 
       const styledVaccineContent: StyledVaccineContent =
-        await getStyledContentForVaccine(VaccineTypes.RSV);
+        await getStyledContentForVaccine(VaccineTypes.RSV, {} as ContentApiVaccineResponse);
 
       expect(styledVaccineContent).not.toBeNull();
       expect(styledVaccineContent.overview).toEqual("This is an overview");
