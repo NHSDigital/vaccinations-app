@@ -4,10 +4,11 @@ import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCa
 import { JSX } from "react";
 import { VaccineTypes } from "@src/models/vaccine";
 import {
+  ContentApiVaccineResponse,
   getFilteredContentForVaccine,
   VaccinePageContent,
   VaccinePageSection,
-  VaccinePageSubsection,
+  VaccinePageSubsection
 } from "@src/services/content-api/parsers/content-filter-service";
 
 enum SubsectionTypes {
@@ -88,9 +89,10 @@ const extractHeadingAndContent = (text: string): NonUrgentContent => {
 
 const getStyledContentForVaccine = async (
   vaccine: VaccineTypes,
+  content: ContentApiVaccineResponse
 ): Promise<StyledVaccineContent> => {
   const filteredContent: VaccinePageContent =
-    await getFilteredContentForVaccine(vaccine);
+    await getFilteredContentForVaccine(vaccine, content);
   const overview: string = filteredContent.overview;
   const whatVaccineIsFor: StyledPageSection = styleSection(
     filteredContent.whatVaccineIsFor,
