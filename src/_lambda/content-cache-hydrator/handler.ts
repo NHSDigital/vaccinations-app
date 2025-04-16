@@ -13,10 +13,11 @@ export const handler = async (event: object): Promise<void> => {
   for (const vaccine of Object.values(VaccineTypes)) {
     try {
       const content: string = await fetchContentForVaccine(vaccine);
-      await getStyledContentForVaccine(vaccine, JSON.parse(content));
+      const filteredContent: VaccinePageContent = await getFilteredContentForVaccine(vaccine, content);
+      await getStyledContentForVaccine(vaccine, filteredContent);
       await writeContentForVaccine(vaccine, content);
     } catch (error) {
-      log.error("Error occurred for vaccine %s: %s", vaccine, error);
+      log.error(`Error occurred for vaccine ${vaccine}: ${error}.`);
       failureCount++;
     }
   }
