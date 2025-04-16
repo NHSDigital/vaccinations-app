@@ -1,11 +1,142 @@
 import {
-  getFilteredContentForVaccine
+  getFilteredContentForVaccine,
+  _extractDescriptionForVaccine,
+  _extractHeadlineForAspect,
+  _extractPartsForAspect,
+  ContentApiVaccineResponse,
 } from "@src/services/content-api/parsers/content-filter-service";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 import { VaccineTypes } from "@src/models/vaccine";
 
 describe("Content Filter", () => {
-  describe("getPageCopyForVaccine", () => {
+  describe("_extractDescriptionForVaccine", () => {
+    it("should return text from mainEntityOfPage object", async () => {
+      const expectedOverview: string = "Generic Vaccine Lead Paragraph (overview)";
+
+      const overview = _extractDescriptionForVaccine(
+        genericVaccineContentAPIResponse,
+        "lead paragraph",
+      );
+
+      expect(overview).toEqual(expectedOverview);
+    });
+
+    it("should throw error when mainEntity text is undefined", async () => {
+      const responseWithoutEntityOfPage = {
+        ...genericVaccineContentAPIResponse,
+        mainEntityOfPage: [{ ...genericVaccineContentAPIResponse.mainEntityOfPage, text: undefined }],
+      };
+
+      const errorMessage = () => _extractDescriptionForVaccine(
+        responseWithoutEntityOfPage,
+        "lead paragraph",
+      )
+
+      expect(errorMessage).toThrow("Missing text for description: lead paragraph");
+    });
+
+    it("should throw error when mainEntity text is null", async () => {
+      const responseWithoutEntityOfPage = {
+        ...genericVaccineContentAPIResponse,
+        mainEntityOfPage: [{ ...genericVaccineContentAPIResponse.mainEntityOfPage, text: null }],
+      };
+
+      const errorMessage = () => _extractDescriptionForVaccine(
+        responseWithoutEntityOfPage,
+        "lead paragraph",
+      )
+
+      expect(errorMessage).toThrow("Missing text for description: lead paragraph");
+    });
+  });
+
+  describe('_extractHeadlineForAspect', () => {
+    it("should extract headline from aspect", async () => {
+      const expectedHeadline: string = "Getting Access Health Aspect headline";
+
+      const headline: string = _extractHeadlineForAspect(
+        genericVaccineContentAPIResponse,
+        "GettingAccessHealthAspect",
+      );
+
+      expect(headline).toEqual(expectedHeadline);
+    });
+
+    it("should throw error when headline is undefined", async () => {
+      const responseWithoutHeadline = {
+        ...genericVaccineContentAPIResponse,
+        mainEntityOfPage: [{ ...genericVaccineContentAPIResponse.mainEntityOfPage, headline: undefined }],
+      };
+
+      const errorMessage = () => _extractHeadlineForAspect(
+        responseWithoutHeadline,
+        "GettingAccessHealthAspect",
+      )
+
+      expect(errorMessage).toThrow("Missing headline for Aspect: GettingAccessHealthAspect");
+    });
+
+    it("should throw error when mainEntity headline is null", async () => {
+      const responseWithoutHeadline = {
+        ...genericVaccineContentAPIResponse,
+        mainEntityOfPage: [{ ...genericVaccineContentAPIResponse.mainEntityOfPage, headline: null }],
+      };
+
+      const errorMessage = () => _extractHeadlineForAspect(
+        responseWithoutHeadline,
+        "GettingAccessHealthAspect",
+      )
+
+      expect(errorMessage).toThrow("Missing headline for Aspect: GettingAccessHealthAspect");
+    });
+
+    it("should throw error when aspect is non-existent", async () => {
+      const errorMessage = () => _extractHeadlineForAspect(
+        genericVaccineContentAPIResponse,
+        "non-existent aspect",
+      )
+
+      expect(errorMessage).toThrow("Missing headline for Aspect: non-existent aspect");
+    });
+  });
+
+  describe('_extractPartsForAspect', () => {
+    it("should extract parts from aspect", async () => {
+      const expectedParts: VaccinePageSubsection[] = [
+        {
+          headline: "",
+          name: "markdown",
+          text: "<p>Getting Access Health Aspect paragraph 1</p>",
+        },
+        {
+          headline: "",
+          name: "non-urgent",
+          text: "<h3>Getting Access Health Aspect urgent heading</h3><div>Getting Access Health Aspect urgent div</div>",
+        },
+      ];
+
+      const parts: VaccinePageSubsection[] = _extractPartsForAspect(
+        genericVaccineContentAPIResponse,
+        "GettingAccessHealthAspect"
+      )
+
+      expect(parts).toEqual(expectedParts);
+    });
+
+    it.skip("should throw error when subsection is non-existent", async () => {
+      const responseWithoutHeadline = {
+        ...genericVaccineContentAPIResponse,
+        hasPart: [{name: undefined}],
+      };
+
+      const errorMessage = () => _extractPartsForAspect(responseWithoutHeadline,
+        "GettingAccessHealthAspect")
+
+      expect(errorMessage).toThrow("kjljkj");
+    });
+  });
+
+  describe("getFilteredContentForVaccine", () => {
     it("should return overview text from lead paragraph mainEntityOfPage object", async () => {
       const expectedOverview = {
         overview: "Generic Vaccine Lead Paragraph (overview)",
