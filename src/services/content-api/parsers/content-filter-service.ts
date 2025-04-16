@@ -137,7 +137,7 @@ const getFilteredContentForVaccine = async (
   apiContent: string
 ): Promise<VaccinePageContent> => {
   const content: ContentApiVaccineResponse = JSON.parse(apiContent);
-  const overview = extractDescriptionForVaccine(content, "lead paragraph");
+  const overview: string = extractDescriptionForVaccine(content, "lead paragraph");
 
   const whatVaccineIsFor: VaccinePageSection = {
     headline: extractHeadlineForAspect(content, "BenefitsHealthAspect"),
