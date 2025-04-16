@@ -98,12 +98,12 @@ const extractPartsForAspect = (
   const aspect: MainEntityOfPage = findAspect(response, aspectName);
   const subsections: VaccinePageSubsection[] | undefined = aspect.hasPart?.map(
     (part: HasPartSubsection) => {
-      if (!part.headline) {
-        console.log(`Missing headline for part: ${part.name}`);
-        // throw new Error(`Missing headline for part: ${part.name}`);
-      }
+      // TODO: fix the schema so that we handle part.headline being undefined
+      // if (!part.headline) {
+      //   // throw new Error(`Missing headline for part: ${part.name}`);
+      // }
       return {
-        headline: part.headline,
+        headline: part.headline ?? "",
         text: part.text,
         name: part.name,
       };

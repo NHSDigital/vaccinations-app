@@ -3,8 +3,8 @@
  */
 
 import { S3Client } from "@aws-sdk/client-s3";
+import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import {
-  getStyledContentForVaccine,
   StyledVaccineContent,
 } from "@src/services/content-api/parsers/content-styling-service";
 import { VaccineTypes } from "@src/models/vaccine";
@@ -21,7 +21,7 @@ describe("Content API Read Integration Test ", () => {
       CONTENT_CACHE_PATH: "wiremock/__files/",
     }));
     const styledVaccineContent: StyledVaccineContent =
-      await getStyledContentForVaccine(VaccineTypes.RSV);
+      await getContentForVaccine(VaccineTypes.RSV);
 
     expect(styledVaccineContent).not.toBeNull();
     expect(styledVaccineContent.overview).toEqual(
@@ -47,7 +47,7 @@ describe("Content API Read Integration Test ", () => {
       }),
     }));
     const styledVaccineContent: StyledVaccineContent =
-      await getStyledContentForVaccine(VaccineTypes.RSV);
+      await getContentForVaccine(VaccineTypes.RSV);
 
     expect(styledVaccineContent).not.toBeNull();
     expect(styledVaccineContent.overview).toEqual(
