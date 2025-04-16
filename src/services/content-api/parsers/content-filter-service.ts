@@ -99,7 +99,8 @@ const extractPartsForAspect = (
   const subsections: VaccinePageSubsection[] | undefined = aspect.hasPart?.map(
     (part: HasPartSubsection) => {
       if (!part.headline) {
-        throw new Error(`Missing headline for part: ${part.name}`);
+        console.log(`Missing headline for part: ${part.name}`);
+        // throw new Error(`Missing headline for part: ${part.name}`);
       }
       return {
         headline: part.headline,
@@ -133,8 +134,9 @@ const generateWhoVaccineIsForHeading = (vaccineType: VaccineTypes): string => {
 
 const getFilteredContentForVaccine = async (
   vaccineName: VaccineTypes,
-  content: ContentApiVaccineResponse
+  apiContent: string
 ): Promise<VaccinePageContent> => {
+  const content: ContentApiVaccineResponse = JSON.parse(apiContent);
   const overview = extractDescriptionForVaccine(content, "lead paragraph");
 
   const whatVaccineIsFor: VaccinePageSection = {

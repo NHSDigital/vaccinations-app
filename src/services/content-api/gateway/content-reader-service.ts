@@ -1,7 +1,14 @@
 "use server";
 
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { ContentApiVaccineResponse } from "@src/services/content-api/parsers/content-filter-service";
+import {
+  ContentApiVaccineResponse,
+  getFilteredContentForVaccine, VaccinePageContent
+} from "@src/services/content-api/parsers/content-filter-service";
+import {
+  getStyledContentForVaccine,
+  StyledVaccineContent
+} from "@src/services/content-api/parsers/content-styling-service";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { VaccineTypes } from "@src/models/vaccine";
 import {
@@ -54,10 +61,12 @@ const _readContentFromCache = async (
     : await readFile(`${cacheLocation}${cachePath}`, { encoding: "utf8" });
 };
 
-const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<ContentApiVaccineResponse> => {
+const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<StyledVaccineContent> => {
   const config: AppConfig = await configProvider();
   const vaccineContentPath: VaccineContentPaths =
     vaccineTypeToPath[vaccineType];
+
+  // fetch content from api
   log.info(`Fetching content from cache for vaccine: ${vaccineType}`);
   const vaccineContent = await _readContentFromCache(
     config.CONTENT_CACHE_PATH,
@@ -65,7 +74,11 @@ const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<ContentA
   );
   log.info(`Finished fetching content from cache for vaccine: ${vaccineType}`);
 
-  return JSON.parse(vaccineContent);
+  // filter and style content
+  const filteredContent: VaccinePageContent = await getFilteredContentForVaccine(vaccineType, vaccineContent);
+  const styledContent: StyledVaccineContent = await getStyledContentForVaccine(vaccineType, filteredContent);
+
+  return styledContent;
 };
 
 export { _readFileS3, _readContentFromCache, getContentForVaccine };

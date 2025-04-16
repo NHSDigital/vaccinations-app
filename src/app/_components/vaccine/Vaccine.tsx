@@ -1,12 +1,10 @@
 "use client";
 
 import { VaccineTypes } from "@src/models/vaccine";
-import { ContentApiVaccineResponse } from "@src/services/content-api/parsers/content-filter-service";
 import React, { use } from "react";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import { useVaccineContentContextValue } from "@src/app/_components/providers/VaccineContentProvider";
 import {
-  getStyledContentForVaccine,
   StyledVaccineContent
 } from "@src/services/content-api/parsers/content-styling-service";
 
@@ -17,8 +15,7 @@ interface VaccineProps {
 
 const Vaccine = (props: VaccineProps): React.JSX.Element => {
   const { contentPromise } = useVaccineContentContextValue();
-  const rawContent: ContentApiVaccineResponse = use(contentPromise);
-  const styledContent: StyledVaccineContent = use(getStyledContentForVaccine(props.vaccine, rawContent));
+  const styledContent: StyledVaccineContent = use(contentPromise);
 
   return (
     <div>

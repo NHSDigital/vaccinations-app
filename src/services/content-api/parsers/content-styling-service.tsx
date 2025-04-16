@@ -89,10 +89,8 @@ const extractHeadingAndContent = (text: string): NonUrgentContent => {
 
 const getStyledContentForVaccine = async (
   vaccine: VaccineTypes,
-  content: ContentApiVaccineResponse
+  filteredContent: VaccinePageContent
 ): Promise<StyledVaccineContent> => {
-  const filteredContent: VaccinePageContent =
-    await getFilteredContentForVaccine(vaccine, content);
   const overview: string = filteredContent.overview;
   const whatVaccineIsFor: StyledPageSection = styleSection(
     filteredContent.whatVaccineIsFor,
