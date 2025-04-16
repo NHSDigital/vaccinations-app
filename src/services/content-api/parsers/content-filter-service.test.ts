@@ -1,5 +1,8 @@
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
-import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
+import {
+  ContentApiVaccineResponse,
+  getFilteredContentForVaccine
+} from "@src/services/content-api/parsers/content-filter-service";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 import { VaccineTypes } from "@src/models/vaccine";
 
@@ -12,12 +15,8 @@ describe("Content Filter", () => {
         overview: "Generic Vaccine Lead Paragraph (overview)",
       };
 
-      (getContentForVaccine as jest.Mock).mockResolvedValue(
-        genericVaccineContentAPIResponse,
-      );
-
       const pageCopyFor6in1 = await getFilteredContentForVaccine(
-        VaccineTypes.SIX_IN_ONE,
+        VaccineTypes.SIX_IN_ONE, genericVaccineContentAPIResponse
       );
 
       expect(pageCopyFor6in1).toEqual(
@@ -39,12 +38,8 @@ describe("Content Filter", () => {
         },
       };
 
-      (getContentForVaccine as jest.Mock).mockResolvedValue(
-        genericVaccineContentAPIResponse,
-      );
-
       const pageCopyFor6in1 = await getFilteredContentForVaccine(
-        VaccineTypes.SIX_IN_ONE,
+        VaccineTypes.SIX_IN_ONE, genericVaccineContentAPIResponse
       );
 
       expect(pageCopyFor6in1).toEqual(
@@ -85,7 +80,7 @@ describe("Content Filter", () => {
       );
 
       const pageCopyFor6in1 = await getFilteredContentForVaccine(
-        VaccineTypes.SIX_IN_ONE,
+        VaccineTypes.SIX_IN_ONE, {} as ContentApiVaccineResponse
       );
 
       expect(pageCopyFor6in1).toEqual(
@@ -115,7 +110,7 @@ describe("Content Filter", () => {
         genericVaccineContentAPIResponse,
       );
       const pageCopyFor6in1 = await getFilteredContentForVaccine(
-        VaccineTypes.SIX_IN_ONE,
+        VaccineTypes.SIX_IN_ONE, {} as ContentApiVaccineResponse
       );
 
       expect(pageCopyFor6in1).toEqual(
@@ -132,7 +127,7 @@ describe("Content Filter", () => {
         genericVaccineContentAPIResponse,
       );
       const pageCopyFor6in1 = await getFilteredContentForVaccine(
-        VaccineTypes.SIX_IN_ONE,
+        VaccineTypes.SIX_IN_ONE, {} as ContentApiVaccineResponse
       );
 
       expect(pageCopyFor6in1).toEqual(
