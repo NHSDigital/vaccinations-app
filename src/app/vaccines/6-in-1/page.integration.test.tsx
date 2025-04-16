@@ -1,15 +1,15 @@
 import { render, screen } from "@testing-library/react";
 import Vaccine6in1 from "@src/app/vaccines/6-in-1/page";
-import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
-import { mockStyledContent } from "@test-data/content-api/data";
+import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
+import { mockApiContent } from "@test-data/content-api/data";
 import { act } from "react";
 
-jest.mock("@src/services/content-api/parsers/content-styling-service.tsx");
+jest.mock("@src/services/content-api/gateway/content-reader-service");
 
 describe("6-in-1 vaccine page - integration test", () => {
   beforeEach(() => {
-    (getStyledContentForVaccine as jest.Mock).mockResolvedValue(
-      mockStyledContent,
+    (getContentForVaccine as jest.Mock).mockResolvedValue(
+      mockApiContent,
     );
   });
 
@@ -20,11 +20,11 @@ describe("6-in-1 vaccine page - integration test", () => {
 
     const sixInOneHeading: HTMLElement = screen.getByRole("heading", {
       level: 1,
-      name: `6-in-1 vaccine`,
+      name: `6-in-1 Vaccine`,
     });
     expect(sixInOneHeading).toBeInTheDocument();
     expect(screen.getByTestId("overview-text")).toHaveTextContent(
-      mockStyledContent.overview,
+      mockApiContent.mainEntityOfPage[0].text,
     );
   });
 });
