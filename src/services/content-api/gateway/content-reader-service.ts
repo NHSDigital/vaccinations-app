@@ -1,6 +1,7 @@
 "use server";
 
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { ContentApiVaccineResponse } from "@src/services/content-api/parsers/content-filter-service";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { VaccineTypes } from "@src/models/vaccine";
 import {
@@ -53,7 +54,7 @@ const _readContentFromCache = async (
     : await readFile(`${cacheLocation}${cachePath}`, { encoding: "utf8" });
 };
 
-const getContentForVaccine = async (vaccineType: VaccineTypes) => {
+const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<ContentApiVaccineResponse> => {
   const config: AppConfig = await configProvider();
   const vaccineContentPath: VaccineContentPaths =
     vaccineTypeToPath[vaccineType];
