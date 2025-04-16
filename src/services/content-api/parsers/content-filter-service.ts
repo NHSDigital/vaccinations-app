@@ -1,5 +1,4 @@
 import { VaccineDisplayNames, VaccineTypes } from "@src/models/vaccine";
-import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 
 type Aspect =
   | "OverviewHealthAspect"
@@ -9,21 +8,47 @@ type Aspect =
   | "GettingAccessHealthAspect";
 
 type HasPartSubsection = {
+  "@type": string;
   text: string;
   name: string;
-  headline: string;
+  headline?: string;
+  position: number;
+  identifier: string;
 };
 
 type MainEntityOfPage = {
+  "@type": string;
   hasHealthAspect?: string;
-  headline: string;
-  text: string;
+  position: number;
+  identifier: number | string;
+  headline?: string;
+  text?: string;
   name: string;
-  hasPart: HasPartSubsection[];
+  hasPart?: HasPartSubsection[];
+  mainEntityOfPage?: MainEntityOfPage[];
+  description?: string;
 };
 
-type ContentApiVaccineResponse = {
+export type ContentApiVaccineResponse = {
+  "@context": string;
+  "@type": string;
+  "name": string;
   mainEntityOfPage: MainEntityOfPage[];
+  webpage: string;
+  "copyrightHolder": object;
+  "license": string;
+  "author": object;
+  "about": object;
+  "description": string;
+  "url": string;
+  "genre": object;
+  "keywords": string;
+  "dateModified": string;
+  "lastReviewed": string[];
+  "breadcrumb": object;
+  "hasPart": object;
+  "relatedLink": object;
+  "contentSubTypes": object;
 };
 
 export type VaccinePageSubsection = {
@@ -60,6 +85,9 @@ const extractHeadlineForAspect = (
   aspectName: Aspect,
 ): string => {
   const aspect: MainEntityOfPage = findAspect(response, aspectName);
+  if (!aspect.headline) {
+    throw new Error(`Missing headline for Aspect: ${aspectName}`);
+  }
   return aspect.headline;
 };
 
@@ -68,8 +96,11 @@ const extractPartsForAspect = (
   aspectName: Aspect,
 ): VaccinePageSubsection[] => {
   const aspect: MainEntityOfPage = findAspect(response, aspectName);
-  const subsections: VaccinePageSubsection[] = aspect.hasPart.map(
+  const subsections: VaccinePageSubsection[] | undefined = aspect.hasPart?.map(
     (part: HasPartSubsection) => {
+      if (!part.headline) {
+        throw new Error(`Missing headline for part: ${part.name}`);
+      }
       return {
         headline: part.headline,
         text: part.text,
@@ -77,6 +108,9 @@ const extractPartsForAspect = (
       };
     },
   );
+  if (!subsections) {
+    throw new Error(`Missing subsections for Aspect: ${aspectName}`);
+  }
   return subsections;
 };
 
@@ -87,7 +121,10 @@ const extractDescriptionForVaccine = (
   const mainEntity = response.mainEntityOfPage.find(
     (page: MainEntityOfPage) => page.name === name,
   );
-  return mainEntity!.text;
+  if (!mainEntity || !mainEntity.text) {
+    throw new Error(`Missing text for description: ${name}`);
+  }
+  return mainEntity.text;
 };
 
 const generateWhoVaccineIsForHeading = (vaccineType: VaccineTypes): string => {
@@ -96,30 +133,29 @@ const generateWhoVaccineIsForHeading = (vaccineType: VaccineTypes): string => {
 
 const getFilteredContentForVaccine = async (
   vaccineName: VaccineTypes,
+  content: ContentApiVaccineResponse
 ): Promise<VaccinePageContent> => {
-  const response = await getContentForVaccine(vaccineName);
-
-  const overview = extractDescriptionForVaccine(response, "lead paragraph");
+  const overview = extractDescriptionForVaccine(content, "lead paragraph");
 
   const whatVaccineIsFor: VaccinePageSection = {
-    headline: extractHeadlineForAspect(response, "BenefitsHealthAspect"),
-    subsections: extractPartsForAspect(response, "BenefitsHealthAspect"),
+    headline: extractHeadlineForAspect(content, "BenefitsHealthAspect"),
+    subsections: extractPartsForAspect(content, "BenefitsHealthAspect"),
   };
 
   const whoVaccineIsFor: VaccinePageSection = {
     headline: generateWhoVaccineIsForHeading(vaccineName),
     subsections: extractPartsForAspect(
-      response,
+      content,
       "SuitabilityHealthAspect",
-    ).concat(extractPartsForAspect(response, "ContraindicationsHealthAspect")),
+    ).concat(extractPartsForAspect(content, "ContraindicationsHealthAspect")),
   };
 
   const howToGetVaccine: VaccinePageSection = {
-    headline: extractHeadlineForAspect(response, "GettingAccessHealthAspect"),
-    subsections: extractPartsForAspect(response, "GettingAccessHealthAspect"),
+    headline: extractHeadlineForAspect(content, "GettingAccessHealthAspect"),
+    subsections: extractPartsForAspect(content, "GettingAccessHealthAspect"),
   };
 
-  const webpageLink: string = response.webpage;
+  const webpageLink: string = content.webpage;
 
   return {
     overview,
