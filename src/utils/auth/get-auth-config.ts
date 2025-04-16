@@ -10,10 +10,9 @@ type AuthConfig = {
   grant_type: string;
   post_login_route: string;
 };
-
 let config: AppConfig;
 
-export const getAuthConfig = async (): Promise<AuthConfig> => {
+const getAuthConfig = async (): Promise<AuthConfig> => {
   if (!config) {
     config = await configProvider();
   }
@@ -29,3 +28,5 @@ export const getAuthConfig = async (): Promise<AuthConfig> => {
     post_login_route: `${config.VACCINATION_APP_URL}`,
   };
 };
+
+export { getAuthConfig };
