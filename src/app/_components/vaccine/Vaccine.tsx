@@ -1,7 +1,7 @@
 "use client";
 
 import { VaccineTypes } from "@src/models/vaccine";
-import React, { use } from "react";
+import { JSX, use } from "react";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import { useVaccineContentContextValue } from "@src/app/_components/providers/VaccineContentProvider";
 import {
@@ -13,7 +13,7 @@ interface VaccineProps {
   vaccine: VaccineTypes
 }
 
-const Vaccine = (props: VaccineProps): React.JSX.Element => {
+const Vaccine = (props: VaccineProps): JSX.Element => {
   const { contentPromise } = useVaccineContentContextValue();
   const styledContent: StyledVaccineContent = use(contentPromise);
 

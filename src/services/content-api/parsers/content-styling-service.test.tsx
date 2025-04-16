@@ -12,12 +12,9 @@ import {
 } from "@src/services/content-api/parsers/content-styling-service";
 import {
   ContentApiVaccineResponse,
-  getFilteredContentForVaccine,
   VaccinePageContent,
   VaccinePageSection
 } from "@src/services/content-api/parsers/content-filter-service";
-
-jest.mock("@src/services/content-api/parsers/content-filter-service");
 
 describe("ContentStylingService", () => {
   const mockMarkdownSubsection = {
@@ -163,12 +160,8 @@ describe("ContentStylingService", () => {
         webpageLink: "This is a link",
       };
 
-      (getFilteredContentForVaccine as jest.Mock).mockResolvedValue(
-        mockContent,
-      );
-
       const styledVaccineContent: StyledVaccineContent =
-        await getStyledContentForVaccine(VaccineTypes.RSV, {} as ContentApiVaccineResponse);
+        await getStyledContentForVaccine(VaccineTypes.RSV, mockContent);
 
       expect(styledVaccineContent).not.toBeNull();
       expect(styledVaccineContent.overview).toEqual("This is an overview");
