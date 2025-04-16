@@ -64,6 +64,7 @@ describe("Content Filter", () => {
               text: "<p>Contraindications Health Aspect paragraph 1</p><p>Contraindications Health Aspect paragraph 2</p>",
             },
             {
+              headline: "",
               name: "Information",
               text: "<h3>Contraindications Health Aspect information heading</h3><p>Contraindications Health Aspect information paragraph</p>",
             },
@@ -91,6 +92,7 @@ describe("Content Filter", () => {
               text: "<p>Getting Access Health Aspect paragraph 1</p>",
             },
             {
+              headline: "",
               name: "non-urgent",
               text: "<h3>Getting Access Health Aspect urgent heading</h3><div>Getting Access Health Aspect urgent div</div>",
             },
