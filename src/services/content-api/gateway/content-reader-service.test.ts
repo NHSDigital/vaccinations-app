@@ -10,6 +10,9 @@ import {
   _readContentFromCache,
   getContentForVaccine,
 } from "@src/services/content-api/gateway/content-reader-service";
+import {
+  StyledVaccineContent
+} from "@src/services/content-api/parsers/content-styling-service";
 import { configProvider } from "@src/utils/config";
 import { Readable } from "stream";
 
@@ -86,8 +89,11 @@ describe("Content Reader Service", () => {
 
     it("should return response for 6-in-1 vaccine from content cache", async () => {
       const vaccine: VaccineTypes = VaccineTypes.SIX_IN_ONE;
-      const actual = await getContentForVaccine(vaccine);
-      expect(actual).toEqual(mockSixInOneVaccineJson);
+      const actual: StyledVaccineContent = await getContentForVaccine(vaccine);
+
+      expect(actual.overview).toEqual(mockSixInOneVaccineJson.mainEntityOfPage[0].text);
+      expect(actual.whatVaccineIsFor.heading).toEqual(mockSixInOneVaccineJson.mainEntityOfPage[1].headline);
+      expect(actual.webpageLink).toEqual(mockSixInOneVaccineJson.webpage)
     });
   });
 });
