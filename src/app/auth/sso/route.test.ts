@@ -2,26 +2,114 @@
  * @jest-environment node
  */
 
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { GET } from "@src/app/auth/sso/route";
-import { configProvider } from "@src/utils/config";
+import { getAuthConfig } from "@src/utils/auth/get-auth-config";
+import { getClientConfig } from "@src/utils/auth/get-client-config";
+import * as client from "openid-client";
 
-jest.mock("@src/utils/config");
+jest.mock("@src/utils/auth/get-auth-config");
+jest.mock("@src/utils/auth/get-client-config");
+jest.mock("openid-client", () => {
+  const actualOpenidClient = jest.requireActual("openid-client");
+  return {
+    buildAuthorizationUrl: actualOpenidClient.buildAuthorizationUrl,
+    discovery: jest.fn(),
+  };
+});
+
+jest.mock("next/server", () => {
+  const actualNextServer = jest.requireActual("next/server");
+  return {
+    ...actualNextServer,
+    NextResponse: {
+      redirect: jest.fn(),
+    },
+  };
+});
 
 const mockNhsLoginUrl = "nhs-login/url";
-const mockNhsLoginScope = "openid profile";
 const mockNhsLoginClientId = "vita-client-id";
-const mockVaccinationAppUrl = "vita-base-url";
+const mockNhsLoginScope = "openid profile";
+const mockRedirectUrl = "https://redirect/url";
 
-(configProvider as jest.Mock).mockImplementation(() => ({
-  NHS_LOGIN_URL: mockNhsLoginUrl,
-  NHS_LOGIN_CLIENT_ID: mockNhsLoginClientId,
-  NHS_LOGIN_SCOPE: mockNhsLoginScope,
-  VACCINATION_APP_URL: mockVaccinationAppUrl,
-}));
+const mockAuthConfig = {
+  url: mockNhsLoginUrl,
+  client_id: mockNhsLoginClientId,
+  scope: mockNhsLoginScope,
+  redirect_uri: mockRedirectUrl,
+};
+
+const mockClientConfig = {} as jest.Mock;
+
+(getAuthConfig as jest.Mock).mockResolvedValue(mockAuthConfig);
+(getClientConfig as jest.Mock).mockResolvedValue(mockClientConfig);
 
 describe("SSO route", () => {
+  // let mockBuildAuthorizationUrl: jest.Mock;
+  let nextResponseRedirect: jest.Mock;
+  //  let mockDiscovery: jest.Mock;
+
+  beforeEach(() => {
+    // mockBuildAuthorizationUrl = client.buildAuthorizationUrl as jest.Mock;
+    nextResponseRedirect = NextResponse.redirect as jest.Mock;
+    // mockDiscovery = client.discovery as jest.Mock;
+  });
+
   describe("GET endpoint", () => {
+    it("passes assertedLoginIdentity JWT on to redirect url", async () => {
+      const mockAssertedLoginJWT = "asserted-login-jwt-value";
+      const inboundUrlWithAssertedParam = new URL("https://test-inbound-url");
+      inboundUrlWithAssertedParam.searchParams.append(
+        "assertedLoginIdentity",
+        mockAssertedLoginJWT,
+      );
+      // const mockClientBuiltAuthUrl = new URL("https://test-redirect-to-url");
+      // mockBuildAuthorizationUrl.mockReturnValue(mockClientBuiltAuthUrl);
+      const request = new NextRequest(inboundUrlWithAssertedParam);
+
+      await GET(request);
+
+      expect(nextResponseRedirect).toHaveBeenCalledTimes(1);
+      const redirectedUrl = nextResponseRedirect.mock.lastCall[0];
+      const searchParams = redirectedUrl.searchParams;
+      expect(searchParams.get("asserted_login_identity")).toEqual(
+        mockAssertedLoginJWT,
+      );
+    });
+
+    it("redirects the user to NHS Login with expected query params", async () => {
+      const mockAssertedLoginJWT = "asserted-login-jwt-value";
+      const inboundUrlWithAssertedParam = new URL("https://test-inbound-url");
+      inboundUrlWithAssertedParam.searchParams.append(
+        "assertedLoginIdentity",
+        mockAssertedLoginJWT,
+      );
+      const mockClientBuiltAuthUrl = new URL("https://test-redirect-to-url");
+      // mockBuildAuthorizationUrl.mockReturnValue(mockClientBuiltAuthUrl);
+      const request = new NextRequest(inboundUrlWithAssertedParam);
+
+      await GET(request);
+
+      expect(nextResponseRedirect).toHaveBeenCalledTimes(1);
+      const redirectedUrl = nextResponseRedirect.mock.lastCall[0];
+      expect(redirectedUrl.redirected).toBe(true);
+      expect(redirectedUrl.origin).toBe(mockAuthConfig.url);
+      expect(redirectedUrl.pathname).toBe("/authorize");
+      const searchParams = redirectedUrl.searchParams;
+      expect(searchParams.get("assertedLoginIdentity")).toEqual(
+        mockAssertedLoginJWT,
+      );
+      expect(searchParams.get("scope")).toEqual("openid%20profile");
+      expect(searchParams.get("client_id")).toEqual(mockAuthConfig.client_id);
+      expect(searchParams.get("redirect_uri")).toEqual(
+        `${mockAuthConfig.url}/auth/callback`,
+      );
+      expect(searchParams.get("state")).toBeDefined();
+      expect(searchParams.get("nonce")).toBeDefined();
+      expect(searchParams.get("prompt")).toEqual("none");
+    });
+
     it("should fail if assertedLoginIdentity query parameter not provided", async () => {
       const urlWithoutAssertedParam = new URL("https://testurl");
 

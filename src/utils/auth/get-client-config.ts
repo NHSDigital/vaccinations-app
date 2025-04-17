@@ -10,8 +10,8 @@ const getClientConfig = async () => {
   const authConfig = await getAuthConfig();
   try {
     return await client.discovery(
-      new URL(authConfig.url!),
-      authConfig.client_id!,
+      new URL(authConfig.url),
+      authConfig.client_id,
       "",
       client.PrivateKeyJwt(key),
     );

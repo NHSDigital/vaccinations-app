@@ -17,15 +17,18 @@ const getAuthConfig = async (): Promise<AuthConfig> => {
     config = await configProvider();
   }
 
+  // TODO: VIA-87 2025-04-17 Check how to get URL of deployed lambda and replace
+  const vitaUrl = process.env.VACCINATION_APP_URL || "not-yet-implemented";
+
   return {
-    url: config.VACCINATION_APP_URL,
-    audience: config.VACCINATION_APP_URL,
+    url: vitaUrl,
+    audience: vitaUrl,
     client_id: config.NHS_LOGIN_CLIENT_ID,
     scope: config.NHS_LOGIN_SCOPE,
-    redirect_uri: `${config.VACCINATION_APP_URL}/auth/callback`,
+    redirect_uri: `${vitaUrl}/auth/callback`,
     response_type: "code",
     grant_type: "authorization_code",
-    post_login_route: `${config.VACCINATION_APP_URL}`,
+    post_login_route: `${vitaUrl}`,
   };
 };
 
