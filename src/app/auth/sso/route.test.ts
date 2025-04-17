@@ -11,10 +11,8 @@ import * as client from "openid-client";
 jest.mock("@src/utils/auth/get-auth-config");
 jest.mock("@src/utils/auth/get-client-config");
 jest.mock("openid-client", () => {
-  const actualOpenidClient = jest.requireActual("openid-client");
   return {
-    buildAuthorizationUrl: actualOpenidClient.buildAuthorizationUrl,
-    discovery: jest.fn(),
+    buildAuthorizationUrl: jest.fn(),
   };
 });
 
@@ -23,6 +21,7 @@ jest.mock("next/server", () => {
   return {
     ...actualNextServer,
     NextResponse: {
+      json: actualNextServer.NextResponse.json,
       redirect: jest.fn(),
     },
   };
@@ -42,18 +41,16 @@ const mockAuthConfig = {
 
 const mockClientConfig = {} as jest.Mock;
 
-(getAuthConfig as jest.Mock).mockResolvedValue(mockAuthConfig);
-(getClientConfig as jest.Mock).mockResolvedValue(mockClientConfig);
+(getAuthConfig as jest.Mock).mockImplementation(() => mockAuthConfig);
+(getClientConfig as jest.Mock).mockImplementation(() => mockClientConfig);
 
 describe("SSO route", () => {
-  // let mockBuildAuthorizationUrl: jest.Mock;
+  let mockBuildAuthorizationUrl: jest.Mock;
   let nextResponseRedirect: jest.Mock;
-  //  let mockDiscovery: jest.Mock;
 
   beforeEach(() => {
-    // mockBuildAuthorizationUrl = client.buildAuthorizationUrl as jest.Mock;
+    mockBuildAuthorizationUrl = client.buildAuthorizationUrl as jest.Mock;
     nextResponseRedirect = NextResponse.redirect as jest.Mock;
-    // mockDiscovery = client.discovery as jest.Mock;
   });
 
   describe("GET endpoint", () => {
@@ -64,8 +61,8 @@ describe("SSO route", () => {
         "assertedLoginIdentity",
         mockAssertedLoginJWT,
       );
-      // const mockClientBuiltAuthUrl = new URL("https://test-redirect-to-url");
-      // mockBuildAuthorizationUrl.mockReturnValue(mockClientBuiltAuthUrl);
+      const mockClientBuiltAuthUrl = new URL("https://test-redirect-to-url");
+      mockBuildAuthorizationUrl.mockReturnValue(mockClientBuiltAuthUrl);
       const request = new NextRequest(inboundUrlWithAssertedParam);
 
       await GET(request);
@@ -86,7 +83,7 @@ describe("SSO route", () => {
         mockAssertedLoginJWT,
       );
       const mockClientBuiltAuthUrl = new URL("https://test-redirect-to-url");
-      // mockBuildAuthorizationUrl.mockReturnValue(mockClientBuiltAuthUrl);
+      mockBuildAuthorizationUrl.mockReturnValue(mockClientBuiltAuthUrl);
       const request = new NextRequest(inboundUrlWithAssertedParam);
 
       await GET(request);
