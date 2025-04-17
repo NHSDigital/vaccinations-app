@@ -2,11 +2,12 @@
 
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import {
-  getFilteredContentForVaccine, VaccinePageContent
+  getFilteredContentForVaccine,
+  VaccinePageContent,
 } from "@src/services/content-api/parsers/content-filter-service";
 import {
   getStyledContentForVaccine,
-  StyledVaccineContent
+  StyledVaccineContent,
 } from "@src/services/content-api/parsers/content-styling-service";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { VaccineTypes } from "@src/models/vaccine";
@@ -19,8 +20,9 @@ import { logger } from "@src/utils/logger";
 import { isS3Path, S3_PREFIX } from "@src/utils/path";
 import { readFile } from "node:fs/promises";
 import { Readable } from "stream";
+import { Logger } from "pino";
 
-const log = logger.child({ module: "content-reader-service" });
+const log: Logger = logger.child({ module: "content-reader-service" });
 
 const _readFileS3 = async (bucket: string, key: string): Promise<string> => {
   try {
@@ -60,7 +62,9 @@ const _readContentFromCache = async (
     : await readFile(`${cacheLocation}${cachePath}`, { encoding: "utf8" });
 };
 
-const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<StyledVaccineContent> => {
+const getContentForVaccine = async (
+  vaccineType: VaccineTypes,
+): Promise<StyledVaccineContent> => {
   const config: AppConfig = await configProvider();
   const vaccineContentPath: VaccineContentPaths =
     vaccineTypeToPath[vaccineType];
@@ -74,8 +78,12 @@ const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<StyledVa
   log.info(`Finished fetching content from cache for vaccine: ${vaccineType}`);
 
   // filter and style content
-  const filteredContent: VaccinePageContent = await getFilteredContentForVaccine(vaccineType, vaccineContent);
-  const styledContent: StyledVaccineContent = await getStyledContentForVaccine(vaccineType, filteredContent);
+  const filteredContent: VaccinePageContent =
+    await getFilteredContentForVaccine(vaccineType, vaccineContent);
+  const styledContent: StyledVaccineContent = await getStyledContentForVaccine(
+    vaccineType,
+    filteredContent,
+  );
 
   return styledContent;
 };
