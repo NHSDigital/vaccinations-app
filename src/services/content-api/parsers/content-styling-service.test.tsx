@@ -12,7 +12,7 @@ import {
 } from "@src/services/content-api/parsers/content-styling-service";
 import {
   VaccinePageContent,
-  VaccinePageSection
+  VaccinePageSection,
 } from "@src/services/content-api/parsers/content-filter-service";
 
 describe("ContentStylingService", () => {

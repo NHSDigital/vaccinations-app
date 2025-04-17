@@ -32,23 +32,23 @@ type MainEntityOfPage = {
 export type ContentApiVaccineResponse = {
   "@context": string;
   "@type": string;
-  "name": string;
+  name: string;
   mainEntityOfPage: MainEntityOfPage[];
   webpage: string;
-  "copyrightHolder": object;
-  "license": string;
-  "author": object;
-  "about": object;
-  "description": string;
-  "url": string;
-  "genre": object;
-  "keywords": string;
-  "dateModified": string;
-  "lastReviewed": string[];
-  "breadcrumb": object;
-  "hasPart": object;
-  "relatedLink": object;
-  "contentSubTypes": object;
+  copyrightHolder: object;
+  license: string;
+  author: object;
+  about: object;
+  description: string;
+  url: string;
+  genre: object;
+  keywords: string;
+  dateModified: string;
+  lastReviewed: string[];
+  breadcrumb: object;
+  hasPart: object;
+  relatedLink: object;
+  contentSubTypes: object;
 };
 
 export type VaccinePageSubsection = {
@@ -134,10 +134,13 @@ const generateWhoVaccineIsForHeading = (vaccineType: VaccineTypes): string => {
 
 const getFilteredContentForVaccine = async (
   vaccineName: VaccineTypes,
-  apiContent: string
+  apiContent: string,
 ): Promise<VaccinePageContent> => {
   const content: ContentApiVaccineResponse = JSON.parse(apiContent);
-  const overview: string = extractDescriptionForVaccine(content, "lead paragraph");
+  const overview: string = extractDescriptionForVaccine(
+    content,
+    "lead paragraph",
+  );
 
   const whatVaccineIsFor: VaccinePageSection = {
     headline: extractHeadlineForAspect(content, "BenefitsHealthAspect"),

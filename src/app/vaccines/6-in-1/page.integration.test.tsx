@@ -9,7 +9,7 @@ jest.mock("@src/utils/config");
 describe("6-in-1 vaccine page - integration test", () => {
   (configProvider as jest.Mock).mockImplementation(() => ({
     CONTENT_CACHE_PATH: "wiremock/__files/",
-    PINO_LOG_LEVEL: "info"
+    PINO_LOG_LEVEL: "info",
   }));
 
   it("should display 6-in-1 content from embedded vaccine component", async () => {
@@ -24,6 +24,8 @@ describe("6-in-1 vaccine page - integration test", () => {
     expect(sixInOneHeading).toBeInTheDocument();
 
     const overview = await screen.findByTestId("overview-text");
-    expect(overview).toHaveTextContent(mockSixInOneVaccineContent.mainEntityOfPage[0].text as string);
+    expect(overview).toHaveTextContent(
+      mockSixInOneVaccineContent.mainEntityOfPage[0].text as string,
+    );
   });
 });

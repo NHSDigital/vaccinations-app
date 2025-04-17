@@ -4,13 +4,11 @@ import { VaccineTypes } from "@src/models/vaccine";
 import { JSX, use } from "react";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import { useVaccineContentContextValue } from "@src/app/_components/providers/VaccineContentProvider";
-import {
-  StyledVaccineContent
-} from "@src/services/content-api/parsers/content-styling-service";
+import { StyledVaccineContent } from "@src/services/content-api/parsers/content-styling-service";
 
 interface VaccineProps {
   name: string;
-  vaccine: VaccineTypes
+  vaccine: VaccineTypes;
 }
 
 const Vaccine = (props: VaccineProps): JSX.Element => {

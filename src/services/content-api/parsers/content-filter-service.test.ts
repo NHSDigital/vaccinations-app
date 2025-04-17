@@ -1,6 +1,4 @@
-import {
-  getFilteredContentForVaccine
-} from "@src/services/content-api/parsers/content-filter-service";
+import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 import { VaccineTypes } from "@src/models/vaccine";
 
@@ -12,7 +10,8 @@ describe("Content Filter", () => {
       };
 
       const pageCopyFor6in1 = await getFilteredContentForVaccine(
-        VaccineTypes.SIX_IN_ONE, JSON.stringify(genericVaccineContentAPIResponse)
+        VaccineTypes.SIX_IN_ONE,
+        JSON.stringify(genericVaccineContentAPIResponse),
       );
 
       expect(pageCopyFor6in1).toEqual(
@@ -35,7 +34,8 @@ describe("Content Filter", () => {
       };
 
       const pageCopyFor6in1 = await getFilteredContentForVaccine(
-        VaccineTypes.SIX_IN_ONE, JSON.stringify(genericVaccineContentAPIResponse)
+        VaccineTypes.SIX_IN_ONE,
+        JSON.stringify(genericVaccineContentAPIResponse),
       );
 
       expect(pageCopyFor6in1).toEqual(
@@ -73,7 +73,8 @@ describe("Content Filter", () => {
       };
 
       const pageCopyFor6in1 = await getFilteredContentForVaccine(
-        VaccineTypes.SIX_IN_ONE, JSON.stringify(genericVaccineContentAPIResponse)
+        VaccineTypes.SIX_IN_ONE,
+        JSON.stringify(genericVaccineContentAPIResponse),
       );
 
       expect(pageCopyFor6in1).toEqual(
@@ -101,7 +102,8 @@ describe("Content Filter", () => {
       };
 
       const pageCopyFor6in1 = await getFilteredContentForVaccine(
-        VaccineTypes.SIX_IN_ONE, JSON.stringify(genericVaccineContentAPIResponse)
+        VaccineTypes.SIX_IN_ONE,
+        JSON.stringify(genericVaccineContentAPIResponse),
       );
 
       expect(pageCopyFor6in1).toEqual(
@@ -115,7 +117,8 @@ describe("Content Filter", () => {
       };
 
       const pageCopyFor6in1 = await getFilteredContentForVaccine(
-        VaccineTypes.SIX_IN_ONE, JSON.stringify(genericVaccineContentAPIResponse)
+        VaccineTypes.SIX_IN_ONE,
+        JSON.stringify(genericVaccineContentAPIResponse),
       );
 
       expect(pageCopyFor6in1).toEqual(
