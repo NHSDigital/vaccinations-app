@@ -29,7 +29,7 @@ module "deploy_app" {
     additional_iam_policies = [aws_iam_policy.cache_lambda_additional_policy]
     runtime = var.nodejs_version
     concurrency = 1
-    schedule = "rate(2 days)"
+    schedule = "rate(7 days)"
     additional_environment_variables = {
       SSM_PREFIX          = var.ssm_prefix
       CONTENT_CACHE_PATH  = var.content_cache_path
