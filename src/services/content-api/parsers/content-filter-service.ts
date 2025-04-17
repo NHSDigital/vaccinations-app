@@ -16,7 +16,7 @@ type HasPartSubsection = {
   identifier: string;
 };
 
-type MainEntityOfPage = {
+export type MainEntityOfPage = {
   "@type": string;
   hasHealthAspect?: string;
   position: number;
@@ -32,23 +32,23 @@ type MainEntityOfPage = {
 export type ContentApiVaccineResponse = {
   "@context": string;
   "@type": string;
-  "name": string;
+  name: string;
   mainEntityOfPage: MainEntityOfPage[];
   webpage: string;
-  "copyrightHolder": object;
-  "license": string;
-  "author": object;
-  "about": object;
-  "description": string;
-  "url": string;
-  "genre": object;
-  "keywords": string;
-  "dateModified": string;
-  "lastReviewed": string[];
-  "breadcrumb": object;
-  "hasPart": object;
-  "relatedLink": object;
-  "contentSubTypes": object;
+  copyrightHolder: object;
+  license: string;
+  author: object;
+  about: object;
+  description: string;
+  url: string;
+  genre: object;
+  keywords: string;
+  dateModified: string;
+  lastReviewed: string[];
+  breadcrumb: object;
+  hasPart: object;
+  relatedLink: object;
+  contentSubTypes: object;
 };
 
 export type VaccinePageSubsection = {
@@ -74,9 +74,12 @@ const _findAspect = (
   response: ContentApiVaccineResponse,
   aspectName: Aspect,
 ): MainEntityOfPage => {
-  const aspect: MainEntityOfPage = response.mainEntityOfPage.find((page: MainEntityOfPage) =>
-    page.hasHealthAspect?.endsWith(aspectName),
+  const aspect: MainEntityOfPage | undefined = response.mainEntityOfPage.find(
+    (page: MainEntityOfPage) => page.hasHealthAspect?.endsWith(aspectName),
   );
+  if (!aspect) {
+    throw new Error(`Aspect ${aspectName} is not present`);
+  }
   return aspect;
 };
 
@@ -119,9 +122,10 @@ const _extractDescriptionForVaccine = (
   response: ContentApiVaccineResponse,
   name: string,
 ): string => {
-  const mainEntity: MainEntityOfPage = response.mainEntityOfPage.find(
-    (page: MainEntityOfPage) => page.name === name,
-  );
+  const mainEntity: MainEntityOfPage | undefined =
+    response.mainEntityOfPage.find(
+      (page: MainEntityOfPage) => page.name === name,
+    );
   if (!mainEntity || !mainEntity.text) {
     throw new Error(`Missing text for description: ${name}`);
   }
@@ -134,10 +138,13 @@ const _generateWhoVaccineIsForHeading = (vaccineType: VaccineTypes): string => {
 
 const getFilteredContentForVaccine = async (
   vaccineName: VaccineTypes,
-  apiContent: string
+  apiContent: string,
 ): Promise<VaccinePageContent> => {
   const content: ContentApiVaccineResponse = JSON.parse(apiContent);
-  const overview: string = _extractDescriptionForVaccine(content, "lead paragraph");
+  const overview: string = _extractDescriptionForVaccine(
+    content,
+    "lead paragraph",
+  );
 
   const whatVaccineIsFor: VaccinePageSection = {
     headline: _extractHeadlineForAspect(content, "BenefitsHealthAspect"),
@@ -170,6 +177,7 @@ const getFilteredContentForVaccine = async (
 
 export {
   getFilteredContentForVaccine,
+  _findAspect,
   _extractPartsForAspect,
   _extractHeadlineForAspect,
   _extractDescriptionForVaccine,
