@@ -14,7 +14,7 @@ jest.mock("@src/utils/auth/pem-to-private-key");
 jest.mock("@src/utils/auth/get-auth-config");
 jest.mock("openid-client", () => {
   return {
-    discovery: jest.fn(() => mockDiscoveryClientConfig),
+    discovery: jest.fn(),
     PrivateKeyJwt: jest.fn(() => mockPrivateKeyJWT),
   };
 });
@@ -30,7 +30,15 @@ const mockAuthConfigUrl = new URL(mockAuthConfig.url);
 (pemToPrivateKey as jest.Mock).mockImplementation(() => mockCryptoKey);
 
 describe("getClientConfig", () => {
+  let mockDiscovery: jest.Mock;
+
+  beforeEach(() => {
+    mockDiscovery = client.discovery as jest.Mock;
+  });
+
   it("calls client discovery with expected args and returns result", async () => {
+    mockDiscovery.mockResolvedValue(mockDiscoveryClientConfig);
+
     const clientConfig = await getClientConfig();
 
     expect(client.PrivateKeyJwt).toHaveBeenCalledWith(mockCryptoKey);
@@ -43,11 +51,15 @@ describe("getClientConfig", () => {
     expect(clientConfig).toBe(mockDiscoveryClientConfig);
   });
 
-  // it("throws if error thrown by discovery method", () => {
-  // TODO: VIA 87 2025-04-16 how to get the mock of client.discovery to throw an error when we cannot reference the module by name? (starred import)
-  //
-  // const errorThrownByDiscovery = new Error("error-thrown-by-discovery");
-  // set discovery mock to throw that
-  // expect(await getClientConfig()).rejects.toThrow(errorThrownByDiscovery);
-  // });
+  it("throws if error thrown by discovery method", async () => {
+    // TODO: VIA 87 2025-04-16 how to get the mock of client.discovery to throw an error when we cannot reference the module by name? (starred import)
+    //
+    // const errorThrownByDiscovery = new Error("error-thrown-by-discovery");
+    // set discovery mock to throw that
+    // expect(await getClientConfig()).rejects.toThrow(errorThrownByDiscovery);
+    const errorThrownByDiscovery = new Error("error-thrown-by-discovery");
+    mockDiscovery.mockRejectedValue(errorThrownByDiscovery);
+
+    await expect(getClientConfig()).rejects.toThrow(errorThrownByDiscovery);
+  });
 });

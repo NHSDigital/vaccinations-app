@@ -23,7 +23,7 @@ const mockVaccinationAppUrl = "vita-base-url";
 describe("SSO route", () => {
   describe("GET endpoint", () => {
     it("should fail if assertedLoginIdentity query parameter not provided", async () => {
-      const urlWithoutAssertedParam = new URL("http://testurl");
+      const urlWithoutAssertedParam = new URL("https://testurl");
 
       const request = new NextRequest(urlWithoutAssertedParam);
 
@@ -32,7 +32,7 @@ describe("SSO route", () => {
     });
 
     it("should fail if assertedLoginIdentity query parameter is empty", async () => {
-      const urlWithEmptyAssertedParam = new URL("http://testurl");
+      const urlWithEmptyAssertedParam = new URL("https://testurl");
       urlWithEmptyAssertedParam.searchParams.append(
         "assertedLoginIdentity",
         "",
