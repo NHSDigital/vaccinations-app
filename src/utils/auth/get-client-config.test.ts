@@ -52,11 +52,6 @@ describe("getClientConfig", () => {
   });
 
   it("throws if error thrown by discovery method", async () => {
-    // TODO: VIA 87 2025-04-16 how to get the mock of client.discovery to throw an error when we cannot reference the module by name? (starred import)
-    //
-    // const errorThrownByDiscovery = new Error("error-thrown-by-discovery");
-    // set discovery mock to throw that
-    // expect(await getClientConfig()).rejects.toThrow(errorThrownByDiscovery);
     const errorThrownByDiscovery = new Error("error-thrown-by-discovery");
     mockDiscovery.mockRejectedValue(errorThrownByDiscovery);
 
