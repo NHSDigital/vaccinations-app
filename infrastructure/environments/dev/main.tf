@@ -11,3 +11,12 @@ module "deploy" {
   log_retention_in_days = local.log_retention_in_days
   pino_log_level        = local.pino_log_level
 }
+
+module "post_deploy" {
+  source = "../../modules/post_deploy"
+
+  default_tags = local.default_tags
+  prefix       = local.prefix
+
+  depends_on = [module.deploy]
+}
