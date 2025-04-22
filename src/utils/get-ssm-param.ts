@@ -2,16 +2,17 @@ import { GetParameterCommand, SSMClient } from "@aws-sdk/client-ssm";
 import type { GetParameterCommandOutput } from "@aws-sdk/client-ssm";
 import { AWS_PRIMARY_REGION } from "@src/utils/constants";
 import { logger } from "@src/utils/logger";
+import { Logger } from "pino";
 
-const log = logger.child({ module: "get-ssm-param" });
+const log: Logger = logger.child({ module: "get-ssm-param" });
 
 const getSSMParam = async (name: string): Promise<string | undefined> => {
   try {
-    const client = new SSMClient({
+    const client: SSMClient = new SSMClient({
       region: AWS_PRIMARY_REGION,
     });
 
-    const command = new GetParameterCommand({
+    const command: GetParameterCommand = new GetParameterCommand({
       Name: name,
       WithDecryption: true,
     });
