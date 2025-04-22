@@ -10,7 +10,7 @@ jest.mock("@src/app/_components/vaccine/Vaccine", () => jest.fn(() => <div />));
 describe("RSV vaccine page", () => {
   (configProvider as jest.Mock).mockImplementation(() => ({
     CONTENT_CACHE_PATH: "wiremock/__files/",
-    PINO_LOG_LEVEL: "info"
+    PINO_LOG_LEVEL: "info",
   }));
 
   it("should contain back link to vaccination schedule page", () => {
@@ -29,7 +29,7 @@ describe("RSV vaccine page", () => {
     expect(Vaccine).toHaveBeenCalledWith(
       {
         name: "RSV",
-        vaccine: VaccineTypes.RSV
+        vaccine: VaccineTypes.RSV,
       },
       undefined,
     );

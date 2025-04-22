@@ -3,7 +3,7 @@ import { writeContentForVaccine } from "@src/_lambda/content-cache-hydrator/cont
 import { VaccineTypes } from "@src/models/vaccine";
 import {
   getFilteredContentForVaccine,
-  VaccinePageContent
+  VaccinePageContent,
 } from "@src/services/content-api/parsers/content-filter-service";
 import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
 import { logger } from "@src/utils/logger";
@@ -17,7 +17,10 @@ export const handler = async (event: object): Promise<void> => {
   for (const vaccine of Object.values(VaccineTypes)) {
     try {
       const content: string = await fetchContentForVaccine(vaccine);
-      const filteredContent: VaccinePageContent = await getFilteredContentForVaccine(vaccine, content);
+      log.info(`Calling getFilteredContentForVaccine(${vaccine})`);
+      const filteredContent: VaccinePageContent =
+        await getFilteredContentForVaccine(vaccine, content);
+      log.info(`Calling getStyledContentForVaccine(${vaccine})`);
       await getStyledContentForVaccine(vaccine, filteredContent);
       await writeContentForVaccine(vaccine, content);
     } catch (error) {

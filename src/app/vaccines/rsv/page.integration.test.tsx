@@ -9,7 +9,7 @@ jest.mock("@src/utils/config");
 describe("RSV vaccine page - integration test", () => {
   (configProvider as jest.Mock).mockImplementation(() => ({
     CONTENT_CACHE_PATH: "wiremock/__files/",
-    PINO_LOG_LEVEL: "info"
+    PINO_LOG_LEVEL: "info",
   }));
 
   it("should display RSV content from embedded vaccine component", async () => {

@@ -10,7 +10,7 @@ import {
 
 interface VaccineProps {
   name: string;
-  vaccine: VaccineTypes
+  vaccine: VaccineTypes;
 }
 
 const Vaccine = (props: VaccineProps): JSX.Element => {

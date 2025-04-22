@@ -17,6 +17,7 @@ describe("Any vaccine page", () => {
     (getContentForVaccine as jest.Mock).mockResolvedValue(
       mockStyledContent,
     );
+
     contentPromise = getContentForVaccine(VaccineTypes.SIX_IN_ONE);
   });
 

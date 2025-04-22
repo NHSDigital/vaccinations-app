@@ -12,14 +12,18 @@ import {
 export const dynamic = "force-dynamic";
 
 const Vaccine6in1 = (): JSX.Element => {
-  const contentPromise: Promise<StyledVaccineContent> = getContentForVaccine(VaccineTypes.SIX_IN_ONE);
-
+  const contentPromise: Promise<StyledVaccineContent> = getContentForVaccine(
+    VaccineTypes.SIX_IN_ONE,
+  );
   return (
     <div>
       <title>6-in-1 Vaccine - NHS App</title>
       <BackLink link="/schedule" />
       <VaccineContentProvider contentPromise={contentPromise}>
-        <Vaccine name={VaccineDisplayNames.SIX_IN_ONE} vaccine={VaccineTypes.SIX_IN_ONE} />
+        <Vaccine
+          name={VaccineDisplayNames.SIX_IN_ONE}
+          vaccine={VaccineTypes.SIX_IN_ONE}
+        />
       </VaccineContentProvider>
     </div>
   );
