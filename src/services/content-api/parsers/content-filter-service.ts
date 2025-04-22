@@ -88,7 +88,7 @@ const _extractHeadlineForAspect = (
   aspectName: Aspect,
 ): string => {
   const aspect: MainEntityOfPage = _findAspect(response, aspectName);
-  if (!aspect || !aspect.headline) {
+  if (!aspect?.headline) {
     throw new Error(`Missing headline for Aspect: ${aspectName}`);
   }
   return aspect.headline;
