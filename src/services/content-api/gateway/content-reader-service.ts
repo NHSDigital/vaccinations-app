@@ -20,8 +20,9 @@ import { logger } from "@src/utils/logger";
 import { isS3Path, S3_PREFIX } from "@src/utils/path";
 import { readFile } from "node:fs/promises";
 import { Readable } from "stream";
+import { Logger } from "pino";
 
-const log = logger.child({ module: "content-reader-service" });
+const log: Logger = logger.child({ module: "content-reader-service" });
 
 const _readFileS3 = async (bucket: string, key: string): Promise<string> => {
   try {
