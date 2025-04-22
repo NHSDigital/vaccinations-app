@@ -1,0 +1,583 @@
+{
+  "@context": "http://schema.org",
+  "@type": "MedicalWebPage",
+  "name": "Flu vaccine",
+  "copyrightHolder": {
+    "name": "Crown Copyright",
+    "@type": "Organization"
+  },
+  "license": "https://developer.api.nhs.uk/terms",
+  "author": {
+    "url": "https://www.nhs.uk",
+    "logo": "https://assets.nhs.uk/nhsuk-cms/images/nhs-attribution.width-510.png",
+    "email": "nhswebsite.servicedesk@nhs.net",
+    "@type": "Organization",
+    "name": "NHS website"
+  },
+  "about": {
+    "@type": "WebPage",
+    "name": "Flu vaccine",
+    "alternateName": ""
+  },
+  "description": "Find out about the flu vaccine for adults, including who should have it, how to get it and side effects.",
+  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/",
+  "genre": [
+    "Vaccine"
+  ],
+  "keywords": "",
+  "dateModified": "2025-04-15T14:14:49+00:00",
+  "lastReviewed": [
+    "2023-11-23T08:28:00+00:00",
+    "2026-11-23T08:28:00+00:00"
+  ],
+  "breadcrumb": {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 0,
+        "item": {
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "name": "Vaccinations",
+          "genre": []
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/",
+          "name": "Flu vaccine",
+          "genre": [
+            "Vaccine"
+          ]
+        }
+      }
+    ]
+  },
+  "hasPart": [
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#overview",
+      "description": "The flu vaccine helps protect against flu. It's given every year in autumn or early winter to adults at higher risk from flu.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "Flu vaccine",
+          "text": "Who it's for"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Flu vaccine",
+          "text": "Contraindications"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Flu vaccine",
+          "text": "How to get it"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Flu vaccine",
+          "text": "Side effects"
+        },
+        {
+          "text": "<p>The flu vaccine is recommended for people at higher risk from flu, including all adults aged 65 and over and people with certain health conditions.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Most people who need it can have the flu vaccine. You cannot have it if you've had a serious allergic reaction to it or an ingredient in it.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Most adults can get a flu vaccine from a GP surgery or some pharmacies. Some people get it through their employer, care home or an antenatal clinic.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Side effects of the flu vaccine include pain or soreness where the injection was given, a slightly raised temperature and an aching body.</p> ",
+          "@type": "WebPageElement"
+        }
+      ],
+      "headline": ""
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#who-its-for",
+      "description": "The flu vaccine is recommended for people at higher risk from flu, including all adults aged 65 and over and people with certain health conditions.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The flu vaccine is recommended for people at higher risk of getting seriously ill from <a href=\"https://www.nhs.uk/conditions/flu/\">flu</a>.</p><p>It's offered on the NHS every year in autumn or early winter.</p><p>You can get the free NHS flu vaccine if you:</p><ul><li>are aged 65 or over</li><li>have certain long-term health conditions</li><li>are pregnant</li><li>live in a care home</li><li>are the main carer for an older or disabled person, or receive a carer's allowance</li><li>live with someone who has a weakened immune system</li></ul><p>Frontline health and social care workers can also get a flu vaccine through their employer.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Health conditions that mean you're eligible for the flu vaccine",
+          "text": "<div class=\"block-richtext\">\n<p>The flu vaccine is recommended for people with certain long-term health conditions, including:</p><ul><li>conditions that affect your breathing, such as asthma (needing a steroid inhaler or tablets), chronic obstructive pulmonary disease (COPD) or cystic fibrosis</li><li>heart conditions, such as coronary heart disease or heart failure</li><li>chronic kidney disease</li><li>liver disease, such as cirrhosis or hepatitis</li><li>some conditions that affect your brain or nerves, such as Parkinson's disease, motor neurone disease, multiple sclerosis or cerebral palsy</li><li>diabetes or Addison's disease</li><li>a weakened immune system due to a condition such as HIV or AIDS, or due to a treatment such as chemotherapy or steroid medicine</li><li>problems with your spleen, such as sickle cell disease, or if you've had your spleen removed</li><li>a learning disability</li><li>being very overweight – a body mass index (BMI) of 40 or above</li></ul><p>Speak to your GP surgery or specialist if you have a health condition and you're not sure if you're eligible for the flu vaccine.</p>\n</div>"
+        }
+      ],
+      "headline": "Who should have the flu vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#how-to-get-it",
+      "description": "Most adults can get a flu vaccine from a GP surgery or some pharmacies. Some people get it through their employer, care home or an antenatal clinic.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The NHS will let you know in autumn or early winter when you can get your flu vaccine.</p><p>If you're eligible for an NHS flu vaccine, you will be able to get your vaccine from:</p><ul><li>your GP surgery</li><li>a pharmacy that offers NHS flu vaccination (if you're aged 18 or over)</li></ul><p>Some people may be able to get vaccinated through their maternity service, care home, or their employer if they are a frontline health or social care worker.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Frontline health or social care workers",
+          "text": "<div class=\"block-richtext\">\n<p>Frontline health and social care workers should get the flu vaccine through their employer.</p><p>If you cannot get a flu vaccine through your employer, you can get it at a pharmacy or your GP surgery if you're employed:</p><ul><li>by a registered residential care or nursing home</li><li>by a registered domiciliary care provider</li><li>by a voluntary managed hospice provider</li><li>through direct payments or personal health budgets</li></ul>\n</div>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Information",
+          "text": "<h3>Having the flu vaccine at the same time as other vaccines</h3><p>You can have the flu vaccine at the same time as other vaccines such as the COVID-19 and shingles vaccines.</p><p>It's not usually given at the same time as the RSV vaccine, but you can have them at the same time if a doctor or nurse thinks it's needed.</p>"
+        }
+      ],
+      "headline": "How to get the flu vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#contraindications",
+      "description": "Most people who need it can have the flu vaccine. You cannot have it if you've had a serious allergic reaction to it or an ingredient in it.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Most people who are eligible for the flu vaccine can have it.</p><p>You only cannot have the vaccine if you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine or an ingredient in the vaccine.</p><p>Some of the flu vaccines used in the UK contain egg protein. Tell the person vaccinating you if you have an egg allergy.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Information",
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>If you have a high temperature, wait until you're feeling better before having your flu vaccine.</p>"
+        }
+      ],
+      "headline": "Who cannot have the flu vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#ingredients",
+      "description": "You can check the ingredients in the flu vaccine by asking to see the patient leaflet or searching for it online.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>There are several types of flu vaccine given in the UK. If you're eligible for the flu vaccine on the NHS, you'll be offered one of the types that's most appropriate for you.</p><p>You can check the ingredients in the patient leaflets.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<listvalue: 'vaccines=\"\" ('body',=\"\" 0x7fd64ad5d400=\"\" 65=\"\" <streamvalue=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" [structvalue([('title',=\"\" aged=\"\" and=\"\" at=\"\" for=\"\" object=\"\" over'),=\"\" people=\"\" richtext:=\"\">&gt;]&gt;)]), StructValue([('title', 'Vaccines for people aged 60 to 64'), ('body', <streamvalue 0x7fd64ad5dc10=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)]), StructValue([('title', 'Vaccines for people aged 18 to 59'), ('body', <streamvalue 0x7fd64ad5d160=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)])]&gt;</streamvalue></streamvalue></listvalue:>"
+        }
+      ],
+      "headline": "Flu vaccine ingredients"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#side-effects",
+      "description": "Side effects of the flu vaccine include pain or soreness where the injection was given, a slightly raised temperature and an aching body.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The most common side effects of the flu vaccine are mild and get better within 1 to 2 days.</p><p>They can include:</p><ul><li>pain or soreness where the injection was given</li><li>a slightly raised temperature</li><li>an aching body</li></ul><p>More serious side effects such as a severe allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p><p>The injected flu vaccines used in the UK do not contain live flu viruses. They cannot give you flu.</p>"
+        }
+      ],
+      "headline": "Side effects of the flu vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/EffectivenessHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#effectiveness",
+      "description": "The flu vaccine helps protect you against common types of flu viruses. There's still a chance you might get flu, but it's likely to be milder.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The flu vaccine aims to protect you against the most common types of flu viruses.</p><p>There's still a chance you might get flu after getting vaccinated, but it's likely to be milder and not last as long.</p><p>The vaccine usually takes up to 14 days to work.</p><p>Protection from the flu vaccine goes down with time and the types of flu virus the vaccine protects against are updated each year. This is why it's important to get the flu vaccine every year.</p>"
+        }
+      ],
+      "headline": "How well the flu vaccine works and how long it lasts"
+    }
+  ],
+  "relatedLink": [
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "name": "Vaccinations",
+      "linkRelationship": "Navigation",
+      "position": 0
+    }
+  ],
+  "contentSubTypes": [],
+  "mainEntityOfPage": [
+    {
+      "position": 0,
+      "identifier": 0,
+      "text": "The flu vaccine helps protect against flu, which can be a serious or life-threatening illness. It's offered on the NHS every year in autumn or early winter to people at higher risk of getting seriously ill from flu.",
+      "name": "lead paragraph",
+      "@type": "WebPageElement"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 1,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<p>This page is about the flu vaccine for adults. There are also pages about the <a href=\"https://www.nhs.uk/vaccinations/child-flu-vaccine/\">children's flu vaccine</a> and <a href=\"https://www.nhs.uk/pregnancy/keeping-well/flu-jab/\">flu jab in pregnancy</a>.</p>"
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<p>This page is about the flu vaccine for adults. There are also pages about the <a href=\"https://www.nhs.uk/vaccinations/child-flu-vaccine/\">children's flu vaccine</a> and <a href=\"https://www.nhs.uk/pregnancy/keeping-well/flu-jab/\">flu jab in pregnancy</a>.</p>"
+        }
+      ]
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 2,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The flu vaccine is recommended for people at higher risk of getting seriously ill from <a href=\"https://www.nhs.uk/conditions/flu/\">flu</a>.</p><p>It's offered on the NHS every year in autumn or early winter.</p><p>You can get the free NHS flu vaccine if you:</p><ul><li>are aged 65 or over</li><li>have certain long-term health conditions</li><li>are pregnant</li><li>live in a care home</li><li>are the main carer for an older or disabled person, or receive a carer's allowance</li><li>live with someone who has a weakened immune system</li></ul><p>Frontline health and social care workers can also get a flu vaccine through their employer.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Expander",
+          "subjectOf": "Health conditions that mean you're eligible for the flu vaccine",
+          "identifier": "18",
+          "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"tgjtn\">The flu vaccine is recommended for people with certain long-term health conditions, including:</p><ul><li data-block-key=\"aa3oo\">conditions that affect your breathing, such as asthma (needing a steroid inhaler or tablets), chronic obstructive pulmonary disease (COPD) or cystic fibrosis</li><li data-block-key=\"2rgsc\">heart conditions, such as coronary heart disease or heart failure</li><li data-block-key=\"vv3d\">chronic kidney disease</li><li data-block-key=\"175cs\">liver disease, such as cirrhosis or hepatitis</li><li data-block-key=\"5vrea\">some conditions that affect your brain or nerves, such as Parkinson's disease, motor neurone disease, multiple sclerosis or cerebral palsy</li><li data-block-key=\"9kdp3\">diabetes or Addison's disease</li><li data-block-key=\"5gsdh\">a weakened immune system due to a condition such as HIV or AIDS, or due to a treatment such as chemotherapy or steroid medicine</li><li data-block-key=\"8i304\">problems with your spleen, such as sickle cell disease, or if you've had your spleen removed</li><li data-block-key=\"dluus\">a learning disability</li><li data-block-key=\"acchf\">being very overweight – a body mass index (BMI) of 40 or above</li></ul><p data-block-key=\"af89r\">Speak to your GP surgery or specialist if you have a health condition and you're not sure if you're eligible for the flu vaccine.</p>\n</div>"
+        }
+      ],
+      "description": "The flu vaccine is recommended for people at higher risk from flu, including all adults aged 65 and over and people with certain health conditions.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The flu vaccine is recommended for people at higher risk of getting seriously ill from <a href=\"https://www.nhs.uk/conditions/flu/\">flu</a>.</p><p>It's offered on the NHS every year in autumn or early winter.</p><p>You can get the free NHS flu vaccine if you:</p><ul><li>are aged 65 or over</li><li>have certain long-term health conditions</li><li>are pregnant</li><li>live in a care home</li><li>are the main carer for an older or disabled person, or receive a carer's allowance</li><li>live with someone who has a weakened immune system</li></ul><p>Frontline health and social care workers can also get a flu vaccine through their employer.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Expander",
+          "subjectOf": "Health conditions that mean you're eligible for the flu vaccine",
+          "identifier": "18",
+          "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"tgjtn\">The flu vaccine is recommended for people with certain long-term health conditions, including:</p><ul><li data-block-key=\"aa3oo\">conditions that affect your breathing, such as asthma (needing a steroid inhaler or tablets), chronic obstructive pulmonary disease (COPD) or cystic fibrosis</li><li data-block-key=\"2rgsc\">heart conditions, such as coronary heart disease or heart failure</li><li data-block-key=\"vv3d\">chronic kidney disease</li><li data-block-key=\"175cs\">liver disease, such as cirrhosis or hepatitis</li><li data-block-key=\"5vrea\">some conditions that affect your brain or nerves, such as Parkinson's disease, motor neurone disease, multiple sclerosis or cerebral palsy</li><li data-block-key=\"9kdp3\">diabetes or Addison's disease</li><li data-block-key=\"5gsdh\">a weakened immune system due to a condition such as HIV or AIDS, or due to a treatment such as chemotherapy or steroid medicine</li><li data-block-key=\"8i304\">problems with your spleen, such as sickle cell disease, or if you've had your spleen removed</li><li data-block-key=\"dluus\">a learning disability</li><li data-block-key=\"acchf\">being very overweight – a body mass index (BMI) of 40 or above</li></ul><p data-block-key=\"af89r\">Speak to your GP surgery or specialist if you have a health condition and you're not sure if you're eligible for the flu vaccine.</p>\n</div>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
+      "headline": "Who should have the flu vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 3,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The NHS will let you know in autumn or early winter when you can get your flu vaccine.</p><p>If you're eligible for an NHS flu vaccine, you will be able to get your vaccine from:</p><ul><li>your GP surgery</li><li>a pharmacy that offers NHS flu vaccination (if you're aged 18 or over)</li></ul><p>Some people may be able to get vaccinated through their maternity service, care home, or their employer if they are a frontline health or social care worker.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Expander",
+          "subjectOf": "Frontline health or social care workers",
+          "identifier": "18",
+          "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"tgjtn\">Frontline health and social care workers should get the flu vaccine through their employer.</p><p data-block-key=\"efnva\">If you cannot get a flu vaccine through your employer, you can get it at a pharmacy or your GP surgery if you're employed:</p><ul><li data-block-key=\"e18lp\">by a registered residential care or nursing home</li><li data-block-key=\"bij31\">by a registered domiciliary care provider</li><li data-block-key=\"ae6lp\">by a voluntary managed hospice provider</li><li data-block-key=\"5jqcs\">through direct payments or personal health budgets</li></ul>\n</div>"
+        },
+        {
+          "position": 2,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Having the flu vaccine at the same time as other vaccines</h3><p>You can have the flu vaccine at the same time as other vaccines such as the COVID-19 and shingles vaccines.</p><p>It's not usually given at the same time as the RSV vaccine, but you can have them at the same time if a doctor or nurse thinks it's needed.</p>"
+        }
+      ],
+      "description": "Most adults can get a flu vaccine from a GP surgery or some pharmacies. Some people get it through their employer, care home or an antenatal clinic.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The NHS will let you know in autumn or early winter when you can get your flu vaccine.</p><p>If you're eligible for an NHS flu vaccine, you will be able to get your vaccine from:</p><ul><li>your GP surgery</li><li>a pharmacy that offers NHS flu vaccination (if you're aged 18 or over)</li></ul><p>Some people may be able to get vaccinated through their maternity service, care home, or their employer if they are a frontline health or social care worker.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Expander",
+          "subjectOf": "Frontline health or social care workers",
+          "identifier": "18",
+          "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"tgjtn\">Frontline health and social care workers should get the flu vaccine through their employer.</p><p data-block-key=\"efnva\">If you cannot get a flu vaccine through your employer, you can get it at a pharmacy or your GP surgery if you're employed:</p><ul><li data-block-key=\"e18lp\">by a registered residential care or nursing home</li><li data-block-key=\"bij31\">by a registered domiciliary care provider</li><li data-block-key=\"ae6lp\">by a voluntary managed hospice provider</li><li data-block-key=\"5jqcs\">through direct payments or personal health budgets</li></ul>\n</div>"
+        },
+        {
+          "position": 2,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Having the flu vaccine at the same time as other vaccines</h3><p>You can have the flu vaccine at the same time as other vaccines such as the COVID-19 and shingles vaccines.</p><p>It's not usually given at the same time as the RSV vaccine, but you can have them at the same time if a doctor or nurse thinks it's needed.</p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "headline": "How to get the flu vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 4,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most people who are eligible for the flu vaccine can have it.</p><p>You only cannot have the vaccine if you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine or an ingredient in the vaccine.</p><p>Some of the flu vaccines used in the UK contain egg protein. Tell the person vaccinating you if you have an egg allergy.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>If you have a high temperature, wait until you're feeling better before having your flu vaccine.</p>"
+        }
+      ],
+      "description": "Most people who need it can have the flu vaccine. You cannot have it if you've had a serious allergic reaction to it or an ingredient in it.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most people who are eligible for the flu vaccine can have it.</p><p>You only cannot have the vaccine if you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine or an ingredient in the vaccine.</p><p>Some of the flu vaccines used in the UK contain egg protein. Tell the person vaccinating you if you have an egg allergy.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>If you have a high temperature, wait until you're feeling better before having your flu vaccine.</p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
+      "headline": "Who cannot have the flu vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 5,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There are several types of flu vaccine given in the UK. If you're eligible for the flu vaccine on the NHS, you'll be offered one of the types that's most appropriate for you.</p><p>You can check the ingredients in the patient leaflets.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "@type": "WebPageElement",
+          "position": 1,
+          "name": "Expander Group",
+          "identifier": "20",
+          "mainEntity": [
+            {
+              "position": 0,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "Vaccines for people aged 65 and over",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <ul><li data-block-key=\"tgjtn\"><a href=\"https://www.medicines.org.uk/emc/product/12881/pil\">Adjuvanted quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"1fp0u\"><a href=\"https://www.medicines.org.uk/emc/product/15735/pil\">High dose quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"dq9ku\"><a href=\"https://www.medicines.org.uk/emc/files/pil.12882.pdf\">Cell-based quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 170KB)</a></li></ul>\n</div>"
+            },
+            {
+              "position": 1,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "Vaccines for people aged 60 to 64",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <ul><li data-block-key=\"7sz7u\"><a href=\"https://www.medicines.org.uk/emc/product/15735/pil\">High dose quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"6jtnv\"><a href=\"https://www.medicines.org.uk/emc/files/pil.12882.pdf\">Cell-based quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 170KB)</a></li></ul>\n</div>"
+            },
+            {
+              "position": 2,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "Vaccines for people aged 18 to 59",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <ul><li data-block-key=\"tgjtn\"><a href=\"https://www.medicines.org.uk/emc/files/pil.12882.pdf\">Cell-based quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 170KB)</a></li><li data-block-key=\"701cj\"><a href=\"https://www.medicines.org.uk/emc/product/666/pil\">Quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"17nkb\"><a href=\"https://www.medicines.org.uk/emc/files/pil.15928.pdf\">Influenza Tetra MYL vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 163KB)</a></li></ul>\n</div>"
+            }
+          ]
+        }
+      ],
+      "description": "You can check the ingredients in the flu vaccine by asking to see the patient leaflet or searching for it online.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There are several types of flu vaccine given in the UK. If you're eligible for the flu vaccine on the NHS, you'll be offered one of the types that's most appropriate for you.</p><p>You can check the ingredients in the patient leaflets.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "@type": "WebPageElement",
+          "position": 1,
+          "name": "Expander Group",
+          "identifier": "20",
+          "mainEntity": [
+            {
+              "position": 0,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "Vaccines for people aged 65 and over",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <ul><li data-block-key=\"tgjtn\"><a href=\"https://www.medicines.org.uk/emc/product/12881/pil\">Adjuvanted quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"1fp0u\"><a href=\"https://www.medicines.org.uk/emc/product/15735/pil\">High dose quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"dq9ku\"><a href=\"https://www.medicines.org.uk/emc/files/pil.12882.pdf\">Cell-based quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 170KB)</a></li></ul>\n</div>"
+            },
+            {
+              "position": 1,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "Vaccines for people aged 60 to 64",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <ul><li data-block-key=\"7sz7u\"><a href=\"https://www.medicines.org.uk/emc/product/15735/pil\">High dose quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"6jtnv\"><a href=\"https://www.medicines.org.uk/emc/files/pil.12882.pdf\">Cell-based quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 170KB)</a></li></ul>\n</div>"
+            },
+            {
+              "position": 2,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "Vaccines for people aged 18 to 59",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <ul><li data-block-key=\"tgjtn\"><a href=\"https://www.medicines.org.uk/emc/files/pil.12882.pdf\">Cell-based quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 170KB)</a></li><li data-block-key=\"701cj\"><a href=\"https://www.medicines.org.uk/emc/product/666/pil\">Quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"17nkb\"><a href=\"https://www.medicines.org.uk/emc/files/pil.15928.pdf\">Influenza Tetra MYL vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 163KB)</a></li></ul>\n</div>"
+            }
+          ]
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
+      "headline": "Flu vaccine ingredients"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 6,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The most common side effects of the flu vaccine are mild and get better within 1 to 2 days.</p><p>They can include:</p><ul><li>pain or soreness where the injection was given</li><li>a slightly raised temperature</li><li>an aching body</li></ul><p>More serious side effects such as a severe allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p><p>The injected flu vaccines used in the UK do not contain live flu viruses. They cannot give you flu.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "Side effects of the flu vaccine include pain or soreness where the injection was given, a slightly raised temperature and an aching body.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The most common side effects of the flu vaccine are mild and get better within 1 to 2 days.</p><p>They can include:</p><ul><li>pain or soreness where the injection was given</li><li>a slightly raised temperature</li><li>an aching body</li></ul><p>More serious side effects such as a severe allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p><p>The injected flu vaccines used in the UK do not contain live flu viruses. They cannot give you flu.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
+      "headline": "Side effects of the flu vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 7,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>More about vaccine safety</h3><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccinations are important and the safest way to protect yourself</a></p>"
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>More about vaccine safety</h3><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccinations are important and the safest way to protect yourself</a></p>"
+        }
+      ]
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 8,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The flu vaccine aims to protect you against the most common types of flu viruses.</p><p>There's still a chance you might get flu after getting vaccinated, but it's likely to be milder and not last as long.</p><p>The vaccine usually takes up to 14 days to work.</p><p>Protection from the flu vaccine goes down with time and the types of flu virus the vaccine protects against are updated each year. This is why it's important to get the flu vaccine every year.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "The flu vaccine helps protect you against common types of flu viruses. There's still a chance you might get flu, but it's likely to be milder.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The flu vaccine aims to protect you against the most common types of flu viruses.</p><p>There's still a chance you might get flu after getting vaccinated, but it's likely to be milder and not last as long.</p><p>The vaccine usually takes up to 14 days to work.</p><p>Protection from the flu vaccine goes down with time and the types of flu virus the vaccine protects against are updated each year. This is why it's important to get the flu vaccine every year.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/EffectivenessHealthAspect",
+      "headline": "How well the flu vaccine works and how long it lasts"
+    }
+  ],
+  "webpage": "https://www.nhs.uk/vaccinations/flu-vaccine/"
+}
