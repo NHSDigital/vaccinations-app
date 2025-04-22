@@ -24,7 +24,7 @@ describe("6-in-1 vaccine page - integration test", () => {
     expect(sixInOneHeading).toBeInTheDocument();
 
     const overview = await screen.findByTestId("overview-text");
-    
+
     expect(overview).toHaveTextContent(
       mockSixInOneVaccineContent.mainEntityOfPage[0].text as string,
     );
