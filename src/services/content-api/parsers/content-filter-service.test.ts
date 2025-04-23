@@ -236,6 +236,11 @@ describe("Content Filter", () => {
               text: "<p>Suitability Health Aspect paragraph 3</p><p>Suitability Health Aspect paragraph 4</p>",
             },
             {
+              headline: "Contraindications Health Aspect headline",
+              name: "",
+              text: "",
+            },
+            {
               headline: "",
               name: "markdown",
               text: "<p>Contraindications Health Aspect paragraph 1</p><p>Contraindications Health Aspect paragraph 2</p>",
