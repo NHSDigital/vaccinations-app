@@ -7,6 +7,7 @@ import {
   ContentApiVaccineResponse,
   _findAspect,
   MainEntityOfPage,
+  VaccinePageContent,
 } from "@src/services/content-api/parsers/content-filter-service";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 import { VaccineTypes } from "@src/models/vaccine";
@@ -277,6 +278,25 @@ describe("Content Filter", () => {
       expect(pageCopyFor6in1).toEqual(
         expect.objectContaining(expectedWebpageLink),
       );
+    });
+
+    it("should not return whatVaccineIsFor section when BenefitsHealthAspect is missing", async () => {
+      const responseWithoutBenefitsHealthAspect: ContentApiVaccineResponse = {
+        ...genericVaccineContentAPIResponse,
+        mainEntityOfPage:
+          genericVaccineContentAPIResponse.mainEntityOfPage.filter(
+            (page) =>
+              page.hasHealthAspect !== "http://schema.org/BenefitsHealthAspect",
+          ),
+      };
+
+      const pageCopyForFlu: VaccinePageContent =
+        await getFilteredContentForVaccine(
+          VaccineTypes.FLU,
+          JSON.stringify(responseWithoutBenefitsHealthAspect),
+        );
+
+      expect(pageCopyForFlu.whatVaccineIsFor).toBeUndefined();
     });
   });
 });

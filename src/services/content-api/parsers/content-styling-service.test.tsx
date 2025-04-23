@@ -165,7 +165,7 @@ describe("ContentStylingService", () => {
 
       expect(styledVaccineContent).not.toBeNull();
       expect(styledVaccineContent.overview).toEqual("This is an overview");
-      expect(styledVaccineContent.whatVaccineIsFor.heading).toEqual(
+      expect(styledVaccineContent.whatVaccineIsFor?.heading).toEqual(
         "What Vaccine Is For",
       );
       expect(styledVaccineContent.whoVaccineIsFor.heading).toEqual(
@@ -175,8 +175,39 @@ describe("ContentStylingService", () => {
         "How to get this Vaccine",
       );
       expect(
-        isValidElement(styledVaccineContent.whatVaccineIsFor.component),
+        isValidElement(styledVaccineContent.whatVaccineIsFor?.component),
       ).toBe(true);
+      expect(
+        isValidElement(styledVaccineContent.whoVaccineIsFor.component),
+      ).toBe(true);
+      expect(
+        isValidElement(styledVaccineContent.howToGetVaccine.component),
+      ).toBe(true);
+      expect(styledVaccineContent.webpageLink).toEqual("This is a link");
+    });
+
+    it("should return styled content without what-section when what-section is missing", async () => {
+      const mockWhoSection: VaccinePageSection = {
+        headline: "Who is this Vaccine For",
+        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
+      };
+      const mockHowSection: VaccinePageSection = {
+        headline: "How to get this Vaccine",
+        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
+      };
+      const mockContent: VaccinePageContent = {
+        overview: "This is an overview",
+        whoVaccineIsFor: mockWhoSection,
+        howToGetVaccine: mockHowSection,
+        webpageLink: "This is a link",
+      };
+
+      const styledVaccineContent: StyledVaccineContent =
+        await getStyledContentForVaccine(VaccineTypes.RSV, mockContent);
+
+      expect(styledVaccineContent).not.toBeNull();
+      expect(styledVaccineContent.overview).toEqual("This is an overview");
+      expect(styledVaccineContent.whatVaccineIsFor).toBeUndefined();
       expect(
         isValidElement(styledVaccineContent.whoVaccineIsFor.component),
       ).toBe(true);
