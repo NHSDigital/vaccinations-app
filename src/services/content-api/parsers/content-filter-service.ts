@@ -146,6 +146,21 @@ const _generateWhoVaccineIsForHeading = (vaccineType: VaccineTypes): string => {
   return `Who should have the ${VaccineDisplayNames[vaccineType]} vaccine`;
 };
 
+function _extractHeadlineForContraindicationsAspect(
+  content: ContentApiVaccineResponse,
+) {
+  return [
+    {
+      headline: _extractHeadlineForAspect(
+        content,
+        "ContraindicationsHealthAspect",
+      ),
+      text: "",
+      name: "",
+    },
+  ];
+}
+
 const getFilteredContentForVaccine = async (
   vaccineName: VaccineTypes,
   apiContent: string,
@@ -166,10 +181,9 @@ const getFilteredContentForVaccine = async (
 
   const whoVaccineIsFor: VaccinePageSection = {
     headline: _generateWhoVaccineIsForHeading(vaccineName),
-    subsections: _extractPartsForAspect(
-      content,
-      "SuitabilityHealthAspect",
-    ).concat(_extractPartsForAspect(content, "ContraindicationsHealthAspect")),
+    subsections: _extractPartsForAspect(content, "SuitabilityHealthAspect")
+      .concat(_extractHeadlineForContraindicationsAspect(content))
+      .concat(_extractPartsForAspect(content, "ContraindicationsHealthAspect")),
   };
 
   const howToGetVaccine: VaccinePageSection = {
