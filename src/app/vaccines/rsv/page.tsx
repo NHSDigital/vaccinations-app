@@ -16,7 +16,7 @@ const VaccineRsv = (): JSX.Element => {
       <title>RSV Vaccine - NHS App</title>
       <BackLink link="/schedule" />
       <VaccineContentProvider contentPromise={contentPromise}>
-        <Vaccine name={VaccineDisplayNames.RSV} vaccine={VaccineTypes.RSV} />
+        <Vaccine name={VaccineDisplayNames.RSV} />
       </VaccineContentProvider>
     </div>
   );

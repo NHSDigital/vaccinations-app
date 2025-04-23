@@ -19,10 +19,7 @@ const Vaccine6in1 = (): JSX.Element => {
       <title>6-in-1 Vaccine - NHS App</title>
       <BackLink link="/schedule" />
       <VaccineContentProvider contentPromise={contentPromise}>
-        <Vaccine
-          name={VaccineDisplayNames.SIX_IN_ONE}
-          vaccine={VaccineTypes.SIX_IN_ONE}
-        />
+        <Vaccine name={VaccineDisplayNames.SIX_IN_ONE} />
       </VaccineContentProvider>
     </div>
   );
