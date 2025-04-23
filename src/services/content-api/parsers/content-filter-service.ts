@@ -46,7 +46,7 @@ export type ContentApiVaccineResponse = {
   dateModified: string;
   lastReviewed: string[];
   breadcrumb: object;
-  hasPart: object;
+  hasPart: object[];
   relatedLink: object;
   contentSubTypes: object;
 };
@@ -64,7 +64,7 @@ export type VaccinePageSection = {
 
 export type VaccinePageContent = {
   overview: string;
-  whatVaccineIsFor: VaccinePageSection;
+  whatVaccineIsFor?: VaccinePageSection;
   whoVaccineIsFor: VaccinePageSection;
   howToGetVaccine: VaccinePageSection;
   webpageLink: string;
@@ -81,6 +81,16 @@ const _findAspect = (
     throw new Error(`Aspect ${aspectName} is not present`);
   }
   return aspect;
+};
+
+const _hasHealthAspect = (
+  response: ContentApiVaccineResponse,
+  aspectName: Aspect,
+): boolean => {
+  const aspect: MainEntityOfPage | undefined = response.mainEntityOfPage.find(
+    (page: MainEntityOfPage) => page.hasHealthAspect?.endsWith(aspectName),
+  );
+  return !!aspect;
 };
 
 const _extractHeadlineForAspect = (
@@ -146,10 +156,13 @@ const getFilteredContentForVaccine = async (
     "lead paragraph",
   );
 
-  const whatVaccineIsFor: VaccinePageSection = {
-    headline: _extractHeadlineForAspect(content, "BenefitsHealthAspect"),
-    subsections: _extractPartsForAspect(content, "BenefitsHealthAspect"),
-  };
+  let whatVaccineIsFor;
+  if (_hasHealthAspect(content, "BenefitsHealthAspect")) {
+    whatVaccineIsFor = {
+      headline: _extractHeadlineForAspect(content, "BenefitsHealthAspect"),
+      subsections: _extractPartsForAspect(content, "BenefitsHealthAspect"),
+    };
+  }
 
   const whoVaccineIsFor: VaccinePageSection = {
     headline: _generateWhoVaccineIsForHeading(vaccineName),

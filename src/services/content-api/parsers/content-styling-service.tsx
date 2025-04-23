@@ -29,7 +29,7 @@ export type NonUrgentContent = { heading: string; content: string };
 
 export type StyledVaccineContent = {
   overview: string;
-  whatVaccineIsFor: StyledPageSection;
+  whatVaccineIsFor?: StyledPageSection;
   whoVaccineIsFor: StyledPageSection;
   howToGetVaccine: StyledPageSection;
   webpageLink: string;
@@ -91,9 +91,10 @@ const getStyledContentForVaccine = async (
   filteredContent: VaccinePageContent,
 ): Promise<StyledVaccineContent> => {
   const overview: string = filteredContent.overview;
-  const whatVaccineIsFor: StyledPageSection = styleSection(
-    filteredContent.whatVaccineIsFor,
-  );
+  let whatVaccineIsFor;
+  if (filteredContent.whatVaccineIsFor) {
+    whatVaccineIsFor = styleSection(filteredContent.whatVaccineIsFor);
+  }
   const whoVaccineIsFor: StyledPageSection = styleSection(
     filteredContent.whoVaccineIsFor,
   );

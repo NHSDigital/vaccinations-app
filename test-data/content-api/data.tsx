@@ -574,3 +574,16 @@ export const mockStyledContent: StyledVaccineContent = {
   },
   webpageLink: "https://www.test.com/"
 };
+
+export const mockStyledContentWithoutWhatSection: StyledVaccineContent = {
+  overview: "Overview text",
+  whoVaccineIsFor: {
+    heading: "who-heading",
+    component: <h2>Who Section styled component</h2>
+  },
+  howToGetVaccine: {
+    heading: "how-heading",
+    component: <div>How Section styled component</div>
+  },
+  webpageLink: "https://www.test.com/"
+};
