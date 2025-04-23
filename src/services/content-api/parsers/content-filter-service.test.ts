@@ -8,9 +8,11 @@ import {
   _findAspect,
   MainEntityOfPage,
   VaccinePageContent,
+  _hasHealthAspect,
 } from "@src/services/content-api/parsers/content-filter-service";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 import { VaccineTypes } from "@src/models/vaccine";
+import { contentWithoutBenefitsHealthAspect } from "@test-data/content-api/helpers";
 
 describe("Content Filter", () => {
   describe("_extractDescriptionForVaccine", () => {
@@ -157,6 +159,27 @@ describe("Content Filter", () => {
     });
   });
 
+  describe("_hasHealthAspect", () => {
+    it("should return true if healthAspect exists in content", () => {
+      const hasHealthAspect = _hasHealthAspect(
+        genericVaccineContentAPIResponse,
+        "BenefitsHealthAspect",
+      );
+      expect(hasHealthAspect).toBeTruthy();
+    });
+
+    it("should return false if healthAspect does not exist in content", () => {
+      const responseWithoutBenefitsHealthAspect =
+        contentWithoutBenefitsHealthAspect();
+
+      const hasHealthAspect = _hasHealthAspect(
+        responseWithoutBenefitsHealthAspect,
+        "BenefitsHealthAspect",
+      );
+      expect(hasHealthAspect).toBeFalsy();
+    });
+  });
+
   describe("getFilteredContentForVaccine", () => {
     it("should return overview text from lead paragraph mainEntityOfPage object", async () => {
       const expectedOverview = {
@@ -281,14 +304,8 @@ describe("Content Filter", () => {
     });
 
     it("should not return whatVaccineIsFor section when BenefitsHealthAspect is missing", async () => {
-      const responseWithoutBenefitsHealthAspect: ContentApiVaccineResponse = {
-        ...genericVaccineContentAPIResponse,
-        mainEntityOfPage:
-          genericVaccineContentAPIResponse.mainEntityOfPage.filter(
-            (page) =>
-              page.hasHealthAspect !== "http://schema.org/BenefitsHealthAspect",
-          ),
-      };
+      const responseWithoutBenefitsHealthAspect =
+        contentWithoutBenefitsHealthAspect();
 
       const pageCopyForFlu: VaccinePageContent =
         await getFilteredContentForVaccine(

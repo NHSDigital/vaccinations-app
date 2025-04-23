@@ -191,6 +191,7 @@ const getFilteredContentForVaccine = async (
 export {
   getFilteredContentForVaccine,
   _findAspect,
+  _hasHealthAspect,
   _extractPartsForAspect,
   _extractHeadlineForAspect,
   _extractDescriptionForVaccine,
