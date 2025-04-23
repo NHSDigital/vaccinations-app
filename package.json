@@ -9,6 +9,7 @@
   },
   "scripts": {
     "dev": "next dev --turbopack",
+    "app": "npm run build && npm run start",
     "build": "next build --experimental-build-mode compile",
     "build:opennext": "npx --yes @opennextjs/aws@latest build",
     "build:lambda": "node esbuild.config.mjs",
