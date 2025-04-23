@@ -1,4 +1,3 @@
-import { VaccineTypes } from "@src/models/vaccine";
 import { configProvider } from "@src/utils/config";
 import { render, screen } from "@testing-library/react";
 import VaccineRsv from "@src/app/vaccines/rsv/page";
@@ -29,7 +28,6 @@ describe("RSV vaccine page", () => {
     expect(Vaccine).toHaveBeenCalledWith(
       {
         name: "RSV",
-        vaccine: VaccineTypes.RSV,
       },
       undefined,
     );

@@ -16,7 +16,7 @@ const VaccineFlu = (): JSX.Element => {
       <title>Flu Vaccine - NHS App</title>
       <BackLink link="/schedule" />
       <VaccineContentProvider contentPromise={contentPromise}>
-        <Vaccine name={VaccineDisplayNames.FLU} vaccine={VaccineTypes.FLU} />
+        <Vaccine name={VaccineDisplayNames.FLU} />
       </VaccineContentProvider>
     </div>
   );
