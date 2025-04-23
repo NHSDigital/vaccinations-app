@@ -153,7 +153,11 @@ npm run test
 ```
 
 ### Run UI driven tests
-- in headless mode
+- make sure to build and run the Next.js app
+  ```
+  npm run app
+  ```
+- run tests in headless mode
   ```
   npm run e2e
   ```
