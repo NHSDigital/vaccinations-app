@@ -19,9 +19,19 @@ describe("Schedule Page", () => {
     expect(heading).toBeInTheDocument();
   });
 
+  it("renders static description text", async () => {
+    const description: HTMLElement = screen.getByText(
+      "Find out about vaccinations for babies, children and adults, including why they're important and how to get them.",
+    );
+
+    expect(description).toBeInTheDocument();
+  });
+
   it("renders the section headings", async () => {
     const expectedSectionText: string[] = [
       "Vaccines for babies under 1 year old",
+      "Vaccines for Adults",
+      "Vaccines for Seasonal diseases",
     ];
 
     expectedSectionText.forEach((headingText) => {
@@ -34,19 +44,19 @@ describe("Schedule Page", () => {
     });
   });
 
-  it("renders static description text", async () => {
-    const description: HTMLElement = screen.getByText(
-      "Find out about vaccinations for babies, children and adults, including why they're important and how to get them.",
-    );
-
-    expect(description).toBeInTheDocument();
-  });
-
   it("renders card component with props", async () => {
     const expectedVaccines = [
       {
         name: "6-in-1 vaccine",
         href: "/vaccines/6-in-1",
+      },
+      {
+        name: "RSV vaccine",
+        href: "/vaccines/rsv",
+      },
+      {
+        name: "Flu vaccine",
+        href: "/vaccines/flu",
       },
     ];
 

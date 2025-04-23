@@ -28,6 +28,7 @@ const VaccinationsHub = () => {
       </p>
       <div className="nhsapp-cards nhsapp-cards--stacked">
         <CardLink title={"RSV vaccine"} link={"/vaccines/rsv"} />
+        <CardLink title={"Flu vaccine"} link={"/vaccines/flu"} />
       </div>
       <div>
         <Link prefetch={false} href="/schedule">

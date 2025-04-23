@@ -13,6 +13,8 @@ const Schedule = () => {
         Find out about vaccinations for babies, children and adults, including
         why they&#39;re important and how to get them.
       </p>
+      <h2 className="nhsuk-heading-s">Vaccines for Seasonal diseases</h2>
+      <CardLink title={"Flu vaccine"} link={"/vaccines/flu"} />
       <h2 className="nhsuk-heading-s">Vaccines for Adults</h2>
       <CardLink title={"RSV vaccine"} link={"/vaccines/rsv"} />
       <h2 className="nhsuk-heading-s">Vaccines for babies under 1 year old</h2>
