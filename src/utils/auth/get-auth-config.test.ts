@@ -12,13 +12,21 @@ const mockVaccinationAppUrl = "vita-base-url";
   NHS_LOGIN_URL: mockNhsLoginUrl,
   NHS_LOGIN_CLIENT_ID: mockNhsLoginClientId,
   NHS_LOGIN_SCOPE: mockNhsLoginScope,
-  VACCINATION_APP_URL: mockVaccinationAppUrl,
 }));
 
 describe("getAuthConfig", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
   it("is constructed with values from configProvider", async () => {
+    // TODO: VIA-87 22/04/24 Might have to change this, as we haven't decided on the way we'll handle storing/generating
+    //       the URL of the application
+    jest.replaceProperty(process, "env", {
+      ...process.env,
+      VACCINATION_APP_URL: mockVaccinationAppUrl,
+    });
     const expectedAuthConfig = {
-      url: mockVaccinationAppUrl,
+      url: mockNhsLoginUrl,
       audience: mockVaccinationAppUrl,
       client_id: mockNhsLoginClientId,
       scope: mockNhsLoginScope,

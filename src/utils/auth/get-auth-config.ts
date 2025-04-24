@@ -21,7 +21,7 @@ const getAuthConfig = async (): Promise<AuthConfig> => {
   const vitaUrl = process.env.VACCINATION_APP_URL || "not-yet-implemented";
 
   return {
-    url: vitaUrl,
+    url: config.NHS_LOGIN_URL,
     audience: vitaUrl,
     client_id: config.NHS_LOGIN_CLIENT_ID,
     scope: config.NHS_LOGIN_SCOPE,
