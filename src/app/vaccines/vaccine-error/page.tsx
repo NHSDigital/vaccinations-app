@@ -7,18 +7,19 @@ interface VaccineProps {
   vaccineType: VaccineTypes;
 }
 
-const VaccineError = (props: VaccineProps): JSX.Element => {
+const VaccineError = ({ vaccineType }: VaccineProps): JSX.Element => {
   return (
     <div>
       <BackLink link="/schedule" />
-      <h1 className="app-dynamic-page-title__heading">{`${VaccineDisplayNames[props.vaccineType]} vaccine`}</h1>
+      <h1 className="app-dynamic-page-title__heading">{`${VaccineDisplayNames[vaccineType]} vaccine`}</h1>
       <div className={styles.subheading}>
         <div>
           <h2 className="nhsuk-heading-s">Vaccine content is unavailable</h2>
         </div>
         <p>
           Sorry, there is a problem showing vaccine information. Come back
-          later, or read about vaccinations on NHS.uk.
+          later, or read about{" "}
+          <a href="https://www.nhs.uk/vaccinations/">vaccinations on NHS.uk</a>.
         </p>
       </div>
     </div>

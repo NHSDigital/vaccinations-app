@@ -45,15 +45,17 @@ describe("Any vaccine page", () => {
 
     it("should display overview text", async () => {
       await renderVaccinePage();
-      const overviewBlock = screen.getByText("Overview text");
+      const overviewBlock: HTMLElement = screen.getByText("Overview text");
       expect(overviewBlock).toBeInTheDocument();
     });
 
     it("should display whatItIsFor expander block", async () => {
       await renderVaccinePage();
 
-      const heading = screen.getByText("what-heading");
-      const content = screen.getByText("What Section styled component");
+      const heading: HTMLElement = screen.getByText("what-heading");
+      const content: HTMLElement = screen.getByText(
+        "What Section styled component",
+      );
 
       expect(heading).toBeInTheDocument();
       expect(content).toBeInTheDocument();
@@ -62,8 +64,8 @@ describe("Any vaccine page", () => {
     it("should display whoVaccineIsFor expander block", async () => {
       await renderVaccinePage();
 
-      const heading = screen.getByText("who-heading");
-      const content = screen.getByRole("heading", {
+      const heading: HTMLElement = screen.getByText("who-heading");
+      const content: HTMLElement = screen.getByRole("heading", {
         level: 2,
         name: "Who Section styled component",
       });
@@ -75,8 +77,10 @@ describe("Any vaccine page", () => {
     it("should display howToGetVaccine expander block", async () => {
       await renderVaccinePage();
 
-      const heading = screen.getByText("how-heading");
-      const content = screen.getByText("How Section styled component");
+      const heading: HTMLElement = screen.getByText("how-heading");
+      const content: HTMLElement = screen.getByText(
+        "How Section styled component",
+      );
 
       expect(heading).toBeInTheDocument();
       expect(content).toBeInTheDocument();
@@ -85,7 +89,7 @@ describe("Any vaccine page", () => {
     it("should display webpage link", async () => {
       await renderVaccinePage();
 
-      const webpageLink = screen.getByRole("link", {
+      const webpageLink: HTMLElement = screen.getByRole("link", {
         name: `Learn more about the ${mockVaccineName} vaccination on nhs.uk`,
       });
 
