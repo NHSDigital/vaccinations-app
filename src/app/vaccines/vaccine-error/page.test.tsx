@@ -43,9 +43,22 @@ describe("VaccineError", () => {
     render(VaccineError({ vaccineType: VaccineTypes.FLU }));
 
     const text: HTMLElement = screen.getByText(
-      "Sorry, there is a problem showing vaccine information. Come back later, or read about vaccinations on NHS.uk.",
+      /Sorry, there is a problem showing vaccine/,
     );
 
     expect(text).toBeInTheDocument();
+  });
+
+  it("renders link in error text", async () => {
+    render(VaccineError({ vaccineType: VaccineTypes.FLU }));
+
+    const link: HTMLElement = screen.getByRole("link", {
+      name: "vaccinations on NHS.uk",
+    });
+
+    expect(link).toBeInTheDocument();
+    expect(link.getAttribute("href")).toEqual(
+      "https://www.nhs.uk/vaccinations/",
+    );
   });
 });
