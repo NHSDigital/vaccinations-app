@@ -1,35 +1,59 @@
-import { configProvider } from "@src/utils/config";
 import { render, screen } from "@testing-library/react";
 import VaccineFlu from "@src/app/vaccines/flu/page";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
+import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
+import { mockStyledContent } from "@test-data/content-api/data";
 
-jest.mock("@src/utils/config");
-jest.mock("@src/app/_components/vaccine/Vaccine", () => jest.fn(() => <div />));
+jest.mock("@src/services/content-api/gateway/content-reader-service");
+jest.mock("@src/app/_components/vaccine/Vaccine");
 
 describe("Flu vaccine page", () => {
-  (configProvider as jest.Mock).mockImplementation(() => ({
-    CONTENT_CACHE_PATH: "wiremock/__files/",
-    PINO_LOG_LEVEL: "info",
-  }));
+  describe("when content loaded successfully", () => {
+    beforeEach(() => {
+      (getContentForVaccine as jest.Mock).mockResolvedValue(
+        () => mockStyledContent,
+      );
+      (Vaccine as jest.Mock).mockImplementation(() => <div />);
+    });
 
-  it("should contain back link to vaccination schedule page", () => {
-    const pathToSchedulePage = "/schedule";
+    it("should contain back link to vaccination schedule page", () => {
+      const pathToSchedulePage = "/schedule";
 
-    render(VaccineFlu());
+      render(VaccineFlu());
 
-    const linkToSchedulePage = screen.getByRole("link", { name: "Go back" });
+      const linkToSchedulePage = screen.getByRole("link", { name: "Go back" });
 
-    expect(linkToSchedulePage.getAttribute("href")).toBe(pathToSchedulePage);
+      expect(linkToSchedulePage.getAttribute("href")).toBe(pathToSchedulePage);
+    });
+
+    it("should contain vaccine component", () => {
+      render(VaccineFlu());
+
+      expect(Vaccine).toHaveBeenCalledWith(
+        {
+          name: "Flu",
+        },
+        undefined,
+      );
+    });
   });
 
-  it("should contain vaccine component", () => {
-    render(VaccineFlu());
+  describe("when content fails to load with errors", () => {
+    beforeEach(() => {
+      (Vaccine as jest.Mock).mockImplementation(() => {
+        throw new Error("error");
+      });
+    });
 
-    expect(Vaccine).toHaveBeenCalledWith(
-      {
-        name: "Flu",
-      },
-      undefined,
-    );
+    it("should display error page", () => {
+      render(VaccineFlu());
+
+      const errorHeading: HTMLElement = screen.getByRole("heading", {
+        level: 2,
+        name: "Vaccine content is unavailable",
+      });
+
+      expect(errorHeading).toBeInTheDocument();
+    });
   });
 });

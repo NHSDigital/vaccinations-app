@@ -3,17 +3,6 @@ import VaccineError from "@src/app/vaccines/vaccine-error/page";
 import { VaccineDisplayNames, VaccineTypes } from "@src/models/vaccine";
 
 describe("VaccineError", () => {
-  it("should display back button", () => {
-    const pathToSchedulePage: string = "/schedule";
-
-    render(VaccineError({ vaccineType: VaccineTypes.FLU }));
-
-    const linkToSchedulePage: HTMLElement = screen.getByRole("link", {
-      name: "Go back",
-    });
-    expect(linkToSchedulePage.getAttribute("href")).toBe(pathToSchedulePage);
-  });
-
   it.each([VaccineTypes.FLU, VaccineTypes.RSV, VaccineTypes.SIX_IN_ONE])(
     `should display vaccine name in error heading`,
     (vaccineType: VaccineTypes) => {
