@@ -38,4 +38,29 @@ describe("RSV vaccine page", () => {
       );
     });
   });
+
+  describe("when content fails to load with unhandled error", () => {
+    beforeEach(() => {
+      (Vaccine as jest.Mock).mockImplementation(() => {
+        throw new Error("mocked error: content load fail");
+      });
+    });
+
+    it("should display error page", () => {
+      render(VaccineRsv());
+
+      const rsvHeading = screen.getByRole("heading", {
+        level: 1,
+        name: `RSV vaccine`,
+      });
+
+      const errorHeading: HTMLElement = screen.getByRole("heading", {
+        level: 2,
+        name: "Vaccine content is unavailable",
+      });
+
+      expect(rsvHeading).toBeInTheDocument();
+      expect(errorHeading).toBeInTheDocument();
+    });
+  });
 });

@@ -39,7 +39,7 @@ describe("Flu vaccine page", () => {
     });
   });
 
-  describe("when content fails to load with errors", () => {
+  describe("when content fails to load with unnhandled error", () => {
     beforeEach(() => {
       (Vaccine as jest.Mock).mockImplementation(() => {
         throw new Error("mocked error: content load fail");
@@ -49,11 +49,17 @@ describe("Flu vaccine page", () => {
     it("should display error page", () => {
       render(VaccineFlu());
 
+      const fluHeading = screen.getByRole("heading", {
+        level: 1,
+        name: `Flu vaccine`,
+      });
+
       const errorHeading: HTMLElement = screen.getByRole("heading", {
         level: 2,
         name: "Vaccine content is unavailable",
       });
 
+      expect(fluHeading).toBeInTheDocument();
       expect(errorHeading).toBeInTheDocument();
     });
   });

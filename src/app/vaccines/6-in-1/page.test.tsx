@@ -37,4 +37,29 @@ describe("6-in-1 vaccine page", () => {
       );
     });
   });
+
+  describe("when content fails to load with unhandled error", () => {
+    beforeEach(() => {
+      (Vaccine as jest.Mock).mockImplementation(() => {
+        throw new Error("mocked error: content load fail");
+      });
+    });
+
+    it("should display error page", () => {
+      render(Vaccine6in1());
+
+      const sixInOneHeading = screen.getByRole("heading", {
+        level: 1,
+        name: `6-in-1 vaccine`,
+      });
+
+      const errorHeading: HTMLElement = screen.getByRole("heading", {
+        level: 2,
+        name: "Vaccine content is unavailable",
+      });
+
+      expect(sixInOneHeading).toBeInTheDocument();
+      expect(errorHeading).toBeInTheDocument();
+    });
+  });
 });
