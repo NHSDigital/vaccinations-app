@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import VaccineError from "@src/app/vaccines/vaccine-error/page";
 import { VaccineDisplayNames, VaccineTypes } from "@src/models/vaccine";
+import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
 
 describe("VaccineError", () => {
   it.each([VaccineTypes.FLU, VaccineTypes.RSV, VaccineTypes.SIX_IN_ONE])(

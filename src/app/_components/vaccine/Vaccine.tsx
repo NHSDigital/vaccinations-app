@@ -5,7 +5,7 @@ import Details from "@src/app/_components/nhs-frontend/Details";
 import { useVaccineContentContextValue } from "@src/app/_components/providers/VaccineContentProvider";
 import { VaccineDisplayNames, VaccineTypes } from "@src/models/vaccine";
 import { GetContentForVaccineResponse } from "@src/services/content-api/types";
-import VaccineError from "@src/app/vaccines/vaccine-error/page";
+import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
 
 interface VaccineProps {
   vaccineType: VaccineTypes;
