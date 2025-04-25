@@ -3,7 +3,7 @@
 import { JSX, use } from "react";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import { useVaccineContentContextValue } from "@src/app/_components/providers/VaccineContentProvider";
-import { VaccineDisplayNames, VaccineTypes } from "@src/models/vaccine";
+import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { GetContentForVaccineResponse } from "@src/services/content-api/types";
 import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
 
@@ -16,13 +16,15 @@ const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
   const { styledVaccineContent, contentError }: GetContentForVaccineResponse =
     use(contentPromise);
 
+  const vaccineInfo = VaccineInfo[vaccineType];
+
   return (
     <>
       {contentError || styledVaccineContent === undefined ? (
         <VaccineError vaccineType={vaccineType} />
       ) : (
         <div>
-          <h1 className="app-dynamic-page-title__heading">{`${VaccineDisplayNames[vaccineType]} vaccine`}</h1>
+          <h1 className="app-dynamic-page-title__heading">{`${vaccineInfo.displayName} vaccine`}</h1>
           <p data-testid="overview-text">{styledVaccineContent.overview}</p>
 
           <h2 className="nhsuk-heading-s">More information</h2>
@@ -43,8 +45,7 @@ const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
             />
           </div>
           <a href={styledVaccineContent.webpageLink}>
-            Learn more about the {VaccineDisplayNames[vaccineType]} vaccination
-            on nhs.uk
+            Learn more about the {vaccineInfo.displayName} vaccination on nhs.uk
           </a>
         </div>
       )}

@@ -1,7 +1,7 @@
 "use client";
 
 import { JSX } from "react";
-import { VaccineDisplayNames, VaccineTypes } from "@src/models/vaccine";
+import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { ErrorSummary } from "nhsuk-react-components";
 
 interface VaccineProps {
@@ -9,9 +9,11 @@ interface VaccineProps {
 }
 
 const VaccineError = ({ vaccineType }: VaccineProps): JSX.Element => {
+  const vaccineInfo = VaccineInfo[vaccineType];
+
   return (
     <div>
-      <h1 className="app-dynamic-page-title__heading">{`${VaccineDisplayNames[vaccineType]} vaccine`}</h1>
+      <h1 className="app-dynamic-page-title__heading">{`${vaccineInfo.displayName} vaccine`}</h1>
       <ErrorSummary>
         <ErrorSummary.Title>Vaccine content is unavailable</ErrorSummary.Title>
         <ErrorSummary.Body>

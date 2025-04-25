@@ -1,4 +1,4 @@
-import { VaccineDisplayNames, VaccineTypes } from "@src/models/vaccine";
+import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 
 type Aspect =
   | "OverviewHealthAspect"
@@ -143,7 +143,7 @@ const _extractDescriptionForVaccine = (
 };
 
 const _generateWhoVaccineIsForHeading = (vaccineType: VaccineTypes): string => {
-  return `Who should have the ${VaccineDisplayNames[vaccineType]} vaccine`;
+  return `Who should have the ${VaccineInfo[vaccineType].displayName} vaccine`;
 };
 
 function _extractHeadlineForContraindicationsAspect(

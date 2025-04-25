@@ -4,10 +4,20 @@ enum VaccineTypes {
   FLU = "FLU",
 }
 
-const VaccineDisplayNames: Record<VaccineTypes, string> = {
-  [VaccineTypes.SIX_IN_ONE]: "6-in-1",
-  [VaccineTypes.RSV]: "RSV",
-  [VaccineTypes.FLU]: "Flu",
+type VaccineDetails = {
+  displayName: string;
 };
 
-export { VaccineTypes, VaccineDisplayNames };
+const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
+  [VaccineTypes.SIX_IN_ONE]: {
+    displayName: "6-in-1",
+  },
+  [VaccineTypes.RSV]: {
+    displayName: "RSV",
+  },
+  [VaccineTypes.FLU]: {
+    displayName: "Flu",
+  },
+};
+
+export { VaccineTypes, VaccineInfo };

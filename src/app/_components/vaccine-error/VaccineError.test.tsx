@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { VaccineDisplayNames, VaccineTypes } from "@src/models/vaccine";
+import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
 
 describe("VaccineError", () => {
@@ -10,7 +10,7 @@ describe("VaccineError", () => {
 
       const heading: HTMLElement = screen.getByRole("heading", {
         level: 1,
-        name: `${VaccineDisplayNames[vaccineType]} vaccine`,
+        name: `${VaccineInfo[vaccineType].displayName} vaccine`,
       });
 
       expect(heading).toBeInTheDocument();
