@@ -5,21 +5,17 @@ import {
 import { renderHook } from "@testing-library/react";
 import { VaccineTypes } from "@src/models/vaccine";
 import React from "react";
-import {
-  getStyledContentForVaccine,
-  StyledVaccineContent,
-} from "@src/services/content-api/parsers/content-styling-service";
 import { mockStyledContent } from "@test-data/content-api/data";
+import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
+import { StyledVaccineContent } from "@src/services/content-api/parsers/content-styling-service";
 
-jest.mock("@src/services/content-api/parsers/content-styling-service");
+jest.mock("@src/services/content-api/gateway/content-reader-service");
 
 let contentPromise: Promise<StyledVaccineContent>;
 
 beforeEach(() => {
-  (getStyledContentForVaccine as jest.Mock).mockResolvedValue(
-    mockStyledContent,
-  );
-  contentPromise = getStyledContentForVaccine(VaccineTypes.SIX_IN_ONE);
+  (getContentForVaccine as jest.Mock).mockResolvedValue(mockStyledContent);
+  contentPromise = getContentForVaccine(VaccineTypes.SIX_IN_ONE);
 });
 
 describe("vaccine content context", () => {
