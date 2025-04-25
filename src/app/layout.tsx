@@ -1,3 +1,4 @@
+import Script from "next/script";
 import React, { JSX } from "react";
 import "@public/nhsapp-frontend-2.3.0/nhsapp-2.3.0.min.css";
 import "@public/nhsuk-frontend-9.1.0/css/nhsuk-9.1.0.min.css";
@@ -15,10 +16,10 @@ export default function RootLayout({
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
 
-        <script
+        <Script
           src="/nhsuk-frontend-9.1.0/js/nhsuk-9.1.0.min.js"
-          defer
-        ></script>
+          strategy="afterInteractive"
+        />
       </head>
       <body>
         <a className="nhsuk-skip-link" href="#maincontent">
