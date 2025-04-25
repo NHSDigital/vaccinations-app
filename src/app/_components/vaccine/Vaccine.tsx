@@ -4,18 +4,19 @@ import { JSX, use } from "react";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import { useVaccineContentContextValue } from "@src/app/_components/providers/VaccineContentProvider";
 import { StyledVaccineContent } from "@src/services/content-api/parsers/content-styling-service";
+import { VaccineDisplayNames, VaccineTypes } from "@src/models/vaccine";
 
 interface VaccineProps {
-  name: string;
+  vaccineType: VaccineTypes;
 }
 
-const Vaccine = (props: VaccineProps): JSX.Element => {
+const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
   const { contentPromise } = useVaccineContentContextValue();
   const styledContent: StyledVaccineContent = use(contentPromise);
 
   return (
     <div>
-      <h1 className="app-dynamic-page-title__heading">{`${props.name} vaccine`}</h1>
+      <h1 className="app-dynamic-page-title__heading">{`${VaccineDisplayNames[vaccineType]} vaccine`}</h1>
       <p data-testid="overview-text">{styledContent.overview}</p>
 
       <h2 className="nhsuk-heading-s">More information</h2>
@@ -36,7 +37,8 @@ const Vaccine = (props: VaccineProps): JSX.Element => {
         />
       </div>
       <a href={styledContent.webpageLink}>
-        Learn more about the {props.name} vaccination on nhs.uk
+        Learn more about the {VaccineDisplayNames[vaccineType]} vaccination on
+        nhs.uk
       </a>
     </div>
   );

@@ -3,6 +3,7 @@ import Vaccine6in1 from "@src/app/vaccines/6-in-1/page";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { mockStyledContent } from "@test-data/content-api/data";
+import { VaccineTypes } from "@src/models/vaccine";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 jest.mock("@src/app/_components/vaccine/Vaccine", () => jest.fn(() => <div />));
@@ -30,7 +31,7 @@ describe("6-in-1 vaccine page", () => {
 
       expect(Vaccine).toHaveBeenCalledWith(
         {
-          name: "6-in-1",
+          vaccineType: VaccineTypes.SIX_IN_ONE,
         },
         undefined,
       );

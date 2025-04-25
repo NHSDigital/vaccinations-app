@@ -1,6 +1,6 @@
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 
-import { VaccineDisplayNames, VaccineTypes } from "@src/models/vaccine";
+import { VaccineTypes } from "@src/models/vaccine";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { JSX } from "react";
@@ -19,7 +19,7 @@ const Vaccine6in1 = (): JSX.Element => {
       <title>6-in-1 Vaccine - NHS App</title>
       <BackLink link="/schedule" />
       <VaccineContentProvider contentPromise={contentPromise}>
-        <Vaccine name={VaccineDisplayNames.SIX_IN_ONE} />
+        <Vaccine vaccineType={VaccineTypes.SIX_IN_ONE} />
       </VaccineContentProvider>
     </div>
   );

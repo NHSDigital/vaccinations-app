@@ -1,7 +1,7 @@
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import { JSX } from "react";
 
-import { VaccineDisplayNames, VaccineTypes } from "@src/models/vaccine";
+import { VaccineTypes } from "@src/models/vaccine";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { VaccineContentProvider } from "@src/app/_components/providers/VaccineContentProvider";
@@ -22,7 +22,7 @@ const VaccineFlu = (): JSX.Element => {
       <BackLink link="/schedule" />
       <ErrorBoundary fallback={<VaccineError vaccineType={VaccineTypes.FLU} />}>
         <VaccineContentProvider contentPromise={contentPromise}>
-          <Vaccine name={VaccineDisplayNames.FLU} />
+          <Vaccine vaccineType={VaccineTypes.FLU} />
         </VaccineContentProvider>
       </ErrorBoundary>
     </div>

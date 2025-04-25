@@ -13,14 +13,13 @@ import { act } from "react";
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 
 describe("Any vaccine page", () => {
-  const mockVaccineName = "Test-Name";
   let contentPromise: Promise<StyledVaccineContent>;
 
   const renderVaccinePage = async () => {
     await act(async () => {
       render(
         <VaccineContentProvider contentPromise={contentPromise}>
-          <Vaccine name={mockVaccineName} />
+          <Vaccine vaccineType={VaccineTypes.SIX_IN_ONE} />
         </VaccineContentProvider>,
       );
     });
@@ -37,7 +36,7 @@ describe("Any vaccine page", () => {
 
       const heading = screen.getByRole("heading", {
         level: 1,
-        name: `${mockVaccineName} vaccine`,
+        name: `6-in-1 vaccine`,
       });
 
       expect(heading).toBeInTheDocument();
@@ -90,7 +89,7 @@ describe("Any vaccine page", () => {
       await renderVaccinePage();
 
       const webpageLink: HTMLElement = screen.getByRole("link", {
-        name: `Learn more about the ${mockVaccineName} vaccination on nhs.uk`,
+        name: `Learn more about the 6-in-1 vaccination on nhs.uk`,
       });
 
       expect(webpageLink).toBeInTheDocument();

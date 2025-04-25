@@ -3,6 +3,7 @@ import VaccineRsv from "@src/app/vaccines/rsv/page";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { mockStyledContent } from "@test-data/content-api/data";
+import { VaccineTypes } from "@src/models/vaccine";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 jest.mock("@src/app/_components/vaccine/Vaccine", () => jest.fn(() => <div />));
@@ -31,7 +32,7 @@ describe("RSV vaccine page", () => {
 
       expect(Vaccine).toHaveBeenCalledWith(
         {
-          name: "RSV",
+          vaccineType: VaccineTypes.RSV,
         },
         undefined,
       );
