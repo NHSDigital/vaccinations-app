@@ -7,6 +7,7 @@ type AppConfig = {
   NHS_LOGIN_URL: string;
   NHS_LOGIN_CLIENT_ID: string;
   NHS_LOGIN_SCOPE: string;
+  VACCINATION_APP_PRIVATE_KEY: string;
 };
 
 const configProvider = async (): Promise<AppConfig> => {
@@ -32,6 +33,10 @@ const configProvider = async (): Promise<AppConfig> => {
     NHS_LOGIN_SCOPE: await getFromEnvironmentOrSSM(
       SSM_PREFIX,
       "NHS_LOGIN_SCOPE",
+    ),
+    VACCINATION_APP_PRIVATE_KEY: await getFromEnvironmentOrSSM(
+      SSM_PREFIX,
+      "VACCINATION_APP_PRIVATE_KEY",
     ),
   };
 };

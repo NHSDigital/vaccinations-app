@@ -32,3 +32,24 @@ resource "aws_ssm_parameter" "nhs_login_scope" {
   value_wo         = "to-be-replaced-manually"
   value_wo_version = 0
 }
+
+resource "aws_ssm_parameter" "vaccination_app_private_key" {
+  name             = "/${local.prefix}/VACCINATION_APP_PRIVATE_KEY"
+  type             = "SecureString"
+  value_wo         = "to-be-replaced-manually"
+  value_wo_version = 0
+}
+
+resource "aws_ssm_parameter" "next_auth_url" {
+  name             = "/${local.prefix}/NEXTAUTH_URL"
+  type             = "SecureString"
+  value_wo         = "to-be-replaced-manually"
+  value_wo_version = 0
+}
+
+resource "aws_ssm_parameter" "next_auth_secret" {
+  name             = "/${local.prefix}/NEXTAUTH_SECRET"
+  type             = "SecureString"
+  value_wo         = "to-be-replaced-manually"
+  value_wo_version = 0
+}

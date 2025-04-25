@@ -1,0 +1,33 @@
+import { OIDCConfig } from "@auth/core/providers";
+import pemToCryptoKey from "@src/utils/auth/pem-to-crypto-key";
+import { Profile } from "next-auth";
+
+export const NHS_LOGIN_PROVIDER_ID = "nhs-login";
+
+const NHSLoginAuthProvider = async (): Promise<OIDCConfig<Profile>> => {
+  return {
+    id: NHS_LOGIN_PROVIDER_ID,
+    name: "NHS Login Auth Provider",
+    type: "oidc",
+    issuer: process.env.NHS_LOGIN_URL,
+    clientId: `${process.env.NHS_LOGIN_CLIENT_ID}`,
+    wellKnown: `${process.env.NHS_LOGIN_URL}/.well-known/openid-configuration`,
+    authorization: {
+      params: {
+        scope: `${process.env.NHS_LOGIN_SCOPE}`,
+        prompt: "none",
+      }
+    },
+    token: {
+      clientPrivateKey: await pemToCryptoKey()
+    },
+    client: {
+      token_endpoint_auth_method: "private_key_jwt",
+      userinfo_signed_response_alg: "RS512"
+    },
+    idToken: true,
+    checks: ["state"],
+  };
+};
+
+export default NHSLoginAuthProvider;
