@@ -59,6 +59,7 @@
     "@aws-sdk/client-ssm": "^3.777.0",
     "axios": "^1.8.4",
     "dotenv": "^16.4.7",
+    "iron-session": "^8.0.4",
     "isomorphic-dompurify": "^2.22.0",
     "next": "15.2.4",
     "nhsuk-react-components": "^5.0.0",

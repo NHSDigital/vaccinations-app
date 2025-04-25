@@ -2,12 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { logger } from "@src/utils/logger";
 import { getClientConfig } from "@src/utils/auth/get-client-config";
 import * as client from "openid-client";
+import { getSession } from "@src/utils/auth/session";
 
 const log = logger.child({ module: "callback-route" });
 
 export async function GET(request: NextRequest) {
-  // TODO: Check if the state we receive back with the callback is the same as the one in session?
-  // TEMP CODE: Using the state from request, just until we have sessions in place
+  const session = await getSession();
   const state = request.nextUrl.searchParams.get("state");
 
   if (!state) {
@@ -26,24 +26,26 @@ export async function GET(request: NextRequest) {
       },
     );
 
-    console.log("Token Set:", tokenSet);
     const { access_token } = tokenSet;
     const claims = tokenSet.claims()!;
     const { sub } = claims;
-
-    // call userinfo endpoint to get user info
     const userinfo = await client.fetchUserInfo(
       clientConfig!,
       access_token,
       sub,
     );
 
-    console.log("User Info:", userinfo);
+    session.isLoggedIn = true;
+    session.access_token = access_token;
+    session.state = state;
+    session.userInfo = {
+      sub: userinfo.sub,
+    };
+
+    await session.save();
+
+    return NextResponse.redirect(request.nextUrl.origin);
   } catch (e) {
     log.error(e);
   }
-
-  return NextResponse.json({
-    content: "Hello World",
-  });
 }

@@ -25,7 +25,7 @@ const getAuthConfig = async (): Promise<AuthConfig> => {
     audience: vitaUrl,
     client_id: config.NHS_LOGIN_CLIENT_ID,
     scope: config.NHS_LOGIN_SCOPE,
-    redirect_uri: `${vitaUrl}/auth/callback`,
+    redirect_uri: `${vitaUrl}/api/auth/callback`,
     response_type: "code",
     grant_type: "authorization_code",
     post_login_route: `${vitaUrl}`,

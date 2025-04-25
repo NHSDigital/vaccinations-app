@@ -3,7 +3,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { GET } from "@src/app/auth/sso/route";
+import { GET } from "@src/app/api/auth/sso/route";
 import { getAuthConfig } from "@src/utils/auth/get-auth-config";
 import { getClientConfig } from "@src/utils/auth/get-client-config";
 import * as client from "openid-client";

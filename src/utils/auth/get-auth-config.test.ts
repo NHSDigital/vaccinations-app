@@ -19,8 +19,6 @@ describe("getAuthConfig", () => {
     jest.clearAllMocks();
   });
   it("is constructed with values from configProvider", async () => {
-    // TODO: VIA-87 22/04/24 Might have to change this, as we haven't decided on the way we'll handle storing/generating
-    //       the URL of the application
     jest.replaceProperty(process, "env", {
       ...process.env,
       VACCINATION_APP_URL: mockVaccinationAppUrl,
@@ -30,7 +28,7 @@ describe("getAuthConfig", () => {
       audience: mockVaccinationAppUrl,
       client_id: mockNhsLoginClientId,
       scope: mockNhsLoginScope,
-      redirect_uri: `${mockVaccinationAppUrl}/auth/callback`,
+      redirect_uri: `${mockVaccinationAppUrl}/api/auth/callback`,
       response_type: "code",
       grant_type: "authorization_code",
       post_login_route: `${mockVaccinationAppUrl}`,

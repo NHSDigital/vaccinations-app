@@ -7,7 +7,6 @@ import * as client from "openid-client";
 const log = logger.child({ module: "sso-route" });
 
 export async function GET(request: NextRequest) {
-  console.log(request);
   const assertedLoginIdentity = request.nextUrl.searchParams.get(
     "assertedLoginIdentity",
   );
@@ -27,7 +26,6 @@ export async function GET(request: NextRequest) {
       asserted_login_identity: assertedLoginIdentity,
     };
     const redirectTo = client.buildAuthorizationUrl(clientConfig, parameters);
-    // TODO: Save state to session so it can be reused in the /token call in /auth/callback route
 
     return NextResponse.redirect(redirectTo);
   } catch (e) {
