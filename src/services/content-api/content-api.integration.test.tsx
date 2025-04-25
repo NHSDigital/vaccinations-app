@@ -4,11 +4,11 @@
 
 import { S3Client } from "@aws-sdk/client-s3";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
-import { StyledVaccineContent } from "@src/services/content-api/parsers/content-styling-service";
 import { VaccineTypes } from "@src/models/vaccine";
 import { configProvider } from "@src/utils/config";
 import mockRsvVaccineJson from "@project/wiremock/__files/rsv-vaccine.json";
 import { Readable } from "stream";
+import { GetContentForVaccineResponse } from "@src/services/content-api/types";
 
 jest.mock("@src/utils/config");
 jest.mock("@aws-sdk/client-s3");
@@ -18,14 +18,15 @@ describe("Content API Read Integration Test ", () => {
     (configProvider as jest.Mock).mockImplementation(() => ({
       CONTENT_CACHE_PATH: "wiremock/__files/",
     }));
-    const styledVaccineContent: StyledVaccineContent =
+    const { styledVaccineContent, contentError }: GetContentForVaccineResponse =
       await getContentForVaccine(VaccineTypes.RSV);
 
     expect(styledVaccineContent).not.toBeNull();
-    expect(styledVaccineContent.overview).toEqual(
+    expect(contentError).toBeUndefined();
+    expect(styledVaccineContent?.overview).toEqual(
       mockRsvVaccineJson.mainEntityOfPage[0].text,
     );
-    expect(styledVaccineContent.webpageLink).toEqual(
+    expect(styledVaccineContent?.webpageLink).toEqual(
       mockRsvVaccineJson.webpage,
     );
   });
@@ -44,14 +45,15 @@ describe("Content API Read Integration Test ", () => {
         }),
       }),
     }));
-    const styledVaccineContent: StyledVaccineContent =
+    const { styledVaccineContent, contentError }: GetContentForVaccineResponse =
       await getContentForVaccine(VaccineTypes.RSV);
 
     expect(styledVaccineContent).not.toBeNull();
-    expect(styledVaccineContent.overview).toEqual(
+    expect(contentError).toBeUndefined();
+    expect(styledVaccineContent?.overview).toEqual(
       mockRsvVaccineJson.mainEntityOfPage[0].text,
     );
-    expect(styledVaccineContent.webpageLink).toEqual(
+    expect(styledVaccineContent?.webpageLink).toEqual(
       mockRsvVaccineJson.webpage,
     );
   });

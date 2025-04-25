@@ -2,18 +2,21 @@ import { VaccineContentProvider } from "@src/app/_components/providers/VaccineCo
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
-import { StyledVaccineContent } from "@src/services/content-api/parsers/content-styling-service";
 import {
   mockStyledContent,
   mockStyledContentWithoutWhatSection,
 } from "@test-data/content-api/data";
 import { render, screen } from "@testing-library/react";
 import { act } from "react";
+import {
+  ContentErrorTypes,
+  GetContentForVaccineResponse,
+} from "@src/services/content-api/types";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 
 describe("Any vaccine page", () => {
-  let contentPromise: Promise<StyledVaccineContent>;
+  let contentPromise: Promise<GetContentForVaccineResponse>;
 
   const renderVaccinePage = async () => {
     await act(async () => {
@@ -27,7 +30,9 @@ describe("Any vaccine page", () => {
 
   describe("with all sections available", () => {
     beforeEach(() => {
-      (getContentForVaccine as jest.Mock).mockResolvedValue(mockStyledContent);
+      (getContentForVaccine as jest.Mock).mockResolvedValue({
+        styledVaccineContent: mockStyledContent,
+      });
       contentPromise = getContentForVaccine(VaccineTypes.SIX_IN_ONE);
     });
 
@@ -99,9 +104,9 @@ describe("Any vaccine page", () => {
 
   describe("without whatItIsFor section", () => {
     beforeEach(() => {
-      (getContentForVaccine as jest.Mock).mockResolvedValue(
-        mockStyledContentWithoutWhatSection,
-      );
+      (getContentForVaccine as jest.Mock).mockResolvedValue({
+        styledVaccineContent: mockStyledContentWithoutWhatSection,
+      });
       contentPromise = getContentForVaccine(VaccineTypes.SIX_IN_ONE);
     });
 
@@ -128,6 +133,55 @@ describe("Any vaccine page", () => {
 
       expect(heading).toBeInTheDocument();
       expect(content).toBeInTheDocument();
+    });
+  });
+
+  describe("when content load fails", () => {
+    beforeEach(() => {
+      (getContentForVaccine as jest.Mock).mockResolvedValue({
+        styledVaccineContent: undefined,
+        contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
+      });
+      contentPromise = getContentForVaccine(VaccineTypes.SIX_IN_ONE);
+    });
+
+    it("should display error summary", async () => {
+      await renderVaccinePage();
+
+      const errorHeading: HTMLElement = screen.getByRole("heading", {
+        level: 2,
+        name: "Vaccine content is unavailable",
+      });
+
+      expect(errorHeading).toBeInTheDocument();
+    });
+
+    it("should still display heading with correct vaccine name", async () => {
+      await renderVaccinePage();
+
+      const heading = screen.getByRole("heading", {
+        level: 1,
+        name: `6-in-1 vaccine`,
+      });
+
+      expect(heading).toBeInTheDocument();
+    });
+
+    it("should not render any other areas of the vaccine page", async () => {
+      await renderVaccinePage();
+
+      const overviewBlock: HTMLElement | null =
+        screen.queryByText("Overview text");
+      expect(overviewBlock).not.toBeInTheDocument();
+
+      const howToGetHeading: HTMLElement | null =
+        screen.queryByText("how-heading");
+      const howToGetContent: HTMLElement | null = screen.queryByText(
+        "How Section styled component",
+      );
+
+      expect(howToGetHeading).not.toBeInTheDocument();
+      expect(howToGetContent).not.toBeInTheDocument();
     });
   });
 });

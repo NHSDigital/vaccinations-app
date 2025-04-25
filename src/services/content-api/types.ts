@@ -1,3 +1,5 @@
+import { StyledVaccineContent } from "@src/services/content-api/parsers/content-styling-service";
+
 export type ContentApiVaccinationsResponse = {
   "@context": string;
   "@type": string;
@@ -62,4 +64,13 @@ export type ContentApiVaccinationsResponse = {
     },
   ];
   webpage: string;
+};
+
+export enum ContentErrorTypes {
+  CONTENT_LOADING_ERROR,
+}
+
+export type GetContentForVaccineResponse = {
+  styledVaccineContent: StyledVaccineContent | undefined;
+  contentError?: ContentErrorTypes;
 };

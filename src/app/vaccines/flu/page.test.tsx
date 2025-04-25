@@ -11,9 +11,9 @@ jest.mock("@src/app/_components/vaccine/Vaccine");
 describe("Flu vaccine page", () => {
   describe("when content loaded successfully", () => {
     beforeEach(() => {
-      (getContentForVaccine as jest.Mock).mockResolvedValue(
-        () => mockStyledContent,
-      );
+      (getContentForVaccine as jest.Mock).mockResolvedValue({
+        styledVaccineContent: mockStyledContent,
+      });
       (Vaccine as jest.Mock).mockImplementation(() => <div />);
     });
 
@@ -42,7 +42,7 @@ describe("Flu vaccine page", () => {
   describe("when content fails to load with errors", () => {
     beforeEach(() => {
       (Vaccine as jest.Mock).mockImplementation(() => {
-        throw new Error("error");
+        throw new Error("mocked error: content load fail");
       });
     });
 

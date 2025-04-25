@@ -10,9 +10,12 @@ import {
   _readContentFromCache,
   getContentForVaccine,
 } from "@src/services/content-api/gateway/content-reader-service";
-import { StyledVaccineContent } from "@src/services/content-api/parsers/content-styling-service";
 import { configProvider } from "@src/utils/config";
 import { Readable } from "stream";
+import {
+  ContentErrorTypes,
+  GetContentForVaccineResponse,
+} from "@src/services/content-api/types";
 
 jest.mock("@aws-sdk/client-s3");
 jest.mock("@src/utils/config");
@@ -81,21 +84,48 @@ describe("Content Reader Service", () => {
   });
 
   describe("getContentForVaccine()", () => {
-    (configProvider as jest.Mock).mockImplementation(() => ({
-      CONTENT_CACHE_PATH: "wiremock/__files/",
-    }));
+    describe("when readContent succeeds", () => {
+      beforeEach(() => {
+        (configProvider as jest.Mock).mockImplementation(() => ({
+          CONTENT_CACHE_PATH: "wiremock/__files/",
+        }));
+      });
 
-    it("should return response for 6-in-1 vaccine from content cache", async () => {
-      const vaccine: VaccineTypes = VaccineTypes.SIX_IN_ONE;
-      const actual: StyledVaccineContent = await getContentForVaccine(vaccine);
+      it("should return response for 6-in-1 vaccine from content cache", async () => {
+        const vaccine: VaccineTypes = VaccineTypes.SIX_IN_ONE;
+        const {
+          styledVaccineContent,
+          contentError,
+        }: GetContentForVaccineResponse = await getContentForVaccine(vaccine);
 
-      expect(actual.overview).toEqual(
-        mockSixInOneVaccineJson.mainEntityOfPage[0].text,
-      );
-      expect(actual.whatVaccineIsFor.heading).toEqual(
-        mockSixInOneVaccineJson.mainEntityOfPage[1].headline,
-      );
-      expect(actual.webpageLink).toEqual(mockSixInOneVaccineJson.webpage);
+        expect(styledVaccineContent).toBeDefined();
+        expect(styledVaccineContent?.overview).toEqual(
+          mockSixInOneVaccineJson.mainEntityOfPage[0].text,
+        );
+        expect(styledVaccineContent?.whatVaccineIsFor?.heading).toEqual(
+          mockSixInOneVaccineJson.mainEntityOfPage[1].headline,
+        );
+        expect(styledVaccineContent?.webpageLink).toEqual(
+          mockSixInOneVaccineJson.webpage,
+        );
+        expect(contentError).toBeUndefined();
+      });
+    });
+
+    describe("when readContent fails", () => {
+      beforeEach(() => {
+        (configProvider as jest.Mock).mockImplementation(() => ({
+          CONTENT_CACHE_PATH: "wiremock/path-does-not-exist/",
+        }));
+      });
+
+      it("should return error if content read fails", async () => {
+        const { styledVaccineContent, contentError } =
+          await getContentForVaccine(VaccineTypes.SIX_IN_ONE);
+
+        expect(contentError).toEqual(ContentErrorTypes.CONTENT_LOADING_ERROR);
+        expect(styledVaccineContent).toBeUndefined();
+      });
     });
   });
 });

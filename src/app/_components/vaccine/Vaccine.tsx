@@ -3,8 +3,9 @@
 import { JSX, use } from "react";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import { useVaccineContentContextValue } from "@src/app/_components/providers/VaccineContentProvider";
-import { StyledVaccineContent } from "@src/services/content-api/parsers/content-styling-service";
 import { VaccineDisplayNames, VaccineTypes } from "@src/models/vaccine";
+import { GetContentForVaccineResponse } from "@src/services/content-api/types";
+import VaccineError from "@src/app/vaccines/vaccine-error/page";
 
 interface VaccineProps {
   vaccineType: VaccineTypes;
@@ -12,35 +13,42 @@ interface VaccineProps {
 
 const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
   const { contentPromise } = useVaccineContentContextValue();
-  const styledContent: StyledVaccineContent = use(contentPromise);
+  const { styledVaccineContent, contentError }: GetContentForVaccineResponse =
+    use(contentPromise);
 
   return (
-    <div>
-      <h1 className="app-dynamic-page-title__heading">{`${VaccineDisplayNames[vaccineType]} vaccine`}</h1>
-      <p data-testid="overview-text">{styledContent.overview}</p>
+    <>
+      {contentError || styledVaccineContent === undefined ? (
+        <VaccineError vaccineType={vaccineType} />
+      ) : (
+        <div>
+          <h1 className="app-dynamic-page-title__heading">{`${VaccineDisplayNames[vaccineType]} vaccine`}</h1>
+          <p data-testid="overview-text">{styledVaccineContent.overview}</p>
 
-      <h2 className="nhsuk-heading-s">More information</h2>
-      <div className="nhsuk-expander-group">
-        {styledContent.whatVaccineIsFor ? (
-          <Details
-            title={styledContent.whatVaccineIsFor.heading}
-            component={styledContent.whatVaccineIsFor.component}
-          />
-        ) : undefined}
-        <Details
-          title={styledContent.whoVaccineIsFor.heading}
-          component={styledContent.whoVaccineIsFor.component}
-        />
-        <Details
-          title={styledContent.howToGetVaccine.heading}
-          component={styledContent.howToGetVaccine.component}
-        />
-      </div>
-      <a href={styledContent.webpageLink}>
-        Learn more about the {VaccineDisplayNames[vaccineType]} vaccination on
-        nhs.uk
-      </a>
-    </div>
+          <h2 className="nhsuk-heading-s">More information</h2>
+          <div className="nhsuk-expander-group">
+            {styledVaccineContent.whatVaccineIsFor ? (
+              <Details
+                title={styledVaccineContent.whatVaccineIsFor.heading}
+                component={styledVaccineContent.whatVaccineIsFor.component}
+              />
+            ) : undefined}
+            <Details
+              title={styledVaccineContent.whoVaccineIsFor.heading}
+              component={styledVaccineContent.whoVaccineIsFor.component}
+            />
+            <Details
+              title={styledVaccineContent.howToGetVaccine.heading}
+              component={styledVaccineContent.howToGetVaccine.component}
+            />
+          </div>
+          <a href={styledVaccineContent.webpageLink}>
+            Learn more about the {VaccineDisplayNames[vaccineType]} vaccination
+            on nhs.uk
+          </a>
+        </div>
+      )}
+    </>
   );
 };
 

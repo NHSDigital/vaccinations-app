@@ -7,14 +7,16 @@ import { VaccineTypes } from "@src/models/vaccine";
 import React from "react";
 import { mockStyledContent } from "@test-data/content-api/data";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
-import { StyledVaccineContent } from "@src/services/content-api/parsers/content-styling-service";
+import { GetContentForVaccineResponse } from "@src/services/content-api/types";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 
-let contentPromise: Promise<StyledVaccineContent>;
+let contentPromise: Promise<GetContentForVaccineResponse>;
 
 beforeEach(() => {
-  (getContentForVaccine as jest.Mock).mockResolvedValue(mockStyledContent);
+  (getContentForVaccine as jest.Mock).mockResolvedValue({
+    styledVaccineContent: mockStyledContent,
+  });
   contentPromise = getContentForVaccine(VaccineTypes.SIX_IN_ONE);
 });
 

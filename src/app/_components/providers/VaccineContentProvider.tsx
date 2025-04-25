@@ -1,15 +1,15 @@
 "use client";
 
-import { StyledVaccineContent } from "@src/services/content-api/parsers/content-styling-service";
 import { createContext, useContext, ReactNode, useMemo } from "react";
+import { GetContentForVaccineResponse } from "@src/services/content-api/types";
 
 type VaccineContentContextValueType = {
-  contentPromise: Promise<StyledVaccineContent>;
+  contentPromise: Promise<GetContentForVaccineResponse>;
 };
 
 type VaccineContentProviderProps = {
   children: ReactNode;
-  contentPromise: Promise<StyledVaccineContent>;
+  contentPromise: Promise<GetContentForVaccineResponse>;
 };
 
 const vaccineContentContext =

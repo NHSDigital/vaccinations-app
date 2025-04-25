@@ -11,9 +11,9 @@ jest.mock("@src/app/_components/vaccine/Vaccine", () => jest.fn(() => <div />));
 describe("6-in-1 vaccine page", () => {
   describe("when content loaded successfully", () => {
     beforeEach(() => {
-      (getContentForVaccine as jest.Mock).mockResolvedValue(
-        () => mockStyledContent,
-      );
+      (getContentForVaccine as jest.Mock).mockResolvedValue({
+        styledVaccineContent: mockStyledContent,
+      });
       (Vaccine as jest.Mock).mockImplementation(() => <div />);
     });
 

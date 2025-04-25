@@ -21,6 +21,10 @@ import { isS3Path, S3_PREFIX } from "@src/utils/path";
 import { readFile } from "node:fs/promises";
 import { Readable } from "stream";
 import { Logger } from "pino";
+import {
+  ContentErrorTypes,
+  GetContentForVaccineResponse,
+} from "@src/services/content-api/types";
 
 const log: Logger = logger.child({ module: "content-reader-service" });
 
@@ -57,35 +61,48 @@ const _readContentFromCache = async (
   cachePath: string,
 ): Promise<string> => {
   log.info(`Reading file from cache: loc=${cacheLocation}, path=${cachePath}`);
-  return isS3Path(cacheLocation)
-    ? await _readFileS3(cacheLocation.slice(S3_PREFIX.length), cachePath)
-    : await readFile(`${cacheLocation}${cachePath}`, { encoding: "utf8" });
+  try {
+    return isS3Path(cacheLocation)
+      ? await _readFileS3(cacheLocation.slice(S3_PREFIX.length), cachePath)
+      : await readFile(`${cacheLocation}${cachePath}`, { encoding: "utf8" });
+  } catch (error) {
+    log.error(`Error reading file from cache: loc=${cacheLocation}: ${error}`);
+    throw error;
+  }
 };
 
 const getContentForVaccine = async (
   vaccineType: VaccineTypes,
-): Promise<StyledVaccineContent> => {
-  const config: AppConfig = await configProvider();
-  const vaccineContentPath: VaccineContentPaths =
-    vaccineTypeToPath[vaccineType];
+): Promise<GetContentForVaccineResponse> => {
+  try {
+    const config: AppConfig = await configProvider();
+    const vaccineContentPath: VaccineContentPaths =
+      vaccineTypeToPath[vaccineType];
 
-  // fetch content from api
-  log.info(`Fetching content from cache for vaccine: ${vaccineType}`);
-  const vaccineContent = await _readContentFromCache(
-    config.CONTENT_CACHE_PATH,
-    `${vaccineContentPath}.json`,
-  );
-  log.info(`Finished fetching content from cache for vaccine: ${vaccineType}`);
+    // fetch content from api
+    log.info(`Fetching content from cache for vaccine: ${vaccineType}`);
+    const vaccineContent = await _readContentFromCache(
+      config.CONTENT_CACHE_PATH,
+      `${vaccineContentPath}.json`,
+    );
+    log.info(
+      `Finished fetching content from cache for vaccine: ${vaccineType}`,
+    );
 
-  // filter and style content
-  const filteredContent: VaccinePageContent =
-    await getFilteredContentForVaccine(vaccineType, vaccineContent);
-  const styledContent: StyledVaccineContent = await getStyledContentForVaccine(
-    vaccineType,
-    filteredContent,
-  );
+    // filter and style content
+    const filteredContent: VaccinePageContent =
+      await getFilteredContentForVaccine(vaccineType, vaccineContent);
+    const styledVaccineContent: StyledVaccineContent =
+      await getStyledContentForVaccine(vaccineType, filteredContent);
 
-  return styledContent;
+    return { styledVaccineContent };
+  } catch (error) {
+    log.error(`Error getting content for vaccine: ${error}`);
+    return {
+      styledVaccineContent: undefined,
+      contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
+    };
+  }
 };
 
 export { _readFileS3, _readContentFromCache, getContentForVaccine };
