@@ -1,6 +1,6 @@
 import { VaccineContentProvider } from "@src/app/_components/providers/VaccineContentProvider";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import {
   mockStyledContent,
@@ -18,14 +18,18 @@ jest.mock("@src/services/content-api/gateway/content-reader-service");
 describe("Any vaccine page", () => {
   let contentPromise: Promise<GetContentForVaccineResponse>;
 
-  const renderVaccinePage = async () => {
+  const renderNamedVaccinePage = async (vaccineType: VaccineTypes) => {
     await act(async () => {
       render(
         <VaccineContentProvider contentPromise={contentPromise}>
-          <Vaccine vaccineType={VaccineTypes.SIX_IN_ONE} />
+          <Vaccine vaccineType={vaccineType} />
         </VaccineContentProvider>,
       );
     });
+  };
+
+  const renderVaccinePage = async () => {
+    await renderNamedVaccinePage(VaccineTypes.SIX_IN_ONE);
   };
 
   describe("with all sections available", () => {
@@ -51,6 +55,23 @@ describe("Any vaccine page", () => {
       await renderVaccinePage();
       const overviewBlock: HTMLElement = screen.getByText("Overview text");
       expect(overviewBlock).toBeInTheDocument();
+    });
+
+    it("should display overview inset text if defined for vaccine", async () => {
+      const expectedInsetText = VaccineInfo[VaccineTypes.FLU].overviewInsetText;
+
+      await renderNamedVaccinePage(VaccineTypes.FLU);
+
+      const overviewInsetBlock = screen.getByTestId("overview-inset-text");
+      expect(overviewInsetBlock).toBeInTheDocument();
+      expect(overviewInsetBlock.innerHTML).toContain(expectedInsetText);
+    });
+
+    it("should not display overview inset text if not defined for vaccine", async () => {
+      await renderNamedVaccinePage(VaccineTypes.SIX_IN_ONE);
+
+      const overviewInsetBlock = screen.queryByTestId("overview-inset-text");
+      expect(overviewInsetBlock).not.toBeInTheDocument();
     });
 
     it("should display whatItIsFor expander block", async () => {

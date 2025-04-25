@@ -6,6 +6,7 @@ import { useVaccineContentContextValue } from "@src/app/_components/providers/Va
 import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { GetContentForVaccineResponse } from "@src/services/content-api/types";
 import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
+import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 
 interface VaccineProps {
   vaccineType: VaccineTypes;
@@ -26,6 +27,12 @@ const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
         <div>
           <h1 className="app-dynamic-page-title__heading">{`${vaccineInfo.displayName} vaccine`}</h1>
           <p data-testid="overview-text">{styledVaccineContent.overview}</p>
+
+          {vaccineInfo.overviewInsetText && (
+            <div data-testid="overview-inset-text">
+              <InsetText key={0} content={vaccineInfo.overviewInsetText} />
+            </div>
+          )}
 
           <h2 className="nhsuk-heading-s">More information</h2>
           <div className="nhsuk-expander-group">
