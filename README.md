@@ -137,6 +137,11 @@ Serves web content from src folder, so make changes and refresh the browser to s
 ```
 npm run dev
 ```
+
+#### Simulating NHS Login SSO flow
+Our project integrates with NHS Login. To simulate the SSO flow, clone this [repo](https://github.com/NHSDigital/vita-login-sso-client-express)
+and follow the README to set it up.
+
 #### Mocking API Responses with Wiremock
 Our project utilizes Wiremock to provide mock responses for API endpoints. To configure these responses:
 - Place request-response mapping files (JSON) within the `wiremock/mappings` directory.
