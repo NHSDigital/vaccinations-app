@@ -166,17 +166,6 @@ describe("Any vaccine page", () => {
       contentPromise = getContentForVaccine(VaccineTypes.SIX_IN_ONE);
     });
 
-    it("should display error summary", async () => {
-      await renderVaccinePage();
-
-      const errorHeading: HTMLElement = screen.getByRole("heading", {
-        level: 2,
-        name: "Vaccine content is unavailable",
-      });
-
-      expect(errorHeading).toBeInTheDocument();
-    });
-
     it("should still display heading with correct vaccine name", async () => {
       await renderVaccinePage();
 
@@ -186,6 +175,17 @@ describe("Any vaccine page", () => {
       });
 
       expect(heading).toBeInTheDocument();
+    });
+
+    it("should display error summary", async () => {
+      await renderVaccinePage();
+
+      const errorHeading: HTMLElement = screen.getByRole("heading", {
+        level: 2,
+        name: "Vaccine content is unavailable",
+      });
+
+      expect(errorHeading).toBeInTheDocument();
     });
 
     it("should not render any other areas of the vaccine page", async () => {

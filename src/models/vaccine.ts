@@ -4,7 +4,7 @@ enum VaccineTypes {
   FLU = "FLU",
 }
 
-type VaccineDetails = {
+export type VaccineDetails = {
   displayName: string;
   overviewInsetText?: string;
 };

@@ -3,8 +3,11 @@
 import { JSX, use } from "react";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import { useVaccineContentContextValue } from "@src/app/_components/providers/VaccineContentProvider";
-import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
-import { GetContentForVaccineResponse } from "@src/services/content-api/types";
+import { VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
+import {
+  ContentErrorTypes,
+  GetContentForVaccineResponse,
+} from "@src/services/content-api/types";
 import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
 import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 
@@ -17,11 +20,12 @@ const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
   const { styledVaccineContent, contentError }: GetContentForVaccineResponse =
     use(contentPromise);
 
-  const vaccineInfo = VaccineInfo[vaccineType];
+  const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
 
   return (
     <>
-      {contentError || styledVaccineContent === undefined ? (
+      {contentError === ContentErrorTypes.CONTENT_LOADING_ERROR ||
+      styledVaccineContent === undefined ? (
         <VaccineError vaccineType={vaccineType} />
       ) : (
         <div>
