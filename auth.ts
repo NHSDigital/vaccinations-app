@@ -13,6 +13,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
       verifyRequest: SSO_FAILURE_ROUTE,
       newUser: SSO_FAILURE_ROUTE
     },
-    debug: process.env.NODE_ENV === "development"
+    trustHost: true,
+    debug: process.env.PINO_LOG_LEVEL === "info"
   };
 });
