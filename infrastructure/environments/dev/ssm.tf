@@ -39,17 +39,3 @@ resource "aws_ssm_parameter" "vaccination_app_private_key" {
   value_wo         = "to-be-replaced-manually"
   value_wo_version = 0
 }
-
-resource "aws_ssm_parameter" "next_auth_url" {
-  name             = "/${local.prefix}/NEXTAUTH_URL"
-  type             = "SecureString"
-  value_wo         = "to-be-replaced-manually"
-  value_wo_version = 0
-}
-
-resource "aws_ssm_parameter" "next_auth_secret" {
-  name             = "/${local.prefix}/NEXTAUTH_SECRET"
-  type             = "SecureString"
-  value_wo         = "to-be-replaced-manually"
-  value_wo_version = 0
-}
