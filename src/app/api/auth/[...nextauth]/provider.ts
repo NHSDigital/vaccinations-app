@@ -5,9 +5,9 @@ import { Profile } from "next-auth";
 
 export const NHS_LOGIN_PROVIDER_ID = "nhs-login";
 
-const config: AppConfig = await configProvider();
-
 const NHSLoginAuthProvider = async (): Promise<OIDCConfig<Profile>> => {
+  const config: AppConfig = await configProvider();
+
   return {
     id: NHS_LOGIN_PROVIDER_ID,
     name: "NHS Login Auth Provider",
