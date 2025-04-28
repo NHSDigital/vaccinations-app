@@ -67,6 +67,28 @@ describe("Any vaccine page", () => {
       expect(overviewInsetBlock.innerHTML).toContain(expectedInsetText);
     });
 
+    it("should display child's flu link in overview text", async () => {
+      await renderNamedVaccinePage(VaccineTypes.FLU);
+
+      const childFluLink: HTMLElement = screen.getByRole("link", {
+        name: "children\'s flu vaccine",
+      });
+
+      expect(childFluLink).toBeInTheDocument();
+      expect(childFluLink).toHaveAttribute("href", "/vaccines/child-flu");
+    });
+
+    it("should display pregnancy's flu link in overview text", async () => {
+      await renderNamedVaccinePage(VaccineTypes.FLU);
+
+      const pregnancyFluLink: HTMLElement = screen.getByRole("link", {
+        name: "flu jab in pregnancy",
+      });
+
+      expect(pregnancyFluLink).toBeInTheDocument();
+      expect(pregnancyFluLink).toHaveAttribute("href", "/vaccines/flu-jab");
+    });
+
     it("should not display overview inset text if not defined for vaccine", async () => {
       await renderNamedVaccinePage(VaccineTypes.SIX_IN_ONE);
 
@@ -115,7 +137,7 @@ describe("Any vaccine page", () => {
       await renderVaccinePage();
 
       const webpageLink: HTMLElement = screen.getByRole("link", {
-        name: `Learn more about the 6-in-1 vaccination on nhs.uk`,
+        name: "Learn more about the 6-in-1 vaccination on nhs.uk",
       });
 
       expect(webpageLink).toBeInTheDocument();

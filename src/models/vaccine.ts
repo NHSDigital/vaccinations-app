@@ -19,7 +19,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
   [VaccineTypes.FLU]: {
     displayName: "Flu",
     overviewInsetText:
-      '<p>This page is about the flu vaccine for adults. There are also pages about the <a href="https://www.nhs.uk/vaccinations/child-flu-vaccine/">children\'s flu vaccine</a> and <a href="https://www.nhs.uk/pregnancy/keeping-well/flu-jab/">flu jab in pregnancy</a>.</p>',
+      '<p>This page is about the flu vaccine for adults. There are also pages about the <a href="/vaccines/child-flu">children\'s flu vaccine</a> and <a href="/vaccines/flu-jab">flu jab in pregnancy</a>.</p>',
   },
 };
 
