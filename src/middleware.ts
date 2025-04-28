@@ -34,6 +34,7 @@ const doSSO = async (request: NextRequest): Promise<NextResponse> => {
 };
 
 export async function middleware(request: NextRequest) {
+  log.info(`Inspecting ${request.nextUrl}`);
   const session: Session | null = await auth();
   if (!session?.expires) {
     try {
@@ -45,6 +46,7 @@ export async function middleware(request: NextRequest) {
       );
     }
   }
+  log.info(session);
   return NextResponse.next();
 }
 
@@ -58,6 +60,6 @@ export const config = {
      * 4. /favicon.ico (exclude the favicon path)
      * 5. /nhsuk-frontend-9.1.0 (exclude nhsuk js)
      */
-    "/((?!api/auth|sso|favicon.ico|nhsuk-frontend-9.1.0|_next/static|_next/image).*)",
+    "/((?!api/auth|sso-failure|favicon.ico|nhsuk-frontend-9.1.0|_next/static|_next/image).*)",
   ],
 };
