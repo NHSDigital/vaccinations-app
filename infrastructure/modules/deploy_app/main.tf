@@ -16,6 +16,7 @@ module "deploy_app" {
       SSM_PREFIX          = var.ssm_prefix
       CONTENT_CACHE_PATH  = var.content_cache_path
       PINO_LOG_LEVEL      = var.pino_log_level
+      AUTH_SECRET         = random_password.auth_secret.result
     }
     cloudwatch_log = {
       skip_destroy      = true
@@ -62,4 +63,10 @@ module "deploy_app" {
 
   prefix      = var.prefix
   folder_path = var.open-next-path
+}
+
+resource "random_password" "auth_secret" {
+  length           = 64
+  special          = true
+  override_special = "/+"
 }
