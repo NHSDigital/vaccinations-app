@@ -10,6 +10,11 @@ const getSSMParam = async (name: string): Promise<string | undefined> => {
   try {
     const client: SSMClient = new SSMClient({
       region: AWS_PRIMARY_REGION,
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? "not-set",
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? "not-set",
+        sessionToken: process.env.AWS_SESSION_TOKEN ?? "not-set"
+      }
     });
 
     const command: GetParameterCommand = new GetParameterCommand({
@@ -24,7 +29,7 @@ const getSSMParam = async (name: string): Promise<string | undefined> => {
       log.error(`Error GetParameterCommand response: ${response.$metadata}`);
     }
   } catch (error) {
-    log.error(`Error getSSMParam: ${error}`);
+    log.error(error);
   }
 
   return undefined;
