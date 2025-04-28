@@ -1,12 +1,8 @@
-import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 
 const log = logger.child({ module: "pem-to-private-key" });
 
-const pemToCryptoKey = async (): Promise<CryptoKey> => {
-  const configs: AppConfig = await configProvider();
-  const pem: string = configs.VACCINATION_APP_PRIVATE_KEY;
-
+const pemToCryptoKey = async (pem: string): Promise<CryptoKey> => {
   // Remove headers and convert to binary
   const pemContents: string = pem.replace(/\s|-{5}[A-Z\s]+-{5}/g, "").trim();
 
