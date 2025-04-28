@@ -55,7 +55,7 @@ const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
               component={styledVaccineContent.howToGetVaccine.component}
             />
           </div>
-          <a href={styledVaccineContent.webpageLink}>
+          <a href={styledVaccineContent.webpageLink} target="_blank">
             Learn more about the {vaccineInfo.displayName} vaccination on nhs.uk
           </a>
         </div>

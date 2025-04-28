@@ -133,7 +133,7 @@ describe("Any vaccine page", () => {
       expect(content).toBeInTheDocument();
     });
 
-    it("should display webpage link", async () => {
+    it("should display webpage link to more information about vaccine", async () => {
       await renderVaccinePage();
 
       const webpageLink: HTMLElement = screen.getByRole("link", {
@@ -142,6 +142,7 @@ describe("Any vaccine page", () => {
 
       expect(webpageLink).toBeInTheDocument();
       expect(webpageLink).toHaveAttribute("href", "https://www.test.com/");
+      expect(webpageLink).toHaveAttribute("target", "_blank");
     });
   });
 
