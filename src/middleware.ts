@@ -1,18 +1,49 @@
-import { auth } from "@project/auth";
+import { auth, signIn } from "@project/auth";
+import { NHS_LOGIN_PROVIDER_ID } from "@src/app/api/auth/[...nextauth]/provider";
 import { Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { logger } from "@src/utils/logger";
 
 const log = logger.child({ name: "middleware" });
+const ASSERTED_LOGIN_IDENTITY_PARAM = "assertedLoginIdentity";
+
+const doSSO = async (request: NextRequest): Promise<NextResponse> => {
+  const assertedLoginIdentity: string | null = request.nextUrl.searchParams.get(
+    ASSERTED_LOGIN_IDENTITY_PARAM,
+  );
+
+  if (assertedLoginIdentity) {
+    const redirectUrl = await signIn(
+      NHS_LOGIN_PROVIDER_ID,
+      {
+        redirectUrl: request.url,
+        redirect: false,
+      },
+      { asserted_login_identity: assertedLoginIdentity },
+    );
+    log.info(`signIn wants to redirect to: ${redirectUrl}`);
+    return NextResponse.redirect(redirectUrl);
+  } else {
+    log.error("SSO without assertedLoginIdentity parameter");
+    log.info(`SSO Url: ${request.nextUrl}`);
+
+    return NextResponse.redirect(
+      `${request.nextUrl.origin}/sso-failure?error=Parameter not found: ${ASSERTED_LOGIN_IDENTITY_PARAM}`,
+    );
+  }
+};
 
 export async function middleware(request: NextRequest) {
   const session: Session | null = await auth();
-  if (!session?.user) {
-    log.info(`${request.nextUrl}`);
-    log.error("Auth session not found");
-    return NextResponse.redirect(
-      `${request.nextUrl.origin}/sso/failure?message=no-session-found`,
-    );
+  if (!session?.expires) {
+    try {
+      return await doSSO(request);
+    } catch (error) {
+      log.error(error);
+      return NextResponse.redirect(
+        `${request.nextUrl.origin}/sso-failure?error=${error}`,
+      );
+    }
   }
   return NextResponse.next();
 }
