@@ -46,7 +46,7 @@ export async function middleware(request: NextRequest) {
       );
     }
   }
-  log.info(session);
+  log.info(session, "Session Object");
   return NextResponse.next();
 }
 
