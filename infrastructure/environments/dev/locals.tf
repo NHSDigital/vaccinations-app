@@ -4,18 +4,21 @@ locals {
   project_identifier           = "vaccinations-app"
   project_identifier_shortcode = "vita"
 
-  environment           = "dev"
-  git_branch            = coalesce(data.external.git_branch.result.output, "na")
-  deploy_workspace      = terraform.workspace == "default" ? "gh" : terraform.workspace
-  prefix                = "${local.deploy_workspace}-${local.git_branch}-${local.project_identifier_shortcode}-${data.aws_caller_identity.current.account_id}"
-  ssm_prefix            = "/${local.prefix}/"
-  open_next_path        = "../../../.open-next"
-  log_retention_in_days = 7
-  pino_log_level        = "info"
-  node_version          = "nodejs22.x"
-  cache_lambda_zip_path = "../../../lambda.zip"
-
+  environment               = "dev"
+  git_branch                = coalesce(data.external.git_branch.result.output, "na")
+  deploy_workspace          = terraform.workspace == "default" ? "gh" : terraform.workspace
+  prefix                    = "${local.deploy_workspace}-${local.git_branch}-${local.project_identifier_shortcode}-${data.aws_caller_identity.current.account_id}"
+  open_next_path            = "../../../.open-next"
+  node_version              = "nodejs22.x"
+  log_retention_in_days     = 7
+  cache_lambda_zip_path     = "../../../lambda.zip"
+  ssm_prefix                = "/${local.prefix}/"
+  pino_log_level            = "info"
+  content_api_endpoint      = "https://sandbox.api.service.nhs.uk/"
   content_cache_bucket_name = "${local.prefix}-content-cache"
+  nhs_login_url             = "https://auth.sandpit.signin.nhs.uk"
+  nhs_login_scope           = "openid profile gp_registration_details"
+  auth_url                  = "https://sandpit.vaccinations.nhs.uk"
 
   default_tags = {
     ManagedBy   = "Terraform"

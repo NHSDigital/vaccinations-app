@@ -22,7 +22,7 @@ const NHSLoginAuthProvider = async (): Promise<OIDCConfig<Profile>> => {
       }
     },
     token: {
-      clientPrivateKey: await pemToCryptoKey(config.VACCINATION_APP_PRIVATE_KEY)
+      clientPrivateKey: await pemToCryptoKey(config.NHS_LOGIN_PRIVATE_KEY)
     },
     client: {
       token_endpoint_auth_method: "private_key_jwt",

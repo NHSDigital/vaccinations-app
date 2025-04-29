@@ -13,8 +13,8 @@ const getSSMParam = async (name: string): Promise<string | undefined> => {
       credentials: {
         accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? "not-set",
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? "not-set",
-        sessionToken: process.env.AWS_SESSION_TOKEN ?? "not-set"
-      }
+        sessionToken: process.env.AWS_SESSION_TOKEN ?? "not-set",
+      },
     });
 
     const command: GetParameterCommand = new GetParameterCommand({
