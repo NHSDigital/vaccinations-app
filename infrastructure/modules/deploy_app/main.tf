@@ -13,10 +13,18 @@ module "deploy_app" {
   server_function = {
     additional_iam_policies = [aws_iam_policy.server_lambda_additional_policy]
     additional_environment_variables = {
-      SSM_PREFIX          = var.ssm_prefix
-      CONTENT_CACHE_PATH  = var.content_cache_path
-      PINO_LOG_LEVEL      = var.pino_log_level
-      AUTH_SECRET         = random_password.auth_secret.result
+      SSM_PREFIX           = var.ssm_prefix
+
+      PINO_LOG_LEVEL       = var.pino_log_level
+
+      CONTENT_API_ENDPOINT = var.content_api_endpoint
+      CONTENT_CACHE_PATH   = var.content_cache_path
+
+      NHS_LOGIN_URL        = var.nhs_login_url
+      NHS_LOGIN_SCOPE      = var.nhs_login_scope
+
+      AUTH_URL             = var.auth_url
+      AUTH_SECRET          = random_password.auth_secret.result
     }
     cloudwatch_log = {
       skip_destroy      = true
@@ -32,9 +40,12 @@ module "deploy_app" {
     concurrency = 1
     schedule = "rate(7 days)"
     additional_environment_variables = {
-      SSM_PREFIX          = var.ssm_prefix
-      CONTENT_CACHE_PATH  = var.content_cache_path
-      PINO_LOG_LEVEL      = var.pino_log_level
+      SSM_PREFIX           = var.ssm_prefix
+
+      PINO_LOG_LEVEL       = var.pino_log_level
+
+      CONTENT_CACHE_PATH   = var.content_cache_path
+      CONTENT_API_ENDPOINT = var.content_api_endpoint
     }
     cloudwatch_log = {
       skip_destroy      = true

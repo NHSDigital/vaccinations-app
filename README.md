@@ -101,26 +101,21 @@ From NHS repository template:
     ```
 
 ### Local Configuration
-1. Create environment variables file .env.local:
-    ```
-    CONTENT_API_ENDPOINT=...
-    VACCINATION_APP_URL=...
-    NHS_LOGIN_URL=...
-    ```
-1. Install toolchain dependencies and load .tool-versions into asdf
+1. Update environment variables file .env.local to suit local development and testing
+2. Install toolchain dependencies and load .tool-versions into asdf
   - ```
     make config
     ```
-2. Install and setup pre-commit hooks for this project (todo: confirm if this is still needed with make setup)
+3. Install and setup pre-commit hooks for this project (todo: confirm if this is still needed with make setup)
   - ```
     make githooks-config
     make githooks-run
     ```
-3. Set environment variable to disable telemetry collection in next.js: add the following to .zshrc
+4. Set environment variable to disable telemetry collection in next.js: add the following to .zshrc
   - ```
     export NEXT_TELEMETRY_DISABLED=1
     ```
-4. Install dependencies from package.json
+5. Install dependencies from package.json
   - ```
     npm install
     ```
