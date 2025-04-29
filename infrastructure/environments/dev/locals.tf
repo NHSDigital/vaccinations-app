@@ -18,7 +18,6 @@ locals {
   content_cache_bucket_name = "${local.prefix}-content-cache"
   nhs_login_url             = "https://auth.sandpit.signin.nhs.uk"
   nhs_login_scope           = "openid profile gp_registration_details"
-  auth_url                  = "https://sandpit.vaccinations.nhs.uk"
 
   default_tags = {
     ManagedBy   = "Terraform"

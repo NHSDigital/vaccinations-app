@@ -57,8 +57,3 @@ variable "nhs_login_scope" {
   type = string
   description = "The application requested oauth scopes"
 }
-
-variable "auth_url" {
-  type = string
-  description = "Used by Auth.js, to be the origin url of the app"
-}

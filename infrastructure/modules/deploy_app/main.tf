@@ -23,7 +23,7 @@ module "deploy_app" {
       NHS_LOGIN_URL        = var.nhs_login_url
       NHS_LOGIN_SCOPE      = var.nhs_login_scope
 
-      AUTH_URL             = var.auth_url
+      AUTH_TRUST_HOST      = "true"
       AUTH_SECRET          = random_password.auth_secret.result
     }
     cloudwatch_log = {
