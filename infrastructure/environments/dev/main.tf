@@ -13,7 +13,6 @@ module "deploy" {
   content_cache_path    = "s3://${module.content_cache_s3_bucket.s3_bucket_id}"
   nhs_login_url         = local.nhs_login_url
   nhs_login_scope       = local.nhs_login_scope
-  auth_url              = local.auth_url
 }
 
 module "post_deploy" {
