@@ -8,7 +8,7 @@
     "test": "tests"
   },
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbopack --experimental-https",
     "app": "npm run build && npm run start",
     "build": "next build --experimental-build-mode compile",
     "build:opennext": "npx --yes @opennextjs/aws@latest build",
