@@ -1,7 +1,8 @@
 import NHSLoginAuthProvider from "@src/app/api/auth/[...nextauth]/provider";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
-import NextAuth from "next-auth";
+import NextAuth, { type DefaultSession } from "next-auth";
+import "next-auth/jwt";
 import { jwtDecode } from "jwt-decode";
 import { Logger } from "pino";
 
@@ -10,6 +11,31 @@ export interface DecodedToken {
   aud: string;
   identity_proofing_level: string;
 }
+
+// Augmenting types. Ref https://authjs.dev/getting-started/typescript#module-augmentation
+declare module "next-auth" {
+  interface Session {
+    user: {
+      nhs_number: string,
+      birthdate: string,
+    } & DefaultSession["user"]
+  }
+
+  interface Profile {
+    nhs_number: string,
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    user: {
+      nhs_number: string,
+      birthdate: string
+    }
+  }
+}
+
+
 
 const SSO_FAILURE_ROUTE = "/sso-failure";
 const log: Logger = logger.child({ module: "auth" });
@@ -48,20 +74,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
       },
       async jwt({ token, account, profile}) {
         if(account && profile && token) {
-          token.userinfo = {
+          token.user = {
             nhs_number: profile.nhs_number,
-            birthdate: profile.birthdate,
+            // TODO: How to handle the cases where nsh_number and birthdate are not present?
+            birthdate: profile.birthdate!,
           };
         }
 
         return token;
       },
       async session({ session, token }) {
-        if(token?.userinfo && session.user) {
-          Object.assign(session.user, {
-            ...session.user,
-            ...token.userinfo
-          })
+        if(token?.user && session.user) {
+          session.user.nhs_number = token.user.nhs_number;
+          session.user.birthdate = token.user.birthdate;
         }
         return session;
       }
