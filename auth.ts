@@ -66,6 +66,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
         return session;
       }
     },
-    debug: process.env.NODE_ENV === "development"
+    debug: process.env.PINO_LOG_LEVEL === "info"
   };
 });
