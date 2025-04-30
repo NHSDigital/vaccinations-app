@@ -104,3 +104,6 @@ next-env.d.ts
 
 # open-next
 /.open-next/
+
+# self-signed certificates for secure localhost
+certificates
