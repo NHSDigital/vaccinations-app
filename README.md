@@ -229,6 +229,12 @@ Use the Logs Insights UI to query logs:
   | limit 10000
   ```
 
+To enable debug logging of OpenNext, add OPEN_NEXT_DEBUG=true to package.json build command:
+```json
+{
+  "build:opennext": "OPEN_NEXT_DEBUG=true DEBUG=* npx --yes @opennextjs/aws@latest build"
+}
+```
 ## Design
 TODO
 
