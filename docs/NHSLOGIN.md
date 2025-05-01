@@ -9,7 +9,7 @@ NHS Login uses OIDC flow for authorization and authentication
 #### Create Asymmetric Key Pair
 
 NHS Login OIDC flow requires us to use a private key to sign JWT token to ensure security. The public key generated from the private key is to be submitted as part of the form below.
-The steps below explain how to generate that public key and corresponding private key.
+The steps below explain how to generate the private key and corresponding public key.
 - Generate private key (private_key.pem)
     ```
     openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048

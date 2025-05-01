@@ -1,4 +1,4 @@
-# ADR-nnn: Any Decision Record Template
+# ADR-005: NHS Login OIDC Flow Library
 
 >|              |                                                        |
 >| ------------ |--------------------------------------------------------|
@@ -47,8 +47,8 @@ Notably, next-auth leverages the well-regarded [openid-client](https://github.co
 
 ### Options
 The primary alternative considered was the openid-client library. This is a lower-level library that provides the tools
-to construct authorization and authentication requests. However, it requires manual handling of callbacks and the retrieval
-of user information. Additionally, session management would need to be implemented using a separate library.
+to construct authorization and authentication requests. However, it requires manual handling of callbacks. Additionally,
+session management would need to be implemented using a separate library.
 
 ### Outcome
 The decision to use next-auth is reversible. Should we encounter significant challenges or limitations with next-auth in
