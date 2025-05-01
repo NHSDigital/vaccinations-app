@@ -41,9 +41,9 @@ describe("RSV vaccine page", () => {
 
   describe("when content fails to load with unhandled error", () => {
     beforeEach(() => {
-      (Vaccine as jest.Mock).mockImplementation(() => {
-        throw new Error("mocked error: content load fail");
-      });
+      (Vaccine as jest.Mock).mockImplementation(
+        () => new Error("mocked error: content load fail"),
+      );
     });
 
     it("should display error page", () => {

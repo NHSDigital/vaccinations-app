@@ -1,14 +1,14 @@
 import { render, screen } from "@testing-library/react";
-import VaccineFlu from "@src/app/vaccines/flu/page";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { mockStyledContent } from "@test-data/content-api/data";
 import { VaccineTypes } from "@src/models/vaccine";
+import VaccinePneumococcal from "@src/app/vaccines/pneumococcal/page";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 jest.mock("@src/app/_components/vaccine/Vaccine");
 
-describe("Flu vaccine page", () => {
+describe("Pneumococcal vaccine page", () => {
   describe("when content loaded successfully", () => {
     beforeEach(() => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
@@ -20,7 +20,7 @@ describe("Flu vaccine page", () => {
     it("should contain back link to vaccination schedule page", () => {
       const pathToSchedulePage = "/schedule";
 
-      render(VaccineFlu());
+      render(VaccinePneumococcal());
 
       const linkToSchedulePage = screen.getByRole("link", { name: "Go back" });
 
@@ -28,11 +28,11 @@ describe("Flu vaccine page", () => {
     });
 
     it("should contain vaccine component", () => {
-      render(VaccineFlu());
+      render(VaccinePneumococcal());
 
       expect(Vaccine).toHaveBeenCalledWith(
         {
-          vaccineType: VaccineTypes.FLU,
+          vaccineType: VaccineTypes.PNEUMOCOCCAL,
         },
         undefined,
       );
@@ -47,11 +47,11 @@ describe("Flu vaccine page", () => {
     });
 
     it("should display error page", () => {
-      render(VaccineFlu());
+      render(VaccinePneumococcal());
 
-      const fluHeading = screen.getByRole("heading", {
+      const pneumococcalHeading = screen.getByRole("heading", {
         level: 1,
-        name: `Flu vaccine`,
+        name: "Pneumococcal vaccine",
       });
 
       const errorHeading: HTMLElement = screen.getByRole("heading", {
@@ -59,7 +59,7 @@ describe("Flu vaccine page", () => {
         name: "Vaccine content is unavailable",
       });
 
-      expect(fluHeading).toBeInTheDocument();
+      expect(pneumococcalHeading).toBeInTheDocument();
       expect(errorHeading).toBeInTheDocument();
     });
   });
