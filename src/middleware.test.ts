@@ -2,8 +2,7 @@
  * @jest-environment node
  */
 
-import { auth, signIn } from "@project/auth";
-import { NHS_LOGIN_PROVIDER_ID } from "@src/app/api/auth/[...nextauth]/provider";
+import { auth } from "@project/auth";
 import { middleware } from "@src/middleware";
 import { NextRequest } from "next/server";
 
@@ -18,6 +17,7 @@ function getMockRequest(testUrl: string, params?: Record<string, string>) {
       searchParams: new URLSearchParams(params),
       origin: new URL(testUrl).origin,
     },
+    url: testUrl,
   };
 }
 
@@ -26,60 +26,28 @@ describe("middleware", () => {
     jest.clearAllMocks();
   });
 
-  it("redirects unauthenticated users with assertedLoginIdentity", async () => {
-    const testUrl = "https://testurl/abc";
-    const mockRequest = getMockRequest(testUrl, {
-      assertedLoginIdentity: "identity123",
-    });
-
-    (signIn as jest.Mock).mockResolvedValue(testUrl);
-    (auth as jest.Mock).mockResolvedValue(null); // No authenticated session
-
-    const result = await middleware(mockRequest as NextRequest);
-
-    expect(signIn).toHaveBeenCalledWith(
-      NHS_LOGIN_PROVIDER_ID,
-      expect.any(Object),
-      { asserted_login_identity: "identity123" },
-    );
-
-    expect(result.status).toBe(307);
-    expect(result.headers.get("Location")).toEqual(encodeURI(testUrl));
-  });
-
-  it("error page for unauthenticated users without assertedLoginIdentity", async () => {
+  it("redirects users without active session to sso-failure page", async () => {
     const testUrl = "https://testurl/abc";
     const mockRequest = getMockRequest(testUrl);
 
     (auth as jest.Mock).mockResolvedValue(null); // No authenticated session
 
     const result = await middleware(mockRequest as NextRequest);
+
     expect(result.status).toBe(307);
-    const redirectUrl = `${new URL(testUrl).origin}/sso-failure?error=Parameter not found: assertedLoginIdentity`;
-    expect(result.headers.get("Location")).toEqual(encodeURI(redirectUrl));
+    expect(result.headers.get("Location")).toEqual(
+      `${mockRequest.nextUrl.origin}/sso-failure?error=No%20active%20session%20found`,
+    );
   });
 
-  it("error page for unauthenticated users with assertedLoginIdentity and failed signIn", async () => {
-    const testUrl = "https://testurl/abc";
-    const mockRequest = getMockRequest(testUrl, {
-      assertedLoginIdentity: "identity123",
-    });
-
-    (signIn as jest.Mock).mockRejectedValue(new Error("problem with signIn"));
-    (auth as jest.Mock).mockResolvedValue(null); // No authenticated session
-
-    const result = await middleware(mockRequest as NextRequest);
-    expect(result.status).toBe(307);
-    const redirectUrl = `${new URL(testUrl).origin}/sso-failure?error=Error: problem with signIn`;
-    expect(result.headers.get("Location")).toEqual(encodeURI(redirectUrl));
-  });
-
-  it("pass through for authenticated users", async () => {
+  it("pass through for users with active session", async () => {
     const testUrl = "https://testurl/abc";
     const mockRequest = getMockRequest(testUrl);
 
     (auth as jest.Mock).mockResolvedValue({
-      expires: "test-expiry-date",
+      user: {
+        birthdate: new Date(),
+      },
     });
 
     const result = await middleware(mockRequest as NextRequest);
