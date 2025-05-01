@@ -8,22 +8,22 @@ variable "nodejs_version" {
   description = "Version of the nodejs to use, e.g. 'nodejs22.x'"
 }
 
-variable "open-next-path" {
-  type        = string
-  description = "Relative path to open next output directory"
-}
-
 variable "default_tags" {
   type        = map(string)
   description = "Map of default key-value pair of tags to add to resources"
 }
 
-variable "log_retention_in_days" {
-  type = string
-  description = "The retention of logs in cloudwatch log groups in days"
-}
-
 variable "application_environment_variables" {
   type        = map(string)
   description = "Map of environment variables to pass to Lambda"
+}
+
+variable "cache_lambda_zip_path" {
+  type        = string
+  description = "Path to lambda zip artifact"
+}
+
+variable "log_retention_in_days" {
+  type = string
+  description = "The retention of logs in cloudwatch log groups in days"
 }

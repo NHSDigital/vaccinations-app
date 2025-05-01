@@ -85,6 +85,8 @@ jobs:
         run: |
           unzip open-next.zip
           rm -rf open-next.zip
+      - name: "Set that it is GitHub actions user"
+        run: echo "TF_VAR_is_github_action=true" >> $GITHUB_ENV
       - name: "Terraform init"
         id: init
         run: TF_ENV=dev make terraform-init
