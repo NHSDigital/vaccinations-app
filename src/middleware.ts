@@ -24,9 +24,7 @@ const doSSO = async (request: NextRequest): Promise<NextResponse> => {
     log.info(`signIn wants to redirect to: ${redirectUrl}`);
     return NextResponse.redirect(redirectUrl);
   } else {
-    log.error("SSO without assertedLoginIdentity parameter");
-    log.info(`SSO Url: ${request.nextUrl}`);
-
+    log.warn("SSO without assertedLoginIdentity parameter");
     return NextResponse.redirect(
       `${request.nextUrl.origin}/sso-failure?error=Parameter not found: ${ASSERTED_LOGIN_IDENTITY_PARAM}`,
     );
