@@ -39,6 +39,15 @@ const styleSubsection = (
   subsection: VaccinePageSubsection,
   id: number,
 ): JSX.Element => {
+  if (subsection.type === "complexElement") {
+    return (
+      <div
+        key={id}
+        dangerouslySetInnerHTML={sanitiseHtml(subsection.mainEntity)}
+      />
+    );
+  }
+
   let text: string = subsection.text;
   if (subsection.headline) {
     text = `<h3 key={id}>${subsection.headline}</h3>`.concat(text);

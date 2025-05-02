@@ -14,6 +14,8 @@ type HasPartSubsection = {
   headline?: string;
   position: number;
   identifier: string;
+  mainEntity?: string;
+  subjectOf?: string;
 };
 
 export type MainEntityOfPage = {
@@ -51,11 +53,21 @@ export type ContentApiVaccineResponse = {
   contentSubTypes: object;
 };
 
-export type VaccinePageSubsection = {
+type SimpleSubsection = {
+  type: "simpleElement";
   headline: string;
   text: string;
   name: string;
 };
+
+type ComplexSubsection = {
+  type: "complexElement";
+  mainEntity: string;
+  name: string;
+  subjectOf?: string;
+};
+
+export type VaccinePageSubsection = SimpleSubsection | ComplexSubsection;
 
 export type VaccinePageSection = {
   headline: string;
@@ -115,7 +127,16 @@ const _extractPartsForAspect = (
       // if (!part.headline) {
       //   // throw new Error(`Missing headline for part: ${part.name}`);
       // }
+      if (part.name === "Table" || part.name === "Expander") {
+        return {
+          type: "complexElement",
+          mainEntity: part.mainEntity || "",
+          name: part.name,
+          subjectOf: part.subjectOf || "",
+        };
+      }
       return {
+        type: "simpleElement",
         headline: part.headline ?? "",
         text: part.text,
         name: part.name,
@@ -148,9 +169,10 @@ const _generateWhoVaccineIsForHeading = (vaccineType: VaccineTypes): string => {
 
 function _extractHeadlineForContraindicationsAspect(
   content: ContentApiVaccineResponse,
-) {
+): VaccinePageSubsection[] {
   return [
     {
+      type: "simpleElement",
       headline: _extractHeadlineForAspect(
         content,
         "ContraindicationsHealthAspect",
@@ -210,4 +232,5 @@ export {
   _extractHeadlineForAspect,
   _extractDescriptionForVaccine,
   _generateWhoVaccineIsForHeading,
+  _extractHeadlineForContraindicationsAspect,
 };

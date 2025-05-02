@@ -9,6 +9,7 @@ import {
   MainEntityOfPage,
   VaccinePageContent,
   _hasHealthAspect,
+  _extractHeadlineForContraindicationsAspect,
 } from "@src/services/content-api/parsers/content-filter-service";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 import { VaccineTypes } from "@src/models/vaccine";
@@ -90,6 +91,7 @@ describe("Content Filter", () => {
     it("should extract parts from aspect", async () => {
       const expectedParts: VaccinePageSubsection[] = [
         {
+          type: "simpleElement",
           headline: "",
           name: "markdown",
           text: "<p>Benefits Health Aspect paragraph 1</p>",
@@ -180,6 +182,26 @@ describe("Content Filter", () => {
     });
   });
 
+  describe("_extractHeadlineForContraindicationsAspect", () => {
+    it("extracts headline for contraindications aspects", () => {
+      const expected: VaccinePageSubsection[] = [
+        {
+          headline: "Contraindications Health Aspect headline",
+          name: "",
+          text: "",
+          type: "simpleElement",
+        },
+      ];
+
+      const headline: VaccinePageSubsection[] =
+        _extractHeadlineForContraindicationsAspect(
+          genericVaccineContentAPIResponse,
+        );
+
+      expect(headline).toEqual(expected);
+    });
+  });
+
   describe("getFilteredContentForVaccine", () => {
     it("should return overview text from lead paragraph mainEntityOfPage object", async () => {
       const expectedOverview = {
@@ -202,6 +224,7 @@ describe("Content Filter", () => {
           headline: "Benefits Health Aspect headline",
           subsections: [
             {
+              type: "simpleElement",
               headline: "",
               name: "markdown",
               text: "<p>Benefits Health Aspect paragraph 1</p>",
@@ -226,26 +249,31 @@ describe("Content Filter", () => {
           headline: "Who should have the 6-in-1 vaccine",
           subsections: [
             {
+              type: "simpleElement",
               headline: "",
               name: "markdown",
               text: "<p>Suitability Health Aspect paragraph 1</p><p>Suitability Health Aspect paragraph 2</p>",
             },
             {
+              type: "simpleElement",
               headline: "",
               name: "markdown",
               text: "<p>Suitability Health Aspect paragraph 3</p><p>Suitability Health Aspect paragraph 4</p>",
             },
             {
+              type: "simpleElement",
               headline: "Contraindications Health Aspect headline",
               name: "",
               text: "",
             },
             {
+              type: "simpleElement",
               headline: "",
               name: "markdown",
               text: "<p>Contraindications Health Aspect paragraph 1</p><p>Contraindications Health Aspect paragraph 2</p>",
             },
             {
+              type: "simpleElement",
               headline: "",
               name: "Information",
               text: "<h3>Contraindications Health Aspect information heading</h3><p>Contraindications Health Aspect information paragraph</p>",
@@ -270,11 +298,13 @@ describe("Content Filter", () => {
           headline: "Getting Access Health Aspect headline",
           subsections: [
             {
+              type: "simpleElement",
               headline: "",
               name: "markdown",
               text: "<p>Getting Access Health Aspect paragraph 1</p>",
             },
             {
+              type: "simpleElement",
               headline: "",
               name: "non-urgent",
               text: "<h3>Getting Access Health Aspect urgent heading</h3><div>Getting Access Health Aspect urgent div</div>",

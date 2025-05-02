@@ -13,19 +13,29 @@ import {
 import {
   VaccinePageContent,
   VaccinePageSection,
+  VaccinePageSubsection,
 } from "@src/services/content-api/parsers/content-filter-service";
 
 describe("ContentStylingService", () => {
-  const mockMarkdownSubsection = {
+  const mockMarkdownSubsection: VaccinePageSubsection = {
+    type: "simpleElement",
     text: "<h2>This is a styled paragraph markdown subsection</h2>",
     name: "markdown",
     headline: "Headline",
   };
 
-  const mockNonUrgentSubsection = {
+  const mockNonUrgentSubsection: VaccinePageSubsection = {
+    type: "simpleElement",
     text: "<h3>Heading for Non Urgent Component</h3><p>This is a styled paragraph non-urgent subsection</p>",
     name: "non-urgent",
     headline: "",
+  };
+
+  const mockTableSubsection: VaccinePageSubsection = {
+    type: "complexElement",
+    mainEntity:
+      "<table><tr><th>Name</th><th>Age</th></tr><tr><td>Jane Smith</td><td>35</td></tr></table>",
+    name: "Table",
   };
 
   describe("styleSubsection", () => {
@@ -49,7 +59,8 @@ describe("ContentStylingService", () => {
     it.each(["markdown", "default"])(
       "should return styled %s component for subsection",
       () => {
-        const mockMarkdownSubsection = {
+        const mockMarkdownSubsection: VaccinePageSubsection = {
+          type: "simpleElement",
           text: "<div role='section'>This is a styled paragraph markdown subsection</div>",
           name: "%s",
           headline: "",
@@ -72,7 +83,8 @@ describe("ContentStylingService", () => {
     );
 
     it("should return styled information component for subsection", async () => {
-      const mockInformationSubsection = {
+      const mockInformationSubsection: VaccinePageSubsection = {
+        type: "simpleElement",
         text: "<p>This is a styled paragraph information subsection</p>",
         name: "Information",
         headline: "",
@@ -113,28 +125,53 @@ describe("ContentStylingService", () => {
       expect(heading).toBeInTheDocument();
       expect(nonUrgent).toBeInTheDocument();
     });
+
+    it("should return table component for subsection", async () => {
+      const styledSubsection: JSX.Element = styleSubsection(
+        mockTableSubsection,
+        1,
+      );
+      render(styledSubsection);
+
+      const column1: HTMLElement = screen.getByText("Name");
+      const column2: HTMLElement = screen.getByText("Age");
+      const raw1: HTMLElement = screen.getByText("Jane Smith");
+      const raw2: HTMLElement = screen.getByText("35");
+
+      expect(column1).toBeInTheDocument();
+      expect(column2).toBeInTheDocument();
+      expect(raw1).toBeInTheDocument();
+      expect(raw2).toBeInTheDocument();
+    });
   });
 
   describe("styleSection", () => {
     it("should display several subsections of a concrete vaccine in one section", async () => {
       const mockSection: VaccinePageSection = {
         headline: "This is a heading",
-        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
+        subsections: [
+          mockMarkdownSubsection,
+          mockNonUrgentSubsection,
+          mockTableSubsection,
+        ],
       };
 
       const styledSection: StyledPageSection = styleSection(mockSection);
       render(styledSection.component);
 
-      const text1: HTMLElement = screen.getByText(
+      const markdownSubsection: HTMLElement = screen.getByText(
         "This is a styled paragraph markdown subsection",
       );
-      const text2: HTMLElement = screen.getByText(
+      const nonUrgentSubsection: HTMLElement = screen.getByText(
         "This is a styled paragraph non-urgent subsection",
       );
 
+      const columnOfTable: HTMLElement = screen.getByText("Name");
+
       expect(styledSection.heading).toEqual(mockSection.headline);
-      expect(text1).toBeInTheDocument();
-      expect(text2).toBeInTheDocument();
+      expect(markdownSubsection).toBeInTheDocument();
+      expect(nonUrgentSubsection).toBeInTheDocument();
+      expect(columnOfTable).toBeInTheDocument();
     });
   });
 
@@ -219,7 +256,7 @@ describe("ContentStylingService", () => {
   });
 
   describe("extractHeadingAndContent", () => {
-    it("should extract heading and content from non-urgent html string", async () => {
+    it("should extract heading and content from more complex non-urgent html string", async () => {
       const headingAndContent: NonUrgentContent = extractHeadingAndContent(
         "<h3>Heading</h3><div><ul><li>you have not been contacted</li></ul></div>",
       );
@@ -230,7 +267,7 @@ describe("ContentStylingService", () => {
       );
     });
 
-    it("should extract heading and content from non-urgent html string", async () => {
+    it("should extract heading and content from simple non-urgent html string", async () => {
       const headingAndContent: NonUrgentContent = extractHeadingAndContent(
         "<h3>Heading</h3><p>you have not been contacted</p>",
       );
