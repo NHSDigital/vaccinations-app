@@ -3,6 +3,7 @@ enum VaccineTypes {
   RSV = "RSV",
   FLU = "FLU",
   PNEUMOCOCCAL = "PNEUMOCOCCAL",
+  SHINGLES = "SHINGLES",
 }
 
 export type VaccineDetails = {
@@ -24,6 +25,9 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
   },
   [VaccineTypes.PNEUMOCOCCAL]: {
     displayName: "Pneumococcal",
+  },
+  [VaccineTypes.SHINGLES]: {
+    displayName: "Shingles",
   },
 };
 

@@ -57,4 +57,13 @@ describe("Vaccination Hub Page", () => {
     expect(link).toBeInTheDocument();
     expect(link.getAttribute("href")).toEqual("/vaccines/flu");
   });
+
+  it("renders Shingles vaccine link", async () => {
+    const link: HTMLElement = screen.getByRole("link", {
+      name: "Shingles vaccine",
+    });
+
+    expect(link).toBeInTheDocument();
+    expect(link.getAttribute("href")).toEqual("/vaccines/shingles");
+  });
 });

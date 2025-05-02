@@ -1,0 +1,564 @@
+{
+  "@context": "http://schema.org",
+  "@type": "MedicalWebPage",
+  "name": "Shingles vaccine",
+  "copyrightHolder": {
+    "name": "Crown Copyright",
+    "@type": "Organization"
+  },
+  "license": "https://developer.api.nhs.uk/terms",
+  "author": {
+    "url": "https://www.nhs.uk",
+    "logo": "https://assets.nhs.uk/nhsuk-cms/images/nhs-attribution.width-510.png",
+    "email": "nhswebsite.servicedesk@nhs.net",
+    "@type": "Organization",
+    "name": "NHS website"
+  },
+  "about": {
+    "@type": "WebPage",
+    "name": "Shingles vaccine",
+    "alternateName": ""
+  },
+  "description": "Find out about the shingles vaccine, including who it's for, how to get it and possible side effects.",
+  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/",
+  "genre": [
+    "Vaccine"
+  ],
+  "keywords": "",
+  "dateModified": "2025-04-15T14:16:33+00:00",
+  "lastReviewed": [
+    "2023-09-01T07:46:00+00:00",
+    "2026-09-01T07:46:00+00:00"
+  ],
+  "breadcrumb": {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 0,
+        "item": {
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "name": "Vaccinations",
+          "genre": []
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/",
+          "name": "Shingles vaccine",
+          "genre": [
+            "Vaccine"
+          ]
+        }
+      }
+    ]
+  },
+  "hasPart": [
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#overview",
+      "description": "The shingles vaccine helps protect you against shingles, a common condition in adults that causes a painful rash.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "Shingles vaccine",
+          "text": "What it's for"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Shingles vaccine",
+          "text": "Who it's for"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Shingles vaccine",
+          "text": "Contraindications"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Shingles vaccine",
+          "text": "How to get it"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Shingles vaccine",
+          "text": "Side effects"
+        },
+        {
+          "text": "<p>The shingles vaccine is used to reduce your chances of getting shingles and of getting serious problems if you do get shingles.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>The shingles vaccine is recommended for some older adults (including everyone aged 70 to 79) and some people with a severely weakened immune system.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Most people can have the shingles vaccine. You only need to avoid it if you've had a serious allergic reaction to the vaccine, or an ingredient in it.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Your GP surgery will usually contact you when you become eligible for the shingles vaccine.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Common side effects of the shingles vaccine include swelling or pain where the injection was given. Serious side effects are very rare.</p> ",
+          "@type": "WebPageElement"
+        }
+      ],
+      "headline": ""
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#what-its-for",
+      "description": "The shingles vaccine is used to reduce your chances of getting shingles and of getting serious problems if you do get shingles.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p><a href=\"https://www.nhs.uk/conditions/shingles/\">Shingles</a> is a common condition that causes a painful rash. It can sometimes lead to serious problems such as long-lasting pain, hearing loss or blindness.</p><p>You're more likely to get shingles, and it's more likely to cause serious problems, as you get older or if you have a severely weakened immune system.</p><p>The shingles vaccine helps:</p><ul><li>reduce your chances of getting shingles</li><li>reduce your chances of getting serious problems if you do get shingles</li></ul>"
+        }
+      ],
+      "headline": "What the shingles vaccine is for"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#who-its-for",
+      "description": "The shingles vaccine is recommended for some older adults (including everyone aged 70 to 79) and some people with a severely weakened immune system.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The shingles vaccine is recommended for some older adults and people with a severely weakened immune system.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<listvalue: 'people=\"\" ('body',=\"\" 0x7f6c75514eb0=\"\" 1=\"\" 2023'),=\"\" 65=\"\" <streamvalue=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" [structvalue([('title',=\"\" after=\"\" at=\"\" object=\"\" on=\"\" or=\"\" richtext:=\"\" september=\"\" turn=\"\" who=\"\">&gt;, <block 0x7f6c75514280=\"\" <wagtail.rich_text.richtext=\"\" at=\"\" inset_text:=\"\" object=\"\" structvalue([('body',=\"\">)])&gt;]&gt;)]), StructValue([('title', 'People aged 70 to 79'), ('body', <streamvalue 0x7f6c75514340=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)]), StructValue([('title', 'People aged 50 and over with a severely weakened immune system'), ('body', <streamvalue 0x7f6c75514670=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)])]&gt;</streamvalue></streamvalue></block></listvalue:>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Important",
+          "text": "<p>You can get shingles more than once, so it's important to get vaccinated even if you've had shingles before.</p>"
+        }
+      ],
+      "headline": "Who should have the shingles vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#contraindications",
+      "description": "Most people can have the shingles vaccine. You only need to avoid it if you've had a serious allergic reaction to the vaccine, or an ingredient in it.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Most people who are eligible for the shingles vaccine can have it.</p><p>You only cannot have the vaccine if you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine, or an ingredient in the vaccine.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Information",
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>If you have a high temperature or feel too unwell to do your normal activities, wait until you're feeling better before having the vaccine.</p>"
+        }
+      ],
+      "headline": "Who cannot have the shingles vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#ingredients",
+      "description": "You can check the ingredients in the shingles vaccine by asking to see the patient leaflet or searching for it online.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>There is 1 type of shingles vaccine given in the UK. You can check the ingredients in the patient leaflet:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/files/pil.12054.pdf\">Shingrix vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 136kb)</a></li></ul>"
+        }
+      ],
+      "headline": "Shingles vaccine ingredients"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#how-to-get-it",
+      "description": "Your GP surgery will usually contact you when you become eligible for the shingles vaccine.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Your GP surgery will usually contact you when you become eligible for the shingles vaccine. This will usually be by letter, text message, phone or email.</p><p>Sometimes you might be offered the vaccine during a GP appointment you're having for another reason.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "identifier": "primary",
+          "headline": "Speak to your GP surgery if:",
+          "text": "<ul>\n<li>\n  you think you're eligible for the shingles vaccine, but you've not been contacted\n </li>\n<li>\n  you did not have the vaccine when you were contacted and you're still under 80 (only people with a severely weakened immune system can get the vaccine after 80 years of age)\n </li>\n<li>\n  you've had the shingles vaccine before but you now have a severely weakened immune system (you may need to have the shingles vaccine again)\n </li>\n<li>\n  you're due to have your vaccine and you're feeling unwell – you may need to wait until you're feeling better before having the vaccine\n </li>\n<li>\n  you need to change your vaccination appointment\n </li>\n</ul>\n<p>\n Your GP surgery can book or rearrange an appointment.\n</p>\n"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Information",
+          "text": "<h3>Having the shingles vaccine at the same time as other vaccines</h3><p>You can usually have the shingles vaccine at the same time as other vaccines such as the flu vaccine, COVID-19 vaccine and pneumococcal vaccine.</p>"
+        }
+      ],
+      "headline": "How to get the shingles vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#side-effects",
+      "description": "Common side effects of the shingles vaccine include swelling or pain where the injection was given. Serious side effects are very rare.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Most of the side effects of the shingles vaccine are mild and get better within 2 or 3 days.</p><p>They can include:</p><ul><li>swelling, itchiness, bruising or pain where the injection was given</li><li>a headache</li><li>an aching body</li><li>feeling tired</li><li>a high temperature</li><li>shivering (chills)</li></ul><p>More serious side effects such as a severe allergic reaction are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p>"
+        }
+      ],
+      "headline": "Side effects of the shingles vaccine"
+    }
+  ],
+  "relatedLink": [
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "name": "Vaccinations",
+      "linkRelationship": "Navigation",
+      "position": 0
+    }
+  ],
+  "contentSubTypes": [],
+  "mainEntityOfPage": [
+    {
+      "position": 0,
+      "identifier": 0,
+      "text": "The shingles vaccine helps protect against shingles. It's recommended for all adults turning 65, those aged 70 to 79 and those aged 50 and over with a severely weakened immune system.",
+      "name": "lead paragraph",
+      "@type": "WebPageElement"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 1,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p><a href=\"https://www.nhs.uk/conditions/shingles/\">Shingles</a> is a common condition that causes a painful rash. It can sometimes lead to serious problems such as long-lasting pain, hearing loss or blindness.</p><p>You're more likely to get shingles, and it's more likely to cause serious problems, as you get older or if you have a severely weakened immune system.</p><p>The shingles vaccine helps:</p><ul><li>reduce your chances of getting shingles</li><li>reduce your chances of getting serious problems if you do get shingles</li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "The shingles vaccine is used to reduce your chances of getting shingles and of getting serious problems if you do get shingles.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p><a href=\"https://www.nhs.uk/conditions/shingles/\">Shingles</a> is a common condition that causes a painful rash. It can sometimes lead to serious problems such as long-lasting pain, hearing loss or blindness.</p><p>You're more likely to get shingles, and it's more likely to cause serious problems, as you get older or if you have a severely weakened immune system.</p><p>The shingles vaccine helps:</p><ul><li>reduce your chances of getting shingles</li><li>reduce your chances of getting serious problems if you do get shingles</li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
+      "headline": "What the shingles vaccine is for"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 2,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The shingles vaccine is recommended for some older adults and people with a severely weakened immune system.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "@type": "WebPageElement",
+          "position": 1,
+          "name": "Expander Group",
+          "identifier": "20",
+          "mainEntity": [
+            {
+              "position": 0,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "People who turn 65 on or after 1 September 2023",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"hkkse\">From 1 September 2023, you're eligible for the shingles vaccine when you turn 65.</p><p data-block-key=\"b57nf\">You'll be offered 2 doses of the vaccine. These are given between 6 and 12 months apart.</p><p data-block-key=\"8399f\">Your GP should contact you to make an appointment to have your shingles vaccine. Contact your GP surgery if you think you're eligible for the shingles vaccine and you've not been contacted about it.</p><p data-block-key=\"7jkfc\">You'll remain eligible until your 80th birthday (but you can have your 2nd dose up until your 81st birthday).</p>\n</div>\n<div class=\"block-inset_text\">\n\n<div class=\"nhsuk-inset-text\" >\n  <span class=\"nhsuk-u-visually-hidden\">Information: </span>\n  <p data-block-key=\"3yce2\">If you turned 65 before 1 September 2023, you&#x27;ll be eligible for the shingles vaccine when you turn 70.</p>\n</div>\n</div>"
+            },
+            {
+              "position": 1,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "People aged 70 to 79",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"hkkse\">Everyone aged 70 to 79 is eligible for the shingles vaccine.</p><p data-block-key=\"9vjqr\">You'll be offered 2 doses of the vaccine. These are given between 6 and 12 months apart.</p><p data-block-key=\"dgcu8\">Contact your GP surgery if you missed your vaccine. You're eligible up until your 80th birthday (but you can have your 2nd dose up until your 81st birthday).</p>\n</div>"
+            },
+            {
+              "position": 2,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "People aged 50 and over with a severely weakened immune system",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"hkkse\">You're eligible for the shingles vaccine if you're aged 50 or over and you're at higher risk from shingles because you have a severely weakened immune system.</p><p data-block-key=\"cs410\">This includes:</p><ul><li data-block-key=\"6l79j\">some people with blood cancer (such as leukaemia or lymphoma)</li><li data-block-key=\"5o6lq\">some people with HIV or AIDS</li><li data-block-key=\"1b1n0\">some people who've recently had a stem cell transplant, radiotherapy, chemotherapy or an organ transplant</li><li data-block-key=\"br8t7\">people taking certain medicines that severely weaken the immune system</li></ul><p data-block-key=\"9i31u\">You'll be given 2 doses of the shingles vaccine. These are given between 8 weeks and 6 months apart.</p><p data-block-key=\"1aqc6\">Ask your GP or care team if you're not sure if you're eligible for the shingles vaccine.</p>\n</div>"
+            }
+          ]
+        },
+        {
+          "position": 2,
+          "@type": "WebPageElement",
+          "name": "Callout",
+          "identifier": "4",
+          "text": "<h3>Important</h3><p>You can get shingles more than once, so it's important to get vaccinated even if you've had shingles before.</p>"
+        }
+      ],
+      "description": "The shingles vaccine is recommended for some older adults (including everyone aged 70 to 79) and some people with a severely weakened immune system.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The shingles vaccine is recommended for some older adults and people with a severely weakened immune system.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "@type": "WebPageElement",
+          "position": 1,
+          "name": "Expander Group",
+          "identifier": "20",
+          "mainEntity": [
+            {
+              "position": 0,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "People who turn 65 on or after 1 September 2023",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"hkkse\">From 1 September 2023, you're eligible for the shingles vaccine when you turn 65.</p><p data-block-key=\"b57nf\">You'll be offered 2 doses of the vaccine. These are given between 6 and 12 months apart.</p><p data-block-key=\"8399f\">Your GP should contact you to make an appointment to have your shingles vaccine. Contact your GP surgery if you think you're eligible for the shingles vaccine and you've not been contacted about it.</p><p data-block-key=\"7jkfc\">You'll remain eligible until your 80th birthday (but you can have your 2nd dose up until your 81st birthday).</p>\n</div>\n<div class=\"block-inset_text\">\n\n<div class=\"nhsuk-inset-text\" >\n  <span class=\"nhsuk-u-visually-hidden\">Information: </span>\n  <p data-block-key=\"3yce2\">If you turned 65 before 1 September 2023, you&#x27;ll be eligible for the shingles vaccine when you turn 70.</p>\n</div>\n</div>"
+            },
+            {
+              "position": 1,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "People aged 70 to 79",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"hkkse\">Everyone aged 70 to 79 is eligible for the shingles vaccine.</p><p data-block-key=\"9vjqr\">You'll be offered 2 doses of the vaccine. These are given between 6 and 12 months apart.</p><p data-block-key=\"dgcu8\">Contact your GP surgery if you missed your vaccine. You're eligible up until your 80th birthday (but you can have your 2nd dose up until your 81st birthday).</p>\n</div>"
+            },
+            {
+              "position": 2,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "People aged 50 and over with a severely weakened immune system",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"hkkse\">You're eligible for the shingles vaccine if you're aged 50 or over and you're at higher risk from shingles because you have a severely weakened immune system.</p><p data-block-key=\"cs410\">This includes:</p><ul><li data-block-key=\"6l79j\">some people with blood cancer (such as leukaemia or lymphoma)</li><li data-block-key=\"5o6lq\">some people with HIV or AIDS</li><li data-block-key=\"1b1n0\">some people who've recently had a stem cell transplant, radiotherapy, chemotherapy or an organ transplant</li><li data-block-key=\"br8t7\">people taking certain medicines that severely weaken the immune system</li></ul><p data-block-key=\"9i31u\">You'll be given 2 doses of the shingles vaccine. These are given between 8 weeks and 6 months apart.</p><p data-block-key=\"1aqc6\">Ask your GP or care team if you're not sure if you're eligible for the shingles vaccine.</p>\n</div>"
+            }
+          ]
+        },
+        {
+          "position": 2,
+          "@type": "WebPageElement",
+          "name": "Callout",
+          "identifier": "4",
+          "text": "<h3>Important</h3><p>You can get shingles more than once, so it's important to get vaccinated even if you've had shingles before.</p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
+      "headline": "Who should have the shingles vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 3,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most people who are eligible for the shingles vaccine can have it.</p><p>You only cannot have the vaccine if you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine, or an ingredient in the vaccine.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>If you have a high temperature or feel too unwell to do your normal activities, wait until you're feeling better before having the vaccine.</p>"
+        }
+      ],
+      "description": "Most people can have the shingles vaccine. You only need to avoid it if you've had a serious allergic reaction to the vaccine, or an ingredient in it.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most people who are eligible for the shingles vaccine can have it.</p><p>You only cannot have the vaccine if you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine, or an ingredient in the vaccine.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>If you have a high temperature or feel too unwell to do your normal activities, wait until you're feeling better before having the vaccine.</p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
+      "headline": "Who cannot have the shingles vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 4,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There is 1 type of shingles vaccine given in the UK. You can check the ingredients in the patient leaflet:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/files/pil.12054.pdf\">Shingrix vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 136kb)</a></li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "You can check the ingredients in the shingles vaccine by asking to see the patient leaflet or searching for it online.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There is 1 type of shingles vaccine given in the UK. You can check the ingredients in the patient leaflet:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/files/pil.12054.pdf\">Shingrix vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 136kb)</a></li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
+      "headline": "Shingles vaccine ingredients"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 5,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Your GP surgery will usually contact you when you become eligible for the shingles vaccine. This will usually be by letter, text message, phone or email.</p><p>Sometimes you might be offered the vaccine during a GP appointment you're having for another reason.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "non-urgent",
+          "identifier": "5",
+          "text": "<h3>Speak to your GP surgery if:</h3><div class=\"block-richtext\">\n<ul><li>you think you're eligible for the shingles vaccine, but you've not been contacted</li><li>you did not have the vaccine when you were contacted and you're still under 80 (only people with a severely weakened immune system can get the vaccine after 80 years of age)</li><li>you've had the shingles vaccine before but you now have a severely weakened immune system (you may need to have the shingles vaccine again)</li><li>you're due to have your vaccine and you're feeling unwell – you may need to wait until you're feeling better before having the vaccine</li><li>you need to change your vaccination appointment</li></ul><p>Your GP surgery can book or rearrange an appointment.</p>\n</div>"
+        },
+        {
+          "position": 2,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Having the shingles vaccine at the same time as other vaccines</h3><p>You can usually have the shingles vaccine at the same time as other vaccines such as the flu vaccine, COVID-19 vaccine and pneumococcal vaccine.</p>"
+        }
+      ],
+      "description": "Your GP surgery will usually contact you when you become eligible for the shingles vaccine.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Your GP surgery will usually contact you when you become eligible for the shingles vaccine. This will usually be by letter, text message, phone or email.</p><p>Sometimes you might be offered the vaccine during a GP appointment you're having for another reason.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "non-urgent",
+          "identifier": "5",
+          "text": "<h3>Speak to your GP surgery if:</h3><div class=\"block-richtext\">\n<ul><li>you think you're eligible for the shingles vaccine, but you've not been contacted</li><li>you did not have the vaccine when you were contacted and you're still under 80 (only people with a severely weakened immune system can get the vaccine after 80 years of age)</li><li>you've had the shingles vaccine before but you now have a severely weakened immune system (you may need to have the shingles vaccine again)</li><li>you're due to have your vaccine and you're feeling unwell – you may need to wait until you're feeling better before having the vaccine</li><li>you need to change your vaccination appointment</li></ul><p>Your GP surgery can book or rearrange an appointment.</p>\n</div>"
+        },
+        {
+          "position": 2,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Having the shingles vaccine at the same time as other vaccines</h3><p>You can usually have the shingles vaccine at the same time as other vaccines such as the flu vaccine, COVID-19 vaccine and pneumococcal vaccine.</p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "headline": "How to get the shingles vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 6,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most of the side effects of the shingles vaccine are mild and get better within 2 or 3 days.</p><p>They can include:</p><ul><li>swelling, itchiness, bruising or pain where the injection was given</li><li>a headache</li><li>an aching body</li><li>feeling tired</li><li>a high temperature</li><li>shivering (chills)</li></ul><p>More serious side effects such as a severe allergic reaction are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "Common side effects of the shingles vaccine include swelling or pain where the injection was given. Serious side effects are very rare.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most of the side effects of the shingles vaccine are mild and get better within 2 or 3 days.</p><p>They can include:</p><ul><li>swelling, itchiness, bruising or pain where the injection was given</li><li>a headache</li><li>an aching body</li><li>feeling tired</li><li>a high temperature</li><li>shivering (chills)</li></ul><p>More serious side effects such as a severe allergic reaction are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
+      "headline": "Side effects of the shingles vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 7,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3><b>More about vaccine safety</b></h3><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccinations are important and the safest way to protect yourself</a></p>"
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3><b>More about vaccine safety</b></h3><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccinations are important and the safest way to protect yourself</a></p>"
+        }
+      ]
+    }
+  ],
+  "webpage": "https://www.nhs.uk/vaccinations/shingles-vaccine/"
+}
