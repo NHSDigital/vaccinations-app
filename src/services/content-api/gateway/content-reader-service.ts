@@ -1,10 +1,7 @@
 "use server";
 
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import {
-  getFilteredContentForVaccine,
-  VaccinePageContent,
-} from "@src/services/content-api/parsers/content-filter-service";
+import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import {
   getStyledContentForVaccine,
   StyledVaccineContent,
@@ -24,6 +21,7 @@ import { Logger } from "pino";
 import {
   ContentErrorTypes,
   GetContentForVaccineResponse,
+  VaccinePageContent,
 } from "@src/services/content-api/types";
 
 const log: Logger = logger.child({ module: "content-reader-service" });

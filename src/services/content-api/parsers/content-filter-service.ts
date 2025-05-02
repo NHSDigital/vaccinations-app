@@ -1,4 +1,12 @@
 import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
+import {
+  ContentApiVaccineResponse,
+  HasPartSubsection,
+  MainEntityOfPage,
+  VaccinePageContent,
+  VaccinePageSection,
+  VaccinePageSubsection,
+} from "@src/services/content-api/types";
 
 type Aspect =
   | "OverviewHealthAspect"
@@ -6,81 +14,6 @@ type Aspect =
   | "SuitabilityHealthAspect"
   | "ContraindicationsHealthAspect"
   | "GettingAccessHealthAspect";
-
-type HasPartSubsection = {
-  "@type": string;
-  text: string;
-  name: string;
-  headline?: string;
-  position: number;
-  identifier: string;
-  mainEntity?: string;
-  subjectOf?: string;
-};
-
-export type MainEntityOfPage = {
-  "@type": string;
-  hasHealthAspect?: string;
-  position: number;
-  identifier: number | string;
-  headline?: string;
-  text?: string;
-  name: string;
-  hasPart?: HasPartSubsection[];
-  mainEntityOfPage?: MainEntityOfPage[];
-  description?: string;
-};
-
-export type ContentApiVaccineResponse = {
-  "@context": string;
-  "@type": string;
-  name: string;
-  mainEntityOfPage: MainEntityOfPage[];
-  webpage: string;
-  copyrightHolder: object;
-  license: string;
-  author: object;
-  about: object;
-  description: string;
-  url: string;
-  genre: object;
-  keywords: string;
-  dateModified: string;
-  lastReviewed: string[];
-  breadcrumb: object;
-  hasPart: object[];
-  relatedLink: object;
-  contentSubTypes: object;
-};
-
-type SimpleSubsection = {
-  type: "simpleElement";
-  headline: string;
-  text: string;
-  name: string;
-};
-
-type ComplexSubsection = {
-  type: "complexElement";
-  mainEntity: string;
-  name: string;
-  subjectOf?: string;
-};
-
-export type VaccinePageSubsection = SimpleSubsection | ComplexSubsection;
-
-export type VaccinePageSection = {
-  headline: string;
-  subsections: VaccinePageSubsection[];
-};
-
-export type VaccinePageContent = {
-  overview: string;
-  whatVaccineIsFor?: VaccinePageSection;
-  whoVaccineIsFor: VaccinePageSection;
-  howToGetVaccine: VaccinePageSection;
-  webpageLink: string;
-};
 
 const _findAspect = (
   response: ContentApiVaccineResponse,

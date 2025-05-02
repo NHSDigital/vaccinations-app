@@ -3,17 +3,19 @@ import {
   _extractDescriptionForVaccine,
   _extractHeadlineForAspect,
   _extractPartsForAspect,
-  VaccinePageSubsection,
-  ContentApiVaccineResponse,
   _findAspect,
-  MainEntityOfPage,
-  VaccinePageContent,
   _hasHealthAspect,
   _extractHeadlineForContraindicationsAspect,
 } from "@src/services/content-api/parsers/content-filter-service";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 import { VaccineTypes } from "@src/models/vaccine";
 import { contentWithoutBenefitsHealthAspect } from "@test-data/content-api/helpers";
+import {
+  ContentApiVaccineResponse,
+  MainEntityOfPage,
+  VaccinePageContent,
+  VaccinePageSubsection,
+} from "@src/services/content-api/types";
 
 describe("Content Filter", () => {
   describe("_extractDescriptionForVaccine", () => {
