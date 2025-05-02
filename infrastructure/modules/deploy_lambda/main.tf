@@ -9,6 +9,7 @@ module "content_cache_hydrator_lambda_function" {
   architectures = ["arm64"]
   runtime                        = var.nodejs_version
   reserved_concurrent_executions = 1
+  timeout                        = 60
 
   create_role = false
   lambda_role = aws_iam_role.cache_lambda_iam_role.arn
