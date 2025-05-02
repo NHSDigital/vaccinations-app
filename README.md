@@ -137,6 +137,21 @@ npm run dev
 Our project integrates with NHS Login. To simulate the SSO flow, clone this [repo](https://github.com/NHSDigital/vita-login-sso-client-express)
 and follow the README to set it up.
 
+RSA Private keys and Client IDs are required for this flow. Steps to enable it:
+
+- Visit AWS Secrets Manager to get the private keys and Client IDs
+  - Values prefixed with sso are used in the fake client, and those prefixed with app are used in this project
+- Set the Client ID values in the env files of this project and the Fake Client project respectively
+- Store the private key values in pem files in your systems, preferably somewhere outside this repository (e.g. `vita_private_key.pem`, `vita_private_key_sso.pem`)
+- Before running the application, export the VitA application private key as an environment variable:
+  ```
+  export NHS_LOGIN_PRIVATE_KEY=`cat <path-to-keys>/vita_private_key.pem`
+  ```
+- Follow the steps in Fake Client repo README.md to set up the SSO private key there.
+
+SSO flow is initiated from the Fake Client. Directly accessing the application will redirect you to an error page.
+
+
 #### Mocking API Responses with Wiremock
 Our project utilizes Wiremock to provide mock responses for API endpoints. To configure these responses:
 - Place request-response mapping files (JSON) within the `wiremock/mappings` directory.
