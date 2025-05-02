@@ -17,7 +17,7 @@ describe("fetchContentForVaccine", () => {
 
   beforeEach(() => {
     (configProvider as jest.Mock).mockImplementation(
-      (): AppConfig => ({
+      (): Partial<AppConfig> => ({
         CONTENT_CACHE_PATH: "",
         CONTENT_API_KEY: testApiKey,
         CONTENT_API_ENDPOINT: testApiEndpoint,

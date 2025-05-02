@@ -1,5 +1,5 @@
-import { ContentApiVaccineResponse } from "@src/services/content-api/parsers/content-filter-service";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
+import { ContentApiVaccineResponse } from "@src/services/content-api/types";
 
 const contentWithoutBenefitsHealthAspect = () => {
   const responseWithoutBenefitsHealthAspect: ContentApiVaccineResponse = {

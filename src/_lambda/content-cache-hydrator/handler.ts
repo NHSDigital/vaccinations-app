@@ -1,12 +1,10 @@
 import { fetchContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-fetcher";
 import { writeContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-writer-service";
 import { VaccineTypes } from "@src/models/vaccine";
-import {
-  getFilteredContentForVaccine,
-  VaccinePageContent,
-} from "@src/services/content-api/parsers/content-filter-service";
+import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
 import { logger } from "@src/utils/logger";
+import { VaccinePageContent } from "@src/services/content-api/types";
 
 const log = logger.child({ module: "content-writer-lambda" });
 
