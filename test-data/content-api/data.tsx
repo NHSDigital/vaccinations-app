@@ -1,5 +1,5 @@
-import { ContentApiVaccineResponse } from "@src/services/content-api/parsers/content-filter-service";
 import { StyledVaccineContent } from "@src/services/content-api/parsers/content-styling-service";
+import { ContentApiVaccineResponse } from "@src/services/content-api/types";
 
 export const genericVaccineContentAPIResponse: ContentApiVaccineResponse = {
   "@context": "http://schema.org",
