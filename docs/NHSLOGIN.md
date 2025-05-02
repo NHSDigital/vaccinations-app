@@ -28,7 +28,13 @@ Contact Name:               <your name>
 Client ID:                  vita-app-<NHS Login Environment>
 Public Key:                 <See above, paste as plain text>
 Refresh Token:              Yes
-Scopes:                     openid, profile, gp_registration_details
+Scopes:                     openid, profile
 ```
 
 After successful set up, you will receive an email where you will get access to a list of users that you can use to test your NHS Login (OIDC) flow in the sandpit environment.
+
+
+### Setup SSO Connection between fake client and VitA app
+
+Reach out to NHS Login Support in Slack, and request the sso connection from Fake Client to VitA app and provide Client ID of each.
+This will have to be done for each SSO Client we create in the different environments.
