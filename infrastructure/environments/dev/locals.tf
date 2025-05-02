@@ -15,18 +15,18 @@ locals {
   content_cache_bucket_name = "${local.prefix}-content-cache"
 
   application_environment_variables = {
-    SSM_PREFIX           = "/${local.prefix}/"
+    SSM_PREFIX = "/${local.prefix}/"
 
-    PINO_LOG_LEVEL       = "info"
+    PINO_LOG_LEVEL = "info"
 
     CONTENT_API_ENDPOINT = "https://sandbox.api.service.nhs.uk/"
     CONTENT_CACHE_PATH   = "s3://${local.content_cache_bucket_name}"
 
-    NHS_LOGIN_URL        = "https://auth.sandpit.signin.nhs.uk"
-    NHS_LOGIN_SCOPE      = "openid profile gp_registration_details"
+    NHS_LOGIN_URL   = "https://auth.sandpit.signin.nhs.uk"
+    NHS_LOGIN_SCOPE = "openid profile gp_registration_details"
 
-    AUTH_TRUST_HOST      = "true"
-    AUTH_SECRET          = random_password.auth_secret.result
+    AUTH_TRUST_HOST = "true"
+    AUTH_SECRET     = random_password.auth_secret.result
   }
 
   default_tags = {
