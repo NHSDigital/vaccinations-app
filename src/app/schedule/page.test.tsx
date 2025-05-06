@@ -51,15 +51,19 @@ describe("Schedule Page", () => {
         href: "/vaccines/6-in-1",
       },
       {
-        name: "RSV vaccine",
+        name: "RSV",
         href: "/vaccines/rsv",
       },
       {
-        name: "Flu vaccine",
+        name: "Flu",
         href: "/vaccines/flu",
       },
       {
-        name: "Shingles vaccine",
+        name: "Pneumococcal",
+        href: "/vaccines/pneumococcal",
+      },
+      {
+        name: "Shingles",
         href: "/vaccines/shingles",
       },
     ];
