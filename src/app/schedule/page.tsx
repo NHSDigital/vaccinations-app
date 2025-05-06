@@ -21,8 +21,13 @@ const Schedule = () => {
         <CardLink title={"Shingles"} link={"/vaccines/shingles"} />
         <CardLink title={"Pneumococcal"} link={"/vaccines/pneumococcal"} />
       </div>
+      <h2 className="nhsuk-heading-s">Vaccines for children aged 1 to 15</h2>
+      <CardLink title={"Pneumococcal"} link={"/vaccines/pneumococcal"} />
       <h2 className="nhsuk-heading-s">Vaccines for babies under 1 year old</h2>
-      <CardLink title={"6-in-1 vaccine"} link={"/vaccines/6-in-1"} />
+      <div className="nhsapp-cards nhsapp-cards--stacked">
+        <CardLink title={"6-in-1"} link={"/vaccines/6-in-1"} />
+        <CardLink title={"Pneumococcal"} link={"/vaccines/pneumococcal"} />
+      </div>
     </div>
   );
 };

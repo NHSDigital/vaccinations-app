@@ -10,7 +10,7 @@ describe("Schedule Page", () => {
     render(SchedulePage);
   });
 
-  it("renders the correct page heading", async () => {
+  it("renders the page heading", async () => {
     const heading: HTMLElement = screen.getByRole("heading", {
       level: 1,
       name: "Vaccination schedule",
@@ -19,7 +19,7 @@ describe("Schedule Page", () => {
     expect(heading).toBeInTheDocument();
   });
 
-  it("renders static description text", async () => {
+  it("renders description text", async () => {
     const description: HTMLElement = screen.getByText(
       "Find out about vaccinations for babies, children and adults, including why they're important and how to get them.",
     );
@@ -29,9 +29,10 @@ describe("Schedule Page", () => {
 
   it("renders the section headings", async () => {
     const expectedSectionText: string[] = [
-      "Vaccines for babies under 1 year old",
-      "Vaccines for Adults",
       "Vaccines for Seasonal diseases",
+      "Vaccines for Adults",
+      "Vaccines for children aged 1 to 15",
+      "Vaccines for babies under 1 year old",
     ];
 
     expectedSectionText.forEach((headingText) => {
@@ -44,10 +45,10 @@ describe("Schedule Page", () => {
     });
   });
 
-  it("renders card component with props", async () => {
+  it("renders a card with links for each vaccine", async () => {
     const expectedVaccines = [
       {
-        name: "6-in-1 vaccine",
+        name: "6-in-1",
         href: "/vaccines/6-in-1",
       },
       {
@@ -57,10 +58,6 @@ describe("Schedule Page", () => {
       {
         name: "Flu",
         href: "/vaccines/flu",
-      },
-      {
-        name: "Pneumococcal",
-        href: "/vaccines/pneumococcal",
       },
       {
         name: "Shingles",
@@ -76,7 +73,16 @@ describe("Schedule Page", () => {
     });
   });
 
-  it("should contain back link to vaccination hub page", async () => {
+  it("renders several cards with links for Pneumococcal", async () => {
+    const cards: HTMLElement[] = screen.getAllByText("Pneumococcal");
+
+    expect(cards.length).toBe(3);
+    expect(cards[0].getAttribute("href")).toBe("/vaccines/pneumococcal");
+    expect(cards[1].getAttribute("href")).toBe("/vaccines/pneumococcal");
+    expect(cards[2].getAttribute("href")).toBe("/vaccines/pneumococcal");
+  });
+
+  it("should display back link to vaccination hub page", async () => {
     const pathToHubPage: string = "/";
 
     const linkToHubPage: HTMLElement = screen.getByRole("link", {
