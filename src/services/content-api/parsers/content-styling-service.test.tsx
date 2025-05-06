@@ -6,11 +6,11 @@ import {
   getStyledContentForVaccine,
   NonUrgentContent,
   StyledPageSection,
-  StyledVaccineContent,
   styleSection,
   styleSubsection,
 } from "@src/services/content-api/parsers/content-styling-service";
 import {
+  StyledVaccineContent,
   VaccinePageContent,
   VaccinePageSection,
   VaccinePageSubsection,

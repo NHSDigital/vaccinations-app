@@ -2,10 +2,7 @@
 
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
-import {
-  getStyledContentForVaccine,
-  StyledVaccineContent,
-} from "@src/services/content-api/parsers/content-styling-service";
+import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { VaccineTypes } from "@src/models/vaccine";
 import {
@@ -21,6 +18,7 @@ import { Logger } from "pino";
 import {
   ContentErrorTypes,
   GetContentForVaccineResponse,
+  StyledVaccineContent,
   VaccinePageContent,
 } from "@src/services/content-api/types";
 

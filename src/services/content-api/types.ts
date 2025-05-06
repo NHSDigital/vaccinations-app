@@ -1,4 +1,4 @@
-import { StyledVaccineContent } from "@src/services/content-api/parsers/content-styling-service";
+import { StyledPageSection } from "@src/services/content-api/parsers/content-styling-service";
 
 export type GetContentForVaccineResponse = {
   styledVaccineContent?: StyledVaccineContent;
@@ -88,6 +88,14 @@ export type VaccinePageContent = {
   whatVaccineIsFor?: VaccinePageSection;
   whoVaccineIsFor: VaccinePageSection;
   howToGetVaccine: VaccinePageSection;
+  webpageLink: string;
+};
+
+export type StyledVaccineContent = {
+  overview: string;
+  whatVaccineIsFor?: StyledPageSection;
+  whoVaccineIsFor: StyledPageSection;
+  howToGetVaccine: StyledPageSection;
   webpageLink: string;
 };
 

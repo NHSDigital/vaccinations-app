@@ -5,6 +5,7 @@ import React from "react";
 import { JSX } from "react";
 import { VaccineTypes } from "@src/models/vaccine";
 import {
+  StyledVaccineContent,
   VaccinePageContent,
   VaccinePageSection,
   VaccinePageSubsection,
@@ -26,14 +27,6 @@ export type StyledPageSection = {
 };
 
 export type NonUrgentContent = { heading: string; content: string };
-
-export type StyledVaccineContent = {
-  overview: string;
-  whatVaccineIsFor?: StyledPageSection;
-  whoVaccineIsFor: StyledPageSection;
-  howToGetVaccine: StyledPageSection;
-  webpageLink: string;
-};
 
 const _getSanitizedHtml = (html: string, id: number) => {
   return <div key={id} dangerouslySetInnerHTML={sanitiseHtml(html)} />;
