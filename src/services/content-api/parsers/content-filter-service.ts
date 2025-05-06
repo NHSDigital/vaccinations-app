@@ -60,19 +60,10 @@ const _extractPartsForAspect = (
   const aspect: MainEntityOfPage = _findAspect(response, aspectName);
   const subsections: VaccinePageSubsection[] | undefined = aspect.hasPart?.map(
     (part: HasPartSubsection) => {
-      if (part.name === "Table") {
-        _extractTable(part);
-      }
-      if (part.name === "Expander") {
-        _extractExpander(part);
-      }
-      return _extractSubsection(part);
+      return _getSubsection(part);
     },
   );
-  if (!subsections) {
-    throw new Error(`Missing subsections for Aspect: ${aspectName}`);
-  }
-  return subsections;
+  return _getSubsections(aspectName, subsections);
 };
 
 const _extractTable = (part: HasPartSubsection): VaccinePageSubsection => {
@@ -101,7 +92,9 @@ const _extractExpander = (part: HasPartSubsection): VaccinePageSubsection => {
   };
 };
 
-const _extractSubsection = (part: HasPartSubsection): VaccinePageSubsection => {
+const _extractAnyOtherSubsection = (
+  part: HasPartSubsection,
+): VaccinePageSubsection => {
   if (!part.headline) {
     log.error(`Missing headline for part: ${part.name}`); // cannot throw error
   }
@@ -113,6 +106,26 @@ const _extractSubsection = (part: HasPartSubsection): VaccinePageSubsection => {
   };
 };
 
+const _getSubsection = (part: HasPartSubsection): VaccinePageSubsection => {
+  if (part.name === "Table") {
+    return _extractTable(part);
+  }
+  if (part.name === "Expander") {
+    return _extractExpander(part);
+  }
+  return _extractAnyOtherSubsection(part);
+};
+
+const _getSubsections = (
+  aspectName: Aspect,
+  subsections?: VaccinePageSubsection[],
+): VaccinePageSubsection[] => {
+  if (!subsections) {
+    throw new Error(`Missing subsections for Aspect: ${aspectName}`);
+  }
+  return subsections;
+};
+
 const _extractDescriptionForVaccine = (
   response: ContentApiVaccineResponse,
   name: string,
@@ -121,10 +134,14 @@ const _extractDescriptionForVaccine = (
     response.mainEntityOfPage.find(
       (page: MainEntityOfPage) => page.name === name,
     );
-  if (!mainEntity?.text) {
+  return _getDescription(name, mainEntity?.text);
+};
+
+const _getDescription = (name: string, description?: string): string => {
+  if (!description) {
     throw new Error(`Missing text for description: ${name}`);
   }
-  return mainEntity.text;
+  return description;
 };
 
 const _generateWhoVaccineIsForHeading = (vaccineType: VaccineTypes): string => {
