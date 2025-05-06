@@ -32,7 +32,7 @@ describe("ContentStylingService", () => {
   };
 
   const mockTableSubsection: VaccinePageSubsection = {
-    type: "complexElement",
+    type: "tableElement",
     mainEntity:
       "<table><tr><th>Name</th><th>Age</th></tr><tr><td>Jane Smith</td><td>35</td></tr></table>",
     name: "Table",

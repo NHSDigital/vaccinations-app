@@ -7,6 +7,8 @@ import {
   VaccinePageSection,
   VaccinePageSubsection,
 } from "@src/services/content-api/types";
+import { Logger } from "pino";
+import { logger } from "@src/utils/logger";
 
 type Aspect =
   | "OverviewHealthAspect"
@@ -14,6 +16,8 @@ type Aspect =
   | "SuitabilityHealthAspect"
   | "ContraindicationsHealthAspect"
   | "GettingAccessHealthAspect";
+
+const log: Logger = logger.child({ module: "content-filter-service" });
 
 const _findAspect = (
   response: ContentApiVaccineResponse,
@@ -56,30 +60,57 @@ const _extractPartsForAspect = (
   const aspect: MainEntityOfPage = _findAspect(response, aspectName);
   const subsections: VaccinePageSubsection[] | undefined = aspect.hasPart?.map(
     (part: HasPartSubsection) => {
-      // TODO: fix the schema so that we handle part.headline being undefined
-      // if (!part.headline) {
-      //   // throw new Error(`Missing headline for part: ${part.name}`);
-      // }
-      if (part.name === "Table" || part.name === "Expander") {
-        return {
-          type: "complexElement",
-          mainEntity: part.mainEntity || "",
-          name: part.name,
-          subjectOf: part.subjectOf || "",
-        };
+      if (part.name === "Table") {
+        _extractTable(part);
       }
-      return {
-        type: "simpleElement",
-        headline: part.headline ?? "",
-        text: part.text,
-        name: part.name,
-      };
+      if (part.name === "Expander") {
+        _extractExpander(part);
+      }
+      return _extractSubsection(part);
     },
   );
   if (!subsections) {
     throw new Error(`Missing subsections for Aspect: ${aspectName}`);
   }
   return subsections;
+};
+
+const _extractTable = (part: HasPartSubsection): VaccinePageSubsection => {
+  if (!part.mainEntity) {
+    throw new Error(`Missing data for table: ${part}`);
+  }
+  return {
+    type: "tableElement",
+    name: part.name,
+    mainEntity: part.mainEntity,
+  };
+};
+
+const _extractExpander = (part: HasPartSubsection): VaccinePageSubsection => {
+  if (!part.mainEntity) {
+    throw new Error(`Missing data for expander text: ${part}`);
+  }
+  if (!part.subjectOf) {
+    throw new Error(`Missing data for expander text: ${part}`);
+  }
+  return {
+    type: "expanderElement",
+    name: part.name,
+    mainEntity: part.mainEntity,
+    subjectOf: part.subjectOf,
+  };
+};
+
+const _extractSubsection = (part: HasPartSubsection): VaccinePageSubsection => {
+  if (!part.headline) {
+    log.error(`Missing headline for part: ${part.name}`); // cannot throw error
+  }
+  return {
+    type: "simpleElement",
+    headline: part.headline || "",
+    text: part.text,
+    name: part.name,
+  };
 };
 
 const _extractDescriptionForVaccine = (

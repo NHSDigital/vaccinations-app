@@ -62,13 +62,20 @@ type SimpleSubsection = {
   name: string;
 };
 
-type ComplexSubsection = {
-  type: "complexElement";
-  mainEntity: string;
+type TableSubsection = {
+  type: "tableElement";
   name: string;
-  subjectOf?: string;
+  mainEntity: string;
 };
 
+type ExpanderSubsection = {
+  type: "expanderElement";
+  name: string;
+  subjectOf: string;
+  mainEntity: string;
+};
+
+type ComplexSubsection = ExpanderSubsection | TableSubsection;
 export type VaccinePageSubsection = SimpleSubsection | ComplexSubsection;
 
 export type VaccinePageSection = {

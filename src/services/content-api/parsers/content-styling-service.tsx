@@ -35,19 +35,20 @@ export type StyledVaccineContent = {
   webpageLink: string;
 };
 
+const _getSanitizedHtml = (html: string, id: number) => {
+  return <div key={id} dangerouslySetInnerHTML={sanitiseHtml(html)} />;
+};
+
 const styleSubsection = (
   subsection: VaccinePageSubsection,
   id: number,
 ): JSX.Element => {
-  if (subsection.type === "complexElement") {
-    return (
-      <div
-        key={id}
-        dangerouslySetInnerHTML={sanitiseHtml(subsection.mainEntity)}
-      />
-    );
+  if (
+    subsection.type === "tableElement" ||
+    subsection.type === "expanderElement"
+  ) {
+    return _getSanitizedHtml(subsection.mainEntity, id);
   }
-
   let text: string = subsection.text;
   if (subsection.headline) {
     text = `<h3 key={id}>${subsection.headline}</h3>`.concat(text);
@@ -58,7 +59,7 @@ const styleSubsection = (
     const { heading, content } = extractHeadingAndContent(subsection.text);
     return <NonUrgentCareCard key={id} heading={heading} content={content} />;
   } else {
-    return <div key={id} dangerouslySetInnerHTML={sanitiseHtml(text)} />;
+    return _getSanitizedHtml(text, id);
   }
 };
 
@@ -70,6 +71,7 @@ const styleSection = (section: VaccinePageSection): StyledPageSection => {
         (subsection: VaccinePageSubsection, index: number) =>
           styleSubsection(subsection, index),
       )}
+      ;
     </>
   );
   return {
