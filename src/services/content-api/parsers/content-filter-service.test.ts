@@ -129,6 +129,63 @@ describe("Content Filter", () => {
 
       expect(errorMessage).toThrow(`Missing subsections for Aspect: ${aspect}`);
     });
+
+    it("should extract details from nested expander object", () => {
+      const expectedParts: VaccinePageSubsection[] = [
+        {
+          type: "expanderElement",
+          headline: "First Expander subjectOf",
+          name: "Expander",
+          mainEntity: "<div>First Expander mainEntity</div>",
+        },
+        {
+          type: "expanderElement",
+          headline: "Second Expander subjectOf",
+          name: "Expander",
+          mainEntity: "<div>Second Expander mainEntity</div>",
+        },
+      ];
+
+      const aspect = "SuitabilityHealthAspect";
+      const responseWithExpanderGroup: ContentApiVaccineResponse = {
+        ...genericVaccineContentAPIResponse,
+        mainEntityOfPage: [
+          {
+            ...genericVaccineContentAPIResponse.mainEntityOfPage[2],
+            hasPart: [
+              {
+                position: 1,
+                name: "Expander Group",
+                identifier: "20",
+                "@type": "",
+                mainEntity: [
+                  {
+                    "@type": "Type",
+                    position: 0,
+                    name: "Expander",
+                    subjectOf: "First Expander subjectOf",
+                    identifier: "18",
+                    mainEntity: "<div>First Expander mainEntity</div>",
+                  },
+                  {
+                    "@type": "Type",
+                    position: 1,
+                    name: "Expander",
+                    subjectOf: "Second Expander subjectOf",
+                    identifier: "18",
+                    mainEntity: "<div>Second Expander mainEntity</div>",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const parts = _extractPartsForAspect(responseWithExpanderGroup, aspect);
+
+      expect(parts).toEqual(expectedParts);
+    });
   });
 
   describe("_findAspect", () => {

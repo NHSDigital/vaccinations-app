@@ -9,14 +9,24 @@ export enum ContentErrorTypes {
   CONTENT_LOADING_ERROR,
 }
 
+export type MainEntity = {
+  "@type": string;
+  text?: string;
+  position: number;
+  name: string;
+  subjectOf: string;
+  identifier: string;
+  mainEntity: string;
+};
+
 export type HasPartSubsection = {
   "@type": string;
-  text: string;
+  text?: string;
   name: string;
   headline?: string;
   position: number;
   identifier: string;
-  mainEntity?: string;
+  mainEntity?: string | MainEntity[];
   subjectOf?: string;
 };
 
@@ -71,8 +81,8 @@ type TableSubsection = {
 type ExpanderSubsection = {
   type: "expanderElement";
   name: string;
-  subjectOf: string;
   mainEntity: string;
+  headline: string;
 };
 
 type ComplexSubsection = ExpanderSubsection | TableSubsection;

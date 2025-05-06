@@ -36,10 +36,13 @@ const styleSubsection = (
   subsection: VaccinePageSubsection,
   id: number,
 ): JSX.Element => {
-  if (
-    subsection.type === "tableElement" ||
-    subsection.type === "expanderElement"
-  ) {
+  if (subsection.type === "expanderElement") {
+    const content = `<h3 key={id}>${subsection.headline}</h3>`.concat(
+      subsection.mainEntity,
+    );
+    return _getSanitizedHtml(content, id);
+  }
+  if (subsection.type === "tableElement") {
     return _getSanitizedHtml(subsection.mainEntity, id);
   }
   let text: string = subsection.text;

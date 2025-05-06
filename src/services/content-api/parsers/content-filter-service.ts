@@ -58,11 +58,17 @@ const _extractPartsForAspect = (
   aspectName: Aspect,
 ): VaccinePageSubsection[] => {
   const aspect: MainEntityOfPage = _findAspect(response, aspectName);
-  const subsections: VaccinePageSubsection[] | undefined = aspect.hasPart?.map(
-    (part: HasPartSubsection) => {
-      return _getSubsection(part);
-    },
-  );
+  const subsections: VaccinePageSubsection[] | undefined =
+    aspect.hasPart?.flatMap((part: HasPartSubsection) => {
+      if (part.name === "Expander Group" && Array.isArray(part.mainEntity)) {
+        const mainEntitySubsections = part.mainEntity.map((something) => {
+          return _getSubsection(something);
+        });
+        return mainEntitySubsections;
+      } else {
+        return _getSubsection(part);
+      }
+    });
   return _getSubsections(aspectName, subsections);
 };
 
@@ -70,11 +76,15 @@ const _extractTable = (part: HasPartSubsection): VaccinePageSubsection => {
   if (!part.mainEntity) {
     throw new Error(`Missing data for table: ${part}`);
   }
-  return {
-    type: "tableElement",
-    name: part.name,
-    mainEntity: part.mainEntity,
-  };
+  if (typeof part.mainEntity == "string") {
+    return {
+      type: "tableElement",
+      name: part.name,
+      mainEntity: part.mainEntity,
+    };
+  } else {
+    throw new Error(`mainEntity in table not a string: ${part}`);
+  }
 };
 
 const _extractExpander = (part: HasPartSubsection): VaccinePageSubsection => {
@@ -84,12 +94,16 @@ const _extractExpander = (part: HasPartSubsection): VaccinePageSubsection => {
   if (!part.subjectOf) {
     throw new Error(`Missing data for expander text: ${part}`);
   }
-  return {
-    type: "expanderElement",
-    name: part.name,
-    mainEntity: part.mainEntity,
-    subjectOf: part.subjectOf,
-  };
+  if (typeof part.mainEntity == "string") {
+    return {
+      type: "expanderElement",
+      name: part.name,
+      mainEntity: part.mainEntity,
+      headline: part.subjectOf,
+    };
+  } else {
+    throw new Error(`mainEntity in expander not a string: ${part}`);
+  }
 };
 
 const _extractAnyOtherSubsection = (
@@ -101,7 +115,7 @@ const _extractAnyOtherSubsection = (
   return {
     type: "simpleElement",
     headline: part.headline || "",
-    text: part.text,
+    text: part.text || "",
     name: part.name,
   };
 };
