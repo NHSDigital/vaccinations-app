@@ -43,6 +43,9 @@ jobs:
       - name: "Install NPM packages"
         run: |
           npm ci --ignore-scripts
+      - name: "Run typescript compiler"
+        run: |
+          tsc --noEmit
       - name: "Run unit test suite"
         run: |
           make test-unit

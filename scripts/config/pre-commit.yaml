@@ -1,6 +1,11 @@
 repos:
 - repo: local
   hooks:
+  - id: run-typescript-compiler
+    name: Run typescript compiler
+    entry: tsc --noEmit
+    language: system
+    pass_filenames: false
   - id: run-prettier
     name: Run prettier
     entry: ./scripts/githooks/format-prettier.sh

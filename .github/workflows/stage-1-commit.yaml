@@ -140,3 +140,13 @@ jobs:
       - name: "Save the linting result"
         run: |
           echo "Nothing to save"
+    typescript-compiler:
+      name: "Run typescript compiler"
+      runs-on: ubuntu-latest
+      timeout-minutes: 5
+      steps:
+        - name: "Checkout code"
+          uses: actions/checkout@v4
+        - name: "Run typescript compiler"
+          run: |
+            tsc --noEmit
