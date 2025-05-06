@@ -64,7 +64,6 @@ const styleSection = (section: VaccinePageSection): StyledPageSection => {
         (subsection: VaccinePageSubsection, index: number) =>
           styleSubsection(subsection, index),
       )}
-      ;
     </>
   );
   return {
