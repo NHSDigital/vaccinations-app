@@ -130,7 +130,42 @@ describe("Content Filter", () => {
       expect(errorMessage).toThrow(`Missing subsections for Aspect: ${aspect}`);
     });
 
-    it("should extract details from nested expander object", () => {
+    it("should extract and flatten nested expanders from expander groups", () => {
+      const expanderGroupPart = {
+        position: 1,
+        name: "Expander Group",
+        identifier: "20",
+        "@type": "",
+        mainEntity: [
+          {
+            "@type": "Type",
+            position: 0,
+            name: "Expander",
+            subjectOf: "First Expander subjectOf",
+            identifier: "18",
+            mainEntity: "<div>First Expander mainEntity</div>",
+          },
+          {
+            "@type": "Type",
+            position: 1,
+            name: "Expander",
+            subjectOf: "Second Expander subjectOf",
+            identifier: "18",
+            mainEntity: "<div>Second Expander mainEntity</div>",
+          },
+        ],
+      };
+
+      const responseWithExpanderGroup: ContentApiVaccineResponse = {
+        ...genericVaccineContentAPIResponse,
+        mainEntityOfPage: [
+          {
+            ...genericVaccineContentAPIResponse.mainEntityOfPage[2],
+            hasPart: [expanderGroupPart],
+          },
+        ],
+      };
+
       const expectedParts: VaccinePageSubsection[] = [
         {
           type: "expanderElement",
@@ -147,7 +182,14 @@ describe("Content Filter", () => {
       ];
 
       const aspect = "SuitabilityHealthAspect";
-      const responseWithExpanderGroup: ContentApiVaccineResponse = {
+
+      const parts = _extractPartsForAspect(responseWithExpanderGroup, aspect);
+
+      expect(parts).toEqual(expectedParts);
+    });
+
+    it("should throw an error if expander group mainEntity does not contain an array of expanders", async () => {
+      const responseWithInvalidExpanderGroup: ContentApiVaccineResponse = {
         ...genericVaccineContentAPIResponse,
         mainEntityOfPage: [
           {
@@ -158,33 +200,22 @@ describe("Content Filter", () => {
                 name: "Expander Group",
                 identifier: "20",
                 "@type": "",
-                mainEntity: [
-                  {
-                    "@type": "Type",
-                    position: 0,
-                    name: "Expander",
-                    subjectOf: "First Expander subjectOf",
-                    identifier: "18",
-                    mainEntity: "<div>First Expander mainEntity</div>",
-                  },
-                  {
-                    "@type": "Type",
-                    position: 1,
-                    name: "Expander",
-                    subjectOf: "Second Expander subjectOf",
-                    identifier: "18",
-                    mainEntity: "<div>Second Expander mainEntity</div>",
-                  },
-                ],
+                mainEntity: "invalid-string",
               },
             ],
           },
         ],
       };
 
-      const parts = _extractPartsForAspect(responseWithExpanderGroup, aspect);
+      const aspect = "SuitabilityHealthAspect";
 
-      expect(parts).toEqual(expectedParts);
+      const errorMessage = () => {
+        _extractPartsForAspect(responseWithInvalidExpanderGroup, aspect);
+      };
+
+      expect(errorMessage).toThrow(
+        `Expander Group mainEntity does not contain list of expanders for Aspect: ${aspect}`,
+      );
     });
   });
 

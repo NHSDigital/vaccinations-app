@@ -60,11 +60,19 @@ const _extractPartsForAspect = (
   const aspect: MainEntityOfPage = _findAspect(response, aspectName);
   const subsections: VaccinePageSubsection[] | undefined =
     aspect.hasPart?.flatMap((part: HasPartSubsection) => {
-      if (part.name === "Expander Group" && Array.isArray(part.mainEntity)) {
-        const mainEntitySubsections = part.mainEntity.map((something) => {
-          return _getSubsection(something);
-        });
-        return mainEntitySubsections;
+      if (part.name === "Expander Group") {
+        if (Array.isArray(part.mainEntity)) {
+          const mainEntitySubsections = part.mainEntity.map(
+            (mainEntityElement) => {
+              return _getSubsection(mainEntityElement);
+            },
+          );
+          return mainEntitySubsections;
+        } else {
+          throw new Error(
+            `Expander Group mainEntity does not contain list of expanders for Aspect: ${aspectName}`,
+          );
+        }
       } else {
         return _getSubsection(part);
       }
