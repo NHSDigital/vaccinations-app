@@ -53,6 +53,27 @@ const _extractHeadlineForAspect = (
   return aspect.headline;
 };
 
+function _extractAllElementsFromExpanderGroup(
+  part: HasPartSubsection,
+  aspectName:
+    | "OverviewHealthAspect"
+    | "BenefitsHealthAspect"
+    | "SuitabilityHealthAspect"
+    | "ContraindicationsHealthAspect"
+    | "GettingAccessHealthAspect",
+) {
+  if (Array.isArray(part.mainEntity)) {
+    const mainEntitySubsections = part.mainEntity.map((mainEntityElement) => {
+      return _getSubsection(mainEntityElement);
+    });
+    return mainEntitySubsections;
+  } else {
+    throw new Error(
+      `Expander Group mainEntity does not contain list of expanders for Aspect: ${aspectName}`,
+    );
+  }
+}
+
 const _extractPartsForAspect = (
   response: ContentApiVaccineResponse,
   aspectName: Aspect,
@@ -61,18 +82,7 @@ const _extractPartsForAspect = (
   const subsections: VaccinePageSubsection[] | undefined =
     aspect.hasPart?.flatMap((part: HasPartSubsection) => {
       if (part.name === "Expander Group") {
-        if (Array.isArray(part.mainEntity)) {
-          const mainEntitySubsections = part.mainEntity.map(
-            (mainEntityElement) => {
-              return _getSubsection(mainEntityElement);
-            },
-          );
-          return mainEntitySubsections;
-        } else {
-          throw new Error(
-            `Expander Group mainEntity does not contain list of expanders for Aspect: ${aspectName}`,
-          );
-        }
+        return _extractAllElementsFromExpanderGroup(part, aspectName);
       } else {
         return _getSubsection(part);
       }
@@ -96,10 +106,7 @@ const _extractTable = (part: HasPartSubsection): VaccinePageSubsection => {
 };
 
 const _extractExpander = (part: HasPartSubsection): VaccinePageSubsection => {
-  if (!part.mainEntity) {
-    throw new Error(`Missing data for expander text: ${part}`);
-  }
-  if (!part.subjectOf) {
+  if (!part.mainEntity || !part.subjectOf) {
     throw new Error(`Missing data for expander text: ${part}`);
   }
   if (typeof part.mainEntity == "string") {
