@@ -217,6 +217,108 @@ describe("Content Filter", () => {
         `Expander Group mainEntity does not contain list of expanders for Aspect: ${aspect}`,
       );
     });
+
+    it("should throw if expander is missing mainEntity field", () => {
+      const responseExpanderWithoutMainEntityField: ContentApiVaccineResponse =
+        {
+          ...genericVaccineContentAPIResponse,
+          mainEntityOfPage: [
+            {
+              ...genericVaccineContentAPIResponse.mainEntityOfPage[2],
+              hasPart: [
+                {
+                  "@type": "Type",
+                  position: 4,
+                  name: "Expander",
+                  subjectOf: "First Expander subjectOf",
+                  identifier: "18",
+                },
+              ],
+            },
+          ],
+        };
+      const aspect = "SuitabilityHealthAspect";
+
+      const errorMessage = () => {
+        _extractPartsForAspect(responseExpanderWithoutMainEntityField, aspect);
+      };
+
+      expect(errorMessage).toThrow(
+        `mainEntity or subjectOf field missing in Expander (position: 4, identifier: 18)`,
+      );
+    });
+
+    it("should throw if expander is missing subjectOf field", () => {
+      const responseExpanderWithoutSubjectOfField: ContentApiVaccineResponse = {
+        ...genericVaccineContentAPIResponse,
+        mainEntityOfPage: [
+          {
+            ...genericVaccineContentAPIResponse.mainEntityOfPage[2],
+            hasPart: [
+              {
+                "@type": "Type",
+                position: 7,
+                name: "Expander",
+                identifier: "10",
+                mainEntity: "content",
+              },
+            ],
+          },
+        ],
+      };
+      const aspect = "SuitabilityHealthAspect";
+
+      const errorMessage = () => {
+        _extractPartsForAspect(responseExpanderWithoutSubjectOfField, aspect);
+      };
+
+      expect(errorMessage).toThrow(
+        `mainEntity or subjectOf field missing in Expander (position: 7, identifier: 10)`,
+      );
+    });
+
+    it("should throw if expander mainEntity is not a valid string value", () => {
+      const responseExpanderWithInvalidMainEntityField: ContentApiVaccineResponse =
+        {
+          ...genericVaccineContentAPIResponse,
+          mainEntityOfPage: [
+            {
+              ...genericVaccineContentAPIResponse.mainEntityOfPage[2],
+              hasPart: [
+                {
+                  "@type": "Type",
+                  position: 9,
+                  name: "Expander",
+                  identifier: "8",
+                  subjectOf: "subject",
+                  mainEntity: [
+                    {
+                      "@type": "Type",
+                      position: 0,
+                      name: "Expander",
+                      subjectOf: "invalid Expander",
+                      identifier: "2",
+                      mainEntity: "invalid-value",
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+      const aspect = "SuitabilityHealthAspect";
+
+      const errorMessage = () => {
+        _extractPartsForAspect(
+          responseExpanderWithInvalidMainEntityField,
+          aspect,
+        );
+      };
+
+      expect(errorMessage).toThrow(
+        `mainEntity in Expander is not a string (position: 9, identifier: 8)`,
+      );
+    });
   });
 
   describe("_findAspect", () => {

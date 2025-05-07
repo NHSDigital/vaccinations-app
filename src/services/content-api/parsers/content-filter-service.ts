@@ -53,22 +53,6 @@ const _extractHeadlineForAspect = (
   return aspect.headline;
 };
 
-function _extractAllElementsFromExpanderGroup(
-  part: HasPartSubsection,
-  aspectName: Aspect,
-) {
-  if (Array.isArray(part.mainEntity)) {
-    const mainEntitySubsections = part.mainEntity.map((mainEntityElement) => {
-      return _getSubsection(mainEntityElement);
-    });
-    return mainEntitySubsections;
-  } else {
-    throw new Error(
-      `Expander Group mainEntity does not contain list of expanders for Aspect: ${aspectName}`,
-    );
-  }
-}
-
 const _extractPartsForAspect = (
   response: ContentApiVaccineResponse,
   aspectName: Aspect,
@@ -83,6 +67,22 @@ const _extractPartsForAspect = (
       }
     });
   return _getSubsections(aspectName, subsections);
+};
+
+const _extractAllElementsFromExpanderGroup = (
+  part: HasPartSubsection,
+  aspectName: Aspect,
+) => {
+  if (Array.isArray(part.mainEntity)) {
+    const mainEntitySubsections = part.mainEntity.map((mainEntityElement) => {
+      return _getSubsection(mainEntityElement);
+    });
+    return mainEntitySubsections;
+  } else {
+    throw new Error(
+      `Expander Group mainEntity does not contain list of expanders for Aspect: ${aspectName}`,
+    );
+  }
 };
 
 const _extractTable = (part: HasPartSubsection): VaccinePageSubsection => {
@@ -102,7 +102,9 @@ const _extractTable = (part: HasPartSubsection): VaccinePageSubsection => {
 
 const _extractExpander = (part: HasPartSubsection): VaccinePageSubsection => {
   if (!part.mainEntity || !part.subjectOf) {
-    throw new Error(`Missing data for expander text: ${part}`);
+    throw new Error(
+      `mainEntity or subjectOf field missing in Expander (position: ${part.position}, identifier: ${part.identifier})`,
+    );
   }
   if (typeof part.mainEntity == "string") {
     return {
@@ -112,7 +114,9 @@ const _extractExpander = (part: HasPartSubsection): VaccinePageSubsection => {
       headline: part.subjectOf,
     };
   } else {
-    throw new Error(`mainEntity in expander not a string: ${part}`);
+    throw new Error(
+      `mainEntity in Expander is not a string (position: ${part.position}, identifier: ${part.identifier})`,
+    );
   }
 };
 
