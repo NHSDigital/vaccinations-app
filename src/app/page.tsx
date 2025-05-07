@@ -27,13 +27,10 @@ const VaccinationsHub = () => {
         vaccinations may not be needed or have already been given.
       </p>
       <div className="nhsapp-cards nhsapp-cards--stacked">
-        <CardLink title={"RSV vaccine"} link={"/vaccines/rsv"} />
-        <CardLink
-          title={"Pneumococcal vaccine"}
-          link={"/vaccines/pneumococcal"}
-        />
-        <CardLink title={"Flu vaccine"} link={"/vaccines/flu"} />
-        <CardLink title={"Shingles vaccine"} link={"/vaccines/shingles"} />
+        <CardLink title={"Flu"} link={"/vaccines/flu"} />
+        <CardLink title={"Pneumococcal"} link={"/vaccines/pneumococcal"} />
+        <CardLink title={"RSV"} link={"/vaccines/rsv"} />
+        <CardLink title={"Shingles"} link={"/vaccines/shingles"} />
       </div>
       <div>
         <Link prefetch={false} href="/schedule">

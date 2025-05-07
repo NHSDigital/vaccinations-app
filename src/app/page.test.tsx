@@ -44,32 +44,32 @@ describe("Vaccination Hub Page", () => {
     expect(heading).toBeInTheDocument();
   });
 
-  it("renders RSV vaccine link", async () => {
-    const link: HTMLElement = screen.getByRole("link", { name: "RSV vaccine" });
+  it("renders Flu vaccine link", async () => {
+    const link: HTMLElement = screen.getByRole("link", { name: "Flu" });
 
     expect(link).toBeInTheDocument();
-    expect(link.getAttribute("href")).toEqual("/vaccines/rsv");
+    expect(link.getAttribute("href")).toEqual("/vaccines/flu");
   });
 
   it("renders Pneumococcal vaccine link", async () => {
     const link: HTMLElement = screen.getByRole("link", {
-      name: "Pneumococcal vaccine",
+      name: "Pneumococcal",
     });
 
     expect(link).toBeInTheDocument();
     expect(link.getAttribute("href")).toEqual("/vaccines/pneumococcal");
   });
 
-  it("renders Flu vaccine link", async () => {
-    const link: HTMLElement = screen.getByRole("link", { name: "Flu vaccine" });
+  it("renders RSV vaccine link", async () => {
+    const link: HTMLElement = screen.getByRole("link", { name: "RSV" });
 
     expect(link).toBeInTheDocument();
-    expect(link.getAttribute("href")).toEqual("/vaccines/flu");
+    expect(link.getAttribute("href")).toEqual("/vaccines/rsv");
   });
 
   it("renders Shingles vaccine link", async () => {
     const link: HTMLElement = screen.getByRole("link", {
-      name: "Shingles vaccine",
+      name: "Shingles",
     });
 
     expect(link).toBeInTheDocument();
