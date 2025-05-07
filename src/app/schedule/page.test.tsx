@@ -29,8 +29,8 @@ describe("Schedule Page", () => {
 
   it("renders the section headings", async () => {
     const expectedSectionText: string[] = [
-      "Vaccines for Seasonal diseases",
-      "Vaccines for Adults",
+      "Seasonal vaccinations",
+      "Vaccines for adults",
       "Vaccines for children aged 1 to 15",
       "Vaccines for babies under 1 year old",
     ];
