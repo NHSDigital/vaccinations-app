@@ -55,12 +55,7 @@ const _extractHeadlineForAspect = (
 
 function _extractAllElementsFromExpanderGroup(
   part: HasPartSubsection,
-  aspectName:
-    | "OverviewHealthAspect"
-    | "BenefitsHealthAspect"
-    | "SuitabilityHealthAspect"
-    | "ContraindicationsHealthAspect"
-    | "GettingAccessHealthAspect",
+  aspectName: Aspect,
 ) {
   if (Array.isArray(part.mainEntity)) {
     const mainEntitySubsections = part.mainEntity.map((mainEntityElement) => {
