@@ -1,5 +1,7 @@
 "use client";
 
+import styles from "./styles.module.css";
+
 import { JSX, use } from "react";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import { useVaccineContentContextValue } from "@src/app/_components/providers/VaccineContentProvider";
@@ -23,7 +25,7 @@ const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
 
   return (
-    <>
+    <div className={styles.tableCellSpanHide}>
       {contentError === ContentErrorTypes.CONTENT_LOADING_ERROR ||
       styledVaccineContent === undefined ? (
         <VaccineError vaccineType={vaccineType} />
@@ -61,7 +63,7 @@ const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
           </a>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

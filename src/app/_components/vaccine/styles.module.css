@@ -1,0 +1,7 @@
+/*
+ * The content api returns tables with cells containing spans in them.
+ * These spans contain column heading, and those are unwanted.
+*/
+.tableCellSpanHide td[role="cell"] span {
+  display: none;
+}
