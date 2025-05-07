@@ -10,7 +10,9 @@ export async function middleware(request: NextRequest) {
   log.info(`Inspecting ${request.nextUrl}`);
   const session: Session | null = await auth();
   if (!session?.user?.birthdate) {
-    return NextResponse.redirect(new URL(`/sso-failure?error=No active session found`, request.url));
+    return NextResponse.redirect(
+      new URL(`/sso-failure?error=No active session found`, request.url),
+    );
   }
   log.info(session, "Session Object");
   return NextResponse.next();
@@ -26,6 +28,6 @@ export const config = {
      * 4. /favicon.ico (exclude the favicon path)
      * 5. /nhsuk-frontend-9.1.0 (exclude nhsuk js)
      */
-    "/((?!api/auth|api/sso|sso-failure|favicon.ico|nhsuk-frontend-9.1.0|_next/static|_next/image).*)"
-  ]
+    "/((?!api/auth|api/sso|sso-failure|favicon.ico|nhsuk-frontend-9.1.0|_next/static|_next/image).*)",
+  ],
 };

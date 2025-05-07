@@ -10,6 +10,7 @@ module "content_cache_hydrator_lambda_function" {
   runtime                        = var.nodejs_version
   reserved_concurrent_executions = 1
   timeout                        = 60
+  publish                        = true
 
   create_role = false
   lambda_role = aws_iam_role.cache_lambda_iam_role.arn
