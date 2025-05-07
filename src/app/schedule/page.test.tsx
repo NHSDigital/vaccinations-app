@@ -13,7 +13,7 @@ describe("Schedule Page", () => {
   it("renders the page heading", async () => {
     const heading: HTMLElement = screen.getByRole("heading", {
       level: 1,
-      name: "Vaccination schedule",
+      name: "Vaccines for all ages",
     });
 
     expect(heading).toBeInTheDocument();
