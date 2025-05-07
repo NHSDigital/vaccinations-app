@@ -23,7 +23,6 @@ const VaccineError = ({ vaccineType }: VaccineProps): JSX.Element => {
             <a href="https://www.nhs.uk/vaccinations/">
               vaccinations on NHS.uk
             </a>
-            .
           </p>
         </ErrorSummary.Body>
       </ErrorSummary>

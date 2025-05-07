@@ -71,7 +71,7 @@ describe("Any vaccine page", () => {
       await renderNamedVaccinePage(VaccineTypes.FLU);
 
       const childFluLink: HTMLElement = screen.getByRole("link", {
-        name: "children\'s flu vaccine",
+        name: "children's flu vaccine",
       });
 
       expect(childFluLink).toBeInTheDocument();

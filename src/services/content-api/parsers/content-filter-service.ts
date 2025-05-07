@@ -128,8 +128,8 @@ const _extractAnyOtherSubsection = (
   }
   return {
     type: "simpleElement",
-    headline: part.headline || "",
-    text: part.text || "",
+    headline: part.headline ?? "",
+    text: part.text ?? "",
     name: part.name,
   };
 };

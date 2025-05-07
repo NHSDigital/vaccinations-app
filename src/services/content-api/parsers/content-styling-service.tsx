@@ -1,8 +1,7 @@
 import sanitiseHtml from "@src/utils/sanitise-html";
 import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
-import React from "react";
-import { JSX } from "react";
+import React, { JSX } from "react";
 import { VaccineTypes } from "@src/models/vaccine";
 import {
   StyledVaccineContent,
