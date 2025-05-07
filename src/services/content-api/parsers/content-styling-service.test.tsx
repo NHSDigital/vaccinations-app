@@ -4,12 +4,12 @@ import { isValidElement, JSX } from "react";
 import {
   extractHeadingAndContent,
   getStyledContentForVaccine,
-  NonUrgentContent,
-  StyledPageSection,
   styleSection,
   styleSubsection,
 } from "@src/services/content-api/parsers/content-styling-service";
 import {
+  NonUrgentContent,
+  StyledPageSection,
   StyledVaccineContent,
   VaccinePageContent,
   VaccinePageSection,
