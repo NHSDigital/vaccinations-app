@@ -1,4 +1,4 @@
-import { StyledPageSection } from "@src/services/content-api/parsers/content-styling-service";
+import { JSX } from "react";
 
 export type GetContentForVaccineResponse = {
   styledVaccineContent?: StyledVaccineContent;
@@ -100,6 +100,13 @@ export type VaccinePageContent = {
   howToGetVaccine: VaccinePageSection;
   webpageLink: string;
 };
+
+export type StyledPageSection = {
+  heading: string;
+  component: JSX.Element;
+};
+
+export type NonUrgentContent = { heading: string; content: string };
 
 export type StyledVaccineContent = {
   overview: string;

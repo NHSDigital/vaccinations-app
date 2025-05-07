@@ -4,6 +4,8 @@ import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCa
 import React, { JSX } from "react";
 import { VaccineTypes } from "@src/models/vaccine";
 import {
+  NonUrgentContent,
+  StyledPageSection,
   StyledVaccineContent,
   VaccinePageContent,
   VaccinePageSection,
@@ -19,13 +21,6 @@ const Subsections: Record<SubsectionTypes, string> = {
   [SubsectionTypes.INFORMATION]: "Information",
   [SubsectionTypes.NON_URGENT]: "non-urgent",
 };
-
-export type StyledPageSection = {
-  heading: string;
-  component: JSX.Element;
-};
-
-export type NonUrgentContent = { heading: string; content: string };
 
 const _getSanitizedHtml = (html: string, id: number) => {
   return <div key={id} dangerouslySetInnerHTML={sanitiseHtml(html)} />;
