@@ -57,7 +57,11 @@ const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
               component={styledVaccineContent.howToGetVaccine.component}
             />
           </div>
-          <a href={styledVaccineContent.webpageLink} target="_blank">
+          <a
+            href={styledVaccineContent.webpageLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Find out more about the {vaccineInfo.displayName.toLowerCase()}{" "}
             vaccination
           </a>

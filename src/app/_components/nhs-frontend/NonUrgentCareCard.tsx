@@ -1,5 +1,3 @@
-import sanitiseHtml from "@src/utils/sanitise-html";
-
 interface NonUrgentCareCardProps {
   heading: string;
   content: string;
@@ -20,7 +18,7 @@ const NonUrgentCareCard = ({ heading, content }: NonUrgentCareCardProps) => {
 
       <div
         className="nhsuk-card__content"
-        dangerouslySetInnerHTML={sanitiseHtml(content)}
+        dangerouslySetInnerHTML={{ __html: content }}
       />
     </div>
   );

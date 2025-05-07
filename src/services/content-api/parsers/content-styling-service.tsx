@@ -42,6 +42,7 @@ const styleSubsection = (
   if (subsection.type === "tableElement") {
     return _getSanitizedHtml(subsection.mainEntity, id);
   }
+
   let text: string = subsection.text;
   if (subsection.headline) {
     text = `<h3 key={id}>${subsection.headline}</h3>`.concat(text);

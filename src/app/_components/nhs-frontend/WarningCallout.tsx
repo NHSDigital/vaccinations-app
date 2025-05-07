@@ -1,5 +1,3 @@
-import sanitiseHtml from "@src/utils/sanitise-html";
-
 interface WarningCalloutProps {
   heading: string;
   content: string;
@@ -15,7 +13,7 @@ const WarningCallout = ({ heading, content }: WarningCalloutProps) => {
           {heading}
         </span>
       </h3>
-      <div dangerouslySetInnerHTML={sanitiseHtml(content)} />
+      <div dangerouslySetInnerHTML={{ __html: content }} />
     </div>
   );
 };
