@@ -124,7 +124,7 @@ const _extractAnyOtherSubsection = (
   part: HasPartSubsection,
 ): VaccinePageSubsection => {
   if (!part.headline) {
-    log.error(`Missing headline for part: ${part.name}`); // cannot throw error
+    log.info(`Headline not present for part: ${part.name}`); // cannot throw error; some elements expected to not have headlines
   }
   return {
     type: "simpleElement",

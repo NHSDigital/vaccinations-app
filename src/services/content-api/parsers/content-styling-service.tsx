@@ -4,22 +4,25 @@ import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCa
 import React, { JSX } from "react";
 import { VaccineTypes } from "@src/models/vaccine";
 import type {
-  NonUrgentContent,
+  HeadingWithContent,
   StyledPageSection,
   StyledVaccineContent,
   VaccinePageContent,
   VaccinePageSection,
   VaccinePageSubsection,
 } from "@src/services/content-api/types";
+import WarningCallout from "@src/app/_components/nhs-frontend/WarningCallout";
 
 enum SubsectionTypes {
   INFORMATION = "INFORMATION",
   NON_URGENT = "NON_URGENT",
+  CALLOUT = "CALLOUT",
 }
 
 const Subsections: Record<SubsectionTypes, string> = {
   [SubsectionTypes.INFORMATION]: "Information",
   [SubsectionTypes.NON_URGENT]: "non-urgent",
+  [SubsectionTypes.CALLOUT]: "Callout",
 };
 
 const _getSanitizedHtml = (html: string, id: number) => {
@@ -48,6 +51,9 @@ const styleSubsection = (
   } else if (subsection.name === Subsections.NON_URGENT) {
     const { heading, content } = extractHeadingAndContent(subsection.text);
     return <NonUrgentCareCard key={id} heading={heading} content={content} />;
+  } else if (subsection.name === Subsections.CALLOUT) {
+    const { heading, content } = extractHeadingAndContent(subsection.text);
+    return <WarningCallout key={id} heading={heading} content={content} />;
   } else {
     return _getSanitizedHtml(text, id);
   }
@@ -69,7 +75,7 @@ const styleSection = (section: VaccinePageSection): StyledPageSection => {
   };
 };
 
-const extractHeadingAndContent = (text: string): NonUrgentContent => {
+const extractHeadingAndContent = (text: string): HeadingWithContent => {
   const pattern: RegExp = /^<h3>(.*?)<\/h3>/;
   const match: RegExpMatchArray | null = pattern.exec(text);
 

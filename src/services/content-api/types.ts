@@ -106,7 +106,10 @@ export type StyledPageSection = {
   component: JSX.Element;
 };
 
-export type NonUrgentContent = { heading: string; content: string };
+export type HeadingWithContent = {
+  heading: string;
+  content: string
+};
 
 export type StyledVaccineContent = {
   overview: string;
