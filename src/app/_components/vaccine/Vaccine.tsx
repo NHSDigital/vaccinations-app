@@ -56,7 +56,8 @@ const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
             />
           </div>
           <a href={styledVaccineContent.webpageLink} target="_blank">
-            Learn more about the {vaccineInfo.displayName} vaccination on nhs.uk
+            Find out more about the {vaccineInfo.displayName.toLowerCase()}{" "}
+            vaccination
           </a>
         </div>
       )}

@@ -137,7 +137,7 @@ describe("Any vaccine page", () => {
       await renderVaccinePage();
 
       const webpageLink: HTMLElement = screen.getByRole("link", {
-        name: "Learn more about the 6-in-1 vaccination on nhs.uk",
+        name: "Find out more about the 6-in-1 vaccination",
       });
 
       expect(webpageLink).toBeInTheDocument();
