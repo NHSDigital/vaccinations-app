@@ -1,4 +1,12 @@
 import { expect, test } from "@playwright/test";
+import pa11y from "pa11y";
+
+test.afterEach('Accessibility check', async ({ page }) => {
+  if (test.info().status === test.info().expectedStatus) {
+    const results = await pa11y(page.url(), { standard: "WCAG2AA" });
+    expect(results.issues).toHaveLength(0);
+  }
+});
 
 test.describe("E2E", () => {
   test('go to Vaccination Hub', async ({ page }) => {
