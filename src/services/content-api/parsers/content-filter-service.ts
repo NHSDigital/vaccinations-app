@@ -86,17 +86,16 @@ const _extractAllElementsFromExpanderGroup = (
 };
 
 const _extractTable = (part: HasPartSubsection): VaccinePageSubsection => {
-  if (!part.mainEntity) {
-    throw new Error(`Missing data for table: ${part}`);
-  }
-  if (typeof part.mainEntity == "string") {
+  if (!part.mainEntity || typeof part.mainEntity != "string") {
+    throw new Error(
+      `mainEntity missing or is not a string in Table (position: ${part.position})`,
+    );
+  } else {
     return {
       type: "tableElement",
       name: part.name,
       mainEntity: part.mainEntity,
     };
-  } else {
-    throw new Error(`mainEntity in table not a string: ${part}`);
   }
 };
 

@@ -25,7 +25,7 @@ export type HasPartSubsection = {
   name: string;
   headline?: string;
   position: number;
-  identifier: string;
+  identifier?: string;
   mainEntity?: string | MainEntity[];
   subjectOf?: string;
 };

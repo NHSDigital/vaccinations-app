@@ -188,6 +188,72 @@ describe("Content Filter", () => {
       expect(parts).toEqual(expectedParts);
     });
 
+    it("should throw if table is missing required mainEntity property", () => {
+      const responseWithInvalidTable: ContentApiVaccineResponse = {
+        ...genericVaccineContentAPIResponse,
+        mainEntityOfPage: [
+          {
+            ...genericVaccineContentAPIResponse.mainEntityOfPage[2],
+            hasPart: [
+              {
+                "@type": "WebPageElement",
+                name: "Table",
+                position: 1,
+              },
+            ],
+          },
+        ],
+      };
+
+      const aspect = "SuitabilityHealthAspect";
+
+      const errorMessage = () => {
+        _extractPartsForAspect(responseWithInvalidTable, aspect);
+      };
+
+      expect(errorMessage).toThrow(
+        `mainEntity missing or is not a string in Table (position: 1)`,
+      );
+    });
+
+    it("should throw if table mainEntity property is not a string", () => {
+      const responseWithTableMainEntityNotAString: ContentApiVaccineResponse = {
+        ...genericVaccineContentAPIResponse,
+        mainEntityOfPage: [
+          {
+            ...genericVaccineContentAPIResponse.mainEntityOfPage[2],
+            hasPart: [
+              {
+                "@type": "WebPageElement",
+                name: "Table",
+                position: 9,
+                mainEntity: [
+                  {
+                    "@type": "invalid-element",
+                    position: 4,
+                    name: "invalid-element",
+                    subjectOf: "invalid-element",
+                    identifier: "5",
+                    mainEntity: "invalid-element",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      const aspect = "SuitabilityHealthAspect";
+
+      const errorMessage = () => {
+        _extractPartsForAspect(responseWithTableMainEntityNotAString, aspect);
+      };
+
+      expect(errorMessage).toThrow(
+        `mainEntity missing or is not a string in Table (position: 9)`,
+      );
+    });
+
     it("should throw an error if expander group mainEntity does not contain an array of expanders", async () => {
       const responseWithInvalidExpanderGroup: ContentApiVaccineResponse = {
         ...genericVaccineContentAPIResponse,
