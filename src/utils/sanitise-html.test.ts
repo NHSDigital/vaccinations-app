@@ -9,7 +9,7 @@ describe("sanitiseHtml", () => {
 
     const sanitisedHtml = sanitiseHtml(htmlWithTargetBlankLink);
 
-    expect(sanitisedHtml.__html).toContain(expectedHyperlink);
+    expect(sanitisedHtml).toContain(expectedHyperlink);
   });
 
   it("should set all links that do not have target to open externally", () => {
@@ -20,7 +20,7 @@ describe("sanitiseHtml", () => {
 
     const sanitisedHtml = sanitiseHtml(htmlLinkWithoutTarget);
 
-    expect(sanitisedHtml.__html).toContain(expectedHtmlWithTarget);
+    expect(sanitisedHtml).toContain(expectedHtmlWithTarget);
   });
 
   it("should not amend rel attribute on other non-link elements", () => {
@@ -31,8 +31,6 @@ describe("sanitiseHtml", () => {
       htmlWithTargetAttributeOnNonAnchorElement,
     );
 
-    expect(sanitisedHtml.__html).toEqual(
-      htmlWithTargetAttributeOnNonAnchorElement,
-    );
+    expect(sanitisedHtml).toEqual(htmlWithTargetAttributeOnNonAnchorElement);
   });
 });

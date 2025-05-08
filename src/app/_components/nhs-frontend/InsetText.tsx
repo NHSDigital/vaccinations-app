@@ -1,12 +1,14 @@
+import { JSX } from "react";
+
 interface InsetTextProps {
-  content: string;
+  content: JSX.Element;
 }
 
 const InsetText = (props: InsetTextProps) => {
   return (
     <div className="nhsuk-inset-text">
       <span className="nhsuk-u-visually-hidden">Information: </span>
-      <div dangerouslySetInnerHTML={{ __html: props.content }} />
+      {props.content}
     </div>
   );
 };

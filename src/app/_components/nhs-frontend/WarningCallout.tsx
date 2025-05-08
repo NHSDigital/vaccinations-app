@@ -1,19 +1,20 @@
+import { JSX } from "react";
+
 interface WarningCalloutProps {
-  heading: string;
-  content: string;
+  heading: JSX.Element;
+  content: JSX.Element;
 }
 
 const WarningCallout = ({ heading, content }: WarningCalloutProps) => {
   return (
     <div className="nhsuk-warning-callout">
       <h3 className="nhsuk-warning-callout__label">
-        {" "}
         <span role="text">
           <span className="nhsuk-u-visually-hidden">Important: </span>
           {heading}
         </span>
       </h3>
-      <div dangerouslySetInnerHTML={{ __html: content }} />
+      <div>{content}</div>
     </div>
   );
 };

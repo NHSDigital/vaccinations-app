@@ -25,8 +25,8 @@ const Subsections: Record<SubsectionTypes, string> = {
   [SubsectionTypes.CALLOUT]: "Callout",
 };
 
-const _getSanitizedHtml = (html: string, id: number) => {
-  return <div key={id} dangerouslySetInnerHTML={sanitiseHtml(html)} />;
+const _getDivWithSanitisedHtml = (html: string) => {
+  return <div dangerouslySetInnerHTML={{ __html: sanitiseHtml(html) }} />;
 };
 
 const styleSubsection = (
@@ -34,29 +34,60 @@ const styleSubsection = (
   id: number,
 ): JSX.Element => {
   if (subsection.type === "expanderElement") {
-    const content = `<h3 key={id}>${subsection.headline}</h3>`.concat(
+    const content = `<h3>${subsection.headline}</h3>`.concat(
       subsection.mainEntity,
     );
-    return _getSanitizedHtml(content, id);
+    return (
+      <div
+        key={id}
+        dangerouslySetInnerHTML={{ __html: sanitiseHtml(content) }}
+      />
+    );
   }
+
   if (subsection.type === "tableElement") {
-    return _getSanitizedHtml(subsection.mainEntity, id);
+    return (
+      <div
+        key={id}
+        dangerouslySetInnerHTML={{
+          __html: sanitiseHtml(subsection.mainEntity),
+        }}
+      />
+    );
   }
 
   let text: string = subsection.text;
   if (subsection.headline) {
-    text = `<h3 key={id}>${subsection.headline}</h3>`.concat(text);
+    text = `<h3>${subsection.headline}</h3>`.concat(text);
   }
+
   if (subsection.name === Subsections.INFORMATION) {
-    return <InsetText key={id} content={text} />;
+    return <InsetText key={id} content={_getDivWithSanitisedHtml(text)} />;
   } else if (subsection.name === Subsections.NON_URGENT) {
     const { heading, content } = extractHeadingAndContent(subsection.text);
-    return <NonUrgentCareCard key={id} heading={heading} content={content} />;
+    return (
+      <NonUrgentCareCard
+        key={id}
+        heading={_getDivWithSanitisedHtml(heading)}
+        content={_getDivWithSanitisedHtml(content)}
+      />
+    );
   } else if (subsection.name === Subsections.CALLOUT) {
     const { heading, content } = extractHeadingAndContent(subsection.text);
-    return <WarningCallout key={id} heading={heading} content={content} />;
+    return (
+      <WarningCallout
+        key={id}
+        heading={_getDivWithSanitisedHtml(heading)}
+        content={_getDivWithSanitisedHtml(content)}
+      />
+    );
   } else {
-    return _getSanitizedHtml(text, id);
+    return (
+      <div
+        key={id}
+        dangerouslySetInnerHTML={{ __html: sanitiseHtml(text) }}
+      ></div>
+    );
   }
 };
 

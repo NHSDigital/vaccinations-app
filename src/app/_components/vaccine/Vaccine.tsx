@@ -2,7 +2,7 @@
 
 import styles from "./styles.module.css";
 
-import { JSX, use } from "react";
+import React, { JSX, use } from "react";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import { useVaccineContentContextValue } from "@src/app/_components/providers/VaccineContentProvider";
 import { VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
@@ -36,7 +36,16 @@ const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
 
           {vaccineInfo.overviewInsetText && (
             <div data-testid="overview-inset-text">
-              <InsetText key={0} content={vaccineInfo.overviewInsetText} />
+              <InsetText
+                key={0}
+                content={
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: vaccineInfo.overviewInsetText,
+                    }}
+                  />
+                }
+              />
             </div>
           )}
 

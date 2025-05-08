@@ -1,6 +1,8 @@
+import { JSX } from "react";
+
 interface NonUrgentCareCardProps {
-  heading: string;
-  content: string;
+  heading: JSX.Element;
+  content: JSX.Element;
 }
 
 const NonUrgentCareCard = ({ heading, content }: NonUrgentCareCardProps) => {
@@ -16,10 +18,7 @@ const NonUrgentCareCard = ({ heading, content }: NonUrgentCareCardProps) => {
         <span className="nhsuk-card--care__arrow" aria-hidden="true"></span>
       </div>
 
-      <div
-        className="nhsuk-card__content"
-        dangerouslySetInnerHTML={{ __html: content }}
-      />
+      <div className="nhsuk-card__content">{content}</div>
     </div>
   );
 };

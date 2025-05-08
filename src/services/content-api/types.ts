@@ -108,7 +108,7 @@ export type StyledPageSection = {
 
 export type HeadingWithContent = {
   heading: string;
-  content: string
+  content: string;
 };
 
 export type StyledVaccineContent = {
