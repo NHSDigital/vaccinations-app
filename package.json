@@ -54,7 +54,7 @@
     "prettier": "3.5.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2",
-    "wiremock": "^3.12.1"
+    "wiremock": "^3.13.0"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.782.0",
