@@ -33,12 +33,34 @@ test.describe("E2E", () => {
     await expect(page).toHaveTitle("Vaccination schedule - NHS App");
   });
 
-  test('go to RSV page', async ({ page }) => {
-    await page.goto('/');
-
-    await page.getByRole('link', { name: 'RSV vaccine' }).click();
+  test('RSV page', async ({ page }) => {
+    await page.goto('/vaccines/rsv');
 
     await expect(page).toHaveTitle("RSV Vaccine - NHS App");
+  });
+
+  test('Flu page', async ({ page }) => {
+    await page.goto('/vaccines/flu');
+
+    await expect(page).toHaveTitle("Flu Vaccine - NHS App");
+  });
+
+  test('go to Pneumococcal page', async ({ page }) => {
+    await page.goto('/vaccines/pneumococcal');
+
+    await expect(page).toHaveTitle("Pneumococcal Vaccine - NHS App");
+  });
+
+  test('go to Shingles page', async ({ page }) => {
+    await page.goto('/vaccines/shingles');
+
+    await expect(page).toHaveTitle("Shingles Vaccine - NHS App");
+  });
+
+  test('6-in-1 page', async ({ page }) => {
+    await page.goto('/vaccines/6-in-1');
+
+    await expect(page).toHaveTitle("6-in-1 Vaccine - NHS App");
   });
 });
 
