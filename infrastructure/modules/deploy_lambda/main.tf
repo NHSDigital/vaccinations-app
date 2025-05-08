@@ -22,5 +22,17 @@ module "content_cache_hydrator_lambda_function" {
   create_package         = false
   local_existing_package = var.cache_lambda_zip_path
 
+  allowed_triggers = {
+    OnDeploymentRule = {
+      principal  = "events.amazonaws.com"
+      source_arn = aws_cloudwatch_event_rule.cache_hydrator_lambda_deployment_event_rule.arn
+    }
+
+    OnScheduleRule = {
+      principal  = "events.amazonaws.com"
+      source_arn = aws_cloudwatch_event_rule.cache_hydrator_lambda_schedule_event_rule.arn
+    }
+  }
+
   tags = var.default_tags
 }
