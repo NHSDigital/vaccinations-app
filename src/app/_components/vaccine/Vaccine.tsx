@@ -31,7 +31,7 @@ const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
         <VaccineError vaccineType={vaccineType} />
       ) : (
         <div>
-          <h1 className="app-dynamic-page-title__heading">{`${vaccineInfo.displayName} vaccine`}</h1>
+          <h1 className="app-dynamic-page-title__heading">{`${vaccineInfo.displayName.capitalised} vaccine`}</h1>
           <p data-testid="overview-text">{styledVaccineContent.overview}</p>
 
           {vaccineInfo.overviewInsetText && (
@@ -62,7 +62,7 @@ const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Find out more about the {vaccineInfo.displayName.toLowerCase()}{" "}
+            Find out more about the {vaccineInfo.displayName.lowercase}{" "}
             vaccination
           </a>
         </div>

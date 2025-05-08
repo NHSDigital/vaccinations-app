@@ -10,7 +10,7 @@ describe("VaccineError", () => {
 
       const heading: HTMLElement = screen.getByRole("heading", {
         level: 1,
-        name: `${VaccineInfo[vaccineType].displayName} vaccine`,
+        name: `${VaccineInfo[vaccineType].displayName.capitalised} vaccine`,
       });
 
       expect(heading).toBeInTheDocument();

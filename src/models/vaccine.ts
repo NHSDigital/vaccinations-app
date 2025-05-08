@@ -7,27 +7,47 @@ enum VaccineTypes {
 }
 
 export type VaccineDetails = {
-  displayName: string;
+  displayName: displayName;
   overviewInsetText?: string;
+};
+
+type displayName = {
+  capitalised: string;
+  lowercase: string;
 };
 
 const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
   [VaccineTypes.SIX_IN_ONE]: {
-    displayName: "6-in-1",
+    displayName: {
+      capitalised: "6-in-1",
+      lowercase: "6-in-1",
+    },
   },
   [VaccineTypes.RSV]: {
-    displayName: "RSV",
-  },
-  [VaccineTypes.FLU]: {
-    displayName: "Flu",
-    overviewInsetText:
-      '<p>This page is about the flu vaccine for adults. There are also pages about the <a href="/vaccines/child-flu">children\'s flu vaccine</a> and <a href="/vaccines/flu-jab">flu jab in pregnancy</a>.</p>',
+    displayName: {
+      capitalised: "RSV",
+      lowercase: "RSV",
+    },
   },
   [VaccineTypes.PNEUMOCOCCAL]: {
-    displayName: "Pneumococcal",
+    displayName: {
+      capitalised: "Pneumococcal",
+      lowercase: "pneumococcal",
+    },
   },
   [VaccineTypes.SHINGLES]: {
-    displayName: "Shingles",
+    displayName: {
+      capitalised: "Shingles",
+      lowercase: "shingles",
+    },
+  },
+  [VaccineTypes.FLU]: {
+    displayName: {
+      capitalised: "Flu",
+      lowercase: "flu",
+    },
+    overviewInsetText:
+      '<p>This page is about the flu vaccine for adults. There are also pages about the <a href="/vaccines/child-flu">children\'s flu vaccine</a> and <a href="/vaccines/flu-jab">flu jab in pregnancy</a>.</p>',
   },
 };
 

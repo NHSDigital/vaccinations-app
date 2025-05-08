@@ -435,10 +435,10 @@ describe("Content Filter", () => {
       );
     });
 
-    it("should return all parts for whoVaccineIsFor section", async () => {
+    it("should return all parts for whoVaccineIsFor section using lowercase heading", async () => {
       const expectedWhoVaccineIsFor = {
         whoVaccineIsFor: {
-          headline: "Who should have the 6-in-1 vaccine",
+          headline: "Who should have the pneumococcal vaccine",
           subsections: [
             {
               type: "simpleElement",
@@ -474,12 +474,12 @@ describe("Content Filter", () => {
         },
       };
 
-      const pageCopyFor6in1 = await getFilteredContentForVaccine(
-        VaccineTypes.SIX_IN_ONE,
+      const pageCopyForPneumococcal = await getFilteredContentForVaccine(
+        VaccineTypes.PNEUMOCOCCAL,
         JSON.stringify(genericVaccineContentAPIResponse),
       );
 
-      expect(pageCopyFor6in1).toEqual(
+      expect(pageCopyForPneumococcal).toEqual(
         expect.objectContaining(expectedWhoVaccineIsFor),
       );
     });

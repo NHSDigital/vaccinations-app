@@ -13,7 +13,7 @@ const VaccineError = ({ vaccineType }: VaccineProps): JSX.Element => {
 
   return (
     <div>
-      <h1 className="app-dynamic-page-title__heading">{`${vaccineInfo.displayName} vaccine`}</h1>
+      <h1 className="app-dynamic-page-title__heading">{`${vaccineInfo.displayName.capitalised} vaccine`}</h1>
       <ErrorSummary>
         <ErrorSummary.Title>Vaccine content is unavailable</ErrorSummary.Title>
         <ErrorSummary.Body>

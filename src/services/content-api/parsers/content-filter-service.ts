@@ -173,7 +173,7 @@ const _getDescription = (name: string, description?: string): string => {
 };
 
 const _generateWhoVaccineIsForHeading = (vaccineType: VaccineTypes): string => {
-  return `Who should have the ${VaccineInfo[vaccineType].displayName.toLowerCase()} vaccine`;
+  return `Who should have the ${VaccineInfo[vaccineType].displayName.lowercase} vaccine`;
 };
 
 function _extractHeadlineForContraindicationsAspect(
