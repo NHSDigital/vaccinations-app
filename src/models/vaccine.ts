@@ -4,6 +4,7 @@ enum VaccineTypes {
   FLU = "FLU",
   PNEUMOCOCCAL = "PNEUMOCOCCAL",
   SHINGLES = "SHINGLES",
+  MENACWY = "MENACWY",
 }
 
 export type VaccineDetails = {
@@ -48,6 +49,12 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     },
     overviewInsetText:
       '<p>This page is about the flu vaccine for adults. There are also pages about the <a href="/vaccines/child-flu">children\'s flu vaccine</a> and <a href="/vaccines/flu-jab">flu jab in pregnancy</a>.</p>',
+  },
+  [VaccineTypes.MENACWY]: {
+    displayName: {
+      capitalised: "MenACWY",
+      lowercase: "MenACWY",
+    },
   },
 };
 
