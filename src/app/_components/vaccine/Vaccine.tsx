@@ -69,7 +69,7 @@ const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
           <a
             href={styledVaccineContent.webpageLink}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
           >
             Find out more about the {vaccineInfo.displayName.lowercase}{" "}
             vaccination

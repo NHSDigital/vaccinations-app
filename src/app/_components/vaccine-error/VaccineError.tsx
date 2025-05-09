@@ -20,7 +20,11 @@ const VaccineError = ({ vaccineType }: VaccineProps): JSX.Element => {
           <p>
             Sorry, there is a problem showing vaccine information. Come back
             later, or read about{" "}
-            <a href="https://www.nhs.uk/vaccinations/">
+            <a
+              href="https://www.nhs.uk/vaccinations/"
+              target="_blank"
+              rel="noopener"
+            >
               vaccinations on NHS.uk
             </a>
           </p>
