@@ -4,6 +4,7 @@ import CardLink from "@src/app/_components/nhs-app/CardLink";
 import styles from "./styles.module.css";
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import Link from "next/link";
+import { VaccineInfo } from "@src/models/vaccine";
 
 export const dynamic = "force-dynamic";
 
@@ -27,11 +28,30 @@ const VaccinationsHub = () => {
         vaccinations may not be needed or have already been given.
       </p>
       <div className="nhsapp-cards nhsapp-cards--stacked">
-        <CardLink title={"Flu"} link={"/vaccines/flu"} />
-        <CardLink title={"MenACWY"} link={"/vaccines/menacwy"} />
-        <CardLink title={"Pneumococcal"} link={"/vaccines/pneumococcal"} />
-        <CardLink title={"RSV"} link={"/vaccines/rsv"} />
-        <CardLink title={"Shingles"} link={"/vaccines/shingles"} />
+        <CardLink
+          title={VaccineInfo.COVID_19.displayName.capitalised}
+          link={"/vaccines/covid-19"}
+        />
+        <CardLink
+          title={VaccineInfo.FLU.displayName.capitalised}
+          link={"/vaccines/flu"}
+        />
+        <CardLink
+          title={VaccineInfo.MENACWY.displayName.capitalised}
+          link={"/vaccines/menacwy"}
+        />
+        <CardLink
+          title={VaccineInfo.PNEUMOCOCCAL.displayName.capitalised}
+          link={"/vaccines/pneumococcal"}
+        />
+        <CardLink
+          title={VaccineInfo.RSV.displayName.capitalised}
+          link={"/vaccines/rsv"}
+        />
+        <CardLink
+          title={VaccineInfo.SHINGLES.displayName.capitalised}
+          link={"/vaccines/shingles"}
+        />
       </div>
       <div>
         <Link prefetch={false} href="/schedule">

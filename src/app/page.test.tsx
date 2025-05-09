@@ -44,6 +44,13 @@ describe("Vaccination Hub Page", () => {
     expect(heading).toBeInTheDocument();
   });
 
+  it("renders COVID-19 vaccine link", async () => {
+    const link: HTMLElement = screen.getByRole("link", { name: "COVID-19" });
+
+    expect(link).toBeInTheDocument();
+    expect(link.getAttribute("href")).toEqual("/vaccines/covid-19");
+  });
+
   it("renders Flu vaccine link", async () => {
     const link: HTMLElement = screen.getByRole("link", { name: "Flu" });
 

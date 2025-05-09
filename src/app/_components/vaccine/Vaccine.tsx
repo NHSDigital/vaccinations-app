@@ -16,6 +16,7 @@ import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 interface VaccineProps {
   vaccineType: VaccineTypes;
 }
+
 const EXPANDER_HEADINGS = {
   WHAT_VACCINE_IS_FOR: "What this vaccine is for",
   WHO_SHOULD_HAVE_VACCINE: "Who should have this vaccine",

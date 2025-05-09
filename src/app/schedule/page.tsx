@@ -2,6 +2,7 @@
 
 import CardLink from "@src/app/_components/nhs-app/CardLink";
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
+import { VaccineInfo } from "@src/models/vaccine";
 
 const Schedule = () => {
   return (
@@ -14,22 +15,52 @@ const Schedule = () => {
         why they&#39;re important and how to get them.
       </p>
       <h2 className="nhsuk-heading-s">Seasonal vaccinations</h2>
-      <CardLink title={"Flu"} link={"/vaccines/flu"} />
+      <div className="nhsapp-cards nhsapp-cards--stacked">
+        <CardLink
+          title={VaccineInfo.FLU.displayName.capitalised}
+          link={"/vaccines/flu"}
+        />
+        <CardLink
+          title={VaccineInfo.COVID_19.displayName.capitalised}
+          link={"/vaccines/covid-19"}
+        />
+      </div>
       <h2 className="nhsuk-heading-s">Vaccines for adults</h2>
       <div className="nhsapp-cards nhsapp-cards--stacked">
-        <CardLink title={"RSV"} link={"/vaccines/rsv"} />
-        <CardLink title={"Shingles"} link={"/vaccines/shingles"} />
-        <CardLink title={"Pneumococcal"} link={"/vaccines/pneumococcal"} />
+        <CardLink
+          title={VaccineInfo.RSV.displayName.capitalised}
+          link={"/vaccines/rsv"}
+        />
+        <CardLink
+          title={VaccineInfo.SHINGLES.displayName.capitalised}
+          link={"/vaccines/shingles"}
+        />
+        <CardLink
+          title={VaccineInfo.PNEUMOCOCCAL.displayName.capitalised}
+          link={"/vaccines/pneumococcal"}
+        />
       </div>
       <h2 className="nhsuk-heading-s">Vaccines for children aged 1 to 15</h2>
       <div className="nhsapp-cards nhsapp-cards--stacked">
-        <CardLink title={"MenACWY"} link={"/vaccines/menacwy"} />
-        <CardLink title={"Pneumococcal"} link={"/vaccines/pneumococcal"} />
+        <CardLink
+          title={VaccineInfo.MENACWY.displayName.capitalised}
+          link={"/vaccines/menacwy"}
+        />
+        <CardLink
+          title={VaccineInfo.PNEUMOCOCCAL.displayName.capitalised}
+          link={"/vaccines/pneumococcal"}
+        />
       </div>
       <h2 className="nhsuk-heading-s">Vaccines for babies under 1 year old</h2>
       <div className="nhsapp-cards nhsapp-cards--stacked">
-        <CardLink title={"6-in-1"} link={"/vaccines/6-in-1"} />
-        <CardLink title={"Pneumococcal"} link={"/vaccines/pneumococcal"} />
+        <CardLink
+          title={VaccineInfo.SIX_IN_ONE.displayName.capitalised}
+          link={"/vaccines/6-in-1"}
+        />
+        <CardLink
+          title={VaccineInfo.PNEUMOCOCCAL.displayName.capitalised}
+          link={"/vaccines/pneumococcal"}
+        />
       </div>
     </div>
   );
