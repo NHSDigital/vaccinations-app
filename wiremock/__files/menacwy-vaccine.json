@@ -1,0 +1,534 @@
+{
+  "@context": "http://schema.org",
+  "@type": "MedicalWebPage",
+  "name": "MenACWY vaccine",
+  "copyrightHolder": {
+    "name": "Crown Copyright",
+    "@type": "Organization"
+  },
+  "license": "https://developer.api.nhs.uk/terms",
+  "author": {
+    "url": "https://www.nhs.uk",
+    "logo": "https://assets.nhs.uk/nhsuk-cms/images/nhs-attribution.width-510.png",
+    "email": "nhswebsite.servicedesk@nhs.net",
+    "@type": "Organization",
+    "name": "NHS website"
+  },
+  "about": {
+    "@type": "WebPage",
+    "name": "MenACWY vaccine",
+    "alternateName": ""
+  },
+  "description": "Find out about the MenACWY vaccine, including what it’s for, who should have it, how to get it and possible side effects.",
+  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/",
+  "genre": [
+    "Vaccine"
+  ],
+  "keywords": "",
+  "dateModified": "2025-04-15T14:17:51+00:00",
+  "lastReviewed": [
+    "2024-02-28T08:38:00+00:00",
+    "2027-02-28T08:38:00+00:00"
+  ],
+  "breadcrumb": {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 0,
+        "item": {
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "name": "Vaccinations",
+          "genre": []
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/",
+          "name": "MenACWY vaccine",
+          "genre": [
+            "Vaccine"
+          ]
+        }
+      }
+    ]
+  },
+  "hasPart": [
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#overview",
+      "description": "The MenACWY vaccine helps protect against meningitis. It’s given to teenagers and young people up to the age of 25.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "MenACWY vaccine",
+          "text": "Who it's for"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "MenACWY vaccine",
+          "text": "Contraindications"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "MenACWY vaccine",
+          "text": "How to get it"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "MenACWY vaccine",
+          "text": "Side effects"
+        },
+        {
+          "text": "<p>The MenACWY vaccine is given to teenagers as part of the NHS vaccination schedule, but it can be given up to the age of 25 if needed.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Most people can have the MenACWY vaccine. You only need to avoid it if you’ve had a reaction to an ingredient in it or to another meningitis vaccine.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Teenagers are usually given the MenACWY vaccine at school. If you missed having it at school, ask your GP surgery if they can vaccinate you.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Side effects of the MenACWY vaccine can include pain, swelling or itchiness where the injection was given, a headache and feeling unwell.</p> ",
+          "@type": "WebPageElement"
+        }
+      ],
+      "headline": ""
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#what-its-for",
+      "description": "The MenACWY vaccine reduces your chances of getting meningitis, a serious, potentially life-threatening infection that affects the brain.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p><a href=\"https://www.nhs.uk/conditions/meningitis/\">Meningitis</a>, <a href=\"https://www.nhs.uk/conditions/sepsis/\">sepsis</a> and septicaemia (blood poisoning) are very serious, potentially life-threatening illnesses that can lead to life-changing disabilities, such as amputations, hearing loss and brain damage.</p><p>Anyone can get meningitis but it's most common in babies, children, teenagers and young adults.</p><p>Babies are given the <a href=\"https://www.nhs.uk/vaccinations/menb-vaccine/\">MenB vaccine</a> to help protect against a common type of bacteria that causes meningitis.</p><p>The MenACWY vaccine is given to teenagers and helps protect against 4 other types of bacteria linked to meningitis.</p><p>Although the vaccine is very effective, it does not prevent all types of meningitis, so it's still important to be aware of the <a href=\"https://www.nhs.uk/conditions/meningitis/symptoms/\">symptoms of meningitis</a> even if you've been vaccinated.</p>"
+        }
+      ],
+      "headline": "What the MenACWY vaccine is for"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#who-its-for",
+      "description": "The MenACWY vaccine is given to teenagers as part of the NHS vaccination schedule, but it can be given up to the age of 25 if needed.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The MenACWY vaccine is recommended for all teenagers. It's usually given to children when they're 13 or 14 years old (school year 9 or 10).</p><p>If you missed having the vaccine when you were at school, you can get it up to the age of 25 years.</p><p>It's also available for some people who are at increased risk of getting meningitis because of:</p><ul><li>a medical condition</li><li>work</li><li>travel</li><li>close contact with someone who's infected</li></ul>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Students",
+          "text": "<p>Meningitis can spread very quickly in places like universities and colleges.</p><p>Make sure all your vaccinations are up to date before starting university or college, including the MenACWY vaccine and both doses of the <a href=\"https://www.nhs.uk/vaccinations/mmr-vaccine/\">MMR vaccine</a>.</p>"
+        }
+      ],
+      "headline": "Who should have the MenACWY vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#contraindications",
+      "description": "Most people can have the MenACWY vaccine. You only need to avoid it if you’ve had a reaction to an ingredient in it or to another meningitis vaccine.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Most people can have the MenACWY vaccine.</p><p>The vaccine should not be given to those who have had:</p><ul><li>a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine</li><li>a serious allergic reaction to any ingredient in the MenACWY vaccine</li></ul>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Information",
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>You can have the MenACWY vaccine if you're unwell but do not have a high temperature.</p><p>If you have a high temperature, wait until you're feeling better before having the vaccine.</p>"
+        }
+      ],
+      "headline": "Who cannot have the MenACWY vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#ingredients",
+      "description": "You can check the ingredients in the MenACWY vaccine by asking to see the patient leaflet or searching for it online.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>There is 1 type of MenACWY vaccine available in the UK. You can check the ingredients in the patient leaflet:<br/><br/><a href=\"https://www.medicines.org.uk/emc/files/pil.12818.pdf\">MenQuadfi vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 124KB)</a></p>"
+        }
+      ],
+      "headline": "MenACWY vaccine ingredients"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#how-to-get-it",
+      "description": "Teenagers are usually given the MenACWY vaccine at school. If you missed having it at school, ask your GP surgery if they can vaccinate you.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Teenagers are usually given the MenACWY vaccine at school when they're 13 or 14 years old (school year 9 or 10).</p><p>If you missed having the vaccine when you were at school, you can still get it up until the age of 25. Ask your GP about getting vaccinated.</p><h3>College and university students</h3><p>If you're under 25 and you've not had the MenACWY vaccine before, you should ideally have it at least 2 weeks before starting college or university. Ask a GP about getting vaccinated.</p><p>If you've already started college or university, get the vaccine as soon as possible. Ask at the health centre on campus or <a href=\"https://www.nhs.uk/nhs-services/gps/how-to-register-with-a-gp-surgery/\">register with a GP</a> to get it.</p>"
+        }
+      ],
+      "headline": "How to get the MenACWY vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/UsageOrScheduleHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#how-its-used-previously-dosage-and-administration",
+      "description": "The MenACWY vaccine is given as an injection, usually in your upper arm. Most people only need 1 dose.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The MenACWY vaccine is given as an injection, usually in the upper arm.</p><p>Most people only need 1 dose of the vaccine.</p><p>But if you need it because of your job, you may need a booster dose every 5 years.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Information",
+          "text": "<h3>Having the MenACWY vaccine at the same time as other vaccines</h3><p>The MenACWY vaccine can be given at the same time as other vaccines, including the MMR and Td/IPV (3-in-1 teenage booster) vaccines.</p>"
+        }
+      ],
+      "headline": "How the MenACWY vaccine is given"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#side-effects",
+      "description": "Side effects of the MenACWY vaccine can include pain, swelling or itchiness where the injection was given, a headache and feeling unwell.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Most side effects of the MenAWCY vaccine are mild and do not last long.</p><p>Common side effects include:</p><ul><li>a reaction where the injection was given, such as pain, swelling or itchiness</li><li>headache</li><li>feeling sick (nausea)</li><li>a rash</li><li>feeling irritable</li><li>feeling drowsy</li><li>loss of appetite</li><li>generally feeling unwell</li></ul><p>More serious side effects, such as a severe allergic reaction are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p><p>The MenACWY vaccines used in the UK do not contain live bacteria, so there's no risk of getting the infections from the vaccine.</p>"
+        }
+      ],
+      "headline": "Side effects of the MenACWY vaccine"
+    }
+  ],
+  "relatedLink": [
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "name": "Vaccinations",
+      "linkRelationship": "Navigation",
+      "position": 0
+    }
+  ],
+  "contentSubTypes": [],
+  "mainEntityOfPage": [
+    {
+      "position": 0,
+      "identifier": 0,
+      "text": "The MenACWY vaccine helps protect against life-threatening illnesses like meningitis and sepsis. It's offered to teenagers in school, but can be given up to the age of 25 if it's been missed.",
+      "name": "lead paragraph",
+      "@type": "WebPageElement"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 1,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p><a href=\"https://www.nhs.uk/conditions/meningitis/\">Meningitis</a>, <a href=\"https://www.nhs.uk/conditions/sepsis/\">sepsis</a> and septicaemia (blood poisoning) are very serious, potentially life-threatening illnesses that can lead to life-changing disabilities, such as amputations, hearing loss and brain damage.</p><p>Anyone can get meningitis but it's most common in babies, children, teenagers and young adults.</p><p>Babies are given the <a href=\"https://www.nhs.uk/vaccinations/menb-vaccine/\">MenB vaccine</a> to help protect against a common type of bacteria that causes meningitis.</p><p>The MenACWY vaccine is given to teenagers and helps protect against 4 other types of bacteria linked to meningitis.</p><p>Although the vaccine is very effective, it does not prevent all types of meningitis, so it's still important to be aware of the <a href=\"https://www.nhs.uk/conditions/meningitis/symptoms/\">symptoms of meningitis</a> even if you've been vaccinated.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "The MenACWY vaccine reduces your chances of getting meningitis, a serious, potentially life-threatening infection that affects the brain.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p><a href=\"https://www.nhs.uk/conditions/meningitis/\">Meningitis</a>, <a href=\"https://www.nhs.uk/conditions/sepsis/\">sepsis</a> and septicaemia (blood poisoning) are very serious, potentially life-threatening illnesses that can lead to life-changing disabilities, such as amputations, hearing loss and brain damage.</p><p>Anyone can get meningitis but it's most common in babies, children, teenagers and young adults.</p><p>Babies are given the <a href=\"https://www.nhs.uk/vaccinations/menb-vaccine/\">MenB vaccine</a> to help protect against a common type of bacteria that causes meningitis.</p><p>The MenACWY vaccine is given to teenagers and helps protect against 4 other types of bacteria linked to meningitis.</p><p>Although the vaccine is very effective, it does not prevent all types of meningitis, so it's still important to be aware of the <a href=\"https://www.nhs.uk/conditions/meningitis/symptoms/\">symptoms of meningitis</a> even if you've been vaccinated.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
+      "headline": "What the MenACWY vaccine is for"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 2,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The MenACWY vaccine is recommended for all teenagers. It's usually given to children when they're 13 or 14 years old (school year 9 or 10).</p><p>If you missed having the vaccine when you were at school, you can get it up to the age of 25 years.</p><p>It's also available for some people who are at increased risk of getting meningitis because of:</p><ul><li>a medical condition</li><li>work</li><li>travel</li><li>close contact with someone who's infected</li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Callout",
+          "identifier": "4",
+          "text": "<h3>Students</h3><p>Meningitis can spread very quickly in places like universities and colleges.</p><p>Make sure all your vaccinations are up to date before starting university or college, including the MenACWY vaccine and both doses of the <a href=\"https://www.nhs.uk/vaccinations/mmr-vaccine/\">MMR vaccine</a>.</p>"
+        }
+      ],
+      "description": "The MenACWY vaccine is given to teenagers as part of the NHS vaccination schedule, but it can be given up to the age of 25 if needed.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The MenACWY vaccine is recommended for all teenagers. It's usually given to children when they're 13 or 14 years old (school year 9 or 10).</p><p>If you missed having the vaccine when you were at school, you can get it up to the age of 25 years.</p><p>It's also available for some people who are at increased risk of getting meningitis because of:</p><ul><li>a medical condition</li><li>work</li><li>travel</li><li>close contact with someone who's infected</li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Callout",
+          "identifier": "4",
+          "text": "<h3>Students</h3><p>Meningitis can spread very quickly in places like universities and colleges.</p><p>Make sure all your vaccinations are up to date before starting university or college, including the MenACWY vaccine and both doses of the <a href=\"https://www.nhs.uk/vaccinations/mmr-vaccine/\">MMR vaccine</a>.</p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
+      "headline": "Who should have the MenACWY vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 3,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Check your travel risk</h3><p><a href=\"https://travelhealthpro.org.uk/countries\">You can check the risks of a country you're travelling to on the TravelHealthPro website</a></p>"
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Check your travel risk</h3><p><a href=\"https://travelhealthpro.org.uk/countries\">You can check the risks of a country you're travelling to on the TravelHealthPro website</a></p>"
+        }
+      ]
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 4,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most people can have the MenACWY vaccine.</p><p>The vaccine should not be given to those who have had:</p><ul><li>a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine</li><li>a serious allergic reaction to any ingredient in the MenACWY vaccine</li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>You can have the MenACWY vaccine if you're unwell but do not have a high temperature.</p><p>If you have a high temperature, wait until you're feeling better before having the vaccine.</p>"
+        }
+      ],
+      "description": "Most people can have the MenACWY vaccine. You only need to avoid it if you’ve had a reaction to an ingredient in it or to another meningitis vaccine.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most people can have the MenACWY vaccine.</p><p>The vaccine should not be given to those who have had:</p><ul><li>a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine</li><li>a serious allergic reaction to any ingredient in the MenACWY vaccine</li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>You can have the MenACWY vaccine if you're unwell but do not have a high temperature.</p><p>If you have a high temperature, wait until you're feeling better before having the vaccine.</p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
+      "headline": "Who cannot have the MenACWY vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 5,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There is 1 type of MenACWY vaccine available in the UK. You can check the ingredients in the patient leaflet:<br/><br/><a href=\"https://www.medicines.org.uk/emc/files/pil.12818.pdf\">MenQuadfi vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 124KB)</a></p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "You can check the ingredients in the MenACWY vaccine by asking to see the patient leaflet or searching for it online.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There is 1 type of MenACWY vaccine available in the UK. You can check the ingredients in the patient leaflet:<br/><br/><a href=\"https://www.medicines.org.uk/emc/files/pil.12818.pdf\">MenQuadfi vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 124KB)</a></p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
+      "headline": "MenACWY vaccine ingredients"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 6,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Teenagers are usually given the MenACWY vaccine at school when they're 13 or 14 years old (school year 9 or 10).</p><p>If you missed having the vaccine when you were at school, you can still get it up until the age of 25. Ask your GP about getting vaccinated.</p><h3>College and university students</h3><p>If you're under 25 and you've not had the MenACWY vaccine before, you should ideally have it at least 2 weeks before starting college or university. Ask a GP about getting vaccinated.</p><p>If you've already started college or university, get the vaccine as soon as possible. Ask at the health centre on campus or <a href=\"https://www.nhs.uk/nhs-services/gps/how-to-register-with-a-gp-surgery/\">register with a GP</a> to get it.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "Teenagers are usually given the MenACWY vaccine at school. If you missed having it at school, ask your GP surgery if they can vaccinate you.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Teenagers are usually given the MenACWY vaccine at school when they're 13 or 14 years old (school year 9 or 10).</p><p>If you missed having the vaccine when you were at school, you can still get it up until the age of 25. Ask your GP about getting vaccinated.</p><h3>College and university students</h3><p>If you're under 25 and you've not had the MenACWY vaccine before, you should ideally have it at least 2 weeks before starting college or university. Ask a GP about getting vaccinated.</p><p>If you've already started college or university, get the vaccine as soon as possible. Ask at the health centre on campus or <a href=\"https://www.nhs.uk/nhs-services/gps/how-to-register-with-a-gp-surgery/\">register with a GP</a> to get it.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "headline": "How to get the MenACWY vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 7,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The MenACWY vaccine is given as an injection, usually in the upper arm.</p><p>Most people only need 1 dose of the vaccine.</p><p>But if you need it because of your job, you may need a booster dose every 5 years.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Having the MenACWY vaccine at the same time as other vaccines</h3><p>The MenACWY vaccine can be given at the same time as other vaccines, including the MMR and Td/IPV (3-in-1 teenage booster) vaccines.</p>"
+        }
+      ],
+      "description": "The MenACWY vaccine is given as an injection, usually in your upper arm. Most people only need 1 dose.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The MenACWY vaccine is given as an injection, usually in the upper arm.</p><p>Most people only need 1 dose of the vaccine.</p><p>But if you need it because of your job, you may need a booster dose every 5 years.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Having the MenACWY vaccine at the same time as other vaccines</h3><p>The MenACWY vaccine can be given at the same time as other vaccines, including the MMR and Td/IPV (3-in-1 teenage booster) vaccines.</p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/UsageOrScheduleHealthAspect",
+      "headline": "How the MenACWY vaccine is given"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 8,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most side effects of the MenAWCY vaccine are mild and do not last long.</p><p>Common side effects include:</p><ul><li>a reaction where the injection was given, such as pain, swelling or itchiness</li><li>headache</li><li>feeling sick (nausea)</li><li>a rash</li><li>feeling irritable</li><li>feeling drowsy</li><li>loss of appetite</li><li>generally feeling unwell</li></ul><p>More serious side effects, such as a severe allergic reaction are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p><p>The MenACWY vaccines used in the UK do not contain live bacteria, so there's no risk of getting the infections from the vaccine.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "Side effects of the MenACWY vaccine can include pain, swelling or itchiness where the injection was given, a headache and feeling unwell.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most side effects of the MenAWCY vaccine are mild and do not last long.</p><p>Common side effects include:</p><ul><li>a reaction where the injection was given, such as pain, swelling or itchiness</li><li>headache</li><li>feeling sick (nausea)</li><li>a rash</li><li>feeling irritable</li><li>feeling drowsy</li><li>loss of appetite</li><li>generally feeling unwell</li></ul><p>More serious side effects, such as a severe allergic reaction are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p><p>The MenACWY vaccines used in the UK do not contain live bacteria, so there's no risk of getting the infections from the vaccine.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
+      "headline": "Side effects of the MenACWY vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 9,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>More about vaccine safety</h3><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccination is important and the safest way to protect yourself</a></p>"
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>More about vaccine safety</h3><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccination is important and the safest way to protect yourself</a></p>"
+        }
+      ]
+    }
+  ],
+  "webpage": "https://www.nhs.uk/vaccinations/menacwy-vaccine/"
+}
