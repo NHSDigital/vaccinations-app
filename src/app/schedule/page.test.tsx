@@ -63,6 +63,10 @@ describe("Schedule Page", () => {
         name: "Shingles",
         href: "/vaccines/shingles",
       },
+      {
+        name: "MenACWY",
+        href: "/vaccines/menacwy",
+      },
     ];
 
     expectedVaccines.forEach((vaccine) => {

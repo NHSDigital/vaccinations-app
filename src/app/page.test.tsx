@@ -51,6 +51,15 @@ describe("Vaccination Hub Page", () => {
     expect(link.getAttribute("href")).toEqual("/vaccines/flu");
   });
 
+  it("renders MenACWY vaccine link", async () => {
+    const link: HTMLElement = screen.getByRole("link", {
+      name: "MenACWY",
+    });
+
+    expect(link).toBeInTheDocument();
+    expect(link.getAttribute("href")).toEqual("/vaccines/menacwy");
+  });
+
   it("renders Pneumococcal vaccine link", async () => {
     const link: HTMLElement = screen.getByRole("link", {
       name: "Pneumococcal",
