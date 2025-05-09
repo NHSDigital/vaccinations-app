@@ -16,6 +16,11 @@ import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 interface VaccineProps {
   vaccineType: VaccineTypes;
 }
+const EXPANDER_HEADINGS = {
+  WHAT_VACCINE_IS_FOR: "What this vaccine is for",
+  WHO_SHOULD_HAVE_VACCINE: "Who should have this vaccine",
+  HOW_TO_GET_VACCINE: "How to get the vaccine",
+};
 
 const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
   const { contentPromise } = useVaccineContentContextValue();
@@ -56,27 +61,30 @@ const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
           <div className="nhsuk-expander-group">
             {styledVaccineContent.whatVaccineIsFor ? (
               <Details
-                title={styledVaccineContent.whatVaccineIsFor.heading}
+                title={EXPANDER_HEADINGS.WHAT_VACCINE_IS_FOR}
                 component={styledVaccineContent.whatVaccineIsFor.component}
               />
             ) : undefined}
             <Details
-              title={styledVaccineContent.whoVaccineIsFor.heading}
+              title={EXPANDER_HEADINGS.WHO_SHOULD_HAVE_VACCINE}
               component={styledVaccineContent.whoVaccineIsFor.component}
             />
             <Details
-              title={styledVaccineContent.howToGetVaccine.heading}
+              title={EXPANDER_HEADINGS.HOW_TO_GET_VACCINE}
               component={styledVaccineContent.howToGetVaccine.component}
             />
           </div>
-          <a
-            href={styledVaccineContent.webpageLink}
-            target="_blank"
-            rel="noopener"
-          >
-            Find out more about the {vaccineInfo.displayName.lowercase}{" "}
-            vaccination
-          </a>
+          <p>
+            <a
+              href={styledVaccineContent.webpageLink}
+              target="_blank"
+              rel="noopener"
+            >
+              Find out more about the {vaccineInfo.displayName.lowercase}{" "}
+              vaccination
+            </a>{" "}
+            including side effects, allergies and ingredients.
+          </p>
         </div>
       )}
     </div>

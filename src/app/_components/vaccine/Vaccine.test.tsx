@@ -113,7 +113,7 @@ describe("Any vaccine page", () => {
     it("should display whatItIsFor expander block", async () => {
       await renderVaccinePage();
 
-      const heading: HTMLElement = screen.getByText("what-heading");
+      const heading: HTMLElement = screen.getByText("What this vaccine is for");
       const content: HTMLElement = screen.getByText(
         "What Section styled component",
       );
@@ -125,7 +125,9 @@ describe("Any vaccine page", () => {
     it("should display whoVaccineIsFor expander block", async () => {
       await renderVaccinePage();
 
-      const heading: HTMLElement = screen.getByText("who-heading");
+      const heading: HTMLElement = screen.getByText(
+        "Who should have this vaccine",
+      );
       const content: HTMLElement = screen.getByRole("heading", {
         level: 2,
         name: "Who Section styled component",
@@ -138,7 +140,7 @@ describe("Any vaccine page", () => {
     it("should display howToGetVaccine expander block", async () => {
       await renderVaccinePage();
 
-      const heading: HTMLElement = screen.getByText("how-heading");
+      const heading: HTMLElement = screen.getByText("How to get the vaccine");
       const content: HTMLElement = screen.getByText(
         "How Section styled component",
       );
@@ -171,7 +173,9 @@ describe("Any vaccine page", () => {
     it("should not display whatItIsFor section", async () => {
       await renderVaccinePage();
 
-      const heading: HTMLElement | null = screen.queryByText("what-heading");
+      const heading: HTMLElement | null = screen.queryByText(
+        "What this vaccine is for",
+      );
       const content: HTMLElement | null = screen.queryByText(
         "What Section styled component",
       );
@@ -183,7 +187,9 @@ describe("Any vaccine page", () => {
     it("should display whoVaccineIsFor section", async () => {
       await renderVaccinePage();
 
-      const heading: HTMLElement = screen.getByText("who-heading");
+      const heading: HTMLElement = screen.getByText(
+        "Who should have this vaccine",
+      );
       const content: HTMLElement = screen.getByRole("heading", {
         level: 2,
         name: "Who Section styled component",
