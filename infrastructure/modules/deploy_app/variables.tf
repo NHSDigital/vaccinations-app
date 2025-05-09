@@ -27,3 +27,18 @@ variable "application_environment_variables" {
   type        = map(string)
   description = "Map of environment variables to pass to Lambda"
 }
+
+variable "acm_certificate_arn" {
+  type = string
+  description = "ACM certificate arn to use for cloudfront distribution"
+}
+
+variable "sub_domain" {
+  type = string
+  description = "The subdomain representing the environment for the website. Empty for prod."
+}
+
+variable "domain" {
+  type = string
+  description = "The main domain for the website"
+}

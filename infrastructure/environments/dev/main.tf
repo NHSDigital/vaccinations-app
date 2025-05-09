@@ -17,5 +17,8 @@ module "deploy" {
   nodejs_version                    = local.node_version
   log_retention_in_days             = local.log_retention_in_days
   application_environment_variables = local.application_environment_variables
+  acm_certificate_arn               = data.aws_acm_certificate.website.arn
+  domain                            = local.domain
+  sub_domain                        = local.sub_domain
   default_tags                      = local.default_tags
 }

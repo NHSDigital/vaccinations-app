@@ -10,6 +10,20 @@ module "deploy_app" {
     aws.global          = aws.global
   }
 
+  domain_config = {
+    create_route53_entries         = false
+    route53_record_allow_overwrite = false
+
+    sub_domain = coalesce(var.sub_domain, null)
+    hosted_zones = [
+      { name = var.domain }
+    ]
+
+    viewer_certificate = {
+      acm_certificate_arn = var.acm_certificate_arn
+    }
+  }
+
   server_function = {
     additional_iam_policies = [aws_iam_policy.server_lambda_additional_policy]
     additional_environment_variables = var.application_environment_variables
