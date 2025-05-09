@@ -5,6 +5,7 @@ enum VaccineTypes {
   PNEUMOCOCCAL = "PNEUMOCOCCAL",
   SHINGLES = "SHINGLES",
   MENACWY = "MENACWY",
+  COVID_19 = "COVID_19",
 }
 
 export type VaccineDetails = {
@@ -54,6 +55,12 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     displayName: {
       capitalised: "MenACWY",
       lowercase: "MenACWY",
+    },
+  },
+  [VaccineTypes.COVID_19]: {
+    displayName: {
+      capitalised: "COVID-19",
+      lowercase: "COVID-19",
     },
   },
 };

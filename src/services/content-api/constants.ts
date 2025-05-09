@@ -7,6 +7,7 @@ enum VaccineContentPaths {
   PNEUMOCOCCAL = "pneumococcal-vaccine",
   SHINGLES = "shingles-vaccine",
   MENACWY = "menacwy-vaccine",
+  COVID_19 = "covid-19-vaccine",
 }
 
 const vaccineTypeToPath: Record<VaccineTypes, VaccineContentPaths> = {
@@ -16,6 +17,7 @@ const vaccineTypeToPath: Record<VaccineTypes, VaccineContentPaths> = {
   [VaccineTypes.PNEUMOCOCCAL]: VaccineContentPaths.PNEUMOCOCCAL,
   [VaccineTypes.SHINGLES]: VaccineContentPaths.SHINGLES,
   [VaccineTypes.MENACWY]: VaccineContentPaths.MENACWY,
+  [VaccineTypes.COVID_19]: VaccineContentPaths.COVID_19,
 };
 
 const CONTENT_API_VACCINATIONS_PATH = "/nhs-website-content/vaccinations";
