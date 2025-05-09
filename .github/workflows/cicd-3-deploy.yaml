@@ -56,7 +56,7 @@ jobs:
     name: "Deploy to dev environment"
     runs-on: ubuntu-latest
     needs: [ metadata ]
-    timeout-minutes: 10
+    timeout-minutes: 20
     permissions:
       id-token: write
       contents: read
