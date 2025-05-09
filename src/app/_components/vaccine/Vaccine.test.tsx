@@ -29,7 +29,7 @@ describe("Any vaccine page", () => {
   };
 
   const renderVaccinePage = async () => {
-    await renderNamedVaccinePage(VaccineTypes.SIX_IN_ONE);
+    await renderNamedVaccinePage(VaccineTypes.PNEUMOCOCCAL);
   };
 
   describe("with all sections available", () => {
@@ -45,7 +45,7 @@ describe("Any vaccine page", () => {
 
       const heading = screen.getByRole("heading", {
         level: 1,
-        name: `6-in-1 vaccine`,
+        name: `Pneumococcal vaccine`,
       });
 
       expect(heading).toBeInTheDocument();
@@ -96,6 +96,20 @@ describe("Any vaccine page", () => {
       expect(overviewInsetBlock).not.toBeInTheDocument();
     });
 
+    it("should include lowercase vaccine name in more infomation text", async () => {
+      const expectedMoreInformationHeading =
+        "More information about the pneumococcal vaccine";
+
+      await renderVaccinePage();
+
+      const moreInfoHeading: HTMLElement = screen.getByRole("heading", {
+        level: 2,
+        name: expectedMoreInformationHeading,
+      });
+
+      expect(moreInfoHeading).toBeInTheDocument();
+    });
+
     it("should display whatItIsFor expander block", async () => {
       await renderVaccinePage();
 
@@ -137,7 +151,7 @@ describe("Any vaccine page", () => {
       await renderVaccinePage();
 
       const webpageLink: HTMLElement = screen.getByRole("link", {
-        name: "Find out more about the 6-in-1 vaccination",
+        name: "Find out more about the pneumococcal vaccination",
       });
 
       expect(webpageLink).toBeInTheDocument();
@@ -194,7 +208,7 @@ describe("Any vaccine page", () => {
 
       const heading = screen.getByRole("heading", {
         level: 1,
-        name: `6-in-1 vaccine`,
+        name: `Pneumococcal vaccine`,
       });
 
       expect(heading).toBeInTheDocument();

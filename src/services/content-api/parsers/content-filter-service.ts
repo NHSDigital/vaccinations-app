@@ -1,4 +1,4 @@
-import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
+import { VaccineTypes } from "@src/models/vaccine";
 import {
   ContentApiVaccineResponse,
   HasPartSubsection,
@@ -171,8 +171,8 @@ const _getDescription = (name: string, description?: string): string => {
   return description;
 };
 
-const _generateWhoVaccineIsForHeading = (vaccineType: VaccineTypes): string => {
-  return `Who should have the ${VaccineInfo[vaccineType].displayName.lowercase} vaccine`;
+const _generateWhoVaccineIsForHeading = (): string => {
+  return `Who should have this vaccine`;
 };
 
 function _extractHeadlineForContraindicationsAspect(
@@ -210,7 +210,7 @@ const getFilteredContentForVaccine = async (
   }
 
   const whoVaccineIsFor: VaccinePageSection = {
-    headline: _generateWhoVaccineIsForHeading(vaccineName),
+    headline: _generateWhoVaccineIsForHeading(),
     subsections: _extractPartsForAspect(content, "SuitabilityHealthAspect")
       .concat(_extractHeadlineForContraindicationsAspect(content))
       .concat(_extractPartsForAspect(content, "ContraindicationsHealthAspect")),

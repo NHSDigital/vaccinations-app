@@ -49,7 +49,10 @@ const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
             </div>
           )}
 
-          <h2 className="nhsuk-heading-s">More information</h2>
+          <h2 className="nhsuk-heading-s">
+            More information about the {vaccineInfo.displayName.lowercase}{" "}
+            vaccine
+          </h2>
           <div className="nhsuk-expander-group">
             {styledVaccineContent.whatVaccineIsFor ? (
               <Details

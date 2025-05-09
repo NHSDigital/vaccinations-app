@@ -501,10 +501,10 @@ describe("Content Filter", () => {
       );
     });
 
-    it("should return all parts for whoVaccineIsFor section using lowercase heading", async () => {
+    it("should return all parts for whoVaccineIsFor section", async () => {
       const expectedWhoVaccineIsFor = {
         whoVaccineIsFor: {
-          headline: "Who should have the pneumococcal vaccine",
+          headline: "Who should have this vaccine",
           subsections: [
             {
               type: "simpleElement",
