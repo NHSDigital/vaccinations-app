@@ -6,6 +6,7 @@ import {
   _findAspect,
   _hasHealthAspect,
   _extractHeadlineForContraindicationsAspect,
+  _removeExcludedHyperlinks,
 } from "@src/services/content-api/parsers/content-filter-service";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 import { VaccineTypes } from "@src/models/vaccine";
@@ -384,6 +385,120 @@ describe("Content Filter", () => {
       expect(errorMessage).toThrow(
         `mainEntity in Expander is not a string (position: 9, identifier: 8)`,
       );
+    });
+
+    it("should remove excluded hyperlinks", () => {
+      const responseWithExcludedLink: ContentApiVaccineResponse = {
+        ...genericVaccineContentAPIResponse,
+        mainEntityOfPage: [
+          {
+            ...genericVaccineContentAPIResponse.mainEntityOfPage[5],
+            hasPart: [
+              {
+                position: 0,
+                identifier: "1",
+                text: '<p>or <a href="/nhs-app">via the NHS app</a></p>',
+                "@type": "WebPageElement",
+                name: "markdown",
+                headline: "",
+              },
+            ],
+          },
+        ],
+      };
+      const aspect = "GettingAccessHealthAspect";
+
+      const parts = _extractPartsForAspect(responseWithExcludedLink, aspect);
+
+      const expectedParts: VaccinePageSubsection[] = [
+        {
+          type: "simpleElement",
+          headline: "",
+          name: "markdown",
+          text: "<p>or via the NHS app</p>",
+        },
+      ];
+
+      expect(parts).toEqual(expectedParts);
+    });
+  });
+
+  describe("_removeExcludedHyperlinks", () => {
+    it("should remove excluded links from content mainEntity field", () => {
+      const subsectionsWithMainEntity: VaccinePageSubsection[] = [
+        {
+          type: "expanderElement",
+          headline: "First Expander subjectOf",
+          name: "Expander",
+          mainEntity:
+            '<p>Book by <a href="/nhs-services/vaccination-and-booking-services/book-a-vaccine">going to NBS</a> or <a href="/nhs-app">via the NHS app</a></p>',
+        },
+      ];
+
+      const expectedTextAttr = "<p>Book by going to NBS or via the NHS app</p>";
+
+      const actualSubsections = _removeExcludedHyperlinks(
+        subsectionsWithMainEntity,
+      );
+
+      actualSubsections.forEach((subsection) => {
+        if (
+          subsection.type === "expanderElement" ||
+          subsection.type === "tableElement"
+        ) {
+          expect(subsection.mainEntity).toEqual(expectedTextAttr);
+        } else {
+          throw Error("Unreachable error");
+        }
+      });
+    });
+
+    it("should remove excluded links from content text field", () => {
+      const subsectionsWithTextElement: VaccinePageSubsection[] = [
+        {
+          type: "simpleElement",
+          headline: "",
+          name: "markdown",
+          text: '<p>Book by <a href="https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-covid-19-vaccination">going to NBS</a> or <a href="/nhs-app">via the NHS app</a></p>',
+        },
+      ];
+      const expectedTextAttr = "<p>Book by going to NBS or via the NHS app</p>";
+
+      const actualSubsections = _removeExcludedHyperlinks(
+        subsectionsWithTextElement,
+      );
+
+      actualSubsections.forEach((subsection) => {
+        if (subsection.type === "simpleElement") {
+          expect(subsection.text).toEqual(expectedTextAttr);
+        } else {
+          throw Error("Unreachable error");
+        }
+      });
+    });
+
+    it("should not alter aspects without links to excluded destinations", () => {
+      const expectedText =
+        '<p>go to a <a href="https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-walk-in-covid-19-vaccination-site/">walk-in COVID-19 vaccination site</a></p>';
+
+      const subsections: VaccinePageSubsection[] = [
+        {
+          type: "simpleElement",
+          headline: "",
+          name: "markdown",
+          text: expectedText,
+        },
+      ];
+
+      const actualSubsections = _removeExcludedHyperlinks(subsections);
+
+      actualSubsections.forEach((subsection) => {
+        if (subsection.type === "simpleElement") {
+          expect(subsection.text).toEqual(expectedText);
+        } else {
+          throw Error("Unreachable error");
+        }
+      });
     });
   });
 

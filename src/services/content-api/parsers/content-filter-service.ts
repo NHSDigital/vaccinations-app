@@ -66,7 +66,14 @@ const _extractPartsForAspect = (
         return _getSubsection(part);
       }
     });
-  return _getSubsections(aspectName, subsections);
+
+  if (!subsections) {
+    throw new Error(`Missing subsections for Aspect: ${aspectName}`);
+  } else {
+    const subsectionsWithExcludedLinksRemoved =
+      _removeExcludedHyperlinks(subsections);
+    return subsectionsWithExcludedLinksRemoved;
+  }
 };
 
 const _extractAllElementsFromExpanderGroup = (
@@ -133,6 +140,32 @@ const _extractAnyOtherSubsection = (
   };
 };
 
+const _removeExcludedHyperlinks = (subsections: VaccinePageSubsection[]) => {
+  const nbsHyperlinkPattern: RegExp =
+    /<a [^>]*?href="[^>]*?\/nhs-services\/vaccination-and-booking-services\/book-[^>]*?>(.*?)<\/a>/g;
+  const nhsAppPattern: RegExp =
+    /<a [^>]*?href="[^>]*?\/nhs-app[^>]*?>(.*?)<\/a>/g;
+
+  subsections.forEach((subsection) => {
+    if (subsection.type === "simpleElement") {
+      subsection.text = subsection.text.replaceAll(nbsHyperlinkPattern, "$1");
+      subsection.text = subsection.text.replaceAll(nhsAppPattern, "$1");
+    } else {
+      subsection.mainEntity = subsection.mainEntity.replaceAll(
+        nbsHyperlinkPattern,
+        "$1",
+      );
+      subsection.mainEntity = subsection.mainEntity.replaceAll(
+        nhsAppPattern,
+        "$1",
+      );
+    }
+  });
+
+  log.info(subsections);
+  return subsections;
+};
+
 const _getSubsection = (part: HasPartSubsection): VaccinePageSubsection => {
   if (part.name === "Table") {
     return _extractTable(part);
@@ -141,16 +174,6 @@ const _getSubsection = (part: HasPartSubsection): VaccinePageSubsection => {
     return _extractExpander(part);
   }
   return _extractAnyOtherSubsection(part);
-};
-
-const _getSubsections = (
-  aspectName: Aspect,
-  subsections?: VaccinePageSubsection[],
-): VaccinePageSubsection[] => {
-  if (!subsections) {
-    throw new Error(`Missing subsections for Aspect: ${aspectName}`);
-  }
-  return subsections;
 };
 
 const _extractDescriptionForVaccine = (
@@ -241,4 +264,5 @@ export {
   _extractDescriptionForVaccine,
   _generateWhoVaccineIsForHeading,
   _extractHeadlineForContraindicationsAspect,
+  _removeExcludedHyperlinks,
 };
