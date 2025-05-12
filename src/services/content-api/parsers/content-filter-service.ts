@@ -161,8 +161,6 @@ const _removeExcludedHyperlinks = (subsections: VaccinePageSubsection[]) => {
       );
     }
   });
-
-  log.info(subsections);
   return subsections;
 };
 

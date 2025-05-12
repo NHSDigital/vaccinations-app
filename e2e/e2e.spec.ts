@@ -62,5 +62,11 @@ test.describe("E2E", () => {
 
     await expect(page).toHaveTitle("6-in-1 Vaccine - NHS App");
   });
+
+  test('COVID-19 page', async ({ page }) => {
+    await page.goto('/vaccines/covid-19');
+
+    await expect(page).toHaveTitle("COVID-19 Vaccine - NHS App");
+  });
 });
 
