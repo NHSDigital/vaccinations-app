@@ -68,5 +68,11 @@ test.describe("E2E", () => {
 
     await expect(page).toHaveTitle("COVID-19 Vaccine - NHS App");
   });
+
+  test('MenACWY page', async ({ page }) => {
+    await page.goto('/vaccines/menacwy');
+
+    await expect(page).toHaveTitle("MenACWY Vaccine - NHS App");
+  });
 });
 
