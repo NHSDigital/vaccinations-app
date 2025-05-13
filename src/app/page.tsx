@@ -2,7 +2,6 @@
 
 import CardLink from "@src/app/_components/nhs-app/CardLink";
 import styles from "./styles.module.css";
-import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import Link from "next/link";
 import { VaccineInfo } from "@src/models/vaccine";
 
@@ -12,7 +11,6 @@ const VaccinationsHub = () => {
   return (
     <div>
       <title>Vaccinations - NHS App</title>
-      <BackLink link="/" />
       <h1>Vaccinations</h1>
       <p>
         Find out about vaccinations for babies, children and adults, including
