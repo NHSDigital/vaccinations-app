@@ -1,5 +1,3 @@
-import BackLink from "@src/app/_components/nhs-frontend/BackLink";
-
 import { VaccineTypes } from "@src/models/vaccine";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
@@ -16,7 +14,6 @@ const VaccineRsv = (): JSX.Element => {
   return (
     <div>
       <title>RSV Vaccine - NHS App</title>
-      <BackLink link="/schedule" />
       <ErrorBoundary fallback={<VaccineError vaccineType={VaccineTypes.RSV} />}>
         <VaccineContentProvider contentPromise={contentPromise}>
           <Vaccine vaccineType={VaccineTypes.RSV} />

@@ -1,4 +1,3 @@
-import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import { JSX } from "react";
 
 import { VaccineTypes } from "@src/models/vaccine";
@@ -18,7 +17,6 @@ const VaccineFlu = (): JSX.Element => {
   return (
     <div>
       <title>Flu Vaccine - NHS App</title>
-      <BackLink link="/schedule" />
       <ErrorBoundary fallback={<VaccineError vaccineType={VaccineTypes.FLU} />}>
         <VaccineContentProvider contentPromise={contentPromise}>
           <Vaccine vaccineType={VaccineTypes.FLU} />

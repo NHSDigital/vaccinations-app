@@ -1,14 +1,12 @@
 "use client";
 
 import CardLink from "@src/app/_components/nhs-app/CardLink";
-import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import { VaccineInfo } from "@src/models/vaccine";
 
 const Schedule = () => {
   return (
     <div>
       <title>Vaccines for all ages - NHS App</title>
-      <BackLink link="/" />
       <h1 className="app-dynamic-page-title__heading">Vaccines for all ages</h1>
       <p className="">
         Find out about vaccinations for babies, children and adults, including
