@@ -65,10 +65,10 @@ export default function RootLayout({
           name="msapplication-square310x310logo"
           content={`/${NHSUK_FRONTEND_VERSION}/assets/favicons/largetile-310x310.png`}
         />
-        <Script
+        <script
           src={`/${NHSUK_FRONTEND_VERSION}/js/${NHSUK_FRONTEND_JS_VERSION}.min.js`}
-          strategy="afterInteractive"
-        />
+          defer
+        ></script>
       </head>
 
       <body className={"js-enabled"}>
