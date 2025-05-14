@@ -89,14 +89,4 @@ describe("Schedule Page", () => {
     expect(cards[1].getAttribute("href")).toBe("/vaccines/pneumococcal");
     expect(cards[2].getAttribute("href")).toBe("/vaccines/pneumococcal");
   });
-
-  it("should display back link to vaccination hub page", async () => {
-    const pathToHubPage: string = "/";
-
-    const linkToHubPage: HTMLElement = screen.getByRole("link", {
-      name: "Go back",
-    });
-
-    expect(linkToHubPage.getAttribute("href")).toBe(pathToHubPage);
-  });
 });

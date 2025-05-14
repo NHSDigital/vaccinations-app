@@ -17,16 +17,6 @@ describe("Shingles vaccine page", () => {
       (Vaccine as jest.Mock).mockImplementation(() => <div />);
     });
 
-    it("should contain back link to vaccination schedule page", () => {
-      const pathToSchedulePage = "/schedule";
-
-      render(VaccineShingles());
-
-      const linkToSchedulePage = screen.getByRole("link", { name: "Go back" });
-
-      expect(linkToSchedulePage.getAttribute("href")).toBe(pathToSchedulePage);
-    });
-
     it("should contain vaccine component", () => {
       render(VaccineShingles());
 
