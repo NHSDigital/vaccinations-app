@@ -1,7 +1,6 @@
 "use client";
 
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
-import Script from "next/script";
 import React, { JSX } from "react";
 import "@public/nhsuk-frontend-9.1.0/css/nhsuk-9.1.0.min.css";
 import "@public/nhsapp-frontend-2.3.0/nhsapp-2.3.0.min.css";
