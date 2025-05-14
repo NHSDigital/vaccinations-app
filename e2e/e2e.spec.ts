@@ -1,5 +1,7 @@
 import { expect, test } from "@playwright/test";
 import pa11y from "pa11y";
+import { HUB_PAGE_TITLE, SCHEDULE_PAGE_TITLE } from "@project/e2e/constants";
+import { clickLinkAndExpectPageTitle } from "@project/e2e/e2e-helpers";
 
 test.afterEach('Accessibility check', async ({ page }) => {
   if (test.info().status === test.info().expectedStatus) {
@@ -22,7 +24,7 @@ test.describe("E2E", () => {
     await page.getByRole('textbox', { name: 'Security code' }).fill("<OTP>");
     await page.getByRole('button', { name: "Continue" }).click();
 
-    await expect(page).toHaveTitle("Vaccinations - NHS App", { timeout: 60000 });
+    await expect(page).toHaveTitle(HUB_PAGE_TITLE, { timeout: 60000 });
   });
 
   test('go to Vaccinations Schedule page', async ({ page }) => {
@@ -30,7 +32,18 @@ test.describe("E2E", () => {
 
     await page.getByRole('link', { name: 'View all vaccinations' }).click();
 
-    await expect(page).toHaveTitle("Vaccination schedule - NHS App");
+    await expect(page).toHaveTitle(SCHEDULE_PAGE_TITLE);
+  });
+
+  test('Back link navigation', async ({ page }) => {
+    await page.goto('/');
+
+    await clickLinkAndExpectPageTitle(page, "View All Vaccinations", SCHEDULE_PAGE_TITLE);
+    await clickLinkAndExpectPageTitle(page, "RSV", "RSV Vaccine - NHS App");
+    await clickLinkAndExpectPageTitle(page,"Back", SCHEDULE_PAGE_TITLE);
+    await clickLinkAndExpectPageTitle(page, "COVID-19", "COVID-19 Vaccine - NHS App");
+    await clickLinkAndExpectPageTitle(page,"Back", SCHEDULE_PAGE_TITLE);
+    await clickLinkAndExpectPageTitle(page,"Back", HUB_PAGE_TITLE);
   });
 
   test('RSV page', async ({ page }) => {

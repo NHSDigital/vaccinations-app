@@ -7,7 +7,11 @@ const BackLink = () => {
 
   return (
     <div className="nhsuk-back-link">
-      <a onClick={() => router.back()} className="nhsuk-back-link__link">
+      <a
+        href="#"
+        onClick={() => router.back()}
+        className="nhsuk-back-link__link"
+      >
         <svg
           className="nhsuk-icon nhsuk-icon__chevron-left"
           xmlns="http://www.w3.org/2000/svg"
