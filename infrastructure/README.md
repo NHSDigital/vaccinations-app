@@ -10,7 +10,7 @@ Use the following tags for any resource created manually. This helps in keeping 
 
 ### S3
 We need two buckets to be created manually, before IaC can start to provision infra for us.
-First one is named `vaccinations-app-github` and second one `vaccinations-app-tfstate`.
+First one is named `vaccinations-app-github-<env>` and second one `vaccinations-app-tfstate-<env>`.
 The former is used by GitHub to store artefacts after successful builds,
 and the latter is used by Terraform to store state and lock files.
 Use the following settings to provision them: -
@@ -21,8 +21,8 @@ Use the following settings to provision them: -
 - Block Public Access settings for this bucket
   - Block all public access
 - Bucket Versioning
-  - Enabled (for `vaccinations-app-tfstate` bucket)
-  - Disabled (for `vaccinations-app-github` bucket)
+  - Enabled (for `vaccinations-app-tfstate-<env>` bucket)
+  - Disabled (for `vaccinations-app-github-<env>` bucket)
 - Tags: refer [above](#tags)
 - Default encryption
   - Encryption type: SSE-S3

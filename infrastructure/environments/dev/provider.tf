@@ -7,7 +7,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "vaccinations-app-tfstate"
+    bucket = "vaccinations-app-tfstate-dev"
     key    = "terraform.tfstate"
     region = "eu-west-2"
 
