@@ -70,7 +70,6 @@ export default function RootLayout({
       <body>
         <SkipLink />
         <AppHeader />
-        <div style={{ height: "500px" }} />
         <div className="nhsuk-width-container ">{children}</div>
         <AppFooter />
       </body>
