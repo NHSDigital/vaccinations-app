@@ -1,12 +1,13 @@
 "use client";
 
-import BackLink from "@src/app/_components/nhs-frontend/BackLink";
+import AppFooter from "@src/app/_components/nhs-frontend/AppFooter";
+import AppHeader from "@src/app/_components/nhs-frontend/AppHeader";
+import SkipLink from "@src/app/_components/nhs-frontend/SkipLink";
 import React, { JSX } from "react";
 import "@public/nhsuk-frontend-9.1.0/css/nhsuk-9.1.0.min.css";
 import "@public/nhsapp-frontend-2.3.0/nhsapp-2.3.0.min.css";
 
 const NHSUK_FRONTEND_VERSION = "nhsuk-frontend-9.1.0";
-const NHSUK_FRONTEND_JS_VERSION = "nhsuk-9.1.0";
 
 export default function RootLayout({
   children,
@@ -64,32 +65,14 @@ export default function RootLayout({
           name="msapplication-square310x310logo"
           content={`/${NHSUK_FRONTEND_VERSION}/assets/favicons/largetile-310x310.png`}
         />
-        <script
-          src={`/${NHSUK_FRONTEND_VERSION}/js/${NHSUK_FRONTEND_JS_VERSION}.min.js`}
-          defer
-        ></script>
       </head>
 
-      <body className={"js-enabled"}>
-        <a className="nhsuk-skip-link" href="#maincontent">
-          Skip to main content
-        </a>
-
-        {/*Header*/}
-
-        <div className="nhsuk-width-container ">
-          <BackLink />
-
-          <main
-            className="nhsuk-main-wrapper nhsuk-main-wrapper--s"
-            id="maincontent"
-            role="main"
-          >
-            {children}
-          </main>
-        </div>
-
-        {/*Footer*/}
+      <body>
+        <SkipLink />
+        <AppHeader />
+        <div style={{ height: "500px" }} />
+        <div className="nhsuk-width-container ">{children}</div>
+        <AppFooter />
       </body>
     </html>
   );
