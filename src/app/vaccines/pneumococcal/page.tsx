@@ -1,3 +1,5 @@
+import BackLink from "@src/app/_components/nhs-frontend/BackLink";
+import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import { JSX } from "react";
 
 import { VaccineTypes } from "@src/models/vaccine";
@@ -15,16 +17,19 @@ const VaccinePneumococcal = (): JSX.Element => {
     getContentForVaccine(VaccineTypes.PNEUMOCOCCAL);
 
   return (
-    <div>
-      <title>Pneumococcal Vaccine - NHS App</title>
-      <ErrorBoundary
-        fallback={<VaccineError vaccineType={VaccineTypes.PNEUMOCOCCAL} />}
-      >
-        <VaccineContentProvider contentPromise={contentPromise}>
-          <Vaccine vaccineType={VaccineTypes.PNEUMOCOCCAL} />
-        </VaccineContentProvider>
-      </ErrorBoundary>
-    </div>
+    <>
+      <BackLink />
+      <MainContent>
+        <title>Pneumococcal Vaccine - NHS App</title>
+        <ErrorBoundary
+          fallback={<VaccineError vaccineType={VaccineTypes.PNEUMOCOCCAL} />}
+        >
+          <VaccineContentProvider contentPromise={contentPromise}>
+            <Vaccine vaccineType={VaccineTypes.PNEUMOCOCCAL} />
+          </VaccineContentProvider>
+        </ErrorBoundary>
+      </MainContent>
+    </>
   );
 };
 

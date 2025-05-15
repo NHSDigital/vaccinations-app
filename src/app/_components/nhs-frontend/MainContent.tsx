@@ -6,10 +6,7 @@ const MainContent = ({
   children: React.ReactNode;
 }>): JSX.Element => {
   return (
-    <main
-      className="nhsuk-main-wrapper nhsuk-main-wrapper--s"
-      id="maincontent"
-    >
+    <main className="nhsuk-main-wrapper nhsuk-main-wrapper--s" id="maincontent">
       <div className="nhsuk-grid-row">
         <div className="nhsuk-grid-column-full">{children}</div>
       </div>
