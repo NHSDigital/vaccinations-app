@@ -51,7 +51,7 @@ jobs:
     steps:
       - name: "Log Tag"
         env:
-          TAG: ${{ github.ref }}
+          TAG: ${{ github.ref_name }}
         run: |
           echo "TAG=${TAG}"
       #      - name: "Checkout code"
