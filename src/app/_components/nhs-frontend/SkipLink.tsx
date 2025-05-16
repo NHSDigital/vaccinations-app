@@ -4,7 +4,7 @@ const SkipLink = () => {
   return (
     <a
       className="nhsuk-skip-link"
-      href="#"
+      href="#maincontent"
       onClick={(event) => {
         event.preventDefault();
         const contentTitle = document.getElementsByTagName("h1").item(0);
