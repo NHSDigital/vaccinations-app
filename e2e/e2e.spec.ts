@@ -30,9 +30,7 @@ test.describe("E2E", () => {
   test('go to Vaccinations Schedule page', async ({ page }) => {
     await page.goto('/');
 
-    await page.getByRole('link', { name: 'View all vaccinations' }).click();
-
-    await expect(page).toHaveTitle(SCHEDULE_PAGE_TITLE);
+    await clickLinkAndExpectPageTitle(page, "View All Vaccinations", SCHEDULE_PAGE_TITLE);
   });
 
   test('Back link navigation', async ({ page }) => {
@@ -44,6 +42,25 @@ test.describe("E2E", () => {
     await clickLinkAndExpectPageTitle(page, "COVID-19", "COVID-19 Vaccine - NHS App");
     await clickLinkAndExpectPageTitle(page,"Back", SCHEDULE_PAGE_TITLE);
     await clickLinkAndExpectPageTitle(page,"Back", HUB_PAGE_TITLE);
+  });
+
+  test('Skip link', async ({ page }) => {
+    await page.goto('/');
+
+    // test skip link works
+    await page.getByRole("link", { name: "Skip to main content" }).click();
+    const isFocusedHubPage = await page.evaluate(() => {
+      return document.activeElement === document.getElementsByTagName("h1").item(0);
+    });
+    expect(isFocusedHubPage).toBe(true);
+
+    // test skip link still works after navigation
+    await clickLinkAndExpectPageTitle(page, "View All Vaccinations", SCHEDULE_PAGE_TITLE);
+    await page.getByRole("link", { name: "Skip to main content" }).click();
+    const isFocusedSchedulePage = await page.evaluate(() => {
+      return document.activeElement === document.getElementsByTagName("h1").item(0);
+    });
+    expect(isFocusedSchedulePage).toBe(true);
   });
 
   test('RSV page', async ({ page }) => {
