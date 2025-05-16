@@ -1,7 +1,5 @@
 "use client";
 
-import AppFooter from "@src/app/_components/nhs-frontend/AppFooter";
-import AppHeader from "@src/app/_components/nhs-frontend/AppHeader";
 import SkipLink from "@src/app/_components/nhs-frontend/SkipLink";
 import React, { JSX } from "react";
 import "@public/nhsuk-frontend-9.1.0/css/nhsuk-9.1.0.min.css";
@@ -69,9 +67,7 @@ export default function RootLayout({
 
       <body>
         <SkipLink />
-        <AppHeader />
         <div className="nhsuk-width-container ">{children}</div>
-        <AppFooter />
       </body>
     </html>
   );
