@@ -2,6 +2,9 @@ import { render, screen } from "@testing-library/react";
 import VaccinationsHub from "./page";
 import { JSX } from "react";
 
+jest.mock("next/navigation", () => ({
+  useRouter: jest.fn(),
+}));
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 
 describe("Vaccination Hub Page", () => {

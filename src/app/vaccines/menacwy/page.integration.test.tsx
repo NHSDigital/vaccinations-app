@@ -5,6 +5,9 @@ import mockMenACWYVaccineContent from "@project/wiremock/__files/menacwy-vaccine
 import VaccineMenACWY from "@src/app/vaccines/menacwy/page";
 
 jest.mock("@src/utils/config");
+jest.mock("next/navigation", () => ({
+  useRouter: jest.fn(),
+}));
 
 describe("MenACWY vaccine page - integration test", () => {
   (configProvider as jest.Mock).mockImplementation(() => ({

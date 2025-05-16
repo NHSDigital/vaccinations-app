@@ -5,6 +5,9 @@ import { getContentForVaccine } from "@src/services/content-api/gateway/content-
 import { mockStyledContent } from "@test-data/content-api/data";
 import { VaccineTypes } from "@src/models/vaccine";
 
+jest.mock("next/navigation", () => ({
+  useRouter: jest.fn(),
+}));
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 jest.mock("@src/app/_components/vaccine/Vaccine");
 

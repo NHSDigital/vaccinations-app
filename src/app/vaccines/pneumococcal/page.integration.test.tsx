@@ -5,6 +5,9 @@ import mockPneumococcalVaccineContent from "@project/wiremock/__files/pneumococc
 import VaccinePneumococcal from "@src/app/vaccines/pneumococcal/page";
 
 jest.mock("@src/utils/config");
+jest.mock("next/navigation", () => ({
+  useRouter: jest.fn(),
+}));
 
 describe("Pneumococcal vaccine page - integration test", () => {
   (configProvider as jest.Mock).mockImplementation(() => ({

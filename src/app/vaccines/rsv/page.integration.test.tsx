@@ -5,6 +5,9 @@ import { act } from "react";
 import mockRsvVaccineContent from "@project/wiremock/__files/rsv-vaccine.json";
 
 jest.mock("@src/utils/config");
+jest.mock("next/navigation", () => ({
+  useRouter: jest.fn(),
+}));
 
 describe("RSV vaccine page - integration test", () => {
   (configProvider as jest.Mock).mockImplementation(() => ({

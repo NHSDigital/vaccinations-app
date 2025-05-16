@@ -3,6 +3,9 @@ import Schedule from "./page";
 import { JSX } from "react";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
+jest.mock("next/navigation", () => ({
+  useRouter: jest.fn(),
+}));
 
 describe("Schedule Page", () => {
   beforeEach(() => {

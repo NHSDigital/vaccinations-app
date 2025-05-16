@@ -5,6 +5,9 @@ import { act } from "react";
 import mockSixInOneVaccineContent from "@project/wiremock/__files/6-in-1-vaccine.json";
 
 jest.mock("@src/utils/config");
+jest.mock("next/navigation", () => ({
+  useRouter: jest.fn(),
+}));
 
 describe("6-in-1 vaccine page - integration test", () => {
   (configProvider as jest.Mock).mockImplementation(() => ({

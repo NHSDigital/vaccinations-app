@@ -5,6 +5,9 @@ import { act } from "react";
 import mockCovid19VaccineContent from "@project/wiremock/__files/covid-19-vaccine.json";
 
 jest.mock("@src/utils/config");
+jest.mock("next/navigation", () => ({
+  useRouter: jest.fn(),
+}));
 
 describe("COVID-19 vaccine page - integration test", () => {
   (configProvider as jest.Mock).mockImplementation(() => ({
