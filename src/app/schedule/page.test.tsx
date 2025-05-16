@@ -2,6 +2,9 @@ import { render, screen } from "@testing-library/react";
 import Schedule from "./page";
 import { JSX } from "react";
 
+jest.mock("@src/app/_components/nhs-frontend/BackLink", () =>
+  jest.fn(() => <div data-testid="back-link"></div>),
+);
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
@@ -91,5 +94,10 @@ describe("Schedule Page", () => {
     expect(cards[0].getAttribute("href")).toBe("/vaccines/pneumococcal");
     expect(cards[1].getAttribute("href")).toBe("/vaccines/pneumococcal");
     expect(cards[2].getAttribute("href")).toBe("/vaccines/pneumococcal");
+  });
+
+  it("should contain back link", () => {
+    const backLink = screen.getByTestId("back-link");
+    expect(backLink).toBeInTheDocument();
   });
 });

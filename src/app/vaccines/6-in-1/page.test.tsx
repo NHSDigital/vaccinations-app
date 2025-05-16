@@ -10,6 +10,9 @@ jest.mock("next/navigation", () => ({
 }));
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 jest.mock("@src/app/_components/vaccine/Vaccine", () => jest.fn(() => <div />));
+jest.mock("@src/app/_components/nhs-frontend/BackLink", () =>
+  jest.fn(() => <div data-testid="back-link"></div>),
+);
 
 describe("6-in-1 vaccine page", () => {
   describe("when content loaded successfully", () => {
@@ -18,6 +21,13 @@ describe("6-in-1 vaccine page", () => {
         styledVaccineContent: mockStyledContent,
       });
       (Vaccine as jest.Mock).mockImplementation(() => <div />);
+    });
+
+    it("should contain back link", () => {
+      render(Vaccine6in1());
+
+      const backLink = screen.getByTestId("back-link");
+      expect(backLink).toBeInTheDocument();
     });
 
     it("should contain vaccine component", () => {
