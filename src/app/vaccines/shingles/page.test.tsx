@@ -6,9 +6,6 @@ import { VaccineTypes } from "@src/models/vaccine";
 import VaccineShingles from "@src/app/vaccines/shingles/page";
 import { assertBackLinkIsPresent } from "@test-data/test-helpers-back-link";
 
-jest.mock("next/navigation", () => ({
-  useRouter: jest.fn(),
-}));
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 jest.mock("@src/app/_components/vaccine/Vaccine");
 jest.mock("@src/app/_components/nhs-frontend/BackLink", () =>
