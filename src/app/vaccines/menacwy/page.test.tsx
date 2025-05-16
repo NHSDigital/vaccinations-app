@@ -4,6 +4,7 @@ import { getContentForVaccine } from "@src/services/content-api/gateway/content-
 import { mockStyledContent } from "@test-data/content-api/data";
 import { VaccineTypes } from "@src/models/vaccine";
 import VaccineMenACWY from "@src/app/vaccines/menacwy/page";
+import { assertBackLinkIsPresent } from "@test-data/test-helpers-back-link";
 
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
@@ -26,8 +27,7 @@ describe("MenACWY vaccine page", () => {
     it("should contain back link", () => {
       render(VaccineMenACWY());
 
-      const backLink = screen.getByTestId("back-link");
-      expect(backLink).toBeInTheDocument();
+      assertBackLinkIsPresent(screen);
     });
 
     it("should contain vaccine component", () => {
