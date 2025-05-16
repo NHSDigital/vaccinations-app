@@ -5,6 +5,10 @@ on:
     tags:
       - 'v*'
 
+env:
+  AWS_REGION: eu-west-2
+  AWS_S3_PACKAGE_BUCKET: vaccinations-app-github-dev
+
 jobs:
   metadata:
     name: "Set CI/CD metadata"
@@ -48,36 +52,59 @@ jobs:
     runs-on: ubuntu-latest
     needs: [metadata]
     timeout-minutes: 3
+    permissions:
+      id-token: write
+      contents: write
     steps:
       - name: "Log Tag"
         env:
           TAG: ${{ github.ref_name }}
         run: |
           echo "TAG=${TAG}"
-      #      - name: "Checkout code"
-#        uses: actions/checkout@v4
-#      - name: "Get the artefacts"
-#        run: |
-#          echo "Getting the artefacts created by the build stage ..."
-#          # TODO: Use either action/cache or action/upload-artifact
-#      - name: "Create release"
-#        id: create_release
-#        uses: actions/create-release@v1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          tag_name: ${{ needs.metadata.outputs.version }}
-#          release_name: Release ${{ needs.metadata.outputs.version }}
-#          body: |
-#            Release of ${{ needs.metadata.outputs.version }}
-#          draft: false
-#          prerelease: false
-      # - name: "Upload release asset"
-      #   uses: actions/upload-release-asset@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: "${{ steps.create_release.outputs.upload_url }}"
-      #     asset_path: ./*
-      #     asset_name: repository-template-${{ needs.metadata.outputs.version }}.tar.gz
-      #     asset_content_type: "application/gzip"
+      - name: "Checkout code"
+        uses: actions/checkout@v4
+      - name: "Get commit history"
+        id: commits
+        run: |
+          TAG="${{ github.ref_name }}"
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 "${TAG}^" 2>/dev/null || echo "")
+          if [[ -z "$PREVIOUS_TAG" ]]; then
+            echo "No previous tag found. Listing all commits."
+            COMMIT_RANGE=$(git log --pretty=format:"- %s (%h)")
+          else
+            echo "Listing commits between $PREVIOUS_TAG and $TAG."
+            COMMIT_RANGE=$(git log --pretty=format:"- %s (%h)" "${PREVIOUS_TAG}..${TAG}")
+          fi
+          echo "commits=$COMMIT_RANGE" >> "$GITHUB_OUTPUT"
+      - name: "Create release"
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          body: ${{ steps.commits.outputs.commits }}
+          draft: false
+          prerelease: false
+      - name: "Get short SHA"
+        id: sha
+        run: echo "short_sha=$(echo ${GITHUB_SHA} | cut -c1-7)" >> $GITHUB_OUTPUT
+      - name: "Configure AWS credentials"
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-session-name: GitHubActionsSession
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: "Copy artefact"
+        id: copy-artefact
+        run: |
+          TAG=${{ github.ref_name }}
+          SHORT_SHA=${{ steps.sha.outputs.short_sha }}
+
+          if aws s3 ls "s3://vaccinations-app-github-dev/artefacts/$SHORT_SHA/" | grep .; then
+            aws s3 cp "s3://vaccinations-app-github-dev/artefacts/$SHORT_SHA" "s3://vaccinations-app-github-dev/tags/$TAG/" --recursive
+          else
+            echo "Error: No matching folder found for SHA: $SHORT_SHA"
+            exit 1
+          fi
+

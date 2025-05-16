@@ -56,9 +56,7 @@ jobs:
       - name: "Get the release version"
         id: strip-branch-name
         run: |
-          release_version=$(echo "${{ steps.date.outputs.today_date }}\
-          -${{ github.run_id }}_${{ github.run_number }}\
-          _${{ github.run_attempt }}-${{ steps.sha.outputs.short_sha }}")
+          release_version=${{ steps.sha.outputs.short_sha }}
           echo "Building release version $release_version"
           echo "RELEASE_VERSION=$release_version" >> $GITHUB_ENV
       - name: "Build OpenNext Package"
@@ -72,6 +70,9 @@ jobs:
         run: zip -r open-next.zip .open-next/
       - name: "Zip Lambda Package"
         run: zip -j -r lambda.zip dist/
+      - name: "Create workflow URL"
+        run: |
+          echo "Workflow URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> workflow.log
       - name: "Configure AWS credentials"
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -82,3 +83,4 @@ jobs:
         run: |
           aws s3 cp open-next.zip "s3://${AWS_S3_PACKAGE_BUCKET}/artefacts/${RELEASE_VERSION}/open-next.zip"
           aws s3 cp lambda.zip "s3://${AWS_S3_PACKAGE_BUCKET}/artefacts/${RELEASE_VERSION}/lambda.zip"
+          aws s3 cp workflow.log "s3://${AWS_S3_PACKAGE_BUCKET}/artefacts/${RELEASE_VERSION}/workflow.log"
