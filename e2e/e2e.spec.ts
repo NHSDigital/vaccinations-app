@@ -47,20 +47,30 @@ test.describe("E2E", () => {
   test('Skip link', async ({ page }) => {
     await page.goto('/');
 
-    // test skip link works
-    await page.getByRole("link", { name: "Skip to main content" }).click();
-    const isFocusedHubPage = await page.evaluate(() => {
-      return document.activeElement === document.getElementsByTagName("h1").item(0);
-    });
-    expect(isFocusedHubPage).toBe(true);
+    // Test skip link is first in tab order and works when clicked
+    await page.keyboard.press('Tab');
+    await expect(page.getByTestId("skip-link")).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(page.getByRole("heading", {level: 1})).toBeFocused();
 
-    // test skip link still works after navigation
+    // Test skip link still works after navigation
     await clickLinkAndExpectPageTitle(page, "View All Vaccinations", SCHEDULE_PAGE_TITLE);
-    await page.getByRole("link", { name: "Skip to main content" }).click();
-    const isFocusedSchedulePage = await page.evaluate(() => {
-      return document.activeElement === document.getElementsByTagName("h1").item(0);
-    });
-    expect(isFocusedSchedulePage).toBe(true);
+
+    /* NextJS functionality note:
+    * On route load Next focuses the first element of the changed content,
+    * not the start of the page. This is known NextJS behaviour based on user research.
+    * See:
+    * https://github.com/vercel/next.js/discussions/19963
+    * https://github.com/vercel/next.js/pull/20428
+    * https://github.com/vercel/next.js/issues/33060
+    * On our page, focus lands on the first element of the schedule page, the 'back' link.
+    * Therefore must tab backwards to reach the skip link
+    */
+    await page.keyboard.press('Shift+Tab');
+    await expect(page.getByTestId("skip-link")).toBeFocused();
+    await page.keyboard.press('Enter');
+
+    await expect(page.getByRole("heading", {level: 1})).toBeFocused();
   });
 
   test('RSV page', async ({ page }) => {
