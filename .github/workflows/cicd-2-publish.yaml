@@ -63,6 +63,8 @@ jobs:
           echo "TAG=${TAG}"
       - name: "Checkout code"
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: "Get commit history"
         id: commits
         run: |
@@ -75,7 +77,7 @@ jobs:
             echo "Listing commits between $PREVIOUS_TAG and $TAG."
             COMMIT_RANGE=$(git log --pretty=format:"- %s (%h)" "${PREVIOUS_TAG}..${TAG}")
           fi
-          echo "commits=$COMMIT_RANGE" >> "$GITHUB_OUTPUT"
+          echo "$COMMIT_RANGE" > commit_history.txt
       - name: "Create release"
         uses: actions/create-release@v1
         env:
@@ -83,7 +85,7 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           release_name: Release ${{ github.ref_name }}
-          body: ${{ steps.commits.outputs.commits }}
+          body_path: commit_history.txt
           draft: false
           prerelease: false
       - name: "Get short SHA"
