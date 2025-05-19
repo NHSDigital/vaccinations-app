@@ -250,6 +250,55 @@ To enable debug logging of OpenNext, add OPEN_NEXT_DEBUG=true to package.json bu
   "build:opennext": "OPEN_NEXT_DEBUG=true DEBUG=* npx --yes @opennextjs/aws@latest build"
 }
 ```
+
+## Creating Releases
+
+Our release strategy is based on Semantic Versioning and utilizes tagged commits. To create a new release, please follow the steps outlined below:
+
+1.  **Merge and Synchronize with Remote:** After merging your changes into the `main` branch, ensure your local repository is synchronized with the remote. Execute the following commands:
+
+    ```bash
+    git push origin main
+    git pull --rebase origin main
+    ```
+
+    Wait for the continuous integration/build pipeline to complete successfully.
+
+2.  **Determine Release Type:** Assess the nature of the changes included in this release to determine the appropriate semantic version increment:
+
+    * **Major Change (Breaking):** Increment the major version (e.g., `v1.0.0` to `v2.0.0`).
+    * **Minor Change (New Feature):** Increment the minor version (e.g., `v1.0.0` to `v1.1.0`).
+    * **Patch/Fix (Bug Fixes, Minor Updates):** Increment the patch version (e.g., `v1.0.0` to `v1.0.1`).
+
+3.  **Identify the Previous Tag (Optional):** You can view existing tags to understand the current release version. Either visit the "Releases" or "Tags" section of the repository on GitHub, or run the following command locally:
+
+    ```bash
+    git tag
+    ```
+
+4.  **Tag Your Commit:** Create a new tag on your local `main` branch using the `git tag` command, following the `vx.y.z` format (replace `x`, `y`, and `z` with the incremented version numbers):
+
+    ```bash
+    git tag vX.Y.Z
+    ```
+
+    For example, if it's a minor release, you might use:
+
+    ```bash
+    git tag v1.1.0
+    ```
+
+5.  **Push the Tag to Remote:** Push the newly created tag to the `origin` remote repository. This action will automatically trigger the publish/release workflow:
+
+    ```bash
+    git push origin tag vX.Y.Z
+    ```
+
+6.  **Verify Release and Artifact:** Upon successful execution of the publish/release workflow, you should observe:
+
+    * A new tagged release in the "Releases" section of the GitHub repository.
+    * The corresponding build artifact within the `/tags` folder of the github AWS S3 bucket.
+
 ## Design
 TODO
 
