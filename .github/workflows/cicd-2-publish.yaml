@@ -3,7 +3,7 @@ name: "CI/CD publish"
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*.*.*'
 
 env:
   AWS_REGION: eu-west-2
@@ -56,38 +56,10 @@ jobs:
       id-token: write
       contents: write
     steps:
-      - name: "Log Tag"
-        env:
-          TAG: ${{ github.ref_name }}
-        run: |
-          echo "TAG=${TAG}"
       - name: "Checkout code"
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: "Get commit history"
-        id: commits
-        run: |
-          TAG="${{ github.ref_name }}"
-          PREVIOUS_TAG=$(git describe --tags --abbrev=0 "${TAG}^" 2>/dev/null || echo "")
-          if [[ -z "$PREVIOUS_TAG" ]]; then
-            echo "No previous tag found. Listing all commits."
-            COMMIT_RANGE=$(git log --pretty=format:"- %s (%h)")
-          else
-            echo "Listing commits between $PREVIOUS_TAG and $TAG."
-            COMMIT_RANGE=$(git log --pretty=format:"- %s (%h)" "${PREVIOUS_TAG}..${TAG}")
-          fi
-          echo "$COMMIT_RANGE" > commit_history.txt
-      - name: "Create release"
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref_name }}
-          release_name: Release ${{ github.ref_name }}
-          body_path: commit_history.txt
-          draft: false
-          prerelease: false
       - name: "Get short SHA"
         id: sha
         run: echo "short_sha=$(echo ${GITHUB_SHA} | cut -c1-7)" >> $GITHUB_OUTPUT
@@ -109,4 +81,26 @@ jobs:
             echo "Error: No matching folder found for SHA: $SHORT_SHA"
             exit 1
           fi
-
+      - name: "Get commit history"
+        id: commits
+        run: |
+          TAG="${{ github.ref_name }}"
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 --first-parent "${TAG}^" 2>/dev/null || echo "")
+          if [[ -z "$PREVIOUS_TAG" ]]; then
+            echo "No previous tag found. Listing all commits."
+            COMMIT_RANGE=$(git log --pretty=format:"- %s (%h)")
+          else
+            echo "Listing commits between $PREVIOUS_TAG and $TAG."
+            COMMIT_RANGE=$(git log --pretty=format:"- %s (%h)" "${PREVIOUS_TAG}..${TAG}")
+          fi
+          echo "$COMMIT_RANGE" > commit_history.txt
+      - name: "Create release"
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          body_path: commit_history.txt
+          draft: false
+          prerelease: false
