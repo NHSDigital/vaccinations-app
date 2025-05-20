@@ -1,9 +1,9 @@
-import { signOut } from "@project/auth";
+import { signOut } from 'next-auth/react';
 import useInactivityTimer from "@src/utils/auth/inactivity-timer";
 import { renderHook } from "@testing-library/react";
 import { act } from "react";
 
-jest.mock("@project/auth", () => ({
+jest.mock("next-auth/react", () => ({
   signOut: jest.fn(),
 }));
 
