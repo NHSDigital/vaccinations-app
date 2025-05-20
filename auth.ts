@@ -38,6 +38,7 @@ declare module "next-auth/jwt" {
 
 
 const SSO_FAILURE_ROUTE = "/sso-failure";
+const SESSION_TIMEOUT_LOGOUT_ROUTE = "/session-timeout-logout";
 const log: Logger = logger.child({ module: "auth" });
 
 export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
@@ -45,7 +46,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
     providers: [await NHSLoginAuthProvider()],
     pages: {
       signIn: SSO_FAILURE_ROUTE,
-      signOut: SSO_FAILURE_ROUTE,
+      signOut: SESSION_TIMEOUT_LOGOUT_ROUTE,
       error: SSO_FAILURE_ROUTE,
       verifyRequest: SSO_FAILURE_ROUTE,
       newUser: SSO_FAILURE_ROUTE

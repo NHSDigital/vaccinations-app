@@ -1,6 +1,6 @@
 "use client";
 
-import { signOut } from 'next-auth/react';
+import { signOut } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 
 const WARNING_TIME_MS: number = 9 * 60 * 1000;
@@ -26,7 +26,7 @@ const useInactivityTimer = (
     timerRef.current = setTimeout(async () => {
       await signOut({
         redirect: true,
-        redirectTo: '/sso-failure?error=SessionExpired'
+        redirectTo: "/session-timeout-logout?error=SessionExpired",
       }); // TODO: Handle errors
     }, logoutTimeMs);
   };
