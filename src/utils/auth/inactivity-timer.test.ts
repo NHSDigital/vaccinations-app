@@ -1,5 +1,7 @@
-import { signOut } from 'next-auth/react';
-import useInactivityTimer from "@src/utils/auth/inactivity-timer";
+import { signOut } from "next-auth/react";
+import useInactivityTimer, {
+  ACTIVITY_EVENTS,
+} from "@src/utils/auth/inactivity-timer";
 import { renderHook } from "@testing-library/react";
 import { act } from "react";
 
@@ -24,12 +26,12 @@ describe("inactivity-timer", () => {
     act(() => {
       jest.advanceTimersByTime(8 * 60 * 1000); // 8 minutes
     });
-    expect(result.current.showWarning).toBe(false);
+    expect(result.current.isIdle).toBe(false);
 
     act(() => {
       jest.advanceTimersByTime(1 * 60 * 1000); // 1 more minute
     });
-    expect(result.current.showWarning).toBe(true);
+    expect(result.current.isIdle).toBe(true);
   });
 
   it("should call signOut after 10 minutes of inactivity", () => {
@@ -42,28 +44,31 @@ describe("inactivity-timer", () => {
     expect(signOut).toHaveBeenCalled();
   });
 
-  it("should reset timers on user activity", () => {
-    const { result } = renderHook(() => useInactivityTimer());
+  it.each(ACTIVITY_EVENTS)(
+    "should reset timers on %s activity",
+    (event: string) => {
+      const { result } = renderHook(() => useInactivityTimer());
 
-    // Simulate some time passing so the warning is shown
-    act(() => {
-      jest.advanceTimersByTime(9 * 60 * 1000); // 9 minutes
-    });
-    expect(result.current.showWarning).toBe(true);
+      // Simulate some time passing so the warning is shown
+      act(() => {
+        jest.advanceTimersByTime(9 * 60 * 1000); // 9 minutes
+      });
+      expect(result.current.isIdle).toBe(true);
 
-    // Simulate user activity to hide away warning
-    act(() => {
-      window.dispatchEvent(new Event("mousemove"));
-    });
-    expect(result.current.showWarning).toBe(false);
+      // Simulate user activity to hide away warning
+      act(() => {
+        window.dispatchEvent(new Event(event));
+      });
+      expect(result.current.isIdle).toBe(false);
 
-    // Advance time again
-    act(() => {
-      jest.advanceTimersByTime(2 * 60 * 1000); // 2 more minutes
-    });
+      // Advance time again
+      act(() => {
+        jest.advanceTimersByTime(2 * 60 * 1000); // 2 more minutes
+      });
 
-    // Should not show warning or logout yet
-    expect(result.current.showWarning).toBe(false);
-    expect(signOut).not.toHaveBeenCalled();
-  });
+      // Should not show warning or logout yet
+      expect(result.current.isIdle).toBe(false);
+      expect(signOut).not.toHaveBeenCalled();
+    },
+  );
 });

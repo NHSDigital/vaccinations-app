@@ -5,22 +5,28 @@ import { useEffect, useRef, useState } from "react";
 
 const WARNING_TIME_MS: number = 9 * 60 * 1000;
 const LOGOUT_TIME_MS: number = 10 * 60 * 1000;
+export const ACTIVITY_EVENTS: string[] = [
+  "keydown",
+  "click",
+  "scroll",
+  "touchstart",
+];
 
 const useInactivityTimer = (
   warningTimeMs: number = WARNING_TIME_MS,
   logoutTimeMs: number = LOGOUT_TIME_MS,
 ) => {
-  const [showWarning, setShowWarning] = useState(false);
+  const [isIdle, setIsIdle] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const warningRef = useRef<NodeJS.Timeout | null>(null);
 
   const resetTimer = () => {
     clearTimeout(timerRef?.current ?? undefined);
     clearTimeout(warningRef?.current ?? undefined);
-    setShowWarning(false);
+    setIsIdle(false);
 
     warningRef.current = setTimeout(() => {
-      setShowWarning(true);
+      setIsIdle(true);
     }, warningTimeMs);
 
     timerRef.current = setTimeout(async () => {
@@ -32,20 +38,23 @@ const useInactivityTimer = (
   };
 
   useEffect(() => {
-    const events = ["mousemove", "keydown", "click", "scroll", "touchstart"];
-    events.forEach((event) => window.addEventListener(event, resetTimer));
+    ACTIVITY_EVENTS.forEach((event) =>
+      window.addEventListener(event, resetTimer),
+    );
 
     resetTimer(); // Start timer on component mount
 
     // Stop timer on component unmount
     return () => {
-      events.forEach((event) => window.removeEventListener(event, resetTimer));
+      ACTIVITY_EVENTS.forEach((event) =>
+        window.removeEventListener(event, resetTimer),
+      );
       clearTimeout(timerRef?.current ?? undefined);
       clearTimeout(warningRef?.current ?? undefined);
     };
   }, []);
 
-  return { showWarning };
+  return { isIdle };
 };
 
 export default useInactivityTimer;
