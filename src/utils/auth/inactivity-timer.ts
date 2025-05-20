@@ -32,7 +32,7 @@ const useInactivityTimer = (
   };
 
   useEffect(() => {
-    const events = ["mousemove", "keydown", "click", "scroll"];
+    const events = ["mousemove", "keydown", "click", "scroll", "touchstart"];
     events.forEach((event) => window.addEventListener(event, resetTimer));
 
     resetTimer(); // Start timer on component mount
