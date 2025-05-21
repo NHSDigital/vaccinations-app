@@ -82,8 +82,9 @@ jobs:
       - name: "Upload Packages To S3"
         run: |
           aws s3api put-object --bucket "${AWS_S3_ARTEFACTS_BUCKET}" --key "sha/${RELEASE_VERSION}/open-next.zip" --body "open-next.zip" --if-none-match '*' || true
-          EXIT1=$?
-          if [ $EXIT1 -ne 0 ] then
+          EXIT=$?
+
+          if [ $EXIT -ne 0 ]; then
             echo "❌ Uploading artifacts to S3 bucket failed!"
             echo "command exited with $EXIT1"
             exit 1
