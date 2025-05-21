@@ -1,50 +1,53 @@
 "use client";
+import { createRef, useEffect } from "react";
 import styles from "./styles.module.css";
 
 interface InactivityDialogProps {
-  open: boolean;
-  onClose: () => void;
+  show: boolean;
 }
 
-const handleLogout = async () => {
-  console.log("Logging out");
-};
-
-const handleExtendSession = () => {
-  console.log("Extending session");
-};
-
 const InactivityDialog = (props: InactivityDialogProps) => {
-  if (!props.open) return null;
+  const dialogRef = createRef<HTMLDialogElement>();
+  useEffect(() => {
+    if (props.show) {
+      console.log("Showing dialog");
+      dialogRef.current?.showModal();
+    }
+  }, [dialogRef, props.show]);
+
+  const handleLogout = () => {
+    console.log("Logging out");
+  };
+
+  const handleExtendSession = () => {
+    console.log("Extending session");
+  };
 
   return (
-    <div
-      className={styles.modalContainer}
-      role="dialog"
-      aria-modal="true"
-      tabIndex={-1}
-    >
-      <div className={styles.modalWrapper} style={{ maxWidth: "400px" }}>
-        <div className={styles.modalContent}>
-          <p>For security reasons, you&#39;ll be logged out in 1 minute.</p>
-          <button
-            className="nhsuk-button nhsuk-button-full-width"
-            onClick={() => {
-              props.onClose();
-              handleExtendSession();
-            }}
-          >
-            Stay logged in
-          </button>
-          <button
-            className="nhsuk-button nhsuk-button-full-width"
-            onClick={handleLogout}
-          >
-            Log out
-          </button>
-        </div>
+    <dialog ref={dialogRef} className={styles.warningDialog}>
+      <p>For security reasons, you&#39;ll be logged out in 1 minute.</p>
+      <div className={"nhsapp-button-group"}>
+        <button
+          autoFocus={true}
+          className={"nhsuk-button nhsapp-button"}
+          onClick={() => {
+            dialogRef.current?.close();
+            handleExtendSession();
+          }}
+        >
+          Stay logged in
+        </button>
+        <button
+          className={"nhsuk-button nhsapp-button"}
+          onClick={() => {
+            dialogRef.current?.close();
+            handleLogout();
+          }}
+        >
+          Log out
+        </button>
       </div>
-    </div>
+    </dialog>
   );
 };
 

@@ -1,29 +1,5 @@
-.modalContainer {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: hsla(0, 0%, 100%, .5);
-  z-index: 9999
-}
-
-.modalWrapper {
-  width: 80%;
-  max-height: 75%;
-  margin: 0 auto;
-  position: relative;
-  overflow: auto;
-  z-index: 99999;
-  top: 25%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, .4)
-}
-
-.modalContent {
+.warningDialog {
   min-width: 250px;
-  width: 100%;
+  max-width: 50%;
   background: #fff;
-  z-index: 99999;
-  padding: 30px
 }
