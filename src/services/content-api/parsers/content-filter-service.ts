@@ -7,8 +7,6 @@ import {
   VaccinePageSection,
   VaccinePageSubsection,
 } from "@src/services/content-api/types";
-import { Logger } from "pino";
-import { logger } from "@src/utils/logger";
 
 type Aspect =
   | "OverviewHealthAspect"
@@ -16,8 +14,6 @@ type Aspect =
   | "SuitabilityHealthAspect"
   | "ContraindicationsHealthAspect"
   | "GettingAccessHealthAspect";
-
-const log: Logger = logger.child({ module: "content-filter-service" });
 
 const _findAspect = (
   response: ContentApiVaccineResponse,
@@ -129,9 +125,6 @@ const _extractExpander = (part: HasPartSubsection): VaccinePageSubsection => {
 const _extractAnyOtherSubsection = (
   part: HasPartSubsection,
 ): VaccinePageSubsection => {
-  if (!part.headline) {
-    log.info(`Headline not present for part: ${part.name}`); // cannot throw error; some elements expected to not have headlines
-  }
   return {
     type: "simpleElement",
     headline: part.headline ?? "",
