@@ -38,7 +38,7 @@ const InactivityDialog = (props: InactivityDialogProps) => {
           Stay logged in
         </button>
         <button
-          className={"nhsuk-button nhsapp-button"}
+          className={"nhsuk-button nhsapp-button nhsapp-button--secondary"}
           onClick={() => {
             dialogRef.current?.close();
             handleLogout();
