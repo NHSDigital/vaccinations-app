@@ -106,7 +106,7 @@ From NHS repository template:
   - ```
     make config
     ```
-3. Install and setup pre-commit hooks for this project (todo: confirm if this is still needed with make setup)
+3. Install and setup pre-commit hooks for this project
   - ```
     make githooks-config
     make githooks-run
@@ -157,7 +157,7 @@ Our project utilizes Wiremock to provide mock responses for API endpoints. To co
 - Place request-response mapping files (JSON) within the `wiremock/mappings` directory.
 - Store the corresponding JSON response bodies in the `wiremock/__files` directory.
 
-To run the wiremock server locally:
+To run the Wiremock server locally:
 ```
 npm run content-api
 ```
@@ -190,7 +190,7 @@ make githooks-run
 ### Deploy your local changes to AWS dev environment
 A detailed description of our infrastructure is outlined [here](infrastructure/README.md).
 
-We use terraform workspaces to distinguish each developer.
+We use Terraform workspaces to distinguish each developer.
 So make sure you use your own unique combination of initials, to set the workspace.
 Use maximum 4 chars, otherwise you might not be able to deploy due to max limits on resource names.
 Avoid 'gh' as it is reserved for GitHub.
