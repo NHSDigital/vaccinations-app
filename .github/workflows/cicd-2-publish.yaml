@@ -56,7 +56,7 @@ jobs:
       id-token: write
       contents: write
     steps:
-      - name: "Log Tag"
+      - name: "Log Tags"
         env:
           TAG: ${{ github.ref_name }}
         run: |
