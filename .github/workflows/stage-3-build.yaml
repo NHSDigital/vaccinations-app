@@ -81,6 +81,6 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       - name: "Upload Packages To S3"
         run: |
-          aws s3 cp open-next.zip "s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/${RELEASE_VERSION}/open-next.zip"
-          aws s3 cp lambda.zip "s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/${RELEASE_VERSION}/lambda.zip"
-          aws s3 cp workflow.log "s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/${RELEASE_VERSION}/workflow.log"
+          aws s3api put-object --bucket "${AWS_S3_ARTEFACTS_BUCKET}" --key "sha/${RELEASE_VERSION}/open-next.zip" --body "open-next.zip" --if-none-match '*'
+          aws s3api put-object --bucket "${AWS_S3_ARTEFACTS_BUCKET}" --key "sha/${RELEASE_VERSION}/lambda.zip" --body "lambda.zip" --if-none-match '*'
+          aws s3api put-object --bucket "${AWS_S3_ARTEFACTS_BUCKET}" --key "sha/${RELEASE_VERSION}/workflow.log" --body "workflow.log" --if-none-match '*'
