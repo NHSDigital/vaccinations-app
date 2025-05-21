@@ -34,7 +34,7 @@ on:
 
 env:
   AWS_REGION: eu-west-2
-  AWS_S3_PACKAGE_BUCKET: vaccinations-app-github-dev
+  AWS_S3_ARTEFACTS_BUCKET: vita-050451358653-artefacts-dev
 
 jobs:
   build-and-package:
@@ -81,6 +81,6 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       - name: "Upload Packages To S3"
         run: |
-          aws s3 cp open-next.zip "s3://${AWS_S3_PACKAGE_BUCKET}/artefacts/${RELEASE_VERSION}/open-next.zip"
-          aws s3 cp lambda.zip "s3://${AWS_S3_PACKAGE_BUCKET}/artefacts/${RELEASE_VERSION}/lambda.zip"
-          aws s3 cp workflow.log "s3://${AWS_S3_PACKAGE_BUCKET}/artefacts/${RELEASE_VERSION}/workflow.log"
+          aws s3 cp open-next.zip "s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/${RELEASE_VERSION}/open-next.zip"
+          aws s3 cp lambda.zip "s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/${RELEASE_VERSION}/lambda.zip"
+          aws s3 cp workflow.log "s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/${RELEASE_VERSION}/workflow.log"
