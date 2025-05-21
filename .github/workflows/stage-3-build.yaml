@@ -81,15 +81,15 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       - name: "Upload Packages To S3"
         run: |
-          aws s3api put-object --bucket "${AWS_S3_ARTEFACTS_BUCKET}" --key "sha/${RELEASE_VERSION}/open-next.zip" --body "open-next.zip" --if-none-match '*' || true
+          aws s3api put-object --bucket "${AWS_S3_ARTEFACTS_BUCKET}" --key "sha/${RELEASE_VERSION}/open-next.zip" --body "open-next.zip" --if-none-match '*'
           EXIT=$?
 
           if [ $EXIT -ne 0 ]; then
-            echo "❌ Uploading artifacts to S3 bucket failed!"
-            echo "command exited with $EXIT1"
+            echo "Uploading artifacts to S3 bucket failed!"
+            echo "command exited with $EXIT"
             exit 1
           else
             aws s3api put-object --bucket "${AWS_S3_ARTEFACTS_BUCKET}" --key "sha/${RELEASE_VERSION}/lambda.zip" --body "lambda.zip" --if-none-match '*'
             aws s3api put-object --bucket "${AWS_S3_ARTEFACTS_BUCKET}" --key "sha/${RELEASE_VERSION}/workflow.log" --body "workflow.log" --if-none-match '*'
-            echo "✅ Upload artifacts to S3 bucket succeeded!"
+            echo "Upload artifacts to S3 bucket succeeded!"
           fi
