@@ -11,21 +11,6 @@ test.afterEach('Accessibility check', async ({ page }) => {
 });
 
 test.describe("E2E", () => {
-  test('go to Vaccination Hub', async ({ page }) => {
-    await page.goto('http://localhost:4000/auth/login');
-
-    //TODO: Store creds somewhere, don't push to remote
-    await page.getByLabel("Email address").fill("<user email>");
-    await page.getByRole('button', { name: "Continue" }).click();
-
-    await page.getByRole('textbox', { name: "Password" }).fill("<user password>");
-    await page.getByRole('button', { name: "Continue" }).click();
-
-    await page.getByRole('textbox', { name: 'Security code' }).fill("<OTP>");
-    await page.getByRole('button', { name: "Continue" }).click();
-
-    await expect(page).toHaveTitle(HUB_PAGE_TITLE, { timeout: 60000 });
-  });
 
   test('go to Vaccinations Schedule page', async ({ page }) => {
     await page.goto('/');
@@ -85,13 +70,13 @@ test.describe("E2E", () => {
     await expect(page).toHaveTitle("Flu Vaccine - NHS App");
   });
 
-  test('go to Pneumococcal page', async ({ page }) => {
+  test('Pneumococcal page', async ({ page }) => {
     await page.goto('/vaccines/pneumococcal');
 
     await expect(page).toHaveTitle("Pneumococcal Vaccine - NHS App");
   });
 
-  test('go to Shingles page', async ({ page }) => {
+  test('Shingles page', async ({ page }) => {
     await page.goto('/vaccines/shingles');
 
     await expect(page).toHaveTitle("Shingles Vaccine - NHS App");
