@@ -9,7 +9,7 @@ on:
 
 env:
   AWS_REGION: eu-west-2
-  AWS_S3_PACKAGE_BUCKET: vaccinations-app-github-dev
+  AWS_S3_ARTEFACTS_BUCKET: vita-050451358653-artefacts-dev
 
 jobs:
   metadata:
@@ -75,10 +75,10 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       - name: "Download Packages From S3"
         run: |
-          app_s3_path="s3://${AWS_S3_PACKAGE_BUCKET}/artefacts/${{ needs.metadata.outputs.tag }}/open-next.zip"
+          app_s3_path="s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/${{ needs.metadata.outputs.tag }}/open-next.zip"
           echo "Artefact path: $app_s3_path"
           aws s3 cp "$app_s3_path" .
-          lambda_s3_path="s3://${AWS_S3_PACKAGE_BUCKET}/artefacts/${{ needs.metadata.outputs.tag }}/lambda.zip"
+          lambda_s3_path="s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/${{ needs.metadata.outputs.tag }}/lambda.zip"
           echo "Artefact path: $lambda_s3_path"
           aws s3 cp "$lambda_s3_path" .
       - name: "Unzip OpenNext Package"
