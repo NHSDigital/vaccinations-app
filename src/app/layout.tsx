@@ -2,7 +2,6 @@
 
 import InactivityDialog from "@src/app/_components/inactivity/InactivityDialog";
 import SkipLink from "@src/app/_components/nhs-frontend/SkipLink";
-import useInactivityTimer from "@src/utils/auth/inactivity-timer";
 import React, { JSX } from "react";
 import "@public/nhsuk-frontend-9.1.0/css/nhsuk-9.1.0.min.css";
 import "@public/nhsapp-frontend-2.3.0/nhsapp-2.3.0.min.css";
@@ -14,8 +13,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>): JSX.Element {
-  const { isIdle } = useInactivityTimer();
-
   return (
     <html lang="en">
       <head>
@@ -71,7 +68,7 @@ export default function RootLayout({
 
       <body>
         <SkipLink />
-        <InactivityDialog show={isIdle} />
+        <InactivityDialog />
         <div className="nhsuk-width-container ">{children}</div>
       </body>
     </html>
