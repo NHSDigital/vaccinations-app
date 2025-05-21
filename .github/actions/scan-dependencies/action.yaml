@@ -40,7 +40,6 @@ runs:
     - name: "Scan vulnerabilities"
       shell: bash
       run: |
-        grype db update
         export BUILD_DATETIME=${{ inputs.build_datetime }}
         ./scripts/reports/scan-vulnerabilities.sh
     - name: "Compress vulnerabilities report"
