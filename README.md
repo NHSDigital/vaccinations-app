@@ -315,6 +315,8 @@ Our release strategy is based on Semantic Versioning and utilizes tagged commits
     * A new tagged release in the "Releases" section of the GitHub repository.
     * The corresponding build artifact within the `/tags` folder of the github AWS S3 bucket.
 
+**The branching and tagging strategy to fix broken deployed releases can be found [here](https://nhsd-confluence.digital.nhs.uk/spaces/Vacc/pages/989220238/Branching+and+release+strategy#Branchingandreleasestrategy-Fixingdeployedbrokenreleases).**
+
 ## Design
 
 TODO

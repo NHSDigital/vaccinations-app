@@ -78,7 +78,7 @@ jobs:
           if aws s3 ls "s3://vaccinations-app-github-dev/artefacts/$SHORT_SHA/" | grep .; then
             aws s3 cp "s3://vaccinations-app-github-dev/artefacts/$SHORT_SHA" "s3://vaccinations-app-github-dev/tags/$TAG/" --recursive
           else
-            echo "Error: No matching folder found for SHA: $SHORT_SHA"
+            echo "Error: No build found for SHA: $SHORT_SHA"
             exit 1
           fi
       - name: "Get commit history"
