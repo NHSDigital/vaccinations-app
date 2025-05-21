@@ -1,19 +1,18 @@
 "use client";
 import { createRef, useEffect } from "react";
 import styles from "./styles.module.css";
+import useInactivityTimer from "@src/utils/auth/inactivity-timer";
 
-interface InactivityDialogProps {
-  show: boolean;
-}
-
-const InactivityDialog = (props: InactivityDialogProps) => {
+const InactivityDialog = () => {
+  const { isIdle } = useInactivityTimer();
   const dialogRef = createRef<HTMLDialogElement>();
+
   useEffect(() => {
-    if (props.show) {
+    if (isIdle) {
       console.log("Showing dialog");
       dialogRef.current?.showModal();
     }
-  }, [dialogRef, props.show]);
+  }, [dialogRef, isIdle]);
 
   const handleLogout = () => {
     console.log("Logging out");
