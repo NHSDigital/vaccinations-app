@@ -16,6 +16,7 @@ We will increase appointment attendance and reduce the number of 'did not attend
 ## Developer Setup
 
 ### GitHub
+
 - As per NHS guidelines, make your GitHub email private by going [here](https://github.com/settings/emails). There is a checkbox named "Keep my email addresses private". Note down your private email from this setting.
 - Follow these [instructions](https://nhsd-confluence.digital.nhs.uk/display/Vacc/Developer+setup%3A+Github).
   - Remember to use your private email, noted above, in GitHub config 'user.email'.
@@ -23,9 +24,11 @@ We will increase appointment attendance and reduce the number of 'did not attend
 - Get your NHS GitHub username added to the VitA team to gain access to the repository
 
 ### Prerequisites
+
 Tools to install:
 
 From NHS repository template:
+
 - **Make and GNU tooling** - The version of GNU make available by default on macOS is earlier than 3.82. You will need to upgrade it or certain make tasks will fail.
   On macOS, you will need Homebrew installed, then to install make, like so:
   - ```
@@ -101,6 +104,7 @@ From NHS repository template:
     ```
 
 ### Local Configuration
+
 1. Update environment variables file .env.local to suit local development and testing
 2. Install toolchain dependencies and load .tool-versions into asdf
   - ```
@@ -123,17 +127,20 @@ From NHS repository template:
 ## Usage
 
 ### Build
+
 ```
 npm run build
 ```
 
 ### Run service locally
+
 Serves web content from src folder, so make changes and refresh the browser to see changes immediately.
 ```
 npm run dev
 ```
 
 #### Simulating NHS Login SSO flow
+
 Our project integrates with NHS Login. To simulate the SSO flow, clone this [repo](https://github.com/NHSDigital/vita-login-sso-client-express)
 and follow the README to set it up.
 
@@ -153,7 +160,9 @@ SSO flow is initiated from the Fake Client. Directly accessing the application w
 
 
 #### Mocking API Responses with Wiremock
+
 Our project utilizes Wiremock to provide mock responses for API endpoints. To configure these responses:
+
 - Place request-response mapping files (JSON) within the `wiremock/mappings` directory.
 - Store the corresponding JSON response bodies in the `wiremock/__files` directory.
 
@@ -163,11 +172,13 @@ npm run content-api
 ```
 
 ### Run unit tests
+
 ```
 npm run test
 ```
 
 ### Run UI driven tests
+
 - make sure to build and run the Next.js app
   ```
   npm run app
@@ -182,12 +193,14 @@ npm run test
   ```
 
 ### Run pre-commit hooks manually
+
 ```
 make githooks-run
 ```
 (Note that this has also been configured as a pre-commit hook that will run automatically before each commit)
 
 ### Deploy your local changes to AWS dev environment
+
 A detailed description of our infrastructure is outlined [here](infrastructure/README.md).
 
 We use Terraform workspaces to distinguish each developer.
@@ -221,6 +234,7 @@ Avoid 'gh' as it is reserved for GitHub.
   - The app is accessible via the CDN URL printed after the deployment as an output.
 
 #### Destroying and Re-deploying resources in AWS
+
 To destroy resources in AWS, run the command:
 ```
  TF_ENV=dev make terraform-destroy       # deprovisions infrastructure, asks for approval
@@ -228,9 +242,11 @@ To destroy resources in AWS, run the command:
 Note: AWS has been configured to ensure that server function log group is not deleted when destroy is run. When re-deploying from local, this means that developers will need to go into AWS and manually delete the log group before re-provisioning.
 
 #### Accessing application logs in AWS
+
 Logs are kept in AWS CloudWatch in a Log Group for the server
 
 In AWS Console:
+
 - CloudWatch > Log Groups > `/aws/lambda/{workspace}-main-vita-{accountid}-server-function`
 
 Use the Logs Insights UI to query logs:
@@ -300,9 +316,11 @@ Our release strategy is based on Semantic Versioning and utilizes tagged commits
     * The corresponding build artifact within the `/tags` folder of the github AWS S3 bucket.
 
 ## Design
+
 TODO
 
 ## Contacts
+
 [Slack channel: #vaccs-in-the-app-devs](https://nhsdigitalcorporate.enterprise.slack.com/archives/C08BNCQH9FV)
 
 ## Licence
