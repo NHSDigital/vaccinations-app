@@ -271,14 +271,15 @@ To enable debug logging of OpenNext, add OPEN_NEXT_DEBUG=true to package.json bu
 
 Our release strategy is based on Semantic Versioning and utilizes tagged commits. To create a new release, please follow the steps outlined below:
 
-1.  **Merge and Synchronize with Remote:** After merging your changes into the `main` branch, ensure your local repository is synchronized with the remote. Execute the following commands:
+1.  **Write a commit, push and Synchronize with Remote:** After merging your changes into the `main` branch, ensure your local repository is synchronized with the remote. Execute the following commands:
 
     ```bash
+    git commit -m 'your commit message'
     git push origin main
     git pull --rebase origin main
     ```
 
-    Wait for the continuous integration/build pipeline to complete successfully.
+    IMPORTANT: Wait for the continuous integration/build pipeline to complete successfully.
 
 2.  **Determine Release Type:** Assess the nature of the changes included in this release to determine the appropriate semantic version increment:
 
