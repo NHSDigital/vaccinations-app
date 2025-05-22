@@ -8,17 +8,19 @@ const mockSessionValue: Session = {
   user: { nhs_number: "", birthdate: "" },
 };
 let mockSession = { data: mockSessionValue, status: "authenticated" };
+const mockSignOut = jest.fn();
 
 jest.mock("@src/utils/auth/inactivity-timer");
 
 jest.mock("next-auth/react", () => {
   return {
     useSession: () => mockSession,
+    signOut: mockSignOut
   };
 });
 
 let idleSession = false;
-const timedOutSession = false;
+let timedOutSession = false;
 
 const setupJsdomWorkaroundForDialogElement = () => {
   // Dialog element is not support in JSDom: workaround from https://github.com/jsdom/jsdom/issues/3294
@@ -73,6 +75,56 @@ describe("InactivityDialog", () => {
         hidden: true,
       });
       expect(inactivityWarningModal).not.toBeVisible();
+    });
+
+    it("should close dialog and extend session when user clicks to stay logged in", async () => {
+      idleSession = true;
+      timedOutSession = false;
+
+      render(<InactivityDialog />);
+
+      const inactivityWarningModal: HTMLElement = screen.getByRole("dialog", {
+        hidden: true,
+      });
+      expect(inactivityWarningModal).toBeVisible();
+
+      const extendSessionButton = screen.getByTestId("extend-session-button")
+      extendSessionButton.click();
+
+      expect(inactivityWarningModal).not.toBeVisible();
+      // todo: add missing assertion: how to assert the session extended / timeout was reset?...
+    });
+
+    it("should close dialog and call signOut when user clicks log out", async () => {
+      idleSession = true;
+      timedOutSession = false;
+
+      render(<InactivityDialog />);
+
+      const inactivityWarningModal: HTMLElement = screen.getByRole("dialog", {
+        hidden: true,
+      });
+      expect(inactivityWarningModal).toBeVisible();
+
+      const logOutButton = screen.getByTestId("log-out-button")
+      logOutButton.click();
+
+      expect(inactivityWarningModal).not.toBeVisible();
+      // TODO: get the mocking of the signout function working
+      expect(mockSignOut).toHaveBeenCalled();
+    });
+
+    it("should call signOut when session is timed out", async () => {
+      idleSession = true;
+      timedOutSession = true;
+
+      render(<InactivityDialog />);
+
+      const inactivityWarningModal: HTMLElement = screen.getByRole("dialog", {
+        hidden: true,
+      });
+      expect(inactivityWarningModal).not.toBeVisible();
+      expect(mockSignOut).toHaveBeenCalled();
     });
   });
 

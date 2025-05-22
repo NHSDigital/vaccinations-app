@@ -31,6 +31,7 @@ const InactivityDialog = (): JSX.Element => {
         <button
           autoFocus={true}
           className={"nhsuk-button nhsapp-button"}
+          data-testid="extend-session-button"
           onClick={() => {
             dialogRef.current?.close();
             handleExtendSession();
@@ -40,6 +41,7 @@ const InactivityDialog = (): JSX.Element => {
         </button>
         <button
           className={"nhsuk-button nhsapp-button nhsapp-button--secondary"}
+          data-testid="log-out-button"
           onClick={() => {
             dialogRef.current?.close();
             handleLogout();
