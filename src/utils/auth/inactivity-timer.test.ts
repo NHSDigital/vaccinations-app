@@ -20,7 +20,7 @@ describe("inactivity-timer", () => {
     jest.useRealTimers();
   });
 
-  it("should show warning after 9 minutes of inactivity", async () => {
+  it("should set isIdle after 9 minutes of inactivity", async () => {
     const { result } = renderHook(() => useInactivityTimer());
 
     act(() => {
@@ -32,16 +32,19 @@ describe("inactivity-timer", () => {
       jest.advanceTimersByTime(1 * 60 * 1000); // 1 more minute
     });
     expect(result.current.isIdle).toBe(true);
+    expect(result.current.isTimedOut).toBe(false);
   });
 
-  it("should call signOut after 10 minutes of inactivity", () => {
-    renderHook(() => useInactivityTimer());
+  it("should set isTimedOut after 10 minutes of inactivity", () => {
+    const { result } = renderHook(() => useInactivityTimer());
+
+    expect(result.current.isTimedOut).toBe(false);
 
     act(() => {
       jest.advanceTimersByTime(10 * 60 * 1000); // 10 minutes
     });
 
-    expect(signOut).toHaveBeenCalled();
+    expect(result.current.isTimedOut).toBe(true);
   });
 
   it.each(ACTIVITY_EVENTS)(

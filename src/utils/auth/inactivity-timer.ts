@@ -1,6 +1,5 @@
 "use client";
 
-import { signOut } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 
 const WARNING_TIME_MS: number = 9 * 60 * 1000;
@@ -17,6 +16,7 @@ const useInactivityTimer = (
   logoutTimeMs: number = LOGOUT_TIME_MS,
 ) => {
   const [isIdle, setIsIdle] = useState(false);
+  const [isTimedOut, setIsTimedOut] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const warningRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -30,10 +30,7 @@ const useInactivityTimer = (
     }, warningTimeMs);
 
     timerRef.current = setTimeout(async () => {
-      await signOut({
-        redirect: true,
-        redirectTo: "/session-timeout-logout?error=SessionExpired",
-      }); // TODO: Handle errors
+      setIsTimedOut(true);
     }, logoutTimeMs);
   };
 
@@ -54,7 +51,7 @@ const useInactivityTimer = (
     };
   }, []);
 
-  return { isIdle };
+  return { isIdle, isTimedOut };
 };
 
 export default useInactivityTimer;
