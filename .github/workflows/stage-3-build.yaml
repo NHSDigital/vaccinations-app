@@ -82,18 +82,18 @@ jobs:
       - name: "Upload Packages To S3"
         run: | # Prevent overwriting of existing artefacts
           aws s3api put-object --bucket "${AWS_S3_ARTEFACTS_BUCKET}" --key "sha/${RELEASE_VERSION}/open-next.zip" --body "open-next.zip" --if-none-match '*' || {
-            echo "Uploading open-next.zip to S3 bucket failed!"
+            echo "❌ Uploading open-next.zip to S3 bucket failed!"
             exit 1
           }
 
           aws s3api put-object --bucket "${AWS_S3_ARTEFACTS_BUCKET}" --key "sha/${RELEASE_VERSION}/lambda.zip" --body "lambda.zip" --if-none-match '*' || {
-            echo "Uploading lambda.zip to S3 bucket failed!"
+            echo "❌ Uploading lambda.zip to S3 bucket failed!"
             exit 1
           }
 
           aws s3api put-object --bucket "${AWS_S3_ARTEFACTS_BUCKET}" --key "sha/${RELEASE_VERSION}/workflow.log" --body "workflow.log" --if-none-match '*' || {
-            echo "Uploading workflow.log to S3 bucket failed!"
+            echo "❌ Uploading workflow.log to S3 bucket failed!"
             exit 1
           }
 
-          echo "Upload artifacts to S3 bucket succeeded!"
+          echo "✅ Upload artifacts to S3 bucket succeeded!"
