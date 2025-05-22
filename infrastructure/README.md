@@ -14,10 +14,16 @@ Use the following tags for any resource created manually. This helps in keeping 
 
 ### S3
 
-We need two buckets to be created manually, before IaC can start to provision infra for us.
-First one is named `vaccinations-app-github-<env>` and second one `vaccinations-app-tfstate-<env>`.
-The former is used by GitHub to store artefacts after successful builds,
-and the latter is used by Terraform to store state and lock files.
+We need 3 buckets to be created manually, before IaC can start to provision infra for us.
+First one is named `vita-<AWSaccountId>-artefacts-<env>`, second one is named `vita-<AWSaccountId>-releases-<env>` and third one is `vaccinations-app-tfstate-<env>`.
+The first one is used by GitHub to store artefacts after successful builds,
+the second one is used by GitHub to store tagged releases after successful publish/release,
+and the third one is used by Terraform to store state and lock files.
+
+The s3 buckets `vita-<AWSaccountId>-artefacts-<env>` and `vita-<AWSaccountId>-releases-<env>` are set up with bucket versioning and object lock,
+so that we can control the rewrites and deletions better. We set the retention period of 90 days on the artefacts bucket and 100 years on the releases bucket.
+After the retention period the objects in the artefacts buckets will be deleted - this is ensured with the Lifecycle rules called "Expire-After-90-Days-Lock" and "Cleanup-Delete-Markers".
+
 Use the following settings to provision them:
 
 - General configuration
