@@ -34,7 +34,7 @@ on:
 
 env:
   AWS_REGION: eu-west-2
-  AWS_S3_ARTEFACTS_BUCKET: vita-050451358653-artefacts-dev
+  AWS_S3_ARTEFACTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-dev
 
 jobs:
   build-and-package:

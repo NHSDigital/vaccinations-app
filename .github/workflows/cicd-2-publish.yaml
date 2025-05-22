@@ -7,7 +7,8 @@ on:
 
 env:
   AWS_REGION: eu-west-2
-  AWS_S3_PACKAGE_BUCKET: vaccinations-app-github-dev
+  AWS_S3_ARTEFACTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-dev
+  AWS_S3_RELEASES_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-dev
 
 jobs:
   metadata:
@@ -75,8 +76,8 @@ jobs:
           TAG=${{ github.ref_name }}
           SHORT_SHA=${{ steps.sha.outputs.short_sha }}
 
-          if aws s3 ls "s3://vaccinations-app-github-dev/artefacts/$SHORT_SHA/" | grep .; then
-            aws s3 cp "s3://vaccinations-app-github-dev/artefacts/$SHORT_SHA" "s3://vaccinations-app-github-dev/tags/$TAG/" --recursive
+          if aws s3 ls "s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/$SHORT_SHA/" | grep .; then
+            aws s3 cp "s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/$SHORT_SHA" "s3://${AWS_S3_RELEASES_BUCKET}/tag/$TAG/" --recursive
           else
             echo "Error: No build found for SHA: $SHORT_SHA"
             exit 1
