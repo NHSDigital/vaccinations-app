@@ -1,18 +1,20 @@
 "use client";
-import { createRef, useEffect } from "react";
+import { createRef, JSX, useEffect } from "react";
 import styles from "./styles.module.css";
 import useInactivityTimer from "@src/utils/auth/inactivity-timer";
+import { useSession } from "next-auth/react";
 
-const InactivityDialog = () => {
+const InactivityDialog = (): JSX.Element => {
+  const { status } = useSession();
   const { isIdle } = useInactivityTimer();
+
   const dialogRef = createRef<HTMLDialogElement>();
 
   useEffect(() => {
-    if (isIdle) {
-      console.log("Showing dialog");
+    if (status === "authenticated" && isIdle) {
       dialogRef.current?.showModal();
     }
-  }, [dialogRef, isIdle]);
+  }, [dialogRef, isIdle, status]);
 
   const handleLogout = () => {
     console.log("Logging out");

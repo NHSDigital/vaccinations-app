@@ -5,6 +5,7 @@ import SkipLink from "@src/app/_components/nhs-frontend/SkipLink";
 import React, { JSX } from "react";
 import "@public/nhsuk-frontend-9.1.0/css/nhsuk-9.1.0.min.css";
 import "@public/nhsapp-frontend-2.3.0/nhsapp-2.3.0.min.css";
+import { SessionProvider } from "next-auth/react";
 
 const NHSUK_FRONTEND_VERSION = "nhsuk-frontend-9.1.0";
 
@@ -68,8 +69,10 @@ export default function RootLayout({
 
       <body>
         <SkipLink />
-        <InactivityDialog />
-        <div className="nhsuk-width-container ">{children}</div>
+        <SessionProvider>
+          <InactivityDialog />
+          <div className="nhsuk-width-container ">{children}</div>
+        </SessionProvider>
       </body>
     </html>
   );
