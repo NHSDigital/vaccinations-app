@@ -9,7 +9,7 @@ locals {
   environment               = "dev"
   git_branch                = coalesce(data.external.git_branch.result.output, "na")
   deploy_workspace          = var.is_github_action ? "gh" : terraform.workspace
-  prefix                    = "${local.deploy_workspace}-${local.git_branch}-${local.project_identifier_shortcode}-${data.aws_caller_identity.current.account_id}"
+  prefix                    = "${local.deploy_workspace}-${local.project_identifier_shortcode}-${data.aws_caller_identity.current.account_id}"
   open_next_path            = "../../../.open-next"
   node_version              = "nodejs22.x"
   log_retention_in_days     = 7
