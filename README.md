@@ -283,8 +283,8 @@ Our release strategy is based on Semantic Versioning and utilizes tagged commits
 2.  **Determine Release Type:** Assess the nature of the changes included in this release to determine the appropriate semantic version increment:
 
     * **Major Change (Breaking):** Increment the major version (e.g., `v1.0.0` to `v2.0.0`).
-    * **Minor Change (New Feature):** Increment the minor version (e.g., `v1.0.0` to `v1.1.0`).
-    * **Patch/Fix (Bug Fixes, Minor Updates):** Increment the patch version (e.g., `v1.0.0` to `v1.0.1`).
+    * **Minor Change (New Feature):** Increment the minor version (e.g., `v0.1.0` to `v0.2.0`).
+    * **Patch/Fix (Bug Fixes, Minor Updates):** Increment the patch version (e.g., `v0.0.1` to `v0.0.2`).
 
 3.  **Identify the Previous Tag (Optional):** You can view existing tags to understand the current release version. Either visit the "Releases" or "Tags" section of the repository on GitHub, or run the following command locally:
 
@@ -301,7 +301,7 @@ Our release strategy is based on Semantic Versioning and utilizes tagged commits
     For example, if it's a minor release, you might use:
 
     ```bash
-    git tag v1.1.0
+    git tag v0.2.0
     ```
 
 5.  **Push the Tag to Remote:** Push the newly created tag to the `origin` remote repository. This action will automatically trigger the publish/release workflow:
