@@ -22,23 +22,79 @@ and the third one is used by Terraform to store state and lock files.
 
 The s3 buckets `vita-<AWSaccountId>-artefacts-<env>` and `vita-<AWSaccountId>-releases-<env>` are set up with bucket versioning and object lock,
 so that we can control the rewrites and deletions better. We set the retention period of 90 days on the artefacts bucket and 100 years on the releases bucket.
-After the retention period the objects in the artefacts buckets will be deleted - this is ensured with the Lifecycle rules called "Expire-After-90-Days-Lock" and "Cleanup-Delete-Markers".
+After the retention period the objects in the artefacts buckets will be deleted - this is ensured with the Lifecycle rules (under Management section of the bucket) called "Expire-After-90-Days-Lock" and "Cleanup-Delete-Markers".
 
 Use the following settings to provision them:
 
-- General configuration
-  - Bucket name: as per the names above.
+#### Configuration for tfstate bucket
+
+- Bucket name: `vaccinations-app-tfstate-<env>`
 - Object Ownership
   - ACLs disabled (recommended): bucket owner enforced.
 - Block Public Access settings for this bucket
   - Block all public access
-- Bucket Versioning
-  - Enabled (for `vaccinations-app-tfstate-<env>` bucket)
-  - Disabled (for `vaccinations-app-github-<env>` bucket)
+- Bucket Versioning: Enabled
 - Tags: refer [above](#tags)
 - Default encryption
   - Encryption type: SSE-S3
   - Bucket Key: Enable
+
+#### Configuration for artefacts bucket
+
+- Bucket name: `vita-<AWSaccountId>-artefacts-<env>`
+- Object Ownership
+  - ACLs disabled (recommended): bucket owner enforced.
+- Block Public Access settings for this bucket
+  - Block all public access
+- Bucket Versioning: Enabled
+- Tags: refer [above](#tags)
+- Default encryption
+  - Encryption type: SSE-S3
+  - Bucket Key: Enable
+- Advanced Settings
+  - Object Lock: Enabled
+    - Confirm acknowledgement
+- Properties (inside bucket)
+  - Object Lock
+    - Default retention: Enabled
+    - Default retention mode: Governance
+    - Default retention period: 90 days
+- Management (inside bucket)
+  - Lifecycle Configuration
+    - Create two lifecycle rules
+      - Expire-After-90-Days-Lock
+        - name: Expire-After-90-Days-Lock
+        - rule scope: Apply to all objects in the bucket
+        - Lifecyle rule actions
+          - Expire current versions of object
+            - Days after object creation: 90
+      - Cleanup-Delete-Markers
+        - name: Cleanup-Delete-Markers
+        - rule scope: Apply to all objects in the bucket
+        - Lifecyle rule actions
+          - Delete expired object delete markers or incomplete multipart uploads
+            - Delete expired object delete markers
+
+#### Configuration for releases bucket
+
+- Bucket name: `vita-<AWSaccountId>-releases-<env>`
+- Object Ownership
+  - ACLs disabled (recommended): bucket owner enforced.
+- Block Public Access settings for this bucket
+  - Block all public access
+- Bucket Versioning: Enabled
+- Tags: refer [above](#tags)
+- Default encryption
+  - Encryption type: SSE-S3
+  - Bucket Key: Enable
+- Advanced Settings
+  - Object Lock: Enabled
+    - Confirm acknowledgement
+- Properties (inside bucket)
+    - Object Lock
+      - Default retention: Enabled
+      - Default retention mode: Governance
+      - Default retention period: 100 years
 
 ### IAM
 
