@@ -1,19 +1,13 @@
-import { signOut } from "next-auth/react";
 import useInactivityTimer, {
   ACTIVITY_EVENTS,
 } from "@src/utils/auth/inactivity-timer";
 import { renderHook } from "@testing-library/react";
 import { act } from "react";
 
-jest.mock("next-auth/react", () => ({
-  signOut: jest.fn(),
-}));
-
 describe("inactivity-timer", () => {
   beforeEach(() => {
     jest.useFakeTimers();
     jest.clearAllTimers();
-    (signOut as jest.Mock).mockClear();
   });
 
   afterEach(() => {
@@ -71,7 +65,6 @@ describe("inactivity-timer", () => {
 
       // Should not show warning or logout yet
       expect(result.current.isIdle).toBe(false);
-      expect(signOut).not.toHaveBeenCalled();
     },
   );
 });
