@@ -40,6 +40,8 @@ jobs:
   build-and-package:
     name: "Build and package"
     runs-on: ubuntu-latest
+    environment:
+      name: dev
     timeout-minutes: 5
     permissions:
       id-token: write

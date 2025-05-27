@@ -51,6 +51,8 @@ jobs:
   publish:
     name: "Publish packages"
     runs-on: ubuntu-latest
+    environment:
+      name: dev
     needs: [metadata]
     timeout-minutes: 3
     permissions:
