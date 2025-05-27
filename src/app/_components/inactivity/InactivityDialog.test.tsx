@@ -1,5 +1,7 @@
-import InactivityDialog from "@src/app/_components/inactivity/InactivityDialog";
+import { InactivityDialog } from "@src/app/_components/inactivity/InactivityDialog";
+import { userExtendSession } from "@src/utils/auth/user-extend-session";
 import { render, screen } from "@testing-library/react";
+import { userLogout } from "@src/utils/auth/user-logout";
 import useInactivityTimer from "@src/utils/auth/inactivity-timer";
 import { Session } from "next-auth";
 
@@ -9,16 +11,16 @@ const mockSessionValue: Session = {
 };
 let mockSession = { data: mockSessionValue, status: "authenticated" };
 
-jest.mock("@src/utils/auth/inactivity-timer");
+jest.mock("next-auth/react", () => ({
+  useSession: () => mockSession,
+}));
 
-jest.mock("next-auth/react", () => {
-  return {
-    useSession: () => mockSession,
-  };
-});
+jest.mock("@src/utils/auth/inactivity-timer");
+jest.mock("@src/utils/auth/user-logout");
+jest.mock("@src/utils/auth/user-extend-session");
 
 let idleSession = false;
-const timedOutSession = false;
+let timedOutSession = false;
 
 const setupJsdomWorkaroundForDialogElement = () => {
   // Dialog element is not support in JSDom: workaround from https://github.com/jsdom/jsdom/issues/3294
@@ -53,9 +55,10 @@ describe("InactivityDialog", () => {
   describe("when user is logged in", () => {
     beforeEach(() => {
       mockSession = { data: mockSessionValue, status: "authenticated" };
+      idleSession = timedOutSession = false;
     });
 
-    it("should show warning when session is idle", async () => {
+    it("should show warning when user is idle", async () => {
       idleSession = true;
 
       render(<InactivityDialog />);
@@ -64,9 +67,7 @@ describe("InactivityDialog", () => {
       expect(inactivityWarningModal).toBeVisible();
     });
 
-    it("should not show warning when session is not idle", async () => {
-      idleSession = false;
-
+    it("should not show warning when user is not idle", async () => {
       render(<InactivityDialog />);
 
       const inactivityWarningModal: HTMLElement = screen.getByRole("dialog", {
@@ -74,14 +75,55 @@ describe("InactivityDialog", () => {
       });
       expect(inactivityWarningModal).not.toBeVisible();
     });
+
+    it("should try to logout when user activity has timed out", async () => {
+      idleSession = timedOutSession = true;
+
+      render(<InactivityDialog />);
+
+      expect(userLogout).toHaveBeenCalledTimes(1);
+    });
+
+    it("should not show warning when user activity has timed out after warning", async () => {
+      idleSession = true;
+
+      const { rerender } = render(<InactivityDialog />);
+      timedOutSession = true;
+      rerender(<InactivityDialog />);
+
+      const inactivityWarningModal: HTMLElement = screen.getByRole("dialog", {
+        hidden: true,
+      });
+      expect(inactivityWarningModal).not.toBeVisible();
+      expect(userLogout).toHaveBeenCalledTimes(1);
+    });
+
+    it("should call extend session when user clicks the button", async () => {
+      idleSession = true;
+
+      render(<InactivityDialog />);
+      screen.getByRole("button", { name: "Stay logged in" }).click();
+
+      expect(userExtendSession).toHaveBeenCalledTimes(1);
+    });
+
+    it("should call logout when user clicks the button", async () => {
+      idleSession = true;
+
+      render(<InactivityDialog />);
+      screen.getByRole("button", { name: "Log out" }).click();
+
+      expect(userLogout).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe("when user is not logged in", () => {
     beforeEach(() => {
       mockSession = { data: mockSessionValue, status: "unauthenticated" };
+      idleSession = timedOutSession = false;
     });
 
-    it("should not show warning when unauthenticated session is idle", async () => {
+    it("should not show warning when user is idle", async () => {
       idleSession = true;
 
       render(<InactivityDialog />);
@@ -90,6 +132,18 @@ describe("InactivityDialog", () => {
         hidden: true,
       });
       expect(inactivityWarningModal).not.toBeVisible();
+    });
+
+    it("should not try to logout when user activity has timed out", async () => {
+      idleSession = timedOutSession = true;
+
+      render(<InactivityDialog />);
+
+      const inactivityWarningModal = screen.queryByRole("dialog", {
+        hidden: true,
+      });
+      expect(inactivityWarningModal).not.toBeVisible();
+      expect(userLogout).not.toHaveBeenCalled();
     });
   });
 });

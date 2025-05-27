@@ -1,28 +1,27 @@
 "use client";
+
+import { userExtendSession } from "@src/utils/auth/user-extend-session";
 import { createRef, JSX, useEffect } from "react";
 import styles from "./styles.module.css";
+import { userLogout } from "@src/utils/auth/user-logout";
 import useInactivityTimer from "@src/utils/auth/inactivity-timer";
 import { useSession } from "next-auth/react";
 
 const InactivityDialog = (): JSX.Element => {
   const { status } = useSession();
-  const { isIdle } = useInactivityTimer();
-
+  const { isIdle, isTimedOut } = useInactivityTimer();
   const dialogRef = createRef<HTMLDialogElement>();
 
   useEffect(() => {
-    if (status === "authenticated" && isIdle) {
+    const isAuthenticated = status === "authenticated";
+
+    if (isAuthenticated && isTimedOut) {
+      dialogRef.current?.close();
+      userLogout();
+    } else if (isAuthenticated && isIdle) {
       dialogRef.current?.showModal();
     }
-  }, [dialogRef, isIdle, status]);
-
-  const handleLogout = () => {
-    console.log("Logging out");
-  };
-
-  const handleExtendSession = () => {
-    console.log("Extending session");
-  };
+  }, [dialogRef, isIdle, isTimedOut, status]);
 
   return (
     <dialog ref={dialogRef} className={styles.warningDialog}>
@@ -33,7 +32,7 @@ const InactivityDialog = (): JSX.Element => {
           className={"nhsuk-button nhsapp-button"}
           onClick={() => {
             dialogRef.current?.close();
-            handleExtendSession();
+            userExtendSession();
           }}
         >
           Stay logged in
@@ -42,7 +41,7 @@ const InactivityDialog = (): JSX.Element => {
           className={"nhsuk-button nhsapp-button nhsapp-button--secondary"}
           onClick={() => {
             dialogRef.current?.close();
-            handleLogout();
+            userLogout();
           }}
         >
           Log out
@@ -52,4 +51,4 @@ const InactivityDialog = (): JSX.Element => {
   );
 };
 
-export default InactivityDialog;
+export { InactivityDialog };

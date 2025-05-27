@@ -1,6 +1,6 @@
 "use client";
 
-import InactivityDialog from "@src/app/_components/inactivity/InactivityDialog";
+import { InactivityDialog } from "@src/app/_components/inactivity/InactivityDialog";
 import SkipLink from "@src/app/_components/nhs-frontend/SkipLink";
 import React, { JSX } from "react";
 import "@public/nhsuk-frontend-9.1.0/css/nhsuk-9.1.0.min.css";
