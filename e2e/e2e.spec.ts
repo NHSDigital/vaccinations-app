@@ -24,17 +24,25 @@ test.beforeAll(async ({ browser }) => {
   page = await context.newPage();
   await page.goto(process.env.TEST_NHS_APP_URL!);
 
+  await page.waitForURL('**/enter-email', {timeout: 30000})
   await page.getByLabel("Email address").fill(process.env.TEST_NHS_LOGIN_USERNAME!);
   await page.getByRole("button", { name: "Continue" }).click();
 
+  await page.waitForURL('**/log-in-password', {timeout: 30000})
   await page.getByRole("textbox", { name: "Password" }).fill(process.env.TEST_NHS_LOGIN_PASSWORD!);
   await page.getByRole("button", { name: "Continue" }).click();
 
+  await page.waitForURL(/\/(enter-mobile-code|choose-authentication-method)$/, {timeout: 30000});
+  if ((new URL(page.url())).pathname === "/choose-authentication-method") {
+    await page.getByLabel("Use my mobile phone to recieve a security code by text message").click();
+    await page.getByRole("button", { name: "Continue" }).click();
+  }
+
+  await page.waitForURL('**/enter-mobile-code', {timeout: 30000})
   await page.getByRole("textbox", { name: "Security code" }).fill(process.env.TEST_NHS_LOGIN_OTP!);
   await page.getByRole("button", { name: "Continue" }).click();
 
   await page.waitForURL(process.env.TEST_APP_URL!, { timeout: 30000 });
-
 });
 
 test.afterEach("Accessibility check", async () => {
