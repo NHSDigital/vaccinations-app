@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "This is the tag that is going to be deployed"
+        description: "The commit SHA to be deployed"
         required: true
 
 env:
@@ -55,6 +55,8 @@ jobs:
   deploy:
     name: "Deploy to dev environment"
     runs-on: ubuntu-latest
+    environment:
+      name: dev
     needs: [ metadata ]
     timeout-minutes: 20
     permissions:
