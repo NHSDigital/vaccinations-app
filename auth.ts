@@ -1,4 +1,6 @@
 import NHSLoginAuthProvider from "@src/app/api/auth/[...nextauth]/provider";
+import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
+import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import NextAuth, { type DefaultSession } from "next-auth";
@@ -37,9 +39,6 @@ declare module "next-auth/jwt" {
 
 
 const log: Logger = logger.child({ module: "auth" });
-
-export const SSO_FAILURE_ROUTE = "/sso-failure";
-export const SESSION_LOGOUT_ROUTE = "/session-logout";
 
 export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
   return {
