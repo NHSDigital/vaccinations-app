@@ -1,4 +1,3 @@
-
 export const HUB_PAGE_TITLE = "Vaccinations - NHS App";
 export const SCHEDULE_PAGE_TITLE = "Vaccines for all ages - NHS App";
 export const RSV_PAGE_TITLE = "RSV Vaccine - NHS App";

@@ -1,63 +1,26 @@
 import { expect, Page, test } from "@playwright/test";
 import pa11y from "pa11y";
 import {
-  COVID_PAGE_TITLE,
-  FLU_PAGE_TITLE,
-  HUB_PAGE_TITLE, MENACWY_PAGE_TITLE, PNEUMO_PAGE_TITLE,
-  RSV_PAGE_TITLE,
+  COVID_PAGE_TITLE, FLU_PAGE_TITLE, HUB_PAGE_TITLE, MENACWY_PAGE_TITLE, PNEUMO_PAGE_TITLE, RSV_PAGE_TITLE,
   SCHEDULE_PAGE_TITLE, SHINGLES_PAGE_TITLE, SIX_IN_ONE_PAGE_TITLE
-} from "@project/e2e/constants";
-import { clickLinkAndExpectPageTitle } from "@project/e2e/e2e-helpers";
+} from "./constants";
+import { clickLinkAndExpectPageTitle } from "./e2e-helpers";
+import { login } from "./User";
 
 test.describe.configure({ mode: 'serial' });
 
-let context;
-let page: Page;
-
-test.beforeAll(async ({ browser }) => {
-  context = await browser.newContext({
-    httpCredentials: {
-      username: process.env.TEST_NHS_APP_USERNAME!,
-      password: process.env.TEST_NHS_APP_PASSWORD!
-    }
-  });
-  page = await context.newPage();
-  await page.goto(process.env.TEST_NHS_APP_URL!);
-
-  await page.waitForURL('**/enter-email', {timeout: 30000})
-  await page.getByLabel("Email address").fill(process.env.TEST_NHS_LOGIN_USERNAME!);
-  await page.getByRole("button", { name: "Continue" }).click();
-
-  await page.waitForURL('**/log-in-password', {timeout: 30000})
-  await page.getByRole("textbox", { name: "Password" }).fill(process.env.TEST_NHS_LOGIN_PASSWORD!);
-  await page.getByRole("button", { name: "Continue" }).click();
-
-  await page.waitForURL(/\/(enter-mobile-code|choose-authentication-method)$/, {timeout: 30000});
-  if ((new URL(page.url())).pathname === "/choose-authentication-method") {
-    await page.getByLabel("Use my mobile phone to recieve a security code by text message").click();
-    await page.getByRole("button", { name: "Continue" }).click();
-  }
-
-  await page.waitForURL('**/enter-mobile-code', {timeout: 30000})
-  await page.getByRole("textbox", { name: "Security code" }).fill(process.env.TEST_NHS_LOGIN_OTP!);
-  await page.getByRole("button", { name: "Continue" }).click();
-
-  await page.waitForURL(process.env.TEST_APP_URL!, { timeout: 30000 });
-});
-
-test.afterEach("Accessibility check", async () => {
-  if (test.info().status === test.info().expectedStatus) {
-    const results = await pa11y(page.url(), { standard: "WCAG2AA" });
-    expect(results.issues).toHaveLength(0);
-  }
-});
-
 test.describe("E2E", () => {
+  let page: Page;
 
-  test("go to Vaccinations Schedule page", async () => {
-    await page.goto("/");
+  test.beforeAll(async ({ browser }) => {
+    page = await login(browser);
+  });
 
-    await clickLinkAndExpectPageTitle(page, "View All Vaccinations", SCHEDULE_PAGE_TITLE);
+  test.afterEach("Accessibility check", async () => {
+    if (test.info().status === test.info().expectedStatus) {
+      const results = await pa11y(page.url(), { standard: "WCAG2AA" });
+      expect(results.issues).toHaveLength(0);
+    }
   });
 
   test("Back link navigation", async () => {
@@ -71,7 +34,7 @@ test.describe("E2E", () => {
     await clickLinkAndExpectPageTitle(page, "Back", HUB_PAGE_TITLE);
   });
 
-  test("Skip link", async () => {
+  test("Skip link navigation", async () => {
     await page.goto("/");
 
     await page.getByTestId("skip-link").focus();
@@ -83,6 +46,12 @@ test.describe("E2E", () => {
     await page.getByTestId("skip-link").focus();
     await page.keyboard.press("Enter");
     await expect(page.getByRole("heading", { level: 1 })).toBeFocused();
+  });
+
+  test("Schedule page", async () => {
+    await page.goto("/");
+
+    await clickLinkAndExpectPageTitle(page, "View All Vaccinations", SCHEDULE_PAGE_TITLE);
   });
 
   test("RSV page", async () => {
