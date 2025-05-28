@@ -1,1 +1,1 @@
-export const SSO_FAILURE_ROUTE = '/sso-failure';
+export const SSO_FAILURE_ROUTE = "/sso-failure";

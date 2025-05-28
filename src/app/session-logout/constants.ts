@@ -1,1 +1,1 @@
-export const SESSION_LOGOUT_ROUTE = '/session-logout';
+export const SESSION_LOGOUT_ROUTE = "/session-logout";
