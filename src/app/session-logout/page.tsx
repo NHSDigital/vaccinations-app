@@ -3,7 +3,7 @@
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 
-const SessionTimeoutLogout = () => {
+const SessionLogout = () => {
   return (
     <>
       {/*TODO: This should go back to NHS app, requires app integration */}
@@ -24,4 +24,4 @@ const SessionTimeoutLogout = () => {
   );
 };
 
-export default SessionTimeoutLogout;
+export default SessionLogout;

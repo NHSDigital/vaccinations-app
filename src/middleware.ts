@@ -24,11 +24,11 @@ export const config = {
      * Apply middleware to all pages except:
      * 1. /api/auth (exclude all NextAuth routes)
      * 2. /sso-failure (exclude the SSO routes)
-     * 3. /session-timeout-logout
+     * 3. /session-logout (exclude session logout route)
      * 4. /_next/* (exclude Next.js assets, e.g., /_next/static/*)
      * 5. /favicon.ico (exclude the favicon path)
      * 6. /nhsuk-frontend-9.1.0 (exclude nhsuk js)
      */
-    "/((?!api/auth|api/sso|session-timeout-logout|sso-failure|favicon.ico|nhsuk-frontend-9.1.0|_next/static|_next/image).*)",
+    "/((?!api/auth|api/sso|session-logout|sso-failure|favicon.ico|nhsuk-frontend-9.1.0|_next/static|_next/image).*)",
   ],
 };
