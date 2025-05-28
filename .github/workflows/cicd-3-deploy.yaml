@@ -3,6 +3,10 @@ name: "CI/CD deploy"
 on:
   workflow_dispatch:
     inputs:
+      environment:
+        description: 'Environment to deploy to'
+        type: environment
+        required: true
       tag:
         description: "The commit SHA to be deployed"
         required: true
