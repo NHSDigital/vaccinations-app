@@ -53,10 +53,10 @@ jobs:
           export TAG="${{ steps.variables.outputs.tag }}"
           make list-variables
   deploy:
-    name: "Deploy to dev environment"
+    name: "Deploy to ${{ github.event.inputs.environment}} environment"
     runs-on: ubuntu-latest
     environment:
-      name: dev
+      name: ${{ github.event.inputs.environment }}
     needs: [ metadata ]
     timeout-minutes: 20
     permissions:
@@ -76,6 +76,7 @@ jobs:
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
       - name: "Download Packages From S3"
+        if: ${{ github.event.inputs.environment == 'dev' }}
         run: |
           app_s3_path="s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/${{ needs.metadata.outputs.tag }}/open-next.zip"
           echo "Artefact path: $app_s3_path"
@@ -90,12 +91,15 @@ jobs:
       - name: "Set that it is GitHub actions user"
         run: echo "TF_VAR_is_github_action=true" >> $GITHUB_ENV
       - name: "Terraform init"
+        if: ${{ github.event.inputs.environment == 'dev' }}
         id: init
         run: TF_ENV=dev make terraform-init
       - name: "Terraform plan"
+        if: ${{ github.event.inputs.environment == 'dev' }}
         id: plan
         run: TF_ENV=dev make terraform-plan opts="-out=terraform.tfplan"
       - name: "Terraform apply"
+        if: ${{ github.event.inputs.environment == 'dev' }}
         id: apply
         run: TF_ENV=dev make terraform-apply opts="-auto-approve" opts="terraform.tfplan"
 
