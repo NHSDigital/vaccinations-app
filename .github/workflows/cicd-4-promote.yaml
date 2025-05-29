@@ -49,7 +49,7 @@ jobs:
           export RELEASE_TAG="${{ steps.variables.outputs.release_tag }}"
           make list-variables
   promote:
-    name: "Promote to ${{ github.event.inputs.environment}} environment from ${{ vars.PROMOTE_SOURCE_ENVIRONMENT }}"
+    name: "Promote to ${{ github.event.inputs.environment}} environment"
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.event.inputs.environment }}
