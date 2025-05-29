@@ -1,0 +1,100 @@
+name: "CI/CD promote"
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to promote to'
+        type: environment
+        required: true
+      release_tag:
+        description: "The tag of the release to be promoted"
+        required: true
+
+env:
+  AWS_REGION: eu-west-2
+  AWS_S3_SOURCE_RELEASES_BUCKET: vita-${{ secrets.PROMOTE_SOURCE_AWS_ACCOUNT_ID }}-releases-${{ secrets.PROMOTE_SOURCE_ENVIRONMENT  }}
+  AWS_S3_TARGET_RELEASES_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${{ github.event.inputs.environment }}
+
+jobs:
+  metadata:
+    name: "Set CI/CD metadata"
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    outputs:
+      build_datetime: ${{ steps.variables.outputs.build_datetime }}
+      build_timestamp: ${{ steps.variables.outputs.build_timestamp }}
+      build_epoch: ${{ steps.variables.outputs.build_epoch }}
+      version: ${{ steps.variables.outputs.version }}
+      release_tag: ${{ steps.variables.outputs.release_tag }}
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v4
+      - name: "Set CI/CD variables"
+        id: variables
+        run: |
+          datetime=$(date -u +'%Y-%m-%dT%H:%M:%S%z')
+          echo "build_datetime=$datetime" >> $GITHUB_OUTPUT
+          echo "build_timestamp=$(date --date=$datetime -u +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
+          echo "build_epoch=$(date --date=$datetime -u +'%s')" >> $GITHUB_OUTPUT
+          # TODO: Get the version, but it may not be the .version file as this should come from the CI/CD Pull Request Workflow
+          echo "version=$(head -n 1 .version 2> /dev/null || echo unknown)" >> $GITHUB_OUTPUT
+          echo "release_tag=${{ github.event.inputs.release_tag }}" >> $GITHUB_OUTPUT
+      - name: "List variables"
+        run: |
+          export BUILD_DATETIME="${{ steps.variables.outputs.build_datetime }}"
+          export BUILD_TIMESTAMP="${{ steps.variables.outputs.build_timestamp }}"
+          export BUILD_EPOCH="${{ steps.variables.outputs.build_epoch }}"
+          export VERSION="${{ steps.variables.outputs.version }}"
+          export RELEASE_TAG="${{ steps.variables.outputs.release_tag }}"
+          make list-variables
+  promote:
+    name: "Promote to ${{ github.event.inputs.environment}} environment from ${{ vars.PROMOTE_SOURCE_ENVIRONMENT }}"
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.event.inputs.environment }}
+    needs: [ metadata ]
+    timeout-minutes: 20
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: "Configure AWS credentials for promote source ${{ vars.PROMOTE_SOURCE_ENVIRONMENT }} env"
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-session-name: GitHubActionsSession
+          role-to-assume: ${{ secrets.PROMOTE_SOURCE_IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: "Download package from source S3 releases bucket"
+        run: |
+          app_s3_path="s3://${AWS_S3_SOURCE_RELEASES_BUCKET}/tag/${{ needs.metadata.outputs.release_tag }}/open-next.zip"
+          echo "Artefact path: $app_s3_path"
+          aws s3 cp "$app_s3_path" .
+          lambda_s3_path="s3://${AWS_S3_SOURCE_RELEASES_BUCKET}/tag/${{ needs.metadata.outputs.release_tag }}/lambda.zip"
+          echo "Artefact path: $lambda_s3_path"
+          aws s3 cp "$lambda_s3_path" .
+          workflow_s3_path="s3://${AWS_S3_SOURCE_RELEASES_BUCKET}/tag/${{ needs.metadata.outputs.release_tag }}/workflow.log"
+          echo "Artefact path: $workflow_s3_path"
+          aws s3 cp "$workflow_s3_path" .
+      - name: "Configure AWS credentials for target ${{ github.event.inputs.environment }} env"
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-session-name: GitHubActionsSession
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: "Upload package to ${{ github.event.inputs.environment }} S3 releases bucket"
+        run: |
+          aws s3api put-object --bucket "${AWS_S3_TARGET_RELEASES_BUCKET}" --key "tag/${{needs.metadata.outputs.release_tag}}/open-next.zip" --body "open-next.zip" --if-none-match '*' || {
+            echo "Uploading open-next.zip to environment S3 bucket failed"
+            exit 1
+          }
+
+          aws s3api put-object --bucket "${AWS_S3_TARGET_RELEASES_BUCKET}" --key "tag/${{needs.metadata.outputs.release_tag}}/lambda.zip" --body "lambda.zip" --if-none-match '*' || {
+            echo "Uploading lambda.zip to environment S3 bucket failed"
+            exit 1
+          }
+
+          aws s3api put-object --bucket "${AWS_S3_TARGET_RELEASES_BUCKET}" --key "tag/${{needs.metadata.outputs.release_tag}}/workflow.log" --body "workflow.log" --if-none-match '*' || {
+            echo "Uploading workflow.log to environment S3 bucket failed"
+            exit 1
+          }
