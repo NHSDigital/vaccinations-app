@@ -78,7 +78,7 @@ jobs:
           role-session-name: GitHubActionsSession
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
-      - name: "Download packages from DEV S3 Artefacts bucket"
+      - name: "Download packages from dev S3 Artefacts bucket"
         if: ${{ github.event.inputs.environment == 'dev' }}
         run: |
           AWS_S3_ARTEFACTS_BUCKET="vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-${{ github.event.inputs.environment }}"
@@ -88,7 +88,7 @@ jobs:
           lambda_s3_path="s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/${{ needs.metadata.outputs.tag }}/lambda.zip"
           echo "Artefact path: $lambda_s3_path"
           aws s3 cp "$lambda_s3_path" .
-      - name: "Download packages from PREPROD S3 Releases bucket"
+      - name: "Download packages from ${{ github.event.inputs.environment}} S3 Releases bucket"
         if: ${{ github.event.inputs.environment == 'preprod' }}
         run: |
           AWS_S3_RELEASE_BUCKET="vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${{ github.event.inputs.environment }}"
