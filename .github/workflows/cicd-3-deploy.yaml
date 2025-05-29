@@ -8,12 +8,11 @@ on:
         type: environment
         required: true
       tag:
-        description: "The commit SHA to be deployed"
+        description: "The commit SHA (DEV) or version tag (higher envs) to be deployed"
         required: true
 
 env:
   AWS_REGION: eu-west-2
-  AWS_S3_ARTEFACTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-dev
 
 jobs:
   metadata:
@@ -73,21 +72,35 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "${{ needs.metadata.outputs.terraform_version }}"
-      - name: "Configure AWS credentials"
+      - name: "Configure AWS credentials for env"
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-session-name: GitHubActionsSession
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
-      - name: "Download Packages From S3"
+      - name: "Download Packages from DEV S3 Artefacts bucket"
         if: ${{ github.event.inputs.environment == 'dev' }}
         run: |
+          AWS_S3_ARTEFACTS_BUCKET="vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-${{ github.event.inputs.environment }}"
           app_s3_path="s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/${{ needs.metadata.outputs.tag }}/open-next.zip"
           echo "Artefact path: $app_s3_path"
           aws s3 cp "$app_s3_path" .
           lambda_s3_path="s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/${{ needs.metadata.outputs.tag }}/lambda.zip"
           echo "Artefact path: $lambda_s3_path"
           aws s3 cp "$lambda_s3_path" .
+      - name: "Download package from S3 releases bucket"
+        if: ${{ github.event.inputs.environment == 'preprod' }}
+        run: |
+          AWS_S3_RELEASE_BUCKET="vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${{ github.event.inputs.environment }}"
+          app_s3_path="s3://${AWS_S3_RELEASE_BUCKET}/tag/${{ needs.metadata.outputs.tag }}/open-next.zip"
+          echo "Artefact path: $app_s3_path"
+          aws s3 cp "$app_s3_path" .
+          lambda_s3_path="s3://${AWS_S3_RELEASE_BUCKET}/tag/${{ needs.metadata.outputs.tag }}/lambda.zip"
+          echo "Artefact path: $lambda_s3_path"
+          aws s3 cp "$lambda_s3_path" .
+          workflow_s3_path="s3://${AWS_S3_RELEASE_BUCKET}/tag/${{ needs.metadata.outputs.tag }}/workflow.log"
+          echo "Artefact path: $workflow_s3_path"
+          aws s3 cp "$workflow_s3_path" .
       - name: "Unzip OpenNext Package"
         run: |
           unzip open-next.zip
