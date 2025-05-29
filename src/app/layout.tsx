@@ -65,6 +65,7 @@ export default function RootLayout({
           name="msapplication-square310x310logo"
           content={`/${NHSUK_FRONTEND_VERSION}/assets/favicons/largetile-310x310.png`}
         />
+        <script src="https://www.nhsapp.service.nhs.uk/js/v2/nhsapp.js" type="text/javascript" defer />
       </head>
 
       <body>
