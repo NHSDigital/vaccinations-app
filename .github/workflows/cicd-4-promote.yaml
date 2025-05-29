@@ -13,7 +13,7 @@ on:
 
 env:
   AWS_REGION: eu-west-2
-  AWS_S3_SOURCE_RELEASES_BUCKET: vita-${{ secrets.PROMOTE_SOURCE_AWS_ACCOUNT_ID }}-releases-${{ secrets.PROMOTE_SOURCE_ENVIRONMENT  }}
+  AWS_S3_SOURCE_RELEASES_BUCKET: vita-${{ secrets.PROMOTE_SOURCE_AWS_ACCOUNT_ID }}-releases-${{ vars.PROMOTE_SOURCE_ENVIRONMENT  }}
   AWS_S3_TARGET_RELEASES_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${{ github.event.inputs.environment }}
 
 jobs:
