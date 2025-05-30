@@ -108,17 +108,17 @@ jobs:
       - name: "Set that it is GitHub actions user"
         run: echo "TF_VAR_is_github_action=true" >> $GITHUB_ENV
       - name: "Terraform init"
-        if: ${{ github.event.inputs.environment == 'dev' || github.event.inputs.environment == 'preprod'}}
+        if: ${{ github.event.inputs.environment == 'dev' || github.event.inputs.environment == 'preprod' }}
         id: init
-        run: TF_ENV=${{ github.event.inputs.environment}} make terraform-init
+        run: TF_ENV=${{ github.event.inputs.environment }} make terraform-init
       - name: "Terraform plan"
-        if: ${{ github.event.inputs.environment == 'dev' }}
+        if: ${{ github.event.inputs.environment == 'dev' || github.event.inputs.environment == 'preprod' }}
         id: plan
-        run: TF_ENV=dev make terraform-plan opts="-out=terraform.tfplan"
+        run: TF_ENV=${{ github.event.inputs.environment }} make terraform-plan opts="-out=terraform.tfplan"
       - name: "Terraform apply"
         if: ${{ github.event.inputs.environment == 'dev' }}
         id: apply
-        run: TF_ENV=dev make terraform-apply opts="-auto-approve" opts="terraform.tfplan"
+        run: TF_ENV=${{ github.event.inputs.environment }} make terraform-apply opts="-auto-approve" opts="terraform.tfplan"
 
   # TODO: More jobs or/and steps here
   # success:
