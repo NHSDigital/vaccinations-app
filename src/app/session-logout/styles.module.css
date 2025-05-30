@@ -1,0 +1,45 @@
+.logoutScreen {
+  background-color: #005eb8; /* $color_nhsuk-blue */
+  height: 100vh; /* Full screen */
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+}
+
+.logoutHeading {
+  color: #212b32; /* $color_nhsuk-black */
+  background-color: #ffeb3b; /* $color_nhsuk-yellow */
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  justify-content: center; /* Center vertically */
+}
+
+.logoutHeading h4 {
+  margin: 0;
+}
+
+.logoutContent {
+  height: 70vh;
+  display: flex;
+  color: #ffffff; /* $color_nhsuk-white */
+  text-align: left;
+  padding: 10px;
+}
+
+.logBackInButton {
+  width: 80%;
+  min-width: 150px;
+  /*height: 20vh;*/
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  justify-content: center; /* Center vertically */
+}
+
+.continueButton button {
+  background-color: #005eb8; /* $color_nhsuk-blue */
+}
