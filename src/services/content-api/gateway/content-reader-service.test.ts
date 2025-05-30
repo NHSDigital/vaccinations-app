@@ -20,9 +20,31 @@ import {
 jest.mock("@aws-sdk/client-s3");
 jest.mock("@src/utils/config");
 
+const mockRsvResponse = {
+  Body: new Readable({
+    read() {
+      this.push(JSON.stringify(mockRsvVaccineJson));
+      this.push(null); // End of stream
+    },
+  }),
+};
+
+const mockInvalidResponse = {
+  Body: {},
+};
+
+const mockErrorResponse = {
+  Body: new Readable({
+    read() {
+      this.emit("error", new Error("test error"));
+    },
+  }),
+};
+
 describe("Content Reader Service", () => {
   describe("_readContentFromCache()", () => {
     const mockSend: jest.Mock = jest.fn();
+
     beforeEach(() => {
       (S3Client as jest.Mock).mockImplementation(() => ({
         send: mockSend,
@@ -38,14 +60,7 @@ describe("Content Reader Service", () => {
     });
 
     it("returns content when object uri is remote", async () => {
-      mockSend.mockImplementation(() => ({
-        Body: new Readable({
-          read() {
-            this.push(JSON.stringify(mockRsvVaccineJson));
-            this.push(null); // End of stream
-          },
-        }),
-      }));
+      mockSend.mockImplementation(() => mockRsvResponse);
 
       const actual: string = await _readContentFromCache(
         "s3://bucket",
@@ -55,9 +70,7 @@ describe("Content Reader Service", () => {
     });
 
     it("throws when remote response is invalid", async () => {
-      mockSend.mockImplementation(() => ({
-        Body: {},
-      }));
+      mockSend.mockImplementation(() => mockInvalidResponse);
 
       const actualPromise: Promise<string> = _readContentFromCache(
         "s3://bucket",
@@ -67,13 +80,7 @@ describe("Content Reader Service", () => {
     });
 
     it("throws when remote response has error", async () => {
-      mockSend.mockImplementation(() => ({
-        Body: new Readable({
-          read() {
-            this.emit("error", new Error("test error"));
-          },
-        }),
-      }));
+      mockSend.mockImplementation(() => mockErrorResponse);
 
       const actualPromise: Promise<string> = _readContentFromCache(
         "s3://bucket",

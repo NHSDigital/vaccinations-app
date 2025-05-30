@@ -13,11 +13,17 @@ import { GetContentForVaccineResponse } from "@src/services/content-api/types";
 jest.mock("@src/utils/config");
 jest.mock("@aws-sdk/client-s3");
 
+const mockRsvResponse = {
+  Body: new Readable({
+    read() {
+      this.push(JSON.stringify(mockRsvVaccineJson));
+      this.push(null); // End of stream
+    },
+  }),
+};
+
 describe("Content API Read Integration Test ", () => {
-  it("should return processed data from local cache", async () => {
-    (configProvider as jest.Mock).mockImplementation(() => ({
-      CONTENT_CACHE_PATH: "wiremock/__files/",
-    }));
+  afterEach(async () => {
     const { styledVaccineContent, contentError }: GetContentForVaccineResponse =
       await getContentForVaccine(VaccineTypes.RSV);
 
@@ -31,30 +37,18 @@ describe("Content API Read Integration Test ", () => {
     );
   });
 
+  it("should return processed data from local cache", async () => {
+    (configProvider as jest.Mock).mockImplementation(() => ({
+      CONTENT_CACHE_PATH: "wiremock/__files/",
+    }));
+  });
+
   it("should return processed data from external cache", async () => {
     (configProvider as jest.Mock).mockImplementation(() => ({
       CONTENT_CACHE_PATH: "s3://test-bucket",
     }));
     (S3Client as jest.Mock).mockImplementation(() => ({
-      send: () => ({
-        Body: new Readable({
-          read() {
-            this.push(JSON.stringify(mockRsvVaccineJson));
-            this.push(null); // End of stream
-          },
-        }),
-      }),
+      send: () => mockRsvResponse,
     }));
-    const { styledVaccineContent, contentError }: GetContentForVaccineResponse =
-      await getContentForVaccine(VaccineTypes.RSV);
-
-    expect(styledVaccineContent).not.toBeNull();
-    expect(contentError).toBeUndefined();
-    expect(styledVaccineContent?.overview).toEqual(
-      mockRsvVaccineJson.mainEntityOfPage[0].text,
-    );
-    expect(styledVaccineContent?.webpageLink).toEqual(
-      mockRsvVaccineJson.webpage,
-    );
   });
 });

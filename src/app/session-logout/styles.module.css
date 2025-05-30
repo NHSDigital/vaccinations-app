@@ -34,7 +34,6 @@
 .logBackInButton {
   width: 80%;
   min-width: 150px;
-  /*height: 20vh;*/
   display: flex;
   flex-direction: column; /* Stack children vertically */
   justify-content: center; /* Center vertically */
