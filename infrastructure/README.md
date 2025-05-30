@@ -12,6 +12,21 @@ Use the following tags for any resource created manually. This helps in keeping 
 - Project: vaccinations-app
 - Environment: dev (or test/preprod/prod depending on the environment being provisioned)
 
+### ACM Certificate
+This is the SSL certificate that is attached to our website, which verifies the domain ownership.
+
+- Change the region to 'us-east-1' as Cloudfront requires it to be located in global region
+- Go to Certificate Manager AWS service
+- Request a certificate
+  - Request a public certificate
+  - Fully qualified domain name: *.vaccinations.nhs.uk for all other environments except prod where it is 'vaccinations.nhs.uk'
+  - Key Algorithm: RSA 2048
+  - Tags: as [above](#tags), add one more "Purpose: Cloudfront"
+  - Request
+- The certificate is still pending verification. You should download the domain records (export to CSV).
+- Email (DNSTEAM (NHS ENGLAND) <england.dnsteam@nhs.net>) to verify the domain certificate. You will need to attach the domain records.
+- Wait for status to change to verified before you can run any terraform code.
+
 ### S3
 
 We need 3 buckets to be created manually, before IaC can start to provision infra for us.
