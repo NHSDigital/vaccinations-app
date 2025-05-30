@@ -1,24 +1,16 @@
 import { toNHSAppHomePage } from "@src/utils/navigation";
+import { mockNHSAppJSFunctions } from "@src/utils/nhsapp-js.test";
 
 describe("toNHSAppHomePage", () => {
-  let mockIsOpenInNHSApp: () => boolean;
-  let mockGoToHomePage: () => void;
+  const mockIsOpenInNHSApp = jest.fn();
+  const mockGoToHomePage = jest.fn();
 
   beforeEach(() => {
-    mockIsOpenInNHSApp = jest.fn();
-    mockGoToHomePage = jest.fn();
-
-    Object.defineProperty(window, "nhsapp", {
-      value: {
-        tools: { isOpenInNHSApp: mockIsOpenInNHSApp },
-        navigation: { goToHomePage: mockGoToHomePage },
-      },
-      writable: true,
-    });
+    mockNHSAppJSFunctions(mockIsOpenInNHSApp, mockGoToHomePage);
   });
 
   it("should navigate to NHS App home page when inside NHS App", () => {
-    (mockIsOpenInNHSApp as jest.Mock).mockReturnValue(true);
+    mockIsOpenInNHSApp.mockReturnValue(true);
     toNHSAppHomePage();
     expect(mockGoToHomePage).toHaveBeenCalled();
   });
