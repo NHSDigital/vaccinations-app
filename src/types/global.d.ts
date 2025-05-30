@@ -5,11 +5,11 @@ interface Window {
     tools: {
       getAppPlatform: () => string;
       isOpenInNHSApp: () => boolean;
-    },
+    };
     // navigation functions are only available within native mobile app
     navigation: {
       goToHomePage: () => void;
       openBrowserOverlay: (overlayUri: string) => void;
-    }
-  }
+    };
+  };
 }
