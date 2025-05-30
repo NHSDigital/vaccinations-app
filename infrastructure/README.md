@@ -15,7 +15,7 @@ Use the following tags for any resource created manually. This helps in keeping 
 ### S3
 
 We need 3 buckets to be created manually, before IaC can start to provision infra for us.
-First one is named `vita-<AWSaccountId>-artefacts-<env>`, second one is named `vita-<AWSaccountId>-releases-<env>` and third one is `vaccinations-app-tfstate-<env>`.
+First one is named `vita-<AWSaccountId>-artefacts-<env>` (* required in dev env only), second one is named `vita-<AWSaccountId>-releases-<env>` and third one is `vaccinations-app-tfstate-<env>`.
 The first one is used by GitHub to store artefacts after successful builds,
 the second one is used by GitHub to store tagged releases after successful publish/release,
 and the third one is used by Terraform to store state and lock files.
