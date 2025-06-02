@@ -17,7 +17,7 @@ const SessionLogout = () => {
       <MainContent>
         <title>You have been logged out</title>
         <div className={styles.logoutScreen}>
-          <div className={styles.logoutHeading}>
+          <div className={styles.logoutBanner}>
             <h4>For your security, you need to login again.</h4>
           </div>
           <div className={styles.logoutContent}>
