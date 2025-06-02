@@ -116,7 +116,7 @@ jobs:
         id: plan
         run: TF_ENV=${{ github.event.inputs.environment }} make terraform-plan opts="-out=terraform.tfplan"
       - name: "Terraform apply"
-        if: ${{ github.event.inputs.environment == 'dev' }}
+        if: ${{ github.event.inputs.environment == 'dev' || github.event.inputs.environment == 'preprod'  }}
         id: apply
         run: TF_ENV=${{ github.event.inputs.environment }} make terraform-apply opts="-auto-approve" opts="terraform.tfplan"
 
