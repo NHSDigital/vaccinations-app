@@ -15,6 +15,7 @@ locals {
   log_retention_in_days     = 7
   cache_lambda_zip_path     = "../../../lambda.zip"
   content_cache_bucket_name = "${local.prefix}-content-cache"
+  app_version               = var.app_version
 
   application_environment_variables = {
     SSM_PREFIX = "/${local.prefix}/"
@@ -29,6 +30,7 @@ locals {
 
     AUTH_TRUST_HOST = "true"
     AUTH_SECRET     = random_password.auth_secret.result
+    APP_VERSION     = local.app_version
   }
 
   default_tags = {
