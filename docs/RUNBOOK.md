@@ -9,7 +9,7 @@
 ### Action
 1. Login to the AWS environment and ensure you are in London **eu-west-2** region.
 2. Navigate to **Lambda** service.
-3. Click on the lambda with prefix `gh-main-vita` and suffix `nextjs-warmer-function`
+3. Click on the lambda with prefix `gh-vita` and suffix `content-cache-hydrator`
 4. Select **Test** tab to create a new test event
 5. Give the new event a  meaningful name
 6. Keep the event sharing settings to **Private**
