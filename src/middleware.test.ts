@@ -3,6 +3,7 @@
  */
 
 import { auth } from "@project/auth";
+import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
 import { middleware } from "@src/middleware";
 import { NextRequest } from "next/server";
 
@@ -26,7 +27,7 @@ describe("middleware", () => {
     jest.clearAllMocks();
   });
 
-  it("redirects users without active session to sso-failure page", async () => {
+  it("redirects users without active session to session-logout page", async () => {
     const testUrl = "https://testurl/abc";
     const mockRequest = getMockRequest(testUrl);
 
@@ -36,7 +37,7 @@ describe("middleware", () => {
 
     expect(result.status).toBe(307);
     expect(result.headers.get("Location")).toEqual(
-      `${mockRequest.nextUrl.origin}/sso-failure?error=No%20active%20session%20found`,
+      `${mockRequest.nextUrl.origin}${SESSION_LOGOUT_ROUTE}`,
     );
   });
 

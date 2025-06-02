@@ -1,4 +1,5 @@
 import { auth } from "@project/auth";
+import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
 import { Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { logger } from "@src/utils/logger";
@@ -9,12 +10,10 @@ const log: Logger = logger.child({ name: "middleware" });
 export async function middleware(request: NextRequest) {
   log.info(`Inspecting ${request.nextUrl}`);
   const session: Session | null = await auth();
-  if (!session?.user?.birthdate) {
-    return NextResponse.redirect(
-      new URL(`/sso-failure?error=No active session found`, request.url),
-    );
-  }
   log.info(session, "Session Object");
+  if (!session?.user) {
+    return NextResponse.redirect(new URL(SESSION_LOGOUT_ROUTE, request.url));
+  }
   return NextResponse.next();
 }
 
