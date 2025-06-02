@@ -5,7 +5,7 @@ locals {
   project_identifier_shortcode = "vita"
 
   domain                    = "vaccinations.nhs.uk"
-  sub_domain                = var.is_github_action ? "sandpit" : local.prefix
+  sub_domain                = var.is_github_action ? "preprod" : local.prefix
   environment               = "preprod"
   git_branch                = coalesce(data.external.git_branch.result.output, "na")
   deploy_workspace          = var.is_github_action ? "gh" : terraform.workspace
