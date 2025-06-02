@@ -1,9 +1,8 @@
-import { AppConfig, configProvider } from "@src/utils/config";
+import { AppConfig } from "@src/utils/config";
+import pemToCryptoKey from "@src/utils/auth/pem-to-crypto-key";
 
-const generateClientAssertion = async (
-  privateKey: CryptoKey,
-): Promise<string> => {
-  const config: AppConfig = await configProvider();
+const generateClientAssertion = async (config: AppConfig): Promise<string> => {
+  const privateKey = await pemToCryptoKey(config.NHS_LOGIN_PRIVATE_KEY);
   const now = Math.floor(Date.now() / 1000);
   const payload = {
     iss: config.NHS_LOGIN_CLIENT_ID,
