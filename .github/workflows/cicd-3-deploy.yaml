@@ -107,6 +107,8 @@ jobs:
           rm -rf open-next.zip
       - name: "Set that it is GitHub actions user"
         run: echo "TF_VAR_is_github_action=true" >> $GITHUB_ENV
+      - name: "Set the app version being deployed"
+        run: echo "TF_VAR_app_version=${{ needs.metadata.outputs.tag }}" >> $GITHUB_ENV
       - name: "Terraform init"
         if: ${{ github.event.inputs.environment == 'dev' || github.event.inputs.environment == 'preprod' }}
         id: init
