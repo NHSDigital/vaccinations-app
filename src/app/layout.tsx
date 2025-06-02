@@ -2,6 +2,7 @@
 
 import { InactivityDialog } from "@src/app/_components/inactivity/InactivityDialog";
 import SkipLink from "@src/app/_components/nhs-frontend/SkipLink";
+import { WARNING_TIME_MS } from "@src/utils/auth/inactivity-timer";
 import React, { JSX } from "react";
 import "@public/nhsuk-frontend-9.1.0/css/nhsuk-9.1.0.min.css";
 import "@public/nhsapp-frontend-2.3.0/nhsapp-2.3.0.min.css";
@@ -14,6 +15,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>): JSX.Element {
+  // This is the polling time for the session on client side,
+  // so that the client can react to session expiry.
+  // The session expiry is handled by the server.
+  // The value is set to 10 seconds less than the warning time.
+  // This is to ensure that the warning dialog is only shown when user is authenticated.
+  const SESSION_REFETCH_SECONDS = Math.floor(WARNING_TIME_MS / 1000) - 10;
+
   return (
     <html lang="en">
       <head>
@@ -74,7 +82,7 @@ export default function RootLayout({
 
       <body>
         <SkipLink />
-        <SessionProvider>
+        <SessionProvider refetchInterval={SESSION_REFETCH_SECONDS}>
           <InactivityDialog />
           <div className="nhsuk-width-container ">{children}</div>
         </SessionProvider>
