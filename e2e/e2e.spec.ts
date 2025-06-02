@@ -4,7 +4,7 @@ import {
   COVID_PAGE_TITLE, FLU_PAGE_TITLE, HUB_PAGE_TITLE, MENACWY_PAGE_TITLE, PNEUMO_PAGE_TITLE, RSV_PAGE_TITLE,
   SCHEDULE_PAGE_TITLE, SHINGLES_PAGE_TITLE, SIX_IN_ONE_PAGE_TITLE
 } from "./constants";
-import { clickLinkAndExpectPageTitle } from "./e2e-helpers";
+import { benchmark, clickLinkAndExpectPageTitle } from "./e2e-helpers";
 import { login } from "./User";
 
 test.describe.configure({ mode: 'serial' });
@@ -21,6 +21,11 @@ test.describe("E2E", () => {
       const results = await pa11y(page.url(), { standard: "WCAG2AA" });
       expect(results.issues).toHaveLength(0);
     }
+  });
+
+  test("Page Load Benchmark", async () => {
+    const bm = await(benchmark(page, "/vaccines/rsv"))
+    expect(bm).toBeLessThanOrEqual(2500);
   });
 
   test("Back link navigation", async () => {
