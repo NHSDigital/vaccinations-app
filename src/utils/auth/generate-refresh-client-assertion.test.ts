@@ -28,14 +28,12 @@ describe("generateClientAssertion", () => {
   });
 
   beforeEach(() => {
-    // Reset mocks before each test
     (pemToCryptoKey as jest.Mock).mockReset();
     randomUUIDSpy.mockClear();
     subtleSignSpy.mockClear();
   });
 
   afterAll(() => {
-    // Restore original implementations after all tests in this describe block
     randomUUIDSpy.mockRestore();
     subtleSignSpy.mockRestore();
   });
