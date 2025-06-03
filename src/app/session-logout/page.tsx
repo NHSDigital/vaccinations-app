@@ -1,16 +1,21 @@
 "use client";
 
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const SessionLogout = () => {
+  const [isOpenInNHSApp, setIsOpenInNHSApp] = useState(true);
+
   useEffect(() => {
     if (window.nhsapp.tools.isOpenInNHSApp()) {
+      setIsOpenInNHSApp(true);
       window.nhsapp.navigation.goToHomePage();
+    } else {
+      setIsOpenInNHSApp(false);
     }
   }, []);
 
-  return (
+  return ( !isOpenInNHSApp &&
     <MainContent>
       <title>You have logged out</title>
       <h1>You have logged out</h1>
