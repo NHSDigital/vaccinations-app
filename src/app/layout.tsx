@@ -1,6 +1,8 @@
 "use client";
 
 import { InactivityDialog } from "@src/app/_components/inactivity/InactivityDialog";
+import AppFooter from "@src/app/_components/nhs-frontend/AppFooter";
+import AppHeader from "@src/app/_components/nhs-frontend/AppHeader";
 import SkipLink from "@src/app/_components/nhs-frontend/SkipLink";
 import { WARNING_TIME_MS } from "@src/utils/auth/inactivity-timer";
 import React, { JSX } from "react";
@@ -82,10 +84,12 @@ export default function RootLayout({
 
       <body>
         <SkipLink />
+        <AppHeader />
         <SessionProvider refetchInterval={SESSION_REFETCH_SECONDS}>
           <InactivityDialog />
           <div className="nhsuk-width-container ">{children}</div>
         </SessionProvider>
+        <AppFooter />
       </body>
     </html>
   );
