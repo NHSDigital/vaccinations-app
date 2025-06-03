@@ -22,7 +22,7 @@ export default function RootLayout({
   // The session expiry is handled by the server.
   // The value is set to 10 seconds less than the warning time.
   // This is to ensure that the warning dialog is only shown when user is authenticated.
-  const SESSION_REFETCH_SECONDS = Math.floor(WARNING_TIME_MS / 1000) - 10;
+  const SESSION_REFETCH_SECONDS = Math.floor(0.9 * WARNING_TIME_MS / 1000);
 
   return (
     <html lang="en">
