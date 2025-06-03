@@ -10,17 +10,19 @@ describe("SessionLogout", () => {
     mockNHSAppJSFunctions(mockIsOpenInNHSApp, mockGoToHomePage);
   });
 
-  it("should show mobile version inside NHS App", () => {
+  it("should show NHS App home page inside NHS App", () => {
     mockIsOpenInNHSApp.mockReturnValue(true);
     render(<SessionLogout />);
-    const mobileButton = screen.getByRole("button", { name: "Log back in" });
-    expect(mobileButton).toBeInTheDocument();
+    expect(mockGoToHomePage).toHaveBeenCalledTimes(1);
   });
 
-  it("should show desktop version outside NHS App", () => {
+  it("should show logged out page outside NHS App", () => {
     mockIsOpenInNHSApp.mockReturnValue(false);
     render(<SessionLogout />);
-    const desktopButton = screen.getByRole("button", { name: "Continue" });
-    expect(desktopButton).toBeInTheDocument();
+    const heading = screen.getByRole("heading", {
+      level: 1,
+      name: "You have logged out",
+    });
+    expect(heading).toBeInTheDocument();
   });
 });
