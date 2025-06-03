@@ -14,7 +14,7 @@ locals {
   node_version              = "nodejs22.x"
   log_retention_in_days     = 7
   cache_lambda_zip_path     = "../../../lambda.zip"
-  content_cache_bucket_name = "via176-downtime-contentcache-test"
+  content_cache_bucket_name = "${local.prefix}-content-cache"
   app_version               = var.app_version
 
   application_environment_variables = {
