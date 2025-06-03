@@ -18,7 +18,7 @@ const InactivityDialog = (): JSX.Element => {
     if (status === "authenticated") {
       if (isTimedOut) {
         dialogRef.current?.close();
-        userLogout();
+        userLogout(true);
       } else if (isIdle) {
         dialogRef.current?.showModal();
       }

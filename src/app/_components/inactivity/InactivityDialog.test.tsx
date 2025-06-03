@@ -87,7 +87,7 @@ describe("InactivityDialog", () => {
 
       render(<InactivityDialog />);
 
-      expect(userLogout).toHaveBeenCalledTimes(1);
+      expect(userLogout).toHaveBeenCalledWith(true);
     });
 
     it("should not show warning when user activity has timed out after warning", async () => {
@@ -101,7 +101,7 @@ describe("InactivityDialog", () => {
         hidden: true,
       });
       expect(inactivityWarningModal).not.toBeVisible();
-      expect(userLogout).toHaveBeenCalledTimes(1);
+      expect(userLogout).toHaveBeenCalledWith(true);
     });
 
     it("should close the dialog when user clicks the stay logged in button", async () => {
@@ -122,7 +122,7 @@ describe("InactivityDialog", () => {
       render(<InactivityDialog />);
       screen.getByRole("button", { name: "Log out" }).click();
 
-      expect(userLogout).toHaveBeenCalledTimes(1);
+      expect(userLogout).toHaveBeenCalledWith();
     });
   });
 
