@@ -3,8 +3,10 @@ import { JWT } from "next-auth/jwt";
 import { Account, Profile } from "next-auth";
 import { Logger } from "pino";
 import { AppConfig } from "@src/utils/config";
+import { logger } from "@src/utils/logger";
 
 const DEFAULT_ACCESS_TOKEN_EXPIRY: number = 5 * 60;
+const log: Logger = logger.child({ module: "utils-auth-callbacks-get-token" });
 
 const getToken = async (
   token: JWT,
@@ -12,7 +14,6 @@ const getToken = async (
   profile: Profile | undefined,
   config: AppConfig,
   maxAgeInSeconds: number,
-  log: Logger,
 ) => {
   if (!token) {
     log.error("No token available in jwt callback.");

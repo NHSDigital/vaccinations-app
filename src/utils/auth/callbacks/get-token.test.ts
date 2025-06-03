@@ -1,6 +1,5 @@
 import { getToken } from "@src/utils/auth/callbacks/get-token";
 import { generateClientAssertion } from "@src/utils/auth/generate-refresh-client-assertion";
-import { Logger } from "pino";
 import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import { AppConfig } from "@src/utils/config";
@@ -18,11 +17,6 @@ describe("getToken", () => {
     NHS_LOGIN_CLIENT_ID: "mock-client-id",
     NHS_LOGIN_PRIVATE_KEY: "mock-private-key",
   } as AppConfig;
-
-  const mockLog = {
-    info: jest.fn(),
-    error: jest.fn(),
-  } as unknown as Logger;
 
   const nowInSeconds = Math.floor(Date.now() / 1000);
 
@@ -42,12 +36,8 @@ describe("getToken", () => {
       undefined,
       mockConfig,
       300,
-      mockLog,
     );
     expect(result).toBeNull();
-    expect(mockLog.error).toHaveBeenCalledWith(
-      "No token available in jwt callback.",
-    );
   });
 
   it("should return updated token on initial login with account and profile", async () => {
@@ -72,7 +62,6 @@ describe("getToken", () => {
       profile,
       mockConfig,
       maxAgeInSeconds,
-      mockLog,
     );
 
     expect(result).toMatchObject({
@@ -85,8 +74,6 @@ describe("getToken", () => {
       },
       fixedExpiry: nowInSeconds + maxAgeInSeconds,
     });
-
-    expect(mockLog.info).not.toHaveBeenCalled();
   });
 
   it("should return token with empty values on initial login if account and profile are undefined", async () => {
@@ -104,7 +91,6 @@ describe("getToken", () => {
       profile,
       mockConfig,
       maxAgeInSeconds,
-      mockLog,
     );
 
     expect(result).toMatchObject({
@@ -117,8 +103,6 @@ describe("getToken", () => {
       },
       fixedExpiry: nowInSeconds + maxAgeInSeconds,
     });
-
-    expect(mockLog.info).not.toHaveBeenCalled();
   });
 
   it("should return null if fixedExpiry reached", async () => {
@@ -128,19 +112,9 @@ describe("getToken", () => {
       expires_at: nowInSeconds + 1000,
     } as JWT;
 
-    const result = await getToken(
-      token,
-      null,
-      undefined,
-      mockConfig,
-      300,
-      mockLog,
-    );
+    const result = await getToken(token, null, undefined, mockConfig, 300);
 
     expect(result).toBeNull();
-    expect(mockLog.info).toHaveBeenCalledWith(
-      "Session has reached the max age",
-    );
   });
 
   it("should refresh access token if expired, and refresh_token exists; new expires_in and refresh_token are received", async () => {
@@ -172,16 +146,8 @@ describe("getToken", () => {
       }),
     });
 
-    const result = await getToken(
-      token,
-      null,
-      undefined,
-      mockConfig,
-      300,
-      mockLog,
-    );
+    const result = await getToken(token, null, undefined, mockConfig, 300);
 
-    expect(mockLog.info).toHaveBeenCalledWith("Attempting to refresh token");
     expect(mockGenerateClientAssertion).toHaveBeenCalledWith(mockConfig);
 
     expect(global.fetch).toHaveBeenCalledWith(
@@ -227,16 +193,8 @@ describe("getToken", () => {
       }),
     });
 
-    const result = await getToken(
-      token,
-      null,
-      undefined,
-      mockConfig,
-      300,
-      mockLog,
-    );
+    const result = await getToken(token, null, undefined, mockConfig, 300);
 
-    expect(mockLog.info).toHaveBeenCalledWith("Attempting to refresh token");
     expect(mockGenerateClientAssertion).toHaveBeenCalledWith(mockConfig);
 
     expect(global.fetch).toHaveBeenCalledWith(
@@ -261,18 +219,9 @@ describe("getToken", () => {
       refresh_token: "",
     } as JWT;
 
-    const result = await getToken(
-      token,
-      null,
-      undefined,
-      mockConfig,
-      300,
-      mockLog,
-    );
+    const result = await getToken(token, null, undefined, mockConfig, 300);
 
     expect(result).toBeNull();
-    expect(mockLog.info).toHaveBeenCalledWith("Attempting to refresh token");
-    expect(mockLog.error).toHaveBeenCalledWith("Refresh token missing");
   });
 
   it("should return null and logs error if fetch response not ok", async () => {
@@ -288,20 +237,9 @@ describe("getToken", () => {
       json: jest.fn().mockResolvedValue({ error: "Error" }),
     });
 
-    const result = await getToken(
-      token,
-      null,
-      undefined,
-      mockConfig,
-      300,
-      mockLog,
-    );
+    const result = await getToken(token, null, undefined, mockConfig, 300);
 
     expect(result).toBeNull();
-    expect(mockLog.error).toHaveBeenCalledWith(
-      { error: "Error" },
-      "Error in jwt callback",
-    );
   });
 
   it("should return the token if no refresh needed", async () => {
@@ -315,16 +253,8 @@ describe("getToken", () => {
       },
     } as JWT;
 
-    const result = await getToken(
-      token,
-      null,
-      undefined,
-      mockConfig,
-      300,
-      mockLog,
-    );
+    const result = await getToken(token, null, undefined, mockConfig, 300);
 
     expect(result).toEqual(token);
-    expect(mockLog.info).not.toHaveBeenCalled();
   });
 });

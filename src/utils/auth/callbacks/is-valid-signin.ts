@@ -3,11 +3,15 @@ import { AppConfig } from "@src/utils/config";
 import { jwtDecode } from "jwt-decode";
 import type { DecodedToken } from "@src/utils/auth/types";
 import { Logger } from "pino";
+import { logger } from "@src/utils/logger";
+
+const log: Logger = logger.child({
+  module: "utils-auth-callbacks-is-valid-signin",
+});
 
 const isValidSignIn = (
   account: Account | null | undefined,
   config: AppConfig,
-  log: Logger,
 ) => {
   if (!account || typeof account.id_token !== "string") {
     log.info(
