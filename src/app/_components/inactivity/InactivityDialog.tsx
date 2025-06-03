@@ -37,7 +37,7 @@ const InactivityDialog = (): JSX.Element => {
   return (
     <dialog ref={dialogRef} className={styles.warningDialog}>
       <p>For security reasons, you&#39;ll be logged out in 1 minute.</p>
-      <div className={"nhsapp-button-group"}>
+      <div className={"nhsapp-button-group nhsuk-u-margin-bottom-0"}>
         <button
           autoFocus={true}
           className={"nhsuk-button nhsapp-button"}

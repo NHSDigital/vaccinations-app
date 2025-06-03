@@ -160,6 +160,6 @@ describe("InactivityDialog", () => {
       mockSession = { data: mockSessionValue, status: "unauthenticated" };
       rerender(<InactivityDialog />);
       expect(userLogout).toHaveBeenCalledWith(true);
-    })
-  })
+    });
+  });
 });
