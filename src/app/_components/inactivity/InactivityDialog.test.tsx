@@ -18,13 +18,6 @@ jest.mock("next-auth/react", () => ({
 jest.mock("@src/utils/auth/inactivity-timer");
 jest.mock("@src/utils/auth/user-logout");
 
-const mockRouterPush = jest.fn();
-jest.mock("next/navigation", () => ({
-  useRouter: () => ({
-    push: mockRouterPush,
-  }),
-}));
-
 let idleSession = false;
 let timedOutSession = false;
 
@@ -132,11 +125,6 @@ describe("InactivityDialog", () => {
       idleSession = timedOutSession = false;
     });
 
-    it("should redirect to session logout page", async () => {
-      render(<InactivityDialog />);
-      expect(mockRouterPush).toHaveBeenCalledWith(SESSION_LOGOUT_ROUTE);
-    });
-
     it("should not show warning when user is idle", async () => {
       idleSession = true;
 
@@ -160,4 +148,19 @@ describe("InactivityDialog", () => {
       expect(userLogout).not.toHaveBeenCalled();
     });
   });
+
+  describe("when user goes from authenticated to unauthenticated", () => {
+    beforeEach(() => {
+      mockSession = { data: mockSessionValue, status: "authenticated" };
+      idleSession = timedOutSession = false;
+    });
+
+    it("should try to log the user out", async () => {
+      const { rerender } = render(<InactivityDialog />);
+      expect(userLogout).not.toHaveBeenCalled();
+      mockSession = { data: mockSessionValue, status: "unauthenticated" };
+      rerender(<InactivityDialog />);
+      expect(userLogout).toHaveBeenCalledWith(true);
+    })
+  })
 });
