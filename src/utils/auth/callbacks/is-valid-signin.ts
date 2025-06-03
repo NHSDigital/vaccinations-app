@@ -5,9 +5,9 @@ import type { DecodedToken } from "@src/utils/auth/types";
 import { Logger } from "pino";
 
 const isValidSignIn = (
+  account: Account | null | undefined,
   config: AppConfig,
   log: Logger,
-  account: Account | null | undefined,
 ) => {
   if (!account || typeof account.id_token !== "string") {
     log.info(

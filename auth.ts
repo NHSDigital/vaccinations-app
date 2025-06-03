@@ -6,13 +6,12 @@ import { logger } from "@src/utils/logger";
 import NextAuth from "next-auth";
 import "next-auth/jwt";
 import { Logger } from "pino";
-import { generateClientAssertion } from "@src/utils/auth/generate-refresh-client-assertion";
-import { isValidSignIn } from "@src/utils/auth/callbacks/isValidSignIn";
+import { isValidSignIn } from "@src/utils/auth/callbacks/is-valid-signin";
+import { getToken } from "@src/utils/auth/callbacks/get-token";
 
 const log: Logger = logger.child({ module: "auth" });
 
 const MAX_SESSION_AGE_SECONDS: number = 12 * 60 * 60; // 12 hours of continuous usage
-const DEFAULT_ACCESS_TOKEN_EXPIRY: number = 5 * 60; // 5 minutes
 
 export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
   const config: AppConfig = await configProvider();
@@ -33,105 +32,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
     trustHost: true,
     callbacks: {
       async signIn({ account }) {
-        return isValidSignIn(config, log, account);
+        return isValidSignIn(account, config, log);
       },
 
       async jwt({ token, account, profile}) {
-        if (!token) {
-          log.error("No token available in jwt callback.");
-          return null;
-        }
-
-        let updatedToken = {
-          ...token,
-          user: {
-            nhs_number: token.user?.nhs_number ?? "",
-            birthdate: token.user?.birthdate ?? "",
-          },
-          expires_at: token.expires_at ?? 0,
-          access_token: token.access_token ?? "",
-          refresh_token: token.refresh_token ?? ""
-        };
-
-        try {
-          const nowInSeconds = Math.floor(Date.now() / 1000);
-
-          // Maximum age reached scenario:
-          // Invalidate session after fixedExpiry
-          if (updatedToken.fixedExpiry && nowInSeconds >= updatedToken.fixedExpiry) {
-            logger.info("Session has reached the max age");
-            return null;
-          }
-
-          // Initial login scenario:
-          // account and profile are only defined for the initial login,
-          // afterward they become undefined
-          if (account && profile) {
-            updatedToken = {
-              ...updatedToken,
-              expires_at: account.expires_at ?? 0,
-              access_token: account.access_token ?? "",
-              refresh_token: account.refresh_token ?? "",
-              user: {
-                nhs_number: profile.nhs_number ?? "",
-                birthdate: profile.birthdate ?? "",
-              },
-              fixedExpiry: nowInSeconds + MAX_SESSION_AGE_SECONDS
-            };
-            return updatedToken;
-          }
-
-          // Refresh token scenario:
-          // Access Token missing or expired
-          if (!updatedToken.expires_at || nowInSeconds >= updatedToken.expires_at) {
-            logger.info("Attempting to refresh token");
-
-            if (!updatedToken.refresh_token) {
-              logger.error("Refresh token missing");
-              return null;
-            }
-
-            const clientAssertion = await generateClientAssertion(config);
-
-            const requestBody = {
-              grant_type: "refresh_token",
-              refresh_token: updatedToken.refresh_token,
-              client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
-              client_assertion: clientAssertion,
-            };
-
-            const response = await fetch(`${config.NHS_LOGIN_URL}/token`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-              },
-              body: new URLSearchParams(requestBody),
-            });
-
-            const tokensOrError = await response.json();
-            if (!response.ok) throw tokensOrError;
-
-            const newTokens = tokensOrError as {
-              access_token: string;
-              expires_in?: number;
-              refresh_token?: string;
-            };
-
-            updatedToken = {
-              ...updatedToken,
-              access_token: newTokens.access_token,
-              expires_at: nowInSeconds + (newTokens.expires_in ?? DEFAULT_ACCESS_TOKEN_EXPIRY),
-              refresh_token: newTokens.refresh_token ?? updatedToken.refresh_token,
-            };
-
-            return updatedToken;
-          }
-        } catch (error) {
-          log.error(error, "Error in jwt callback");
-          return null;
-        }
-
-        return updatedToken;
+        return getToken(token, account, profile, config, MAX_SESSION_AGE_SECONDS, log);
       },
 
       async session({ session, token }) {
