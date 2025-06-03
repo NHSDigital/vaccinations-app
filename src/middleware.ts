@@ -28,6 +28,6 @@ export const config = {
      * 5. /favicon.ico (exclude the favicon path)
      * 6. /nhsuk-frontend-9.1.0 (exclude nhsuk js)
      */
-    "/((?!api/auth|api/sso|session-logout|sso-failure|favicon.ico|nhsuk-frontend-9.1.0|_next/static|_next/image).*)",
+    "/((?!api/auth|api/sso|session-logout|session-timeout|sso-failure|favicon.ico|nhsuk-frontend-9.1.0|_next/static|_next/image).*)",
   ],
 };
