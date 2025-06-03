@@ -3,7 +3,7 @@ import { userLogout } from "@src/utils/auth/user-logout";
 import { signOut } from "next-auth/react";
 
 jest.mock("next-auth/react", () => ({
-  signOut: jest.fn()
+  signOut: jest.fn(),
 }));
 
 describe("user-logout", () => {
@@ -12,7 +12,7 @@ describe("user-logout", () => {
 
     expect(signOut).toHaveBeenCalledWith({
       redirect: true,
-      redirectTo: SESSION_LOGOUT_ROUTE
+      redirectTo: SESSION_LOGOUT_ROUTE,
     });
   });
 });

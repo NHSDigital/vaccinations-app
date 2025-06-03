@@ -1,47 +1,14 @@
 import NHSLoginAuthProvider from "@src/app/api/auth/[...nextauth]/provider";
 import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
 import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
+import type { DecodedToken } from "@src/utils/auth/types";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
-import NextAuth, { type DefaultSession } from "next-auth";
+import NextAuth from "next-auth";
 import "next-auth/jwt";
 import { jwtDecode } from "jwt-decode";
 import { Logger } from "pino";
 import { generateClientAssertion } from "@src/utils/auth/generate-refresh-client-assertion";
-
-export interface DecodedToken {
-  iss: string;
-  aud: string;
-  identity_proofing_level: string;
-}
-
-// Augmenting types. Ref https://authjs.dev/getting-started/typescript#module-augmentation
-declare module "next-auth" {
-  interface Session {
-    user: {
-      nhs_number: string,
-      birthdate: string,
-      access_token: string,
-    } & DefaultSession["user"],
-  }
-
-  interface Profile {
-    nhs_number: string,
-  }
-}
-
-declare module "next-auth/jwt" {
-  interface JWT {
-    user: {
-      nhs_number: string,
-      birthdate: string,
-    },
-    expires_at: number,
-    refresh_token: string,
-    access_token: string,
-    fixedExpiry: number;
-  }
-}
 
 const log: Logger = logger.child({ module: "auth" });
 
@@ -85,6 +52,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
         }
         return isValidToken;
       },
+
       async jwt({ token, account, profile}) {
         if (!token) {
           log.error("No token available in jwt callback.");
