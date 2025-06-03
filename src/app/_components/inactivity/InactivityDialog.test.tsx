@@ -1,6 +1,5 @@
 import { InactivityDialog } from "@src/app/_components/inactivity/InactivityDialog";
 import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
-import { userExtendSession } from "@src/utils/auth/user-extend-session";
 import { render, screen } from "@testing-library/react";
 import { userLogout } from "@src/utils/auth/user-logout";
 import useInactivityTimer from "@src/utils/auth/inactivity-timer";
@@ -18,7 +17,6 @@ jest.mock("next-auth/react", () => ({
 
 jest.mock("@src/utils/auth/inactivity-timer");
 jest.mock("@src/utils/auth/user-logout");
-jest.mock("@src/utils/auth/user-extend-session");
 
 const mockRouterPush = jest.fn();
 jest.mock("next/navigation", () => ({
@@ -106,13 +104,16 @@ describe("InactivityDialog", () => {
       expect(userLogout).toHaveBeenCalledTimes(1);
     });
 
-    it("should call extend session when user clicks the button", async () => {
+    it("should close the dialog when user clicks the stay logged in button", async () => {
       idleSession = true;
 
       render(<InactivityDialog />);
       screen.getByRole("button", { name: "Stay logged in" }).click();
 
-      expect(userExtendSession).toHaveBeenCalledTimes(1);
+      const inactivityWarningModal: HTMLElement = screen.getByRole("dialog", {
+        hidden: true,
+      });
+      expect(inactivityWarningModal).not.toBeVisible();
     });
 
     it("should call logout when user clicks the button", async () => {

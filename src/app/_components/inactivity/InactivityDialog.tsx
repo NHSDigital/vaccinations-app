@@ -1,7 +1,6 @@
 "use client";
 
 import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
-import { userExtendSession } from "@src/utils/auth/user-extend-session";
 import { createRef, JSX, useEffect } from "react";
 import styles from "./styles.module.css";
 import { userLogout } from "@src/utils/auth/user-logout";
@@ -16,18 +15,16 @@ const InactivityDialog = (): JSX.Element => {
   const dialogRef = createRef<HTMLDialogElement>();
 
   useEffect(() => {
-    if (status === "unauthenticated") {
+    if (status === "authenticated") {
+      if (isTimedOut) {
+        dialogRef.current?.close();
+        userLogout();
+      } else if (isIdle) {
+        dialogRef.current?.showModal();
+      }
+    } else if (status === "unauthenticated") {
       dialogRef.current?.close();
       router.push(SESSION_LOGOUT_ROUTE);
-      return;
-    }
-
-    const isAuthenticated = status === "authenticated";
-    if (isAuthenticated && isTimedOut) {
-      dialogRef.current?.close();
-      userLogout();
-    } else if (isAuthenticated && isIdle) {
-      dialogRef.current?.showModal();
     }
   }, [dialogRef, isIdle, isTimedOut, router, status]);
 
@@ -40,7 +37,6 @@ const InactivityDialog = (): JSX.Element => {
           className={"nhsuk-button nhsapp-button"}
           onClick={() => {
             dialogRef.current?.close();
-            userExtendSession();
           }}
         >
           Stay logged in
