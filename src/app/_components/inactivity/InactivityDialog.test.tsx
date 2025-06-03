@@ -1,4 +1,5 @@
 import { InactivityDialog } from "@src/app/_components/inactivity/InactivityDialog";
+import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
 import { userExtendSession } from "@src/utils/auth/user-extend-session";
 import { render, screen } from "@testing-library/react";
 import { userLogout } from "@src/utils/auth/user-logout";
@@ -7,7 +8,7 @@ import { Session } from "next-auth";
 
 const mockSessionValue: Session = {
   expires: new Date(Date.now() + 60000).toISOString(),
-  user: { nhs_number: "", birthdate: "" },
+  user: { nhs_number: "", birthdate: "", access_token: "" },
 };
 let mockSession = { data: mockSessionValue, status: "authenticated" };
 
@@ -18,6 +19,13 @@ jest.mock("next-auth/react", () => ({
 jest.mock("@src/utils/auth/inactivity-timer");
 jest.mock("@src/utils/auth/user-logout");
 jest.mock("@src/utils/auth/user-extend-session");
+
+const mockRouterPush = jest.fn();
+jest.mock("next/navigation", () => ({
+  useRouter: () => ({
+    push: mockRouterPush,
+  }),
+}));
 
 let idleSession = false;
 let timedOutSession = false;
@@ -121,6 +129,11 @@ describe("InactivityDialog", () => {
     beforeEach(() => {
       mockSession = { data: mockSessionValue, status: "unauthenticated" };
       idleSession = timedOutSession = false;
+    });
+
+    it("should redirect to session logout page", async () => {
+      render(<InactivityDialog />);
+      expect(mockRouterPush).toHaveBeenCalledWith(SESSION_LOGOUT_ROUTE);
     });
 
     it("should not show warning when user is idle", async () => {

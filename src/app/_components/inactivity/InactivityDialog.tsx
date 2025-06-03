@@ -16,14 +16,13 @@ const InactivityDialog = (): JSX.Element => {
   const dialogRef = createRef<HTMLDialogElement>();
 
   useEffect(() => {
-    const isAuthenticated = status === "authenticated";
-
     if (status === "unauthenticated") {
       dialogRef.current?.close();
       router.push(SESSION_LOGOUT_ROUTE);
       return;
     }
 
+    const isAuthenticated = status === "authenticated";
     if (isAuthenticated && isTimedOut) {
       dialogRef.current?.close();
       userLogout();
