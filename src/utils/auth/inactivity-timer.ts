@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export const WARNING_TIME_MS: number = 9 * 60 * 1000;
 const LOGOUT_TIME_MS: number = 10 * 60 * 1000;
@@ -20,7 +20,7 @@ const useInactivityTimer = (
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const warningRef = useRef<NodeJS.Timeout | null>(null);
 
-  const resetTimer = () => {
+  const resetTimer = useCallback(() => {
     clearTimeout(timerRef?.current ?? undefined);
     clearTimeout(warningRef?.current ?? undefined);
     setIsIdle(false);
@@ -32,7 +32,7 @@ const useInactivityTimer = (
     timerRef.current = setTimeout(async () => {
       setIsTimedOut(true);
     }, logoutTimeMs);
-  };
+  }, [warningTimeMs, logoutTimeMs]);
 
   useEffect(() => {
     ACTIVITY_EVENTS.forEach((event) =>
@@ -49,7 +49,7 @@ const useInactivityTimer = (
       clearTimeout(timerRef?.current ?? undefined);
       clearTimeout(warningRef?.current ?? undefined);
     };
-  }, []);
+  }, [resetTimer]);
 
   return { isIdle, isTimedOut };
 };
