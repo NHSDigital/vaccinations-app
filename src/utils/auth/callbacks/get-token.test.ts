@@ -20,15 +20,21 @@ describe("getToken", () => {
     NHS_LOGIN_PRIVATE_KEY: "mock-private-key",
   } as AppConfig;
 
-  const nowInSeconds = Math.floor(Date.now() / 1000);
+  const nowInSeconds = 1749052001;
 
   beforeEach(() => {
     jest.clearAllMocks();
     global.fetch = jest.fn();
+    jest.useFakeTimers();
+    jest.setSystemTime(nowInSeconds * 1000);
   });
 
   afterEach(() => {
     jest.resetAllMocks();
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
   });
 
   it("should return null and logs error if token is falsy", async () => {
