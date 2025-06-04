@@ -3,7 +3,7 @@
  */
 
 import { auth } from "@project/auth";
-import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
+import { SESSION_TIMEOUT_ROUTE } from "@src/app/session-timeout/constants";
 import { middleware } from "@src/middleware";
 import { NextRequest } from "next/server";
 
@@ -37,7 +37,7 @@ describe("middleware", () => {
 
     expect(result.status).toBe(307);
     expect(result.headers.get("Location")).toEqual(
-      `${mockRequest.nextUrl.origin}${SESSION_LOGOUT_ROUTE}`,
+      `${mockRequest.nextUrl.origin}${SESSION_TIMEOUT_ROUTE}`,
     );
   });
 

@@ -1,5 +1,5 @@
 import { auth } from "@project/auth";
-import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
+import { SESSION_TIMEOUT_ROUTE } from "@src/app/session-timeout/constants";
 import { Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { logger } from "@src/utils/logger";
@@ -12,7 +12,7 @@ export async function middleware(request: NextRequest) {
   const session: Session | null = await auth();
   log.info(session, "Session Object");
   if (!session?.user) {
-    return NextResponse.redirect(new URL(SESSION_LOGOUT_ROUTE, request.url));
+    return NextResponse.redirect(new URL(SESSION_TIMEOUT_ROUTE, request.url));
   }
   return NextResponse.next();
 }
