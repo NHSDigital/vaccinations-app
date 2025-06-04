@@ -1,9 +1,10 @@
 import type { DefaultSession } from "next-auth";
 
-export interface DecodedToken {
+export interface DecodedIdToken {
   iss: string;
   aud: string;
   identity_proofing_level: string;
+  jti: string;
 }
 
 // Augmenting types. Ref https://authjs.dev/getting-started/typescript#module-augmentation
@@ -13,6 +14,9 @@ declare module "next-auth" {
       nhs_number: string;
       birthdate: string;
       access_token: string;
+      id_token: {
+        jti: string;
+      };
     } & DefaultSession["user"];
   }
 
@@ -30,6 +34,9 @@ declare module "next-auth/jwt" {
     expires_at: number;
     refresh_token: string;
     access_token: string;
+    id_token: {
+      jti: string;
+    };
     fixedExpiry: number;
   }
 }

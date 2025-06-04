@@ -1,7 +1,7 @@
 import { Account } from "next-auth";
 import { AppConfig } from "@src/utils/config";
 import { jwtDecode } from "jwt-decode";
-import type { DecodedToken } from "@src/utils/auth/types";
+import type { DecodedIdToken } from "@src/utils/auth/types";
 import { Logger } from "pino";
 import { logger } from "@src/utils/logger";
 
@@ -20,7 +20,7 @@ const isValidSignIn = (
     return false;
   }
 
-  const decodedToken = jwtDecode<DecodedToken>(account.id_token);
+  const decodedToken = jwtDecode<DecodedIdToken>(account.id_token);
   const { iss, aud, identity_proofing_level } = decodedToken;
 
   const isValidToken =

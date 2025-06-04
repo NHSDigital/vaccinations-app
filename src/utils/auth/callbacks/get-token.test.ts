@@ -3,8 +3,10 @@ import { generateClientAssertion } from "@src/utils/auth/generate-refresh-client
 import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import { AppConfig } from "@src/utils/config";
+import { jwtDecode } from "jwt-decode";
 
 jest.mock("@src/utils/auth/generate-refresh-client-assertion");
+jest.mock("jwt-decode");
 
 const mockGenerateClientAssertion =
   generateClientAssertion as jest.MockedFunction<
@@ -41,12 +43,16 @@ describe("getToken", () => {
   });
 
   it("should return updated token on initial login with account and profile", async () => {
+    (jwtDecode as jest.Mock).mockReturnValue({
+      jti: "jti_test",
+    });
     const token = {} as JWT;
 
     const account = {
       expires_at: nowInSeconds + 1000,
       access_token: "newAccess",
       refresh_token: "newRefresh",
+      id_token: "newIdToken",
     } as Account;
 
     const profile = {
@@ -68,6 +74,9 @@ describe("getToken", () => {
       expires_at: account.expires_at,
       access_token: account.access_token,
       refresh_token: account.refresh_token,
+      id_token: {
+        jti: "jti_test",
+      },
       user: {
         nhs_number: profile.nhs_number,
         birthdate: profile.birthdate,
@@ -97,6 +106,9 @@ describe("getToken", () => {
       expires_at: 0,
       access_token: "",
       refresh_token: "",
+      id_token: {
+        jti: "",
+      },
       user: {
         nhs_number: "",
         birthdate: "",
@@ -122,6 +134,9 @@ describe("getToken", () => {
       expires_at: nowInSeconds - 10,
       refresh_token: "refresh-token",
       access_token: "oldAccess",
+      id_token: {
+        jti: "id-token",
+      },
       user: {
         nhs_number: "test_nhs_number",
         birthdate: "test_birthdate",
@@ -178,6 +193,9 @@ describe("getToken", () => {
       expires_at: nowInSeconds - 10,
       refresh_token: "refresh-token",
       access_token: "oldAccess",
+      id_token: {
+        jti: "id-token",
+      },
       user: {
         nhs_number: "test_nhs_number",
         birthdate: "test_birthdate",
@@ -247,6 +265,9 @@ describe("getToken", () => {
       expires_at: nowInSeconds + 1000,
       access_token: "access",
       refresh_token: "refresh",
+      id_token: {
+        jti: "jti_test",
+      },
       user: {
         nhs_number: "test_nhs_number",
         birthdate: "test_birthdate",

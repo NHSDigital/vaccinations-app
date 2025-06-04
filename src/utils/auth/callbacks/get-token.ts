@@ -4,9 +4,11 @@ import { Account, Profile } from "next-auth";
 import { Logger } from "pino";
 import { AppConfig } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
+import { jwtDecode } from "jwt-decode";
+import { DecodedIdToken } from "@src/utils/auth/types";
 
-const DEFAULT_ACCESS_TOKEN_EXPIRY: number = 5 * 60;
 const log: Logger = logger.child({ module: "utils-auth-callbacks-get-token" });
+const DEFAULT_ACCESS_TOKEN_EXPIRY: number = 5 * 60;
 
 const getToken = async (
   token: JWT,
@@ -29,6 +31,9 @@ const getToken = async (
     expires_at: token.expires_at ?? 0,
     access_token: token.access_token ?? "",
     refresh_token: token.refresh_token ?? "",
+    id_token: token.id_token ?? {
+      jti: "",
+    },
   };
 
   try {
@@ -45,11 +50,21 @@ const getToken = async (
     // account and profile are only defined for the initial login,
     // afterward they become undefined
     if (account && profile) {
+      let jti = "";
+
+      if (account.id_token) {
+        const decodedToken = jwtDecode<DecodedIdToken>(account.id_token);
+        jti = decodedToken.jti;
+      }
+
       updatedToken = {
         ...updatedToken,
         expires_at: account.expires_at ?? 0,
         access_token: account.access_token ?? "",
         refresh_token: account.refresh_token ?? "",
+        id_token: {
+          jti: jti,
+        },
         user: {
           nhs_number: profile.nhs_number ?? "",
           birthdate: profile.birthdate ?? "",

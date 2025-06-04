@@ -6,7 +6,12 @@ import { Session } from "next-auth";
 
 const mockSessionValue: Session = {
   expires: new Date(Date.now() + 60000).toISOString(),
-  user: { nhs_number: "", birthdate: "", access_token: "" },
+  user: {
+    nhs_number: "",
+    birthdate: "",
+    access_token: "",
+    id_token: { jti: "" },
+  },
 };
 let mockSession = { data: mockSessionValue, status: "authenticated" };
 
