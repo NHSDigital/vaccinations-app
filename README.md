@@ -105,7 +105,7 @@ From NHS repository template:
 
 ### Local Configuration
 
-1. Update environment variables file .env.local to suit local development and testing
+1. Copy .env.template file to .env.local. Add the necessary values which will be picked up by Next.js
 2. Install toolchain dependencies and load .tool-versions into asdf
   - ```
     make config
