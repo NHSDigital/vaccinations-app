@@ -18,12 +18,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>): JSX.Element {
-  // This is the polling time for the session on client side,
-  // so that the client can react to session expiry.
-  // The session expiry is handled by the server.
-  // The value is set to 10 seconds less than the warning time.
-  // This is to ensure that the warning dialog is only shown when user is authenticated.
-  const SESSION_REFETCH_SECONDS = Math.floor((0.9 * WARNING_TIME_MS) / 1000);
+  // This is the session polling time on the client side,
+  // so that the client can react to server side session expiry.
+  // The value should be less than the time to warning dialog,
+  // to ensure that the warning dialog is only shown when user is authenticated
+  // But not too less to avoid frequent polling.
+  // One needs to also account for the polling request latency (assume 5 sec).
+  const SESSION_REFETCH_SECONDS =
+    Math.floor(0.9 * (WARNING_TIME_MS / 1000)) - 5;
 
   return (
     <html lang="en">
