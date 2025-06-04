@@ -21,6 +21,7 @@
     "test:watch": "jest --watch",
     "e2e": "npx playwright test",
     "e2e:ui": "npx playwright test --ui",
+    "pact": "jest --config=pact/jest.config.ts pact/all.pact.ts",
     "content-api": "wiremock --root-dir ./wiremock --port 8081 --verbose"
   },
   "repository": {
