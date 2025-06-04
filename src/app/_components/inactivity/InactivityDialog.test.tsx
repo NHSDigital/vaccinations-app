@@ -2,9 +2,6 @@ import {
   excludedUrlPaths,
   InactivityDialog,
 } from "@src/app/_components/inactivity/InactivityDialog";
-import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
-import { SESSION_TIMEOUT_ROUTE } from "@src/app/session-timeout/constants";
-import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 import { render, screen } from "@testing-library/react";
 import { userLogout } from "@src/utils/auth/user-logout";
 import useInactivityTimer from "@src/utils/auth/inactivity-timer";
