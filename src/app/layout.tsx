@@ -5,6 +5,7 @@ import AppFooter from "@src/app/_components/nhs-frontend/AppFooter";
 import AppHeader from "@src/app/_components/nhs-frontend/AppHeader";
 import SkipLink from "@src/app/_components/nhs-frontend/SkipLink";
 import { WARNING_TIME_MS } from "@src/utils/auth/inactivity-timer";
+import Script from "next/script";
 import React, { JSX } from "react";
 import "@public/nhsuk-frontend-9.1.0/css/nhsuk-9.1.0.min.css";
 import "@public/nhsapp-frontend-2.3.0/nhsapp-2.3.0.min.css";
@@ -22,7 +23,7 @@ export default function RootLayout({
   // The session expiry is handled by the server.
   // The value is set to 10 seconds less than the warning time.
   // This is to ensure that the warning dialog is only shown when user is authenticated.
-  const SESSION_REFETCH_SECONDS = Math.floor(0.9 * WARNING_TIME_MS / 1000);
+  const SESSION_REFETCH_SECONDS = Math.floor((0.9 * WARNING_TIME_MS) / 1000);
 
   return (
     <html lang="en">
@@ -75,10 +76,11 @@ export default function RootLayout({
           name="msapplication-square310x310logo"
           content={`/${NHSUK_FRONTEND_VERSION}/assets/favicons/largetile-310x310.png`}
         />
-        <script
+
+        {/* NHS app js - https://nhsconnect.github.io/nhsapp-developer-documentation/js-v2-api-specification/ */}
+        <Script
           src="https://www.nhsapp.service.nhs.uk/js/v2/nhsapp.js"
-          type="text/javascript"
-          defer
+          strategy="beforeInteractive"
         />
       </head>
 
