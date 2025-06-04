@@ -1,7 +1,5 @@
-import {
-  excludedUrlPaths,
-  InactivityDialog,
-} from "@src/app/_components/inactivity/InactivityDialog";
+import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
+import { InactivityDialog } from "@src/app/_components/inactivity/InactivityDialog";
 import { render, screen } from "@testing-library/react";
 import { userLogout } from "@src/utils/auth/user-logout";
 import useInactivityTimer from "@src/utils/auth/inactivity-timer";
@@ -131,7 +129,7 @@ describe("InactivityDialog", () => {
       expect(userLogout).toHaveBeenCalledWith();
     });
 
-    it.each(excludedUrlPaths)(
+    it.each(unprotectedUrlPaths)(
       "should not show warning dialog or logout user when on %s",
       async (urlPath: string) => {
         idleSession = true;
@@ -164,7 +162,7 @@ describe("InactivityDialog", () => {
       expect(inactivityWarningModal).not.toBeVisible();
     });
 
-    it.each(excludedUrlPaths)(
+    it.each(unprotectedUrlPaths)(
       "should not try to logout when user activity has timed out on %s",
       async (urlPath: string) => {
         idleSession = timedOutSession = true;

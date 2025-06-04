@@ -1,20 +1,12 @@
 "use client";
 
-import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
-import { SESSION_TIMEOUT_ROUTE } from "@src/app/session-timeout/constants";
-import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
+import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
 import { usePathname } from "next/navigation";
 import { createRef, JSX, useEffect, useRef } from "react";
 import styles from "./styles.module.css";
 import { userLogout } from "@src/utils/auth/user-logout";
 import useInactivityTimer from "@src/utils/auth/inactivity-timer";
 import { useSession } from "next-auth/react";
-
-export const excludedUrlPaths = [
-  SESSION_LOGOUT_ROUTE,
-  SESSION_TIMEOUT_ROUTE,
-  SSO_FAILURE_ROUTE,
-];
 
 const InactivityDialog = (): JSX.Element => {
   const { status } = useSession();
@@ -25,7 +17,7 @@ const InactivityDialog = (): JSX.Element => {
 
   useEffect(() => {
     // do nothing on unprotected pages
-    if (excludedUrlPaths.includes(pathname)) return;
+    if (unprotectedUrlPaths.includes(pathname)) return;
 
     // do nothing until we know the session state on protected pages
     if (status === "loading") return;
