@@ -1,4 +1,10 @@
-import { InactivityDialog } from "@src/app/_components/inactivity/InactivityDialog";
+import {
+  excludedUrlPaths,
+  InactivityDialog,
+} from "@src/app/_components/inactivity/InactivityDialog";
+import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
+import { SESSION_TIMEOUT_ROUTE } from "@src/app/session-timeout/constants";
+import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 import { render, screen } from "@testing-library/react";
 import { userLogout } from "@src/utils/auth/user-logout";
 import useInactivityTimer from "@src/utils/auth/inactivity-timer";
@@ -17,6 +23,11 @@ let mockSession = { data: mockSessionValue, status: "authenticated" };
 
 jest.mock("next-auth/react", () => ({
   useSession: () => mockSession,
+}));
+
+let mockUrlPath = "/";
+jest.mock("next/navigation", () => ({
+  usePathname: jest.fn(() => mockUrlPath),
 }));
 
 jest.mock("@src/utils/auth/inactivity-timer");
@@ -59,6 +70,7 @@ describe("InactivityDialog", () => {
     beforeEach(() => {
       mockSession = { data: mockSessionValue, status: "authenticated" };
       idleSession = timedOutSession = false;
+      mockUrlPath = "/";
     });
 
     it("should show warning when user is idle", async () => {
@@ -121,12 +133,27 @@ describe("InactivityDialog", () => {
 
       expect(userLogout).toHaveBeenCalledWith();
     });
+
+    it.each(excludedUrlPaths)(
+      "should not show warning dialog or logout user when on %s",
+      async (urlPath: string) => {
+        idleSession = true;
+        mockUrlPath = urlPath;
+        render(<InactivityDialog />);
+        const inactivityWarningModal: HTMLElement = screen.getByRole("dialog", {
+          hidden: true,
+        });
+        expect(inactivityWarningModal).not.toBeVisible();
+        expect(userLogout).not.toHaveBeenCalled();
+      },
+    );
   });
 
   describe("when user is not logged in", () => {
     beforeEach(() => {
       mockSession = { data: mockSessionValue, status: "unauthenticated" };
       idleSession = timedOutSession = false;
+      mockUrlPath = "/";
     });
 
     it("should not show warning when user is idle", async () => {
@@ -140,7 +167,23 @@ describe("InactivityDialog", () => {
       expect(inactivityWarningModal).not.toBeVisible();
     });
 
-    it("should not try to logout when user activity has timed out", async () => {
+    it.each(excludedUrlPaths)(
+      "should not try to logout when user activity has timed out on %s",
+      async (urlPath: string) => {
+        idleSession = timedOutSession = true;
+        mockUrlPath = urlPath;
+
+        render(<InactivityDialog />);
+
+        const inactivityWarningModal = screen.queryByRole("dialog", {
+          hidden: true,
+        });
+        expect(inactivityWarningModal).not.toBeVisible();
+        expect(userLogout).not.toHaveBeenCalled();
+      },
+    );
+
+    it("should try to logout when user activity has timed out", async () => {
       idleSession = timedOutSession = true;
 
       render(<InactivityDialog />);
@@ -149,7 +192,7 @@ describe("InactivityDialog", () => {
         hidden: true,
       });
       expect(inactivityWarningModal).not.toBeVisible();
-      expect(userLogout).not.toHaveBeenCalled();
+      expect(userLogout).toHaveBeenCalledWith(true);
     });
   });
 
