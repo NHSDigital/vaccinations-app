@@ -13,6 +13,7 @@ enum VaccineContentPaths {
 const vaccineTypeToPath: Record<VaccineTypes, VaccineContentPaths> = {
   [VaccineTypes.SIX_IN_ONE]: VaccineContentPaths.SIX_IN_ONE,
   [VaccineTypes.RSV]: VaccineContentPaths.RSV,
+  [VaccineTypes.RSV_PREGNANCY]: VaccineContentPaths.RSV,
   [VaccineTypes.FLU]: VaccineContentPaths.FLU,
   [VaccineTypes.PNEUMOCOCCAL]: VaccineContentPaths.PNEUMOCOCCAL,
   [VaccineTypes.SHINGLES]: VaccineContentPaths.SHINGLES,
@@ -20,10 +21,4 @@ const vaccineTypeToPath: Record<VaccineTypes, VaccineContentPaths> = {
   [VaccineTypes.COVID_19]: VaccineContentPaths.COVID_19,
 };
 
-const CONTENT_API_VACCINATIONS_PATH = "/nhs-website-content/vaccinations";
-
-export {
-  VaccineContentPaths,
-  CONTENT_API_VACCINATIONS_PATH,
-  vaccineTypeToPath,
-};
+export { VaccineContentPaths, vaccineTypeToPath };

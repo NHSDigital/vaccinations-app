@@ -1,6 +1,7 @@
 enum VaccineTypes {
   SIX_IN_ONE = "SIX_IN_ONE",
   RSV = "RSV",
+  RSV_PREGNANCY = "RSV_PREGNANCY",
   FLU = "FLU",
   PNEUMOCOCCAL = "PNEUMOCOCCAL",
   SHINGLES = "SHINGLES",
@@ -26,6 +27,12 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     },
   },
   [VaccineTypes.RSV]: {
+    displayName: {
+      capitalised: "RSV",
+      lowercase: "RSV",
+    },
+  },
+  [VaccineTypes.RSV_PREGNANCY]: {
     displayName: {
       capitalised: "RSV",
       lowercase: "RSV",

@@ -52,6 +52,10 @@ const VaccinationsHub = () => {
             link={"/vaccines/rsv"}
           />
           <CardLink
+            title={`${VaccineInfo.RSV.displayName.capitalised} in pregnancy`}
+            link={"/vaccines/rsv-pregnancy"}
+          />
+          <CardLink
             title={VaccineInfo.SHINGLES.displayName.capitalised}
             link={"/vaccines/shingles"}
           />

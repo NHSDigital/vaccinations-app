@@ -86,6 +86,15 @@ describe("Vaccination Hub Page", () => {
     expect(link.getAttribute("href")).toEqual("/vaccines/rsv");
   });
 
+  it("renders RSV in pregnancy vaccine link", async () => {
+    const link: HTMLElement = screen.getByRole("link", {
+      name: "RSV in pregnancy",
+    });
+
+    expect(link).toBeInTheDocument();
+    expect(link.getAttribute("href")).toEqual("/vaccines/rsv-pregnancy");
+  });
+
   it("renders Shingles vaccine link", async () => {
     const link: HTMLElement = screen.getByRole("link", {
       name: "Shingles",
