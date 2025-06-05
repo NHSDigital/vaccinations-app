@@ -16,9 +16,10 @@
 5. Give the new event a  meaningful name
 6. Keep the event sharing settings to **Private**
 7. Use the following template as the event JSON (feel free to add other non-PII fields as necessary for audit)
-  ```json
-  {
-    "who": "<name and email of the person triggering this action>",
-    "why": "<reason for this manual cache refresh>"
-  }
-  ```
+
+    ```json
+    {
+      "who": "<name and email of the person triggering this action>",
+      "why": "<reason for this manual cache refresh>"
+    }
+    ```

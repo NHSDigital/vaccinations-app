@@ -10,7 +10,7 @@
 
 ---
 
-- [ADR-005: NHS Login OIDC Flow Library](#adr-005---NHS-Login-OIDC-Flow-Library)
+- ADR-005: NHS Login OIDC Flow Library
   - [Context](#context)
   - [Decision](#decision)
     - [Assumptions](#assumptions)

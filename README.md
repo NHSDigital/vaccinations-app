@@ -33,20 +33,27 @@ From NHS repository template:
 
 - **Make and GNU tooling** - The version of GNU make available by default on macOS is earlier than 3.82. You will need to upgrade it or certain make tasks will fail.
   On macOS, you will need Homebrew installed, then to install make, like so:
-  - ```
+
+    ```shell
     brew install make gnu-sed gawk coreutils binutils
     ```
+
   - Add the following to .zshrc to override default OSX tools with their GNU equivalents
     - On M1 Macs:
-      ```
+
+      ```shell
       export HOMEBREW_PATH="/opt/homebrew"
       ```
+
     - For Intel Macs:
-      ```
+
+      ```shell
       export HOMEBREW_PATH="/usr/local"
       ```
+
     - Then:
-      ```
+
+      ```shell
       export PATH="$HOMEBREW_PATH/opt/make/libexec/gnubin:$PATH"
       export PATH="$HOMEBREW_PATH/opt/gnu-sed/libexec/gnubin:$PATH"
       export PATH="$HOMEBREW_PATH/opt/gawk/libexec/gnubin:$PATH"
@@ -55,16 +62,19 @@ From NHS repository template:
       export LDFLAGS="-L$HOMEBREW_PATH/opt/binutils/lib"
       export CPPFLAGS="-I$HOMEBREW_PATH/opt/binutils/include"
       ```
+
 - **asdf** - version manager with support for multiple languages
-  - ```
+  - Install asdf and add to path
+
+    ```shell
     brew install asdf
-    ```
-  - ```
     echo 'export PATH="${HOME}/.asdf/shims:$PATH"' >> ~/.zshrc
     source ~/.zshrc
     ```
+
   - Install nodejs plugin for asdf (and required dependencies)
-  - ```
+
+    ```shell
     brew install gpg gawk
     asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
     ```
@@ -72,35 +82,48 @@ From NHS repository template:
 - **Colima** - or any equivalent Docker container runtime, e.g. [Rancher Desktop](https://rancherdesktop.io/), etc.
 
 - **Act** - tool to run GitHub actions locally. Usage guide is available [here](https://nektosact.com/usage/index.html)
-    - ```
-      brew install act
-      ```
-    - symlink `/var/run/docker.sock` file to your chosen docker container tool's `docker.sock` file location. For e.g. `sudo ln -s /Users/<username>/.colima/default/docker.sock /var/run/docker.sock`
-    - after successful installation, when you run act for the first time, it will ask for the size of docker container. Choose 'medium'.
-    - to list all available jobs and workflows
-      ```
-      act --list
-      ```
-    - to run a specific job ID
-      ```
-      act -j 'check-english-usage' --defaultbranch main
-      ```
-    - to run all jobs in a workflow file
-      ```
-      act -W .github/workflows/cicd-1-pull-request.yaml --defaultbranch main
-      ```
+
+    ```shell
+    brew install act
+    ```
+
+  - symlink `/var/run/docker.sock` file to your chosen docker container tool's `docker.sock` file location. For e.g. `sudo ln -s /Users/<username>/.colima/default/docker.sock /var/run/docker.sock`
+  - after successful installation, when you run act for the first time, it will ask for the size of docker container. Choose 'medium'.
+  - to list all available jobs and workflows
+
+    ```shell
+    act --list
+    ```
+
+  - to run a specific job ID
+
+    ```shell
+    act -j 'check-english-usage' --defaultbranch main
+    ```
+
+  - to run all jobs in a workflow file
+
+    ```shell
+    act -W .github/workflows/cicd-1-pull-request.yaml --defaultbranch main
+    ```
+
 - **Playwright** - Install browser drivers for running UI-driven acceptance tests.
-  ```
-  npx playwright install
-  ```
+
+    ```shell
+    npx playwright install
+    ```
+
 - **AWS CLI** - Install aws cli for local deployments.
   - For the following commands, use the settings from your [AWS access portal](https://d-9c67018f89.awsapps.com/start/#/?tab=accounts) "Access keys". Give the name 'vita-dev' to your new profile.
-    ```
+
+    ```shell
     brew install awscli
     aws configure sso
     ```
+
   - Add the profile 'vita-dev' to your shell to avoid having to provide it repeatedly.
-    ```
+
+    ```shell
     echo 'export AWS_PROFILE=vita-dev' >> ~/.zshrc
     source ~/.zshrc
     ```
@@ -109,20 +132,27 @@ From NHS repository template:
 
 1. Copy .env.template file to .env.local. Add the necessary values which will be picked up by Next.js
 2. Install toolchain dependencies and load .tool-versions into asdf
-  - ```
+
+    ```shell
     make config
     ```
+
 3. Install and setup pre-commit hooks for this project
-  - ```
+
+    ```shell
     make githooks-config
     make githooks-run
     ```
+
 4. Set environment variable to disable telemetry collection in next.js: add the following to .zshrc
-  - ```
+
+    ```shell
     export NEXT_TELEMETRY_DISABLED=1
     ```
+
 5. Install dependencies from package.json
-  - ```
+
+    ```shell
     npm install
     ```
 
@@ -130,7 +160,7 @@ From NHS repository template:
 
 ### Build
 
-```
+```shell
 npm run build
 ```
 
@@ -138,7 +168,7 @@ npm run build
 
 Serves web content from src folder, so make changes and refresh the browser to see changes immediately.
 
-```
+```shell
 npm run dev
 ```
 
@@ -154,13 +184,14 @@ RSA Private keys and Client IDs are required for this flow. Steps to enable it:
 - Set the Client ID values in the env files of this project and the Fake Client project respectively
 - Store the private key values in pem files in your systems, preferably somewhere outside this repository (e.g. `vita_private_key.pem`, `vita_private_key_sso.pem`)
 - Before running the application, export the VitA application private key as an environment variable:
-  ```
-  export NHS_LOGIN_PRIVATE_KEY=`cat <path-to-keys>/vita_private_key.pem`
-  ```
+
+    ```shell
+    export NHS_LOGIN_PRIVATE_KEY=`cat <path-to-keys>/vita_private_key.pem`
+    ```
+
 - Follow the steps in Fake Client repo README.md to set up the SSO private key there.
 
 SSO flow is initiated from the Fake Client. Directly accessing the application will redirect you to an error page.
-
 
 #### Mocking API Responses with Wiremock
 
@@ -171,34 +202,39 @@ Our project utilizes Wiremock to provide mock responses for API endpoints. To co
 
 To run the Wiremock server locally:
 
-```
+```shell
 npm run content-api
 ```
 
 ### Run unit tests
 
-```
+```shell
 npm run test
 ```
 
 ### Run UI driven tests
 
 - make sure to build and run the Next.js app
-  ```
-  npm run app
-  ```
+
+    ```shell
+    npm run app
+    ```
+
 - run tests in headless mode
-  ```
-  npm run e2e
-  ```
+
+    ```shell
+    npm run e2e
+    ```
+
 - or with interactive developer UI
-  ```
-  npm run e2e:ui
-  ```
+
+    ```shell
+    npm run e2e:ui
+    ```
 
 ### Run pre-commit hooks manually
 
-```
+```shell
 make githooks-run
 ```
 
@@ -214,26 +250,36 @@ Use maximum 4 chars, otherwise you might not be able to deploy due to max limits
 Avoid 'gh' as it is reserved for GitHub.
 
 - Make sure to build first using
-  ```
-  npm run build:opennext
-  ```
+
+    ```shell
+    npm run build:opennext
+    ```
+
 - (optional) Log into AWS if session has expired - run the following command, ignore the browser window that automatically opens and copy the URL output in terminal into browser for HSCIC profile
-  ```
-  aws sso login
-  ```
-- In the [home]() directory
-  ```
-  TF_ENV=dev make terraform-init         # initialises the modules
-  ```
-- In the environment:[dev](infrastructure/environments/dev) directory
-  ```
-  terraform workspace new <unique 4 char name>
-  ```
-- In the [home]() directory
-  ```
-  TF_ENV=dev make terraform-plan          # compares local vs. remote state, and shows the plan
-  TF_ENV=dev make terraform-apply         # applies the plan, asks for approval
-  ```
+
+    ```shell
+    aws sso login
+    ```
+
+- In the `home` directory
+
+    ```shell
+    TF_ENV=dev make terraform-init         # initialises the modules
+    ```
+
+- In the environment `infrastructure/environments/dev` directory
+
+    ```shell
+    terraform workspace new <unique 4 char name>
+    ```
+
+- In the `home` directory
+
+    ```shell
+    TF_ENV=dev make terraform-plan          # compares local vs. remote state, and shows the plan
+    TF_ENV=dev make terraform-apply         # applies the plan, asks for approval
+    ```
+
 - Once the deployment is successful, do these post-deployment steps: -
   - Update the environment: the variables are accessible in [Systems Manager / Parameter Store](https://eu-west-2.console.aws.amazon.com/systems-manager/parameters/?region=eu-west-2&tab=Table)
   - The app is accessible via the CDN URL printed after the deployment as an output.
@@ -241,9 +287,11 @@ Avoid 'gh' as it is reserved for GitHub.
 #### Destroying and Re-deploying resources in AWS
 
 To destroy resources in AWS, run the command:
-```
+
+```shell
  TF_ENV=dev make terraform-destroy       # deprovisions infrastructure, asks for approval
 ```
+
 Note: AWS has been configured to ensure that server function log group is not deleted when destroy is run. When re-deploying from local, this means that developers will need to go into AWS and manually delete the log group before re-provisioning.
 
 #### Accessing application logs in AWS
@@ -255,17 +303,20 @@ In AWS Console:
 - CloudWatch > Log Groups > `/aws/lambda/{workspace}-main-vita-{accountid}-server-function`
 
 Use the Logs Insights UI to query logs:
+
 - CloudWatch > Log Insights
 - Select the log group in the dropdown
 - Sample query:
-  ```
-  fields @timestamp, level, module, msg, @message
-  | filter level = "INFO"
-  | sort @timestamp desc
-  | limit 10000
-  ```
+
+    ```aws-log-insights-QL
+    fields @timestamp, level, module, msg, @message
+    | filter level = "INFO"
+    | sort @timestamp desc
+    | limit 10000
+    ```
 
 To enable debug logging of OpenNext, add OPEN_NEXT_DEBUG=true to package.json build command:
+
 ```json
 {
   "build:opennext": "OPEN_NEXT_DEBUG=true DEBUG=* npx --yes @opennextjs/aws@latest build"
@@ -276,7 +327,7 @@ To enable debug logging of OpenNext, add OPEN_NEXT_DEBUG=true to package.json bu
 
 Our release strategy is based on Semantic Versioning and utilizes tagged commits. To create a new release, please follow the steps outlined below:
 
-1.  **Write a commit, push and Synchronize with Remote:** After merging your changes into the `main` branch, ensure your local repository is synchronized with the remote. Execute the following commands:
+1. **Write a commit, push and Synchronize with Remote:** After merging your changes into the `main` branch, ensure your local repository is synchronized with the remote. Execute the following commands:
 
     ```bash
     git commit -m 'your commit message'
@@ -284,21 +335,19 @@ Our release strategy is based on Semantic Versioning and utilizes tagged commits
     git pull --rebase origin main
     ```
 
-    IMPORTANT: Wait for the continuous integration/build pipeline to complete successfully.
+    - IMPORTANT: Wait for the continuous integration/build pipeline to complete successfully.
 
-2.  **Determine Release Type:** Assess the nature of the changes included in this release to determine the appropriate semantic version increment:
-
-    * **Major Change (Breaking):** Increment the major version (e.g., `v1.0.0` to `v2.0.0`).
-    * **Minor Change (New Feature):** Increment the minor version (e.g., `v0.1.0` to `v0.2.0`).
-    * **Patch/Fix (Bug Fixes, Minor Updates):** Increment the patch version (e.g., `v0.0.1` to `v0.0.2`).
-
-3.  **Identify the Previous Tag (Optional):** You can view existing tags to understand the current release version. Either visit the "Releases" or "Tags" section of the repository on GitHub, or run the following command locally:
+2. **Determine Release Type:** Assess the nature of the changes included in this release to determine the appropriate semantic version increment:
+    - **Major Change (Breaking):** Increment the major version (e.g., `v1.0.0` to `v2.0.0`).
+    - **Minor Change (New Feature):** Increment the minor version (e.g., `v0.1.0` to `v0.2.0`).
+    - **Patch/Fix (Bug Fixes, Minor Updates):** Increment the patch version (e.g., `v0.0.1` to `v0.0.2`).
+3. **Identify the Previous Tag (Optional):** You can view existing tags to understand the current release version. Either visit the "Releases" or "Tags" section of the repository on GitHub, or run the following command locally:
 
     ```bash
     git tag
     ```
 
-4.  **Tag Your Commit:** Create a new tag on your local `main` branch using the `git tag` command, following the `vx.y.z` format (replace `x`, `y`, and `z` with the incremented version numbers):
+4. **Tag Your Commit:** Create a new tag on your local `main` branch using the `git tag` command, following the `vx.y.z` format (replace `x`, `y`, and `z` with the incremented version numbers):
 
     ```bash
     git tag vX.Y.Z
@@ -310,16 +359,15 @@ Our release strategy is based on Semantic Versioning and utilizes tagged commits
     git tag v0.2.0
     ```
 
-5.  **Push the Tag to Remote:** Push the newly created tag to the `origin` remote repository. This action will automatically trigger the publish/release workflow:
+5. **Push the Tag to Remote:** Push the newly created tag to the `origin` remote repository. This action will automatically trigger the publish/release workflow:
 
     ```bash
     git push origin tag vX.Y.Z
     ```
 
-6.  **Verify Release and Artifact:** Upon successful execution of the publish/release workflow, you should observe:
-
-    * A new tagged release in the "Releases" section of the GitHub repository.
-    * The corresponding build artifact within the `/tags` folder of the github AWS S3 bucket.
+6. **Verify Release and Artifact:** Upon successful execution of the publish/release workflow, you should observe:
+    - A new tagged release in the "Releases" section of the GitHub repository.
+    - The corresponding build artifact within the `/tags` folder of the github AWS S3 bucket.
 
 **The branching and tagging strategy to fix broken deployed releases can be found [here](https://nhsd-confluence.digital.nhs.uk/spaces/Vacc/pages/989220238/Branching+and+release+strategy#Branchingandreleasestrategy-Fixingdeployedbrokenreleases).**
 
