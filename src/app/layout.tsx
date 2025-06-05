@@ -36,6 +36,7 @@ export default function RootLayout({
         />
         <meta name="description" content="" />
 
+        <link rel="icon" href="/favicon.ico" sizes="any" />
         <link
           rel="shortcut icon"
           href={"/assets/favicons/favicon.ico"}

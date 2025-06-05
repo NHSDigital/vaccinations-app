@@ -14,7 +14,7 @@ jest.mock("@project/auth", () => ({
 }));
 
 const middlewareRegex = new RegExp(config.matcher[0]);
-const otherExcludedPaths = ["/assets", "/js", "/css", "/_next"];
+const otherExcludedPaths = ["/favicon.ico", "/assets", "/js", "/css", "/_next"];
 
 function getMockRequest(testUrl: string, params?: Record<string, string>) {
   return {

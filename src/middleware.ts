@@ -26,11 +26,12 @@ export const config = {
      * /session-logout (exclude session logout route)
      * /session-timeout (exclude session timeout route)
      * /sso-failure (exclude the SSO routes)
+     * /favicon.ico
      * /assets (exclude the assets like icons)
      * /js (exclude bundled javascript)
      * /css (exclude bundled style sheets)
      * /_next/* (exclude Next.js assets, e.g., /_next/static/*)
      */
-    "/((?!api/auth|api/sso|session-logout|session-timeout|sso-failure|assets|js|css|_next).*)",
+    "/((?!api/auth|api/sso|session-logout|session-timeout|sso-failure|favicon.ico|assets|js|css|_next).*)",
   ],
 };
