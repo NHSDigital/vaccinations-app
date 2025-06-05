@@ -9,7 +9,7 @@ const lcpDuration = async (): Promise<number> => {
   return new Promise((resolve) => {
     new PerformanceObserver((entryList) => {
       const entries = entryList.getEntries();
-      const lcpDuration = entries[entries.length -1].duration;
+      const lcpDuration = entries[entries.length - 1].startTime;
       console.log("LCP: " + lcpDuration);
       resolve(lcpDuration);
     }).observe({type: 'largest-contentful-paint', buffered: true});
@@ -23,6 +23,5 @@ export const benchmark = async (page: Page, target: string) => {
     pageLoadTimes.push(await page.evaluate(lcpDuration));
   }
   const sumPageLoadTimes = pageLoadTimes.reduce((sum, cur) => sum + cur, 0);
-  console.log(sumPageLoadTimes);
   return sumPageLoadTimes / pageLoadTimes.length;
 }
