@@ -8,6 +8,8 @@ type AppConfig = {
   NHS_LOGIN_CLIENT_ID: string;
   NHS_LOGIN_SCOPE: string;
   NHS_LOGIN_PRIVATE_KEY: string;
+  NBS_URL: string;
+  NBS_BOOKING_PATH: string;
 };
 
 const configProvider = async (): Promise<AppConfig> => {
@@ -37,6 +39,11 @@ const configProvider = async (): Promise<AppConfig> => {
     NHS_LOGIN_PRIVATE_KEY: await getFromEnvironmentOrSSM(
       SSM_PREFIX,
       "NHS_LOGIN_PRIVATE_KEY",
+    ),
+    NBS_URL: await getFromEnvironmentOrSSM(SSM_PREFIX, "NBS_URL"),
+    NBS_BOOKING_PATH: await getFromEnvironmentOrSSM(
+      SSM_PREFIX,
+      "NBS_BOOKING_PATH",
     ),
   };
 };
