@@ -2,6 +2,7 @@
 
 import { createContext, useContext, ReactNode, useMemo } from "react";
 import { GetContentForVaccineResponse } from "@src/services/content-api/types";
+import { GetEligibilityForPersonResponse } from "@src/services/eligibility-api/types";
 
 type VaccineContentContextValueType = {
   contentPromise: Promise<GetContentForVaccineResponse>;
@@ -10,6 +11,7 @@ type VaccineContentContextValueType = {
 type VaccineContentProviderProps = {
   children: ReactNode;
   contentPromise: Promise<GetContentForVaccineResponse>;
+  eligibilityPromise: Promise<GetEligibilityForPersonResponse>;
 };
 
 const vaccineContentContext =
@@ -26,6 +28,7 @@ export function useVaccineContentContextValue(): VaccineContentContextValueType 
 export function VaccineContentProvider({
   children,
   contentPromise,
+  eligibilityPromise,
 }: Readonly<VaccineContentProviderProps>) {
   const contentPromiseProp = useMemo(
     () => ({ contentPromise: contentPromise }),

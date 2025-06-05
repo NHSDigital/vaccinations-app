@@ -3,6 +3,7 @@ import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import { VaccineTypes } from "@src/models/vaccine";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
+import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
 import { JSX } from "react";
 import { VaccineContentProvider } from "@src/app/_components/providers/VaccineContentProvider";
 import { ErrorBoundary } from "react-error-boundary";
@@ -12,6 +13,7 @@ export const dynamic = "force-dynamic";
 
 const VaccineRsv = (): JSX.Element => {
   const contentPromise = getContentForVaccine(VaccineTypes.RSV);
+  const eligibilityPromise = getEligibilityForPerson("dummy", VaccineTypes.RSV);
 
   return (
     <>
@@ -21,7 +23,10 @@ const VaccineRsv = (): JSX.Element => {
         <ErrorBoundary
           fallback={<VaccineError vaccineType={VaccineTypes.RSV} />}
         >
-          <VaccineContentProvider contentPromise={contentPromise}>
+          <VaccineContentProvider
+            contentPromise={contentPromise}
+            eligibilityPromise={eligibilityPromise}
+          >
             <Vaccine vaccineType={VaccineTypes.RSV} />
           </VaccineContentProvider>
         </ErrorBoundary>
