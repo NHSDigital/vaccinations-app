@@ -14,6 +14,7 @@ jest.mock("@project/auth", () => ({
 }));
 
 const middlewareRegex = new RegExp(config.matcher[0]);
+const otherExcludedPaths = ["/assets", "/js", "/css", "/_next"];
 
 function getMockRequest(testUrl: string, params?: Record<string, string>) {
   return {
@@ -62,6 +63,14 @@ describe("middleware", () => {
     "is skipped for unprotected path %s",
     async (path: string) => {
       // verify the regex does not match unprotected paths
+      expect(middlewareRegex.test(path)).toBe(false);
+    },
+  );
+
+  it.each(otherExcludedPaths)(
+    "is skipped for static path %s",
+    async (path: string) => {
+      // verify the regex does not match the path
       expect(middlewareRegex.test(path)).toBe(false);
     },
   );
