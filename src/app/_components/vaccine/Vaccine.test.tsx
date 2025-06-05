@@ -12,16 +12,24 @@ import {
   ContentErrorTypes,
   GetContentForVaccineResponse,
 } from "@src/services/content-api/types";
+import { GetEligibilityForPersonResponse } from "@src/services/eligibility-api/types";
+import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
+import { mockStyledEligibility } from "@test-data/eligibility-api/data";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
+jest.mock("@src/services/eligibility-api/gateway/eligibility-reader-service");
 
 describe("Any vaccine page", () => {
   let contentPromise: Promise<GetContentForVaccineResponse>;
+  let eligibilityPromise: Promise<GetEligibilityForPersonResponse>;
 
   const renderNamedVaccinePage = async (vaccineType: VaccineTypes) => {
     await act(async () => {
       render(
-        <VaccineContentProvider contentPromise={contentPromise}>
+        <VaccineContentProvider
+          contentPromise={contentPromise}
+          eligibilityPromise={eligibilityPromise}
+        >
           <Vaccine vaccineType={vaccineType} />
         </VaccineContentProvider>,
       );
@@ -37,7 +45,14 @@ describe("Any vaccine page", () => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
         styledVaccineContent: mockStyledContent,
       });
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+        styledEligibilityContent: mockStyledEligibility,
+      });
       contentPromise = getContentForVaccine(VaccineTypes.SIX_IN_ONE);
+      eligibilityPromise = getEligibilityForPerson(
+        "5000000014",
+        VaccineTypes.SIX_IN_ONE,
+      );
     });
 
     it("should display correct vaccine name in heading", async () => {
