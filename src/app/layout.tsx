@@ -7,11 +7,9 @@ import SkipLink from "@src/app/_components/nhs-frontend/SkipLink";
 import { WARNING_TIME_MS } from "@src/utils/auth/inactivity-timer";
 import Script from "next/script";
 import React, { JSX } from "react";
-import "@public/nhsuk-frontend-9.1.0/css/nhsuk-9.1.0.min.css";
-import "@public/nhsapp-frontend-2.3.0/nhsapp-2.3.0.min.css";
+import "@public/css/nhsuk-9.6.1.min.css";
+import "@public/css/nhsapp-3.1.0.min.css";
 import { SessionProvider } from "next-auth/react";
-
-const NHSUK_FRONTEND_VERSION = "nhsuk-frontend-9.1.0";
 
 export default function RootLayout({
   children,
@@ -40,43 +38,43 @@ export default function RootLayout({
 
         <link
           rel="shortcut icon"
-          href={`/${NHSUK_FRONTEND_VERSION}/assets/favicons/favicon.ico`}
+          href={"/assets/favicons/favicon.ico"}
           type="image/x-icon"
         />
         <link
           rel="apple-touch-icon"
-          href={`/${NHSUK_FRONTEND_VERSION}/assets/favicons/apple-touch-icon-180x180.png`}
+          href={"/assets/favicons/apple-touch-icon-180x180.png"}
         />
         <link
           rel="mask-icon"
-          href={`/${NHSUK_FRONTEND_VERSION}/assets/favicons/favicon.svg`}
+          href={"/assets/favicons/favicon.svg"}
           color="#005eb8"
         />
         <link
           rel="icon"
           sizes="192x192"
-          href={`/${NHSUK_FRONTEND_VERSION}/assets/favicons/favicon-192x192.png`}
+          href={"/assets/favicons/favicon-192x192.png"}
         />
         <meta
           name="msapplication-TileImage"
-          content={`/${NHSUK_FRONTEND_VERSION}/assets/favicons/mediumtile-144x144.png`}
+          content={"/assets/favicons/mediumtile-144x144.png"}
         />
         <meta name="msapplication-TileColor" content="#005eb8" />
         <meta
           name="msapplication-square70x70logo"
-          content={`/${NHSUK_FRONTEND_VERSION}/assets/favicons/smalltile-70x70.png`}
+          content={"/assets/favicons/smalltile-70x70.png"}
         />
         <meta
           name="msapplication-square150x150logo"
-          content={`/${NHSUK_FRONTEND_VERSION}/assets/favicons/mediumtile-150x150.png`}
+          content={"/assets/favicons/mediumtile-150x150.png"}
         />
         <meta
           name="msapplication-wide310x150logo"
-          content={`/${NHSUK_FRONTEND_VERSION}/assets/favicons/widetile-310x150.png`}
+          content={"/assets/favicons/widetile-310x150.png"}
         />
         <meta
           name="msapplication-square310x310logo"
-          content={`/${NHSUK_FRONTEND_VERSION}/assets/favicons/largetile-310x310.png`}
+          content={"/assets/favicons/largetile-310x310.png"}
         />
 
         {/* NHS app js - https://nhsconnect.github.io/nhsapp-developer-documentation/js-v2-api-specification/ */}

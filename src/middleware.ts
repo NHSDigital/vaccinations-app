@@ -27,9 +27,11 @@ export const config = {
      * /session-timeout (exclude session timeout route)
      * /sso-failure (exclude the SSO routes)
      * /favicon.ico (exclude the favicon path)
-     * /nhsuk-frontend-9.1.0 (exclude nhsuk assets)
+     * /assets (exclude the assets like icons)
+     * /js (exclude bundled javascript)
+     * /css (exclude bundled style sheets)
      * /_next/* (exclude Next.js assets, e.g., /_next/static/*)
      */
-    "/((?!api/auth|api/sso|session-logout|session-timeout|sso-failure|favicon.ico|nhsuk-frontend-9.1.0|_next/).*)",
+    "/((?!api/auth|api/sso|session-logout|session-timeout|sso-failure|favicon.ico|assets|js|css|_next).*)",
   ],
 };
