@@ -6,6 +6,7 @@ import { GetEligibilityForPersonResponse } from "@src/services/eligibility-api/t
 
 type VaccineContentContextValueType = {
   contentPromise: Promise<GetContentForVaccineResponse>;
+  eligibilityPromise: Promise<GetEligibilityForPersonResponse>;
 };
 
 type VaccineContentProviderProps = {
@@ -31,8 +32,8 @@ export function VaccineContentProvider({
   eligibilityPromise,
 }: Readonly<VaccineContentProviderProps>) {
   const contentPromiseProp = useMemo(
-    () => ({ contentPromise: contentPromise }),
-    [contentPromise],
+    () => ({ contentPromise, eligibilityPromise }),
+    [contentPromise, eligibilityPromise],
   );
 
   return (

@@ -12,6 +12,11 @@ import {
 } from "@src/services/content-api/types";
 import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
 import InsetText from "@src/app/_components/nhs-frontend/InsetText";
+import {
+  EligibilityErrorTypes,
+  GetEligibilityForPersonResponse,
+} from "@src/services/eligibility-api/types";
+import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 
 interface VaccineProps {
   vaccineType: VaccineTypes;
@@ -24,21 +29,33 @@ const EXPANDER_HEADINGS = {
 };
 
 const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
-  const { contentPromise } = useVaccineContentContextValue();
+  const { contentPromise, eligibilityPromise } =
+    useVaccineContentContextValue();
   const { styledVaccineContent, contentError }: GetContentForVaccineResponse =
     use(contentPromise);
+  const {
+    styledEligibilityContent,
+    eligibilityError,
+  }: GetEligibilityForPersonResponse = use(eligibilityPromise);
 
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
 
   return (
     <div className={styles.tableCellSpanHide}>
       {contentError === ContentErrorTypes.CONTENT_LOADING_ERROR ||
-      styledVaccineContent === undefined ? (
+      styledVaccineContent === undefined ||
+      eligibilityError === EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR ||
+      styledEligibilityContent === undefined ? (
         <VaccineError vaccineType={vaccineType} />
       ) : (
         <div>
           <h1 className="app-dynamic-page-title__heading">{`${vaccineInfo.displayName.capitalised} vaccine`}</h1>
           <p data-testid="overview-text">{styledVaccineContent.overview}</p>
+
+          <NonUrgentCareCard
+            heading={<h2>Fake status text</h2>}
+            content={<p>Fake content</p>}
+          />
 
           {vaccineInfo.overviewInsetText && (
             <div data-testid="overview-inset-text">

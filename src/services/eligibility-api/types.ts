@@ -1,10 +1,10 @@
-export enum ContentErrorTypes {
-  CONTENT_LOADING_ERROR,
+export enum EligibilityErrorTypes {
+  ELIGIBILITY_LOADING_ERROR,
 }
 
 export type GetEligibilityForPersonResponse = {
   styledEligibilityContent?: StyledEligibilityContent;
-  contentError?: ContentErrorTypes;
+  eligibilityError?: EligibilityErrorTypes;
 };
 
 export type StyledEligibilityContent = {
