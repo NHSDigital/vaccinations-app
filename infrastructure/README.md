@@ -13,6 +13,7 @@ Use the following tags for any resource created manually. This helps in keeping 
 - Environment: dev (or test/preprod/prod depending on the environment being provisioned)
 
 ### ACM Certificate
+
 This is the SSL certificate that is attached to our website, which verifies the domain ownership.
 
 - Change the region to 'us-east-1' as Cloudfront requires it to be located in global region
@@ -106,10 +107,10 @@ Use the following settings to provision them:
   - Object Lock: Enabled
     - Confirm acknowledgement
 - Properties (inside bucket)
-    - Object Lock
-      - Default retention: Enabled
-      - Default retention mode: Governance
-      - Default retention period: 100 years
+  - Object Lock
+    - Default retention: Enabled
+    - Default retention mode: Governance
+    - Default retention period: 100 years
 
 ### IAM
 
@@ -121,7 +122,7 @@ We need an IAM role policy and identity provider for GitHub actions to provision
 
 - Provider details
   - Provider type: OpenID Connect
-  - Provider url: https://token.actions.githubusercontent.com
+  - Provider url: `https://token.actions.githubusercontent.com`
   - Audience: sts.amazonaws.com
   - Tags: refer [above](#tags)
 - Assign role

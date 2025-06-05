@@ -6,11 +6,13 @@
 ## Project Overview
 
 Within the NHS app, vaccinations app will increase the rate of booking by:
+
 - Informing individuals with personalised information about which vaccinations they still need to have and how to book
 - Providing information on eligibility and how to book where eligibility is not available
 - Providing personalised vaccination availability and booking journeys, based on local availability
 
 We will increase appointment attendance and reduce the number of 'did not attend' and therefore increase appointment availability by:
+
 - Providing people with details of all their upcoming vaccination appointments, with simple, easy options to cancel or change.
 
 ## Developer Setup
@@ -135,6 +137,7 @@ npm run build
 ### Run service locally
 
 Serves web content from src folder, so make changes and refresh the browser to see changes immediately.
+
 ```
 npm run dev
 ```
@@ -167,6 +170,7 @@ Our project utilizes Wiremock to provide mock responses for API endpoints. To co
 - Store the corresponding JSON response bodies in the `wiremock/__files` directory.
 
 To run the Wiremock server locally:
+
 ```
 npm run content-api
 ```
@@ -197,6 +201,7 @@ npm run test
 ```
 make githooks-run
 ```
+
 (Note that this has also been configured as a pre-commit hook that will run automatically before each commit)
 
 ### Deploy your local changes to AWS dev environment
