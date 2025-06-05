@@ -20,14 +20,16 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Apply middleware to all pages except:
-     * 1. /api/auth (exclude all NextAuth routes)
-     * 2. /sso-failure (exclude the SSO routes)
-     * 3. /session-logout (exclude session logout route)
-     * 4. /_next/* (exclude Next.js assets, e.g., /_next/static/*)
-     * 5. /favicon.ico (exclude the favicon path)
-     * 6. /nhsuk-frontend-9.1.0 (exclude nhsuk js)
+     Apply middleware to all pages except:
+     * /api/auth (exclude all NextAuth routes)
+     * /api/sso (exclude sso jump off routes)
+     * /session-logout (exclude session logout route)
+     * /session-timeout (exclude session timeout route)
+     * /sso-failure (exclude the SSO routes)
+     * /favicon.ico (exclude the favicon path)
+     * /nhsuk-frontend-9.1.0 (exclude nhsuk assets)
+     * /_next/* (exclude Next.js assets, e.g., /_next/static/*)
      */
-    "/((?!api/auth|api/sso|session-logout|session-timeout|sso-failure|favicon.ico|nhsuk-frontend-9.1.0|_next/static|_next/image).*)",
+    "/((?!api/auth|api/sso|session-logout|session-timeout|sso-failure|favicon.ico|nhsuk-frontend-9.1.0|_next/).*)",
   ],
 };

@@ -3,14 +3,17 @@
  */
 
 import { auth } from "@project/auth";
+import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
 import { SESSION_TIMEOUT_ROUTE } from "@src/app/session-timeout/constants";
-import { middleware } from "@src/middleware";
+import { config, middleware } from "@src/middleware";
 import { NextRequest } from "next/server";
 
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
   signIn: jest.fn(),
 }));
+
+const middlewareRegex = new RegExp(config.matcher[0]);
 
 function getMockRequest(testUrl: string, params?: Record<string, string>) {
   return {
@@ -53,5 +56,18 @@ describe("middleware", () => {
 
     const result = await middleware(mockRequest as NextRequest);
     expect(result.status).toBe(200);
+  });
+
+  it.each(unprotectedUrlPaths)(
+    "is skipped for unprotected path %s",
+    async (path: string) => {
+      // verify the regex does not match unprotected paths
+      expect(middlewareRegex.test(path)).toBe(false);
+    },
+  );
+
+  it("runs for protected paths", async () => {
+    // verify the regex matches for protected paths
+    expect(middlewareRegex.test("/schedule")).toBe(true);
   });
 });
