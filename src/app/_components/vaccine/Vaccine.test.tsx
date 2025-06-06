@@ -12,7 +12,10 @@ import {
   ContentErrorTypes,
   GetContentForVaccineResponse,
 } from "@src/services/content-api/types";
-import { GetEligibilityForPersonResponse } from "@src/services/eligibility-api/types";
+import {
+  EligibilityStatus,
+  GetEligibilityForPersonResponse,
+} from "@src/services/eligibility-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
 import { mockStyledEligibility } from "@test-data/eligibility-api/data";
 
@@ -212,6 +215,46 @@ describe("Any vaccine page", () => {
 
       expect(heading).toBeInTheDocument();
       expect(content).toBeInTheDocument();
+    });
+  });
+
+  describe("when eligible", () => {
+    beforeEach(() => {
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+        eligibilityStatus: EligibilityStatus.ELIGIBLE_BOOKABLE,
+        styledEligibilityContent: mockStyledEligibility,
+      });
+      eligibilityPromise = getEligibilityForPerson(
+        "5123456789",
+        VaccineTypes.RSV,
+      );
+    });
+
+    it("should not show the care card", async () => {
+      await renderVaccinePage();
+
+      const careCard = screen.queryByTestId("non-urgent-care-card");
+      expect(careCard).toBeNull();
+    });
+  });
+
+  describe("when not eligible", () => {
+    beforeEach(() => {
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+        eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
+        styledEligibilityContent: mockStyledEligibility,
+      });
+      eligibilityPromise = getEligibilityForPerson(
+        "5123456789",
+        VaccineTypes.RSV,
+      );
+    });
+
+    it("should show the care card", async () => {
+      await renderVaccinePage();
+
+      const careCard = screen.getByTestId("non-urgent-care-card");
+      expect(careCard).toBeInTheDocument();
     });
   });
 
