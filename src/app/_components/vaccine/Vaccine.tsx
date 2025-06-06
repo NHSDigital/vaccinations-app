@@ -56,8 +56,8 @@ const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
 
           {eligibilityStatus === EligibilityStatus.NOT_ELIGIBLE && (
             <NonUrgentCareCard
-              heading={<h2>{styledEligibilityContent.heading}</h2>}
-              content={<p>{styledEligibilityContent.content}</p>}
+              heading={<div>{styledEligibilityContent.heading}</div>}
+              content={<div>{styledEligibilityContent.content}</div>}
             />
           )}
 

@@ -7,6 +7,7 @@ import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/e
 import { mockStyledEligibility } from "@test-data/eligibility-api/data";
 import { VaccineTypes } from "@src/models/vaccine";
 import { assertBackLinkIsPresent } from "@test-data/test-helpers-back-link";
+import { EligibilityStatus } from "@src/services/eligibility-api/types";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 jest.mock("@src/services/eligibility-api/gateway/eligibility-reader-service");
@@ -22,6 +23,7 @@ describe("RSV vaccine page", () => {
         styledVaccineContent: mockStyledContent,
       });
       (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+        eligibilityStatus: EligibilityStatus.ELIGIBLE_BOOKABLE,
         styledEligibilityContent: mockStyledEligibility,
       });
       (Vaccine as jest.Mock).mockImplementation(() => <div />);
