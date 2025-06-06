@@ -31,6 +31,9 @@ locals {
     AUTH_TRUST_HOST = "true"
     AUTH_SECRET     = random_password.auth_secret.result
     APP_VERSION     = local.app_version
+
+    NBS_URL          = "https://f.nhswebsite-integration.nhs.uk/nbs"
+    NBS_BOOKING_PATH = "/nhs-app"
   }
 
   default_tags = {
