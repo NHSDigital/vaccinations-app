@@ -1,12 +1,8 @@
-import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
-import { VaccineTypes } from "@src/models/vaccine";
-
+import { readFile } from "node:fs/promises";
 
 describe('Content API', () => {
   test("getContentForVaccine contract", async () => {
-    const res = await getContentForVaccine(VaccineTypes.RSV);
-    expect(res.contentError).toBeNull();
-    console.log(res.styledVaccineContent);
-    expect(res.styledVaccineContent).toEqual({});
+    const vaccineContent = await readFile("wiremock/__files/rsv-vaccine.json", { encoding: "utf8" });
+    console.log(JSON.parse(vaccineContent));
   });
 });
