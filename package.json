@@ -55,7 +55,7 @@
     "prettier": "3.5.3",
     "ts-jest": "^29.3.4",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.2",
+    "typescript": "^5.8.3",
     "wiremock": "^3.13.0"
   },
   "dependencies": {
