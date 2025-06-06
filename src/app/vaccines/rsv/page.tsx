@@ -11,23 +11,22 @@ import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
 
 export const dynamic = "force-dynamic";
 
+const vaccineType = VaccineTypes.RSV;
 const VaccineRsv = (): JSX.Element => {
-  const contentPromise = getContentForVaccine(VaccineTypes.RSV);
-  const eligibilityPromise = getEligibilityForPerson("dummy", VaccineTypes.RSV);
+  const contentPromise = getContentForVaccine(vaccineType);
+  const eligibilityPromise = getEligibilityForPerson("dummy", vaccineType);
 
   return (
     <>
       <BackLink />
       <MainContent>
         <title>RSV Vaccine - NHS App</title>
-        <ErrorBoundary
-          fallback={<VaccineError vaccineType={VaccineTypes.RSV} />}
-        >
+        <ErrorBoundary fallback={<VaccineError vaccineType={vaccineType} />}>
           <VaccineContentProvider
             contentPromise={contentPromise}
             eligibilityPromise={eligibilityPromise}
           >
-            <Vaccine vaccineType={VaccineTypes.RSV} />
+            <Vaccine vaccineType={vaccineType} />
           </VaccineContentProvider>
         </ErrorBoundary>
       </MainContent>

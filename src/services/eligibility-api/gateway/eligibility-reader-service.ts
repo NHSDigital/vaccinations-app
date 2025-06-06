@@ -5,7 +5,9 @@ const getEligibilityForPerson = async (
   nhsNumber: string,
   vaccineType: VaccineTypes,
 ): Promise<GetEligibilityForPersonResponse> => {
-  return {};
+  const styledEligibilityContent = { dummy: "dummy" };
+
+  return { styledEligibilityContent, eligibilityError: undefined };
 };
 
 export { getEligibilityForPerson };
