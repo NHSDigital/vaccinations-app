@@ -1,4 +1,4 @@
-import { generateClientAssertion } from "@src/utils/auth/generate-refresh-client-assertion";
+import { generateRefreshClientAssertionJwt } from "@src/utils/auth/generate-auth-payload";
 import { JWT } from "next-auth/jwt";
 import { Account, Profile } from "next-auth";
 import { Logger } from "pino";
@@ -84,7 +84,7 @@ const getToken = async (
         return null;
       }
 
-      const clientAssertion = await generateClientAssertion(config);
+      const clientAssertion = await generateRefreshClientAssertionJwt(config);
 
       const requestBody = {
         grant_type: "refresh_token",

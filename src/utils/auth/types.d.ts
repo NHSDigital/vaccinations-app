@@ -7,6 +7,22 @@ export interface DecodedIdToken {
   jti: string;
 }
 
+export type CommonAuthPayload = {
+  iss: string;
+  jti: string;
+  exp: number;
+  iat: number;
+};
+
+export type RefreshClientAssertionPayload = CommonAuthPayload & {
+  sub: string;
+  aud: string;
+};
+
+export type AssertedLoginIdentityPayload = CommonAuthPayload & {
+  code: string;
+};
+
 // Augmenting types. Ref https://authjs.dev/getting-started/typescript#module-augmentation
 declare module "next-auth" {
   interface Session {

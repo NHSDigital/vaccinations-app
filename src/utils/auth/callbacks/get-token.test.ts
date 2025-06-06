@@ -1,16 +1,16 @@
 import { getToken } from "@src/utils/auth/callbacks/get-token";
-import { generateClientAssertion } from "@src/utils/auth/generate-refresh-client-assertion";
+import { generateRefreshClientAssertionJwt } from "@src/utils/auth/generate-auth-payload";
 import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import { AppConfig } from "@src/utils/config";
 import { jwtDecode } from "jwt-decode";
 
-jest.mock("@src/utils/auth/generate-refresh-client-assertion");
+jest.mock("@src/utils/auth/generate-auth-payload");
 jest.mock("jwt-decode");
 
 const mockGenerateClientAssertion =
-  generateClientAssertion as jest.MockedFunction<
-    typeof generateClientAssertion
+  generateRefreshClientAssertionJwt as jest.MockedFunction<
+    typeof generateRefreshClientAssertionJwt
   >;
 
 describe("getToken", () => {

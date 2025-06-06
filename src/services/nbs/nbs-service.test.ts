@@ -1,10 +1,10 @@
 import { AppConfig, configProvider } from "@src/utils/config";
 import { getNBSBookingUrlForVaccine } from "@src/services/nbs/nbs-service";
 import { VaccineTypes } from "@src/models/vaccine";
-import { getAssertedLoginIdentityJWT } from "@src/utils/auth/sso-methods";
+import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
 
 jest.mock("@src/utils/config");
-jest.mock("@src/utils/auth/sso-methods");
+jest.mock("@src/utils/auth/generate-auth-payload");
 
 const nbsUrlFromConfig = "https://test-nbs-url";
 const nbsBookingPathFromConfig = "/test/path/book";
@@ -22,7 +22,7 @@ describe("getNBSUrl", () => {
       }),
     );
 
-    (getAssertedLoginIdentityJWT as jest.Mock).mockReturnValue(
+    (generateAssertedLoginIdentityJwt as jest.Mock).mockReturnValue(
       mockAssertedLoginIdentityJWT,
     );
   });
