@@ -1,6 +1,6 @@
 import { AppConfig, configProvider } from "@src/utils/config";
 import { VaccineTypes } from "@src/models/vaccine";
-import { getAssertedLoginIdentityJWT } from "@src/utils/auth/sso-methods";
+import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
 
 const NBS_QUERY_PARAMS = {
   CAMPAIGN_ID: "wt.mc_id",
@@ -20,7 +20,7 @@ const getNBSBookingUrlForVaccine = async (
 ) => {
   const config: AppConfig = await configProvider();
 
-  const assertedLoginIdentityJWT = getAssertedLoginIdentityJWT();
+  const assertedLoginIdentityJWT = await generateAssertedLoginIdentityJwt();
 
   const nbsURl = new URL(
     `${config.NBS_URL}${config.NBS_BOOKING_PATH}${nbsVaccinePath[vaccineType]}`,
