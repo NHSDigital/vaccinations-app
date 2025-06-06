@@ -10,7 +10,6 @@ const log: Logger = logger.child({ name: "middleware" });
 export async function middleware(request: NextRequest) {
   log.info(`Inspecting ${request.nextUrl}`);
   const session: Session | null = await auth();
-  log.info(session, "Session Object");
   if (!session?.user) {
     return NextResponse.redirect(new URL(SESSION_TIMEOUT_ROUTE, request.url));
   }
