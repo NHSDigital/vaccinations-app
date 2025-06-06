@@ -65,7 +65,7 @@
     "dotenv": "^16.5.0",
     "isomorphic-dompurify": "^2.24.0",
     "jwt-decode": "^4.0.0",
-    "next": "15.2.4",
+    "next": "15.3.3",
     "next-auth": "^5.0.0-beta.27",
     "nhsuk-react-components": "^5.0.0",
     "openid-client": "^6.4.2",
