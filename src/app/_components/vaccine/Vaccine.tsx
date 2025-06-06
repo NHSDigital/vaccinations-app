@@ -14,6 +14,7 @@ import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
 import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 import {
   EligibilityErrorTypes,
+  EligibilityStatus,
   GetEligibilityForPersonResponse,
 } from "@src/services/eligibility-api/types";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
@@ -34,6 +35,7 @@ const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
   const { styledVaccineContent, contentError }: GetContentForVaccineResponse =
     use(contentPromise);
   const {
+    eligibilityStatus,
     styledEligibilityContent,
     eligibilityError,
   }: GetEligibilityForPersonResponse = use(eligibilityPromise);
@@ -52,10 +54,12 @@ const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
           <h1 className="app-dynamic-page-title__heading">{`${vaccineInfo.displayName.capitalised} vaccine`}</h1>
           <p data-testid="overview-text">{styledVaccineContent.overview}</p>
 
-          <NonUrgentCareCard
-            heading={<h2>Fake status text</h2>}
-            content={<p>Fake content</p>}
-          />
+          {eligibilityStatus === EligibilityStatus.NOT_ELIGIBLE && (
+            <NonUrgentCareCard
+              heading={<h2>{styledEligibilityContent.heading}</h2>}
+              content={<p>{styledEligibilityContent.content}</p>}
+            />
+          )}
 
           {vaccineInfo.overviewInsetText && (
             <div data-testid="overview-inset-text">
