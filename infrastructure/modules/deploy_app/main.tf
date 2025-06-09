@@ -2,6 +2,9 @@ module "deploy_app" {
   source            = "RJPearson94/open-next/aws//modules/tf-aws-open-next-zone"
   version           = "3.6.0"
   open_next_version = "v3.x.x"
+  function_architecture = "arm64"
+  prefix      = var.prefix
+  folder_path = var.open-next-path
 
   providers = {
     aws.server_function = aws.server_function
@@ -41,7 +44,6 @@ module "deploy_app" {
     }
 
     runtime               = var.nodejs_version
-    function_architecture = "arm64"
   }
 
   image_optimisation_function = {
@@ -55,7 +57,4 @@ module "deploy_app" {
   website_bucket = {
     force_destroy = true
   }
-
-  prefix      = var.prefix
-  folder_path = var.open-next-path
 }
