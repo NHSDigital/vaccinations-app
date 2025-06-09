@@ -5,10 +5,6 @@ import {
   RefreshClientAssertionPayload,
 } from "@src/utils/auth/types";
 import { auth } from "@project/auth";
-import { Logger } from "pino";
-import { logger } from "@src/utils/logger";
-
-const log: Logger = logger.child({ module: "generate-auth-payload" });
 
 const REFRESH_CLIENT_ASSERTION_EXPIRY_SECONDS = 300;
 const ASSERTED_LOGIN_IDENTITY_EXPIRY_SECONDS = 60;
@@ -35,9 +31,6 @@ const generateAssertedLoginIdentityJwt = async (
   const jtiFromIdToken = session?.user.id_token.jti;
 
   if (!jtiFromIdToken) {
-    log.error(
-      "Error creating SSO assertedLoginIdentity: id_token.jti attribute missing from session",
-    );
     throw new Error(
       "Error creating SSO assertedLoginIdentity: id_token.jti attribute missing from session",
     );
