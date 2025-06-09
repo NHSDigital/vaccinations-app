@@ -51,6 +51,20 @@
           "Content-Type": "application/json"
         }
       }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/eligibility-signposting-api/patient-check/5000000014"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "non-eligible-person.json",
+        "headers": {
+          "Content-Type": "application/json",
+          "apikey": "api key"
+        }
+      }
     }
   ]
 }

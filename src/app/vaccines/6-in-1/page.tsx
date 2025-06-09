@@ -8,7 +8,7 @@ import { VaccineContentProvider } from "@src/app/_components/providers/VaccineCo
 import { GetContentForVaccineResponse } from "@src/services/content-api/types";
 import { ErrorBoundary } from "react-error-boundary";
 import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
-import { getEligibilityContentForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
+import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
 import { GetEligibilityForPersonResponse } from "@src/services/eligibility-api/types";
 
 export const dynamic = "force-dynamic";
@@ -19,7 +19,7 @@ const Vaccine6in1 = (): JSX.Element => {
   const contentFor6in1: Promise<GetContentForVaccineResponse> =
     getContentForVaccine(vaccineType);
   const contentForEligibility: Promise<GetEligibilityForPersonResponse> =
-    getEligibilityContentForPerson("dummy", vaccineType);
+    getEligibilityForPerson("dummy", vaccineType);
 
   return (
     <>

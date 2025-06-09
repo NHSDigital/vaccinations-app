@@ -16,7 +16,7 @@ import {
   EligibilityStatus,
   GetEligibilityForPersonResponse,
 } from "@src/services/eligibility-api/types";
-import { getEligibilityContentForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
+import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
 import { mockStyledEligibility } from "@test-data/eligibility-api/data";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
@@ -48,11 +48,11 @@ describe("Any vaccine page", () => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
         styledVaccineContent: mockStyledContent,
       });
-      (getEligibilityContentForPerson as jest.Mock).mockResolvedValue({
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
         styledEligibilityContent: mockStyledEligibility,
       });
       contentPromise = getContentForVaccine(VaccineTypes.SIX_IN_ONE);
-      eligibilityPromise = getEligibilityContentForPerson(
+      eligibilityPromise = getEligibilityForPerson(
         "5000000014",
         VaccineTypes.SIX_IN_ONE,
       );
@@ -220,11 +220,11 @@ describe("Any vaccine page", () => {
 
   describe("when eligible", () => {
     beforeEach(() => {
-      (getEligibilityContentForPerson as jest.Mock).mockResolvedValue({
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
         eligibilityStatus: EligibilityStatus.ELIGIBLE_BOOKABLE,
         styledEligibilityContent: mockStyledEligibility,
       });
-      eligibilityPromise = getEligibilityContentForPerson(
+      eligibilityPromise = getEligibilityForPerson(
         "5123456789",
         VaccineTypes.RSV,
       );
@@ -240,11 +240,11 @@ describe("Any vaccine page", () => {
 
   describe("when not eligible", () => {
     beforeEach(() => {
-      (getEligibilityContentForPerson as jest.Mock).mockResolvedValue({
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
         eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
         styledEligibilityContent: mockStyledEligibility,
       });
-      eligibilityPromise = getEligibilityContentForPerson(
+      eligibilityPromise = getEligibilityForPerson(
         "5123456789",
         VaccineTypes.RSV,
       );

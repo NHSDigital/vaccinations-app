@@ -3,14 +3,10 @@ import VaccineRsv from "@src/app/vaccines/rsv/page";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { mockStyledContent } from "@test-data/content-api/data";
-import { getEligibilityContentForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
-import { mockStyledEligibility } from "@test-data/eligibility-api/data";
 import { VaccineTypes } from "@src/models/vaccine";
 import { assertBackLinkIsPresent } from "@test-data/test-helpers-back-link";
-import { EligibilityStatus } from "@src/services/eligibility-api/types";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
-jest.mock("@src/services/eligibility-api/gateway/eligibility-reader-service");
 jest.mock("@src/app/_components/vaccine/Vaccine", () => jest.fn(() => <div />));
 jest.mock("@src/app/_components/nhs-frontend/BackLink", () =>
   jest.fn(() => <div data-testid="back-link"></div>),
@@ -21,10 +17,6 @@ describe("RSV vaccine page", () => {
     beforeEach(() => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
         styledVaccineContent: mockStyledContent,
-      });
-      (getEligibilityContentForPerson as jest.Mock).mockResolvedValue({
-        eligibilityStatus: EligibilityStatus.ELIGIBLE_BOOKABLE,
-        styledEligibilityContent: mockStyledEligibility,
       });
       (Vaccine as jest.Mock).mockImplementation(() => <div />);
     });

@@ -21,6 +21,7 @@ const fetchContentForVaccine = async (
 
   const uri: string = `${apiEndpoint}${CONTENT_API_PATH_PREFIX}${vaccinePath}`;
   let response: AxiosResponse;
+
   try {
     log.info("Fetching content from %s", uri);
     response = await axios.get(uri, {
