@@ -1,13 +1,9 @@
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
-import { generateMetadata } from "@src/app/vaccines/[vaccine]/page";
 import { VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { mockStyledContent } from "@test-data/content-api/data";
 import { assertBackLinkIsPresent } from "@test-data/utils/back-link-helpers";
-import {
-  getDynamicRoute,
-  renderDynamicPage,
-} from "@test-data/utils/dynamic-page-helpers";
+import { renderDynamicPage } from "@test-data/utils/dynamic-page-helpers";
 import { screen } from "@testing-library/react";
 import { notFound } from "next/navigation";
 
@@ -27,20 +23,9 @@ describe("Dynamic vaccine page", () => {
     expect(notFound).toHaveBeenCalled();
   });
 
-  describe("generateMetadata()", () => {
-    it("returns empty metadata for invalid path", async () => {
-      const result = await generateMetadata({
-        params: getDynamicRoute("test"),
-      });
-      expect(result).toEqual({});
-    });
-
-    it("returns title metadata of the vaccine for valid path", async () => {
-      const result = await generateMetadata({ params: getDynamicRoute("rsv") });
-      expect(result).toEqual({
-        title: "RSV Vaccine - NHS App",
-      });
-    });
+  it("has vaccine title", async () => {
+    await renderDynamicPage("rsv");
+    expect(document.title).toBe("RSV vaccine for older adults - NHS App");
   });
 
   describe("when content loads successfully", () => {

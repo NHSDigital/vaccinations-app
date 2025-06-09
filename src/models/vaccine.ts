@@ -17,6 +17,7 @@ const vaccineUrlPathToType: Record<VaccineContentUrlPaths, VaccineTypes> = {
 
 export type VaccineDetails = {
   displayName: displayName;
+  heading: string;
   overviewInsetText?: string;
 };
 
@@ -31,6 +32,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
       capitalised: "RSV",
       lowercase: "RSV",
     },
+    heading: "RSV vaccine for older adults",
     overviewInsetText: `<p>This page is about the RSV vaccine for older adults. There is also <a href="/vaccines/${VaccineContentUrlPaths.RSV_PREGNANCY}">RSV in pregnancy</a>.</p>`,
   },
   [VaccineTypes.RSV_PREGNANCY]: {
@@ -38,6 +40,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
       capitalised: "RSV",
       lowercase: "RSV",
     },
+    heading: "RSV vaccine in pregnancy",
     overviewInsetText: `<p>This page is about the RSV vaccine in pregnancy. There is also <a href="/vaccines/${VaccineContentUrlPaths.RSV}">RSV for older adults</a>.</p>`,
   },
 };
