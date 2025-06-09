@@ -1,21 +1,18 @@
-"use client";
+"use server";
 
 import styles from "./styles.module.css";
 
-import React, { JSX, use } from "react";
+import React, { JSX } from "react";
 import Details from "@src/app/_components/nhs-frontend/Details";
-import { useVaccineContentContext } from "@src/app/_components/providers/VaccineContentProvider";
 import { VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
-import {
-  ContentErrorTypes,
-  GetContentForVaccineResponse,
-} from "@src/services/content-api/types";
+import { ContentErrorTypes } from "@src/services/content-api/types";
 import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
 import InsetText from "@src/app/_components/nhs-frontend/InsetText";
+import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
+import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
 import {
   EligibilityErrorTypes,
   EligibilityStatus,
-  GetEligibilityForPersonResponse,
 } from "@src/services/eligibility-api/types";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 
@@ -29,16 +26,14 @@ const EXPANDER_HEADINGS = {
   HOW_TO_GET_VACCINE: "How to get the vaccine",
 };
 
-const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
-  const { contentForVaccine, contentForEligibility } =
-    useVaccineContentContext();
-  const { styledVaccineContent, contentError }: GetContentForVaccineResponse =
-    use(contentForVaccine);
-  const {
-    eligibilityStatus,
-    styledEligibilityContent,
-    eligibilityError,
-  }: GetEligibilityForPersonResponse = use(contentForEligibility);
+const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
+  const [
+    { styledVaccineContent, contentError },
+    { eligibilityStatus, styledEligibilityContent, eligibilityError },
+  ] = await Promise.all([
+    getContentForVaccine(vaccineType),
+    getEligibilityForPerson("dummy", vaccineType),
+  ]);
 
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
 

@@ -1,4 +1,3 @@
-import { VaccineContentProvider } from "@src/app/_components/providers/VaccineContentProvider";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
@@ -7,15 +6,8 @@ import {
   mockStyledContentWithoutWhatSection,
 } from "@test-data/content-api/data";
 import { render, screen } from "@testing-library/react";
-import { act } from "react";
-import {
-  ContentErrorTypes,
-  GetContentForVaccineResponse,
-} from "@src/services/content-api/types";
-import {
-  EligibilityStatus,
-  GetEligibilityForPersonResponse,
-} from "@src/services/eligibility-api/types";
+import { ContentErrorTypes } from "@src/services/content-api/types";
+import { EligibilityStatus } from "@src/services/eligibility-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
 import { mockStyledEligibility } from "@test-data/eligibility-api/data";
 
@@ -23,20 +15,8 @@ jest.mock("@src/services/content-api/gateway/content-reader-service");
 jest.mock("@src/services/eligibility-api/gateway/eligibility-reader-service");
 
 describe("Any vaccine page", () => {
-  let contentPromise: Promise<GetContentForVaccineResponse>;
-  let eligibilityPromise: Promise<GetEligibilityForPersonResponse>;
-
   const renderNamedVaccinePage = async (vaccineType: VaccineTypes) => {
-    await act(async () => {
-      render(
-        <VaccineContentProvider
-          contentForVaccine={contentPromise}
-          contentForEligibility={eligibilityPromise}
-        >
-          <Vaccine vaccineType={vaccineType} />
-        </VaccineContentProvider>,
-      );
-    });
+    render(await Vaccine({ vaccineType: vaccineType }));
   };
 
   const renderVaccinePage = async () => {
@@ -51,11 +31,6 @@ describe("Any vaccine page", () => {
       (getEligibilityForPerson as jest.Mock).mockResolvedValue({
         styledEligibilityContent: mockStyledEligibility,
       });
-      contentPromise = getContentForVaccine(VaccineTypes.SIX_IN_ONE);
-      eligibilityPromise = getEligibilityForPerson(
-        "5000000014",
-        VaccineTypes.SIX_IN_ONE,
-      );
     });
 
     it("should display correct vaccine name in heading", async () => {
@@ -114,7 +89,7 @@ describe("Any vaccine page", () => {
       expect(overviewInsetBlock).not.toBeInTheDocument();
     });
 
-    it("should include lowercase vaccine name in more infomation text", async () => {
+    it("should include lowercase vaccine name in more information text", async () => {
       const expectedMoreInformationHeading =
         "More information about the pneumococcal vaccine";
 
@@ -185,7 +160,6 @@ describe("Any vaccine page", () => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
         styledVaccineContent: mockStyledContentWithoutWhatSection,
       });
-      contentPromise = getContentForVaccine(VaccineTypes.SIX_IN_ONE);
     });
 
     it("should not display whatItIsFor section", async () => {
@@ -224,10 +198,6 @@ describe("Any vaccine page", () => {
         eligibilityStatus: EligibilityStatus.ELIGIBLE_BOOKABLE,
         styledEligibilityContent: mockStyledEligibility,
       });
-      eligibilityPromise = getEligibilityForPerson(
-        "5123456789",
-        VaccineTypes.RSV,
-      );
     });
 
     it("should not show the care card", async () => {
@@ -244,10 +214,6 @@ describe("Any vaccine page", () => {
         eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
         styledEligibilityContent: mockStyledEligibility,
       });
-      eligibilityPromise = getEligibilityForPerson(
-        "5123456789",
-        VaccineTypes.RSV,
-      );
     });
 
     it("should show the care card", async () => {
@@ -264,7 +230,6 @@ describe("Any vaccine page", () => {
         styledVaccineContent: undefined,
         contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
       });
-      contentPromise = getContentForVaccine(VaccineTypes.SIX_IN_ONE);
     });
 
     it("should still display heading with correct vaccine name", async () => {
