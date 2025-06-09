@@ -1,5 +1,5 @@
 import {
-  useVaccineContentContextValue,
+  useVaccineContentContext,
   VaccineContentProvider,
 } from "@src/app/_components/providers/VaccineContentProvider";
 import { renderHook } from "@testing-library/react";
@@ -15,8 +15,8 @@ import { GetEligibilityForPersonResponse } from "@src/services/eligibility-api/t
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 jest.mock("@src/services/eligibility-api/gateway/eligibility-reader-service");
 
-let contentPromise: Promise<GetContentForVaccineResponse>;
-let eligibilityPromise: Promise<GetEligibilityForPersonResponse>;
+let contentForVaccine: Promise<GetContentForVaccineResponse>;
+let eligibilityContent: Promise<GetEligibilityForPersonResponse>;
 
 beforeEach(() => {
   (getContentForVaccine as jest.Mock).mockResolvedValue({
@@ -25,8 +25,8 @@ beforeEach(() => {
   (getEligibilityForPerson as jest.Mock).mockResolvedValue({
     styledEligibilityContent: mockStyledEligibility,
   });
-  contentPromise = getContentForVaccine(VaccineTypes.SIX_IN_ONE);
-  eligibilityPromise = getEligibilityForPerson(
+  contentForVaccine = getContentForVaccine(VaccineTypes.SIX_IN_ONE);
+  eligibilityContent = getEligibilityForPerson(
     "5000000014",
     VaccineTypes.SIX_IN_ONE,
   );
@@ -35,24 +35,24 @@ beforeEach(() => {
 describe("vaccine content context", () => {
   it("should throw error if context is not set", async () => {
     expect(() => {
-      renderHook(() => useVaccineContentContextValue());
+      renderHook(() => useVaccineContentContext());
     }).toThrow("vaccine context value is null");
   });
 
   it("should be passed through to children", async () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
       <VaccineContentProvider
-        contentPromise={contentPromise}
-        eligibilityPromise={eligibilityPromise}
+        contentForVaccine={contentForVaccine}
+        eligibilityContent={eligibilityContent}
       >
         {children}
       </VaccineContentProvider>
     );
 
-    const { result } = renderHook(() => useVaccineContentContextValue(), {
+    const { result } = renderHook(() => useVaccineContentContext(), {
       wrapper,
     });
-    expect(result.current.contentPromise).toBe(contentPromise);
-    expect(result.current.eligibilityPromise).toBe(eligibilityPromise);
+    expect(result.current.contentForVaccine).toBe(contentForVaccine);
+    expect(result.current.eligibilityContent).toBe(eligibilityContent);
   });
 });

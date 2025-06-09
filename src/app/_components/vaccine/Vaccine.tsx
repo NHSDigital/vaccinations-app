@@ -4,7 +4,7 @@ import styles from "./styles.module.css";
 
 import React, { JSX, use } from "react";
 import Details from "@src/app/_components/nhs-frontend/Details";
-import { useVaccineContentContextValue } from "@src/app/_components/providers/VaccineContentProvider";
+import { useVaccineContentContext } from "@src/app/_components/providers/VaccineContentProvider";
 import { VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import {
   ContentErrorTypes,
@@ -30,15 +30,14 @@ const EXPANDER_HEADINGS = {
 };
 
 const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
-  const { contentPromise, eligibilityPromise } =
-    useVaccineContentContextValue();
+  const { contentForVaccine, eligibilityContent } = useVaccineContentContext();
   const { styledVaccineContent, contentError }: GetContentForVaccineResponse =
-    use(contentPromise);
+    use(contentForVaccine);
   const {
     eligibilityStatus,
     styledEligibilityContent,
     eligibilityError,
-  }: GetEligibilityForPersonResponse = use(eligibilityPromise);
+  }: GetEligibilityForPersonResponse = use(eligibilityContent);
 
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
 

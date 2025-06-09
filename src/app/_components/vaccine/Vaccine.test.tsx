@@ -30,8 +30,8 @@ describe("Any vaccine page", () => {
     await act(async () => {
       render(
         <VaccineContentProvider
-          contentPromise={contentPromise}
-          eligibilityPromise={eligibilityPromise}
+          contentForVaccine={contentPromise}
+          eligibilityContent={eligibilityPromise}
         >
           <Vaccine vaccineType={vaccineType} />
         </VaccineContentProvider>,

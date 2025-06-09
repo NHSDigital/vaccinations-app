@@ -4,40 +4,39 @@ import { createContext, useContext, ReactNode, useMemo } from "react";
 import { GetContentForVaccineResponse } from "@src/services/content-api/types";
 import { GetEligibilityForPersonResponse } from "@src/services/eligibility-api/types";
 
-type VaccineContentContextValueType = {
-  contentPromise: Promise<GetContentForVaccineResponse>;
-  eligibilityPromise: Promise<GetEligibilityForPersonResponse>;
+type VaccineContentContext = {
+  contentForVaccine: Promise<GetContentForVaccineResponse>;
+  eligibilityContent: Promise<GetEligibilityForPersonResponse>;
 };
 
 type VaccineContentProviderProps = {
   children: ReactNode;
-  contentPromise: Promise<GetContentForVaccineResponse>;
-  eligibilityPromise: Promise<GetEligibilityForPersonResponse>;
+  contentForVaccine: Promise<GetContentForVaccineResponse>;
+  eligibilityContent: Promise<GetEligibilityForPersonResponse>;
 };
 
-const vaccineContentContext =
-  createContext<VaccineContentContextValueType | null>(null);
+const vaccineContentContext = createContext<VaccineContentContext | null>(null);
 
-export function useVaccineContentContextValue(): VaccineContentContextValueType {
-  const contextValue = useContext(vaccineContentContext);
-  if (contextValue === null) {
+export function useVaccineContentContext(): VaccineContentContext {
+  const context = useContext(vaccineContentContext);
+  if (context === null) {
     throw new Error("vaccine context value is null");
   }
-  return contextValue;
+  return context;
 }
 
 export function VaccineContentProvider({
   children,
-  contentPromise,
-  eligibilityPromise,
+  contentForVaccine,
+  eligibilityContent,
 }: Readonly<VaccineContentProviderProps>) {
-  const contentPromiseProp = useMemo(
-    () => ({ contentPromise, eligibilityPromise }),
-    [contentPromise, eligibilityPromise],
+  const allContent = useMemo(
+    () => ({ contentForVaccine, eligibilityContent }),
+    [contentForVaccine, eligibilityContent],
   );
 
   return (
-    <vaccineContentContext.Provider value={contentPromiseProp}>
+    <vaccineContentContext.Provider value={allContent}>
       {children}
     </vaccineContentContext.Provider>
   );

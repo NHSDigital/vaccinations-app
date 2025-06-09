@@ -8,13 +8,17 @@ import { JSX } from "react";
 import { VaccineContentProvider } from "@src/app/_components/providers/VaccineContentProvider";
 import { ErrorBoundary } from "react-error-boundary";
 import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
+import { GetEligibilityForPersonResponse } from "@src/services/eligibility-api/types";
+import { GetContentForVaccineResponse } from "@src/services/content-api/types";
 
 export const dynamic = "force-dynamic";
 
 const vaccineType = VaccineTypes.RSV;
 const VaccineRsv = (): JSX.Element => {
-  const contentPromise = getContentForVaccine(vaccineType);
-  const eligibilityPromise = getEligibilityForPerson("dummy", vaccineType);
+  const contentForRsv: Promise<GetContentForVaccineResponse> =
+    getContentForVaccine(vaccineType);
+  const eligibilityContent: Promise<GetEligibilityForPersonResponse> =
+    getEligibilityForPerson("dummy", vaccineType);
 
   return (
     <>
@@ -23,8 +27,8 @@ const VaccineRsv = (): JSX.Element => {
         <title>RSV Vaccine - NHS App</title>
         <ErrorBoundary fallback={<VaccineError vaccineType={vaccineType} />}>
           <VaccineContentProvider
-            contentPromise={contentPromise}
-            eligibilityPromise={eligibilityPromise}
+            contentForVaccine={contentForRsv}
+            eligibilityContent={eligibilityContent}
           >
             <Vaccine vaccineType={vaccineType} />
           </VaccineContentProvider>

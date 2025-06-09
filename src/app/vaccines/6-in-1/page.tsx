@@ -9,15 +9,17 @@ import { GetContentForVaccineResponse } from "@src/services/content-api/types";
 import { ErrorBoundary } from "react-error-boundary";
 import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
+import { GetEligibilityForPersonResponse } from "@src/services/eligibility-api/types";
 
 export const dynamic = "force-dynamic";
 
 const vaccineType = VaccineTypes.SIX_IN_ONE;
 
 const Vaccine6in1 = (): JSX.Element => {
-  const contentPromise: Promise<GetContentForVaccineResponse> =
+  const contentFor6in1: Promise<GetContentForVaccineResponse> =
     getContentForVaccine(vaccineType);
-  const eligibilityPromise = getEligibilityForPerson("dummy", vaccineType);
+  const eligibilityContent: Promise<GetEligibilityForPersonResponse> =
+    getEligibilityForPerson("dummy", vaccineType);
 
   return (
     <>
@@ -26,8 +28,8 @@ const Vaccine6in1 = (): JSX.Element => {
         <title>6-in-1 Vaccine - NHS App</title>
         <ErrorBoundary fallback={<VaccineError vaccineType={vaccineType} />}>
           <VaccineContentProvider
-            contentPromise={contentPromise}
-            eligibilityPromise={eligibilityPromise}
+            contentForVaccine={contentFor6in1}
+            eligibilityContent={eligibilityContent}
           >
             <Vaccine vaccineType={vaccineType} />
           </VaccineContentProvider>
