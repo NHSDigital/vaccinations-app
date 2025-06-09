@@ -16,7 +16,7 @@ jest.mock("@src/services/content-api/gateway/content-reader-service");
 jest.mock("@src/services/eligibility-api/gateway/eligibility-reader-service");
 
 let contentForVaccine: Promise<GetContentForVaccineResponse>;
-let eligibilityContent: Promise<GetEligibilityForPersonResponse>;
+let contentForEligibility: Promise<GetEligibilityForPersonResponse>;
 
 beforeEach(() => {
   (getContentForVaccine as jest.Mock).mockResolvedValue({
@@ -26,7 +26,7 @@ beforeEach(() => {
     styledEligibilityContent: mockStyledEligibility,
   });
   contentForVaccine = getContentForVaccine(VaccineTypes.SIX_IN_ONE);
-  eligibilityContent = getEligibilityForPerson(
+  contentForEligibility = getEligibilityForPerson(
     "5000000014",
     VaccineTypes.SIX_IN_ONE,
   );
@@ -43,7 +43,7 @@ describe("vaccine content context", () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
       <VaccineContentProvider
         contentForVaccine={contentForVaccine}
-        eligibilityContent={eligibilityContent}
+        contentForEligibility={contentForEligibility}
       >
         {children}
       </VaccineContentProvider>
@@ -53,6 +53,6 @@ describe("vaccine content context", () => {
       wrapper,
     });
     expect(result.current.contentForVaccine).toBe(contentForVaccine);
-    expect(result.current.eligibilityContent).toBe(eligibilityContent);
+    expect(result.current.contentForEligibility).toBe(contentForEligibility);
   });
 });

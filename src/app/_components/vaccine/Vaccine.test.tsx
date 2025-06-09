@@ -31,7 +31,7 @@ describe("Any vaccine page", () => {
       render(
         <VaccineContentProvider
           contentForVaccine={contentPromise}
-          eligibilityContent={eligibilityPromise}
+          contentForEligibility={eligibilityPromise}
         >
           <Vaccine vaccineType={vaccineType} />
         </VaccineContentProvider>,

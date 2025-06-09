@@ -19,7 +19,7 @@ const vaccineType = VaccineTypes.FLU;
 const VaccineFlu = (): JSX.Element => {
   const contentForFlu: Promise<GetContentForVaccineResponse> =
     getContentForVaccine(vaccineType);
-  const eligibilityContent: Promise<GetEligibilityForPersonResponse> =
+  const contentForEligibility: Promise<GetEligibilityForPersonResponse> =
     getEligibilityForPerson("dummy", vaccineType);
 
   return (
@@ -30,7 +30,7 @@ const VaccineFlu = (): JSX.Element => {
         <ErrorBoundary fallback={<VaccineError vaccineType={vaccineType} />}>
           <VaccineContentProvider
             contentForVaccine={contentForFlu}
-            eligibilityContent={eligibilityContent}
+            contentForEligibility={contentForEligibility}
           >
             <Vaccine vaccineType={vaccineType} />
           </VaccineContentProvider>

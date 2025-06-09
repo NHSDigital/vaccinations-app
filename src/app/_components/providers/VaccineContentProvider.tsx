@@ -6,13 +6,13 @@ import { GetEligibilityForPersonResponse } from "@src/services/eligibility-api/t
 
 type VaccineContentContext = {
   contentForVaccine: Promise<GetContentForVaccineResponse>;
-  eligibilityContent: Promise<GetEligibilityForPersonResponse>;
+  contentForEligibility: Promise<GetEligibilityForPersonResponse>;
 };
 
 type VaccineContentProviderProps = {
   children: ReactNode;
   contentForVaccine: Promise<GetContentForVaccineResponse>;
-  eligibilityContent: Promise<GetEligibilityForPersonResponse>;
+  contentForEligibility: Promise<GetEligibilityForPersonResponse>;
 };
 
 const vaccineContentContext = createContext<VaccineContentContext | null>(null);
@@ -28,11 +28,11 @@ export function useVaccineContentContext(): VaccineContentContext {
 export function VaccineContentProvider({
   children,
   contentForVaccine,
-  eligibilityContent,
+  contentForEligibility,
 }: Readonly<VaccineContentProviderProps>) {
   const allContent = useMemo(
-    () => ({ contentForVaccine, eligibilityContent }),
-    [contentForVaccine, eligibilityContent],
+    () => ({ contentForVaccine, contentForEligibility }),
+    [contentForVaccine, contentForEligibility],
   );
 
   return (

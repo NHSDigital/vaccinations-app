@@ -30,14 +30,15 @@ const EXPANDER_HEADINGS = {
 };
 
 const Vaccine = ({ vaccineType }: VaccineProps): JSX.Element => {
-  const { contentForVaccine, eligibilityContent } = useVaccineContentContext();
+  const { contentForVaccine, contentForEligibility } =
+    useVaccineContentContext();
   const { styledVaccineContent, contentError }: GetContentForVaccineResponse =
     use(contentForVaccine);
   const {
     eligibilityStatus,
     styledEligibilityContent,
     eligibilityError,
-  }: GetEligibilityForPersonResponse = use(eligibilityContent);
+  }: GetEligibilityForPersonResponse = use(contentForEligibility);
 
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
 
