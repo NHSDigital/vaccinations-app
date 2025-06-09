@@ -15,7 +15,6 @@ export const GET = async (request: NextRequest) => {
 
   if (assertedLoginIdentity) {
     let redirectUrl: string | undefined;
-    let errorString: string | undefined;
     try {
       redirectUrl = await signIn(
         NHS_LOGIN_PROVIDER_ID,
@@ -23,14 +22,11 @@ export const GET = async (request: NextRequest) => {
         { asserted_login_identity: assertedLoginIdentity },
       );
     } catch (error) {
-      errorString = `${error}`;
       log.error(error);
     }
-    redirect(redirectUrl ?? `${SSO_FAILURE_ROUTE}?error=${errorString}`);
+    redirect(redirectUrl ?? SSO_FAILURE_ROUTE);
   } else {
     log.warn("SSO without assertedLoginIdentity parameter");
-    redirect(
-      `${SSO_FAILURE_ROUTE}?error=Parameter not found: ${ASSERTED_LOGIN_IDENTITY_PARAM}`,
-    );
+    redirect(SSO_FAILURE_ROUTE);
   }
 };

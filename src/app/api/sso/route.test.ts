@@ -22,8 +22,6 @@ function getMockRequest(testUrl: string, params?: Record<string, string>) {
 }
 
 describe("GET handler", () => {
-  const ASSERTED_LOGIN_IDENTITY_PARAM = "assertedLoginIdentity";
-
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -34,9 +32,7 @@ describe("GET handler", () => {
 
     await GET(mockRequest);
 
-    expect(redirect).toHaveBeenCalledWith(
-      `/sso-failure?error=Parameter not found: ${ASSERTED_LOGIN_IDENTITY_PARAM}`,
-    );
+    expect(redirect).toHaveBeenCalledWith("/sso-failure");
   });
 
   it("redirects to sso-failure on signIn error", async () => {
@@ -49,9 +45,7 @@ describe("GET handler", () => {
 
     await GET(mockRequest);
 
-    expect(redirect).toHaveBeenCalledWith(
-      `/sso-failure?error=Error: Sign-in failed`,
-    );
+    expect(redirect).toHaveBeenCalledWith("/sso-failure");
   });
 
   it("redirects to the URL returned by signIn", async () => {
