@@ -17,7 +17,7 @@ const NBS_QUERY_PARAMS = {
 
 const PLACEHOLDER_CAMPAIGN_ID = "vita-RSV-booking";
 
-type VaccinesWithNBSBookingAvailable = VaccineTypes.RSV;
+export type VaccinesWithNBSBookingAvailable = VaccineTypes.RSV;
 
 const nbsVaccinePath: Record<VaccinesWithNBSBookingAvailable, string> = {
   [VaccineTypes.RSV]: "/rsv",

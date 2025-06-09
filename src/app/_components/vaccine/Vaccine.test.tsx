@@ -13,6 +13,9 @@ import { mockStyledEligibility } from "@test-data/eligibility-api/data";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 jest.mock("@src/services/eligibility-api/gateway/eligibility-reader-service");
+jest.mock("@src/app/_components/nbs/NBSBookingButton", () => ({
+  NBSBookingButton: () => <div>NBS Booking Link Test</div>,
+}));
 
 describe("Any vaccine page", () => {
   const renderNamedVaccinePage = async (vaccineType: VaccineTypes) => {
@@ -254,6 +257,33 @@ describe("Any vaccine page", () => {
 
       expect(howToGetHeading).not.toBeInTheDocument();
       expect(howToGetContent).not.toBeInTheDocument();
+    });
+  });
+
+  describe("booking link placeholder", () => {
+    beforeEach(() => {
+      (getContentForVaccine as jest.Mock).mockResolvedValue({
+        styledVaccineContent: mockStyledContent,
+      });
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+        styledEligibilityContent: mockStyledEligibility,
+      });
+    });
+
+    it("should display the booking link button for RSV", async () => {
+      await renderRsvVaccinePage();
+
+      const bookingButton = screen.getByText("NBS Booking Link Test");
+
+      expect(bookingButton).toBeInTheDocument();
+    });
+
+    it("should NOT display the booking link button for other vaccines", async () => {
+      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
+
+      const bookingButton = screen.queryByText("NBS Booking Link Test");
+
+      expect(bookingButton).not.toBeInTheDocument();
     });
   });
 });

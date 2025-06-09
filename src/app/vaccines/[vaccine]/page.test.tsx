@@ -11,6 +11,7 @@ jest.mock("next/navigation", () => ({
   notFound: jest.fn(),
 }));
 
+jest.mock("@src/services/nbs/nbs-service", () => jest.fn());
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 jest.mock("@src/app/_components/vaccine/Vaccine");
 jest.mock("@src/app/_components/nhs-frontend/BackLink", () =>

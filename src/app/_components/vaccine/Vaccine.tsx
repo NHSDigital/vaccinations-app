@@ -15,6 +15,7 @@ import {
   EligibilityStatus,
 } from "@src/services/eligibility-api/types";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
+import { NBSBookingButton } from "@src/app/_components/nbs/NBSBookingButton";
 
 interface VaccineProps {
   vaccineType: VaccineTypes;
@@ -69,6 +70,10 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
                 }
               />
             </div>
+          )}
+
+          {vaccineType === VaccineTypes.RSV && (
+            <NBSBookingButton vaccineType={vaccineType} />
           )}
 
           <h2 className="nhsuk-heading-s">
