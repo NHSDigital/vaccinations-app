@@ -2,7 +2,9 @@ import getSSMParam from "@src/utils/get-ssm-param";
 
 type AppConfig = {
   CONTENT_API_ENDPOINT: string;
+  ELIGIBILITY_API_ENDPOINT: string;
   CONTENT_API_KEY: string;
+  ELIGIBILITY_API_KEY: string;
   CONTENT_CACHE_PATH: string;
   NHS_LOGIN_URL: string;
   NHS_LOGIN_CLIENT_ID: string;
@@ -19,9 +21,17 @@ const configProvider = async (): Promise<AppConfig> => {
       SSM_PREFIX,
       "CONTENT_API_ENDPOINT",
     ),
+    ELIGIBILITY_API_ENDPOINT: await getFromEnvironmentOrSSM(
+      SSM_PREFIX,
+      "ELIGIBILITY_API_ENDPOINT",
+    ),
     CONTENT_API_KEY: await getFromEnvironmentOrSSM(
       SSM_PREFIX,
       "CONTENT_API_KEY",
+    ),
+    ELIGIBILITY_API_KEY: await getFromEnvironmentOrSSM(
+      SSM_PREFIX,
+      "ELIGIBILITY_API_KEY",
     ),
     CONTENT_CACHE_PATH: await getFromEnvironmentOrSSM(
       SSM_PREFIX,

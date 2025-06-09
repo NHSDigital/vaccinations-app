@@ -8,7 +8,7 @@ import {
 import { render, screen } from "@testing-library/react";
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import { EligibilityStatus } from "@src/services/eligibility-api/types";
-import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
+import { getEligibilityContentForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
 import { mockStyledEligibility } from "@test-data/eligibility-api/data";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
@@ -31,7 +31,7 @@ describe("Any vaccine page", () => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
         styledVaccineContent: mockStyledContent,
       });
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+      (getEligibilityContentForPerson as jest.Mock).mockResolvedValue({
         styledEligibilityContent: mockStyledEligibility,
       });
     });
@@ -182,7 +182,7 @@ describe("Any vaccine page", () => {
 
   describe("when eligible", () => {
     beforeEach(() => {
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+      (getEligibilityContentForPerson as jest.Mock).mockResolvedValue({
         eligibilityStatus: EligibilityStatus.ELIGIBLE_BOOKABLE,
         styledEligibilityContent: mockStyledEligibility,
       });
@@ -198,7 +198,7 @@ describe("Any vaccine page", () => {
 
   describe("when not eligible", () => {
     beforeEach(() => {
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+      (getEligibilityContentForPerson as jest.Mock).mockResolvedValue({
         eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
         styledEligibilityContent: mockStyledEligibility,
       });
@@ -265,7 +265,7 @@ describe("Any vaccine page", () => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
         styledVaccineContent: mockStyledContent,
       });
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+      (getEligibilityContentForPerson as jest.Mock).mockResolvedValue({
         styledEligibilityContent: mockStyledEligibility,
       });
     });
