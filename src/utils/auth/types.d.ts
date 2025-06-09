@@ -14,12 +14,12 @@ export type CommonAuthPayload = {
   iat: number;
 };
 
-export type RefreshClientAssertionPayload = CommonAuthPayload & {
+export type RefreshClientAssertionPayload = {
   sub: string;
   aud: string;
 };
 
-export type AssertedLoginIdentityPayload = CommonAuthPayload & {
+export type AssertedLoginIdentityPayload = {
   code: string;
 };
 

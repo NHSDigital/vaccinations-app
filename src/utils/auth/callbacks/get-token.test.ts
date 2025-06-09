@@ -5,6 +5,9 @@ import { JWT } from "next-auth/jwt";
 import { AppConfig } from "@src/utils/config";
 import { jwtDecode } from "jwt-decode";
 
+jest.mock("@project/auth", () => ({
+  auth: jest.fn(),
+}));
 jest.mock("@src/utils/auth/generate-auth-payload");
 jest.mock("jwt-decode");
 

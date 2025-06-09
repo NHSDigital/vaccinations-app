@@ -3,6 +3,9 @@ import { getNBSBookingUrlForVaccine } from "@src/services/nbs/nbs-service";
 import { VaccineTypes } from "@src/models/vaccine";
 import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
 
+jest.mock("@project/auth", () => ({
+  auth: jest.fn(),
+}));
 jest.mock("@src/utils/config");
 jest.mock("@src/utils/auth/generate-auth-payload");
 

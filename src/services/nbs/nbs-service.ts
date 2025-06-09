@@ -20,7 +20,8 @@ const getNBSBookingUrlForVaccine = async (
 ) => {
   const config: AppConfig = await configProvider();
 
-  const assertedLoginIdentityJWT = await generateAssertedLoginIdentityJwt();
+  const assertedLoginIdentityJWT =
+    await generateAssertedLoginIdentityJwt(config);
 
   const nbsURl = new URL(
     `${config.NBS_URL}${config.NBS_BOOKING_PATH}${nbsVaccinePath[vaccineType]}`,
