@@ -1,5 +1,8 @@
 import { VaccineTypes } from "@src/models/vaccine";
-import { vaccineTypeToPath } from "@src/services/content-api/constants";
+import {
+  VaccineContentPaths,
+  vaccineTypeToPath,
+} from "@src/services/content-api/constants";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import axios, { AxiosResponse } from "axios";
@@ -12,11 +15,11 @@ const fetchContentForVaccine = async (
 ): Promise<string> => {
   const config: AppConfig = await configProvider();
 
-  const apiEndpoint = config.CONTENT_API_ENDPOINT;
-  const vaccinePath = vaccineTypeToPath[vaccine];
-  const apiKey = config.CONTENT_API_KEY;
+  const apiEndpoint: string = config.CONTENT_API_ENDPOINT;
+  const vaccinePath: VaccineContentPaths = vaccineTypeToPath[vaccine];
+  const apiKey: string = config.CONTENT_API_KEY;
 
-  const uri = `${apiEndpoint}${CONTENT_API_PATH_PREFIX}${vaccinePath}`;
+  const uri: string = `${apiEndpoint}${CONTENT_API_PATH_PREFIX}${vaccinePath}`;
   let response: AxiosResponse;
   try {
     log.info("Fetching content from %s", uri);

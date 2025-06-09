@@ -1,4 +1,4 @@
-import { configProvider } from "./config";
+import { AppConfig, configProvider } from "./config";
 import getSSMParam from "@src/utils/get-ssm-param";
 
 jest.mock("@src/utils/get-ssm-param");
@@ -19,7 +19,7 @@ describe("configProvider", () => {
       "api-key",
     );
 
-    const config = await configProvider();
+    const config: AppConfig = await configProvider();
 
     expect(config).toMatchObject({
       CONTENT_API_ENDPOINT: "api-endpoint",

@@ -5,7 +5,7 @@ import { mockStyledContent } from "@test-data/content-api/data";
 import { VaccineTypes } from "@src/models/vaccine";
 import VaccineShingles from "@src/app/vaccines/shingles/page";
 import { assertBackLinkIsPresent } from "@test-data/test-helpers-back-link";
-import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
+import { getEligibilityContentForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
 import { EligibilityStatus } from "@src/services/eligibility-api/types";
 import { mockStyledEligibility } from "@test-data/eligibility-api/data";
 
@@ -22,7 +22,7 @@ describe("Shingles vaccine page", () => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
         styledVaccineContent: mockStyledContent,
       });
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+      (getEligibilityContentForPerson as jest.Mock).mockResolvedValue({
         eligibilityStatus: EligibilityStatus.ELIGIBLE_BOOKABLE,
         styledEligibilityContent: mockStyledEligibility,
       });

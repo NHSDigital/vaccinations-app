@@ -8,7 +8,7 @@ import React from "react";
 import { mockStyledContent } from "@test-data/content-api/data";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { GetContentForVaccineResponse } from "@src/services/content-api/types";
-import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
+import { getEligibilityContentForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
 import { mockStyledEligibility } from "@test-data/eligibility-api/data";
 import { GetEligibilityForPersonResponse } from "@src/services/eligibility-api/types";
 
@@ -22,11 +22,11 @@ beforeEach(() => {
   (getContentForVaccine as jest.Mock).mockResolvedValue({
     styledVaccineContent: mockStyledContent,
   });
-  (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+  (getEligibilityContentForPerson as jest.Mock).mockResolvedValue({
     styledEligibilityContent: mockStyledEligibility,
   });
   contentForVaccine = getContentForVaccine(VaccineTypes.SIX_IN_ONE);
-  contentForEligibility = getEligibilityForPerson(
+  contentForEligibility = getEligibilityContentForPerson(
     "5000000014",
     VaccineTypes.SIX_IN_ONE,
   );
