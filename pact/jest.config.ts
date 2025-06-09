@@ -6,6 +6,9 @@ const config: Config = {
   testEnvironment: "node",
   clearMocks: true,
   testMatch: ["**/*.pact.ts"],
+  moduleNameMapper: {
+    "^@project/(.*)$": "<rootDir>/$1",
+  }
 };
 
 export default config;
