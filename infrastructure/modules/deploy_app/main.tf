@@ -27,10 +27,6 @@ module "deploy_app" {
     }
   }
 
-  continuous_deployment = {
-    use = false
-  }
-
   server_function = {
     additional_iam_policies = [aws_iam_policy.server_lambda_additional_policy]
     additional_environment_variables = var.application_environment_variables
