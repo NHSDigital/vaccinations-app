@@ -38,7 +38,7 @@ describe("Any vaccine page", () => {
 
       const heading = screen.getByRole("heading", {
         level: 1,
-        name: `RSV vaccine`,
+        name: `RSV vaccine for older adults`,
       });
 
       expect(heading).toBeInTheDocument();

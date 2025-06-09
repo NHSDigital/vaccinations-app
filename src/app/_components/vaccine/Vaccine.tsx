@@ -46,7 +46,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
         <VaccineError vaccineType={vaccineType} />
       ) : (
         <div>
-          <h1 className="app-dynamic-page-title__heading">{`${vaccineInfo.displayName.capitalised} vaccine`}</h1>
+          <h1 className="app-dynamic-page-title__heading">{`${VaccineInfo[vaccineType].heading}`}</h1>
           <p data-testid="overview-text">{styledVaccineContent.overview}</p>
 
           {eligibilityStatus === EligibilityStatus.NOT_ELIGIBLE && (
