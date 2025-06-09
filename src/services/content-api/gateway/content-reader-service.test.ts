@@ -4,7 +4,6 @@
 
 import { S3Client } from "@aws-sdk/client-s3";
 import mockRsvVaccineJson from "@project/wiremock/__files/rsv-vaccine.json";
-import mockSixInOneVaccineJson from "@project/wiremock/__files/6-in-1-vaccine.json";
 import { VaccineTypes } from "@src/models/vaccine";
 import {
   _readContentFromCache,
@@ -98,8 +97,8 @@ describe("Content Reader Service", () => {
         }));
       });
 
-      it("should return response for 6-in-1 vaccine from content cache", async () => {
-        const vaccine: VaccineTypes = VaccineTypes.SIX_IN_ONE;
+      it("should return response for rsv vaccine from content cache", async () => {
+        const vaccine: VaccineTypes = VaccineTypes.RSV;
         const {
           styledVaccineContent,
           contentError,
@@ -107,13 +106,13 @@ describe("Content Reader Service", () => {
 
         expect(styledVaccineContent).toBeDefined();
         expect(styledVaccineContent?.overview).toEqual(
-          mockSixInOneVaccineJson.mainEntityOfPage[0].text,
+          mockRsvVaccineJson.mainEntityOfPage[0].text,
         );
         expect(styledVaccineContent?.whatVaccineIsFor?.heading).toEqual(
-          mockSixInOneVaccineJson.mainEntityOfPage[1].headline,
+          mockRsvVaccineJson.mainEntityOfPage[1].headline,
         );
         expect(styledVaccineContent?.webpageLink).toEqual(
-          mockSixInOneVaccineJson.webpage,
+          mockRsvVaccineJson.webpage,
         );
         expect(contentError).toBeUndefined();
       });
@@ -128,7 +127,7 @@ describe("Content Reader Service", () => {
 
       it("should return error if content read fails", async () => {
         const { styledVaccineContent, contentError } =
-          await getContentForVaccine(VaccineTypes.SIX_IN_ONE);
+          await getContentForVaccine(VaccineTypes.RSV);
 
         expect(contentError).toEqual(ContentErrorTypes.CONTENT_LOADING_ERROR);
         expect(styledVaccineContent).toBeUndefined();

@@ -27,9 +27,9 @@ describe("fetchContentForVaccine", () => {
 
   it("should fetch content for vaccine", async () => {
     (axios.get as jest.Mock).mockResolvedValue({ data: testApiContent });
-    const actual = await fetchContentForVaccine(VaccineTypes.SIX_IN_ONE);
+    const actual = await fetchContentForVaccine(VaccineTypes.RSV);
     expect(axios.get).toHaveBeenCalledWith(
-      `${testApiEndpoint}${CONTENT_API_PATH_PREFIX}${vaccineTypeToPath.SIX_IN_ONE}`,
+      `${testApiEndpoint}${CONTENT_API_PATH_PREFIX}${vaccineTypeToPath.RSV}`,
       {
         headers: {
           accept: "application/json",
@@ -44,8 +44,8 @@ describe("fetchContentForVaccine", () => {
     const errorMessage = "Network Error";
     (axios.get as jest.Mock).mockRejectedValue(new Error(errorMessage));
 
-    await expect(
-      fetchContentForVaccine(VaccineTypes.SIX_IN_ONE),
-    ).rejects.toThrow(errorMessage);
+    await expect(fetchContentForVaccine(VaccineTypes.RSV)).rejects.toThrow(
+      errorMessage,
+    );
   });
 });

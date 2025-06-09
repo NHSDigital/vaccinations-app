@@ -81,8 +81,8 @@ describe("Content Writer Service", () => {
       CONTENT_CACHE_PATH: location,
     }));
 
-    it("should return response for 6-in-1 vaccine from content cache", async () => {
-      const vaccine: VaccineTypes = VaccineTypes.SIX_IN_ONE;
+    it("should return response for rsv vaccine from content cache", async () => {
+      const vaccine: VaccineTypes = VaccineTypes.RSV;
       await writeContentForVaccine(vaccine, content);
       expect(writeFile).toHaveBeenCalledWith(
         `${location}${vaccineTypeToPath[vaccine]}.json`,

@@ -581,14 +581,12 @@ describe("Content Filter", () => {
         overview: "Generic Vaccine Lead Paragraph (overview)",
       };
 
-      const pageCopyFor6in1 = await getFilteredContentForVaccine(
-        VaccineTypes.SIX_IN_ONE,
+      const pageCopyForRsv = await getFilteredContentForVaccine(
+        VaccineTypes.RSV,
         JSON.stringify(genericVaccineContentAPIResponse),
       );
 
-      expect(pageCopyFor6in1).toEqual(
-        expect.objectContaining(expectedOverview),
-      );
+      expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedOverview));
     });
 
     it("should return all parts for whatVaccineIsFor section", async () => {
@@ -606,12 +604,12 @@ describe("Content Filter", () => {
         },
       };
 
-      const pageCopyFor6in1 = await getFilteredContentForVaccine(
-        VaccineTypes.SIX_IN_ONE,
+      const pageCopyForRsv = await getFilteredContentForVaccine(
+        VaccineTypes.RSV,
         JSON.stringify(genericVaccineContentAPIResponse),
       );
 
-      expect(pageCopyFor6in1).toEqual(
+      expect(pageCopyForRsv).toEqual(
         expect.objectContaining(expectedWhatVaccineIsFor),
       );
     });
@@ -655,12 +653,12 @@ describe("Content Filter", () => {
         },
       };
 
-      const pageCopyForPneumococcal = await getFilteredContentForVaccine(
-        VaccineTypes.PNEUMOCOCCAL,
+      const pageCopyForRsv = await getFilteredContentForVaccine(
+        VaccineTypes.RSV,
         JSON.stringify(genericVaccineContentAPIResponse),
       );
 
-      expect(pageCopyForPneumococcal).toEqual(
+      expect(pageCopyForRsv).toEqual(
         expect.objectContaining(expectedWhoVaccineIsFor),
       );
     });
@@ -686,12 +684,12 @@ describe("Content Filter", () => {
         },
       };
 
-      const pageCopyFor6in1 = await getFilteredContentForVaccine(
-        VaccineTypes.SIX_IN_ONE,
+      const pageCopyForRsv = await getFilteredContentForVaccine(
+        VaccineTypes.RSV,
         JSON.stringify(genericVaccineContentAPIResponse),
       );
 
-      expect(pageCopyFor6in1).toEqual(
+      expect(pageCopyForRsv).toEqual(
         expect.objectContaining(expectedHowToGetVaccine),
       );
     });
@@ -701,12 +699,12 @@ describe("Content Filter", () => {
         webpageLink: "https://www.nhs.uk/vaccinations/generic-vaccine/",
       };
 
-      const pageCopyFor6in1 = await getFilteredContentForVaccine(
-        VaccineTypes.SIX_IN_ONE,
+      const pageCopyForRsv = await getFilteredContentForVaccine(
+        VaccineTypes.RSV,
         JSON.stringify(genericVaccineContentAPIResponse),
       );
 
-      expect(pageCopyFor6in1).toEqual(
+      expect(pageCopyForRsv).toEqual(
         expect.objectContaining(expectedWebpageLink),
       );
     });
@@ -717,7 +715,7 @@ describe("Content Filter", () => {
 
       const pageCopyForFlu: VaccinePageContent =
         await getFilteredContentForVaccine(
-          VaccineTypes.FLU,
+          VaccineTypes.RSV,
           JSON.stringify(responseWithoutBenefitsHealthAspect),
         );
 

@@ -3,9 +3,7 @@
 import CardLink from "@src/app/_components/nhs-app/CardLink";
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
-import styles from "./styles.module.css";
-import Link from "next/link";
-import { VaccineInfo } from "@src/models/vaccine";
+import { VaccineContentUrlPaths, VaccineInfo } from "@src/models/vaccine";
 
 export const dynamic = "force-dynamic";
 
@@ -15,55 +13,17 @@ const VaccinationsHub = () => {
       {/*TODO: This should go back to NHS app, requires app integration */}
       <BackLink />
       <MainContent>
-        <title>Vaccinations - NHS App</title>
-        <h1>Vaccinations</h1>
-        <p>
-          Find out about vaccinations for babies, children and adults, including
-          why they&#39;re important and how to get them.
-        </p>
-        <div className={styles.subheading}>
-          <div>
-            <h2 className="nhsuk-heading-s">Vaccinations</h2>
-          </div>
-        </div>
-        <p>
-          Based on your age, these vaccinations may be relevant - some
-          vaccinations may not be needed or have already been given.
-        </p>
+        <title>Check and book an RSV vaccination - NHS App</title>
+        <h1>Check and book an RSV vaccination</h1>
         <div className="nhsapp-cards nhsapp-cards--stacked">
           <CardLink
-            title={VaccineInfo.COVID_19.displayName.capitalised}
-            link={"/vaccines/covid-19"}
+            title={`${VaccineInfo.RSV.displayName.capitalised} for older adults`}
+            link={`/vaccines/${VaccineContentUrlPaths.RSV}`}
           />
           <CardLink
-            title={VaccineInfo.FLU.displayName.capitalised}
-            link={"/vaccines/flu"}
+            title={`${VaccineInfo.RSV_PREGNANCY.displayName.capitalised} vaccine in pregnancy`}
+            link={`/vaccines/${VaccineContentUrlPaths.RSV_PREGNANCY}`}
           />
-          <CardLink
-            title={VaccineInfo.MENACWY.displayName.capitalised}
-            link={"/vaccines/menacwy"}
-          />
-          <CardLink
-            title={VaccineInfo.PNEUMOCOCCAL.displayName.capitalised}
-            link={"/vaccines/pneumococcal"}
-          />
-          <CardLink
-            title={VaccineInfo.RSV.displayName.capitalised}
-            link={"/vaccines/rsv"}
-          />
-          <CardLink
-            title={`${VaccineInfo.RSV.displayName.capitalised} in pregnancy`}
-            link={"/vaccines/rsv-pregnancy"}
-          />
-          <CardLink
-            title={VaccineInfo.SHINGLES.displayName.capitalised}
-            link={"/vaccines/shingles"}
-          />
-        </div>
-        <div>
-          <Link prefetch={false} href="/schedule">
-            View all vaccinations
-          </Link>
         </div>
       </MainContent>
     </>

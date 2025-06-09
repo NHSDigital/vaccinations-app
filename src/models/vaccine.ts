@@ -1,13 +1,19 @@
 enum VaccineTypes {
-  SIX_IN_ONE = "SIX_IN_ONE",
   RSV = "RSV",
   RSV_PREGNANCY = "RSV_PREGNANCY",
-  FLU = "FLU",
-  PNEUMOCOCCAL = "PNEUMOCOCCAL",
-  SHINGLES = "SHINGLES",
-  MENACWY = "MENACWY",
-  COVID_19 = "COVID_19",
 }
+
+// vaccine suffix paths used by the app (e.g. /vaccines/"rsv")
+enum VaccineContentUrlPaths {
+  RSV = "rsv",
+  RSV_PREGNANCY = "rsv-pregnancy",
+}
+
+// maps vaccine url path to vaccine type (one to one)
+const vaccineUrlPathToType: Record<VaccineContentUrlPaths, VaccineTypes> = {
+  [VaccineContentUrlPaths.RSV]: VaccineTypes.RSV,
+  [VaccineContentUrlPaths.RSV_PREGNANCY]: VaccineTypes.RSV_PREGNANCY,
+};
 
 export type VaccineDetails = {
   displayName: displayName;
@@ -20,56 +26,25 @@ type displayName = {
 };
 
 const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
-  [VaccineTypes.SIX_IN_ONE]: {
-    displayName: {
-      capitalised: "6-in-1",
-      lowercase: "6-in-1",
-    },
-  },
   [VaccineTypes.RSV]: {
     displayName: {
       capitalised: "RSV",
       lowercase: "RSV",
     },
+    overviewInsetText: `<p>This page is about the RSV vaccine for older adults. There is also <a href="/vaccines/${VaccineContentUrlPaths.RSV_PREGNANCY}">RSV in pregnancy</a>.</p>`,
   },
   [VaccineTypes.RSV_PREGNANCY]: {
     displayName: {
       capitalised: "RSV",
       lowercase: "RSV",
     },
-  },
-  [VaccineTypes.PNEUMOCOCCAL]: {
-    displayName: {
-      capitalised: "Pneumococcal",
-      lowercase: "pneumococcal",
-    },
-  },
-  [VaccineTypes.SHINGLES]: {
-    displayName: {
-      capitalised: "Shingles",
-      lowercase: "shingles",
-    },
-  },
-  [VaccineTypes.FLU]: {
-    displayName: {
-      capitalised: "Flu",
-      lowercase: "flu",
-    },
-    overviewInsetText:
-      '<p>This page is about the flu vaccine for adults. There are also pages about the <a href="/vaccines/child-flu">children\'s flu vaccine</a> and <a href="/vaccines/flu-jab">flu jab in pregnancy</a>.</p>',
-  },
-  [VaccineTypes.MENACWY]: {
-    displayName: {
-      capitalised: "MenACWY",
-      lowercase: "MenACWY",
-    },
-  },
-  [VaccineTypes.COVID_19]: {
-    displayName: {
-      capitalised: "COVID-19",
-      lowercase: "COVID-19",
-    },
+    overviewInsetText: `<p>This page is about the RSV vaccine in pregnancy. There is also <a href="/vaccines/${VaccineContentUrlPaths.RSV}">RSV for older adults</a>.</p>`,
   },
 };
 
-export { VaccineTypes, VaccineInfo };
+export {
+  VaccineTypes,
+  VaccineInfo,
+  VaccineContentUrlPaths,
+  vaccineUrlPathToType,
+};

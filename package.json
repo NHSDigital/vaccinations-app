@@ -17,7 +17,7 @@
     "lint": "next lint",
     "format": "npx prettier . --write",
     "check": "npx prettier . --check",
-    "test": "jest --collectCoverage",
+    "test": "tsc --noEmit && jest --collectCoverage",
     "test:watch": "jest --watch",
     "e2e": "npx playwright test",
     "e2e:ui": "npx playwright test --ui",

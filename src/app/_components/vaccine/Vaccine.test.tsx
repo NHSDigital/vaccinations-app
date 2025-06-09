@@ -19,8 +19,8 @@ describe("Any vaccine page", () => {
     render(await Vaccine({ vaccineType: vaccineType }));
   };
 
-  const renderVaccinePage = async () => {
-    await renderNamedVaccinePage(VaccineTypes.PNEUMOCOCCAL);
+  const renderRsvVaccinePage = async () => {
+    await renderNamedVaccinePage(VaccineTypes.RSV);
   };
 
   describe("with all sections available", () => {
@@ -34,66 +34,51 @@ describe("Any vaccine page", () => {
     });
 
     it("should display correct vaccine name in heading", async () => {
-      await renderVaccinePage();
+      await renderRsvVaccinePage();
 
       const heading = screen.getByRole("heading", {
         level: 1,
-        name: `Pneumococcal vaccine`,
+        name: `RSV vaccine`,
       });
 
       expect(heading).toBeInTheDocument();
     });
 
     it("should display overview text", async () => {
-      await renderVaccinePage();
+      await renderRsvVaccinePage();
       const overviewBlock: HTMLElement = screen.getByText("Overview text");
       expect(overviewBlock).toBeInTheDocument();
     });
 
     it("should display overview inset text if defined for vaccine", async () => {
-      const expectedInsetText = VaccineInfo[VaccineTypes.FLU].overviewInsetText;
+      const expectedInsetText = VaccineInfo[VaccineTypes.RSV].overviewInsetText;
 
-      await renderNamedVaccinePage(VaccineTypes.FLU);
+      await renderNamedVaccinePage(VaccineTypes.RSV);
 
       const overviewInsetBlock = screen.getByTestId("overview-inset-text");
       expect(overviewInsetBlock).toBeInTheDocument();
       expect(overviewInsetBlock.innerHTML).toContain(expectedInsetText);
     });
 
-    it("should display child's flu link in overview text", async () => {
-      await renderNamedVaccinePage(VaccineTypes.FLU);
+    it("should display link in overview text if defined for vaccine", async () => {
+      await renderNamedVaccinePage(VaccineTypes.RSV);
 
-      const childFluLink: HTMLElement = screen.getByRole("link", {
-        name: "children's flu vaccine",
+      const rsvPregnancyLink: HTMLElement = screen.getByRole("link", {
+        name: "RSV in pregnancy",
       });
 
-      expect(childFluLink).toBeInTheDocument();
-      expect(childFluLink).toHaveAttribute("href", "/vaccines/child-flu");
-    });
-
-    it("should display pregnancy's flu link in overview text", async () => {
-      await renderNamedVaccinePage(VaccineTypes.FLU);
-
-      const pregnancyFluLink: HTMLElement = screen.getByRole("link", {
-        name: "flu jab in pregnancy",
-      });
-
-      expect(pregnancyFluLink).toBeInTheDocument();
-      expect(pregnancyFluLink).toHaveAttribute("href", "/vaccines/flu-jab");
-    });
-
-    it("should not display overview inset text if not defined for vaccine", async () => {
-      await renderNamedVaccinePage(VaccineTypes.SIX_IN_ONE);
-
-      const overviewInsetBlock = screen.queryByTestId("overview-inset-text");
-      expect(overviewInsetBlock).not.toBeInTheDocument();
+      expect(rsvPregnancyLink).toBeInTheDocument();
+      expect(rsvPregnancyLink).toHaveAttribute(
+        "href",
+        "/vaccines/rsv-pregnancy",
+      );
     });
 
     it("should include lowercase vaccine name in more information text", async () => {
       const expectedMoreInformationHeading =
-        "More information about the pneumococcal vaccine";
+        "More information about the RSV vaccine";
 
-      await renderVaccinePage();
+      await renderRsvVaccinePage();
 
       const moreInfoHeading: HTMLElement = screen.getByRole("heading", {
         level: 2,
@@ -104,7 +89,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should display whatItIsFor expander block", async () => {
-      await renderVaccinePage();
+      await renderRsvVaccinePage();
 
       const heading: HTMLElement = screen.getByText("What this vaccine is for");
       const content: HTMLElement = screen.getByText(
@@ -116,7 +101,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should display whoVaccineIsFor expander block", async () => {
-      await renderVaccinePage();
+      await renderRsvVaccinePage();
 
       const heading: HTMLElement = screen.getByText(
         "Who should have this vaccine",
@@ -131,7 +116,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should display howToGetVaccine expander block", async () => {
-      await renderVaccinePage();
+      await renderRsvVaccinePage();
 
       const heading: HTMLElement = screen.getByText("How to get the vaccine");
       const content: HTMLElement = screen.getByText(
@@ -143,10 +128,10 @@ describe("Any vaccine page", () => {
     });
 
     it("should display webpage link to more information about vaccine", async () => {
-      await renderVaccinePage();
+      await renderRsvVaccinePage();
 
       const webpageLink: HTMLElement = screen.getByRole("link", {
-        name: "Find out more about the pneumococcal vaccination",
+        name: "Find out more about the RSV vaccination",
       });
 
       expect(webpageLink).toBeInTheDocument();
@@ -163,7 +148,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should not display whatItIsFor section", async () => {
-      await renderVaccinePage();
+      await renderRsvVaccinePage();
 
       const heading: HTMLElement | null = screen.queryByText(
         "What this vaccine is for",
@@ -177,7 +162,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should display whoVaccineIsFor section", async () => {
-      await renderVaccinePage();
+      await renderRsvVaccinePage();
 
       const heading: HTMLElement = screen.getByText(
         "Who should have this vaccine",
@@ -201,7 +186,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should not show the care card", async () => {
-      await renderVaccinePage();
+      await renderRsvVaccinePage();
 
       const careCard = screen.queryByTestId("non-urgent-care-card");
       expect(careCard).toBeNull();
@@ -217,7 +202,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should show the care card", async () => {
-      await renderVaccinePage();
+      await renderRsvVaccinePage();
 
       const careCard = screen.getByTestId("non-urgent-care-card");
       expect(careCard).toBeInTheDocument();
@@ -233,18 +218,18 @@ describe("Any vaccine page", () => {
     });
 
     it("should still display heading with correct vaccine name", async () => {
-      await renderVaccinePage();
+      await renderRsvVaccinePage();
 
       const heading = screen.getByRole("heading", {
         level: 1,
-        name: `Pneumococcal vaccine`,
+        name: `RSV vaccine`,
       });
 
       expect(heading).toBeInTheDocument();
     });
 
     it("should display error summary", async () => {
-      await renderVaccinePage();
+      await renderRsvVaccinePage();
 
       const errorHeading: HTMLElement = screen.getByRole("heading", {
         level: 2,
@@ -255,7 +240,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should not render any other areas of the vaccine page", async () => {
-      await renderVaccinePage();
+      await renderRsvVaccinePage();
 
       const overviewBlock: HTMLElement | null =
         screen.queryByText("Overview text");
