@@ -1,9 +1,3 @@
-export const HUB_PAGE_TITLE = "Vaccinations - NHS App";
-export const SCHEDULE_PAGE_TITLE = "Vaccines for all ages - NHS App";
-export const RSV_PAGE_TITLE = "RSV Vaccine - NHS App";
-export const FLU_PAGE_TITLE = "Flu Vaccine - NHS App";
-export const COVID_PAGE_TITLE = "COVID-19 Vaccine - NHS App";
-export const PNEUMO_PAGE_TITLE = "Pneumococcal Vaccine - NHS App";
-export const SHINGLES_PAGE_TITLE = "Shingles Vaccine - NHS App";
-export const SIX_IN_ONE_PAGE_TITLE = "6-in-1 Vaccine - NHS App";
-export const MENACWY_PAGE_TITLE = "MenACWY Vaccine - NHS App";
+export const HUB_PAGE_TITLE = "Check and book an RSV vaccination - NHS App";
+export const RSV_PAGE_TITLE = "RSV vaccine for older adults - NHS App";
+export const RSV_PREGNANCY_PAGE_TITLE = "RSV vaccine in pregnancy - NHS App";
