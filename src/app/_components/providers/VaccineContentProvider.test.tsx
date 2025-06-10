@@ -8,12 +8,12 @@ import React from "react";
 import { mockStyledContent } from "@test-data/content-api/data";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { GetContentForVaccineResponse } from "@src/services/content-api/types";
-import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
+import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-filter-service";
 import { mockStyledEligibility } from "@test-data/eligibility-api/data";
 import { GetEligibilityForPersonResponse } from "@src/services/eligibility-api/types";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
-jest.mock("@src/services/eligibility-api/gateway/eligibility-reader-service");
+jest.mock("@src/services/eligibility-api/gateway/eligibility-filter-service");
 
 let contentForVaccine: Promise<GetContentForVaccineResponse>;
 let contentForEligibility: Promise<GetEligibilityForPersonResponse>;

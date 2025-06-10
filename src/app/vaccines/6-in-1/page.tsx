@@ -8,7 +8,7 @@ import { VaccineContentProvider } from "@src/app/_components/providers/VaccineCo
 import { GetContentForVaccineResponse } from "@src/services/content-api/types";
 import { ErrorBoundary } from "react-error-boundary";
 import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
-import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
+import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-filter-service";
 import { GetEligibilityForPersonResponse } from "@src/services/eligibility-api/types";
 
 export const dynamic = "force-dynamic";
