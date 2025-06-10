@@ -53,7 +53,11 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
           {eligibilityStatus === EligibilityStatus.NOT_ELIGIBLE && (
             <NonUrgentCareCard
               heading={<div>{styledEligibilityContent.heading}</div>}
-              content={<div>{styledEligibilityContent.content}</div>}
+              content={
+                <div className={styles.zeroMarginBottom}>
+                  {styledEligibilityContent.content}
+                </div>
+              }
             />
           )}
 
@@ -63,6 +67,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
                 key={0}
                 content={
                   <div
+                    className={styles.zeroMarginBottom}
                     dangerouslySetInnerHTML={{
                       __html: vaccineInfo.overviewInsetText,
                     }}

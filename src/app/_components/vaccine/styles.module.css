@@ -5,3 +5,8 @@
 .tableCellSpanHide td[role="cell"] span {
   display: none;
 }
+
+/* Applied to the div that contains a list of elements */
+.zeroMarginBottom > *:last-child {
+  margin-bottom: 0;
+}
