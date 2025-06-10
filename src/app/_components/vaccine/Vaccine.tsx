@@ -9,7 +9,7 @@ import { ContentErrorTypes } from "@src/services/content-api/types";
 import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
 import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
-import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
+import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-filter-service";
 import {
   EligibilityErrorTypes,
   EligibilityStatus,
