@@ -30,6 +30,8 @@ locals {
 
     MAX_SESSION_AGE_MINUTES = 59
 
+    ELIGIBILITY_API_ENDPOINT = "https://sandbox.api.service.nhs.uk"
+
     AUTH_TRUST_HOST = "true"
     AUTH_SECRET     = random_password.auth_secret.result
     APP_VERSION     = local.app_version
