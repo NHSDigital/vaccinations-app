@@ -1,3 +1,5 @@
+import { styleHowToGetSectionForRsv } from "@src/services/content-api/parsers/custom/rsv";
+import { styleHowToGetSectionForRsvPregnancy } from "@src/services/content-api/parsers/custom/rsv-pregnancy";
 import sanitiseHtml from "@src/utils/sanitise-html";
 import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
@@ -124,6 +126,14 @@ const extractHeadingAndContent = (text: string): HeadingWithContent => {
   }
 };
 
+const styleHowToGetSection: Record<
+  VaccineTypes,
+  (section: VaccinePageSection) => StyledPageSection
+> = {
+  [VaccineTypes.RSV]: styleHowToGetSectionForRsv,
+  [VaccineTypes.RSV_PREGNANCY]: styleHowToGetSectionForRsvPregnancy,
+};
+
 const getStyledContentForVaccine = async (
   vaccine: VaccineTypes,
   filteredContent: VaccinePageContent,
@@ -136,7 +146,7 @@ const getStyledContentForVaccine = async (
   const whoVaccineIsFor: StyledPageSection = styleSection(
     filteredContent.whoVaccineIsFor,
   );
-  const howToGetVaccine: StyledPageSection = styleSection(
+  const howToGetVaccine: StyledPageSection = styleHowToGetSection[vaccine](
     filteredContent.howToGetVaccine,
   );
   const webpageLink: string = filteredContent.webpageLink;
