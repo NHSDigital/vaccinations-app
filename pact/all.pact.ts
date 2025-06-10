@@ -1,10 +1,10 @@
 import axios, { AxiosResponse } from "axios";
 import dotenv from 'dotenv';
-import { matchRSVResponse } from "./pact-helpers";
+import { matchRSVResponse } from "./helpers";
 
 describe('Content API', () => {
   beforeAll(async () => {
-    dotenv.config({path: ".env.local"});  // Load environment variables from .env file
+    dotenv.config({path: ".env.local"});
   });
 
   test("vaccineContent contract", async () => {
