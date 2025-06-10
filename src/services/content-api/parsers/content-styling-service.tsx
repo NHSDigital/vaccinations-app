@@ -14,6 +14,7 @@ import type {
   VaccinePageSubsection,
 } from "@src/services/content-api/types";
 import WarningCallout from "@src/app/_components/nhs-frontend/WarningCallout";
+import styles from "./styles.module.css";
 
 enum SubsectionTypes {
   INFORMATION = "INFORMATION",
@@ -28,7 +29,12 @@ const Subsections: Record<SubsectionTypes, string> = {
 };
 
 const _getDivWithSanitisedHtml = (html: string) => {
-  return <div dangerouslySetInnerHTML={{ __html: sanitiseHtml(html) }} />;
+  return (
+    <div
+      className={styles.zeroMarginBottom}
+      dangerouslySetInnerHTML={{ __html: sanitiseHtml(html) }}
+    />
+  );
 };
 
 const styleSubsection = (
