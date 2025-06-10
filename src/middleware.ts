@@ -19,18 +19,18 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     Apply middleware to all pages except:
-     * /api/auth (exclude all NextAuth routes)
-     * /api/sso (exclude sso jump off routes)
-     * /session-logout (exclude session logout route)
-     * /session-timeout (exclude session timeout route)
-     * /sso-failure (exclude the SSO routes)
-     * /favicon.ico
-     * /assets (exclude the assets like icons)
-     * /js (exclude bundled javascript)
-     * /css (exclude bundled style sheets)
-     * /_next/* (exclude Next.js assets, e.g., /_next/static/*)
-     */
+      Apply middleware to all pages except:
+      * /api/auth (exclude all NextAuth routes)
+      * /api/sso (exclude sso jump off routes)
+      * /session-logout (exclude session logout route)
+      * /session-timeout (exclude session timeout route)
+      * /sso-failure (exclude the SSO routes)
+      * /favicon.ico
+      * /assets (exclude the assets like icons)
+      * /js (exclude bundled javascript)
+      * /css (exclude bundled style sheets)
+      * /_next/* (exclude Next.js assets, e.g., /_next/static/*)
+      */
     "/((?!api/auth|api/sso|session-logout|session-timeout|sso-failure|favicon.ico|assets|js|css|_next).*)",
   ],
 };
