@@ -28,6 +28,8 @@ locals {
     NHS_LOGIN_URL   = "https://auth.sandpit.signin.nhs.uk"
     NHS_LOGIN_SCOPE = "openid profile"
 
+    MAX_SESSION_AGE_MINUTES = 59
+
     AUTH_TRUST_HOST = "true"
     AUTH_SECRET     = random_password.auth_secret.result
     APP_VERSION     = local.app_version

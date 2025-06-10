@@ -8,10 +8,9 @@ import { isValidSignIn } from "@src/utils/auth/callbacks/is-valid-signin";
 import { getToken } from "@src/utils/auth/callbacks/get-token";
 import { getUpdatedSession } from "@src/utils/auth/callbacks/get-updated-session";
 
-const MAX_SESSION_AGE_SECONDS: number = 12 * 60 * 60; // 12 hours of continuous usage
-
 export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
   const config: AppConfig = await configProvider();
+  const MAX_SESSION_AGE_SECONDS: number = config.MAX_SESSION_AGE_MINUTES * 60;
 
   return {
     providers: [await NHSLoginAuthProvider()],
@@ -24,7 +23,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
     },
     session: {
       strategy: "jwt",
-      maxAge: MAX_SESSION_AGE_SECONDS, // 12 hours of continuous usage
+      maxAge: MAX_SESSION_AGE_SECONDS,
     },
     trustHost: true,
     callbacks: {

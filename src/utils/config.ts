@@ -12,6 +12,7 @@ type AppConfig = {
   NHS_LOGIN_PRIVATE_KEY: string;
   NBS_URL: string;
   NBS_BOOKING_PATH: string;
+  MAX_SESSION_AGE_MINUTES: number;
 };
 
 const configProvider = async (): Promise<AppConfig> => {
@@ -54,6 +55,9 @@ const configProvider = async (): Promise<AppConfig> => {
     NBS_BOOKING_PATH: await getFromEnvironmentOrSSM(
       SSM_PREFIX,
       "NBS_BOOKING_PATH",
+    ),
+    MAX_SESSION_AGE_MINUTES: Number(
+      await getFromEnvironmentOrSSM(SSM_PREFIX, "MAX_SESSION_AGE_MINUTES"),
     ),
   };
 };
