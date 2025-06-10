@@ -72,6 +72,14 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
             </div>
           )}
 
+          {vaccineType === VaccineTypes.RSV_PREGNANCY && (
+            <Details
+              title={EXPANDER_HEADINGS.HOW_TO_GET_VACCINE}
+              component={styledVaccineContent.howToGetVaccine.component}
+              notExpandable={true}
+            />
+          )}
+
           {vaccineType === VaccineTypes.RSV && (
             <NBSBookingButton vaccineType={vaccineType} />
           )}
@@ -91,10 +99,12 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
               title={EXPANDER_HEADINGS.WHO_SHOULD_HAVE_VACCINE}
               component={styledVaccineContent.whoVaccineIsFor.component}
             />
-            <Details
-              title={EXPANDER_HEADINGS.HOW_TO_GET_VACCINE}
-              component={styledVaccineContent.howToGetVaccine.component}
-            />
+            {vaccineType !== VaccineTypes.RSV_PREGNANCY && (
+              <Details
+                title={EXPANDER_HEADINGS.HOW_TO_GET_VACCINE}
+                component={styledVaccineContent.howToGetVaccine.component}
+              />
+            )}
           </div>
           <p>
             <a
