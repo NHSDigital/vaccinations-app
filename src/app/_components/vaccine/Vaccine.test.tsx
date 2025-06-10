@@ -8,7 +8,7 @@ import {
 import { render, screen } from "@testing-library/react";
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import { EligibilityStatus } from "@src/services/eligibility-api/types";
-import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-reader-service";
+import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-filter-service";
 import { mockStyledEligibility } from "@test-data/eligibility-api/data";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
