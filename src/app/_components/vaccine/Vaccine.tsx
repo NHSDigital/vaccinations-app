@@ -50,17 +50,6 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
           <h1 className="app-dynamic-page-title__heading">{`${VaccineInfo[vaccineType].heading}`}</h1>
           <p data-testid="overview-text">{styledVaccineContent.overview}</p>
 
-          {eligibilityStatus === EligibilityStatus.NOT_ELIGIBLE && (
-            <NonUrgentCareCard
-              heading={<div>{styledEligibilityContent.heading}</div>}
-              content={
-                <div className={styles.zeroMarginBottom}>
-                  {styledEligibilityContent.content}
-                </div>
-              }
-            />
-          )}
-
           {vaccineInfo.overviewInsetText && (
             <div data-testid="overview-inset-text">
               <InsetText
@@ -75,6 +64,31 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
                 }
               />
             </div>
+          )}
+
+          {eligibilityStatus === EligibilityStatus.NOT_ELIGIBLE && (
+            <NonUrgentCareCard
+              heading={<div>{styledEligibilityContent.heading}</div>}
+              content={
+                <div className={styles.zeroMarginBottom}>
+                  {styledEligibilityContent.content}
+                </div>
+              }
+            />
+          )}
+
+          {vaccineType === VaccineTypes.RSV_PREGNANCY && (
+            <NonUrgentCareCard
+              heading={<div>The RSV vaccine is recommended if you:</div>}
+              content={
+                <div className={styles.zeroMarginBottom}>
+                  <ul>
+                    <li>are over 28 weeks pregnant</li>
+                    <li>have not had the vaccine during this pregnancy</li>
+                  </ul>
+                </div>
+              }
+            />
           )}
 
           {vaccineType === VaccineTypes.RSV_PREGNANCY && (

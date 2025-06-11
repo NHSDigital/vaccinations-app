@@ -1,15 +1,15 @@
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
+import { ContentErrorTypes } from "@src/services/content-api/types";
+import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-filter-service";
+import { EligibilityStatus } from "@src/services/eligibility-api/types";
 import {
   mockStyledContent,
   mockStyledContentWithoutWhatSection,
 } from "@test-data/content-api/data";
-import { render, screen } from "@testing-library/react";
-import { ContentErrorTypes } from "@src/services/content-api/types";
-import { EligibilityStatus } from "@src/services/eligibility-api/types";
-import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-filter-service";
 import { mockStyledEligibility } from "@test-data/eligibility-api/data";
+import { render, screen } from "@testing-library/react";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 jest.mock("@src/services/eligibility-api/gateway/eligibility-filter-service");
@@ -89,6 +89,18 @@ describe("Any vaccine page", () => {
       });
 
       expect(moreInfoHeading).toBeInTheDocument();
+    });
+
+    it("should display inset text for rsv in pregnancy", async () => {
+      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
+
+      const recommendedBlock = screen
+        .getAllByRole("heading", { level: 3 })
+        .at(0);
+      expect(recommendedBlock).toHaveClass("nhsuk-card--care__heading");
+      expect(recommendedBlock?.innerHTML).toContain(
+        "The RSV vaccine is recommended if you:",
+      );
     });
 
     it("should display whatItIsFor expander block", async () => {
