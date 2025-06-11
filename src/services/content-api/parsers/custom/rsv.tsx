@@ -6,7 +6,11 @@ import type {
 import sanitiseHtml from "@src/utils/sanitise-html";
 import React from "react";
 
-const styleHowToGetSubsection = (
+const olderAdultsRegExp: RegExp =
+  /<h3>If you're aged 75 to 79<\/h3>((?:\s*<p>.*?<\/p>)+)/i;
+const paragraphsRegExp: RegExp = /<p>.*?<\/p>/g;
+
+export const styleHowToGetSubsection = (
   subsection: VaccinePageSubsection,
   index: number,
 ) => {
@@ -14,25 +18,20 @@ const styleHowToGetSubsection = (
     return <></>;
   }
 
-  const match = subsection.text.match(
-    /<h3>If you're aged 75 to 79<\/h3>((?:\s*<p>.*?<\/p>)+)/i,
-  );
+  const olderAdultsMatches = olderAdultsRegExp.exec(subsection.text);
+  if (!olderAdultsMatches) return <></>;
 
-  if (match) {
-    const paragraphs = match[1].match(/<p>.*?<\/p>/g);
-    return (
-      paragraphs && (
-        <div
-          key={index}
-          dangerouslySetInnerHTML={{
-            __html: sanitiseHtml(paragraphs.join("\n")),
-          }}
-        />
-      )
-    );
-  } else {
-    return <></>;
-  }
+  const paragraphsMatches = olderAdultsMatches[1].match(paragraphsRegExp);
+  if (!paragraphsMatches) return <></>;
+
+  return (
+    <div
+      key={index}
+      dangerouslySetInnerHTML={{
+        __html: sanitiseHtml(paragraphsMatches.join("")),
+      }}
+    />
+  );
 };
 
 export const styleHowToGetSectionForRsv = (

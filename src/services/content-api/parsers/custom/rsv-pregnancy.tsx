@@ -6,7 +6,11 @@ import type {
 import sanitiseHtml from "@src/utils/sanitise-html";
 import React from "react";
 
-const styleHowToGetSubsection = (
+const rsvInPregnancyRegExp: RegExp =
+  /<h3>If you're pregnant<\/h3>((?:\s*<p>.*?<\/p>)+)/i;
+const paragraphsRegExp: RegExp = /<p>.*?<\/p>/g;
+
+export const styleHowToGetSubsection = (
   subsection: VaccinePageSubsection,
   index: number,
 ) => {
@@ -14,28 +18,28 @@ const styleHowToGetSubsection = (
     return <></>;
   }
 
-  const match = subsection.text.match(
-    /<h3>If you're pregnant<\/h3>((?:\s*<p>.*?<\/p>)+)/i,
-  );
+  const rsvInPregnancyMatches = rsvInPregnancyRegExp.exec(subsection.text);
+  if (!rsvInPregnancyMatches) return <></>;
 
-  if (match) {
-    const paragraphs = match[1].match(/<p>.*?<\/p>/g);
-    paragraphs?.push(
-      "<p>In some areas you can also <a href='#nhs-pregnancy' target='_blank' rel='noopener'>book an RSV vaccination in a pharmacy</a>.</p>",
-    );
-    return (
-      paragraphs && (
-        <div
-          key={index}
-          dangerouslySetInnerHTML={{
-            __html: sanitiseHtml(paragraphs.join("\n")),
-          }}
-        />
-      )
-    );
-  } else {
-    return <></>;
-  }
+  const paragraphsMatches = rsvInPregnancyMatches[1].match(paragraphsRegExp);
+  if (!paragraphsMatches) return <></>;
+
+  return (
+    <div key={index}>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: sanitiseHtml(paragraphsMatches.join("")),
+        }}
+      />
+      <p>
+        In some areas you can also{" "}
+        <a href="#" target="_blank" rel="noopener">
+          book an RSV vaccination in a pharmacy
+        </a>
+        .
+      </p>
+    </div>
+  );
 };
 
 export const styleHowToGetSectionForRsvPregnancy = (
