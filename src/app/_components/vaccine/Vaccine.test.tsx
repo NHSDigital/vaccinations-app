@@ -3,18 +3,20 @@ import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-filter-service";
-import { EligibilityStatus } from "@src/services/eligibility-api/types";
 import {
   mockStyledContent,
   mockStyledContentWithoutWhatSection,
 } from "@test-data/content-api/data";
-import { mockStyledEligibility } from "@test-data/eligibility-api/data";
 import { render, screen } from "@testing-library/react";
+import { mockEligibilityForPerson } from "@test-data/eligibility-api/data";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 jest.mock("@src/services/eligibility-api/gateway/eligibility-filter-service");
 jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
   NBSBookingAction: () => <div>NBS Booking Link Test</div>,
+}));
+jest.mock("@src/app/_components/eligibility/Eligibility", () => ({
+  Eligibility: () => <div>Eligibility component test</div>,
 }));
 
 describe("Any vaccine page", () => {
@@ -31,9 +33,9 @@ describe("Any vaccine page", () => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
         styledVaccineContent: mockStyledContent,
       });
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
-        styledEligibilityContent: mockStyledEligibility,
-      });
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue(
+        mockEligibilityForPerson,
+      );
     });
 
     it("should display overview inset text if defined for vaccine", async () => {
@@ -175,48 +177,6 @@ describe("Any vaccine page", () => {
     });
   });
 
-  describe("when eligible", () => {
-    beforeEach(() => {
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
-        eligibilityStatus: EligibilityStatus.ELIGIBLE_BOOKABLE,
-        styledEligibilityContent: mockStyledEligibility,
-      });
-    });
-
-    it("should not show the care card", async () => {
-      await renderRsvVaccinePage();
-
-      const careCard = screen.queryByTestId("non-urgent-care-card");
-      expect(careCard).toBeNull();
-    });
-  });
-
-  describe("when not eligible", () => {
-    beforeEach(() => {
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
-        eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
-        styledEligibilityContent: mockStyledEligibility,
-      });
-      (getContentForVaccine as jest.Mock).mockResolvedValue({
-        styledVaccineContent: mockStyledContent,
-      });
-    });
-
-    it("should show the care card for RSV", async () => {
-      await renderRsvVaccinePage();
-
-      const careCard = screen.getByTestId("non-urgent-care-card");
-      expect(careCard).toContainHTML(mockStyledEligibility.heading);
-    });
-
-    it("should not show the care card for RSV in pregnancy", async () => {
-      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
-
-      const careCard = screen.queryByTestId("non-urgent-care-card");
-      expect(careCard).not.toContainHTML(mockStyledEligibility.heading);
-    });
-  });
-
   describe("when content load fails", () => {
     beforeEach(() => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
@@ -255,9 +215,9 @@ describe("Any vaccine page", () => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
         styledVaccineContent: mockStyledContent,
       });
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
-        styledEligibilityContent: mockStyledEligibility,
-      });
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue(
+        mockEligibilityForPerson,
+      );
     });
 
     it("should display the booking link button for RSV", async () => {

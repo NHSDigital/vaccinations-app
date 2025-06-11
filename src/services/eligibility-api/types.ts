@@ -1,26 +1,44 @@
 export enum EligibilityStatus {
-  NOT_ELIGIBLE,
-  ALREADY_VACCINATED,
-  NOT_ACTIONABLE_MANAGED_SETTING,
-  ELIGIBLE_BOOKABLE,
-  ELIGIBLE_HAVE_NBS_BOOKING,
-  ELIGIBLE_HAVE_PROVIDER_BOOKING,
-  NOT_ACTIONABLE_OUT_OF_AREA,
+  NOT_ELIGIBLE = "NotEligible",
+  ALREADY_VACCINATED = "AlreadyVaccinated",
+  ACTIONABLE = "Actionable",
+  NOT_ACTIONABLE_MANAGED_SETTING = "NotActionableManagedSetting",
+  NOT_ACTIONABLE_OUT_OF_AREA = "NotActionableOutOfArea",
+  ELIGIBLE_BOOKABLE = "EligibleBookable",
+  ELIGIBLE_HAVE_NBS_BOOKING = "EligibleHaveNBSBooking",
+  ELIGIBLE_HAVE_PROVIDER_BOOKING = "EligibleHaveProviderBooking",
+  EMPTY = "Empty",
 }
+
+export type EligibilityContent = {
+  status: StatusContent;
+};
+
+type StatusContent = {
+  heading: string;
+  introduction: string;
+  points: string[];
+};
+
+// export const EligibilityStatusMap = {
+//   "NotEligible": EligibilityStatus.NOT_ELIGIBLE,
+//   "AlreadyVaccinated": EligibilityStatus.ALREADY_VACCINATED,
+//   "Actionable": EligibilityStatus.ACTIONABLE,
+//   "NotActionableManagedSetting": EligibilityStatus.NOT_ACTIONABLE_MANAGED_SETTING,
+//   "NotActionableOutOfArea": EligibilityStatus.NOT_ACTIONABLE_OUT_OF_AREA,
+//   "EligibleBookable": EligibilityStatus.ELIGIBLE_BOOKABLE,
+//   "EligibleHaveNBSBooking": EligibilityStatus.ELIGIBLE_HAVE_NBS_BOOKING,
+//   "EligibleHaveProviderBooking": EligibilityStatus.ELIGIBLE_HAVE_PROVIDER_BOOKING,
+// }
 
 export enum EligibilityErrorTypes {
   ELIGIBILITY_LOADING_ERROR,
 }
 
-export type GetEligibilityForPersonResponse = {
+export type EligibilityForPerson = {
   eligibilityStatus: EligibilityStatus;
-  styledEligibilityContent?: StyledEligibilityContent;
+  eligibilityContent?: EligibilityContent;
   eligibilityError?: EligibilityErrorTypes;
-};
-
-export type StyledEligibilityContent = {
-  heading: string;
-  content: string;
 };
 
 // Downstream API
@@ -34,7 +52,7 @@ type LastUpdated = {
   lastUpdated: string;
 };
 
-type ProcessedSuggestion = {
+export type ProcessedSuggestion = {
   condition: string;
   status: Status;
   statusText: string;
@@ -43,7 +61,7 @@ type ProcessedSuggestion = {
 
 type Status = "NotEligible" | "NotActionable" | "Actionable";
 
-type EligibilityCohort = {
+export type EligibilityCohort = {
   cohortCode: string;
   cohortText: string;
   cohortStatus: string;
