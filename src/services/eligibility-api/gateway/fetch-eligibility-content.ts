@@ -1,11 +1,14 @@
 import { AppConfig, configProvider } from "@src/utils/config";
 import axios, { AxiosResponse } from "axios";
 import { logger } from "@src/utils/logger";
+import { EligibilityApiResponse } from "@src/services/eligibility-api/types";
 
 const log = logger.child({ module: "fetch-eligibility-content" });
-const ELIGIBILITY_API_PATH_SUFFIX = "patient-check";
+const ELIGIBILITY_API_PATH_SUFFIX = "eligibility-signposting-api/patient-check";
 
-export const fetchEligibilityContent = async (nhsNumber: string) => {
+export const fetchEligibilityContent = async (
+  nhsNumber: string,
+): Promise<EligibilityApiResponse> => {
   const config: AppConfig = await configProvider();
 
   const apiEndpoint: string = config.ELIGIBILITY_API_ENDPOINT;

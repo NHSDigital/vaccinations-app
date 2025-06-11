@@ -8,11 +8,7 @@ import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
 import { VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
-import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-filter-service";
-import {
-  EligibilityErrorTypes,
-  EligibilityStatus,
-} from "@src/services/eligibility-api/types";
+import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
 
 import React, { JSX } from "react";
 import styles from "./styles.module.css";
@@ -28,22 +24,15 @@ const EXPANDER_HEADINGS = {
 };
 
 const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
-  const [
-    { styledVaccineContent, contentError },
-    { eligibilityStatus, styledEligibilityContent, eligibilityError },
-  ] = await Promise.all([
-    getContentForVaccine(vaccineType),
-    getEligibilityForPerson("dummy", vaccineType),
-  ]);
+  const { styledVaccineContent, contentError } =
+    await getContentForVaccine(vaccineType);
 
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
 
   return (
     <div className={styles.tableCellSpanHide}>
       {contentError === ContentErrorTypes.CONTENT_LOADING_ERROR ||
-      styledVaccineContent === undefined ||
-      eligibilityError === EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR ||
-      styledEligibilityContent === undefined ? (
+      styledVaccineContent === undefined ? (
         <VaccineError vaccineType={vaccineType} />
       ) : (
         <div>
@@ -71,17 +60,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
           )}
 
           {/* Personalised eligibility section for RSV */}
-          {eligibilityStatus === EligibilityStatus.NOT_ELIGIBLE &&
-            vaccineType === VaccineTypes.RSV && (
-              <NonUrgentCareCard
-                heading={<div>{styledEligibilityContent.heading}</div>}
-                content={
-                  <div className={styles.zeroMarginBottom}>
-                    {styledEligibilityContent.content}
-                  </div>
-                }
-              />
-            )}
+          <Eligibility vaccineType={vaccineType} />
 
           {/* Static eligibility section for RSV in pregnancy */}
           {vaccineType === VaccineTypes.RSV_PREGNANCY && (
