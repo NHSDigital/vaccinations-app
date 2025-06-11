@@ -1,21 +1,21 @@
 "use server";
 
-import styles from "./styles.module.css";
-
-import React, { JSX } from "react";
+import { NBSBookingButton } from "@src/app/_components/nbs/NBSBookingButton";
 import Details from "@src/app/_components/nhs-frontend/Details";
-import { VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
-import { ContentErrorTypes } from "@src/services/content-api/types";
-import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
 import InsetText from "@src/app/_components/nhs-frontend/InsetText";
+import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
+import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
+import { VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
+import { ContentErrorTypes } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-filter-service";
 import {
   EligibilityErrorTypes,
   EligibilityStatus,
 } from "@src/services/eligibility-api/types";
-import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
-import { NBSBookingButton } from "@src/app/_components/nbs/NBSBookingButton";
+
+import React, { JSX } from "react";
+import styles from "./styles.module.css";
 
 interface VaccineProps {
   vaccineType: VaccineTypes;
@@ -47,9 +47,13 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
         <VaccineError vaccineType={vaccineType} />
       ) : (
         <div>
+          {/* Page heading - H1 */}
           <h1 className="app-dynamic-page-title__heading">{`${VaccineInfo[vaccineType].heading}`}</h1>
+
+          {/* Overview paragraph */}
           <p data-testid="overview-text">{styledVaccineContent.overview}</p>
 
+          {/* Cross-linking of related pages */}
           {vaccineInfo.overviewInsetText && (
             <div data-testid="overview-inset-text">
               <InsetText
@@ -66,17 +70,20 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
             </div>
           )}
 
-          {eligibilityStatus === EligibilityStatus.NOT_ELIGIBLE && (
-            <NonUrgentCareCard
-              heading={<div>{styledEligibilityContent.heading}</div>}
-              content={
-                <div className={styles.zeroMarginBottom}>
-                  {styledEligibilityContent.content}
-                </div>
-              }
-            />
-          )}
+          {/* Personalised eligibility section for RSV */}
+          {eligibilityStatus === EligibilityStatus.NOT_ELIGIBLE &&
+            vaccineType === VaccineTypes.RSV && (
+              <NonUrgentCareCard
+                heading={<div>{styledEligibilityContent.heading}</div>}
+                content={
+                  <div className={styles.zeroMarginBottom}>
+                    {styledEligibilityContent.content}
+                  </div>
+                }
+              />
+            )}
 
+          {/* Static eligibility section for RSV in pregnancy */}
           {vaccineType === VaccineTypes.RSV_PREGNANCY && (
             <NonUrgentCareCard
               heading={<div>The RSV vaccine is recommended if you:</div>}
@@ -91,6 +98,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
             />
           )}
 
+          {/* How-to-get-vaccine section for RSV in pregnancy */}
           {vaccineType === VaccineTypes.RSV_PREGNANCY && (
             <Details
               title={EXPANDER_HEADINGS.HOW_TO_GET_VACCINE}
@@ -99,25 +107,34 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
             />
           )}
 
+          {/* NBS booking button action for RSV */}
           {vaccineType === VaccineTypes.RSV && (
             <NBSBookingButton vaccineType={vaccineType} />
           )}
 
+          {/* Sections heading - H2 */}
           <h2 className="nhsuk-heading-s">
             More information about the {vaccineInfo.displayName.lowercase}{" "}
             vaccine
           </h2>
+
+          {/* Expandable sections */}
           <div className="nhsuk-expander-group">
-            {styledVaccineContent.whatVaccineIsFor ? (
+            {/* What-vaccine-is-for expandable section */}
+            {styledVaccineContent.whatVaccineIsFor && (
               <Details
                 title={EXPANDER_HEADINGS.WHAT_VACCINE_IS_FOR}
                 component={styledVaccineContent.whatVaccineIsFor.component}
               />
-            ) : undefined}
+            )}
+
+            {/* Who-vaccine-is-for expandable section */}
             <Details
               title={EXPANDER_HEADINGS.WHO_SHOULD_HAVE_VACCINE}
               component={styledVaccineContent.whoVaccineIsFor.component}
             />
+
+            {/* How-to-get-vaccine expandable section for all vaccines except RSV in pregnancy */}
             {vaccineType !== VaccineTypes.RSV_PREGNANCY && (
               <Details
                 title={EXPANDER_HEADINGS.HOW_TO_GET_VACCINE}
@@ -125,6 +142,8 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
               />
             )}
           </div>
+
+          {/* More information on nhs.uk link */}
           <p>
             <a
               href={styledVaccineContent.webpageLink}

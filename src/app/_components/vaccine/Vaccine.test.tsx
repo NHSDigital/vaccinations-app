@@ -214,13 +214,23 @@ describe("Any vaccine page", () => {
         eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
         styledEligibilityContent: mockStyledEligibility,
       });
+      (getContentForVaccine as jest.Mock).mockResolvedValue({
+        styledVaccineContent: mockStyledContent,
+      });
     });
 
-    it("should show the care card", async () => {
+    it("should show the care card for RSV", async () => {
       await renderRsvVaccinePage();
 
       const careCard = screen.getByTestId("non-urgent-care-card");
-      expect(careCard).toBeInTheDocument();
+      expect(careCard).toContainHTML(mockStyledEligibility.heading);
+    });
+
+    it("should not show the care card for RSV in pregnancy", async () => {
+      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
+
+      const careCard = screen.queryByTestId("non-urgent-care-card");
+      expect(careCard).not.toContainHTML(mockStyledEligibility.heading);
     });
   });
 
