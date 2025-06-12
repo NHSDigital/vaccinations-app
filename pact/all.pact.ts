@@ -28,6 +28,10 @@ describe('Content API contract', () => {
 
     expect(actualVaccineContent).toEqual(expectedVaccineContent);
     expect(actualLastReviewed).toEqual(expect.any(Array)); // replace with line below after jest30
+    expect(actualLastReviewed.length).toBeGreaterThan(0);
+    actualLastReviewed.map((lastReviewedDate: any) => {
+      expect(lastReviewedDate).toEqual(expect.any(String));
+    });
     // expect(actualLastReviewed).toEqual(expect.arrayOf(expect.any(String))); // New arrayOf assertion will be available in Jest v30
   };
 });
