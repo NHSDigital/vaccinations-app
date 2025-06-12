@@ -14,6 +14,11 @@ const vaccineUrlPathToType: Record<VaccineContentUrlPaths, VaccineTypes> = {
   [VaccineContentUrlPaths.RSV]: VaccineTypes.RSV,
   [VaccineContentUrlPaths.RSV_PREGNANCY]: VaccineTypes.RSV_PREGNANCY,
 };
+// maps vaccine type to url path (one to one)
+const vaccineTypeToUrlPath: Record<VaccineTypes, VaccineContentUrlPaths> = {
+  [VaccineTypes.RSV]: VaccineContentUrlPaths.RSV,
+  [VaccineTypes.RSV_PREGNANCY]: VaccineContentUrlPaths.RSV_PREGNANCY,
+};
 
 export type VaccineDetails = {
   displayName: displayName;
@@ -50,4 +55,5 @@ export {
   VaccineInfo,
   VaccineContentUrlPaths,
   vaccineUrlPathToType,
+  vaccineTypeToUrlPath,
 };
