@@ -1,3 +1,5 @@
+import { SSO_TO_NBS_ROUTE } from "@src/app/api/sso-to-nbs/constants";
+import { VaccineTypes, vaccineTypeToUrlPath } from "@src/models/vaccine";
 import type {
   StyledPageSection,
   VaccinePageSection,
@@ -33,7 +35,11 @@ export const styleHowToGetSubsection = (
       />
       <p>
         In some areas you can also{" "}
-        <a href="#" target="_blank" rel="noopener">
+        <a
+          href={`${SSO_TO_NBS_ROUTE}?vaccine=${vaccineTypeToUrlPath[VaccineTypes.RSV_PREGNANCY]}`}
+          target="_blank"
+          rel="noopener"
+        >
           book an RSV vaccination in a pharmacy
         </a>
         .
