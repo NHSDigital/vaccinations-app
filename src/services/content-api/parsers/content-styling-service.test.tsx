@@ -247,7 +247,7 @@ describe("ContentStylingService", () => {
         );
 
         const expectedRsvSection = "<div><p>para1</p><p>para2</p></div>";
-        const expectedRsvPregnancySection = `<div><div><p>para3</p><p>para4</p></div><p>In some areas you can also <a href="#" target="_blank" rel="noopener">book an RSV vaccination in a pharmacy</a>.</p></div>`;
+        const expectedRsvPregnancySection = `<div><div><p>para3</p><p>para4</p></div><p>In some areas you can also <a href="/api/sso-to-nbs?vaccine=rsv-pregnancy" target="_blank" rel="noopener">book an RSV vaccination in a pharmacy</a>.</p></div>`;
         const { container } = render(
           styledVaccineContent.howToGetVaccine.component,
         );
