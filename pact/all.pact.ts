@@ -1,37 +1,62 @@
 import axios, { AxiosResponse } from "axios";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 import { readFile } from "node:fs/promises";
+import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 
-describe('Content API contract', () => {
-  beforeAll(async () => {
-    dotenv.config({path: ".env.local"});
-  });
-
-  it("should match RSV Vaccine Content tolerating changes in LastReviewed dates", async () => {
-    const actualEndpoint = process.env["CONTENT_API_ENDPOINT"] + "/nhs-website-content/vaccinations/rsv-vaccine";
-    const expected = JSON.parse(await readFile("wiremock/__files/rsv-vaccine.json", { encoding: "utf8" }));
-
-    const response: AxiosResponse = await axios.get(actualEndpoint,
-      {
-        headers: {
-          accept: "application/json",
-          apikey: process.env["CONTENT_API_KEY"]
-        }
-      });
-
-    expectResponseMatchesWithAnyValueForLastReviewed(response.data, expected);
-  });
-
-  const expectResponseMatchesWithAnyValueForLastReviewed = (actualVaccineData: any, expectedVaccineData: any) => {
-    const {lastReviewed: expectedLastReviewed, ...expectedVaccineContent} = expectedVaccineData;
-    const {lastReviewed: actualLastReviewed, ...actualVaccineContent} = actualVaccineData;
-
-    expect(actualVaccineContent).toEqual(expectedVaccineContent);
-    expect(actualLastReviewed).toEqual(expect.any(Array)); // replace with line below after jest30
-    expect(actualLastReviewed.length).toBeGreaterThan(0);
-    actualLastReviewed.map((lastReviewedDate: any) => {
-      expect(lastReviewedDate).toEqual(expect.any(String));
+const callContentApiRSVEndpoint = async () => {
+  const contentEndpoint = process.env["CONTENT_API_ENDPOINT"] + "/nhs-website-content/vaccinations/rsv-vaccine";
+  const response: AxiosResponse<string, any> = await axios.get(contentEndpoint,
+    {
+      headers: {
+        accept: "application/json",
+        apikey: process.env["CONTENT_API_KEY"]
+      }
     });
-    // expect(actualLastReviewed).toEqual(expect.arrayOf(expect.any(String))); // New arrayOf assertion will be available in Jest v30
-  };
+  return response;
+};
+
+describe("Content API contract", () => {
+  beforeAll(async () => {
+    dotenv.config({ path: ".env.local" });
+  });
+
+  describe("compared to previous cached response", () => {
+    it("should not contain any changes in RSV Vaccine except for LastReviewed dates", async () => {
+      const expected = JSON.parse(await readFile("wiremock/__files/rsv-vaccine.json", { encoding: "utf8" }));
+
+      const contentApiRSVResponse: AxiosResponse = await callContentApiRSVEndpoint();
+
+      expectResponseMatchesWithAnyValueForLastReviewed(contentApiRSVResponse.data, expected);
+    });
+
+    const expectResponseMatchesWithAnyValueForLastReviewed = (actualVaccineData: any, expectedVaccineData: any) => {
+      const { lastReviewed: expectedLastReviewed, ...expectedVaccineContent } = expectedVaccineData;
+      const { lastReviewed: actualLastReviewed, ...actualVaccineContent } = actualVaccineData;
+
+      expect(actualVaccineContent).toEqual(expectedVaccineContent);
+      expect(actualLastReviewed).toEqual(expect.any(Array));
+      expect(actualLastReviewed.length).toBeGreaterThan(0);
+      actualLastReviewed.map((lastReviewedDate: any) => {
+        expect(lastReviewedDate).toEqual(expect.any(String));
+      });
+    };
+
+    it("should not contain any changes in RSV Vaccine fields which are used by VitA", async () => {
+      const expected: string = await readFile("wiremock/__files/rsv-vaccine.json", { encoding: "utf8" });
+      const expectedFilteredContent = getFilteredContentForVaccine(expected);
+
+      const contentApiRSVResponse: AxiosResponse = await callContentApiRSVEndpoint();
+      const contentApiRSVResponseString = JSON.stringify(contentApiRSVResponse.data); // filter service requires content to be in string format
+      const actualFilteredContent = getFilteredContentForVaccine(contentApiRSVResponseString);
+
+      expect(Object.keys(actualFilteredContent).length).toEqual(5); // if developers have added new fields this test will need updating to match
+      expect(actualFilteredContent.overview).toEqual(expectedFilteredContent.overview);
+      expect(actualFilteredContent.howToGetVaccine).toEqual(expectedFilteredContent.howToGetVaccine);
+      expect(actualFilteredContent.whatVaccineIsFor).toEqual(expectedFilteredContent.whatVaccineIsFor);
+      expect(actualFilteredContent.whoVaccineIsFor).toEqual(expectedFilteredContent.whoVaccineIsFor);
+      expect(actualFilteredContent.webpageLink).toEqual(expectedFilteredContent.webpageLink);
+
+      expect(actualFilteredContent).toEqual(expectedFilteredContent);
+    });
+  });
 });

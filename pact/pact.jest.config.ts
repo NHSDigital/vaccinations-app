@@ -5,7 +5,10 @@ const config: Config = {
   preset: 'ts-jest',
   testEnvironment: "node",
   clearMocks: true,
-  testMatch: ["**/*.pact.ts"]
+  testMatch: ["**/*.pact.ts"],
+  moduleNameMapper: {
+    "^@src/(.*)$": "../src/$1"
+  }
 };
 
 export default config;
