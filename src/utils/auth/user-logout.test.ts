@@ -9,7 +9,7 @@ jest.mock("next-auth/react", () => ({
 
 describe("user-logout", () => {
   it("should call signOut to be redirected to logout page by default", async () => {
-    userLogout();
+    await userLogout();
 
     expect(signOut).toHaveBeenCalledWith({
       redirect: true,
@@ -18,7 +18,7 @@ describe("user-logout", () => {
   });
 
   it("should call signOut to be redirected to timeout page given reason", async () => {
-    userLogout(true);
+    await userLogout(true);
 
     expect(signOut).toHaveBeenCalledWith({
       redirect: true,
