@@ -87,7 +87,7 @@ const getContentForVaccine = async (
 
     // filter and style content
     const filteredContent: VaccinePageContent =
-      await getFilteredContentForVaccine(vaccineType, vaccineContent);
+      getFilteredContentForVaccine(vaccineContent);
     const styledVaccineContent: StyledVaccineContent =
       await getStyledContentForVaccine(vaccineType, filteredContent);
 

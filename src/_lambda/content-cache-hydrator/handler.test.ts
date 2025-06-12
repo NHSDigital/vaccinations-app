@@ -29,9 +29,9 @@ describe("Lambda Handler", () => {
 
   it("returns 500 when cache hydration has failed due to filtering invalid content errors", async () => {
     (fetchContentForVaccine as jest.Mock).mockResolvedValue(undefined);
-    (getFilteredContentForVaccine as jest.Mock).mockRejectedValue(
-      new Error("test"),
-    );
+    (getFilteredContentForVaccine as jest.Mock).mockImplementation(() => {
+      throw new Error("test");
+    });
     await expect(handler({})).rejects.toThrow(`${numberOfVaccines} failures`);
   });
 

@@ -1,4 +1,3 @@
-import { VaccineTypes } from "@src/models/vaccine";
 import {
   ContentApiVaccineResponse,
   HasPartSubsection,
@@ -205,10 +204,9 @@ function _extractHeadlineForContraindicationsAspect(
   ];
 }
 
-const getFilteredContentForVaccine = async (
-  vaccineName: VaccineTypes,
+const getFilteredContentForVaccine = (
   apiContent: string,
-): Promise<VaccinePageContent> => {
+): VaccinePageContent => {
   const content: ContentApiVaccineResponse = JSON.parse(apiContent);
   const overview: string = _extractDescriptionForVaccine(
     content,

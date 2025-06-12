@@ -17,7 +17,7 @@ export const handler = async (event: object): Promise<void> => {
       const content: string = await fetchContentForVaccine(vaccine);
       log.info(`Calling getFilteredContentForVaccine(${vaccine})`);
       const filteredContent: VaccinePageContent =
-        await getFilteredContentForVaccine(vaccine, content);
+        getFilteredContentForVaccine(content);
       log.info(`Calling getStyledContentForVaccine(${vaccine})`);
       await getStyledContentForVaccine(vaccine, filteredContent);
       await writeContentForVaccine(vaccine, content);

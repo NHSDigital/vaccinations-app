@@ -9,7 +9,6 @@ import {
   _removeExcludedHyperlinks,
 } from "@src/services/content-api/parsers/content-filter-service";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
-import { VaccineTypes } from "@src/models/vaccine";
 import { contentWithoutBenefitsHealthAspect } from "@test-data/content-api/helpers";
 import {
   ContentApiVaccineResponse,
@@ -581,15 +580,14 @@ describe("Content Filter", () => {
         overview: "Generic Vaccine Lead Paragraph (overview)",
       };
 
-      const pageCopyForRsv = await getFilteredContentForVaccine(
-        VaccineTypes.RSV,
+      const pageCopyForRsv = getFilteredContentForVaccine(
         JSON.stringify(genericVaccineContentAPIResponse),
       );
 
       expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedOverview));
     });
 
-    it("should return all parts for whatVaccineIsFor section", async () => {
+    it("should return all parts for whatVaccineIsFor section", () => {
       const expectedWhatVaccineIsFor = {
         whatVaccineIsFor: {
           headline: "Benefits Health Aspect headline",
@@ -604,8 +602,7 @@ describe("Content Filter", () => {
         },
       };
 
-      const pageCopyForRsv = await getFilteredContentForVaccine(
-        VaccineTypes.RSV,
+      const pageCopyForRsv = getFilteredContentForVaccine(
         JSON.stringify(genericVaccineContentAPIResponse),
       );
 
@@ -614,7 +611,7 @@ describe("Content Filter", () => {
       );
     });
 
-    it("should return all parts for whoVaccineIsFor section", async () => {
+    it("should return all parts for whoVaccineIsFor section", () => {
       const expectedWhoVaccineIsFor = {
         whoVaccineIsFor: {
           headline: "Who should have this vaccine",
@@ -653,8 +650,7 @@ describe("Content Filter", () => {
         },
       };
 
-      const pageCopyForRsv = await getFilteredContentForVaccine(
-        VaccineTypes.RSV,
+      const pageCopyForRsv = getFilteredContentForVaccine(
         JSON.stringify(genericVaccineContentAPIResponse),
       );
 
@@ -663,7 +659,7 @@ describe("Content Filter", () => {
       );
     });
 
-    it("should return all parts for howToGetVaccine section", async () => {
+    it("should return all parts for howToGetVaccine section", () => {
       const expectedHowToGetVaccine = {
         howToGetVaccine: {
           headline: "Getting Access Health Aspect headline",
@@ -684,8 +680,7 @@ describe("Content Filter", () => {
         },
       };
 
-      const pageCopyForRsv = await getFilteredContentForVaccine(
-        VaccineTypes.RSV,
+      const pageCopyForRsv = getFilteredContentForVaccine(
         JSON.stringify(genericVaccineContentAPIResponse),
       );
 
@@ -694,13 +689,12 @@ describe("Content Filter", () => {
       );
     });
 
-    it("should include nhs webpage link to vaccine info", async () => {
+    it("should include nhs webpage link to vaccine info", () => {
       const expectedWebpageLink = {
         webpageLink: "https://www.nhs.uk/vaccinations/generic-vaccine/",
       };
 
-      const pageCopyForRsv = await getFilteredContentForVaccine(
-        VaccineTypes.RSV,
+      const pageCopyForRsv = getFilteredContentForVaccine(
         JSON.stringify(genericVaccineContentAPIResponse),
       );
 
@@ -709,15 +703,13 @@ describe("Content Filter", () => {
       );
     });
 
-    it("should not return whatVaccineIsFor section when BenefitsHealthAspect is missing", async () => {
+    it("should not return whatVaccineIsFor section when BenefitsHealthAspect is missing", () => {
       const responseWithoutBenefitsHealthAspect =
         contentWithoutBenefitsHealthAspect();
 
-      const pageCopyForFlu: VaccinePageContent =
-        await getFilteredContentForVaccine(
-          VaccineTypes.RSV,
-          JSON.stringify(responseWithoutBenefitsHealthAspect),
-        );
+      const pageCopyForFlu: VaccinePageContent = getFilteredContentForVaccine(
+        JSON.stringify(responseWithoutBenefitsHealthAspect),
+      );
 
       expect(pageCopyForFlu.whatVaccineIsFor).toBeUndefined();
     });
