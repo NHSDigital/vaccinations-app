@@ -1,4 +1,5 @@
 import { Session } from "next-auth";
+import { readFile } from "node:fs/promises";
 
 const mockSession = (): Session => {
   const session: Session = {
@@ -16,4 +17,12 @@ const mockSession = (): Session => {
   return session;
 };
 
-export { mockSession };
+const mockEligibilityApiResponse = async (nhsNumber: string) => {
+  const response = await readFile(
+    `${process.env.MOCK_ELIGIBILITY_CONTENT_PATH}${nhsNumber}.json`,
+    { encoding: "utf8" },
+  );
+  return JSON.parse(response);
+};
+
+export { mockSession, mockEligibilityApiResponse };
