@@ -2,6 +2,8 @@ import { AppConfig, configProvider } from "@src/utils/config";
 import axios, { AxiosResponse } from "axios";
 import { logger } from "@src/utils/logger";
 import { EligibilityApiResponse } from "@src/services/eligibility-api/types";
+import { isMockedEligibilityApi } from "@src/utils/feature-flags";
+import { mockEligibilityApiResponse } from "@src/utils/mocks";
 
 const log = logger.child({ module: "fetch-eligibility-content" });
 const ELIGIBILITY_API_PATH_SUFFIX = "eligibility-signposting-api/patient-check";
@@ -9,6 +11,11 @@ const ELIGIBILITY_API_PATH_SUFFIX = "eligibility-signposting-api/patient-check";
 export const fetchEligibilityContent = async (
   nhsNumber: string,
 ): Promise<EligibilityApiResponse> => {
+  if (await isMockedEligibilityApi()) {
+    const mockResponse = await mockEligibilityApiResponse(nhsNumber);
+    return mockResponse;
+  }
+
   const config: AppConfig = await configProvider();
 
   const apiEndpoint: string = config.ELIGIBILITY_API_ENDPOINT;
