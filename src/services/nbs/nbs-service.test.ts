@@ -1,24 +1,20 @@
 import { AppConfig, configProvider } from "@src/utils/config";
-import { redirectToNBSBookingPageForVaccine } from "@src/services/nbs/nbs-service";
+import { getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
 import { VaccineTypes } from "@src/models/vaccine";
 import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
-import { redirect } from "next/navigation";
 
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
 }));
 jest.mock("@src/utils/config");
 jest.mock("@src/utils/auth/generate-auth-payload");
-jest.mock("next/navigation", () => ({
-  redirect: jest.fn(),
-}));
 
 const nbsUrlFromConfig = "https://test-nbs-url";
 const nbsBookingPathFromConfig = "/test/path/book";
 
 const mockAssertedLoginIdentityJWT = "mock-jwt";
 
-describe("redirectToNBSBookingPageForVaccine", () => {
+describe("getSSOUrlToNBSForVaccine", () => {
   beforeEach(() => {
     (configProvider as jest.Mock).mockImplementation(
       (): Partial<AppConfig> => ({
@@ -32,34 +28,27 @@ describe("redirectToNBSBookingPageForVaccine", () => {
     );
   });
 
-  it("should redirect to the url of NBS configured in config for RSV vaccine", async () => {
-    await redirectToNBSBookingPageForVaccine(VaccineTypes.RSV);
-
-    expect(redirect).toHaveBeenCalled();
-    const redirectCallArgs = (redirect as unknown as jest.Mock).mock
-      .calls[0][0];
-    const nbsRedirectUrl = new URL(redirectCallArgs);
+  it("returns sso url of NBS configured in config for RSV vaccine", async () => {
+    const nbsRedirectUrl = new URL(
+      await getSSOUrlToNBSForVaccine(VaccineTypes.RSV),
+    );
     expect(nbsRedirectUrl.origin).toEqual(nbsUrlFromConfig);
     expect(nbsRedirectUrl.pathname).toEqual(`${nbsBookingPathFromConfig}/rsv`);
   });
 
   it("should include campaignID query param in NBS URL", async () => {
-    await redirectToNBSBookingPageForVaccine(VaccineTypes.RSV);
-
-    const redirectCallArgs = (redirect as unknown as jest.Mock).mock
-      .calls[0][0];
-    const nbsRedirectUrl = new URL(redirectCallArgs);
+    const nbsRedirectUrl = new URL(
+      await getSSOUrlToNBSForVaccine(VaccineTypes.RSV),
+    );
     expect(nbsRedirectUrl.searchParams.get("wt.mc_id")).toEqual(
       expect.any(String),
     );
   });
 
   it("should include assertedLoginIdentity query param in NBS URL", async () => {
-    await redirectToNBSBookingPageForVaccine(VaccineTypes.RSV);
-
-    const redirectCallArgs = (redirect as unknown as jest.Mock).mock
-      .calls[0][0];
-    const nbsRedirectUrl = new URL(redirectCallArgs);
+    const nbsRedirectUrl = new URL(
+      await getSSOUrlToNBSForVaccine(VaccineTypes.RSV),
+    );
     expect(nbsRedirectUrl.searchParams.get("assertedLoginIdentity")).toEqual(
       mockAssertedLoginIdentityJWT,
     );
@@ -72,9 +61,8 @@ describe("redirectToNBSBookingPageForVaccine", () => {
       ),
     );
 
-    await redirectToNBSBookingPageForVaccine(VaccineTypes.RSV);
-
-    expect(redirect).toHaveBeenCalledWith("/sso-failure");
+    const nbsRedirectUrl = await getSSOUrlToNBSForVaccine(VaccineTypes.RSV);
+    expect(nbsRedirectUrl).toBe("/sso-failure");
   });
 
   it("should redirect to SSO failure page if NBS Url config invalid", async () => {
@@ -85,8 +73,7 @@ describe("redirectToNBSBookingPageForVaccine", () => {
       }),
     );
 
-    await redirectToNBSBookingPageForVaccine(VaccineTypes.RSV);
-
-    expect(redirect).toHaveBeenCalledWith("/sso-failure");
+    const nbsRedirectUrl = await getSSOUrlToNBSForVaccine(VaccineTypes.RSV);
+    expect(nbsRedirectUrl).toBe("/sso-failure");
   });
 });

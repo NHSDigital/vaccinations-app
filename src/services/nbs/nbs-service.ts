@@ -3,7 +3,6 @@
 import { AppConfig, configProvider } from "@src/utils/config";
 import { VaccineTypes } from "@src/models/vaccine";
 import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
-import { redirect } from "next/navigation";
 import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 import { Logger } from "pino";
 import { logger } from "@src/utils/logger";
@@ -17,13 +16,16 @@ const NBS_QUERY_PARAMS = {
 
 const PLACEHOLDER_CAMPAIGN_ID = "vita-RSV-booking";
 
-export type VaccinesWithNBSBookingAvailable = VaccineTypes.RSV;
+export type VaccinesWithNBSBookingAvailable =
+  | VaccineTypes.RSV
+  | VaccineTypes.RSV_PREGNANCY;
 
 const nbsVaccinePath: Record<VaccinesWithNBSBookingAvailable, string> = {
   [VaccineTypes.RSV]: "/rsv",
+  [VaccineTypes.RSV_PREGNANCY]: "/rsv",
 };
 
-const redirectToNBSBookingPageForVaccine = async (
+const getSSOUrlToNBSForVaccine = async (
   vaccineType: VaccinesWithNBSBookingAvailable,
 ) => {
   const config: AppConfig = await configProvider();
@@ -46,11 +48,11 @@ const redirectToNBSBookingPageForVaccine = async (
     );
     redirectUrl = nbsURl.toString();
   } catch (error) {
-    log.error(`Error redirecting to NBS: ${error}`);
+    log.error(error, "Error redirecting to NBS");
     redirectUrl = SSO_FAILURE_ROUTE;
   }
 
-  redirect(redirectUrl);
+  return redirectUrl;
 };
 
-export { redirectToNBSBookingPageForVaccine };
+export { getSSOUrlToNBSForVaccine };
