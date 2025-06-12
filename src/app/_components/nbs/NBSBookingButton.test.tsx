@@ -1,23 +1,45 @@
+import { jest } from "@jest/globals";
 import { NBSBookingButton } from "@src/app/_components/nbs/NBSBookingButton";
+import { mockNHSAppJSFunctions } from "@src/utils/nhsapp-js.test";
 import { render, screen } from "@testing-library/react";
-import { redirectToNBSBookingPageForVaccine } from "@src/services/nbs/nbs-service";
 import { VaccineTypes } from "@src/models/vaccine";
 
-jest.mock("@src/services/nbs/nbs-service", () => ({
-  redirectToNBSBookingPageForVaccine: jest.fn(),
-}));
+const mockIsOpenInNHSApp = jest.fn();
 
 describe("NBSBookingButton", () => {
-  it("should redirect to NBS when booking link button for RSV is clicked", async () => {
-    render(<NBSBookingButton vaccineType={VaccineTypes.RSV} />);
+  beforeAll(() => {
+    // Mock window.nhsapp.tools and window.open
+    mockNHSAppJSFunctions(mockIsOpenInNHSApp, jest.fn());
+    window.open = jest.fn() as never;
+  });
 
+  const renderAndClickNBSBookingButton = () => {
+    render(<NBSBookingButton vaccineType={VaccineTypes.RSV} />);
     const bookingButton = screen.getByRole("button", {
       name: "Continue to booking",
     });
     bookingButton.click();
+  };
 
-    expect(redirectToNBSBookingPageForVaccine).toHaveBeenCalledWith(
-      VaccineTypes.RSV,
+  it("should open NBS SSO link in same window when button is clicked within NHS app", async () => {
+    mockIsOpenInNHSApp.mockImplementation(() => true);
+    renderAndClickNBSBookingButton();
+
+    expect(mockIsOpenInNHSApp).toHaveBeenCalledTimes(1);
+    expect(window.open).toHaveBeenCalledWith(
+      "/api/sso-to-nbs?vaccine=rsv",
+      "_self",
+    );
+  });
+
+  it("should open NBS SSO link in new window when button is clicked outside NHS app", async () => {
+    mockIsOpenInNHSApp.mockImplementation(() => false);
+    renderAndClickNBSBookingButton();
+
+    expect(mockIsOpenInNHSApp).toHaveBeenCalledTimes(1);
+    expect(window.open).toHaveBeenCalledWith(
+      "/api/sso-to-nbs?vaccine=rsv",
+      "_blank",
     );
   });
 });

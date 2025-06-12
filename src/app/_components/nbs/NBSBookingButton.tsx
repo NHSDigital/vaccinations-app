@@ -1,10 +1,12 @@
 "use client";
 
+import { SSO_TO_NBS_ROUTE } from "@src/app/api/sso-to-nbs/constants";
 import {
-  redirectToNBSBookingPageForVaccine,
-  VaccinesWithNBSBookingAvailable,
-} from "@src/services/nbs/nbs-service";
-import React, { JSX } from "react";
+  VaccineContentUrlPaths,
+  vaccineTypeToUrlPath,
+} from "@src/models/vaccine";
+import { VaccinesWithNBSBookingAvailable } from "@src/services/nbs/nbs-service";
+import React, { JSX, useEffect, useState } from "react";
 
 interface NBSBookingButtonProps {
   vaccineType: VaccinesWithNBSBookingAvailable;
@@ -13,8 +15,22 @@ interface NBSBookingButtonProps {
 const NBSBookingButton = ({
   vaccineType,
 }: NBSBookingButtonProps): JSX.Element => {
-  const handleClick = async () => {
-    await redirectToNBSBookingPageForVaccine(vaccineType);
+  const [isOpenInNHSApp, setIsOpenInNHSApp] = useState(true);
+  const vaccinePath: VaccineContentUrlPaths = vaccineTypeToUrlPath[vaccineType];
+
+  useEffect(() => {
+    if (window.nhsapp.tools.isOpenInNHSApp()) {
+      setIsOpenInNHSApp(true);
+    } else {
+      setIsOpenInNHSApp(false);
+    }
+  }, []);
+
+  const handleClick = () => {
+    window.open(
+      `${SSO_TO_NBS_ROUTE}?vaccine=${vaccinePath}`,
+      isOpenInNHSApp ? "_self" : "_blank",
+    );
   };
 
   return (
