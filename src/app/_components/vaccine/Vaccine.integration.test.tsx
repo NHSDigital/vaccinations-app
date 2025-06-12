@@ -1,6 +1,7 @@
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { VaccineTypes } from "@src/models/vaccine";
 import { configProvider } from "@src/utils/config";
+import { mockNHSAppJSFunctions } from "@src/utils/nhsapp-js.test";
 import { render, screen } from "@testing-library/react";
 
 jest.mock("@src/utils/auth/generate-auth-payload", () => jest.fn());
@@ -12,6 +13,7 @@ describe("Vaccine", () => {
       CONTENT_CACHE_PATH: "wiremock/__files/",
       PINO_LOG_LEVEL: "info",
     }));
+    mockNHSAppJSFunctions(jest.fn(), jest.fn());
   });
 
   it.each([VaccineTypes.RSV, VaccineTypes.RSV_PREGNANCY])(
