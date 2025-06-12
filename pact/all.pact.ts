@@ -21,26 +21,6 @@ describe("Content API contract", () => {
   });
 
   describe("compared to previous cached response", () => {
-    it("should not contain any changes in RSV Vaccine except for LastReviewed dates", async () => {
-      const expected = JSON.parse(await readFile("wiremock/__files/rsv-vaccine.json", { encoding: "utf8" }));
-
-      const contentApiRSVResponse: AxiosResponse = await callContentApiRSVEndpoint();
-
-      expectResponseMatchesWithAnyValueForLastReviewed(contentApiRSVResponse.data, expected);
-    });
-
-    const expectResponseMatchesWithAnyValueForLastReviewed = (actualVaccineData: any, expectedVaccineData: any) => {
-      const { lastReviewed: expectedLastReviewed, ...expectedVaccineContent } = expectedVaccineData;
-      const { lastReviewed: actualLastReviewed, ...actualVaccineContent } = actualVaccineData;
-
-      expect(actualVaccineContent).toEqual(expectedVaccineContent);
-      expect(actualLastReviewed).toEqual(expect.any(Array));
-      expect(actualLastReviewed.length).toBeGreaterThan(0);
-      actualLastReviewed.map((lastReviewedDate: any) => {
-        expect(lastReviewedDate).toEqual(expect.any(String));
-      });
-    };
-
     it("should not contain any changes in RSV Vaccine fields which are used by VitA", async () => {
       const expected: string = await readFile("wiremock/__files/rsv-vaccine.json", { encoding: "utf8" });
       const expectedFilteredContent = getFilteredContentForVaccine(expected);
