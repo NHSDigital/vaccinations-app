@@ -43,6 +43,12 @@ describe("Dynamic vaccine page", () => {
     });
 
     it("shows vaccine content when content has loaded", async () => {
+      const rsvHeading = screen.getByRole("heading", {
+        level: 1,
+        name: "RSV vaccine for older adults",
+      });
+      expect(rsvHeading).toBeVisible();
+
       expect(Vaccine).toHaveBeenCalledWith(
         {
           vaccineType: VaccineTypes.RSV,
@@ -74,7 +80,7 @@ describe("Dynamic vaccine page", () => {
     it("shows error when content has loaded", async () => {
       const rsvHeading = screen.getByRole("heading", {
         level: 1,
-        name: "RSV vaccine",
+        name: "RSV vaccine for older adults",
       });
 
       const errorHeading: HTMLElement = screen.getByRole("heading", {
@@ -82,8 +88,8 @@ describe("Dynamic vaccine page", () => {
         name: "Vaccine content is unavailable",
       });
 
-      expect(rsvHeading).toBeInTheDocument();
-      expect(errorHeading).toBeInTheDocument();
+      expect(rsvHeading).toBeVisible();
+      expect(errorHeading).toBeVisible();
     });
   });
 });

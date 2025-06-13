@@ -25,7 +25,10 @@ const VaccinePage = async ({ params }: VaccinePageProps) => {
       <title>{`${VaccineInfo[vaccineType].heading} - NHS App`}</title>
       <BackLink />
       <MainContent>
-        <ErrorBoundary fallback={<VaccineError vaccineType={vaccineType} />}>
+        <h1
+          className={"app-dynamic-page-title__heading"}
+        >{`${VaccineInfo[vaccineType].heading}`}</h1>
+        <ErrorBoundary fallback={<VaccineError />}>
           <Suspense fallback={<Loader />}>
             <Vaccine vaccineType={vaccineType} />
           </Suspense>
