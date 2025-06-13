@@ -31,7 +31,6 @@ describe("Vaccine", () => {
         }),
       ).toBeVisible();
 
-      expect(screen.getByTestId("overview-text")).toBeVisible();
       expect(screen.getByTestId("overview-inset-text")).toBeVisible();
 
       expect(

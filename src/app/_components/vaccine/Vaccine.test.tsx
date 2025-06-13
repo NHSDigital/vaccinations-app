@@ -47,12 +47,6 @@ describe("Any vaccine page", () => {
       expect(heading).toBeInTheDocument();
     });
 
-    it("should display overview text", async () => {
-      await renderRsvVaccinePage();
-      const overviewBlock: HTMLElement = screen.getByText("Overview text");
-      expect(overviewBlock).toBeInTheDocument();
-    });
-
     it("should display overview inset text if defined for vaccine", async () => {
       const expectedInsetText = VaccineInfo[VaccineTypes.RSV].overviewInsetText;
 
@@ -266,10 +260,6 @@ describe("Any vaccine page", () => {
 
     it("should not render any other areas of the vaccine page", async () => {
       await renderRsvVaccinePage();
-
-      const overviewBlock: HTMLElement | null =
-        screen.queryByText("Overview text");
-      expect(overviewBlock).not.toBeInTheDocument();
 
       const howToGetHeading: HTMLElement | null =
         screen.queryByText("how-heading");

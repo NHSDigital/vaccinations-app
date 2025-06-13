@@ -50,9 +50,6 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
           {/* Page heading - H1 */}
           <h1 className="app-dynamic-page-title__heading">{`${VaccineInfo[vaccineType].heading}`}</h1>
 
-          {/* Overview paragraph */}
-          <p data-testid="overview-text">{styledVaccineContent.overview}</p>
-
           {/* Cross-linking of related pages */}
           {vaccineInfo.overviewInsetText && (
             <div data-testid="overview-inset-text">
