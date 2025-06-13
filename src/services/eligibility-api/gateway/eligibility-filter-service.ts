@@ -60,10 +60,13 @@ const getEligibilityForPerson = async (
 const _generateBulletPoints = (
   suggestion: ProcessedSuggestion,
 ): string[] | undefined => {
-  if (suggestion.eligibilityCohorts.length === 0) {
+  if (!suggestion.eligibilityCohorts) {
     log.error(
-      "Error accessing eligibilityCohorts from Eligibility API. Cohorts are empty array.",
+      "Error deserializing object, missing attribute: ProcessedSuggestion.eligibilityCohorts",
     );
+    return undefined;
+  }
+  if (suggestion.eligibilityCohorts.length === 0) {
     return undefined;
   }
   return suggestion.eligibilityCohorts.map(

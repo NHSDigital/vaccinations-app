@@ -31,7 +31,18 @@ const Eligibility = async ({ vaccineType }: EligibilityProps) => {
       {eligibilityStatus === EligibilityStatus.NOT_ELIGIBLE && (
         <NonUrgentCareCard
           heading={<div>{eligibilityContent?.status.heading}</div>}
-          content={<div>{eligibilityContent?.status.introduction}</div>}
+          content={
+            <div>
+              <p className="nhsuk-u-margin-bottom-2">
+                {eligibilityContent?.status.introduction}
+              </p>
+              <ul>
+                {eligibilityContent?.status.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+            </div>
+          }
         />
       )}
     </div>
