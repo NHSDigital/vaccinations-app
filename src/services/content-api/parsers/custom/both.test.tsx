@@ -4,6 +4,11 @@ import { VaccinePageSubsection } from "@src/services/content-api/types";
 import React from "react";
 import { render } from "@testing-library/react";
 
+const mockNBSBookingActionHTML = "NBS Booking Link Test";
+jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
+  NBSBookingAction: () => mockNBSBookingActionHTML,
+}));
+
 const mockNonSimpleSubsection: VaccinePageSubsection = {
   type: "tableElement",
   name: "",
@@ -81,7 +86,7 @@ describe("styleHowToGetSubsection for rsv in pregnancy", () => {
       </>,
     );
     expect(container.innerHTML).toBe(
-      '<div><div><p>Paragraph 1</p><p>Paragraph 2</p></div><p>In some areas you can also <a href="/api/sso-to-nbs?vaccine=rsv-pregnancy" target="_blank" rel="noopener">book an RSV vaccination in a pharmacy</a>.</p></div>',
+      `<div><div><p>Paragraph 1</p><p>Paragraph 2</p></div><p>In some areas you can also ${mockNBSBookingActionHTML}.</p></div>`,
     );
   });
 });
