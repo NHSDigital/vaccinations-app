@@ -8,15 +8,24 @@ import {
 import { VaccinesWithNBSBookingAvailable } from "@src/services/nbs/nbs-service";
 import React, { JSX, useEffect, useState } from "react";
 
-interface NBSBookingButtonProps {
+interface NBSBookingActionProps {
   vaccineType: VaccinesWithNBSBookingAvailable;
+  displayText: string;
+  renderAs: "anchor" | "button";
 }
 
-const NBSBookingButton = ({
+type ActionClickEvent =
+  | React.MouseEvent<HTMLAnchorElement>
+  | React.MouseEvent<HTMLButtonElement>;
+
+const NBSBookingAction = ({
   vaccineType,
-}: NBSBookingButtonProps): JSX.Element => {
+  displayText,
+  renderAs,
+}: NBSBookingActionProps): JSX.Element => {
   const [isOpenInNHSApp, setIsOpenInNHSApp] = useState(true);
   const vaccinePath: VaccineContentUrlPaths = vaccineTypeToUrlPath[vaccineType];
+  const nbsSSOLink = `${SSO_TO_NBS_ROUTE}?vaccine=${vaccinePath}`;
 
   useEffect(() => {
     if (window.nhsapp.tools.isOpenInNHSApp()) {
@@ -26,18 +35,20 @@ const NBSBookingButton = ({
     }
   }, []);
 
-  const handleClick = () => {
-    window.open(
-      `${SSO_TO_NBS_ROUTE}?vaccine=${vaccinePath}`,
-      isOpenInNHSApp ? "_self" : "_blank",
-    );
+  const handleClick = (e: ActionClickEvent) => {
+    e.preventDefault(); // prevent default click behaviour
+    window.open(nbsSSOLink, isOpenInNHSApp ? "_self" : "_blank");
   };
 
-  return (
+  return renderAs === "anchor" ? (
+    <a href={nbsSSOLink} onClick={handleClick}>
+      {displayText}
+    </a>
+  ) : (
     <button className={"nhsuk-button nhsapp-button"} onClick={handleClick}>
-      Continue to booking
+      {displayText}
     </button>
   );
 };
 
-export { NBSBookingButton };
+export { NBSBookingAction };
