@@ -146,7 +146,7 @@ describe("Any vaccine page", () => {
       await renderRsvVaccinePage();
 
       const webpageLink: HTMLElement = screen.getByRole("link", {
-        name: "Find out more about the RSV vaccination",
+        name: "Find out more about the RSV vaccine",
       });
 
       expect(webpageLink).toBeInTheDocument();

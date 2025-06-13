@@ -155,7 +155,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
               rel="noopener"
             >
               Find out more about the {vaccineInfo.displayName.lowercase}{" "}
-              vaccination
+              vaccine
             </a>{" "}
             including side effects, allergies and ingredients.
           </p>
