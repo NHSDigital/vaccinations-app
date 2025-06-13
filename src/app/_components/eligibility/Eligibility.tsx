@@ -6,8 +6,6 @@ import React from "react";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-filter-service";
 import { VaccineTypes } from "@src/models/vaccine";
 import styles from "@src/app/_components/vaccine/styles.module.css";
-import { isMockedDevSession } from "@src/utils/feature-flags";
-import { mockSession } from "@src/utils/mocks";
 import { auth } from "@project/auth";
 import { Session } from "next-auth";
 
@@ -16,9 +14,8 @@ interface EligibilityProps {
 }
 
 const Eligibility = async ({ vaccineType }: EligibilityProps) => {
-  const session: Session | null = (await isMockedDevSession())
-    ? mockSession()
-    : await auth();
+  const session: Session | null = await auth();
+
   if (!session) {
     return;
   }
