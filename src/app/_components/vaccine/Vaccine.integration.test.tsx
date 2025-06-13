@@ -6,6 +6,9 @@ import { render, screen } from "@testing-library/react";
 
 jest.mock("@src/utils/auth/generate-auth-payload", () => jest.fn());
 jest.mock("@src/utils/config");
+jest.mock("@src/app/_components/eligibility/Eligibility", () => ({
+  Eligibility: () => <div>Eligibility component test</div>,
+}));
 
 describe("Vaccine", () => {
   beforeAll(() => {

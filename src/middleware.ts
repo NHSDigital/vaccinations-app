@@ -4,15 +4,11 @@ import { Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { logger } from "@src/utils/logger";
 import { Logger } from "pino";
-import { isMockedDevSession } from "@src/utils/feature-flags";
 
 const log: Logger = logger.child({ name: "middleware" });
 
 export async function middleware(request: NextRequest) {
   log.info(`Inspecting ${request.nextUrl}`);
-  if (await isMockedDevSession()) {
-    return NextResponse.next();
-  }
   const session: Session | null = await auth();
   if (!session?.user) {
     return NextResponse.redirect(new URL(SESSION_TIMEOUT_ROUTE, request.url));
