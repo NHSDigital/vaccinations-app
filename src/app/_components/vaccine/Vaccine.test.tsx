@@ -13,8 +13,8 @@ import { render, screen } from "@testing-library/react";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 jest.mock("@src/services/eligibility-api/gateway/eligibility-filter-service");
-jest.mock("@src/app/_components/nbs/NBSBookingButton", () => ({
-  NBSBookingButton: () => <div>NBS Booking Link Test</div>,
+jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
+  NBSBookingAction: () => <div>NBS Booking Link Test</div>,
 }));
 
 describe("Any vaccine page", () => {

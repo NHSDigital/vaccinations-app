@@ -1,6 +1,6 @@
 "use server";
 
-import { NBSBookingButton } from "@src/app/_components/nbs/NBSBookingButton";
+import { NBSBookingAction } from "@src/app/_components/nbs/NBSBookingAction";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
@@ -109,7 +109,11 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
 
           {/* NBS booking button action for RSV */}
           {vaccineType === VaccineTypes.RSV && (
-            <NBSBookingButton vaccineType={vaccineType} />
+            <NBSBookingAction
+              vaccineType={vaccineType}
+              displayText={"Continue to booking"}
+              renderAs={"button"}
+            />
           )}
 
           {/* Sections heading - H2 */}
