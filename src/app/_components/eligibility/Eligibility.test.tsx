@@ -54,6 +54,32 @@ describe("Eligibility", () => {
       const careCard = screen.getByTestId("non-urgent-care-card");
       expect(careCard).toBeInTheDocument();
     });
+
+    it("should show heading text in the care card heading", async () => {
+      const expectedHeading = mockEligibilityContent.status.heading;
+      render(await Eligibility({ vaccineType: VaccineTypes.RSV }));
+
+      const heading = screen.getByText(expectedHeading);
+      expect(heading).toBeInTheDocument();
+    });
+
+    it("should show introduction in the care card body", async () => {
+      const expectedIntroduction = mockEligibilityContent.status.introduction;
+      render(await Eligibility({ vaccineType: VaccineTypes.RSV }));
+
+      const introduction = screen.getByText(expectedIntroduction);
+      expect(introduction).toBeInTheDocument();
+    });
+
+    it("should show points in the care card body", async () => {
+      const expectedPoints = mockEligibilityContent.status.points;
+      render(await Eligibility({ vaccineType: VaccineTypes.RSV }));
+
+      expectedPoints.forEach((expectedPoint) => {
+        const point = screen.getByText(expectedPoint);
+        expect(point).toBeInTheDocument();
+      });
+    });
   });
 
   describe("when unauthenticated", () => {

@@ -71,6 +71,18 @@ describe("eligibility-filter-service", () => {
       expect(result).toEqual(["first bullet point"]);
     });
 
+    it("should return undefined when eligibilityCohorts attribute is missing", () => {
+      const suggestion = {
+        condition: "RSV",
+        status: "NotEligible",
+        statusText: "you are not eligible because",
+      } as ProcessedSuggestion;
+
+      const result: string[] | undefined = _generateBulletPoints(suggestion);
+
+      expect(result).toEqual(undefined);
+    });
+
     it("should return undefined when eligibilityCohorts are empty array", () => {
       const suggestion: ProcessedSuggestion = {
         condition: "RSV",
