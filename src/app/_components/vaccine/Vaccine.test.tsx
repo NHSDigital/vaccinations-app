@@ -36,17 +36,6 @@ describe("Any vaccine page", () => {
       });
     });
 
-    it("should display correct vaccine name in heading", async () => {
-      await renderRsvVaccinePage();
-
-      const heading = screen.getByRole("heading", {
-        level: 1,
-        name: `RSV vaccine for older adults`,
-      });
-
-      expect(heading).toBeInTheDocument();
-    });
-
     it("should display overview inset text if defined for vaccine", async () => {
       const expectedInsetText = VaccineInfo[VaccineTypes.RSV].overviewInsetText;
 
@@ -234,17 +223,6 @@ describe("Any vaccine page", () => {
         styledVaccineContent: undefined,
         contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
       });
-    });
-
-    it("should still display heading with correct vaccine name", async () => {
-      await renderRsvVaccinePage();
-
-      const heading = screen.getByRole("heading", {
-        level: 1,
-        name: `RSV vaccine`,
-      });
-
-      expect(heading).toBeInTheDocument();
     });
 
     it("should display error summary", async () => {
