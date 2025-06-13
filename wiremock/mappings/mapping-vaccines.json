@@ -55,15 +55,16 @@
     {
       "request": {
         "method": "GET",
-        "url": "/eligibility-signposting-api/patient-check/5000000014"
+        "urlPathPattern": "/eligibility-signposting-api/patient-check/([0-9]+)"
       },
       "response": {
         "status": 200,
-        "bodyFileName": "non-eligible-person.json",
+        "bodyFileName": "eligibility/{{request.pathSegments.[2]}}.json",
         "headers": {
           "Content-Type": "application/json",
           "apikey": "api key"
-        }
+        },
+        "transformers": ["response-template"]
       }
     }
   ]

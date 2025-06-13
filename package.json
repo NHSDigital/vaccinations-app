@@ -22,7 +22,7 @@
     "e2e": "npx playwright test",
     "e2e:ui": "npx playwright test --ui",
     "contract": "jest --config=contract/contract.jest.config.ts",
-    "content-api": "wiremock --root-dir ./wiremock --port 8081 --verbose"
+    "elid": "wiremock --root-dir ./wiremock --port 8081 --verbose --local-response-templating"
   },
   "repository": {
     "type": "git",
