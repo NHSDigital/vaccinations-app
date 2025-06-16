@@ -3,22 +3,34 @@ import {
   EligibilityApiResponse,
   EligibilityCohort,
   EligibilityContent,
-  EligibilityStatus,
+  EligibilityErrorTypes,
   EligibilityForPerson,
+  EligibilityStatus,
   ProcessedSuggestion,
 } from "@src/services/eligibility-api/types";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import { Logger } from "pino";
 import { logger } from "@src/utils/logger";
+import { Session } from "next-auth";
+import { auth } from "@project/auth";
 
 const log: Logger = logger.child({ module: "eligibility-filter-service" });
 
 const getEligibilityForPerson = async (
-  nhsNumber: string,
   vaccineType: VaccineTypes,
 ): Promise<EligibilityForPerson> => {
+  const session: Session | null = await auth();
+
+  if (!session) {
+    return {
+      eligibilityStatus: EligibilityStatus.EMPTY,
+      eligibilityContent: undefined,
+      eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+    };
+  }
+
   const eligibilityApiResponse: EligibilityApiResponse =
-    await fetchEligibilityContent(nhsNumber);
+    await fetchEligibilityContent(session.user.nhs_number);
 
   const suggestion: ProcessedSuggestion | undefined =
     eligibilityApiResponse.processedSuggestions.find(

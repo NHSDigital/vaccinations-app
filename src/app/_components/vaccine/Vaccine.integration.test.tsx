@@ -3,11 +3,22 @@ import { VaccineTypes } from "@src/models/vaccine";
 import { configProvider } from "@src/utils/config";
 import { mockNHSAppJSFunctions } from "@src/utils/nhsapp-js.test";
 import { render, screen } from "@testing-library/react";
+import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
+import { mockEligibilityResponse } from "@test-data/eligibility-api/data";
+import { auth } from "@project/auth";
 
 jest.mock("@src/utils/auth/generate-auth-payload", () => jest.fn());
-jest.mock("@src/utils/config");
-jest.mock("@src/app/_components/eligibility/Eligibility", () => ({
-  Eligibility: () => <div>Eligibility component test</div>,
+jest.mock("@src/utils/config", () => ({
+  configProvider: jest.fn(),
+}));
+jest.mock(
+  "@src/services/eligibility-api/gateway/fetch-eligibility-content",
+  () => ({
+    fetchEligibilityContent: jest.fn(),
+  }),
+);
+jest.mock("@project/auth", () => ({
+  auth: jest.fn(),
 }));
 
 describe("Vaccine", () => {
@@ -16,6 +27,15 @@ describe("Vaccine", () => {
       CONTENT_CACHE_PATH: "wiremock/__files/",
       PINO_LOG_LEVEL: "info",
     }));
+    (fetchEligibilityContent as jest.Mock).mockResolvedValue(
+      mockEligibilityResponse,
+    );
+    (auth as jest.Mock).mockResolvedValue({
+      user: {
+        nhs_number: "test_nhs_number",
+        birthdate: new Date(),
+      },
+    });
     mockNHSAppJSFunctions(jest.fn(), jest.fn());
   });
 

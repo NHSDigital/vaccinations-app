@@ -4,12 +4,13 @@ import { mockEligibilityContent } from "@test-data/eligibility-api/data";
 import { render, screen } from "@testing-library/react";
 import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
 import { VaccineTypes } from "@src/models/vaccine";
-import { auth } from "@project/auth";
 
-jest.mock("@src/services/eligibility-api/gateway/eligibility-filter-service");
-jest.mock("@project/auth", () => ({
-  auth: jest.fn(),
-}));
+jest.mock(
+  "@src/services/eligibility-api/gateway/eligibility-filter-service",
+  () => ({
+    getEligibilityForPerson: jest.fn(),
+  }),
+);
 
 describe("Eligibility", () => {
   describe("when eligible", () => {
@@ -17,12 +18,6 @@ describe("Eligibility", () => {
       (getEligibilityForPerson as jest.Mock).mockResolvedValue({
         eligibilityStatus: EligibilityStatus.ELIGIBLE_BOOKABLE,
         eligibilityContent: mockEligibilityContent,
-      });
-      (auth as jest.Mock).mockResolvedValue({
-        user: {
-          nhs_number: "test_nhs_number",
-          birthdate: new Date(),
-        },
       });
     });
 
@@ -39,12 +34,6 @@ describe("Eligibility", () => {
       (getEligibilityForPerson as jest.Mock).mockResolvedValue({
         eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
         eligibilityContent: mockEligibilityContent,
-      });
-      (auth as jest.Mock).mockResolvedValue({
-        user: {
-          nhs_number: "test_nhs_number",
-          birthdate: new Date(),
-        },
       });
     });
 
@@ -79,19 +68,6 @@ describe("Eligibility", () => {
         const point = screen.getByText(expectedPoint);
         expect(point).toBeInTheDocument();
       });
-    });
-  });
-
-  describe("when unauthenticated", () => {
-    beforeEach(() => {
-      (auth as jest.Mock).mockResolvedValue(null);
-    });
-
-    it("should not show any Eligibility content", async () => {
-      render(await Eligibility({ vaccineType: VaccineTypes.RSV }));
-
-      const eligibilityComponent = screen.queryByRole("eligibility");
-      expect(eligibilityComponent).not.toBeInTheDocument();
     });
   });
 });

@@ -30,18 +30,17 @@ const EXPANDER_HEADINGS = {
 const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
   const [
     { styledVaccineContent, contentError },
-    { eligibilityStatus, styledEligibilityContent, eligibilityError },
+    { eligibilityStatus, eligibilityContent, eligibilityError },
   ] = await Promise.all([
     getContentForVaccine(vaccineType),
-    getEligibilityForPerson("dummy", vaccineType),
+    getEligibilityForPerson(vaccineType),
   ]);
 
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
 
   return contentError === ContentErrorTypes.CONTENT_LOADING_ERROR ||
     styledVaccineContent === undefined ||
-    eligibilityError === EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR ||
-    styledEligibilityContent === undefined ? (
+    eligibilityError === EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR ? (
     // Error summary on content loading error
     <VaccineError />
   ) : (
@@ -65,12 +64,20 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
 
       {/* Personalised eligibility section for RSV */}
       {eligibilityStatus === EligibilityStatus.NOT_ELIGIBLE &&
-        vaccineType === VaccineTypes.RSV && (
+        vaccineType === VaccineTypes.RSV &&
+        eligibilityContent && (
           <NonUrgentCareCard
-            heading={<div>{styledEligibilityContent.heading}</div>}
+            heading={<div>{eligibilityContent?.status.heading}</div>}
             content={
-              <div className={styles.zeroMarginBottom}>
-                {styledEligibilityContent.content}
+              <div>
+                <p className="nhsuk-u-margin-bottom-2">
+                  {eligibilityContent?.status.introduction}
+                </p>
+                <ul>
+                  {eligibilityContent?.status.points.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
               </div>
             }
           />

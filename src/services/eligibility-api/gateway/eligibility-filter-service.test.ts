@@ -15,10 +15,27 @@ import {
   mockEligibilityResponseWithoutCohorts,
 } from "@test-data/eligibility-api/data";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
+import { auth } from "@project/auth";
 
-jest.mock("@src/services/eligibility-api/gateway/fetch-eligibility-content");
+jest.mock(
+  "@src/services/eligibility-api/gateway/fetch-eligibility-content",
+  () => ({
+    fetchEligibilityContent: jest.fn(),
+  }),
+);
+jest.mock("@project/auth", () => ({
+  auth: jest.fn(),
+}));
 
 describe("eligibility-filter-service", () => {
+  beforeEach(() => {
+    (auth as jest.Mock).mockResolvedValue({
+      user: {
+        nhs_number: "test_nhs_number",
+        birthdate: new Date(),
+      },
+    });
+  });
   describe("getEligibilityForPerson", () => {
     it("should convert Eligibility API response into eligibility status and content", async () => {
       (fetchEligibilityContent as jest.Mock).mockResolvedValue(
@@ -26,7 +43,6 @@ describe("eligibility-filter-service", () => {
       );
 
       const result: EligibilityForPerson = await getEligibilityForPerson(
-        "900001234",
         VaccineTypes.RSV,
       );
 
@@ -41,7 +57,6 @@ describe("eligibility-filter-service", () => {
       );
 
       const result: EligibilityForPerson = await getEligibilityForPerson(
-        "900001234",
         VaccineTypes.RSV,
       );
 

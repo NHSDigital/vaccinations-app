@@ -12,10 +12,9 @@ jest.mock("next/navigation", () => ({
 }));
 
 jest.mock("@src/services/nbs/nbs-service", () => jest.fn());
-jest.mock("@src/services/content-api/gateway/content-reader-service");
-jest.mock("@src/app/_components/vaccine/Vaccine");
-jest.mock("@src/app/_components/eligibility/Eligibility", () => ({
-  Eligibility: <div />,
+jest.mock("@src/app/_components/vaccine/Vaccine", () => jest.fn());
+jest.mock("@src/services/content-api/gateway/content-reader-service", () => ({
+  getContentForVaccine: jest.fn(),
 }));
 jest.mock("@src/app/_components/nhs-frontend/BackLink", () =>
   jest.fn(() => <div data-testid="back-link"></div>),

@@ -10,13 +10,17 @@ import {
 import { render, screen } from "@testing-library/react";
 import { mockEligibilityForPerson } from "@test-data/eligibility-api/data";
 
-jest.mock("@src/services/content-api/gateway/content-reader-service");
-jest.mock("@src/services/eligibility-api/gateway/eligibility-filter-service");
+jest.mock("@src/services/content-api/gateway/content-reader-service", () => ({
+  getContentForVaccine: jest.fn(),
+}));
+jest.mock(
+  "@src/services/eligibility-api/gateway/eligibility-filter-service",
+  () => ({
+    getEligibilityForPerson: jest.fn(),
+  }),
+);
 jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
   NBSBookingAction: () => <div>NBS Booking Link Test</div>,
-}));
-jest.mock("@src/app/_components/eligibility/Eligibility", () => ({
-  Eligibility: () => <div>Eligibility component test</div>,
 }));
 
 describe("Any vaccine page", () => {

@@ -6,22 +6,14 @@ import React from "react";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-filter-service";
 import { VaccineTypes } from "@src/models/vaccine";
 import styles from "@src/app/_components/vaccine/styles.module.css";
-import { auth } from "@project/auth";
-import { Session } from "next-auth";
 
 interface EligibilityProps {
   vaccineType: VaccineTypes;
 }
 
 const Eligibility = async ({ vaccineType }: EligibilityProps) => {
-  const session: Session | null = await auth();
-
-  if (!session) {
-    return;
-  }
-
   const { eligibilityStatus, eligibilityContent } =
-    await getEligibilityForPerson(session.user.nhs_number, vaccineType);
+    await getEligibilityForPerson(vaccineType);
 
   return (
     <div className={styles.tableCellSpanHide} role="eligibility">
