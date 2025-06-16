@@ -8,6 +8,7 @@ import {
   EligibilityStatus,
   EligibilityForPerson,
   ProcessedSuggestion,
+  EligibilityErrorTypes,
 } from "@src/services/eligibility-api/types";
 import {
   mockEligibilityContent,
@@ -63,6 +64,20 @@ describe("eligibility-filter-service", () => {
       expect(result.eligibilityStatus).toEqual(EligibilityStatus.NOT_ELIGIBLE);
       expect(result.eligibilityContent).toEqual(undefined);
       expect(result.eligibilityError).toEqual(undefined);
+    });
+
+    it("should return error, empty eligibility, and undefined content when session isn't available", async () => {
+      (auth as jest.Mock).mockResolvedValue(null);
+
+      const result: EligibilityForPerson = await getEligibilityForPerson(
+        VaccineTypes.RSV,
+      );
+
+      expect(result.eligibilityStatus).toEqual(EligibilityStatus.EMPTY);
+      expect(result.eligibilityContent).toEqual(undefined);
+      expect(result.eligibilityError).toEqual(
+        EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+      );
     });
   });
 
