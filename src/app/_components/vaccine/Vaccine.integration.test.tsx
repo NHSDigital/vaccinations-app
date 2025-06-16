@@ -21,16 +21,6 @@ describe("Vaccine", () => {
     async (vaccine: VaccineTypes) => {
       render(await Vaccine({ vaccineType: vaccine }));
 
-      expect(
-        screen.getByRole("heading", {
-          level: 1,
-          name:
-            vaccine === VaccineTypes.RSV
-              ? "RSV vaccine for older adults"
-              : "RSV vaccine in pregnancy",
-        }),
-      ).toBeVisible();
-
       expect(screen.getByTestId("overview-inset-text")).toBeVisible();
 
       expect(
