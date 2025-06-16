@@ -20,13 +20,18 @@ test.describe("E2E", () => {
     }
   });
 
-  test("RSV for older adults page", async () => {
+  test("VitA landing page", async () => {
+    await page.goto("/");
+    await expect(page).toHaveTitle(HUB_PAGE_TITLE);
+  })
+
+  test("RSV landing page", async () => {
     await page.goto("/vaccines/rsv");
 
     await expect(page).toHaveTitle(RSV_PAGE_TITLE);
   });
 
-  test("RSV in pregnancy page", async () => {
+  test("RSV in pregnancy landingn page", async () => {
     await page.goto("/vaccines/rsv-pregnancy");
 
     await expect(page).toHaveTitle(RSV_PREGNANCY_PAGE_TITLE);
