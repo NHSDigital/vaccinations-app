@@ -35,8 +35,8 @@ test.describe("E2E", () => {
   test("Back link navigation", async () => {
     await page.goto("/");
 
-    await clickLinkAndExpectPageTitle(page, "RSV for older adults", RSV_PAGE_TITLE);
-    await clickLinkAndExpectPageTitle(page, "Back", HUB_PAGE_TITLE);
+    await clickLinkAndExpectPageTitle(page, /^RSV for older adults$/, RSV_PAGE_TITLE);
+    await clickLinkAndExpectPageTitle(page, /^Back$/, HUB_PAGE_TITLE);
   });
 
   test("Skip link navigation", async () => {
@@ -47,7 +47,7 @@ test.describe("E2E", () => {
     await expect(page.getByRole("heading", { level: 1 })).toBeFocused();
 
     // Test skip link still works after navigation
-    await clickLinkAndExpectPageTitle(page, "RSV for older adults", RSV_PAGE_TITLE);
+    await clickLinkAndExpectPageTitle(page, /^RSV for older adults$/, RSV_PAGE_TITLE);
     await page.getByTestId("skip-link").focus();
     await page.keyboard.press("Enter");
     await expect(page.getByRole("heading", { level: 1 })).toBeFocused();
