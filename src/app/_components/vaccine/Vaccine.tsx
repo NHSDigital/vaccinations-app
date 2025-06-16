@@ -11,11 +11,11 @@ import { ContentErrorTypes } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-filter-service";
 import {
   EligibilityErrorTypes,
-  EligibilityStatus,
 } from "@src/services/eligibility-api/types";
 
 import React, { JSX } from "react";
 import styles from "./styles.module.css";
+import Eligibility from "@src/app/_components/eligibility/Eligibility";
 
 interface VaccineProps {
   vaccineType: VaccineTypes;
@@ -63,24 +63,9 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
       )}
 
       {/* Personalised eligibility section for RSV */}
-      {eligibilityStatus === EligibilityStatus.NOT_ELIGIBLE &&
-        vaccineType === VaccineTypes.RSV &&
+      {vaccineType === VaccineTypes.RSV &&
         eligibilityContent && (
-          <NonUrgentCareCard
-            heading={<div>{eligibilityContent?.status.heading}</div>}
-            content={
-              <div>
-                <p className="nhsuk-u-margin-bottom-2">
-                  {eligibilityContent?.status.introduction}
-                </p>
-                <ul>
-                  {eligibilityContent?.status.points.map((point) => (
-                    <li key={point}>{point}</li>
-                  ))}
-                </ul>
-              </div>
-            }
-          />
+          <Eligibility eligibilityStatus={eligibilityStatus} eligibilityContent={eligibilityContent}/>
         )}
 
       {/* Static eligibility section for RSV in pregnancy */}

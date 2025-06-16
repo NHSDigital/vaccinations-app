@@ -1,27 +1,21 @@
-"use server";
-
-import { EligibilityStatus } from "@src/services/eligibility-api/types";
+import { EligibilityContent, EligibilityStatus } from "@src/services/eligibility-api/types";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import React from "react";
-import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-filter-service";
-import { VaccineTypes } from "@src/models/vaccine";
 import styles from "@src/app/_components/vaccine/styles.module.css";
 
 interface EligibilityProps {
-  vaccineType: VaccineTypes;
+  eligibilityStatus: EligibilityStatus;
+  eligibilityContent: EligibilityContent;
 }
 
-const Eligibility = async ({ vaccineType }: EligibilityProps) => {
-  const { eligibilityStatus, eligibilityContent } =
-    await getEligibilityForPerson(vaccineType);
-
+const Eligibility = ({eligibilityStatus, eligibilityContent}: EligibilityProps) => {
   return (
-    <div className={styles.tableCellSpanHide} role="eligibility">
-      {eligibilityStatus === EligibilityStatus.NOT_ELIGIBLE && (
+      <section aria-label="eligibility">
+        {eligibilityStatus === EligibilityStatus.NOT_ELIGIBLE && (
         <NonUrgentCareCard
           heading={<div>{eligibilityContent?.status.heading}</div>}
           content={
-            <div>
+            <div className={styles.zeroMarginBottom}>
               <p className="nhsuk-u-margin-bottom-2">
                 {eligibilityContent?.status.introduction}
               </p>
@@ -32,10 +26,9 @@ const Eligibility = async ({ vaccineType }: EligibilityProps) => {
               </ul>
             </div>
           }
-        />
-      )}
-    </div>
-  );
+        />)}
+    </section>
+    );
 };
 
 export { Eligibility };
