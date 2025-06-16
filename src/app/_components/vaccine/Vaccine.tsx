@@ -9,13 +9,11 @@ import { VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-filter-service";
-import {
-  EligibilityErrorTypes,
-} from "@src/services/eligibility-api/types";
+import { EligibilityErrorTypes } from "@src/services/eligibility-api/types";
 
 import React, { JSX } from "react";
 import styles from "./styles.module.css";
-import Eligibility from "@src/app/_components/eligibility/Eligibility";
+import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
 
 interface VaccineProps {
   vaccineType: VaccineTypes;
@@ -63,10 +61,12 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
       )}
 
       {/* Personalised eligibility section for RSV */}
-      {vaccineType === VaccineTypes.RSV &&
-        eligibilityContent && (
-          <Eligibility eligibilityStatus={eligibilityStatus} eligibilityContent={eligibilityContent}/>
-        )}
+      {vaccineType === VaccineTypes.RSV && eligibilityContent && (
+        <Eligibility
+          eligibilityStatus={eligibilityStatus}
+          eligibilityContent={eligibilityContent}
+        />
+      )}
 
       {/* Static eligibility section for RSV in pregnancy */}
       {vaccineType === VaccineTypes.RSV_PREGNANCY && (

@@ -8,7 +8,10 @@ import {
   mockStyledContentWithoutWhatSection,
 } from "@test-data/content-api/data";
 import { render, screen } from "@testing-library/react";
-import { mockEligibilityForPerson, mockEligibilityWithNoContent } from "@test-data/eligibility-api/data";
+import {
+  mockEligibilityForPerson,
+  mockEligibilityWithNoContent,
+} from "@test-data/eligibility-api/data";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service", () => ({
   getContentForVaccine: jest.fn(),
@@ -20,7 +23,8 @@ jest.mock(
   }),
 );
 jest.mock("@src/app/_components/eligibility/Eligibility", () => ({
-  Eligibility: <div>Eligibility Test Component</div>}));
+  Eligibility: () => <div>Test Eligibility Component</div>,
+}));
 jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
   NBSBookingAction: () => <div>NBS Booking Link Test</div>,
 }));
@@ -45,11 +49,14 @@ describe("Any vaccine page", () => {
     });
 
     it("should display overview inset text if defined for vaccine", async () => {
-      const expectedInsetText: string | undefined = VaccineInfo[VaccineTypes.RSV].overviewInsetText;
+      const expectedInsetText: string | undefined =
+        VaccineInfo[VaccineTypes.RSV].overviewInsetText;
 
       await renderNamedVaccinePage(VaccineTypes.RSV);
 
-      const overviewInsetBlock: HTMLElement = screen.getByTestId("overview-inset-text");
+      const overviewInsetBlock: HTMLElement = screen.getByTestId(
+        "overview-inset-text",
+      );
       expect(overviewInsetBlock).toBeInTheDocument();
       expect(overviewInsetBlock.innerHTML).toContain(expectedInsetText);
     });
@@ -229,7 +236,9 @@ describe("Any vaccine page", () => {
     it("should display the booking link button for RSV", async () => {
       await renderRsvVaccinePage();
 
-      const bookingButton: HTMLElement = screen.getByText("NBS Booking Link Test");
+      const bookingButton: HTMLElement = screen.getByText(
+        "NBS Booking Link Test",
+      );
 
       expect(bookingButton).toBeInTheDocument();
     });
@@ -237,7 +246,9 @@ describe("Any vaccine page", () => {
     it("should NOT display the booking link button for other vaccines", async () => {
       await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
 
-      const bookingButton: HTMLElement | null = screen.queryByText("NBS Booking Link Test");
+      const bookingButton: HTMLElement | null = screen.queryByText(
+        "NBS Booking Link Test",
+      );
 
       expect(bookingButton).not.toBeInTheDocument();
     });
@@ -256,14 +267,18 @@ describe("Any vaccine page", () => {
     it("should display the eligibility on RSV vaccine page", async () => {
       await renderNamedVaccinePage(VaccineTypes.RSV);
 
-      const eligibilitySection: HTMLElement = screen.getByText("Eligibility Component Test");
+      const eligibilitySection: HTMLElement = screen.getByText(
+        "Test Eligibility Component",
+      );
       expect(eligibilitySection).toBeInTheDocument();
     });
 
     it("should not display the eligibility on RSV pregnancy vaccine page", async () => {
       await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
 
-      const eligibilitySection: HTMLElement | null = screen.queryByText("Eligibility Component Test");
+      const eligibilitySection: HTMLElement | null = screen.queryByText(
+        "Eligibility Component Test",
+      );
       expect(eligibilitySection).not.toBeInTheDocument();
     });
 
@@ -274,7 +289,9 @@ describe("Any vaccine page", () => {
 
       await renderNamedVaccinePage(VaccineTypes.RSV);
 
-      const eligibilitySection: HTMLElement | null = screen.queryByText("Eligibility Component Test");
+      const eligibilitySection: HTMLElement | null = screen.queryByText(
+        "Eligibility Component Test",
+      );
       expect(eligibilitySection).not.toBeInTheDocument();
     });
   });
