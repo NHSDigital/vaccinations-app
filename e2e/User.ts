@@ -7,7 +7,7 @@ interface User {
   nhsLoginUsername: string
   nhsLoginPassword: string
   nhsLoginOTP: string
-  sutBaseUrl: string
+  vaccinationsHubUrl: string
 }
 
 const getEnv = (name: string) => {
@@ -26,7 +26,7 @@ const loadUserFromEnvironment = (): User => {
     nhsLoginUsername: getEnv("TEST_NHS_LOGIN_USERNAME"),
     nhsLoginPassword: getEnv("TEST_NHS_LOGIN_PASSWORD"),
     nhsLoginOTP: getEnv("TEST_NHS_LOGIN_OTP"),
-    sutBaseUrl: getEnv("TEST_APP_URL")
+    vaccinationsHubUrl: getEnv("TEST_APP_URL")
   }
 }
 
@@ -59,7 +59,7 @@ export const login = async (browser: Browser): Promise<Page> => {
   await page.getByRole("textbox", { name: "Security code" }).fill(user.nhsLoginOTP);
   await page.getByRole("button", { name: "Continue" }).click();
 
-  await page.waitForURL(user.sutBaseUrl, { timeout: 30000 });
+  await page.waitForURL(user.vaccinationsHubUrl, { timeout: 30000 });
 
   return page;
 }
