@@ -20,17 +20,6 @@ type StatusContent = {
   points: string[];
 };
 
-// export const EligibilityStatusMap = {
-//   "NotEligible": EligibilityStatus.NOT_ELIGIBLE,
-//   "AlreadyVaccinated": EligibilityStatus.ALREADY_VACCINATED,
-//   "Actionable": EligibilityStatus.ACTIONABLE,
-//   "NotActionableManagedSetting": EligibilityStatus.NOT_ACTIONABLE_MANAGED_SETTING,
-//   "NotActionableOutOfArea": EligibilityStatus.NOT_ACTIONABLE_OUT_OF_AREA,
-//   "EligibleBookable": EligibilityStatus.ELIGIBLE_BOOKABLE,
-//   "EligibleHaveNBSBooking": EligibilityStatus.ELIGIBLE_HAVE_NBS_BOOKING,
-//   "EligibleHaveProviderBooking": EligibilityStatus.ELIGIBLE_HAVE_PROVIDER_BOOKING,
-// }
-
 export enum EligibilityErrorTypes {
   ELIGIBILITY_LOADING_ERROR,
 }

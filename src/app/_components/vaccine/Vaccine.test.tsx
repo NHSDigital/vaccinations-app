@@ -8,7 +8,7 @@ import {
   mockStyledContentWithoutWhatSection,
 } from "@test-data/content-api/data";
 import { render, screen } from "@testing-library/react";
-import { mockEligibilityForPerson } from "@test-data/eligibility-api/data";
+import { mockEligibilityForPerson, mockEligibilityWithNoContent } from "@test-data/eligibility-api/data";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service", () => ({
   getContentForVaccine: jest.fn(),
@@ -19,6 +19,8 @@ jest.mock(
     getEligibilityForPerson: jest.fn(),
   }),
 );
+jest.mock("@src/app/_components/eligibility/Eligibility", () => ({
+  Eligibility: <div>Eligibility Test Component</div>}));
 jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
   NBSBookingAction: () => <div>NBS Booking Link Test</div>,
 }));
@@ -43,11 +45,11 @@ describe("Any vaccine page", () => {
     });
 
     it("should display overview inset text if defined for vaccine", async () => {
-      const expectedInsetText = VaccineInfo[VaccineTypes.RSV].overviewInsetText;
+      const expectedInsetText: string | undefined = VaccineInfo[VaccineTypes.RSV].overviewInsetText;
 
       await renderNamedVaccinePage(VaccineTypes.RSV);
 
-      const overviewInsetBlock = screen.getByTestId("overview-inset-text");
+      const overviewInsetBlock: HTMLElement = screen.getByTestId("overview-inset-text");
       expect(overviewInsetBlock).toBeInTheDocument();
       expect(overviewInsetBlock.innerHTML).toContain(expectedInsetText);
     });
@@ -67,7 +69,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should include lowercase vaccine name in more information text", async () => {
-      const expectedMoreInformationHeading =
+      const expectedMoreInformationHeading: string =
         "More information about the RSV vaccine";
 
       await renderRsvVaccinePage();
@@ -83,7 +85,7 @@ describe("Any vaccine page", () => {
     it("should display inset text for rsv in pregnancy", async () => {
       await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
 
-      const recommendedBlock = screen
+      const recommendedBlock: HTMLElement | undefined = screen
         .getAllByRole("heading", { level: 3 })
         .at(0);
       expect(recommendedBlock).toHaveClass("nhsuk-card--care__heading");
@@ -227,7 +229,7 @@ describe("Any vaccine page", () => {
     it("should display the booking link button for RSV", async () => {
       await renderRsvVaccinePage();
 
-      const bookingButton = screen.getByText("NBS Booking Link Test");
+      const bookingButton: HTMLElement = screen.getByText("NBS Booking Link Test");
 
       expect(bookingButton).toBeInTheDocument();
     });
@@ -235,9 +237,45 @@ describe("Any vaccine page", () => {
     it("should NOT display the booking link button for other vaccines", async () => {
       await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
 
-      const bookingButton = screen.queryByText("NBS Booking Link Test");
+      const bookingButton: HTMLElement | null = screen.queryByText("NBS Booking Link Test");
 
       expect(bookingButton).not.toBeInTheDocument();
+    });
+  });
+
+  describe("eligibility section", () => {
+    beforeEach(() => {
+      (getContentForVaccine as jest.Mock).mockResolvedValue({
+        styledVaccineContent: mockStyledContent,
+      });
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue(
+        mockEligibilityForPerson,
+      );
+    });
+
+    it("should display the eligibility on RSV vaccine page", async () => {
+      await renderNamedVaccinePage(VaccineTypes.RSV);
+
+      const eligibilitySection: HTMLElement = screen.getByText("Eligibility Component Test");
+      expect(eligibilitySection).toBeInTheDocument();
+    });
+
+    it("should not display the eligibility on RSV pregnancy vaccine page", async () => {
+      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
+
+      const eligibilitySection: HTMLElement | null = screen.queryByText("Eligibility Component Test");
+      expect(eligibilitySection).not.toBeInTheDocument();
+    });
+
+    it("should not display the eligibility when there is no content ", async () => {
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue(
+        mockEligibilityWithNoContent,
+      );
+
+      await renderNamedVaccinePage(VaccineTypes.RSV);
+
+      const eligibilitySection: HTMLElement | null = screen.queryByText("Eligibility Component Test");
+      expect(eligibilitySection).not.toBeInTheDocument();
     });
   });
 });

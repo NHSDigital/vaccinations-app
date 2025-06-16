@@ -59,3 +59,9 @@ export const mockEligibilityForPerson: EligibilityForPerson = {
   eligibilityContent: mockEligibilityContent,
   eligibilityError: undefined
 };
+
+export const mockEligibilityWithNoContent: EligibilityForPerson = {
+  eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
+  eligibilityContent: undefined,
+  eligibilityError: undefined
+};

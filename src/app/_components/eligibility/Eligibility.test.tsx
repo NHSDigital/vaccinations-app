@@ -1,72 +1,66 @@
-import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-filter-service";
 import { EligibilityStatus } from "@src/services/eligibility-api/types";
 import { mockEligibilityContent } from "@test-data/eligibility-api/data";
 import { render, screen } from "@testing-library/react";
 import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
-import { VaccineTypes } from "@src/models/vaccine";
-
-jest.mock(
-  "@src/services/eligibility-api/gateway/eligibility-filter-service",
-  () => ({
-    getEligibilityForPerson: jest.fn(),
-  }),
-);
 
 describe("Eligibility", () => {
   describe("when eligible", () => {
-    beforeEach(() => {
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+    it("should not show the care card", async () => {
+      render(Eligibility({
         eligibilityStatus: EligibilityStatus.ELIGIBLE_BOOKABLE,
         eligibilityContent: mockEligibilityContent,
-      });
-    });
+      }));
 
-    it("should not show the care card", async () => {
-      render(await Eligibility({ vaccineType: VaccineTypes.RSV }));
-
-      const careCard = screen.queryByTestId("non-urgent-care-card");
+      const careCard: HTMLElement | null = screen.queryByRole("section", {name: "eligibility"});
       expect(careCard).not.toBeInTheDocument();
     });
   });
 
   describe("when not eligible", () => {
-    beforeEach(() => {
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+    it("should show the care card", async () => {
+      render(Eligibility({
         eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
         eligibilityContent: mockEligibilityContent,
-      });
-    });
+      }));
 
-    it("should show the care card", async () => {
-      render(await Eligibility({ vaccineType: VaccineTypes.RSV }));
-
-      const careCard = screen.getByTestId("non-urgent-care-card");
+      const careCard: HTMLElement = screen.getByTestId("non-urgent-care-card");
       expect(careCard).toBeInTheDocument();
     });
 
     it("should show heading text in the care card heading", async () => {
-      const expectedHeading = mockEligibilityContent.status.heading;
-      render(await Eligibility({ vaccineType: VaccineTypes.RSV }));
+      const expectedHeading: string = mockEligibilityContent.status.heading;
+      render(Eligibility({
+        eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
+        eligibilityContent: mockEligibilityContent,
+      }));
 
-      const heading = screen.getByText(expectedHeading);
+      const heading: HTMLElement = screen.getByText(expectedHeading);
       expect(heading).toBeInTheDocument();
     });
 
     it("should show introduction in the care card body", async () => {
       const expectedIntroduction = mockEligibilityContent.status.introduction;
-      render(await Eligibility({ vaccineType: VaccineTypes.RSV }));
+      render(Eligibility({
+        eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
+        eligibilityContent: mockEligibilityContent,
+      }));
 
-      const introduction = screen.getByText(expectedIntroduction);
+      const introduction: HTMLElement = screen.getByText(expectedIntroduction);
       expect(introduction).toBeInTheDocument();
     });
 
-    it("should show points in the care card body", async () => {
-      const expectedPoints = mockEligibilityContent.status.points;
-      render(await Eligibility({ vaccineType: VaccineTypes.RSV }));
+    it("should show bullet points in the care card body", async () => {
+      const expectedPoints: string[] = mockEligibilityContent.status.points;
+      render(
+        Eligibility({
+          eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
+          eligibilityContent: mockEligibilityContent,
+        }),
+      );
 
       expectedPoints.forEach((expectedPoint) => {
-        const point = screen.getByText(expectedPoint);
-        expect(point).toBeInTheDocument();
+        const bulletPoint: HTMLElement = screen.getByText(expectedPoint);
+        expect(bulletPoint).toBeInTheDocument();
       });
     });
   });
