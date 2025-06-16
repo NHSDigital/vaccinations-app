@@ -1,4 +1,5 @@
 import NHSLoginAuthProvider from "@src/app/api/auth/[...nextauth]/provider";
+import { VACCINATIONS_HUB_PAGE_ROUTE } from "@src/app/check-and-book-rsv/constants";
 import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
 import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 import { AppConfig, configProvider } from "@src/utils/config";
@@ -29,6 +30,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
     callbacks: {
       async signIn({ account }) {
         return isValidSignIn(account, config);
+      },
+
+      async redirect({ baseUrl }) {
+        return `${baseUrl}${VACCINATIONS_HUB_PAGE_ROUTE}`;
       },
 
       async jwt({ token, account, profile}) {

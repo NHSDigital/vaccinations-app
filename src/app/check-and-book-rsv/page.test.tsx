@@ -2,7 +2,7 @@ import { getContentForVaccine } from "@src/services/content-api/gateway/content-
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import { mockStyledContent } from "@test-data/content-api/data";
 import { render, screen } from "@testing-library/react";
-import VaccinationsHub from "@src/app/page";
+import VaccinationsHub from "@src/app/check-and-book-rsv/page";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 
