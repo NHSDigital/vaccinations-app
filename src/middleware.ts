@@ -1,5 +1,4 @@
 import { auth } from "@project/auth";
-import { VACCINATIONS_HUB_PAGE_ROUTE } from "@src/app/check-and-book-rsv/constants";
 import { SESSION_TIMEOUT_ROUTE } from "@src/app/session-timeout/constants";
 import { logger } from "@src/utils/logger";
 import { Session } from "next-auth";
@@ -14,15 +13,6 @@ export async function middleware(request: NextRequest) {
   const session: Session | null = await auth();
   if (!session?.user) {
     return NextResponse.redirect(new URL(SESSION_TIMEOUT_ROUTE, request.url));
-  }
-
-  // redirect users from / to rsv landing page
-  if (!request.nextUrl.pathname || request.nextUrl.pathname === "/") {
-    const redirectUrl = new URL(
-      VACCINATIONS_HUB_PAGE_ROUTE,
-      request.nextUrl.origin,
-    );
-    return NextResponse.redirect(redirectUrl);
   }
 
   return NextResponse.next();

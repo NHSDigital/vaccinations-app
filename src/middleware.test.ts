@@ -4,7 +4,6 @@
 
 import { auth } from "@project/auth";
 import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
-import { VACCINATIONS_HUB_PAGE_ROUTE } from "@src/app/check-and-book-rsv/constants";
 import { SESSION_TIMEOUT_ROUTE } from "@src/app/session-timeout/constants";
 import { config, middleware } from "@src/middleware";
 import { NextRequest } from "next/server";
@@ -46,23 +45,6 @@ describe("middleware", () => {
       `${testDomain}${SESSION_TIMEOUT_ROUTE}`,
     );
   });
-
-  it.each(["", "/"])(
-    "redirects users on path %s to be redirected to rsv landing page",
-    async (path: string | undefined) => {
-      const testDomain = "https://testurl";
-      const mockRequest = getMockRequest(`${testDomain}${path}`);
-
-      (auth as jest.Mock).mockResolvedValue({ user: "test" });
-
-      const result = await middleware(mockRequest as NextRequest);
-
-      expect(result.status).toBe(307);
-      expect(result.headers.get("Location")).toEqual(
-        `${testDomain}${VACCINATIONS_HUB_PAGE_ROUTE}`,
-      );
-    },
-  );
 
   it("pass through for users with active session", async () => {
     const testUrl = "https://testurl/abc";
