@@ -6,15 +6,12 @@ import { getStyledContentForVaccine } from "@src/services/content-api/parsers/co
 import { logger } from "@src/utils/logger";
 import { VaccinePageContent } from "@src/services/content-api/types";
 import { Context } from "aws-lambda";
+import { asyncLocalStorage, RequestContext } from "@src/utils/requestContext";
 
 const log = logger.child({ module: "content-writer-lambda" });
 
-export const handler = async (
-  event: object,
-  context: Context,
-): Promise<void> => {
-  const requestId: string = context.awsRequestId;
-  log.info(event, "Received event, hydrating content cache.", requestId);
+const runContentCacheHydrator = async (event: object) => {
+  log.info(event, "Received event, hydrating content cache.");
 
   let failureCount: number = 0;
   for (const vaccine of Object.values(VaccineTypes)) {
@@ -36,4 +33,17 @@ export const handler = async (
   if (failureCount > 0) {
     throw new Error(`${failureCount} failures`);
   }
+};
+
+export const handler = async (
+  event: object,
+  context: Context,
+): Promise<void> => {
+  const requestContext: RequestContext = {
+    requestId: context.awsRequestId,
+  };
+
+  await asyncLocalStorage.run(requestContext, () =>
+    runContentCacheHydrator(event),
+  );
 };
