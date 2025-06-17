@@ -81,7 +81,11 @@ const _generateBulletPoints = (
   if (suggestion.eligibilityCohorts.length === 0) {
     return undefined;
   }
-  return suggestion.eligibilityCohorts.map(
+  const eligibilityCohorts: EligibilityCohort[] =
+    suggestion.eligibilityCohorts.filter(
+      (cohort: EligibilityCohort) => cohort.cohortStatus === suggestion.status,
+    );
+  return eligibilityCohorts.map(
     (cohort: EligibilityCohort) => cohort.cohortText,
   );
 };

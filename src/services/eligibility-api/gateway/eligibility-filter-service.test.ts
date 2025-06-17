@@ -82,7 +82,7 @@ describe("eligibility-filter-service", () => {
   });
 
   describe("_generateBulletPoints", () => {
-    it("should return all bullet points when eligibilityCohorts are defined", () => {
+    it("should return only the bullet points when cohortStatus is identical to status", () => {
       const suggestion: ProcessedSuggestion = {
         condition: "RSV",
         status: "NotEligible",
@@ -91,7 +91,12 @@ describe("eligibility-filter-service", () => {
           {
             cohortCode: "rsv_age_rolling",
             cohortText: "first bullet point",
-            cohortStatus: "nonEligible",
+            cohortStatus: "NotEligible",
+          },
+          {
+            cohortCode: "rsv_age_rolling",
+            cohortText: "second bullet point",
+            cohortStatus: "Actionable",
           },
         ],
       };
