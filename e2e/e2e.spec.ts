@@ -26,6 +26,13 @@ test.describe("E2E", () => {
     await expect(page).toHaveTitle(RSV_PAGE_TITLE);
   });
 
+  test("Vaccine Eligibility data on RSV for older adults page", async () => {
+    await page.goto("/vaccines/rsv");
+
+    const eligibilitySection = page.getByLabel("eligibility");
+    await expect(eligibilitySection).toBeVisible();
+  });
+
   test("RSV in pregnancy page", async () => {
     await page.goto("/vaccines/rsv-pregnancy");
 

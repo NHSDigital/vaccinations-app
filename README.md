@@ -195,7 +195,7 @@ SSO flow is initiated from the Fake Client. Directly accessing the application w
 
 #### Mocking API Responses with Wiremock
 
-Our project utilizes Wiremock to provide mock responses for API endpoints. To configure these responses:
+Our project utilizes Wiremock to provide mock responses for Eligibility API endpoints. To configure these responses:
 
 - Place request-response mapping files (JSON) within the `wiremock/mappings` directory.
 - Store the corresponding JSON response bodies in the `wiremock/__files` directory.
@@ -203,7 +203,7 @@ Our project utilizes Wiremock to provide mock responses for API endpoints. To co
 To run the Wiremock server locally:
 
 ```shell
-npm run content-api
+npm run elid
 ```
 
 ### Run unit tests
