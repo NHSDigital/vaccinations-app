@@ -68,7 +68,7 @@ describe("Vaccination Hub Page", () => {
     });
 
     it("renders RSV vaccine link", async () => {
-      const link = queryLinkByText("RSV for older adults");
+      const link = queryLinkByText("RSV vaccine for older adults");
       expect(link).toBeVisible();
       expect(link?.getAttribute("href")).toEqual("/vaccines/rsv");
     });

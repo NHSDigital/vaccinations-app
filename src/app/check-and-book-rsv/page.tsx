@@ -38,11 +38,11 @@ const VaccinationsHub = async () => {
             {/* List of vaccines */}
             <div className="nhsapp-cards nhsapp-cards--stacked">
               <CardLink
-                title={`${VaccineInfo.RSV.displayName.capitalised} for older adults`}
+                title={`${VaccineInfo[VaccineTypes.RSV].heading}`}
                 link={`/vaccines/${VaccineContentUrlPaths.RSV}`}
               />
               <CardLink
-                title={`${VaccineInfo.RSV_PREGNANCY.displayName.capitalised} vaccine in pregnancy`}
+                title={`${VaccineInfo[VaccineTypes.RSV_PREGNANCY].heading}`}
                 link={`/vaccines/${VaccineContentUrlPaths.RSV_PREGNANCY}`}
               />
             </div>
