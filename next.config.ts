@@ -1,4 +1,4 @@
-import { VACCINATIONS_HUB_PAGE_ROUTE } from "@src/app/check-and-book-rsv/constants";
+import { VACCINATIONS_HUB_PAGE_ROUTE } from "@src/app/constants";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {

@@ -1,5 +1,5 @@
 import NHSLoginAuthProvider from "@src/app/api/auth/[...nextauth]/provider";
-import { VACCINATIONS_HUB_PAGE_ROUTE } from "@src/app/check-and-book-rsv/constants";
+import { VACCINATIONS_HUB_PAGE_ROUTE } from "@src/app/constants";
 import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
 import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 import { AppConfig, configProvider } from "@src/utils/config";
