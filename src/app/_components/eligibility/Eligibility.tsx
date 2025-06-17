@@ -1,4 +1,7 @@
-import { EligibilityContent, EligibilityStatus } from "@src/services/eligibility-api/types";
+import {
+  EligibilityContent,
+  EligibilityStatus,
+} from "@src/services/eligibility-api/types";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import React from "react";
 import styles from "@src/app/_components/vaccine/styles.module.css";
@@ -8,10 +11,13 @@ interface EligibilityProps {
   eligibilityContent: EligibilityContent;
 }
 
-const Eligibility = ({eligibilityStatus, eligibilityContent}: EligibilityProps) => {
+const Eligibility = ({
+  eligibilityStatus,
+  eligibilityContent,
+}: EligibilityProps) => {
   return (
-      <section aria-label="eligibility">
-        {eligibilityStatus === EligibilityStatus.NOT_ELIGIBLE && (
+    <section aria-label="eligibility">
+      {eligibilityStatus === EligibilityStatus.NOT_ELIGIBLE && (
         <NonUrgentCareCard
           heading={<div>{eligibilityContent?.status.heading}</div>}
           content={
@@ -26,9 +32,10 @@ const Eligibility = ({eligibilityStatus, eligibilityContent}: EligibilityProps) 
               </ul>
             </div>
           }
-        />)}
+        />
+      )}
     </section>
-    );
+  );
 };
 
 export { Eligibility };
