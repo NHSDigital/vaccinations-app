@@ -5,11 +5,16 @@ import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/
 import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
 import { logger } from "@src/utils/logger";
 import { VaccinePageContent } from "@src/services/content-api/types";
+import { Context } from "aws-lambda";
 
 const log = logger.child({ module: "content-writer-lambda" });
 
-export const handler = async (event: object): Promise<void> => {
-  log.info(event, "Received event, hydrating content cache.");
+export const handler = async (
+  event: object,
+  context: Context,
+): Promise<void> => {
+  const requestId: string = context.awsRequestId;
+  log.info(event, "Received event, hydrating content cache.", requestId);
 
   let failureCount: number = 0;
   for (const vaccine of Object.values(VaccineTypes)) {

@@ -4,6 +4,7 @@ import { handler } from "@src/_lambda/content-cache-hydrator/handler";
 import { VaccineTypes } from "@src/models/vaccine";
 import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
+import { Context } from "aws-lambda";
 
 jest.mock("@src/_lambda/content-cache-hydrator/content-writer-service");
 jest.mock("@src/_lambda/content-cache-hydrator/content-fetcher");
@@ -12,6 +13,7 @@ jest.mock("@src/services/content-api/parsers/content-styling-service");
 
 describe("Lambda Handler", () => {
   const numberOfVaccines = Object.values(VaccineTypes).length;
+  const context = {} as Context;
 
   it("returns 200 when cache hydration is successful", async () => {
     (fetchContentForVaccine as jest.Mock).mockResolvedValue(undefined);
@@ -19,12 +21,14 @@ describe("Lambda Handler", () => {
     (getStyledContentForVaccine as jest.Mock).mockResolvedValue(undefined);
     (writeContentForVaccine as jest.Mock).mockResolvedValue(undefined);
 
-    await expect(handler({})).resolves.toBeUndefined();
+    await expect(handler({}, context)).resolves.toBeUndefined();
   });
 
   it("returns 500 when cache hydration has failed due to fetching errors", async () => {
     (fetchContentForVaccine as jest.Mock).mockRejectedValue(new Error("test"));
-    await expect(handler({})).rejects.toThrow(`${numberOfVaccines} failures`);
+    await expect(handler({}, context)).rejects.toThrow(
+      `${numberOfVaccines} failures`,
+    );
   });
 
   it("returns 500 when cache hydration has failed due to filtering invalid content errors", async () => {
@@ -32,7 +36,9 @@ describe("Lambda Handler", () => {
     (getFilteredContentForVaccine as jest.Mock).mockImplementation(() => {
       throw new Error("test");
     });
-    await expect(handler({})).rejects.toThrow(`${numberOfVaccines} failures`);
+    await expect(handler({}, context)).rejects.toThrow(
+      `${numberOfVaccines} failures`,
+    );
   });
 
   it("returns 500 when cache hydration has failed due to styling errors", async () => {
@@ -41,7 +47,9 @@ describe("Lambda Handler", () => {
     (getStyledContentForVaccine as jest.Mock).mockRejectedValue(
       new Error("test"),
     );
-    await expect(handler({})).rejects.toThrow(`${numberOfVaccines} failures`);
+    await expect(handler({}, context)).rejects.toThrow(
+      `${numberOfVaccines} failures`,
+    );
   });
 
   it("returns 500 when cache hydration has failed due to writing errors", async () => {
@@ -49,6 +57,9 @@ describe("Lambda Handler", () => {
     (getFilteredContentForVaccine as jest.Mock).mockResolvedValue(undefined);
     (getStyledContentForVaccine as jest.Mock).mockResolvedValue(undefined);
     (writeContentForVaccine as jest.Mock).mockRejectedValue(new Error("test"));
-    await expect(handler({})).rejects.toThrow(`${numberOfVaccines} failures`);
+
+    await expect(handler({}, context)).rejects.toThrow(
+      `${numberOfVaccines} failures`,
+    );
   });
 });
