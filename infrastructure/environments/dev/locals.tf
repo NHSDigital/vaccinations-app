@@ -20,7 +20,7 @@ locals {
   application_environment_variables = {
     SSM_PREFIX = "/${local.prefix}/"
 
-    PINO_LOG_LEVEL = "warn"
+    PINO_LOG_LEVEL = "info"
 
     CONTENT_API_ENDPOINT = "https://sandbox.api.service.nhs.uk/"
     CONTENT_CACHE_PATH   = "s3://${local.content_cache_bucket_name}"
