@@ -5,6 +5,7 @@ import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
+import { NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
 import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getVaccineTypeFromUrlPath } from "@src/utils/path";
 import { notFound } from "next/navigation";
@@ -22,7 +23,7 @@ const VaccinePage = async ({ params }: VaccinePageProps) => {
 
   return vaccineType ? (
     <>
-      <title>{`${VaccineInfo[vaccineType].heading} - NHS App`}</title>
+      <title>{`${VaccineInfo[vaccineType].heading} - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`}</title>
       <BackLink />
       <MainContent>
         <h1

@@ -1,6 +1,7 @@
 import CardLink from "@src/app/_components/nhs-app/CardLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
+import { NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
 import {
   VaccineContentUrlPaths,
   VaccineInfo,
@@ -12,8 +13,6 @@ import React from "react";
 
 export const dynamic = "force-dynamic";
 
-const headingText = "Check and book an RSV vaccination";
-
 const VaccinationsHub = async () => {
   const { styledVaccineContent, contentError } = await getContentForVaccine(
     VaccineTypes.RSV,
@@ -21,11 +20,11 @@ const VaccinationsHub = async () => {
 
   return (
     <>
-      <title>{`${headingText} - NHS App`}</title>
+      <title>{`${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`}</title>
 
       <MainContent>
         {/* Page heading - H1 */}
-        <h1 className={"app-dynamic-page-title__heading"}>{headingText}</h1>
+        <h1 className={"app-dynamic-page-title__heading"}>{SERVICE_HEADING}</h1>
 
         {contentError === ContentErrorTypes.CONTENT_LOADING_ERROR ||
         styledVaccineContent === undefined ? (
