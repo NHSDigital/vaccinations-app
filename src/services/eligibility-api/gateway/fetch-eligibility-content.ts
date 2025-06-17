@@ -1,7 +1,7 @@
 import { AppConfig, configProvider } from "@src/utils/config";
 import axios, { AxiosResponse } from "axios";
 import { logger } from "@src/utils/logger";
-import { EligibilityApiResponse } from "@src/services/eligibility-api/types";
+import { EligibilityApiResponse } from "@src/services/eligibility-api/api-types";
 
 const log = logger.child({ module: "fetch-eligibility-content" });
 const ELIGIBILITY_API_PATH_SUFFIX =

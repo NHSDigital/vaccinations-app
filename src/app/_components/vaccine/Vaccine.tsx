@@ -8,7 +8,7 @@ import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
 import { VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
-import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-filter-service";
+import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import { EligibilityErrorTypes } from "@src/services/eligibility-api/types";
 
 import React, { JSX } from "react";

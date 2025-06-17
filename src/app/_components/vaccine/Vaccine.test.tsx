@@ -2,7 +2,7 @@ import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
-import { getEligibilityForPerson } from "@src/services/eligibility-api/gateway/eligibility-filter-service";
+import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import {
   mockStyledContent,
   mockStyledContentWithoutWhatSection,
@@ -17,7 +17,7 @@ jest.mock("@src/services/content-api/gateway/content-reader-service", () => ({
   getContentForVaccine: jest.fn(),
 }));
 jest.mock(
-  "@src/services/eligibility-api/gateway/eligibility-filter-service",
+  "@src/services/eligibility-api/domain/eligibility-filter-service",
   () => ({
     getEligibilityForPerson: jest.fn(),
   }),

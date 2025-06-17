@@ -1,15 +1,11 @@
 import {
-  EligibilityApiResponse,
   EligibilityContent,
   EligibilityForPerson,
   EligibilityStatus
 } from "@src/services/eligibility-api/types";
+import { EligibilityApiResponse } from "@src/services/eligibility-api/api-types";
 
 export const mockEligibilityResponse: EligibilityApiResponse = {
-    "responseId": "1a233ba5-e1eb-4080-a086-2962f6fc3473",
-    "meta": {
-    "lastUpdated": "2025-02-12T16:11:22Z"
-  },
     "processedSuggestions": [
     {
       "condition": "RSV",
@@ -32,10 +28,6 @@ export const mockEligibilityResponse: EligibilityApiResponse = {
 };
 
 export const mockEligibilityResponseWithoutCohorts: EligibilityApiResponse = {
-  "responseId": "1a233ba5-e1eb-4080-a086-2962f6fc3473",
-  "meta": {
-    "lastUpdated": "2025-02-12T16:11:22Z"
-  },
   "processedSuggestions": [
     {
       "condition": "RSV",

@@ -2,12 +2,11 @@ import {
   _generateBulletPoints,
   _getStatus,
   getEligibilityForPerson,
-} from "@src/services/eligibility-api/gateway/eligibility-filter-service";
+} from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import { VaccineTypes } from "@src/models/vaccine";
 import {
   EligibilityStatus,
   EligibilityForPerson,
-  ProcessedSuggestion,
   EligibilityErrorTypes,
 } from "@src/services/eligibility-api/types";
 import {
@@ -17,6 +16,7 @@ import {
 } from "@test-data/eligibility-api/data";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import { auth } from "@project/auth";
+import { ProcessedSuggestion } from "@src/services/eligibility-api/api-types";
 
 jest.mock(
   "@src/services/eligibility-api/gateway/fetch-eligibility-content",

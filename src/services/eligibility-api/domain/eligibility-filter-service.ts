@@ -1,18 +1,20 @@
 import { VaccineTypes } from "@src/models/vaccine";
 import {
-  EligibilityApiResponse,
-  EligibilityCohort,
   EligibilityContent,
   EligibilityErrorTypes,
   EligibilityForPerson,
   EligibilityStatus,
-  ProcessedSuggestion,
 } from "@src/services/eligibility-api/types";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import { Logger } from "pino";
 import { logger } from "@src/utils/logger";
 import { Session } from "next-auth";
 import { auth } from "@project/auth";
+import {
+  EligibilityApiResponse,
+  EligibilityCohort,
+  ProcessedSuggestion,
+} from "@src/services/eligibility-api/api-types";
 
 const log: Logger = logger.child({ module: "eligibility-filter-service" });
 
