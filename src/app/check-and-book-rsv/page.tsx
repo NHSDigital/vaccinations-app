@@ -1,5 +1,3 @@
-"use server";
-
 import CardLink from "@src/app/_components/nhs-app/CardLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
@@ -11,6 +9,8 @@ import {
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import React from "react";
+
+export const dynamic = "force-dynamic";
 
 const headingText = "Check and book an RSV vaccination";
 
