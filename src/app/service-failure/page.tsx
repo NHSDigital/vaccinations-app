@@ -1,12 +1,16 @@
 "use client";
 
+import BackToNHSAppLink from "@src/app/_components/nhs-app/BackToNHSAppLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import { NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
+import React from "react";
 
 const ServiceFailure = () => {
   return (
     <>
       <title>{`There is a problem with the service - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`}</title>
+
+      <BackToNHSAppLink />
       <MainContent>
         <h1>There is a problem with the service</h1>
         <p>This maybe a temporary problem.</p>

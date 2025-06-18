@@ -1,3 +1,4 @@
+import BackToNHSAppLink from "@src/app/_components/nhs-app/BackToNHSAppLink";
 import CardLink from "@src/app/_components/nhs-app/CardLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
@@ -22,6 +23,7 @@ const VaccinationsHub = async () => {
     <>
       <title>{`${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`}</title>
 
+      <BackToNHSAppLink />
       <MainContent>
         {/* Page heading - H1 */}
         <h1 className={"app-dynamic-page-title__heading"}>{SERVICE_HEADING}</h1>
