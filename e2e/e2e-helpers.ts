@@ -28,5 +28,6 @@ export const benchmark = async (page: Page, target: string) => {
 }
 
 export const accessibilityCheck = async (page: Page) => {
-  expect(await pa11y(page.url(), { standard: "WCAG2AA" })).toHaveLength(0);
+  const checkResult = await pa11y(page.url(), { standard: "WCAG2AA" })
+  expect(checkResult.issues).toHaveLength(0);
 }
