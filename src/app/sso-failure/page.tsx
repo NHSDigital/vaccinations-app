@@ -1,15 +1,13 @@
 "use client";
 
-import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
+import { NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
 
 const SSOFailure = () => {
   return (
     <>
-      {/*TODO: This should go back to NHS app, requires app integration */}
-      <BackLink />
+      <title>{`There is a problem - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`}</title>
       <MainContent>
-        <title>There is a problem</title>
         <h1>There is a problem</h1>
         <p>
           There was an issue with NHS login. This maybe a temporary problem.
