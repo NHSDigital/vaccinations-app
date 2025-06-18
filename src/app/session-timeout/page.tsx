@@ -2,14 +2,21 @@
 
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import { NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const SessionTimeout = () => {
+  const [isOpenInNHSApp, setIsOpenInNHSApp] = useState(true);
+
   useEffect(() => {
     if (window.nhsapp.tools.isOpenInNHSApp()) {
+      setIsOpenInNHSApp(true);
       window.nhsapp.navigation.goToHomePage();
+    } else {
+      setIsOpenInNHSApp(false);
     }
   }, []);
+
+  if (isOpenInNHSApp) return null;
 
   return (
     <>

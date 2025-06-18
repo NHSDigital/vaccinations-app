@@ -5,6 +5,7 @@ import { render, screen } from "@testing-library/react";
 import VaccinationsHub from "@src/app/check-and-book-rsv/page";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
+jest.mock("@src/app/_components/nhs-app/BackToNHSAppLink");
 
 const queryHeading = (text: string, level: number): HTMLElement | null => {
   return screen.queryByRole("heading", {

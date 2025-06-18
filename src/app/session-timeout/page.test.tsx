@@ -6,23 +6,28 @@ describe("SessionTimeout", () => {
   const mockIsOpenInNHSApp = jest.fn();
   const mockGoToHomePage = jest.fn();
 
-  beforeEach(() => {
+  beforeAll(() => {
     mockNHSAppJSFunctions(mockIsOpenInNHSApp, mockGoToHomePage);
   });
 
-  it("should show NHS App home page inside NHS App", () => {
+  it("should show NHS App home page in the NHS App", () => {
     mockIsOpenInNHSApp.mockReturnValue(true);
     render(<SessionTimeout />);
+
+    const loggedOutText = screen.queryByText("You have been logged out");
+    expect(loggedOutText).toBeNull();
     expect(mockGoToHomePage).toHaveBeenCalledTimes(1);
   });
 
-  it("should show timeout out page outside NHS App", () => {
+  it("should show timeout out page in the browser", () => {
     mockIsOpenInNHSApp.mockReturnValue(false);
     render(<SessionTimeout />);
+
     const heading = screen.getByRole("heading", {
       level: 1,
       name: "You have been logged out",
     });
-    expect(heading).toBeInTheDocument();
+
+    expect(heading).toBeVisible();
   });
 });
