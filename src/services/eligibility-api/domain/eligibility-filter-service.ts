@@ -54,15 +54,16 @@ const getEligibilityForPerson = async (
     );
   }
 
-  const eligibilityContent: EligibilityContent | undefined = bulletPoints
-    ? {
-        status: {
-          heading,
-          introduction,
-          points: bulletPoints,
-        },
-      }
-    : undefined;
+  const eligibilityContent: EligibilityContent | undefined =
+    bulletPoints?.length
+      ? {
+          status: {
+            heading,
+            introduction,
+            points: bulletPoints,
+          },
+        }
+      : undefined;
 
   return {
     eligibilityStatus: status,
