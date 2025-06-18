@@ -79,6 +79,18 @@ describe("eligibility-filter-service", () => {
         EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
       );
     });
+
+    it("should return empty eligibility, and undefined content and error when fetchEligibilityForPerson returns undefined", async () => {
+      (fetchEligibilityContent as jest.Mock).mockResolvedValue(undefined);
+
+      const result: EligibilityForPerson = await getEligibilityForPerson(
+        VaccineTypes.RSV,
+      );
+
+      expect(result.eligibilityStatus).toEqual(EligibilityStatus.EMPTY);
+      expect(result.eligibilityContent).toBeUndefined();
+      expect(result.eligibilityError).toBeUndefined();
+    });
   });
 
   describe("_generateBulletPoints", () => {

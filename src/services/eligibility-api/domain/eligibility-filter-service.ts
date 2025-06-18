@@ -31,8 +31,17 @@ const getEligibilityForPerson = async (
     };
   }
 
-  const eligibilityApiResponse: EligibilityApiResponse =
+  const eligibilityApiResponse: EligibilityApiResponse | undefined =
     await fetchEligibilityContent(session.user.nhs_number);
+
+  // TODO: Error handling for Eligibility API
+  if (!eligibilityApiResponse) {
+    return {
+      eligibilityStatus: EligibilityStatus.EMPTY,
+      eligibilityContent: undefined,
+      eligibilityError: undefined,
+    };
+  }
 
   const suggestion: ProcessedSuggestion | undefined =
     eligibilityApiResponse.processedSuggestions.find(
@@ -40,10 +49,10 @@ const getEligibilityForPerson = async (
     );
 
   const introduction: string = "This is because you:";
-
   let bulletPoints: string[] | undefined;
   let heading: string = "";
   let status: EligibilityStatus = EligibilityStatus.EMPTY;
+
   if (suggestion) {
     status = _getStatus(suggestion);
     heading = suggestion.statusText;
