@@ -249,10 +249,12 @@ So make sure you use your own unique combination of initials, to set the workspa
 Use maximum 4 chars, otherwise you might not be able to deploy due to max limits on resource names.
 Avoid 'gh' as it is reserved for GitHub.
 
-- Make sure to build first using
+- Make sure to build a zip artifact for the Vita app and the content-cache-hydrator lambda first using
 
     ```shell
     npm run build:opennext
+    npm run build:lambda
+    zip -j -r lambda.zip dist/
     ```
 
 - (optional) Log into AWS if session has expired - run the following command, ignore the browser window that automatically opens and copy the URL output in terminal into browser for HSCIC profile

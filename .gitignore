@@ -107,3 +107,6 @@ next-env.d.ts
 
 # self-signed certificates for secure localhost
 certificates
+
+# Locally built artifact for developer workspace Terraform deploys
+lambda.zip
