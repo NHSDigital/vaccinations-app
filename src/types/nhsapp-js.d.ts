@@ -3,13 +3,18 @@ interface Window {
   nhsapp: {
     // tools functions are available within both native mobile and desktop app
     tools: {
-      getAppPlatform: () => string;
       isOpenInNHSApp: () => boolean;
     };
     // navigation functions are only available within native mobile app
     navigation: {
+      AppPage: AppPageEnums;
+      goToPage: (nhsAppPage: string) => void;
       goToHomePage: () => void;
       openBrowserOverlay: (overlayUri: string) => void;
     };
   };
 }
+
+type AppPageEnums = {
+  SERVICES: string;
+};

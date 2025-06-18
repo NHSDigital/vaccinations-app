@@ -1,11 +1,18 @@
 export const mockNHSAppJSFunctions = (
   mockIsOpenInNHSApp: jest.Mock,
-  mockGoToHomePage: jest.Mock,
+  mockGoToHomePage?: jest.Mock,
+  mockGoToPage?: jest.Mock,
 ) => {
   Object.defineProperty(window, "nhsapp", {
     value: {
       tools: { isOpenInNHSApp: mockIsOpenInNHSApp },
-      navigation: { goToHomePage: mockGoToHomePage },
+      navigation: {
+        goToHomePage: mockGoToHomePage,
+        goToPage: mockGoToPage,
+        AppPage: {
+          SERVICES: "services",
+        },
+      },
     },
     writable: true,
   });
@@ -14,9 +21,10 @@ export const mockNHSAppJSFunctions = (
 describe("nhsapp-js", () => {
   const mockIsOpenInNHSApp = jest.fn();
   const mockGoToHomePage = jest.fn();
+  const mockGoToPage = jest.fn();
 
   beforeEach(() => {
-    mockNHSAppJSFunctions(mockIsOpenInNHSApp, mockGoToHomePage);
+    mockNHSAppJSFunctions(mockIsOpenInNHSApp, mockGoToHomePage, mockGoToPage);
   });
 
   it("should mock isOpenInNHSApp", () => {
@@ -27,5 +35,10 @@ describe("nhsapp-js", () => {
   it("should mock goToHomePage", () => {
     window.nhsapp.navigation.goToHomePage();
     expect(mockGoToHomePage).toHaveBeenCalled();
+  });
+
+  it("should mock goToPage", () => {
+    window.nhsapp.navigation.goToPage("test");
+    expect(mockGoToPage).toHaveBeenCalledWith("test");
   });
 });
