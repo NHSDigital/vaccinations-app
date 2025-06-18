@@ -26,10 +26,11 @@ test.describe("E2E", () => {
     await expect(page).toHaveTitle(RSV_PAGE_TITLE);
   });
 
+  // TODO: Dynamically test eligibility content based on User and scenario
   test("Vaccine Eligibility data on RSV for older adults page", async () => {
     await page.goto("/vaccines/rsv");
 
-    const eligibilitySection = page.getByLabel("eligibility");
+    const eligibilitySection = page.getByTestId("non-urgent-care-card");
     await expect(eligibilitySection).toBeVisible();
   });
 

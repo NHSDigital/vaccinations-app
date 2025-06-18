@@ -277,7 +277,7 @@ describe("Any vaccine page", () => {
       await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
 
       const eligibilitySection: HTMLElement | null = screen.queryByText(
-        "Eligibility Component Test",
+        "Test Eligibility Component",
       );
       expect(eligibilitySection).not.toBeInTheDocument();
     });
@@ -290,7 +290,7 @@ describe("Any vaccine page", () => {
       await renderNamedVaccinePage(VaccineTypes.RSV);
 
       const eligibilitySection: HTMLElement | null = screen.queryByText(
-        "Eligibility Component Test",
+        "Test Eligibility Component",
       );
       expect(eligibilitySection).not.toBeInTheDocument();
     });

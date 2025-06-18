@@ -16,7 +16,7 @@ const Eligibility = ({
   eligibilityContent,
 }: EligibilityProps) => {
   return (
-    <section aria-label="eligibility">
+    <div>
       {eligibilityStatus === EligibilityStatus.NOT_ELIGIBLE && (
         <NonUrgentCareCard
           heading={<div>{eligibilityContent?.status.heading}</div>}
@@ -34,7 +34,7 @@ const Eligibility = ({
           }
         />
       )}
-    </section>
+    </div>
   );
 };
 

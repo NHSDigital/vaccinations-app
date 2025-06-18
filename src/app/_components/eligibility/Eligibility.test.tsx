@@ -13,9 +13,9 @@ describe("Eligibility", () => {
         }),
       );
 
-      const careCard: HTMLElement | null = screen.queryByRole("section", {
-        name: "eligibility",
-      });
+      const careCard: HTMLElement | null = screen.queryByTestId(
+        "non-urgent-care-card",
+      );
       expect(careCard).not.toBeInTheDocument();
     });
   });
