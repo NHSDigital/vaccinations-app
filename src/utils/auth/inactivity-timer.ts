@@ -5,10 +5,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 export const WARNING_TIME_MS: number = 9 * 60 * 1000;
 const LOGOUT_TIME_MS: number = 10 * 60 * 1000;
 export const ACTIVITY_EVENTS: string[] = [
-  "keydown",
+  "keyup",
   "click",
   "scroll",
-  "touchstart",
 ];
 
 const useInactivityTimer = (
