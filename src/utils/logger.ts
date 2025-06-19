@@ -9,6 +9,11 @@ export const logger: Logger = pino({
     },
   },
   mixin() {
-    return { requestId: asyncLocalStorage?.getStore()?.requestId };
+    return {
+      requestId: asyncLocalStorage?.getStore()?.requestId,
+      traceId: process.env._X_AMZN_TRACE_ID,
+      lambdaVersion: process.env.AWS_LAMBDA_FUNCTION_VERSION,
+      appVersion: process.env.APP_VERSION,
+    };
   },
 });
