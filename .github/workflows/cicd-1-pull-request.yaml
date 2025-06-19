@@ -119,7 +119,7 @@ jobs:
   acceptance-stage: # Recommended maximum execution time is 10 minutes
     name: "Acceptance stage"
     needs: [metadata, build-stage, deploy-stage]
-    uses: stage-5-acceptance.yaml
+    uses: ./.github/workflows/stage-5-acceptance.yaml
     if: needs.metadata.outputs.does_pull_request_exist == 'true' || (github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'reopened'))
     with:
       build_datetime: "${{ needs.metadata.outputs.build_datetime }}"
