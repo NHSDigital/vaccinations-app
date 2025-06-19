@@ -55,72 +55,15 @@ jobs:
           export VERSION="${{ steps.variables.outputs.version }}"
           export TAG="${{ steps.variables.outputs.tag }}"
           make list-variables
-  deploy:
-    name: "Deploy to ${{ github.event.inputs.environment}} environment"
-    runs-on: ubuntu-latest
-    environment:
-      name: ${{ github.event.inputs.environment }}
-    needs: [ metadata ]
-    timeout-minutes: 20
-    permissions:
-      id-token: write
-      contents: read
-    steps:
-      - name: "Checkout code"
-        uses: actions/checkout@v4
-      - name: "Install Terraform"
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: "${{ needs.metadata.outputs.terraform_version }}"
-      - name: "Configure AWS credentials for env"
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-session-name: GitHubActionsSession
-          role-to-assume: ${{ secrets.IAM_ROLE }}
-          aws-region: ${{ env.AWS_REGION }}
-      - name: "Download packages from dev S3 Artefacts bucket"
-        if: ${{ github.event.inputs.environment == 'dev' }}
-        run: |
-          AWS_S3_ARTEFACTS_BUCKET="vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-${{ github.event.inputs.environment }}"
-          app_s3_path="s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/${{ needs.metadata.outputs.tag }}/open-next.zip"
-          echo "Artefact path: $app_s3_path"
-          aws s3 cp "$app_s3_path" .
-          lambda_s3_path="s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/${{ needs.metadata.outputs.tag }}/lambda.zip"
-          echo "Artefact path: $lambda_s3_path"
-          aws s3 cp "$lambda_s3_path" .
-      - name: "Download packages from ${{ github.event.inputs.environment}} S3 Releases bucket"
-        if: ${{ github.event.inputs.environment == 'preprod' }}
-        run: |
-          AWS_S3_RELEASE_BUCKET="vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${{ github.event.inputs.environment }}"
-          app_s3_path="s3://${AWS_S3_RELEASE_BUCKET}/tag/${{ needs.metadata.outputs.tag }}/open-next.zip"
-          echo "Artefact path: $app_s3_path"
-          aws s3 cp "$app_s3_path" .
-          lambda_s3_path="s3://${AWS_S3_RELEASE_BUCKET}/tag/${{ needs.metadata.outputs.tag }}/lambda.zip"
-          echo "Artefact path: $lambda_s3_path"
-          aws s3 cp "$lambda_s3_path" .
-          workflow_s3_path="s3://${AWS_S3_RELEASE_BUCKET}/tag/${{ needs.metadata.outputs.tag }}/workflow.log"
-          echo "Artefact path: $workflow_s3_path"
-          aws s3 cp "$workflow_s3_path" .
-      - name: "Unzip OpenNext Package"
-        run: |
-          unzip open-next.zip
-          rm -rf open-next.zip
-      - name: "Set that it is GitHub actions user"
-        run: echo "TF_VAR_is_github_action=true" >> $GITHUB_ENV
-      - name: "Set the app version being deployed"
-        run: echo "TF_VAR_app_version=${{ needs.metadata.outputs.tag }}" >> $GITHUB_ENV
-      - name: "Terraform init"
-        if: ${{ github.event.inputs.environment == 'dev' || github.event.inputs.environment == 'preprod' }}
-        id: init
-        run: TF_ENV=${{ github.event.inputs.environment }} make terraform-init
-      - name: "Terraform plan"
-        if: ${{ github.event.inputs.environment == 'dev' || github.event.inputs.environment == 'preprod' }}
-        id: plan
-        run: TF_ENV=${{ github.event.inputs.environment }} make terraform-plan opts="-out=terraform.tfplan"
-      - name: "Terraform apply"
-        if: ${{ github.event.inputs.environment == 'dev' || github.event.inputs.environment == 'preprod'  }}
-        id: apply
-        run: TF_ENV=${{ github.event.inputs.environment }} make terraform-apply opts="-auto-approve" opts="terraform.tfplan"
+  deploy-stage:
+    name: "Deploy stage"
+    needs: [metadata]
+    uses: ./.github/workflows/stage-4-deploy.yaml
+    with:
+      environment: ${{ github.event.inputs.environment}}
+      terraform_version: "${{ needs.metadata.outputs.terraform_version }}"
+      tag: "${{ needs.metadata.outputs.tag }}"
+    secrets: inherit
 
   # TODO: More jobs or/and steps here
   # success:
