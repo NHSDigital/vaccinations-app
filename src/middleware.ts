@@ -5,7 +5,7 @@ import { Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Logger } from "pino";
 
-const log: Logger = logger.child({ name: "middleware" });
+const log: Logger = logger.child({ module: "middleware" });
 
 export async function middleware(request: NextRequest) {
   log.info(`Inspecting ${request.nextUrl}`);
