@@ -34,7 +34,7 @@ on:
     outputs:
       short_sha:
         description: "Short SHA of the commit"
-        value: ${{ jobs.build-and-package.short_sha }}
+        value: ${{ jobs.build-and-package.outputs.short_sha }}
 
 env:
   AWS_REGION: eu-west-2
