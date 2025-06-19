@@ -30,6 +30,9 @@ jobs:
       - name: "Install Playwright browsers"
         run: |
           npx playwright install --with-deps
+      - name: "Install Puppeteer browsers for Pa11y" # <--- ADD THIS NEW STEP
+        run: |
+          npx puppeteer browsers install chrome
       - name: "Run Playwright tests"
         run: |
           npm run e2e
