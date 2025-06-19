@@ -93,6 +93,7 @@ jobs:
       version: "${{ needs.metadata.outputs.version }}"
     secrets: inherit
   build-stage: # Recommended maximum execution time is 3 minutes
+    id: build_stage
     name: "Build stage"
     needs: [metadata, test-stage]
     uses: ./.github/workflows/stage-3-build.yaml
@@ -105,6 +106,15 @@ jobs:
       python_version: "${{ needs.metadata.outputs.python_version }}"
       terraform_version: "${{ needs.metadata.outputs.terraform_version }}"
       version: "${{ needs.metadata.outputs.version }}"
+    secrets: inherit
+  deploy-stage:
+    name: "Deploy stage"
+    needs: [metadata, build-stage]
+    uses: ./.github/workflows/stage-4-deploy.yaml
+    with:
+      environment: "dev"
+      terraform_version: "${{ needs.metadata.outputs.terraform_version }}"
+      tag: "${{ needs.build_stage.outputs.short_sha }}"
     secrets: inherit
   acceptance-stage: # Recommended maximum execution time is 10 minutes
     name: "Acceptance stage"

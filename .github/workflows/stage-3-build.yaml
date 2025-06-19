@@ -31,6 +31,10 @@ on:
         description: "Version of the software, set by the CI/CD pipeline workflow"
         required: true
         type: string
+    outputs:
+      short_sha:
+        description: "Short SHA of the commit"
+        value: ${{ jobs.build-and-package.short_sha }}
 
 env:
   AWS_REGION: eu-west-2
@@ -46,6 +50,8 @@ jobs:
     permissions:
       id-token: write
       contents: read
+    outputs:
+      short_sha: ${{ steps.sha.outputs.short_sha }}
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
