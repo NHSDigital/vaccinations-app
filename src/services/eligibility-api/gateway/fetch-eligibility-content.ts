@@ -14,6 +14,7 @@ export const fetchEligibilityContent = async (
 
   const apiEndpoint: string = config.ELIGIBILITY_API_ENDPOINT;
   const apiKey: string = config.ELIGIBILITY_API_KEY;
+  const correlationId: string | undefined = process.env._X_AMZN_TRACE_ID;
 
   const uri: string = `${apiEndpoint}${ELIGIBILITY_API_PATH_SUFFIX}${nhsNumber}`;
   let response: AxiosResponse;
@@ -23,6 +24,7 @@ export const fetchEligibilityContent = async (
       headers: {
         accept: "application/json",
         apikey: apiKey,
+        "X-Correlation-ID": correlationId,
       },
     });
     log.info("Successfully fetched content from %s", uri);
