@@ -2,6 +2,7 @@ export const mockNHSAppJSFunctions = (
   mockIsOpenInNHSApp: jest.Mock,
   mockGoToHomePage?: jest.Mock,
   mockGoToPage?: jest.Mock,
+  mockOpenBrowserOverlay?: jest.Mock,
 ) => {
   Object.defineProperty(window, "nhsapp", {
     value: {
@@ -9,6 +10,7 @@ export const mockNHSAppJSFunctions = (
       navigation: {
         goToHomePage: mockGoToHomePage,
         goToPage: mockGoToPage,
+        openBrowserOverlay: mockOpenBrowserOverlay,
         AppPage: {
           SERVICES: "services",
         },

@@ -1,6 +1,7 @@
 "use client";
 
 import { InactivityDialog } from "@src/app/_components/inactivity/InactivityDialog";
+import LinksInterceptor from "@src/app/_components/interceptor/LinksInterceptor";
 import AppFooter from "@src/app/_components/nhs-frontend/AppFooter";
 import AppHeader from "@src/app/_components/nhs-frontend/AppHeader";
 import SkipLink from "@src/app/_components/nhs-frontend/SkipLink";
@@ -19,7 +20,7 @@ export default function RootLayout({
   // This is the session polling time on the client side,
   // so that the client can react to server side session expiry.
   // The value should be less than the time to warning dialog,
-  // to ensure that the warning dialog is only shown when user is authenticated
+  // to ensure that the warning dialog is only shown when a user is authenticated
   // But not too less to avoid frequent polling.
   // One needs to also account for the polling request latency (assume 5 sec).
   const SESSION_REFETCH_SECONDS =
@@ -84,6 +85,7 @@ export default function RootLayout({
       </head>
 
       <body>
+        <LinksInterceptor />
         <SkipLink />
         <AppHeader />
         <SessionProvider refetchInterval={SESSION_REFETCH_SECONDS}>
