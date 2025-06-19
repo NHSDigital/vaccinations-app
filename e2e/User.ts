@@ -18,20 +18,20 @@ const getEnv = (name: string) => {
   return value;
 }
 
-const loadUserFromEnvironment = (): User => {
+const loadUserFromEnvironment = (_nhsLoginUsername: string): User => {
   return {
     fakeAppUsername: getEnv("TEST_NHS_APP_USERNAME"),
     fakeAppPassword: getEnv("TEST_NHS_APP_PASSWORD"),
     fakeAppLoginUrl: getEnv("TEST_NHS_APP_URL"),
-    nhsLoginUsername: getEnv("TEST_NHS_LOGIN_USERNAME"),
+    nhsLoginUsername: _nhsLoginUsername,
     nhsLoginPassword: getEnv("TEST_NHS_LOGIN_PASSWORD"),
     nhsLoginOTP: getEnv("TEST_NHS_LOGIN_OTP"),
     vaccinationsHubUrl: getEnv("TEST_APP_URL")
   }
 }
 
-export const login = async (browser: Browser): Promise<Page> => {
-  const user = loadUserFromEnvironment();
+export const login = async (browser: Browser, nhsLoginUsername: string): Promise<Page> => {
+  const user = loadUserFromEnvironment(nhsLoginUsername);
   const context = await browser.newContext({
     httpCredentials: {
       username: user.fakeAppUsername,

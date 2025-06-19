@@ -1,0 +1,8 @@
+{
+  "NotEligible": {
+    "email": "testuserlive+15@demo.signin.nhs.uk"
+  },
+  "Actionable": {
+    "email": "testuserlive+6@demo.signin.nhs.uk"
+  }
+}

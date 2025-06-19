@@ -9,6 +9,7 @@ import {
 } from "./constants";
 import { accessibilityCheck, benchmark, clickLinkAndExpectPageTitle } from "./e2e-helpers";
 import { login } from "./User";
+import users from "@project/test-data/test-users.json" assert { type: "json" };
 
 test.describe.configure({ mode: 'serial' });
 
@@ -16,7 +17,7 @@ test.describe("E2E", () => {
   let page: Page;
 
   test.beforeAll(async ({ browser }) => {
-    page = await login(browser);
+    page = await login(browser, users.NotEligible.email);
   });
 
   test.afterEach("Accessibility check", async () => {
@@ -35,7 +36,6 @@ test.describe("E2E", () => {
     await expect(page).toHaveTitle(RSV_PAGE_TITLE);
   });
 
-  // TODO: Dynamically test eligibility content based on User and scenario
   test("Vaccine Eligibility data on RSV for older adults page", async () => {
     await page.goto("/vaccines/rsv");
 
