@@ -49,12 +49,12 @@ describe("eligibility-filter-service", () => {
               .andStatusText("We do not believe you should have this vaccine")
               .andEligibilityCohorts([
                 eligibilityCohortBuilder()
-                  .withStatus("NotEligible")
-                  .andText("You are not aged 75 to 79 years old.")
+                  .withCohortStatus("NotEligible")
+                  .andCohortText("You are not aged 75 to 79 years old.")
                   .build(),
                 eligibilityCohortBuilder()
-                  .withStatus("NotEligible")
-                  .andText(
+                  .withCohortStatus("NotEligible")
+                  .andCohortText(
                     "You did not turn 80 between 2nd September 2024 and 31st August 2025",
                   )
                   .build(),
