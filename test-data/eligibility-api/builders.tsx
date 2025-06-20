@@ -1,154 +1,79 @@
 import {
-  Condition,
   EligibilityApiResponse,
   EligibilityCohort,
-  ProcessedSuggestion,
-  Status
+  ProcessedSuggestion
 } from "@src/services/eligibility-api/api-types";
 
-interface Builder<T> {
-  build(): T;
+export function eligibilityApiResponseBuilder() {
+  return createBuilder<EligibilityApiResponse>({
+    processedSuggestions: [processedSuggestionBuilder().build(), processedSuggestionBuilder().build()],
+  });
 }
 
-export function eligibilityApiResponseBuilder(): EligibilityApiResponseBuilder {
-  return new EligibilityApiResponseBuilder();
+export function processedSuggestionBuilder() {
+  return createBuilder<ProcessedSuggestion>({
+    condition: randomValue(["COVID", "FLU", "MMR", "RSV"]),
+    status: randomValue(["NotEligible", "NotActionable", "Actionable"]),
+    statusText: randomString(10),
+    eligibilityCohorts: [eligibilityCohortBuilder().build(), eligibilityCohortBuilder().build()],
+  });
 }
 
-export function processedSuggestionBuilder(): ProcessedSuggestionBuilder {
-  return new ProcessedSuggestionBuilder();
+export function eligibilityCohortBuilder() {
+  return createBuilder<EligibilityCohort>({
+    cohortCode: randomString(10),
+    cohortText: randomString(10),
+    cohortStatus: randomValue(["NotEligible", "NotActionable", "Actionable"]),
+  });
 }
 
-export function eligibilityCohortBuilder(): EligibilityCohortBuilder {
-  return new EligibilityCohortBuilder();
-}
+type BuilderMethods<T, TBuilder> = {
+  [K in keyof T as `with${Capitalize<string & K>}`]: (
+    value: T[K]
+  ) => TBuilder;
+} & {
+  [K in keyof T as `and${Capitalize<string & K>}`]: (
+    value: T[K]
+  ) => TBuilder;
+};
 
-class EligibilityApiResponseBuilder implements Builder<EligibilityApiResponse> {
-  private processedSuggestions!: ProcessedSuggestion[];
+class BaseBuilder<T> {
+  protected instance: Partial<T> = {};
 
-  constructor() {
-    this.processedSuggestions = [new ProcessedSuggestionBuilder().build(), new ProcessedSuggestionBuilder().build()];
-  }
-
-  withProcessedSuggestions = (processedSuggestions: ProcessedSuggestion[]) => {
-    this.processedSuggestions = processedSuggestions;
-    return this;
-  };
-
-  andProcessedSuggestions = (eligibilityCohorts: ProcessedSuggestion[]) => {
-    return this.withProcessedSuggestions(eligibilityCohorts);
-  };
-
-    build(): EligibilityApiResponse {
-      return {processedSuggestions: this.processedSuggestions};
+  build(): T {
+    for (const key in this.instance) {
+      if (this.instance[key] === undefined) {
+        console.warn(`Property '${key}' is undefined on the object being built.`);
+      }
     }
+    return this.instance as T;
+  }
 }
 
-class ProcessedSuggestionBuilder implements Builder<ProcessedSuggestion> {
-  private condition!: Condition;
-  private status!: Status;
-  private statusText!: string;
-  private eligibilityCohorts!: EligibilityCohort[];
+function createBuilder<T>(defaults: T): BaseBuilder<T> & BuilderMethods<T, BaseBuilder<T> & BuilderMethods<T, any>> {
+  const builder = new BaseBuilder<T>();
 
-  constructor() {
-    this.condition = randomValue(["COVID", "FLU", "MMR", "RSV"]);
-    this.status = randomValue(["NotEligible", "NotActionable", "Actionable"]);
-    this.statusText = randomString(10);
-    this.eligibilityCohorts = [new EligibilityCohortBuilder().build(), new EligibilityCohortBuilder().build()];
-  }
+  // Set initial default values
+  builder['instance'] = { ...defaults };
 
-  withCondition = (condition: Condition) => {
-    this.condition = condition;
-    return this;
-  };
+  for (const key in defaults) {
+    const capitalizedKey = key.charAt(0).toUpperCase() + key.slice(1);
 
-  andCondition = (condition: Condition) => {
-    return this.withCondition(condition);
-  };
+    const withMethodName = `with${capitalizedKey}`;
+    (builder as any)[withMethodName] = (value: T[typeof key]) => {
+      (builder['instance'] as any)[key] = value;
+      return builder;
+    };
 
-  withStatus = (status: Status) => {
-    this.status = status;
-    return this;
-  };
-
-  andStatus = (status: Status) => {
-    return this.withStatus(status);
-  };
-
-  withStatusText = (statusText: string) => {
-    this.statusText = statusText;
-    return this;
-  };
-
-  andStatusText = (statusText: string) => {
-    return this.withStatusText(statusText);
-  };
-
-  withEligibilityCohorts = (eligibilityCohorts: EligibilityCohort[]) => {
-    this.eligibilityCohorts = eligibilityCohorts;
-    return this;
-  };
-
-  andEligibilityCohorts = (eligibilityCohorts: EligibilityCohort[]) => {
-    return this.withEligibilityCohorts(eligibilityCohorts);
-  };
-
-  build(): ProcessedSuggestion {
-    return {
-      condition: this.condition,
-      status: this.status,
-      statusText: this.statusText,
-      eligibilityCohorts: this.eligibilityCohorts
+    const andMethodName = `and${capitalizedKey}`;
+    (builder as any)[andMethodName] = (value: T[typeof key]) => {
+      (builder as any)[withMethodName](value); // 'and' is just an alias for 'with'
+      return builder;
     };
   }
+
+  return builder as any;
 }
-
-class EligibilityCohortBuilder implements Builder<EligibilityCohort> {
-  private code!: string;
-  private text!: string;
-  private status!: Status;
-
-  constructor() {
-    this.code = randomString(10);
-    this.text = randomString(10);
-    this.status = randomValue(["NotEligible", "NotActionable", "Actionable"]);
-  }
-
-  withCode = (code: string) => {
-    this.code = code;
-    return this;
-  };
-
-  andCode = (code: string) => {
-    return this.withCode(code);
-  };
-
-  withText = (text: string) => {
-    this.text = text;
-    return this;
-  };
-
-  andText = (text: string) => {
-    return this.withText(text);
-  };
-
-  withStatus = (status: Status) => {
-    this.status = status;
-    return this;
-  };
-
-  andStatus = (status: Status) => {
-    return this.withStatus(status);
-  };
-
-  build(): EligibilityCohort {
-    return {
-      cohortCode: this.code,
-      cohortText: this.text,
-      cohortStatus: this.status
-    };
-  }
-}
-
 
 function randomString(length: number) {
   let result: string = "";
