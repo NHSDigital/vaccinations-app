@@ -9,14 +9,15 @@ import {
   EligibilityForPerson,
   EligibilityStatus,
 } from "@src/services/eligibility-api/types";
-import { mockEligibilityContent } from "@test-data/eligibility-api/data";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import { auth } from "@project/auth";
 import { ProcessedSuggestion } from "@src/services/eligibility-api/api-types";
 import {
   eligibilityApiResponseBuilder,
-  processedSuggestionBuilder,
   eligibilityCohortBuilder,
+  eligibilityContentBuilder,
+  processedSuggestionBuilder,
+  statusContentBuilder,
 } from "@test-data/eligibility-api/builders";
 
 jest.mock(
@@ -69,7 +70,20 @@ describe("eligibility-filter-service", () => {
       );
 
       expect(result.eligibilityStatus).toEqual(EligibilityStatus.NOT_ELIGIBLE);
-      expect(result.eligibilityContent).toEqual(mockEligibilityContent);
+      expect(result.eligibilityContent).toEqual(
+        eligibilityContentBuilder()
+          .withStatus(
+            statusContentBuilder()
+              .withHeading("We do not believe you should have this vaccine")
+              .andIntroduction("This is because you:")
+              .andPoints([
+                "You are not aged 75 to 79 years old.",
+                "You did not turn 80 between 2nd September 2024 and 31st August 2025",
+              ])
+              .build(),
+          )
+          .build(),
+      );
       expect(result.eligibilityError).toEqual(undefined);
     });
 
