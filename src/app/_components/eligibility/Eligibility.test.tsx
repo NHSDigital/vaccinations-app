@@ -1,7 +1,7 @@
 import { EligibilityStatus } from "@src/services/eligibility-api/types";
-import { mockEligibilityContent } from "@test-data/eligibility-api/data";
 import { render, screen } from "@testing-library/react";
 import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
+import { eligibilityContentBuilder } from "@test-data/eligibility-api/builders";
 
 describe("Eligibility", () => {
   describe("when eligible", () => {
@@ -9,7 +9,7 @@ describe("Eligibility", () => {
       render(
         Eligibility({
           eligibilityStatus: EligibilityStatus.ELIGIBLE_BOOKABLE,
-          eligibilityContent: mockEligibilityContent,
+          eligibilityContent: eligibilityContentBuilder().build(),
         }),
       );
 
@@ -25,7 +25,7 @@ describe("Eligibility", () => {
       render(
         Eligibility({
           eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
-          eligibilityContent: mockEligibilityContent,
+          eligibilityContent: eligibilityContentBuilder().build(),
         }),
       );
 
@@ -34,11 +34,12 @@ describe("Eligibility", () => {
     });
 
     it("should show heading text in the care card heading", async () => {
-      const expectedHeading: string = mockEligibilityContent.status.heading;
+      const eligibilityContent = eligibilityContentBuilder().build();
+      const expectedHeading: string = eligibilityContent.status.heading;
       render(
         Eligibility({
           eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
-          eligibilityContent: mockEligibilityContent,
+          eligibilityContent: eligibilityContent,
         }),
       );
 
@@ -47,11 +48,12 @@ describe("Eligibility", () => {
     });
 
     it("should show introduction in the care card body", async () => {
-      const expectedIntroduction = mockEligibilityContent.status.introduction;
+      const eligibilityContent = eligibilityContentBuilder().build();
+      const expectedIntroduction = eligibilityContent.status.introduction;
       render(
         Eligibility({
           eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
-          eligibilityContent: mockEligibilityContent,
+          eligibilityContent: eligibilityContent,
         }),
       );
 
@@ -60,11 +62,12 @@ describe("Eligibility", () => {
     });
 
     it("should show bullet points in the care card body", async () => {
-      const expectedPoints: string[] = mockEligibilityContent.status.points;
+      const eligibilityContent = eligibilityContentBuilder().build();
+      const expectedPoints: string[] = eligibilityContent.status.points;
       render(
         Eligibility({
           eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
-          eligibilityContent: mockEligibilityContent,
+          eligibilityContent: eligibilityContent,
         }),
       );
 

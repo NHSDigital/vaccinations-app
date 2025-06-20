@@ -14,14 +14,14 @@ export type EligibilityContent = {
   status: StatusContent;
 };
 
-type StatusContent = {
+export type StatusContent = {
   heading: string;
   introduction: string;
   points: string[];
 };
 
 export enum EligibilityErrorTypes {
-  ELIGIBILITY_LOADING_ERROR,
+  ELIGIBILITY_LOADING_ERROR = "LOADING",
 }
 
 export type EligibilityForPerson = {

@@ -8,10 +8,8 @@ import {
   mockStyledContentWithoutWhatSection,
 } from "@test-data/content-api/data";
 import { render, screen } from "@testing-library/react";
-import {
-  mockEligibilityForPerson,
-  mockEligibilityWithNoContent,
-} from "@test-data/eligibility-api/data";
+import { EligibilityStatus } from "@src/services/eligibility-api/types";
+import { eligibilityForPersonBuilder } from "@test-data/eligibility-api/builders";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service", () => ({
   getContentForVaccine: jest.fn(),
@@ -44,7 +42,10 @@ describe("Any vaccine page", () => {
         styledVaccineContent: mockStyledContent,
       });
       (getEligibilityForPerson as jest.Mock).mockResolvedValue(
-        mockEligibilityForPerson,
+        eligibilityForPersonBuilder()
+          .withEligibilityStatus(EligibilityStatus.NOT_ELIGIBLE)
+          .andEligibilityError(undefined)
+          .build(),
       );
     });
 
@@ -229,7 +230,10 @@ describe("Any vaccine page", () => {
         styledVaccineContent: mockStyledContent,
       });
       (getEligibilityForPerson as jest.Mock).mockResolvedValue(
-        mockEligibilityForPerson,
+        eligibilityForPersonBuilder()
+          .withEligibilityStatus(EligibilityStatus.NOT_ELIGIBLE)
+          .andEligibilityError(undefined)
+          .build(),
       );
     });
 
@@ -260,7 +264,10 @@ describe("Any vaccine page", () => {
         styledVaccineContent: mockStyledContent,
       });
       (getEligibilityForPerson as jest.Mock).mockResolvedValue(
-        mockEligibilityForPerson,
+        eligibilityForPersonBuilder()
+          .withEligibilityStatus(EligibilityStatus.NOT_ELIGIBLE)
+          .andEligibilityError(undefined)
+          .build(),
       );
     });
 
@@ -284,7 +291,10 @@ describe("Any vaccine page", () => {
 
     it("should not display the eligibility when there is no content ", async () => {
       (getEligibilityForPerson as jest.Mock).mockResolvedValue(
-        mockEligibilityWithNoContent,
+        eligibilityForPersonBuilder()
+          .withEligibilityStatus(EligibilityStatus.NOT_ELIGIBLE)
+          .andEligibilityContent(undefined)
+          .build(),
       );
 
       await renderNamedVaccinePage(VaccineTypes.RSV);

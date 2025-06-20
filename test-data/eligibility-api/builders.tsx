@@ -3,6 +3,13 @@ import {
   EligibilityCohort,
   ProcessedSuggestion
 } from "@src/services/eligibility-api/api-types";
+import {
+  EligibilityContent,
+  EligibilityErrorTypes,
+  EligibilityForPerson,
+  EligibilityStatus,
+  StatusContent
+} from "@src/services/eligibility-api/types";
 
 export function eligibilityApiResponseBuilder() {
   return createTypeBuilder<EligibilityApiResponse>({
@@ -24,6 +31,26 @@ export function eligibilityCohortBuilder() {
     cohortCode: randomString(10),
     cohortText: randomString(10),
     cohortStatus: randomValue(["NotEligible", "NotActionable", "Actionable"]),
+  });
+}
+
+export function eligibilityForPersonBuilder() {
+  return createTypeBuilder<EligibilityForPerson>({
+    eligibilityStatus: randomValue(Object.values(EligibilityStatus)),
+    eligibilityContent: eligibilityContentBuilder().build(),
+    eligibilityError: randomValue(Object.values(EligibilityErrorTypes))
+  });
+}
+
+export function eligibilityContentBuilder() {
+  return createTypeBuilder<EligibilityContent>({ status: statusContentBuilder().build() });
+}
+
+export function statusContentBuilder() {
+  return createTypeBuilder<StatusContent>({
+    heading: randomString(10),
+    introduction: randomString(10),
+    points: [randomString(10), randomString(10)]
   });
 }
 
@@ -66,14 +93,15 @@ type BuilderMethods<T, TBuilder> = {
  * @see {createTypeBuilder}
  */
 class TypeBuilder<T> {
-  protected instance: Partial<T> = {};
+  public instance: Partial<T> = {};
+
+  constructor(defaults?: Partial<T>) {
+    if (defaults) {
+      this.instance = { ...defaults };
+    }
+  }
 
   build(): T {
-    for (const key in this.instance) {
-      if (this.instance[key] === undefined) {
-        console.warn(`Property '${key}' is undefined on the object being built.`);
-      }
-    }
     return this.instance as T;
   }
 }
@@ -116,29 +144,30 @@ class TypeBuilder<T> {
  *
  * // `verifiedUser` is now: { id: 1, username: 'jane.doe', isVerified: true }
  */
-function createTypeBuilder<T>(defaults: T): TypeBuilder<T> & BuilderMethods<T, TypeBuilder<T> & BuilderMethods<T, any>> {
-  const builder = new TypeBuilder<T>();
+export function createTypeBuilder<T extends object>(defaults?: Partial<T>) {
+  const builder = new TypeBuilder<T>(defaults);
 
-  // Set initial default values
-  builder['instance'] = { ...defaults };
+  // The Proxy fulfills the contract at RUNTIME.
+  const proxy = new Proxy(builder, {
+    get(target, prop, receiver) {
+      const propertyName = String(prop);
 
-  for (const key in defaults) {
-    const capitalizedKey = key.charAt(0).toUpperCase() + key.slice(1);
+      if (propertyName.startsWith("with") || propertyName.startsWith("and")) {
+        const key =
+          propertyName.charAt(propertyName.startsWith("with") ? 4 : 3).toLowerCase() +
+          propertyName.slice(propertyName.startsWith("with") ? 5 : 4);
 
-    const withMethodName = `with${capitalizedKey}`;
-    (builder as any)[withMethodName] = (value: T[typeof key]) => {
-      (builder['instance'] as any)[key] = value;
-      return builder;
-    };
+        return (value: T[keyof T]) => {
+          (target.instance as any)[key] = value;
+          return receiver;
+        };
+      }
+      return Reflect.get(target, prop, receiver);
+    },
+  });
 
-    const andMethodName = `and${capitalizedKey}`;
-    (builder as any)[andMethodName] = (value: T[typeof key]) => {
-      (builder as any)[withMethodName](value); // 'and' is just an alias for 'with'
-      return builder;
-    };
-  }
-
-  return builder as any;
+  // The return signature, using BuilderMethods, is the COMPILE-TIME contract.
+  return proxy as any as TypeBuilder<T> & BuilderMethods<T, any>;
 }
 
 function randomString(length: number) {
