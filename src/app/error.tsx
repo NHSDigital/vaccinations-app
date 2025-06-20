@@ -10,7 +10,7 @@ interface GlobalErrorProps {
   reset: () => void;
 }
 
-const Error = (props: GlobalErrorProps) => {
+const UncaughtError = (props: GlobalErrorProps) => {
   useEffect(() => {
     // TODO: Log the error to an error reporting service
     console.error("Uncaught error occurred", props.error);
@@ -19,4 +19,4 @@ const Error = (props: GlobalErrorProps) => {
   return <ServiceFailure />;
 };
 
-export default Error;
+export default UncaughtError;
