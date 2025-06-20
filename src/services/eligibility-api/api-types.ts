@@ -4,16 +4,17 @@ export type EligibilityApiResponse = {
 };
 
 export type ProcessedSuggestion = {
-  condition: string;
+  condition: Condition;
   status: Status;
   statusText: string;
   eligibilityCohorts: EligibilityCohort[];
 };
 
-type Status = "NotEligible" | "NotActionable" | "Actionable";
+export type Condition = "COVID" | "FLU" | "MMR" | "RSV";
+export type Status = "NotEligible" | "NotActionable" | "Actionable";
 
 export type EligibilityCohort = {
   cohortCode: string;
   cohortText: string;
-  cohortStatus: string;
+  cohortStatus: Status;
 };
