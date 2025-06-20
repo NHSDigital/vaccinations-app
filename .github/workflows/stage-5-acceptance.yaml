@@ -10,9 +10,9 @@ on:
 
 jobs:
   test-e2e:
-    name: "e2e Test: ${{inputs.environment}} environment"
+    name: "E2E Test: ${{inputs.environment}} environment"
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 30
     environment: ${{ inputs.environment }}
     env:
       TEST_NHS_APP_USERNAME: ${{ secrets.TEST_NHS_APP_USERNAME }}
@@ -46,3 +46,21 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+  test-contract:
+    name: "Contract Test: ${{inputs.environment}} environment"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment: ${{ inputs.environment }}
+    env:
+      CONTENT_API_ENDPOINT: ${{ secrets.CONTENT_API_ENDPOINT }}
+      CONTENT_API_KEY: ${{ secrets.CONTENT_API_KEY }}
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v4
+      - name: "Install dependencies"
+        run: |
+          npm ci --ignore-scripts
+      - name: "Run contract tests"
+        run: |
+          npm run contract
+
