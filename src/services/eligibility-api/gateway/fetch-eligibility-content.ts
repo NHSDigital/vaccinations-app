@@ -24,7 +24,7 @@ export const fetchEligibilityContent = async (
       headers: {
         accept: "application/json",
         apikey: apiKey,
-        "X-Request-ID": vitaTraceId,
+        "X-Correlation-ID": vitaTraceId,
       },
     });
     log.info("Successfully fetched content from %s", uri);
