@@ -30,9 +30,12 @@ jobs:
       - name: "Install Playwright browsers"
         run: |
           npx playwright install --with-deps
-      - name: "Install Puppeteer browsers for Pa11y" # <--- ADD THIS NEW STEP
+      - name: "Install Puppeteer browsers for Pa11y"
         run: |
           npx puppeteer browsers install chrome
+      - name: "TEMP - Disable AppArmor User Namespace Restrictions for Pa11y"
+        run: echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
+        if: runner.os == 'Linux'
       - name: "Run Playwright tests"
         run: |
           npm run e2e
