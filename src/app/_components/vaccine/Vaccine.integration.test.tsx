@@ -4,8 +4,8 @@ import { configProvider } from "@src/utils/config";
 import { mockNHSAppJSFunctions } from "@src/utils/nhsapp-js.test";
 import { render, screen } from "@testing-library/react";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
-import { mockEligibilityResponse } from "@test-data/eligibility-api/data";
 import { auth } from "@project/auth";
+import { eligibilityApiResponseBuilder } from "@test-data/eligibility-api/builders";
 
 jest.mock("@src/utils/auth/generate-auth-payload", () => jest.fn());
 jest.mock("@src/utils/config", () => ({
@@ -28,7 +28,7 @@ describe("Vaccine", () => {
       PINO_LOG_LEVEL: "info",
     }));
     (fetchEligibilityContent as jest.Mock).mockResolvedValue(
-      mockEligibilityResponse,
+      eligibilityApiResponseBuilder().build(),
     );
     (auth as jest.Mock).mockResolvedValue({
       user: {
