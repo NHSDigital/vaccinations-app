@@ -199,7 +199,7 @@ describe("eligibility-filter-service", () => {
   });
 
   describe("_getStatus", () => {
-    it("should return correct eligibility status", () => {
+    it("should return non-eligible status when status is non-eligible", () => {
       const suggestion: ProcessedSuggestion = {
         condition: "RSV",
         status: "NotEligible",
@@ -210,7 +210,7 @@ describe("eligibility-filter-service", () => {
       expect(_getStatus(suggestion)).toEqual(EligibilityStatus.NOT_ELIGIBLE);
     });
 
-    it("should return undefined for any other eligibility statuses", () => {
+    it("should return eligible status when status is actionable", () => {
       const suggestion: ProcessedSuggestion = {
         condition: "RSV",
         status: "Actionable",
@@ -218,7 +218,22 @@ describe("eligibility-filter-service", () => {
         eligibilityCohorts: [],
       };
 
-      expect(_getStatus(suggestion)).toBeUndefined();
+      const result: EligibilityStatus | undefined = _getStatus(suggestion);
+
+      expect(result).toEqual(EligibilityStatus.ELIGIBLE_BOOKABLE);
+    });
+
+    it("should return eligible status when status is not-actionable", () => {
+      const suggestion: ProcessedSuggestion = {
+        condition: "RSV",
+        status: "NotActionable",
+        statusText: "you are not eligible because",
+        eligibilityCohorts: [],
+      };
+
+      const result: EligibilityStatus | undefined = _getStatus(suggestion);
+
+      expect(result).toEqual(EligibilityStatus.ELIGIBLE_BOOKABLE);
     });
   });
 });

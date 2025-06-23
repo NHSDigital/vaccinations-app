@@ -51,7 +51,7 @@ const getEligibilityForPerson = async (
   const introduction: string = "This is because you:";
   let bulletPoints: string[] | undefined;
   let heading: string = "";
-  let status: EligibilityStatus | undefined = undefined;
+  let status: EligibilityStatus | undefined;
 
   if (suggestion) {
     status = _getStatus(suggestion);
@@ -98,11 +98,18 @@ const _generateBulletPoints = (
   );
 };
 
-const _getStatus = (suggestion: ProcessedSuggestion) => {
+const _getStatus = (
+  suggestion: ProcessedSuggestion,
+): EligibilityStatus | undefined => {
   if (suggestion.status === EligibilityStatus.NOT_ELIGIBLE) {
     return EligibilityStatus.NOT_ELIGIBLE;
   }
-  return undefined;
+  if (suggestion.status === EligibilityStatus.ACTIONABLE) {
+    return EligibilityStatus.ELIGIBLE_BOOKABLE;
+  }
+  if (suggestion.status === "NotActionable") {
+    return EligibilityStatus.ELIGIBLE_BOOKABLE;
+  }
 };
 
 export { getEligibilityForPerson, _generateBulletPoints, _getStatus };
