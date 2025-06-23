@@ -19,7 +19,7 @@ export function eligibilityApiResponseBuilder() {
 
 export function processedSuggestionBuilder() {
   return createTypeBuilder<ProcessedSuggestion>({
-    condition: randomValue(["COVID", "FLU", "MMR", "RSV"]),
+    condition: randomValue(["RSV"]),
     status: randomValue(["NotEligible", "NotActionable", "Actionable"]),
     statusText: randomString(10),
     eligibilityCohorts: [eligibilityCohortBuilder().build(), eligibilityCohortBuilder().build()],

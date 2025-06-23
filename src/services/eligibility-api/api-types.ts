@@ -10,7 +10,7 @@ export type ProcessedSuggestion = {
   eligibilityCohorts: EligibilityCohort[];
 };
 
-export type Condition = "COVID" | "FLU" | "MMR" | "RSV";
+export type Condition = "RSV";
 export type Status = "NotEligible" | "NotActionable" | "Actionable";
 
 export type EligibilityCohort = {

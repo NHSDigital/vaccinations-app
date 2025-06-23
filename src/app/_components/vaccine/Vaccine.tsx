@@ -61,12 +61,14 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
       )}
 
       {/* Personalised eligibility section for RSV */}
-      {vaccineType === VaccineTypes.RSV && eligibilityContent && (
-        <Eligibility
-          eligibilityStatus={eligibilityStatus}
-          eligibilityContent={eligibilityContent}
-        />
-      )}
+      {vaccineType === VaccineTypes.RSV &&
+        eligibilityContent &&
+        eligibilityStatus && (
+          <Eligibility
+            eligibilityStatus={eligibilityStatus}
+            eligibilityContent={eligibilityContent}
+          />
+        )}
 
       {/* Static eligibility section for RSV in pregnancy */}
       {vaccineType === VaccineTypes.RSV_PREGNANCY && (
