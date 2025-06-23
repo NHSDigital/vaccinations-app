@@ -115,19 +115,3 @@ jobs:
       environment: "preprod"
       release_tag: ${{ github.ref_name }}
     secrets: inherit
-  deploy-stage:
-    name: "Deploy stage"
-    needs: [metadata, promote-stage]
-    uses: ./.github/workflows/stage-4-deploy.yaml
-    with:
-      environment: "preprod"
-      terraform_version: "${{ needs.metadata.outputs.terraform_version }}"
-      tag: ${{ github.ref_name }}
-    secrets: inherit
-  acceptance-stage:
-    name: "Acceptance stage"
-    needs: [deploy-stage]
-    uses: ./.github/workflows/stage-5-acceptance.yaml
-    with:
-      environment: "preprod"
-    secrets: inherit

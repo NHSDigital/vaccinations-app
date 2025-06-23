@@ -64,22 +64,10 @@ jobs:
       terraform_version: "${{ needs.metadata.outputs.terraform_version }}"
       tag: "${{ needs.metadata.outputs.tag }}"
     secrets: inherit
-
-  # TODO: More jobs or/and steps here
-  # success:
-  #   name: "Success notification"
-  #   runs-on: ubuntu-latest
-  #   needs: [deploy]
-  #   steps:
-  #     - name: "Check prerequisites for notification"
-  #       id: check
-  #       run: echo "secret_exist=${{ secrets.TEAMS_NOTIFICATION_WEBHOOK_URL != '' }}" >> $GITHUB_OUTPUT
-  #     - name: "Notify on deployment to an environment"
-  #       if: steps.check.outputs.secret_exist == 'true'
-  #       uses: nhs-england-tools/notify-msteams-action@v0.0.4
-  #       with:
-  #         github-token: ${{ secrets.GITHUB_TOKEN }}
-  #         teams-webhook-url: ${{ secrets.TEAMS_NOTIFICATION_WEBHOOK_URL }}
-  #         message-title: "Notification title"
-  #         message-text: "This is a notification body"
-  #         link: ${{ github.event.pull_request.html_url }}
+  acceptance-stage:
+    name: "Acceptance stage"
+    needs: [metadata, deploy-stage]
+    uses: ./.github/workflows/stage-5-acceptance.yaml
+    with:
+      environment: ${{ github.event.inputs.environment}}
+    secrets: inherit
