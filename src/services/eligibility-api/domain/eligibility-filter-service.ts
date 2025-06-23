@@ -25,7 +25,7 @@ const getEligibilityForPerson = async (
 
   if (!session) {
     return {
-      eligibilityStatus: EligibilityStatus.EMPTY,
+      eligibilityStatus: undefined,
       eligibilityContent: undefined,
       eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
     };
@@ -37,7 +37,7 @@ const getEligibilityForPerson = async (
   // TODO: Error handling for Eligibility API
   if (!eligibilityApiResponse) {
     return {
-      eligibilityStatus: EligibilityStatus.EMPTY,
+      eligibilityStatus: undefined,
       eligibilityContent: undefined,
       eligibilityError: undefined,
     };
@@ -51,7 +51,7 @@ const getEligibilityForPerson = async (
   const introduction: string = "This is because you:";
   let bulletPoints: string[] | undefined;
   let heading: string = "";
-  let status: EligibilityStatus = EligibilityStatus.EMPTY;
+  let status: EligibilityStatus | undefined = undefined;
 
   if (suggestion) {
     status = _getStatus(suggestion);
@@ -101,9 +101,8 @@ const _generateBulletPoints = (
 const _getStatus = (suggestion: ProcessedSuggestion) => {
   if (suggestion.status === EligibilityStatus.NOT_ELIGIBLE) {
     return EligibilityStatus.NOT_ELIGIBLE;
-  } else {
-    return EligibilityStatus.EMPTY;
   }
+  return undefined;
 };
 
 export { getEligibilityForPerson, _generateBulletPoints, _getStatus };

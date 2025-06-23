@@ -7,7 +7,6 @@ export enum EligibilityStatus {
   ELIGIBLE_BOOKABLE = "EligibleBookable",
   ELIGIBLE_HAVE_NBS_BOOKING = "EligibleHaveNBSBooking",
   ELIGIBLE_HAVE_PROVIDER_BOOKING = "EligibleHaveProviderBooking",
-  EMPTY = "Empty", // TODO: Should go away once we have all these implemented.
 }
 
 export type EligibilityContent = {
@@ -25,7 +24,7 @@ export enum EligibilityErrorTypes {
 }
 
 export type EligibilityForPerson = {
-  eligibilityStatus: EligibilityStatus;
+  eligibilityStatus?: EligibilityStatus;
   eligibilityContent?: EligibilityContent;
   eligibilityError?: EligibilityErrorTypes;
 };

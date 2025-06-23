@@ -8,7 +8,9 @@ import {
   mockStyledContentWithoutWhatSection,
 } from "@test-data/content-api/data";
 import { render, screen } from "@testing-library/react";
-import { EligibilityStatus } from "@src/services/eligibility-api/types";
+import {
+  EligibilityStatus,
+} from "@src/services/eligibility-api/types";
 import { eligibilityForPersonBuilder } from "@test-data/eligibility-api/builders";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service", () => ({
@@ -41,12 +43,10 @@ describe("Any vaccine page", () => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
         styledVaccineContent: mockStyledContent,
       });
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue(
-        eligibilityForPersonBuilder()
-          .withEligibilityStatus(EligibilityStatus.NOT_ELIGIBLE)
-          .andEligibilityError(undefined)
-          .build(),
-      );
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+        eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
+        eligibilityContent: undefined,
+      });
     });
 
     it("should display overview inset text if defined for vaccine", async () => {
@@ -229,12 +229,10 @@ describe("Any vaccine page", () => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
         styledVaccineContent: mockStyledContent,
       });
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue(
-        eligibilityForPersonBuilder()
-          .withEligibilityStatus(EligibilityStatus.NOT_ELIGIBLE)
-          .andEligibilityError(undefined)
-          .build(),
-      );
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+        eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
+        eligibilityContent: undefined,
+      });
     });
 
     it("should display the booking link button for RSV", async () => {
@@ -263,12 +261,10 @@ describe("Any vaccine page", () => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
         styledVaccineContent: mockStyledContent,
       });
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue(
-        eligibilityForPersonBuilder()
-          .withEligibilityStatus(EligibilityStatus.NOT_ELIGIBLE)
-          .andEligibilityError(undefined)
-          .build(),
-      );
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+        eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
+        eligibilityContent: undefined,
+      });
     });
 
     it("should display the eligibility on RSV vaccine page", async () => {
@@ -290,12 +286,10 @@ describe("Any vaccine page", () => {
     });
 
     it("should not display the eligibility when there is no content ", async () => {
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue(
-        eligibilityForPersonBuilder()
-          .withEligibilityStatus(EligibilityStatus.NOT_ELIGIBLE)
-          .andEligibilityContent(undefined)
-          .build(),
-      );
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+        eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
+        eligibilityContent: undefined,
+      });
 
       await renderNamedVaccinePage(VaccineTypes.RSV);
 

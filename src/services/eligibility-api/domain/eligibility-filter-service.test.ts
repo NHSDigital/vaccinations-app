@@ -39,6 +39,7 @@ describe("eligibility-filter-service", () => {
       },
     });
   });
+
   describe("getEligibilityForPerson", () => {
     it("should convert Eligibility API response into eligibility status and content", async () => {
       (fetchEligibilityContent as jest.Mock).mockResolvedValue(
@@ -109,21 +110,21 @@ describe("eligibility-filter-service", () => {
       expect(result.eligibilityError).toEqual(undefined);
     });
 
-    it("should return error, empty eligibility, and undefined content when session isn't available", async () => {
+    it("should return error, undefined eligibility and content when session isn't available", async () => {
       (auth as jest.Mock).mockResolvedValue(null);
 
       const result: EligibilityForPerson = await getEligibilityForPerson(
         VaccineTypes.RSV,
       );
 
-      expect(result.eligibilityStatus).toEqual(EligibilityStatus.EMPTY);
+      expect(result.eligibilityStatus).toEqual(undefined);
       expect(result.eligibilityContent).toEqual(undefined);
       expect(result.eligibilityError).toEqual(
         EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
       );
     });
 
-    it("should return error, empty eligibility, and undefined content when no suggestion is found for the vaccine", async () => {
+    it("should return undefined error, eligibility and content when no suggestion is found for the vaccine", async () => {
       (fetchEligibilityContent as jest.Mock).mockResolvedValue(
         eligibilityApiResponseBuilder().withProcessedSuggestions([]).build(),
       );
@@ -132,19 +133,19 @@ describe("eligibility-filter-service", () => {
         VaccineTypes.RSV,
       );
 
-      expect(result.eligibilityStatus).toEqual(EligibilityStatus.EMPTY);
+      expect(result.eligibilityStatus).toEqual(undefined);
       expect(result.eligibilityContent).toEqual(undefined);
       expect(result.eligibilityError).toEqual(undefined);
     });
 
-    it("should return empty eligibility, and undefined content and error when fetchEligibilityForPerson returns undefined", async () => {
+    it("should return undefined eligibility, content and error when fetchEligibilityForPerson returns undefined", async () => {
       (fetchEligibilityContent as jest.Mock).mockResolvedValue(undefined);
 
       const result: EligibilityForPerson = await getEligibilityForPerson(
         VaccineTypes.RSV,
       );
 
-      expect(result.eligibilityStatus).toEqual(EligibilityStatus.EMPTY);
+      expect(result.eligibilityStatus).toBeUndefined();
       expect(result.eligibilityContent).toBeUndefined();
       expect(result.eligibilityError).toBeUndefined();
     });
@@ -206,12 +207,10 @@ describe("eligibility-filter-service", () => {
         eligibilityCohorts: [],
       };
 
-      const result: EligibilityStatus = _getStatus(suggestion);
-
-      expect(result).toEqual(EligibilityStatus.NOT_ELIGIBLE);
+      expect(_getStatus(suggestion)).toEqual(EligibilityStatus.NOT_ELIGIBLE);
     });
 
-    it("should return empty for any other eligibility statuses", () => {
+    it("should return undefined for any other eligibility statuses", () => {
       const suggestion: ProcessedSuggestion = {
         condition: "RSV",
         status: "Actionable",
@@ -219,9 +218,7 @@ describe("eligibility-filter-service", () => {
         eligibilityCohorts: [],
       };
 
-      const result: EligibilityStatus = _getStatus(suggestion);
-
-      expect(result).toEqual(EligibilityStatus.EMPTY);
+      expect(_getStatus(suggestion)).toBeUndefined();
     });
   });
 });
