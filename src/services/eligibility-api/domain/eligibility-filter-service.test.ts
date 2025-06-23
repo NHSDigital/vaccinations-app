@@ -151,28 +151,24 @@ describe("eligibility-filter-service", () => {
   });
 
   describe("_generateBulletPoints", () => {
-    it("should return only the bullet points when cohortStatus is identical to status", () => {
-      const suggestion: ProcessedSuggestion = {
-        condition: "RSV",
-        status: "NotEligible",
-        statusText: "you are not eligible because",
-        eligibilityCohorts: [
-          {
-            cohortCode: "rsv_age_rolling",
-            cohortText: "first bullet point",
-            cohortStatus: "NotEligible",
-          },
-          {
-            cohortCode: "rsv_age_rolling",
-            cohortText: "second bullet point",
-            cohortStatus: "Actionable",
-          },
-        ],
-      };
+    it("should return all bullet points irrespective of cohortStatus", () => {
+      const suggestion: ProcessedSuggestion = processedSuggestionBuilder()
+        .withCondition("RSV")
+        .andStatus("Actionable")
+        .andEligibilityCohorts([
+          eligibilityCohortBuilder()
+            .withCohortStatus("Actionable")
+            .andCohortText("test1")
+            .build(),
+          eligibilityCohortBuilder()
+            .withCohortStatus("NotActionable")
+            .andCohortText("test2")
+            .build(),
+        ])
+        .build();
 
       const result: string[] | undefined = _generateBulletPoints(suggestion);
-
-      expect(result).toEqual(["first bullet point"]);
+      expect(result).toEqual(["test1", "test2"]);
     });
 
     it("should return undefined when eligibilityCohorts attribute is missing", () => {
