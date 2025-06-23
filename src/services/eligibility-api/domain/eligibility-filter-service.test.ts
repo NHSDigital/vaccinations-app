@@ -123,6 +123,20 @@ describe("eligibility-filter-service", () => {
       );
     });
 
+    it("should return error, empty eligibility, and undefined content when no suggestion is found for the vaccine", async () => {
+      (fetchEligibilityContent as jest.Mock).mockResolvedValue(
+        eligibilityApiResponseBuilder().withProcessedSuggestions([]).build(),
+      );
+
+      const result: EligibilityForPerson = await getEligibilityForPerson(
+        VaccineTypes.RSV,
+      );
+
+      expect(result.eligibilityStatus).toEqual(EligibilityStatus.EMPTY);
+      expect(result.eligibilityContent).toEqual(undefined);
+      expect(result.eligibilityError).toEqual(undefined);
+    });
+
     it("should return empty eligibility, and undefined content and error when fetchEligibilityForPerson returns undefined", async () => {
       (fetchEligibilityContent as jest.Mock).mockResolvedValue(undefined);
 
