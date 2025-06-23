@@ -8,11 +8,8 @@ import {
   mockStyledContentWithoutWhatSection,
 } from "@test-data/content-api/data";
 import { render, screen } from "@testing-library/react";
-import {
-  EligibilityStatus,
-} from "@src/services/eligibility-api/types";
-import { eligibilityForPersonBuilder } from "@test-data/eligibility-api/builders";
-
+import { EligibilityStatus } from "@src/services/eligibility-api/types";
+import { eligibilityContentBuilder } from "@test-data/eligibility-api/builders";
 jest.mock("@src/services/content-api/gateway/content-reader-service", () => ({
   getContentForVaccine: jest.fn(),
 }));
@@ -263,7 +260,7 @@ describe("Any vaccine page", () => {
       });
       (getEligibilityForPerson as jest.Mock).mockResolvedValue({
         eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
-        eligibilityContent: undefined,
+        eligibilityContent: eligibilityContentBuilder(),
       });
     });
 
