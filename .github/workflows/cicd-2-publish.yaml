@@ -124,3 +124,10 @@ jobs:
       terraform_version: "${{ needs.metadata.outputs.terraform_version }}"
       tag: ${{ github.ref_name }}
     secrets: inherit
+  acceptance-stage:
+    name: "Acceptance stage"
+    needs: [deploy-stage]
+    uses: ./.github/workflows/stage-5-acceptance.yaml
+    with:
+      environment: "preprod"
+    secrets: inherit
