@@ -4,11 +4,11 @@ on:
   workflow_call:
     inputs:
       environment:
-        description: "Environment"
+        description: "Environment to promote release to"
         required: true
         type: string
       release_tag:
-        description: "Release Tag"
+        description: "Tag of release to promote"
         required: true
         type: string
 

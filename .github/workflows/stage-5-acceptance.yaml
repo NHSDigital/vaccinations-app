@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       environment:
-        description: "Environment"
+        description: "Environment to run tests against"
         required: true
         type: string
 
