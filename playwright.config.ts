@@ -26,9 +26,11 @@ export default defineConfig({
     ['html'],
     ['@estruyf/github-actions-reporter',
       <GitHubActionOptions>{
-        title: 'VitA E2E Test Results',
+        title: 'E2E Test Results',
         useDetails: true,
-        showError: true
+        showError: true,
+        showTags: false,
+
       }
     ]
   ] : 'html',
