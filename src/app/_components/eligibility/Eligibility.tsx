@@ -11,29 +11,24 @@ interface EligibilityProps {
   eligibilityContent: EligibilityContent;
 }
 
-const Eligibility = ({
-  eligibilityStatus,
-  eligibilityContent,
-}: EligibilityProps) => {
+const Eligibility = ({ eligibilityContent }: EligibilityProps) => {
   return (
     <div>
-      {eligibilityStatus === EligibilityStatus.NOT_ELIGIBLE && (
-        <NonUrgentCareCard
-          heading={<div>{eligibilityContent?.status.heading}</div>}
-          content={
-            <div className={styles.zeroMarginBottom}>
-              <p className="nhsuk-u-margin-bottom-2">
-                {eligibilityContent?.status.introduction}
-              </p>
-              <ul>
-                {eligibilityContent?.status.points.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
-            </div>
-          }
-        />
-      )}
+      <NonUrgentCareCard
+        heading={<div>{eligibilityContent?.status.heading}</div>}
+        content={
+          <div className={styles.zeroMarginBottom}>
+            <p className="nhsuk-u-margin-bottom-2">
+              {eligibilityContent?.status.introduction}
+            </p>
+            <ul>
+              {eligibilityContent?.status.points.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
+          </div>
+        }
+      />
     </div>
   );
 };

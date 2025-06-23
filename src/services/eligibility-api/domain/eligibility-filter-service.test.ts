@@ -220,7 +220,7 @@ describe("eligibility-filter-service", () => {
 
       const result: EligibilityStatus | undefined = _getStatus(suggestion);
 
-      expect(result).toEqual(EligibilityStatus.ELIGIBLE_BOOKABLE);
+      expect(result).toEqual(EligibilityStatus.ACTIONABLE);
     });
 
     it("should return eligible status when status is not-actionable", () => {
@@ -233,7 +233,7 @@ describe("eligibility-filter-service", () => {
 
       const result: EligibilityStatus | undefined = _getStatus(suggestion);
 
-      expect(result).toEqual(EligibilityStatus.ELIGIBLE_BOOKABLE);
+      expect(result).toEqual(EligibilityStatus.ALREADY_VACCINATED);
     });
   });
 });

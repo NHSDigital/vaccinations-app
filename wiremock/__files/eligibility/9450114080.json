@@ -1,0 +1,28 @@
+{
+  "responseId": "1a233ba5-e1eb-4080-a086-2962f6fc3473",
+  "meta": {
+    "lastUpdated": "2025-02-12T16:11:22Z"
+  },
+  "processedSuggestions": [
+    {
+      "condition": "RSV",
+      "status": "NotActionable",
+      "statusText": "You should have the RSV vaccine",
+      "eligibilityCohorts": [
+        {
+          "cohortCode": "unknown_cohort_membership",
+          "cohortText": "Our records do not say why you are eligible",
+          "cohortStatus": "NotActionable"
+        }
+      ],
+      "suitabilityRules": [
+        {
+          "ruleType": "S",
+          "ruleCode": "AlreadyVaccinated",
+          "ruleText": "##You've had your RSV vaccination\nBased on our records, you recently had this vaccination.You do not need to do anything."
+        }
+      ],
+      "actions": []
+    }
+  ]
+}

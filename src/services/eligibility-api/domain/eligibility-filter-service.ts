@@ -63,16 +63,15 @@ const getEligibilityForPerson = async (
     );
   }
 
-  const eligibilityContent: EligibilityContent | undefined =
-    bulletPoints?.length
-      ? {
-          status: {
-            heading,
-            introduction,
-            points: bulletPoints,
-          },
-        }
-      : undefined;
+  const eligibilityContent: EligibilityContent | undefined = bulletPoints
+    ? {
+        status: {
+          heading: heading,
+          introduction: introduction,
+          points: bulletPoints,
+        },
+      }
+    : undefined;
 
   return {
     eligibilityStatus: status,
@@ -101,14 +100,14 @@ const _generateBulletPoints = (
 const _getStatus = (
   suggestion: ProcessedSuggestion,
 ): EligibilityStatus | undefined => {
-  if (suggestion.status === EligibilityStatus.NOT_ELIGIBLE) {
+  if (suggestion.status === "NotEligible") {
     return EligibilityStatus.NOT_ELIGIBLE;
   }
-  if (suggestion.status === EligibilityStatus.ACTIONABLE) {
-    return EligibilityStatus.ELIGIBLE_BOOKABLE;
-  }
   if (suggestion.status === "NotActionable") {
-    return EligibilityStatus.ELIGIBLE_BOOKABLE;
+    return EligibilityStatus.ALREADY_VACCINATED; // WIP
+  }
+  if (suggestion.status === "Actionable") {
+    return EligibilityStatus.ACTIONABLE; // WIP
   }
 };
 

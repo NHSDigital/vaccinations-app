@@ -5,7 +5,7 @@ import { eligibilityContentBuilder } from "@test-data/eligibility-api/builders";
 
 describe("Eligibility", () => {
   describe("when eligible", () => {
-    it("should not show the care card", async () => {
+    it("should show the care card", async () => {
       render(
         Eligibility({
           eligibilityStatus: EligibilityStatus.ELIGIBLE_BOOKABLE,
@@ -16,7 +16,7 @@ describe("Eligibility", () => {
       const careCard: HTMLElement | null = screen.queryByTestId(
         "non-urgent-care-card",
       );
-      expect(careCard).not.toBeInTheDocument();
+      expect(careCard).toBeInTheDocument();
     });
   });
 
