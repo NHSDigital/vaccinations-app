@@ -107,3 +107,11 @@ jobs:
           body_path: commit_history.txt
           draft: false
           prerelease: false
+  promote:
+    name: "Promote stage"
+    needs: [metadata, publish]
+    uses: ./.github/workflows/stage-6-promote.yaml
+    with:
+      environment: "preprod"
+      release_tag: ${{ github.ref_name }}
+    secrets: inherit

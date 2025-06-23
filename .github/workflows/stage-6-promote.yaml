@@ -1,0 +1,70 @@
+name: "Promote stage"
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: "Environment"
+        required: true
+        type: string
+      release_tag:
+        description: "Release Tag"
+        required: true
+        type: string
+
+env:
+  AWS_REGION: eu-west-2
+  AWS_S3_SOURCE_RELEASES_BUCKET: vita-${{ secrets.PROMOTE_SOURCE_AWS_ACCOUNT_ID }}-releases-${{ vars.PROMOTE_SOURCE_ENVIRONMENT  }}
+  AWS_S3_TARGET_RELEASES_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${{ inputs.environment }}
+
+jobs:
+  promote:
+    name: "Promote to ${{ inputs.environment}} environment"
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment }}
+    timeout-minutes: 20
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: "Configure AWS credentials for promote source ${{ vars.PROMOTE_SOURCE_ENVIRONMENT }} env"
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-session-name: GitHubActionsSession
+          role-to-assume: ${{ secrets.PROMOTE_SOURCE_IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: "Download package from source S3 releases bucket"
+        run: |
+          app_s3_path="s3://${AWS_S3_SOURCE_RELEASES_BUCKET}/tag/${{ inputs.release_tag }}/open-next.zip"
+          echo "Artefact path: $app_s3_path"
+          aws s3 cp "$app_s3_path" .
+          lambda_s3_path="s3://${AWS_S3_SOURCE_RELEASES_BUCKET}/tag/${{ inputs.release_tag }}/lambda.zip"
+          echo "Artefact path: $lambda_s3_path"
+          aws s3 cp "$lambda_s3_path" .
+          workflow_s3_path="s3://${AWS_S3_SOURCE_RELEASES_BUCKET}/tag/${{ inputs.release_tag }}/workflow.log"
+          echo "Artefact path: $workflow_s3_path"
+          aws s3 cp "$workflow_s3_path" .
+      - name: "Configure AWS credentials for target ${{ inputs.environment }} env"
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-session-name: GitHubActionsSession
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: "Upload package to ${{ inputs.environment }} S3 releases bucket"
+        run: |
+          aws s3api put-object --bucket "${AWS_S3_TARGET_RELEASES_BUCKET}" --key "tag/${{inputs.release_tag}}/open-next.zip" --body "open-next.zip" --if-none-match '*' || {
+            echo "Uploading open-next.zip to environment S3 bucket failed"
+            exit 1
+          }
+
+          aws s3api put-object --bucket "${AWS_S3_TARGET_RELEASES_BUCKET}" --key "tag/${{inputs.release_tag}}/lambda.zip" --body "lambda.zip" --if-none-match '*' || {
+            echo "Uploading lambda.zip to environment S3 bucket failed"
+            exit 1
+          }
+
+          aws s3api put-object --bucket "${AWS_S3_TARGET_RELEASES_BUCKET}" --key "tag/${{inputs.release_tag}}/workflow.log" --body "workflow.log" --if-none-match '*' || {
+            echo "Uploading workflow.log to environment S3 bucket failed"
+            exit 1
+          }
+
