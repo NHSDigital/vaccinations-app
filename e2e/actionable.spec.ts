@@ -13,16 +13,11 @@ test.describe("E2E", () => {
     page = await login(browser, users.Actionable.email);
   });
 
-  test.afterEach("Accessibility check", async () => {
-    if (test.info().status === test.info().expectedStatus) {
-      await accessibilityCheck(page);
-    }
-  });
-
   test("Vaccine Eligibility data on RSV for older adults page", async () => {
     await page.goto("/vaccines/rsv");
 
     const eligibilitySection = page.getByTestId("non-urgent-care-card");
     await expect(eligibilitySection).toHaveCount(0);
+    await accessibilityCheck(page);
   });
 });

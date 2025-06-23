@@ -20,24 +20,20 @@ test.describe("E2E", () => {
     page = await login(browser, users.NotEligible.email);
   });
 
-  test.afterEach("Accessibility check", async () => {
-    if (test.info().status === test.info().expectedStatus) {
-      await accessibilityCheck(page);
-    }
-  });
-
   test("VitA landing page", async () => {
     await page.goto(HUB_PAGE_URL);
     await expect(page).toHaveTitle(HUB_PAGE_TITLE);
+    await accessibilityCheck(page);
   })
 
   test("RSV landing page", async () => {
     await page.goto(RSV_PAGE_URL);
     await expect(page).toHaveTitle(RSV_PAGE_TITLE);
+    await accessibilityCheck(page);
   });
 
   test("Vaccine Eligibility data on RSV for older adults page", async () => {
-    await page.goto("/vaccines/rsv");
+    await page.goto(RSV_PAGE_URL);
 
     const eligibilitySection = page.getByTestId("non-urgent-care-card");
     await expect(eligibilitySection).toBeVisible();
@@ -46,6 +42,7 @@ test.describe("E2E", () => {
   test("RSV in pregnancy landing page", async () => {
     await page.goto(RSV_PREGNANCY_PAGE_URL);
     await expect(page).toHaveTitle(RSV_PREGNANCY_PAGE_TITLE);
+    await accessibilityCheck(page);
   });
 
   test("Back link navigation", async () => {

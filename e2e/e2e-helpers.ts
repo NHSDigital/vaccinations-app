@@ -1,5 +1,5 @@
 import { expect, Page } from "@playwright/test";
-import pa11y from "pa11y";
+import AxeBuilder from '@axe-core/playwright';
 
 export const clickLinkAndExpectPageTitle = async (page: Page,  linkText: string, expectedPageTitle: string) => {
   await page.getByRole("link", { name: linkText, exact: true }).click();
@@ -28,6 +28,8 @@ export const benchmark = async (page: Page, target: string) => {
 }
 
 export const accessibilityCheck = async (page: Page) => {
-  const checkResult = await pa11y(page.url(), { standard: "WCAG2AA" })
-  expect(checkResult.issues).toHaveLength(0);
+  const accessibilityScanResults = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+    .analyze();
+  expect(accessibilityScanResults.violations).toEqual([])
 }
