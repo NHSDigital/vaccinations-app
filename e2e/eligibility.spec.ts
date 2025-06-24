@@ -31,7 +31,7 @@ test.describe("E2E", () => {
     await page.goto(RSV_PAGE_URL);
     const eligibility = page.getByTestId("Eligibility");
     const heading = eligibility.getByRole("heading", { level: 3, name: "You should have the RSV vaccine" });
-    const cohort1 = eligibility.getByText("You turned 80 between 2nd September 2024 and 31st August 2025");
+    const cohort1 = eligibility.getByText("You are aged 75 to 79 years old.");
     await expect(heading).toBeVisible();
     await expect(cohort1).toBeVisible();
   });
