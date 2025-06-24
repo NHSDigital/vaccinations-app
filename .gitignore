@@ -110,3 +110,6 @@ certificates
 
 # Locally built artifact for developer workspace Terraform deploys
 lambda.zip
+
+# Pact file
+/pact/
