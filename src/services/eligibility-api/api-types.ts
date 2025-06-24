@@ -8,6 +8,7 @@ export type ProcessedSuggestion = {
   status: Status;
   statusText: string;
   eligibilityCohorts: EligibilityCohort[];
+  actions: ActionFromApi[];
 };
 
 export type Condition = "RSV";
@@ -18,3 +19,12 @@ export type EligibilityCohort = {
   cohortText: string;
   cohortStatus: Status;
 };
+
+export type ActionFromApi = {
+  actionType: ActionType;
+  actionCode: ActionCode;
+  description: string;
+};
+
+export type ActionType = "InfoText" | "CardWithText" | "ButtonWithAuthLink";
+export type ActionCode = "HealthcareProInfo";

@@ -1,5 +1,6 @@
 import { VaccineTypes } from "@src/models/vaccine";
 import {
+  Action,
   EligibilityContent,
   EligibilityErrorTypes,
   EligibilityForPerson,
@@ -11,6 +12,7 @@ import { logger } from "@src/utils/logger";
 import { Session } from "next-auth";
 import { auth } from "@project/auth";
 import {
+  ActionFromApi,
   EligibilityApiResponse,
   EligibilityCohort,
   ProcessedSuggestion,
@@ -52,11 +54,13 @@ const getEligibilityForPerson = async (
   let bulletPoints: string[] | undefined;
   let heading: string = "";
   let status: EligibilityStatus | undefined;
+  let actions: Action[] = [];
 
   if (suggestion) {
     status = _getStatus(suggestion);
     heading = suggestion.statusText;
     bulletPoints = _generateBulletPoints(suggestion);
+    actions = _generateActions(suggestion);
   } else {
     log.error(
       `Error accessing processedSuggestion from Eligibility API, no suggestion for ${vaccineType} given.`,
@@ -70,6 +74,7 @@ const getEligibilityForPerson = async (
           introduction: introduction,
           points: bulletPoints,
         },
+        actions,
       }
     : undefined;
 
@@ -111,4 +116,27 @@ const _getStatus = (
   }
 };
 
-export { getEligibilityForPerson, _generateBulletPoints, _getStatus };
+const _generateActions = (suggestion: ProcessedSuggestion): Action[] => {
+  if (!suggestion.actions) {
+    log.warn("Missing actions array");
+    return [];
+  }
+
+  // WIP
+  const filteredActions: ActionFromApi[] = suggestion.actions.filter(
+    (action) => action.actionType === "InfoText",
+  );
+  const content: Action[] = filteredActions.map((action) => ({
+    type: "paragraph",
+    content: action.description,
+  }));
+
+  return content;
+};
+
+export {
+  getEligibilityForPerson,
+  _generateBulletPoints,
+  _getStatus,
+  _generateActions,
+};

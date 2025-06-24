@@ -19,6 +19,14 @@
           "cohortText": "You did not turn 80 between 2nd September 2024 and 31st August 2025",
           "cohortStatus": "NotEligible"
         }
+      ],
+      "suitabilityRules": [],
+      "actions": [
+        {
+          "actionType": "InfoText",
+          "actionCode": "HealthcareProInfo",
+          "description": "##If you think you need this vaccine\nSpeak to your healthcare professional if you think you should be offered this vaccination."
+        }
       ]
     }
   ]

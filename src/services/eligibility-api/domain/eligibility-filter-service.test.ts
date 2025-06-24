@@ -1,5 +1,6 @@
 import {
   _generateBulletPoints,
+  _generateActions,
   _getStatus,
   getEligibilityForPerson,
 } from "@src/services/eligibility-api/domain/eligibility-filter-service";
@@ -13,6 +14,8 @@ import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/f
 import { auth } from "@project/auth";
 import { ProcessedSuggestion } from "@src/services/eligibility-api/api-types";
 import {
+  actionBuilder,
+  actionFromApiBuilder,
   eligibilityApiResponseBuilder,
   eligibilityCohortBuilder,
   eligibilityContentBuilder,
@@ -61,6 +64,12 @@ describe("eligibility-filter-service", () => {
                   )
                   .build(),
               ])
+              .andActions([
+                actionFromApiBuilder()
+                  .withActionType("InfoText")
+                  .andDescription("Text")
+                  .build(),
+              ])
               .build(),
           ])
           .build(),
@@ -83,6 +92,9 @@ describe("eligibility-filter-service", () => {
               ])
               .build(),
           )
+          .andActions([
+            actionBuilder().withType("paragraph").andContent("Text").build(),
+          ])
           .build(),
       );
       expect(result.eligibilityError).toEqual(undefined);
@@ -190,6 +202,7 @@ describe("eligibility-filter-service", () => {
         status: "NotEligible",
         statusText: "you are not eligible because",
         eligibilityCohorts: [],
+        actions: [],
       };
 
       const result: string[] | undefined = _generateBulletPoints(suggestion);
@@ -205,6 +218,7 @@ describe("eligibility-filter-service", () => {
         status: "NotEligible",
         statusText: "you are not eligible because",
         eligibilityCohorts: [],
+        actions: [],
       };
 
       expect(_getStatus(suggestion)).toEqual(EligibilityStatus.NOT_ELIGIBLE);
@@ -216,6 +230,7 @@ describe("eligibility-filter-service", () => {
         status: "Actionable",
         statusText: "you are not eligible because",
         eligibilityCohorts: [],
+        actions: [],
       };
 
       const result: EligibilityStatus | undefined = _getStatus(suggestion);
@@ -229,11 +244,81 @@ describe("eligibility-filter-service", () => {
         status: "NotActionable",
         statusText: "you are not eligible because",
         eligibilityCohorts: [],
+        actions: [],
       };
 
       const result: EligibilityStatus | undefined = _getStatus(suggestion);
 
       expect(result).toEqual(EligibilityStatus.ALREADY_VACCINATED);
+    });
+  });
+
+  describe("_getActions", () => {
+    it("should filter actions and only return InfoText action type", async () => {
+      const processedSuggestion: ProcessedSuggestion =
+        processedSuggestionBuilder()
+          .withActions([
+            actionFromApiBuilder()
+              .withActionType("InfoText")
+              .andDescription("InfoText Markdown")
+              .build(),
+            actionFromApiBuilder()
+              .withActionType("CardWithText")
+              .andDescription("CardWithText Markdown")
+              .build(),
+          ])
+          .build();
+
+      const result = _generateActions(processedSuggestion);
+
+      expect(result).toEqual([
+        {
+          type: "paragraph",
+          content: "InfoText Markdown",
+        },
+      ]);
+    });
+
+    it("should ensure actions are returned in the same order", async () => {
+      const processedSuggestion: ProcessedSuggestion =
+        processedSuggestionBuilder()
+          .withActions([
+            actionFromApiBuilder()
+              .withActionType("InfoText")
+              .andDescription("InfoText Markdown 1")
+              .build(),
+            actionFromApiBuilder()
+              .withActionType("InfoText")
+              .andDescription("InfoText Markdown 2")
+              .build(),
+          ])
+          .build();
+
+      const result = _generateActions(processedSuggestion);
+
+      expect(result).toEqual([
+        {
+          type: "paragraph",
+          content: "InfoText Markdown 1",
+        },
+        {
+          type: "paragraph",
+          content: "InfoText Markdown 2",
+        },
+      ]);
+    });
+
+    it("should return empty array when actions array is missing", async () => {
+      const suggestion = {
+        condition: "RSV",
+        status: "Actionable",
+        statusText: "you are not eligible because",
+        eligibilityCohorts: [],
+      } as unknown as ProcessedSuggestion;
+
+      const result = _generateActions(suggestion);
+
+      expect(result).toEqual([]);
     });
   });
 });

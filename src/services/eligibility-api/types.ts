@@ -11,12 +11,18 @@ export enum EligibilityStatus {
 
 export type EligibilityContent = {
   status: StatusContent;
+  actions: Action[];
 };
 
 export type StatusContent = {
   heading: string;
   introduction: string;
   points: string[];
+};
+
+export type Action = {
+  type: "paragraph" | "card";
+  content: string;
 };
 
 export enum EligibilityErrorTypes {
