@@ -13,7 +13,7 @@ interface EligibilityProps {
 
 const Eligibility = ({ eligibilityContent }: EligibilityProps) => {
   return (
-    <div>
+    <div data-testid="Eligibility">
       <NonUrgentCareCard
         heading={<div>{eligibilityContent?.status.heading}</div>}
         content={
