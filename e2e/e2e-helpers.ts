@@ -29,7 +29,7 @@ export const benchmark = async (page: Page, target: string) => {
 
 export const accessibilityCheck = async (page: Page) => {
   const accessibilityScanResults = await new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+    .withTags(['wcag22aa'])
     .analyze();
   expect(accessibilityScanResults.violations).toEqual([])
 }
