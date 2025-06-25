@@ -17,6 +17,7 @@ import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
 
 interface VaccineProps {
   vaccineType: VaccineTypes;
+  nhsNumber: string;
 }
 
 const EXPANDER_HEADINGS = {
@@ -25,13 +26,16 @@ const EXPANDER_HEADINGS = {
   HOW_TO_GET_VACCINE: "How to get the vaccine",
 };
 
-const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
+const Vaccine = async ({
+  vaccineType,
+  nhsNumber,
+}: VaccineProps): Promise<JSX.Element> => {
   const [
     { styledVaccineContent, contentError },
     { eligibility, eligibilityError },
   ] = await Promise.all([
     getContentForVaccine(vaccineType),
-    getEligibilityForPerson(vaccineType),
+    getEligibilityForPerson(vaccineType, nhsNumber),
   ]);
 
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];

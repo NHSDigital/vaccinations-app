@@ -6,12 +6,11 @@ import {
 } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import { VaccineTypes } from "@src/models/vaccine";
 import {
-  EligibilityErrorTypes,
+  // TODO VIA-321 2025-06-25 resolve temporarily unused import  EligibilityErrorTypes,
   EligibilityForPerson,
   EligibilityStatus,
 } from "@src/services/eligibility-api/types";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
-import { auth } from "@project/auth";
 import { ProcessedSuggestion } from "@src/services/eligibility-api/api-types";
 import {
   actionBuilder,
@@ -29,20 +28,10 @@ jest.mock(
     fetchEligibilityContent: jest.fn(),
   }),
 );
-jest.mock("@project/auth", () => ({
-  auth: jest.fn(),
-}));
+
+const nhsNumber = "5123456789";
 
 describe("eligibility-filter-service", () => {
-  beforeEach(() => {
-    (auth as jest.Mock).mockResolvedValue({
-      user: {
-        nhs_number: "test_nhs_number",
-        birthdate: new Date(),
-      },
-    });
-  });
-
   describe("getEligibilityForPerson", () => {
     it("should convert Eligibility API response into eligibility status and content", async () => {
       (fetchEligibilityContent as jest.Mock).mockResolvedValue(
@@ -77,6 +66,7 @@ describe("eligibility-filter-service", () => {
 
       const result: EligibilityForPerson = await getEligibilityForPerson(
         VaccineTypes.RSV,
+        nhsNumber,
       );
 
       expect(result.eligibility.status).toEqual(EligibilityStatus.NOT_ELIGIBLE);
@@ -115,25 +105,12 @@ describe("eligibility-filter-service", () => {
 
       const result: EligibilityForPerson = await getEligibilityForPerson(
         VaccineTypes.RSV,
+        nhsNumber,
       );
 
       expect(result.eligibility.status).toEqual(EligibilityStatus.NOT_ELIGIBLE);
       expect(result.eligibility.content).toEqual(undefined);
       expect(result.eligibilityError).toEqual(undefined);
-    });
-
-    it("should return error, undefined eligibility and content when session isn't available", async () => {
-      (auth as jest.Mock).mockResolvedValue(null);
-
-      const result: EligibilityForPerson = await getEligibilityForPerson(
-        VaccineTypes.RSV,
-      );
-
-      expect(result.eligibility.status).toEqual(undefined);
-      expect(result.eligibility.content).toEqual(undefined);
-      expect(result.eligibilityError).toEqual(
-        EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
-      );
     });
 
     it("should return undefined error, eligibility and content when no suggestion is found for the vaccine", async () => {
@@ -143,6 +120,7 @@ describe("eligibility-filter-service", () => {
 
       const result: EligibilityForPerson = await getEligibilityForPerson(
         VaccineTypes.RSV,
+        nhsNumber,
       );
 
       expect(result.eligibility.status).toEqual(undefined);
@@ -155,6 +133,7 @@ describe("eligibility-filter-service", () => {
 
       const result: EligibilityForPerson = await getEligibilityForPerson(
         VaccineTypes.RSV,
+        nhsNumber,
       );
 
       expect(result.eligibility.status).toBeUndefined();

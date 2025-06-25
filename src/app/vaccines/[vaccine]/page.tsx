@@ -11,6 +11,8 @@ import { getVaccineTypeFromUrlPath } from "@src/utils/path";
 import { notFound } from "next/navigation";
 import React, { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { Session } from "next-auth";
+import { auth } from "@project/auth";
 
 interface VaccinePageProps {
   params: Promise<{ vaccine: string }>;
@@ -18,10 +20,12 @@ interface VaccinePageProps {
 
 const VaccinePage = async ({ params }: VaccinePageProps) => {
   const { vaccine } = await params;
+  const session: Session | null = await auth();
   const vaccineType: VaccineTypes | undefined =
     getVaccineTypeFromUrlPath(vaccine);
+  const nhsNumber: string | undefined = session?.user.nhs_number;
 
-  return vaccineType ? (
+  return vaccineType && nhsNumber ? (
     <>
       <title>{`${VaccineInfo[vaccineType].heading} - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`}</title>
       <BackLink />
@@ -31,7 +35,7 @@ const VaccinePage = async ({ params }: VaccinePageProps) => {
         >{`${VaccineInfo[vaccineType].heading}`}</h1>
         <ErrorBoundary fallback={<VaccineError />}>
           <Suspense fallback={<Loader />}>
-            <Vaccine vaccineType={vaccineType} />
+            <Vaccine vaccineType={vaccineType} nhsNumber={nhsNumber} />
           </Suspense>
         </ErrorBoundary>
       </MainContent>

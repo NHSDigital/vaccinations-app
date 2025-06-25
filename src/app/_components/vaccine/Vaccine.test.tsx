@@ -26,13 +26,18 @@ jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
   NBSBookingAction: () => <div>NBS Booking Link Test</div>,
 }));
 
+const nhsNumber = "5123456789";
+
 describe("Any vaccine page", () => {
-  const renderNamedVaccinePage = async (vaccineType: VaccineTypes) => {
-    render(await Vaccine({ vaccineType: vaccineType }));
+  const renderNamedVaccinePage = async (
+    vaccineType: VaccineTypes,
+    nhsNumber: string,
+  ) => {
+    render(await Vaccine({ vaccineType: vaccineType, nhsNumber: nhsNumber }));
   };
 
   const renderRsvVaccinePage = async () => {
-    await renderNamedVaccinePage(VaccineTypes.RSV);
+    await renderNamedVaccinePage(VaccineTypes.RSV, nhsNumber);
   };
 
   describe("with all sections available", () => {
@@ -52,7 +57,7 @@ describe("Any vaccine page", () => {
       const expectedInsetText: string | undefined =
         VaccineInfo[VaccineTypes.RSV].overviewInsetText;
 
-      await renderNamedVaccinePage(VaccineTypes.RSV);
+      await renderNamedVaccinePage(VaccineTypes.RSV, nhsNumber);
 
       const overviewInsetBlock: HTMLElement = screen.getByTestId(
         "overview-inset-text",
@@ -62,7 +67,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should display link in overview text if defined for vaccine", async () => {
-      await renderNamedVaccinePage(VaccineTypes.RSV);
+      await renderNamedVaccinePage(VaccineTypes.RSV, nhsNumber);
 
       const rsvPregnancyLink: HTMLElement = screen.getByRole("link", {
         name: "RSV in pregnancy",
@@ -90,7 +95,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should display inset text for rsv in pregnancy", async () => {
-      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
+      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY, nhsNumber);
 
       const recommendedBlock: HTMLElement | undefined = screen
         .getAllByRole("heading", { level: 3 })
@@ -247,7 +252,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should NOT display the booking link button for other vaccines", async () => {
-      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
+      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY, nhsNumber);
 
       const bookingButton: HTMLElement | null = screen.queryByText(
         "NBS Booking Link Test",
@@ -271,7 +276,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should display the eligibility on RSV vaccine page", async () => {
-      await renderNamedVaccinePage(VaccineTypes.RSV);
+      await renderNamedVaccinePage(VaccineTypes.RSV, nhsNumber);
 
       const eligibilitySection: HTMLElement = screen.getByText(
         "Test Eligibility Component",
@@ -280,7 +285,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should not display the eligibility on RSV pregnancy vaccine page", async () => {
-      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
+      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY, nhsNumber);
 
       const eligibilitySection: HTMLElement | null = screen.queryByText(
         "Test Eligibility Component",
@@ -296,7 +301,7 @@ describe("Any vaccine page", () => {
         },
       });
 
-      await renderNamedVaccinePage(VaccineTypes.RSV);
+      await renderNamedVaccinePage(VaccineTypes.RSV, nhsNumber);
 
       const eligibilitySection: HTMLElement | null = screen.queryByText(
         "Test Eligibility Component",

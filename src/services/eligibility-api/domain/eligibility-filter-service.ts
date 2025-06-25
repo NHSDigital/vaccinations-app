@@ -2,15 +2,13 @@ import { VaccineTypes } from "@src/models/vaccine";
 import {
   Action,
   EligibilityContent,
-  EligibilityErrorTypes,
+  // TODO VIA-321 2025-06-25 resolve temporarily unused import  EligibilityErrorTypes,
   EligibilityForPerson,
   EligibilityStatus,
 } from "@src/services/eligibility-api/types";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import { Logger } from "pino";
 import { logger } from "@src/utils/logger";
-import { Session } from "next-auth";
-import { auth } from "@project/auth";
 import {
   ActionFromApi,
   EligibilityApiResponse,
@@ -24,21 +22,10 @@ const log: Logger = logger.child({ module: "eligibility-filter-service" });
 
 const getEligibilityForPerson = async (
   vaccineType: VaccineTypes,
+  nhsNumber: string,
 ): Promise<EligibilityForPerson> => {
-  const session: Session | null = await auth();
-
-  if (!session) {
-    return {
-      eligibility: {
-        status: undefined,
-        content: undefined,
-      },
-      eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
-    };
-  }
-
   const eligibilityApiResponse: EligibilityApiResponse | undefined =
-    await fetchEligibilityContent(session.user.nhs_number);
+    await fetchEligibilityContent(nhsNumber);
 
   // TODO: Error handling for Eligibility API
   if (!eligibilityApiResponse) {
