@@ -18,6 +18,8 @@ import {
   ProcessedSuggestion,
 } from "@src/services/eligibility-api/api-types";
 
+const ELIGIBILITY_CONTENT_INTRO_TEXT: string = "This is because you:";
+
 const log: Logger = logger.child({ module: "eligibility-filter-service" });
 
 const getEligibilityForPerson = async (
@@ -27,8 +29,10 @@ const getEligibilityForPerson = async (
 
   if (!session) {
     return {
-      eligibilityStatus: undefined,
-      eligibilityContent: undefined,
+      eligibility: {
+        status: undefined,
+        content: undefined,
+      },
       eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
     };
   }
@@ -39,8 +43,10 @@ const getEligibilityForPerson = async (
   // TODO: Error handling for Eligibility API
   if (!eligibilityApiResponse) {
     return {
-      eligibilityStatus: undefined,
-      eligibilityContent: undefined,
+      eligibility: {
+        status: undefined,
+        content: undefined,
+      },
       eligibilityError: undefined,
     };
   }
@@ -50,8 +56,7 @@ const getEligibilityForPerson = async (
       ({ condition }: ProcessedSuggestion) => condition === vaccineType,
     );
 
-  const introduction: string = "This is because you:";
-  let bulletPoints: string[] | undefined;
+  let cohortText: string[] | undefined;
   let heading: string = "";
   let status: EligibilityStatus | undefined;
   let actions: Action[] = [];
@@ -59,7 +64,7 @@ const getEligibilityForPerson = async (
   if (suggestion) {
     status = _getStatus(suggestion);
     heading = suggestion.statusText;
-    bulletPoints = _generateBulletPoints(suggestion);
+    cohortText = _extractAllCohortText(suggestion);
     actions = _generateActions(suggestion);
   } else {
     log.error(
@@ -67,25 +72,27 @@ const getEligibilityForPerson = async (
     );
   }
 
-  const eligibilityContent: EligibilityContent | undefined = bulletPoints
+  const eligibilityContent: EligibilityContent | undefined = cohortText
     ? {
         status: {
           heading: heading,
-          introduction: introduction,
-          points: bulletPoints,
+          introduction: ELIGIBILITY_CONTENT_INTRO_TEXT,
+          points: cohortText,
         },
         actions,
       }
     : undefined;
 
   return {
-    eligibilityStatus: status,
-    eligibilityContent,
+    eligibility: {
+      status: status,
+      content: eligibilityContent,
+    },
     eligibilityError: undefined,
   };
 };
 
-const _generateBulletPoints = (
+const _extractAllCohortText = (
   suggestion: ProcessedSuggestion,
 ): string[] | undefined => {
   if (!suggestion.eligibilityCohorts) {
@@ -136,7 +143,7 @@ const _generateActions = (suggestion: ProcessedSuggestion): Action[] => {
 
 export {
   getEligibilityForPerson,
-  _generateBulletPoints,
+  _extractAllCohortText,
   _getStatus,
   _generateActions,
 };

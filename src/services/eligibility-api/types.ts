@@ -30,7 +30,11 @@ export enum EligibilityErrorTypes {
 }
 
 export type EligibilityForPerson = {
-  eligibilityStatus?: EligibilityStatus;
-  eligibilityContent?: EligibilityContent;
+  eligibility: Eligibility;
   eligibilityError?: EligibilityErrorTypes;
+};
+
+export type Eligibility = {
+  status?: EligibilityStatus;
+  content?: EligibilityContent;
 };

@@ -5,6 +5,7 @@ import {
   ProcessedSuggestion
 } from "@src/services/eligibility-api/api-types";
 import {
+  Eligibility,
   Action,
   EligibilityContent,
   EligibilityErrorTypes,
@@ -48,9 +49,15 @@ export function actionFromApiBuilder() {
 
 export function eligibilityForPersonBuilder() {
   return createTypeBuilder<EligibilityForPerson>({
-    eligibilityStatus: randomValue(Object.values(EligibilityStatus)),
-    eligibilityContent: eligibilityContentBuilder().build(),
+    eligibility: eligibilityBuilder().build(),
     eligibilityError: randomValue(Object.values(EligibilityErrorTypes))
+  });
+}
+
+export function eligibilityBuilder() {
+  return createTypeBuilder<Eligibility>({
+    status: randomValue(Object.values(EligibilityStatus)),
+    content: eligibilityContentBuilder().build()
   });
 }
 

@@ -1,5 +1,5 @@
 import {
-  _generateBulletPoints,
+  _extractAllCohortText,
   _generateActions,
   _getStatus,
   getEligibilityForPerson,
@@ -79,8 +79,8 @@ describe("eligibility-filter-service", () => {
         VaccineTypes.RSV,
       );
 
-      expect(result.eligibilityStatus).toEqual(EligibilityStatus.NOT_ELIGIBLE);
-      expect(result.eligibilityContent).toEqual(
+      expect(result.eligibility.status).toEqual(EligibilityStatus.NOT_ELIGIBLE);
+      expect(result.eligibility.content).toEqual(
         eligibilityContentBuilder()
           .withStatus(
             statusContentBuilder()
@@ -117,8 +117,8 @@ describe("eligibility-filter-service", () => {
         VaccineTypes.RSV,
       );
 
-      expect(result.eligibilityStatus).toEqual(EligibilityStatus.NOT_ELIGIBLE);
-      expect(result.eligibilityContent).toEqual(undefined);
+      expect(result.eligibility.status).toEqual(EligibilityStatus.NOT_ELIGIBLE);
+      expect(result.eligibility.content).toEqual(undefined);
       expect(result.eligibilityError).toEqual(undefined);
     });
 
@@ -129,8 +129,8 @@ describe("eligibility-filter-service", () => {
         VaccineTypes.RSV,
       );
 
-      expect(result.eligibilityStatus).toEqual(undefined);
-      expect(result.eligibilityContent).toEqual(undefined);
+      expect(result.eligibility.status).toEqual(undefined);
+      expect(result.eligibility.content).toEqual(undefined);
       expect(result.eligibilityError).toEqual(
         EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
       );
@@ -145,8 +145,8 @@ describe("eligibility-filter-service", () => {
         VaccineTypes.RSV,
       );
 
-      expect(result.eligibilityStatus).toEqual(undefined);
-      expect(result.eligibilityContent).toEqual(undefined);
+      expect(result.eligibility.status).toEqual(undefined);
+      expect(result.eligibility.content).toEqual(undefined);
       expect(result.eligibilityError).toEqual(undefined);
     });
 
@@ -157,8 +157,8 @@ describe("eligibility-filter-service", () => {
         VaccineTypes.RSV,
       );
 
-      expect(result.eligibilityStatus).toBeUndefined();
-      expect(result.eligibilityContent).toBeUndefined();
+      expect(result.eligibility.status).toBeUndefined();
+      expect(result.eligibility.content).toBeUndefined();
       expect(result.eligibilityError).toBeUndefined();
     });
   });
@@ -180,7 +180,7 @@ describe("eligibility-filter-service", () => {
         ])
         .build();
 
-      const result: string[] | undefined = _generateBulletPoints(suggestion);
+      const result: string[] | undefined = _extractAllCohortText(suggestion);
       expect(result).toEqual(["test1", "test2"]);
     });
 
@@ -191,7 +191,7 @@ describe("eligibility-filter-service", () => {
         statusText: "you are not eligible because",
       } as ProcessedSuggestion;
 
-      const result: string[] | undefined = _generateBulletPoints(suggestion);
+      const result: string[] | undefined = _extractAllCohortText(suggestion);
 
       expect(result).toEqual(undefined);
     });
@@ -205,7 +205,7 @@ describe("eligibility-filter-service", () => {
         actions: [],
       };
 
-      const result: string[] | undefined = _generateBulletPoints(suggestion);
+      const result: string[] | undefined = _extractAllCohortText(suggestion);
 
       expect(result).toEqual(undefined);
     });

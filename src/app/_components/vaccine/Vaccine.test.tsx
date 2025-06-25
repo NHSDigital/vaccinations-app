@@ -41,8 +41,10 @@ describe("Any vaccine page", () => {
         styledVaccineContent: mockStyledContent,
       });
       (getEligibilityForPerson as jest.Mock).mockResolvedValue({
-        eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
-        eligibilityContent: undefined,
+        eligibility: {
+          status: EligibilityStatus.NOT_ELIGIBLE,
+          content: undefined,
+        },
       });
     });
 
@@ -227,8 +229,10 @@ describe("Any vaccine page", () => {
         styledVaccineContent: mockStyledContent,
       });
       (getEligibilityForPerson as jest.Mock).mockResolvedValue({
-        eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
-        eligibilityContent: undefined,
+        eligibility: {
+          status: EligibilityStatus.NOT_ELIGIBLE,
+          content: undefined,
+        },
       });
     });
 
@@ -259,8 +263,10 @@ describe("Any vaccine page", () => {
         styledVaccineContent: mockStyledContent,
       });
       (getEligibilityForPerson as jest.Mock).mockResolvedValue({
-        eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
-        eligibilityContent: eligibilityContentBuilder(),
+        eligibility: {
+          status: EligibilityStatus.NOT_ELIGIBLE,
+          content: eligibilityContentBuilder().build(),
+        },
       });
     });
 
@@ -284,8 +290,10 @@ describe("Any vaccine page", () => {
 
     it("should not display the eligibility when there is no content ", async () => {
       (getEligibilityForPerson as jest.Mock).mockResolvedValue({
-        eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
-        eligibilityContent: undefined,
+        eligibility: {
+          status: EligibilityStatus.NOT_ELIGIBLE,
+          content: undefined,
+        },
       });
 
       await renderNamedVaccinePage(VaccineTypes.RSV);

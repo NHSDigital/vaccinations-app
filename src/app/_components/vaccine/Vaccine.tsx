@@ -28,7 +28,7 @@ const EXPANDER_HEADINGS = {
 const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
   const [
     { styledVaccineContent, contentError },
-    { eligibilityStatus, eligibilityContent, eligibilityError },
+    { eligibility, eligibilityError },
   ] = await Promise.all([
     getContentForVaccine(vaccineType),
     getEligibilityForPerson(vaccineType),
@@ -62,11 +62,12 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
 
       {/* Personalised eligibility section for RSV */}
       {vaccineType === VaccineTypes.RSV &&
-        eligibilityContent &&
-        eligibilityStatus && (
+        eligibility &&
+        eligibility.content &&
+        eligibility.status && (
           <Eligibility
-            eligibilityStatus={eligibilityStatus}
-            eligibilityContent={eligibilityContent}
+            eligibilityStatus={eligibility.status}
+            eligibilityContent={eligibility.content}
           />
         )}
 
