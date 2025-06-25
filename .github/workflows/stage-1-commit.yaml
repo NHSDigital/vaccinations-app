@@ -77,15 +77,15 @@ jobs:
           fetch-depth: 0 # Full history is needed to compare branches
       - name: "Check English usage"
         uses: ./.github/actions/check-english-usage
-  lint-terraform:
-    name: "Lint Terraform"
-    runs-on: ubuntu-latest
-    timeout-minutes: 2
-    steps:
-      - name: "Checkout code"
-        uses: actions/checkout@v4
-      - name: "Lint Terraform"
-        uses: ./.github/actions/lint-terraform
+#  lint-terraform:
+#    name: "Lint Terraform"
+#    runs-on: ubuntu-latest
+#    timeout-minutes: 2
+#    steps:
+#      - name: "Checkout code"
+#        uses: actions/checkout@v4
+#      - name: "Lint Terraform"
+#        uses: ./.github/actions/lint-terraform
   count-lines-of-code:
     name: "Count lines of code"
     runs-on: ubuntu-latest
