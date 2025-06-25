@@ -1,10 +1,12 @@
 import {
+  Action,
   EligibilityContent,
   EligibilityStatus,
 } from "@src/services/eligibility-api/types";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import React from "react";
 import styles from "@src/app/_components/vaccine/styles.module.css";
+import Markdown from "react-markdown";
 
 interface EligibilityProps {
   eligibilityStatus: EligibilityStatus;
@@ -29,6 +31,11 @@ const Eligibility = ({ eligibilityContent }: EligibilityProps) => {
           </div>
         }
       />
+      <div>
+        {eligibilityContent.actions.map((action: Action, index: number) => (
+          <Markdown key={index}>{action.content}</Markdown>
+        ))}
+      </div>
     </div>
   );
 };

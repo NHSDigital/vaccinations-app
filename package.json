@@ -75,7 +75,8 @@
     "pino": "^9.7.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-error-boundary": "^6.0.0"
+    "react-error-boundary": "^6.0.0",
+    "react-markdown": "^10.1.0"
   },
   "overrides": {
     "jsdom": "^26.0.0"

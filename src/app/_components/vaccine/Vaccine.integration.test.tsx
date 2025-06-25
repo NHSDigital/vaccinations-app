@@ -16,6 +16,12 @@ jest.mock(
     fetchEligibilityContent: jest.fn(),
   }),
 );
+// TODO: Remove after final solution for testing with react-markdown
+jest.mock("react-markdown", () => {
+  return function MockMarkdown({ children }: { children: React.ReactNode }) {
+    return <div>{children}</div>;
+  };
+});
 
 describe("Vaccine", () => {
   beforeAll(() => {
