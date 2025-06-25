@@ -20,7 +20,7 @@ jest.mock("@src/utils/config", () => ({
 pactWith(
   { consumer: "VitA", provider: "EliD", port: 1234, logLevel: "warn" },
   (provider) => {
-    describe("fetchEligibilityContent", () => {
+    describe("EliD returns expected fields", () => {
       const mockNhsNumber = "5123456789";
       const vitaTraceId = "mock-trace-id";
 
