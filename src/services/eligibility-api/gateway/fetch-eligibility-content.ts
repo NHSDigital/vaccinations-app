@@ -9,7 +9,7 @@ const ELIGIBILITY_API_PATH_SUFFIX =
 
 export const fetchEligibilityContent = async (
   nhsNumber: string,
-): Promise<EligibilityApiResponse | undefined> => {
+): Promise<EligibilityApiResponse> => {
   const config: AppConfig = await configProvider();
 
   const apiEndpoint: string = config.ELIGIBILITY_API_ENDPOINT;
@@ -31,6 +31,6 @@ export const fetchEligibilityContent = async (
     return response.data;
   } catch (error) {
     log.error(error, `Error in fetching ${uri}`);
-    return undefined;
+    throw new Error("Call to EliD failed");
   }
 };

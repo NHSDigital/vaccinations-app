@@ -6,20 +6,17 @@ import {
 } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import { VaccineTypes } from "@src/models/vaccine";
 import {
-  // TODO VIA-321 2025-06-25 resolve temporarily unused import  EligibilityErrorTypes,
+  EligibilityErrorTypes,
   EligibilityForPerson,
   EligibilityStatus,
 } from "@src/services/eligibility-api/types";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import { ProcessedSuggestion } from "@src/services/eligibility-api/api-types";
 import {
-  actionBuilder,
   actionFromApiBuilder,
   eligibilityApiResponseBuilder,
   eligibilityCohortBuilder,
-  eligibilityContentBuilder,
   processedSuggestionBuilder,
-  statusContentBuilder,
 } from "@test-data/eligibility-api/builders";
 
 jest.mock(
@@ -64,39 +61,82 @@ describe("eligibility-filter-service", () => {
           .build(),
       );
 
+      const expectedEligibilityContent = {
+        summary: {
+          heading: "We do not believe you should have this vaccine",
+          introduction: "This is because you:",
+          cohorts: [
+            "You are not aged 75 to 79 years old.",
+            "You did not turn 80 between 2nd September 2024 and 31st August 2025",
+          ],
+        },
+        actions: [
+          {
+            type: "paragraph",
+            content: "Text",
+          },
+        ],
+      };
+
       const result: EligibilityForPerson = await getEligibilityForPerson(
         VaccineTypes.RSV,
         nhsNumber,
       );
 
-      expect(result.eligibility.status).toEqual(EligibilityStatus.NOT_ELIGIBLE);
-      expect(result.eligibility.content).toEqual(
-        eligibilityContentBuilder()
-          .withStatus(
-            statusContentBuilder()
-              .withHeading("We do not believe you should have this vaccine")
-              .andIntroduction("This is because you:")
-              .andPoints([
-                "You are not aged 75 to 79 years old.",
-                "You did not turn 80 between 2nd September 2024 and 31st August 2025",
-              ])
-              .build(),
-          )
-          .andActions([
-            actionBuilder().withType("paragraph").andContent("Text").build(),
-          ])
-          .build(),
+      expect(result.eligibility?.status).toEqual(
+        EligibilityStatus.NOT_ELIGIBLE,
       );
+      expect(result.eligibility?.content).toEqual(expectedEligibilityContent);
       expect(result.eligibilityError).toEqual(undefined);
     });
 
+    it("should return error response when no suggestion is found for the vaccine", async () => {
+      (fetchEligibilityContent as jest.Mock).mockResolvedValue(
+        eligibilityApiResponseBuilder().withProcessedSuggestions([]).build(),
+      );
+
+      const result: EligibilityForPerson = await getEligibilityForPerson(
+        VaccineTypes.RSV,
+        nhsNumber,
+      );
+
+      expect(result.eligibility).toBeUndefined();
+      expect(result.eligibilityError).toEqual(
+        EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+      );
+    });
+
+    it("should return status even if eligibilityCohorts attribute is missing", async () => {
+      const status = "NotEligible";
+      const statusText = "you are not eligible because";
+      (fetchEligibilityContent as jest.Mock).mockResolvedValue({
+        processedSuggestions: [
+          {
+            condition: "RSV",
+            status: status,
+            statusText: statusText,
+          } as ProcessedSuggestion,
+        ],
+      });
+
+      const result: EligibilityForPerson = await getEligibilityForPerson(
+        VaccineTypes.RSV,
+        nhsNumber,
+      );
+
+      expect(result.eligibility?.status).toBe(status);
+      expect(result.eligibility?.content.summary).toBeUndefined();
+      expect(result.eligibilityError).toBeUndefined();
+    });
+
     it("should not give content when eligibilityCohorts array is empty", async () => {
+      const status = "NotEligible";
       (fetchEligibilityContent as jest.Mock).mockResolvedValue(
         eligibilityApiResponseBuilder()
           .withProcessedSuggestions([
             processedSuggestionBuilder()
               .withCondition("RSV")
-              .andStatus("NotEligible")
+              .andStatus(status)
               .andEligibilityCohorts([])
               .build(),
           ])
@@ -108,27 +148,12 @@ describe("eligibility-filter-service", () => {
         nhsNumber,
       );
 
-      expect(result.eligibility.status).toEqual(EligibilityStatus.NOT_ELIGIBLE);
-      expect(result.eligibility.content).toEqual(undefined);
-      expect(result.eligibilityError).toEqual(undefined);
+      expect(result.eligibility?.status).toBe(status);
+      expect(result.eligibility?.content.summary).toBeUndefined();
+      expect(result.eligibilityError).toBeUndefined();
     });
 
-    it("should return undefined error, eligibility and content when no suggestion is found for the vaccine", async () => {
-      (fetchEligibilityContent as jest.Mock).mockResolvedValue(
-        eligibilityApiResponseBuilder().withProcessedSuggestions([]).build(),
-      );
-
-      const result: EligibilityForPerson = await getEligibilityForPerson(
-        VaccineTypes.RSV,
-        nhsNumber,
-      );
-
-      expect(result.eligibility.status).toEqual(undefined);
-      expect(result.eligibility.content).toEqual(undefined);
-      expect(result.eligibilityError).toEqual(undefined);
-    });
-
-    it("should return undefined eligibility, content and error when fetchEligibilityForPerson returns undefined", async () => {
+    it("should return loading error when fetchEligibilityContent fails", async () => {
       (fetchEligibilityContent as jest.Mock).mockResolvedValue(undefined);
 
       const result: EligibilityForPerson = await getEligibilityForPerson(
@@ -136,14 +161,31 @@ describe("eligibility-filter-service", () => {
         nhsNumber,
       );
 
-      expect(result.eligibility.status).toBeUndefined();
-      expect(result.eligibility.content).toBeUndefined();
-      expect(result.eligibilityError).toBeUndefined();
+      expect(result.eligibility).toBeUndefined();
+      expect(result.eligibilityError).toBe(
+        EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+      );
+    });
+
+    it("should return error response when call to fetchEligibilityContent throws error", async () => {
+      (fetchEligibilityContent as jest.Mock).mockRejectedValue(
+        new Error("Call to EliD failed"),
+      );
+
+      const result: EligibilityForPerson = await getEligibilityForPerson(
+        VaccineTypes.RSV,
+        nhsNumber,
+      );
+
+      expect(result.eligibility).toBeUndefined();
+      expect(result.eligibilityError).toBe(
+        EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+      );
     });
   });
 
-  describe("_generateBulletPoints", () => {
-    it("should return all bullet points irrespective of cohortStatus", () => {
+  describe("_extractAllCohortText", () => {
+    it("should return all cohort text irrespective of cohortStatus", () => {
       const suggestion: ProcessedSuggestion = processedSuggestionBuilder()
         .withCondition("RSV")
         .andStatus("Actionable")
@@ -161,32 +203,6 @@ describe("eligibility-filter-service", () => {
 
       const result: string[] | undefined = _extractAllCohortText(suggestion);
       expect(result).toEqual(["test1", "test2"]);
-    });
-
-    it("should return undefined when eligibilityCohorts attribute is missing", () => {
-      const suggestion = {
-        condition: "RSV",
-        status: "NotEligible",
-        statusText: "you are not eligible because",
-      } as ProcessedSuggestion;
-
-      const result: string[] | undefined = _extractAllCohortText(suggestion);
-
-      expect(result).toEqual(undefined);
-    });
-
-    it("should return undefined when eligibilityCohorts are empty array", () => {
-      const suggestion: ProcessedSuggestion = {
-        condition: "RSV",
-        status: "NotEligible",
-        statusText: "you are not eligible because",
-        eligibilityCohorts: [],
-        actions: [],
-      };
-
-      const result: string[] | undefined = _extractAllCohortText(suggestion);
-
-      expect(result).toEqual(undefined);
     });
   });
 

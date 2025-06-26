@@ -50,8 +50,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
 
   return contentError === ContentErrorTypes.CONTENT_LOADING_ERROR ||
-    styledVaccineContent === undefined ||
-    eligibilityError === EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR ? (
+    styledVaccineContent === undefined ? (
     // Error summary on content loading error
     <VaccineError />
   ) : (
@@ -75,6 +74,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
 
       {/* Personalised eligibility section for RSV */}
       {vaccineType === VaccineTypes.RSV &&
+        !eligibilityError &&
         eligibility &&
         eligibility.content &&
         eligibility.status && (

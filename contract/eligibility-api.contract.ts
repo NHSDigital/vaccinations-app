@@ -13,7 +13,7 @@ describe("EliD API contract", () => {
       const eligibilityForPerson = await getEligibilityForPerson(VaccineTypes.RSV, "9686368973");
 
       expect(Object.keys(eligibilityForPerson).length).toEqual(2);
-      expect(eligibilityForPerson.eligibility.status).toEqual(EligibilityStatus.ACTIONABLE);
+      expect(eligibilityForPerson.eligibility?.status).toEqual(EligibilityStatus.ACTIONABLE);
     });
   });
 
@@ -22,7 +22,7 @@ describe("EliD API contract", () => {
       const eligibilityForPerson = await getEligibilityForPerson(VaccineTypes.RSV, "9658218989");
 
       expect(Object.keys(eligibilityForPerson).length).toEqual(2);
-      expect(eligibilityForPerson.eligibility.status).toEqual(EligibilityStatus.ALREADY_VACCINATED);
+      expect(eligibilityForPerson.eligibility?.status).toEqual(EligibilityStatus.ALREADY_VACCINATED);
     });
   });
 
@@ -31,7 +31,7 @@ describe("EliD API contract", () => {
       const eligibilityForPerson = await getEligibilityForPerson(VaccineTypes.RSV, "9657933617");
 
       expect(Object.keys(eligibilityForPerson).length).toEqual(2);
-      expect(eligibilityForPerson.eligibility.status).toEqual(EligibilityStatus.NOT_ELIGIBLE);
+      expect(eligibilityForPerson.eligibility?.status).toEqual(EligibilityStatus.NOT_ELIGIBLE);
     });
   });
 });

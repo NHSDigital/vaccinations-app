@@ -11,7 +11,7 @@ import {
   EligibilityErrorTypes,
   EligibilityForPerson,
   EligibilityStatus,
-  StatusContent
+  SummaryContent
 } from "@src/services/eligibility-api/types";
 import { createTypeBuilder, randomString, randomValue } from "@test-data/meta-builder";
 
@@ -63,16 +63,16 @@ export function eligibilityBuilder() {
 
 export function eligibilityContentBuilder() {
   return createTypeBuilder<EligibilityContent>({
-    status: statusContentBuilder().build(),
+    summary: summaryContentBuilder().build(),
     actions: [actionBuilder().build(), actionBuilder().build()]
   });
 }
 
-export function statusContentBuilder() {
-  return createTypeBuilder<StatusContent>({
+export function summaryContentBuilder() {
+  return createTypeBuilder<SummaryContent>({
     heading: randomString(10),
     introduction: randomString(10),
-    points: [randomString(10), randomString(10)]
+    cohorts: [randomString(10), randomString(10)]
   });
 }
 
