@@ -9,11 +9,11 @@ import { appConfigBuilder } from "@test-data/config/builders";
 jest.mock("@src/utils/config", () => ({
   configProvider: jest.fn((): Promise<AppConfig> => {
     const value: AppConfig = appConfigBuilder()
-       .withELIGIBILITY_API_ENDPOINT("http://localhost:1234/")
-       .andELIGIBILITY_API_KEY("test-api-key")
-       .build();
+      .withELIGIBILITY_API_ENDPOINT("http://localhost:1234/")
+      .andELIGIBILITY_API_KEY("test-api-key")
+      .build();
     return Promise.resolve(value);
-  }),
+  })
 }));
 
 
@@ -37,16 +37,16 @@ pactWith(
           headers: {
             accept: "application/json",
             apikey: "test-api-key",
-            "X-Correlation-ID": vitaTraceId,
-          },
+            "X-Correlation-ID": vitaTraceId
+          }
         },
         willRespondWith: {
           status: 200,
           headers: {
-            "Content-Type": "application/json; charset=utf-8",
+            "Content-Type": "application/json; charset=utf-8"
           },
-          body: Matchers.like(successfulResponse),
-        },
+          body: Matchers.like(successfulResponse)
+        }
       };
 
       beforeEach(() => {
@@ -58,5 +58,5 @@ pactWith(
         expect(response).toEqual(successfulResponse);
       });
     });
-  },
+  }
 );

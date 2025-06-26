@@ -5,6 +5,7 @@ import { mockNHSAppJSFunctions } from "@src/utils/nhsapp-js.test";
 import { render, screen } from "@testing-library/react";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import { eligibilityApiResponseBuilder } from "@test-data/eligibility-api/builders";
+import { auth } from "@project/auth";
 
 jest.mock("@src/utils/auth/generate-auth-payload", () => jest.fn());
 jest.mock("@src/utils/config", () => ({
@@ -22,6 +23,11 @@ jest.mock("react-markdown", () => {
     return <div>{children}</div>;
   };
 });
+jest.mock("@project/auth", () => ({
+  auth: jest.fn(),
+}));
+
+const nhsNumber = "5123456789";
 
 describe("Vaccine", () => {
   beforeAll(() => {
@@ -33,12 +39,18 @@ describe("Vaccine", () => {
       eligibilityApiResponseBuilder().build(),
     );
     mockNHSAppJSFunctions(jest.fn(), jest.fn());
+    (auth as jest.Mock).mockResolvedValue({
+      user: {
+        nhs_number: nhsNumber,
+        birthdate: new Date(),
+      },
+    });
   });
 
   it.each([VaccineTypes.RSV, VaccineTypes.RSV_PREGNANCY])(
     "has right content from cache for %s",
     async (vaccine: VaccineTypes) => {
-      render(await Vaccine({ vaccineType: vaccine, nhsNumber: "5123456789" }));
+      render(await Vaccine({ vaccineType: vaccine }));
 
       expect(screen.getByTestId("overview-inset-text")).toBeVisible();
 

@@ -6,11 +6,6 @@ import { assertBackLinkIsPresent } from "@test-data/utils/back-link-helpers";
 import { renderDynamicPage } from "@test-data/utils/dynamic-page-helpers";
 import { screen } from "@testing-library/react";
 import { notFound } from "next/navigation";
-import { auth } from "@project/auth";
-
-jest.mock("@project/auth", () => ({
-  auth: jest.fn(),
-}));
 
 jest.mock("next/navigation", () => ({
   notFound: jest.fn(),
@@ -25,18 +20,7 @@ jest.mock("@src/app/_components/nhs-frontend/BackLink", () =>
   jest.fn(() => <div data-testid="back-link"></div>),
 );
 
-const nhsNumber = "5123456789";
-
 describe("Dynamic vaccine page", () => {
-  beforeAll(() => {
-    (auth as jest.Mock).mockResolvedValue({
-      user: {
-        nhs_number: nhsNumber,
-        birthdate: new Date(),
-      },
-    });
-  });
-
   it("calls notFound when path is invalid", async () => {
     await renderDynamicPage("test");
     expect(notFound).toHaveBeenCalled();
@@ -72,7 +56,6 @@ describe("Dynamic vaccine page", () => {
       expect(Vaccine).toHaveBeenCalledWith(
         {
           vaccineType: VaccineTypes.RSV,
-          nhsNumber: nhsNumber,
         },
         undefined,
       );

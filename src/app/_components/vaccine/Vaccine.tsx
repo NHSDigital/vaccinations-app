@@ -14,10 +14,11 @@ import { EligibilityErrorTypes } from "@src/services/eligibility-api/types";
 import React, { JSX } from "react";
 import styles from "./styles.module.css";
 import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
+import { Session } from "next-auth";
+import { auth } from "@project/auth";
 
 interface VaccineProps {
   vaccineType: VaccineTypes;
-  nhsNumber: string;
 }
 
 const EXPANDER_HEADINGS = {
@@ -26,16 +27,24 @@ const EXPANDER_HEADINGS = {
   HOW_TO_GET_VACCINE: "How to get the vaccine",
 };
 
-const Vaccine = async ({
-  vaccineType,
-  nhsNumber,
-}: VaccineProps): Promise<JSX.Element> => {
+const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
+  const session: Session | null = await auth();
+  const nhsNumber: string | undefined = session?.user.nhs_number;
+
   const [
     { styledVaccineContent, contentError },
     { eligibility, eligibilityError },
   ] = await Promise.all([
     getContentForVaccine(vaccineType),
-    getEligibilityForPerson(vaccineType, nhsNumber),
+    nhsNumber
+      ? getEligibilityForPerson(vaccineType, nhsNumber)
+      : {
+          eligibility: {
+            status: undefined,
+            content: undefined,
+          },
+          eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+        },
   ]);
 
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
