@@ -50,6 +50,7 @@ jobs:
       CONTENT_API_KEY: ${{ secrets.CONTENT_API_KEY }}
       ELIGIBILITY_API_ENDPOINT: ${{ secrets.ELIGIBILITY_API_ENDPOINT }}
       ELIGIBILITY_API_KEY: ${{ secrets.ELIGIBILITY_API_KEY }}
+      SSM_PREFIX: ${{ secrets.SSM_PREFIX }}
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
