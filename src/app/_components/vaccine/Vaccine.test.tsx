@@ -316,5 +316,16 @@ describe("Any vaccine page", () => {
       );
       expect(eligibilitySection).not.toBeInTheDocument();
     });
+
+    it("should not display the eligibility when there is no session ", async () => {
+      (auth as jest.Mock).mockResolvedValue(undefined);
+
+      await renderNamedVaccinePage(VaccineTypes.RSV);
+
+      const eligibilitySection: HTMLElement | null = screen.queryByText(
+        "Test Eligibility Component",
+      );
+      expect(eligibilitySection).not.toBeInTheDocument();
+    });
   });
 });
