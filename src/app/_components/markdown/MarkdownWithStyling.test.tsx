@@ -2,8 +2,10 @@ import { render, screen } from "@testing-library/react";
 import {
   H2,
   MarkdownWithStyling,
+  allowHTMLElement,
 } from "@src/app/_components/markdown/MarkdownWithStyling";
 import React from "react";
+import { Element as HastElement } from "hast";
 
 let mockedMarkdown: jest.Mock;
 
@@ -26,17 +28,6 @@ describe("markdown", () => {
         undefined,
       );
     });
-
-    // it("should call markdown component with correct content 2", () => {
-    //   mockedMarkdown = jest.fn(() => undefined);
-    //   const content = "This is content";
-    //   render(<MarkdownWithStyling content={content} />);
-    //
-    //   expect(mockedMarkdown).toHaveBeenCalledWith(
-    //     expect.objectContaining({ children: undefined }),
-    //     undefined
-    //   );
-    // });
   });
 
   describe("H2", () => {
@@ -48,6 +39,52 @@ describe("markdown", () => {
 
       expect(heading).toBeVisible();
       expect(heading).toHaveClass("nhsuk-heading-s");
+    });
+  });
+
+  describe("allowHTMLElement", () => {
+    const expectedAllowedTags: string[] = [
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "h5",
+      "h6",
+      "p",
+      "br",
+      "b",
+      "strong",
+      "em",
+      "i",
+      "a",
+      "ul",
+      "ol",
+      "li",
+    ];
+
+    it.each(expectedAllowedTags)(
+      "should return true for the allowed HTML tag: <%s>",
+      (tagName: string) => {
+        const mockElement: HastElement = {
+          type: "element",
+          tagName: tagName,
+          properties: {},
+          children: [],
+        };
+
+        expect(allowHTMLElement(mockElement)).toBe(true);
+      },
+    );
+
+    it("should return false for disallowed tag", () => {
+      const mockElement: HastElement = {
+        type: "element",
+        tagName: "table",
+        properties: {},
+        children: [],
+      };
+
+      expect(allowHTMLElement(mockElement)).toBe(false);
     });
   });
 });
