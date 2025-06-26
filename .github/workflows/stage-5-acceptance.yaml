@@ -51,7 +51,14 @@ jobs:
       ELIGIBILITY_API_ENDPOINT: ${{ secrets.ELIGIBILITY_API_ENDPOINT }}
       ELIGIBILITY_API_KEY: ${{ secrets.ELIGIBILITY_API_KEY }}
       SSM_PREFIX: ${{ secrets.SSM_PREFIX }}
-      CONTENT_CACHE_PATH: ${{ secrets.CONTENT_CACHE_PATH }}
+      CONTENT_CACHE_PATH: "dummy"
+      NHS_LOGIN_URL: "dummy"
+      NHS_LOGIN_CLIENT_ID: "dummy"
+      NHS_LOGIN_SCOPE: "dummy"
+      NHS_LOGIN_PRIVATE_KEY: "dummy"
+      NBS_URL: "dummy"
+      NBS_BOOKING_PATH: "dummy"
+      MAX_SESSION_AGE_MINUTES: 0
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
