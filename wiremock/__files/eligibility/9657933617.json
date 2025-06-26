@@ -25,7 +25,7 @@
         {
           "actionType": "InfoText",
           "actionCode": "HealthcareProInfo",
-          "description": "##If you think you need this vaccine\nSpeak to your healthcare professional if you think you should be offered this vaccination."
+          "description": "## If you think you need this vaccine\nSpeak to your healthcare professional if you think you should be offered this vaccination."
         }
       ]
     }
