@@ -4,6 +4,7 @@ import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
 import {
   actionBuilder,
   eligibilityContentBuilder,
+  summaryContentBuilder,
 } from "@test-data/eligibility-api/builders";
 
 // TODO: Remove after final solution for testing with react-markdown
@@ -15,7 +16,7 @@ jest.mock("react-markdown", () => {
 
 describe("Eligibility", () => {
   describe("when eligible", () => {
-    it("should show the care card", async () => {
+    it("should show the care card if content summary is present", async () => {
       render(
         Eligibility({
           eligibilityStatus: EligibilityStatus.ELIGIBLE_BOOKABLE,
@@ -27,6 +28,22 @@ describe("Eligibility", () => {
         "non-urgent-care-card",
       );
       expect(careCard).toBeInTheDocument();
+    });
+
+    it("should not show the care card if content summary is undefined", async () => {
+      render(
+        Eligibility({
+          eligibilityStatus: EligibilityStatus.ELIGIBLE_BOOKABLE,
+          eligibilityContent: eligibilityContentBuilder()
+            .withSummary(undefined)
+            .build(),
+        }),
+      );
+
+      const careCard: HTMLElement | null = screen.queryByTestId(
+        "non-urgent-care-card",
+      );
+      expect(careCard).not.toBeInTheDocument();
     });
   });
 
@@ -44,8 +61,11 @@ describe("Eligibility", () => {
     });
 
     it("should show heading text in the care card heading", async () => {
-      const eligibilityContent = eligibilityContentBuilder().build();
-      const expectedHeading: string = eligibilityContent.status.heading;
+      const testHeading = "test";
+      const eligibilityContent = eligibilityContentBuilder()
+        .withSummary(summaryContentBuilder().withHeading(testHeading).build())
+        .build();
+
       render(
         Eligibility({
           eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
@@ -53,13 +73,18 @@ describe("Eligibility", () => {
         }),
       );
 
-      const heading: HTMLElement = screen.getByText(expectedHeading);
+      const heading: HTMLElement = screen.getByText(testHeading);
       expect(heading).toBeInTheDocument();
     });
 
     it("should show introduction in the care card body", async () => {
-      const eligibilityContent = eligibilityContentBuilder().build();
-      const expectedIntroduction = eligibilityContent.status.introduction;
+      const testIntroduction = "test-introduction";
+      const eligibilityContent = eligibilityContentBuilder()
+        .withSummary(
+          summaryContentBuilder().withIntroduction(testIntroduction).build(),
+        )
+        .build();
+
       render(
         Eligibility({
           eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
@@ -67,13 +92,16 @@ describe("Eligibility", () => {
         }),
       );
 
-      const introduction: HTMLElement = screen.getByText(expectedIntroduction);
+      const introduction: HTMLElement = screen.getByText(testIntroduction);
       expect(introduction).toBeInTheDocument();
     });
 
-    it("should show bullet points in the care card body", async () => {
-      const eligibilityContent = eligibilityContentBuilder().build();
-      const expectedPoints: string[] = eligibilityContent.status.points;
+    it("should show cohorts as bullet points in the care card body", async () => {
+      const cohorts = ["test-cohort", "test-cohort-2"];
+      const eligibilityContent = eligibilityContentBuilder()
+        .withSummary(summaryContentBuilder().withCohorts(cohorts).build())
+        .build();
+
       render(
         Eligibility({
           eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
@@ -81,10 +109,27 @@ describe("Eligibility", () => {
         }),
       );
 
-      expectedPoints.forEach((expectedPoint) => {
-        const bulletPoint: HTMLElement = screen.getByText(expectedPoint);
+      cohorts.forEach((cohort) => {
+        const bulletPoint: HTMLElement = screen.getByText(cohort);
         expect(bulletPoint).toBeInTheDocument();
+        expect(bulletPoint.tagName).toBe("LI");
       });
+    });
+
+    it("should not show the care card if summary is undefined", async () => {
+      render(
+        Eligibility({
+          eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
+          eligibilityContent: eligibilityContentBuilder()
+            .withSummary(undefined)
+            .build(),
+        }),
+      );
+
+      const careCard: HTMLElement | null = screen.queryByTestId(
+        "non-urgent-care-card",
+      );
+      expect(careCard).not.toBeInTheDocument();
     });
   });
 

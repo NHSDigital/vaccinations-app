@@ -10,14 +10,14 @@ export enum EligibilityStatus {
 }
 
 export type EligibilityContent = {
-  status: StatusContent;
+  summary: SummaryContent | undefined;
   actions: Action[];
 };
 
-export type StatusContent = {
+export type SummaryContent = {
   heading: string;
   introduction: string;
-  points: string[];
+  cohorts: string[];
 };
 
 export type Action = {
@@ -26,15 +26,15 @@ export type Action = {
 };
 
 export enum EligibilityErrorTypes {
-  ELIGIBILITY_LOADING_ERROR = "LOADING",
+  ELIGIBILITY_LOADING_ERROR = "ELIGIBILITY_LOADING_ERROR",
 }
 
 export type EligibilityForPerson = {
-  eligibility: Eligibility;
+  eligibility?: Eligibility;
   eligibilityError?: EligibilityErrorTypes;
 };
 
 export type Eligibility = {
-  status?: EligibilityStatus;
-  content?: EligibilityContent;
+  status: EligibilityStatus;
+  content: EligibilityContent;
 };

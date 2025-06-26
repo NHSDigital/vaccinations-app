@@ -1,10 +1,10 @@
 import { VaccineTypes } from "@src/models/vaccine";
 import {
   Action,
-  EligibilityContent,
-  // TODO VIA-321 2025-06-25 resolve temporarily unused import  EligibilityErrorTypes,
+  EligibilityErrorTypes,
   EligibilityForPerson,
   EligibilityStatus,
+  SummaryContent,
 } from "@src/services/eligibility-api/types";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import { Logger } from "pino";
@@ -24,81 +24,64 @@ const getEligibilityForPerson = async (
   vaccineType: VaccineTypes,
   nhsNumber: string,
 ): Promise<EligibilityForPerson> => {
-  const eligibilityApiResponse: EligibilityApiResponse | undefined =
-    await fetchEligibilityContent(nhsNumber);
+  try {
+    const eligibilityApiResponse: EligibilityApiResponse =
+      await fetchEligibilityContent(nhsNumber);
 
-  // TODO: Error handling for Eligibility API
-  if (!eligibilityApiResponse) {
+    const suggestionForVaccine: ProcessedSuggestion | undefined =
+      eligibilityApiResponse.processedSuggestions.find(
+        ({ condition }: ProcessedSuggestion) => condition === vaccineType,
+      );
+
+    if (!suggestionForVaccine) {
+      log.error(`Processed suggestion not found for ${vaccineType}`);
+      return {
+        eligibility: undefined,
+        eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+      };
+    }
+
+    let summary: SummaryContent | undefined;
+
+    if (!suggestionForVaccine.eligibilityCohorts) {
+      log.warn("Missing eligibility cohorts");
+    } else if (suggestionForVaccine.eligibilityCohorts.length > 0) {
+      summary = {
+        heading: suggestionForVaccine.statusText,
+        introduction: ELIGIBILITY_CONTENT_INTRO_TEXT,
+        cohorts: _extractAllCohortText(suggestionForVaccine),
+      };
+    }
+
+    const actions: Action[] = _generateActions(suggestionForVaccine);
+
     return {
       eligibility: {
-        status: undefined,
-        content: undefined,
+        status: _getStatus(suggestionForVaccine),
+        content: {
+          summary: summary,
+          actions,
+        },
       },
       eligibilityError: undefined,
     };
+  } catch (error) {
+    // TODO: Error handling for Eligibility API
+    log.error(error, "Error getting eligibility");
+    return {
+      eligibility: undefined,
+      eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+    };
   }
-
-  const suggestion: ProcessedSuggestion | undefined =
-    eligibilityApiResponse.processedSuggestions.find(
-      ({ condition }: ProcessedSuggestion) => condition === vaccineType,
-    );
-
-  let cohortText: string[] | undefined;
-  let heading: string = "";
-  let status: EligibilityStatus | undefined;
-  let actions: Action[] = [];
-
-  if (suggestion) {
-    status = _getStatus(suggestion);
-    heading = suggestion.statusText;
-    cohortText = _extractAllCohortText(suggestion);
-    actions = _generateActions(suggestion);
-  } else {
-    log.error(
-      `Error accessing processedSuggestion from Eligibility API, no suggestion for ${vaccineType} given.`,
-    );
-  }
-
-  const eligibilityContent: EligibilityContent | undefined = cohortText
-    ? {
-        status: {
-          heading: heading,
-          introduction: ELIGIBILITY_CONTENT_INTRO_TEXT,
-          points: cohortText,
-        },
-        actions,
-      }
-    : undefined;
-
-  return {
-    eligibility: {
-      status: status,
-      content: eligibilityContent,
-    },
-    eligibilityError: undefined,
-  };
 };
 
-const _extractAllCohortText = (
-  suggestion: ProcessedSuggestion,
-): string[] | undefined => {
-  if (!suggestion.eligibilityCohorts) {
-    log.error(
-      "Error deserializing object, missing attribute: ProcessedSuggestion.eligibilityCohorts",
-    );
-    return undefined;
-  }
-  if (suggestion.eligibilityCohorts.length === 0) {
-    return undefined;
-  }
+const _extractAllCohortText = (suggestion: ProcessedSuggestion): string[] => {
   return suggestion.eligibilityCohorts.map(
     (cohort: EligibilityCohort) => cohort.cohortText,
   );
 };
 
-const _getStatus = (
-  suggestion: ProcessedSuggestion,
-): EligibilityStatus | undefined => {
+const _getStatus = (suggestion: ProcessedSuggestion): EligibilityStatus => {
   if (suggestion.status === "NotEligible") {
     return EligibilityStatus.NOT_ELIGIBLE;
   }
@@ -108,6 +91,8 @@ const _getStatus = (
   if (suggestion.status === "Actionable") {
     return EligibilityStatus.ACTIONABLE; // WIP
   }
+  // TODO: default case if ELID returns unknown status type
+  throw new Error("not yet implemented");
 };
 
 const _generateActions = (suggestion: ProcessedSuggestion): Action[] => {
