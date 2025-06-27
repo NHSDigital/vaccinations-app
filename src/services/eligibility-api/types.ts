@@ -29,9 +29,18 @@ export enum EligibilityErrorTypes {
   ELIGIBILITY_LOADING_ERROR = "ELIGIBILITY_LOADING_ERROR",
 }
 
-export type EligibilityForPerson = {
-  eligibility?: Eligibility;
-  eligibilityError?: EligibilityErrorTypes;
+export type EligibilityForPersonType =
+  | EligibilityForPerson
+  | EligibilityForPersonError;
+
+type EligibilityForPerson = {
+  eligibility: Eligibility;
+  eligibilityError: undefined;
+};
+
+type EligibilityForPersonError = {
+  eligibility: undefined;
+  eligibilityError: EligibilityErrorTypes;
 };
 
 export type Eligibility = {

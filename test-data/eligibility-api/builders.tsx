@@ -9,7 +9,7 @@ import {
   Action,
   EligibilityContent,
   EligibilityErrorTypes,
-  EligibilityForPerson,
+  EligibilityForPersonType,
   EligibilityStatus,
   SummaryContent
 } from "@src/services/eligibility-api/types";
@@ -48,9 +48,9 @@ export function actionFromApiBuilder() {
 }
 
 export function eligibilityForPersonBuilder() {
-  return createTypeBuilder<EligibilityForPerson>({
+  return createTypeBuilder<EligibilityForPersonType>({
     eligibility: eligibilityBuilder().build(),
-    eligibilityError: randomValue(Object.values(EligibilityErrorTypes))
+    eligibilityError: undefined
   });
 }
 

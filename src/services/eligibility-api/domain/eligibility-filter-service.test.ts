@@ -7,7 +7,7 @@ import {
 import { VaccineTypes } from "@src/models/vaccine";
 import {
   EligibilityErrorTypes,
-  EligibilityForPerson,
+  EligibilityForPersonType,
   EligibilityStatus,
 } from "@src/services/eligibility-api/types";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
@@ -78,7 +78,7 @@ describe("eligibility-filter-service", () => {
         ],
       };
 
-      const result: EligibilityForPerson = await getEligibilityForPerson(
+      const result: EligibilityForPersonType = await getEligibilityForPerson(
         VaccineTypes.RSV,
         nhsNumber,
       );
@@ -95,7 +95,7 @@ describe("eligibility-filter-service", () => {
         eligibilityApiResponseBuilder().withProcessedSuggestions([]).build(),
       );
 
-      const result: EligibilityForPerson = await getEligibilityForPerson(
+      const result: EligibilityForPersonType = await getEligibilityForPerson(
         VaccineTypes.RSV,
         nhsNumber,
       );
@@ -119,7 +119,7 @@ describe("eligibility-filter-service", () => {
         ],
       });
 
-      const result: EligibilityForPerson = await getEligibilityForPerson(
+      const result: EligibilityForPersonType = await getEligibilityForPerson(
         VaccineTypes.RSV,
         nhsNumber,
       );
@@ -143,7 +143,7 @@ describe("eligibility-filter-service", () => {
           .build(),
       );
 
-      const result: EligibilityForPerson = await getEligibilityForPerson(
+      const result: EligibilityForPersonType = await getEligibilityForPerson(
         VaccineTypes.RSV,
         nhsNumber,
       );
@@ -156,7 +156,7 @@ describe("eligibility-filter-service", () => {
     it("should return loading error when fetchEligibilityContent fails", async () => {
       (fetchEligibilityContent as jest.Mock).mockResolvedValue(undefined);
 
-      const result: EligibilityForPerson = await getEligibilityForPerson(
+      const result: EligibilityForPersonType = await getEligibilityForPerson(
         VaccineTypes.RSV,
         nhsNumber,
       );
@@ -172,7 +172,7 @@ describe("eligibility-filter-service", () => {
         new Error("Call to EliD failed"),
       );
 
-      const result: EligibilityForPerson = await getEligibilityForPerson(
+      const result: EligibilityForPersonType = await getEligibilityForPerson(
         VaccineTypes.RSV,
         nhsNumber,
       );

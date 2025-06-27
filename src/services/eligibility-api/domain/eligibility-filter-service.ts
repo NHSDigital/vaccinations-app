@@ -2,7 +2,7 @@ import { VaccineTypes } from "@src/models/vaccine";
 import {
   Action,
   EligibilityErrorTypes,
-  EligibilityForPerson,
+  EligibilityForPersonType,
   EligibilityStatus,
   SummaryContent,
 } from "@src/services/eligibility-api/types";
@@ -23,7 +23,7 @@ const log: Logger = logger.child({ module: "eligibility-filter-service" });
 const getEligibilityForPerson = async (
   vaccineType: VaccineTypes,
   nhsNumber: string,
-): Promise<EligibilityForPerson> => {
+): Promise<EligibilityForPersonType> => {
   try {
     const eligibilityApiResponse: EligibilityApiResponse =
       await fetchEligibilityContent(nhsNumber);
