@@ -17,17 +17,17 @@ const allowedHtmlTagsSet = new Set([
   "h3",
   "h4",
   "h5",
-  "h6", // headings
-  "p", // paragraph
-  "br", // line breaks
+  "h6",
+  "p",
+  "br",
   "b",
-  "strong", // bold text
+  "strong",
   "em",
-  "i", // italic text
-  "a", // links
+  "i",
+  "a",
   "ul",
   "ol",
-  "li", // lists
+  "li",
 ]);
 
 const MarkdownWithStyling = ({ content }: MarkdownProps): JSX.Element => {
@@ -43,12 +43,8 @@ const MarkdownWithStyling = ({ content }: MarkdownProps): JSX.Element => {
   );
 };
 
-const H2 = ({ children, ...props }: H2Props): JSX.Element => {
-  return (
-    <h2 className="nhsuk-heading-s" {...props}>
-      {children}
-    </h2>
-  );
+const H2 = ({ children }: H2Props): JSX.Element => {
+  return <h2 className="nhsuk-heading-s">{children}</h2>;
 };
 
 const allowHTMLElement = (element: Element) => {
