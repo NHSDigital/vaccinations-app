@@ -16,6 +16,15 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    groups:
+      jest-dependencies:
+        patterns:
+          - "@pact-foundation/pact"
+          - "@types/jest"
+          - "jest"
+          - "jest-environment-jsdom"
+          - "jest-pact"
+          - "ts-jest"
 
   - package-ecosystem: "pip"
     directory: "/"
