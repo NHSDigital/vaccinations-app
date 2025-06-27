@@ -34,7 +34,9 @@ const getEligibilityForPerson = async (
       );
 
     if (!suggestionForVaccine) {
-      log.error(`Processed suggestion not found for ${vaccineType}`);
+      log.error(
+        `EliD response validation error: Processed suggestion not found for ${vaccineType}`,
+      );
       return {
         eligibility: undefined,
         eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
@@ -44,7 +46,9 @@ const getEligibilityForPerson = async (
     let summary: SummaryContent | undefined;
 
     if (!suggestionForVaccine.eligibilityCohorts) {
-      log.warn("Missing eligibility cohorts");
+      log.error(
+        "EliD response validation error: Missing eligibilityCohorts element",
+      );
     } else if (suggestionForVaccine.eligibilityCohorts.length > 0) {
       summary = {
         heading: suggestionForVaccine.statusText,

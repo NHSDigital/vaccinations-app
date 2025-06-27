@@ -31,6 +31,6 @@ export const fetchEligibilityContent = async (
     return response.data;
   } catch (error) {
     log.error(error, `Error in fetching ${uri}`);
-    throw new Error("Call to EliD failed");
+    throw new Error("EliD call failed", { cause: error });
   }
 };
