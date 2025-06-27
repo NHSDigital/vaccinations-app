@@ -1,6 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import {
   H2,
+  A,
+  UL,
+  OL,
   MarkdownWithStyling,
 } from "@src/app/_components/markdown/MarkdownWithStyling";
 import React from "react";
@@ -28,15 +31,53 @@ describe("markdown", () => {
     });
   });
 
-  describe("H2", () => {
-    it("should display styled h2", () => {
+  describe("Custom HTML components", () => {
+    it("should display styled Heading Level 2 (h2)", () => {
       const children = "This is heading";
+
       render(H2({ children }));
 
       const heading: HTMLElement = screen.getByText(children);
 
       expect(heading).toBeVisible();
       expect(heading).toHaveClass("nhsuk-heading-s");
+    });
+
+    it("should display styled Anchor (a) with ability to open in new tabs", () => {
+      const children = "This is heading";
+      const href = "https://example.com/";
+
+      render(A({ href, children }));
+
+      const anchor: HTMLElement = screen.getByText(children);
+
+      expect(anchor).toBeVisible();
+      expect(anchor).toHaveClass("nhsuk-link");
+      expect(anchor).toHaveAttribute("href", "https://example.com/");
+      expect(anchor).toHaveAttribute("target", "_blank");
+      expect(anchor).toHaveAttribute("rel", "noopener");
+    });
+
+    it("should display styled Unordered List (ul)", () => {
+      const children = "Example list item";
+
+      render(UL({ children }));
+
+      const heading: HTMLElement = screen.getByText(children);
+
+      expect(heading).toBeVisible();
+      expect(heading).toHaveClass("nhsuk-list nhsuk-list--bullet");
+    });
+
+    it("should display styled Ordered List (ol)", () => {
+      const children = "Example list item";
+
+      render(OL({ children }));
+
+      const heading: HTMLElement = screen.getByText(children);
+
+      expect(heading).toBeVisible();
+      expect(heading).toHaveClass("nhsuk-list nhsuk-list--number");
     });
   });
 });
