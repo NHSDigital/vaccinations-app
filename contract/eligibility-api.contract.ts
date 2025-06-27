@@ -8,30 +8,18 @@ describe("EliD API contract", () => {
     dotenv.config({ path: ".env.local" });
   });
 
-  describe("Actionable", () => {
-    it("should be actionable ", async () => {
-      const eligibilityForPerson = await getEligibilityForPerson(VaccineTypes.RSV, "9686368973");
+  describe("EliD call over the wire", () => {
+    const testCases = [
+      {nhsNumber: "9686368973", expectedStatus: EligibilityStatus.ACTIONABLE},
+      {nhsNumber: "9658218989", expectedStatus: EligibilityStatus.ALREADY_VACCINATED},
+      {nhsNumber: "9657933617", expectedStatus: EligibilityStatus.NOT_ELIGIBLE},
+    ];
+
+    test.each(testCases)('$nhsNumber should be $expectedStatus', async ({nhsNumber, expectedStatus}) => {
+      const eligibilityForPerson = await getEligibilityForPerson(VaccineTypes.RSV, nhsNumber);
 
       expect(Object.keys(eligibilityForPerson).length).toEqual(2);
-      expect(eligibilityForPerson.eligibility?.status).toEqual(EligibilityStatus.ACTIONABLE);
-    });
-  });
-
-  describe("Not Actionable", () => {
-    it("shouldn't be actionable - already vaccinated ", async () => {
-      const eligibilityForPerson = await getEligibilityForPerson(VaccineTypes.RSV, "9658218989");
-
-      expect(Object.keys(eligibilityForPerson).length).toEqual(2);
-      expect(eligibilityForPerson.eligibility?.status).toEqual(EligibilityStatus.ALREADY_VACCINATED);
-    });
-  });
-
-  describe("Not Eligible", () => {
-    it("shouldn't be eligible ", async () => {
-      const eligibilityForPerson = await getEligibilityForPerson(VaccineTypes.RSV, "9657933617");
-
-      expect(Object.keys(eligibilityForPerson).length).toEqual(2);
-      expect(eligibilityForPerson.eligibility?.status).toEqual(EligibilityStatus.NOT_ELIGIBLE);
+      expect(eligibilityForPerson.eligibility?.status).toEqual(expectedStatus);
     });
   });
 });
