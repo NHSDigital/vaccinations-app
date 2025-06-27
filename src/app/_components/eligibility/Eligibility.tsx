@@ -34,9 +34,11 @@ const Eligibility = ({ eligibilityContent }: EligibilityProps): JSX.Element => {
         />
       )}
       <div>
-        {eligibilityContent.actions.map((action: Action, index: number) => (
-          <MarkdownWithStyling key={index} content={action.content} />
-        ))}
+        {eligibilityContent.actions.map((action: Action, index: number) => {
+          if (action.type === "paragraph") {
+            return <MarkdownWithStyling key={index} content={action.content} />;
+          }
+        })}
       </div>
     </div>
   );

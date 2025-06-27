@@ -248,7 +248,7 @@ describe("eligibility-filter-service", () => {
     });
   });
 
-  describe("_getActions", () => {
+  describe("_generateActions", () => {
     it("should filter actions and only return InfoText action type", async () => {
       const processedSuggestion: ProcessedSuggestion =
         processedSuggestionBuilder()

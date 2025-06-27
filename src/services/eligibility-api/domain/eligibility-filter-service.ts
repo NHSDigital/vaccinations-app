@@ -105,14 +105,20 @@ const _generateActions = (suggestion: ProcessedSuggestion): Action[] => {
     return [];
   }
 
-  // WIP
-  const filteredActions: ActionFromApi[] = suggestion.actions.filter(
-    (action) => action.actionType === "InfoText",
+  const content: Action[] = suggestion.actions.flatMap(
+    (action: ActionFromApi) => {
+      if (action.actionType === "InfoText") {
+        return [
+          {
+            type: "paragraph",
+            content: action.description,
+          },
+        ];
+      } else {
+        return []; // Empty array return means it skips this entry
+      }
+    },
   );
-  const content: Action[] = filteredActions.map((action) => ({
-    type: "paragraph",
-    content: action.description,
-  }));
 
   return content;
 };
