@@ -52,4 +52,16 @@ test.describe("E2E", () => {
       await expect(infoText).toBeVisible();
     });
   });
+
+  test.describe("Actionable - No InfoText action content ", async () => {
+    test.beforeAll(async ({ browser }) => {
+      page = await login(browser, users.Actionable_No_InfoText_Action.email);
+    });
+
+    test("Actionable - No InfoText action content", async () => {
+      await page.goto(RSV_PAGE_URL);
+      const infoText = page.getByTestId("action-paragraph");
+      await expect(infoText).toHaveCount(0);
+    })
+  })
 });

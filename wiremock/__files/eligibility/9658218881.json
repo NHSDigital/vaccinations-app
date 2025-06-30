@@ -12,7 +12,7 @@
       "suitabilityRules": [],
       "actions": [
         {
-          "actionType": "CardWithAuthButton",
+          "actionType": "ButtonWithAuthLink",
           "actionCode": "AmendNBS",
           "description": "##You have an RSV vaccination appointment\nYou can view, change or cancel your appointment below.",
           "urlLink": "http://www.nhs.uk/book-rsv",
