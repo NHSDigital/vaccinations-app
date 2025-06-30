@@ -22,3 +22,9 @@ module "deploy" {
   sub_domain                        = local.sub_domain
   default_tags                      = local.default_tags
 }
+
+module "deploy_monitoring" {
+  source       = "../../modules/deploy_monitoring"
+  prefix       = local.prefix
+  default_tags = local.default_tags
+}
