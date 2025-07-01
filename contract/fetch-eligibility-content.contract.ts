@@ -35,7 +35,7 @@ pactWith(
           method: "GET",
           path: `/eligibility-signposting-api/patient-check/${mockNhsNumber}`,
           headers: {
-            accept: "application/json",
+            accept: "application/json, application/fhir+json",
             apikey: "test-api-key",
             "X-Correlation-ID": vitaTraceId
           }

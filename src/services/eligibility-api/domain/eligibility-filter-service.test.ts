@@ -18,6 +18,7 @@ import {
   eligibilityCohortBuilder,
   processedSuggestionBuilder,
 } from "@test-data/eligibility-api/builders";
+import { EligibilityApiHttpStatusError } from "@src/services/eligibility-api/gateway/fetch-eligibility-content-exceptions";
 
 jest.mock(
   "@src/services/eligibility-api/gateway/fetch-eligibility-content",
@@ -162,14 +163,12 @@ describe("eligibility-filter-service", () => {
       );
 
       expect(result.eligibility).toBeUndefined();
-      expect(result.eligibilityError).toBe(
-        EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
-      );
+      expect(result.eligibilityError).toBe(EligibilityErrorTypes.UNKNOWN);
     });
 
     it("should return error response when call to fetchEligibilityContent throws error", async () => {
       (fetchEligibilityContent as jest.Mock).mockRejectedValue(
-        new Error("Call to EliD failed"),
+        new EligibilityApiHttpStatusError("Call to EliD failed"),
       );
 
       const result: EligibilityForPersonType = await getEligibilityForPerson(

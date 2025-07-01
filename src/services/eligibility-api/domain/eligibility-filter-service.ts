@@ -15,6 +15,7 @@ import {
   EligibilityCohort,
   ProcessedSuggestion,
 } from "@src/services/eligibility-api/api-types";
+import { EligibilityApiError } from "@src/services/eligibility-api/gateway/fetch-eligibility-content-exceptions";
 
 const ELIGIBILITY_CONTENT_INTRO_TEXT: string = "This is because you:";
 
@@ -69,13 +70,21 @@ const getEligibilityForPerson = async (
       },
       eligibilityError: undefined,
     };
-  } catch (error) {
-    // TODO: Error handling for Eligibility API
-    log.error(error, "Error getting eligibility");
-    return {
-      eligibility: undefined,
-      eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
-    };
+  } catch (error: unknown) {
+    if (error instanceof EligibilityApiError) {
+      // TODO: Error handling for Eligibility API
+      log.error(error, "Error getting eligibility");
+      return {
+        eligibility: undefined,
+        eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+      };
+    } else {
+      log.error(error, "Some random error");
+      return {
+        eligibility: undefined,
+        eligibilityError: EligibilityErrorTypes.UNKNOWN,
+      };
+    }
   }
 };
 

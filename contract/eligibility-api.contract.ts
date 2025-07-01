@@ -1,14 +1,14 @@
 import dotenv from "dotenv";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import { VaccineTypes } from "@src/models/vaccine";
-import { EligibilityStatus } from "@src/services/eligibility-api/types";
+import { EligibilityErrorTypes, EligibilityStatus } from "@src/services/eligibility-api/types";
 
 describe("EliD API contract", () => {
   beforeAll(async () => {
     dotenv.config({ path: ".env.local" });
   });
 
-  describe("EliD call over the wire", () => {
+  describe("successful EliD call over the wire", () => {
     const testCases = [
       {nhsNumber: "9686368973", expectedStatus: EligibilityStatus.ACTIONABLE, expectCohortElement: true},
       {nhsNumber: "9658218989", expectedStatus: EligibilityStatus.ALREADY_VACCINATED, expectCohortElement: false},
@@ -26,6 +26,16 @@ describe("EliD API contract", () => {
         expect(eligibilityForPerson.eligibility?.content.summary?.cohorts).toBeUndefined();
       }
       expect(eligibilityForPerson.eligibilityError).toBeUndefined();
+    });
+  });
+
+  describe("HTTP Status exception", () => {
+    it("should have error status ", async () => {
+      const eligibilityForPerson = await getEligibilityForPerson(VaccineTypes.RSV, "90000000404");
+
+      expect(Object.keys(eligibilityForPerson).length).toEqual(2);
+      expect(eligibilityForPerson.eligibility).toBeUndefined();
+      expect(eligibilityForPerson.eligibilityError).toEqual(EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR);
     });
   });
 });
