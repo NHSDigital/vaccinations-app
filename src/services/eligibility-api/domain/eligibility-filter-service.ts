@@ -11,10 +11,12 @@ import { Logger } from "pino";
 import { logger } from "@src/utils/logger";
 import {
   ActionFromApi,
+  EligibilityApiErrorTypes,
   EligibilityApiResponse,
   EligibilityCohort,
   ProcessedSuggestion,
 } from "@src/services/eligibility-api/api-types";
+import { Result } from "true-myth";
 
 const ELIGIBILITY_CONTENT_INTRO_TEXT: string = "This is because you:";
 
@@ -25,8 +27,24 @@ const getEligibilityForPerson = async (
   nhsNumber: string,
 ): Promise<EligibilityForPersonType> => {
   try {
+    const eligibilityApiResponseResult: Result<
+      EligibilityApiResponse,
+      EligibilityApiErrorTypes
+    > = await fetchEligibilityContent(nhsNumber);
+
+    if (eligibilityApiResponseResult.isErr) {
+      log.error(
+        eligibilityApiResponseResult.error,
+        "Error fetching eligibility content",
+      );
+      return {
+        eligibility: undefined,
+        eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+      };
+    }
+
     const eligibilityApiResponse: EligibilityApiResponse =
-      await fetchEligibilityContent(nhsNumber);
+      eligibilityApiResponseResult.value;
 
     const suggestionForVaccine: ProcessedSuggestion | undefined =
       eligibilityApiResponse.processedSuggestions.find(

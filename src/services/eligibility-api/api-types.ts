@@ -28,3 +28,8 @@ export type ActionFromApi = {
 
 export type ActionType = "InfoText" | "CardWithText" | "ButtonWithAuthLink";
 export type ActionCode = "HealthcareProInfo";
+
+export enum EligibilityApiErrorTypes {
+  HTTP_STATUS_ERROR = "HTTP_STATUS",
+  UNEXPECTED = "UNEXPECTED",
+}

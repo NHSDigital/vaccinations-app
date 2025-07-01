@@ -29,6 +29,7 @@ export enum EligibilityErrorTypes {
   ELIGIBILITY_LOADING_ERROR = "ELIGIBILITY_LOADING_ERROR",
 }
 
+// TODO: Make this a true-myth Result - see https://true-myth.js.org/guide/understanding/result.html
 export type EligibilityForPersonType =
   | EligibilityForPerson
   | EligibilityForPersonError;

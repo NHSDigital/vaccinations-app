@@ -1,7 +1,11 @@
 import { AppConfig, configProvider } from "@src/utils/config";
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosResponse, AxiosError } from "axios";
 import { logger } from "@src/utils/logger";
-import { EligibilityApiResponse } from "@src/services/eligibility-api/api-types";
+import {
+  EligibilityApiErrorTypes,
+  EligibilityApiResponse,
+} from "@src/services/eligibility-api/api-types";
+import { Result } from "true-myth";
 
 const log = logger.child({ module: "fetch-eligibility-content" });
 const ELIGIBILITY_API_PATH_SUFFIX =
@@ -9,7 +13,7 @@ const ELIGIBILITY_API_PATH_SUFFIX =
 
 export const fetchEligibilityContent = async (
   nhsNumber: string,
-): Promise<EligibilityApiResponse> => {
+): Promise<Result<EligibilityApiResponse, EligibilityApiErrorTypes>> => {
   const config: AppConfig = await configProvider();
 
   const apiEndpoint: string = config.ELIGIBILITY_API_ENDPOINT;
@@ -17,20 +21,29 @@ export const fetchEligibilityContent = async (
   const vitaTraceId: string | undefined = process.env._X_AMZN_TRACE_ID;
 
   const uri: string = `${apiEndpoint}${ELIGIBILITY_API_PATH_SUFFIX}${nhsNumber}`;
-  let response: AxiosResponse;
-  try {
-    log.info("Fetching content from %s", uri);
-    response = await axios.get(uri, {
+
+  log.info("Fetching content from %s", uri);
+  axios
+    .get(uri, {
       headers: {
         accept: "application/json",
         apikey: apiKey,
         "X-Correlation-ID": vitaTraceId,
       },
+      validateStatus: (status) => {
+        return status < 400;
+      },
+    })
+    .then((response: AxiosResponse) => {
+      log.info("Successfully fetched content from %s", uri);
+      return Result.ok(response.data);
+    })
+    .catch((error: AxiosError) => {
+      log.error(error, `Error in fetching ${uri}`);
+      return Result.err(EligibilityApiErrorTypes.HTTP_STATUS_ERROR);
+    })
+    .finally(() => {
+      return Result.err(EligibilityApiErrorTypes.UNEXPECTED); // Should never happen...
     });
-    log.info("Successfully fetched content from %s", uri);
-    return response.data;
-  } catch (error) {
-    log.error(error, `Error in fetching ${uri}`);
-    throw new Error("EliD call failed", { cause: error });
-  }
+  throw new Error("Should never happen");
 };

@@ -11,7 +11,10 @@ import {
   EligibilityStatus,
 } from "@src/services/eligibility-api/types";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
-import { ProcessedSuggestion } from "@src/services/eligibility-api/api-types";
+import {
+  EligibilityApiErrorTypes,
+  ProcessedSuggestion,
+} from "@src/services/eligibility-api/api-types";
 import {
   actionFromApiBuilder,
   eligibilityApiResponseBuilder,
@@ -26,39 +29,65 @@ jest.mock(
   }),
 );
 
+jest.mock("true-myth", () => ({
+  Result: {
+    ok: (value: unknown) => ({
+      isErr: false,
+      value,
+    }),
+    err: (error: unknown) => ({
+      isErr: true,
+      error,
+    }),
+  },
+}));
+
+const Result = {
+  ok: (value: unknown) => ({
+    isErr: false,
+    value,
+  }),
+  err: (error: unknown) => ({
+    isErr: true,
+    error,
+  }),
+};
+
 const nhsNumber = "5123456789";
 
 describe("eligibility-filter-service", () => {
   describe("getEligibilityForPerson", () => {
     it("should convert Eligibility API response into eligibility status and content", async () => {
       (fetchEligibilityContent as jest.Mock).mockResolvedValue(
-        eligibilityApiResponseBuilder()
-          .withProcessedSuggestions([
-            processedSuggestionBuilder()
-              .withCondition("RSV")
-              .andStatus("NotEligible")
-              .andStatusText("We do not believe you should have this vaccine")
-              .andEligibilityCohorts([
-                eligibilityCohortBuilder()
-                  .withCohortStatus("NotEligible")
-                  .andCohortText("You are not aged 75 to 79 years old.")
-                  .build(),
-                eligibilityCohortBuilder()
-                  .withCohortStatus("NotEligible")
-                  .andCohortText(
-                    "You did not turn 80 between 2nd September 2024 and 31st August 2025",
-                  )
-                  .build(),
-              ])
-              .andActions([
-                actionFromApiBuilder()
-                  .withActionType("InfoText")
-                  .andDescription("Text")
-                  .build(),
-              ])
-              .build(),
-          ])
-          .build(),
+        Result.ok(
+          eligibilityApiResponseBuilder()
+            .withProcessedSuggestions([
+              processedSuggestionBuilder()
+                .withCondition("RSV")
+                .andStatus("NotEligible")
+                .andStatusText("We do not believe you should have this vaccine")
+                .andEligibilityCohorts([
+                  eligibilityCohortBuilder()
+                    .withCohortStatus("NotEligible")
+                    .andCohortText("You are not aged 75 to 79 years old.")
+                    .build(),
+                  eligibilityCohortBuilder()
+                    .withCohortStatus("NotEligible")
+                    .andCohortText(
+                      "You did not turn 80 between 2nd September 2024 and 31st August 2025",
+                    )
+                    .build(),
+                ])
+                .andActions([
+                  actionFromApiBuilder()
+                    .withActionType("InfoText")
+                    .andDescription("Text")
+                    .build(),
+                ])
+                .build(),
+            ])
+            .build(),
+        ),
       );
 
       const expectedEligibilityContent = {
@@ -92,7 +121,9 @@ describe("eligibility-filter-service", () => {
 
     it("should return error response when no suggestion is found for the vaccine", async () => {
       (fetchEligibilityContent as jest.Mock).mockResolvedValue(
-        eligibilityApiResponseBuilder().withProcessedSuggestions([]).build(),
+        Result.ok(
+          eligibilityApiResponseBuilder().withProcessedSuggestions([]).build(),
+        ),
       );
 
       const result: EligibilityForPersonType = await getEligibilityForPerson(
@@ -109,15 +140,17 @@ describe("eligibility-filter-service", () => {
     it("should return status even if eligibilityCohorts attribute is missing", async () => {
       const status = "NotEligible";
       const statusText = "you are not eligible because";
-      (fetchEligibilityContent as jest.Mock).mockResolvedValue({
-        processedSuggestions: [
-          {
-            condition: "RSV",
-            status: status,
-            statusText: statusText,
-          } as ProcessedSuggestion,
-        ],
-      });
+      (fetchEligibilityContent as jest.Mock).mockResolvedValue(
+        Result.ok({
+          processedSuggestions: [
+            {
+              condition: "RSV",
+              status: status,
+              statusText: statusText,
+            } as ProcessedSuggestion,
+          ],
+        }),
+      );
 
       const result: EligibilityForPersonType = await getEligibilityForPerson(
         VaccineTypes.RSV,
@@ -132,15 +165,17 @@ describe("eligibility-filter-service", () => {
     it("should not give content when eligibilityCohorts array is empty", async () => {
       const status = "NotEligible";
       (fetchEligibilityContent as jest.Mock).mockResolvedValue(
-        eligibilityApiResponseBuilder()
-          .withProcessedSuggestions([
-            processedSuggestionBuilder()
-              .withCondition("RSV")
-              .andStatus(status)
-              .andEligibilityCohorts([])
-              .build(),
-          ])
-          .build(),
+        Result.ok(
+          eligibilityApiResponseBuilder()
+            .withProcessedSuggestions([
+              processedSuggestionBuilder()
+                .withCondition("RSV")
+                .andStatus(status)
+                .andEligibilityCohorts([])
+                .build(),
+            ])
+            .build(),
+        ),
       );
 
       const result: EligibilityForPersonType = await getEligibilityForPerson(
@@ -153,8 +188,10 @@ describe("eligibility-filter-service", () => {
       expect(result.eligibilityError).toBeUndefined();
     });
 
-    it("should return loading error when fetchEligibilityContent fails", async () => {
-      (fetchEligibilityContent as jest.Mock).mockResolvedValue(undefined);
+    it("should return loading error when fetchEligibilityContent returns an Err result", async () => {
+      (fetchEligibilityContent as jest.Mock).mockResolvedValue(
+        Result.err(EligibilityApiErrorTypes.HTTP_STATUS_ERROR),
+      );
 
       const result: EligibilityForPersonType = await getEligibilityForPerson(
         VaccineTypes.RSV,
