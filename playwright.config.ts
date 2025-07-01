@@ -34,6 +34,7 @@ export default defineConfig({
       }
     ]
   ] : 'html',
+  snapshotPathTemplate: '{testDir}/snapshot/__snapshots__/{testFileName}-snapshots/{arg}-{projectName}{ext}',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
@@ -47,8 +48,9 @@ export default defineConfig({
     {
       name: 'chromium',
       use: {
-        ...devices['Desktop Chrome']
-      }
+        ...devices['Desktop Chrome'],
+        viewport: { width: 1920, height: 1080 },
+      },
     }
 
     /* Test against mobile viewports. */

@@ -6,10 +6,10 @@ import {
   RSV_PAGE_URL,
   RSV_PREGNANCY_PAGE_TITLE,
   RSV_PREGNANCY_PAGE_URL
-} from "./constants";
+} from "../constants";
 import { accessibilityCheck, benchmark, clickLinkAndExpectPageTitle } from "@project/e2e/helpers";
 import { login } from "@project/e2e/auth";
-import users from "@project/test-data/test-users.json" assert { type: "json" };
+import users from "@test-data/test-users.json" assert { type: "json" };
 
 test.describe.configure({ mode: "serial" });
 
