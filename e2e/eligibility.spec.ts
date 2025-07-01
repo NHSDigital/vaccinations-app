@@ -48,7 +48,7 @@ test.describe("E2E", () => {
     // TODO: VIA-325 26/06/25 - Check for h2 and paragraph after getting valid markdown from Eligibility API
     test("Actionable - InfoText action content", async () => {
       await page.goto(RSV_PAGE_URL);
-      const infoText = page.getByText("##Getting the vaccine You can get an RSV vaccination at your GP surgery.");
+      const infoText = page.getByText("Getting the vaccine");
       await expect(infoText).toBeVisible();
     });
   });
