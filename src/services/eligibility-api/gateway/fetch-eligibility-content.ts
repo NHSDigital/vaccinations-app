@@ -28,7 +28,7 @@ export const fetchEligibilityContent = async (
         "X-Correlation-ID": vitaTraceId,
       },
       validateStatus: (status) => {
-        return status < HttpStatusCode.NotFound;
+        return status < HttpStatusCode.BadRequest;
       },
     })
     .catch((error: AxiosError) => {
