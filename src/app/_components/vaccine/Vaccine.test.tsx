@@ -331,7 +331,7 @@ describe("Any vaccine page", () => {
       expect(eligibilitySection).not.toBeInTheDocument();
     });
 
-    it("should display fallback eligibility when eligibility API has failed", async () => {
+    it("should display fallback eligibility care card when eligibility API has failed", async () => {
       (getEligibilityForPerson as jest.Mock).mockResolvedValue({
         eligibility: undefined,
         eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
@@ -339,19 +339,56 @@ describe("Any vaccine page", () => {
 
       await renderNamedVaccinePage(VaccineTypes.RSV);
 
-      const fallbackHeading: HTMLElement | null = screen.getByText(
+      const fallbackHeading: HTMLElement = screen.getByText(
         "You should have RSV vaccine if you:",
       );
-      const fallbackBulletPoint1: HTMLElement | null = screen.getByText(
+      const fallbackBulletPoint1: HTMLElement = screen.getByText(
         "are aged between 75 and 79",
       );
-      const fallbackBulletPoint2: HTMLElement | null = screen.getByText(
+      const fallbackBulletPoint2: HTMLElement = screen.getByText(
         "turned 80 after 1 September 2024",
       );
 
       expect(fallbackHeading).toBeVisible();
       expect(fallbackBulletPoint1).toBeVisible();
       expect(fallbackBulletPoint2).toBeVisible();
+    });
+
+    it("should display fallback eligibility paragraph when eligibility API has failed", async () => {
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+        eligibility: undefined,
+        eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+      });
+
+      await renderNamedVaccinePage(VaccineTypes.RSV);
+
+      const paragraphHeading: HTMLElement = screen.getByRole("heading", {
+        name: "If you think you should have this vaccine",
+        level: 3,
+      });
+      const firstParagraph: HTMLElement = screen.getByText(
+        "Contact your GP surgery to book your RSV vaccination.",
+      );
+      const secondParagraph: HTMLElement = screen.getByText(
+        "Your GP surgery may contact you about getting the RSV vaccine. This may be by letter, text, phone call or email.",
+      );
+      const thirdParagraph: HTMLElement = screen.getByText(
+        "You do not need to wait to be contacted before booking your vaccination.",
+      );
+      const forthParagraph: HTMLElement = screen.getByText(
+        "In some areas you can",
+      );
+      const link: HTMLElement = screen.getByRole("link", {
+        name: "book an RSV vaccination in a pharmacy",
+      });
+
+      expect(paragraphHeading).toBeVisible();
+      expect(firstParagraph).toBeVisible();
+      expect(secondParagraph).toBeVisible();
+      expect(thirdParagraph).toBeVisible();
+      expect(forthParagraph).toBeVisible();
+      expect(link).toBeVisible();
+      expect(link).toHaveAttribute("href", "/api/sso-to-nbs?vaccine=rsv");
     });
   });
 });

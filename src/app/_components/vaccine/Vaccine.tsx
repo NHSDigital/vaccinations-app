@@ -5,7 +5,13 @@ import Details from "@src/app/_components/nhs-frontend/Details";
 import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
-import { VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
+import {
+  VaccineContentUrlPaths,
+  VaccineDetails,
+  VaccineInfo,
+  VaccineTypes,
+  vaccineTypeToUrlPath,
+} from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
@@ -16,6 +22,7 @@ import styles from "./styles.module.css";
 import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
 import { Session } from "next-auth";
 import { auth } from "@project/auth";
+import { SSO_TO_NBS_ROUTE } from "@src/app/api/sso-to-nbs/constants";
 
 interface VaccineProps {
   vaccineType: VaccineTypes;
@@ -48,6 +55,8 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
   ]);
 
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
+  const vaccinePath: VaccineContentUrlPaths = vaccineTypeToUrlPath[vaccineType];
+  const nbsSSOLink = `${SSO_TO_NBS_ROUTE}?vaccine=${vaccinePath}`;
 
   return contentError === ContentErrorTypes.CONTENT_LOADING_ERROR ||
     styledVaccineContent === undefined ? (
@@ -85,17 +94,33 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
         )}
 
       {vaccineType === VaccineTypes.RSV && eligibilityError && (
-        <NonUrgentCareCard
-          heading={<div>{"You should have RSV vaccine if you:"}</div>}
-          content={
-            <div className={styles.zeroMarginBottom}>
-              <ul>
-                <li key={1}>{"are aged between 75 and 79"}</li>
-                <li key={2}>{"turned 80 after 1 September 2024"}</li>
-              </ul>
-            </div>
-          }
-        />
+        <div>
+          <NonUrgentCareCard
+            heading={<div>{"You should have RSV vaccine if you:"}</div>}
+            content={
+              <div className={styles.zeroMarginBottom}>
+                <ul>
+                  <li key={1}>{"are aged between 75 and 79"}</li>
+                  <li key={2}>{"turned 80 after 1 September 2024"}</li>
+                </ul>
+              </div>
+            }
+          />
+          <h3>{"If you think you should have this vaccine"}</h3>
+          <p>{"Contact your GP surgery to book your RSV vaccination."}</p>
+          <p>
+            {
+              "Your GP surgery may contact you about getting the RSV vaccine. This may be by letter, text, phone call or email."
+            }
+          </p>
+          <p>
+            {
+              "You do not need to wait to be contacted before booking your vaccination."
+            }
+          </p>
+          <p>{"In some areas you can "}</p>
+          <a href={nbsSSOLink}>book an RSV vaccination in a pharmacy</a>
+        </div>
       )}
 
       {/* Static eligibility section for RSV in pregnancy */}
