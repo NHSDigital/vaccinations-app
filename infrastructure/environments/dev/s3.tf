@@ -4,6 +4,9 @@ module "content_cache_s3_bucket" {
 
   bucket        = local.content_cache_bucket_name
   force_destroy = true
+  versioning = {
+    enabled = true
+  }
 
   tags = local.default_tags
 }
