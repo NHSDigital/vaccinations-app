@@ -84,6 +84,20 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
           />
         )}
 
+      {vaccineType === VaccineTypes.RSV && eligibilityError && (
+        <NonUrgentCareCard
+          heading={<div>{"You should have RSV vaccine if you:"}</div>}
+          content={
+            <div className={styles.zeroMarginBottom}>
+              <ul>
+                <li key={1}>{"are aged between 75 and 79"}</li>
+                <li key={2}>{"turned 80 after 1 September 2024"}</li>
+              </ul>
+            </div>
+          }
+        />
+      )}
+
       {/* Static eligibility section for RSV in pregnancy */}
       {vaccineType === VaccineTypes.RSV_PREGNANCY && (
         <NonUrgentCareCard
