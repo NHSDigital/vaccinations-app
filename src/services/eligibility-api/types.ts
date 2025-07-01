@@ -26,7 +26,8 @@ export type Action = {
 };
 
 export enum EligibilityErrorTypes {
-  ELIGIBILITY_LOADING_ERROR = "ELIGIBILITY_LOADING_ERROR",
+  ELIGIBILITY_LOADING_ERROR = "ELIGIBILITY_LOADING",
+  UNKNOWN = "UNKNOWN",
 }
 
 export type EligibilityForPersonType =

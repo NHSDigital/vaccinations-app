@@ -8,7 +8,10 @@ import {
   mockStyledContentWithoutWhatSection,
 } from "@test-data/content-api/data";
 import { render, screen } from "@testing-library/react";
-import { EligibilityStatus } from "@src/services/eligibility-api/types";
+import {
+  EligibilityErrorTypes,
+  EligibilityStatus,
+} from "@src/services/eligibility-api/types";
 import { eligibilityContentBuilder } from "@test-data/eligibility-api/builders";
 import { auth } from "@project/auth";
 
@@ -326,6 +329,29 @@ describe("Any vaccine page", () => {
         "Test Eligibility Component",
       );
       expect(eligibilitySection).not.toBeInTheDocument();
+    });
+
+    it("should display fallback eligibility when eligibility API has failed", async () => {
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+        eligibility: undefined,
+        eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+      });
+
+      await renderNamedVaccinePage(VaccineTypes.RSV);
+
+      const fallbackHeading: HTMLElement | null = screen.getByText(
+        "You should have RSV vaccine if you:",
+      );
+      const fallbackBulletPoint1: HTMLElement | null = screen.getByText(
+        "are aged between 75 and 79",
+      );
+      const fallbackBulletPoint2: HTMLElement | null = screen.getByText(
+        "turned 80 after 1 September 2024",
+      );
+
+      expect(fallbackHeading).toBeVisible();
+      expect(fallbackBulletPoint1).toBeVisible();
+      expect(fallbackBulletPoint2).toBeVisible();
     });
   });
 });

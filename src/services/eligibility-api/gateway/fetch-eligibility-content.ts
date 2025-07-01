@@ -1,7 +1,8 @@
 import { AppConfig, configProvider } from "@src/utils/config";
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosResponse, AxiosError, HttpStatusCode } from "axios";
 import { logger } from "@src/utils/logger";
 import { EligibilityApiResponse } from "@src/services/eligibility-api/api-types";
+import { EligibilityApiHttpStatusError } from "@src/services/eligibility-api/gateway/fetch-eligibility-content-exceptions";
 
 const log = logger.child({ module: "fetch-eligibility-content" });
 const ELIGIBILITY_API_PATH_SUFFIX =
@@ -17,20 +18,24 @@ export const fetchEligibilityContent = async (
   const vitaTraceId: string | undefined = process.env._X_AMZN_TRACE_ID;
 
   const uri: string = `${apiEndpoint}${ELIGIBILITY_API_PATH_SUFFIX}${nhsNumber}`;
-  let response: AxiosResponse;
-  try {
-    log.info("Fetching content from %s", uri);
-    response = await axios.get(uri, {
+
+  log.info("Fetching content from %s", uri);
+  const response: AxiosResponse = await axios
+    .get(uri, {
       headers: {
-        accept: "application/json",
+        accept: "application/json, application/fhir+json",
         apikey: apiKey,
         "X-Correlation-ID": vitaTraceId,
       },
+      validateStatus: (status) => {
+        return status < HttpStatusCode.BadRequest;
+      },
+    })
+    .catch((error: AxiosError) => {
+      log.error(error, `Error in fetching ${uri}`);
+      throw new EligibilityApiHttpStatusError(
+        `Error in fetching ${uri} - ${error.toJSON()}`,
+      );
     });
-    log.info("Successfully fetched content from %s", uri);
-    return response.data;
-  } catch (error) {
-    log.error(error, `Error in fetching ${uri}`);
-    throw new Error("EliD call failed", { cause: error });
-  }
+  return response.data; // TODO - VIA-331, SB MD - deserialise using https://zod.dev? And throw EligibilityApiSchemaError?
 };
