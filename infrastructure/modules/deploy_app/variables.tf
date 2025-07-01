@@ -42,3 +42,8 @@ variable "domain" {
   type = string
   description = "The main domain for the website"
 }
+
+variable "region" {
+  type = string
+  description = "The AWS region to deploy to"
+}

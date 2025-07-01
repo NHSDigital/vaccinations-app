@@ -27,3 +27,8 @@ variable "log_retention_in_days" {
   type = string
   description = "The retention of logs in cloudwatch log groups in days"
 }
+
+variable "region" {
+  type = string
+  description = "The AWS region to deploy to"
+}
