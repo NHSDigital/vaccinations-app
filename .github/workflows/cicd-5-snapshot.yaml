@@ -1,0 +1,71 @@
+name: "CI/CD Snapshot Test"
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to run snapshot tests against"
+        type: environment
+        required: true
+      update_snapshots:
+        description: "Update snapshots"
+        type: boolean
+        required: true
+
+env:
+  AWS_REGION: eu-west-2
+  AWS_S3_SNAPSHOTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-snapshots-dev-test
+
+jobs:
+  snapshot-test:
+    name: "Snapshot Test"
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    timeout-minutes: 30
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      TEST_NHS_APP_USERNAME: ${{ secrets.TEST_NHS_APP_USERNAME }}
+      TEST_NHS_APP_PASSWORD: ${{ secrets.TEST_NHS_APP_PASSWORD }}
+      TEST_NHS_APP_URL: ${{ secrets.TEST_NHS_APP_URL }}
+      TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
+      TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
+      TEST_APP_URL: ${{ secrets.TEST_APP_URL }}
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v4
+      - name: "Install dependencies"
+        run: |
+          npm ci --ignore-scripts
+      - name: "Install Playwright browsers"
+        run: |
+          npx playwright install --with-deps
+      - name: "Configure AWS credentials for ${{ inputs.environment }} environment"
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-session-name: GitHubActionsSession
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: "Download snapshots from S3 bucket"
+        run: |
+          aws s3 sync s3://${{ env.AWS_S3_SNAPSHOTS_BUCKET }}/ ./e2e/snapshot/
+      - name: "Run Playwright snapshot tests (no update)"
+        if: ${{ inputs.update_snapshots == false }}
+        run: |
+          npm run e2e:snapshot
+      - name: "Run Playwright snapshot tests with update"
+        if: ${{ inputs.update_snapshots == true }}
+        run: |
+          npm run e2e:snapshot-update
+      - name: "Uploading new snapshots"
+        if: ${{ inputs.update_snapshots == true }}
+        run: |
+          aws s3 sync ./e2e/snapshot/ s3://${{ env.AWS_S3_SNAPSHOTS_BUCKET }}/
+      - name: "Upload report"
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
