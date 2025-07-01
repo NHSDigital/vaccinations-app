@@ -61,7 +61,7 @@ jobs:
       - name: "Uploading new snapshots"
         if: ${{ inputs.update_snapshots == true }}
         run: |
-          aws s3 sync ./e2e/snapshot/ s3://${{ env.AWS_S3_SNAPSHOTS_BUCKET }}/
+          aws s3 sync ./e2e/snapshot/__snapshots__/ s3://${{ env.AWS_S3_SNAPSHOTS_BUCKET }}/__snapshots__/
       - name: "Upload report"
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
