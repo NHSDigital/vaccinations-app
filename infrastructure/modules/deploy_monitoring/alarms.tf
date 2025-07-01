@@ -13,7 +13,7 @@ module "alarm_server_function_4xx_error" {
   metric_name         = "Url4xxCount"
   namespace           = "AWS/Lambda"
   period              = 300
-  # ok_actions = {what to do when the alarm does green after being red, optional}
+  ok_actions          = [module.sns.topic_arn]
   statistic           = "Sum"
   threshold           = 0
   treat_missing_data  = "notBreaching"
