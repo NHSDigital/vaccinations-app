@@ -28,6 +28,15 @@ This is the SSL certificate that is attached to our website, which verifies the 
 - Email (DNSTEAM (NHS ENGLAND) <england.dnsteam@nhs.net>) to verify the domain certificate. You will need to attach the domain records.
 - Wait for status to change to verified before you can run any terraform code.
 
+### AWS to Slack connection
+
+This is a one time setup that authorises AWS to post messages to Slack, for the purposes of alerting the developers when alarms are raised in AWS.
+
+- Go to AWS service - "Amazon Q Developer in chat applications" (previously called Chatbot)
+- Configure new client, and choose Slack as the client type
+- You might have to log in to Slack using the nhs.net account. Once in there, select the Slack workspace - "Digital Prevention Services"
+- Allow Chatbot to access the Slack workspace
+
 ### S3
 
 We need 3 buckets to be created manually, before IaC can start to provision infra for us.

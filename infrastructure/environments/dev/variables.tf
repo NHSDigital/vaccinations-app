@@ -9,3 +9,9 @@ variable "app_version" {
   default     = "unknown"
   description = "What version of a release is deployed"
 }
+
+variable "alarms_slack_channel_id" {
+  type        = string
+  default     = ""
+  description = "Channel ID of the Slack channel where alarms would be sent"
+}

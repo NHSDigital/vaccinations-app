@@ -8,7 +8,7 @@ variable "default_tags" {
   description = "Map of default key-value pair of tags to add to resources"
 }
 
-variable "region" {
+variable "alarms_slack_channel_id" {
   type = string
-  description = "The AWS region to deploy to"
+  description = "Channel ID of the Slack channel where alarms would be sent"
 }

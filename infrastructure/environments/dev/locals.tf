@@ -16,6 +16,7 @@ locals {
   cache_lambda_zip_path     = "../../../lambda.zip"
   content_cache_bucket_name = "${local.prefix}-content-cache"
   app_version               = var.app_version
+  alarms_slack_channel_id   = var.alarms_slack_channel_id
 
   application_environment_variables = {
     SSM_PREFIX = "/${local.prefix}/"

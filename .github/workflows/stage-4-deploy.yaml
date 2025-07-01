@@ -70,6 +70,8 @@ jobs:
           rm -rf open-next.zip
       - name: "Set that it is GitHub actions user"
         run: echo "TF_VAR_is_github_action=true" >> $GITHUB_ENV
+      - name: "Set the Slack channel id where alarms are sent"
+        run: echo "TF_VAR_alarms_slack_channel_id=${{ secrets.ALARMS_SLACK_CHANNEL_ID }}" >> $GITHUB_ENV
       - name: "Set the app version being deployed"
         run: echo "TF_VAR_app_version=${{ inputs.tag }}" >> $GITHUB_ENV
       - name: "Terraform init"
