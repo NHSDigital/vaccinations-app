@@ -20,3 +20,26 @@ module "alarm_server_function_4xx_error" {
 
   tags = var.default_tags
 }
+
+module "alarm_server_function_errors" {
+  source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarm"
+  version = "~> 5.7.1"
+
+  alarm_name          = "${var.prefix}-server-function-errors"
+  alarm_description   = "Server Lambda: Errors"
+  alarm_actions       = [module.sns.topic_arn]
+  comparison_operator = "GreaterThanThreshold"
+  dimensions = {
+    FunctionName = "${var.prefix}-server-function"
+  }
+  evaluation_periods  = 1
+  metric_name         = "Errors"
+  namespace           = "AWS/Lambda"
+  period              = 300
+  ok_actions          = [module.sns.topic_arn]
+  statistic           = "Sum"
+  threshold           = 0
+  treat_missing_data  = "notBreaching"
+
+  tags = var.default_tags
+}
