@@ -18,7 +18,7 @@ import {
   eligibilityCohortBuilder,
   processedSuggestionBuilder,
 } from "@test-data/eligibility-api/builders";
-import { EligibilityApiHttpStatusError } from "@src/services/eligibility-api/gateway/fetch-eligibility-content-exceptions";
+import { EligibilityApiHttpStatusError } from "@src/services/eligibility-api/gateway/exceptions";
 
 jest.mock(
   "@src/services/eligibility-api/gateway/fetch-eligibility-content",

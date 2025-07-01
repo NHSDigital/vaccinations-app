@@ -15,7 +15,7 @@ import {
   EligibilityCohort,
   ProcessedSuggestion,
 } from "@src/services/eligibility-api/api-types";
-import { EligibilityApiError } from "@src/services/eligibility-api/gateway/fetch-eligibility-content-exceptions";
+import { EligibilityApiError } from "@src/services/eligibility-api/gateway/exceptions";
 
 const ELIGIBILITY_CONTENT_INTRO_TEXT: string = "This is because you:";
 

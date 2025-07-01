@@ -2,7 +2,7 @@ import { AppConfig, configProvider } from "@src/utils/config";
 import axios, { AxiosResponse, AxiosError, HttpStatusCode } from "axios";
 import { logger } from "@src/utils/logger";
 import { EligibilityApiResponse } from "@src/services/eligibility-api/api-types";
-import { EligibilityApiHttpStatusError } from "@src/services/eligibility-api/gateway/fetch-eligibility-content-exceptions";
+import { EligibilityApiHttpStatusError } from "@src/services/eligibility-api/gateway/exceptions";
 
 const log = logger.child({ module: "fetch-eligibility-content" });
 const ELIGIBILITY_API_PATH_SUFFIX =
