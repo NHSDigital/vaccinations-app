@@ -24,11 +24,11 @@ test.describe("E2E", () => {
       const eligibility: Locator = page.getByTestId("Eligibility");
       const heading: Locator = eligibility.getByRole("heading", {
         level: 3,
-        name: "We do not believe you should have this vaccine",
+        name: "We do not believe you can have it",
       });
-      const bulletPoint1: Locator = eligibility.getByText("You are not aged 75 to 79 years old.");
+      const bulletPoint1: Locator = eligibility.getByText("are not aged 75 to 79");
       const bulletPoint2: Locator = eligibility.getByText(
-        "You did not turn 80 between 2nd September 2024 and 31st August 2025",
+        "did not turn 80 between 2nd September 2024 and 31st August 2025",
       );
       await expect(heading).toBeVisible();
       await expect(bulletPoint1).toBeVisible();
@@ -45,7 +45,7 @@ test.describe("E2E", () => {
       await page.goto(RSV_PAGE_URL);
       const eligibility: Locator = page.getByTestId("Eligibility");
       const heading: Locator = eligibility.getByRole("heading", { level: 3, name: "You should have the RSV vaccine" });
-      const bulletPoint: Locator = eligibility.getByText("You are aged 75 to 79 years old.");
+      const bulletPoint: Locator = eligibility.getByText("are aged 75 to 79");
       await expect(heading).toBeVisible();
       await expect(bulletPoint).toBeVisible();
     });
