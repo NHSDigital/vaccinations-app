@@ -28,10 +28,11 @@ interface VaccineProps {
   vaccineType: VaccineTypes;
 }
 
-const EXPANDER_HEADINGS = {
+const HEADINGS = {
   WHAT_VACCINE_IS_FOR: "What this vaccine is for",
   WHO_SHOULD_HAVE_VACCINE: "Who should have this vaccine",
   HOW_TO_GET_VACCINE: "How to get the vaccine",
+  IF_YOU_THINK: "If you think you should have this vaccine",
 };
 
 const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
@@ -43,10 +44,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
     nhsNumber
       ? getEligibilityForPerson(vaccineType, nhsNumber)
       : {
-          eligibility: {
-            status: undefined,
-            content: undefined,
-          },
+          eligibility: undefined,
           eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
         },
   ]);
@@ -86,8 +84,9 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
           <Eligibility eligibilityStatus={eligibility.status} eligibilityContent={eligibility.content} />
         )}
 
+      {/* Fallback eligibility section for RSV */}
       {vaccineType === VaccineTypes.RSV && eligibilityError && (
-        <div>
+        <div role={"fallback"}>
           <NonUrgentCareCard
             heading={<div>{"You should have RSV vaccine if you:"}</div>}
             content={
@@ -99,16 +98,15 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
               </div>
             }
           />
-          <h3>{"If you think you should have this vaccine"}</h3>
-          <p>{"Contact your GP surgery to book your RSV vaccination."}</p>
+          <Details
+            title={HEADINGS.IF_YOU_THINK}
+            component={styledVaccineContent.howToGetVaccine.component}
+            notExpandable={true}
+          />
           <p>
-            {
-              "Your GP surgery may contact you about getting the RSV vaccine. This may be by letter, text, phone call or email."
-            }
+            {"In some areas you can "}
+            <a href={nbsSSOLink}>book an RSV vaccination in a pharmacy</a>
           </p>
-          <p>{"You do not need to wait to be contacted before booking your vaccination."}</p>
-          <p>{"In some areas you can "}</p>
-          <a href={nbsSSOLink}>book an RSV vaccination in a pharmacy</a>
         </div>
       )}
 
@@ -130,7 +128,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
       {/* How-to-get-vaccine section for RSV in pregnancy */}
       {vaccineType === VaccineTypes.RSV_PREGNANCY && (
         <Details
-          title={EXPANDER_HEADINGS.HOW_TO_GET_VACCINE}
+          title={HEADINGS.HOW_TO_GET_VACCINE}
           component={styledVaccineContent.howToGetVaccine.component}
           notExpandable={true}
         />
@@ -148,24 +146,15 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
       <div className="nhsuk-expander-group">
         {/* What-vaccine-is-for expandable section */}
         {styledVaccineContent.whatVaccineIsFor && (
-          <Details
-            title={EXPANDER_HEADINGS.WHAT_VACCINE_IS_FOR}
-            component={styledVaccineContent.whatVaccineIsFor.component}
-          />
+          <Details title={HEADINGS.WHAT_VACCINE_IS_FOR} component={styledVaccineContent.whatVaccineIsFor.component} />
         )}
 
         {/* Who-vaccine-is-for expandable section */}
-        <Details
-          title={EXPANDER_HEADINGS.WHO_SHOULD_HAVE_VACCINE}
-          component={styledVaccineContent.whoVaccineIsFor.component}
-        />
+        <Details title={HEADINGS.WHO_SHOULD_HAVE_VACCINE} component={styledVaccineContent.whoVaccineIsFor.component} />
 
         {/* How-to-get-vaccine expandable section for all vaccines except RSV in pregnancy */}
         {vaccineType !== VaccineTypes.RSV_PREGNANCY && (
-          <Details
-            title={EXPANDER_HEADINGS.HOW_TO_GET_VACCINE}
-            component={styledVaccineContent.howToGetVaccine.component}
-          />
+          <Details title={HEADINGS.HOW_TO_GET_VACCINE} component={styledVaccineContent.howToGetVaccine.component} />
         )}
       </div>
 

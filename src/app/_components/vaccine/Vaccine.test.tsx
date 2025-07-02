@@ -4,7 +4,7 @@ import { getContentForVaccine } from "@src/services/content-api/gateway/content-
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import { mockStyledContent, mockStyledContentWithoutWhatSection } from "@test-data/content-api/data";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { EligibilityErrorTypes, EligibilityStatus } from "@src/services/eligibility-api/types";
 import { eligibilityContentBuilder } from "@test-data/eligibility-api/builders";
 import { auth } from "@project/auth";
@@ -309,29 +309,23 @@ describe("Any vaccine page", () => {
 
       await renderNamedVaccinePage(VaccineTypes.RSV);
 
-      const paragraphHeading: HTMLElement = screen.getByRole("heading", {
+      const fallback = screen.getByRole("fallback");
+
+      const fallbackHeading: HTMLElement = within(fallback).getByRole("heading", {
         name: "If you think you should have this vaccine",
         level: 3,
       });
-      const firstParagraph: HTMLElement = screen.getByText("Contact your GP surgery to book your RSV vaccination.");
-      const secondParagraph: HTMLElement = screen.getByText(
-        "Your GP surgery may contact you about getting the RSV vaccine. This may be by letter, text, phone call or email.",
-      );
-      const thirdParagraph: HTMLElement = screen.getByText(
-        "You do not need to wait to be contacted before booking your vaccination.",
-      );
-      const forthParagraph: HTMLElement = screen.getByText("In some areas you can");
-      const link: HTMLElement = screen.getByRole("link", {
+      const howToGetContent: HTMLElement = within(fallback).getByText("How Section styled component");
+      const linkPrefix: HTMLElement = within(fallback).getByText("In some areas you can");
+      const bookingLink: HTMLElement = within(fallback).getByRole("link", {
         name: "book an RSV vaccination in a pharmacy",
       });
 
-      expect(paragraphHeading).toBeVisible();
-      expect(firstParagraph).toBeVisible();
-      expect(secondParagraph).toBeVisible();
-      expect(thirdParagraph).toBeVisible();
-      expect(forthParagraph).toBeVisible();
-      expect(link).toBeVisible();
-      expect(link).toHaveAttribute("href", "/api/sso-to-nbs?vaccine=rsv");
+      expect(fallbackHeading).toBeVisible();
+      expect(howToGetContent).toBeVisible();
+      expect(linkPrefix).toBeVisible();
+      expect(bookingLink).toBeVisible();
+      expect(bookingLink).toHaveAttribute("href", "/api/sso-to-nbs?vaccine=rsv");
     });
   });
 });
