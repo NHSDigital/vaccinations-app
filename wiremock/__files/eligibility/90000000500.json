@@ -1,0 +1,22 @@
+{
+  "resourceType": "OperationOutcome",
+  "id": "rrt-2959959087381887325-c-geu2-24001-77777777-1",
+  "meta": { "lastUpdated": "2025-02-12T16:11:22Z" },
+  "issue": [
+    {
+      "severity": "error",
+      "code": "processing",
+      "details": {
+        "coding": [
+          {
+            "system": "https://fhir.nhs.uk/CodeSystem/Spine-ErrorOrWarningCode",
+            "code": "SERVICE_ERROR",
+            "display": "An unknown error occurred processing this request. Contact us for assistance diagnosing this issue: https://digital.nhs.uk/developer/help-and-support quoting the id included in this message"
+          }
+        ]
+      },
+      "diagnostics": "No diagnostics available",
+      "location": ["parameters/category"]
+    }
+  ]
+}

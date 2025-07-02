@@ -1,0 +1,22 @@
+{
+  "resourceType": "OperationOutcome",
+  "id": "rrt-2959959087381887325-c-geu2-24001-77777777-1",
+  "meta": { "lastUpdated": "2025-02-12T16:11:22Z" },
+  "issue": [
+    {
+      "severity": "error",
+      "code": "processing",
+      "details": {
+        "coding": [
+          {
+            "system": "https://fhir.nhs.uk/CodeSystem/Spine-ErrorOrWarningCode",
+            "code": "RESOURCE_NOT_FOUND",
+            "display": "The given NHS number was not found in our datasets.  This could be because the number is incorrect or some other reason we cannot process that number."
+          }
+        ]
+      },
+      "diagnostics": "NHS Number 9000000404 was not recognised by the Eligibility Signposting API",
+      "location": ["parameters/id"]
+    }
+  ]
+}
