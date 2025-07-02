@@ -1,8 +1,4 @@
-import {
-  Action,
-  EligibilityContent,
-  EligibilityStatus,
-} from "@src/services/eligibility-api/types";
+import { Action, EligibilityContent, EligibilityStatus } from "@src/services/eligibility-api/types";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import React, { JSX } from "react";
 import styles from "@src/app/_components/vaccine/styles.module.css";
@@ -21,9 +17,7 @@ const Eligibility = ({ eligibilityContent }: EligibilityProps): JSX.Element => {
           heading={<div>{eligibilityContent?.summary.heading}</div>}
           content={
             <div className={styles.zeroMarginBottom}>
-              <p className="nhsuk-u-margin-bottom-2">
-                {eligibilityContent?.summary.introduction}
-              </p>
+              <p className="nhsuk-u-margin-bottom-2">{eligibilityContent?.summary.introduction}</p>
               <ul>
                 {eligibilityContent?.summary.cohorts.map((cohort, index) => (
                   <li key={index}>{cohort}</li>

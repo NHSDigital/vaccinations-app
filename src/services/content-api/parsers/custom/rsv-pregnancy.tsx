@@ -1,21 +1,13 @@
 import { NBSBookingAction } from "@src/app/_components/nbs/NBSBookingAction";
 import { VaccineTypes } from "@src/models/vaccine";
-import type {
-  StyledPageSection,
-  VaccinePageSection,
-  VaccinePageSubsection,
-} from "@src/services/content-api/types";
+import type { StyledPageSection, VaccinePageSection, VaccinePageSubsection } from "@src/services/content-api/types";
 import sanitiseHtml from "@src/utils/sanitise-html";
 import React from "react";
 
-const rsvInPregnancyRegExp: RegExp =
-  /<h3>If you're pregnant<\/h3>((?:\s*<p>.*?<\/p>)+)/i;
+const rsvInPregnancyRegExp: RegExp = /<h3>If you're pregnant<\/h3>((?:\s*<p>.*?<\/p>)+)/i;
 const paragraphsRegExp: RegExp = /<p>.*?<\/p>/g;
 
-export const styleHowToGetSubsection = (
-  subsection: VaccinePageSubsection,
-  index: number,
-) => {
+export const styleHowToGetSubsection = (subsection: VaccinePageSubsection, index: number) => {
   if (subsection.type !== "simpleElement") {
     return <></>;
   }
@@ -46,15 +38,12 @@ export const styleHowToGetSubsection = (
   );
 };
 
-export const styleHowToGetSectionForRsvPregnancy = (
-  section: VaccinePageSection,
-): StyledPageSection => {
+export const styleHowToGetSectionForRsvPregnancy = (section: VaccinePageSection): StyledPageSection => {
   const heading = section.headline;
   const styledComponent = (
     <>
-      {section.subsections.map(
-        (subsection: VaccinePageSubsection, index: number) =>
-          styleHowToGetSubsection(subsection, index),
+      {section.subsections.map((subsection: VaccinePageSubsection, index: number) =>
+        styleHowToGetSubsection(subsection, index),
       )}
     </>
   );

@@ -5,13 +5,12 @@ import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/
 
 const callContentApiRSVEndpoint = async () => {
   const contentEndpoint = process.env["CONTENT_API_ENDPOINT"] + "/nhs-website-content/vaccinations/rsv-vaccine";
-  const response: AxiosResponse<string, any> = await axios.get(contentEndpoint,
-    {
-      headers: {
-        accept: "application/json",
-        apikey: process.env["CONTENT_API_KEY"]
-      }
-    });
+  const response: AxiosResponse<string, any> = await axios.get(contentEndpoint, {
+    headers: {
+      accept: "application/json",
+      apikey: process.env["CONTENT_API_KEY"],
+    },
+  });
   return response;
 };
 

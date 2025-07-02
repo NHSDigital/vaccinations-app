@@ -20,12 +20,9 @@ import {
 } from "@test-data/eligibility-api/builders";
 import { EligibilityApiHttpStatusError } from "@src/services/eligibility-api/gateway/exceptions";
 
-jest.mock(
-  "@src/services/eligibility-api/gateway/fetch-eligibility-content",
-  () => ({
-    fetchEligibilityContent: jest.fn(),
-  }),
-);
+jest.mock("@src/services/eligibility-api/gateway/fetch-eligibility-content", () => ({
+  fetchEligibilityContent: jest.fn(),
+}));
 
 const nhsNumber = "5123456789";
 
@@ -46,17 +43,10 @@ describe("eligibility-filter-service", () => {
                   .build(),
                 eligibilityCohortBuilder()
                   .withCohortStatus("NotEligible")
-                  .andCohortText(
-                    "You did not turn 80 between 2nd September 2024 and 31st August 2025",
-                  )
+                  .andCohortText("You did not turn 80 between 2nd September 2024 and 31st August 2025")
                   .build(),
               ])
-              .andActions([
-                actionFromApiBuilder()
-                  .withActionType("InfoText")
-                  .andDescription("Text")
-                  .build(),
-              ])
+              .andActions([actionFromApiBuilder().withActionType("InfoText").andDescription("Text").build()])
               .build(),
           ])
           .build(),
@@ -79,14 +69,9 @@ describe("eligibility-filter-service", () => {
         ],
       };
 
-      const result: EligibilityForPersonType = await getEligibilityForPerson(
-        VaccineTypes.RSV,
-        nhsNumber,
-      );
+      const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineTypes.RSV, nhsNumber);
 
-      expect(result.eligibility?.status).toEqual(
-        EligibilityStatus.NOT_ELIGIBLE,
-      );
+      expect(result.eligibility?.status).toEqual(EligibilityStatus.NOT_ELIGIBLE);
       expect(result.eligibility?.content).toEqual(expectedEligibilityContent);
       expect(result.eligibilityError).toEqual(undefined);
     });
@@ -96,15 +81,10 @@ describe("eligibility-filter-service", () => {
         eligibilityApiResponseBuilder().withProcessedSuggestions([]).build(),
       );
 
-      const result: EligibilityForPersonType = await getEligibilityForPerson(
-        VaccineTypes.RSV,
-        nhsNumber,
-      );
+      const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineTypes.RSV, nhsNumber);
 
       expect(result.eligibility).toBeUndefined();
-      expect(result.eligibilityError).toEqual(
-        EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
-      );
+      expect(result.eligibilityError).toEqual(EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR);
     });
 
     it("should return status even if eligibilityCohorts attribute is missing", async () => {
@@ -120,10 +100,7 @@ describe("eligibility-filter-service", () => {
         ],
       });
 
-      const result: EligibilityForPersonType = await getEligibilityForPerson(
-        VaccineTypes.RSV,
-        nhsNumber,
-      );
+      const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineTypes.RSV, nhsNumber);
 
       expect(result.eligibility?.status).toBe(status);
       expect(result.eligibility?.content.summary).toBeUndefined();
@@ -135,19 +112,12 @@ describe("eligibility-filter-service", () => {
       (fetchEligibilityContent as jest.Mock).mockResolvedValue(
         eligibilityApiResponseBuilder()
           .withProcessedSuggestions([
-            processedSuggestionBuilder()
-              .withCondition("RSV")
-              .andStatus(status)
-              .andEligibilityCohorts([])
-              .build(),
+            processedSuggestionBuilder().withCondition("RSV").andStatus(status).andEligibilityCohorts([]).build(),
           ])
           .build(),
       );
 
-      const result: EligibilityForPersonType = await getEligibilityForPerson(
-        VaccineTypes.RSV,
-        nhsNumber,
-      );
+      const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineTypes.RSV, nhsNumber);
 
       expect(result.eligibility?.status).toBe(status);
       expect(result.eligibility?.content.summary).toBeUndefined();
@@ -157,10 +127,7 @@ describe("eligibility-filter-service", () => {
     it("should return loading error when fetchEligibilityContent fails", async () => {
       (fetchEligibilityContent as jest.Mock).mockResolvedValue(undefined);
 
-      const result: EligibilityForPersonType = await getEligibilityForPerson(
-        VaccineTypes.RSV,
-        nhsNumber,
-      );
+      const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineTypes.RSV, nhsNumber);
 
       expect(result.eligibility).toBeUndefined();
       expect(result.eligibilityError).toBe(EligibilityErrorTypes.UNKNOWN);
@@ -171,15 +138,10 @@ describe("eligibility-filter-service", () => {
         new EligibilityApiHttpStatusError("Call to EliD failed"),
       );
 
-      const result: EligibilityForPersonType = await getEligibilityForPerson(
-        VaccineTypes.RSV,
-        nhsNumber,
-      );
+      const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineTypes.RSV, nhsNumber);
 
       expect(result.eligibility).toBeUndefined();
-      expect(result.eligibilityError).toBe(
-        EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
-      );
+      expect(result.eligibilityError).toBe(EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR);
     });
   });
 
@@ -189,14 +151,8 @@ describe("eligibility-filter-service", () => {
         .withCondition("RSV")
         .andStatus("Actionable")
         .andEligibilityCohorts([
-          eligibilityCohortBuilder()
-            .withCohortStatus("Actionable")
-            .andCohortText("test1")
-            .build(),
-          eligibilityCohortBuilder()
-            .withCohortStatus("NotActionable")
-            .andCohortText("test2")
-            .build(),
+          eligibilityCohortBuilder().withCohortStatus("Actionable").andCohortText("test1").build(),
+          eligibilityCohortBuilder().withCohortStatus("NotActionable").andCohortText("test2").build(),
         ])
         .build();
 
@@ -249,19 +205,12 @@ describe("eligibility-filter-service", () => {
 
   describe("_generateActions", () => {
     it("should filter actions and only return InfoText action type", async () => {
-      const processedSuggestion: ProcessedSuggestion =
-        processedSuggestionBuilder()
-          .withActions([
-            actionFromApiBuilder()
-              .withActionType("InfoText")
-              .andDescription("InfoText Markdown")
-              .build(),
-            actionFromApiBuilder()
-              .withActionType("CardWithText")
-              .andDescription("CardWithText Markdown")
-              .build(),
-          ])
-          .build();
+      const processedSuggestion: ProcessedSuggestion = processedSuggestionBuilder()
+        .withActions([
+          actionFromApiBuilder().withActionType("InfoText").andDescription("InfoText Markdown").build(),
+          actionFromApiBuilder().withActionType("CardWithText").andDescription("CardWithText Markdown").build(),
+        ])
+        .build();
 
       const result = _generateActions(processedSuggestion);
 
@@ -274,19 +223,12 @@ describe("eligibility-filter-service", () => {
     });
 
     it("should ensure actions are returned in the same order", async () => {
-      const processedSuggestion: ProcessedSuggestion =
-        processedSuggestionBuilder()
-          .withActions([
-            actionFromApiBuilder()
-              .withActionType("InfoText")
-              .andDescription("InfoText Markdown 1")
-              .build(),
-            actionFromApiBuilder()
-              .withActionType("InfoText")
-              .andDescription("InfoText Markdown 2")
-              .build(),
-          ])
-          .build();
+      const processedSuggestion: ProcessedSuggestion = processedSuggestionBuilder()
+        .withActions([
+          actionFromApiBuilder().withActionType("InfoText").andDescription("InfoText Markdown 1").build(),
+          actionFromApiBuilder().withActionType("InfoText").andDescription("InfoText Markdown 2").build(),
+        ])
+        .build();
 
       const result = _generateActions(processedSuggestion);
 

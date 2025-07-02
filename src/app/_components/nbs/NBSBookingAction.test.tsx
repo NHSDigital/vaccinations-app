@@ -13,17 +13,8 @@ describe("NBSBookingAction", () => {
     window.open = jest.fn() as never;
   });
 
-  const renderAndClickNBSBookingAction = (
-    displayText: string,
-    renderAs: "anchor" | "button",
-  ) => {
-    render(
-      <NBSBookingAction
-        vaccineType={VaccineTypes.RSV}
-        displayText={displayText}
-        renderAs={renderAs}
-      />,
-    );
+  const renderAndClickNBSBookingAction = (displayText: string, renderAs: "anchor" | "button") => {
+    render(<NBSBookingAction vaccineType={VaccineTypes.RSV} displayText={displayText} renderAs={renderAs} />);
     let bookingAction;
     if (renderAs === "anchor") {
       bookingAction = screen.getByRole("link", { name: displayText });
@@ -39,20 +30,14 @@ describe("NBSBookingAction", () => {
     // render as button
     renderAndClickNBSBookingAction("test", "button");
     expect(mockIsOpenInNHSApp).toHaveBeenCalledTimes(1);
-    expect(window.open).toHaveBeenCalledWith(
-      "/api/sso-to-nbs?vaccine=rsv",
-      "_self",
-    );
+    expect(window.open).toHaveBeenCalledWith("/api/sso-to-nbs?vaccine=rsv", "_self");
 
     jest.clearAllMocks();
 
     // render as anchor
     renderAndClickNBSBookingAction("test", "anchor");
     expect(mockIsOpenInNHSApp).toHaveBeenCalledTimes(1);
-    expect(window.open).toHaveBeenCalledWith(
-      "/api/sso-to-nbs?vaccine=rsv",
-      "_self",
-    );
+    expect(window.open).toHaveBeenCalledWith("/api/sso-to-nbs?vaccine=rsv", "_self");
   });
 
   it("should open NBS SSO link in new window when action is clicked outside NHS app", async () => {
@@ -61,19 +46,13 @@ describe("NBSBookingAction", () => {
     // render as button
     renderAndClickNBSBookingAction("test", "button");
     expect(mockIsOpenInNHSApp).toHaveBeenCalledTimes(1);
-    expect(window.open).toHaveBeenCalledWith(
-      "/api/sso-to-nbs?vaccine=rsv",
-      "_blank",
-    );
+    expect(window.open).toHaveBeenCalledWith("/api/sso-to-nbs?vaccine=rsv", "_blank");
 
     jest.clearAllMocks();
 
     // render as anchor
     renderAndClickNBSBookingAction("test", "anchor");
     expect(mockIsOpenInNHSApp).toHaveBeenCalledTimes(1);
-    expect(window.open).toHaveBeenCalledWith(
-      "/api/sso-to-nbs?vaccine=rsv",
-      "_blank",
-    );
+    expect(window.open).toHaveBeenCalledWith("/api/sso-to-nbs?vaccine=rsv", "_blank");
   });
 });

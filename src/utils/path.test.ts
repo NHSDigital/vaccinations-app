@@ -18,9 +18,7 @@ describe("path", () => {
     });
     it("returns vaccine type corresponding to the path", async () => {
       expect(getVaccineTypeFromUrlPath("rsv")).toBe(VaccineTypes.RSV);
-      expect(getVaccineTypeFromUrlPath("rsv-pregnancy")).toBe(
-        VaccineTypes.RSV_PREGNANCY,
-      );
+      expect(getVaccineTypeFromUrlPath("rsv-pregnancy")).toBe(VaccineTypes.RSV_PREGNANCY);
     });
   });
 });

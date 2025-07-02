@@ -1,16 +1,16 @@
-import type {Config} from 'jest';
+import type { Config } from "jest";
 
 const config: Config = {
-  rootDir: '..',
+  rootDir: "..",
   verbose: true,
-  preset: 'ts-jest',
+  preset: "ts-jest",
   testEnvironment: "node",
   clearMocks: true,
   testMatch: ["**/*.contract.ts"],
   moduleNameMapper: {
     "^@src/(.*)$": "<rootDir>/src/$1",
-    "^@test-data/(.*)$": "<rootDir>/test-data/$1"
-  }
+    "^@test-data/(.*)$": "<rootDir>/test-data/$1",
+  },
 };
 
 export default config;

@@ -16,13 +16,9 @@
  * @see {createClassBuilder}
  */
 type BuilderMethods<T, TBuilder> = {
-  [K in keyof T as `with${Capitalize<string & K>}`]: (
-    value: T[K]
-  ) => TBuilder;
+  [K in keyof T as `with${Capitalize<string & K>}`]: (value: T[K]) => TBuilder;
 } & {
-  [K in keyof T as `and${Capitalize<string & K>}`]: (
-    value: T[K]
-  ) => TBuilder;
+  [K in keyof T as `and${Capitalize<string & K>}`]: (value: T[K]) => TBuilder;
 };
 
 /**
@@ -137,11 +133,9 @@ export function randomString(length: number) {
   return result;
 }
 
-export function randomInteger(min: number, max:number) {
-    return Math.floor(Math.random() * (max - min) + min);
-  }
-
-
+export function randomInteger(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
 
 export function randomValue<T>(values: T[]): T {
   return values[Math.floor(Math.random() * values.length)];

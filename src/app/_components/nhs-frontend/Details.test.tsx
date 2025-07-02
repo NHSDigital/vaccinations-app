@@ -8,13 +8,9 @@ describe("Details Component", () => {
   });
 
   it("renders non expandable section correctly", () => {
-    render(
-      <Details title={"title"} component={<p>test</p>} notExpandable={true} />,
-    );
+    render(<Details title={"title"} component={<p>test</p>} notExpandable={true} />);
     expect(screen.queryByRole("group")).not.toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { level: 3, name: "title" }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 3, name: "title" })).toBeInTheDocument();
     expect(screen.getByText("test")).toBeInTheDocument();
   });
 });

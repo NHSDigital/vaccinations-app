@@ -31,16 +31,12 @@ describe("Vaccination Hub Page", () => {
     });
 
     it("renders heading", async () => {
-      expect(
-        queryHeading("Check and book an RSV vaccination", 1),
-      ).toBeVisible();
+      expect(queryHeading("Check and book an RSV vaccination", 1)).toBeVisible();
     });
 
     it("should display error summary", async () => {
       expect(getContentForVaccine).toHaveBeenCalled();
-      expect(
-        queryHeading("Vaccine content is unavailable", 2),
-      ).toBeInTheDocument();
+      expect(queryHeading("Vaccine content is unavailable", 2)).toBeInTheDocument();
     });
 
     it("should not render any other areas of the hub page", async () => {
@@ -63,9 +59,7 @@ describe("Vaccination Hub Page", () => {
     });
 
     it("renders heading", async () => {
-      expect(
-        queryHeading("Check and book an RSV vaccination", 1),
-      ).toBeVisible();
+      expect(queryHeading("Check and book an RSV vaccination", 1)).toBeVisible();
     });
 
     it("renders RSV vaccine link", async () => {

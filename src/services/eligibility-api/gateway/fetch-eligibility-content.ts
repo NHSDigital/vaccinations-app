@@ -5,12 +5,9 @@ import { EligibilityApiResponse } from "@src/services/eligibility-api/api-types"
 import { EligibilityApiHttpStatusError } from "@src/services/eligibility-api/gateway/exceptions";
 
 const log = logger.child({ module: "fetch-eligibility-content" });
-const ELIGIBILITY_API_PATH_SUFFIX =
-  "eligibility-signposting-api/patient-check/";
+const ELIGIBILITY_API_PATH_SUFFIX = "eligibility-signposting-api/patient-check/";
 
-export const fetchEligibilityContent = async (
-  nhsNumber: string,
-): Promise<EligibilityApiResponse> => {
+export const fetchEligibilityContent = async (nhsNumber: string): Promise<EligibilityApiResponse> => {
   const config: AppConfig = await configProvider();
 
   const apiEndpoint: string = config.ELIGIBILITY_API_ENDPOINT;
@@ -33,9 +30,7 @@ export const fetchEligibilityContent = async (
     })
     .catch((error: AxiosError) => {
       log.error(error, `Error in fetching ${uri}`);
-      throw new EligibilityApiHttpStatusError(
-        `Error in fetching ${uri} - ${error.toJSON()}`,
-      );
+      throw new EligibilityApiHttpStatusError(`Error in fetching ${uri} - ${error.toJSON()}`);
     });
   return response.data; // TODO - VIA-331, SB MD - deserialise using https://zod.dev? And throw EligibilityApiSchemaError?
 };

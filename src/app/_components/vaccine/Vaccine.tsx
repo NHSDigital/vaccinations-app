@@ -38,10 +38,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
   const session: Session | null = await auth();
   const nhsNumber: string | undefined = session?.user.nhs_number;
 
-  const [
-    { styledVaccineContent, contentError },
-    { eligibility, eligibilityError },
-  ] = await Promise.all([
+  const [{ styledVaccineContent, contentError }, { eligibility, eligibilityError }] = await Promise.all([
     getContentForVaccine(vaccineType),
     nhsNumber
       ? getEligibilityForPerson(vaccineType, nhsNumber)
@@ -58,8 +55,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
   const vaccinePath: VaccineContentUrlPaths = vaccineTypeToUrlPath[vaccineType];
   const nbsSSOLink = `${SSO_TO_NBS_ROUTE}?vaccine=${vaccinePath}`;
 
-  return contentError === ContentErrorTypes.CONTENT_LOADING_ERROR ||
-    styledVaccineContent === undefined ? (
+  return contentError === ContentErrorTypes.CONTENT_LOADING_ERROR || styledVaccineContent === undefined ? (
     // Error summary on content loading error
     <VaccineError />
   ) : (
@@ -87,10 +83,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
         eligibility &&
         eligibility.content &&
         eligibility.status && (
-          <Eligibility
-            eligibilityStatus={eligibility.status}
-            eligibilityContent={eligibility.content}
-          />
+          <Eligibility eligibilityStatus={eligibility.status} eligibilityContent={eligibility.content} />
         )}
 
       {vaccineType === VaccineTypes.RSV && eligibilityError && (
@@ -113,11 +106,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
               "Your GP surgery may contact you about getting the RSV vaccine. This may be by letter, text, phone call or email."
             }
           </p>
-          <p>
-            {
-              "You do not need to wait to be contacted before booking your vaccination."
-            }
-          </p>
+          <p>{"You do not need to wait to be contacted before booking your vaccination."}</p>
           <p>{"In some areas you can "}</p>
           <a href={nbsSSOLink}>book an RSV vaccination in a pharmacy</a>
         </div>
@@ -149,17 +138,11 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
 
       {/* NBS booking button action for RSV */}
       {vaccineType === VaccineTypes.RSV && (
-        <NBSBookingAction
-          vaccineType={vaccineType}
-          displayText={"Continue to booking"}
-          renderAs={"button"}
-        />
+        <NBSBookingAction vaccineType={vaccineType} displayText={"Continue to booking"} renderAs={"button"} />
       )}
 
       {/* Sections heading - H2 */}
-      <h2 className="nhsuk-heading-s">
-        More information about the {vaccineInfo.displayName.lowercase} vaccine
-      </h2>
+      <h2 className="nhsuk-heading-s">More information about the {vaccineInfo.displayName.lowercase} vaccine</h2>
 
       {/* Expandable sections */}
       <div className="nhsuk-expander-group">
@@ -188,11 +171,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
 
       {/* More information on nhs.uk link */}
       <p>
-        <a
-          href={styledVaccineContent.webpageLink}
-          target="_blank"
-          rel="noopener"
-        >
+        <a href={styledVaccineContent.webpageLink} target="_blank" rel="noopener">
           Find out more about the {vaccineInfo.displayName.lowercase} vaccine
         </a>{" "}
         including side effects, allergies and ingredients.

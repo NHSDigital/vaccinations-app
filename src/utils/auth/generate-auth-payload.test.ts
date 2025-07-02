@@ -36,9 +36,7 @@ describe("generate-auth-payload", () => {
   let randomUUIDSpy: jest.SpyInstance;
 
   beforeAll(() => {
-    randomUUIDSpy = jest
-      .spyOn(global.crypto, "randomUUID")
-      .mockReturnValue(mockRandomUUID);
+    randomUUIDSpy = jest.spyOn(global.crypto, "randomUUID").mockReturnValue(mockRandomUUID);
   });
 
   beforeEach(() => {
@@ -71,21 +69,14 @@ describe("generate-auth-payload", () => {
       const token = await generateRefreshClientAssertionJwt(mockConfig);
 
       expect(global.crypto.randomUUID).toHaveBeenCalled();
-      expect(generateSignedJwt).toHaveBeenCalledWith(
-        mockConfig,
-        expectedPayload,
-      );
+      expect(generateSignedJwt).toHaveBeenCalledWith(mockConfig, expectedPayload);
       expect(token).toEqual(mockSignedJwt);
     });
 
     it("should propagate errors thrown by generateSignedJwt", async () => {
-      (generateSignedJwt as jest.Mock).mockRejectedValue(
-        new Error("Invalid key"),
-      );
+      (generateSignedJwt as jest.Mock).mockRejectedValue(new Error("Invalid key"));
 
-      await expect(
-        generateRefreshClientAssertionJwt(mockConfig),
-      ).rejects.toThrow("Invalid key");
+      await expect(generateRefreshClientAssertionJwt(mockConfig)).rejects.toThrow("Invalid key");
     });
   });
 
@@ -104,10 +95,7 @@ describe("generate-auth-payload", () => {
 
       const token = await generateAssertedLoginIdentityJwt(mockConfig);
 
-      expect(generateSignedJwt).toHaveBeenCalledWith(
-        mockConfig,
-        expectedAssertedLoginPayloadContent,
-      );
+      expect(generateSignedJwt).toHaveBeenCalledWith(mockConfig, expectedAssertedLoginPayloadContent);
       expect(token).toEqual(mockSignedJwt);
     });
 
@@ -122,9 +110,7 @@ describe("generate-auth-payload", () => {
 
       (auth as jest.Mock).mockResolvedValue(mockSessionWithMissingJti);
 
-      await expect(
-        generateAssertedLoginIdentityJwt(mockConfig),
-      ).rejects.toThrow(
+      await expect(generateAssertedLoginIdentityJwt(mockConfig)).rejects.toThrow(
         "Error creating SSO assertedLoginIdentity: id_token.jti attribute missing from session",
       );
     });
@@ -132,13 +118,9 @@ describe("generate-auth-payload", () => {
     it("should propagate errors thrown by generateSignedJwt", async () => {
       (auth as jest.Mock).mockResolvedValue(mockSession);
 
-      (generateSignedJwt as jest.Mock).mockRejectedValue(
-        new Error("Invalid key"),
-      );
+      (generateSignedJwt as jest.Mock).mockRejectedValue(new Error("Invalid key"));
 
-      await expect(
-        generateAssertedLoginIdentityJwt(mockConfig),
-      ).rejects.toThrow("Invalid key");
+      await expect(generateAssertedLoginIdentityJwt(mockConfig)).rejects.toThrow("Invalid key");
     });
   });
 });

@@ -45,8 +45,7 @@ describe("ContentStylingService", () => {
 
   const mockTableSubsection: VaccinePageSubsection = {
     type: "tableElement",
-    mainEntity:
-      "<table><tr><th>Name</th><th>Age</th></tr><tr><td>Jane Smith</td><td>35</td></tr></table>",
+    mainEntity: "<table><tr><th>Name</th><th>Age</th></tr><tr><td>Jane Smith</td><td>35</td></tr></table>",
     name: "Table",
   };
 
@@ -59,10 +58,7 @@ describe("ContentStylingService", () => {
 
   describe("styleSubsection", () => {
     it("should return styled markdown component for subsection beginning with headline", async () => {
-      const styledSubsection: JSX.Element | undefined = styleSubsection(
-        mockMarkdownSubsection,
-        1,
-      );
+      const styledSubsection: JSX.Element | undefined = styleSubsection(mockMarkdownSubsection, 1);
       render(styledSubsection);
 
       const heading1: HTMLElement = screen.getByRole("heading", {
@@ -75,31 +71,23 @@ describe("ContentStylingService", () => {
       expect(heading2).toBeInTheDocument();
     });
 
-    it.each(["markdown", "default"])(
-      "should return styled %s component for subsection",
-      () => {
-        const mockMarkdownSubsection: VaccinePageSubsection = {
-          type: "simpleElement",
-          text: "<div role='section'>This is a styled paragraph markdown subsection</div>",
-          name: "%s",
-          headline: "",
-        };
+    it.each(["markdown", "default"])("should return styled %s component for subsection", () => {
+      const mockMarkdownSubsection: VaccinePageSubsection = {
+        type: "simpleElement",
+        text: "<div role='section'>This is a styled paragraph markdown subsection</div>",
+        name: "%s",
+        headline: "",
+      };
 
-        const styledSubsection: JSX.Element | undefined = styleSubsection(
-          mockMarkdownSubsection,
-          1,
-        );
-        render(styledSubsection);
+      const styledSubsection: JSX.Element | undefined = styleSubsection(mockMarkdownSubsection, 1);
+      render(styledSubsection);
 
-        const div: HTMLElement = screen.getByRole("section");
+      const div: HTMLElement = screen.getByRole("section");
 
-        expect(div).toBeInTheDocument();
-        expect(div.textContent).toEqual(
-          "This is a styled paragraph markdown subsection",
-        );
-        expect(div.className).toEqual("");
-      },
-    );
+      expect(div).toBeInTheDocument();
+      expect(div.textContent).toEqual("This is a styled paragraph markdown subsection");
+      expect(div.className).toEqual("");
+    });
 
     it("should return styled information component for subsection", async () => {
       const mockInformationSubsection: VaccinePageSubsection = {
@@ -109,15 +97,10 @@ describe("ContentStylingService", () => {
         headline: "",
       };
 
-      const styledSubsection: JSX.Element = styleSubsection(
-        mockInformationSubsection,
-        1,
-      );
+      const styledSubsection: JSX.Element = styleSubsection(mockInformationSubsection, 1);
       render(styledSubsection);
 
-      const text: HTMLElement = screen.getByText(
-        "This is a styled paragraph information subsection",
-      );
+      const text: HTMLElement = screen.getByText("This is a styled paragraph information subsection");
       const information: HTMLElement = screen.getByText("Information:");
 
       expect(information).toBeInTheDocument();
@@ -126,18 +109,11 @@ describe("ContentStylingService", () => {
     });
 
     it("should return styled non-urgent component for subsection", async () => {
-      const styledSubsection: JSX.Element = styleSubsection(
-        mockNonUrgentSubsection,
-        1,
-      );
+      const styledSubsection: JSX.Element = styleSubsection(mockNonUrgentSubsection, 1);
       render(styledSubsection);
 
-      const text: HTMLElement = screen.getByText(
-        "This is a styled paragraph non-urgent subsection",
-      );
-      const heading: HTMLElement = screen.getByText(
-        "Heading for Non Urgent Component",
-      );
+      const text: HTMLElement = screen.getByText("This is a styled paragraph non-urgent subsection");
+      const heading: HTMLElement = screen.getByText("Heading for Non Urgent Component");
       const nonUrgent: HTMLElement = screen.getByText("Non-urgent advice:");
 
       expect(text).toBeInTheDocument();
@@ -146,10 +122,7 @@ describe("ContentStylingService", () => {
     });
 
     it("should return table component for subsection", async () => {
-      const styledSubsection: JSX.Element = styleSubsection(
-        mockTableSubsection,
-        1,
-      );
+      const styledSubsection: JSX.Element = styleSubsection(mockTableSubsection, 1);
       render(styledSubsection);
 
       const column1: HTMLElement = screen.getByText("Name");
@@ -164,15 +137,10 @@ describe("ContentStylingService", () => {
     });
 
     it("should return styled callout component for subsection", async () => {
-      const styledSubsection: JSX.Element = styleSubsection(
-        mockCalloutSubsection,
-        1,
-      );
+      const styledSubsection: JSX.Element = styleSubsection(mockCalloutSubsection, 1);
       render(styledSubsection);
 
-      const text: HTMLElement = screen.getByText(
-        "This is a styled paragraph callout subsection",
-      );
+      const text: HTMLElement = screen.getByText("This is a styled paragraph callout subsection");
       const heading: HTMLElement = screen.getByText("Heading for callout");
       const warningCallout: HTMLElement = screen.getByText("Important:");
 
@@ -186,22 +154,14 @@ describe("ContentStylingService", () => {
     it("should display several subsections of a concrete vaccine in one section", async () => {
       const mockSection: VaccinePageSection = {
         headline: "This is a heading",
-        subsections: [
-          mockMarkdownSubsection,
-          mockNonUrgentSubsection,
-          mockTableSubsection,
-        ],
+        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection, mockTableSubsection],
       };
 
       const styledSection: StyledPageSection = styleSection(mockSection);
       render(styledSection.component);
 
-      const markdownSubsection: HTMLElement = screen.getByText(
-        "This is a styled paragraph markdown subsection",
-      );
-      const nonUrgentSubsection: HTMLElement = screen.getByText(
-        "This is a styled paragraph non-urgent subsection",
-      );
+      const markdownSubsection: HTMLElement = screen.getByText("This is a styled paragraph markdown subsection");
+      const nonUrgentSubsection: HTMLElement = screen.getByText("This is a styled paragraph non-urgent subsection");
 
       const columnOfTable: HTMLElement = screen.getByText("Name");
 
@@ -236,26 +196,17 @@ describe("ContentStylingService", () => {
           webpageLink: "This is a link",
         };
 
-        const styledVaccineContent: StyledVaccineContent =
-          await getStyledContentForVaccine(vaccine, mockContent);
+        const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(vaccine, mockContent);
 
         expect(styledVaccineContent).not.toBeNull();
         expect(styledVaccineContent.overview).toEqual("This is an overview");
-        expect(styledVaccineContent.whatVaccineIsFor?.heading).toEqual(
-          "What Vaccine Is For",
-        );
-        expect(styledVaccineContent.whoVaccineIsFor.heading).toEqual(
-          "Who is this Vaccine For",
-        );
-        expect(styledVaccineContent.howToGetVaccine.heading).toEqual(
-          "How to get this Vaccine",
-        );
+        expect(styledVaccineContent.whatVaccineIsFor?.heading).toEqual("What Vaccine Is For");
+        expect(styledVaccineContent.whoVaccineIsFor.heading).toEqual("Who is this Vaccine For");
+        expect(styledVaccineContent.howToGetVaccine.heading).toEqual("How to get this Vaccine");
 
         const expectedRsvSection = "<div><p>para1</p><p>para2</p></div>";
         const expectedRsvPregnancySection = `<div><div><p>para3</p><p>para4</p></div><p>In some areas you can also ${mockNBSBookingActionHTML}.</p></div>`;
-        const { container } = render(
-          styledVaccineContent.howToGetVaccine.component,
-        );
+        const { container } = render(styledVaccineContent.howToGetVaccine.component);
         if (vaccine === VaccineTypes.RSV) {
           expect(container).toContainHTML(expectedRsvSection);
         }
@@ -263,15 +214,9 @@ describe("ContentStylingService", () => {
           expect(container.innerHTML).toBe(expectedRsvPregnancySection);
         }
 
-        expect(
-          isValidElement(styledVaccineContent.whatVaccineIsFor?.component),
-        ).toBe(true);
-        expect(
-          isValidElement(styledVaccineContent.whoVaccineIsFor.component),
-        ).toBe(true);
-        expect(
-          isValidElement(styledVaccineContent.howToGetVaccine.component),
-        ).toBe(true);
+        expect(isValidElement(styledVaccineContent.whatVaccineIsFor?.component)).toBe(true);
+        expect(isValidElement(styledVaccineContent.whoVaccineIsFor.component)).toBe(true);
+        expect(isValidElement(styledVaccineContent.howToGetVaccine.component)).toBe(true);
         expect(styledVaccineContent.webpageLink).toEqual("This is a link");
       },
     );
@@ -292,18 +237,16 @@ describe("ContentStylingService", () => {
         webpageLink: "This is a link",
       };
 
-      const styledVaccineContent: StyledVaccineContent =
-        await getStyledContentForVaccine(VaccineTypes.RSV, mockContent);
+      const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
+        VaccineTypes.RSV,
+        mockContent,
+      );
 
       expect(styledVaccineContent).not.toBeNull();
       expect(styledVaccineContent.overview).toEqual("This is an overview");
       expect(styledVaccineContent.whatVaccineIsFor).toBeUndefined();
-      expect(
-        isValidElement(styledVaccineContent.whoVaccineIsFor.component),
-      ).toBe(true);
-      expect(
-        isValidElement(styledVaccineContent.howToGetVaccine.component),
-      ).toBe(true);
+      expect(isValidElement(styledVaccineContent.whoVaccineIsFor.component)).toBe(true);
+      expect(isValidElement(styledVaccineContent.howToGetVaccine.component)).toBe(true);
       expect(styledVaccineContent.webpageLink).toEqual("This is a link");
     });
   });
@@ -315,9 +258,7 @@ describe("ContentStylingService", () => {
       );
 
       expect(headingAndContent.heading).toEqual("Heading");
-      expect(headingAndContent.content).toEqual(
-        "<div><ul><li>you have not been contacted</li></ul></div>",
-      );
+      expect(headingAndContent.content).toEqual("<div><ul><li>you have not been contacted</li></ul></div>");
     });
 
     it("should extract heading and content from simple non-urgent html string", async () => {
@@ -326,28 +267,21 @@ describe("ContentStylingService", () => {
       );
 
       expect(headingAndContent.heading).toEqual("Heading");
-      expect(headingAndContent.content).toEqual(
-        "<p>you have not been contacted</p>",
-      );
+      expect(headingAndContent.content).toEqual("<p>you have not been contacted</p>");
     });
 
     it("should return empty heading and content from empty string", async () => {
-      const headingAndContent: HeadingWithContent =
-        extractHeadingAndContent("");
+      const headingAndContent: HeadingWithContent = extractHeadingAndContent("");
 
       expect(headingAndContent.heading).toEqual("");
       expect(headingAndContent.content).toEqual("");
     });
 
     it("should return content as is, and empty heading from string that does not begin with h3 tags", async () => {
-      const headingAndContent: HeadingWithContent = extractHeadingAndContent(
-        "<p>Some content<h3>Heading</h3></p>",
-      );
+      const headingAndContent: HeadingWithContent = extractHeadingAndContent("<p>Some content<h3>Heading</h3></p>");
 
       expect(headingAndContent.heading).toEqual("");
-      expect(headingAndContent.content).toEqual(
-        "<p>Some content<h3>Heading</h3></p>",
-      );
+      expect(headingAndContent.content).toEqual("<p>Some content<h3>Heading</h3></p>");
     });
   });
 });

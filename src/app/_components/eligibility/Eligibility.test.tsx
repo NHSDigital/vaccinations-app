@@ -1,11 +1,7 @@
 import { EligibilityStatus } from "@src/services/eligibility-api/types";
 import { render, screen } from "@testing-library/react";
 import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
-import {
-  actionBuilder,
-  eligibilityContentBuilder,
-  summaryContentBuilder,
-} from "@test-data/eligibility-api/builders";
+import { actionBuilder, eligibilityContentBuilder, summaryContentBuilder } from "@test-data/eligibility-api/builders";
 
 // TODO: Remove after final solution for testing with react-markdown
 jest.mock("react-markdown", () => {
@@ -24,9 +20,7 @@ describe("Eligibility", () => {
         }),
       );
 
-      const careCard: HTMLElement | null = screen.queryByTestId(
-        "non-urgent-care-card",
-      );
+      const careCard: HTMLElement | null = screen.queryByTestId("non-urgent-care-card");
       expect(careCard).toBeInTheDocument();
     });
 
@@ -34,15 +28,11 @@ describe("Eligibility", () => {
       render(
         Eligibility({
           eligibilityStatus: EligibilityStatus.ELIGIBLE_BOOKABLE,
-          eligibilityContent: eligibilityContentBuilder()
-            .withSummary(undefined)
-            .build(),
+          eligibilityContent: eligibilityContentBuilder().withSummary(undefined).build(),
         }),
       );
 
-      const careCard: HTMLElement | null = screen.queryByTestId(
-        "non-urgent-care-card",
-      );
+      const careCard: HTMLElement | null = screen.queryByTestId("non-urgent-care-card");
       expect(careCard).not.toBeInTheDocument();
     });
   });
@@ -80,9 +70,7 @@ describe("Eligibility", () => {
     it("should show introduction in the care card body", async () => {
       const testIntroduction = "test-introduction";
       const eligibilityContent = eligibilityContentBuilder()
-        .withSummary(
-          summaryContentBuilder().withIntroduction(testIntroduction).build(),
-        )
+        .withSummary(summaryContentBuilder().withIntroduction(testIntroduction).build())
         .build();
 
       render(
@@ -120,15 +108,11 @@ describe("Eligibility", () => {
       render(
         Eligibility({
           eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
-          eligibilityContent: eligibilityContentBuilder()
-            .withSummary(undefined)
-            .build(),
+          eligibilityContent: eligibilityContentBuilder().withSummary(undefined).build(),
         }),
       );
 
-      const careCard: HTMLElement | null = screen.queryByTestId(
-        "non-urgent-care-card",
-      );
+      const careCard: HTMLElement | null = screen.queryByTestId("non-urgent-care-card");
       expect(careCard).not.toBeInTheDocument();
     });
   });
@@ -140,12 +124,7 @@ describe("Eligibility", () => {
           Eligibility({
             eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
             eligibilityContent: eligibilityContentBuilder()
-              .withActions([
-                actionBuilder()
-                  .withType("paragraph")
-                  .andContent("Test Content")
-                  .build(),
-              ])
+              .withActions([actionBuilder().withType("paragraph").andContent("Test Content").build()])
               .build(),
           }),
         );
@@ -161,14 +140,8 @@ describe("Eligibility", () => {
             eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
             eligibilityContent: eligibilityContentBuilder()
               .withActions([
-                actionBuilder()
-                  .withType("paragraph")
-                  .andContent("Test Content 1")
-                  .build(),
-                actionBuilder()
-                  .withType("paragraph")
-                  .andContent("Test Content 2")
-                  .build(),
+                actionBuilder().withType("paragraph").andContent("Test Content 1").build(),
+                actionBuilder().withType("paragraph").andContent("Test Content 2").build(),
               ])
               .build(),
           }),

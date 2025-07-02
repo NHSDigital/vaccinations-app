@@ -14,9 +14,7 @@ jest.mock("@src/services/content-api/parsers/content-styling-service");
 
 jest.mock("@src/utils/requestContext", () => ({
   asyncLocalStorage: {
-    run: jest
-      .fn()
-      .mockImplementation((request: RequestContext, callback) => callback()),
+    run: jest.fn().mockImplementation((request: RequestContext, callback) => callback()),
     disable: jest.fn(),
     getStore: jest.fn(),
     exit: jest.fn(),
@@ -40,9 +38,7 @@ describe("Lambda Handler", () => {
 
   it("returns 500 when cache hydration has failed due to fetching errors", async () => {
     (fetchContentForVaccine as jest.Mock).mockRejectedValue(new Error("test"));
-    await expect(handler({}, context)).rejects.toThrow(
-      `${numberOfVaccines} failures`,
-    );
+    await expect(handler({}, context)).rejects.toThrow(`${numberOfVaccines} failures`);
   });
 
   it("returns 500 when cache hydration has failed due to filtering invalid content errors", async () => {
@@ -50,20 +46,14 @@ describe("Lambda Handler", () => {
     (getFilteredContentForVaccine as jest.Mock).mockImplementation(() => {
       throw new Error("test");
     });
-    await expect(handler({}, context)).rejects.toThrow(
-      `${numberOfVaccines} failures`,
-    );
+    await expect(handler({}, context)).rejects.toThrow(`${numberOfVaccines} failures`);
   });
 
   it("returns 500 when cache hydration has failed due to styling errors", async () => {
     (fetchContentForVaccine as jest.Mock).mockResolvedValue(undefined);
     (getFilteredContentForVaccine as jest.Mock).mockResolvedValue(undefined);
-    (getStyledContentForVaccine as jest.Mock).mockRejectedValue(
-      new Error("test"),
-    );
-    await expect(handler({}, context)).rejects.toThrow(
-      `${numberOfVaccines} failures`,
-    );
+    (getStyledContentForVaccine as jest.Mock).mockRejectedValue(new Error("test"));
+    await expect(handler({}, context)).rejects.toThrow(`${numberOfVaccines} failures`);
   });
 
   it("returns 500 when cache hydration has failed due to writing errors", async () => {
@@ -72,9 +62,7 @@ describe("Lambda Handler", () => {
     (getStyledContentForVaccine as jest.Mock).mockResolvedValue(undefined);
     (writeContentForVaccine as jest.Mock).mockRejectedValue(new Error("test"));
 
-    await expect(handler({}, context)).rejects.toThrow(
-      `${numberOfVaccines} failures`,
-    );
+    await expect(handler({}, context)).rejects.toThrow(`${numberOfVaccines} failures`);
   });
 
   it("stores requestID in asyncLocalStorage context", async () => {
@@ -87,9 +75,6 @@ describe("Lambda Handler", () => {
 
     await handler({}, contextWithRequestId);
 
-    expect(asyncLocalStorage.run).toHaveBeenCalledWith(
-      { requestId: requestId },
-      expect.anything(),
-    );
+    expect(asyncLocalStorage.run).toHaveBeenCalledWith({ requestId: requestId }, expect.anything());
   });
 });

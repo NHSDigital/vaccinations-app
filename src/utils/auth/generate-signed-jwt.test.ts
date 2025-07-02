@@ -18,9 +18,7 @@ describe("generateSignedJwt", () => {
   let subtleSignSpy: jest.SpyInstance;
 
   beforeAll(() => {
-    subtleSignSpy = jest
-      .spyOn(global.crypto.subtle, "sign")
-      .mockResolvedValue(new Uint8Array([1, 2, 3, 4]).buffer);
+    subtleSignSpy = jest.spyOn(global.crypto.subtle, "sign").mockResolvedValue(new Uint8Array([1, 2, 3, 4]).buffer);
   });
 
   beforeEach(() => {
@@ -41,9 +39,7 @@ describe("generateSignedJwt", () => {
     const parts = token.split(".");
     expect(parts.length).toBe(3);
 
-    expect(pemToCryptoKey).toHaveBeenCalledWith(
-      mockConfig.NHS_LOGIN_PRIVATE_KEY,
-    );
+    expect(pemToCryptoKey).toHaveBeenCalledWith(mockConfig.NHS_LOGIN_PRIVATE_KEY);
 
     expect(global.crypto.subtle.sign).toHaveBeenCalledWith(
       { name: "RSASSA-PKCS1-v1_5", hash: "SHA-512" },
@@ -55,13 +51,9 @@ describe("generateSignedJwt", () => {
   it("should throw if pemToCryptoKey rejects", async () => {
     (pemToCryptoKey as jest.Mock).mockRejectedValue(new Error("Invalid key"));
 
-    await expect(generateSignedJwt(mockConfig, payload)).rejects.toThrow(
-      "Invalid key",
-    );
+    await expect(generateSignedJwt(mockConfig, payload)).rejects.toThrow("Invalid key");
 
-    expect(pemToCryptoKey).toHaveBeenCalledWith(
-      mockConfig.NHS_LOGIN_PRIVATE_KEY,
-    );
+    expect(pemToCryptoKey).toHaveBeenCalledWith(mockConfig.NHS_LOGIN_PRIVATE_KEY);
     expect(global.crypto.subtle.sign).not.toHaveBeenCalled();
   });
 });

@@ -16,9 +16,7 @@ describe("VaccineError", () => {
   it("should display error text", async () => {
     render(<VaccineError />);
 
-    const text: HTMLElement = screen.getByText(
-      /Sorry, there is a problem showing vaccine/,
-    );
+    const text: HTMLElement = screen.getByText(/Sorry, there is a problem showing vaccine/);
 
     expect(text).toBeInTheDocument();
   });
@@ -31,8 +29,6 @@ describe("VaccineError", () => {
     });
 
     expect(link).toBeInTheDocument();
-    expect(link.getAttribute("href")).toEqual(
-      "https://www.nhs.uk/vaccinations/",
-    );
+    expect(link.getAttribute("href")).toEqual("https://www.nhs.uk/vaccinations/");
   });
 });

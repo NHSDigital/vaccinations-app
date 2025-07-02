@@ -29,28 +29,13 @@ const Subsections: Record<SubsectionTypes, string> = {
 };
 
 const _getDivWithSanitisedHtml = (html: string) => {
-  return (
-    <div
-      className={styles.zeroMarginBottom}
-      dangerouslySetInnerHTML={{ __html: sanitiseHtml(html) }}
-    />
-  );
+  return <div className={styles.zeroMarginBottom} dangerouslySetInnerHTML={{ __html: sanitiseHtml(html) }} />;
 };
 
-const styleSubsection = (
-  subsection: VaccinePageSubsection,
-  id: number,
-): JSX.Element => {
+const styleSubsection = (subsection: VaccinePageSubsection, id: number): JSX.Element => {
   if (subsection.type === "expanderElement") {
-    const content = `<h3>${subsection.headline}</h3>`.concat(
-      subsection.mainEntity,
-    );
-    return (
-      <div
-        key={id}
-        dangerouslySetInnerHTML={{ __html: sanitiseHtml(content) }}
-      />
-    );
+    const content = `<h3>${subsection.headline}</h3>`.concat(subsection.mainEntity);
+    return <div key={id} dangerouslySetInnerHTML={{ __html: sanitiseHtml(content) }} />;
   }
 
   if (subsection.type === "tableElement") {
@@ -90,12 +75,7 @@ const styleSubsection = (
       />
     );
   } else {
-    return (
-      <div
-        key={id}
-        dangerouslySetInnerHTML={{ __html: sanitiseHtml(text) }}
-      ></div>
-    );
+    return <div key={id} dangerouslySetInnerHTML={{ __html: sanitiseHtml(text) }}></div>;
   }
 };
 
@@ -103,9 +83,8 @@ const styleSection = (section: VaccinePageSection): StyledPageSection => {
   const heading = section.headline;
   const styledComponent = (
     <>
-      {section.subsections.map(
-        (subsection: VaccinePageSubsection, index: number) =>
-          styleSubsection(subsection, index),
+      {section.subsections.map((subsection: VaccinePageSubsection, index: number) =>
+        styleSubsection(subsection, index),
       )}
     </>
   );
@@ -132,10 +111,7 @@ const extractHeadingAndContent = (text: string): HeadingWithContent => {
   }
 };
 
-const styleHowToGetSection: Record<
-  VaccineTypes,
-  (section: VaccinePageSection) => StyledPageSection
-> = {
+const styleHowToGetSection: Record<VaccineTypes, (section: VaccinePageSection) => StyledPageSection> = {
   [VaccineTypes.RSV]: styleHowToGetSectionForRsv,
   [VaccineTypes.RSV_PREGNANCY]: styleHowToGetSectionForRsvPregnancy,
 };
@@ -149,12 +125,8 @@ const getStyledContentForVaccine = async (
   if (filteredContent.whatVaccineIsFor) {
     whatVaccineIsFor = styleSection(filteredContent.whatVaccineIsFor);
   }
-  const whoVaccineIsFor: StyledPageSection = styleSection(
-    filteredContent.whoVaccineIsFor,
-  );
-  const howToGetVaccine: StyledPageSection = styleHowToGetSection[vaccine](
-    filteredContent.howToGetVaccine,
-  );
+  const whoVaccineIsFor: StyledPageSection = styleSection(filteredContent.whoVaccineIsFor);
+  const howToGetVaccine: StyledPageSection = styleHowToGetSection[vaccine](filteredContent.howToGetVaccine);
   const webpageLink: string = filteredContent.webpageLink;
 
   return {
@@ -166,9 +138,4 @@ const getStyledContentForVaccine = async (
   };
 };
 
-export {
-  styleSubsection,
-  styleSection,
-  getStyledContentForVaccine,
-  extractHeadingAndContent,
-};
+export { styleSubsection, styleSection, getStyledContentForVaccine, extractHeadingAndContent };

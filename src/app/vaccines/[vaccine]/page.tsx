@@ -18,17 +18,14 @@ interface VaccinePageProps {
 
 const VaccinePage = async ({ params }: VaccinePageProps) => {
   const { vaccine } = await params;
-  const vaccineType: VaccineTypes | undefined =
-    getVaccineTypeFromUrlPath(vaccine);
+  const vaccineType: VaccineTypes | undefined = getVaccineTypeFromUrlPath(vaccine);
 
   return vaccineType ? (
     <>
       <title>{`${VaccineInfo[vaccineType].heading} - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`}</title>
       <BackLink />
       <MainContent>
-        <h1
-          className={"app-dynamic-page-title__heading"}
-        >{`${VaccineInfo[vaccineType].heading}`}</h1>
+        <h1 className={"app-dynamic-page-title__heading"}>{`${VaccineInfo[vaccineType].heading}`}</h1>
         <ErrorBoundary fallback={<VaccineError />}>
           <Suspense fallback={<Loader />}>
             <Vaccine vaccineType={vaccineType} />

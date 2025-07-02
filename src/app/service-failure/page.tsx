@@ -14,10 +14,7 @@ const ServiceFailure = () => {
       <MainContent>
         <h1>There is a problem with the service</h1>
         <p>This maybe a temporary problem.</p>
-        <p>
-          Go back and try logging in again. If you cannot login, try again
-          later.
-        </p>
+        <p>Go back and try logging in again. If you cannot login, try again later.</p>
         <p>
           For urgent medical advice, go to{" "}
           <a href={"https://111.nhs.uk/"} target={"_blank"} rel={"noopener"}>

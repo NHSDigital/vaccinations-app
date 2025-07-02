@@ -33,21 +33,15 @@ let timedOutSession = false;
 
 const setupJsdomWorkaroundForDialogElement = () => {
   // Dialog element is not support in JSDom: workaround from https://github.com/jsdom/jsdom/issues/3294
-  HTMLDialogElement.prototype.show = jest.fn(function mock(
-    this: HTMLDialogElement,
-  ) {
+  HTMLDialogElement.prototype.show = jest.fn(function mock(this: HTMLDialogElement) {
     this.open = true;
   });
 
-  HTMLDialogElement.prototype.showModal = jest.fn(function mock(
-    this: HTMLDialogElement,
-  ) {
+  HTMLDialogElement.prototype.showModal = jest.fn(function mock(this: HTMLDialogElement) {
     this.open = true;
   });
 
-  HTMLDialogElement.prototype.close = jest.fn(function mock(
-    this: HTMLDialogElement,
-  ) {
+  HTMLDialogElement.prototype.close = jest.fn(function mock(this: HTMLDialogElement) {
     this.open = false;
   });
 };

@@ -7,10 +7,7 @@ interface NonUrgentCareCardProps {
 
 const NonUrgentCareCard = ({ heading, content }: NonUrgentCareCardProps) => {
   return (
-    <div
-      className="nhsuk-card nhsuk-card--care nhsuk-card--care--non-urgent"
-      data-testid="non-urgent-care-card"
-    >
+    <div className="nhsuk-card nhsuk-card--care nhsuk-card--care--non-urgent" data-testid="non-urgent-care-card">
       <div className="nhsuk-card--care__heading-container">
         <h3 className="nhsuk-card--care__heading">
           <span role="text">

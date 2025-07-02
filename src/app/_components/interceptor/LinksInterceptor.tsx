@@ -32,8 +32,7 @@ const LinksInterceptor = (): null => {
     // the capture=true is critical, without which any click handlers maybe
     // invoked before ours and interfere with the functionality
     document.addEventListener("click", handleClick, { capture: true });
-    return () =>
-      document.removeEventListener("click", handleClick, { capture: true });
+    return () => document.removeEventListener("click", handleClick, { capture: true });
   }, [isOpenInNHSApp]);
 
   return null;

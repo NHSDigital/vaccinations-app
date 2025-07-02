@@ -1,6 +1,4 @@
-import useInactivityTimer, {
-  ACTIVITY_EVENTS,
-} from "@src/utils/auth/inactivity-timer";
+import useInactivityTimer, { ACTIVITY_EVENTS } from "@src/utils/auth/inactivity-timer";
 import { renderHook } from "@testing-library/react";
 import { act } from "react";
 
@@ -41,30 +39,27 @@ describe("inactivity-timer", () => {
     expect(result.current.isTimedOut).toBe(true);
   });
 
-  it.each(ACTIVITY_EVENTS)(
-    "should reset timers on %s activity",
-    (event: string) => {
-      const { result } = renderHook(() => useInactivityTimer());
+  it.each(ACTIVITY_EVENTS)("should reset timers on %s activity", (event: string) => {
+    const { result } = renderHook(() => useInactivityTimer());
 
-      // Simulate some time passing so the warning is shown
-      act(() => {
-        jest.advanceTimersByTime(9 * 60 * 1000); // 9 minutes
-      });
-      expect(result.current.isIdle).toBe(true);
+    // Simulate some time passing so the warning is shown
+    act(() => {
+      jest.advanceTimersByTime(9 * 60 * 1000); // 9 minutes
+    });
+    expect(result.current.isIdle).toBe(true);
 
-      // Simulate user activity to hide away warning
-      act(() => {
-        window.dispatchEvent(new Event(event));
-      });
-      expect(result.current.isIdle).toBe(false);
+    // Simulate user activity to hide away warning
+    act(() => {
+      window.dispatchEvent(new Event(event));
+    });
+    expect(result.current.isIdle).toBe(false);
 
-      // Advance time again
-      act(() => {
-        jest.advanceTimersByTime(2 * 60 * 1000); // 2 more minutes
-      });
+    // Advance time again
+    act(() => {
+      jest.advanceTimersByTime(2 * 60 * 1000); // 2 more minutes
+    });
 
-      // Should not show warning or logout yet
-      expect(result.current.isIdle).toBe(false);
-    },
-  );
+    // Should not show warning or logout yet
+    expect(result.current.isIdle).toBe(false);
+  });
 });

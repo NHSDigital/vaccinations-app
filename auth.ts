@@ -20,7 +20,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
       signOut: SESSION_LOGOUT_ROUTE,
       error: SSO_FAILURE_ROUTE,
       verifyRequest: SSO_FAILURE_ROUTE,
-      newUser: SSO_FAILURE_ROUTE
+      newUser: SSO_FAILURE_ROUTE,
     },
     session: {
       strategy: "jwt",
@@ -36,13 +36,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
         return `${baseUrl}${VACCINATIONS_HUB_PAGE_ROUTE}`;
       },
 
-      async jwt({ token, account, profile}) {
+      async jwt({ token, account, profile }) {
         return getToken(token, account, profile, config, MAX_SESSION_AGE_SECONDS);
       },
 
       async session({ session, token }) {
         return getUpdatedSession(session, token);
-      }
+      },
     },
   };
 });

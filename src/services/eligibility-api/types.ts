@@ -30,9 +30,7 @@ export enum EligibilityErrorTypes {
   UNKNOWN = "UNKNOWN",
 }
 
-export type EligibilityForPersonType =
-  | EligibilityForPerson
-  | EligibilityForPersonError;
+export type EligibilityForPersonType = EligibilityForPerson | EligibilityForPersonError;
 
 type EligibilityForPerson = {
   eligibility: Eligibility;

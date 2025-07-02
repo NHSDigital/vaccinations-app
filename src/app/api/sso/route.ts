@@ -9,9 +9,7 @@ const log = logger.child({ name: "api-sso" });
 const ASSERTED_LOGIN_IDENTITY_PARAM = "assertedLoginIdentity";
 
 export const GET = async (request: NextRequest) => {
-  const assertedLoginIdentity: string | null = request.nextUrl.searchParams.get(
-    ASSERTED_LOGIN_IDENTITY_PARAM,
-  );
+  const assertedLoginIdentity: string | null = request.nextUrl.searchParams.get(ASSERTED_LOGIN_IDENTITY_PARAM);
 
   if (assertedLoginIdentity) {
     let redirectUrl: string | undefined;

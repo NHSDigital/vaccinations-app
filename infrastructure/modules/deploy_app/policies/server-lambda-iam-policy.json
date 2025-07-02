@@ -3,12 +3,7 @@
   "Statement": [
     {
       "Effect": "Allow",
-      "Action": [
-        "kms:Decrypt",
-        "ssm:GetParameter",
-        "s3:ListBucket",
-        "s3:GetObject"
-      ],
+      "Action": ["kms:Decrypt", "ssm:GetParameter", "s3:ListBucket", "s3:GetObject"],
       "Resource": "*"
     }
   ]

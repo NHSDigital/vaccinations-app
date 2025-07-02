@@ -51,9 +51,7 @@ describe("GET /sso-to-nbs", () => {
     const mockRequest = getMockRequest(testUrl, {
       vaccine: "rsv",
     });
-    (getSSOUrlToNBSForVaccine as jest.Mock).mockRejectedValue(
-      new Error("error"),
-    );
+    (getSSOUrlToNBSForVaccine as jest.Mock).mockRejectedValue(new Error("error"));
 
     await GET(mockRequest);
     expect(getSSOUrlToNBSForVaccine).toHaveBeenCalledWith(VaccineTypes.RSV);

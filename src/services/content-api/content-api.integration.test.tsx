@@ -24,17 +24,14 @@ const mockRsvResponse = {
 
 describe("Content API Read Integration Test ", () => {
   afterEach(async () => {
-    const { styledVaccineContent, contentError }: GetContentForVaccineResponse =
-      await getContentForVaccine(VaccineTypes.RSV);
+    const { styledVaccineContent, contentError }: GetContentForVaccineResponse = await getContentForVaccine(
+      VaccineTypes.RSV,
+    );
 
     expect(styledVaccineContent).not.toBeNull();
     expect(contentError).toBeUndefined();
-    expect(styledVaccineContent?.overview).toEqual(
-      mockRsvVaccineJson.mainEntityOfPage[0].text,
-    );
-    expect(styledVaccineContent?.webpageLink).toEqual(
-      mockRsvVaccineJson.webpage,
-    );
+    expect(styledVaccineContent?.overview).toEqual(mockRsvVaccineJson.mainEntityOfPage[0].text);
+    expect(styledVaccineContent?.webpageLink).toEqual(mockRsvVaccineJson.webpage);
   });
 
   it("should return processed data from local cache", async () => {

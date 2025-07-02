@@ -1,11 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import {
-  H2,
-  A,
-  UL,
-  OL,
-  MarkdownWithStyling,
-} from "@src/app/_components/markdown/MarkdownWithStyling";
+import { H2, A, UL, OL, MarkdownWithStyling } from "@src/app/_components/markdown/MarkdownWithStyling";
 import React from "react";
 
 let mockedMarkdown: jest.Mock;
@@ -24,10 +18,7 @@ describe("markdown", () => {
       const content = "This is content";
       render(<MarkdownWithStyling content={content} />);
 
-      expect(mockedMarkdown).toHaveBeenCalledWith(
-        expect.objectContaining({ children: content }),
-        undefined,
-      );
+      expect(mockedMarkdown).toHaveBeenCalledWith(expect.objectContaining({ children: content }), undefined);
     });
   });
 

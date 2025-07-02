@@ -21,15 +21,10 @@
   },
   "description": "Find out about the shingles vaccine, including who it's for, how to get it and possible side effects.",
   "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/",
-  "genre": [
-    "Vaccine"
-  ],
+  "genre": ["Vaccine"],
   "keywords": "",
   "dateModified": "2025-04-15T14:16:33+00:00",
-  "lastReviewed": [
-    "2023-09-01T07:46:00+00:00",
-    "2026-09-01T07:46:00+00:00"
-  ],
+  "lastReviewed": ["2023-09-01T07:46:00+00:00", "2026-09-01T07:46:00+00:00"],
   "breadcrumb": {
     "@context": "http://schema.org",
     "@type": "BreadcrumbList",
@@ -49,9 +44,7 @@
         "item": {
           "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/",
           "name": "Shingles vaccine",
-          "genre": [
-            "Vaccine"
-          ]
+          "genre": ["Vaccine"]
         }
       }
     ]

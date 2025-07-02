@@ -1,8 +1,5 @@
 import { VaccineTypes } from "@src/models/vaccine";
-import {
-  VaccineContentPaths,
-  vaccineTypeToPath,
-} from "@src/services/content-api/constants";
+import { VaccineContentPaths, vaccineTypeToPath } from "@src/services/content-api/constants";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import axios, { AxiosResponse } from "axios";
@@ -10,9 +7,7 @@ import axios, { AxiosResponse } from "axios";
 const log = logger.child({ module: "content-fetcher" });
 const CONTENT_API_PATH_PREFIX = "nhs-website-content/vaccinations/";
 
-const fetchContentForVaccine = async (
-  vaccine: VaccineTypes,
-): Promise<string> => {
+const fetchContentForVaccine = async (vaccine: VaccineTypes): Promise<string> => {
   const config: AppConfig = await configProvider();
 
   const apiEndpoint: string = config.CONTENT_API_ENDPOINT;

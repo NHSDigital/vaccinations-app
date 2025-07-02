@@ -18,8 +18,7 @@ const runContentCacheHydrator = async (event: object) => {
     try {
       const content: string = await fetchContentForVaccine(vaccine);
       log.info(`Calling getFilteredContentForVaccine(${vaccine})`);
-      const filteredContent: VaccinePageContent =
-        getFilteredContentForVaccine(content);
+      const filteredContent: VaccinePageContent = getFilteredContentForVaccine(content);
       log.info(`Calling getStyledContentForVaccine(${vaccine})`);
       await getStyledContentForVaccine(vaccine, filteredContent);
       await writeContentForVaccine(vaccine, content);
@@ -35,15 +34,10 @@ const runContentCacheHydrator = async (event: object) => {
   }
 };
 
-export const handler = async (
-  event: object,
-  context: Context,
-): Promise<void> => {
+export const handler = async (event: object, context: Context): Promise<void> => {
   const requestContext: RequestContext = {
     requestId: context.awsRequestId,
   };
 
-  await asyncLocalStorage.run(requestContext, () =>
-    runContentCacheHydrator(event),
-  );
+  await asyncLocalStorage.run(requestContext, () => runContentCacheHydrator(event));
 };

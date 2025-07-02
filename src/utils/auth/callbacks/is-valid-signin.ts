@@ -9,14 +9,9 @@ const log: Logger = logger.child({
   module: "utils-auth-callbacks-is-valid-signin",
 });
 
-const isValidSignIn = (
-  account: Account | null | undefined,
-  config: AppConfig,
-) => {
+const isValidSignIn = (account: Account | null | undefined, config: AppConfig) => {
   if (!account || typeof account.id_token !== "string") {
-    log.info(
-      "Access denied from signIn callback. Account or id_token missing.",
-    );
+    log.info("Access denied from signIn callback. Account or id_token missing.");
     return false;
   }
 
@@ -24,9 +19,7 @@ const isValidSignIn = (
   const { iss, aud, identity_proofing_level } = decodedToken;
 
   const isValidToken =
-    iss === config.NHS_LOGIN_URL &&
-    aud === config.NHS_LOGIN_CLIENT_ID &&
-    identity_proofing_level === "P9";
+    iss === config.NHS_LOGIN_URL && aud === config.NHS_LOGIN_CLIENT_ID && identity_proofing_level === "P9";
 
   if (!isValidToken) {
     log.info(

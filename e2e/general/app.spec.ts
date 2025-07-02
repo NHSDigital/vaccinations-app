@@ -1,11 +1,12 @@
 import { expect, Page, test } from "@playwright/test";
 import {
   HUB_PAGE_TITLE,
-  HUB_PAGE_URL, MAX_AVG_LCP_DURATION_MS,
+  HUB_PAGE_URL,
+  MAX_AVG_LCP_DURATION_MS,
   RSV_PAGE_TITLE,
   RSV_PAGE_URL,
   RSV_PREGNANCY_PAGE_TITLE,
-  RSV_PREGNANCY_PAGE_URL
+  RSV_PREGNANCY_PAGE_URL,
 } from "../constants";
 import { accessibilityCheck, benchmark, clickLinkAndExpectPageTitle } from "@project/e2e/helpers";
 import { login } from "@project/e2e/auth";

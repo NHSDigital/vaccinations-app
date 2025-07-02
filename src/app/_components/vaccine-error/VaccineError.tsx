@@ -9,13 +9,8 @@ const VaccineError = (): JSX.Element => {
       <ErrorSummary.Title>Vaccine content is unavailable</ErrorSummary.Title>
       <ErrorSummary.Body>
         <p>
-          Sorry, there is a problem showing vaccine information. Come back
-          later, or read about{" "}
-          <a
-            href="https://www.nhs.uk/vaccinations/"
-            target="_blank"
-            rel="noopener"
-          >
+          Sorry, there is a problem showing vaccine information. Come back later, or read about{" "}
+          <a href="https://www.nhs.uk/vaccinations/" target="_blank" rel="noopener">
             vaccinations on NHS.uk
           </a>
         </p>

@@ -17,7 +17,7 @@ test.describe("E2E", () => {
       await page.goto(RSV_PAGE_URL);
       const eligibility: Locator = page.getByTestId("Eligibility");
 
-      await expect(eligibility).toHaveScreenshot('eligibility-not-eligible.png');
+      await expect(eligibility).toHaveScreenshot("eligibility-not-eligible.png");
     });
   });
 
@@ -30,7 +30,7 @@ test.describe("E2E", () => {
       await page.goto(RSV_PAGE_URL);
       const eligibility: Locator = page.getByTestId("Eligibility");
 
-      await expect(eligibility).toHaveScreenshot('eligibility-actionable.png');
+      await expect(eligibility).toHaveScreenshot("eligibility-actionable.png");
     });
   });
 });

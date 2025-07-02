@@ -16,9 +16,7 @@ jest.mock("@src/app/_components/vaccine/Vaccine", () => jest.fn());
 jest.mock("@src/services/content-api/gateway/content-reader-service", () => ({
   getContentForVaccine: jest.fn(),
 }));
-jest.mock("@src/app/_components/nhs-frontend/BackLink", () =>
-  jest.fn(() => <div data-testid="back-link"></div>),
-);
+jest.mock("@src/app/_components/nhs-frontend/BackLink", () => jest.fn(() => <div data-testid="back-link"></div>));
 
 describe("Dynamic vaccine page", () => {
   it("calls notFound when path is invalid", async () => {
@@ -28,9 +26,7 @@ describe("Dynamic vaccine page", () => {
 
   it("has vaccine title", async () => {
     await renderDynamicPage("rsv");
-    expect(document.title).toBe(
-      "RSV vaccine for older adults - Check and book an RSV vaccination - NHS",
-    );
+    expect(document.title).toBe("RSV vaccine for older adults - Check and book an RSV vaccination - NHS");
   });
 
   describe("when content loads successfully", () => {
@@ -64,9 +60,7 @@ describe("Dynamic vaccine page", () => {
 
   describe("when content throws error", () => {
     beforeEach(() => {
-      (Vaccine as jest.Mock).mockImplementation(
-        () => new Error("mocked error: content load fail"),
-      );
+      (Vaccine as jest.Mock).mockImplementation(() => new Error("mocked error: content load fail"));
       // suppress noisy logs
       jest.spyOn(console, "error").mockImplementation(() => {});
       renderDynamicPage("rsv");

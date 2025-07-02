@@ -24,9 +24,7 @@ describe("isValidSignIn", () => {
   });
 
   it("should return false and logs if id_token is not a string", () => {
-    expect(
-      isValidSignIn({ id_token: 123 } as unknown as Account, mockConfig),
-    ).toBe(false);
+    expect(isValidSignIn({ id_token: 123 } as unknown as Account, mockConfig)).toBe(false);
   });
 
   it("should return true if token is valid", () => {

@@ -1,8 +1,4 @@
-import {
-  VaccineContentUrlPaths,
-  VaccineTypes,
-  vaccineUrlPathToType,
-} from "@src/models/vaccine";
+import { VaccineContentUrlPaths, VaccineTypes, vaccineUrlPathToType } from "@src/models/vaccine";
 
 const S3_PREFIX = "s3://";
 
@@ -11,11 +7,7 @@ const isS3Path = (path: string): boolean => {
 };
 
 const getVaccineTypeFromUrlPath = (path: string): VaccineTypes | undefined => {
-  if (
-    !Object.values(VaccineContentUrlPaths).includes(
-      path as VaccineContentUrlPaths,
-    )
-  ) {
+  if (!Object.values(VaccineContentUrlPaths).includes(path as VaccineContentUrlPaths)) {
     return undefined;
   } else {
     return vaccineUrlPathToType[path as VaccineContentUrlPaths];

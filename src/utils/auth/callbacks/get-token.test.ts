@@ -11,10 +11,9 @@ jest.mock("@project/auth", () => ({
 jest.mock("@src/utils/auth/generate-auth-payload");
 jest.mock("jwt-decode");
 
-const mockGenerateClientAssertion =
-  generateRefreshClientAssertionJwt as jest.MockedFunction<
-    typeof generateRefreshClientAssertionJwt
-  >;
+const mockGenerateClientAssertion = generateRefreshClientAssertionJwt as jest.MockedFunction<
+  typeof generateRefreshClientAssertionJwt
+>;
 
 describe("getToken", () => {
   const mockConfig = {
@@ -41,13 +40,7 @@ describe("getToken", () => {
   });
 
   it("should return null and logs error if token is falsy", async () => {
-    const result = await getToken(
-      null as unknown as JWT,
-      null,
-      undefined,
-      mockConfig,
-      300,
-    );
+    const result = await getToken(null as unknown as JWT, null, undefined, mockConfig, 300);
     expect(result).toBeNull();
   });
 
@@ -71,13 +64,7 @@ describe("getToken", () => {
 
     const maxAgeInSeconds = 600;
 
-    const result = await getToken(
-      token,
-      account,
-      profile,
-      mockConfig,
-      maxAgeInSeconds,
-    );
+    const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
 
     expect(result).toMatchObject({
       expires_at: account.expires_at,
@@ -103,13 +90,7 @@ describe("getToken", () => {
 
     const maxAgeInSeconds = 600;
 
-    const result = await getToken(
-      token,
-      account,
-      profile,
-      mockConfig,
-      maxAgeInSeconds,
-    );
+    const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
 
     expect(result).toMatchObject({
       expires_at: 0,
@@ -156,8 +137,7 @@ describe("getToken", () => {
     const expectedRequestBody = {
       grant_type: "refresh_token",
       refresh_token: token.refresh_token,
-      client_assertion_type:
-        "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+      client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
       client_assertion: "mock-client-assertion",
     };
 

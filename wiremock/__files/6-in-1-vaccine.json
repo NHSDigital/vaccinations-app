@@ -21,15 +21,10 @@
   },
   "description": "NHS information about the 6-in-1 vaccine, including what the vaccine helps protect against, who should have it, how to get it and side effects.",
   "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/",
-  "genre": [
-    "Vaccine"
-  ],
+  "genre": ["Vaccine"],
   "keywords": "",
   "dateModified": "2024-03-20T11:02:02+00:00",
-  "lastReviewed": [
-    "2023-06-26T15:54:00+00:00",
-    "2026-06-26T15:54:00+00:00"
-  ],
+  "lastReviewed": ["2023-06-26T15:54:00+00:00", "2026-06-26T15:54:00+00:00"],
   "breadcrumb": {
     "@context": "http://schema.org",
     "@type": "BreadcrumbList",
@@ -49,9 +44,7 @@
         "item": {
           "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/",
           "name": "6-in-1 vaccine",
-          "genre": [
-            "Vaccine"
-          ]
+          "genre": ["Vaccine"]
         }
       }
     ]

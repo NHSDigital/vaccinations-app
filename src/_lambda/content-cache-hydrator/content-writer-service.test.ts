@@ -52,9 +52,7 @@ describe("Content Writer Service", () => {
       const s3Error: string = "S3 error";
       mockSend = jest.fn().mockRejectedValue(new Error(s3Error));
 
-      await expect(
-        _writeFileS3("bad-bucket", "bad-key", "oops"),
-      ).rejects.toThrow(s3Error);
+      await expect(_writeFileS3("bad-bucket", "bad-key", "oops")).rejects.toThrow(s3Error);
     });
   });
 
@@ -84,10 +82,7 @@ describe("Content Writer Service", () => {
     it("should return response for rsv vaccine from content cache", async () => {
       const vaccine: VaccineTypes = VaccineTypes.RSV;
       await writeContentForVaccine(vaccine, content);
-      expect(writeFile).toHaveBeenCalledWith(
-        `${location}${vaccineTypeToPath[vaccine]}.json`,
-        content,
-      );
+      expect(writeFile).toHaveBeenCalledWith(`${location}${vaccineTypeToPath[vaccine]}.json`, content);
     });
   });
 });

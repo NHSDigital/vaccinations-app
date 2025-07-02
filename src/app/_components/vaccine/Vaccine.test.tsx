@@ -3,27 +3,18 @@ import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
-import {
-  mockStyledContent,
-  mockStyledContentWithoutWhatSection,
-} from "@test-data/content-api/data";
+import { mockStyledContent, mockStyledContentWithoutWhatSection } from "@test-data/content-api/data";
 import { render, screen } from "@testing-library/react";
-import {
-  EligibilityErrorTypes,
-  EligibilityStatus,
-} from "@src/services/eligibility-api/types";
+import { EligibilityErrorTypes, EligibilityStatus } from "@src/services/eligibility-api/types";
 import { eligibilityContentBuilder } from "@test-data/eligibility-api/builders";
 import { auth } from "@project/auth";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service", () => ({
   getContentForVaccine: jest.fn(),
 }));
-jest.mock(
-  "@src/services/eligibility-api/domain/eligibility-filter-service",
-  () => ({
-    getEligibilityForPerson: jest.fn(),
-  }),
-);
+jest.mock("@src/services/eligibility-api/domain/eligibility-filter-service", () => ({
+  getEligibilityForPerson: jest.fn(),
+}));
 jest.mock("@src/app/_components/eligibility/Eligibility", () => ({
   Eligibility: () => <div>Test Eligibility Component</div>,
 }));
@@ -65,14 +56,11 @@ describe("Any vaccine page", () => {
     });
 
     it("should display overview inset text if defined for vaccine", async () => {
-      const expectedInsetText: string | undefined =
-        VaccineInfo[VaccineTypes.RSV].overviewInsetText;
+      const expectedInsetText: string | undefined = VaccineInfo[VaccineTypes.RSV].overviewInsetText;
 
       await renderNamedVaccinePage(VaccineTypes.RSV);
 
-      const overviewInsetBlock: HTMLElement = screen.getByTestId(
-        "overview-inset-text",
-      );
+      const overviewInsetBlock: HTMLElement = screen.getByTestId("overview-inset-text");
       expect(overviewInsetBlock).toBeInTheDocument();
       expect(overviewInsetBlock.innerHTML).toContain(expectedInsetText);
     });
@@ -85,15 +73,11 @@ describe("Any vaccine page", () => {
       });
 
       expect(rsvPregnancyLink).toBeInTheDocument();
-      expect(rsvPregnancyLink).toHaveAttribute(
-        "href",
-        "/vaccines/rsv-pregnancy",
-      );
+      expect(rsvPregnancyLink).toHaveAttribute("href", "/vaccines/rsv-pregnancy");
     });
 
     it("should include lowercase vaccine name in more information text", async () => {
-      const expectedMoreInformationHeading: string =
-        "More information about the RSV vaccine";
+      const expectedMoreInformationHeading: string = "More information about the RSV vaccine";
 
       await renderRsvVaccinePage();
 
@@ -108,22 +92,16 @@ describe("Any vaccine page", () => {
     it("should display inset text for rsv in pregnancy", async () => {
       await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
 
-      const recommendedBlock: HTMLElement | undefined = screen
-        .getAllByRole("heading", { level: 3 })
-        .at(0);
+      const recommendedBlock: HTMLElement | undefined = screen.getAllByRole("heading", { level: 3 }).at(0);
       expect(recommendedBlock).toHaveClass("nhsuk-card--care__heading");
-      expect(recommendedBlock?.innerHTML).toContain(
-        "The RSV vaccine is recommended if you:",
-      );
+      expect(recommendedBlock?.innerHTML).toContain("The RSV vaccine is recommended if you:");
     });
 
     it("should display whatItIsFor expander block", async () => {
       await renderRsvVaccinePage();
 
       const heading: HTMLElement = screen.getByText("What this vaccine is for");
-      const content: HTMLElement = screen.getByText(
-        "What Section styled component",
-      );
+      const content: HTMLElement = screen.getByText("What Section styled component");
 
       expect(heading).toBeInTheDocument();
       expect(content).toBeInTheDocument();
@@ -132,9 +110,7 @@ describe("Any vaccine page", () => {
     it("should display whoVaccineIsFor expander block", async () => {
       await renderRsvVaccinePage();
 
-      const heading: HTMLElement = screen.getByText(
-        "Who should have this vaccine",
-      );
+      const heading: HTMLElement = screen.getByText("Who should have this vaccine");
       const content: HTMLElement = screen.getByRole("heading", {
         level: 2,
         name: "Who Section styled component",
@@ -148,9 +124,7 @@ describe("Any vaccine page", () => {
       await renderRsvVaccinePage();
 
       const heading: HTMLElement = screen.getByText("How to get the vaccine");
-      const content: HTMLElement = screen.getByText(
-        "How Section styled component",
-      );
+      const content: HTMLElement = screen.getByText("How Section styled component");
 
       expect(heading).toBeInTheDocument();
       expect(content).toBeInTheDocument();
@@ -179,12 +153,8 @@ describe("Any vaccine page", () => {
     it("should not display whatItIsFor section", async () => {
       await renderRsvVaccinePage();
 
-      const heading: HTMLElement | null = screen.queryByText(
-        "What this vaccine is for",
-      );
-      const content: HTMLElement | null = screen.queryByText(
-        "What Section styled component",
-      );
+      const heading: HTMLElement | null = screen.queryByText("What this vaccine is for");
+      const content: HTMLElement | null = screen.queryByText("What Section styled component");
 
       expect(heading).not.toBeInTheDocument();
       expect(content).not.toBeInTheDocument();
@@ -193,9 +163,7 @@ describe("Any vaccine page", () => {
     it("should display whoVaccineIsFor section", async () => {
       await renderRsvVaccinePage();
 
-      const heading: HTMLElement = screen.getByText(
-        "Who should have this vaccine",
-      );
+      const heading: HTMLElement = screen.getByText("Who should have this vaccine");
       const content: HTMLElement = screen.getByRole("heading", {
         level: 2,
         name: "Who Section styled component",
@@ -228,11 +196,8 @@ describe("Any vaccine page", () => {
     it("should not render any other areas of the vaccine page", async () => {
       await renderRsvVaccinePage();
 
-      const howToGetHeading: HTMLElement | null =
-        screen.queryByText("how-heading");
-      const howToGetContent: HTMLElement | null = screen.queryByText(
-        "How Section styled component",
-      );
+      const howToGetHeading: HTMLElement | null = screen.queryByText("how-heading");
+      const howToGetContent: HTMLElement | null = screen.queryByText("How Section styled component");
 
       expect(howToGetHeading).not.toBeInTheDocument();
       expect(howToGetContent).not.toBeInTheDocument();
@@ -255,9 +220,7 @@ describe("Any vaccine page", () => {
     it("should display the booking link button for RSV", async () => {
       await renderRsvVaccinePage();
 
-      const bookingButton: HTMLElement = screen.getByText(
-        "NBS Booking Link Test",
-      );
+      const bookingButton: HTMLElement = screen.getByText("NBS Booking Link Test");
 
       expect(bookingButton).toBeInTheDocument();
     });
@@ -265,9 +228,7 @@ describe("Any vaccine page", () => {
     it("should NOT display the booking link button for other vaccines", async () => {
       await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
 
-      const bookingButton: HTMLElement | null = screen.queryByText(
-        "NBS Booking Link Test",
-      );
+      const bookingButton: HTMLElement | null = screen.queryByText("NBS Booking Link Test");
 
       expect(bookingButton).not.toBeInTheDocument();
     });
@@ -289,18 +250,14 @@ describe("Any vaccine page", () => {
     it("should display the eligibility on RSV vaccine page", async () => {
       await renderNamedVaccinePage(VaccineTypes.RSV);
 
-      const eligibilitySection: HTMLElement = screen.getByText(
-        "Test Eligibility Component",
-      );
+      const eligibilitySection: HTMLElement = screen.getByText("Test Eligibility Component");
       expect(eligibilitySection).toBeInTheDocument();
     });
 
     it("should not display the eligibility on RSV pregnancy vaccine page", async () => {
       await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
 
-      const eligibilitySection: HTMLElement | null = screen.queryByText(
-        "Test Eligibility Component",
-      );
+      const eligibilitySection: HTMLElement | null = screen.queryByText("Test Eligibility Component");
       expect(eligibilitySection).not.toBeInTheDocument();
     });
 
@@ -314,9 +271,7 @@ describe("Any vaccine page", () => {
 
       await renderNamedVaccinePage(VaccineTypes.RSV);
 
-      const eligibilitySection: HTMLElement | null = screen.queryByText(
-        "Test Eligibility Component",
-      );
+      const eligibilitySection: HTMLElement | null = screen.queryByText("Test Eligibility Component");
       expect(eligibilitySection).not.toBeInTheDocument();
     });
 
@@ -325,9 +280,7 @@ describe("Any vaccine page", () => {
 
       await renderNamedVaccinePage(VaccineTypes.RSV);
 
-      const eligibilitySection: HTMLElement | null = screen.queryByText(
-        "Test Eligibility Component",
-      );
+      const eligibilitySection: HTMLElement | null = screen.queryByText("Test Eligibility Component");
       expect(eligibilitySection).not.toBeInTheDocument();
     });
 
@@ -339,15 +292,9 @@ describe("Any vaccine page", () => {
 
       await renderNamedVaccinePage(VaccineTypes.RSV);
 
-      const fallbackHeading: HTMLElement = screen.getByText(
-        "You should have RSV vaccine if you:",
-      );
-      const fallbackBulletPoint1: HTMLElement = screen.getByText(
-        "are aged between 75 and 79",
-      );
-      const fallbackBulletPoint2: HTMLElement = screen.getByText(
-        "turned 80 after 1 September 2024",
-      );
+      const fallbackHeading: HTMLElement = screen.getByText("You should have RSV vaccine if you:");
+      const fallbackBulletPoint1: HTMLElement = screen.getByText("are aged between 75 and 79");
+      const fallbackBulletPoint2: HTMLElement = screen.getByText("turned 80 after 1 September 2024");
 
       expect(fallbackHeading).toBeVisible();
       expect(fallbackBulletPoint1).toBeVisible();
@@ -366,18 +313,14 @@ describe("Any vaccine page", () => {
         name: "If you think you should have this vaccine",
         level: 3,
       });
-      const firstParagraph: HTMLElement = screen.getByText(
-        "Contact your GP surgery to book your RSV vaccination.",
-      );
+      const firstParagraph: HTMLElement = screen.getByText("Contact your GP surgery to book your RSV vaccination.");
       const secondParagraph: HTMLElement = screen.getByText(
         "Your GP surgery may contact you about getting the RSV vaccine. This may be by letter, text, phone call or email.",
       );
       const thirdParagraph: HTMLElement = screen.getByText(
         "You do not need to wait to be contacted before booking your vaccination.",
       );
-      const forthParagraph: HTMLElement = screen.getByText(
-        "In some areas you can",
-      );
+      const forthParagraph: HTMLElement = screen.getByText("In some areas you can");
       const link: HTMLElement = screen.getByRole("link", {
         name: "book an RSV vaccination in a pharmacy",
       });

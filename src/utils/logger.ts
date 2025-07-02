@@ -15,9 +15,7 @@ export const extractRootTraceIdFromAmznTraceId = (amznTraceId: string) => {
 };
 
 const applicationContextFields = {
-  traceId: process.env._X_AMZN_TRACE_ID
-    ? extractRootTraceIdFromAmznTraceId(process.env._X_AMZN_TRACE_ID)
-    : undefined,
+  traceId: process.env._X_AMZN_TRACE_ID ? extractRootTraceIdFromAmznTraceId(process.env._X_AMZN_TRACE_ID) : undefined,
   lambdaVersion: process.env.AWS_LAMBDA_FUNCTION_VERSION,
   appVersion: process.env.APP_VERSION,
 };
@@ -47,6 +45,4 @@ const pinoLoggerForEdge = () => {
   });
 };
 
-export const logger: Logger = isEdgeRuntime
-  ? pinoLoggerForEdge()
-  : pinoLoggerForNode();
+export const logger: Logger = isEdgeRuntime ? pinoLoggerForEdge() : pinoLoggerForNode();

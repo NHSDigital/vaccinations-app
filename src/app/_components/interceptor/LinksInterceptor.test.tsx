@@ -13,18 +13,10 @@ describe("LinksInterceptor", () => {
     render(
       <>
         <div data-testid={"div"}>test</div>
-        <a
-          data-testid={"external-a"}
-          onClick={mockClickHandler}
-          href={externalLink}
-        >
+        <a data-testid={"external-a"} onClick={mockClickHandler} href={externalLink}>
           test
         </a>
-        <a
-          data-testid={"internal-a"}
-          onClick={mockClickHandler}
-          href={internalLink}
-        >
+        <a data-testid={"internal-a"} onClick={mockClickHandler} href={internalLink}>
           test
         </a>
         <LinksInterceptor />
@@ -33,12 +25,7 @@ describe("LinksInterceptor", () => {
   };
 
   beforeAll(() => {
-    mockNHSAppJSFunctions(
-      mockIsOpenInNHSApp,
-      undefined,
-      undefined,
-      mockOpenBrowserOverlay,
-    );
+    mockNHSAppJSFunctions(mockIsOpenInNHSApp, undefined, undefined, mockOpenBrowserOverlay);
   });
 
   describe("when in NHS app", () => {

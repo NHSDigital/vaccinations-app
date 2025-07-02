@@ -17,9 +17,7 @@ describe("SkipLink component", () => {
 
   it("renders the skip link", () => {
     render(<SkipLink />);
-    expect(screen.getByText("Skip to main content")).toBeInstanceOf(
-      HTMLAnchorElement,
-    );
+    expect(screen.getByText("Skip to main content")).toBeInstanceOf(HTMLAnchorElement);
   });
 
   it("focuses the first h1 and sets tabindex on click", () => {

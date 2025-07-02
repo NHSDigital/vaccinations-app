@@ -89,8 +89,7 @@ const getToken = async (
       const requestBody = {
         grant_type: "refresh_token",
         refresh_token: updatedToken.refresh_token,
-        client_assertion_type:
-          "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+        client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
         client_assertion: clientAssertion,
       };
 
@@ -114,8 +113,7 @@ const getToken = async (
       updatedToken = {
         ...updatedToken,
         access_token: newTokens.access_token,
-        expires_at:
-          nowInSeconds + (newTokens.expires_in ?? DEFAULT_ACCESS_TOKEN_EXPIRY),
+        expires_at: nowInSeconds + (newTokens.expires_in ?? DEFAULT_ACCESS_TOKEN_EXPIRY),
         refresh_token: newTokens.refresh_token ?? updatedToken.refresh_token,
       };
 

@@ -50,10 +50,4 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
   },
 };
 
-export {
-  VaccineTypes,
-  VaccineInfo,
-  VaccineContentUrlPaths,
-  vaccineUrlPathToType,
-  vaccineTypeToUrlPath,
-};
+export { VaccineTypes, VaccineInfo, VaccineContentUrlPaths, vaccineUrlPathToType, vaccineTypeToUrlPath };

@@ -10,11 +10,7 @@ import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "content-writer-service" });
 
-const _writeFileS3 = async (
-  bucket: string,
-  key: string,
-  data: string,
-): Promise<void> => {
+const _writeFileS3 = async (bucket: string, key: string, data: string): Promise<void> => {
   try {
     const s3Client: S3Client = new S3Client({
       region: AWS_PRIMARY_REGION,
@@ -32,32 +28,17 @@ const _writeFileS3 = async (
   }
 };
 
-const _writeContentToCache = async (
-  cacheLocation: string,
-  cachePath: string,
-  cacheContent: string,
-): Promise<void> => {
+const _writeContentToCache = async (cacheLocation: string, cachePath: string, cacheContent: string): Promise<void> => {
   return isS3Path(cacheLocation)
-    ? await _writeFileS3(
-        cacheLocation.slice(S3_PREFIX.length),
-        cachePath,
-        cacheContent,
-      )
+    ? await _writeFileS3(cacheLocation.slice(S3_PREFIX.length), cachePath, cacheContent)
     : await writeFile(`${cacheLocation}${cachePath}`, cacheContent);
 };
 
-const writeContentForVaccine = async (
-  vaccineType: VaccineTypes,
-  vaccineContent: string,
-) => {
+const writeContentForVaccine = async (vaccineType: VaccineTypes, vaccineContent: string) => {
   const config: AppConfig = await configProvider();
   const vaccineContentPath = vaccineTypeToPath[vaccineType];
   log.info(`Writing content to cache for vaccine: ${vaccineType}`);
-  await _writeContentToCache(
-    config.CONTENT_CACHE_PATH,
-    `${vaccineContentPath}.json`,
-    vaccineContent,
-  );
+  await _writeContentToCache(config.CONTENT_CACHE_PATH, `${vaccineContentPath}.json`, vaccineContent);
   log.info(`Finished writing content to cache for vaccine: ${vaccineType}`);
 };
 

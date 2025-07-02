@@ -11,12 +11,9 @@ jest.mock("@src/utils/auth/generate-auth-payload", () => jest.fn());
 jest.mock("@src/utils/config", () => ({
   configProvider: jest.fn(),
 }));
-jest.mock(
-  "@src/services/eligibility-api/gateway/fetch-eligibility-content",
-  () => ({
-    fetchEligibilityContent: jest.fn(),
-  }),
-);
+jest.mock("@src/services/eligibility-api/gateway/fetch-eligibility-content", () => ({
+  fetchEligibilityContent: jest.fn(),
+}));
 // TODO: Remove after final solution for testing with react-markdown
 jest.mock("react-markdown", () => {
   return function MockMarkdown({ children }: { children: React.ReactNode }) {
@@ -35,9 +32,7 @@ describe("Vaccine", () => {
       CONTENT_CACHE_PATH: "wiremock/__files/",
       PINO_LOG_LEVEL: "info",
     }));
-    (fetchEligibilityContent as jest.Mock).mockResolvedValue(
-      eligibilityApiResponseBuilder().build(),
-    );
+    (fetchEligibilityContent as jest.Mock).mockResolvedValue(eligibilityApiResponseBuilder().build());
     mockNHSAppJSFunctions(jest.fn(), jest.fn());
     (auth as jest.Mock).mockResolvedValue({
       user: {
@@ -63,10 +58,9 @@ describe("Vaccine", () => {
 
       // details expandable section for RSV but not for RSV in pregnancy
       if (vaccine === VaccineTypes.RSV) {
-        expect(
-          screen.getByText("How to get the vaccine").parentElement
-            ?.parentElement?.parentElement,
-        ).toHaveClass("nhsuk-details nhsuk-expander");
+        expect(screen.getByText("How to get the vaccine").parentElement?.parentElement?.parentElement).toHaveClass(
+          "nhsuk-details nhsuk-expander",
+        );
       } else {
         expect(
           screen.getByRole("heading", {

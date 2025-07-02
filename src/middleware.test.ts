@@ -41,9 +41,7 @@ describe("middleware", () => {
     const result = await middleware(mockRequest as NextRequest);
 
     expect(result.status).toBe(307);
-    expect(result.headers.get("Location")).toEqual(
-      `${testDomain}${SESSION_TIMEOUT_ROUTE}`,
-    );
+    expect(result.headers.get("Location")).toEqual(`${testDomain}${SESSION_TIMEOUT_ROUTE}`);
   });
 
   it("pass through for users with active session", async () => {
@@ -56,21 +54,15 @@ describe("middleware", () => {
     expect(result.status).toBe(200);
   });
 
-  it.each(unprotectedUrlPaths)(
-    "is skipped for unprotected path %s",
-    async (path: string) => {
-      // verify the regex does not match unprotected paths
-      expect(middlewareRegex.test(path)).toBe(false);
-    },
-  );
+  it.each(unprotectedUrlPaths)("is skipped for unprotected path %s", async (path: string) => {
+    // verify the regex does not match unprotected paths
+    expect(middlewareRegex.test(path)).toBe(false);
+  });
 
-  it.each(otherExcludedPaths)(
-    "is skipped for static path %s",
-    async (path: string) => {
-      // verify the regex does not match the path
-      expect(middlewareRegex.test(path)).toBe(false);
-    },
-  );
+  it.each(otherExcludedPaths)("is skipped for static path %s", async (path: string) => {
+    // verify the regex does not match the path
+    expect(middlewareRegex.test(path)).toBe(false);
+  });
 
   it("runs for protected paths", async () => {
     // verify the regex matches for protected paths

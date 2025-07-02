@@ -14,12 +14,9 @@ type Aspect =
   | "ContraindicationsHealthAspect"
   | "GettingAccessHealthAspect";
 
-const _findAspect = (
-  response: ContentApiVaccineResponse,
-  aspectName: Aspect,
-): MainEntityOfPage => {
-  const aspect: MainEntityOfPage | undefined = response.mainEntityOfPage.find(
-    (page: MainEntityOfPage) => page.hasHealthAspect?.endsWith(aspectName),
+const _findAspect = (response: ContentApiVaccineResponse, aspectName: Aspect): MainEntityOfPage => {
+  const aspect: MainEntityOfPage | undefined = response.mainEntityOfPage.find((page: MainEntityOfPage) =>
+    page.hasHealthAspect?.endsWith(aspectName),
   );
   if (!aspect) {
     throw new Error(`Aspect ${aspectName} is not present`);
@@ -27,20 +24,14 @@ const _findAspect = (
   return aspect;
 };
 
-const _hasHealthAspect = (
-  response: ContentApiVaccineResponse,
-  aspectName: Aspect,
-): boolean => {
-  const aspect: MainEntityOfPage | undefined = response.mainEntityOfPage.find(
-    (page: MainEntityOfPage) => page.hasHealthAspect?.endsWith(aspectName),
+const _hasHealthAspect = (response: ContentApiVaccineResponse, aspectName: Aspect): boolean => {
+  const aspect: MainEntityOfPage | undefined = response.mainEntityOfPage.find((page: MainEntityOfPage) =>
+    page.hasHealthAspect?.endsWith(aspectName),
   );
   return !!aspect;
 };
 
-const _extractHeadlineForAspect = (
-  response: ContentApiVaccineResponse,
-  aspectName: Aspect,
-): string => {
+const _extractHeadlineForAspect = (response: ContentApiVaccineResponse, aspectName: Aspect): string => {
   const aspect: MainEntityOfPage = _findAspect(response, aspectName);
   if (!aspect?.headline) {
     throw new Error(`Missing headline for Aspect: ${aspectName}`);
@@ -48,50 +39,38 @@ const _extractHeadlineForAspect = (
   return aspect.headline;
 };
 
-const _extractPartsForAspect = (
-  response: ContentApiVaccineResponse,
-  aspectName: Aspect,
-): VaccinePageSubsection[] => {
+const _extractPartsForAspect = (response: ContentApiVaccineResponse, aspectName: Aspect): VaccinePageSubsection[] => {
   const aspect: MainEntityOfPage = _findAspect(response, aspectName);
-  const subsections: VaccinePageSubsection[] | undefined =
-    aspect.hasPart?.flatMap((part: HasPartSubsection) => {
-      if (part.name === "Expander Group") {
-        return _extractAllElementsFromExpanderGroup(part, aspectName);
-      } else {
-        return _getSubsection(part);
-      }
-    });
+  const subsections: VaccinePageSubsection[] | undefined = aspect.hasPart?.flatMap((part: HasPartSubsection) => {
+    if (part.name === "Expander Group") {
+      return _extractAllElementsFromExpanderGroup(part, aspectName);
+    } else {
+      return _getSubsection(part);
+    }
+  });
 
   if (!subsections) {
     throw new Error(`Missing subsections for Aspect: ${aspectName}`);
   } else {
-    const subsectionsWithExcludedLinksRemoved =
-      _removeExcludedHyperlinks(subsections);
+    const subsectionsWithExcludedLinksRemoved = _removeExcludedHyperlinks(subsections);
     return subsectionsWithExcludedLinksRemoved;
   }
 };
 
-const _extractAllElementsFromExpanderGroup = (
-  part: HasPartSubsection,
-  aspectName: Aspect,
-) => {
+const _extractAllElementsFromExpanderGroup = (part: HasPartSubsection, aspectName: Aspect) => {
   if (Array.isArray(part.mainEntity)) {
     const mainEntitySubsections = part.mainEntity.map((mainEntityElement) => {
       return _getSubsection(mainEntityElement);
     });
     return mainEntitySubsections;
   } else {
-    throw new Error(
-      `Expander Group mainEntity does not contain list of expanders for Aspect: ${aspectName}`,
-    );
+    throw new Error(`Expander Group mainEntity does not contain list of expanders for Aspect: ${aspectName}`);
   }
 };
 
 const _extractTable = (part: HasPartSubsection): VaccinePageSubsection => {
   if (!part.mainEntity || typeof part.mainEntity != "string") {
-    throw new Error(
-      `mainEntity missing or is not a string in Table (position: ${part.position})`,
-    );
+    throw new Error(`mainEntity missing or is not a string in Table (position: ${part.position})`);
   } else {
     return {
       type: "tableElement",
@@ -121,9 +100,7 @@ const _extractExpander = (part: HasPartSubsection): VaccinePageSubsection => {
   }
 };
 
-const _extractAnyOtherSubsection = (
-  part: HasPartSubsection,
-): VaccinePageSubsection => {
+const _extractAnyOtherSubsection = (part: HasPartSubsection): VaccinePageSubsection => {
   return {
     type: "simpleElement",
     headline: part.headline ?? "",
@@ -135,22 +112,15 @@ const _extractAnyOtherSubsection = (
 const _removeExcludedHyperlinks = (subsections: VaccinePageSubsection[]) => {
   const nbsHyperlinkPattern: RegExp =
     /<a [^>]*?href="[^>]*?\/nhs-services\/vaccination-and-booking-services\/book-[^>]*?>(.*?)<\/a>/g;
-  const nhsAppPattern: RegExp =
-    /<a [^>]*?href="[^>]*?\/nhs-app[^>]*?>(.*?)<\/a>/g;
+  const nhsAppPattern: RegExp = /<a [^>]*?href="[^>]*?\/nhs-app[^>]*?>(.*?)<\/a>/g;
 
   subsections.forEach((subsection) => {
     if (subsection.type === "simpleElement") {
       subsection.text = subsection.text.replaceAll(nbsHyperlinkPattern, "$1");
       subsection.text = subsection.text.replaceAll(nhsAppPattern, "$1");
     } else {
-      subsection.mainEntity = subsection.mainEntity.replaceAll(
-        nbsHyperlinkPattern,
-        "$1",
-      );
-      subsection.mainEntity = subsection.mainEntity.replaceAll(
-        nhsAppPattern,
-        "$1",
-      );
+      subsection.mainEntity = subsection.mainEntity.replaceAll(nbsHyperlinkPattern, "$1");
+      subsection.mainEntity = subsection.mainEntity.replaceAll(nhsAppPattern, "$1");
     }
   });
   return subsections;
@@ -166,14 +136,10 @@ const _getSubsection = (part: HasPartSubsection): VaccinePageSubsection => {
   return _extractAnyOtherSubsection(part);
 };
 
-const _extractDescriptionForVaccine = (
-  response: ContentApiVaccineResponse,
-  name: string,
-): string => {
-  const mainEntity: MainEntityOfPage | undefined =
-    response.mainEntityOfPage.find(
-      (page: MainEntityOfPage) => page.name === name,
-    );
+const _extractDescriptionForVaccine = (response: ContentApiVaccineResponse, name: string): string => {
+  const mainEntity: MainEntityOfPage | undefined = response.mainEntityOfPage.find(
+    (page: MainEntityOfPage) => page.name === name,
+  );
   return _getDescription(name, mainEntity?.text);
 };
 
@@ -188,30 +154,20 @@ const _generateWhoVaccineIsForHeading = (): string => {
   return `Who should have this vaccine`;
 };
 
-function _extractHeadlineForContraindicationsAspect(
-  content: ContentApiVaccineResponse,
-): VaccinePageSubsection[] {
+function _extractHeadlineForContraindicationsAspect(content: ContentApiVaccineResponse): VaccinePageSubsection[] {
   return [
     {
       type: "simpleElement",
-      headline: _extractHeadlineForAspect(
-        content,
-        "ContraindicationsHealthAspect",
-      ),
+      headline: _extractHeadlineForAspect(content, "ContraindicationsHealthAspect"),
       text: "",
       name: "",
     },
   ];
 }
 
-const getFilteredContentForVaccine = (
-  apiContent: string,
-): VaccinePageContent => {
+const getFilteredContentForVaccine = (apiContent: string): VaccinePageContent => {
   const content: ContentApiVaccineResponse = JSON.parse(apiContent);
-  const overview: string = _extractDescriptionForVaccine(
-    content,
-    "lead paragraph",
-  );
+  const overview: string = _extractDescriptionForVaccine(content, "lead paragraph");
 
   let whatVaccineIsFor;
   if (_hasHealthAspect(content, "BenefitsHealthAspect")) {

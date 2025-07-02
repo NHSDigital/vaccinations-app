@@ -10,11 +10,7 @@ const CardLink = (cardProps: CardProps) => {
     <div className="nhsapp-card">
       <div className="nhsapp-card__container">
         <div className="nhsapp-card__content">
-          <Link
-            prefetch={false}
-            className="nhsapp-card__link nhsuk-link--no-visited-state"
-            href={cardProps.link}
-          >
+          <Link prefetch={false} className="nhsapp-card__link nhsuk-link--no-visited-state" href={cardProps.link}>
             {cardProps.title}
           </Link>
         </div>

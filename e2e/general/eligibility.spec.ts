@@ -22,9 +22,14 @@ test.describe("E2E", () => {
     test("Not eligible - age and catchup bullet points", async () => {
       await page.goto(RSV_PAGE_URL);
       const eligibility: Locator = page.getByTestId("Eligibility");
-      const heading: Locator = eligibility.getByRole("heading", { level: 3, name: "We do not believe you should have this vaccine" });
+      const heading: Locator = eligibility.getByRole("heading", {
+        level: 3,
+        name: "We do not believe you should have this vaccine",
+      });
       const bulletPoint1: Locator = eligibility.getByText("You are not aged 75 to 79 years old.");
-      const bulletPoint2: Locator = eligibility.getByText("You did not turn 80 between 2nd September 2024 and 31st August 2025");
+      const bulletPoint2: Locator = eligibility.getByText(
+        "You did not turn 80 between 2nd September 2024 and 31st August 2025",
+      );
       await expect(heading).toBeVisible();
       await expect(bulletPoint1).toBeVisible();
       await expect(bulletPoint2).toBeVisible();
@@ -62,6 +67,6 @@ test.describe("E2E", () => {
       await page.goto(RSV_PAGE_URL);
       const infoText = page.getByTestId("action-paragraph");
       await expect(infoText).toHaveCount(0);
-    })
-  })
+    });
+  });
 });

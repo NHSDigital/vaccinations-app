@@ -20,13 +20,9 @@ import {
 describe("Content Filter", () => {
   describe("_extractDescriptionForVaccine", () => {
     it("should return text from mainEntityOfPage object", async () => {
-      const expectedOverview: string =
-        "Generic Vaccine Lead Paragraph (overview)";
+      const expectedOverview: string = "Generic Vaccine Lead Paragraph (overview)";
 
-      const overview = _extractDescriptionForVaccine(
-        genericVaccineContentAPIResponse,
-        "lead paragraph",
-      );
+      const overview = _extractDescriptionForVaccine(genericVaccineContentAPIResponse, "lead paragraph");
 
       expect(overview).toEqual(expectedOverview);
     });
@@ -42,15 +38,9 @@ describe("Content Filter", () => {
         ],
       };
 
-      const errorMessage = () =>
-        _extractDescriptionForVaccine(
-          responseWithoutEntityOfPage,
-          "lead paragraph",
-        );
+      const errorMessage = () => _extractDescriptionForVaccine(responseWithoutEntityOfPage, "lead paragraph");
 
-      expect(errorMessage).toThrow(
-        "Missing text for description: lead paragraph",
-      );
+      expect(errorMessage).toThrow("Missing text for description: lead paragraph");
     });
   });
 
@@ -58,10 +48,7 @@ describe("Content Filter", () => {
     it("should extract headline from aspect", async () => {
       const expectedHeadline: string = "Getting Access Health Aspect headline";
 
-      const headline: string = _extractHeadlineForAspect(
-        genericVaccineContentAPIResponse,
-        "GettingAccessHealthAspect",
-      );
+      const headline: string = _extractHeadlineForAspect(genericVaccineContentAPIResponse, "GettingAccessHealthAspect");
 
       expect(headline).toEqual(expectedHeadline);
     });
@@ -77,15 +64,9 @@ describe("Content Filter", () => {
         ],
       };
 
-      const errorMessage = () =>
-        _extractHeadlineForAspect(
-          responseWithoutHeadline,
-          "BenefitsHealthAspect",
-        );
+      const errorMessage = () => _extractHeadlineForAspect(responseWithoutHeadline, "BenefitsHealthAspect");
 
-      expect(errorMessage).toThrow(
-        "Missing headline for Aspect: BenefitsHealthAspect",
-      );
+      expect(errorMessage).toThrow("Missing headline for Aspect: BenefitsHealthAspect");
     });
   });
 
@@ -211,9 +192,7 @@ describe("Content Filter", () => {
         _extractPartsForAspect(responseWithInvalidTable, aspect);
       };
 
-      expect(errorMessage).toThrow(
-        `mainEntity missing or is not a string in Table (position: 1)`,
-      );
+      expect(errorMessage).toThrow(`mainEntity missing or is not a string in Table (position: 1)`);
     });
 
     it("should throw if table mainEntity property is not a string", () => {
@@ -249,9 +228,7 @@ describe("Content Filter", () => {
         _extractPartsForAspect(responseWithTableMainEntityNotAString, aspect);
       };
 
-      expect(errorMessage).toThrow(
-        `mainEntity missing or is not a string in Table (position: 9)`,
-      );
+      expect(errorMessage).toThrow(`mainEntity missing or is not a string in Table (position: 9)`);
     });
 
     it("should throw an error if expander group mainEntity does not contain an array of expanders", async () => {
@@ -285,33 +262,30 @@ describe("Content Filter", () => {
     });
 
     it("should throw if expander is missing mainEntity field", () => {
-      const responseExpanderWithoutMainEntityField: ContentApiVaccineResponse =
-        {
-          ...genericVaccineContentAPIResponse,
-          mainEntityOfPage: [
-            {
-              ...genericVaccineContentAPIResponse.mainEntityOfPage[2],
-              hasPart: [
-                {
-                  "@type": "Type",
-                  position: 4,
-                  name: "Expander",
-                  subjectOf: "First Expander subjectOf",
-                  identifier: "18",
-                },
-              ],
-            },
-          ],
-        };
+      const responseExpanderWithoutMainEntityField: ContentApiVaccineResponse = {
+        ...genericVaccineContentAPIResponse,
+        mainEntityOfPage: [
+          {
+            ...genericVaccineContentAPIResponse.mainEntityOfPage[2],
+            hasPart: [
+              {
+                "@type": "Type",
+                position: 4,
+                name: "Expander",
+                subjectOf: "First Expander subjectOf",
+                identifier: "18",
+              },
+            ],
+          },
+        ],
+      };
       const aspect = "SuitabilityHealthAspect";
 
       const errorMessage = () => {
         _extractPartsForAspect(responseExpanderWithoutMainEntityField, aspect);
       };
 
-      expect(errorMessage).toThrow(
-        `mainEntity or subjectOf field missing in Expander (position: 4, identifier: 18)`,
-      );
+      expect(errorMessage).toThrow(`mainEntity or subjectOf field missing in Expander (position: 4, identifier: 18)`);
     });
 
     it("should throw if expander is missing subjectOf field", () => {
@@ -338,52 +312,44 @@ describe("Content Filter", () => {
         _extractPartsForAspect(responseExpanderWithoutSubjectOfField, aspect);
       };
 
-      expect(errorMessage).toThrow(
-        `mainEntity or subjectOf field missing in Expander (position: 7, identifier: 10)`,
-      );
+      expect(errorMessage).toThrow(`mainEntity or subjectOf field missing in Expander (position: 7, identifier: 10)`);
     });
 
     it("should throw if expander mainEntity is not a valid string value", () => {
-      const responseExpanderWithInvalidMainEntityField: ContentApiVaccineResponse =
-        {
-          ...genericVaccineContentAPIResponse,
-          mainEntityOfPage: [
-            {
-              ...genericVaccineContentAPIResponse.mainEntityOfPage[2],
-              hasPart: [
-                {
-                  "@type": "Type",
-                  position: 9,
-                  name: "Expander",
-                  identifier: "8",
-                  subjectOf: "subject",
-                  mainEntity: [
-                    {
-                      "@type": "Type",
-                      position: 0,
-                      name: "Expander",
-                      subjectOf: "invalid Expander",
-                      identifier: "2",
-                      mainEntity: "invalid-value",
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        };
+      const responseExpanderWithInvalidMainEntityField: ContentApiVaccineResponse = {
+        ...genericVaccineContentAPIResponse,
+        mainEntityOfPage: [
+          {
+            ...genericVaccineContentAPIResponse.mainEntityOfPage[2],
+            hasPart: [
+              {
+                "@type": "Type",
+                position: 9,
+                name: "Expander",
+                identifier: "8",
+                subjectOf: "subject",
+                mainEntity: [
+                  {
+                    "@type": "Type",
+                    position: 0,
+                    name: "Expander",
+                    subjectOf: "invalid Expander",
+                    identifier: "2",
+                    mainEntity: "invalid-value",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
       const aspect = "SuitabilityHealthAspect";
 
       const errorMessage = () => {
-        _extractPartsForAspect(
-          responseExpanderWithInvalidMainEntityField,
-          aspect,
-        );
+        _extractPartsForAspect(responseExpanderWithInvalidMainEntityField, aspect);
       };
 
-      expect(errorMessage).toThrow(
-        `mainEntity in Expander is not a string (position: 9, identifier: 8)`,
-      );
+      expect(errorMessage).toThrow(`mainEntity in Expander is not a string (position: 9, identifier: 8)`);
     });
 
     it("should remove excluded hyperlinks", () => {
@@ -436,15 +402,10 @@ describe("Content Filter", () => {
 
       const expectedTextAttr = "<p>Book by going to NBS or via the NHS app</p>";
 
-      const actualSubsections = _removeExcludedHyperlinks(
-        subsectionsWithMainEntity,
-      );
+      const actualSubsections = _removeExcludedHyperlinks(subsectionsWithMainEntity);
 
       actualSubsections.forEach((subsection) => {
-        if (
-          subsection.type === "expanderElement" ||
-          subsection.type === "tableElement"
-        ) {
+        if (subsection.type === "expanderElement" || subsection.type === "tableElement") {
           expect(subsection.mainEntity).toEqual(expectedTextAttr);
         } else {
           throw Error("Unreachable error");
@@ -463,9 +424,7 @@ describe("Content Filter", () => {
       ];
       const expectedTextAttr = "<p>Book by going to NBS or via the NHS app</p>";
 
-      const actualSubsections = _removeExcludedHyperlinks(
-        subsectionsWithTextElement,
-      );
+      const actualSubsections = _removeExcludedHyperlinks(subsectionsWithTextElement);
 
       actualSubsections.forEach((subsection) => {
         if (subsection.type === "simpleElement") {
@@ -506,10 +465,7 @@ describe("Content Filter", () => {
       const expectedAspect: MainEntityOfPage = {
         ...genericVaccineContentAPIResponse.mainEntityOfPage[1],
       };
-      const aspect: MainEntityOfPage = _findAspect(
-        genericVaccineContentAPIResponse,
-        "BenefitsHealthAspect",
-      );
+      const aspect: MainEntityOfPage = _findAspect(genericVaccineContentAPIResponse, "BenefitsHealthAspect");
 
       expect(aspect).toEqual(expectedAspect);
     });
@@ -535,21 +491,14 @@ describe("Content Filter", () => {
 
   describe("_hasHealthAspect", () => {
     it("should return true if healthAspect exists in content", () => {
-      const hasHealthAspect = _hasHealthAspect(
-        genericVaccineContentAPIResponse,
-        "BenefitsHealthAspect",
-      );
+      const hasHealthAspect = _hasHealthAspect(genericVaccineContentAPIResponse, "BenefitsHealthAspect");
       expect(hasHealthAspect).toBeTruthy();
     });
 
     it("should return false if healthAspect does not exist in content", () => {
-      const responseWithoutBenefitsHealthAspect =
-        contentWithoutBenefitsHealthAspect();
+      const responseWithoutBenefitsHealthAspect = contentWithoutBenefitsHealthAspect();
 
-      const hasHealthAspect = _hasHealthAspect(
-        responseWithoutBenefitsHealthAspect,
-        "BenefitsHealthAspect",
-      );
+      const hasHealthAspect = _hasHealthAspect(responseWithoutBenefitsHealthAspect, "BenefitsHealthAspect");
       expect(hasHealthAspect).toBeFalsy();
     });
   });
@@ -565,10 +514,9 @@ describe("Content Filter", () => {
         },
       ];
 
-      const headline: VaccinePageSubsection[] =
-        _extractHeadlineForContraindicationsAspect(
-          genericVaccineContentAPIResponse,
-        );
+      const headline: VaccinePageSubsection[] = _extractHeadlineForContraindicationsAspect(
+        genericVaccineContentAPIResponse,
+      );
 
       expect(headline).toEqual(expected);
     });
@@ -580,9 +528,7 @@ describe("Content Filter", () => {
         overview: "Generic Vaccine Lead Paragraph (overview)",
       };
 
-      const pageCopyForRsv = getFilteredContentForVaccine(
-        JSON.stringify(genericVaccineContentAPIResponse),
-      );
+      const pageCopyForRsv = getFilteredContentForVaccine(JSON.stringify(genericVaccineContentAPIResponse));
 
       expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedOverview));
     });
@@ -602,13 +548,9 @@ describe("Content Filter", () => {
         },
       };
 
-      const pageCopyForRsv = getFilteredContentForVaccine(
-        JSON.stringify(genericVaccineContentAPIResponse),
-      );
+      const pageCopyForRsv = getFilteredContentForVaccine(JSON.stringify(genericVaccineContentAPIResponse));
 
-      expect(pageCopyForRsv).toEqual(
-        expect.objectContaining(expectedWhatVaccineIsFor),
-      );
+      expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedWhatVaccineIsFor));
     });
 
     it("should return all parts for whoVaccineIsFor section", () => {
@@ -650,13 +592,9 @@ describe("Content Filter", () => {
         },
       };
 
-      const pageCopyForRsv = getFilteredContentForVaccine(
-        JSON.stringify(genericVaccineContentAPIResponse),
-      );
+      const pageCopyForRsv = getFilteredContentForVaccine(JSON.stringify(genericVaccineContentAPIResponse));
 
-      expect(pageCopyForRsv).toEqual(
-        expect.objectContaining(expectedWhoVaccineIsFor),
-      );
+      expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedWhoVaccineIsFor));
     });
 
     it("should return all parts for howToGetVaccine section", () => {
@@ -680,13 +618,9 @@ describe("Content Filter", () => {
         },
       };
 
-      const pageCopyForRsv = getFilteredContentForVaccine(
-        JSON.stringify(genericVaccineContentAPIResponse),
-      );
+      const pageCopyForRsv = getFilteredContentForVaccine(JSON.stringify(genericVaccineContentAPIResponse));
 
-      expect(pageCopyForRsv).toEqual(
-        expect.objectContaining(expectedHowToGetVaccine),
-      );
+      expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedHowToGetVaccine));
     });
 
     it("should include nhs webpage link to vaccine info", () => {
@@ -694,18 +628,13 @@ describe("Content Filter", () => {
         webpageLink: "https://www.nhs.uk/vaccinations/generic-vaccine/",
       };
 
-      const pageCopyForRsv = getFilteredContentForVaccine(
-        JSON.stringify(genericVaccineContentAPIResponse),
-      );
+      const pageCopyForRsv = getFilteredContentForVaccine(JSON.stringify(genericVaccineContentAPIResponse));
 
-      expect(pageCopyForRsv).toEqual(
-        expect.objectContaining(expectedWebpageLink),
-      );
+      expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedWebpageLink));
     });
 
     it("should not return whatVaccineIsFor section when BenefitsHealthAspect is missing", () => {
-      const responseWithoutBenefitsHealthAspect =
-        contentWithoutBenefitsHealthAspect();
+      const responseWithoutBenefitsHealthAspect = contentWithoutBenefitsHealthAspect();
 
       const pageCopyForFlu: VaccinePageContent = getFilteredContentForVaccine(
         JSON.stringify(responseWithoutBenefitsHealthAspect),

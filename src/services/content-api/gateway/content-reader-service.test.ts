@@ -5,16 +5,10 @@
 import { S3Client } from "@aws-sdk/client-s3";
 import mockRsvVaccineJson from "@project/wiremock/__files/rsv-vaccine.json";
 import { VaccineTypes } from "@src/models/vaccine";
-import {
-  _readContentFromCache,
-  getContentForVaccine,
-} from "@src/services/content-api/gateway/content-reader-service";
+import { _readContentFromCache, getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { configProvider } from "@src/utils/config";
 import { Readable } from "stream";
-import {
-  ContentErrorTypes,
-  GetContentForVaccineResponse,
-} from "@src/services/content-api/types";
+import { ContentErrorTypes, GetContentForVaccineResponse } from "@src/services/content-api/types";
 
 jest.mock("@aws-sdk/client-s3");
 jest.mock("@src/utils/config");
@@ -51,40 +45,28 @@ describe("Content Reader Service", () => {
     });
 
     it("returns content when object uri is local", async () => {
-      const actual: string = await _readContentFromCache(
-        "wiremock/__files",
-        "/rsv-vaccine.json",
-      );
+      const actual: string = await _readContentFromCache("wiremock/__files", "/rsv-vaccine.json");
       expect(JSON.parse(actual)).toStrictEqual(mockRsvVaccineJson);
     });
 
     it("returns content when object uri is remote", async () => {
       mockSend.mockImplementation(() => mockRsvResponse);
 
-      const actual: string = await _readContentFromCache(
-        "s3://bucket",
-        "/file",
-      );
+      const actual: string = await _readContentFromCache("s3://bucket", "/file");
       expect(JSON.parse(actual)).toStrictEqual(mockRsvVaccineJson);
     });
 
     it("throws when remote response is invalid", async () => {
       mockSend.mockImplementation(() => mockInvalidResponse);
 
-      const actualPromise: Promise<string> = _readContentFromCache(
-        "s3://bucket",
-        "/file",
-      );
+      const actualPromise: Promise<string> = _readContentFromCache("s3://bucket", "/file");
       await expect(actualPromise).rejects.toThrow("Unexpected response type");
     });
 
     it("throws when remote response has error", async () => {
       mockSend.mockImplementation(() => mockErrorResponse);
 
-      const actualPromise: Promise<string> = _readContentFromCache(
-        "s3://bucket",
-        "/file",
-      );
+      const actualPromise: Promise<string> = _readContentFromCache("s3://bucket", "/file");
       await expect(actualPromise).rejects.toThrow("test error");
     });
   });
@@ -99,21 +81,15 @@ describe("Content Reader Service", () => {
 
       it("should return response for rsv vaccine from content cache", async () => {
         const vaccine: VaccineTypes = VaccineTypes.RSV;
-        const {
-          styledVaccineContent,
-          contentError,
-        }: GetContentForVaccineResponse = await getContentForVaccine(vaccine);
+        const { styledVaccineContent, contentError }: GetContentForVaccineResponse =
+          await getContentForVaccine(vaccine);
 
         expect(styledVaccineContent).toBeDefined();
-        expect(styledVaccineContent?.overview).toEqual(
-          mockRsvVaccineJson.mainEntityOfPage[0].text,
-        );
+        expect(styledVaccineContent?.overview).toEqual(mockRsvVaccineJson.mainEntityOfPage[0].text);
         expect(styledVaccineContent?.whatVaccineIsFor?.heading).toEqual(
           mockRsvVaccineJson.mainEntityOfPage[1].headline,
         );
-        expect(styledVaccineContent?.webpageLink).toEqual(
-          mockRsvVaccineJson.webpage,
-        );
+        expect(styledVaccineContent?.webpageLink).toEqual(mockRsvVaccineJson.webpage);
         expect(contentError).toBeUndefined();
       });
     });
@@ -126,8 +102,7 @@ describe("Content Reader Service", () => {
       });
 
       it("should return error if content read fails", async () => {
-        const { styledVaccineContent, contentError } =
-          await getContentForVaccine(VaccineTypes.RSV);
+        const { styledVaccineContent, contentError } = await getContentForVaccine(VaccineTypes.RSV);
 
         expect(contentError).toEqual(ContentErrorTypes.CONTENT_LOADING_ERROR);
         expect(styledVaccineContent).toBeUndefined();

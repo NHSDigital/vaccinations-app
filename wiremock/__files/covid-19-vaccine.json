@@ -21,15 +21,10 @@
   },
   "description": "NHS information about the COVID-19 vaccine, including what the vaccine helps protect against, who should have it and when, how to get it and side effects.",
   "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/",
-  "genre": [
-    "Vaccine"
-  ],
+  "genre": ["Vaccine"],
   "keywords": "",
   "dateModified": "2025-04-15T14:14:18+00:00",
-  "lastReviewed": [
-    "2024-09-02T13:17:00+00:00",
-    "2027-09-02T13:17:00+00:00"
-  ],
+  "lastReviewed": ["2024-09-02T13:17:00+00:00", "2027-09-02T13:17:00+00:00"],
   "breadcrumb": {
     "@context": "http://schema.org",
     "@type": "BreadcrumbList",
@@ -49,9 +44,7 @@
         "item": {
           "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/",
           "name": "COVID-19 vaccine",
-          "genre": [
-            "Vaccine"
-          ]
+          "genre": ["Vaccine"]
         }
       }
     ]

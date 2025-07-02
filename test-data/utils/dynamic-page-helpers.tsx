@@ -8,7 +8,7 @@ export const getDynamicRoute = (path: string) => {
 
 export const renderDynamicPage = async (path: string) => {
   const page: JSX.Element = await VaccinePage({
-    params: getDynamicRoute(path)
+    params: getDynamicRoute(path),
   });
   render(page);
 };

@@ -1,9 +1,5 @@
 import { expect, Page, test } from "@playwright/test";
-import {
-  HUB_PAGE_URL,
-  RSV_PAGE_URL,
-  RSV_PREGNANCY_PAGE_URL
-} from "../constants";
+import { HUB_PAGE_URL, RSV_PAGE_URL, RSV_PREGNANCY_PAGE_URL } from "../constants";
 import { login } from "@project/e2e/auth";
 import users from "@test-data/test-users.json" assert { type: "json" };
 
@@ -18,21 +14,21 @@ test.describe("E2E", () => {
 
   test("Hub page", async () => {
     await page.goto(HUB_PAGE_URL);
-    await expect(page).toHaveScreenshot('default-hub.png', {
+    await expect(page).toHaveScreenshot("default-hub.png", {
       fullPage: true,
     });
   });
 
   test("RSV page", async () => {
     await page.goto(RSV_PAGE_URL);
-    await expect(page).toHaveScreenshot('default-rsv.png', {
+    await expect(page).toHaveScreenshot("default-rsv.png", {
       fullPage: true,
     });
   });
 
   test("RSV in pregnancy page", async () => {
     await page.goto(RSV_PREGNANCY_PAGE_URL);
-    await expect(page).toHaveScreenshot('default-rsv-pregnancy.png', {
+    await expect(page).toHaveScreenshot("default-rsv-pregnancy.png", {
       fullPage: true,
     });
   });

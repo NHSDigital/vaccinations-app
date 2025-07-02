@@ -1,18 +1,18 @@
-import { defineConfig, devices } from '@playwright/test';
-import dotenv from 'dotenv';
-import path from 'path';
+import { defineConfig, devices } from "@playwright/test";
+import dotenv from "dotenv";
+import path from "path";
 import { fileURLToPath } from "url";
-import type { GitHubActionOptions } from '@estruyf/github-actions-reporter';
+import type { GitHubActionOptions } from "@estruyf/github-actions-reporter";
 
 const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = path.dirname(__filename);
-dotenv.config({ path: path.resolve(__dirname, '.env.local') });
+dotenv.config({ path: path.resolve(__dirname, ".env.local") });
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: './e2e',
+  testDir: "./e2e",
   /* Run tests in files in parallel */
   fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -22,36 +22,38 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: process.env.CI ? [
-    ['html'],
-    ['@estruyf/github-actions-reporter',
-      <GitHubActionOptions>{
-        title: 'E2E Test Results',
-        useDetails: true,
-        showError: true,
-        showTags: false,
-
-      }
-    ]
-  ] : 'html',
-  snapshotPathTemplate: '{testDir}/snapshot/__snapshots__/{testFileName}-snapshots/{arg}-{projectName}{ext}',
+  reporter: process.env.CI
+    ? [
+        ["html"],
+        [
+          "@estruyf/github-actions-reporter",
+          <GitHubActionOptions>{
+            title: "E2E Test Results",
+            useDetails: true,
+            showError: true,
+            showTags: false,
+          },
+        ],
+      ]
+    : "html",
+  snapshotPathTemplate: "{testDir}/snapshot/__snapshots__/{testFileName}-snapshots/{arg}-{projectName}{ext}",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: process.env.TEST_APP_URL,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: "on-first-retry",
   },
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
+      name: "chromium",
       use: {
-        ...devices['Desktop Chrome'],
+        ...devices["Desktop Chrome"],
         viewport: { width: 1920, height: 1080 },
       },
-    }
+    },
 
     /* Test against mobile viewports. */
     // {

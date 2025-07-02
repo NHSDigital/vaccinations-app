@@ -2,7 +2,7 @@ import {
   ActionFromApi,
   EligibilityApiResponse,
   EligibilityCohort,
-  ProcessedSuggestion
+  ProcessedSuggestion,
 } from "@src/services/eligibility-api/api-types";
 import {
   Eligibility,
@@ -11,7 +11,7 @@ import {
   EligibilityErrorTypes,
   EligibilityForPersonType,
   EligibilityStatus,
-  SummaryContent
+  SummaryContent,
 } from "@src/services/eligibility-api/types";
 import { createTypeBuilder, randomString, randomValue } from "@test-data/meta-builder";
 
@@ -44,27 +44,27 @@ export function actionFromApiBuilder() {
     actionType: randomValue(["ButtonWithAuthLink", "CardWithText", "InfoText"]),
     actionCode: randomValue(["HealthcareProInfo"]),
     description: randomString(10),
-  })
+  });
 }
 
 export function eligibilityForPersonBuilder() {
   return createTypeBuilder<EligibilityForPersonType>({
     eligibility: eligibilityBuilder().build(),
-    eligibilityError: undefined
+    eligibilityError: undefined,
   });
 }
 
 export function eligibilityBuilder() {
   return createTypeBuilder<Eligibility>({
     status: randomValue(Object.values(EligibilityStatus)),
-    content: eligibilityContentBuilder().build()
+    content: eligibilityContentBuilder().build(),
   });
 }
 
 export function eligibilityContentBuilder() {
   return createTypeBuilder<EligibilityContent>({
     summary: summaryContentBuilder().build(),
-    actions: [actionBuilder().build(), actionBuilder().build()]
+    actions: [actionBuilder().build(), actionBuilder().build()],
   });
 }
 
@@ -72,13 +72,13 @@ export function summaryContentBuilder() {
   return createTypeBuilder<SummaryContent>({
     heading: randomString(10),
     introduction: randomString(10),
-    cohorts: [randomString(10), randomString(10)]
+    cohorts: [randomString(10), randomString(10)],
   });
 }
 
 export function actionBuilder() {
   return createTypeBuilder<Action>({
-    type: randomValue(["card","paragraph"]),
+    type: randomValue(["card", "paragraph"]),
     content: randomString(10),
-  })
+  });
 }

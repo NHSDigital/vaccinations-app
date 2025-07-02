@@ -10,11 +10,8 @@ const log = logger.child({ name: "api-sso-to-nbs" });
 const VACCINE_PARAM = "vaccine";
 
 export const GET = async (request: NextRequest) => {
-  const vaccine: string | null =
-    request.nextUrl.searchParams.get(VACCINE_PARAM);
-  const vaccineType: VaccineTypes | undefined = vaccine
-    ? getVaccineTypeFromUrlPath(vaccine)
-    : undefined;
+  const vaccine: string | null = request.nextUrl.searchParams.get(VACCINE_PARAM);
+  const vaccineType: VaccineTypes | undefined = vaccine ? getVaccineTypeFromUrlPath(vaccine) : undefined;
 
   let redirectUrl: string;
   if (vaccine && vaccineType) {

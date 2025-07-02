@@ -9,7 +9,7 @@ const createJestConfig = nextJest({
 // Add any custom config to be passed to Jest
 const config: Config = {
   coverageProvider: "v8",
-  preset: 'ts-jest',
+  preset: "ts-jest",
   testEnvironment: "jsdom",
   clearMocks: true,
   // Add more setup options before each test is run
@@ -18,7 +18,7 @@ const config: Config = {
     "^@project/(.*)$": "<rootDir>/$1",
     "^@public/(.*)$": "<rootDir>/public/$1",
     "^@src/(.*)$": "<rootDir>/src/$1",
-    "^@test-data/(.*)$": "<rootDir>/mocks/$1"
+    "^@test-data/(.*)$": "<rootDir>/mocks/$1",
   },
   testPathIgnorePatterns: ["<rootDir>/e2e/", "<rootDir>/.open-next/"],
 };
