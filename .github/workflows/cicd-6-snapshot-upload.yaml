@@ -1,0 +1,49 @@
+name: "CI/CD snapshot upload"
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_workflow_run_id:
+        description: "ID of the Snapshot Test workflow run to get snapshots from"
+        required: true
+        type: string
+
+env:
+  AWS_REGION: eu-west-2
+  AWS_S3_ARTEFACTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-preprod
+
+jobs:
+  upload-snapshots:
+    name: "Upload Snapshots to S3"
+    runs-on: ubuntu-latest
+    environment: preprod
+    timeout-minutes: 10
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      IAM_ROLE: ${{ secrets.IAM_ROLE }}
+
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v4
+
+      - name: "Configure AWS credentials for S3 upload"
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-session-name: GitHubActionsSessionUpload
+          role-to-assume: ${{ env.IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: "Download generated snapshots artifact from source workflow"
+        uses: actions/download-artifact@v4
+        with:
+          name: generated-playwright-snapshots
+          path: ./e2e/snapshot/__snapshots__/
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.source_workflow_run_id }}
+
+      - name: "Uploading new snapshots to S3"
+        run: |
+          aws s3 sync ./e2e/snapshot/__snapshots__/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/__snapshots__/
