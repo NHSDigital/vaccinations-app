@@ -16,8 +16,8 @@ test.describe("E2E", () => {
     test("Not eligible - age and catchup bullet points", async () => {
       await page.goto(RSV_PAGE_URL);
       const eligibility: Locator = page.getByTestId("Eligibility");
-      await eligibility.waitFor({ state: "visible", timeout: 10000 });
 
+      await expect(eligibility).toBeVisible({ timeout: 10000 });
       await expect(eligibility).toHaveScreenshot("eligibility-not-eligible.png");
     });
   });
@@ -30,8 +30,8 @@ test.describe("E2E", () => {
     test("Actionable - catchup bullet points", async () => {
       await page.goto(RSV_PAGE_URL);
       const eligibility: Locator = page.getByTestId("Eligibility");
-      await eligibility.waitFor({ state: "visible", timeout: 10000 });
 
+      await expect(eligibility).toBeVisible({ timeout: 10000 });
       await expect(eligibility).toHaveScreenshot("eligibility-actionable.png");
     });
   });
