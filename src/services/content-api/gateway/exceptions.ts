@@ -1,23 +1,23 @@
-export class EligibilityApiError extends Error {
+export class ReadingS3Error extends Error {
   constructor(message: string) {
     super(message);
     Object.setPrototypeOf(this, new.target.prototype);
-    this.name = "EligibilityApiError";
+    this.name = "ReadingS3Error";
   }
 }
 
-export class EligibilityApiHttpStatusError extends EligibilityApiError {
+export class S3HttpStatusError extends ReadingS3Error {
   constructor(message: string) {
     super(message);
     Object.setPrototypeOf(this, new.target.prototype);
-    this.name = "EligibilityApiHttpStatusError";
+    this.name = "S3HttpStatusError";
   }
 }
 
-export class EligibilityApiSchemaError extends EligibilityApiError {
+export class S3NoSuchKeyError extends ReadingS3Error {
   constructor(message: string) {
     super(message);
     Object.setPrototypeOf(this, new.target.prototype);
-    this.name = "EligibilityApiSchemaError";
+    this.name = "S3NoSuchKeyError";
   }
 }

@@ -1,6 +1,6 @@
 "use server";
 
-import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { GetObjectCommand, S3Client, S3ServiceException } from "@aws-sdk/client-s3";
 import { VaccineTypes } from "@src/models/vaccine";
 import { VaccineContentPaths, vaccineTypeToPath } from "@src/services/content-api/constants";
 import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
@@ -9,7 +9,7 @@ import {
   ContentErrorTypes,
   GetContentForVaccineResponse,
   StyledVaccineContent,
-  VaccinePageContent,
+  VaccinePageContent
 } from "@src/services/content-api/types";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { AWS_PRIMARY_REGION } from "@src/utils/constants";
@@ -18,18 +18,24 @@ import { S3_PREFIX, isS3Path } from "@src/utils/path";
 import { readFile } from "node:fs/promises";
 import { Logger } from "pino";
 import { Readable } from "stream";
+import {
+  ReadingS3Error,
+  S3NoSuchKeyError,
+  S3HttpStatusError,
+} from "@src/services/content-api/gateway/exceptions";
+import { HttpStatusCode } from "axios";
 
 const log: Logger = logger.child({ module: "content-reader-service" });
 
 const _readFileS3 = async (bucket: string, key: string): Promise<string> => {
   try {
     const s3Client: S3Client = new S3Client({
-      region: AWS_PRIMARY_REGION,
+      region: AWS_PRIMARY_REGION
     });
 
     const getObjectCommand: GetObjectCommand = new GetObjectCommand({
       Bucket: bucket,
-      Key: key,
+      Key: key
     });
     const { Body } = await s3Client.send(getObjectCommand);
 
@@ -41,24 +47,33 @@ const _readFileS3 = async (bucket: string, key: string): Promise<string> => {
         Body.on("error", reject);
       });
     }
-  } catch (error) {
-    log.error(`Error reading file from S3: ${error}`);
-    throw error;
-  }
+  } catch (error: unknown) {
+    if (error instanceof S3ServiceException) {
+      if (error.name === "NoSuchKey") {
+        log.error(error, `Error in reading Content API from S3: File not found ${bucket}/${key}`);
+        throw new S3NoSuchKeyError(`Error in reading Content API from S3`);
+      }
 
-  throw new Error("Unexpected response type");
+      const statusCode = error.$metadata?.httpStatusCode;
+      if (statusCode && statusCode >= HttpStatusCode.BadRequest) {
+        log.error(error, `Error in reading Content API from S3 ${bucket}/${key}`);
+        throw new S3HttpStatusError(`Error in reading Content API from S3`);
+      }
+
+      log.error(error, `Unhandled error in reading Content API from S3: ${bucket}/${key}`);
+      throw error;
+    }
+  }
+  log.error("Error fetching content: unexpected response type");
+  throw new Error("Error fetching content: unexpected response type");
 };
 
 const _readContentFromCache = async (cacheLocation: string, cachePath: string): Promise<string> => {
   log.info(`Reading file from cache: loc=${cacheLocation}, path=${cachePath}`);
-  try {
-    return isS3Path(cacheLocation)
-      ? await _readFileS3(cacheLocation.slice(S3_PREFIX.length), cachePath)
-      : await readFile(`${cacheLocation}${cachePath}`, { encoding: "utf8" });
-  } catch (error) {
-    log.error(`Error reading file from cache: loc=${cacheLocation}: ${error}`);
-    throw error;
-  }
+
+  return isS3Path(cacheLocation)
+    ? await _readFileS3(cacheLocation.slice(S3_PREFIX.length), cachePath)
+    : await readFile(`${cacheLocation}${cachePath}`, { encoding: "utf8" });
 };
 
 const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<GetContentForVaccineResponse> => {
@@ -77,11 +92,18 @@ const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<GetConte
 
     return { styledVaccineContent, contentError: undefined };
   } catch (error) {
-    log.error(`Error getting content for vaccine: ${error}`);
-    return {
-      styledVaccineContent: undefined,
-      contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
-    };
+    if (error instanceof ReadingS3Error) {
+      return {
+        styledVaccineContent: undefined,
+        contentError: ContentErrorTypes.CONTENT_LOADING_ERROR
+      };
+    } else {
+      log.error(error, `Error getting content for vaccine: ${vaccineType}`);
+      return {
+        styledVaccineContent: undefined,
+        contentError: ContentErrorTypes.CONTENT_LOADING_ERROR
+      };
+    }
   }
 };
 

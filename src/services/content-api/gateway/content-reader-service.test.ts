@@ -4,7 +4,8 @@
 import { S3Client } from "@aws-sdk/client-s3";
 import mockRsvVaccineJson from "@project/wiremock/__files/rsv-vaccine.json";
 import { VaccineTypes } from "@src/models/vaccine";
-import { _readContentFromCache, getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
+import { _readContentFromCache,
+  getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { ContentErrorTypes, GetContentForVaccineResponse } from "@src/services/content-api/types";
 import { configProvider } from "@src/utils/config";
 import { Readable } from "stream";
@@ -59,7 +60,7 @@ describe("Content Reader Service", () => {
       mockSend.mockImplementation(() => mockInvalidResponse);
 
       const actualPromise: Promise<string> = _readContentFromCache("s3://bucket", "/file");
-      await expect(actualPromise).rejects.toThrow("Unexpected response type");
+      await expect(actualPromise).rejects.toThrow("Error fetching content: unexpected response type");
     });
 
     it("throws when remote response has error", async () => {
