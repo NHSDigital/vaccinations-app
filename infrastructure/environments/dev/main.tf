@@ -8,9 +8,6 @@ module "deploy_lambda" {
   log_retention_in_days             = local.log_retention_in_days
   default_tags                      = local.default_tags
   region                            = local.region
-  providers = {
-    aws = aws
-  }
 }
 
 module "deploy" {
@@ -35,7 +32,4 @@ module "deploy_monitoring" {
   prefix                  = local.prefix
   default_tags            = local.default_tags
   alarms_slack_channel_id = local.alarms_slack_channel_id
-  providers = {
-    aws = aws
-  }
 }
