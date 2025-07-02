@@ -43,7 +43,37 @@ locals {
       period              = 600 // 10min
       evaluation_periods  = 6 // 6 periods
       datapoints_to_alarm = 1 // number of breaches within the last evaluation period to alarm
-    }
+    },
+
+    "server-lambda-5xx-error" = {
+      alarm_description   = "Server Lambda: 5xx error within last hour"
+      metric_name         = "Url5xxCount"
+
+      statistic           = "Sum"
+      extended_statistic  = null // as statistic is used
+      comparison_operator = "GreaterThanThreshold"
+      threshold           = 0
+      unit                = "Count"
+
+      period              = 60 // 1min
+      evaluation_periods  = 60 // 60 periods
+      datapoints_to_alarm = 1 // number of breaches within the last evaluation period to alarm
+    },
+
+    "server-lambda-throttles" = {
+      alarm_description   = "Server Lambda: concurrent request throttle limit hit within last hour"
+      metric_name         = "Throttles"
+
+      statistic           = "Sum"
+      extended_statistic  = null // as statistic is used
+      comparison_operator = "GreaterThanThreshold"
+      threshold           = 0
+      unit                = "Count"
+
+      period              = 60 // 1min
+      evaluation_periods  = 60
+      datapoints_to_alarm = 1
+    },
   }
 }
 
