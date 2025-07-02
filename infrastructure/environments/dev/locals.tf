@@ -53,3 +53,16 @@ resource "random_password" "auth_secret" {
   special          = true
   override_special = "/+"
 }
+
+resource "null_resource" "check_workspace" {
+  lifecycle {
+    precondition {
+      condition     = var.is_github_action || terraform.workspace != "default"
+      error_message = <<EOT
+❌ Default workspace is not allowed locally. It is reserved for GitHub actions.
+✅ Please switch to a named workspace like this (replace <name> with your workspace):
+   ( cd infrastructure/environments/dev; terraform workspace select <name>; terraform workspace list )
+EOT
+    }
+  }
+}
