@@ -15,9 +15,13 @@ test.describe("E2E", () => {
 
     test("Not eligible - age and catchup bullet points", async () => {
       await page.goto(RSV_PAGE_URL);
-      await page.waitForSelector('[data-testid="Eligibility"]', { timeout: 10000 });
       const eligibility: Locator = page.getByTestId("Eligibility");
+      const heading: Locator = eligibility.getByRole("heading", {
+        level: 3,
+        name: "We do not believe you can have it",
+      });
 
+      await expect(heading).toBeVisible();
       await expect(eligibility).toHaveScreenshot("eligibility-not-eligible.png");
     });
   });
@@ -29,9 +33,10 @@ test.describe("E2E", () => {
 
     test("Actionable - catchup bullet points", async () => {
       await page.goto(RSV_PAGE_URL);
-      await page.waitForSelector('[data-testid="Eligibility"]', { timeout: 10000 });
       const eligibility: Locator = page.getByTestId("Eligibility");
+      const heading: Locator = eligibility.getByRole("heading", { level: 3, name: "You should have the RSV vaccine" });
 
+      await expect(heading).toBeVisible();
       await expect(eligibility).toHaveScreenshot("eligibility-actionable.png");
     });
   });
