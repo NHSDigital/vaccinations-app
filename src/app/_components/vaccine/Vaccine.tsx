@@ -86,7 +86,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
 
       {/* Fallback eligibility section for RSV */}
       {vaccineType === VaccineTypes.RSV && eligibilityError && (
-        <div role={"fallback"}>
+        <div role={"x-fallback"}>
           <NonUrgentCareCard
             heading={<div>{"You should have RSV vaccine if you:"}</div>}
             content={

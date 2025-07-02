@@ -309,7 +309,7 @@ describe("Any vaccine page", () => {
 
       await renderNamedVaccinePage(VaccineTypes.RSV);
 
-      const fallback = screen.getByRole("fallback");
+      const fallback = screen.getByRole("x-fallback");
 
       const fallbackHeading: HTMLElement = within(fallback).getByRole("heading", {
         name: "If you think you should have this vaccine",
