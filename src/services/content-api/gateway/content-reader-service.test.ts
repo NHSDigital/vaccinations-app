@@ -5,10 +5,16 @@
 import { S3Client } from "@aws-sdk/client-s3";
 import mockRsvVaccineJson from "@project/wiremock/__files/rsv-vaccine.json";
 import { VaccineTypes } from "@src/models/vaccine";
-import { _readContentFromCache, getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
+import {
+  _readContentFromCache,
+  _readFileS3,
+  getContentForVaccine,
+} from "@src/services/content-api/gateway/content-reader-service";
 import { configProvider } from "@src/utils/config";
 import { Readable } from "stream";
 import { ContentErrorTypes, GetContentForVaccineResponse } from "@src/services/content-api/types";
+import { fetchContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-fetcher";
+import { handler } from "@src/_lambda/content-cache-hydrator/handler";
 
 jest.mock("@aws-sdk/client-s3");
 jest.mock("@src/utils/config");
@@ -20,6 +26,10 @@ const mockRsvResponse = {
       this.push(null); // End of stream
     },
   }),
+};
+
+const NoSuchKeyHttpStatusError = {
+  name: "NoSuchKey",
 };
 
 const mockInvalidResponse = {
@@ -35,6 +45,23 @@ const mockErrorResponse = {
 };
 
 describe("Content Reader Service", () => {
+  describe("_readFileS3", () => {
+    const mockSend: jest.Mock = jest.fn();
+
+    beforeEach(() => {
+      (S3Client as jest.Mock).mockImplementation(() => ({
+        send: mockSend,
+      }));
+    });
+
+    it("throws NoSuchKeyHttpStatusError when the file and bucket don't exist", async () => {
+      (mockSend as jest.Mock).mockRejectedValue(NoSuchKeyHttpStatusError);
+
+      const error = await _readFileS3("s3://bucket", "/file");
+      expect(error).toThrow(`Error adf in reading Content API from S3`);
+    });
+  });
+
   describe("_readContentFromCache()", () => {
     const mockSend: jest.Mock = jest.fn();
 

@@ -18,6 +18,15 @@ import {
   StyledVaccineContent,
   VaccinePageContent,
 } from "@src/services/content-api/types";
+import {
+  InternalServerHttpStatusError,
+  NoSuchKeyHttpStatusError,
+  ReadingS3Error,
+  S3BadRequestHttpStatusError,
+  S3ForbiddenHttpStatusError,
+  S3NotFoundHttpStatusError,
+  S3UnauthorizedHttpStatusError,
+} from "@src/services/content-api/gateway/exceptions";
 
 const log: Logger = logger.child({ module: "content-reader-service" });
 
@@ -41,11 +50,37 @@ const _readFileS3 = async (bucket: string, key: string): Promise<string> => {
         Body.on("error", reject);
       });
     }
-  } catch (error) {
-    log.error(`Error reading file from S3: ${error}`);
-    throw error;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      const code = (error as any).name || (error as any).Code;
+      const status = (error as any).$metadata?.httpStatusCode;
+      if (error.name === "NoSuchKey") {
+        log.error(`File not found in S3: ${bucket}/${key}`);
+        throw new NoSuchKeyHttpStatusError(`Error ${error} in reading Content API from S3`);
+      }
+      switch (status) {
+        case "400":
+          log.error("Bad Request: Check S3 bucket and key format.");
+          throw new S3BadRequestHttpStatusError(`Error ${error} in reading Content API from S3`);
+        case "401":
+          log.error("Unauthorized: Check AWS credentials.");
+          throw new S3UnauthorizedHttpStatusError(`Error ${error} in reading Content API from S3`);
+        case "403":
+          log.error("Forbidden: Check AWS IAM policy.");
+          throw new S3ForbiddenHttpStatusError(`Error ${error} in reading Content API from S3`);
+        case "404":
+          log.error(`File not found in S3: ${bucket}/${key}`);
+          throw new S3NotFoundHttpStatusError(`Error ${error} in reading Content API from S3`);
+        case "500":
+          log.error("Internal Server Error from AWS.");
+          throw new InternalServerHttpStatusError(`Error ${error} in reading Content API from S3`);
+        default:
+          log.error(`Unhandled S3 error: ${code ?? "unknown"}`, error);
+          throw error;
+      }
+    }
   }
-
+  log.error("Unhandled S3 error");
   throw new Error("Unexpected response type");
 };
 
@@ -56,8 +91,13 @@ const _readContentFromCache = async (cacheLocation: string, cachePath: string): 
       ? await _readFileS3(cacheLocation.slice(S3_PREFIX.length), cachePath)
       : await readFile(`${cacheLocation}${cachePath}`, { encoding: "utf8" });
   } catch (error) {
-    log.error(`Error reading file from cache: loc=${cacheLocation}: ${error}`);
-    throw error;
+    if (error instanceof ReadingS3Error) {
+      log.error(`Error reading file from cache: loc=${cacheLocation}: ${error}`);
+      throw new ReadingS3Error(`Error ${error} in reading Content API from S3`);
+    } else {
+      log.error(error, "Some random error while reading from S3");
+      throw error;
+    }
   }
 };
 
@@ -77,11 +117,19 @@ const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<GetConte
 
     return { styledVaccineContent };
   } catch (error) {
-    log.error(`Error getting content for vaccine: ${error}`);
-    return {
-      styledVaccineContent: undefined,
-      contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
-    };
+    if (error instanceof ReadingS3Error) {
+      log.error(`Error getting content for vaccine: ${error}`);
+      return {
+        styledVaccineContent: undefined,
+        contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
+      };
+    } else {
+      log.error(error, `Some random error, while getting content for vaccine: ${error}`);
+      return {
+        styledVaccineContent: undefined,
+        contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
+      };
+    }
   }
 };
 

@@ -5,6 +5,7 @@ export class EligibilityApiError extends Error {
     this.name = "EligibilityApiError";
   }
 }
+
 export class EligibilityApiHttpStatusError extends EligibilityApiError {
   constructor(message: string) {
     super(message);
@@ -12,6 +13,7 @@ export class EligibilityApiHttpStatusError extends EligibilityApiError {
     this.name = "EligibilityApiHttpStatusError";
   }
 }
+
 export class EligibilityApiSchemaError extends EligibilityApiError {
   constructor(message: string) {
     super(message);
