@@ -7,5 +7,4 @@
 /**/*.mjs
 project.code-workspace
 /**/.terraform/*
-/wiremock/__files/*
 /package-lock.json

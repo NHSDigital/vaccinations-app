@@ -1,28 +1,26 @@
 {
   "responseId": "1a233ba5-e1eb-4080-a086-2962f6fc3473",
-  "meta": {
-    "lastUpdated": "2025-02-12T16:11:22Z"
-  },
+  "meta": { "lastUpdated": "2025-02-12T16:11:22Z" },
   "processedSuggestions": [
     {
       "condition": "RSV",
       "status": "NotActionable",
       "statusText": "You should have the RSV vaccine",
-      "eligibilityCohorts": [
-        {
-          "cohortCode": "unknown_cohort_membership",
-          "cohortText": "Our records do not say why you are eligible",
-          "cohortStatus": "NotActionable"
-        }
-      ],
+      "eligibilityCohorts": [],
       "suitabilityRules": [
         {
           "ruleType": "S",
           "ruleCode": "AlreadyVaccinated",
-          "ruleText": "##You've had your RSV vaccination\nBased on our records, you recently had this vaccination.You do not need to do anything."
+          "ruleText": "## You've had your RSV vaccination\n\nWe believe you had the RSV vaccination on 3 April 2025."
         }
       ],
-      "actions": []
+      "actions": [
+        {
+          "actionType": "InfoText",
+          "actionCode": "CheckCorrect",
+          "description": "## If you think this is incorrect\n\nIf you have not had this vaccination and think you should, speak to your healthcare professional.\n\nFor anything else please see our [help and support page](https://www.nhs.uk/nhs-app/nhs-app-help-and-support/)."
+        }
+      ]
     }
   ]
 }

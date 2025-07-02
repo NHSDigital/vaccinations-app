@@ -1,0 +1,12 @@
+#!/bin/bash
+
+
+for file in [0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9].json; do
+  if [ -f "$file" ]; then
+    filename_no_ext="${file%.json}"
+
+    curl -s -o "$file" "https://sandbox.api.service.nhs.uk/eligibility-signposting-api/patient-check/${filename_no_ext}" --header 'Accept: application/json, application/fhir+json' --header 'apikey: dummy-key'
+
+    echo "Updated $file"
+  fi
+done
