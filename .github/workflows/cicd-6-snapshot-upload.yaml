@@ -10,13 +10,13 @@ on:
 
 env:
   AWS_REGION: eu-west-2
-  AWS_S3_ARTEFACTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-preprod
+  AWS_S3_ARTEFACTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-dev
 
 jobs:
   upload-snapshots:
     name: "Upload Snapshots to S3"
     runs-on: ubuntu-latest
-    environment: preprod
+    environment: dev
     timeout-minutes: 10
     permissions:
       id-token: write

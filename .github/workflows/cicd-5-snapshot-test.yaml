@@ -10,13 +10,13 @@ on:
 
 env:
   AWS_REGION: eu-west-2
-  AWS_S3_ARTEFACTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-preprod
+  AWS_S3_ARTEFACTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-dev
 
 jobs:
   snapshot-test:
     name: "Snapshot Test"
     runs-on: ubuntu-latest
-    environment: preprod
+    environment: dev
     timeout-minutes: 30
     permissions:
       id-token: write
@@ -41,7 +41,7 @@ jobs:
         run: |
           npx playwright install --with-deps
 
-      - name: "Configure AWS credentials for ${{ inputs.environment }} environment"
+      - name: "Configure AWS credentials for environment"
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-session-name: GitHubActionsSession
