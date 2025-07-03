@@ -75,7 +75,7 @@ const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<GetConte
     const filteredContent: VaccinePageContent = getFilteredContentForVaccine(vaccineContent);
     const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(vaccineType, filteredContent);
 
-    return { styledVaccineContent };
+    return { styledVaccineContent, contentError: undefined };
   } catch (error) {
     log.error(`Error getting content for vaccine: ${error}`);
     return {

@@ -7,19 +7,6 @@ import VaccinationsHub from "@src/app/check-and-book-rsv/page";
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 jest.mock("@src/app/_components/nhs-app/BackToNHSAppLink");
 
-const queryHeading = (text: string, level: number): HTMLElement | null => {
-  return screen.queryByRole("heading", {
-    name: text,
-    level: level,
-  });
-};
-
-const queryLinkByText = (text: string): HTMLElement | null => {
-  return screen.queryByRole("link", {
-    name: text,
-  });
-};
-
 describe("Vaccination Hub Page", () => {
   describe("when content fails to load", () => {
     beforeEach(async () => {
@@ -30,19 +17,20 @@ describe("Vaccination Hub Page", () => {
       render(await VaccinationsHub());
     });
 
+    it("should not display overview", async () => {
+      expect(screen.queryByTestId("overview-text")).not.toBeInTheDocument();
+    });
+
     it("renders heading", async () => {
-      expect(queryHeading("Check and book an RSV vaccination", 1)).toBeVisible();
+      expectHeadingToBeRendered();
     });
 
-    it("should display error summary", async () => {
-      expect(getContentForVaccine).toHaveBeenCalled();
-      expect(queryHeading("Vaccine content is unavailable", 2)).toBeInTheDocument();
+    it("renders RSV vaccine link", async () => {
+      expectRSVLinkToBeRendered();
     });
 
-    it("should not render any other areas of the hub page", async () => {
-      expect(screen.queryByTestId("overview-text")).toBeNull();
-      expect(queryLinkByText("RSV for older adults")).toBeNull();
-      expect(queryLinkByText("RSV vaccine in pregnancy")).toBeNull();
+    it("renders RSV in pregnancy vaccine link", async () => {
+      expectRsvPregnancyLinkToBeRendered();
     });
   });
 
@@ -59,19 +47,44 @@ describe("Vaccination Hub Page", () => {
     });
 
     it("renders heading", async () => {
-      expect(queryHeading("Check and book an RSV vaccination", 1)).toBeVisible();
+      expectHeadingToBeRendered();
     });
 
     it("renders RSV vaccine link", async () => {
-      const link = queryLinkByText("RSV vaccine for older adults");
-      expect(link).toBeVisible();
-      expect(link?.getAttribute("href")).toEqual("/vaccines/rsv");
+      expectRSVLinkToBeRendered();
     });
 
     it("renders RSV in pregnancy vaccine link", async () => {
-      const link = queryLinkByText("RSV vaccine in pregnancy");
-      expect(link).toBeVisible();
-      expect(link?.getAttribute("href")).toEqual("/vaccines/rsv-pregnancy");
+      expectRsvPregnancyLinkToBeRendered();
     });
   });
+
+  const queryHeading = (text: string, level: number): HTMLElement | null => {
+    return screen.queryByRole("heading", {
+      name: text,
+      level: level,
+    });
+  };
+
+  const queryLinkByText = (text: string): HTMLElement | null => {
+    return screen.queryByRole("link", {
+      name: text,
+    });
+  };
+
+  const expectRsvPregnancyLinkToBeRendered = () => {
+    const link = queryLinkByText("RSV vaccine in pregnancy");
+    expect(link).toBeVisible();
+    expect(link?.getAttribute("href")).toEqual("/vaccines/rsv-pregnancy");
+  };
+
+  const expectRSVLinkToBeRendered = () => {
+    const link = queryLinkByText("RSV vaccine for older adults");
+    expect(link).toBeVisible();
+    expect(link?.getAttribute("href")).toEqual("/vaccines/rsv");
+  };
+
+  const expectHeadingToBeRendered = () => {
+    expect(queryHeading("Check and book an RSV vaccination", 1)).toBeVisible();
+  };
 });

@@ -1,8 +1,15 @@
 import { JSX } from "react";
 
-export type GetContentForVaccineResponse = {
-  styledVaccineContent?: StyledVaccineContent;
-  contentError?: ContentErrorTypes;
+export type GetContentForVaccineResponse = ContentForVaccine | ContentForVaccineError;
+
+type ContentForVaccine = {
+  styledVaccineContent: StyledVaccineContent;
+  contentError: undefined;
+};
+
+type ContentForVaccineError = {
+  styledVaccineContent: undefined;
+  contentError: ContentErrorTypes;
 };
 
 export enum ContentErrorTypes {
