@@ -31,6 +31,7 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI
     ? [
+        ["line"],
         ["html"],
         [
           "@estruyf/github-actions-reporter",
