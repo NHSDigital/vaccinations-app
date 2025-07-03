@@ -7,7 +7,6 @@ module "deploy_lambda" {
   application_environment_variables = local.application_environment_variables
   log_retention_in_days             = local.log_retention_in_days
   default_tags                      = local.default_tags
-  region                            = local.region
 }
 
 module "deploy" {
