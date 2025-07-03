@@ -142,7 +142,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
       {/* Expandable sections */}
       {contentError != ContentErrorTypes.CONTENT_LOADING_ERROR && styledVaccineContent != undefined ? (
         <>
-          <div className="nhsuk-expander-group">
+          <div className="nhsuk-expander-group" data-testid="more-information-expander-group">
             {/* What-vaccine-is-for expandable section */}
             {styledVaccineContent.whatVaccineIsFor && (
               <Details

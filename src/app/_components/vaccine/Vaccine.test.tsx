@@ -97,6 +97,20 @@ describe("Any vaccine page", () => {
       expect(recommendedBlock?.innerHTML).toContain("The RSV vaccine is recommended if you:");
     });
 
+    it("should display how to get text outside of expander in rsv pregnancy page", async () => {
+      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
+
+      const heading: HTMLElement = screen.getByText("How to get the vaccine");
+      const content: HTMLElement = screen.getByText("How Section styled component");
+
+      expect(heading).toBeInTheDocument();
+      expect(content).toBeInTheDocument();
+
+      const moreInformationExpanders = screen.getByTestId("more-information-expander-group");
+      const howSectionWithinExpander = within(moreInformationExpanders).queryByText("How to get the vaccine");
+      expect(howSectionWithinExpander).not.toBeInTheDocument();
+    });
+
     it("should display whatItIsFor expander block", async () => {
       await renderRsvVaccinePage();
 
@@ -229,6 +243,18 @@ describe("Any vaccine page", () => {
 
       const eligibilitySection: HTMLElement = screen.getByText("Test Eligibility Component");
       expect(eligibilitySection).toBeInTheDocument();
+    });
+
+    it("should display fallback how-to-get link on rsv pregnancy page", async () => {
+      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
+
+      const fallbackHowToGetLink: HTMLElement = screen.getByRole("link", { name: "how to get" });
+
+      expect(fallbackHowToGetLink).toBeInTheDocument();
+      expect(fallbackHowToGetLink).toHaveAttribute(
+        "href",
+        "https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it",
+      );
     });
   });
 
