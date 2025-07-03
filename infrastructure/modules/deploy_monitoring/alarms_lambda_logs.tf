@@ -38,10 +38,11 @@ resource "aws_cloudwatch_log_metric_filter" "server_lambda_error_logs" {
   log_group_name = "/aws/lambda/${var.prefix}-server-function"
 
   metric_transformation {
-    name      = local.alarms_lambda_logs.server-lambda-error-logs.metric_name
-    namespace = var.prefix
-    value     = "1"
-    unit      = "Count"
+    name          = local.alarms_lambda_logs.server-lambda-error-logs.metric_name
+    namespace     = var.prefix
+    value         = "1"
+    default_value = "0"
+    unit          = "Count"
   }
 }
 
@@ -51,10 +52,11 @@ resource "aws_cloudwatch_log_metric_filter" "content_cache_hydrator_error_logs" 
   log_group_name = "/aws/lambda/${var.prefix}-content-cache-hydrator"
 
   metric_transformation {
-    name      = local.alarms_lambda_logs.content-cache-hydrator-error-logs.metric_name
-    namespace = var.prefix
-    value     = "1"
-    unit      = "Count"
+    name          = local.alarms_lambda_logs.content-cache-hydrator-error-logs.metric_name
+    namespace     = var.prefix
+    value         = "1"
+    default_value = "0"
+    unit          = "Count"
   }
 }
 
@@ -78,10 +80,10 @@ module "alarms_logs" {
   period              = each.value.period
   evaluation_periods  = each.value.evaluation_periods
   datapoints_to_alarm = each.value.datapoints_to_alarm
+  treat_missing_data  = each.value.treat_missing_data
 
-  alarm_actions      = [module.sns.topic_arn]
-  ok_actions         = [module.sns.topic_arn]
-  treat_missing_data = each.value.treat_missing_data
+  alarm_actions = [module.sns.topic_arn]
+  ok_actions    = [module.sns.topic_arn]
 
   tags = var.default_tags
 }
