@@ -26,7 +26,6 @@ module "deploy" {
 
 module "deploy_monitoring" {
   source = "../../modules/deploy_monitoring"
-  count  = var.is_github_action ? 1 : 0
 
   prefix                     = local.prefix
   default_tags               = local.default_tags
