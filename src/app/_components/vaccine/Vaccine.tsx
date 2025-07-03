@@ -31,7 +31,7 @@ const HEADINGS = {
   WHAT_VACCINE_IS_FOR: "What this vaccine is for",
   WHO_SHOULD_HAVE_VACCINE: "Who should have this vaccine",
   HOW_TO_GET_VACCINE: "How to get the vaccine",
-  IF_YOU_THINK: "If you think you should have this vaccine",
+  IF_YOU_THINK: "If you think you need this vaccine",
 };
 
 const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
@@ -51,6 +51,15 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
   const vaccinePath: VaccineContentUrlPaths = vaccineTypeToUrlPath[vaccineType];
   const nbsSSOLink = `${SSO_TO_NBS_ROUTE}?vaccine=${vaccinePath}`;
+
+  const howToGetVaccineFallback = styledVaccineContent ? (
+    styledVaccineContent.howToGetVaccine.component
+  ) : (
+    <>
+      Find out <a href={vaccineInfo.nhsHowToGetWebpageLink}>how to get</a> an {vaccineInfo.displayName.midSentenceCase}{" "}
+      vaccination
+    </>
+  );
 
   return (
     <div className={styles.tableCellSpanHide}>
@@ -81,7 +90,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
         )}
 
       {/* Fallback eligibility section for RSV */}
-      {vaccineType === VaccineTypes.RSV && eligibilityError && styledVaccineContent && (
+      {vaccineType === VaccineTypes.RSV && eligibilityError && (
         <div data-testid="elid-fallback">
           <NonUrgentCareCard
             heading={<div>{"You should have RSV vaccine if you:"}</div>}
@@ -94,11 +103,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
               </div>
             }
           />
-          <Details
-            title={HEADINGS.IF_YOU_THINK}
-            component={styledVaccineContent.howToGetVaccine.component}
-            notExpandable={true}
-          />
+          <Details title={HEADINGS.IF_YOU_THINK} component={howToGetVaccineFallback} notExpandable={true} />
           <p>
             {"In some areas you can "}
             <a href={nbsSSOLink}>book an RSV vaccination in a pharmacy</a>
@@ -122,12 +127,8 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
       )}
 
       {/* How-to-get-vaccine section for RSV in pregnancy */}
-      {vaccineType === VaccineTypes.RSV_PREGNANCY && styledVaccineContent && (
-        <Details
-          title={HEADINGS.HOW_TO_GET_VACCINE}
-          component={styledVaccineContent.howToGetVaccine.component}
-          notExpandable={true}
-        />
+      {vaccineType === VaccineTypes.RSV_PREGNANCY && (
+        <Details title={HEADINGS.HOW_TO_GET_VACCINE} component={howToGetVaccineFallback} notExpandable={true} />
       )}
 
       {/* NBS booking button action for RSV */}
@@ -136,7 +137,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
       )}
 
       {/* Sections heading - H2 */}
-      <h2 className="nhsuk-heading-s">More information about the {vaccineInfo.displayName.lowercase} vaccine</h2>
+      <h2 className="nhsuk-heading-s">More information about the {vaccineInfo.displayName.midSentenceCase} vaccine</h2>
 
       {/* Expandable sections */}
       {contentError != ContentErrorTypes.CONTENT_LOADING_ERROR && styledVaccineContent != undefined ? (
@@ -163,7 +164,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
           </div>
           <p>
             <a href={styledVaccineContent.webpageLink} target="_blank" rel="noopener">
-              Find out more about the {vaccineInfo.displayName.lowercase} vaccine
+              Find out more about the {vaccineInfo.displayName.midSentenceCase} vaccine
             </a>{" "}
             including side effects, allergies and ingredients.
           </p>
@@ -171,7 +172,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
       ) : (
         <p>
           <a href={vaccineInfo.nhsWebpageLink} target="_blank" rel="noopener">
-            Find out more about the {vaccineInfo.displayName.lowercase} vaccine
+            Find out more about the {vaccineInfo.displayName.midSentenceCase} vaccine
           </a>{" "}
           including side effects, allergies and ingredients.
         </p>

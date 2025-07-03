@@ -311,13 +311,20 @@ describe("Any vaccine page", () => {
       const eligibilitySection: HTMLElement | null = screen.queryByText("Test Eligibility Component");
       expect(eligibilitySection).not.toBeInTheDocument();
     });
+  });
 
-    it("should display fallback eligibility care card when eligibility API has failed", async () => {
+  describe("eligibility failures", () => {
+    beforeEach(() => {
+      (getContentForVaccine as jest.Mock).mockResolvedValue({
+        styledVaccineContent: mockStyledContent,
+      });
       (getEligibilityForPerson as jest.Mock).mockResolvedValue({
         eligibility: undefined,
         eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
       });
+    });
 
+    it("should display fallback eligibility care card when eligibility API has failed", async () => {
       await renderNamedVaccinePage(VaccineTypes.RSV);
 
       const fallbackHeading: HTMLElement = screen.getByText("You should have RSV vaccine if you:");
@@ -330,17 +337,12 @@ describe("Any vaccine page", () => {
     });
 
     it("should display fallback eligibility paragraph when eligibility API has failed", async () => {
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
-        eligibility: undefined,
-        eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
-      });
-
       await renderNamedVaccinePage(VaccineTypes.RSV);
 
       const fallback = screen.getByTestId("elid-fallback");
 
       const fallbackHeading: HTMLElement = within(fallback).getByRole("heading", {
-        name: "If you think you should have this vaccine",
+        name: "If you think you need this vaccine",
         level: 3,
       });
       const howToGetContent: HTMLElement = within(fallback).getByText("How Section styled component");
@@ -354,6 +356,51 @@ describe("Any vaccine page", () => {
       expect(linkPrefix).toBeVisible();
       expect(bookingLink).toBeVisible();
       expect(bookingLink).toHaveAttribute("href", "/api/sso-to-nbs?vaccine=rsv");
+    });
+  });
+
+  describe("eligibility AND content failures", () => {
+    beforeEach(() => {
+      (getContentForVaccine as jest.Mock).mockResolvedValue({
+        styledVaccineContent: undefined,
+        contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
+      });
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+        eligibility: undefined,
+        eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+      });
+    });
+
+    it("should display fallback how-to-get and pharmacy booking links in eligibility fallback component", async () => {
+      await renderNamedVaccinePage(VaccineTypes.RSV);
+
+      const fallback = screen.getByTestId("elid-fallback");
+
+      const fallbackHeading: HTMLElement = within(fallback).getByRole("heading", {
+        name: "If you think you need this vaccine",
+        level: 3,
+      });
+      const howToGetContent: HTMLElement | null = within(fallback).queryByText("How Section styled component");
+
+      const fallbackHowToGetLink: HTMLElement = within(fallback).getByRole("link", { name: "how to get" });
+
+      const pharmacyBookingLinkPrefix: HTMLElement = within(fallback).getByText("In some areas you can");
+      const pharmacyBookingLink: HTMLElement = within(fallback).getByRole("link", {
+        name: "book an RSV vaccination in a pharmacy",
+      });
+
+      expect(fallbackHeading).toBeVisible();
+      expect(fallbackHowToGetLink).toBeInTheDocument();
+      expect(fallbackHowToGetLink).toHaveAttribute(
+        "href",
+        "https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it",
+      );
+
+      expect(pharmacyBookingLinkPrefix).toBeVisible();
+      expect(pharmacyBookingLink).toBeVisible();
+      expect(pharmacyBookingLink).toHaveAttribute("href", "/api/sso-to-nbs?vaccine=rsv");
+
+      expect(howToGetContent).not.toBeInTheDocument();
     });
   });
 });
