@@ -12,6 +12,13 @@ dotenv.config({ path: path.resolve(__dirname, ".env.local") });
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  expect: {
+    /**
+     * Maximum time expect() should wait for the condition to be met.
+     * For example in `await expect(locator).toHaveText();`
+     */
+    timeout: 10000,
+  },
   testDir: "./e2e",
   /* Run tests in files in parallel */
   fullyParallel: false,
