@@ -55,7 +55,7 @@
     {
       "request": {
         "method": "GET",
-        "urlPathPattern": "/eligibility-signposting-api/patient-check/90000000400"
+        "urlPathPattern": "/eligibility-signposting-api/patient-check/9800878378"
       },
       "response": {
         "status": 400,
@@ -70,7 +70,7 @@
     {
       "request": {
         "method": "GET",
-        "urlPathPattern": "/eligibility-signposting-api/patient-check/90000000404"
+        "urlPathPattern": "/eligibility-signposting-api/patient-check/9661033404"
       },
       "response": {
         "status": 404,
@@ -85,7 +85,7 @@
     {
       "request": {
         "method": "GET",
-        "urlPathPattern": "/eligibility-signposting-api/patient-check/90000000422"
+        "urlPathPattern": "/eligibility-signposting-api/patient-check/9451019030"
       },
       "response": {
         "status": 422,
@@ -100,7 +100,7 @@
     {
       "request": {
         "method": "GET",
-        "urlPathPattern": "/eligibility-signposting-api/patient-check/90000000500"
+        "urlPathPattern": "/eligibility-signposting-api/patient-check/9436793375"
       },
       "response": {
         "status": 500,
