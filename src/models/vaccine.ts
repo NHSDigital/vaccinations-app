@@ -24,6 +24,7 @@ export type VaccineDetails = {
   displayName: displayName;
   heading: string;
   overviewInsetText?: string;
+  nhsWebpageLink: string;
 };
 
 type displayName = {
@@ -39,6 +40,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     },
     heading: "RSV vaccine for older adults",
     overviewInsetText: `<p>This page is about the RSV vaccine for older adults. There is also <a href="/vaccines/${VaccineContentUrlPaths.RSV_PREGNANCY}">RSV in pregnancy</a>.</p>`,
+    nhsWebpageLink: "https://www.nhs.uk/vaccinations/rsv-vaccine/",
   },
   [VaccineTypes.RSV_PREGNANCY]: {
     displayName: {
@@ -47,6 +49,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     },
     heading: "RSV vaccine in pregnancy",
     overviewInsetText: `<p>This page is about the RSV vaccine in pregnancy. There is also <a href="/vaccines/${VaccineContentUrlPaths.RSV}">RSV for older adults</a>.</p>`,
+    nhsWebpageLink: "https://www.nhs.uk/vaccinations/rsv-vaccine/",
   },
 };
 

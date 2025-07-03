@@ -180,27 +180,55 @@ describe("Any vaccine page", () => {
         styledVaccineContent: undefined,
         contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
       });
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
+        eligibility: {
+          status: EligibilityStatus.NOT_ELIGIBLE,
+          content: eligibilityContentBuilder().build(),
+        },
+      });
     });
 
-    it("should display error summary", async () => {
+    it("should not display vaccine info expanders", async () => {
       await renderRsvVaccinePage();
 
-      const errorHeading: HTMLElement = screen.getByRole("heading", {
-        level: 2,
-        name: "Vaccine content is unavailable",
+      const expanderHeading1: HTMLElement | null = screen.queryByText("What this vaccine is for");
+      const expanderHeading2: HTMLElement | null = screen.queryByText("Who should have this vaccine");
+      const expanderHeading3: HTMLElement | null = screen.queryByText("how-heading");
+
+      expect(expanderHeading1).not.toBeInTheDocument();
+      expect(expanderHeading2).not.toBeInTheDocument();
+      expect(expanderHeading3).not.toBeInTheDocument();
+    });
+
+    it("should display vaccine info expanders", async () => {
+      await renderRsvVaccinePage();
+
+      const expanderHeading1: HTMLElement | null = screen.queryByText("What this vaccine is for");
+      const expanderHeading2: HTMLElement | null = screen.queryByText("Who should have this vaccine");
+      const expanderHeading3: HTMLElement | null = screen.queryByText("how-heading");
+
+      expect(expanderHeading1).not.toBeInTheDocument();
+      expect(expanderHeading2).not.toBeInTheDocument();
+      expect(expanderHeading3).not.toBeInTheDocument();
+    });
+
+    it("should display fallback webpage link to more information about vaccine", async () => {
+      await renderRsvVaccinePage();
+
+      const fallbackLink: HTMLElement = screen.getByRole("link", {
+        name: "Find out more about the RSV vaccine",
       });
 
-      expect(errorHeading).toBeInTheDocument();
+      expect(fallbackLink).toBeInTheDocument();
+      expect(fallbackLink).toHaveAttribute("href", "https://www.nhs.uk/vaccinations/rsv-vaccine/");
+      expect(fallbackLink).toHaveAttribute("target", "_blank");
     });
 
-    it("should not render any other areas of the vaccine page", async () => {
+    it("should still render eligibility section of vaccine page", async () => {
       await renderRsvVaccinePage();
 
-      const howToGetHeading: HTMLElement | null = screen.queryByText("how-heading");
-      const howToGetContent: HTMLElement | null = screen.queryByText("How Section styled component");
-
-      expect(howToGetHeading).not.toBeInTheDocument();
-      expect(howToGetContent).not.toBeInTheDocument();
+      const eligibilitySection: HTMLElement = screen.getByText("Test Eligibility Component");
+      expect(eligibilitySection).toBeInTheDocument();
     });
   });
 

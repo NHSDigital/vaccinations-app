@@ -4,7 +4,6 @@ import { NBSBookingAction } from "@src/app/_components/nbs/NBSBookingAction";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
-import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
 import {
   VaccineContentUrlPaths,
   VaccineDetails,
@@ -53,10 +52,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
   const vaccinePath: VaccineContentUrlPaths = vaccineTypeToUrlPath[vaccineType];
   const nbsSSOLink = `${SSO_TO_NBS_ROUTE}?vaccine=${vaccinePath}`;
 
-  return contentError === ContentErrorTypes.CONTENT_LOADING_ERROR || styledVaccineContent === undefined ? (
-    // Error summary on content loading error
-    <VaccineError />
-  ) : (
+  return (
     <div className={styles.tableCellSpanHide}>
       {/* Cross-linking of related pages */}
       {vaccineInfo.overviewInsetText && (
@@ -85,7 +81,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
         )}
 
       {/* Fallback eligibility section for RSV */}
-      {vaccineType === VaccineTypes.RSV && eligibilityError && (
+      {vaccineType === VaccineTypes.RSV && eligibilityError && styledVaccineContent && (
         <div data-testid="elid-fallback">
           <NonUrgentCareCard
             heading={<div>{"You should have RSV vaccine if you:"}</div>}
@@ -126,7 +122,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
       )}
 
       {/* How-to-get-vaccine section for RSV in pregnancy */}
-      {vaccineType === VaccineTypes.RSV_PREGNANCY && (
+      {vaccineType === VaccineTypes.RSV_PREGNANCY && styledVaccineContent && (
         <Details
           title={HEADINGS.HOW_TO_GET_VACCINE}
           component={styledVaccineContent.howToGetVaccine.component}
@@ -143,28 +139,43 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
       <h2 className="nhsuk-heading-s">More information about the {vaccineInfo.displayName.lowercase} vaccine</h2>
 
       {/* Expandable sections */}
-      <div className="nhsuk-expander-group">
-        {/* What-vaccine-is-for expandable section */}
-        {styledVaccineContent.whatVaccineIsFor && (
-          <Details title={HEADINGS.WHAT_VACCINE_IS_FOR} component={styledVaccineContent.whatVaccineIsFor.component} />
-        )}
+      {contentError != ContentErrorTypes.CONTENT_LOADING_ERROR && styledVaccineContent != undefined ? (
+        <>
+          <div className="nhsuk-expander-group">
+            {/* What-vaccine-is-for expandable section */}
+            {styledVaccineContent.whatVaccineIsFor && (
+              <Details
+                title={HEADINGS.WHAT_VACCINE_IS_FOR}
+                component={styledVaccineContent.whatVaccineIsFor.component}
+              />
+            )}
 
-        {/* Who-vaccine-is-for expandable section */}
-        <Details title={HEADINGS.WHO_SHOULD_HAVE_VACCINE} component={styledVaccineContent.whoVaccineIsFor.component} />
+            {/* Who-vaccine-is-for expandable section */}
+            <Details
+              title={HEADINGS.WHO_SHOULD_HAVE_VACCINE}
+              component={styledVaccineContent.whoVaccineIsFor.component}
+            />
 
-        {/* How-to-get-vaccine expandable section for all vaccines except RSV in pregnancy */}
-        {vaccineType !== VaccineTypes.RSV_PREGNANCY && (
-          <Details title={HEADINGS.HOW_TO_GET_VACCINE} component={styledVaccineContent.howToGetVaccine.component} />
-        )}
-      </div>
-
-      {/* More information on nhs.uk link */}
-      <p>
-        <a href={styledVaccineContent.webpageLink} target="_blank" rel="noopener">
-          Find out more about the {vaccineInfo.displayName.lowercase} vaccine
-        </a>{" "}
-        including side effects, allergies and ingredients.
-      </p>
+            {/* How-to-get-vaccine expandable section for all vaccines except RSV in pregnancy */}
+            {vaccineType !== VaccineTypes.RSV_PREGNANCY && (
+              <Details title={HEADINGS.HOW_TO_GET_VACCINE} component={styledVaccineContent.howToGetVaccine.component} />
+            )}
+          </div>
+          <p>
+            <a href={styledVaccineContent.webpageLink} target="_blank" rel="noopener">
+              Find out more about the {vaccineInfo.displayName.lowercase} vaccine
+            </a>{" "}
+            including side effects, allergies and ingredients.
+          </p>
+        </>
+      ) : (
+        <p>
+          <a href={vaccineInfo.nhsWebpageLink} target="_blank" rel="noopener">
+            Find out more about the {vaccineInfo.displayName.lowercase} vaccine
+          </a>{" "}
+          including side effects, allergies and ingredients.
+        </p>
+      )}
     </div>
   );
 };
