@@ -55,7 +55,67 @@
     {
       "request": {
         "method": "GET",
-        "urlPathPattern": "/eligibility-signposting-api/patient-check/([0-9]+)"
+        "urlPathPattern": "/eligibility-signposting-api/patient-check/90000000400"
+      },
+      "response": {
+        "status": 400,
+        "bodyFileName": "eligibility/{{request.pathSegments.[2]}}.json",
+        "headers": {
+          "Content-Type": "application/json",
+          "apikey": "api key"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPathPattern": "/eligibility-signposting-api/patient-check/90000000404"
+      },
+      "response": {
+        "status": 404,
+        "bodyFileName": "eligibility/{{request.pathSegments.[2]}}.json",
+        "headers": {
+          "Content-Type": "application/json",
+          "apikey": "api key"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPathPattern": "/eligibility-signposting-api/patient-check/90000000422"
+      },
+      "response": {
+        "status": 422,
+        "bodyFileName": "eligibility/{{request.pathSegments.[2]}}.json",
+        "headers": {
+          "Content-Type": "application/json",
+          "apikey": "api key"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPathPattern": "/eligibility-signposting-api/patient-check/90000000500"
+      },
+      "response": {
+        "status": 500,
+        "bodyFileName": "eligibility/{{request.pathSegments.[2]}}.json",
+        "headers": {
+          "Content-Type": "application/json",
+          "apikey": "api key"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "urlPathPattern": "/eligibility-signposting-api/patient-check/([0-9]{10})"
       },
       "response": {
         "status": 200,
