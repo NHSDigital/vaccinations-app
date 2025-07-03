@@ -11,6 +11,7 @@ test.describe("E2E", () => {
 
   test.afterEach(async () => {
     await accessibilityCheck(page);
+
     expect(await benchmark(page, RSV_PAGE_URL)).toBeLessThanOrEqual(MAX_AVG_LCP_DURATION_MS);
   });
 
@@ -21,6 +22,7 @@ test.describe("E2E", () => {
 
     test("Not eligible - age and catchup bullet points", async () => {
       await page.goto(RSV_PAGE_URL);
+
       const eligibility: Locator = page.getByTestId("Eligibility");
       const heading: Locator = eligibility.getByRole("heading", {
         level: 3,
@@ -30,6 +32,7 @@ test.describe("E2E", () => {
       const bulletPoint2: Locator = eligibility.getByText(
         "did not turn 80 between 2nd September 2024 and 31st August 2025",
       );
+
       await expect(heading).toBeVisible();
       await expect(bulletPoint1).toBeVisible();
       await expect(bulletPoint2).toBeVisible();
@@ -43,9 +46,11 @@ test.describe("E2E", () => {
 
     test("Actionable - catchup bullet points", async () => {
       await page.goto(RSV_PAGE_URL);
+
       const eligibility: Locator = page.getByTestId("Eligibility");
       const heading: Locator = eligibility.getByRole("heading", { level: 3, name: "You should have the RSV vaccine" });
       const bulletPoint: Locator = eligibility.getByText("are aged 75 to 79");
+
       await expect(heading).toBeVisible();
       await expect(bulletPoint).toBeVisible();
     });
@@ -53,8 +58,14 @@ test.describe("E2E", () => {
     // TODO: VIA-325 26/06/25 - Check for h2 and paragraph after getting valid markdown from Eligibility API
     test("Actionable - InfoText action content", async () => {
       await page.goto(RSV_PAGE_URL);
-      const infoText = page.getByText("Getting the vaccine");
-      await expect(infoText).toBeVisible();
+
+      const infoTextHeading = page.getByRole("heading", { level: 2, name: "Getting the vaccine" });
+      const infoTextParagraph = page.getByText("You can get an RSV vaccination at your GP surgery.");
+      const tagName = await infoTextParagraph.evaluate((element) => element.tagName);
+
+      await expect(infoTextHeading).toBeVisible();
+      await expect(infoTextParagraph).toBeVisible();
+      expect(tagName).toBe("P"); // Note: tagName is typically uppercase
     });
   });
 
@@ -65,7 +76,9 @@ test.describe("E2E", () => {
 
     test("Actionable - No InfoText action content", async () => {
       await page.goto(RSV_PAGE_URL);
+
       const infoText = page.getByTestId("action-paragraph");
+
       await expect(infoText).toHaveCount(0);
     });
   });
