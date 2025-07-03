@@ -9,16 +9,16 @@ variable "default_tags" {
 }
 
 variable "alarms_slack_channel_id" {
-  type = string
+  type        = string
   description = "Channel ID of the Slack channel where alarms would be sent"
 }
 
 variable "cloudfront_distribution_id" {
-  type = string
+  type        = string
   description = "The ID of the cloudfront distribution"
 }
 
 variable "is_local" {
-  type = bool
+  type        = bool
   description = "Useful for turning off certain parts of monitoring for local development"
 }

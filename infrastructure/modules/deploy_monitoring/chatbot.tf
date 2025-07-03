@@ -7,5 +7,5 @@ resource "aws_chatbot_slack_channel_configuration" "this" {
   sns_topic_arns        = [module.sns.topic_arn]
   iam_role_arn          = aws_iam_role.chatbot_iam_role.arn
   guardrail_policy_arns = ["arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess"]
-  tags = var.default_tags
+  tags                  = var.default_tags
 }

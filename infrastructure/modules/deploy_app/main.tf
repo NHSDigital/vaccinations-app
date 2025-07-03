@@ -1,10 +1,10 @@
 module "deploy_app" {
-  source            = "RJPearson94/open-next/aws//modules/tf-aws-open-next-zone"
-  version           = "3.6.0"
-  open_next_version = "v3.x.x"
+  source                = "RJPearson94/open-next/aws//modules/tf-aws-open-next-zone"
+  version               = "3.6.0"
+  open_next_version     = "v3.x.x"
   function_architecture = "arm64"
-  prefix      = var.prefix
-  folder_path = var.open-next-path
+  prefix                = var.prefix
+  folder_path           = var.open-next-path
 
   providers = {
     aws.server_function = aws.server_function
@@ -28,7 +28,7 @@ module "deploy_app" {
   }
 
   server_function = {
-    additional_iam_policies = [aws_iam_policy.server_lambda_additional_policy]
+    additional_iam_policies          = [aws_iam_policy.server_lambda_additional_policy]
     additional_environment_variables = var.application_environment_variables
 
     cloudwatch_log = {
@@ -39,7 +39,7 @@ module "deploy_app" {
       log_format = "JSON"
     }
 
-    runtime               = var.nodejs_version
+    runtime = var.nodejs_version
   }
 
   image_optimisation_function = {

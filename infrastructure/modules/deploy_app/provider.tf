@@ -1,5 +1,5 @@
 provider "aws" {
-  alias = "server_function"
+  alias  = "server_function"
   region = var.region
   default_tags {
     tags = var.default_tags
@@ -7,7 +7,7 @@ provider "aws" {
 }
 
 provider "aws" {
-  alias = "iam"
+  alias  = "iam"
   region = var.region
   default_tags {
     tags = var.default_tags
@@ -15,7 +15,7 @@ provider "aws" {
 }
 
 provider "aws" {
-  alias = "dns"
+  alias  = "dns"
   region = var.region
   default_tags {
     tags = var.default_tags

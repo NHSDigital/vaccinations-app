@@ -19,7 +19,7 @@ variable "default_tags" {
 }
 
 variable "log_retention_in_days" {
-  type = string
+  type        = string
   description = "The retention of logs in cloudwatch log groups in days"
 }
 
@@ -29,21 +29,21 @@ variable "application_environment_variables" {
 }
 
 variable "acm_certificate_arn" {
-  type = string
+  type        = string
   description = "ACM certificate arn to use for cloudfront distribution"
 }
 
 variable "sub_domain" {
-  type = string
+  type        = string
   description = "The subdomain representing the environment for the website. Empty for prod."
 }
 
 variable "domain" {
-  type = string
+  type        = string
   description = "The main domain for the website"
 }
 
 variable "region" {
-  type = string
+  type        = string
   description = "The AWS region to deploy to"
 }

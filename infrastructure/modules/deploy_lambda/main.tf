@@ -1,13 +1,13 @@
 module "content_cache_hydrator_lambda_function" {
-  source = "terraform-aws-modules/lambda/aws"
-  version           = "~> 7.21.1"
+  source  = "terraform-aws-modules/lambda/aws"
+  version = "~> 7.21.1"
 
   function_name         = "${var.prefix}-content-cache-hydrator"
   description           = "Content cache hydrator lambda"
   handler               = "lambda.handler"
   environment_variables = var.application_environment_variables
 
-  architectures = ["arm64"]
+  architectures                  = ["arm64"]
   runtime                        = var.nodejs_version
   reserved_concurrent_executions = 1
   timeout                        = 60
