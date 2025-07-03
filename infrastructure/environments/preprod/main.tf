@@ -24,3 +24,14 @@ module "deploy" {
   default_tags                      = local.default_tags
   region                            = local.region
 }
+
+module "deploy_monitoring" {
+  source = "../../modules/deploy_monitoring"
+  count  = var.is_github_action ? 1 : 0
+
+  prefix                     = local.prefix
+  default_tags               = local.default_tags
+  alarms_slack_channel_id    = local.alarms_slack_channel_id
+  cloudfront_distribution_id = module.deploy.cloudfront_distribution_id
+  is_local                   = !var.is_github_action
+}
