@@ -37,6 +37,20 @@ test.describe("E2E", () => {
       await expect(bulletPoint1).toBeVisible();
       await expect(bulletPoint2).toBeVisible();
     });
+
+    test("Not Eligible - InfoText action content", async () => {
+      await page.goto(RSV_PAGE_URL);
+
+      const infoTextHeading = page.getByRole("heading", { level: 2, name: "If you think you need this vaccine" });
+      const infoTextParagraph = page.getByText(
+        "Speak to your healthcare professional if you think you should be offered this vaccination.",
+      );
+      const tagName = await infoTextParagraph.evaluate((element) => element.tagName);
+
+      await expect(infoTextHeading).toBeVisible();
+      await expect(infoTextParagraph).toBeVisible();
+      expect(tagName).toBe("P");
+    });
   });
 
   test.describe("Actionable", () => {
@@ -55,7 +69,6 @@ test.describe("E2E", () => {
       await expect(bulletPoint).toBeVisible();
     });
 
-    // TODO: VIA-325 26/06/25 - Check for h2 and paragraph after getting valid markdown from Eligibility API
     test("Actionable - InfoText action content", async () => {
       await page.goto(RSV_PAGE_URL);
 
@@ -65,7 +78,7 @@ test.describe("E2E", () => {
 
       await expect(infoTextHeading).toBeVisible();
       await expect(infoTextParagraph).toBeVisible();
-      expect(tagName).toBe("P"); // Note: tagName is typically uppercase
+      expect(tagName).toBe("P");
     });
   });
 
