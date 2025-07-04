@@ -22,17 +22,14 @@ import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
 import { Session } from "next-auth";
 import { auth } from "@project/auth";
 import { SSO_TO_NBS_ROUTE } from "@src/app/api/sso-to-nbs/constants";
+import { EligibilityFallback } from "@src/app/_components/eligibility/EligibilityFallback";
+import { MoreInformation } from "@src/app/_components/content/MoreInformation";
+import { HEADINGS } from "@src/app/constants";
+import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
 
 interface VaccineProps {
   vaccineType: VaccineTypes;
 }
-
-const HEADINGS = {
-  WHAT_VACCINE_IS_FOR: "What this vaccine is for",
-  WHO_SHOULD_HAVE_VACCINE: "Who should have this vaccine",
-  HOW_TO_GET_VACCINE: "How to get the vaccine",
-  IF_YOU_THINK: "If you think you need this vaccine",
-};
 
 const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
   const session: Session | null = await auth();
@@ -91,24 +88,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
 
       {/* Fallback eligibility section for RSV */}
       {vaccineType === VaccineTypes.RSV && eligibilityError && (
-        <div data-testid="elid-fallback">
-          <NonUrgentCareCard
-            heading={<div>{"You should have RSV vaccine if you:"}</div>}
-            content={
-              <div className={styles.zeroMarginBottom}>
-                <ul>
-                  <li key={1}>{"are aged between 75 and 79"}</li>
-                  <li key={2}>{"turned 80 after 1 September 2024"}</li>
-                </ul>
-              </div>
-            }
-          />
-          <Details title={HEADINGS.IF_YOU_THINK} component={howToGetVaccineFallback} notExpandable={true} />
-          <p>
-            {"In some areas you can "}
-            <a href={nbsSSOLink}>book an RSV vaccination in a pharmacy</a>
-          </p>
-        </div>
+        <EligibilityFallback howToGetVaccineFallback={howToGetVaccineFallback} nbsLink={nbsSSOLink} />
       )}
 
       {/* Static eligibility section for RSV in pregnancy */}
@@ -141,41 +121,13 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
 
       {/* Expandable sections */}
       {contentError != ContentErrorTypes.CONTENT_LOADING_ERROR && styledVaccineContent != undefined ? (
-        <>
-          <div className="nhsuk-expander-group" data-testid="more-information-expander-group">
-            {/* What-vaccine-is-for expandable section */}
-            {styledVaccineContent.whatVaccineIsFor && (
-              <Details
-                title={HEADINGS.WHAT_VACCINE_IS_FOR}
-                component={styledVaccineContent.whatVaccineIsFor.component}
-              />
-            )}
-
-            {/* Who-vaccine-is-for expandable section */}
-            <Details
-              title={HEADINGS.WHO_SHOULD_HAVE_VACCINE}
-              component={styledVaccineContent.whoVaccineIsFor.component}
-            />
-
-            {/* How-to-get-vaccine expandable section for all vaccines except RSV in pregnancy */}
-            {vaccineType !== VaccineTypes.RSV_PREGNANCY && (
-              <Details title={HEADINGS.HOW_TO_GET_VACCINE} component={styledVaccineContent.howToGetVaccine.component} />
-            )}
-          </div>
-          <p>
-            <a href={styledVaccineContent.webpageLink} target="_blank" rel="noopener">
-              Find out more about the {vaccineInfo.displayName.midSentenceCase} vaccine
-            </a>{" "}
-            including side effects, allergies and ingredients.
-          </p>
-        </>
+        <MoreInformation
+          styledVaccineContent={styledVaccineContent}
+          vaccineType={vaccineType}
+          vaccineInfo={vaccineInfo}
+        />
       ) : (
-        <p>
-          <a href={vaccineInfo.nhsWebpageLink} target="_blank" rel="noopener">
-            Find out more about the {vaccineInfo.displayName.midSentenceCase} vaccine
-          </a>{" "}
-          including side effects, allergies and ingredients.
-        </p>
+        <FindOutMoreLink findOutMoreUrl={vaccineInfo.nhsWebpageLink} vaccineInfo={vaccineInfo} />
       )}
     </div>
   );

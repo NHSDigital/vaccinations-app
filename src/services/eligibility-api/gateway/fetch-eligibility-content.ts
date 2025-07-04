@@ -32,5 +32,5 @@ export const fetchEligibilityContent = async (nhsNumber: string): Promise<Eligib
       log.error(error, `Error in fetching ${uri}`);
       throw new EligibilityApiHttpStatusError(`Error in fetching ${uri} - ${error.toJSON()}`);
     });
-  return response.data; // TODO - VIA-331, SB MD - deserialise using https://zod.dev? And throw EligibilityApiSchemaError?
+  return response.data; // TODO - deserialise using https://zod.dev or similar, and throw EligibilityApiSchemaError?
 };
