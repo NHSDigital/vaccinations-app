@@ -19,6 +19,7 @@ import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVElig
 import { MoreInformation } from "@src/app/_components/content/MoreInformation";
 import { HEADINGS } from "@src/app/constants";
 import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
+import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
 
 interface VaccineProps {
   vaccineType: VaccineTypes;
@@ -43,10 +44,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
   const howToGetVaccineFallback = styledVaccineContent ? (
     styledVaccineContent.howToGetVaccine.component
   ) : (
-    <p>
-      Find out <a href={vaccineInfo.nhsHowToGetWebpageLink.href}>how to get</a> an {vaccineInfo.displayName.midSentenceCase}{" "}
-      vaccination
-    </p>
+    <HowToGetVaccineFallback vaccineType={vaccineType} />
   );
 
   return (
