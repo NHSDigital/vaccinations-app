@@ -53,8 +53,8 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
     styledVaccineContent.howToGetVaccine.component
   ) : (
     <>
-      Find out <a href={vaccineInfo.nhsHowToGetWebpageLink}>how to get</a> an {vaccineInfo.displayName.midSentenceCase}{" "}
-      vaccination
+      Find out <a href={vaccineInfo.nhsHowToGetWebpageLink.href}>how to get</a> an{" "}
+      {vaccineInfo.displayName.midSentenceCase} vaccination
     </>
   );
 

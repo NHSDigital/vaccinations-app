@@ -55,7 +55,7 @@ export type ContentApiVaccineResponse = {
   "@type": string;
   name: string;
   mainEntityOfPage: MainEntityOfPage[];
-  webpage: string;
+  webpage: URL;
   copyrightHolder: object;
   license: string;
   author: object;
@@ -105,7 +105,7 @@ export type VaccinePageContent = {
   whatVaccineIsFor?: VaccinePageSection;
   whoVaccineIsFor: VaccinePageSection;
   howToGetVaccine: VaccinePageSection;
-  webpageLink: string;
+  webpageLink: URL;
 };
 
 export type StyledPageSection = {
@@ -123,7 +123,7 @@ export type StyledVaccineContent = {
   whatVaccineIsFor?: StyledPageSection;
   whoVaccineIsFor: StyledPageSection;
   howToGetVaccine: StyledPageSection;
-  webpageLink: string;
+  webpageLink: URL;
 };
 
 export type ContentApiVaccinationsResponse = {

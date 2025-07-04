@@ -193,7 +193,7 @@ describe("ContentStylingService", () => {
           whatVaccineIsFor: mockWhatSection,
           whoVaccineIsFor: mockWhoSection,
           howToGetVaccine: mockHowSection,
-          webpageLink: "This is a link",
+          webpageLink: new URL("https://test.example.com/"),
         };
 
         const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(vaccine, mockContent);
@@ -217,7 +217,7 @@ describe("ContentStylingService", () => {
         expect(isValidElement(styledVaccineContent.whatVaccineIsFor?.component)).toBe(true);
         expect(isValidElement(styledVaccineContent.whoVaccineIsFor.component)).toBe(true);
         expect(isValidElement(styledVaccineContent.howToGetVaccine.component)).toBe(true);
-        expect(styledVaccineContent.webpageLink).toEqual("This is a link");
+        expect(styledVaccineContent.webpageLink).toEqual(new URL("https://test.example.com/"));
       },
     );
 
@@ -234,7 +234,7 @@ describe("ContentStylingService", () => {
         overview: "This is an overview",
         whoVaccineIsFor: mockWhoSection,
         howToGetVaccine: mockHowSection,
-        webpageLink: "This is a link",
+        webpageLink: new URL("https://test.example.com/"),
       };
 
       const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
@@ -247,7 +247,7 @@ describe("ContentStylingService", () => {
       expect(styledVaccineContent.whatVaccineIsFor).toBeUndefined();
       expect(isValidElement(styledVaccineContent.whoVaccineIsFor.component)).toBe(true);
       expect(isValidElement(styledVaccineContent.howToGetVaccine.component)).toBe(true);
-      expect(styledVaccineContent.webpageLink).toEqual("This is a link");
+      expect(styledVaccineContent.webpageLink).toEqual(new URL("https://test.example.com/"));
     });
   });
 

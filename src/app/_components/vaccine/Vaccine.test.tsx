@@ -152,7 +152,7 @@ describe("Any vaccine page", () => {
       });
 
       expect(webpageLink).toBeInTheDocument();
-      expect(webpageLink).toHaveAttribute("href", "https://www.test.com/");
+      expect(webpageLink).toHaveAttribute("href", "https://test.example.com/");
       expect(webpageLink).toHaveAttribute("target", "_blank");
     });
   });

@@ -133,6 +133,10 @@ export function randomString(length: number) {
   return result;
 }
 
+export function randomURL() {
+  return new URL(`https://${randomString(10)}.example.com`);
+}
+
 export function randomInteger(min: number, max: number) {
   return Math.floor(Math.random() * (max - min) + min);
 }

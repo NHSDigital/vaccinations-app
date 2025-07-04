@@ -555,7 +555,7 @@ export const genericVaccineContentAPIResponse: ContentApiVaccineResponse = {
       ],
     },
   ],
-  webpage: "https://www.nhs.uk/vaccinations/generic-vaccine/",
+  webpage: new URL("https://www.nhs.uk/vaccinations/generic-vaccine/"),
 };
 
 export const mockStyledContent: StyledVaccineContent = {
@@ -572,7 +572,7 @@ export const mockStyledContent: StyledVaccineContent = {
     heading: "how-heading",
     component: <div>How Section styled component</div>,
   },
-  webpageLink: "https://www.test.com/",
+  webpageLink: new URL("https://test.example.com/"),
 };
 
 export const mockStyledContentWithoutWhatSection: StyledVaccineContent = {
@@ -585,5 +585,5 @@ export const mockStyledContentWithoutWhatSection: StyledVaccineContent = {
     heading: "how-heading",
     component: <div>How Section styled component</div>,
   },
-  webpageLink: "https://www.test.com/",
+  webpageLink: new URL("https://test.example.com/"),
 };
