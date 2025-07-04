@@ -4,7 +4,9 @@ import { VaccineTypes } from "@src/models/vaccine";
 import { NBSBookingAction } from "@src/app/_components/nbs/NBSBookingAction";
 
 jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
-  NBSBookingAction: jest.fn().mockImplementation(() => <a href="http://nbs-test-link">NBS Booking Link Test</a>),
+  NBSBookingAction: jest
+    .fn()
+    .mockImplementation(() => <a href="https://nbs-test-link.example.com">NBS Booking Link Test</a>),
 }));
 
 describe("PharmacyBookingInfo", () => {
