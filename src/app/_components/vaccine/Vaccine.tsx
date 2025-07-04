@@ -4,13 +4,7 @@ import { NBSBookingAction } from "@src/app/_components/nbs/NBSBookingAction";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
-import {
-  VaccineContentUrlPaths,
-  VaccineDetails,
-  VaccineInfo,
-  VaccineTypes,
-  vaccineTypeToUrlPath,
-} from "@src/models/vaccine";
+import { VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
@@ -21,8 +15,7 @@ import styles from "./styles.module.css";
 import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
 import { Session } from "next-auth";
 import { auth } from "@project/auth";
-import { SSO_TO_NBS_ROUTE } from "@src/app/api/sso-to-nbs/constants";
-import { EligibilityFallback } from "@src/app/_components/eligibility/EligibilityFallback";
+import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
 import { MoreInformation } from "@src/app/_components/content/MoreInformation";
 import { HEADINGS } from "@src/app/constants";
 import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
@@ -46,16 +39,14 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
   ]);
 
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
-  const vaccinePath: VaccineContentUrlPaths = vaccineTypeToUrlPath[vaccineType];
-  const nbsSSOLink = `${SSO_TO_NBS_ROUTE}?vaccine=${vaccinePath}`;
 
   const howToGetVaccineFallback = styledVaccineContent ? (
     styledVaccineContent.howToGetVaccine.component
   ) : (
-    <>
-      Find out <a href={vaccineInfo.nhsHowToGetWebpageLink.href}>how to get</a> an{" "}
-      {vaccineInfo.displayName.midSentenceCase} vaccination
-    </>
+    <p>
+      Find out <a href={vaccineInfo.nhsHowToGetWebpageLink.href}>how to get</a> an {vaccineInfo.displayName.midSentenceCase}{" "}
+      vaccination
+    </p>
   );
 
   return (
@@ -88,7 +79,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
 
       {/* Fallback eligibility section for RSV */}
       {vaccineType === VaccineTypes.RSV && eligibilityError && (
-        <EligibilityFallback howToGetVaccineFallback={howToGetVaccineFallback} nbsLink={nbsSSOLink} />
+        <RSVEligibilityFallback howToGetVaccineFallback={howToGetVaccineFallback} vaccineType={vaccineType} />
       )}
 
       {/* Static eligibility section for RSV in pregnancy */}

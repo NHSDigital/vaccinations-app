@@ -3,8 +3,13 @@ import styles from "@src/app/_components/vaccine/styles.module.css";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import React, { JSX } from "react";
 import { HEADINGS } from "@src/app/constants";
+import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
+import { VaccineTypes } from "@src/models/vaccine";
 
-const EligibilityFallback = (props: { howToGetVaccineFallback: JSX.Element; nbsLink: string }): JSX.Element => {
+const RSVEligibilityFallback = (props: {
+  howToGetVaccineFallback: JSX.Element;
+  vaccineType: VaccineTypes;
+}): JSX.Element => {
   return (
     <div data-testid="elid-fallback">
       <NonUrgentCareCard
@@ -19,12 +24,9 @@ const EligibilityFallback = (props: { howToGetVaccineFallback: JSX.Element; nbsL
         }
       />
       <Details title={HEADINGS.IF_YOU_THINK} component={props.howToGetVaccineFallback} notExpandable={true} />
-      <p>
-        {"In some areas you can "}
-        <a href={props.nbsLink}>book an RSV vaccination in a pharmacy</a>
-      </p>
+      <PharmacyBookingInfo vaccineType={props.vaccineType} />
     </div>
   );
 };
 
-export { EligibilityFallback };
+export { RSVEligibilityFallback };

@@ -8,6 +8,8 @@ import { render, screen, within } from "@testing-library/react";
 import { EligibilityErrorTypes, EligibilityStatus } from "@src/services/eligibility-api/types";
 import { eligibilityContentBuilder } from "@test-data/eligibility-api/builders";
 import { auth } from "@project/auth";
+import React from "react";
+import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service", () => ({
   getContentForVaccine: jest.fn(),
@@ -19,7 +21,10 @@ jest.mock("@src/app/_components/eligibility/Eligibility", () => ({
   Eligibility: () => <div>Test Eligibility Component</div>,
 }));
 jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
-  NBSBookingAction: () => <div>NBS Booking Link Test</div>,
+  NBSBookingAction: () => <a href="http://nbs-test-link">NBS Booking Link Test</a>,
+}));
+jest.mock("@src/app/_components/eligibility/RSVEligibilityFallback", () => ({
+  RSVEligibilityFallback: jest.fn().mockImplementation(() => <div data-testid="elid-fallback-mock">EliD fallback</div>),
 }));
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
@@ -350,38 +355,21 @@ describe("Any vaccine page", () => {
       });
     });
 
-    it("should display fallback eligibility care card when eligibility API has failed", async () => {
-      await renderNamedVaccinePage(VaccineTypes.RSV);
+    it("should display fallback eligibility component using howToGet text from content-api when eligibility API has failed", async () => {
+      const vaccineType = VaccineTypes.RSV;
+      await renderNamedVaccinePage(vaccineType);
 
-      const fallbackHeading: HTMLElement = screen.getByText("You should have RSV vaccine if you:");
-      const fallbackBulletPoint1: HTMLElement = screen.getByText("are aged between 75 and 79");
-      const fallbackBulletPoint2: HTMLElement = screen.getByText("turned 80 after 1 September 2024");
+      const rsvELigibilityFallback: HTMLElement = screen.getByTestId("elid-fallback-mock");
+      expect(rsvELigibilityFallback).toBeVisible();
 
-      expect(fallbackHeading).toBeVisible();
-      expect(fallbackBulletPoint1).toBeVisible();
-      expect(fallbackBulletPoint2).toBeVisible();
-    });
-
-    it("should display fallback eligibility paragraph when eligibility API has failed", async () => {
-      await renderNamedVaccinePage(VaccineTypes.RSV);
-
-      const fallback = screen.getByTestId("elid-fallback");
-
-      const fallbackHeading: HTMLElement = within(fallback).getByRole("heading", {
-        name: "If you think you need this vaccine",
-        level: 3,
-      });
-      const howToGetContent: HTMLElement = within(fallback).getByText("How Section styled component");
-      const linkPrefix: HTMLElement = within(fallback).getByText("In some areas you can");
-      const bookingLink: HTMLElement = within(fallback).getByRole("link", {
-        name: "book an RSV vaccination in a pharmacy",
-      });
-
-      expect(fallbackHeading).toBeVisible();
-      expect(howToGetContent).toBeVisible();
-      expect(linkPrefix).toBeVisible();
-      expect(bookingLink).toBeVisible();
-      expect(bookingLink).toHaveAttribute("href", "/api/sso-to-nbs?vaccine=rsv");
+      // TODO VIA-331: assert that the fallback content is passed in for howToGet
+      expect(RSVEligibilityFallback).toHaveBeenCalledWith(
+        {
+          howToGetVaccineFallback: mockStyledContent.howToGetVaccine.component,
+          vaccineType,
+        },
+        undefined,
+      );
     });
   });
 
@@ -397,36 +385,38 @@ describe("Any vaccine page", () => {
       });
     });
 
-    it("should display fallback how-to-get and pharmacy booking links in eligibility fallback component", async () => {
-      await renderNamedVaccinePage(VaccineTypes.RSV);
+    // TODO: VIA-331 review placement of logic to generate different how to get link
+    it("should use fallback how-to-get text when rendering eligibility fallback component", async () => {
+      const vaccineType = VaccineTypes.RSV;
 
-      const fallback = screen.getByTestId("elid-fallback");
-
-      const fallbackHeading: HTMLElement = within(fallback).getByRole("heading", {
-        name: "If you think you need this vaccine",
-        level: 3,
-      });
-      const howToGetContent: HTMLElement | null = within(fallback).queryByText("How Section styled component");
-
-      const fallbackHowToGetLink: HTMLElement = within(fallback).getByRole("link", { name: "how to get" });
-
-      const pharmacyBookingLinkPrefix: HTMLElement = within(fallback).getByText("In some areas you can");
-      const pharmacyBookingLink: HTMLElement = within(fallback).getByRole("link", {
-        name: "book an RSV vaccination in a pharmacy",
-      });
-
-      expect(fallbackHeading).toBeVisible();
-      expect(fallbackHowToGetLink).toBeInTheDocument();
-      expect(fallbackHowToGetLink).toHaveAttribute(
-        "href",
-        "https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it",
+      const expectedHowToGetWhenContentIsDown: React.JSX.Element = (
+        <p>
+          Find out <a href={VaccineInfo[vaccineType].nhsHowToGetWebpageLink.href}>how to get</a> an {VaccineInfo[vaccineType].displayName.midSentenceCase}{" "}
+          vaccination
+        </p>
       );
 
-      expect(pharmacyBookingLinkPrefix).toBeVisible();
-      expect(pharmacyBookingLink).toBeVisible();
-      expect(pharmacyBookingLink).toHaveAttribute("href", "/api/sso-to-nbs?vaccine=rsv");
+      await renderNamedVaccinePage(vaccineType);
 
-      expect(howToGetContent).not.toBeInTheDocument();
+      const rsvELigibilityFallback: HTMLElement = screen.getByTestId("elid-fallback-mock");
+      expect(rsvELigibilityFallback).toBeVisible();
+
+      expect(RSVEligibilityFallback).toHaveBeenCalledWith(
+        {
+          howToGetVaccineFallback: expectedHowToGetWhenContentIsDown,
+          vaccineType,
+        },
+        undefined,
+      );
+      //
+      //  TODO VIA-331 review placement of logic to generate different how to get link
+      // const fallbackHowToGetLink: HTMLElement = within(rsvEligibilityFallback).getByRole("link", { name: "how to get" });
+      //   expect(fallbackHeading).toBeVisible();
+      // expect(fallbackHowToGetLink).toBeInTheDocument();
+      // expect(fallbackHowToGetLink).toHaveAttribute(
+      //   "href",
+      //   "https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it"
+      // );
     });
   });
 });
