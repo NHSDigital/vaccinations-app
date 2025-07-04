@@ -60,7 +60,7 @@ describe("styleHowToGetSubsection for rsv in pregnancy", () => {
   it("renders HTML if subsection contains rsv in pregnancy", () => {
     const { container } = render(<>{styleHowToGetSubsectionForRsvInPregnancy(mockRsvInPregnancySubsection, 0)}</>);
     expect(container.innerHTML).toBe(
-      `<div><div><p>Paragraph 1</p><p>Paragraph 2</p></div><p>In some areas you can also ${mockNBSBookingActionHTML}.</p></div>`,
+      `<div><div><p>Paragraph 1</p><p>Paragraph 2</p></div><p data-testid=\"pharmacy-booking-info\">In some areas you can also ${mockNBSBookingActionHTML}.</p></div>`,
     );
   });
 });
