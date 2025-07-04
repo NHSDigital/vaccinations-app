@@ -10,6 +10,7 @@ import { eligibilityContentBuilder } from "@test-data/eligibility-api/builders";
 import { auth } from "@project/auth";
 import React from "react";
 import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
+import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service", () => ({
   getContentForVaccine: jest.fn(),
@@ -25,6 +26,9 @@ jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
 }));
 jest.mock("@src/app/_components/eligibility/RSVEligibilityFallback", () => ({
   RSVEligibilityFallback: jest.fn().mockImplementation(() => <div data-testid="elid-fallback-mock">EliD fallback</div>),
+}));
+jest.mock("@src/app/_components/content/HowToGetVaccineFallback", () => ({
+  HowToGetVaccineFallback: jest.fn().mockImplementation(() => <div data-testid="how-to-get-content-fallback-mock">How to get content fallback</div>),
 }));
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
@@ -253,13 +257,9 @@ describe("Any vaccine page", () => {
     it("should display fallback how-to-get link on rsv pregnancy page", async () => {
       await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
 
-      const fallbackHowToGetLink: HTMLElement = screen.getByRole("link", { name: "how to get" });
+      const fallbackHowToGetLink: HTMLElement = screen.getByTestId("how-to-get-content-fallback-mock");
 
       expect(fallbackHowToGetLink).toBeInTheDocument();
-      expect(fallbackHowToGetLink).toHaveAttribute(
-        "href",
-        "https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it",
-      );
     });
   });
 
@@ -385,16 +385,8 @@ describe("Any vaccine page", () => {
       });
     });
 
-    // TODO: VIA-331 review placement of logic to generate different how to get link
     it("should use fallback how-to-get text when rendering eligibility fallback component", async () => {
       const vaccineType = VaccineTypes.RSV;
-
-      const expectedHowToGetWhenContentIsDown: React.JSX.Element = (
-        <p>
-          Find out <a href={VaccineInfo[vaccineType].nhsHowToGetWebpageLink.href}>how to get</a> an {VaccineInfo[vaccineType].displayName.midSentenceCase}{" "}
-          vaccination
-        </p>
-      );
 
       await renderNamedVaccinePage(vaccineType);
 
@@ -403,20 +395,11 @@ describe("Any vaccine page", () => {
 
       expect(RSVEligibilityFallback).toHaveBeenCalledWith(
         {
-          howToGetVaccineFallback: expectedHowToGetWhenContentIsDown,
+          howToGetVaccineFallback: <HowToGetVaccineFallback vaccineType={vaccineType}/>,
           vaccineType,
         },
         undefined,
       );
-      //
-      //  TODO VIA-331 review placement of logic to generate different how to get link
-      // const fallbackHowToGetLink: HTMLElement = within(rsvEligibilityFallback).getByRole("link", { name: "how to get" });
-      //   expect(fallbackHeading).toBeVisible();
-      // expect(fallbackHowToGetLink).toBeInTheDocument();
-      // expect(fallbackHowToGetLink).toHaveAttribute(
-      //   "href",
-      //   "https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it"
-      // );
     });
   });
 });
