@@ -24,6 +24,7 @@ const fetchContentForVaccine = async (vaccine: VaccineTypes): Promise<string> =>
         accept: "application/json",
         apikey: apiKey,
       },
+      timeout: 5000,
     });
     log.info("Successfully fetched content from %s", uri);
     return JSON.stringify(response.data);

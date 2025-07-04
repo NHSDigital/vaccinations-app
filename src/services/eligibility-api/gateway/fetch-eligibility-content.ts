@@ -24,6 +24,7 @@ export const fetchEligibilityContent = async (nhsNumber: string): Promise<Eligib
         apikey: apiKey,
         "X-Correlation-ID": vitaTraceId,
       },
+      timeout: 5000,
       validateStatus: (status) => {
         return status < HttpStatusCode.BadRequest;
       },

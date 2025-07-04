@@ -30,6 +30,7 @@ describe("fetchContentForVaccine", () => {
         accept: "application/json",
         apikey: testApiKey,
       },
+      timeout: 5000,
     });
     expect(actual).toBe(JSON.stringify(testApiContent));
   });
