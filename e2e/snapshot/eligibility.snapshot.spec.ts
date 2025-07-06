@@ -2,11 +2,19 @@ import { expect, Page, test } from "@playwright/test";
 import { RSV_PAGE_URL } from "@project/e2e/constants";
 import { login } from "@project/e2e/auth";
 import users from "@test-data/test-users.json" assert { type: "json" };
+import { pathForCustomScreenshots } from "@project/e2e/helpers";
 
 test.describe.configure({ mode: "serial" });
 
 test.describe("E2E", () => {
   let page: Page;
+  let projectName: string;
+  let fileName: string;
+
+  test.beforeAll(async ({}, testInfo) => {
+    projectName = testInfo.project.name;
+    fileName = testInfo.file.split("/").pop()!;
+  });
 
   test.describe("Not Eligible", () => {
     test.beforeAll(async ({ browser }) => {
@@ -14,9 +22,14 @@ test.describe("E2E", () => {
     });
 
     test("Not eligible - age and catchup bullet points", async () => {
+      const screenshotFileName = "eligibility-not-eligible.png";
+      const customScreenshotPath = pathForCustomScreenshots(fileName, screenshotFileName, projectName);
       await page.goto(RSV_PAGE_URL);
-
-      await expect(page).toHaveScreenshot("eligibility-not-eligible.png", {
+      await page.screenshot({
+        path: customScreenshotPath,
+        fullPage: true,
+      });
+      await expect(page).toHaveScreenshot(screenshotFileName, {
         fullPage: true,
       });
     });
@@ -28,9 +41,14 @@ test.describe("E2E", () => {
     });
 
     test("Actionable - catchup bullet points", async () => {
+      const screenshotFileName = "eligibility-actionable.png";
+      const customScreenshotPath = pathForCustomScreenshots(fileName, screenshotFileName, projectName);
       await page.goto(RSV_PAGE_URL);
-
-      await expect(page).toHaveScreenshot("eligibility-actionable.png", {
+      await page.screenshot({
+        path: customScreenshotPath,
+        fullPage: true,
+      });
+      await expect(page).toHaveScreenshot(screenshotFileName, {
         fullPage: true,
       });
     });

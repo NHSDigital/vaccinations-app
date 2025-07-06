@@ -3,8 +3,8 @@ name: "CI/CD snapshot upload"
 on:
   workflow_dispatch:
     inputs:
-      source_workflow_run_id:
-        description: "ID of the Snapshot Test workflow run to get snapshots from"
+      tag:
+        description: "Tag"
         required: true
         type: string
 
@@ -35,15 +35,6 @@ jobs:
           role-to-assume: ${{ env.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: "Download generated snapshots artifact from source workflow"
-        uses: actions/download-artifact@v4
-        with:
-          name: generated-playwright-snapshots
-          path: ./e2e/snapshot/__snapshots__/
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.repository }}
-          run-id: ${{ inputs.source_workflow_run_id }}
-
-      - name: "Uploading new snapshots to S3"
+      - name: "Copy ${{ inputs.tag }} tagged snapshots to reference"
         run: |
-          aws s3 sync ./e2e/snapshot/__snapshots__/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/__snapshots__/
+          aws s3 sync s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/${{ inputs.tag }}/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/reference/__snapshots__/

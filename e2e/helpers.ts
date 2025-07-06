@@ -31,3 +31,8 @@ export const accessibilityCheck = async (page: Page) => {
   const accessibilityScanResults = await new AxeBuilder({ page }).withTags(["wcag22aa"]).analyze();
   expect(accessibilityScanResults.violations).toEqual([]);
 };
+
+export const pathForCustomScreenshots = (testFileName: string, screenshotFileName: string, projectName: string) => {
+  const baseFile: string = screenshotFileName.substring(0, screenshotFileName.lastIndexOf("."));
+  return `./e2e/snapshot/snapshot_review/${testFileName}-snapshots/${baseFile}-${projectName}-${process.platform}.png`;
+};

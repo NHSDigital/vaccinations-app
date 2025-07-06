@@ -102,6 +102,7 @@ next-env.d.ts
 /blob-report/
 /playwright/.cache/
 **/__snapshots__/
+**/snapshot_review/
 
 # open-next
 /.open-next/
