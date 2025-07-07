@@ -1,6 +1,7 @@
 import { VaccineTypes } from "@src/models/vaccine";
 import {
   Action,
+  ActionType,
   EligibilityErrorTypes,
   EligibilityForPersonType,
   EligibilityStatus,
@@ -16,6 +17,7 @@ import {
   ProcessedSuggestion,
 } from "@src/services/eligibility-api/api-types";
 import { EligibilityApiError } from "@src/services/eligibility-api/gateway/exceptions";
+import { Heading, Content, Cohort, Introduction } from "@src/services/eligibility-api/types";
 
 const ELIGIBILITY_CONTENT_INTRO_TEXT: string = "This is because you:";
 
@@ -46,9 +48,9 @@ const getEligibilityForPerson = async (
       log.error("EliD response validation error: Missing eligibilityCohorts element");
     } else if (suggestionForVaccine.eligibilityCohorts.length > 0) {
       summary = {
-        heading: suggestionForVaccine.statusText,
-        introduction: ELIGIBILITY_CONTENT_INTRO_TEXT,
-        cohorts: _extractAllCohortText(suggestionForVaccine),
+        heading: suggestionForVaccine.statusText as Heading,
+        introduction: ELIGIBILITY_CONTENT_INTRO_TEXT as Introduction,
+        cohorts: _extractAllCohortText(suggestionForVaccine) as Cohort[],
       };
     }
 
@@ -110,8 +112,8 @@ const _generateActions = (suggestion: ProcessedSuggestion): Action[] => {
     if (action.actionType === "InfoText") {
       return [
         {
-          type: "paragraph",
-          content: action.description,
+          type: ActionType.paragraph,
+          content: action.description as Content,
         },
       ];
     } else {

@@ -8,10 +8,14 @@ import {
   Eligibility,
   Action,
   EligibilityContent,
-  EligibilityErrorTypes,
   EligibilityForPersonType,
   EligibilityStatus,
   SummaryContent,
+  Heading,
+  Content,
+  Cohort,
+  Introduction,
+  ActionType,
 } from "@src/services/eligibility-api/types";
 import { createTypeBuilder, randomString, randomValue } from "@test-data/meta-builder";
 
@@ -70,15 +74,15 @@ export function eligibilityContentBuilder() {
 
 export function summaryContentBuilder() {
   return createTypeBuilder<SummaryContent>({
-    heading: randomString(10),
-    introduction: randomString(10),
-    cohorts: [randomString(10), randomString(10)],
+    heading: randomString(10) as Heading,
+    introduction: randomString(10) as Introduction,
+    cohorts: [randomString(10), randomString(10)] as Cohort[],
   });
 }
 
 export function actionBuilder() {
   return createTypeBuilder<Action>({
-    type: randomValue(["card", "paragraph"]),
-    content: randomString(10),
+    type: randomValue(Object.values(ActionType)),
+    content: randomString(10) as Content,
   });
 }
