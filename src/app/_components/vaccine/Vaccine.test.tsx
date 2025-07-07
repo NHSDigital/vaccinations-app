@@ -3,8 +3,8 @@ import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
-import { mockStyledContent, mockStyledContentWithoutWhatSection } from "@test-data/content-api/data";
-import { render, screen, within } from "@testing-library/react";
+import { mockStyledContent } from "@test-data/content-api/data";
+import { render, screen } from "@testing-library/react";
 import { EligibilityErrorTypes, EligibilityStatus } from "@src/services/eligibility-api/types";
 import { eligibilityContentBuilder } from "@test-data/eligibility-api/builders";
 import { auth } from "@project/auth";
@@ -27,8 +27,13 @@ jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
 jest.mock("@src/app/_components/eligibility/RSVEligibilityFallback", () => ({
   RSVEligibilityFallback: jest.fn().mockImplementation(() => <div data-testid="elid-fallback-mock">EliD fallback</div>),
 }));
+jest.mock("@src/app/_components/content/MoreInformation", () => ({
+  MoreInformation: jest.fn().mockImplementation(() => <div data-testid="more-information-mock">More Information</div>),
+}));
 jest.mock("@src/app/_components/content/HowToGetVaccineFallback", () => ({
-  HowToGetVaccineFallback: jest.fn().mockImplementation(() => <div data-testid="how-to-get-content-fallback-mock">How to get content fallback</div>),
+  HowToGetVaccineFallback: jest
+    .fn()
+    .mockImplementation(() => <div data-testid="how-to-get-content-fallback-mock">How to get content fallback</div>),
 }));
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
@@ -45,7 +50,7 @@ describe("Any vaccine page", () => {
     await renderNamedVaccinePage(VaccineTypes.RSV);
   };
 
-  describe("with all sections available", () => {
+  describe("shows content section, when content available", () => {
     beforeEach(() => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
         styledVaccineContent: mockStyledContent,
@@ -114,90 +119,10 @@ describe("Any vaccine page", () => {
 
       expect(heading).toBeInTheDocument();
       expect(content).toBeInTheDocument();
-
-      const moreInformationExpanders = screen.getByTestId("more-information-expander-group");
-      const howSectionWithinExpander = within(moreInformationExpanders).queryByText("How to get the vaccine");
-      expect(howSectionWithinExpander).not.toBeInTheDocument();
-    });
-
-    it("should display whatItIsFor expander block", async () => {
-      await renderRsvVaccinePage();
-
-      const heading: HTMLElement = screen.getByText("What this vaccine is for");
-      const content: HTMLElement = screen.getByText("What Section styled component");
-
-      expect(heading).toBeInTheDocument();
-      expect(content).toBeInTheDocument();
-    });
-
-    it("should display whoVaccineIsFor expander block", async () => {
-      await renderRsvVaccinePage();
-
-      const heading: HTMLElement = screen.getByText("Who should have this vaccine");
-      const content: HTMLElement = screen.getByRole("heading", {
-        level: 2,
-        name: "Who Section styled component",
-      });
-
-      expect(heading).toBeInTheDocument();
-      expect(content).toBeInTheDocument();
-    });
-
-    it("should display howToGetVaccine expander block", async () => {
-      await renderRsvVaccinePage();
-
-      const heading: HTMLElement = screen.getByText("How to get the vaccine");
-      const content: HTMLElement = screen.getByText("How Section styled component");
-
-      expect(heading).toBeInTheDocument();
-      expect(content).toBeInTheDocument();
-    });
-
-    it("should display webpage link to more information about vaccine", async () => {
-      await renderRsvVaccinePage();
-
-      const webpageLink: HTMLElement = screen.getByRole("link", {
-        name: "Find out more about the RSV vaccine",
-      });
-
-      expect(webpageLink).toBeInTheDocument();
-      expect(webpageLink).toHaveAttribute("href", "https://test.example.com/");
-      expect(webpageLink).toHaveAttribute("target", "_blank");
     });
   });
 
-  describe("without whatItIsFor section", () => {
-    beforeEach(() => {
-      (getContentForVaccine as jest.Mock).mockResolvedValue({
-        styledVaccineContent: mockStyledContentWithoutWhatSection,
-      });
-    });
-
-    it("should not display whatItIsFor section", async () => {
-      await renderRsvVaccinePage();
-
-      const heading: HTMLElement | null = screen.queryByText("What this vaccine is for");
-      const content: HTMLElement | null = screen.queryByText("What Section styled component");
-
-      expect(heading).not.toBeInTheDocument();
-      expect(content).not.toBeInTheDocument();
-    });
-
-    it("should display whoVaccineIsFor section", async () => {
-      await renderRsvVaccinePage();
-
-      const heading: HTMLElement = screen.getByText("Who should have this vaccine");
-      const content: HTMLElement = screen.getByRole("heading", {
-        level: 2,
-        name: "Who Section styled component",
-      });
-
-      expect(heading).toBeInTheDocument();
-      expect(content).toBeInTheDocument();
-    });
-  });
-
-  describe("when content load fails", () => {
+  describe("shows content section, when content load fails", () => {
     beforeEach(() => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
         styledVaccineContent: undefined,
@@ -293,7 +218,7 @@ describe("Any vaccine page", () => {
     });
   });
 
-  describe("eligibility section", () => {
+  describe("shows eligibility section, when eligibility response available", () => {
     beforeEach(() => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
         styledVaccineContent: mockStyledContent,
@@ -344,7 +269,7 @@ describe("Any vaccine page", () => {
     });
   });
 
-  describe("eligibility failures", () => {
+  describe("shows eligibility section, when eligibility response not available", () => {
     beforeEach(() => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
         styledVaccineContent: mockStyledContent,
@@ -362,7 +287,6 @@ describe("Any vaccine page", () => {
       const rsvELigibilityFallback: HTMLElement = screen.getByTestId("elid-fallback-mock");
       expect(rsvELigibilityFallback).toBeVisible();
 
-      // TODO VIA-331: assert that the fallback content is passed in for howToGet
       expect(RSVEligibilityFallback).toHaveBeenCalledWith(
         {
           howToGetVaccineFallback: mockStyledContent.howToGetVaccine.component,
@@ -373,7 +297,7 @@ describe("Any vaccine page", () => {
     });
   });
 
-  describe("eligibility AND content failures", () => {
+  describe("shows content and eligibility sections, when eligibility AND content not available", () => {
     beforeEach(() => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
         styledVaccineContent: undefined,
@@ -395,7 +319,7 @@ describe("Any vaccine page", () => {
 
       expect(RSVEligibilityFallback).toHaveBeenCalledWith(
         {
-          howToGetVaccineFallback: <HowToGetVaccineFallback vaccineType={vaccineType}/>,
+          howToGetVaccineFallback: <HowToGetVaccineFallback vaccineType={vaccineType} />,
           vaccineType,
         },
         undefined,

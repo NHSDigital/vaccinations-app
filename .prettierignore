@@ -8,6 +8,3 @@
 project.code-workspace
 /**/.terraform/*
 /package-lock.json
-
-# VIA-331 temporarily ignore for one commit only during refactor to prevent breaking paragraph assertion formatting
-/src/app/_components/vaccine/Vaccine.test.tsx
