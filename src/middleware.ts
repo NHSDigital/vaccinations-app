@@ -1,18 +1,18 @@
 import { auth } from "@project/auth";
-import { SESSION_TIMEOUT_ROUTE } from "@src/app/session-timeout/constants";
 import { logger } from "@src/utils/logger";
 import { Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "middleware" });
+export const NHS_APP_LOGIN_URL = "https://www.nhsapp.service.nhs.uk/login?redirect_to=index";
 
 export async function middleware(request: NextRequest) {
   log.info(`Inspecting ${request.nextUrl}`);
 
   const session: Session | null = await auth();
   if (!session?.user) {
-    return NextResponse.redirect(new URL(SESSION_TIMEOUT_ROUTE, request.url));
+    return NextResponse.redirect(new URL(NHS_APP_LOGIN_URL));
   }
 
   return NextResponse.next();

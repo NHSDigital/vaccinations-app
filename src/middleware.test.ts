@@ -4,7 +4,6 @@
 
 import { auth } from "@project/auth";
 import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
-import { SESSION_TIMEOUT_ROUTE } from "@src/app/session-timeout/constants";
 import { config, middleware } from "@src/middleware";
 import { NextRequest } from "next/server";
 
@@ -32,8 +31,7 @@ describe("middleware", () => {
   });
 
   it("redirects users without active session to session-logout page", async () => {
-    const testDomain = "https://testurl";
-    const testUrl = `${testDomain}/abc`;
+    const testUrl = "https://www.nhsapp.service.nhs.uk/login?redirect_to=index";
     const mockRequest = getMockRequest(testUrl);
 
     (auth as jest.Mock).mockResolvedValue(null); // No authenticated session
@@ -41,7 +39,7 @@ describe("middleware", () => {
     const result = await middleware(mockRequest as NextRequest);
 
     expect(result.status).toBe(307);
-    expect(result.headers.get("Location")).toEqual(`${testDomain}${SESSION_TIMEOUT_ROUTE}`);
+    expect(result.headers.get("Location")).toEqual(testUrl);
   });
 
   it("pass through for users with active session", async () => {
