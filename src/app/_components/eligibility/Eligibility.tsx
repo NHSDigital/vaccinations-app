@@ -1,4 +1,4 @@
-import { Action, ActionType, EligibilityContent, EligibilityStatus } from "@src/services/eligibility-api/types";
+import { Action, EligibilityContent, EligibilityStatus } from "@src/services/eligibility-api/types";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import React, { JSX } from "react";
 import styles from "@src/app/_components/vaccine/styles.module.css";
@@ -28,7 +28,7 @@ const Eligibility = ({ eligibilityContent }: EligibilityProps): JSX.Element => {
         />
       )}
       {eligibilityContent.actions.map((action: Action, index: number) => {
-        if (action.type === ActionType.paragraph) {
+        if (action.type === "paragraph") {
           return (
             <div key={index} data-testid="action-paragraph">
               <MarkdownWithStyling content={action.content} />

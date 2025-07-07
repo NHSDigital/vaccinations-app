@@ -1,8 +1,8 @@
-import { ActionType, EligibilityStatus } from "@src/services/eligibility-api/types";
+import { EligibilityStatus } from "@src/services/eligibility-api/types";
 import { render, screen } from "@testing-library/react";
 import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
 import { actionBuilder, eligibilityContentBuilder, summaryContentBuilder } from "@test-data/eligibility-api/builders";
-import { Heading, Cohort, Introduction } from "@src/services/eligibility-api/types";
+
 // TODO: Remove after final solution for testing with react-markdown
 jest.mock("react-markdown", () => {
   return function MockMarkdown({ children }: { children: React.ReactNode }) {
@@ -51,7 +51,7 @@ describe("Eligibility", () => {
     });
 
     it("should show heading text in the care card heading", async () => {
-      const testHeading = "test" as Heading;
+      const testHeading = "test";
       const eligibilityContent = eligibilityContentBuilder()
         .withSummary(summaryContentBuilder().withHeading(testHeading).build())
         .build();
@@ -68,7 +68,7 @@ describe("Eligibility", () => {
     });
 
     it("should show introduction in the care card body", async () => {
-      const testIntroduction = "test-introduction" as Introduction;
+      const testIntroduction = "test-introduction";
       const eligibilityContent = eligibilityContentBuilder()
         .withSummary(summaryContentBuilder().withIntroduction(testIntroduction).build())
         .build();
@@ -85,7 +85,7 @@ describe("Eligibility", () => {
     });
 
     it("should show cohorts as bullet points in the care card body", async () => {
-      const cohorts = ["test-cohort", "test-cohort-2"] as Cohort[];
+      const cohorts = ["test-cohort", "test-cohort-2"];
       const eligibilityContent = eligibilityContentBuilder()
         .withSummary(summaryContentBuilder().withCohorts(cohorts).build())
         .build();
@@ -124,7 +124,7 @@ describe("Eligibility", () => {
           Eligibility({
             eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
             eligibilityContent: eligibilityContentBuilder()
-              .withActions([actionBuilder().withType(ActionType.paragraph).andContent("Test Content").build()])
+              .withActions([actionBuilder().withType("paragraph").andContent("Test Content").build()])
               .build(),
           }),
         );
@@ -140,8 +140,8 @@ describe("Eligibility", () => {
             eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
             eligibilityContent: eligibilityContentBuilder()
               .withActions([
-                actionBuilder().withType(ActionType.paragraph).andContent("Test Content 1").build(),
-                actionBuilder().withType(ActionType.paragraph).andContent("Test Content 2").build(),
+                actionBuilder().withType("paragraph").andContent("Test Content 1").build(),
+                actionBuilder().withType("paragraph").andContent("Test Content 2").build(),
               ])
               .build(),
           }),
