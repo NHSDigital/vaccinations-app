@@ -1,5 +1,6 @@
 import { expect, Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { snapshotPathTemplate } from "@project/playwright.config";
 
 export const clickLinkAndExpectPageTitle = async (page: Page, linkText: string, expectedPageTitle: string) => {
   await page.getByRole("link", { name: linkText, exact: true }).click();
@@ -34,5 +35,15 @@ export const accessibilityCheck = async (page: Page) => {
 
 export const pathForCustomScreenshots = (testFileName: string, screenshotFileName: string, projectName: string) => {
   const baseFile: string = screenshotFileName.substring(0, screenshotFileName.lastIndexOf("."));
-  return `./e2e/snapshot/snapshot_review/${testFileName}-snapshots/${baseFile}-${projectName}-${process.platform}.png`;
+
+  const path = snapshotPathTemplate
+    .replace("{testDir}", "./e2e")
+    .replace("__snapshots__", "snapshot_review")
+    .replace("{testFileName}", testFileName)
+    .replace("{arg}", baseFile)
+    .replace("{projectName}", projectName)
+    .replace("{platform}", process.platform)
+    .replace("{ext}", ".png");
+
+  return path;
 };

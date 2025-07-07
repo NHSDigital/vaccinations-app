@@ -1,4 +1,4 @@
-name: "CI/CD snapshot upload"
+name: "CI/CD snapshot update"
 
 on:
   workflow_dispatch:
@@ -14,7 +14,7 @@ env:
 
 jobs:
   upload-snapshots:
-    name: "Upload Snapshots to S3"
+    name: "Update Snapshots in S3"
     runs-on: ubuntu-latest
     environment: dev
     timeout-minutes: 10
@@ -25,9 +25,6 @@ jobs:
       IAM_ROLE: ${{ secrets.IAM_ROLE }}
 
     steps:
-      - name: "Checkout code"
-        uses: actions/checkout@v4
-
       - name: "Configure AWS credentials for S3 upload"
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -35,6 +32,6 @@ jobs:
           role-to-assume: ${{ env.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: "Copy ${{ inputs.tag }} tagged snapshots to reference"
+      - name: "Set reference to ${{ inputs.tag }} tagged snapshots"
         run: |
-          aws s3 sync s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/${{ inputs.tag }}/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/reference/__snapshots__/
+          aws s3 sync --delete s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/${{ inputs.tag }}/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/reference/__snapshots__/

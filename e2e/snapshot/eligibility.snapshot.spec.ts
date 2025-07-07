@@ -19,6 +19,8 @@ test.describe("E2E", () => {
   test.describe("Not Eligible", () => {
     test.beforeAll(async ({ browser }) => {
       page = await login(browser, users.NotEligible.email);
+
+      await page.mouse.move(0, 0);
     });
 
     test("Not eligible - age and catchup bullet points", async () => {
@@ -29,7 +31,7 @@ test.describe("E2E", () => {
         path: customScreenshotPath,
         fullPage: true,
       });
-      await expect(page).toHaveScreenshot(screenshotFileName, {
+      await expect.soft(page).toHaveScreenshot(screenshotFileName, {
         fullPage: true,
       });
     });
@@ -38,6 +40,8 @@ test.describe("E2E", () => {
   test.describe("Actionable", () => {
     test.beforeAll(async ({ browser }) => {
       page = await login(browser, users.Actionable.email);
+
+      await page.mouse.move(0, 0);
     });
 
     test("Actionable - catchup bullet points", async () => {
@@ -48,7 +52,7 @@ test.describe("E2E", () => {
         path: customScreenshotPath,
         fullPage: true,
       });
-      await expect(page).toHaveScreenshot(screenshotFileName, {
+      await expect.soft(page).toHaveScreenshot(screenshotFileName, {
         fullPage: true,
       });
     });

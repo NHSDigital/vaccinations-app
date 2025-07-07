@@ -8,6 +8,9 @@ const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = path.dirname(__filename);
 dotenv.config({ path: path.resolve(__dirname, ".env.local") });
 
+export const snapshotPathTemplate =
+  "{testDir}/snapshot/__snapshots__/{testFileName}-snapshots/{arg}-{projectName}-{platform}{ext}";
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -44,7 +47,7 @@ export default defineConfig({
         ],
       ]
     : "html",
-  snapshotPathTemplate: "{testDir}/snapshot/__snapshots__/{testFileName}-snapshots/{arg}-{projectName}-{platform}{ext}",
+  snapshotPathTemplate,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
