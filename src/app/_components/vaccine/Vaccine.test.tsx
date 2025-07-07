@@ -30,6 +30,9 @@ jest.mock("@src/app/_components/eligibility/RSVEligibilityFallback", () => ({
 jest.mock("@src/app/_components/content/MoreInformation", () => ({
   MoreInformation: jest.fn().mockImplementation(() => <div data-testid="more-information-mock">More Information</div>),
 }));
+jest.mock("@src/app/_components/content/FindOutMore", () => ({
+  FindOutMoreLink: jest.fn().mockImplementation(() => <div data-testid="find-out-more-link-mock">Find Out More</div>),
+}));
 jest.mock("@src/app/_components/content/HowToGetVaccineFallback", () => ({
   HowToGetVaccineFallback: jest
     .fn()
@@ -120,6 +123,14 @@ describe("Any vaccine page", () => {
       expect(heading).toBeInTheDocument();
       expect(content).toBeInTheDocument();
     });
+
+    it("should not display find out more link", async () => {
+      await renderRsvVaccinePage();
+
+      const findOutMore: HTMLElement | null = screen.queryByTestId("find-out-more-link-mock");
+
+      expect(findOutMore).not.toBeInTheDocument();
+    });
   });
 
   describe("shows content section, when content load fails", () => {
@@ -139,37 +150,17 @@ describe("Any vaccine page", () => {
     it("should not display vaccine info expanders", async () => {
       await renderRsvVaccinePage();
 
-      const expanderHeading1: HTMLElement | null = screen.queryByText("What this vaccine is for");
-      const expanderHeading2: HTMLElement | null = screen.queryByText("Who should have this vaccine");
-      const expanderHeading3: HTMLElement | null = screen.queryByText("how-heading");
+      const moreInfo = screen.queryByTestId("more-information-mock");
 
-      expect(expanderHeading1).not.toBeInTheDocument();
-      expect(expanderHeading2).not.toBeInTheDocument();
-      expect(expanderHeading3).not.toBeInTheDocument();
+      expect(moreInfo).not.toBeInTheDocument();
     });
 
-    it("should display vaccine info expanders", async () => {
+    it("should display find out more link", async () => {
       await renderRsvVaccinePage();
 
-      const expanderHeading1: HTMLElement | null = screen.queryByText("What this vaccine is for");
-      const expanderHeading2: HTMLElement | null = screen.queryByText("Who should have this vaccine");
-      const expanderHeading3: HTMLElement | null = screen.queryByText("how-heading");
+      const findOutMore: HTMLElement = screen.getByTestId("find-out-more-link-mock");
 
-      expect(expanderHeading1).not.toBeInTheDocument();
-      expect(expanderHeading2).not.toBeInTheDocument();
-      expect(expanderHeading3).not.toBeInTheDocument();
-    });
-
-    it("should display fallback webpage link to more information about vaccine", async () => {
-      await renderRsvVaccinePage();
-
-      const fallbackLink: HTMLElement = screen.getByRole("link", {
-        name: "Find out more about the RSV vaccine",
-      });
-
-      expect(fallbackLink).toBeInTheDocument();
-      expect(fallbackLink).toHaveAttribute("href", "https://www.nhs.uk/vaccinations/rsv-vaccine/");
-      expect(fallbackLink).toHaveAttribute("target", "_blank");
+      expect(findOutMore).toBeInTheDocument();
     });
 
     it("should still render eligibility section of vaccine page", async () => {
