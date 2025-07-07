@@ -36,7 +36,6 @@ const Eligibility = ({ eligibilityContent }: EligibilityProps): JSX.Element => {
           );
         }
       })}
-      <p>This is some content to ensure the correct working of snapshot tests</p>
     </div>
   );
 };
