@@ -57,13 +57,13 @@ jobs:
           npm run e2e:snapshot
 
       - name: "Upload snapshots to S3 bucket with tag ${{ inputs.tag }}"
-        if: ${{ !cancelled() }}
+        if: failure()
         run: |
           aws s3 sync ./e2e/snapshot/snapshot_review/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/${{ inputs.tag }}/
 
       - name: "Upload report"
         uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
+        if: always()
         with:
           name: playwright-report
           path: playwright-report/
