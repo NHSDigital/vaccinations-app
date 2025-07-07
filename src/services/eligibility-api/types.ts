@@ -1,10 +1,3 @@
-type Brand<T, B extends string> = T & { __brand: B };
-
-export type Heading = Brand<string, "Heading">;
-export type Introduction = Brand<string, "Introduction">;
-export type Cohort = Brand<string, "Cohort">;
-export type Content = Brand<string, "Content">;
-
 export enum EligibilityStatus {
   NOT_ELIGIBLE = "NotEligible",
   ALREADY_VACCINATED = "AlreadyVaccinated",
@@ -22,19 +15,14 @@ export type EligibilityContent = {
 };
 
 export type SummaryContent = {
-  heading: Heading;
-  introduction: Introduction;
-  cohorts: Cohort[];
+  heading: string;
+  introduction: string;
+  cohorts: string[];
 };
 
-export enum ActionType {
-  paragraph = "paragraph",
-  card = "card",
-}
-
 export type Action = {
-  type: ActionType;
-  content: Content;
+  type: "paragraph" | "card";
+  content: string;
 };
 
 export enum EligibilityErrorTypes {
