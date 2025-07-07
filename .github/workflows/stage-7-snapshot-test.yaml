@@ -1,12 +1,12 @@
-name: "CI/CD snapshot test"
+name: "Snapshot Test stage"
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       tag:
         description: "Tag of deployment"
-        type: string
         required: true
+        type: string
 
 env:
   AWS_REGION: eu-west-2

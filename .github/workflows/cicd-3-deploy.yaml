@@ -60,7 +60,7 @@ jobs:
     needs: [metadata]
     uses: ./.github/workflows/stage-4-deploy.yaml
     with:
-      environment: ${{ github.event.inputs.environment}}
+      environment: ${{ github.event.inputs.environment }}
       terraform_version: "${{ needs.metadata.outputs.terraform_version }}"
       tag: "${{ needs.metadata.outputs.tag }}"
     secrets: inherit
@@ -71,3 +71,10 @@ jobs:
     with:
       environment: ${{ github.event.inputs.environment}}
     secrets: inherit
+  snapshot-test-stage:
+    name: "Snapshot Test stage"
+    if: ${{ github.event.inputs.environment == 'preprod' }}
+    needs: [metadata, acceptance-stage]
+    uses: ./.github/workflows/stage-7-snapshot-test.yaml
+    with:
+      tag: "${{ needs.metadata.outputs.tag }}"
