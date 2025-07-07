@@ -14,13 +14,14 @@ describe("configProvider", () => {
   it("should return config object with values from env if present, else from getSSMParam", async () => {
     const prefix: string = "test/";
     process.env.SSM_PREFIX = prefix;
-    process.env.CONTENT_API_ENDPOINT = "api-endpoint";
+    process.env.CONTENT_API_ENDPOINT = "https://api-endpoint";
+    process.env.ELIGIBILITY_API_ENDPOINT = "https://elid-endpoint";
     const mockGetSSMParam = (getSSMParam as jest.Mock).mockResolvedValue("api-key");
 
     const config: AppConfig = await configProvider();
 
     expect(config).toMatchObject({
-      CONTENT_API_ENDPOINT: "api-endpoint",
+      CONTENT_API_ENDPOINT: new URL("https://api-endpoint"),
       CONTENT_API_KEY: "api-key",
     });
     expect(mockGetSSMParam).toHaveBeenCalledWith(`${prefix}CONTENT_API_KEY`);

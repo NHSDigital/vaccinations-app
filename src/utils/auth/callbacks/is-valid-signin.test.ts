@@ -2,14 +2,15 @@ import { isValidSignIn } from "@src/utils/auth/callbacks/is-valid-signin";
 import { AppConfig } from "@src/utils/config";
 import { Account } from "next-auth";
 import { jwtDecode } from "jwt-decode";
+import { appConfigBuilder } from "@test-data/config/builders";
 
 jest.mock("jwt-decode");
 
 describe("isValidSignIn", () => {
-  const mockConfig: AppConfig = {
-    NHS_LOGIN_URL: "https://mock.nhs.login",
-    NHS_LOGIN_CLIENT_ID: "mock-client-id",
-  } as AppConfig;
+  const mockConfig: AppConfig = appConfigBuilder()
+    .withNHS_LOGIN_URL("https://mock.nhs.login/")
+    .andNHS_LOGIN_CLIENT_ID("mock-client-id")
+    .build();
 
   beforeEach(() => {
     jest.clearAllMocks();

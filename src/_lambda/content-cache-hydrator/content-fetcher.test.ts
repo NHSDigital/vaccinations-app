@@ -9,7 +9,7 @@ jest.mock("axios");
 
 describe("fetchContentForVaccine", () => {
   const testApiKey: string = "test-key";
-  const testApiEndpoint: string = "https://test-endpoint/";
+  const testApiEndpoint: URL = new URL("https://test-endpoint/");
   const testApiContent = { test: "content" };
 
   beforeEach(() => {

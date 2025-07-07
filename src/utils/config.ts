@@ -1,8 +1,8 @@
 import getSSMParam from "@src/utils/get-ssm-param";
 
 type AppConfig = {
-  CONTENT_API_ENDPOINT: string;
-  ELIGIBILITY_API_ENDPOINT: string;
+  CONTENT_API_ENDPOINT: URL;
+  ELIGIBILITY_API_ENDPOINT: URL;
   CONTENT_API_KEY: string;
   ELIGIBILITY_API_KEY: string;
   CONTENT_CACHE_PATH: string;
@@ -18,8 +18,8 @@ type AppConfig = {
 const configProvider = async (): Promise<AppConfig> => {
   const SSM_PREFIX = await getFromEnvironmentOrSSM("", "SSM_PREFIX");
   return {
-    CONTENT_API_ENDPOINT: await getFromEnvironmentOrSSM(SSM_PREFIX, "CONTENT_API_ENDPOINT"),
-    ELIGIBILITY_API_ENDPOINT: await getFromEnvironmentOrSSM(SSM_PREFIX, "ELIGIBILITY_API_ENDPOINT"),
+    CONTENT_API_ENDPOINT: await getUrlFromEnvironmentOrSSM(SSM_PREFIX, "CONTENT_API_ENDPOINT"),
+    ELIGIBILITY_API_ENDPOINT: await getUrlFromEnvironmentOrSSM(SSM_PREFIX, "ELIGIBILITY_API_ENDPOINT"),
     CONTENT_API_KEY: await getFromEnvironmentOrSSM(SSM_PREFIX, "CONTENT_API_KEY"),
     ELIGIBILITY_API_KEY: await getFromEnvironmentOrSSM(SSM_PREFIX, "ELIGIBILITY_API_KEY"),
     CONTENT_CACHE_PATH: await getFromEnvironmentOrSSM(SSM_PREFIX, "CONTENT_CACHE_PATH"),
@@ -41,6 +41,10 @@ const getFromEnvironmentOrSSM = async (ssmPrefix: string, param: string): Promis
   }
 
   return value;
+};
+
+const getUrlFromEnvironmentOrSSM = async (ssmPrefix: string, param: string): Promise<URL> => {
+  return new URL(await getFromEnvironmentOrSSM(ssmPrefix, param));
 };
 
 export { configProvider };

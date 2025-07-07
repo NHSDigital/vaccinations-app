@@ -10,7 +10,7 @@ const CONTENT_API_PATH_PREFIX = "nhs-website-content/vaccinations/";
 const fetchContentForVaccine = async (vaccine: VaccineTypes): Promise<string> => {
   const config: AppConfig = await configProvider();
 
-  const apiEndpoint: string = config.CONTENT_API_ENDPOINT;
+  const apiEndpoint: URL = config.CONTENT_API_ENDPOINT;
   const vaccinePath: VaccineContentPaths = vaccineTypeToPath[vaccine];
   const apiKey: string = config.CONTENT_API_KEY;
 

@@ -9,16 +9,17 @@ import {
 import { generateSignedJwt } from "@src/utils/auth/generate-signed-jwt";
 import { AppConfig } from "@src/utils/config";
 import { auth } from "@project/auth";
+import { appConfigBuilder } from "@test-data/config/builders";
 
 jest.mock("@src/utils/auth/generate-signed-jwt");
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
 }));
 
-const mockConfig = {
-  NHS_LOGIN_CLIENT_ID: "mock-client-id",
-  NHS_LOGIN_URL: "https://mock.nhs.login",
-} as AppConfig;
+const mockConfig: AppConfig = appConfigBuilder()
+  .withNHS_LOGIN_URL("https://mock.nhs.login")
+  .andNHS_LOGIN_CLIENT_ID("mock-client-id")
+  .build();
 
 const mockSignedJwt = "mock-signed-jwt";
 const mockRandomUUID = "mock-jti";

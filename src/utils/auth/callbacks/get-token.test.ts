@@ -4,6 +4,7 @@ import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import { AppConfig } from "@src/utils/config";
 import { jwtDecode } from "jwt-decode";
+import { appConfigBuilder } from "@test-data/config/builders";
 
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
@@ -16,11 +17,11 @@ const mockGenerateClientAssertion = generateRefreshClientAssertionJwt as jest.Mo
 >;
 
 describe("getToken", () => {
-  const mockConfig = {
-    NHS_LOGIN_URL: "https://mock.nhs.login",
-    NHS_LOGIN_CLIENT_ID: "mock-client-id",
-    NHS_LOGIN_PRIVATE_KEY: "mock-private-key",
-  } as AppConfig;
+  const mockConfig: AppConfig = appConfigBuilder()
+    .withNHS_LOGIN_URL("https://mock.nhs.login")
+    .andNHS_LOGIN_CLIENT_ID("mock-client-id")
+    .andNHS_LOGIN_PRIVATE_KEY("mock-private-key")
+    .build();
 
   const nowInSeconds = 1749052001;
 

@@ -10,7 +10,7 @@ const ELIGIBILITY_API_PATH_SUFFIX = "eligibility-signposting-api/patient-check/"
 export const fetchEligibilityContent = async (nhsNumber: string): Promise<EligibilityApiResponse> => {
   const config: AppConfig = await configProvider();
 
-  const apiEndpoint: string = config.ELIGIBILITY_API_ENDPOINT;
+  const apiEndpoint: URL = config.ELIGIBILITY_API_ENDPOINT;
   const apiKey: string = config.ELIGIBILITY_API_KEY;
   const vitaTraceId: string | undefined = process.env._X_AMZN_TRACE_ID;
 

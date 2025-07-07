@@ -1,10 +1,10 @@
 import { AppConfig } from "@src/utils/config";
-import { createTypeBuilder, randomString, randomInteger } from "@test-data/meta-builder";
+import { createTypeBuilder, randomString, randomInteger, randomURL } from "@test-data/meta-builder";
 
 export function appConfigBuilder() {
   return createTypeBuilder<AppConfig>({
-    CONTENT_API_ENDPOINT: randomString(10),
-    ELIGIBILITY_API_ENDPOINT: randomString(10),
+    CONTENT_API_ENDPOINT: randomURL(),
+    ELIGIBILITY_API_ENDPOINT: randomURL(),
     CONTENT_API_KEY: randomString(10),
     ELIGIBILITY_API_KEY: randomString(10),
     CONTENT_CACHE_PATH: randomString(10),

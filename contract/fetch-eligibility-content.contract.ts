@@ -9,7 +9,7 @@ import { appConfigBuilder } from "@test-data/config/builders";
 jest.mock("@src/utils/config", () => ({
   configProvider: jest.fn((): Promise<AppConfig> => {
     const value: AppConfig = appConfigBuilder()
-      .withELIGIBILITY_API_ENDPOINT("http://localhost:1234/")
+      .withELIGIBILITY_API_ENDPOINT(new URL("http://localhost:1234/"))
       .andELIGIBILITY_API_KEY("test-api-key")
       .build();
     return Promise.resolve(value);
