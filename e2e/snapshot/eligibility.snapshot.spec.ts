@@ -4,8 +4,6 @@ import { login } from "@project/e2e/auth";
 import users from "@test-data/test-users.json" assert { type: "json" };
 import { pathForCustomScreenshots } from "@project/e2e/helpers";
 
-test.describe.configure({ mode: "serial" });
-
 test.describe("E2E", () => {
   let page: Page;
   let projectName: string;
