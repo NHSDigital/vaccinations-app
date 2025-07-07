@@ -1,4 +1,4 @@
-import { VaccineDetails, VaccineTypes } from "@src/models/vaccine";
+import { VaccineTypes } from "@src/models/vaccine";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import React, { JSX } from "react";
 import { StyledVaccineContent } from "@src/services/content-api/types";
@@ -8,7 +8,6 @@ import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
 const MoreInformation = (props: {
   styledVaccineContent: StyledVaccineContent;
   vaccineType: VaccineTypes;
-  vaccineInfo: VaccineDetails;
 }): JSX.Element => {
   return (
     <>
@@ -35,7 +34,7 @@ const MoreInformation = (props: {
           />
         )}
       </div>
-      <FindOutMoreLink findOutMoreUrl={props.styledVaccineContent.webpageLink} vaccineInfo={props.vaccineInfo} />
+      <FindOutMoreLink findOutMoreUrl={props.styledVaccineContent.webpageLink} vaccineType={props.vaccineType} />
     </>
   );
 };

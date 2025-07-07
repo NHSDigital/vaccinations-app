@@ -110,13 +110,9 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
 
       {/* Expandable sections */}
       {contentError != ContentErrorTypes.CONTENT_LOADING_ERROR && styledVaccineContent != undefined ? (
-        <MoreInformation
-          styledVaccineContent={styledVaccineContent}
-          vaccineType={vaccineType}
-          vaccineInfo={vaccineInfo}
-        />
+        <MoreInformation styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
       ) : (
-        <FindOutMoreLink findOutMoreUrl={vaccineInfo.nhsWebpageLink} vaccineInfo={vaccineInfo} />
+        <FindOutMoreLink findOutMoreUrl={vaccineInfo.nhsWebpageLink} vaccineType={vaccineType} />
       )}
     </div>
   );
