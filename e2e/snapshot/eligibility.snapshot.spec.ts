@@ -15,7 +15,8 @@ test.describe("E2E", () => {
   });
 
   test.describe("Not Eligible", () => {
-    test.beforeAll(async ({ browser }) => {
+    test.beforeAll(async ({ browser }, testInfo) => {
+      testInfo.setTimeout(60000);
       page = await login(browser, users.NotEligible.email);
 
       await page.mouse.move(0, 0);
@@ -36,7 +37,8 @@ test.describe("E2E", () => {
   });
 
   test.describe("Actionable", () => {
-    test.beforeAll(async ({ browser }) => {
+    test.beforeAll(async ({ browser }, testInfo) => {
+      testInfo.setTimeout(60000);
       page = await login(browser, users.Actionable.email);
 
       await page.mouse.move(0, 0);

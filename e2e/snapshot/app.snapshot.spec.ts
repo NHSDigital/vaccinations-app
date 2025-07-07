@@ -11,7 +11,7 @@ test.describe("E2E", () => {
   let fileName: string;
 
   test.beforeAll(async ({ browser }, testInfo: TestInfo) => {
-    testInfo.setTimeout(60_000);
+    testInfo.setTimeout(60000);
     page = await login(browser, users.Default.email);
     projectName = testInfo.project.name;
     fileName = testInfo.file.split("/").pop()!;
