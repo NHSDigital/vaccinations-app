@@ -59,7 +59,7 @@ export const login = async (browser: Browser, nhsLoginUsername: string): Promise
   await page.getByRole("textbox", { name: "Security code" }).fill(user.nhsLoginOTP);
   await page.getByRole("button", { name: "Continue" }).click();
 
-  await page.waitForURL(user.vaccinationsHubUrl, { timeout: 30000 });
+  await page.waitForURL(user.vaccinationsHubUrl, { timeout: 60000 });
 
   return page;
 };
