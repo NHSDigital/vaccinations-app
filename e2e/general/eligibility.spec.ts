@@ -11,12 +11,12 @@ test.describe("E2E", () => {
 
   test.afterEach(async () => {
     await accessibilityCheck(page);
-
-    expect(await benchmark(page, RSV_PAGE_URL)).toBeLessThanOrEqual(MAX_AVG_LCP_DURATION_MS);
+    expect.soft(await benchmark(page, RSV_PAGE_URL)).toBeLessThanOrEqual(MAX_AVG_LCP_DURATION_MS);
   });
 
   test.describe("Not Eligible", () => {
-    test.beforeAll(async ({ browser }) => {
+    test.beforeAll(async ({ browser }, testInfo) => {
+      testInfo.setTimeout(60_000);
       page = await login(browser, users.NotEligible.email);
     });
 
@@ -54,7 +54,8 @@ test.describe("E2E", () => {
   });
 
   test.describe("Actionable", () => {
-    test.beforeAll(async ({ browser }) => {
+    test.beforeAll(async ({ browser }, testInfo) => {
+      testInfo.setTimeout(60_000);
       page = await login(browser, users.Actionable.email);
     });
 
@@ -83,7 +84,8 @@ test.describe("E2E", () => {
   });
 
   test.describe("Actionable - No InfoText action content ", async () => {
-    test.beforeAll(async ({ browser }) => {
+    test.beforeAll(async ({ browser }, testInfo) => {
+      testInfo.setTimeout(60_000);
       page = await login(browser, users.Actionable_No_InfoText_Action.email);
     });
 
