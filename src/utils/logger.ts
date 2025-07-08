@@ -1,6 +1,8 @@
 import { asyncLocalStorage } from "@src/utils/requestContext";
 import pino, { LogDescriptor, Logger } from "pino";
 
+const REDACTED_KEYS = ["err.config.headers.apikey"];
+
 const isEdgeRuntime = process?.env?.NEXT_RUNTIME === "edge";
 
 const formatterWithLevelAsText = {
@@ -30,6 +32,7 @@ const pinoLoggerForNode = () => {
         ...applicationContextFields,
       };
     },
+    redact: REDACTED_KEYS,
   });
 };
 

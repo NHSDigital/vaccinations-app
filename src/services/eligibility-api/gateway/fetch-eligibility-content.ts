@@ -30,7 +30,7 @@ export const fetchEligibilityContent = async (nhsNumber: string): Promise<Eligib
       },
     })
     .catch((error: AxiosError) => {
-      log.error(error, `EliD response HTTP status error for ${nhsNumber}"`);
+      log.error(error, `EliD response HTTP status error for ${nhsNumber}`);
       throw new EligibilityApiHttpStatusError(`Error in fetching ${uri}`);
     });
   log.info("Eligibility status retrieved for %s", nhsNumber);
