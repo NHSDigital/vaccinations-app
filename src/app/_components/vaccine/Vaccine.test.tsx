@@ -236,6 +236,12 @@ describe("Any vaccine page", () => {
       expect(eligibilitySection).not.toBeInTheDocument();
     });
 
+    it("should not call EliD API on RSV pregnancy vaccine page", async () => {
+      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
+
+      expect(getEligibilityForPerson).not.toHaveBeenCalled();
+    });
+
     it("should not display the eligibility when there is no content ", async () => {
       (getEligibilityForPerson as jest.Mock).mockResolvedValue({
         eligibility: {

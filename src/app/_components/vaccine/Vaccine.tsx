@@ -4,7 +4,7 @@ import { auth } from "@project/auth";
 import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
 import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
 import { MoreInformation } from "@src/app/_components/content/MoreInformation";
-import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
+import { Eligibility as EligibilityComponent } from "@src/app/_components/eligibility/Eligibility";
 import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
 import { NBSBookingAction } from "@src/app/_components/nbs/NBSBookingAction";
 import Details from "@src/app/_components/nhs-frontend/Details";
@@ -13,9 +13,9 @@ import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCa
 import { HEADINGS } from "@src/app/constants";
 import { VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
-import { ContentErrorTypes } from "@src/services/content-api/types";
+import { ContentErrorTypes, StyledVaccineContent } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
-import { EligibilityErrorTypes } from "@src/services/eligibility-api/types";
+import { Eligibility, EligibilityErrorTypes } from "@src/services/eligibility-api/types";
 import { Session } from "next-auth";
 import React, { JSX } from "react";
 
@@ -28,18 +28,26 @@ interface VaccineProps {
 const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
   const session: Session | null = await auth();
   const nhsNumber: string | undefined = session?.user.nhs_number;
-
-  const [{ styledVaccineContent, contentError }, { eligibility, eligibilityError }] = await Promise.all([
-    getContentForVaccine(vaccineType),
-    nhsNumber
-      ? getEligibilityForPerson(vaccineType, nhsNumber)
-      : {
-          eligibility: undefined,
-          eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
-        },
-  ]);
-
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
+
+  let styledVaccineContent: StyledVaccineContent | undefined;
+  let contentError: ContentErrorTypes | undefined;
+  let eligibility: Eligibility | undefined;
+  let eligibilityError: EligibilityErrorTypes | undefined;
+
+  if (vaccineInfo.personalisedEligibilityStatusRequired) {
+    [{ styledVaccineContent, contentError }, { eligibility, eligibilityError }] = await Promise.all([
+      getContentForVaccine(vaccineType),
+      nhsNumber
+        ? getEligibilityForPerson(vaccineType, nhsNumber)
+        : {
+            eligibility: undefined,
+            eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+          },
+    ]);
+  } else {
+    [{ styledVaccineContent, contentError }] = await Promise.all([getContentForVaccine(vaccineType)]);
+  }
 
   const howToGetVaccineFallback = styledVaccineContent ? (
     styledVaccineContent.howToGetVaccine.component
@@ -72,7 +80,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
         eligibility &&
         eligibility.content &&
         eligibility.status && (
-          <Eligibility eligibilityStatus={eligibility.status} eligibilityContent={eligibility.content} />
+          <EligibilityComponent eligibilityStatus={eligibility.status} eligibilityContent={eligibility.content} />
         )}
 
       {/* Fallback eligibility section for RSV */}
