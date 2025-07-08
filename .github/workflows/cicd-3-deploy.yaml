@@ -78,3 +78,4 @@ jobs:
     uses: ./.github/workflows/stage-7-snapshot-test.yaml
     with:
       tag: "${{ needs.metadata.outputs.tag }}"
+    secrets: inherit
