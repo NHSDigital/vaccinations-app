@@ -22,6 +22,7 @@ locals {
     SSM_PREFIX = "/${local.prefix}/"
 
     PINO_LOG_LEVEL = "warn"
+    DEPLOY_ENVIRONMENT = local.environment
 
     CONTENT_API_ENDPOINT = "https://int.api.service.nhs.uk/"
     CONTENT_CACHE_PATH   = "s3://${local.content_cache_bucket_name}"
