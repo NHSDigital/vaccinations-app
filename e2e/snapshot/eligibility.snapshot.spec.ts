@@ -1,8 +1,8 @@
-import { expect, Page, test } from "@playwright/test";
-import { RSV_PAGE_URL } from "@project/e2e/constants";
+import { Page, expect, test } from "@playwright/test";
 import { login } from "@project/e2e/auth";
-import users from "@test-data/test-users.json" assert { type: "json" };
+import { RSV_PAGE_URL } from "@project/e2e/constants";
 import { pathForCustomScreenshots } from "@project/e2e/helpers";
+import users from "@test-data/test-users.json" with { type: "json" };
 
 test.describe("E2E", () => {
   let page: Page;

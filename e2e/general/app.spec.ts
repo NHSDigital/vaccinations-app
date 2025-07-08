@@ -1,4 +1,8 @@
-import { expect, Page, test } from "@playwright/test";
+import { Page, expect, test } from "@playwright/test";
+import { login } from "@project/e2e/auth";
+import { accessibilityCheck, benchmark, clickLinkAndExpectPageTitle } from "@project/e2e/helpers";
+import users from "@test-data/test-users.json" with { type: "json" };
+
 import {
   HUB_PAGE_TITLE,
   HUB_PAGE_URL,
@@ -8,9 +12,6 @@ import {
   RSV_PREGNANCY_PAGE_TITLE,
   RSV_PREGNANCY_PAGE_URL,
 } from "../constants";
-import { accessibilityCheck, benchmark, clickLinkAndExpectPageTitle } from "@project/e2e/helpers";
-import { login } from "@project/e2e/auth";
-import users from "@test-data/test-users.json" assert { type: "json" };
 
 test.describe.configure({ mode: "serial" });
 

@@ -1,9 +1,10 @@
-import { expect, Page, test } from "@playwright/test";
-import { HUB_PAGE_URL, RSV_PAGE_URL, RSV_PREGNANCY_PAGE_URL } from "../constants";
-import { login } from "@project/e2e/auth";
-import users from "@test-data/test-users.json" assert { type: "json" };
-import { pathForCustomScreenshots } from "@project/e2e/helpers";
+import { Page, expect, test } from "@playwright/test";
 import { type TestInfo } from "@playwright/test";
+import { login } from "@project/e2e/auth";
+import { pathForCustomScreenshots } from "@project/e2e/helpers";
+import users from "@test-data/test-users.json" with { type: "json" };
+
+import { HUB_PAGE_URL, RSV_PAGE_URL, RSV_PREGNANCY_PAGE_URL } from "../constants";
 
 test.describe("E2E", () => {
   let page: Page;

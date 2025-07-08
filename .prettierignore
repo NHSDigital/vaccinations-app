@@ -8,3 +8,4 @@
 project.code-workspace
 /**/.terraform/*
 /package-lock.json
+playwright.config.ts

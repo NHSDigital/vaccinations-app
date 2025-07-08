@@ -1,8 +1,8 @@
-import { expect, Locator, Page, test } from "@playwright/test";
-import { MAX_AVG_LCP_DURATION_MS, RSV_PAGE_URL } from "@project/e2e/constants";
+import { Locator, Page, expect, test } from "@playwright/test";
 import { login } from "@project/e2e/auth";
+import { MAX_AVG_LCP_DURATION_MS, RSV_PAGE_URL } from "@project/e2e/constants";
 import { accessibilityCheck, benchmark } from "@project/e2e/helpers";
-import users from "@test-data/test-users.json" assert { type: "json" };
+import users from "@test-data/test-users.json" with { type: "json" };
 
 test.describe.configure({ mode: "serial" });
 
