@@ -6,6 +6,12 @@ Our infrastructure sits in the Europe(London) region coded 'eu-west-2' in AWS.
 
 ### Setting up environment secrets
 
+Update the values for environment secrets stored in AWS.
+
+- Go to AWS service "Systems Manager"
+- Click on "Parameter Store" under application tools section
+- Update the values as per integrations in that environment
+
 ### Setting up monitoring configuration
 
 The following steps will put Cloudfront access logs to CloudWatch. Since Cloudfront is a global service,
@@ -18,7 +24,7 @@ it only allows putting logs in us-east-1 region.
 - Select the destination S3 bucket for storing the cloudfront-access-logs.
 - In additional settings
   - make sure all fields are selected
-  - use partitioning ```{yyyy}/{MM}/{dd}/{HH}```
+  - use partitioning ```{DistributionId}/{yyyy}/{MM}/{dd}/{HH}```
   - use output format as JSON
 
 ## One time setup (once for the team)
