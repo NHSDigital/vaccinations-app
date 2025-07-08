@@ -14,8 +14,7 @@ Update the values for environment secrets stored in AWS.
 
 ### Setting up monitoring configuration
 
-The following steps will put Cloudfront access logs to CloudWatch. Since Cloudfront is a global service,
-it only allows putting logs in us-east-1 region.
+The following steps will put Cloudfront access logs to S3 bucket.
 
 - Go to AWS service "Cloudfront"
 - Select the distribution that serves VitA website (vaccinations.nhs.uk)
