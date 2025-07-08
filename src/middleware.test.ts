@@ -5,11 +5,14 @@ import { auth } from "@project/auth";
 import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
 import { config, middleware } from "@src/middleware";
 import { NextRequest } from "next/server";
+import { AppConfig, configProvider } from "@src/utils/config";
 
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
   signIn: jest.fn(),
 }));
+
+jest.mock("@src/utils/config");
 
 const middlewareRegex = new RegExp(config.matcher[0]);
 const otherExcludedPaths = ["/favicon.ico", "/assets", "/js", "/css", "/_next"];
@@ -26,11 +29,16 @@ function getMockRequest(testUrl: string) {
 
 describe("middleware", () => {
   beforeEach(() => {
+    (configProvider as jest.Mock).mockImplementation(
+      (): Partial<AppConfig> => ({
+        NHS_APP_REDIRECT_LOGIN_URL: "http://nhs-app-redirect-login-url"
+      }),
+    );
     jest.clearAllMocks();
   });
 
   it("redirects users without active session to session-logout page", async () => {
-    const testUrl = "https://www.nhsapp.service.nhs.uk/login?redirect_to=index";
+    const testUrl = "http://nhs-app-redirect-login-url/";
     const mockRequest = getMockRequest(testUrl);
 
     (auth as jest.Mock).mockResolvedValue(null); // No authenticated session

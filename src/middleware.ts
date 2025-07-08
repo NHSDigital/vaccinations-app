@@ -3,16 +3,17 @@ import { logger } from "@src/utils/logger";
 import { Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Logger } from "pino";
+import { AppConfig, configProvider } from "@src/utils/config";
 
 const log: Logger = logger.child({ module: "middleware" });
-export const NHS_APP_LOGIN_URL = "https://www.nhsapp.service.nhs.uk/login?redirect_to=index";
 
 export async function middleware(request: NextRequest) {
   log.info(`Inspecting ${request.nextUrl}`);
+  const config: AppConfig = await configProvider();
 
   const session: Session | null = await auth();
   if (!session?.user) {
-    return NextResponse.redirect(new URL(NHS_APP_LOGIN_URL));
+    return NextResponse.redirect(new URL(config.NHS_APP_REDIRECT_LOGIN_URL));
   }
 
   return NextResponse.next();
