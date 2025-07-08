@@ -1,5 +1,5 @@
 import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
-import { ActionType, EligibilityStatus } from "@src/services/eligibility-api/types";
+import { ActionType } from "@src/services/eligibility-api/types";
 import { Cohort, Heading, Introduction } from "@src/services/eligibility-api/types";
 import { actionBuilder, eligibilityContentBuilder, summaryContentBuilder } from "@test-data/eligibility-api/builders";
 import { render, screen } from "@testing-library/react";
@@ -16,7 +16,6 @@ describe("Eligibility", () => {
     it("should show the care card if content summary is present", async () => {
       render(
         Eligibility({
-          eligibilityStatus: EligibilityStatus.ELIGIBLE_BOOKABLE,
           eligibilityContent: eligibilityContentBuilder().build(),
         }),
       );
@@ -28,7 +27,6 @@ describe("Eligibility", () => {
     it("should not show the care card if content summary is undefined", async () => {
       render(
         Eligibility({
-          eligibilityStatus: EligibilityStatus.ELIGIBLE_BOOKABLE,
           eligibilityContent: eligibilityContentBuilder().withSummary(undefined).build(),
         }),
       );
@@ -42,7 +40,6 @@ describe("Eligibility", () => {
     it("should show the care card", async () => {
       render(
         Eligibility({
-          eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
           eligibilityContent: eligibilityContentBuilder().build(),
         }),
       );
@@ -59,7 +56,6 @@ describe("Eligibility", () => {
 
       render(
         Eligibility({
-          eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
           eligibilityContent: eligibilityContent,
         }),
       );
@@ -76,7 +72,6 @@ describe("Eligibility", () => {
 
       render(
         Eligibility({
-          eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
           eligibilityContent: eligibilityContent,
         }),
       );
@@ -93,7 +88,6 @@ describe("Eligibility", () => {
 
       render(
         Eligibility({
-          eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
           eligibilityContent: eligibilityContent,
         }),
       );
@@ -108,7 +102,6 @@ describe("Eligibility", () => {
     it("should not show the care card if summary is undefined", async () => {
       render(
         Eligibility({
-          eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
           eligibilityContent: eligibilityContentBuilder().withSummary(undefined).build(),
         }),
       );
@@ -123,7 +116,6 @@ describe("Eligibility", () => {
       it("should display paragraph content successfully", () => {
         render(
           Eligibility({
-            eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
             eligibilityContent: eligibilityContentBuilder()
               .withActions([actionBuilder().withType(ActionType.paragraph).andContent("Test Content").build()])
               .build(),
@@ -138,7 +130,6 @@ describe("Eligibility", () => {
       it("should display multiple paragraphs successfully", () => {
         render(
           Eligibility({
-            eligibilityStatus: EligibilityStatus.NOT_ELIGIBLE,
             eligibilityContent: eligibilityContentBuilder()
               .withActions([
                 actionBuilder().withType(ActionType.paragraph).andContent("Test Content 1").build(),

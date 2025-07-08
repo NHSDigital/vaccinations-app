@@ -1,11 +1,10 @@
 import { MarkdownWithStyling } from "@src/app/_components/markdown/MarkdownWithStyling";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import styles from "@src/app/_components/vaccine/styles.module.css";
-import { Action, ActionType, EligibilityContent, EligibilityStatus } from "@src/services/eligibility-api/types";
+import { Action, ActionType, EligibilityContent } from "@src/services/eligibility-api/types";
 import React, { JSX } from "react";
 
 interface EligibilityProps {
-  eligibilityStatus: EligibilityStatus;
   eligibilityContent: EligibilityContent;
 }
 
@@ -16,14 +15,16 @@ const Eligibility = ({ eligibilityContent }: EligibilityProps): JSX.Element => {
         <NonUrgentCareCard
           heading={<div>{eligibilityContent?.summary.heading}</div>}
           content={
-            <div className={styles.zeroMarginBottom}>
-              <p className="nhsuk-u-margin-bottom-2">{eligibilityContent?.summary.introduction}</p>
-              <ul>
-                {eligibilityContent?.summary.cohorts.map((cohort, index) => (
-                  <li key={index}>{cohort}</li>
-                ))}
-              </ul>
-            </div>
+            <>
+              <div className={styles.zeroMarginBottom}>
+                <p className="nhsuk-u-margin-bottom-2">{eligibilityContent?.summary.introduction}</p>
+                <ul>
+                  {eligibilityContent?.summary.cohorts.map((cohort, index) => (
+                    <li key={index}>{cohort}</li>
+                  ))}
+                </ul>
+              </div>
+            </>
           }
         />
       )}
