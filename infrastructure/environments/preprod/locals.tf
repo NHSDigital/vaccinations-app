@@ -21,14 +21,15 @@ locals {
   application_environment_variables = {
     SSM_PREFIX = "/${local.prefix}/"
 
-    PINO_LOG_LEVEL = "warn"
+    PINO_LOG_LEVEL     = "warn"
     DEPLOY_ENVIRONMENT = local.environment
 
     CONTENT_API_ENDPOINT = "https://int.api.service.nhs.uk/"
     CONTENT_CACHE_PATH   = "s3://${local.content_cache_bucket_name}"
 
-    NHS_LOGIN_URL   = "https://auth.sandpit.signin.nhs.uk"
-    NHS_LOGIN_SCOPE = "openid profile"
+    NHS_LOGIN_URL              = "https://auth.sandpit.signin.nhs.uk"
+    NHS_LOGIN_SCOPE            = "openid profile"
+    NHS_APP_REDIRECT_LOGIN_URL = "https://www-onboardingaos.nhsapp.service.nhs.uk/login?redirect_to=index"
 
     MAX_SESSION_AGE_MINUTES = 59
 
@@ -60,10 +61,10 @@ resource "null_resource" "check_workspace" {
     precondition {
       condition     = var.is_github_action || terraform.workspace != "default"
       error_message = <<EOT
-❌ Default workspace is not allowed locally. It is reserved for GitHub actions.
-✅ Please switch to a named workspace like this (replace <name> with your workspace):
-   ( cd infrastructure/environments/dev; terraform workspace select <name>; terraform workspace list )
-EOT
+  ❌ Default workspace is not allowed locally. It is reserved for GitHub actions.
+  ✅ Please switch to a named workspace like this (replace <name> with your workspace):
+  ( cd infrastructure/environments/dev; terraform workspace select <name>; terraform workspace list )
+  EOT
     }
   }
 }
