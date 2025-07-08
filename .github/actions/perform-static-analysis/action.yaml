@@ -21,6 +21,7 @@ runs:
       shell: bash
       if: steps.check.outputs.secret_exist == 'true'
       run: |
+        echo "node_version: $(node --version)"
         export BRANCH_NAME=${GITHUB_HEAD_REF:-$(echo $GITHUB_REF | sed 's#refs/heads/##')}
         export SONAR_ORGANISATION_KEY=${{ inputs.sonar_organisation_key }}
         export SONAR_PROJECT_KEY=${{ inputs.sonar_project_key }}
