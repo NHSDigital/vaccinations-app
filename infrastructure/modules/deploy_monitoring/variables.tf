@@ -3,6 +3,11 @@ variable "prefix" {
   description = "Prefix to be applied to resources created"
 }
 
+variable "environment" {
+  type        = string
+  description = "Environment to deploy resources into"
+}
+
 variable "default_tags" {
   type        = map(string)
   description = "Map of default key-value pair of tags to add to resources"

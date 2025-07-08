@@ -28,6 +28,7 @@ module "deploy_monitoring" {
   source = "../../modules/deploy_monitoring"
 
   prefix                     = local.prefix
+  environment                = local.environment
   default_tags               = local.default_tags
   alarms_slack_channel_id    = local.alarms_slack_channel_id
   cloudfront_distribution_id = module.deploy.cloudfront_distribution_id
