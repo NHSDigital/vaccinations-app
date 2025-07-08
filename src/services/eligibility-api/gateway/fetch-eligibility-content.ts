@@ -16,7 +16,7 @@ export const fetchEligibilityContent = async (nhsNumber: string): Promise<Eligib
 
   const uri: string = `${apiEndpoint}${ELIGIBILITY_API_PATH_SUFFIX}${nhsNumber}`;
 
-  log.info("Fetching content from %s", uri);
+  log.info("Fetching eligibility status from %s", uri);
   const response: AxiosResponse = await axios
     .get(uri, {
       headers: {
@@ -30,8 +30,9 @@ export const fetchEligibilityContent = async (nhsNumber: string): Promise<Eligib
       },
     })
     .catch((error: AxiosError) => {
-      log.error(error, `Error in fetching ${uri}`);
-      throw new EligibilityApiHttpStatusError(`Error in fetching ${uri} - ${error.toJSON()}`);
+      log.error(error, `EliD response HTTP status error for ${nhsNumber}"`);
+      throw new EligibilityApiHttpStatusError(`Error in fetching ${uri}`);
     });
+  log.info("Eligibility status retrieved for %s", nhsNumber);
   return response.data; // TODO - deserialise using https://zod.dev or similar, and throw EligibilityApiSchemaError?
 };

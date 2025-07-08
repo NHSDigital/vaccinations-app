@@ -5,7 +5,7 @@ import {
   EligibilityCohort,
   ProcessedSuggestion,
 } from "@src/services/eligibility-api/api-types";
-import { EligibilityApiError } from "@src/services/eligibility-api/gateway/exceptions";
+import { EligibilityApiHttpStatusError } from "@src/services/eligibility-api/gateway/exceptions";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import {
   Action,
@@ -35,7 +35,9 @@ const getEligibilityForPerson = async (
     );
 
     if (!suggestionForVaccine) {
-      log.error(`EliD response validation error: Processed suggestion not found for ${vaccineType}`);
+      log.error(
+        `EliD response validation error: Processed suggestion not found for vaccine type ${vaccineType}, NHS number ${nhsNumber}`,
+      );
       return {
         eligibility: undefined,
         eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
@@ -45,7 +47,9 @@ const getEligibilityForPerson = async (
     let summary: SummaryContent | undefined;
 
     if (!suggestionForVaccine.eligibilityCohorts) {
-      log.error("EliD response validation error: Missing eligibilityCohorts element");
+      log.error(
+        `EliD response validation error: Missing eligibilityCohorts element for vaccine type ${vaccineType}, NHS number ${nhsNumber}`,
+      );
     } else if (suggestionForVaccine.eligibilityCohorts.length > 0) {
       summary = {
         heading: suggestionForVaccine.statusText as Heading,
@@ -67,9 +71,7 @@ const getEligibilityForPerson = async (
       eligibilityError: undefined,
     };
   } catch (error: unknown) {
-    if (error instanceof EligibilityApiError) {
-      // TODO: Error handling for Eligibility API
-      log.error(error, "Error getting eligibility");
+    if (error instanceof EligibilityApiHttpStatusError) {
       return {
         eligibility: undefined,
         eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
