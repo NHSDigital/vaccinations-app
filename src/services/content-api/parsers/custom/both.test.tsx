@@ -1,8 +1,8 @@
 import { styleHowToGetSubsection as styleHowToGetSubsectionForRsv } from "@src/services/content-api/parsers/custom/rsv";
 import { styleHowToGetSubsection as styleHowToGetSubsectionForRsvInPregnancy } from "@src/services/content-api/parsers/custom/rsv-pregnancy";
 import { VaccinePageSubsection } from "@src/services/content-api/types";
-import React from "react";
 import { render } from "@testing-library/react";
+import React from "react";
 
 const mockNBSBookingActionHTML = "NBS Booking Link Test";
 jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({

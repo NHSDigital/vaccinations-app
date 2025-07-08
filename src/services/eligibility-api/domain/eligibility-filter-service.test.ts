@@ -1,24 +1,24 @@
+import { VaccineTypes } from "@src/models/vaccine";
+import { ProcessedSuggestion } from "@src/services/eligibility-api/api-types";
 import {
   _extractAllCohortText,
   _generateActions,
   _getStatus,
   getEligibilityForPerson,
 } from "@src/services/eligibility-api/domain/eligibility-filter-service";
-import { VaccineTypes } from "@src/models/vaccine";
+import { EligibilityApiHttpStatusError } from "@src/services/eligibility-api/gateway/exceptions";
+import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import {
   EligibilityErrorTypes,
   EligibilityForPersonType,
   EligibilityStatus,
 } from "@src/services/eligibility-api/types";
-import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
-import { ProcessedSuggestion } from "@src/services/eligibility-api/api-types";
 import {
   actionFromApiBuilder,
   eligibilityApiResponseBuilder,
   eligibilityCohortBuilder,
   processedSuggestionBuilder,
 } from "@test-data/eligibility-api/builders";
-import { EligibilityApiHttpStatusError } from "@src/services/eligibility-api/gateway/exceptions";
 
 jest.mock("@src/services/eligibility-api/gateway/fetch-eligibility-content", () => ({
   fetchEligibilityContent: jest.fn(),

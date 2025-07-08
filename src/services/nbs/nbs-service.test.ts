@@ -1,7 +1,7 @@
-import { AppConfig, configProvider } from "@src/utils/config";
-import { getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
 import { VaccineTypes } from "@src/models/vaccine";
+import { getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
 import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
+import { AppConfig, configProvider } from "@src/utils/config";
 
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),

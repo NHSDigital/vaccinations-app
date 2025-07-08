@@ -14,7 +14,7 @@ import {
   VaccinePageSubsection,
 } from "@src/services/content-api/types";
 import { render, screen } from "@testing-library/react";
-import { isValidElement, JSX } from "react";
+import { JSX, isValidElement } from "react";
 
 const mockNBSBookingActionHTML = "NBS Booking Link Test";
 jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({

@@ -1,11 +1,11 @@
-import dotenv from "dotenv";
-import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import { VaccineTypes } from "@src/models/vaccine";
+import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import {
   EligibilityErrorTypes,
   EligibilityForPersonType,
   EligibilityStatus,
 } from "@src/services/eligibility-api/types";
+import dotenv from "dotenv";
 
 describe("EliD API contract", () => {
   beforeAll(async () => {

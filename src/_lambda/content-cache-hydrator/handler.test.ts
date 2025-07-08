@@ -4,8 +4,8 @@ import { handler } from "@src/_lambda/content-cache-hydrator/handler";
 import { VaccineTypes } from "@src/models/vaccine";
 import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
+import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
 import { Context } from "aws-lambda";
-import { asyncLocalStorage, RequestContext } from "@src/utils/requestContext";
 
 jest.mock("@src/_lambda/content-cache-hydrator/content-writer-service");
 jest.mock("@src/_lambda/content-cache-hydrator/content-fetcher");

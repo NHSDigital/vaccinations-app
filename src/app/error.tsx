@@ -1,9 +1,9 @@
 "use client";
 
+import "@public/css/nhsapp-3.1.0.min.css";
+import "@public/css/nhsuk-9.6.1.min.css";
 import ServiceFailure from "@src/app/service-failure/page";
 import React, { useEffect } from "react";
-import "@public/css/nhsuk-9.6.1.min.css";
-import "@public/css/nhsapp-3.1.0.min.css";
 
 interface GlobalErrorProps {
   error: Error & { digest?: string };

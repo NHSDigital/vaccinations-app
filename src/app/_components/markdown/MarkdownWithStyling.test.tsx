@@ -1,5 +1,5 @@
+import { A, H2, MarkdownWithStyling, OL, UL } from "@src/app/_components/markdown/MarkdownWithStyling";
 import { render, screen } from "@testing-library/react";
-import { H2, A, UL, OL, MarkdownWithStyling } from "@src/app/_components/markdown/MarkdownWithStyling";
 import React from "react";
 
 let mockedMarkdown: jest.Mock;

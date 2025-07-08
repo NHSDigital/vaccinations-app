@@ -1,8 +1,8 @@
+import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
+import { VaccineTypes } from "@src/models/vaccine";
 import type { StyledPageSection, VaccinePageSection, VaccinePageSubsection } from "@src/services/content-api/types";
 import sanitiseHtml from "@src/utils/sanitise-html";
 import React from "react";
-import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
-import { VaccineTypes } from "@src/models/vaccine";
 
 const rsvInPregnancyRegExp: RegExp = /<h3>If you're pregnant<\/h3>((?:\s*<p>.*?<\/p>)+)/i;
 const paragraphsRegExp: RegExp = /<p>.*?<\/p>/g;

@@ -1,5 +1,5 @@
-import pino, { LogDescriptor, Logger } from "pino";
 import { asyncLocalStorage } from "@src/utils/requestContext";
+import pino, { LogDescriptor, Logger } from "pino";
 
 const isEdgeRuntime = process?.env?.NEXT_RUNTIME === "edge";
 

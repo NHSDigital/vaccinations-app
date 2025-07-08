@@ -1,8 +1,8 @@
-import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
 import { InactivityDialog } from "@src/app/_components/inactivity/InactivityDialog";
-import { render, screen } from "@testing-library/react";
-import { userLogout } from "@src/utils/auth/user-logout";
+import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
 import useInactivityTimer from "@src/utils/auth/inactivity-timer";
+import { userLogout } from "@src/utils/auth/user-logout";
+import { render, screen } from "@testing-library/react";
 import { Session } from "next-auth";
 
 const mockSessionValue: Session = {

@@ -1,10 +1,9 @@
-import { styleHowToGetSectionForRsv } from "@src/services/content-api/parsers/custom/rsv";
-import { styleHowToGetSectionForRsvPregnancy } from "@src/services/content-api/parsers/custom/rsv-pregnancy";
-import sanitiseHtml from "@src/utils/sanitise-html";
 import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
-import React, { JSX } from "react";
+import WarningCallout from "@src/app/_components/nhs-frontend/WarningCallout";
 import { VaccineTypes } from "@src/models/vaccine";
+import { styleHowToGetSectionForRsv } from "@src/services/content-api/parsers/custom/rsv";
+import { styleHowToGetSectionForRsvPregnancy } from "@src/services/content-api/parsers/custom/rsv-pregnancy";
 import type {
   HeadingWithContent,
   StyledPageSection,
@@ -13,7 +12,9 @@ import type {
   VaccinePageSection,
   VaccinePageSubsection,
 } from "@src/services/content-api/types";
-import WarningCallout from "@src/app/_components/nhs-frontend/WarningCallout";
+import sanitiseHtml from "@src/utils/sanitise-html";
+import React, { JSX } from "react";
+
 import styles from "./styles.module.css";
 
 enum SubsectionTypes {

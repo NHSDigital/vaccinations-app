@@ -1,7 +1,6 @@
 /**
  * @jest-environment node
  */
-
 import { auth } from "@project/auth";
 import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
 import { config, middleware } from "@src/middleware";

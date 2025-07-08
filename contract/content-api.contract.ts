@@ -1,7 +1,7 @@
+import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import axios, { AxiosResponse } from "axios";
 import dotenv from "dotenv";
 import { readFile } from "node:fs/promises";
-import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 
 const callContentApiRSVEndpoint = async () => {
   const contentEndpoint = process.env["CONTENT_API_ENDPOINT"] + "/nhs-website-content/vaccinations/rsv-vaccine";

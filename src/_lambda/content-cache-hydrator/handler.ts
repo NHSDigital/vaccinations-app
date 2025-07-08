@@ -3,10 +3,10 @@ import { writeContentForVaccine } from "@src/_lambda/content-cache-hydrator/cont
 import { VaccineTypes } from "@src/models/vaccine";
 import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
-import { logger } from "@src/utils/logger";
 import { VaccinePageContent } from "@src/services/content-api/types";
+import { logger } from "@src/utils/logger";
+import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
 import { Context } from "aws-lambda";
-import { asyncLocalStorage, RequestContext } from "@src/utils/requestContext";
 
 const log = logger.child({ module: "content-writer-lambda" });
 

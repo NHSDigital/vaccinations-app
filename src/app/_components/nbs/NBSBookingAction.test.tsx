@@ -1,8 +1,8 @@
 import { jest } from "@jest/globals";
 import { NBSBookingAction } from "@src/app/_components/nbs/NBSBookingAction";
+import { VaccineTypes } from "@src/models/vaccine";
 import { mockNHSAppJSFunctions } from "@src/utils/nhsapp-js.test";
 import { render, screen } from "@testing-library/react";
-import { VaccineTypes } from "@src/models/vaccine";
 
 const mockIsOpenInNHSApp = jest.fn();
 

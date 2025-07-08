@@ -1,5 +1,13 @@
 import { VaccineTypes } from "@src/models/vaccine";
 import {
+  ActionFromApi,
+  EligibilityApiResponse,
+  EligibilityCohort,
+  ProcessedSuggestion,
+} from "@src/services/eligibility-api/api-types";
+import { EligibilityApiError } from "@src/services/eligibility-api/gateway/exceptions";
+import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
+import {
   Action,
   ActionType,
   EligibilityErrorTypes,
@@ -7,17 +15,9 @@ import {
   EligibilityStatus,
   SummaryContent,
 } from "@src/services/eligibility-api/types";
-import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
-import { Logger } from "pino";
+import { Cohort, Content, Heading, Introduction } from "@src/services/eligibility-api/types";
 import { logger } from "@src/utils/logger";
-import {
-  ActionFromApi,
-  EligibilityApiResponse,
-  EligibilityCohort,
-  ProcessedSuggestion,
-} from "@src/services/eligibility-api/api-types";
-import { EligibilityApiError } from "@src/services/eligibility-api/gateway/exceptions";
-import { Heading, Content, Cohort, Introduction } from "@src/services/eligibility-api/types";
+import { Logger } from "pino";
 
 const ELIGIBILITY_CONTENT_INTRO_TEXT: string = "This is because you:";
 

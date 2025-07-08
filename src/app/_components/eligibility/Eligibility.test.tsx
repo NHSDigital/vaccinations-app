@@ -1,8 +1,9 @@
-import { ActionType, EligibilityStatus } from "@src/services/eligibility-api/types";
-import { render, screen } from "@testing-library/react";
 import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
+import { ActionType, EligibilityStatus } from "@src/services/eligibility-api/types";
+import { Cohort, Heading, Introduction } from "@src/services/eligibility-api/types";
 import { actionBuilder, eligibilityContentBuilder, summaryContentBuilder } from "@test-data/eligibility-api/builders";
-import { Heading, Cohort, Introduction } from "@src/services/eligibility-api/types";
+import { render, screen } from "@testing-library/react";
+
 // TODO: Remove after final solution for testing with react-markdown
 jest.mock("react-markdown", () => {
   return function MockMarkdown({ children }: { children: React.ReactNode }) {

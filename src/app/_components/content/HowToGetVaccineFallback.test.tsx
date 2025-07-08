@@ -1,7 +1,7 @@
-import { VaccineTypes } from "@src/models/vaccine";
-import React from "react";
-import { render, screen } from "@testing-library/react";
 import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
+import { VaccineTypes } from "@src/models/vaccine";
+import { render, screen } from "@testing-library/react";
+import React from "react";
 
 it("should include 'how to get' link with url from vaccineInfo config ", async () => {
   const vaccineType = VaccineTypes.RSV;

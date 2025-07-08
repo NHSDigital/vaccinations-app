@@ -1,21 +1,21 @@
 import {
-  getFilteredContentForVaccine,
   _extractDescriptionForVaccine,
   _extractHeadlineForAspect,
+  _extractHeadlineForContraindicationsAspect,
   _extractPartsForAspect,
   _findAspect,
   _hasHealthAspect,
-  _extractHeadlineForContraindicationsAspect,
   _removeExcludedHyperlinks,
+  getFilteredContentForVaccine,
 } from "@src/services/content-api/parsers/content-filter-service";
-import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
-import { contentWithoutBenefitsHealthAspect } from "@test-data/content-api/helpers";
 import {
   ContentApiVaccineResponse,
   MainEntityOfPage,
   VaccinePageContent,
   VaccinePageSubsection,
 } from "@src/services/content-api/types";
+import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
+import { contentWithoutBenefitsHealthAspect } from "@test-data/content-api/helpers";
 
 describe("Content Filter", () => {
   describe("_extractDescriptionForVaccine", () => {

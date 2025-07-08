@@ -1,7 +1,7 @@
 "use client";
 
-import { JSX } from "react";
 import { ErrorSummary } from "nhsuk-react-components";
+import { JSX } from "react";
 
 const VaccineError = (): JSX.Element => {
   return (

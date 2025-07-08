@@ -4,7 +4,7 @@ import { vaccineTypeToPath } from "@src/services/content-api/constants";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { AWS_PRIMARY_REGION } from "@src/utils/constants";
 import { logger } from "@src/utils/logger";
-import { isS3Path, S3_PREFIX } from "@src/utils/path";
+import { S3_PREFIX, isS3Path } from "@src/utils/path";
 import { writeFile } from "node:fs/promises";
 import { Logger } from "pino";
 

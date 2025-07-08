@@ -1,5 +1,5 @@
-import { AppConfig } from "@src/utils/config";
 import pemToCryptoKey from "@src/utils/auth/pem-to-crypto-key";
+import { AppConfig } from "@src/utils/config";
 
 const generateSignedJwt = async (config: AppConfig, payload: object): Promise<string> => {
   const privateKey = await pemToCryptoKey(config.NHS_LOGIN_PRIVATE_KEY);

@@ -1,16 +1,16 @@
 "use client";
 
+import "@public/css/nhsapp-3.1.0.min.css";
+import "@public/css/nhsuk-9.6.1.min.css";
 import { InactivityDialog } from "@src/app/_components/inactivity/InactivityDialog";
 import LinksInterceptor from "@src/app/_components/interceptor/LinksInterceptor";
 import AppFooter from "@src/app/_components/nhs-frontend/AppFooter";
 import AppHeader from "@src/app/_components/nhs-frontend/AppHeader";
 import SkipLink from "@src/app/_components/nhs-frontend/SkipLink";
 import { WARNING_TIME_MS } from "@src/utils/auth/inactivity-timer";
+import { SessionProvider } from "next-auth/react";
 import Script from "next/script";
 import React, { JSX } from "react";
-import "@public/css/nhsuk-9.6.1.min.css";
-import "@public/css/nhsapp-3.1.0.min.css";
-import { SessionProvider } from "next-auth/react";
 
 export default function RootLayout({
   children,

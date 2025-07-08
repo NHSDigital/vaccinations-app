@@ -1,14 +1,13 @@
 /**
  * @jest-environment node
  */
-
+import { auth } from "@project/auth";
 import {
   generateAssertedLoginIdentityJwt,
   generateRefreshClientAssertionJwt,
 } from "@src/utils/auth/generate-auth-payload";
 import { generateSignedJwt } from "@src/utils/auth/generate-signed-jwt";
 import { AppConfig } from "@src/utils/config";
-import { auth } from "@project/auth";
 import { appConfigBuilder } from "@test-data/config/builders";
 
 jest.mock("@src/utils/auth/generate-signed-jwt");

@@ -1,7 +1,6 @@
 /**
  * @jest-environment node
  */
-
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import {
   _writeContentToCache,
@@ -9,9 +8,9 @@ import {
   writeContentForVaccine,
 } from "@src/_lambda/content-cache-hydrator/content-writer-service";
 import { VaccineTypes } from "@src/models/vaccine";
+import { vaccineTypeToPath } from "@src/services/content-api/constants";
 import { configProvider } from "@src/utils/config";
 import { writeFile } from "node:fs/promises";
-import { vaccineTypeToPath } from "@src/services/content-api/constants";
 
 jest.mock("@src/utils/config");
 jest.mock("node:fs/promises");

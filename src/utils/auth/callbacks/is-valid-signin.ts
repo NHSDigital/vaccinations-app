@@ -1,9 +1,9 @@
-import { Account } from "next-auth";
-import { AppConfig } from "@src/utils/config";
-import { jwtDecode } from "jwt-decode";
 import type { DecodedIdToken } from "@src/utils/auth/types";
-import { Logger } from "pino";
+import { AppConfig } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
+import { jwtDecode } from "jwt-decode";
+import { Account } from "next-auth";
+import { Logger } from "pino";
 
 const log: Logger = logger.child({
   module: "utils-auth-callbacks-is-valid-signin",

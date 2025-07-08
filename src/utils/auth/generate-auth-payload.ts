@@ -1,7 +1,7 @@
-import { AppConfig } from "@src/utils/config";
+import { auth } from "@project/auth";
 import { generateSignedJwt } from "@src/utils/auth/generate-signed-jwt";
 import { AssertedLoginIdentityPayload, RefreshClientAssertionPayload } from "@src/utils/auth/types";
-import { auth } from "@project/auth";
+import { AppConfig } from "@src/utils/config";
 
 const REFRESH_CLIENT_ASSERTION_EXPIRY_SECONDS = 300;
 const ASSERTED_LOGIN_IDENTITY_EXPIRY_SECONDS = 60;

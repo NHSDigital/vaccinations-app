@@ -1,11 +1,11 @@
 import { generateRefreshClientAssertionJwt } from "@src/utils/auth/generate-auth-payload";
-import { JWT } from "next-auth/jwt";
-import { Account, Profile } from "next-auth";
-import { Logger } from "pino";
+import { DecodedIdToken } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { jwtDecode } from "jwt-decode";
-import { DecodedIdToken } from "@src/utils/auth/types";
+import { Account, Profile } from "next-auth";
+import { JWT } from "next-auth/jwt";
+import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "utils-auth-callbacks-get-token" });
 const DEFAULT_ACCESS_TOKEN_EXPIRY: number = 5 * 60;

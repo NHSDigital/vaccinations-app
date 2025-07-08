@@ -1,8 +1,8 @@
-import { VaccineTypes } from "@src/models/vaccine";
-import React from "react";
-import { render, screen } from "@testing-library/react";
 import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
+import { VaccineTypes } from "@src/models/vaccine";
 import { randomURL } from "@test-data/meta-builder";
+import { render, screen } from "@testing-library/react";
+import React from "react";
 
 it("should include 'how to get' link with url from vaccineInfo config ", async () => {
   const findOutMoreUrl = randomURL();

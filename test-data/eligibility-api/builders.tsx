@@ -5,17 +5,17 @@ import {
   ProcessedSuggestion,
 } from "@src/services/eligibility-api/api-types";
 import {
-  Eligibility,
   Action,
+  ActionType,
+  Cohort,
+  Content,
+  Eligibility,
   EligibilityContent,
   EligibilityForPersonType,
   EligibilityStatus,
-  SummaryContent,
   Heading,
-  Content,
-  Cohort,
   Introduction,
-  ActionType,
+  SummaryContent,
 } from "@src/services/eligibility-api/types";
 import { createTypeBuilder, randomString, randomValue } from "@test-data/meta-builder";
 

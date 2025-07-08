@@ -1,16 +1,16 @@
+import { auth } from "@project/auth";
+import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
+import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
-import { mockStyledContent } from "@test-data/content-api/data";
-import { render, screen } from "@testing-library/react";
 import { EligibilityErrorTypes, EligibilityStatus } from "@src/services/eligibility-api/types";
+import { mockStyledContent } from "@test-data/content-api/data";
 import { eligibilityContentBuilder } from "@test-data/eligibility-api/builders";
-import { auth } from "@project/auth";
+import { render, screen } from "@testing-library/react";
 import React from "react";
-import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
-import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service", () => ({
   getContentForVaccine: jest.fn(),

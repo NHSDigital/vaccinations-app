@@ -1,7 +1,7 @@
 import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
-import { render, screen, within } from "@testing-library/react";
 import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
 import { VaccineTypes } from "@src/models/vaccine";
+import { render, screen, within } from "@testing-library/react";
 
 jest.mock("@src/app/_components/nbs/PharmacyBookingInfo", () => ({
   PharmacyBookingInfo: jest

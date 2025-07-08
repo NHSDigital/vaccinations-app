@@ -1,5 +1,5 @@
 import { AppConfig } from "@src/utils/config";
-import { createTypeBuilder, randomString, randomInteger, randomURL } from "@test-data/meta-builder";
+import { createTypeBuilder, randomInteger, randomString, randomURL } from "@test-data/meta-builder";
 
 export function appConfigBuilder() {
   return createTypeBuilder<AppConfig>({

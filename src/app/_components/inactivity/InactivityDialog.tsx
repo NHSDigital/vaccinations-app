@@ -1,12 +1,13 @@
 "use client";
 
 import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
-import { usePathname } from "next/navigation";
-import { createRef, JSX, useEffect, useRef } from "react";
-import styles from "./styles.module.css";
-import { userLogout } from "@src/utils/auth/user-logout";
 import useInactivityTimer from "@src/utils/auth/inactivity-timer";
+import { userLogout } from "@src/utils/auth/user-logout";
 import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
+import { JSX, createRef, useEffect, useRef } from "react";
+
+import styles from "./styles.module.css";
 
 const InactivityDialog = (): JSX.Element => {
   const { status } = useSession();

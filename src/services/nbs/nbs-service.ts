@@ -1,11 +1,11 @@
 "use server";
 
-import { AppConfig, configProvider } from "@src/utils/config";
+import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 import { VaccineTypes } from "@src/models/vaccine";
 import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
-import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
-import { Logger } from "pino";
+import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
+import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "nbs-service" });
 

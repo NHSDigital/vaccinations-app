@@ -1,6 +1,6 @@
 import SkipLink from "@src/app/_components/nhs-frontend/SkipLink";
+import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
 
 describe("SkipLink component", () => {
   beforeEach(() => {

@@ -1,8 +1,8 @@
-import { Action, ActionType, EligibilityContent, EligibilityStatus } from "@src/services/eligibility-api/types";
-import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
-import React, { JSX } from "react";
-import styles from "@src/app/_components/vaccine/styles.module.css";
 import { MarkdownWithStyling } from "@src/app/_components/markdown/MarkdownWithStyling";
+import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
+import styles from "@src/app/_components/vaccine/styles.module.css";
+import { Action, ActionType, EligibilityContent, EligibilityStatus } from "@src/services/eligibility-api/types";
+import React, { JSX } from "react";
 
 interface EligibilityProps {
   eligibilityStatus: EligibilityStatus;

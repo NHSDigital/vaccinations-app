@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react";
 import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
+import { render, screen } from "@testing-library/react";
 
 describe("VaccineError", () => {
   it("should display subheading", async () => {

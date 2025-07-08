@@ -1,25 +1,25 @@
 "use server";
 
+import { auth } from "@project/auth";
+import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
+import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
+import { MoreInformation } from "@src/app/_components/content/MoreInformation";
+import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
+import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
 import { NBSBookingAction } from "@src/app/_components/nbs/NBSBookingAction";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
+import { HEADINGS } from "@src/app/constants";
 import { VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import { EligibilityErrorTypes } from "@src/services/eligibility-api/types";
-
-import React, { JSX } from "react";
-import styles from "./styles.module.css";
-import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
 import { Session } from "next-auth";
-import { auth } from "@project/auth";
-import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
-import { MoreInformation } from "@src/app/_components/content/MoreInformation";
-import { HEADINGS } from "@src/app/constants";
-import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
-import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
+import React, { JSX } from "react";
+
+import styles from "./styles.module.css";
 
 interface VaccineProps {
   vaccineType: VaccineTypes;

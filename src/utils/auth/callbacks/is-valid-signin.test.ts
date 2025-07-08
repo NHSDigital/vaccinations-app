@@ -1,8 +1,8 @@
 import { isValidSignIn } from "@src/utils/auth/callbacks/is-valid-signin";
 import { AppConfig } from "@src/utils/config";
-import { Account } from "next-auth";
-import { jwtDecode } from "jwt-decode";
 import { appConfigBuilder } from "@test-data/config/builders";
+import { jwtDecode } from "jwt-decode";
+import { Account } from "next-auth";
 
 jest.mock("jwt-decode");
 

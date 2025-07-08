@@ -1,5 +1,5 @@
-import { expect, Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { Page, expect } from "@playwright/test";
 import { snapshotPathTemplate } from "@project/playwright.config";
 
 export const clickLinkAndExpectPageTitle = async (page: Page, linkText: string, expectedPageTitle: string) => {

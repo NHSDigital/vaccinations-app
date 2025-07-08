@@ -1,10 +1,10 @@
 import { getToken } from "@src/utils/auth/callbacks/get-token";
 import { generateRefreshClientAssertionJwt } from "@src/utils/auth/generate-auth-payload";
+import { AppConfig } from "@src/utils/config";
+import { appConfigBuilder } from "@test-data/config/builders";
+import { jwtDecode } from "jwt-decode";
 import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
-import { AppConfig } from "@src/utils/config";
-import { jwtDecode } from "jwt-decode";
-import { appConfigBuilder } from "@test-data/config/builders";
 
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),

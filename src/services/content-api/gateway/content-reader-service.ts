@@ -1,23 +1,23 @@
 "use server";
 
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
-import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
-import { AppConfig, configProvider } from "@src/utils/config";
 import { VaccineTypes } from "@src/models/vaccine";
 import { VaccineContentPaths, vaccineTypeToPath } from "@src/services/content-api/constants";
-import { AWS_PRIMARY_REGION } from "@src/utils/constants";
-import { logger } from "@src/utils/logger";
-import { isS3Path, S3_PREFIX } from "@src/utils/path";
-import { readFile } from "node:fs/promises";
-import { Readable } from "stream";
-import { Logger } from "pino";
+import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
+import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
 import {
   ContentErrorTypes,
   GetContentForVaccineResponse,
   StyledVaccineContent,
   VaccinePageContent,
 } from "@src/services/content-api/types";
+import { AppConfig, configProvider } from "@src/utils/config";
+import { AWS_PRIMARY_REGION } from "@src/utils/constants";
+import { logger } from "@src/utils/logger";
+import { S3_PREFIX, isS3Path } from "@src/utils/path";
+import { readFile } from "node:fs/promises";
+import { Logger } from "pino";
+import { Readable } from "stream";
 
 const log: Logger = logger.child({ module: "content-reader-service" });
 

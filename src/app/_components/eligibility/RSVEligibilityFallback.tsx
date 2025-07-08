@@ -1,10 +1,10 @@
+import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
+import Details from "@src/app/_components/nhs-frontend/Details";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import styles from "@src/app/_components/vaccine/styles.module.css";
-import Details from "@src/app/_components/nhs-frontend/Details";
-import React, { JSX } from "react";
 import { HEADINGS } from "@src/app/constants";
-import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
 import { VaccineTypes } from "@src/models/vaccine";
+import React, { JSX } from "react";
 
 const RSVEligibilityFallback = (props: {
   howToGetVaccineFallback: JSX.Element;

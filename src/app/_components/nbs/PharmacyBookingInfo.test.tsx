@@ -1,7 +1,7 @@
-import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
-import { render, screen } from "@testing-library/react";
-import { VaccineTypes } from "@src/models/vaccine";
 import { NBSBookingAction } from "@src/app/_components/nbs/NBSBookingAction";
+import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
+import { VaccineTypes } from "@src/models/vaccine";
+import { render, screen } from "@testing-library/react";
 
 jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
   NBSBookingAction: jest

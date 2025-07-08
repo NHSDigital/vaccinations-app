@@ -1,9 +1,9 @@
-import { VaccineTypes } from "@src/models/vaccine";
-import Details from "@src/app/_components/nhs-frontend/Details";
-import React, { JSX } from "react";
-import { StyledVaccineContent } from "@src/services/content-api/types";
-import { HEADINGS } from "@src/app/constants";
 import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
+import Details from "@src/app/_components/nhs-frontend/Details";
+import { HEADINGS } from "@src/app/constants";
+import { VaccineTypes } from "@src/models/vaccine";
+import { StyledVaccineContent } from "@src/services/content-api/types";
+import React, { JSX } from "react";
 
 const MoreInformation = (props: {
   styledVaccineContent: StyledVaccineContent;

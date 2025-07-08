@@ -1,9 +1,8 @@
-import { VaccineTypes } from "@src/models/vaccine";
-import React from "react";
-import { render, screen } from "@testing-library/react";
-
 import { MoreInformation } from "@src/app/_components/content/MoreInformation";
+import { VaccineTypes } from "@src/models/vaccine";
 import { mockStyledContent, mockStyledContentWithoutWhatSection } from "@test-data/content-api/data";
+import { render, screen } from "@testing-library/react";
+import React from "react";
 
 describe("MoreInformation component ", () => {
   it("should display whatItIsFor expander block", async () => {

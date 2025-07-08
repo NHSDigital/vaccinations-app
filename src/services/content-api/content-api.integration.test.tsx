@@ -1,14 +1,13 @@
 /**
  * @jest-environment node
  */
-
 import { S3Client } from "@aws-sdk/client-s3";
-import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
-import { VaccineTypes } from "@src/models/vaccine";
-import { configProvider } from "@src/utils/config";
 import mockRsvVaccineJson from "@project/wiremock/__files/rsv-vaccine.json";
-import { Readable } from "stream";
+import { VaccineTypes } from "@src/models/vaccine";
+import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { GetContentForVaccineResponse } from "@src/services/content-api/types";
+import { configProvider } from "@src/utils/config";
+import { Readable } from "stream";
 
 jest.mock("@src/utils/config");
 jest.mock("@aws-sdk/client-s3");

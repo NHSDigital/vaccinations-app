@@ -1,11 +1,11 @@
+import { auth } from "@project/auth";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { VaccineTypes } from "@src/models/vaccine";
+import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import { configProvider } from "@src/utils/config";
 import { mockNHSAppJSFunctions } from "@src/utils/nhsapp-js.test";
-import { render, screen } from "@testing-library/react";
-import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import { eligibilityApiResponseBuilder } from "@test-data/eligibility-api/builders";
-import { auth } from "@project/auth";
+import { render, screen } from "@testing-library/react";
 
 jest.mock("@src/utils/auth/generate-auth-payload", () => jest.fn());
 jest.mock("@src/utils/config", () => ({

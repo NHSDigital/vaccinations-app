@@ -1,10 +1,10 @@
-import { AppConfig } from "@src/utils/config";
-import { EligibilityApiResponse } from "@src/services/eligibility-api/api-types";
 import { Matchers } from "@pact-foundation/pact";
-import { pactWith } from "jest-pact";
-import { eligibilityApiResponseBuilder } from "@test-data/eligibility-api/builders";
+import { EligibilityApiResponse } from "@src/services/eligibility-api/api-types";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
+import { AppConfig } from "@src/utils/config";
 import { appConfigBuilder } from "@test-data/config/builders";
+import { eligibilityApiResponseBuilder } from "@test-data/eligibility-api/builders";
+import { pactWith } from "jest-pact";
 
 jest.mock("@src/utils/config", () => ({
   configProvider: jest.fn((): Promise<AppConfig> => {

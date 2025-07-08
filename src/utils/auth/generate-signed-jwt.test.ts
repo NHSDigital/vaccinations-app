@@ -1,10 +1,9 @@
 /**
  * @jest-environment node
  */
-
+import { generateSignedJwt } from "@src/utils/auth/generate-signed-jwt";
 import pemToCryptoKey from "@src/utils/auth/pem-to-crypto-key";
 import { AppConfig } from "@src/utils/config";
-import { generateSignedJwt } from "@src/utils/auth/generate-signed-jwt";
 
 jest.mock("@src/utils/auth/pem-to-crypto-key");
 
