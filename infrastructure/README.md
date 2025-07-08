@@ -2,6 +2,25 @@
 
 Our infrastructure sits in the Europe(London) region coded 'eu-west-2' in AWS.
 
+## Post deployment steps
+
+### Setting up environment secrets
+
+### Setting up monitoring configuration
+
+The following steps will put Cloudfront access logs to CloudWatch. Since Cloudfront is a global service,
+it only allows putting logs in us-east-1 region.
+
+- Go to AWS service "Cloudfront"
+- Select the distribution that serves VitA website (vaccinations.nhs.uk)
+- Select "Logging" tab
+- Click "Create a log delivery" button
+- Select the destination S3 bucket for storing the cloudfront-access-logs.
+- In additional settings
+  - make sure all fields are selected
+  - use partitioning ```{yyyy}/{MM}/{dd}/{HH}```
+  - use output format as JSON
+
 ## One time setup (once for the team)
 
 ### Tags
