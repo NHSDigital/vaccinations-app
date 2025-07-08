@@ -1,4 +1,8 @@
 {
   "tabWidth": 2,
-  "printWidth": 120
+  "printWidth": 120,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "importOrder": ["^components/(.*)$", "^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

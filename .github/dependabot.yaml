@@ -43,7 +43,10 @@ updates:
         patterns:
           - "@testing-library/dom"
           - "@testing-library/jest-dom"
-          - "@testing-library/react"
+      prettier:
+        patterns:
+          - "prettier"
+          - "@trivago/prettier-plugin-sort-imports"
 
   - package-ecosystem: "pip"
     directory: "/"
