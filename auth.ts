@@ -32,10 +32,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
         return isValidSignIn(account, config);
       },
 
-      async redirect({ baseUrl }) {
-        return `${baseUrl}${VACCINATIONS_HUB_PAGE_ROUTE}`;
-      },
-
       async jwt({ token, account, profile }) {
         return getToken(token, account, profile, config, MAX_SESSION_AGE_SECONDS);
       },
