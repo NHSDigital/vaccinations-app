@@ -4,8 +4,8 @@
 import { auth } from "@project/auth";
 import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
 import { config, middleware } from "@src/middleware";
-import { NextRequest } from "next/server";
 import { AppConfig, configProvider } from "@src/utils/config";
+import { NextRequest } from "next/server";
 
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
@@ -31,7 +31,7 @@ describe("middleware", () => {
   beforeEach(() => {
     (configProvider as jest.Mock).mockImplementation(
       (): Partial<AppConfig> => ({
-        NHS_APP_REDIRECT_LOGIN_URL: "http://nhs-app-redirect-login-url"
+        NHS_APP_REDIRECT_LOGIN_URL: "http://nhs-app-redirect-login-url",
       }),
     );
     jest.clearAllMocks();

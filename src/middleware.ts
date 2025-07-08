@@ -1,9 +1,9 @@
 import { auth } from "@project/auth";
+import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Logger } from "pino";
-import { AppConfig, configProvider } from "@src/utils/config";
 
 const log: Logger = logger.child({ module: "middleware" });
 
