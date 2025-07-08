@@ -51,6 +51,7 @@ jobs:
       ELIGIBILITY_API_ENDPOINT: ${{ secrets.ELIGIBILITY_API_ENDPOINT }}
       ELIGIBILITY_API_KEY: ${{ secrets.ELIGIBILITY_API_KEY }}
       SSM_PREFIX: ${{ secrets.SSM_PREFIX }}
+      NHS_APP_REDIRECT_LOGIN_URL: "dummy"
       CONTENT_CACHE_PATH: "dummy"
       NHS_LOGIN_URL: "dummy"
       NHS_LOGIN_CLIENT_ID: "dummy"
