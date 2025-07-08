@@ -38,10 +38,10 @@ describe("EliD API contract", () => {
 
   describe("HTTP Status exception", () => {
     const failureTestCases = [
-      { nhsNumber: "90000000400", expectedError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR },
-      { nhsNumber: "90000000404", expectedError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR },
-      { nhsNumber: "90000000422", expectedError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR },
-      { nhsNumber: "90000000500", expectedError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR },
+      { nhsNumber: "9800878378", expectedError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR },
+      { nhsNumber: "9661033404", expectedError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR },
+      { nhsNumber: "9451019030", expectedError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR },
+      { nhsNumber: "9436793375", expectedError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR },
     ];
 
     it.each(failureTestCases)(`$nhsNumber should have error $expectedError `, async ({ nhsNumber, expectedError }) => {
