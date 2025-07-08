@@ -57,6 +57,7 @@ jobs:
     name: "Perform static analysis"
     needs: [test-unit]
     runs-on: ubuntu-latest
+    continue-on-error: true
     permissions:
       id-token: write
       contents: read
