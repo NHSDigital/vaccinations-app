@@ -77,7 +77,7 @@ const getToken = async (
     // Refresh token scenario:
     // Access Token missing or expired
     if (!updatedToken.expires_at || nowInSeconds >= updatedToken.expires_at) {
-      log.info("Attempting to refresh token");
+      log.info(updatedToken, `Attempting to refresh token - ${nowInSeconds}`);
 
       if (!updatedToken.refresh_token) {
         log.error("Refresh token missing");
@@ -92,16 +92,20 @@ const getToken = async (
         client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
         client_assertion: clientAssertion,
       };
+      log.info(requestBody, "Request body object");
 
+      const encodedBody = new URLSearchParams(requestBody);
+      log.info(`Encoded request body - ${encodedBody}`);
       const response = await fetch(`${config.NHS_LOGIN_URL}/token`, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: new URLSearchParams(requestBody),
+        body: encodedBody,
       });
 
       const tokensOrError = await response.json();
+      if (!response.ok) log.error(`Not ok response status ${response.status}`);
       if (!response.ok) throw tokensOrError;
 
       const newTokens = tokensOrError as {
