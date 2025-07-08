@@ -13,7 +13,7 @@ const RSVEligibilityFallback = (props: {
   return (
     <div data-testid="elid-fallback">
       <NonUrgentCareCard
-        heading={<div>{"You should have RSV vaccine if you:"}</div>}
+        heading={<div>{"You should have the RSV vaccine if you:"}</div>}
         content={
           <div className={styles.zeroMarginBottom}>
             <ul>

@@ -18,7 +18,7 @@ describe("RSVEligibilityFallback", () => {
       <RSVEligibilityFallback howToGetVaccineFallback={howToGetVaccineFallback} vaccineType={vaccineType} />,
     );
 
-    const fallbackHeading: HTMLElement = screen.getByText("You should have RSV vaccine if you:");
+    const fallbackHeading: HTMLElement = screen.getByText("You should have the RSV vaccine if you:");
     const fallbackBulletPoint1: HTMLElement = screen.getByText("are aged between 75 and 79");
     const fallbackBulletPoint2: HTMLElement = screen.getByText("turned 80 after 1 September 2024");
 
