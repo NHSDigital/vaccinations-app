@@ -16,7 +16,8 @@ jobs:
   snapshot-test:
     name: "Snapshot Test"
     runs-on: ubuntu-latest
-    environment: preprod
+    environment:
+      name: preprod
     timeout-minutes: 30
     permissions:
       id-token: write
