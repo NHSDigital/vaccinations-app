@@ -2,6 +2,14 @@ import AxeBuilder from "@axe-core/playwright";
 import { Page, expect } from "@playwright/test";
 import { snapshotPathTemplate } from "@project/playwright.config";
 
+export const getEnv = (name: string) => {
+  const value = process.env[name];
+  if (value === undefined || value === null) {
+    throw { "Missing environment variable: ": name };
+  }
+  return value;
+};
+
 export const clickLinkAndExpectPageTitle = async (page: Page, linkText: string, expectedPageTitle: string) => {
   await page.getByRole("link", { name: linkText, exact: true }).click();
   await expect(page).toHaveTitle(expectedPageTitle);

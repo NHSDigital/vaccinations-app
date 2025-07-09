@@ -1,4 +1,5 @@
 import { Browser, Page } from "@playwright/test";
+import { getEnv } from "@project/e2e/helpers";
 
 interface User {
   fakeAppUsername: string;
@@ -9,14 +10,6 @@ interface User {
   nhsLoginOTP: string;
   vaccinationsHubUrl: string;
 }
-
-const getEnv = (name: string) => {
-  const value = process.env[name];
-  if (value === undefined || value === null) {
-    throw { "Missing environment variable: ": name };
-  }
-  return value;
-};
 
 const loadUserFromEnvironment = (_nhsLoginUsername: string): User => {
   return {
