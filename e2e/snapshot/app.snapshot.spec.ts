@@ -2,6 +2,9 @@ import { Page, expect, test } from "@playwright/test";
 import { type TestInfo } from "@playwright/test";
 import { login } from "@project/e2e/auth";
 import { pathForCustomScreenshots } from "@project/e2e/helpers";
+import { ACCESSIBILITY_STATEMENT_ROUTE } from "@src/app/our-policies/accessibility/constants";
+import { COOKIES_POLICY_ROUTE } from "@src/app/our-policies/cookies-policy/constants";
+import { TERMS_OF_USE_ROUTE } from "@src/app/our-policies/terms/constants";
 import users from "@test-data/test-users.json" with { type: "json" };
 
 import { HUB_PAGE_URL, RSV_PAGE_URL, RSV_PREGNANCY_PAGE_URL } from "../constants";
@@ -36,6 +39,9 @@ test.describe("E2E", () => {
     { snapshotFilename: "default-hub.png", pageRoute: HUB_PAGE_URL },
     { snapshotFilename: "default-rsv.png", pageRoute: RSV_PAGE_URL },
     { snapshotFilename: "default-rsv-pregnancy.png", pageRoute: RSV_PREGNANCY_PAGE_URL },
+    { snapshotFilename: "default-terms-of-use.png", pageRoute: TERMS_OF_USE_ROUTE },
+    { snapshotFilename: "default-accessibility-statement.png", pageRoute: ACCESSIBILITY_STATEMENT_ROUTE },
+    { snapshotFilename: "default-cookies-policy.png", pageRoute: COOKIES_POLICY_ROUTE },
   ];
 
   PathsToSnapshots.forEach(({ snapshotFilename, pageRoute }) => {
