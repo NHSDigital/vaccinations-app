@@ -9,52 +9,38 @@ import { HUB_PAGE_URL, RSV_PAGE_URL, RSV_PREGNANCY_PAGE_URL } from "../constants
 test.describe("E2E", () => {
   let page: Page;
   let projectName: string;
-  let fileName: string;
+  let testFileName: string;
 
   test.beforeAll(async ({ browser }, testInfo: TestInfo) => {
     testInfo.setTimeout(60000);
     page = await login(browser, users.Default.email);
     projectName = testInfo.project.name;
-    fileName = testInfo.file.split("/").pop()!;
+    testFileName = testInfo.file.split("/").pop()!;
 
     await page.mouse.move(0, 0);
   });
 
-  test("Page Snapshots", async () => {
-    let screenshotFileName: string;
-    let customScreenshotPath: string;
-
-    screenshotFileName = "default-hub.png";
-    customScreenshotPath = pathForCustomScreenshots(fileName, screenshotFileName, projectName);
-    await page.goto(HUB_PAGE_URL);
+  const testPageSnapshot = async (snapshotFileName: string, pageRoute: string) => {
+    const screenshotPath: string = pathForCustomScreenshots(testFileName, snapshotFileName, projectName);
+    await page.goto(pageRoute);
     await page.screenshot({
-      path: customScreenshotPath,
+      path: screenshotPath,
       fullPage: true,
     });
-    await expect.soft(page).toHaveScreenshot(screenshotFileName, {
+    await expect.soft(page).toHaveScreenshot(snapshotFileName, {
       fullPage: true,
     });
+  };
 
-    screenshotFileName = "default-rsv.png";
-    customScreenshotPath = pathForCustomScreenshots(fileName, screenshotFileName, projectName);
-    await page.goto(RSV_PAGE_URL);
-    await page.screenshot({
-      path: customScreenshotPath,
-      fullPage: true,
-    });
-    await expect.soft(page).toHaveScreenshot(screenshotFileName, {
-      fullPage: true,
-    });
+  const PathsToSnapshots = [
+    { snapshotFilename: "default-hub.png", pageRoute: HUB_PAGE_URL },
+    { snapshotFilename: "default-rsv.png", pageRoute: RSV_PAGE_URL },
+    { snapshotFilename: "default-rsv-pregnancy.png", pageRoute: RSV_PREGNANCY_PAGE_URL },
+  ];
 
-    screenshotFileName = "default-rsv-pregnancy.png";
-    customScreenshotPath = pathForCustomScreenshots(fileName, screenshotFileName, projectName);
-    await page.goto(RSV_PREGNANCY_PAGE_URL);
-    await page.screenshot({
-      path: customScreenshotPath,
-      fullPage: true,
-    });
-    await expect.soft(page).toHaveScreenshot(screenshotFileName, {
-      fullPage: true,
+  PathsToSnapshots.forEach(({ snapshotFilename, pageRoute }) => {
+    test(`Testing snapshot for ${pageRoute}`, async () => {
+      await testPageSnapshot(snapshotFilename, pageRoute);
     });
   });
 });
