@@ -205,7 +205,7 @@ describe("ContentStylingService", () => {
         expect(styledVaccineContent.howToGetVaccine.heading).toEqual("How to get this Vaccine");
 
         const expectedRsvSection = "<div><p>para1</p><p>para2</p></div>";
-        const expectedRsvPregnancySection = `<div><div><p>para3</p><p>para4</p></div><p data-testid="pharmacy-booking-info">In some areas you can also ${mockNBSBookingActionHTML}.</p></div>`;
+        const expectedRsvPregnancySection = `<div><div><p>para3</p><p>para4</p></div></div>`;
         const { container } = render(styledVaccineContent.howToGetVaccine.component);
         if (vaccine === VaccineTypes.RSV) {
           expect(container).toContainHTML(expectedRsvSection);

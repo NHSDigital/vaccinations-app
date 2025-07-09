@@ -33,6 +33,11 @@ jest.mock("@src/app/_components/content/MoreInformation", () => ({
 jest.mock("@src/app/_components/content/FindOutMore", () => ({
   FindOutMoreLink: jest.fn().mockImplementation(() => <div data-testid="find-out-more-link-mock">Find Out More</div>),
 }));
+jest.mock("@src/app/_components/nbs/PharmacyBookingInfo", () => ({
+  PharmacyBookingInfo: jest
+    .fn()
+    .mockImplementation(() => <div data-testid="pharmacy-booking-link-mock">Pharmacy Booking</div>),
+}));
 jest.mock("@src/app/_components/content/HowToGetVaccineFallback", () => ({
   HowToGetVaccineFallback: jest
     .fn()
@@ -240,6 +245,14 @@ describe("Any vaccine page", () => {
       await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
 
       expect(getEligibilityForPerson).not.toHaveBeenCalled();
+    });
+
+    it("should contain pharmacy booking link in how to get section", async () => {
+      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
+
+      const pharmacyBookingLink = screen.getByTestId("pharmacy-booking-link-mock");
+
+      expect(pharmacyBookingLink).toBeVisible();
     });
 
     it("should not display the eligibility when there is no content ", async () => {

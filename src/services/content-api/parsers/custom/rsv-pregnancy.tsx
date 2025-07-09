@@ -1,5 +1,3 @@
-import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
-import { VaccineTypes } from "@src/models/vaccine";
 import type { StyledPageSection, VaccinePageSection, VaccinePageSubsection } from "@src/services/content-api/types";
 import sanitiseHtml from "@src/utils/sanitise-html";
 import React from "react";
@@ -25,7 +23,6 @@ export const styleHowToGetSubsection = (subsection: VaccinePageSubsection, index
           __html: sanitiseHtml(paragraphsMatches.join("")),
         }}
       />
-      <PharmacyBookingInfo vaccineType={VaccineTypes.RSV_PREGNANCY} />
     </div>
   );
 };

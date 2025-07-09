@@ -7,6 +7,7 @@ import { MoreInformation } from "@src/app/_components/content/MoreInformation";
 import { Eligibility as EligibilityComponent } from "@src/app/_components/eligibility/Eligibility";
 import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
 import { NBSBookingAction } from "@src/app/_components/nbs/NBSBookingAction";
+import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
@@ -101,7 +102,10 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
 
       {/* How-to-get-vaccine section for RSV in pregnancy */}
       {vaccineType === VaccineTypes.RSV_PREGNANCY && (
-        <Details title={HEADINGS.HOW_TO_GET_VACCINE} component={howToGetVaccineFallback} notExpandable={true} />
+        <>
+          <Details title={HEADINGS.HOW_TO_GET_VACCINE} component={howToGetVaccineFallback} notExpandable={true} />
+          <PharmacyBookingInfo vaccineType={vaccineType} />
+        </>
       )}
 
       {/* NBS booking button action for RSV */}
