@@ -1,11 +1,6 @@
 import { VaccineTypes } from "@src/models/vaccine";
-import {
-  ActionFromApi,
-  EligibilityApiResponse,
-  EligibilityCohort,
-  ProcessedSuggestion,
-} from "@src/services/eligibility-api/api-types";
-import { EligibilityApiHttpStatusError } from "@src/services/eligibility-api/gateway/exceptions";
+import { EligibilityCohort, ProcessedSuggestion } from "@src/services/eligibility-api/api-types";
+import { EligibilityApiError } from "@src/services/eligibility-api/gateway/exceptions";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import {
   Action,
@@ -19,7 +14,7 @@ import { Cohort, Content, Heading, Introduction } from "@src/services/eligibilit
 import { logger } from "@src/utils/logger";
 import { Logger } from "pino";
 
-const ELIGIBILITY_CONTENT_INTRO_TEXT: string = "This is because you:";
+const ELIGIBILITY_CONTENT_INTRO_TEXT = "This is because you:" as Introduction;
 
 const log: Logger = logger.child({ module: "eligibility-filter-service" });
 
@@ -28,10 +23,10 @@ const getEligibilityForPerson = async (
   nhsNumber: string,
 ): Promise<EligibilityForPersonType> => {
   try {
-    const eligibilityApiResponse: EligibilityApiResponse = await fetchEligibilityContent(nhsNumber);
+    const eligibilityApiResponse = await fetchEligibilityContent(nhsNumber);
 
-    const suggestionForVaccine: ProcessedSuggestion | undefined = eligibilityApiResponse.processedSuggestions.find(
-      ({ condition }: ProcessedSuggestion) => condition === vaccineType,
+    const suggestionForVaccine = eligibilityApiResponse.processedSuggestions.find(
+      ({ condition }) => condition === vaccineType,
     );
 
     if (!suggestionForVaccine) {
@@ -45,16 +40,11 @@ const getEligibilityForPerson = async (
     }
 
     let summary: SummaryContent | undefined;
-
-    if (!suggestionForVaccine.eligibilityCohorts) {
-      log.error(
-        `EliD response validation error: Missing eligibilityCohorts element for vaccine type ${vaccineType}, NHS number ${nhsNumber}`,
-      );
-    } else if (suggestionForVaccine.eligibilityCohorts.length > 0) {
+    if (suggestionForVaccine.eligibilityCohorts.length > 0) {
       summary = {
         heading: suggestionForVaccine.statusText as Heading,
-        introduction: ELIGIBILITY_CONTENT_INTRO_TEXT as Introduction,
-        cohorts: _extractAllCohortText(suggestionForVaccine) as Cohort[],
+        introduction: ELIGIBILITY_CONTENT_INTRO_TEXT,
+        cohorts: _extractAllCohortText(suggestionForVaccine),
       };
     }
 
@@ -63,21 +53,18 @@ const getEligibilityForPerson = async (
     return {
       eligibility: {
         status: _getStatus(suggestionForVaccine),
-        content: {
-          summary: summary,
-          actions,
-        },
+        content: { summary, actions },
       },
       eligibilityError: undefined,
     };
   } catch (error: unknown) {
-    if (error instanceof EligibilityApiHttpStatusError) {
+    if (error instanceof EligibilityApiError) {
       return {
         eligibility: undefined,
         eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
       };
     } else {
-      log.error(error, "Some random error");
+      log.error(error, "An unknown error occurred");
       return {
         eligibility: undefined,
         eligibilityError: EligibilityErrorTypes.UNKNOWN,
@@ -86,31 +73,23 @@ const getEligibilityForPerson = async (
   }
 };
 
-const _extractAllCohortText = (suggestion: ProcessedSuggestion): string[] => {
-  return suggestion.eligibilityCohorts.map((cohort: EligibilityCohort) => cohort.cohortText);
+const _extractAllCohortText = (suggestion: ProcessedSuggestion): Cohort[] => {
+  return suggestion.eligibilityCohorts.map((cohort: EligibilityCohort) => cohort.cohortText) as Cohort[];
 };
 
 const _getStatus = (suggestion: ProcessedSuggestion): EligibilityStatus => {
-  if (suggestion.status === "NotEligible") {
-    return EligibilityStatus.NOT_ELIGIBLE;
+  switch (suggestion.status) {
+    case "NotEligible":
+      return EligibilityStatus.NOT_ELIGIBLE;
+    case "NotActionable":
+      return EligibilityStatus.ALREADY_VACCINATED;
+    case "Actionable":
+      return EligibilityStatus.ACTIONABLE;
   }
-  if (suggestion.status === "NotActionable") {
-    return EligibilityStatus.ALREADY_VACCINATED; // WIP
-  }
-  if (suggestion.status === "Actionable") {
-    return EligibilityStatus.ACTIONABLE; // WIP
-  }
-  // TODO: default case if ELID returns unknown status type
-  throw new Error("not yet implemented");
 };
 
 const _generateActions = (suggestion: ProcessedSuggestion): Action[] => {
-  if (!suggestion.actions) {
-    log.warn("Missing actions array");
-    return [];
-  }
-
-  const content: Action[] = suggestion.actions.flatMap((action: ActionFromApi) => {
+  return suggestion.actions.flatMap((action) => {
     if (action.actionType === "InfoText") {
       return [
         {
@@ -118,12 +97,9 @@ const _generateActions = (suggestion: ProcessedSuggestion): Action[] => {
           content: action.description as Content,
         },
       ];
-    } else {
-      return []; // Empty array return means it skips this entry
     }
+    return []; // Empty array return means it skips this entry
   });
-
-  return content;
 };
 
 export { getEligibilityForPerson, _extractAllCohortText, _getStatus, _generateActions };

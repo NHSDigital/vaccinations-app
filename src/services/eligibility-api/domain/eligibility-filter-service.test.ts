@@ -87,26 +87,6 @@ describe("eligibility-filter-service", () => {
       expect(result.eligibilityError).toEqual(EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR);
     });
 
-    it("should return status even if eligibilityCohorts attribute is missing", async () => {
-      const status = "NotEligible";
-      const statusText = "you are not eligible because";
-      (fetchEligibilityContent as jest.Mock).mockResolvedValue({
-        processedSuggestions: [
-          {
-            condition: "RSV",
-            status: status,
-            statusText: statusText,
-          } as ProcessedSuggestion,
-        ],
-      });
-
-      const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineTypes.RSV, nhsNumber);
-
-      expect(result.eligibility?.status).toBe(status);
-      expect(result.eligibility?.content.summary).toBeUndefined();
-      expect(result.eligibilityError).toBeUndefined();
-    });
-
     it("should not give content when eligibilityCohorts array is empty", async () => {
       const status = "NotEligible";
       (fetchEligibilityContent as jest.Mock).mockResolvedValue(
@@ -242,19 +222,6 @@ describe("eligibility-filter-service", () => {
           content: "InfoText Markdown 2",
         },
       ]);
-    });
-
-    it("should return empty array when actions array is missing", async () => {
-      const suggestion = {
-        condition: "RSV",
-        status: "Actionable",
-        statusText: "you are not eligible because",
-        eligibilityCohorts: [],
-      } as unknown as ProcessedSuggestion;
-
-      const result = _generateActions(suggestion);
-
-      expect(result).toEqual([]);
     });
   });
 });

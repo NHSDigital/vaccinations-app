@@ -27,4 +27,4 @@ export type ActionFromApi = {
 };
 
 export type ActionType = "InfoText" | "CardWithText" | "ButtonWithAuthLink";
-export type ActionCode = "HealthcareProInfo";
+export type ActionCode = "HealthcareProInfo" | "CheckCorrect" | "BookNBS";
