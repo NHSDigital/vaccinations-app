@@ -311,8 +311,8 @@ Use the Logs Insights UI to query logs:
 - Sample query:
 
     ```aws-log-insights-QL
-    fields @timestamp, level, module, msg, @message
-    | filter level = "INFO"
+    fields @timestamp, traceId, level, module, msg, @message
+    | filter level = "INFO" or level = "ERROR"
     | sort @timestamp desc
     | limit 10000
     ```
