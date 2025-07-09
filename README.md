@@ -107,7 +107,7 @@ From NHS repository template:
     act -W .github/workflows/cicd-1-pull-request.yaml --defaultbranch main
     ```
 
-- **Playwright** - Install browser drivers for running UI-driven acceptance tests.
+- **Playwright** - Install browser drivers for running UI-driven acceptance tests
 
     ```shell
     npx playwright install
