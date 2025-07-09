@@ -13,4 +13,6 @@ it("should include 'how to get' link with url from vaccineInfo config ", async (
   const findOutMoreLink: HTMLElement = screen.getByRole("link", { name: "Find out more about the RSV vaccine" });
   expect(findOutMoreLink).toBeInTheDocument();
   expect(findOutMoreLink).toHaveAttribute("href", findOutMoreUrl.href);
+  expect(findOutMoreLink).toHaveAttribute("target", "_blank");
+  expect(findOutMoreLink).toHaveAttribute("rel", "noopener");
 });

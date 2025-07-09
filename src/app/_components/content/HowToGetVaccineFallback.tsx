@@ -6,7 +6,10 @@ const HowToGetVaccineFallback = (props: { vaccineType: VaccineTypes }): JSX.Elem
 
   return (
     <p>
-      Find out <a href={vaccineInfo.nhsHowToGetWebpageLink.href}>how to get</a>{" "}
+      Find out{" "}
+      <a href={vaccineInfo.nhsHowToGetWebpageLink.href} target="_blank" rel="noopener">
+        how to get
+      </a>{" "}
       {`an ${vaccineInfo.displayName.midSentenceCase} vaccination`}
     </p>
   );

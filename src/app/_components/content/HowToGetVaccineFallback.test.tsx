@@ -11,6 +11,8 @@ it("should include 'how to get' link with url from vaccineInfo config ", async (
   const fallbackHowToGetLink: HTMLElement = screen.getByRole("link", { name: "how to get" });
   expect(fallbackHowToGetLink).toBeInTheDocument();
   expect(fallbackHowToGetLink).toHaveAttribute("href", "https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it");
+  expect(fallbackHowToGetLink).toHaveAttribute("target", "_blank");
+  expect(fallbackHowToGetLink).toHaveAttribute("rel", "noopener");
 
   const fallbackVaccineText: HTMLElement = screen.getByRole("paragraph");
   expect(fallbackVaccineText.innerHTML).toContain("an RSV vaccination");
