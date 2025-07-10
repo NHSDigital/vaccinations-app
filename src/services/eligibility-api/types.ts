@@ -1,4 +1,4 @@
-type Brand<T, B extends string> = T & { __brand: B };
+import { Brand } from "@project/src/utils/types";
 
 export type Heading = Brand<string, "Heading">;
 export type Introduction = Brand<string, "Introduction">;

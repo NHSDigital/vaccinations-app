@@ -12,7 +12,7 @@ import Details from "@src/app/_components/nhs-frontend/Details";
 import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import { HEADINGS } from "@src/app/constants";
-import { VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
+import { NhsNumber, VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { ContentErrorTypes, StyledVaccineContent } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
@@ -28,7 +28,7 @@ interface VaccineProps {
 
 const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
   const session: Session | null = await auth();
-  const nhsNumber: string | undefined = session?.user.nhs_number;
+  const nhsNumber: NhsNumber | undefined = session?.user.nhs_number as NhsNumber;
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
 
   let styledVaccineContent: StyledVaccineContent | undefined;

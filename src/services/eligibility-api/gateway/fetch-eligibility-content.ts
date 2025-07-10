@@ -1,3 +1,4 @@
+import { NhsNumber } from "@src/models/vaccine";
 import { EligibilityApiResponse } from "@src/services/eligibility-api/api-types";
 import { EligibilityApiHttpStatusError } from "@src/services/eligibility-api/gateway/exceptions";
 import { AppConfig, configProvider } from "@src/utils/config";
@@ -7,7 +8,7 @@ import axios, { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 const log = logger.child({ module: "fetch-eligibility-content" });
 const ELIGIBILITY_API_PATH_SUFFIX = "eligibility-signposting-api/patient-check/";
 
-export const fetchEligibilityContent = async (nhsNumber: string): Promise<EligibilityApiResponse> => {
+export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<EligibilityApiResponse> => {
   const config: AppConfig = await configProvider();
 
   const apiEndpoint: URL = config.ELIGIBILITY_API_ENDPOINT;

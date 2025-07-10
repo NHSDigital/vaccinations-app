@@ -1,4 +1,4 @@
-import { VaccineTypes } from "@src/models/vaccine";
+import { NhsNumber, VaccineTypes } from "@src/models/vaccine";
 import { ProcessedSuggestion } from "@src/services/eligibility-api/api-types";
 import {
   _extractAllCohortText,
@@ -24,7 +24,7 @@ jest.mock("@src/services/eligibility-api/gateway/fetch-eligibility-content", () 
   fetchEligibilityContent: jest.fn(),
 }));
 
-const nhsNumber = "5123456789";
+const nhsNumber = "5123456789" as NhsNumber;
 
 describe("eligibility-filter-service", () => {
   describe("getEligibilityForPerson", () => {

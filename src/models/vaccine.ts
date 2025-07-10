@@ -1,3 +1,5 @@
+import { Brand } from "@src/utils/types";
+
 enum VaccineTypes {
   RSV = "RSV",
   RSV_PREGNANCY = "RSV_PREGNANCY",
@@ -58,5 +60,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
   },
 };
+
+export type NhsNumber = Brand<string, "NhsNumber">;
 
 export { VaccineTypes, VaccineInfo, VaccineContentUrlPaths, vaccineUrlPathToType, vaccineTypeToUrlPath };

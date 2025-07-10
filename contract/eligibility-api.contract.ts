@@ -1,4 +1,4 @@
-import { VaccineTypes } from "@src/models/vaccine";
+import { NhsNumber, VaccineTypes } from "@src/models/vaccine";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import {
   EligibilityErrorTypes,
@@ -14,9 +14,17 @@ describe("EliD API contract", () => {
 
   describe("successful EliD call over the wire", () => {
     const successTestCases = [
-      { nhsNumber: "9686368973", expectedStatus: EligibilityStatus.ACTIONABLE, expectCohortElement: true },
-      { nhsNumber: "9658218989", expectedStatus: EligibilityStatus.ALREADY_VACCINATED, expectCohortElement: false },
-      { nhsNumber: "9657933617", expectedStatus: EligibilityStatus.NOT_ELIGIBLE, expectCohortElement: true },
+      { nhsNumber: "9686368973" as NhsNumber, expectedStatus: EligibilityStatus.ACTIONABLE, expectCohortElement: true },
+      {
+        nhsNumber: "9658218989" as NhsNumber,
+        expectedStatus: EligibilityStatus.ALREADY_VACCINATED,
+        expectCohortElement: false,
+      },
+      {
+        nhsNumber: "9657933617" as NhsNumber,
+        expectedStatus: EligibilityStatus.NOT_ELIGIBLE,
+        expectCohortElement: true,
+      },
     ];
 
     test.each(successTestCases)(
@@ -38,10 +46,10 @@ describe("EliD API contract", () => {
 
   describe("HTTP Status exception", () => {
     const failureTestCases = [
-      { nhsNumber: "9800878378", expectedError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR },
-      { nhsNumber: "9661033404", expectedError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR },
-      { nhsNumber: "9451019030", expectedError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR },
-      { nhsNumber: "9436793375", expectedError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR },
+      { nhsNumber: "9800878378" as NhsNumber, expectedError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR },
+      { nhsNumber: "9661033404" as NhsNumber, expectedError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR },
+      { nhsNumber: "9451019030" as NhsNumber, expectedError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR },
+      { nhsNumber: "9436793375" as NhsNumber, expectedError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR },
     ];
 
     it.each(failureTestCases)(`$nhsNumber should have error $expectedError `, async ({ nhsNumber, expectedError }) => {

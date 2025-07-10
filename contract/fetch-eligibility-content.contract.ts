@@ -1,4 +1,5 @@
 import { Matchers } from "@pact-foundation/pact";
+import { NhsNumber } from "@src/models/vaccine";
 import { EligibilityApiResponse } from "@src/services/eligibility-api/api-types";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import { AppConfig } from "@src/utils/config";
@@ -18,7 +19,7 @@ jest.mock("@src/utils/config", () => ({
 
 pactWith({ consumer: "VitA", provider: "EliD", port: 1234, logLevel: "warn" }, (provider) => {
   describe("EliD returns expected fields", () => {
-    const mockNhsNumber = "5123456789";
+    const mockNhsNumber = "5123456789" as NhsNumber;
     const vitaTraceId = "mock-trace-id";
 
     process.env._X_AMZN_TRACE_ID = vitaTraceId;
