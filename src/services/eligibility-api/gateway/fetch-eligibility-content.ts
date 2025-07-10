@@ -30,9 +30,9 @@ export const fetchEligibilityContent = async (nhsNumber: string): Promise<Eligib
       },
     })
     .catch((error: AxiosError) => {
-      log.error(error, `EliD response HTTP status error for ${nhsNumber}`);
+      log.error({ nhsNumber, error }, `EliD response HTTP status error`);
       throw new EligibilityApiHttpStatusError(`Error in fetching ${uri}`);
     });
-  log.info("Eligibility status retrieved for %s", nhsNumber);
+  log.info({ nhsNumber }, "Eligibility status retrieved");
   return response.data; // TODO - deserialise using https://zod.dev or similar, and throw EligibilityApiSchemaError?
 };
