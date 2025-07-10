@@ -100,22 +100,37 @@ const _getStatus = (suggestion: ProcessedSuggestion): EligibilityStatus => {
   throw new Error("not yet implemented");
 };
 
-const _generateActions = (suggestion: ProcessedSuggestion, vaccineType: VaccineTypes, nhsNumber: string): Action[] => {
+const _generateActions = (
+  suggestion: ProcessedSuggestion,
+  vaccineType: VaccineTypes,
+  nhsNumber: NhsNumber,
+): Action[] => {
   if (!suggestion.actions) {
     log.warn({ nhsNumber, vaccineType }, "Missing actions array");
     return [];
   }
 
-  const content: Action[] = suggestion.actions.flatMap((action: ActionFromApi) => {
-    if (action.actionType === "InfoText") {
-      return [
-        {
-          type: ActionType.paragraph,
-          content: action.description as Content,
-        },
-      ];
-    } else {
-      return []; // Empty array return means it skips this entry
+  const content: Action[] = suggestion.actions.flatMap((action: ActionFromApi): Action[] => {
+    switch (action.actionType) {
+      case "InfoText": {
+        return [
+          {
+            type: ActionType.paragraph,
+            content: action.description as Content,
+          },
+        ];
+      }
+      case "CardWithText": {
+        return [
+          {
+            type: ActionType.card,
+            content: action.description as Content,
+          },
+        ];
+      }
+      default: {
+        return []; // Empty array return means it skips this entry
+      }
     }
   });
 

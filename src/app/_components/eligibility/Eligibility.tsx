@@ -29,12 +29,26 @@ const Eligibility = ({ eligibilityContent }: EligibilityProps): JSX.Element => {
         />
       )}
       {eligibilityContent.actions.map((action: Action, index: number) => {
-        if (action.type === ActionType.paragraph) {
-          return (
-            <div key={index} data-testid="action-paragraph">
-              <MarkdownWithStyling content={action.content} />
-            </div>
-          );
+        switch (action.type) {
+          case ActionType.paragraph: {
+            return (
+              <div key={index} data-testid="action-paragraph">
+                <MarkdownWithStyling content={action.content} />
+              </div>
+            );
+          }
+          case ActionType.card: {
+            const classNames = { h2: "nhsuk-card__heading", p: "nhsuk-card__description" };
+            const content = <MarkdownWithStyling content={action.content} classNames={classNames} />;
+            return (
+              <div className="nhsuk-card">
+                <div className="nhsuk-card__content">{content}</div>
+              </div>
+            );
+          }
+          default: {
+            // Work in progress
+          }
         }
       })}
     </div>

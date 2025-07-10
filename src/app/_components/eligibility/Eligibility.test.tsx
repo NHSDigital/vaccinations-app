@@ -146,5 +146,40 @@ describe("Eligibility", () => {
         expect(content2).toBeVisible();
       });
     });
+
+    describe("card", () => {
+      it("should display paragraph content successfully", () => {
+        render(
+          Eligibility({
+            eligibilityContent: eligibilityContentBuilder()
+              .withActions([actionBuilder().withType(ActionType.card).andContent("Test Content").build()])
+              .build(),
+          }),
+        );
+
+        const content: HTMLElement = screen.getByText("Test Content");
+
+        expect(content).toBeVisible();
+      });
+
+      it("should display multiple paragraphs successfully", () => {
+        render(
+          Eligibility({
+            eligibilityContent: eligibilityContentBuilder()
+              .withActions([
+                actionBuilder().withType(ActionType.card).andContent("Test Content 1").build(),
+                actionBuilder().withType(ActionType.card).andContent("Test Content 2").build(),
+              ])
+              .build(),
+          }),
+        );
+
+        const content1: HTMLElement = screen.getByText("Test Content 1");
+        const content2: HTMLElement = screen.getByText("Test Content 2");
+
+        expect(content1).toBeVisible();
+        expect(content2).toBeVisible();
+      });
+    });
   });
 });

@@ -9,6 +9,7 @@ import {
 import { EligibilityApiHttpStatusError } from "@src/services/eligibility-api/gateway/exceptions";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import {
+  ActionType,
   EligibilityErrorTypes,
   EligibilityForPersonType,
   EligibilityStatus,
@@ -204,11 +205,15 @@ describe("eligibility-filter-service", () => {
   });
 
   describe("_generateActions", () => {
-    it("should filter actions and only return InfoText action type", async () => {
+    it("should filter actions and only return InfoText and CardWithType action types", async () => {
       const processedSuggestion: ProcessedSuggestion = processedSuggestionBuilder()
         .withActions([
           actionFromApiBuilder().withActionType("InfoText").andDescription("InfoText Markdown").build(),
           actionFromApiBuilder().withActionType("CardWithText").andDescription("CardWithText Markdown").build(),
+          actionFromApiBuilder()
+            .withActionType("ButtonWithAuthLink")
+            .andDescription("ButtonWithAuthLink Markdown")
+            .build(),
         ])
         .build();
 
@@ -216,8 +221,12 @@ describe("eligibility-filter-service", () => {
 
       expect(result).toEqual([
         {
-          type: "paragraph",
+          type: ActionType.paragraph,
           content: "InfoText Markdown",
+        },
+        {
+          type: ActionType.card,
+          content: "CardWithText Markdown",
         },
       ]);
     });
