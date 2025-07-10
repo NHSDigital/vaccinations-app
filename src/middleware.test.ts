@@ -17,13 +17,13 @@ jest.mock("@src/utils/config");
 const middlewareRegex = new RegExp(config.matcher[0]);
 const otherExcludedPaths = ["/favicon.ico", "/assets", "/js", "/css", "/_next"];
 
-function getMockRequest(testUrl: URL) {
+function getMockRequest(testUrl: string) {
   return {
     nextUrl: {
-      origin: testUrl.origin,
-      pathname: testUrl.pathname,
+      origin: new URL(testUrl).origin,
+      pathname: new URL(testUrl).pathname,
     },
-    url: testUrl.href,
+    url: testUrl,
   };
 }
 
@@ -31,14 +31,14 @@ describe("middleware", () => {
   beforeEach(() => {
     (configProvider as jest.Mock).mockImplementation(
       (): Partial<AppConfig> => ({
-        NHS_APP_REDIRECT_LOGIN_URL: new URL("https://nhs-app-redirect-login-url"),
+        NHS_APP_REDIRECT_LOGIN_URL: "https://nhs-app-redirect-login-url",
       }),
     );
     jest.clearAllMocks();
   });
 
   it("redirects users without active session to session-logout page", async () => {
-    const testUrl = new URL("https://nhs-app-redirect-login-url/");
+    const testUrl = "https://nhs-app-redirect-login-url/";
     const mockRequest = getMockRequest(testUrl);
 
     (auth as jest.Mock).mockResolvedValue(null); // No authenticated session
@@ -46,11 +46,11 @@ describe("middleware", () => {
     const result = await middleware(mockRequest as NextRequest);
 
     expect(result.status).toBe(307);
-    expect(result.headers.get("Location")).toEqual(testUrl.href);
+    expect(result.headers.get("Location")).toEqual(testUrl);
   });
 
   it("pass through for users with active session", async () => {
-    const testUrl = new URL("https://testurl/abc");
+    const testUrl = "https://testurl/abc";
     const mockRequest = getMockRequest(testUrl);
 
     (auth as jest.Mock).mockResolvedValue({ user: "test" });

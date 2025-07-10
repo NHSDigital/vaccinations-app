@@ -13,7 +13,7 @@ type AppConfig = {
   NBS_URL: string;
   NBS_BOOKING_PATH: string;
   MAX_SESSION_AGE_MINUTES: number;
-  NHS_APP_REDIRECT_LOGIN_URL: URL;
+  NHS_APP_REDIRECT_LOGIN_URL: string;
 };
 
 const configProvider = async (): Promise<AppConfig> => {
@@ -25,7 +25,7 @@ const configProvider = async (): Promise<AppConfig> => {
     ELIGIBILITY_API_KEY: await getFromEnvironmentOrSSM(SSM_PREFIX, "ELIGIBILITY_API_KEY"),
     CONTENT_CACHE_PATH: await getFromEnvironmentOrSSM(SSM_PREFIX, "CONTENT_CACHE_PATH"),
     NHS_LOGIN_URL: await getFromEnvironmentOrSSM(SSM_PREFIX, "NHS_LOGIN_URL"),
-    NHS_APP_REDIRECT_LOGIN_URL: await getUrlFromEnvironmentOrSSM(SSM_PREFIX, "NHS_APP_REDIRECT_LOGIN_URL"),
+    NHS_APP_REDIRECT_LOGIN_URL: await getFromEnvironmentOrSSM(SSM_PREFIX, "NHS_APP_REDIRECT_LOGIN_URL"),
     NHS_LOGIN_CLIENT_ID: await getFromEnvironmentOrSSM(SSM_PREFIX, "NHS_LOGIN_CLIENT_ID"),
     NHS_LOGIN_SCOPE: await getFromEnvironmentOrSSM(SSM_PREFIX, "NHS_LOGIN_SCOPE"),
     NHS_LOGIN_PRIVATE_KEY: await getFromEnvironmentOrSSM(SSM_PREFIX, "NHS_LOGIN_PRIVATE_KEY"),
