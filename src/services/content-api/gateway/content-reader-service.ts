@@ -3,39 +3,35 @@
 import { GetObjectCommand, S3Client, S3ServiceException } from "@aws-sdk/client-s3";
 import { VaccineTypes } from "@src/models/vaccine";
 import { VaccineContentPaths, vaccineTypeToPath } from "@src/services/content-api/constants";
+import { ReadingS3Error, S3HttpStatusError, S3NoSuchKeyError } from "@src/services/content-api/gateway/exceptions";
 import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
 import {
   ContentErrorTypes,
   GetContentForVaccineResponse,
   StyledVaccineContent,
-  VaccinePageContent
+  VaccinePageContent,
 } from "@src/services/content-api/types";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { AWS_PRIMARY_REGION } from "@src/utils/constants";
 import { logger } from "@src/utils/logger";
 import { S3_PREFIX, isS3Path } from "@src/utils/path";
+import { HttpStatusCode } from "axios";
 import { readFile } from "node:fs/promises";
 import { Logger } from "pino";
 import { Readable } from "stream";
-import {
-  ReadingS3Error,
-  S3NoSuchKeyError,
-  S3HttpStatusError,
-} from "@src/services/content-api/gateway/exceptions";
-import { HttpStatusCode } from "axios";
 
 const log: Logger = logger.child({ module: "content-reader-service" });
 
 const _readFileS3 = async (bucket: string, key: string): Promise<string> => {
   try {
     const s3Client: S3Client = new S3Client({
-      region: AWS_PRIMARY_REGION
+      region: AWS_PRIMARY_REGION,
     });
 
     const getObjectCommand: GetObjectCommand = new GetObjectCommand({
       Bucket: bucket,
-      Key: key
+      Key: key,
     });
     const { Body } = await s3Client.send(getObjectCommand);
 
@@ -95,13 +91,13 @@ const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<GetConte
     if (error instanceof ReadingS3Error) {
       return {
         styledVaccineContent: undefined,
-        contentError: ContentErrorTypes.CONTENT_LOADING_ERROR
+        contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
       };
     } else {
       log.error(error, `Error getting content for vaccine: ${vaccineType}`);
       return {
         styledVaccineContent: undefined,
-        contentError: ContentErrorTypes.CONTENT_LOADING_ERROR
+        contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
       };
     }
   }

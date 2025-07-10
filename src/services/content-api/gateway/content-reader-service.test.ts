@@ -4,8 +4,7 @@
 import { S3Client } from "@aws-sdk/client-s3";
 import mockRsvVaccineJson from "@project/wiremock/__files/rsv-vaccine.json";
 import { VaccineTypes } from "@src/models/vaccine";
-import { _readContentFromCache,
-  getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
+import { _readContentFromCache, getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { ContentErrorTypes, GetContentForVaccineResponse } from "@src/services/content-api/types";
 import { configProvider } from "@src/utils/config";
 import { Readable } from "stream";
