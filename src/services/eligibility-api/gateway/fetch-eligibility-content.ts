@@ -16,7 +16,7 @@ export const fetchEligibilityContent = async (nhsNumber: string): Promise<Eligib
 
   const uri: string = `${apiEndpoint}${ELIGIBILITY_API_PATH_SUFFIX}${nhsNumber}`;
 
-  log.info("Fetching eligibility status from %s", uri);
+  log.info({ nhsNumber }, "Fetching eligibility status from %s", uri);
   const response: AxiosResponse = await axios
     .get(uri, {
       headers: {

@@ -212,7 +212,7 @@ describe("eligibility-filter-service", () => {
         ])
         .build();
 
-      const result = _generateActions(processedSuggestion);
+      const result = _generateActions(processedSuggestion, VaccineTypes.RSV, nhsNumber);
 
       expect(result).toEqual([
         {
@@ -230,7 +230,7 @@ describe("eligibility-filter-service", () => {
         ])
         .build();
 
-      const result = _generateActions(processedSuggestion);
+      const result = _generateActions(processedSuggestion, VaccineTypes.RSV, nhsNumber);
 
       expect(result).toEqual([
         {
@@ -252,7 +252,7 @@ describe("eligibility-filter-service", () => {
         eligibilityCohorts: [],
       } as unknown as ProcessedSuggestion;
 
-      const result = _generateActions(suggestion);
+      const result = _generateActions(suggestion, VaccineTypes.RSV, nhsNumber);
 
       expect(result).toEqual([]);
     });

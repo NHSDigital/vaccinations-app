@@ -35,9 +35,7 @@ const getEligibilityForPerson = async (
     );
 
     if (!suggestionForVaccine) {
-      log.error(
-        `EliD response validation error: Processed suggestion not found for vaccine type ${vaccineType}, NHS number ${nhsNumber}`,
-      );
+      log.error({ nhsNumber, vaccineType }, "EliD response validation error: Processed suggestion not found");
       return {
         eligibility: undefined,
         eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
@@ -47,9 +45,7 @@ const getEligibilityForPerson = async (
     let summary: SummaryContent | undefined;
 
     if (!suggestionForVaccine.eligibilityCohorts) {
-      log.error(
-        `EliD response validation error: Missing eligibilityCohorts element for vaccine type ${vaccineType}, NHS number ${nhsNumber}`,
-      );
+      log.error({ nhsNumber, vaccineType }, "EliD response validation error: Missing eligibilityCohorts element");
     } else if (suggestionForVaccine.eligibilityCohorts.length > 0) {
       summary = {
         heading: suggestionForVaccine.statusText as Heading,
@@ -58,7 +54,7 @@ const getEligibilityForPerson = async (
       };
     }
 
-    const actions: Action[] = _generateActions(suggestionForVaccine);
+    const actions: Action[] = _generateActions(suggestionForVaccine, vaccineType, nhsNumber);
 
     return {
       eligibility: {
@@ -77,7 +73,7 @@ const getEligibilityForPerson = async (
         eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
       };
     } else {
-      log.error(error, "Some random error");
+      log.error({ nhsNumber, vaccineType, error }, "Unexpected error");
       return {
         eligibility: undefined,
         eligibilityError: EligibilityErrorTypes.UNKNOWN,
@@ -104,9 +100,9 @@ const _getStatus = (suggestion: ProcessedSuggestion): EligibilityStatus => {
   throw new Error("not yet implemented");
 };
 
-const _generateActions = (suggestion: ProcessedSuggestion): Action[] => {
+const _generateActions = (suggestion: ProcessedSuggestion, vaccineType: VaccineTypes, nhsNumber: string): Action[] => {
   if (!suggestion.actions) {
-    log.warn("Missing actions array");
+    log.warn({ nhsNumber, vaccineType }, "Missing actions array");
     return [];
   }
 
