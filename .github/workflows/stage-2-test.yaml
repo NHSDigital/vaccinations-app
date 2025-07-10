@@ -72,7 +72,6 @@ jobs:
           name: code-coverage-report
       - name: "Perform static analysis"
         uses: ./.github/actions/perform-static-analysis
-        continue-on-error: true
         with:
           sonar_organisation_key: "${{ vars.SONAR_ORGANISATION_KEY }}"
           sonar_project_key: "${{ vars.SONAR_PROJECT_KEY }}"
