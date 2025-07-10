@@ -57,4 +57,26 @@ test.describe("E2E", () => {
       });
     });
   });
+
+  test.describe("Error", () => {
+    test.beforeAll(async ({ browser }, testInfo) => {
+      testInfo.setTimeout(60000);
+      page = await login(browser, users.Eligibility_Error_400.email);
+
+      await page.mouse.move(0, 0);
+    });
+
+    test("Eligibility Error 400 Only", async () => {
+      const screenshotFileName = "eligibility-error-400.png";
+      const customScreenshotPath = pathForCustomScreenshots(fileName, screenshotFileName, projectName);
+      await page.goto(RSV_PAGE_URL);
+      await page.screenshot({
+        path: customScreenshotPath,
+        fullPage: true,
+      });
+      await expect.soft(page).toHaveScreenshot(screenshotFileName, {
+        fullPage: true,
+      });
+    });
+  });
 });

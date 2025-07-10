@@ -10,5 +10,8 @@
   },
   "Actionable_No_InfoText_Action": {
     "email": "testuserlive+4@demo.signin.nhs.uk"
+  },
+  "Eligibility_Error_400": {
+    "email": "testuserlive+16@demo.signin.nhs.uk"
   }
 }
