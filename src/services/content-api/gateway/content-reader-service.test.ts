@@ -88,7 +88,7 @@ describe("Content Reader Service", () => {
         expect(styledVaccineContent?.whatVaccineIsFor?.heading).toEqual(
           mockRsvVaccineJson.mainEntityOfPage[1].headline,
         );
-        expect(styledVaccineContent?.webpageLink).toEqual(mockRsvVaccineJson.webpage);
+        expect(styledVaccineContent?.webpageLink.href).toEqual(mockRsvVaccineJson.webpage);
         expect(contentError).toBeUndefined();
       });
     });

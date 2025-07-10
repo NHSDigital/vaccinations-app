@@ -30,7 +30,7 @@ describe("Content API Read Integration Test ", () => {
     expect(styledVaccineContent).not.toBeNull();
     expect(contentError).toBeUndefined();
     expect(styledVaccineContent?.overview).toEqual(mockRsvVaccineJson.mainEntityOfPage[0].text);
-    expect(styledVaccineContent?.webpageLink).toEqual(mockRsvVaccineJson.webpage);
+    expect(styledVaccineContent?.webpageLink.href).toEqual(mockRsvVaccineJson.webpage);
   });
 
   it("should return processed data from local cache", async () => {

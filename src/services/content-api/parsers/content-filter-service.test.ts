@@ -625,7 +625,7 @@ describe("Content Filter", () => {
 
     it("should include nhs webpage link to vaccine info", () => {
       const expectedWebpageLink = {
-        webpageLink: "https://www.nhs.uk/vaccinations/generic-vaccine/",
+        webpageLink: new URL("https://www.nhs.uk/vaccinations/generic-vaccine/"),
       };
 
       const pageCopyForRsv = getFilteredContentForVaccine(JSON.stringify(genericVaccineContentAPIResponse));

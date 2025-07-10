@@ -189,7 +189,7 @@ const getFilteredContentForVaccine = (apiContent: string): VaccinePageContent =>
     subsections: _extractPartsForAspect(content, "GettingAccessHealthAspect"),
   };
 
-  const webpageLink: URL = content.webpage;
+  const webpageLink: URL = new URL(content.webpage);
 
   return {
     overview,
