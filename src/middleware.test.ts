@@ -31,14 +31,14 @@ describe("middleware", () => {
   beforeEach(() => {
     (configProvider as jest.Mock).mockImplementation(
       (): Partial<AppConfig> => ({
-        NHS_APP_REDIRECT_LOGIN_URL: "http://nhs-app-redirect-login-url",
+        NHS_APP_REDIRECT_LOGIN_URL: "https://nhs-app-redirect-login-url",
       }),
     );
     jest.clearAllMocks();
   });
 
   it("redirects users without active session to session-logout page", async () => {
-    const testUrl = "http://nhs-app-redirect-login-url/";
+    const testUrl = "https://nhs-app-redirect-login-url/";
     const mockRequest = getMockRequest(testUrl);
 
     (auth as jest.Mock).mockResolvedValue(null); // No authenticated session
