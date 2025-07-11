@@ -1,4 +1,4 @@
-import { A, H2, MarkdownWithStyling, OL, P, UL } from "@src/app/_components/markdown/MarkdownWithStyling";
+import { A, H1, H2, H3, H4, MarkdownWithStyling, OL, P, UL } from "@src/app/_components/markdown/MarkdownWithStyling";
 import { render, screen } from "@testing-library/react";
 import React from "react";
 
@@ -24,6 +24,28 @@ describe("markdown", () => {
   });
 
   describe("Custom HTML components", () => {
+    it("should display styled Heading Level 1 (h1)", () => {
+      const children = "This is heading";
+
+      render(H1({ children }));
+
+      const heading: HTMLElement = screen.getByText(children);
+
+      expect(heading).toBeVisible();
+      expect(heading).toHaveClass("nhsuk-heading-s");
+    });
+
+    it("should display styled Heading Level 1 (h1) with custom classes", () => {
+      const children = "This is heading";
+
+      render(H1({ children, className: "bananas chips" }));
+
+      const heading: HTMLElement = screen.getByText(children);
+
+      expect(heading).toBeVisible();
+      expect(heading).toHaveClass("bananas chips");
+    });
+
     it("should display styled Heading Level 2 (h2)", () => {
       const children = "This is heading";
 
@@ -39,6 +61,50 @@ describe("markdown", () => {
       const children = "This is heading";
 
       render(H2({ children, className: "bananas chips" }));
+
+      const heading: HTMLElement = screen.getByText(children);
+
+      expect(heading).toBeVisible();
+      expect(heading).toHaveClass("bananas chips");
+    });
+
+    it("should display styled Heading Level 3 (h3)", () => {
+      const children = "This is heading";
+
+      render(H3({ children }));
+
+      const heading: HTMLElement = screen.getByText(children);
+
+      expect(heading).toBeVisible();
+      expect(heading).toHaveClass("nhsuk-heading-s");
+    });
+
+    it("should display styled Heading Level 3 (h3) with custom classes", () => {
+      const children = "This is heading";
+
+      render(H3({ children, className: "bananas chips" }));
+
+      const heading: HTMLElement = screen.getByText(children);
+
+      expect(heading).toBeVisible();
+      expect(heading).toHaveClass("bananas chips");
+    });
+
+    it("should display styled Heading Level 4 (h4)", () => {
+      const children = "This is heading";
+
+      render(H4({ children }));
+
+      const heading: HTMLElement = screen.getByText(children);
+
+      expect(heading).toBeVisible();
+      expect(heading).toHaveClass("nhsuk-heading-s");
+    });
+
+    it("should display styled Heading Level 4 (h4) with custom classes", () => {
+      const children = "This is heading";
+
+      render(H4({ children, className: "bananas chips" }));
 
       const heading: HTMLElement = screen.getByText(children);
 

@@ -38,7 +38,7 @@ const Eligibility = ({ eligibilityContent }: EligibilityProps): JSX.Element => {
             );
           }
           case ActionType.card: {
-            const classNames = { h2: "nhsuk-card__heading", p: "nhsuk-card__description" };
+            const classNames = { h2: "nhsuk-card__heading", h3: "nhsuk-card__heading", p: "nhsuk-card__description" };
             const content = <MarkdownWithStyling content={action.content} classNames={classNames} />;
             return (
               <div key={index} className="nhsuk-card" data-testid="action-card">
