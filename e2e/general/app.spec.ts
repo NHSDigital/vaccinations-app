@@ -27,7 +27,7 @@ test.describe("E2E", () => {
     await page.goto(HUB_PAGE_URL);
     await expect(page).toHaveTitle(HUB_PAGE_TITLE);
     await accessibilityCheck(page);
-    expect.soft(await benchmark(page, HUB_PAGE_TITLE)).toBeLessThanOrEqual(MAX_AVG_LCP_DURATION_MS);
+    expect.soft(await benchmark(page, HUB_PAGE_URL)).toBeLessThanOrEqual(MAX_AVG_LCP_DURATION_MS);
   });
 
   test("RSV page", async () => {
