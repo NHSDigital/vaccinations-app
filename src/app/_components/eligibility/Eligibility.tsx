@@ -41,7 +41,7 @@ const Eligibility = ({ eligibilityContent }: EligibilityProps): JSX.Element => {
             const classNames = { h2: "nhsuk-card__heading", p: "nhsuk-card__description" };
             const content = <MarkdownWithStyling content={action.content} classNames={classNames} />;
             return (
-              <div className="nhsuk-card">
+              <div className="nhsuk-card" data-testid="action-card">
                 <div className="nhsuk-card__content">{content}</div>
               </div>
             );

@@ -56,7 +56,7 @@ test.describe("E2E", () => {
   test.describe("Actionable", () => {
     test.beforeAll(async ({ browser }, testInfo) => {
       testInfo.setTimeout(60_000);
-      page = await login(browser, users.Actionable.email);
+      page = await login(browser, users.Actionable_With_InfoText_Action.email);
     });
 
     test("Actionable - catchup bullet points", async () => {
@@ -86,7 +86,7 @@ test.describe("E2E", () => {
   test.describe("Actionable - No InfoText action content ", async () => {
     test.beforeAll(async ({ browser }, testInfo) => {
       testInfo.setTimeout(60_000);
-      page = await login(browser, users.Actionable_No_InfoText_Action.email);
+      page = await login(browser, users.Actionable_With_ButtonWithAuthLink_Action.email);
     });
 
     test("Actionable - No InfoText action content", async () => {
@@ -95,6 +95,45 @@ test.describe("E2E", () => {
       const infoText = page.getByTestId("action-paragraph");
 
       await expect(infoText).toHaveCount(0);
+    });
+  });
+
+  test.describe("Actionable with CardWithText", () => {
+    test.beforeAll(async ({ browser }, testInfo) => {
+      testInfo.setTimeout(60_000);
+      page = await login(browser, users.Actionable_With_CardWithText_Action.email);
+    });
+
+    test("Actionable - CardWithText action content", async () => {
+      await page.goto(RSV_PAGE_URL);
+
+      const cardHeading = page.getByRole("heading", {
+        level: 2,
+        name: "You have an RSV vaccination appointment booked",
+      });
+      const cardParagraph = page.getByText(
+        "To change or cancel your appointment, contact the provider you booked with.",
+      );
+
+      await expect(cardHeading).toBeVisible();
+      await expect(cardHeading).toHaveClass("nhsuk-card__heading");
+      await expect(cardParagraph).toBeVisible();
+      await expect(cardParagraph).toHaveClass("nhsuk-card__description");
+    });
+  });
+
+  test.describe("Actionable - No CardWithText action content ", async () => {
+    test.beforeAll(async ({ browser }, testInfo) => {
+      testInfo.setTimeout(60_000);
+      page = await login(browser, users.Actionable_With_InfoText_Action.email);
+    });
+
+    test("Actionable - No InfoText action content", async () => {
+      await page.goto(RSV_PAGE_URL);
+
+      const card = page.getByTestId("action-card");
+
+      await expect(card).toHaveCount(0);
     });
   });
 });

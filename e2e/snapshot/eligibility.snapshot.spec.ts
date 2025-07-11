@@ -39,7 +39,7 @@ test.describe("E2E", () => {
   test.describe("Actionable", () => {
     test.beforeAll(async ({ browser }, testInfo) => {
       testInfo.setTimeout(60000);
-      page = await login(browser, users.Actionable.email);
+      page = await login(browser, users.Actionable_With_InfoText_Action.email);
 
       await page.mouse.move(0, 0);
     });
