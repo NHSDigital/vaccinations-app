@@ -18,10 +18,10 @@ interface MarkdownProps {
 }
 
 const defaultClassNames = {
-  h1: "nhsuk-heading-s",
+  h1: "nhsuk-heading-m",
   h2: "nhsuk-heading-s",
-  h3: "nhsuk-heading-s",
-  h4: "nhsuk-heading-s",
+  h3: "nhsuk-heading-xs",
+  h4: "nhsuk-heading-xxs",
   a: "nhsuk-link",
   ul: "nhsuk-list nhsuk-list--bullet",
   ol: "nhsuk-list nhsuk-list--number",
