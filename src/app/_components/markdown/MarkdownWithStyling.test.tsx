@@ -122,10 +122,10 @@ describe("markdown", () => {
 
       render(P({ children }));
 
-      const heading: HTMLElement = screen.getByText(children);
+      const para: HTMLElement = screen.getByText(children);
 
-      expect(heading).toBeVisible();
-      expect(heading).toHaveClass("nhsuk-body");
+      expect(para).toBeVisible();
+      expect(para).not.toHaveClass();
     });
 
     it("should display styled Paragraph (p) with custom classes", () => {
@@ -133,10 +133,10 @@ describe("markdown", () => {
 
       render(P({ children, className: "sausages" }));
 
-      const heading: HTMLElement = screen.getByText(children);
+      const para: HTMLElement = screen.getByText(children);
 
-      expect(heading).toBeVisible();
-      expect(heading).toHaveClass("sausages");
+      expect(para).toBeVisible();
+      expect(para).toHaveClass("sausages");
     });
   });
 });
