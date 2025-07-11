@@ -25,7 +25,7 @@ const defaultClassNames = {
   a: "nhsuk-link",
   ul: "nhsuk-list nhsuk-list--bullet",
   ol: "nhsuk-list nhsuk-list--number",
-  p: undefined,
+  p: undefined, // No classes by default
 };
 
 type H1Props = ComponentPropsWithoutRef<"h1">;

@@ -116,7 +116,7 @@ test.describe("E2E", () => {
       );
 
       await expect(cardHeading).toBeVisible();
-      await expect(cardHeading).toHaveClass("nhsuk-card__heading");
+      await expect(cardHeading).toHaveClass("nhsuk-heading-s nhsuk-card__heading");
       await expect(cardParagraph).toBeVisible();
       await expect(cardParagraph).toHaveClass("nhsuk-card__description");
     });
