@@ -32,7 +32,7 @@ describe("markdown", () => {
       const heading: HTMLElement = screen.getByText(children);
 
       expect(heading).toBeVisible();
-      expect(heading).toHaveClass("nhsuk-heading-m");
+      expect(heading).toHaveClass("nhsuk-heading-l");
     });
 
     it("should display styled Heading Level 1 (h1) with custom classes", () => {
@@ -54,7 +54,7 @@ describe("markdown", () => {
       const heading: HTMLElement = screen.getByText(children);
 
       expect(heading).toBeVisible();
-      expect(heading).toHaveClass("nhsuk-heading-s");
+      expect(heading).toHaveClass("nhsuk-heading-m");
     });
 
     it("should display styled Heading Level 2 (h2) with custom classes", () => {
@@ -76,7 +76,7 @@ describe("markdown", () => {
       const heading: HTMLElement = screen.getByText(children);
 
       expect(heading).toBeVisible();
-      expect(heading).toHaveClass("nhsuk-heading-xs");
+      expect(heading).toHaveClass("nhsuk-heading-s");
     });
 
     it("should display styled Heading Level 3 (h3) with custom classes", () => {
@@ -98,7 +98,7 @@ describe("markdown", () => {
       const heading: HTMLElement = screen.getByText(children);
 
       expect(heading).toBeVisible();
-      expect(heading).toHaveClass("nhsuk-heading-xxs");
+      expect(heading).toHaveClass("nhsuk-heading-xs");
     });
 
     it("should display styled Heading Level 4 (h4) with custom classes", () => {

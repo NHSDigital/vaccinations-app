@@ -39,8 +39,8 @@ const Eligibility = ({ eligibilityContent }: EligibilityProps): JSX.Element => {
           }
           case ActionType.card: {
             const classNames = {
-              h2: "nhsuk-heading-s nhsuk-card__heading",
-              h3: "nhsuk-heading-xs nhsuk-card__heading",
+              h2: "nhsuk-heading-m nhsuk-card__heading",
+              h3: "nhsuk-heading-s nhsuk-card__heading",
               p: "nhsuk-card__description",
             };
             const content = <MarkdownWithStyling content={action.content} classNames={classNames} />;
