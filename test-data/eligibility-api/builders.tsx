@@ -17,7 +17,7 @@ import {
   Introduction,
   SummaryContent,
 } from "@src/services/eligibility-api/types";
-import { createTypeBuilder, randomString, randomValue } from "@test-data/meta-builder";
+import { createTypeBuilder, randomString, randomURL, randomValue } from "@test-data/meta-builder";
 
 export function eligibilityApiResponseBuilder() {
   return createTypeBuilder<EligibilityApiResponse>({
@@ -48,6 +48,8 @@ export function actionFromApiBuilder() {
     actionType: randomValue(["ButtonWithAuthLink", "CardWithText", "InfoText"]),
     actionCode: randomValue(["HealthcareProInfo"]),
     description: randomString(10),
+    urlLink: randomURL().href,
+    urlLabel: randomString(10),
   });
 }
 

@@ -205,7 +205,7 @@ describe("eligibility-filter-service", () => {
   });
 
   describe("_generateActions", () => {
-    it("should filter actions and only return InfoText and CardWithType action types", async () => {
+    it("should filter actions and return correct action types", async () => {
       const processedSuggestion: ProcessedSuggestion = processedSuggestionBuilder()
         .withActions([
           actionFromApiBuilder().withActionType("InfoText").andDescription("InfoText Markdown").build(),
@@ -213,6 +213,8 @@ describe("eligibility-filter-service", () => {
           actionFromApiBuilder()
             .withActionType("ButtonWithAuthLink")
             .andDescription("ButtonWithAuthLink Markdown")
+            .andUrlLabel("Button Label")
+            .andUrlLink("https://test.example.com/foo/bar/")
             .build(),
         ])
         .build();
@@ -227,6 +229,11 @@ describe("eligibility-filter-service", () => {
         {
           type: ActionType.card,
           content: "CardWithText Markdown",
+        },
+        {
+          type: ActionType.authButton,
+          content: "ButtonWithAuthLink Markdown",
+          button: { label: "Button Label", url: new URL("https://test.example.com/foo/bar/") },
         },
       ]);
     });

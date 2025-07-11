@@ -13,6 +13,7 @@ import {
   EligibilityErrorTypes,
   EligibilityForPersonType,
   EligibilityStatus,
+  Label,
   SummaryContent,
 } from "@src/services/eligibility-api/types";
 import { Cohort, Content, Heading, Introduction } from "@src/services/eligibility-api/types";
@@ -117,6 +118,7 @@ const _generateActions = (
           {
             type: ActionType.paragraph,
             content: action.description as Content,
+            button: undefined,
           },
         ];
       }
@@ -125,11 +127,18 @@ const _generateActions = (
           {
             type: ActionType.card,
             content: action.description as Content,
+            button: undefined,
           },
         ];
       }
-      default: {
-        return []; // Empty array return means it skips this entry
+      case "ButtonWithAuthLink": {
+        return [
+          {
+            type: ActionType.authButton,
+            content: action.description as Content,
+            button: { label: action.urlLabel as Label, url: new URL(action.urlLink) },
+          },
+        ];
       }
     }
   });

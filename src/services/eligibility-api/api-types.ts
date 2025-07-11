@@ -24,6 +24,8 @@ export type ActionFromApi = {
   actionType: ActionType;
   actionCode: ActionCode;
   description: string;
+  urlLink: string;
+  urlLabel: string;
 };
 
 export type ActionType = "InfoText" | "CardWithText" | "ButtonWithAuthLink";

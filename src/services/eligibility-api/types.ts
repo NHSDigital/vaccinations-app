@@ -4,6 +4,7 @@ export type Heading = Brand<string, "Heading">;
 export type Introduction = Brand<string, "Introduction">;
 export type Cohort = Brand<string, "Cohort">;
 export type Content = Brand<string, "Content">;
+export type Label = Brand<string, "Label">;
 
 export enum EligibilityStatus {
   NOT_ELIGIBLE = "NotEligible",
@@ -30,12 +31,24 @@ export type SummaryContent = {
 export enum ActionType {
   paragraph = "paragraph",
   card = "card",
+  authButton = "authButton",
 }
 
-export type Action = {
+export type ActionWithoutButton = {
   type: ActionType;
   content: Content;
+  button: undefined;
 };
+
+export type ActionWithButton = {
+  type: ActionType;
+  content: Content;
+  button: Button;
+};
+
+export type Button = { label: Label; url: URL };
+
+export type Action = ActionWithoutButton | ActionWithButton;
 
 export enum EligibilityErrorTypes {
   ELIGIBILITY_LOADING_ERROR = "ELIGIBILITY_LOADING",
