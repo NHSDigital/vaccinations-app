@@ -26,11 +26,11 @@ test.describe("Snapshot Testing - Eligibility", () => {
       test.use({ storageState: authContextFile });
 
       test(key, async ({ page }, testInfo) => {
-        const fileName = testInfo.file.split("/").pop()!;
+        const testFileName = testInfo.file.split("/").pop()!;
         const projectName = testInfo.project.name;
 
         const customScreenshotPath = pathForCustomScreenshots(
-          fileName,
+          testFileName,
           screenshotFileName,
           projectName
         );
