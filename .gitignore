@@ -103,6 +103,7 @@ next-env.d.ts
 /playwright/.cache/
 **/__snapshots__/
 **/snapshot_review/
+/e2e/.auth/
 
 # open-next
 /.open-next/

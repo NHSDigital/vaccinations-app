@@ -1,82 +1,70 @@
 import { Page, expect, test } from "@playwright/test";
-import { login } from "@project/e2e/auth";
 import { RSV_PAGE_URL } from "@project/e2e/constants";
 import { pathForCustomScreenshots } from "@project/e2e/helpers";
 import users from "@test-data/test-users.json" with { type: "json" };
 
-test.describe("E2E", () => {
-  let page: Page;
-  let projectName: string;
-  let fileName: string;
+const openExpanders = async (page: Page) => {
+  const expanderTitles = [
+    "What this vaccine is for",
+    "Who should have this vaccine",
+    "How to get the vaccine",
+  ];
 
-  test.beforeAll(async ({}, testInfo) => {
-    projectName = testInfo.project.name;
-    fileName = testInfo.file.split("/").pop()!;
-  });
+  for (const title of expanderTitles) {
+    await page.getByText(title).click();
+  }
 
-  test.describe("Not Eligible", () => {
-    test.beforeAll(async ({ browser }, testInfo) => {
-      testInfo.setTimeout(60000);
-      page = await login(browser, users.NotEligible.email);
+  await page.mouse.click(0, 0);
+};
 
-      await page.mouse.move(0, 0);
-    });
+const testCases = [
+  {
+    testName: "Not Eligible - With InfoText Action",
+    user: users.NotEligible_With_InfoText_Action,
+    screenshotFileName: "NotEligible-With-InfoText-Action.png",
+    authContextFile: "./e2e/.auth/NotEligible_With_InfoText_Action.json"// playwright doesn't like underscore in screenshot filenames
+  },
+  {
+    testName: "Actionable - With InfoText Action",
+    user: users.Actionable_With_InfoText_Action,
+    screenshotFileName: "Actionable-With-InfoText-Action.png",
+    authContextFile: "./e2e/.auth/Actionable_With_InfoText_Action.json"
+  },
+  {
+    testName: "Eligibility Error 400 Only",
+    user: users.Eligibility_Error_400,
+    screenshotFileName: "Eligibility-Error-400.png",
+    authContextFile: "./e2e/.auth/Eligibility_Error_400.json"
+  },
+];
 
-    test("Not eligible - age and catchup bullet points", async () => {
-      const screenshotFileName = "eligibility-not-eligible.png";
-      const customScreenshotPath = pathForCustomScreenshots(fileName, screenshotFileName, projectName);
-      await page.goto(RSV_PAGE_URL);
-      await page.screenshot({
-        path: customScreenshotPath,
-        fullPage: true,
-      });
-      await expect.soft(page).toHaveScreenshot(screenshotFileName, {
-        fullPage: true,
-      });
-    });
-  });
+test.describe("Snapshot Testing - Eligibility", () => {
+  for (const tc of testCases) {
+    test.describe(tc.testName, () => {
+      test.use({ storageState: tc.authContextFile });
 
-  test.describe("Actionable", () => {
-    test.beforeAll(async ({ browser }, testInfo) => {
-      testInfo.setTimeout(60000);
-      page = await login(browser, users.Actionable_With_InfoText_Action.email);
+      test(tc.testName, async ({ page }, testInfo) => {
+        const fileName = testInfo.file.split("/").pop()!;
+        const projectName = testInfo.project.name;
 
-      await page.mouse.move(0, 0);
-    });
+        const customScreenshotPath = pathForCustomScreenshots(
+          fileName,
+          tc.screenshotFileName,
+          projectName
+        );
 
-    test("Actionable - catchup bullet points", async () => {
-      const screenshotFileName = "eligibility-actionable.png";
-      const customScreenshotPath = pathForCustomScreenshots(fileName, screenshotFileName, projectName);
-      await page.goto(RSV_PAGE_URL);
-      await page.screenshot({
-        path: customScreenshotPath,
-        fullPage: true,
-      });
-      await expect.soft(page).toHaveScreenshot(screenshotFileName, {
-        fullPage: true,
-      });
-    });
-  });
+        await page.goto(RSV_PAGE_URL);
+        await openExpanders(page);
 
-  test.describe("Error", () => {
-    test.beforeAll(async ({ browser }, testInfo) => {
-      testInfo.setTimeout(60000);
-      page = await login(browser, users.Eligibility_Error_400.email);
+        await page.screenshot({
+          path: customScreenshotPath,
+          fullPage: true,
+        });
 
-      await page.mouse.move(0, 0);
-    });
-
-    test("Eligibility Error 400 Only", async () => {
-      const screenshotFileName = "eligibility-error-400.png";
-      const customScreenshotPath = pathForCustomScreenshots(fileName, screenshotFileName, projectName);
-      await page.goto(RSV_PAGE_URL);
-      await page.screenshot({
-        path: customScreenshotPath,
-        fullPage: true,
-      });
-      await expect.soft(page).toHaveScreenshot(screenshotFileName, {
-        fullPage: true,
+        await expect.soft(page).toHaveScreenshot(tc.screenshotFileName, {
+          fullPage: true,
+        });
       });
     });
-  });
+  }
 });

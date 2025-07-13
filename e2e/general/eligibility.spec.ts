@@ -1,26 +1,19 @@
-import { Locator, Page, expect, test } from "@playwright/test";
-import { login } from "@project/e2e/auth";
+import { Locator, expect, test } from "@playwright/test";
 import { MAX_AVG_LCP_DURATION_MS, RSV_PAGE_URL } from "@project/e2e/constants";
 import { accessibilityCheck, benchmark } from "@project/e2e/helpers";
-import users from "@test-data/test-users.json" with { type: "json" };
 
 test.describe.configure({ mode: "serial" });
 
 test.describe("E2E", () => {
-  let page: Page;
-
-  test.afterEach(async () => {
+  test.afterEach(async ({ page }) => {
     await accessibilityCheck(page);
     expect.soft(await benchmark(page, RSV_PAGE_URL)).toBeLessThanOrEqual(MAX_AVG_LCP_DURATION_MS);
   });
 
   test.describe("Not Eligible", () => {
-    test.beforeAll(async ({ browser }, testInfo) => {
-      testInfo.setTimeout(60_000);
-      page = await login(browser, users.NotEligible.email);
-    });
+    test.use({ storageState: `./e2e/.auth/NotEligible_With_InfoText_Action.json` });
 
-    test("Not eligible - age and catchup bullet points", async () => {
+    test("Not eligible - age and catchup bullet points", async ({ page }) => {
       await page.goto(RSV_PAGE_URL);
 
       const eligibility: Locator = page.getByTestId("Eligibility");
@@ -38,7 +31,7 @@ test.describe("E2E", () => {
       await expect(bulletPoint2).toBeVisible();
     });
 
-    test("Not Eligible - InfoText action content", async () => {
+    test("Not Eligible - InfoText action content", async ({ page }) => {
       await page.goto(RSV_PAGE_URL);
 
       const infoTextHeading = page.getByRole("heading", { level: 2, name: "If you think you need this vaccine" });
@@ -54,12 +47,9 @@ test.describe("E2E", () => {
   });
 
   test.describe("Actionable", () => {
-    test.beforeAll(async ({ browser }, testInfo) => {
-      testInfo.setTimeout(60_000);
-      page = await login(browser, users.Actionable_With_InfoText_Action.email);
-    });
+    test.use({ storageState: `./e2e/.auth/Actionable_With_InfoText_Action.json` });
 
-    test("Actionable - catchup bullet points", async () => {
+    test("Actionable - catchup bullet points", async ({ page }) => {
       await page.goto(RSV_PAGE_URL);
 
       const eligibility: Locator = page.getByTestId("Eligibility");
@@ -70,7 +60,7 @@ test.describe("E2E", () => {
       await expect(bulletPoint).toBeVisible();
     });
 
-    test("Actionable - InfoText action content", async () => {
+    test("Actionable - InfoText action content", async ({ page }) => {
       await page.goto(RSV_PAGE_URL);
 
       const infoTextHeading = page.getByRole("heading", { level: 2, name: "Getting the vaccine" });
@@ -84,12 +74,9 @@ test.describe("E2E", () => {
   });
 
   test.describe("Actionable - No InfoText action content ", async () => {
-    test.beforeAll(async ({ browser }, testInfo) => {
-      testInfo.setTimeout(60_000);
-      page = await login(browser, users.Actionable_With_ButtonWithAuthLink_Action.email);
-    });
+    test.use({ storageState: `./e2e/.auth/Actionable_With_ButtonWithAuthLink_Action.json` });
 
-    test("Actionable - No InfoText action content", async () => {
+    test("Actionable - No InfoText action content", async ({ page }) => {
       await page.goto(RSV_PAGE_URL);
 
       const infoText = page.getByTestId("action-paragraph");
@@ -99,12 +86,9 @@ test.describe("E2E", () => {
   });
 
   test.describe("Actionable with CardWithText", () => {
-    test.beforeAll(async ({ browser }, testInfo) => {
-      testInfo.setTimeout(60_000);
-      page = await login(browser, users.Actionable_With_CardWithText_Action.email);
-    });
+    test.use({ storageState: `./e2e/.auth/Actionable_With_CardWithText_Action.json` });
 
-    test("Actionable - CardWithText action content", async () => {
+    test("Actionable - CardWithText action content", async ({ page }) => {
       await page.goto(RSV_PAGE_URL);
 
       const cardHeading = page.getByRole("heading", {
@@ -123,12 +107,9 @@ test.describe("E2E", () => {
   });
 
   test.describe("Actionable - No CardWithText action content ", async () => {
-    test.beforeAll(async ({ browser }, testInfo) => {
-      testInfo.setTimeout(60_000);
-      page = await login(browser, users.Actionable_With_InfoText_Action.email);
-    });
+    test.use({ storageState: `./e2e/.auth/Actionable_With_InfoText_Action.json` });
 
-    test("Actionable - No InfoText action content", async () => {
+    test("Actionable - No InfoText action content", async ({ page }) => {
       await page.goto(RSV_PAGE_URL);
 
       const card = page.getByTestId("action-card");

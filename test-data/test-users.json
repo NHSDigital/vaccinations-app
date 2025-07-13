@@ -2,7 +2,7 @@
   "Default": {
     "email": "testuserlive@demo.signin.nhs.uk"
   },
-  "NotEligible": {
+  "NotEligible_With_InfoText_Action": {
     "email": "testuserlive+15@demo.signin.nhs.uk"
   },
   "Actionable_With_InfoText_Action": {
