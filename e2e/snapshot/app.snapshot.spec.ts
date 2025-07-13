@@ -30,15 +30,15 @@ const testPageSnapshot = async (page: Page, snapshotFileName: string, pageRoute:
 };
 
 test.describe("Snapshot Testing", () => {
-  test.use({ storageState: `./e2e/.auth/Default.json` });
+  test.use({ storageState: `./e2e/.auth/default.json` });
 
   const PathsToSnapshots = [
-    { snapshotFilename: "Default-Hub.png", pageRoute: HUB_PAGE_URL },
-    { snapshotFilename: "Default-RSV.png", pageRoute: RSV_PAGE_URL },
-    { snapshotFilename: "Default-RSV-Pregnancy.png", pageRoute: RSV_PREGNANCY_PAGE_URL },
-    { snapshotFilename: "Default-Terms-Of-Use.png", pageRoute: TERMS_OF_USE_ROUTE },
-    { snapshotFilename: "Default-Accessibility-Statement.png", pageRoute: ACCESSIBILITY_STATEMENT_ROUTE },
-    { snapshotFilename: "Default-Cookies-Policy.png", pageRoute: COOKIES_POLICY_ROUTE },
+    { snapshotFilename: "default-hub.png", pageRoute: HUB_PAGE_URL },
+    { snapshotFilename: "default-rsv.png", pageRoute: RSV_PAGE_URL },
+    { snapshotFilename: "default-rsv-pregnancy.png", pageRoute: RSV_PREGNANCY_PAGE_URL },
+    { snapshotFilename: "default-terms-of-use.png", pageRoute: TERMS_OF_USE_ROUTE },
+    { snapshotFilename: "default-accessibility-statement.png", pageRoute: ACCESSIBILITY_STATEMENT_ROUTE },
+    { snapshotFilename: "default-cookies-policy.png", pageRoute: COOKIES_POLICY_ROUTE },
   ];
 
   PathsToSnapshots.forEach(({ snapshotFilename, pageRoute }) => {

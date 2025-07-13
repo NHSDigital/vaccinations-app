@@ -1,20 +1,20 @@
 {
-  "Default": {
+  "default": {
     "email": "testuserlive@demo.signin.nhs.uk"
   },
-  "NotEligible_With_InfoText_Action": {
+  "not-eligible-with-infotext-action": {
     "email": "testuserlive+15@demo.signin.nhs.uk"
   },
-  "Actionable_With_InfoText_Action": {
+  "actionable-with-infotext-action": {
     "email": "testuserlive+1@demo.signin.nhs.uk"
   },
-  "Actionable_With_ButtonWithAuthLink_Action": {
+  "actionable-with-buttonwithauthlink-action": {
     "email": "testuserlive+4@demo.signin.nhs.uk"
   },
-  "Actionable_With_CardWithText_Action": {
+  "actionable-with-cardwithtext-action": {
     "email": "testuserlive+5@demo.signin.nhs.uk"
   },
-  "Eligibility_Error_400": {
+  "eligibility-error-400": {
     "email": "testuserlive+16@demo.signin.nhs.uk"
   }
 }

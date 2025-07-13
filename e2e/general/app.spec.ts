@@ -13,8 +13,8 @@ import {
 
 test.describe.configure({ mode: "serial" });
 
-test.describe("E2E", () => {
-  test.use({ storageState: `./e2e/.auth/Default.json` });
+test.describe("Application", () => {
+  test.use({ storageState: `./e2e/.auth/default.json` });
 
   test("Hub page", async ({ page }) => {
     await page.goto(HUB_PAGE_URL);

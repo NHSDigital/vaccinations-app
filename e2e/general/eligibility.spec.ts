@@ -4,14 +4,14 @@ import { accessibilityCheck, benchmark } from "@project/e2e/helpers";
 
 test.describe.configure({ mode: "serial" });
 
-test.describe("E2E", () => {
+test.describe("Eligibility", () => {
   test.afterEach(async ({ page }) => {
     await accessibilityCheck(page);
     expect.soft(await benchmark(page, RSV_PAGE_URL)).toBeLessThanOrEqual(MAX_AVG_LCP_DURATION_MS);
   });
 
   test.describe("Not Eligible", () => {
-    test.use({ storageState: `./e2e/.auth/NotEligible_With_InfoText_Action.json` });
+    test.use({ storageState: `./e2e/.auth/not-eligible-with-infotext-action.json` });
 
     test("Not eligible - age and catchup bullet points", async ({ page }) => {
       await page.goto(RSV_PAGE_URL);
@@ -47,7 +47,7 @@ test.describe("E2E", () => {
   });
 
   test.describe("Actionable", () => {
-    test.use({ storageState: `./e2e/.auth/Actionable_With_InfoText_Action.json` });
+    test.use({ storageState: `./e2e/.auth/actionable-with-infotext-action.json` });
 
     test("Actionable - catchup bullet points", async ({ page }) => {
       await page.goto(RSV_PAGE_URL);
@@ -74,7 +74,7 @@ test.describe("E2E", () => {
   });
 
   test.describe("Actionable - No InfoText action content ", async () => {
-    test.use({ storageState: `./e2e/.auth/Actionable_With_ButtonWithAuthLink_Action.json` });
+    test.use({ storageState: `./e2e/.auth/actionable-with-buttonwithauthlink-action.json` });
 
     test("Actionable - No InfoText action content", async ({ page }) => {
       await page.goto(RSV_PAGE_URL);
@@ -86,7 +86,7 @@ test.describe("E2E", () => {
   });
 
   test.describe("Actionable with CardWithText", () => {
-    test.use({ storageState: `./e2e/.auth/Actionable_With_CardWithText_Action.json` });
+    test.use({ storageState: `./e2e/.auth/actionable-with-cardwithtext-action.json` });
 
     test("Actionable - CardWithText action content", async ({ page }) => {
       await page.goto(RSV_PAGE_URL);
@@ -107,7 +107,7 @@ test.describe("E2E", () => {
   });
 
   test.describe("Actionable - No CardWithText action content ", async () => {
-    test.use({ storageState: `./e2e/.auth/Actionable_With_InfoText_Action.json` });
+    test.use({ storageState: `./e2e/.auth/actionable-with-infotext-action.json` });
 
     test("Actionable - No InfoText action content", async ({ page }) => {
       await page.goto(RSV_PAGE_URL);

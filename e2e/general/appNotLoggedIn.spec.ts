@@ -4,8 +4,8 @@ import { getEnv } from "@project/e2e/helpers";
 
 test.describe.configure({ mode: "serial" });
 
-test.describe("E2E", () => {
-  test.beforeAll(async ({ browser }, testInfo) => {
+test.describe("Application - User Not Logged In", () => {
+  test.beforeAll(async ({}, testInfo) => {
     testInfo.setTimeout(60_000);
   });
 
