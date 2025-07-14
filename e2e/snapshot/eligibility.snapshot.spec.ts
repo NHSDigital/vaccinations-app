@@ -4,11 +4,7 @@ import { pathForCustomScreenshots } from "@project/e2e/helpers";
 import users from "@test-data/test-users.json" with { type: "json" };
 
 const openExpanders = async (page: Page) => {
-  const expanderTitles = [
-    "What this vaccine is for",
-    "Who should have this vaccine",
-    "How to get the vaccine",
-  ];
+  const expanderTitles = ["What this vaccine is for", "Who should have this vaccine", "How to get the vaccine"];
 
   for (const title of expanderTitles) {
     await page.getByText(title).click();
@@ -29,11 +25,7 @@ test.describe("Snapshot Testing - Eligibility", () => {
         const testFileName = testInfo.file.split("/").pop()!;
         const projectName = testInfo.project.name;
 
-        const customScreenshotPath = pathForCustomScreenshots(
-          testFileName,
-          screenshotFileName,
-          projectName
-        );
+        const customScreenshotPath = pathForCustomScreenshots(testFileName, screenshotFileName, projectName);
 
         await page.goto(RSV_PAGE_URL);
         await openExpanders(page);

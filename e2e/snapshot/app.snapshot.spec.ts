@@ -6,7 +6,13 @@ import { TERMS_OF_USE_ROUTE } from "@src/app/our-policies/terms/constants";
 
 import { HUB_PAGE_URL, RSV_PAGE_URL, RSV_PREGNANCY_PAGE_URL } from "../constants";
 
-const testPageSnapshot = async (page: Page, snapshotFileName: string, pageRoute: string, testFileName: string, projectName: string) => {
+const testPageSnapshot = async (
+  page: Page,
+  snapshotFileName: string,
+  pageRoute: string,
+  testFileName: string,
+  projectName: string,
+) => {
   const screenshotPath: string = pathForCustomScreenshots(testFileName, snapshotFileName, projectName);
   await page.goto(pageRoute);
 

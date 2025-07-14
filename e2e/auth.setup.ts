@@ -1,4 +1,4 @@
-import { test as setup, TestInfo } from "@playwright/test";
+import { TestInfo, test as setup } from "@playwright/test";
 import { login } from "@project/e2e/auth";
 import users from "@test-data/test-users.json" with { type: "json" };
 
