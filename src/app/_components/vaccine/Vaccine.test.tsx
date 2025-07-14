@@ -21,9 +21,6 @@ jest.mock("@src/services/eligibility-api/domain/eligibility-filter-service", () 
 jest.mock("@src/app/_components/eligibility/Eligibility", () => ({
   Eligibility: () => <div>Test Eligibility Component</div>,
 }));
-jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
-  NBSBookingAction: () => <a href="https://nbs-test-link">NBS Booking Link Test</a>,
-}));
 jest.mock("@src/app/_components/eligibility/RSVEligibilityFallback", () => ({
   RSVEligibilityFallback: jest.fn().mockImplementation(() => <div data-testid="elid-fallback-mock">EliD fallback</div>),
 }));

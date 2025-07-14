@@ -7,6 +7,8 @@ import {
 import {
   Action,
   ActionType,
+  Button,
+  ButtonUrl,
   Cohort,
   Content,
   Eligibility,
@@ -15,6 +17,7 @@ import {
   EligibilityStatus,
   Heading,
   Introduction,
+  Label,
   SummaryContent,
 } from "@src/services/eligibility-api/types";
 import { createTypeBuilder, randomString, randomURL, randomValue } from "@test-data/meta-builder";
@@ -86,5 +89,13 @@ export function actionBuilder() {
   return createTypeBuilder<Action>({
     type: randomValue(Object.values(ActionType)),
     content: randomString(10) as Content,
+    button: buttonBuilder().build(),
+  });
+}
+
+export function buttonBuilder() {
+  return createTypeBuilder<Button>({
+    label: randomString(10) as Label,
+    url: randomURL() as ButtonUrl,
   });
 }

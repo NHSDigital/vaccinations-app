@@ -1,8 +1,9 @@
 import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
-import { ActionType } from "@src/services/eligibility-api/types";
-import { Cohort, Heading, Introduction } from "@src/services/eligibility-api/types";
+import { VaccineTypes } from "@src/models/vaccine";
+import { ActionType, Cohort, Heading, Introduction } from "@src/services/eligibility-api/types";
 import { actionBuilder, eligibilityContentBuilder, summaryContentBuilder } from "@test-data/eligibility-api/builders";
 import { render, screen } from "@testing-library/react";
+import React from "react";
 
 // TODO: Remove after final solution for testing with react-markdown
 jest.mock("react-markdown", () => {
@@ -10,6 +11,9 @@ jest.mock("react-markdown", () => {
     return <div>{children}</div>;
   };
 });
+jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
+  NBSBookingAction: () => <a href="https://nbs-test-link">NBS Booking Link Test</a>,
+}));
 
 describe("Eligibility", () => {
   describe("when eligible", () => {
@@ -17,6 +21,7 @@ describe("Eligibility", () => {
       render(
         Eligibility({
           eligibilityContent: eligibilityContentBuilder().build(),
+          vaccineTypes: VaccineTypes.RSV,
         }),
       );
 
@@ -28,6 +33,7 @@ describe("Eligibility", () => {
       render(
         Eligibility({
           eligibilityContent: eligibilityContentBuilder().withSummary(undefined).build(),
+          vaccineTypes: VaccineTypes.RSV,
         }),
       );
 
@@ -41,6 +47,7 @@ describe("Eligibility", () => {
       render(
         Eligibility({
           eligibilityContent: eligibilityContentBuilder().build(),
+          vaccineTypes: VaccineTypes.RSV,
         }),
       );
 
@@ -57,6 +64,7 @@ describe("Eligibility", () => {
       render(
         Eligibility({
           eligibilityContent: eligibilityContent,
+          vaccineTypes: VaccineTypes.RSV,
         }),
       );
 
@@ -73,6 +81,7 @@ describe("Eligibility", () => {
       render(
         Eligibility({
           eligibilityContent: eligibilityContent,
+          vaccineTypes: VaccineTypes.RSV,
         }),
       );
 
@@ -89,6 +98,7 @@ describe("Eligibility", () => {
       render(
         Eligibility({
           eligibilityContent: eligibilityContent,
+          vaccineTypes: VaccineTypes.RSV,
         }),
       );
 
@@ -103,6 +113,7 @@ describe("Eligibility", () => {
       render(
         Eligibility({
           eligibilityContent: eligibilityContentBuilder().withSummary(undefined).build(),
+          vaccineTypes: VaccineTypes.RSV,
         }),
       );
 
@@ -119,6 +130,7 @@ describe("Eligibility", () => {
             eligibilityContent: eligibilityContentBuilder()
               .withActions([actionBuilder().withType(ActionType.paragraph).andContent("Test Content").build()])
               .build(),
+            vaccineTypes: VaccineTypes.RSV,
           }),
         );
 
@@ -136,6 +148,7 @@ describe("Eligibility", () => {
                 actionBuilder().withType(ActionType.paragraph).andContent("Test Content 2").build(),
               ])
               .build(),
+            vaccineTypes: VaccineTypes.RSV,
           }),
         );
 
@@ -154,6 +167,7 @@ describe("Eligibility", () => {
             eligibilityContent: eligibilityContentBuilder()
               .withActions([actionBuilder().withType(ActionType.card).andContent("Test Content").build()])
               .build(),
+            vaccineTypes: VaccineTypes.RSV,
           }),
         );
 
@@ -171,6 +185,46 @@ describe("Eligibility", () => {
                 actionBuilder().withType(ActionType.card).andContent("Test Content 2").build(),
               ])
               .build(),
+            vaccineTypes: VaccineTypes.RSV,
+          }),
+        );
+
+        const content1: HTMLElement = screen.getByText("Test Content 1");
+        const content2: HTMLElement = screen.getByText("Test Content 2");
+
+        expect(content1).toBeVisible();
+        expect(content2).toBeVisible();
+      });
+    });
+
+    describe("button", () => {
+      it("should display button content successfully", () => {
+        render(
+          Eligibility({
+            eligibilityContent: eligibilityContentBuilder()
+              .withActions([actionBuilder().withType(ActionType.authButton).andContent("Test Content").build()])
+              .build(),
+            vaccineTypes: VaccineTypes.RSV,
+          }),
+        );
+
+        const content: HTMLElement = screen.getByText("Test Content");
+        const bookingButton: HTMLElement = screen.getByText("NBS Booking Link Test");
+
+        expect(content).toBeVisible();
+        expect(bookingButton).toBeInTheDocument();
+      });
+
+      it("should display multiple button content components successfully", () => {
+        render(
+          Eligibility({
+            eligibilityContent: eligibilityContentBuilder()
+              .withActions([
+                actionBuilder().withType(ActionType.authButton).andContent("Test Content 1").build(),
+                actionBuilder().withType(ActionType.authButton).andContent("Test Content 2").build(),
+              ])
+              .build(),
+            vaccineTypes: VaccineTypes.RSV,
           }),
         );
 

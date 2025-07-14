@@ -5,6 +5,7 @@ export type Introduction = Brand<string, "Introduction">;
 export type Cohort = Brand<string, "Cohort">;
 export type Content = Brand<string, "Content">;
 export type Label = Brand<string, "Label">;
+export type ButtonUrl = Brand<URL, "ButtonUrl">;
 
 export enum EligibilityStatus {
   NOT_ELIGIBLE = "NotEligible",
@@ -46,7 +47,7 @@ export type ActionWithButton = {
   button: Button;
 };
 
-export type Button = { label: Label; url: URL };
+export type Button = { label: Label; url: ButtonUrl };
 
 export type Action = ActionWithoutButton | ActionWithButton;
 

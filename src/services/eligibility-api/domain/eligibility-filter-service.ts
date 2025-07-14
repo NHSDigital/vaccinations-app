@@ -10,6 +10,7 @@ import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/f
 import {
   Action,
   ActionType,
+  ButtonUrl,
   EligibilityErrorTypes,
   EligibilityForPersonType,
   EligibilityStatus,
@@ -136,7 +137,7 @@ const _generateActions = (
           {
             type: ActionType.authButton,
             content: action.description as Content,
-            button: { label: action.urlLabel as Label, url: new URL(action.urlLink) },
+            button: { label: action.urlLabel as Label, url: new URL(action.urlLink) as ButtonUrl },
           },
         ];
       }
