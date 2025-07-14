@@ -28,11 +28,11 @@ const getSSOUrlToNBSForVaccine = async (vaccineType: VaccinesWithNBSBookingAvail
 
   let redirectUrl;
   try {
-    const assertedLoginIdentityJWT = await generateAssertedLoginIdentityJwt(config);
-
     const nbsURl = new URL(`${config.NBS_URL}${config.NBS_BOOKING_PATH}${nbsVaccinePath[vaccineType]}`);
-    nbsURl.searchParams.set(NBS_QUERY_PARAMS.CAMPAIGN_ID, PLACEHOLDER_CAMPAIGN_ID);
-    nbsURl.searchParams.set(NBS_QUERY_PARAMS.ASSERTED_LOGIN_IDENTITY, assertedLoginIdentityJWT);
+    const nbsQueryParams = await getNbsQueryParams();
+    nbsQueryParams.forEach((param) => {
+      nbsURl.searchParams.append(param.name, param.value);
+    });
     redirectUrl = nbsURl.toString();
   } catch (error) {
     log.error(error, "Error redirecting to NBS");
@@ -42,4 +42,14 @@ const getSSOUrlToNBSForVaccine = async (vaccineType: VaccinesWithNBSBookingAvail
   return redirectUrl;
 };
 
-export { getSSOUrlToNBSForVaccine };
+const getNbsQueryParams = async () => {
+  const config: AppConfig = await configProvider();
+  const assertedLoginIdentityJWT = await generateAssertedLoginIdentityJwt(config);
+
+  return [
+    { name: NBS_QUERY_PARAMS.CAMPAIGN_ID, value: PLACEHOLDER_CAMPAIGN_ID },
+    { name: NBS_QUERY_PARAMS.ASSERTED_LOGIN_IDENTITY, value: assertedLoginIdentityJWT },
+  ];
+};
+
+export { getSSOUrlToNBSForVaccine, getNbsQueryParams };
