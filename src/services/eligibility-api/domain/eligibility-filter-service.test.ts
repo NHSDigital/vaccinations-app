@@ -172,7 +172,7 @@ describe("eligibility-filter-service", () => {
         actions: [],
       };
 
-      expect(_getStatus(suggestion)).toEqual(EligibilityStatus.NOT_ELIGIBLE);
+      expect(_getStatus(suggestion, nhsNumber)).toEqual(EligibilityStatus.NOT_ELIGIBLE);
     });
 
     it("should return eligible status when status is actionable", () => {
@@ -184,7 +184,7 @@ describe("eligibility-filter-service", () => {
         actions: [],
       };
 
-      const result: EligibilityStatus | undefined = _getStatus(suggestion);
+      const result: EligibilityStatus | undefined = _getStatus(suggestion, nhsNumber);
 
       expect(result).toEqual(EligibilityStatus.ACTIONABLE);
     });
@@ -198,7 +198,7 @@ describe("eligibility-filter-service", () => {
         actions: [],
       };
 
-      const result: EligibilityStatus | undefined = _getStatus(suggestion);
+      const result: EligibilityStatus | undefined = _getStatus(suggestion, nhsNumber);
 
       expect(result).toEqual(EligibilityStatus.ALREADY_VACCINATED);
     });

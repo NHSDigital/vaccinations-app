@@ -60,7 +60,7 @@ const getEligibilityForPerson = async (
 
     return {
       eligibility: {
-        status: _getStatus(suggestionForVaccine),
+        status: _getStatus(suggestionForVaccine, nhsNumber),
         content: {
           summary: summary,
           actions,
@@ -88,7 +88,7 @@ const _extractAllCohortText = (suggestion: ProcessedSuggestion): string[] => {
   return suggestion.eligibilityCohorts.map((cohort: EligibilityCohort) => cohort.cohortText);
 };
 
-const _getStatus = (suggestion: ProcessedSuggestion): EligibilityStatus => {
+const _getStatus = (suggestion: ProcessedSuggestion, nhsNumber: NhsNumber): EligibilityStatus => {
   if (suggestion.status === "NotEligible") {
     return EligibilityStatus.NOT_ELIGIBLE;
   }
@@ -99,7 +99,8 @@ const _getStatus = (suggestion: ProcessedSuggestion): EligibilityStatus => {
     return EligibilityStatus.ACTIONABLE; // WIP
   }
   // TODO: default case if ELID returns unknown status type
-  throw new Error("not yet implemented");
+  log.error({ nhsNumber }, `${suggestion.status} not yet implemented.`);
+  throw new Error(`${suggestion.status} not yet implemented.`);
 };
 
 const _generateActions = (
@@ -140,6 +141,10 @@ const _generateActions = (
             button: { label: action.urlLabel as Label, url: new URL(action.urlLink) as ButtonUrl },
           },
         ];
+      }
+      default: {
+        log.error({ nhsNumber }, `Action type ${action.actionType} not yet implemented.`);
+        throw new Error(`Action type ${action.actionType} not yet implemented.`);
       }
     }
   });
