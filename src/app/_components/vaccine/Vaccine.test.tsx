@@ -184,36 +184,6 @@ describe("Any vaccine page", () => {
     });
   });
 
-  describe("booking link placeholder", () => {
-    beforeEach(() => {
-      (getContentForVaccine as jest.Mock).mockResolvedValue({
-        styledVaccineContent: mockStyledContent,
-      });
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
-        eligibility: {
-          status: EligibilityStatus.NOT_ELIGIBLE,
-          content: undefined,
-        },
-      });
-    });
-
-    it("should display the booking link button for RSV", async () => {
-      await renderRsvVaccinePage();
-
-      const bookingButton: HTMLElement = screen.getByText("NBS Booking Link Test");
-
-      expect(bookingButton).toBeInTheDocument();
-    });
-
-    it("should NOT display the booking link button for other vaccines", async () => {
-      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
-
-      const bookingButton: HTMLElement | null = screen.queryByText("NBS Booking Link Test");
-
-      expect(bookingButton).not.toBeInTheDocument();
-    });
-  });
-
   describe("shows eligibility section, when eligibility response available", () => {
     beforeEach(() => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({

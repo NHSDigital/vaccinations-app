@@ -6,7 +6,6 @@ import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVa
 import { MoreInformation } from "@src/app/_components/content/MoreInformation";
 import { Eligibility as EligibilityComponent } from "@src/app/_components/eligibility/Eligibility";
 import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
-import { NBSBookingAction } from "@src/app/_components/nbs/NBSBookingAction";
 import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import InsetText from "@src/app/_components/nhs-frontend/InsetText";
@@ -106,11 +105,6 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
           <Details title={HEADINGS.HOW_TO_GET_VACCINE} component={howToGetVaccineFallback} notExpandable={true} />
           <PharmacyBookingInfo vaccineType={vaccineType} />
         </>
-      )}
-
-      {/* NBS booking button action for RSV */}
-      {vaccineType === VaccineTypes.RSV && (
-        <NBSBookingAction vaccineType={vaccineType} displayText={"Continue to booking"} renderAs={"button"} />
       )}
 
       {/* Sections heading - H2 */}
