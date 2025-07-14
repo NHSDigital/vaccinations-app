@@ -76,11 +76,11 @@ const callRefreshTokenEndpointAndUpdateToken = async (config: AppConfig, updated
     client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
     client_assertion: clientAssertion,
   };
-  log.info(requestBody, "Request body object");
+  log.info({authRequest: requestBody}, "Debug for VIA-336 - Request body object");
 
   const encodedBody = new URLSearchParams(requestBody);
 
-  log.info(`Encoded request body - ${encodedBody}`);
+  log.info(`Debug for VIA-336 - Encoded request body - ${encodedBody}`);
   log.info(`callRefreshTokenEndpointAndUpdateToken: calling ${config.NHS_LOGIN_URL}/token`);
   const response = await fetch(`${config.NHS_LOGIN_URL}/token`, {
     method: "POST",
