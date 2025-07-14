@@ -106,13 +106,17 @@ const callRefreshTokenEndpointAndUpdateToken = async (config: AppConfig, updated
   };
 
   log.info(`callRefreshTokenEndpointAndUpdateToken: Token refreshed successfully. Updating token.`);
+  log.info({ refreshTokenNew: newTokens }, `Debug VIA_336 - refreshed token properties`);
 
-  return {
+  const updatedTokenDebug = {
     ...updatedToken,
     access_token: newTokens.access_token,
     expires_at: nowInSeconds + (newTokens.expires_in ?? DEFAULT_ACCESS_TOKEN_EXPIRY),
     refresh_token: newTokens.refresh_token ?? updatedToken.refresh_token,
   };
+  log.info({ updatedTokenDebug: updatedTokenDebug }, `Debug VIA-336 refreshed token. nowInSeconds = ${nowInSeconds}`)
+
+  return updatedTokenDebug;
 };
 
 /* from Next Auth documentation:
