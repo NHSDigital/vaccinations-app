@@ -11,7 +11,13 @@ interface NBSBookingActionForVaccineProps {
   renderAs: "anchor" | "button";
 }
 
-interface NBSBookingAction {
+interface NBSBookingActionForBaseUrlProps {
+  url: URL;
+  displayText: string;
+  renderAs: "anchor" | "button";
+}
+
+interface NBSBookingActionProps {
   url: string;
   displayText: string;
   renderAs: "anchor" | "button";
@@ -30,7 +36,11 @@ const NBSBookingActionForVaccine = ({
   return <NBSBookingAction url={nbsSSOLink} displayText={displayText} renderAs={renderAs} />;
 };
 
-const NBSBookingAction = ({ url, displayText, renderAs }: NBSBookingAction): JSX.Element => {
+const NBSBookingActionForBaseUrl = ({ url, displayText, renderAs }: NBSBookingActionForBaseUrlProps): JSX.Element => {
+  return <NBSBookingAction url={url.href} displayText={displayText} renderAs={renderAs} />;
+};
+
+const NBSBookingAction = ({ url, displayText, renderAs }: NBSBookingActionProps): JSX.Element => {
   const [isOpenInNHSApp, setIsOpenInNHSApp] = useState(true);
 
   useEffect(() => {
@@ -57,4 +67,4 @@ const NBSBookingAction = ({ url, displayText, renderAs }: NBSBookingAction): JSX
   );
 };
 
-export { NBSBookingActionForVaccine };
+export { NBSBookingActionForVaccine, NBSBookingActionForBaseUrl };

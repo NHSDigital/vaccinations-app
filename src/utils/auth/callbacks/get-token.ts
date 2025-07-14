@@ -15,22 +15,28 @@ const fillMissingFieldsInTokenWithDefaultValues = (token: JWT) => {
     ...token,
     user: {
       nhs_number: token.user?.nhs_number ?? "",
-      birthdate: token.user?.birthdate ?? ""
+      birthdate: token.user?.birthdate ?? "",
     },
     expires_at: token.expires_at ?? 0,
     access_token: token.access_token ?? "",
     refresh_token: token.refresh_token ?? "",
     id_token: token.id_token ?? {
-      jti: ""
-    }
+      jti: "",
+    },
   };
-}
+};
 
 const isInitialLoginJourney = (account: Account | null | undefined, profile: Profile | undefined) => {
   return account && profile;
-}
+};
 
-const updateTokenWithValuesFromAccountAndProfile = (token: JWT, account: Account, profile:Profile, nowInSeconds: number, maxAgeInSeconds: number) => {
+const updateTokenWithValuesFromAccountAndProfile = (
+  token: JWT,
+  account: Account,
+  profile: Profile,
+  nowInSeconds: number,
+  maxAgeInSeconds: number,
+) => {
   let jti = "";
 
   if (account.id_token) {
@@ -54,11 +60,11 @@ const updateTokenWithValuesFromAccountAndProfile = (token: JWT, account: Account
   };
 
   return updatedToken;
-}
+};
 
 const accessTokenHasExpired = (updatedToken: JWT, nowInSeconds: number) => {
   return !updatedToken.expires_at || nowInSeconds >= updatedToken.expires_at;
-}
+};
 
 const callRefreshTokenEndpointAndUpdateToken = async (config: AppConfig, updatedToken: JWT, nowInSeconds: number) => {
   log.info("callRefreshTokenEndpointAndUpdateToken: method called");
@@ -68,7 +74,7 @@ const callRefreshTokenEndpointAndUpdateToken = async (config: AppConfig, updated
     grant_type: "refresh_token",
     refresh_token: updatedToken.refresh_token,
     client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
-    client_assertion: clientAssertion
+    client_assertion: clientAssertion,
   };
   log.info(requestBody, "Request body object");
 
@@ -79,14 +85,17 @@ const callRefreshTokenEndpointAndUpdateToken = async (config: AppConfig, updated
   const response = await fetch(`${config.NHS_LOGIN_URL}/token`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
+      "Content-Type": "application/x-www-form-urlencoded",
     },
-    body: encodedBody
+    body: encodedBody,
   });
 
   const tokensOrErrorResponseBody = await response.json();
   if (!response.ok) {
-    log.error(tokensOrErrorResponseBody, `callRefreshTokenEndpointAndUpdateToken: Error response status ${response.status}`);
+    log.error(
+      tokensOrErrorResponseBody,
+      `callRefreshTokenEndpointAndUpdateToken: Error response status ${response.status}`,
+    );
     throw tokensOrErrorResponseBody;
   }
 
@@ -102,16 +111,16 @@ const callRefreshTokenEndpointAndUpdateToken = async (config: AppConfig, updated
     ...updatedToken,
     access_token: newTokens.access_token,
     expires_at: nowInSeconds + (newTokens.expires_in ?? DEFAULT_ACCESS_TOKEN_EXPIRY),
-    refresh_token: newTokens.refresh_token ?? updatedToken.refresh_token
+    refresh_token: newTokens.refresh_token ?? updatedToken.refresh_token,
   };
-}
+};
 
 /* from Next Auth documentation:
-*  This callback is called whenever a JSON Web Token is created (i.e. at sign in) or updated
-*  (i.e whenever a session is accessed in the client). Anything you return here will be saved
-*  in the JWT and forwarded to the session callback. There you can control what should be
-*  returned to the client. Anything else will be kept from your frontend. The JWT is encrypted
-*  by default via your AUTH_SECRET environment variable.
+ *  This callback is called whenever a JSON Web Token is created (i.e. at sign in) or updated
+ *  (i.e whenever a session is accessed in the client). Anything you return here will be saved
+ *  in the JWT and forwarded to the session callback. There you can control what should be
+ *  returned to the client. Anything else will be kept from your frontend. The JWT is encrypted
+ *  by default via your AUTH_SECRET environment variable.
  */
 const getToken = async (
   token: JWT,
@@ -139,14 +148,21 @@ const getToken = async (
   try {
     // Initial login scenario: account and profile are only defined for the initial login, afterward they become undefined
     if (isInitialLoginJourney(account, profile) && account != null && profile != null) {
-      updatedToken = updateTokenWithValuesFromAccountAndProfile(updatedToken, account, profile, nowInSeconds, maxAgeInSeconds)
+      updatedToken = updateTokenWithValuesFromAccountAndProfile(
+        updatedToken,
+        account,
+        profile,
+        nowInSeconds,
+        maxAgeInSeconds,
+      );
       return updatedToken;
-    }
-
-    else {
+    } else {
       // Refresh token scenario: Access Token missing expiry time or has expired
       if (accessTokenHasExpired(updatedToken, nowInSeconds)) {
-        log.info(updatedToken, `getToken: updatedToken has reached expiresAt time. Attempting to refresh token - ${nowInSeconds}`);
+        log.info(
+          updatedToken,
+          `getToken: updatedToken has reached expiresAt time. Attempting to refresh token - ${nowInSeconds}`,
+        );
 
         if (!updatedToken.refresh_token) {
           log.error("getToken: unable to refresh token: refresh_token value is missing. Returning null");

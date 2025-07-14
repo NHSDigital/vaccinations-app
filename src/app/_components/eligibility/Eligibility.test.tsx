@@ -1,5 +1,4 @@
 import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
-import { VaccineTypes } from "@src/models/vaccine";
 import { ActionType, Cohort, Heading, Introduction } from "@src/services/eligibility-api/types";
 import { actionBuilder, eligibilityContentBuilder, summaryContentBuilder } from "@test-data/eligibility-api/builders";
 import { render, screen } from "@testing-library/react";
@@ -12,7 +11,7 @@ jest.mock("react-markdown", () => {
   };
 });
 jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
-  NBSBookingActionForVaccine: () => <a href="https://nbs-test-link">NBS Booking Link Test</a>,
+  NBSBookingActionForBaseUrl: () => <a href="https://nbs-test-link">NBS Booking Link Test</a>,
 }));
 
 describe("Eligibility", () => {
@@ -21,7 +20,6 @@ describe("Eligibility", () => {
       render(
         Eligibility({
           eligibilityContent: eligibilityContentBuilder().build(),
-          vaccineTypes: VaccineTypes.RSV,
         }),
       );
 
@@ -33,7 +31,6 @@ describe("Eligibility", () => {
       render(
         Eligibility({
           eligibilityContent: eligibilityContentBuilder().withSummary(undefined).build(),
-          vaccineTypes: VaccineTypes.RSV,
         }),
       );
 
@@ -47,7 +44,6 @@ describe("Eligibility", () => {
       render(
         Eligibility({
           eligibilityContent: eligibilityContentBuilder().build(),
-          vaccineTypes: VaccineTypes.RSV,
         }),
       );
 
@@ -64,7 +60,6 @@ describe("Eligibility", () => {
       render(
         Eligibility({
           eligibilityContent: eligibilityContent,
-          vaccineTypes: VaccineTypes.RSV,
         }),
       );
 
@@ -81,7 +76,6 @@ describe("Eligibility", () => {
       render(
         Eligibility({
           eligibilityContent: eligibilityContent,
-          vaccineTypes: VaccineTypes.RSV,
         }),
       );
 
@@ -98,7 +92,6 @@ describe("Eligibility", () => {
       render(
         Eligibility({
           eligibilityContent: eligibilityContent,
-          vaccineTypes: VaccineTypes.RSV,
         }),
       );
 
@@ -113,7 +106,6 @@ describe("Eligibility", () => {
       render(
         Eligibility({
           eligibilityContent: eligibilityContentBuilder().withSummary(undefined).build(),
-          vaccineTypes: VaccineTypes.RSV,
         }),
       );
 
@@ -130,7 +122,6 @@ describe("Eligibility", () => {
             eligibilityContent: eligibilityContentBuilder()
               .withActions([actionBuilder().withType(ActionType.paragraph).andContent("Test Content").build()])
               .build(),
-            vaccineTypes: VaccineTypes.RSV,
           }),
         );
 
@@ -148,7 +139,6 @@ describe("Eligibility", () => {
                 actionBuilder().withType(ActionType.paragraph).andContent("Test Content 2").build(),
               ])
               .build(),
-            vaccineTypes: VaccineTypes.RSV,
           }),
         );
 
@@ -167,7 +157,6 @@ describe("Eligibility", () => {
             eligibilityContent: eligibilityContentBuilder()
               .withActions([actionBuilder().withType(ActionType.card).andContent("Test Content").build()])
               .build(),
-            vaccineTypes: VaccineTypes.RSV,
           }),
         );
 
@@ -185,7 +174,6 @@ describe("Eligibility", () => {
                 actionBuilder().withType(ActionType.card).andContent("Test Content 2").build(),
               ])
               .build(),
-            vaccineTypes: VaccineTypes.RSV,
           }),
         );
 
@@ -204,7 +192,6 @@ describe("Eligibility", () => {
             eligibilityContent: eligibilityContentBuilder()
               .withActions([actionBuilder().withType(ActionType.authButton).andContent("Test Content").build()])
               .build(),
-            vaccineTypes: VaccineTypes.RSV,
           }),
         );
 
@@ -224,7 +211,6 @@ describe("Eligibility", () => {
                 actionBuilder().withType(ActionType.authButton).andContent("Test Content 2").build(),
               ])
               .build(),
-            vaccineTypes: VaccineTypes.RSV,
           }),
         );
 

@@ -1,17 +1,15 @@
 import { MarkdownWithStyling } from "@src/app/_components/markdown/MarkdownWithStyling";
-import { NBSBookingActionForVaccine } from "@src/app/_components/nbs/NBSBookingAction";
+import { NBSBookingActionForBaseUrl } from "@src/app/_components/nbs/NBSBookingAction";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import styles from "@src/app/_components/vaccine/styles.module.css";
-import { VaccineTypes } from "@src/models/vaccine";
 import { Action, ActionType, EligibilityContent } from "@src/services/eligibility-api/types";
 import React, { JSX } from "react";
 
 interface EligibilityProps {
   eligibilityContent: EligibilityContent;
-  vaccineTypes: VaccineTypes;
 }
 
-const Eligibility = ({ eligibilityContent, vaccineTypes }: EligibilityProps): JSX.Element => {
+const Eligibility = ({ eligibilityContent }: EligibilityProps): JSX.Element => {
   return (
     <div data-testid="Eligibility">
       {eligibilityContent?.summary && (
@@ -60,8 +58,8 @@ const Eligibility = ({ eligibilityContent, vaccineTypes }: EligibilityProps): JS
                   <div key={index} data-testid="action-auth-button">
                     <MarkdownWithStyling content={action.content} />
                   </div>
-                  <NBSBookingActionForVaccine
-                    vaccineType={vaccineTypes}
+                  <NBSBookingActionForBaseUrl
+                    url={action.button.url}
                     displayText={action.button.label}
                     renderAs={"button"}
                   />
