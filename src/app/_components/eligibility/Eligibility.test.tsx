@@ -12,7 +12,7 @@ jest.mock("react-markdown", () => {
   };
 });
 jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
-  NBSBookingAction: () => <a href="https://nbs-test-link">NBS Booking Link Test</a>,
+  NBSBookingActionForVaccine: () => <a href="https://nbs-test-link">NBS Booking Link Test</a>,
 }));
 
 describe("Eligibility", () => {

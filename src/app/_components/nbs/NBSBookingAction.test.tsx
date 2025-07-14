@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import { NBSBookingAction } from "@src/app/_components/nbs/NBSBookingAction";
+import { NBSBookingActionForVaccine } from "@src/app/_components/nbs/NBSBookingAction";
 import { VaccineTypes } from "@src/models/vaccine";
 import { mockNHSAppJSFunctions } from "@src/utils/nhsapp-js.test";
 import { render, screen } from "@testing-library/react";
@@ -14,7 +14,7 @@ describe("NBSBookingAction", () => {
   });
 
   const renderAndClickNBSBookingAction = (displayText: string, renderAs: "anchor" | "button") => {
-    render(<NBSBookingAction vaccineType={VaccineTypes.RSV} displayText={displayText} renderAs={renderAs} />);
+    render(<NBSBookingActionForVaccine vaccineType={VaccineTypes.RSV} displayText={displayText} renderAs={renderAs} />);
     let bookingAction;
     if (renderAs === "anchor") {
       bookingAction = screen.getByRole("link", { name: displayText });

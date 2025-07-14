@@ -5,18 +5,33 @@ import { VaccineContentUrlPaths, vaccineTypeToUrlPath } from "@src/models/vaccin
 import { VaccinesWithNBSBookingAvailable } from "@src/services/nbs/nbs-service";
 import React, { JSX, useEffect, useState } from "react";
 
-interface NBSBookingActionProps {
+interface NBSBookingActionForVaccineProps {
   vaccineType: VaccinesWithNBSBookingAvailable;
+  displayText: string;
+  renderAs: "anchor" | "button";
+}
+
+interface NBSBookingAction {
+  url: string;
   displayText: string;
   renderAs: "anchor" | "button";
 }
 
 type ActionClickEvent = React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>;
 
-const NBSBookingAction = ({ vaccineType, displayText, renderAs }: NBSBookingActionProps): JSX.Element => {
-  const [isOpenInNHSApp, setIsOpenInNHSApp] = useState(true);
+const NBSBookingActionForVaccine = ({
+  vaccineType,
+  displayText,
+  renderAs,
+}: NBSBookingActionForVaccineProps): JSX.Element => {
   const vaccinePath: VaccineContentUrlPaths = vaccineTypeToUrlPath[vaccineType];
   const nbsSSOLink = `${SSO_TO_NBS_ROUTE}?vaccine=${vaccinePath}`;
+
+  return <NBSBookingAction url={nbsSSOLink} displayText={displayText} renderAs={renderAs} />;
+};
+
+const NBSBookingAction = ({ url, displayText, renderAs }: NBSBookingAction): JSX.Element => {
+  const [isOpenInNHSApp, setIsOpenInNHSApp] = useState(true);
 
   useEffect(() => {
     if (window.nhsapp.tools.isOpenInNHSApp()) {
@@ -28,11 +43,11 @@ const NBSBookingAction = ({ vaccineType, displayText, renderAs }: NBSBookingActi
 
   const handleClick = (e: ActionClickEvent) => {
     e.preventDefault(); // prevent default click behaviour
-    window.open(nbsSSOLink, isOpenInNHSApp ? "_self" : "_blank");
+    window.open(url, isOpenInNHSApp ? "_self" : "_blank");
   };
 
   return renderAs === "anchor" ? (
-    <a href={nbsSSOLink} onClick={handleClick}>
+    <a href={url} onClick={handleClick}>
       {displayText}
     </a>
   ) : (
@@ -42,4 +57,4 @@ const NBSBookingAction = ({ vaccineType, displayText, renderAs }: NBSBookingActi
   );
 };
 
-export { NBSBookingAction };
+export { NBSBookingActionForVaccine };

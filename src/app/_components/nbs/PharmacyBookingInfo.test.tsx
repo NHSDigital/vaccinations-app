@@ -1,10 +1,10 @@
-import { NBSBookingAction } from "@src/app/_components/nbs/NBSBookingAction";
+import { NBSBookingActionForVaccine } from "@src/app/_components/nbs/NBSBookingAction";
 import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
 import { VaccineTypes } from "@src/models/vaccine";
 import { render, screen } from "@testing-library/react";
 
 jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
-  NBSBookingAction: jest
+  NBSBookingActionForVaccine: jest
     .fn()
     .mockImplementation(() => <a href="https://nbs-test-link.example.com">NBS Booking Link Test</a>),
 }));
@@ -16,7 +16,7 @@ describe("PharmacyBookingInfo", () => {
     const nbsBookingAction = screen.getByText("NBS Booking Link Test");
 
     expect(nbsBookingAction).toBeVisible();
-    expect(NBSBookingAction).toHaveBeenCalledWith(
+    expect(NBSBookingActionForVaccine).toHaveBeenCalledWith(
       {
         vaccineType: VaccineTypes.RSV,
         displayText: "book an RSV vaccination in a pharmacy",
