@@ -1,22 +1,20 @@
 "use client";
 
+import { useBrowserContext } from "@src/app/_components/context/BrowserContext";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import { NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const SessionLogout = () => {
-  const [isOpenInNHSApp, setIsOpenInNHSApp] = useState(true);
+  const { hasContextLoaded, isOpenInMobileApp } = useBrowserContext();
 
   useEffect(() => {
-    if (window.nhsapp.tools.isOpenInNHSApp()) {
-      setIsOpenInNHSApp(true);
+    if (hasContextLoaded && isOpenInMobileApp) {
       window.nhsapp.navigation.goToHomePage();
-    } else {
-      setIsOpenInNHSApp(false);
     }
-  }, []);
+  }, [hasContextLoaded, isOpenInMobileApp]);
 
-  if (isOpenInNHSApp) return null;
+  if (!hasContextLoaded || isOpenInMobileApp) return null;
 
   return (
     <>

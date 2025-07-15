@@ -1,3 +1,4 @@
+import { BrowserContextProvider } from "@src/app/_components/context/BrowserContext";
 import SessionTimeout from "@src/app/session-timeout/page";
 import { mockNHSAppJSFunctions } from "@src/utils/nhsapp-js.test";
 import { render, screen } from "@testing-library/react";
@@ -12,7 +13,11 @@ describe("SessionTimeout", () => {
 
   it("should show NHS App home page in the NHS App", () => {
     mockIsOpenInNHSApp.mockReturnValue(true);
-    render(<SessionTimeout />);
+    render(
+      <BrowserContextProvider>
+        <SessionTimeout />
+      </BrowserContextProvider>,
+    );
 
     const loggedOutText = screen.queryByText("You have been logged out");
     expect(loggedOutText).toBeNull();
@@ -21,7 +26,11 @@ describe("SessionTimeout", () => {
 
   it("should show timeout out page in the browser", () => {
     mockIsOpenInNHSApp.mockReturnValue(false);
-    render(<SessionTimeout />);
+    render(
+      <BrowserContextProvider>
+        <SessionTimeout />
+      </BrowserContextProvider>,
+    );
 
     const heading = screen.getByRole("heading", {
       level: 1,
