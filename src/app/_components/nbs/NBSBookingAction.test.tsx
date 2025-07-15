@@ -107,7 +107,7 @@ describe("NBSBookingAction", () => {
 
       // render as anchor
       renderAndClickNBSBookingActionForBaseUrl("test", "anchor");
-      expect(window.open).toHaveBeenCalledWith(url.href, "_self");
+      expect(window.open).toHaveBeenCalledWith(`/api/sso-to-nbs?redirectTarget=${url.href}`, "_self");
     });
 
     it("should open NBS SSO link in new window when action is clicked outside NHS app", async () => {
@@ -118,13 +118,13 @@ describe("NBSBookingAction", () => {
 
       // render as button
       renderAndClickNBSBookingActionForBaseUrl("test", "button");
-      expect(window.open).toHaveBeenCalledWith(url.href, "_blank");
+      expect(window.open).toHaveBeenCalledWith(`/api/sso-to-nbs?redirectTarget=${url.href}`, "_blank");
 
       jest.clearAllMocks();
 
       // render as anchor
       renderAndClickNBSBookingActionForBaseUrl("test", "anchor");
-      expect(window.open).toHaveBeenCalledWith(url.href, "_blank");
+      expect(window.open).toHaveBeenCalledWith(`/api/sso-to-nbs?redirectTarget=${url.href}`, "_blank");
     });
 
     it("given browser context has not loaded, should do nothing when action is clicked", async () => {
@@ -135,13 +135,13 @@ describe("NBSBookingAction", () => {
 
       // render as button
       renderAndClickNBSBookingActionForBaseUrl("test", "button");
-      expect(window.open).not.toHaveBeenCalledWith();
+      expect(window.open).not.toHaveBeenCalled();
 
       jest.clearAllMocks();
 
       // render as anchor
       renderAndClickNBSBookingActionForBaseUrl("test", "anchor");
-      expect(window.open).not.toHaveBeenCalledWith();
+      expect(window.open).not.toHaveBeenCalled();
     });
   });
 });
