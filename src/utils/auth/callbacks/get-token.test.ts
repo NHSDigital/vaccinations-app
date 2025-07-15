@@ -1,5 +1,4 @@
 import { getToken } from "@src/utils/auth/callbacks/get-token";
-import { generateRefreshClientAssertionJwt } from "@src/utils/auth/generate-auth-payload";
 import { AppConfig } from "@src/utils/config";
 import { appConfigBuilder } from "@test-data/config/builders";
 import { jwtDecode } from "jwt-decode";
@@ -9,12 +8,7 @@ import { JWT } from "next-auth/jwt";
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
 }));
-jest.mock("@src/utils/auth/generate-auth-payload");
 jest.mock("jwt-decode");
-
-const mockGenerateClientAssertion = generateRefreshClientAssertionJwt as jest.MockedFunction<
-  typeof generateRefreshClientAssertionJwt
->;
 
 describe("getToken", () => {
   const mockConfig: AppConfig = appConfigBuilder()
@@ -27,7 +21,6 @@ describe("getToken", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    global.fetch = jest.fn();
     jest.useFakeTimers();
     jest.setSystemTime(nowInSeconds * 1000);
   });
@@ -114,136 +107,6 @@ describe("getToken", () => {
       user: {},
       expires_at: nowInSeconds + 1000,
     } as JWT;
-
-    const result = await getToken(token, null, undefined, mockConfig, 300);
-
-    expect(result).toBeNull();
-  });
-
-  it("should refresh access token if expired, and refresh_token exists; new expires_in and refresh_token are received", async () => {
-    const token = {
-      expires_at: nowInSeconds - 10,
-      refresh_token: "refresh-token",
-      access_token: "oldAccess",
-      id_token: {
-        jti: "id-token",
-      },
-      user: {
-        nhs_number: "test_nhs_number",
-        birthdate: "test_birthdate",
-      },
-    } as JWT;
-
-    mockGenerateClientAssertion.mockResolvedValue("mock-client-assertion");
-    const expectedRequestBody = {
-      grant_type: "refresh_token",
-      refresh_token: token.refresh_token,
-      client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
-      client_assertion: "mock-client-assertion",
-    };
-
-    (global.fetch as jest.Mock).mockResolvedValue({
-      ok: true,
-      json: jest.fn().mockResolvedValue({
-        access_token: "newAccess",
-        expires_in: 500,
-        refresh_token: "newRefresh",
-      }),
-    });
-
-    const result = await getToken(token, null, undefined, mockConfig, 300);
-
-    expect(mockGenerateClientAssertion).toHaveBeenCalledWith(mockConfig);
-
-    expect(global.fetch).toHaveBeenCalledWith(
-      `${mockConfig.NHS_LOGIN_URL}/token`,
-      expect.objectContaining({
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      }),
-    );
-
-    const fetchCall = (global.fetch as jest.Mock).mock.calls[0];
-    const fetchOptions = fetchCall[1];
-    const body = fetchOptions.body as URLSearchParams;
-
-    const bodyObject = Object.fromEntries(body.entries());
-
-    expect(bodyObject).toEqual(expectedRequestBody);
-
-    expect(result).toMatchObject({
-      access_token: "newAccess",
-      refresh_token: "newRefresh",
-      expires_at: nowInSeconds + 500,
-    });
-  });
-
-  it("should refresh access token if expired, and refresh_token exists; expires_in and refresh_token missing", async () => {
-    const token = {
-      expires_at: nowInSeconds - 10,
-      refresh_token: "refresh-token",
-      access_token: "oldAccess",
-      id_token: {
-        jti: "id-token",
-      },
-      user: {
-        nhs_number: "test_nhs_number",
-        birthdate: "test_birthdate",
-      },
-    } as JWT;
-
-    mockGenerateClientAssertion.mockResolvedValue("mock-client-assertion");
-
-    (global.fetch as jest.Mock).mockResolvedValue({
-      ok: true,
-      json: jest.fn().mockResolvedValue({
-        access_token: "newAccess",
-      }),
-    });
-
-    const result = await getToken(token, null, undefined, mockConfig, 300);
-
-    expect(mockGenerateClientAssertion).toHaveBeenCalledWith(mockConfig);
-
-    expect(global.fetch).toHaveBeenCalledWith(
-      `${mockConfig.NHS_LOGIN_URL}/token`,
-      expect.objectContaining({
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: expect.any(URLSearchParams),
-      }),
-    );
-
-    expect(result).toMatchObject({
-      access_token: "newAccess",
-      refresh_token: "refresh-token",
-      expires_at: nowInSeconds + 300,
-    });
-  });
-
-  it("should return null and logs error if refresh_token missing during refresh", async () => {
-    const token = {
-      expires_at: nowInSeconds - 10,
-      refresh_token: "",
-    } as JWT;
-
-    const result = await getToken(token, null, undefined, mockConfig, 300);
-
-    expect(result).toBeNull();
-  });
-
-  it("should return null and logs error if fetch response not ok", async () => {
-    const token = {
-      expires_at: nowInSeconds - 10,
-      refresh_token: "refresh-token",
-    } as JWT;
-
-    mockGenerateClientAssertion.mockResolvedValue("mock-client-assertion");
-
-    (global.fetch as jest.Mock).mockResolvedValue({
-      ok: false,
-      json: jest.fn().mockResolvedValue({ error: "Error" }),
-    });
 
     const result = await getToken(token, null, undefined, mockConfig, 300);
 

@@ -1,4 +1,3 @@
-import { generateRefreshClientAssertionJwt } from "@src/utils/auth/generate-auth-payload";
 import { DecodedIdToken } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
@@ -8,7 +7,6 @@ import { JWT } from "next-auth/jwt";
 import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "utils-auth-callbacks-get-token" });
-const DEFAULT_ACCESS_TOKEN_EXPIRY: number = 5 * 60;
 
 const fillMissingFieldsInTokenWithDefaultValues = (token: JWT) => {
   return {
@@ -62,58 +60,6 @@ const updateTokenWithValuesFromAccountAndProfile = (
   return updatedToken;
 };
 
-const accessTokenHasExpired = (updatedToken: JWT, nowInSeconds: number) => {
-  return !updatedToken.expires_at || nowInSeconds >= updatedToken.expires_at;
-};
-
-const callRefreshTokenEndpointAndUpdateToken = async (config: AppConfig, updatedToken: JWT, nowInSeconds: number) => {
-  const clientAssertion = await generateRefreshClientAssertionJwt(config);
-
-  const requestBody = {
-    grant_type: "refresh_token",
-    refresh_token: updatedToken.refresh_token,
-    client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
-    client_assertion: clientAssertion,
-  };
-
-  const encodedBody = new URLSearchParams(requestBody);
-
-  log.info(`callRefreshTokenEndpointAndUpdateToken: calling ${config.NHS_LOGIN_URL}/token`);
-  const response = await fetch(`${config.NHS_LOGIN_URL}/token`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: encodedBody,
-  });
-
-  const tokensOrErrorResponseBody = await response.json();
-  if (!response.ok) {
-    log.error(
-      tokensOrErrorResponseBody,
-      `callRefreshTokenEndpointAndUpdateToken: Error response status ${response.status}`,
-    );
-    throw tokensOrErrorResponseBody;
-  }
-
-  const newTokens = tokensOrErrorResponseBody as {
-    access_token: string;
-    expires_in?: number;
-    refresh_token?: string;
-  };
-
-  log.info(`callRefreshTokenEndpointAndUpdateToken: Token refreshed successfully. Updating token.`);
-
-  const updatedTokenDebug = {
-    ...updatedToken,
-    access_token: newTokens.access_token,
-    expires_at: nowInSeconds + (newTokens.expires_in ?? DEFAULT_ACCESS_TOKEN_EXPIRY),
-    refresh_token: newTokens.refresh_token ?? updatedToken.refresh_token,
-  };
-
-  return updatedTokenDebug;
-};
-
 /* from Next Auth documentation:
  *  This callback is called whenever a JSON Web Token is created (i.e. at sign in) or updated
  *  (i.e whenever a session is accessed in the client). Anything you return here will be saved
@@ -144,38 +90,15 @@ const getToken = async (
   // Inspect the token (which was either returned from login or fetched from session), fill missing or blank values with defaults
   let updatedToken = fillMissingFieldsInTokenWithDefaultValues(token);
 
-  try {
     // Initial login scenario: account and profile are only defined for the initial login, afterward they become undefined
-    if (isInitialLoginJourney(account, profile) && account != null && profile != null) {
-      updatedToken = updateTokenWithValuesFromAccountAndProfile(
-        updatedToken,
-        account,
-        profile,
-        nowInSeconds,
-        maxAgeInSeconds,
-      );
-      return updatedToken;
-    } else {
-      // Refresh token scenario: Access Token missing expiry time or has expired
-      if (accessTokenHasExpired(updatedToken, nowInSeconds)) {
-        log.info(
-          updatedToken,
-          `getToken: updatedToken has reached expiresAt time. Attempting to refresh token - ${nowInSeconds}`,
-        );
-
-        if (!updatedToken.refresh_token) {
-          log.error("getToken: unable to refresh token: refresh_token value is missing. Returning null");
-          return null;
-        }
-
-        updatedToken = await callRefreshTokenEndpointAndUpdateToken(config, updatedToken, nowInSeconds);
-
-        return updatedToken;
-      }
-    }
-  } catch (error) {
-    log.error(error, "getToken: Error in jwt callback");
-    return null;
+  if (isInitialLoginJourney(account, profile) && account != null && profile != null) {
+    updatedToken = updateTokenWithValuesFromAccountAndProfile(
+      updatedToken,
+      account,
+      profile,
+      nowInSeconds,
+      maxAgeInSeconds,
+    );
   }
 
   return updatedToken;
