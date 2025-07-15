@@ -67,7 +67,6 @@ const accessTokenHasExpired = (updatedToken: JWT, nowInSeconds: number) => {
 };
 
 const callRefreshTokenEndpointAndUpdateToken = async (config: AppConfig, updatedToken: JWT, nowInSeconds: number) => {
-  log.info("callRefreshTokenEndpointAndUpdateToken: method called");
   const clientAssertion = await generateRefreshClientAssertionJwt(config);
 
   const requestBody = {
@@ -76,11 +75,9 @@ const callRefreshTokenEndpointAndUpdateToken = async (config: AppConfig, updated
     client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
     client_assertion: clientAssertion,
   };
-  log.info({ authRequest: requestBody }, "Debug for VIA-336 - Request body object");
 
   const encodedBody = new URLSearchParams(requestBody);
 
-  log.info(`Debug for VIA-336 - Encoded request body - ${encodedBody}`);
   log.info(`callRefreshTokenEndpointAndUpdateToken: calling ${config.NHS_LOGIN_URL}/token`);
   const response = await fetch(`${config.NHS_LOGIN_URL}/token`, {
     method: "POST",
@@ -106,7 +103,6 @@ const callRefreshTokenEndpointAndUpdateToken = async (config: AppConfig, updated
   };
 
   log.info(`callRefreshTokenEndpointAndUpdateToken: Token refreshed successfully. Updating token.`);
-  log.info({ refreshTokenNew: newTokens }, `Debug VIA_336 - refreshed token properties`);
 
   const updatedTokenDebug = {
     ...updatedToken,
@@ -114,7 +110,6 @@ const callRefreshTokenEndpointAndUpdateToken = async (config: AppConfig, updated
     expires_at: nowInSeconds + (newTokens.expires_in ?? DEFAULT_ACCESS_TOKEN_EXPIRY),
     refresh_token: newTokens.refresh_token ?? updatedToken.refresh_token,
   };
-  log.info({ updatedTokenDebug: updatedTokenDebug }, `Debug VIA-336 refreshed token. nowInSeconds = ${nowInSeconds}`);
 
   return updatedTokenDebug;
 };

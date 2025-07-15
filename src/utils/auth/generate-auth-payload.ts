@@ -2,13 +2,9 @@ import { auth } from "@project/auth";
 import { generateSignedJwt } from "@src/utils/auth/generate-signed-jwt";
 import { AssertedLoginIdentityPayload, RefreshClientAssertionPayload } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
-import { logger } from "@src/utils/logger";
-import { Logger } from "pino";
 
 const REFRESH_CLIENT_ASSERTION_EXPIRY_SECONDS = 300;
 const ASSERTED_LOGIN_IDENTITY_EXPIRY_SECONDS = 60;
-
-const log: Logger = logger.child({ module: "generate-auth-payload" });
 
 const generateRefreshClientAssertionJwt = async (config: AppConfig): Promise<string> => {
   const refreshClientPayload = {
@@ -52,7 +48,6 @@ const generateSignedJwtWith = async (
     ...commonAuthPayload,
     ...extraPayloadFields,
   };
-  log.info({ authPayload: payload }, "Debug: auth payload for VIA-336");
 
   return await generateSignedJwt(config, payload);
 };
