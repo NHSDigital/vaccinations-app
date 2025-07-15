@@ -65,7 +65,7 @@ describe("NBSBookingAction", () => {
     const url = randomURL();
 
     const renderAndClickNBSBookingActionForBaseUrl = (displayText: string, renderAs: "anchor" | "button") => {
-      render(<NBSBookingActionForBaseUrl url={url} displayText={displayText} renderAs={renderAs} />);
+      render(<NBSBookingActionForBaseUrl url={url.href} displayText={displayText} renderAs={renderAs} />);
       let bookingAction;
       if (renderAs === "anchor") {
         bookingAction = screen.getByRole("link", { name: displayText });
@@ -81,14 +81,14 @@ describe("NBSBookingAction", () => {
       // render as button
       renderAndClickNBSBookingActionForBaseUrl("test", "button");
       expect(mockIsOpenInNHSApp).toHaveBeenCalledTimes(1);
-      expect(window.open).toHaveBeenCalledWith(url.href, "_self");
+      expect(window.open).toHaveBeenCalledWith(`/api/sso-to-nbs?redirectTarget=${url.href}`, "_self");
 
       jest.clearAllMocks();
 
       // render as anchor
       renderAndClickNBSBookingActionForBaseUrl("test", "anchor");
       expect(mockIsOpenInNHSApp).toHaveBeenCalledTimes(1);
-      expect(window.open).toHaveBeenCalledWith(url.href, "_self");
+      expect(window.open).toHaveBeenCalledWith(`/api/sso-to-nbs?redirectTarget=${url.href}`, "_self");
     });
 
     it("should open NBS SSO link in new window when action is clicked outside NHS app", async () => {
@@ -97,14 +97,14 @@ describe("NBSBookingAction", () => {
       // render as button
       renderAndClickNBSBookingActionForBaseUrl("test", "button");
       expect(mockIsOpenInNHSApp).toHaveBeenCalledTimes(1);
-      expect(window.open).toHaveBeenCalledWith(url.href, "_blank");
+      expect(window.open).toHaveBeenCalledWith(`/api/sso-to-nbs?redirectTarget=${url.href}`, "_blank");
 
       jest.clearAllMocks();
 
       // render as anchor
       renderAndClickNBSBookingActionForBaseUrl("test", "anchor");
       expect(mockIsOpenInNHSApp).toHaveBeenCalledTimes(1);
-      expect(window.open).toHaveBeenCalledWith(url.href, "_blank");
+      expect(window.open).toHaveBeenCalledWith(`/api/sso-to-nbs?redirectTarget=${url.href}`, "_blank");
     });
   });
 });

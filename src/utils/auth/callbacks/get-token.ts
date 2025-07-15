@@ -76,7 +76,7 @@ const callRefreshTokenEndpointAndUpdateToken = async (config: AppConfig, updated
     client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
     client_assertion: clientAssertion,
   };
-  log.info({authRequest: requestBody}, "Debug for VIA-336 - Request body object");
+  log.info({ authRequest: requestBody }, "Debug for VIA-336 - Request body object");
 
   const encodedBody = new URLSearchParams(requestBody);
 

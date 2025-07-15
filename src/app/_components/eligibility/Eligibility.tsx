@@ -59,7 +59,7 @@ const Eligibility = ({ eligibilityContent }: EligibilityProps): JSX.Element => {
                     <MarkdownWithStyling content={action.content} />
                   </div>
                   <NBSBookingActionForBaseUrl
-                    url={action.button.url}
+                    url={action.button.url.href}
                     displayText={action.button.label}
                     renderAs={"button"}
                   />

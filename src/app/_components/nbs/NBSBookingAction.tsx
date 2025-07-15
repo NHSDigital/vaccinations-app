@@ -12,7 +12,7 @@ interface NBSBookingActionForVaccineProps {
 }
 
 interface NBSBookingActionForBaseUrlProps {
-  url: URL;
+  url: string; // I wanted a URL here, but something is coercing it to a string, so...
   displayText: string;
   renderAs: "anchor" | "button";
 }
@@ -37,7 +37,8 @@ const NBSBookingActionForVaccine = ({
 };
 
 const NBSBookingActionForBaseUrl = ({ url, displayText, renderAs }: NBSBookingActionForBaseUrlProps): JSX.Element => {
-  return <NBSBookingAction url={url.href} displayText={displayText} renderAs={renderAs} />;
+  const nbsSSOLink = `${SSO_TO_NBS_ROUTE}?redirectTarget=${encodeURI(url)}`;
+  return <NBSBookingAction url={nbsSSOLink} displayText={displayText} renderAs={renderAs} />;
 };
 
 const NBSBookingAction = ({ url, displayText, renderAs }: NBSBookingActionProps): JSX.Element => {

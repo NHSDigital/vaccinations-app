@@ -1,11 +1,12 @@
 import { GET } from "@src/app/api/sso-to-nbs/route";
 import { VaccineTypes } from "@src/models/vaccine";
-import { getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
+import { getNbsQueryParams, getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
 import { notFound, redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
 jest.mock("@src/services/nbs/nbs-service", () => ({
   getSSOUrlToNBSForVaccine: jest.fn(),
+  getNbsQueryParams: jest.fn(),
 }));
 
 jest.mock("next/navigation", () => ({
@@ -26,7 +27,7 @@ describe("GET /sso-to-nbs", () => {
     jest.clearAllMocks();
   });
 
-  it("returns 404 if vaccine parameter is missing", async () => {
+  it("returns 404 if both parameters are missing", async () => {
     const testUrl = "https://testurl";
     const mockRequest = getMockRequest(testUrl);
 
@@ -69,5 +70,17 @@ describe("GET /sso-to-nbs", () => {
     await GET(mockRequest);
     expect(getSSOUrlToNBSForVaccine).toHaveBeenCalledWith(VaccineTypes.RSV);
     expect(redirect).toHaveBeenCalledWith(mockNBSUrl);
+  });
+
+  it("redirects to target with SSO params when redirectTarget supplied", async () => {
+    const redirectTargetUrl = "https://target.url";
+    const mockRequest = getMockRequest(redirectTargetUrl, {
+      redirectTarget: redirectTargetUrl,
+    });
+    (getNbsQueryParams as jest.Mock).mockResolvedValue([{ name: "foo", value: "bar" }]);
+
+    await GET(mockRequest);
+    expect(getNbsQueryParams).toHaveBeenCalled();
+    expect(redirect).toHaveBeenCalledWith("https://target.url/?foo=bar");
   });
 });
