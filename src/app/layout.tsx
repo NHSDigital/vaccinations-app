@@ -2,6 +2,7 @@
 
 import "@public/css/nhsapp-3.1.0.min.css";
 import "@public/css/nhsuk-9.6.1.min.css";
+import { BrowserContextProvider } from "@src/app/_components/context/BrowserContext";
 import { InactivityDialog } from "@src/app/_components/inactivity/InactivityDialog";
 import LinksInterceptor from "@src/app/_components/interceptor/LinksInterceptor";
 import AppFooter from "@src/app/_components/nhs-frontend/AppFooter";
@@ -44,18 +45,20 @@ export default function RootLayout({
         <meta name="msapplication-square310x310logo" content={"/assets/favicons/largetile-310x310.png"} />
 
         {/* NHS app js - https://nhsconnect.github.io/nhsapp-developer-documentation/js-v2-api-specification/ */}
-        <Script src="https://www.nhsapp.service.nhs.uk/js/v2/nhsapp.js" strategy="beforeInteractive" />
+        <Script src={"https://www.nhsapp.service.nhs.uk/js/v2/nhsapp.js"} strategy="beforeInteractive" />
       </head>
 
       <body>
-        <LinksInterceptor />
-        <SkipLink />
-        <AppHeader />
-        <SessionProvider refetchInterval={SESSION_REFETCH_SECONDS}>
-          <InactivityDialog />
-          <div className="nhsuk-width-container ">{children}</div>
-        </SessionProvider>
-        <AppFooter />
+        <BrowserContextProvider>
+          <LinksInterceptor />
+          <SkipLink />
+          <AppHeader />
+          <SessionProvider refetchInterval={SESSION_REFETCH_SECONDS}>
+            <InactivityDialog />
+            <div className="nhsuk-width-container ">{children}</div>
+          </SessionProvider>
+          <AppFooter />
+        </BrowserContextProvider>
       </body>
     </html>
   );
