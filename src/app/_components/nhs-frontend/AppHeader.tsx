@@ -1,17 +1,14 @@
 "use client";
 
+import { useBrowserContext } from "@src/app/_components/context/BrowserContext";
 import { SERVICE_HEADING, VACCINATIONS_HUB_PAGE_ROUTE } from "@src/app/constants";
 import { Header } from "nhsuk-react-components";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const AppHeader = () => {
-  const [hideHeader, setHideHeader] = useState(true);
+  const { hasContextLoaded, isOpenInMobileApp } = useBrowserContext();
 
-  useEffect(() => {
-    setHideHeader(window.nhsapp.tools.isOpenInNHSApp());
-  }, []);
-
-  if (hideHeader) return null;
+  if (!hasContextLoaded || isOpenInMobileApp) return null;
 
   return (
     <Header transactional>

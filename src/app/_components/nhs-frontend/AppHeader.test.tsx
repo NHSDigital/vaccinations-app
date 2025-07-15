@@ -1,9 +1,13 @@
+import { useBrowserContext } from "@src/app/_components/context/BrowserContext";
 import AppHeader from "@src/app/_components/nhs-frontend/AppHeader";
 import { mockNHSAppJSFunctions } from "@src/utils/nhsapp-js.test";
 import { render, screen } from "@testing-library/react";
 
 const mockIsOpenInNHSApp = jest.fn();
 const mockGoToHomePage = jest.fn();
+jest.mock("@src/app/_components/context/BrowserContext", () => ({
+  useBrowserContext: jest.fn(),
+}));
 
 const testHeader = (expectedVisible: boolean) => {
   const serviceLink = screen.queryByRole("link", {
@@ -28,7 +32,10 @@ describe("AppHeader", () => {
 
   describe("when rendered in desktop browser", () => {
     beforeAll(() => {
-      mockIsOpenInNHSApp.mockImplementationOnce(() => false);
+      (useBrowserContext as jest.Mock).mockReturnValue({
+        hasContextLoaded: true,
+        isOpenInMobileApp: false,
+      });
       render(<AppHeader />);
     });
 
@@ -37,9 +44,26 @@ describe("AppHeader", () => {
     });
   });
 
-  describe("when rendered in NHS App", () => {
+  describe("when rendered in mobile app", () => {
     beforeAll(() => {
-      mockIsOpenInNHSApp.mockImplementationOnce(() => true);
+      (useBrowserContext as jest.Mock).mockReturnValue({
+        hasContextLoaded: true,
+        isOpenInMobileApp: true,
+      });
+      render(<AppHeader />);
+    });
+
+    it("hides the app header", async () => {
+      testHeader(false);
+    });
+  });
+
+  describe("when context has not loaded", () => {
+    beforeAll(() => {
+      (useBrowserContext as jest.Mock).mockReturnValue({
+        hasContextLoaded: false,
+        isOpenInMobileApp: undefined,
+      });
       render(<AppHeader />);
     });
 

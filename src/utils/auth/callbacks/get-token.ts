@@ -114,7 +114,7 @@ const callRefreshTokenEndpointAndUpdateToken = async (config: AppConfig, updated
     expires_at: nowInSeconds + (newTokens.expires_in ?? DEFAULT_ACCESS_TOKEN_EXPIRY),
     refresh_token: newTokens.refresh_token ?? updatedToken.refresh_token,
   };
-  log.info({ updatedTokenDebug: updatedTokenDebug }, `Debug VIA-336 refreshed token. nowInSeconds = ${nowInSeconds}`)
+  log.info({ updatedTokenDebug: updatedTokenDebug }, `Debug VIA-336 refreshed token. nowInSeconds = ${nowInSeconds}`);
 
   return updatedTokenDebug;
 };

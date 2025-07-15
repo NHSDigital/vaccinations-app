@@ -1,15 +1,8 @@
-import { useEffect, useState } from "react";
+import { useBrowserContext } from "@src/app/_components/context/BrowserContext";
+import { useEffect } from "react";
 
 const LinksInterceptor = (): null => {
-  const [isOpenInNHSApp, setIsOpenInNHSApp] = useState(false);
-
-  useEffect(() => {
-    if (window.nhsapp.tools.isOpenInNHSApp()) {
-      setIsOpenInNHSApp(true);
-    } else {
-      setIsOpenInNHSApp(false);
-    }
-  }, []);
+  const { hasContextLoaded, isOpenInMobileApp } = useBrowserContext();
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
@@ -22,7 +15,7 @@ const LinksInterceptor = (): null => {
       const url = new URL(anchor.href);
       const isExternal = url.origin !== window.location.origin;
 
-      if (isExternal && isOpenInNHSApp) {
+      if (isExternal && hasContextLoaded && isOpenInMobileApp) {
         event.preventDefault(); // Stop default navigation
         event.stopImmediatePropagation(); // Stop other event handlers
         window.nhsapp.navigation.openBrowserOverlay(anchor.href);
@@ -33,7 +26,7 @@ const LinksInterceptor = (): null => {
     // invoked before ours and interfere with the functionality
     document.addEventListener("click", handleClick, { capture: true });
     return () => document.removeEventListener("click", handleClick, { capture: true });
-  }, [isOpenInNHSApp]);
+  }, [hasContextLoaded, isOpenInMobileApp]);
 
   return null;
 };

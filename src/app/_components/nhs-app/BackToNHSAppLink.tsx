@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useBrowserContext } from "@src/app/_components/context/BrowserContext";
 
 const handleClick = () => {
   const servicesPage = window.nhsapp.navigation.AppPage.SERVICES;
@@ -8,17 +8,9 @@ const handleClick = () => {
 };
 
 const BackToNHSAppLink = () => {
-  const [isOpenInNHSApp, setIsOpenInNHSApp] = useState(false);
+  const { hasContextLoaded, isOpenInMobileApp } = useBrowserContext();
 
-  useEffect(() => {
-    if (window.nhsapp.tools.isOpenInNHSApp()) {
-      setIsOpenInNHSApp(true);
-    } else {
-      setIsOpenInNHSApp(false);
-    }
-  }, []);
-
-  if (!isOpenInNHSApp) return null;
+  if (!hasContextLoaded || !isOpenInMobileApp) return null;
 
   return (
     <div className="nhsuk-back-link">

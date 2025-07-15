@@ -1,9 +1,10 @@
 "use client";
 
+import { useBrowserContext } from "@src/app/_components/context/BrowserContext";
 import { SSO_TO_NBS_ROUTE } from "@src/app/api/sso-to-nbs/constants";
 import { VaccineContentUrlPaths, vaccineTypeToUrlPath } from "@src/models/vaccine";
 import { VaccinesWithNBSBookingAvailable } from "@src/services/nbs/nbs-service";
-import React, { JSX, useEffect, useState } from "react";
+import React, { JSX } from "react";
 
 interface NBSBookingActionForVaccineProps {
   vaccineType: VaccinesWithNBSBookingAvailable;
@@ -42,19 +43,12 @@ const NBSBookingActionForBaseUrl = ({ url, displayText, renderAs }: NBSBookingAc
 };
 
 const NBSBookingAction = ({ url, displayText, renderAs }: NBSBookingActionProps): JSX.Element => {
-  const [isOpenInNHSApp, setIsOpenInNHSApp] = useState(true);
-
-  useEffect(() => {
-    if (window.nhsapp.tools.isOpenInNHSApp()) {
-      setIsOpenInNHSApp(true);
-    } else {
-      setIsOpenInNHSApp(false);
-    }
-  }, []);
+  const { hasContextLoaded, isOpenInMobileApp } = useBrowserContext();
 
   const handleClick = (e: ActionClickEvent) => {
+    if (!hasContextLoaded) return false;
     e.preventDefault(); // prevent default click behaviour
-    window.open(url, isOpenInNHSApp ? "_self" : "_blank");
+    window.open(url, isOpenInMobileApp ? "_self" : "_blank");
   };
 
   return renderAs === "anchor" ? (
