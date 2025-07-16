@@ -17,9 +17,7 @@ describe("SuitabilityRules", () => {
       it("should display paragraph content successfully", () => {
         render(
           SuitabilityRules({
-            suitabilityRules: [
-              suitabilityRuleBuilder().withType(RuleType.alreadyVaccinated).andContent("Test Content").build(),
-            ],
+            suitabilityRules: [suitabilityRuleBuilder().withType(RuleType.card).andContent("Test Content").build()],
           }),
         );
 
@@ -32,8 +30,8 @@ describe("SuitabilityRules", () => {
         render(
           SuitabilityRules({
             suitabilityRules: [
-              suitabilityRuleBuilder().withType(RuleType.alreadyVaccinated).andContent("Test Content 1").build(),
-              suitabilityRuleBuilder().withType(RuleType.alreadyVaccinated).andContent("Test Content 2").build(),
+              suitabilityRuleBuilder().withType(RuleType.card).andContent("Test Content 1").build(),
+              suitabilityRuleBuilder().withType(RuleType.card).andContent("Test Content 2").build(),
             ],
           }),
         );

@@ -9,7 +9,7 @@ interface SuitabilityRuleProps {
 const SuitabilityRules = ({ suitabilityRules }: SuitabilityRuleProps): (JSX.Element | undefined)[] => {
   return suitabilityRules.map((suitabilityRule: SuitabilityRule, index: number) => {
     switch (suitabilityRule.type) {
-      case RuleType.alreadyVaccinated: {
+      case RuleType.card: {
         const classNames = {
           h2: "nhsuk-heading-m nhsuk-card__heading",
           h3: "nhsuk-heading-s nhsuk-card__heading",

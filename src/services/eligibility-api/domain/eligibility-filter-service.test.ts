@@ -68,18 +68,8 @@ describe("eligibility-filter-service", () => {
             "You did not turn 80 between 2nd September 2024 and 31st August 2025",
           ],
         },
-        actions: [
-          {
-            type: "paragraph",
-            content: "Text",
-          },
-        ],
-        suitabilityRules: [
-          {
-            content: "Test",
-            type: "alreadyVaccinated",
-          },
-        ],
+        actions: [{ type: "paragraph", content: "Text" }],
+        suitabilityRules: [{ content: "Test", type: RuleType.card }],
       };
 
       const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineTypes.RSV, nhsNumber);
@@ -307,12 +297,7 @@ describe("eligibility-filter-service", () => {
 
       const result = _generateSuitabilityRules(processedSuggestion, VaccineTypes.RSV, nhsNumber);
 
-      expect(result).toEqual([
-        {
-          type: RuleType.alreadyVaccinated,
-          content: "AlreadyVaccinated Markdown",
-        },
-      ]);
+      expect(result).toEqual([{ type: RuleType.card, content: "AlreadyVaccinated Markdown" }]);
     });
 
     it("should ensure suitability rules are returned in the same order", async () => {
@@ -332,14 +317,8 @@ describe("eligibility-filter-service", () => {
       const result = _generateSuitabilityRules(processedSuggestion, VaccineTypes.RSV, nhsNumber);
 
       expect(result).toEqual([
-        {
-          type: RuleType.alreadyVaccinated,
-          content: "AlreadyVaccinated Markdown 1",
-        },
-        {
-          type: RuleType.alreadyVaccinated,
-          content: "AlreadyVaccinated Markdown 2",
-        },
+        { type: RuleType.card, content: "AlreadyVaccinated Markdown 1" },
+        { type: RuleType.card, content: "AlreadyVaccinated Markdown 2" },
       ]);
     });
 

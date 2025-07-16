@@ -171,12 +171,7 @@ const _generateSuitabilityRules = (
     (rule: SuitabilityRuleFromApi): SuitabilityRule[] => {
       switch (rule.ruleCode) {
         case "AlreadyVaccinated": {
-          return [
-            {
-              type: RuleType.alreadyVaccinated,
-              content: rule.ruleText as Content,
-            },
-          ];
+          return [{ type: RuleType.card, content: rule.ruleText as Content }];
         }
         default: {
           log.error({ nhsNumber }, `SuitabilityRule code ${rule.ruleCode} not yet implemented.`);
