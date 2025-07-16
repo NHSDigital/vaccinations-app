@@ -29,7 +29,6 @@ declare module "next-auth" {
     user: {
       nhs_number: string;
       birthdate: string;
-      access_token: string;
       id_token: {
         jti: string;
       };
@@ -47,9 +46,6 @@ declare module "next-auth/jwt" {
       nhs_number: string;
       birthdate: string;
     };
-    expires_at: number;
-    refresh_token: string;
-    access_token: string;
     id_token: {
       jti: string;
     };

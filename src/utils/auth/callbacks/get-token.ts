@@ -8,16 +8,13 @@ import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "utils-auth-callbacks-get-token" });
 
-const fillMissingFieldsInTokenWithDefaultValues = (token: JWT) => {
+const fillMissingFieldsInTokenWithDefaultValues = (token: JWT): JWT => {
   return {
     ...token,
     user: {
       nhs_number: token.user?.nhs_number ?? "",
       birthdate: token.user?.birthdate ?? "",
     },
-    expires_at: token.expires_at ?? 0,
-    access_token: token.access_token ?? "",
-    refresh_token: token.refresh_token ?? "",
     id_token: token.id_token ?? {
       jti: "",
     },
@@ -44,9 +41,6 @@ const updateTokenWithValuesFromAccountAndProfile = (
 
   const updatedToken: JWT = {
     ...token,
-    expires_at: account.expires_at ?? 0,
-    access_token: account.access_token ?? "",
-    refresh_token: account.refresh_token ?? "",
     id_token: {
       jti: jti,
     },
@@ -88,7 +82,7 @@ const getToken = async (
   }
 
   // Inspect the token (which was either returned from login or fetched from session), fill missing or blank values with defaults
-  let updatedToken = fillMissingFieldsInTokenWithDefaultValues(token);
+  let updatedToken: JWT = fillMissingFieldsInTokenWithDefaultValues(token);
 
     // Initial login scenario: account and profile are only defined for the initial login, afterward they become undefined
   if (isInitialLoginJourney(account, profile) && account != null && profile != null) {

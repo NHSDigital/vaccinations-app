@@ -61,9 +61,6 @@ describe("getToken", () => {
     const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
 
     expect(result).toMatchObject({
-      expires_at: account.expires_at,
-      access_token: account.access_token,
-      refresh_token: account.refresh_token,
       id_token: {
         jti: "jti_test",
       },
@@ -87,9 +84,6 @@ describe("getToken", () => {
     const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
 
     expect(result).toMatchObject({
-      expires_at: 0,
-      access_token: "",
-      refresh_token: "",
       id_token: {
         jti: "",
       },
@@ -105,7 +99,6 @@ describe("getToken", () => {
     const token = {
       fixedExpiry: nowInSeconds - 1,
       user: {},
-      expires_at: nowInSeconds + 1000,
     } as JWT;
 
     const result = await getToken(token, null, undefined, mockConfig, 300);
@@ -115,9 +108,6 @@ describe("getToken", () => {
 
   it("should return the token if no refresh needed", async () => {
     const token = {
-      expires_at: nowInSeconds + 1000,
-      access_token: "access",
-      refresh_token: "refresh",
       id_token: {
         jti: "jti_test",
       },

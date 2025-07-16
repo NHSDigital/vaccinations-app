@@ -10,7 +10,6 @@ const mockSessionValue: Session = {
   user: {
     nhs_number: "",
     birthdate: "",
-    access_token: "",
     id_token: { jti: "" },
   },
 };
