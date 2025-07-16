@@ -3,6 +3,7 @@ import { ProcessedSuggestion } from "@src/services/eligibility-api/api-types";
 import {
   _extractAllCohortText,
   _generateActions,
+  _generateSuitabilityRules,
   _getStatus,
   getEligibilityForPerson,
 } from "@src/services/eligibility-api/domain/eligibility-filter-service";
@@ -13,12 +14,14 @@ import {
   EligibilityErrorTypes,
   EligibilityForPersonType,
   EligibilityStatus,
+  RuleType,
 } from "@src/services/eligibility-api/types";
 import {
   actionFromApiBuilder,
   eligibilityApiResponseBuilder,
   eligibilityCohortBuilder,
   processedSuggestionBuilder,
+  suitabilityRuleFromApiBuilder,
 } from "@test-data/eligibility-api/builders";
 
 jest.mock("@src/services/eligibility-api/gateway/fetch-eligibility-content", () => ({
@@ -48,6 +51,9 @@ describe("eligibility-filter-service", () => {
                   .build(),
               ])
               .andActions([actionFromApiBuilder().withActionType("InfoText").andDescription("Text").build()])
+              .andSuitabilityRules([
+                suitabilityRuleFromApiBuilder().withRuleCode("AlreadyVaccinated").andRuleText("Test").build(),
+              ])
               .build(),
           ])
           .build(),
@@ -68,7 +74,12 @@ describe("eligibility-filter-service", () => {
             content: "Text",
           },
         ],
-        suitabilityRules: [],
+        suitabilityRules: [
+          {
+            content: "Test",
+            type: "alreadyVaccinated",
+          },
+        ],
       };
 
       const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineTypes.RSV, nhsNumber);
@@ -114,7 +125,12 @@ describe("eligibility-filter-service", () => {
       (fetchEligibilityContent as jest.Mock).mockResolvedValue(
         eligibilityApiResponseBuilder()
           .withProcessedSuggestions([
-            processedSuggestionBuilder().withCondition("RSV").andStatus(status).andEligibilityCohorts([]).build(),
+            processedSuggestionBuilder()
+              .withCondition("RSV")
+              .andStatus(status)
+              .andEligibilityCohorts([])
+              .andSuitabilityRules([suitabilityRuleFromApiBuilder().withRuleCode("AlreadyVaccinated").build()])
+              .build(),
           ])
           .build(),
       );
@@ -273,6 +289,69 @@ describe("eligibility-filter-service", () => {
       } as unknown as ProcessedSuggestion;
 
       const result = _generateActions(suggestion, VaccineTypes.RSV, nhsNumber);
+
+      expect(result).toEqual([]);
+    });
+  });
+
+  describe("_generateSuitabilityRules", () => {
+    it("should filter suitability rules and return correct suitabilityRule types", async () => {
+      const processedSuggestion: ProcessedSuggestion = processedSuggestionBuilder()
+        .withSuitabilityRules([
+          suitabilityRuleFromApiBuilder()
+            .withRuleCode("AlreadyVaccinated")
+            .andRuleText("AlreadyVaccinated Markdown")
+            .build(),
+        ])
+        .build();
+
+      const result = _generateSuitabilityRules(processedSuggestion, VaccineTypes.RSV, nhsNumber);
+
+      expect(result).toEqual([
+        {
+          type: RuleType.alreadyVaccinated,
+          content: "AlreadyVaccinated Markdown",
+        },
+      ]);
+    });
+
+    it("should ensure suitability rules are returned in the same order", async () => {
+      const processedSuggestion: ProcessedSuggestion = processedSuggestionBuilder()
+        .withSuitabilityRules([
+          suitabilityRuleFromApiBuilder()
+            .withRuleCode("AlreadyVaccinated")
+            .andRuleText("AlreadyVaccinated Markdown 1")
+            .build(),
+          suitabilityRuleFromApiBuilder()
+            .withRuleCode("AlreadyVaccinated")
+            .andRuleText("AlreadyVaccinated Markdown 2")
+            .build(),
+        ])
+        .build();
+
+      const result = _generateSuitabilityRules(processedSuggestion, VaccineTypes.RSV, nhsNumber);
+
+      expect(result).toEqual([
+        {
+          type: RuleType.alreadyVaccinated,
+          content: "AlreadyVaccinated Markdown 1",
+        },
+        {
+          type: RuleType.alreadyVaccinated,
+          content: "AlreadyVaccinated Markdown 2",
+        },
+      ]);
+    });
+
+    it("should return empty array when suitability rules array is missing", async () => {
+      const suggestion = {
+        condition: "RSV",
+        status: "Actionable",
+        statusText: "you are not eligible because",
+        eligibilityCohorts: [],
+      } as unknown as ProcessedSuggestion;
+
+      const result = _generateSuitabilityRules(suggestion, VaccineTypes.RSV, nhsNumber);
 
       expect(result).toEqual([]);
     });

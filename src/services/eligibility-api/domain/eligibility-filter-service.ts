@@ -4,6 +4,7 @@ import {
   EligibilityApiResponse,
   EligibilityCohort,
   ProcessedSuggestion,
+  SuitabilityRuleFromApi,
 } from "@src/services/eligibility-api/api-types";
 import { EligibilityApiHttpStatusError } from "@src/services/eligibility-api/gateway/exceptions";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
@@ -15,6 +16,7 @@ import {
   EligibilityForPersonType,
   EligibilityStatus,
   Label,
+  RuleType,
   SuitabilityRule,
   SummaryContent,
 } from "@src/services/eligibility-api/types";
@@ -58,7 +60,7 @@ const getEligibilityForPerson = async (
     }
 
     const actions: Action[] = _generateActions(suggestionForVaccine, vaccineType, nhsNumber);
-    const suitabilityRules: SuitabilityRule[] = [];
+    const suitabilityRules: SuitabilityRule[] = _generateSuitabilityRules(suggestionForVaccine, vaccineType, nhsNumber);
 
     return {
       eligibility: {
@@ -155,4 +157,36 @@ const _generateActions = (
   return content;
 };
 
-export { getEligibilityForPerson, _extractAllCohortText, _getStatus, _generateActions };
+const _generateSuitabilityRules = (
+  suggestion: ProcessedSuggestion,
+  vaccineType: VaccineTypes,
+  nhsNumber: NhsNumber,
+): SuitabilityRule[] => {
+  if (!suggestion.suitabilityRules) {
+    log.warn({ nhsNumber, vaccineType }, "Missing suitabilityRules array");
+    return [];
+  }
+
+  const content: SuitabilityRule[] = suggestion.suitabilityRules.flatMap(
+    (rule: SuitabilityRuleFromApi): SuitabilityRule[] => {
+      switch (rule.ruleCode) {
+        case "AlreadyVaccinated": {
+          return [
+            {
+              type: RuleType.alreadyVaccinated,
+              content: rule.ruleText as Content,
+            },
+          ];
+        }
+        default: {
+          log.error({ nhsNumber }, `SuitabilityRule code ${rule.ruleCode} not yet implemented.`);
+          throw new Error(`SuitabilityRule code ${rule.ruleCode} not yet implemented.`);
+        }
+      }
+    },
+  );
+
+  return content;
+};
+
+export { getEligibilityForPerson, _extractAllCohortText, _getStatus, _generateActions, _generateSuitabilityRules };
