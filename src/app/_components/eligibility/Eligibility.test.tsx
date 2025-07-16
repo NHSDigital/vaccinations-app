@@ -1,17 +1,11 @@
 import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
-import { ActionType, Cohort, Heading, Introduction } from "@src/services/eligibility-api/types";
-import { actionBuilder, eligibilityContentBuilder, summaryContentBuilder } from "@test-data/eligibility-api/builders";
+import { Cohort, Heading, Introduction } from "@src/services/eligibility-api/types";
+import { eligibilityContentBuilder, summaryContentBuilder } from "@test-data/eligibility-api/builders";
 import { render, screen } from "@testing-library/react";
 import React from "react";
 
-// TODO: Remove after final solution for testing with react-markdown
-jest.mock("react-markdown", () => {
-  return function MockMarkdown({ children }: { children: React.ReactNode }) {
-    return <div>{children}</div>;
-  };
-});
-jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
-  NBSBookingActionForBaseUrl: () => <a href="https://nbs-test-link">NBS Booking Link Test</a>,
+jest.mock("@src/app/_components/eligibility/EligibilityActions", () => ({
+  EligibilityActions: () => <div>Test Eligibility Actions Component</div>,
 }));
 
 describe("Eligibility", () => {
@@ -112,114 +106,12 @@ describe("Eligibility", () => {
       const careCard: HTMLElement | null = screen.queryByTestId("non-urgent-care-card");
       expect(careCard).not.toBeInTheDocument();
     });
-  });
 
-  describe("when actions are present", () => {
-    describe("paragraph", () => {
-      it("should display paragraph content successfully", () => {
-        render(
-          Eligibility({
-            eligibilityContent: eligibilityContentBuilder()
-              .withActions([actionBuilder().withType(ActionType.paragraph).andContent("Test Content").build()])
-              .build(),
-          }),
-        );
+    it("should display EligibilityActions component", () => {
+      render(Eligibility({ eligibilityContent: eligibilityContentBuilder().build() }));
+      const actions = screen.getByText("Test Eligibility Actions Component");
 
-        const content: HTMLElement = screen.getByText("Test Content");
-
-        expect(content).toBeVisible();
-      });
-
-      it("should display multiple paragraphs successfully", () => {
-        render(
-          Eligibility({
-            eligibilityContent: eligibilityContentBuilder()
-              .withActions([
-                actionBuilder().withType(ActionType.paragraph).andContent("Test Content 1").build(),
-                actionBuilder().withType(ActionType.paragraph).andContent("Test Content 2").build(),
-              ])
-              .build(),
-          }),
-        );
-
-        const content1: HTMLElement = screen.getByText("Test Content 1");
-        const content2: HTMLElement = screen.getByText("Test Content 2");
-
-        expect(content1).toBeVisible();
-        expect(content2).toBeVisible();
-      });
-    });
-
-    describe("card", () => {
-      it("should display paragraph content successfully", () => {
-        render(
-          Eligibility({
-            eligibilityContent: eligibilityContentBuilder()
-              .withActions([actionBuilder().withType(ActionType.card).andContent("Test Content").build()])
-              .build(),
-          }),
-        );
-
-        const content: HTMLElement = screen.getByText("Test Content");
-
-        expect(content).toBeVisible();
-      });
-
-      it("should display multiple paragraphs successfully", () => {
-        render(
-          Eligibility({
-            eligibilityContent: eligibilityContentBuilder()
-              .withActions([
-                actionBuilder().withType(ActionType.card).andContent("Test Content 1").build(),
-                actionBuilder().withType(ActionType.card).andContent("Test Content 2").build(),
-              ])
-              .build(),
-          }),
-        );
-
-        const content1: HTMLElement = screen.getByText("Test Content 1");
-        const content2: HTMLElement = screen.getByText("Test Content 2");
-
-        expect(content1).toBeVisible();
-        expect(content2).toBeVisible();
-      });
-    });
-
-    describe("button", () => {
-      it("should display button content successfully", () => {
-        render(
-          Eligibility({
-            eligibilityContent: eligibilityContentBuilder()
-              .withActions([actionBuilder().withType(ActionType.authButton).andContent("Test Content").build()])
-              .build(),
-          }),
-        );
-
-        const content: HTMLElement = screen.getByText("Test Content");
-        const bookingButton: HTMLElement = screen.getByText("NBS Booking Link Test");
-
-        expect(content).toBeVisible();
-        expect(bookingButton).toBeInTheDocument();
-      });
-
-      it("should display multiple button content components successfully", () => {
-        render(
-          Eligibility({
-            eligibilityContent: eligibilityContentBuilder()
-              .withActions([
-                actionBuilder().withType(ActionType.authButton).andContent("Test Content 1").build(),
-                actionBuilder().withType(ActionType.authButton).andContent("Test Content 2").build(),
-              ])
-              .build(),
-          }),
-        );
-
-        const content1: HTMLElement = screen.getByText("Test Content 1");
-        const content2: HTMLElement = screen.getByText("Test Content 2");
-
-        expect(content1).toBeVisible();
-        expect(content2).toBeVisible();
-      });
+      expect(actions).toBeVisible();
     });
   });
 });
