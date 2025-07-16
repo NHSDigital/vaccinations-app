@@ -66,7 +66,6 @@ const Eligibility = ({ eligibilityContent }: EligibilityProps): JSX.Element => {
                 </>
               )
             );
-            // TODO: VIA-328 SB - If no button?
           }
         }
       })}
