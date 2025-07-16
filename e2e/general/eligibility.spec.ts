@@ -117,4 +117,23 @@ test.describe("Eligibility", () => {
       await expect(card).toHaveCount(0);
     });
   });
+
+  test.describe("Actionable with AlreadyVaccinated content", () => {
+    test.use({ storageState: `./e2e/.auth/actionable-with-already-vaccinated-suitability-rule.json` });
+
+    test("Actionable with AlreadyVaccinated content", async ({ page }) => {
+      await page.goto(RSV_PAGE_URL);
+
+      const cardHeading = page.getByRole("heading", {
+        level: 2,
+        name: "You've had your RSV vaccination",
+      });
+      const cardParagraph = page.getByText("We believe you had the RSV vaccination on 3 April 2025.");
+
+      await expect(cardHeading).toBeVisible();
+      await expect(cardHeading).toHaveClass("nhsuk-heading-m nhsuk-card__heading");
+      await expect(cardParagraph).toBeVisible();
+      await expect(cardParagraph).toHaveClass("nhsuk-card__description");
+    });
+  });
 });
