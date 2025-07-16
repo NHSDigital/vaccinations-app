@@ -19,6 +19,8 @@ import {
   Heading,
   Introduction,
   Label,
+  RuleType,
+  SuitabilityRule,
   SummaryContent,
 } from "@src/services/eligibility-api/types";
 import { createTypeBuilder, randomString, randomURL, randomValue } from "@test-data/meta-builder";
@@ -83,6 +85,7 @@ export function eligibilityContentBuilder() {
   return createTypeBuilder<EligibilityContent>({
     summary: summaryContentBuilder().build(),
     actions: [actionBuilder().build(), actionBuilder().build()],
+    suitabilityRules: [suitabilityRuleBuilder().build(), suitabilityRuleBuilder().build()],
   });
 }
 
@@ -106,5 +109,12 @@ export function buttonBuilder() {
   return createTypeBuilder<Button>({
     label: randomString(10) as Label,
     url: randomURL() as ButtonUrl,
+  });
+}
+
+export function suitabilityRuleBuilder() {
+  return createTypeBuilder<SuitabilityRule>({
+    type: randomValue(Object.values(RuleType)),
+    content: randomString(10) as Content,
   });
 }

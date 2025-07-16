@@ -21,6 +21,7 @@ export enum EligibilityStatus {
 export type EligibilityContent = {
   summary: SummaryContent | undefined;
   actions: Action[];
+  suitabilityRules: SuitabilityRule[];
 };
 
 export type SummaryContent = {
@@ -50,6 +51,12 @@ export type ActionWithButton = {
 export type Button = { label: Label; url: ButtonUrl };
 
 export type Action = ActionWithoutButton | ActionWithButton;
+
+export enum RuleType {
+  alreadyVaccinated = "alreadyVaccinated",
+}
+
+export type SuitabilityRule = { type: RuleType; content: Content };
 
 export enum EligibilityErrorTypes {
   ELIGIBILITY_LOADING_ERROR = "ELIGIBILITY_LOADING",

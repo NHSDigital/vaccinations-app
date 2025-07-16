@@ -68,6 +68,7 @@ describe("eligibility-filter-service", () => {
             content: "Text",
           },
         ],
+        suitabilityRules: [],
       };
 
       const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineTypes.RSV, nhsNumber);

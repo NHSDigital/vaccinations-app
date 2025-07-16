@@ -15,6 +15,7 @@ import {
   EligibilityForPersonType,
   EligibilityStatus,
   Label,
+  SuitabilityRule,
   SummaryContent,
 } from "@src/services/eligibility-api/types";
 import { Cohort, Content, Heading, Introduction } from "@src/services/eligibility-api/types";
@@ -57,6 +58,7 @@ const getEligibilityForPerson = async (
     }
 
     const actions: Action[] = _generateActions(suggestionForVaccine, vaccineType, nhsNumber);
+    const suitabilityRules: SuitabilityRule[] = [];
 
     return {
       eligibility: {
@@ -64,6 +66,7 @@ const getEligibilityForPerson = async (
         content: {
           summary: summary,
           actions,
+          suitabilityRules,
         },
       },
       eligibilityError: undefined,
