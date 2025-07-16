@@ -26,15 +26,15 @@ export const GET = async (request: NextRequest) => {
           });
           finalRedirectUrl = nbsURl.href;
         } catch (error) {
-          log.error(error, `Error getting redirect url to NBS for ${REDIRECT_TARGET_PARAM}=${rawRedirectTarget}`);
+          log.error({ REDIRECT_TARGET_PARAM, rawRedirectTarget, error }, "Error getting redirect url to NBS");
           finalRedirectUrl = SSO_FAILURE_ROUTE;
         }
       } catch (error) {
-        log.warn("SSO to NBS but with invalid redirectTarget parameter - %s", rawRedirectTarget);
+        log.warn({ error, rawRedirectTarget }, "SSO to NBS but with invalid redirectTarget parameter");
         shouldReturnNotFound = true;
       }
     } else {
-      log.warn("SSO to NBS but without a valid redirectTarget parameter - %s", rawRedirectTarget);
+      log.warn({ rawRedirectTarget }, "SSO to NBS but without a valid redirectTarget parameter");
       shouldReturnNotFound = true;
     }
   } else {
@@ -45,11 +45,11 @@ export const GET = async (request: NextRequest) => {
       try {
         finalRedirectUrl = await getSSOUrlToNBSForVaccine(vaccineType);
       } catch (error) {
-        log.error(error, `Error getting redirect url to NBS for ${VACCINE_PARAM}=${vaccine}`);
+        log.error({ VACCINE_PARAM, vaccine, error }, "Error getting redirect url to NBS");
         finalRedirectUrl = SSO_FAILURE_ROUTE;
       }
     } else {
-      log.warn("SSO to NBS but without a valid vaccine parameter - %s", vaccine);
+      log.warn({ vaccine }, "SSO to NBS but without a valid vaccine parameter");
       shouldReturnNotFound = true;
     }
   }
