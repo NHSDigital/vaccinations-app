@@ -83,4 +83,37 @@ describe("GET /sso-to-nbs", () => {
     expect(getNbsQueryParams).toHaveBeenCalled();
     expect(redirect).toHaveBeenCalledWith("https://target.url/?foo=bar");
   });
+
+  it("returns 404 if redirectTarget parameter is empty", async () => {
+    const testUrl = "https://testurl";
+    const mockRequest = getMockRequest(testUrl, {
+      redirectTarget: "",
+    });
+
+    await GET(mockRequest);
+    expect(notFound).toHaveBeenCalled();
+    expect(redirect).not.toHaveBeenCalled();
+  });
+
+  it("returns 404 if redirectTarget parameter is invalid", async () => {
+    const testUrl = "https://testurl";
+    const mockRequest = getMockRequest(testUrl, {
+      redirectTarget: "sausages",
+    });
+
+    await GET(mockRequest);
+    expect(notFound).toHaveBeenCalled();
+    expect(redirect).not.toHaveBeenCalled();
+  });
+
+  it("redirects to /sso-failure on getNbsQueryParams error", async () => {
+    const redirectTargetUrl = "https://target.url";
+    const mockRequest = getMockRequest(redirectTargetUrl, {
+      redirectTarget: redirectTargetUrl,
+    });
+    (getNbsQueryParams as jest.Mock).mockRejectedValue(new Error("error"));
+
+    await GET(mockRequest);
+    expect(redirect).toHaveBeenCalledWith("/sso-failure");
+  });
 });

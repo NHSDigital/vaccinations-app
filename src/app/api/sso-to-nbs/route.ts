@@ -14,14 +14,29 @@ export const GET = async (request: NextRequest) => {
   let redirectUrl: string;
 
   if (request.nextUrl.searchParams.has(REDIRECT_TARGET_PARAM)) {
-    const nbsURl = new URL(decodeURI(request.nextUrl.searchParams.get(REDIRECT_TARGET_PARAM) ?? ""));
-    const nbsQueryParams = await getNbsQueryParams(); //TODO: VIA-328 SB - try/catch around here.
-    nbsQueryParams.forEach((param) => {
-      nbsURl.searchParams.append(param.name, param.value);
-    });
-    redirect(nbsURl.href);
+    const rawRedirectTarget = request.nextUrl.searchParams.get(REDIRECT_TARGET_PARAM);
+    if (rawRedirectTarget) {
+      try {
+        const nbsURl = new URL(decodeURI(rawRedirectTarget ?? ""));
+        try {
+          const nbsQueryParams = await getNbsQueryParams();
+          nbsQueryParams.forEach((param) => {
+            nbsURl.searchParams.append(param.name, param.value);
+          });
+          redirect(nbsURl.href);
+        } catch (error) {
+          log.error(error, `Error getting redirect url to NBS for ${REDIRECT_TARGET_PARAM}=${rawRedirectTarget}`);
+          redirect(SSO_FAILURE_ROUTE);
+        }
+      } catch (error) {
+        log.warn("SSO to NBS but with invalid redirectTarget parameter - %s", rawRedirectTarget);
+        notFound();
+      }
+    } else {
+      log.warn("SSO to NBS but without a valid redirectTarget parameter - %s", rawRedirectTarget);
+      notFound();
+    }
   } else {
-    //TODO: VIA-328 SB - Do we want only the redirect target version above?
     const vaccine: string | null = request.nextUrl.searchParams.get(VACCINE_PARAM);
     const vaccineType: VaccineTypes | undefined = vaccine ? getVaccineTypeFromUrlPath(vaccine) : undefined;
 
@@ -29,7 +44,7 @@ export const GET = async (request: NextRequest) => {
       try {
         redirectUrl = await getSSOUrlToNBSForVaccine(vaccineType);
       } catch (error) {
-        log.error(error, "Error getting redirect url to NBS");
+        log.error(error, `Error getting redirect url to NBS for ${VACCINE_PARAM}=${vaccine}`);
         redirectUrl = SSO_FAILURE_ROUTE;
       }
       redirect(redirectUrl);
