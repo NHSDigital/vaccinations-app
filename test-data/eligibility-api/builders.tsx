@@ -3,6 +3,7 @@ import {
   EligibilityApiResponse,
   EligibilityCohort,
   ProcessedSuggestion,
+  SuitabilityRuleFromApi,
 } from "@src/services/eligibility-api/api-types";
 import {
   Action,
@@ -35,6 +36,7 @@ export function processedSuggestionBuilder() {
     statusText: randomString(10),
     eligibilityCohorts: [eligibilityCohortBuilder().build(), eligibilityCohortBuilder().build()],
     actions: [actionFromApiBuilder().build(), actionFromApiBuilder().build()],
+    suitabilityRules: [suitabilityRuleFromApiBuilder().build(), suitabilityRuleFromApiBuilder().build()],
   });
 }
 
@@ -53,6 +55,13 @@ export function actionFromApiBuilder() {
     description: randomString(10),
     urlLink: randomURL().href,
     urlLabel: randomString(10),
+  });
+}
+
+export function suitabilityRuleFromApiBuilder() {
+  return createTypeBuilder<SuitabilityRuleFromApi>({
+    ruleCode: randomValue(["AlreadyVaccinated", "NotAvailable", "NotYetDue", "TooClose", "OtherSetting"]),
+    ruleText: randomString(10),
   });
 }
 

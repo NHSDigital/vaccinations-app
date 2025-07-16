@@ -170,6 +170,7 @@ describe("eligibility-filter-service", () => {
         statusText: "you are not eligible because",
         eligibilityCohorts: [],
         actions: [],
+        suitabilityRules: [],
       };
 
       expect(_getStatus(suggestion, nhsNumber)).toEqual(EligibilityStatus.NOT_ELIGIBLE);
@@ -182,6 +183,7 @@ describe("eligibility-filter-service", () => {
         statusText: "you are not eligible because",
         eligibilityCohorts: [],
         actions: [],
+        suitabilityRules: [],
       };
 
       const result: EligibilityStatus | undefined = _getStatus(suggestion, nhsNumber);
@@ -196,6 +198,7 @@ describe("eligibility-filter-service", () => {
         statusText: "you are not eligible because",
         eligibilityCohorts: [],
         actions: [],
+        suitabilityRules: [],
       };
 
       const result: EligibilityStatus | undefined = _getStatus(suggestion, nhsNumber);
