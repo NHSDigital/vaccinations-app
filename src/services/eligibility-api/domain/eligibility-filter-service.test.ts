@@ -292,12 +292,16 @@ describe("eligibility-filter-service", () => {
             .withRuleCode("AlreadyVaccinated")
             .andRuleText("AlreadyVaccinated Markdown")
             .build(),
+          suitabilityRuleFromApiBuilder().withRuleCode("OtherSetting").andRuleText("OtherSetting Markdown").build(),
         ])
         .build();
 
       const result = _generateSuitabilityRules(processedSuggestion, VaccineTypes.RSV, nhsNumber);
 
-      expect(result).toEqual([{ type: RuleType.card, content: "AlreadyVaccinated Markdown" }]);
+      expect(result).toEqual([
+        { type: RuleType.card, content: "AlreadyVaccinated Markdown" },
+        { type: RuleType.card, content: "OtherSetting Markdown" },
+      ]);
     });
 
     it("should ensure suitability rules are returned in the same order", async () => {

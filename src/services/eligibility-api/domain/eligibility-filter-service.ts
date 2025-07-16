@@ -173,6 +173,9 @@ const _generateSuitabilityRules = (
         case "AlreadyVaccinated": {
           return [{ type: RuleType.card, content: rule.ruleText as Content }];
         }
+        case "OtherSetting": {
+          return [{ type: RuleType.card, content: rule.ruleText as Content }];
+        }
         default: {
           log.error({ nhsNumber }, `SuitabilityRule code ${rule.ruleCode} not yet implemented.`);
           throw new Error(`SuitabilityRule code ${rule.ruleCode} not yet implemented.`);
