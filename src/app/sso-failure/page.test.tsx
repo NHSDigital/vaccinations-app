@@ -23,7 +23,7 @@ describe("SSOFailure", () => {
     render(<SSOFailure />);
 
     expect(screen.getByText("There is a problem")).toBeInTheDocument();
-    expect(screen.getByText("There was an issue with NHS login. This maybe a temporary problem.")).toBeInTheDocument();
+    expect(screen.getByText("There was an issue with NHS login. This may be a temporary problem.")).toBeInTheDocument();
     expect(screen.queryByText(/If you cannot login, try again later\./)).not.toBeInTheDocument();
   });
 

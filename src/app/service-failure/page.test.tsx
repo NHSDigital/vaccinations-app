@@ -23,7 +23,7 @@ describe("ServiceFailure", () => {
     render(<ServiceFailure />);
 
     expect(screen.getByText("There is a problem with the service")).toBeInTheDocument();
-    expect(screen.getByText("This maybe a temporary problem.")).toBeInTheDocument();
+    expect(screen.getByText("This may be a temporary problem.")).toBeInTheDocument();
     expect(screen.queryByText(/If you cannot login, try again later\./)).not.toBeInTheDocument();
   });
 
