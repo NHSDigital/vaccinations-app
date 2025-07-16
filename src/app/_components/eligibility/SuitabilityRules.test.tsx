@@ -43,5 +43,36 @@ describe("SuitabilityRules", () => {
         expect(content2).toBeVisible();
       });
     });
+
+    describe("unknown cardType - basic card", () => {
+      it("should display paragraph content successfully", () => {
+        render(
+          SuitabilityRules({
+            suitabilityRules: [suitabilityRuleBuilder().withType(RuleType.unknown).andContent("Test Content").build()],
+          }),
+        );
+
+        const content: HTMLElement = screen.getByText("Test Content");
+
+        expect(content).toBeVisible();
+      });
+
+      it("should display multiple paragraphs successfully", () => {
+        render(
+          SuitabilityRules({
+            suitabilityRules: [
+              suitabilityRuleBuilder().withType(RuleType.unknown).andContent("Test Content 1").build(),
+              suitabilityRuleBuilder().withType(RuleType.unknown).andContent("Test Content 2").build(),
+            ],
+          }),
+        );
+
+        const content1: HTMLElement = screen.getByText("Test Content 1");
+        const content2: HTMLElement = screen.getByText("Test Content 2");
+
+        expect(content1).toBeVisible();
+        expect(content2).toBeVisible();
+      });
+    });
   });
 });

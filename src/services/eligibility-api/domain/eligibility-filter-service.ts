@@ -177,8 +177,8 @@ const _generateSuitabilityRules = (
           return [{ type: RuleType.card, content: rule.ruleText as Content }];
         }
         default: {
-          log.error({ nhsNumber }, `SuitabilityRule code ${rule.ruleCode} not yet implemented.`);
-          throw new Error(`SuitabilityRule code ${rule.ruleCode} not yet implemented.`);
+          log.warn({ nhsNumber }, `SuitabilityRule code ${rule.ruleCode} not yet implemented.`);
+          return [{ type: RuleType.unknown, content: rule.ruleText as Content }];
         }
       }
     },

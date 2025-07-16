@@ -54,6 +54,7 @@ export type Action = ActionWithoutButton | ActionWithButton;
 
 export enum RuleType {
   card = "card",
+  unknown = "unknown",
 }
 
 export type SuitabilityRule = { type: RuleType; content: Content };
