@@ -7,6 +7,9 @@ import React from "react";
 jest.mock("@src/app/_components/eligibility/EligibilityActions", () => ({
   EligibilityActions: () => <div>Test Eligibility Actions Component</div>,
 }));
+jest.mock("@src/app/_components/eligibility/SuitabilityRules", () => ({
+  SuitabilityRules: () => <div>Test Eligibility SuitabilityRules Component</div>,
+}));
 
 describe("Eligibility", () => {
   describe("when eligible", () => {
@@ -110,6 +113,13 @@ describe("Eligibility", () => {
     it("should display EligibilityActions component", () => {
       render(Eligibility({ eligibilityContent: eligibilityContentBuilder().build() }));
       const actions = screen.getByText("Test Eligibility Actions Component");
+
+      expect(actions).toBeVisible();
+    });
+
+    it("should display SuitabilityRules component", () => {
+      render(Eligibility({ eligibilityContent: eligibilityContentBuilder().build() }));
+      const actions = screen.getByText("Test Eligibility SuitabilityRules Component");
 
       expect(actions).toBeVisible();
     });

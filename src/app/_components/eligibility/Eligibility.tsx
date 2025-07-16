@@ -1,4 +1,5 @@
 import { EligibilityActions } from "@src/app/_components/eligibility/EligibilityActions";
+import { SuitabilityRules } from "@src/app/_components/eligibility/SuitabilityRules";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import styles from "@src/app/_components/vaccine/styles.module.css";
 import { EligibilityContent } from "@src/services/eligibility-api/types";
@@ -28,6 +29,7 @@ const Eligibility = ({ eligibilityContent }: EligibilityProps): JSX.Element => {
           }
         />
       )}
+      <SuitabilityRules suitabilityRules={eligibilityContent.suitabilityRules} />
       <EligibilityActions actions={eligibilityContent.actions} />
     </div>
   );
