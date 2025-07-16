@@ -11,7 +11,8 @@ const VACCINE_PARAM = "vaccine";
 const REDIRECT_TARGET_PARAM = "redirectTarget";
 
 export const GET = async (request: NextRequest) => {
-  let redirectUrl: string;
+  let shouldReturnNotFound = false;
+  let finalRedirectUrl: string = "";
 
   if (request.nextUrl.searchParams.has(REDIRECT_TARGET_PARAM)) {
     const rawRedirectTarget = request.nextUrl.searchParams.get(REDIRECT_TARGET_PARAM);
@@ -23,18 +24,18 @@ export const GET = async (request: NextRequest) => {
           nbsQueryParams.forEach((param) => {
             nbsURl.searchParams.append(param.name, param.value);
           });
-          redirect(nbsURl.href);
+          finalRedirectUrl = nbsURl.href;
         } catch (error) {
           log.error(error, `Error getting redirect url to NBS for ${REDIRECT_TARGET_PARAM}=${rawRedirectTarget}`);
-          redirect(SSO_FAILURE_ROUTE);
+          finalRedirectUrl = SSO_FAILURE_ROUTE;
         }
       } catch (error) {
         log.warn("SSO to NBS but with invalid redirectTarget parameter - %s", rawRedirectTarget);
-        notFound();
+        shouldReturnNotFound = true;
       }
     } else {
       log.warn("SSO to NBS but without a valid redirectTarget parameter - %s", rawRedirectTarget);
-      notFound();
+      shouldReturnNotFound = true;
     }
   } else {
     const vaccine: string | null = request.nextUrl.searchParams.get(VACCINE_PARAM);
@@ -42,15 +43,18 @@ export const GET = async (request: NextRequest) => {
 
     if (vaccine && vaccineType) {
       try {
-        redirectUrl = await getSSOUrlToNBSForVaccine(vaccineType);
+        finalRedirectUrl = await getSSOUrlToNBSForVaccine(vaccineType);
       } catch (error) {
         log.error(error, `Error getting redirect url to NBS for ${VACCINE_PARAM}=${vaccine}`);
-        redirectUrl = SSO_FAILURE_ROUTE;
+        finalRedirectUrl = SSO_FAILURE_ROUTE;
       }
-      redirect(redirectUrl);
     } else {
       log.warn("SSO to NBS but without a valid vaccine parameter - %s", vaccine);
-      notFound();
+      shouldReturnNotFound = true;
     }
   }
+
+  if (shouldReturnNotFound) {
+    notFound();
+  } else redirect(finalRedirectUrl);
 };
