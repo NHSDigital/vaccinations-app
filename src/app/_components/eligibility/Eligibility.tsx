@@ -54,8 +54,8 @@ const Eligibility = ({ eligibilityContent }: EligibilityProps): JSX.Element => {
           case ActionType.authButton: {
             return (
               action.button && (
-                <>
-                  <div key={index} data-testid="action-auth-button">
+                <div key={index}>
+                  <div data-testid="action-auth-button">
                     <MarkdownWithStyling content={action.content} />
                   </div>
                   <NBSBookingActionForBaseUrl
@@ -63,7 +63,7 @@ const Eligibility = ({ eligibilityContent }: EligibilityProps): JSX.Element => {
                     displayText={action.button.label}
                     renderAs={"button"}
                   />
-                </>
+                </div>
               )
             );
           }
