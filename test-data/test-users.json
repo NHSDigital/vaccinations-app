@@ -16,5 +16,8 @@
   },
   "eligibility-error-400": {
     "email": "testuserlive+16@demo.signin.nhs.uk"
+  },
+  "actionable-with-already-vaccinated-suitability-rule": {
+    "email": "testuserlive+13@demo.signin.nhs.uk"
   }
 }
