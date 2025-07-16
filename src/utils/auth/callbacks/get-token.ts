@@ -84,7 +84,7 @@ const getToken = async (
   // Inspect the token (which was either returned from login or fetched from session), fill missing or blank values with defaults
   let updatedToken: JWT = fillMissingFieldsInTokenWithDefaultValues(token);
 
-    // Initial login scenario: account and profile are only defined for the initial login, afterward they become undefined
+  // Initial login scenario: account and profile are only defined for the initial login, afterward they become undefined
   if (isInitialLoginJourney(account, profile) && account != null && profile != null) {
     updatedToken = updateTokenWithValuesFromAccountAndProfile(
       updatedToken,
