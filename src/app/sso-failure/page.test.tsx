@@ -24,7 +24,7 @@ describe("SSOFailure", () => {
 
     expect(screen.getByText("There is a problem")).toBeInTheDocument();
     expect(screen.getByText("There was an issue with NHS login. This may be a temporary problem.")).toBeInTheDocument();
-    expect(screen.queryByText(/If you cannot login, try again later\./)).not.toBeInTheDocument();
+    expect(screen.queryByText(/If you cannot log in, try again later\./)).not.toBeInTheDocument();
   });
 
   it("shows mobile app message when in mobile app and context is loaded", () => {
@@ -36,7 +36,7 @@ describe("SSOFailure", () => {
     render(<SSOFailure />);
 
     expect(screen.getByText(/Go back and try logging in again\./)).toBeInTheDocument();
-    expect(screen.getByText(/If you cannot login, try again later\./)).toBeInTheDocument();
+    expect(screen.getByText(/If you cannot log in, try again later\./)).toBeInTheDocument();
   });
 
   it("shows browser message when not in mobile app and context is loaded", () => {
@@ -48,6 +48,6 @@ describe("SSOFailure", () => {
     render(<SSOFailure />);
 
     expect(screen.getByText(/Close this tab and try logging in again\./)).toBeInTheDocument();
-    expect(screen.getByText(/If you cannot login, try again later\./)).toBeInTheDocument();
+    expect(screen.getByText(/If you cannot log in, try again later\./)).toBeInTheDocument();
   });
 });

@@ -21,7 +21,7 @@ const ServiceFailure = () => {
           {hasContextLoaded && (
             <>
               {isOpenInMobileApp ? "Go back and try logging in again." : "Close this tab and try logging in again."}
-              {" If you cannot login, try again later."}
+              {" If you cannot log in, try again later."}
             </>
           )}
         </p>
