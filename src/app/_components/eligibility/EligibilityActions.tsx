@@ -1,7 +1,7 @@
 import { MarkdownWithStyling } from "@src/app/_components/markdown/MarkdownWithStyling";
 import { NBSBookingActionForBaseUrl } from "@src/app/_components/nbs/NBSBookingAction";
 import { BasicCard } from "@src/app/_components/nhs-frontend/BasicCard";
-import { Action, ActionDisplayType, Content } from "@src/services/eligibility-api/types";
+import { Action, ActionDisplayType } from "@src/services/eligibility-api/types";
 import React, { JSX } from "react";
 
 interface EligibilityActionProps {
