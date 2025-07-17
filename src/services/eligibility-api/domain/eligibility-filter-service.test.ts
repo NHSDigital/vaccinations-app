@@ -14,7 +14,7 @@ import {
   EligibilityErrorTypes,
   EligibilityForPersonType,
   EligibilityStatus,
-  RuleType,
+  RuleDisplayType,
 } from "@src/services/eligibility-api/types";
 import {
   actionFromApiBuilder,
@@ -69,7 +69,7 @@ describe("eligibility-filter-service", () => {
           ],
         },
         actions: [{ type: "paragraph", content: "Text" }],
-        suitabilityRules: [{ content: "Test", type: RuleType.card }],
+        suitabilityRules: [{ content: "Test", type: RuleDisplayType.card }],
       };
 
       const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineTypes.RSV, nhsNumber);
@@ -299,8 +299,8 @@ describe("eligibility-filter-service", () => {
       const result = _generateSuitabilityRules(processedSuggestion, VaccineTypes.RSV, nhsNumber);
 
       expect(result).toEqual([
-        { type: RuleType.card, content: "AlreadyVaccinated Markdown" },
-        { type: RuleType.card, content: "OtherSetting Markdown" },
+        { type: RuleDisplayType.card, content: "AlreadyVaccinated Markdown" },
+        { type: RuleDisplayType.infotext, content: "OtherSetting Markdown" },
       ]);
     });
 
@@ -321,9 +321,21 @@ describe("eligibility-filter-service", () => {
       const result = _generateSuitabilityRules(processedSuggestion, VaccineTypes.RSV, nhsNumber);
 
       expect(result).toEqual([
-        { type: RuleType.card, content: "AlreadyVaccinated Markdown 1" },
-        { type: RuleType.card, content: "AlreadyVaccinated Markdown 2" },
+        { type: RuleDisplayType.card, content: "AlreadyVaccinated Markdown 1" },
+        { type: RuleDisplayType.card, content: "AlreadyVaccinated Markdown 2" },
       ]);
+    });
+
+    it("should display unknown rule codes as infotext", async () => {
+      const processedSuggestion: ProcessedSuggestion = processedSuggestionBuilder()
+        .withSuitabilityRules([
+          suitabilityRuleFromApiBuilder().withRuleCode("TooClose").andRuleText("TooClose Markdown").build(),
+        ])
+        .build();
+
+      const result = _generateSuitabilityRules(processedSuggestion, VaccineTypes.RSV, nhsNumber);
+
+      expect(result).toEqual([{ type: RuleDisplayType.infotext, content: "TooClose Markdown" }]);
     });
 
     it("should return empty array when suitability rules array is missing", async () => {

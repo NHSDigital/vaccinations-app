@@ -52,12 +52,12 @@ export type Button = { label: Label; url: ButtonUrl };
 
 export type Action = ActionWithoutButton | ActionWithButton;
 
-export enum RuleType {
+export enum RuleDisplayType {
   card = "card",
-  unknown = "unknown",
+  infotext = "infotext",
 }
 
-export type SuitabilityRule = { type: RuleType; content: Content };
+export type SuitabilityRule = { type: RuleDisplayType; content: Content };
 
 export enum EligibilityErrorTypes {
   ELIGIBILITY_LOADING_ERROR = "ELIGIBILITY_LOADING",

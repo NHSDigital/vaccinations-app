@@ -19,7 +19,7 @@ import {
   Heading,
   Introduction,
   Label,
-  RuleType,
+  RuleDisplayType,
   SuitabilityRule,
   SummaryContent,
 } from "@src/services/eligibility-api/types";
@@ -114,7 +114,7 @@ export function buttonBuilder() {
 
 export function suitabilityRuleBuilder() {
   return createTypeBuilder<SuitabilityRule>({
-    type: randomValue(Object.values(RuleType)),
+    type: randomValue(Object.values(RuleDisplayType)),
     content: randomString(10) as Content,
   });
 }

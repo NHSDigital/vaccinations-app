@@ -1,4 +1,4 @@
-import { RuleType } from "@src/services/eligibility-api/types";
+import { RuleDisplayType } from "@src/services/eligibility-api/types";
 import { suitabilityRuleBuilder } from "@test-data/eligibility-api/builders";
 import { render, screen } from "@testing-library/react";
 import React from "react";
@@ -17,7 +17,9 @@ describe("SuitabilityRules", () => {
       it("should display paragraph content successfully", () => {
         render(
           SuitabilityRules({
-            suitabilityRules: [suitabilityRuleBuilder().withType(RuleType.card).andContent("Test Content").build()],
+            suitabilityRules: [
+              suitabilityRuleBuilder().withType(RuleDisplayType.card).andContent("Test Content").build(),
+            ],
           }),
         );
 
@@ -30,8 +32,8 @@ describe("SuitabilityRules", () => {
         render(
           SuitabilityRules({
             suitabilityRules: [
-              suitabilityRuleBuilder().withType(RuleType.card).andContent("Test Content 1").build(),
-              suitabilityRuleBuilder().withType(RuleType.card).andContent("Test Content 2").build(),
+              suitabilityRuleBuilder().withType(RuleDisplayType.card).andContent("Test Content 1").build(),
+              suitabilityRuleBuilder().withType(RuleDisplayType.card).andContent("Test Content 2").build(),
             ],
           }),
         );
@@ -44,11 +46,13 @@ describe("SuitabilityRules", () => {
       });
     });
 
-    describe("unknown cardType - basic card", () => {
+    describe("infotext cardType", () => {
       it("should display paragraph content successfully", () => {
         render(
           SuitabilityRules({
-            suitabilityRules: [suitabilityRuleBuilder().withType(RuleType.unknown).andContent("Test Content").build()],
+            suitabilityRules: [
+              suitabilityRuleBuilder().withType(RuleDisplayType.infotext).andContent("Test Content").build(),
+            ],
           }),
         );
 
@@ -61,8 +65,8 @@ describe("SuitabilityRules", () => {
         render(
           SuitabilityRules({
             suitabilityRules: [
-              suitabilityRuleBuilder().withType(RuleType.unknown).andContent("Test Content 1").build(),
-              suitabilityRuleBuilder().withType(RuleType.unknown).andContent("Test Content 2").build(),
+              suitabilityRuleBuilder().withType(RuleDisplayType.infotext).andContent("Test Content 1").build(),
+              suitabilityRuleBuilder().withType(RuleDisplayType.infotext).andContent("Test Content 2").build(),
             ],
           }),
         );

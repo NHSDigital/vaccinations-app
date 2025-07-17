@@ -16,7 +16,7 @@ import {
   EligibilityForPersonType,
   EligibilityStatus,
   Label,
-  RuleType,
+  RuleDisplayType,
   SuitabilityRule,
   SummaryContent,
 } from "@src/services/eligibility-api/types";
@@ -171,14 +171,14 @@ const _generateSuitabilityRules = (
     (rule: SuitabilityRuleFromApi): SuitabilityRule[] => {
       switch (rule.ruleCode) {
         case "AlreadyVaccinated": {
-          return [{ type: RuleType.card, content: rule.ruleText as Content }];
+          return [{ type: RuleDisplayType.card, content: rule.ruleText as Content }];
         }
         case "OtherSetting": {
-          return [{ type: RuleType.card, content: rule.ruleText as Content }];
+          return [{ type: RuleDisplayType.infotext, content: rule.ruleText as Content }];
         }
         default: {
           log.warn({ nhsNumber }, `SuitabilityRule code ${rule.ruleCode} not yet implemented.`);
-          return [{ type: RuleType.unknown, content: rule.ruleText as Content }];
+          return [{ type: RuleDisplayType.infotext, content: rule.ruleText as Content }];
         }
       }
     },
