@@ -177,7 +177,7 @@ const _generateSuitabilityRules = (
           return [{ type: RuleDisplayType.infotext, content: rule.ruleText as Content }];
         }
         default: {
-          log.warn({ nhsNumber }, `SuitabilityRule code ${rule.ruleCode} not yet implemented.`);
+          log.warn({ nhsNumber, ruleCode: rule.ruleCode }, "SuitabilityRule code not yet implemented.");
           return [{ type: RuleDisplayType.infotext, content: rule.ruleText as Content }];
         }
       }
