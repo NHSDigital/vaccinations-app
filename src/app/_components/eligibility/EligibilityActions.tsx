@@ -1,6 +1,7 @@
 import { MarkdownWithStyling } from "@src/app/_components/markdown/MarkdownWithStyling";
 import { NBSBookingActionForBaseUrl } from "@src/app/_components/nbs/NBSBookingAction";
-import { Action, ActionDisplayType } from "@src/services/eligibility-api/types";
+import { BasicCard } from "@src/app/_components/nhs-frontend/BasicCard";
+import { Action, ActionDisplayType, Content } from "@src/services/eligibility-api/types";
 import React, { JSX } from "react";
 
 interface EligibilityActionProps {
@@ -18,31 +19,14 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
         );
       }
       case ActionDisplayType.card: {
-        const classNames = {
-          h2: "nhsuk-heading-m nhsuk-card__heading",
-          h3: "nhsuk-heading-s nhsuk-card__heading",
-          p: "nhsuk-card__description",
-        };
-        const content = <MarkdownWithStyling content={action.content} classNames={classNames} />;
         return (
-          <div key={index} className="nhsuk-card" data-testid="action-card">
-            <div className="nhsuk-card__content">{content}</div>
+          <div key={index}>
+            <BasicCard content={action.content} />
           </div>
         );
       }
       case ActionDisplayType.authButton: {
-        const classNames = {
-          h2: "nhsuk-heading-m nhsuk-card__heading",
-          h3: "nhsuk-heading-s nhsuk-card__heading",
-          p: "nhsuk-card__description",
-        };
-        const infotext = action.content && (
-          <div className="nhsuk-card" data-testid="action-auth-button-card">
-            <div className="nhsuk-card__content">
-              <MarkdownWithStyling content={action.content} classNames={classNames} />
-            </div>
-          </div>
-        );
+        const infotext = action.content && <BasicCard content={action.content} />;
         const button = action.button && (
           <NBSBookingActionForBaseUrl
             url={action.button.url.href}
