@@ -1,4 +1,4 @@
-import { ActionType } from "@src/services/eligibility-api/types";
+import { ActionDisplayType } from "@src/services/eligibility-api/types";
 import { actionBuilder } from "@test-data/eligibility-api/builders";
 import { render, screen, within } from "@testing-library/react";
 import React from "react";
@@ -17,11 +17,11 @@ jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
 
 describe("EligibilityActions", () => {
   describe("when actions are present", () => {
-    describe("paragraph", () => {
-      it("should display paragraph content successfully", () => {
+    describe("infotext", () => {
+      it("should display infotext content successfully", () => {
         render(
           EligibilityActions({
-            actions: [actionBuilder().withType(ActionType.paragraph).andContent("Test Content").build()],
+            actions: [actionBuilder().withType(ActionDisplayType.infotext).andContent("Test Content").build()],
           }),
         );
 
@@ -30,12 +30,12 @@ describe("EligibilityActions", () => {
         expect(content).toBeVisible();
       });
 
-      it("should display multiple paragraphs successfully", () => {
+      it("should display multiple infotexts successfully", () => {
         render(
           EligibilityActions({
             actions: [
-              actionBuilder().withType(ActionType.paragraph).andContent("Test Content 1").build(),
-              actionBuilder().withType(ActionType.paragraph).andContent("Test Content 2").build(),
+              actionBuilder().withType(ActionDisplayType.infotext).andContent("Test Content 1").build(),
+              actionBuilder().withType(ActionDisplayType.infotext).andContent("Test Content 2").build(),
             ],
           }),
         );
@@ -52,7 +52,7 @@ describe("EligibilityActions", () => {
       it("should display card content successfully", () => {
         render(
           EligibilityActions({
-            actions: [actionBuilder().withType(ActionType.card).andContent("Test Content").build()],
+            actions: [actionBuilder().withType(ActionDisplayType.card).andContent("Test Content").build()],
           }),
         );
 
@@ -61,12 +61,12 @@ describe("EligibilityActions", () => {
         expect(content).toBeVisible();
       });
 
-      it("should display multiple paragraphs successfully", () => {
+      it("should display multiple cards successfully", () => {
         render(
           EligibilityActions({
             actions: [
-              actionBuilder().withType(ActionType.card).andContent("Test Content 1").build(),
-              actionBuilder().withType(ActionType.card).andContent("Test Content 2").build(),
+              actionBuilder().withType(ActionDisplayType.card).andContent("Test Content 1").build(),
+              actionBuilder().withType(ActionDisplayType.card).andContent("Test Content 2").build(),
             ],
           }),
         );
@@ -83,7 +83,9 @@ describe("EligibilityActions", () => {
       it("should display auth action card content successfully", () => {
         render(
           EligibilityActions({
-            actions: [actionBuilder().withType(ActionType.authButton).andContent("Test Auth Action Content").build()],
+            actions: [
+              actionBuilder().withType(ActionDisplayType.authButton).andContent("Test Auth Action Content").build(),
+            ],
           }),
         );
 
@@ -95,7 +97,7 @@ describe("EligibilityActions", () => {
       it("should display button content successfully", () => {
         render(
           EligibilityActions({
-            actions: [actionBuilder().withType(ActionType.authButton).andContent("Test Content").build()],
+            actions: [actionBuilder().withType(ActionDisplayType.authButton).andContent("Test Content").build()],
           }),
         );
 
@@ -110,8 +112,8 @@ describe("EligibilityActions", () => {
         render(
           EligibilityActions({
             actions: [
-              actionBuilder().withType(ActionType.authButton).andContent("Test Content 1").build(),
-              actionBuilder().withType(ActionType.authButton).andContent("Test Content 2").build(),
+              actionBuilder().withType(ActionDisplayType.authButton).andContent("Test Content 1").build(),
+              actionBuilder().withType(ActionDisplayType.authButton).andContent("Test Content 2").build(),
             ],
           }),
         );
@@ -126,7 +128,7 @@ describe("EligibilityActions", () => {
       it("should display button without card if no description present", () => {
         render(
           EligibilityActions({
-            actions: [actionBuilder().withType(ActionType.authButton).andContent("").build()],
+            actions: [actionBuilder().withType(ActionDisplayType.authButton).andContent("").build()],
           }),
         );
 

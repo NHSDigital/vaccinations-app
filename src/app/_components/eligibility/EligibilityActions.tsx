@@ -1,6 +1,6 @@
 import { MarkdownWithStyling } from "@src/app/_components/markdown/MarkdownWithStyling";
 import { NBSBookingActionForBaseUrl } from "@src/app/_components/nbs/NBSBookingAction";
-import { Action, ActionType } from "@src/services/eligibility-api/types";
+import { Action, ActionDisplayType } from "@src/services/eligibility-api/types";
 import React, { JSX } from "react";
 
 interface EligibilityActionProps {
@@ -10,14 +10,14 @@ interface EligibilityActionProps {
 const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element | undefined)[] => {
   return actions.map((action: Action, index: number) => {
     switch (action.type) {
-      case ActionType.paragraph: {
+      case ActionDisplayType.infotext: {
         return (
           <div key={index} data-testid="action-paragraph">
             <MarkdownWithStyling content={action.content} />
           </div>
         );
       }
-      case ActionType.card: {
+      case ActionDisplayType.card: {
         const classNames = {
           h2: "nhsuk-heading-m nhsuk-card__heading",
           h3: "nhsuk-heading-s nhsuk-card__heading",
@@ -30,7 +30,7 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
           </div>
         );
       }
-      case ActionType.authButton: {
+      case ActionDisplayType.authButton: {
         const classNames = {
           h2: "nhsuk-heading-m nhsuk-card__heading",
           h3: "nhsuk-heading-s nhsuk-card__heading",

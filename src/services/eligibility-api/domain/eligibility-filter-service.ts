@@ -10,7 +10,7 @@ import { EligibilityApiHttpStatusError } from "@src/services/eligibility-api/gat
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import {
   Action,
-  ActionType,
+  ActionDisplayType,
   ButtonUrl,
   EligibilityErrorTypes,
   EligibilityForPersonType,
@@ -123,7 +123,7 @@ const _generateActions = (
       case "InfoText": {
         return [
           {
-            type: ActionType.paragraph,
+            type: ActionDisplayType.infotext,
             content: action.description as Content,
             button: undefined,
           },
@@ -132,7 +132,7 @@ const _generateActions = (
       case "CardWithText": {
         return [
           {
-            type: ActionType.card,
+            type: ActionDisplayType.card,
             content: action.description as Content,
             button: undefined,
           },
@@ -141,15 +141,21 @@ const _generateActions = (
       case "ButtonWithAuthLink": {
         return [
           {
-            type: ActionType.authButton,
+            type: ActionDisplayType.authButton,
             content: action.description as Content,
             button: { label: action.urlLabel as Label, url: new URL(action.urlLink) as ButtonUrl },
           },
         ];
       }
       default: {
-        log.error({ nhsNumber }, `Action type ${action.actionType} not yet implemented.`);
-        throw new Error(`Action type ${action.actionType} not yet implemented.`);
+        log.warn({ nhsNumber, actionType: action.actionType }, "Action type not yet implemented.");
+        return [
+          {
+            type: ActionDisplayType.infotext,
+            content: action.description as Content,
+            button: undefined,
+          },
+        ];
       }
     }
   });

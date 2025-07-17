@@ -1,5 +1,5 @@
 import { NhsNumber, VaccineTypes } from "@src/models/vaccine";
-import { ProcessedSuggestion } from "@src/services/eligibility-api/api-types";
+import { ActionCode, ActionType, ProcessedSuggestion } from "@src/services/eligibility-api/api-types";
 import {
   _extractAllCohortText,
   _generateActions,
@@ -10,7 +10,7 @@ import {
 import { EligibilityApiHttpStatusError } from "@src/services/eligibility-api/gateway/exceptions";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import {
-  ActionType,
+  ActionDisplayType,
   EligibilityErrorTypes,
   EligibilityForPersonType,
   EligibilityStatus,
@@ -68,7 +68,7 @@ describe("eligibility-filter-service", () => {
             "You did not turn 80 between 2nd September 2024 and 31st August 2025",
           ],
         },
-        actions: [{ type: "paragraph", content: "Text" }],
+        actions: [{ type: ActionDisplayType.infotext, content: "Text" }],
         suitabilityRules: [{ content: "Test", type: RuleDisplayType.card }],
       };
 
@@ -233,15 +233,15 @@ describe("eligibility-filter-service", () => {
 
       expect(result).toEqual([
         {
-          type: ActionType.paragraph,
+          type: ActionDisplayType.infotext,
           content: "InfoText Markdown",
         },
         {
-          type: ActionType.card,
+          type: ActionDisplayType.card,
           content: "CardWithText Markdown",
         },
         {
-          type: ActionType.authButton,
+          type: ActionDisplayType.authButton,
           content: "ButtonWithAuthLink Markdown",
           button: { label: "Button Label", url: new URL("https://test.example.com/foo/bar/") },
         },
@@ -260,11 +260,11 @@ describe("eligibility-filter-service", () => {
 
       expect(result).toEqual([
         {
-          type: "paragraph",
+          type: RuleDisplayType.infotext,
           content: "InfoText Markdown 1",
         },
         {
-          type: "paragraph",
+          type: RuleDisplayType.infotext,
           content: "InfoText Markdown 2",
         },
       ]);
@@ -281,6 +281,25 @@ describe("eligibility-filter-service", () => {
       const result = _generateActions(suggestion, VaccineTypes.RSV, nhsNumber);
 
       expect(result).toEqual([]);
+    });
+
+    it("should return infotext card for unrecognised action types", async () => {
+      const processedSuggestion: ProcessedSuggestion = processedSuggestionBuilder()
+        .withActions([
+          actionFromApiBuilder()
+            .withActionType("SomeNewActionType" as ActionType)
+            .andDescription("InfoText Markdown")
+            .build(),
+        ])
+        .build();
+
+      const result = _generateActions(processedSuggestion, VaccineTypes.RSV, nhsNumber);
+      expect(result).toEqual([
+        {
+          type: RuleDisplayType.infotext,
+          content: "InfoText Markdown",
+        },
+      ]);
     });
   });
 

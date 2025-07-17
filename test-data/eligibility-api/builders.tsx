@@ -7,7 +7,7 @@ import {
 } from "@src/services/eligibility-api/api-types";
 import {
   Action,
-  ActionType,
+  ActionDisplayType,
   Button,
   ButtonUrl,
   Cohort,
@@ -99,7 +99,7 @@ export function summaryContentBuilder() {
 
 export function actionBuilder() {
   return createTypeBuilder<Action>({
-    type: randomValue(Object.values(ActionType)),
+    type: randomValue(Object.values(ActionDisplayType)),
     content: randomString(10) as Content,
     button: buttonBuilder().build(),
   });

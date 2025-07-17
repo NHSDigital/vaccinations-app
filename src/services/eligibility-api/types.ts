@@ -30,20 +30,20 @@ export type SummaryContent = {
   cohorts: Cohort[];
 };
 
-export enum ActionType {
-  paragraph = "paragraph",
+export enum ActionDisplayType {
+  infotext = "infotext",
   card = "card",
   authButton = "authButton",
 }
 
 export type ActionWithoutButton = {
-  type: ActionType;
+  type: ActionDisplayType;
   content: Content;
   button: undefined;
 };
 
 export type ActionWithButton = {
-  type: ActionType;
+  type: ActionDisplayType;
   content: Content;
   button: Button;
 };
