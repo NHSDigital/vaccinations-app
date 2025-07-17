@@ -31,19 +31,28 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
         );
       }
       case ActionType.authButton: {
+        const classNames = {
+          h2: "nhsuk-heading-m nhsuk-card__heading",
+          h3: "nhsuk-heading-s nhsuk-card__heading",
+          p: "nhsuk-card__description",
+        };
+        const infotext = action.content && (
+          <div className="nhsuk-card" data-testid="action-auth-button-card">
+            <MarkdownWithStyling content={action.content} classNames={classNames} />
+          </div>
+        );
+        const button = action.button && (
+          <NBSBookingActionForBaseUrl
+            url={action.button.url.href}
+            displayText={action.button.label}
+            renderAs={"button"}
+          />
+        );
         return (
-          action.button && (
-            <div key={index}>
-              <div data-testid="action-auth-button">
-                <MarkdownWithStyling content={action.content} />
-              </div>
-              <NBSBookingActionForBaseUrl
-                url={action.button.url.href}
-                displayText={action.button.label}
-                renderAs={"button"}
-              />
-            </div>
-          )
+          <div key={index} data-testid="action-auth-button-components">
+            {infotext}
+            {button}
+          </div>
         );
       }
     }
