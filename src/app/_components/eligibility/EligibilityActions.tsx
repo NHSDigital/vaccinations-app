@@ -38,7 +38,9 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
         };
         const infotext = action.content && (
           <div className="nhsuk-card" data-testid="action-auth-button-card">
-            <MarkdownWithStyling content={action.content} classNames={classNames} />
+            <div className="nhsuk-card__content">
+              <MarkdownWithStyling content={action.content} classNames={classNames} />
+            </div>
           </div>
         );
         const button = action.button && (

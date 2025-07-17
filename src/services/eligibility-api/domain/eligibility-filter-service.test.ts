@@ -1,5 +1,5 @@
 import { NhsNumber, VaccineTypes } from "@src/models/vaccine";
-import { ActionCode, ActionType, ProcessedSuggestion } from "@src/services/eligibility-api/api-types";
+import { ActionType, ProcessedSuggestion } from "@src/services/eligibility-api/api-types";
 import {
   _extractAllCohortText,
   _generateActions,
