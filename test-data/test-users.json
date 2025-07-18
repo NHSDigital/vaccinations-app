@@ -23,6 +23,14 @@
     "nhsNumber": "9800878378",
     "email": "testuserlive+16@demo.signin.nhs.uk"
   },
+  "actionable-with-too-close-suitability-rule": {
+    "nhsNumber": "9658220142",
+    "email": "testuserlive+11@demo.signin.nhs.uk"
+  },
+  "actionable-with-other-setting-suitability-rule": {
+    "nhsNumber": "9658220150",
+    "email": "testuserlive+12@demo.signin.nhs.uk"
+  },
   "actionable-with-already-vaccinated-suitability-rule": {
     "nhsNumber": "9450114080",
     "email": "testuserlive+13@demo.signin.nhs.uk"
