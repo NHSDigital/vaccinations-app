@@ -27,7 +27,7 @@ locals {
     CONTENT_API_ENDPOINT = "https://int.api.service.nhs.uk/"
     CONTENT_CACHE_PATH   = "s3://${local.content_cache_bucket_name}"
 
-    NHS_LOGIN_URL              = "https://auth.sandpit.signin.nhs.uk"
+    NHS_LOGIN_URL              = "https://auth.aos.signin.nhs.uk"
     NHS_LOGIN_SCOPE            = "openid profile"
     NHS_APP_REDIRECT_LOGIN_URL = "https://www-onboardingaos.nhsapp.service.nhs.uk/login?redirect_to=index"
 
@@ -39,7 +39,7 @@ locals {
     AUTH_SECRET     = random_password.auth_secret.result
     APP_VERSION     = local.app_version
 
-    NBS_URL          = "https://f.nhswebsite-integration.nhs.uk/nbs"
+    NBS_URL          = "https://www.nhswebsite-staging.nhs.uk/nbs"
     NBS_BOOKING_PATH = "/nhs-app"
   }
 
