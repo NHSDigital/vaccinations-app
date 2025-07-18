@@ -28,7 +28,7 @@ jobs:
       TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
       TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
       TEST_APP_URL: ${{ secrets.TEST_APP_URL }}
-
+      VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4

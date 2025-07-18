@@ -1,38 +1,38 @@
 {
   "default": {
     "nhsNumber": "9686368973",
-    "email": "testuserlive@demo.signin.nhs.uk"
+    "user_identifier": ""
   },
   "not-eligible-with-infotext-action": {
     "nhsNumber": "9657933617",
-    "email": "testuserlive+15@demo.signin.nhs.uk"
+    "user_identifier": "15"
   },
   "actionable-with-infotext-action": {
     "nhsNumber": "9686368906",
-    "email": "testuserlive+1@demo.signin.nhs.uk"
+    "user_identifier": "01"
   },
   "actionable-with-buttonwithauthlink-action": {
     "nhsNumber": "9658218881",
-    "email": "testuserlive+4@demo.signin.nhs.uk"
+    "user_identifier": "04"
   },
   "actionable-with-cardwithtext-action": {
     "nhsNumber": "9658218903",
-    "email": "testuserlive+5@demo.signin.nhs.uk"
+    "user_identifier": "05"
   },
   "eligibility-error-400": {
     "nhsNumber": "9800878378",
-    "email": "testuserlive+16@demo.signin.nhs.uk"
+    "user_identifier": "16"
   },
   "actionable-with-too-close-suitability-rule": {
     "nhsNumber": "9658220142",
-    "email": "testuserlive+11@demo.signin.nhs.uk"
+    "user_identifier": "11"
   },
   "actionable-with-other-setting-suitability-rule": {
     "nhsNumber": "9658220150",
-    "email": "testuserlive+12@demo.signin.nhs.uk"
+    "user_identifier": "12"
   },
   "actionable-with-already-vaccinated-suitability-rule": {
     "nhsNumber": "9450114080",
-    "email": "testuserlive+13@demo.signin.nhs.uk"
+    "user_identifier": "13"
   }
 }

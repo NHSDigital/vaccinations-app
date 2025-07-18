@@ -22,6 +22,7 @@ jobs:
       TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
       TEST_APP_URL: ${{ secrets.TEST_APP_URL }}
       NHS_APP_REDIRECT_LOGIN_URL: ${{ secrets.NHS_APP_REDIRECT_LOGIN_URL }}
+      VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
@@ -32,7 +33,6 @@ jobs:
         run: |
           npx playwright install --with-deps
       - name: "Run Playwright tests"
-        continue-on-error: true
         run: |
           npm run e2e
       - name: "Upload report"
