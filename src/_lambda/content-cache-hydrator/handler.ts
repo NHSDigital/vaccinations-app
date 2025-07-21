@@ -17,9 +17,7 @@ const runContentCacheHydrator = async (event: object) => {
   for (const vaccine of Object.values(VaccineTypes)) {
     try {
       const content: string = await fetchContentForVaccine(vaccine);
-      log.info(`Calling getFilteredContentForVaccine(${vaccine})`);
       const filteredContent: VaccinePageContent = getFilteredContentForVaccine(content);
-      log.info(`Calling getStyledContentForVaccine(${vaccine})`);
       await getStyledContentForVaccine(vaccine, filteredContent);
       await writeContentForVaccine(vaccine, content);
     } catch (error) {

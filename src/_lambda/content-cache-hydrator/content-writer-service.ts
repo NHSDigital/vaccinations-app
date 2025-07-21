@@ -37,7 +37,6 @@ const _writeContentToCache = async (cacheLocation: string, cachePath: string, ca
 const writeContentForVaccine = async (vaccineType: VaccineTypes, vaccineContent: string) => {
   const config: AppConfig = await configProvider();
   const vaccineContentPath = vaccineTypeToPath[vaccineType];
-  log.info(`Writing content to cache for vaccine: ${vaccineType}`);
   await _writeContentToCache(config.CONTENT_CACHE_PATH, `${vaccineContentPath}.json`, vaccineContent);
   log.info(`Finished writing content to cache for vaccine: ${vaccineType}`);
 };

@@ -18,7 +18,6 @@ const fetchContentForVaccine = async (vaccine: VaccineTypes): Promise<string> =>
   let response: AxiosResponse;
 
   try {
-    log.info("Fetching content from %s", uri);
     response = await axios.get(uri, {
       headers: {
         accept: "application/json",
