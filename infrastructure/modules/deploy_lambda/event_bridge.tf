@@ -7,7 +7,7 @@ resource "aws_cloudwatch_event_rule" "cache_hydrator_lambda_deployment_event_rul
     "detail-type" : ["AWS API Call via CloudTrail"],
     "detail" : {
       "eventSource" : ["lambda.amazonaws.com"],
-      "eventName" : ["CreateFunction20150331", "UpdateFunctionCode20150331v2", "UpdateFunctionConfiguration20150331v2"],
+      "eventName" : ["CreateFunction20150331", "UpdateFunctionCode20150331v2"],
       "requestParameters" : {
         "functionName" : [module.content_cache_hydrator_lambda_function.lambda_function_name]
       }
