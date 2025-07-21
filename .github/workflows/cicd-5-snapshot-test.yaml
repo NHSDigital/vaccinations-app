@@ -22,8 +22,6 @@ jobs:
       id-token: write
       contents: read
     env:
-      TEST_NHS_APP_USERNAME: ${{ secrets.TEST_NHS_APP_USERNAME }}
-      TEST_NHS_APP_PASSWORD: ${{ secrets.TEST_NHS_APP_PASSWORD }}
       TEST_NHS_APP_URL: ${{ secrets.TEST_NHS_APP_URL }}
       TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
       TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
