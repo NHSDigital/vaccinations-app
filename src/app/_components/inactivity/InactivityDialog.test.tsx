@@ -5,12 +5,11 @@ import { userLogout } from "@src/utils/auth/user-logout";
 import { render, screen } from "@testing-library/react";
 import { Session } from "next-auth";
 
-const mockSessionValue: Session = {
+const mockSessionValue: Partial<Session> = {
   expires: new Date(Date.now() + 60000).toISOString(),
   user: {
     nhs_number: "",
     birthdate: "",
-    id_token: { jti: "" },
   },
 };
 let mockSession = { data: mockSessionValue, status: "authenticated" };
