@@ -1,5 +1,4 @@
 import NHSLoginAuthProvider from "@src/app/api/auth/[...nextauth]/provider";
-import { VACCINATIONS_HUB_PAGE_ROUTE } from "@src/app/constants";
 import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
 import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 import { getToken } from "@src/utils/auth/callbacks/get-token";
@@ -22,6 +21,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
       verifyRequest: SSO_FAILURE_ROUTE,
       newUser: SSO_FAILURE_ROUTE,
     },
+    debug: process.env.NODE_ENV !== "production",
     session: {
       strategy: "jwt",
       maxAge: MAX_SESSION_AGE_SECONDS,

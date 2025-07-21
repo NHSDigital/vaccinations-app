@@ -19,6 +19,22 @@ export type RefreshClientAssertionPayload = {
   aud: string;
 };
 
+export type APIMClientAssertionPayload = {
+  iss: string;
+  sub: string;
+  aud: string;
+  jti: string;
+  exp: number;
+};
+
+export type APIMTokenPayload = {
+  grant_type: "urn:ietf:params:oauth:grant-type:token-exchange";
+  subject_token_type: "urn:ietf:params:oauth:token-type:id_token";
+  client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer";
+  subject_token: string;
+  client_assertion: string;
+};
+
 export type AssertedLoginIdentityPayload = {
   code: string;
 };
@@ -45,7 +61,11 @@ declare module "next-auth/jwt" {
     user: {
       nhs_number: string;
       birthdate: string;
+      access_token?: string;
+      refresh_token?: string;
+      access_token_timeout?: number;
     };
+    idToken: string;
     id_token: {
       jti: string;
     };
