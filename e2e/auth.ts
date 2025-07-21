@@ -9,6 +9,14 @@ interface User {
   vaccinationsHubUrl: string;
 }
 
+const loadFakeAuthEnvironmentVariables = () => {
+  return {
+    fakeAppUsername: getEnv("TEST_NHS_APP_USERNAME"),
+    fakeAppPassword: getEnv("TEST_NHS_APP_PASSWORD"),
+    fakeAppLoginUrl: getEnv("TEST_NHS_APP_URL"),
+  };
+};
+
 const loadUserFromEnvironment = (_nhsLoginUsername: string): User => {
   return {
     nhsAppLoginUrl: getEnv("TEST_NHS_APP_URL"),
@@ -21,11 +29,25 @@ const loadUserFromEnvironment = (_nhsLoginUsername: string): User => {
 
 export const login = async (browser: Browser, nhsLoginUsername: string): Promise<Page> => {
   const user = loadUserFromEnvironment(nhsLoginUsername);
-  const page = await browser.newPage();
+  let page;
 
-  await page.goto(user.nhsAppLoginUrl);
-  await page.waitForURL("**/login?redirect_to=index", { timeout: 30000 });
-  await page.getByRole("button", { name: "Continue" }).click();
+  const useFakeAuth = user.nhsAppLoginUrl.endsWith("localhost:3000");
+  if (useFakeAuth) {
+    const fakeAuthConfig = loadFakeAuthEnvironmentVariables();
+    const context = await browser.newContext({
+      httpCredentials: {
+        username: fakeAuthConfig.fakeAppUsername,
+        password: fakeAuthConfig.fakeAppPassword,
+      },
+    });
+    page = await context.newPage();
+    await page.goto(fakeAuthConfig.fakeAppLoginUrl);
+  } else {
+    page = await browser.newPage();
+    await page.goto(user.nhsAppLoginUrl);
+    await page.waitForURL("**/login?redirect_to=index", { timeout: 30000 });
+    await page.getByRole("button", { name: "Continue" }).click();
+  }
 
   await page.waitForURL("**/enter-email", { timeout: 30000 });
   await page.getByLabel("Email address").fill(user.nhsLoginUsername);
@@ -45,15 +67,20 @@ export const login = async (browser: Browser, nhsLoginUsername: string): Promise
   await page.getByRole("textbox", { name: "Security code" }).fill(user.nhsLoginOTP);
   await page.getByRole("button", { name: "Continue" }).click();
 
-  await page.waitForURL("**/patient/", { timeout: 30000 });
-  await page.getByRole("heading", { name: "Services" }).locator("..").getByRole("link", { name: "View all" }).click();
-  await page.waitForURL("**/patient/services", { timeout: 30000 });
+  if (useFakeAuth) {
+    await page.waitForURL(user.vaccinationsHubUrl, { timeout: 60000, waitUntil: "domcontentloaded" });
+    return page;
+  } else {
+    await page.waitForURL("**/patient/", { timeout: 30000 });
+    await page.getByRole("heading", { name: "Services" }).locator("..").getByRole("link", { name: "View all" }).click();
+    await page.waitForURL("**/patient/services", { timeout: 30000 });
 
-  const newTabPromise = page.context().waitForEvent("page");
-  await page.getByRole("link", { name: "Check and book your RSV vaccination" }).click();
-  const newTabPage = await newTabPromise;
+    const newTabPromise = page.context().waitForEvent("page");
+    await page.getByRole("link", { name: "Check and book your RSV vaccination" }).click();
+    const newTabPage = await newTabPromise;
 
-  await newTabPage.waitForURL(user.vaccinationsHubUrl, { timeout: 60000, waitUntil: "domcontentloaded" });
+    await newTabPage.waitForURL(user.vaccinationsHubUrl, { timeout: 60000, waitUntil: "domcontentloaded" });
 
-  return newTabPage;
+    return newTabPage;
+  }
 };
