@@ -1,19 +1,9 @@
 import { auth } from "@project/auth";
-import { generateSignedJwt } from "@src/utils/auth/generate-signed-jwt";
-import { AssertedLoginIdentityPayload, RefreshClientAssertionPayload } from "@src/utils/auth/types";
+import { AssertedLoginIdentityPayload, CommonAuthPayload, RefreshClientAssertionPayload } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
+import jwt from "jsonwebtoken";
 
-const REFRESH_CLIENT_ASSERTION_EXPIRY_SECONDS = 300;
 const ASSERTED_LOGIN_IDENTITY_EXPIRY_SECONDS = 60;
-
-const generateRefreshClientAssertionJwt = async (config: AppConfig): Promise<string> => {
-  const refreshClientPayload = {
-    sub: config.NHS_LOGIN_CLIENT_ID,
-    aud: `${config.NHS_LOGIN_URL}/token`,
-  };
-
-  return generateSignedJwtWith(config, refreshClientPayload, REFRESH_CLIENT_ASSERTION_EXPIRY_SECONDS);
-};
 
 const generateAssertedLoginIdentityJwt = async (config: AppConfig): Promise<string> => {
   const session = await auth();
@@ -37,7 +27,7 @@ const generateSignedJwtWith = async (
 ) => {
   const now = Math.floor(Date.now() / 1000);
 
-  const commonAuthPayload = {
+  const commonAuthPayload: CommonAuthPayload = {
     iss: config.NHS_LOGIN_CLIENT_ID,
     jti: crypto.randomUUID(),
     exp: now + expiryTimeSeconds,
@@ -49,7 +39,7 @@ const generateSignedJwtWith = async (
     ...extraPayloadFields,
   };
 
-  return await generateSignedJwt(config, payload);
+  return jwt.sign(payload, config.NHS_LOGIN_PRIVATE_KEY, { algorithm: "RS512" });
 };
 
-export { generateRefreshClientAssertionJwt, generateAssertedLoginIdentityJwt };
+export { generateAssertedLoginIdentityJwt };

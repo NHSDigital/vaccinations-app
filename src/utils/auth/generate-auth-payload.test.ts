@@ -2,15 +2,14 @@
  * @jest-environment node
  */
 import { auth } from "@project/auth";
-import {
-  generateAssertedLoginIdentityJwt,
-  generateRefreshClientAssertionJwt,
-} from "@src/utils/auth/generate-auth-payload";
-import { generateSignedJwt } from "@src/utils/auth/generate-signed-jwt";
+import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
 import { AppConfig } from "@src/utils/config";
 import { appConfigBuilder } from "@test-data/config/builders";
+import jwt from "jsonwebtoken";
 
-jest.mock("@src/utils/auth/generate-signed-jwt");
+jest.mock("jsonwebtoken", () => ({
+  sign: jest.fn(),
+}));
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
 }));
@@ -18,6 +17,7 @@ jest.mock("@project/auth", () => ({
 const mockConfig: AppConfig = appConfigBuilder()
   .withNHS_LOGIN_URL("https://mock.nhs.login")
   .andNHS_LOGIN_CLIENT_ID("mock-client-id")
+  .andNHS_LOGIN_PRIVATE_KEY("private-key")
   .build();
 
 const mockSignedJwt = "mock-signed-jwt";
@@ -50,41 +50,11 @@ describe("generate-auth-payload", () => {
     jest.useRealTimers();
   });
 
-  describe("generateClientAssertion", () => {
-    beforeEach(() => {
-      (auth as jest.Mock).mockResolvedValue(mockSession);
-    });
-
-    it("should generate a client assertion JWT string", async () => {
-      (generateSignedJwt as jest.Mock).mockResolvedValue(mockSignedJwt);
-      const expectedPayload = {
-        iss: mockConfig.NHS_LOGIN_CLIENT_ID,
-        sub: mockConfig.NHS_LOGIN_CLIENT_ID,
-        aud: `${mockConfig.NHS_LOGIN_URL}/token`,
-        jti: mockRandomUUID,
-        exp: mockNowInSeconds + 300,
-        iat: mockNowInSeconds,
-      };
-
-      const token = await generateRefreshClientAssertionJwt(mockConfig);
-
-      expect(global.crypto.randomUUID).toHaveBeenCalled();
-      expect(generateSignedJwt).toHaveBeenCalledWith(mockConfig, expectedPayload);
-      expect(token).toEqual(mockSignedJwt);
-    });
-
-    it("should propagate errors thrown by generateSignedJwt", async () => {
-      (generateSignedJwt as jest.Mock).mockRejectedValue(new Error("Invalid key"));
-
-      await expect(generateRefreshClientAssertionJwt(mockConfig)).rejects.toThrow("Invalid key");
-    });
-  });
-
   describe("generateAssertedLoginIdentityJwt", () => {
     it("should construct payload with code attribute set as jti from id-token, and other expected attributes", async () => {
       (auth as jest.Mock).mockResolvedValue(mockSession);
 
-      (generateSignedJwt as jest.Mock).mockResolvedValue(mockSignedJwt);
+      (jwt.sign as jest.Mock).mockResolvedValue(mockSignedJwt);
       const expectedAssertedLoginPayloadContent = {
         code: mockJtiFromSessionIdToken,
         iss: mockConfig.NHS_LOGIN_CLIENT_ID,
@@ -95,7 +65,7 @@ describe("generate-auth-payload", () => {
 
       const token = await generateAssertedLoginIdentityJwt(mockConfig);
 
-      expect(generateSignedJwt).toHaveBeenCalledWith(mockConfig, expectedAssertedLoginPayloadContent);
+      expect(jwt.sign).toHaveBeenCalledWith(expectedAssertedLoginPayloadContent, "private-key", { algorithm: "RS512" });
       expect(token).toEqual(mockSignedJwt);
     });
 
@@ -118,7 +88,7 @@ describe("generate-auth-payload", () => {
     it("should propagate errors thrown by generateSignedJwt", async () => {
       (auth as jest.Mock).mockResolvedValue(mockSession);
 
-      (generateSignedJwt as jest.Mock).mockRejectedValue(new Error("Invalid key"));
+      (jwt.sign as jest.Mock).mockRejectedValue(new Error("Invalid key"));
 
       await expect(generateAssertedLoginIdentityJwt(mockConfig)).rejects.toThrow("Invalid key");
     });
