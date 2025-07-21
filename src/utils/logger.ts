@@ -1,7 +1,7 @@
 import { asyncLocalStorage } from "@src/utils/requestContext";
 import pino, { LogDescriptor, Logger } from "pino";
 
-const REDACTED_KEYS = ["err.config.headers.apikey", "responseElements.role", "detail.userIdentity"];
+const REDACTED_KEYS = ["err.config.headers.apikey", "detail.responseElements.role", "detail.userIdentity"];
 
 const isEdgeRuntime = process?.env?.NEXT_RUNTIME === "edge";
 
