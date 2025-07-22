@@ -42,6 +42,7 @@ const updateTokenWithValuesFromAccountAndProfile = (
 
   if (account.id_token) {
     const decodedToken = jwtDecode<DecodedIdToken>(account.id_token);
+    log.info(decodedToken, "decoded token");
     jti = decodedToken.jti;
   }
 
@@ -136,6 +137,9 @@ const getAccessTokenForIDToken = async (config: AppConfig, idToken: string): Pro
   try {
     const clientAssertion: string = generateClientAssertion(config);
     log.info({ clientAssertion: clientAssertion, idToken: idToken }, "APIM");
+
+    const decodedToken = jwtDecode<DecodedIdToken>(idToken);
+    log.info(decodedToken, "APIM");
 
     const tokenPayload: APIMTokenPayload = {
       grant_type: "urn:ietf:params:oauth:grant-type:token-exchange",
