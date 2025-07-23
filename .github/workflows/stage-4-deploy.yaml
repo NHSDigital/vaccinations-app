@@ -7,7 +7,7 @@ on:
         required: true
         type: string
       tag:
-        description: "The commit SHA (DEV) or version tag (higher envs) to be deploye"
+        description: "The commit SHA (DEV) or version tag (higher envs) to be deployed"
         required: true
         type: string
       environment:
@@ -52,7 +52,7 @@ jobs:
           echo "Artefact path: $lambda_s3_path"
           aws s3 cp "$lambda_s3_path" .
       - name: "Download packages from ${{ inputs.environment}} S3 Releases bucket"
-        if: ${{ inputs.environment == 'preprod' }}
+        if: ${{ inputs.environment == 'preprod' || inputs.environment == 'prod' }}
         run: |
           AWS_S3_RELEASE_BUCKET="vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${{ inputs.environment }}"
           app_s3_path="s3://${AWS_S3_RELEASE_BUCKET}/tag/${{ inputs.tag }}/open-next.zip"
@@ -75,14 +75,11 @@ jobs:
       - name: "Set the app version being deployed"
         run: echo "TF_VAR_app_version=${{ inputs.tag }}" >> $GITHUB_ENV
       - name: "Terraform init"
-        if: ${{ inputs.environment == 'dev' || inputs.environment == 'preprod' }}
         id: init
         run: TF_ENV=${{ inputs.environment }} make terraform-init
       - name: "Terraform plan"
-        if: ${{ inputs.environment == 'dev' || inputs.environment == 'preprod' }}
         id: plan
         run: TF_ENV=${{ inputs.environment }} make terraform-plan opts="-out=terraform.tfplan"
       - name: "Terraform apply"
-        if: ${{ inputs.environment == 'dev' || inputs.environment == 'preprod'  }}
         id: apply
         run: TF_ENV=${{ inputs.environment }} make terraform-apply opts="-auto-approve" opts="terraform.tfplan"
