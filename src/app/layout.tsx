@@ -1,9 +1,9 @@
 import "@public/css/nhsapp-3.1.0.min.css";
 import "@public/css/nhsuk-9.6.1.min.css";
 import { ClientProviders } from "@src/app/_components/context/ClientProviders";
-import AppFooter from "@src/app/_components/nhs-frontend/AppFooter";
-import AppHeader from "@src/app/_components/nhs-frontend/AppHeader";
-import { NoJsMessage } from "@src/app/_components/no-js/NoJsMessage";
+import { NoJsMessage } from "@src/app/_components/static/NoJsMessage";
+import { StaticFooter } from "@src/app/_components/static/StaticFooter";
+import { StaticHeader } from "@src/app/_components/static/StaticHeader";
 import "@src/app/global.css";
 import Script from "next/script";
 import React, { JSX } from "react";
@@ -43,7 +43,9 @@ export default function RootLayout({
 
       <body>
         <noscript>
+          <StaticHeader />
           <NoJsMessage />
+          <StaticFooter />
         </noscript>
 
         <div className="app-wrapper">
