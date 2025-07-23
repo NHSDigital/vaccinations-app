@@ -66,6 +66,7 @@ jobs:
     secrets: inherit
   acceptance-stage:
     name: "Acceptance stage"
+    if: ${{ github.event.inputs.environment != 'prod' }}
     needs: [metadata, deploy-stage]
     uses: ./.github/workflows/stage-5-acceptance.yaml
     with:
