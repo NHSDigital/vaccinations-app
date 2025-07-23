@@ -9,18 +9,18 @@ interface EligibilityActionProps {
 }
 
 const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element | undefined)[] => {
-  return actions.map((action: Action, index: number) => {
+  return actions.map((action: Action) => {
     switch (action.type) {
       case ActionDisplayType.infotext: {
         return (
-          <div key={index} data-testid="action-paragraph">
+          <div key={action.content} data-testid="action-paragraph">
             <MarkdownWithStyling content={action.content} />
           </div>
         );
       }
       case ActionDisplayType.card: {
         return (
-          <div key={index}>
+          <div key={action.content}>
             <BasicCard content={action.content} />
           </div>
         );
@@ -35,7 +35,7 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
           />
         );
         return (
-          <div key={index} data-testid="action-auth-button-components">
+          <div key={action.content} data-testid="action-auth-button-components">
             {infotext}
             {button}
           </div>

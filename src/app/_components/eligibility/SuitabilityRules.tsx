@@ -8,18 +8,18 @@ interface SuitabilityRuleProps {
 }
 
 const SuitabilityRules = ({ suitabilityRules }: SuitabilityRuleProps): (JSX.Element | undefined)[] => {
-  return suitabilityRules.map((suitabilityRule: SuitabilityRule, index: number) => {
+  return suitabilityRules.map((suitabilityRule: SuitabilityRule) => {
     switch (suitabilityRule.type) {
       case RuleDisplayType.card: {
         return (
-          <div key={index}>
+          <div key={suitabilityRule.content}>
             <BasicCard content={suitabilityRule.content} />
           </div>
         );
       }
       case RuleDisplayType.infotext: {
         return (
-          <div key={index} data-testid="action-paragraph">
+          <div key={suitabilityRule.content} data-testid="action-paragraph">
             <MarkdownWithStyling content={suitabilityRule.content} />
           </div>
         );
