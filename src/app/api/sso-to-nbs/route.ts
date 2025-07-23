@@ -16,45 +16,60 @@ export const GET = async (request: NextRequest) => {
 
   if (request.nextUrl.searchParams.has(REDIRECT_TARGET_PARAM)) {
     const rawRedirectTarget = request.nextUrl.searchParams.get(REDIRECT_TARGET_PARAM);
-    if (rawRedirectTarget) {
-      try {
-        const nbsURl = new URL(decodeURI(rawRedirectTarget ?? ""));
-        try {
-          const nbsQueryParams = await getNbsQueryParams();
-          nbsQueryParams.forEach((param) => {
-            nbsURl.searchParams.append(param.name, param.value);
-          });
-          finalRedirectUrl = nbsURl.href;
-        } catch (error) {
-          log.error({ REDIRECT_TARGET_PARAM, rawRedirectTarget, error }, "Error getting redirect url to NBS");
-          finalRedirectUrl = SSO_FAILURE_ROUTE;
-        }
-      } catch (error) {
-        log.warn({ error, rawRedirectTarget }, "SSO to NBS but with invalid redirectTarget parameter");
-        shouldReturnNotFound = true;
-      }
-    } else {
-      log.warn({ rawRedirectTarget }, "SSO to NBS but without a valid redirectTarget parameter");
-      shouldReturnNotFound = true;
-    }
+    ({ finalRedirectUrl, shouldReturnNotFound } = await getGivenRedirectTarget(rawRedirectTarget));
   } else {
     const vaccine: string | null = request.nextUrl.searchParams.get(VACCINE_PARAM);
-    const vaccineType: VaccineTypes | undefined = vaccine ? getVaccineTypeFromUrlPath(vaccine) : undefined;
-
-    if (vaccine && vaccineType) {
-      try {
-        finalRedirectUrl = await getSSOUrlToNBSForVaccine(vaccineType);
-      } catch (error) {
-        log.error({ VACCINE_PARAM, vaccine, error }, "Error getting redirect url to NBS");
-        finalRedirectUrl = SSO_FAILURE_ROUTE;
-      }
-    } else {
-      log.warn({ vaccine }, "SSO to NBS but without a valid vaccine parameter");
-      shouldReturnNotFound = true;
-    }
+    ({ finalRedirectUrl, shouldReturnNotFound } = await getGivenVaccine(vaccine));
   }
 
   if (shouldReturnNotFound) {
     notFound();
   } else redirect(finalRedirectUrl);
 };
+
+async function getGivenRedirectTarget(rawRedirectTarget: string | null) {
+  let shouldReturnNotFound = false;
+  let finalRedirectUrl: string = "";
+
+  if (rawRedirectTarget) {
+    try {
+      const nbsURl = new URL(decodeURI(rawRedirectTarget ?? ""));
+      try {
+        const nbsQueryParams = await getNbsQueryParams();
+        nbsQueryParams.forEach((param) => {
+          nbsURl.searchParams.append(param.name, param.value);
+        });
+        finalRedirectUrl = nbsURl.href;
+      } catch (error) {
+        log.error({ REDIRECT_TARGET_PARAM, rawRedirectTarget, error }, "Error getting redirect url to NBS");
+        finalRedirectUrl = SSO_FAILURE_ROUTE;
+      }
+    } catch (error) {
+      log.warn({ error, rawRedirectTarget }, "SSO to NBS but with invalid redirectTarget parameter");
+      shouldReturnNotFound = true;
+    }
+  } else {
+    log.warn({ rawRedirectTarget }, "SSO to NBS but without a valid redirectTarget parameter");
+    shouldReturnNotFound = true;
+  }
+  return { finalRedirectUrl, shouldReturnNotFound };
+}
+
+async function getGivenVaccine(vaccine: string | null) {
+  let shouldReturnNotFound = false;
+  let finalRedirectUrl: string = "";
+  const vaccineType: VaccineTypes | undefined = vaccine ? getVaccineTypeFromUrlPath(vaccine) : undefined;
+
+  if (vaccine && vaccineType) {
+    try {
+      finalRedirectUrl = await getSSOUrlToNBSForVaccine(vaccineType);
+    } catch (error) {
+      log.error({ VACCINE_PARAM, vaccine, error }, "Error getting redirect url to NBS");
+      finalRedirectUrl = SSO_FAILURE_ROUTE;
+    }
+  } else {
+    log.warn({ vaccine }, "SSO to NBS but without a valid vaccine parameter");
+    shouldReturnNotFound = true;
+  }
+  return { finalRedirectUrl, shouldReturnNotFound };
+}
