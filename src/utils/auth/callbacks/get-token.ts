@@ -130,7 +130,7 @@ const generateClientAssertion = (config: AppConfig): string => {
     exp: Math.floor(Date.now() / 1000) + 300,
   };
 
-  return jwt.sign(payload, privateKey, { algorithm: "RS512", keyid: "test-1" });
+  return jwt.sign(payload, privateKey, { algorithm: "RS512", keyid: process.env.APIM_KEY_ID });
 };
 
 const getAccessTokenForIDToken = async (config: AppConfig, idToken: string): Promise<string | undefined> => {
@@ -139,7 +139,7 @@ const getAccessTokenForIDToken = async (config: AppConfig, idToken: string): Pro
     log.info({ clientAssertion: clientAssertion, idToken: idToken }, "APIM");
 
     const decodedToken = jwtDecode<DecodedIdToken>(idToken);
-    log.info(decodedToken, "APIM");
+    log.info({idToken: decodedToken}, "decoded idToken");
 
     const tokenPayload: APIMTokenPayload = {
       grant_type: "urn:ietf:params:oauth:grant-type:token-exchange",
@@ -160,7 +160,7 @@ const getAccessTokenForIDToken = async (config: AppConfig, idToken: string): Pro
       },
     );
 
-    log.info({ responseData: response.data }, "APIM");
+    log.info({ response: response.data }, "APIM ok response");
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -168,9 +168,9 @@ const getAccessTokenForIDToken = async (config: AppConfig, idToken: string): Pro
         {
           message: error.message,
           status: error.response?.status,
-          data: error.response?.data,
+          response: error.response?.data,
         },
-        "APIM error",
+        "APIM error response",
       );
     }
     return undefined;
