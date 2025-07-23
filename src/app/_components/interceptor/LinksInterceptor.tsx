@@ -8,7 +8,7 @@ const LinksInterceptor = (): null => {
     const handleClick = (event: MouseEvent) => {
       if (!(event.target && event.target instanceof Element)) return;
 
-      const target = event.target as Element;
+      const target: Element = event.target;
       const anchor: HTMLAnchorElement | null = target.closest("a");
       if (!anchor) return;
 

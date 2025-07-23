@@ -12,15 +12,18 @@ import {
   Action,
   ActionDisplayType,
   ButtonUrl,
+  Cohort,
+  Content,
   EligibilityErrorTypes,
   EligibilityForPersonType,
   EligibilityStatus,
+  Heading,
+  Introduction,
   Label,
   RuleDisplayType,
   SuitabilityRule,
   SummaryContent,
 } from "@src/services/eligibility-api/types";
-import { Cohort, Content, Heading, Introduction } from "@src/services/eligibility-api/types";
 import { logger } from "@src/utils/logger";
 import { Logger } from "pino";
 
