@@ -1,15 +1,7 @@
-"use client";
-
 import "@public/css/nhsapp-3.1.0.min.css";
 import "@public/css/nhsuk-9.6.1.min.css";
-import { BrowserContextProvider } from "@src/app/_components/context/BrowserContext";
-import { InactivityDialog } from "@src/app/_components/inactivity/InactivityDialog";
-import LinksInterceptor from "@src/app/_components/interceptor/LinksInterceptor";
-import AppFooter from "@src/app/_components/nhs-frontend/AppFooter";
-import AppHeader from "@src/app/_components/nhs-frontend/AppHeader";
-import SkipLink from "@src/app/_components/nhs-frontend/SkipLink";
-import { WARNING_TIME_MS } from "@src/utils/auth/inactivity-timer";
-import { SessionProvider } from "next-auth/react";
+import { ClientProviders } from "@src/app/_components/context/ClientProviders";
+import "@src/app/global.css";
 import Script from "next/script";
 import React, { JSX } from "react";
 
@@ -18,16 +10,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>): JSX.Element {
-  // This is the session polling time on the client side,
-  // so that the client can react to server side session expiry.
-  // The value should be less than the time to warning dialog,
-  // to ensure that the warning dialog is only shown when a user is authenticated
-  // But not too less to avoid frequent polling.
-  // One needs to also account for the polling request latency (assume 5 sec).
-  const SESSION_REFETCH_SECONDS = Math.floor(0.9 * (WARNING_TIME_MS / 1000)) - 5;
-
   return (
-    <html lang="en">
+    <html lang="en" className="js-hidden" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -44,21 +28,27 @@ export default function RootLayout({
         <meta name="msapplication-wide310x150logo" content={"/assets/favicons/widetile-310x150.png"} />
         <meta name="msapplication-square310x310logo" content={"/assets/favicons/largetile-310x310.png"} />
 
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.remove('js-hidden');`,
+          }}
+        />
+
         {/* NHS app js - https://nhsconnect.github.io/nhsapp-developer-documentation/js-v2-api-specification/ */}
         <Script src={"https://www.nhsapp.service.nhs.uk/js/v2/nhsapp.js"} strategy="beforeInteractive" />
       </head>
 
       <body>
-        <BrowserContextProvider>
-          <LinksInterceptor />
-          <SkipLink />
-          <AppHeader />
-          <SessionProvider refetchInterval={SESSION_REFETCH_SECONDS}>
-            <InactivityDialog />
-            <div className="nhsuk-width-container ">{children}</div>
-          </SessionProvider>
-          <AppFooter />
-        </BrowserContextProvider>
+        <noscript>
+          <div>
+            <h1>JavaScript is required</h1>
+            <p>Please enable JavaScript in your browser to use this application.</p>
+          </div>
+        </noscript>
+
+        <div className="app-wrapper">
+          <ClientProviders>{children}</ClientProviders>
+        </div>
       </body>
     </html>
   );
