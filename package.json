@@ -68,7 +68,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.850.0",
     "@aws-sdk/client-ssm": "^3.849.0",
-    "@types/aws-lambda": "^8.10.150",
+    "@types/aws-lambda": "^8.10.152",
     "axios": "^1.11.0",
     "dotenv": "^17.2.0",
     "isomorphic-dompurify": "^2.26.0",
