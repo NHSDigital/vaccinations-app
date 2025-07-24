@@ -5,7 +5,7 @@ cli
 config
 Cyber
 Dependabot
-dev
+[Dd]ev
 env
 gh
 Gitleaks
@@ -21,8 +21,11 @@ repo
 sed
 src
 Syft
-Terraform
+[Tt]erraform
 todo
 toolchain
 Trufflehog
 Wiremock
+[Cc]loudfront
+[Pp]reprod
+Lifecycle

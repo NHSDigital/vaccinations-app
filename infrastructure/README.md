@@ -50,7 +50,7 @@ This is the SSL certificate that is attached to our website, which verifies the 
   - Request
 - The certificate is still pending verification. You should download the domain records (export to CSV).
 - Email (DNSTEAM (NHS ENGLAND) <england.dnsteam@nhs.net>) to verify the domain certificate. You will need to attach the domain records.
-- Wait for status to change to verified before you can run any terraform code.
+- Wait for status to change to verified before you can run any Terraform code.
 
 ### AWS to Slack connection
 
@@ -64,18 +64,20 @@ This is a one time setup that authorises AWS to post messages to Slack, for the 
 ### S3
 
 We need 3 buckets to be created manually, before IaC can start to provision infra for us.
-First one is named `vita-<AWSaccountId>-artefacts-<env>` (* required in dev env only), second one is named `vita-<AWSaccountId>-releases-<env>` and third one is `vaccinations-app-tfstate-<env>`.
+First one is named `vita-<AWSaccountId>-artefacts-<env>` (* required in dev and preprod env only), second one is named `vita-<AWSaccountId>-releases-<env>` and third one is `vaccinations-app-tfstate-<env>`.
 The first one is used by GitHub to store artefacts after successful builds,
 the second one is used by GitHub to store tagged releases after successful publish/release,
 and the third one is used by Terraform to store state and lock files.
 
 The s3 buckets `vita-<AWSaccountId>-artefacts-<env>` and `vita-<AWSaccountId>-releases-<env>` are set up with bucket versioning and object lock,
 so that we can control the rewrites and deletions better. We set the retention period of 90 days on the artefacts bucket and 100 years on the releases bucket.
-After the retention period the objects in the artefacts buckets will be deleted - this is ensured with the Lifecycle rules (under Management section of the bucket) called "Expire-After-90-Days-Lock" and "Cleanup-Delete-Markers".
+After the retention period, the objects in the artefacts buckets will be deleted — this is ensured with the Lifecycle rules (under Management section of the bucket) called "Expire-After-90-Days-Lock" and "Cleanup-Delete-Markers".
 
 Use the following settings to provision them:
 
 #### Configuration for tfstate bucket
+
+This bucket is used to store the Terraform state file.
 
 - Bucket name: `vaccinations-app-tfstate-<env>`
 - Object Ownership
@@ -90,7 +92,11 @@ Use the following settings to provision them:
 
 #### Configuration for artefacts bucket
 
-- Bucket name: `vita-<AWSaccountId>-artefacts-<env>`
+#### Dev Environment
+
+This bucket is used to store the dev builds.
+
+- Bucket name: `vita-<AWSaccountId>-artefacts-dev`
 - Object Ownership
   - ACLs disabled (recommended): bucket owner enforced.
 - Block Public Access settings for this bucket
@@ -110,21 +116,38 @@ Use the following settings to provision them:
     - Default retention period: 90 days
 - Management (inside bucket)
   - Lifecycle Configuration
-    - Create two lifecycle rules
+    - Create two Lifecycle rules
       - Expire-After-90-Days-Lock
         - name: Expire-After-90-Days-Lock
         - rule scope: Apply to all objects in the bucket
-        - Lifecyle rule actions
+        - Lifecycle rule actions
           - Expire current versions of object
             - Days after object creation: 90
       - Cleanup-Delete-Markers
         - name: Cleanup-Delete-Markers
         - rule scope: Apply to all objects in the bucket
-        - Lifecyle rule actions
+        - Lifecycle rule actions
           - Delete expired object delete markers or incomplete multipart uploads
             - Delete expired object delete markers
 
+#### Preprod Environment
+
+This bucket is used to store snapshots created by snapshot tests.
+
+- Bucket name: `vita-<AWSaccountId>-artefacts-preprod`
+- Object Ownership
+  - ACLs disabled (recommended): bucket owner enforced.
+- Block Public Access settings for this bucket
+  - Block all public access
+- Bucket Versioning: Enabled
+- Tags: refer [above](#tags)
+- Default encryption
+  - Encryption type: SSE-S3
+  - Bucket Key: Enable
+
 #### Configuration for releases bucket
+
+This bucket is used to store the release builds
 
 - Bucket name: `vita-<AWSaccountId>-releases-<env>`
 - Object Ownership
@@ -155,7 +178,7 @@ We need an IAM role policy and identity provider for GitHub actions to provision
 
 - Provider details
   - Provider type: OpenID Connect
-  - Provider url: `https://token.actions.githubusercontent.com`
+  - Provider URL: `https://token.actions.githubusercontent.com`
   - Audience: sts.amazonaws.com
   - Tags: refer [above](#tags)
 - Assign role
@@ -200,6 +223,6 @@ So, we decided to go ahead with the first option.
 ### Terraform
 
 We are using [single zone module](https://github.com/RJPearson94/terraform-aws-open-next/tree/main/modules/tf-aws-open-next-zone),
-which allows us to deploy lambda, S3 and CloudFront. The module configures the following resources.
+which allows us to deploy lambda, S3 and Cloudfront. The module configures the following resources.
 
 ![single-zone-architecture](https://raw.githubusercontent.com/RJPearson94/terraform-aws-open-next/v3.5.0/docs/diagrams/Single%20Zone.png)
