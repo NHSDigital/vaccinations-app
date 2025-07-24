@@ -5,7 +5,7 @@ locals {
   project_identifier_shortcode = "vita"
 
   domain                    = "vaccinations.nhs.uk"
-  sub_domain                = ""      // TODO: There is no subdomain in Prod - is empty string correct way to write this?
+  sub_domain                = null
   environment               = "prod"
   git_branch                = coalesce(data.external.git_branch.result.output, "na")
   deploy_workspace          = var.is_github_action ? "gh" : terraform.workspace
@@ -27,20 +27,20 @@ locals {
     CONTENT_API_ENDPOINT = "https://api.service.nhs.uk/"
     CONTENT_CACHE_PATH   = "s3://${local.content_cache_bucket_name}"
 
-    NHS_LOGIN_URL              = "https://auth.login.nhs.uk/" // TODO unconfirmed - is this correct url?
+    NHS_LOGIN_URL              = "https://auth.login.nhs.uk/"
     NHS_LOGIN_SCOPE            = "openid profile"
     NHS_APP_REDIRECT_LOGIN_URL = "https://www.nhsapp.service.nhs.uk/login?redirect_to=index"
 
     MAX_SESSION_AGE_MINUTES = 59
 
-    ELIGIBILITY_API_ENDPOINT = ""  // TODO
+    ELIGIBILITY_API_ENDPOINT = "https://api.service.nhs.uk/"
 
     AUTH_TRUST_HOST = "true"
-    AUTH_SECRET     = random_password.auth_secret.result  // TODO: is this sufficient for Prod?
+    AUTH_SECRET     = random_password.auth_secret.result
     APP_VERSION     = local.app_version
 
-    NBS_URL          = "https://www.nhs.uk/nbs" // TODO: unconfirmed - is this correct url?
-    NBS_BOOKING_PATH = "/nhs-app" // TODO: unconfirmed - is this correct url?
+    NBS_URL          = "https://nhs.uk/nbs" // TODO: unconfirmed - is this correct url?
+    NBS_BOOKING_PATH = "/nhs-app"
   }
 
   default_tags = {
@@ -59,7 +59,7 @@ resource "random_password" "auth_secret" {
 resource "null_resource" "check_workspace" {
   lifecycle {
     precondition {
-      condition     = var.is_github_action
+      condition     = var.is_github_action && terraform.workspace == "default"
       error_message = <<EOT
   ❌ Deployment can only be run from GitHub actions.
   EOT
