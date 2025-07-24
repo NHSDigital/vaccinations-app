@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, JSX } from "react";
+import { ComponentPropsWithoutRef, JSX, PropsWithChildren, useMemo } from "react";
 import Markdown from "react-markdown";
 
 interface ComponentClassNames {
@@ -40,22 +40,25 @@ type PProps = ComponentPropsWithoutRef<"p">;
 const MarkdownWithStyling = ({ content, classNames = {} }: MarkdownProps): JSX.Element => {
   const finalClassNames = { ...defaultClassNames, ...classNames };
 
-  return (
-    <Markdown
-      components={{
-        h1: (props) => <H1 {...props} className={finalClassNames.h1 ?? undefined} />,
-        h2: (props) => <H2 {...props} className={finalClassNames.h2 ?? undefined} />,
-        h3: (props) => <H3 {...props} className={finalClassNames.h3 ?? undefined} />,
-        h4: (props) => <H4 {...props} className={finalClassNames.h4 ?? undefined} />,
-        a: (props) => <A {...props} className={finalClassNames.a ?? undefined} />,
-        ul: (props) => <UL {...props} className={finalClassNames.ul ?? undefined} />,
-        ol: (props) => <OL {...props} className={finalClassNames.ol ?? undefined} />,
-        p: (props) => <P {...props} className={finalClassNames.p ?? undefined} />,
-      }}
-    >
-      {content}
-    </Markdown>
+  const components = useMemo(
+    () => ({
+      h1: ({ children }: PropsWithChildren) => <H1 className={finalClassNames.h1 ?? undefined}>{children}</H1>,
+      h2: ({ children }: PropsWithChildren) => <H2 className={finalClassNames.h2 ?? undefined}>{children}</H2>,
+      h3: ({ children }: PropsWithChildren) => <H3 className={finalClassNames.h3 ?? undefined}>{children}</H3>,
+      h4: ({ children }: PropsWithChildren) => <H4 className={finalClassNames.h4 ?? undefined}>{children}</H4>,
+      a: ({ href, children }: PropsWithChildren<{ href?: string }>) => (
+        <A href={href} className={finalClassNames.a ?? undefined}>
+          {children}
+        </A>
+      ),
+      ul: ({ children }: PropsWithChildren) => <UL className={finalClassNames.ul ?? undefined}>{children}</UL>,
+      ol: ({ children }: PropsWithChildren) => <OL className={finalClassNames.ol ?? undefined}>{children}</OL>,
+      p: ({ children }: PropsWithChildren) => <P className={finalClassNames.p ?? undefined}>{children}</P>,
+    }),
+    [finalClassNames],
   );
+
+  return <Markdown components={components}>{content}</Markdown>;
 };
 
 const H1 = ({ children, className = defaultClassNames.h1 }: H1Props): JSX.Element => {
