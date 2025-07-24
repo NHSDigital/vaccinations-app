@@ -7,18 +7,6 @@ export interface DecodedIdToken {
   jti: string;
 }
 
-export type CommonAuthPayload = {
-  iss: string;
-  jti: string;
-  exp: number;
-  iat: number;
-};
-
-export type RefreshClientAssertionPayload = {
-  sub: string;
-  aud: string;
-};
-
 export type APIMClientAssertionPayload = {
   iss: string;
   sub: string;
@@ -45,10 +33,14 @@ declare module "next-auth" {
     user: {
       nhs_number: string;
       birthdate: string;
-      id_token: {
-        jti: string;
-      };
     } & DefaultSession["user"];
+    nhs_login: {
+      id_token: string;
+    };
+    apim: {
+      access_token: string;
+      expires_in: number;
+    };
   }
 
   interface Profile {
@@ -61,13 +53,15 @@ declare module "next-auth/jwt" {
     user: {
       nhs_number: string;
       birthdate: string;
-      access_token?: string;
-      refresh_token?: string;
-      access_token_timeout?: number;
     };
-    idToken: string;
-    id_token: {
-      jti: string;
+    nhs_login: {
+      id_token: string;
+    };
+    apim: {
+      access_token: string;
+      expires_in: number;
+      refresh_token: string;
+      refresh_token_expires_in: number;
     };
     fixedExpiry: number;
   }

@@ -17,18 +17,24 @@ const fillMissingFieldsInTokenWithDefaultValues = (token: JWT): JWT => {
       nhs_number: token.user?.nhs_number ?? "",
       birthdate: token.user?.birthdate ?? "",
     },
-    id_token: token.id_token ?? {
-      jti: "",
+    nhs_login: {
+      id_token: token.nhs_login?.id_token ?? "",
+    },
+    apim: {
+      access_token: token.apim?.access_token ?? "",
+      expires_in: token.apim?.expires_in ?? 0,
+      refresh_token: token.apim?.refresh_token ?? "",
+      refresh_token_expires_in: token.apim?.refresh_token_expires_in ?? 0,
     },
   };
 };
 
-const isInitialLoginJourney = (account: Account | null | undefined, profile: Profile | undefined) => {
+const isInitialLoginJourney = (account: Account | null | undefined, profile: Profile | null | undefined) => {
   return account && profile;
 };
 
 const missingUserAccessToken = (token: JWT): boolean => {
-  return typeof token.user.access_token === "undefined";
+  return typeof token.apim?.access_token === "undefined";
 };
 
 const updateTokenWithValuesFromAccountAndProfile = (
@@ -38,23 +44,14 @@ const updateTokenWithValuesFromAccountAndProfile = (
   nowInSeconds: number,
   maxAgeInSeconds: number,
 ) => {
-  let jti = "";
-
-  if (account.id_token) {
-    const decodedToken = jwtDecode<DecodedIdToken>(account.id_token);
-    log.info(decodedToken, "decoded token");
-    jti = decodedToken.jti;
-  }
-
   const updatedToken: JWT = {
     ...token,
-    idToken: account.id_token ?? "id-token-not-found",
-    id_token: {
-      jti: jti,
-    },
     user: {
       nhs_number: profile.nhs_number ?? "",
       birthdate: profile.birthdate ?? "",
+    },
+    nhs_login: {
+      id_token: account.id_token ?? "",
     },
     fixedExpiry: nowInSeconds + maxAgeInSeconds,
   };
@@ -76,7 +73,6 @@ const getToken = async (
   config: AppConfig,
   maxAgeInSeconds: number,
 ) => {
-  log.info({ token: token, account: account, profile: profile, maxAgeInSeconds: maxAgeInSeconds }, "getToken");
   if (!token) {
     log.error("getToken: No token available in jwt callback. Returning null");
     return null;
@@ -105,18 +101,21 @@ const getToken = async (
   }
 
   if (!isInitialLoginJourney(account, profile) && missingUserAccessToken(token)) {
-    const accessToken: string | undefined = await getAccessTokenForIDToken(config, token.idToken);
+    const accessToken: string | undefined = await getAccessTokenForIDToken(config, token.nhs_login.id_token);
     if (accessToken) {
       updatedToken = {
         ...updatedToken,
-        user: {
-          ...updatedToken.user,
+        apim: {
           access_token: accessToken,
+          expires_in: 0,
+          refresh_token: "",
+          refresh_token_expires_in: 0,
         },
       };
     }
   }
 
+  log.info({ updatedToken: updatedToken }, "Returning JWT from callback");
   return updatedToken;
 };
 
@@ -139,7 +138,7 @@ const getAccessTokenForIDToken = async (config: AppConfig, idToken: string): Pro
     log.info({ clientAssertion: clientAssertion, idToken: idToken }, "APIM");
 
     const decodedToken = jwtDecode<DecodedIdToken>(idToken);
-    log.info({idToken: decodedToken}, "decoded idToken");
+    log.info({ idToken: decodedToken }, "decoded idToken");
 
     const tokenPayload: APIMTokenPayload = {
       grant_type: "urn:ietf:params:oauth:grant-type:token-exchange",
@@ -166,9 +165,11 @@ const getAccessTokenForIDToken = async (config: AppConfig, idToken: string): Pro
     if (axios.isAxiosError(error)) {
       log.error(
         {
-          message: error.message,
-          status: error.response?.status,
-          response: error.response?.data,
+          response: {
+            message: error.message,
+            status: error.response?.status,
+            data: error.response?.data,
+          },
         },
         "APIM error response",
       );
