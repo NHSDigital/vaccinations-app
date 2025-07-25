@@ -31,7 +31,7 @@ const ProcessedSuggestionSchema = z
     condition: z.enum(["RSV"]),
     status: StatusSchema,
     statusText: z.string(),
-    eligibilityCohorts: z.array(EligibilityCohortSchema),
+    eligibilityCohorts: z.array(EligibilityCohortSchema).default([]),
     actions: z.array(ActionSchema).default([]),
     suitabilityRules: z.array(SuitabilityRuleSchema).default([]),
   })
@@ -39,7 +39,7 @@ const ProcessedSuggestionSchema = z
 
 export const EligibilityApiResponseSchema = z
   .object({
-    processedSuggestions: z.array(ProcessedSuggestionSchema),
+    processedSuggestions: z.array(ProcessedSuggestionSchema).default([]),
   })
   .readonly();
 
