@@ -1,10 +1,10 @@
 import { NhsNumber, VaccineTypes } from "@src/models/vaccine";
 import {
-  ActionFromApi,
   EligibilityApiResponse,
   EligibilityCohort,
   ProcessedSuggestion,
-  SuitabilityRuleFromApi,
+  Action as ResponseAction,
+  SuitabilityRule as ResponseSuitabilityRule,
 } from "@src/services/eligibility-api/api-types";
 import { EligibilityApiHttpStatusError } from "@src/services/eligibility-api/gateway/exceptions";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
@@ -121,7 +121,7 @@ const _generateActions = (
     return [];
   }
 
-  const content: Action[] = suggestion.actions.flatMap((action: ActionFromApi): Action[] => {
+  const content: Action[] = suggestion.actions.flatMap((action: ResponseAction): Action[] => {
     switch (action.actionType) {
       case "InfoText": {
         return [
@@ -143,11 +143,17 @@ const _generateActions = (
       }
       case "ButtonWithAuthLink": {
         return [
-          {
-            type: ActionDisplayType.authButton,
-            content: action.description as Content,
-            button: { label: action.urlLabel as Label, url: new URL(action.urlLink) as ButtonUrl },
-          },
+          action.urlLink
+            ? {
+                type: ActionDisplayType.authButton,
+                content: action.description as Content,
+                button: { label: action.urlLabel as Label, url: new URL(action.urlLink) as ButtonUrl },
+              }
+            : {
+                type: ActionDisplayType.authButton,
+                content: action.description as Content,
+                button: undefined,
+              },
         ];
       }
       default: {
@@ -177,7 +183,7 @@ const _generateSuitabilityRules = (
   }
 
   const content: SuitabilityRule[] = suggestion.suitabilityRules.flatMap(
-    (rule: SuitabilityRuleFromApi): SuitabilityRule[] => {
+    (rule: ResponseSuitabilityRule): SuitabilityRule[] => {
       switch (rule.ruleCode) {
         case "AlreadyVaccinated": {
           return [{ type: RuleDisplayType.card, content: rule.ruleText as Content }];
