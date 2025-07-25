@@ -1,9 +1,5 @@
-import { APIMClientAssertionPayload, APIMTokenPayload, DecodedIdToken } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
-import axios from "axios";
-import jwt from "jsonwebtoken";
-import { jwtDecode } from "jwt-decode";
 import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import { Logger } from "pino";
@@ -31,10 +27,6 @@ const fillMissingFieldsInTokenWithDefaultValues = (token: JWT): JWT => {
 
 const isInitialLoginJourney = (account: Account | null | undefined, profile: Profile | null | undefined) => {
   return account && profile;
-};
-
-const missingUserAccessToken = (token: JWT): boolean => {
-  return typeof token.apim?.access_token === "undefined";
 };
 
 const updateTokenWithValuesFromAccountAndProfile = (
@@ -100,82 +92,8 @@ const getToken = async (
     );
   }
 
-  if (!isInitialLoginJourney(account, profile) && missingUserAccessToken(token)) {
-    const accessToken: string | undefined = await getAccessTokenForIDToken(config, token.nhs_login.id_token);
-    if (accessToken) {
-      updatedToken = {
-        ...updatedToken,
-        apim: {
-          access_token: accessToken,
-          expires_in: 0,
-          refresh_token: "",
-          refresh_token_expires_in: 0,
-        },
-      };
-    }
-  }
-
   log.info({ updatedToken: updatedToken }, "Returning JWT from callback");
   return updatedToken;
-};
-
-const generateClientAssertion = (config: AppConfig): string => {
-  const privateKey: string = process.env.APIM_PRIVATE_KEY ?? "undefined-apim-private-key";
-  const payload: APIMClientAssertionPayload = {
-    iss: config.CONTENT_API_KEY,
-    sub: config.CONTENT_API_KEY,
-    aud: process.env.APIM_AUTH_URL ?? "undefined-apim-auth-url",
-    jti: crypto.randomUUID(),
-    exp: Math.floor(Date.now() / 1000) + 300,
-  };
-
-  return jwt.sign(payload, privateKey, { algorithm: "RS512", keyid: process.env.APIM_KEY_ID });
-};
-
-const getAccessTokenForIDToken = async (config: AppConfig, idToken: string): Promise<string | undefined> => {
-  try {
-    const clientAssertion: string = generateClientAssertion(config);
-    log.info({ clientAssertion: clientAssertion, idToken: idToken }, "APIM");
-
-    const decodedToken = jwtDecode<DecodedIdToken>(idToken);
-    log.info({ idToken: decodedToken }, "decoded idToken");
-
-    const tokenPayload: APIMTokenPayload = {
-      grant_type: "urn:ietf:params:oauth:grant-type:token-exchange",
-      subject_token_type: "urn:ietf:params:oauth:token-type:id_token",
-      client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
-      subject_token: idToken,
-      client_assertion: clientAssertion,
-    };
-
-    const response = await axios.post(
-      process.env.APIM_AUTH_URL ?? "undefined-apim-auth-url",
-      new URLSearchParams(tokenPayload),
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        timeout: 5000,
-      },
-    );
-
-    log.info({ response: response.data }, "APIM ok response");
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      log.error(
-        {
-          response: {
-            message: error.message,
-            status: error.response?.status,
-            data: error.response?.data,
-          },
-        },
-        "APIM error response",
-      );
-    }
-    return undefined;
-  }
 };
 
 export { getToken };

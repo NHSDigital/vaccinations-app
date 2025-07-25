@@ -21,7 +21,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
       verifyRequest: SSO_FAILURE_ROUTE,
       newUser: SSO_FAILURE_ROUTE,
     },
-    debug: process.env.NODE_ENV !== "production",
     session: {
       strategy: "jwt",
       maxAge: MAX_SESSION_AGE_SECONDS,
