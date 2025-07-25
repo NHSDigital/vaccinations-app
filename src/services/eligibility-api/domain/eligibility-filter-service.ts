@@ -6,7 +6,7 @@ import {
   Action as ResponseAction,
   SuitabilityRule as ResponseSuitabilityRule,
 } from "@src/services/eligibility-api/api-types";
-import { EligibilityApiHttpStatusError } from "@src/services/eligibility-api/gateway/exceptions";
+import { EligibilityApiError } from "@src/services/eligibility-api/gateway/exceptions";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import {
   Action,
@@ -52,9 +52,7 @@ const getEligibilityForPerson = async (
 
     let summary: SummaryContent | undefined;
 
-    if (!suggestionForVaccine.eligibilityCohorts) {
-      log.error({ nhsNumber, vaccineType }, "EliD response validation error: Missing eligibilityCohorts element");
-    } else if (suggestionForVaccine.eligibilityCohorts.length > 0) {
+    if (suggestionForVaccine.eligibilityCohorts.length > 0) {
       summary = {
         heading: suggestionForVaccine.statusText as Heading,
         introduction: ELIGIBILITY_CONTENT_INTRO_TEXT as Introduction,
@@ -62,8 +60,8 @@ const getEligibilityForPerson = async (
       };
     }
 
-    const actions: Action[] = _generateActions(suggestionForVaccine, vaccineType, nhsNumber);
-    const suitabilityRules: SuitabilityRule[] = _generateSuitabilityRules(suggestionForVaccine, vaccineType, nhsNumber);
+    const actions: Action[] = _generateActions(suggestionForVaccine, nhsNumber);
+    const suitabilityRules: SuitabilityRule[] = _generateSuitabilityRules(suggestionForVaccine, nhsNumber);
 
     return {
       eligibility: {
@@ -77,7 +75,7 @@ const getEligibilityForPerson = async (
       eligibilityError: undefined,
     };
   } catch (error: unknown) {
-    if (error instanceof EligibilityApiHttpStatusError) {
+    if (error instanceof EligibilityApiError) {
       return {
         eligibility: undefined,
         eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
@@ -106,21 +104,11 @@ const _getStatus = (suggestion: ProcessedSuggestion, nhsNumber: NhsNumber): Elig
   if (suggestion.status === "Actionable") {
     return EligibilityStatus.ACTIONABLE; // WIP
   }
-  // TODO: default case if ELID returns unknown status type
   log.error({ nhsNumber }, `${suggestion.status} not yet implemented.`);
   throw new Error(`${suggestion.status} not yet implemented.`);
 };
 
-const _generateActions = (
-  suggestion: ProcessedSuggestion,
-  vaccineType: VaccineTypes,
-  nhsNumber: NhsNumber,
-): Action[] => {
-  if (!suggestion.actions) {
-    log.warn({ nhsNumber, vaccineType }, "Missing actions array");
-    return [];
-  }
-
+const _generateActions = (suggestion: ProcessedSuggestion, nhsNumber: NhsNumber): Action[] => {
   const content: Action[] = suggestion.actions.flatMap((action: ResponseAction): Action[] => {
     switch (action.actionType) {
       case "InfoText": {
@@ -172,16 +160,7 @@ const _generateActions = (
   return content;
 };
 
-const _generateSuitabilityRules = (
-  suggestion: ProcessedSuggestion,
-  vaccineType: VaccineTypes,
-  nhsNumber: NhsNumber,
-): SuitabilityRule[] => {
-  if (!suggestion.suitabilityRules) {
-    log.warn({ nhsNumber, vaccineType }, "Missing suitabilityRules array");
-    return [];
-  }
-
+const _generateSuitabilityRules = (suggestion: ProcessedSuggestion, nhsNumber: NhsNumber): SuitabilityRule[] => {
   const content: SuitabilityRule[] = suggestion.suitabilityRules.flatMap(
     (rule: ResponseSuitabilityRule): SuitabilityRule[] => {
       switch (rule.ruleCode) {
