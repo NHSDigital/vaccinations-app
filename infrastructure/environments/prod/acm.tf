@@ -1,6 +1,6 @@
 data "aws_acm_certificate" "website" {
   provider    = aws.global
-  domain      = format("*.%s", local.domain)
+  domain      = local.domain
   key_types   = ["RSA_2048"]
   statuses    = ["ISSUED"]
   types       = ["AMAZON_ISSUED"]
