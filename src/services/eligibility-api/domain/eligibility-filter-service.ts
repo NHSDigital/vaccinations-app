@@ -52,7 +52,7 @@ const getEligibilityForPerson = async (
 
     let summary: SummaryContent | undefined;
 
-    if (suggestionForVaccine.eligibilityCohorts.length > 0) {
+    if (suggestionForVaccine.eligibilityCohorts.length) {
       summary = {
         heading: suggestionForVaccine.statusText as Heading,
         introduction: ELIGIBILITY_CONTENT_INTRO_TEXT as Introduction,
