@@ -1,9 +1,18 @@
 import { NhsNumber } from "@src/models/vaccine";
 import { EligibilityApiResponse } from "@src/services/eligibility-api/api-types";
-import { EligibilityApiHttpStatusError } from "@src/services/eligibility-api/gateway/exceptions";
+import {
+  EligibilityApiResponseSchema,
+  RawEligibilityApiResponse,
+} from "@src/services/eligibility-api/gateway/elid-schema";
+import {
+  EligibilityApiHttpStatusError,
+  EligibilityApiSchemaError,
+} from "@src/services/eligibility-api/gateway/exceptions";
+import { Cohort, Heading } from "@src/services/eligibility-api/types";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import axios, { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
+import { ZodError } from "zod";
 
 const log = logger.child({ module: "fetch-eligibility-content" });
 const ELIGIBILITY_API_PATH_SUFFIX = "eligibility-signposting-api/patient-check/";
@@ -35,5 +44,38 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
       throw new EligibilityApiHttpStatusError(`Error in fetching ${uri}`);
     });
   log.info({ nhsNumber }, "Eligibility status retrieved");
-  return response.data; // TODO - deserialise using https://zod.dev or similar, and throw EligibilityApiSchemaError?
+  try {
+    const validatedApiData = EligibilityApiResponseSchema.parse(response.data);
+    log.debug({ nhsNumber, validatedApiData }, "Eligibility status data validated");
+    return toDomainModel(validatedApiData);
+  } catch (error) {
+    if (error instanceof ZodError) {
+      log.error({ nhsNumber, uri, zodIssues: error.issues }, `EliD response schema validation error for ${nhsNumber}`);
+      throw new EligibilityApiSchemaError(`Schema validation failed for ${uri}`);
+    }
+    throw error;
+  }
+};
+
+const toDomainModel = (apiResponse: RawEligibilityApiResponse): EligibilityApiResponse => {
+  return {
+    processedSuggestions: apiResponse.processedSuggestions.map((suggestion) => ({
+      ...suggestion,
+      statusText: suggestion.statusText as Heading,
+      eligibilityCohorts: suggestion.eligibilityCohorts.map((cohort) => ({
+        ...cohort,
+        cohortText: cohort.cohortText as Cohort,
+      })),
+      actions: suggestion.actions.map((action) => ({
+        actionType: action.actionType,
+        description: action.description,
+        urlLink: action.urlLink ? new URL(action.urlLink) : undefined,
+        urlLabel: action.urlLabel,
+      })),
+      suitabilityRules: suggestion.suitabilityRules.map((rule) => ({
+        ruleCode: rule.ruleCode,
+        ruleText: rule.ruleText,
+      })),
+    })),
+  };
 };
