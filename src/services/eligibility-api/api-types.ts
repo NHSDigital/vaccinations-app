@@ -8,8 +8,8 @@ export type ProcessedSuggestion = {
   status: Status;
   statusText: string;
   eligibilityCohorts: EligibilityCohort[];
-  actions: ActionFromApi[];
-  suitabilityRules: SuitabilityRuleFromApi[];
+  actions: Action[];
+  suitabilityRules: SuitabilityRule[];
 };
 
 export type Condition = "RSV";
@@ -21,19 +21,17 @@ export type EligibilityCohort = {
   cohortStatus: Status;
 };
 
-export type ActionFromApi = {
+export type Action = {
   actionType: ActionType;
-  actionCode: ActionCode;
   description: string;
-  urlLink: string;
-  urlLabel: string;
+  urlLink: URL | undefined;
+  urlLabel: string | undefined;
 };
 
-export type SuitabilityRuleFromApi = {
+export type SuitabilityRule = {
   ruleCode: RuleCode;
   ruleText: string;
 };
 
 export type ActionType = "InfoText" | "CardWithText" | "ButtonWithAuthLink";
 export type RuleCode = "AlreadyVaccinated" | "NotAvailable" | "NotYetDue" | "TooClose" | "OtherSetting";
-export type ActionCode = "HealthcareProInfo";
