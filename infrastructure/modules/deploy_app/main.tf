@@ -17,7 +17,7 @@ module "deploy_app" {
     create_route53_entries         = false
     route53_record_allow_overwrite = false
 
-    sub_domain = coalesce(var.sub_domain, null)
+    sub_domain = var.sub_domain
     hosted_zones = [
       { name = var.domain }
     ]
