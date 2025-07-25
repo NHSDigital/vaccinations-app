@@ -82,7 +82,8 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-error-boundary": "^6.0.0",
-    "react-markdown": "^10.1.0"
+    "react-markdown": "^10.1.0",
+    "zod": "^4.0.10"
   },
   "overrides": {
     "jsdom": "^26.0.0"

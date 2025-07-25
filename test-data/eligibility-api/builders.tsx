@@ -1,9 +1,9 @@
 import {
-  ActionFromApi,
   EligibilityApiResponse,
   EligibilityCohort,
   ProcessedSuggestion,
-  SuitabilityRuleFromApi,
+  Action as ResponseAction,
+  SuitabilityRule as ResponseSuitabilityRule,
 } from "@src/services/eligibility-api/api-types";
 import {
   Action,
@@ -51,17 +51,16 @@ export function eligibilityCohortBuilder() {
 }
 
 export function actionFromApiBuilder() {
-  return createTypeBuilder<ActionFromApi>({
+  return createTypeBuilder<ResponseAction>({
     actionType: randomValue(["ButtonWithAuthLink", "CardWithText", "InfoText"]),
-    actionCode: randomValue(["HealthcareProInfo"]),
     description: randomString(10),
-    urlLink: randomURL().href,
+    urlLink: randomURL(),
     urlLabel: randomString(10),
   });
 }
 
 export function suitabilityRuleFromApiBuilder() {
-  return createTypeBuilder<SuitabilityRuleFromApi>({
+  return createTypeBuilder<ResponseSuitabilityRule>({
     ruleCode: randomValue(["AlreadyVaccinated", "NotAvailable", "NotYetDue", "TooClose", "OtherSetting"]),
     ruleText: randomString(10),
   });
