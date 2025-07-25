@@ -70,7 +70,7 @@
     "@aws-sdk/client-ssm": "^3.849.0",
     "@types/aws-lambda": "^8.10.152",
     "axios": "^1.11.0",
-    "dotenv": "^17.2.0",
+    "dotenv": "^17.2.1",
     "isomorphic-dompurify": "^2.26.0",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
