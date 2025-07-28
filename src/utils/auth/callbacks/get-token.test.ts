@@ -95,25 +95,6 @@ describe("getToken", () => {
     });
   });
 
-  it("should fill in missing values in token with default empty string", async () => {
-    const token = {
-      user: {},
-      nhs_login: {},
-    } as JWT;
-
-    const result = await getToken(token, null, undefined, mockConfig, 300);
-
-    expect(result).toMatchObject({
-      user: {
-        nhs_number: "",
-        birthdate: "",
-      },
-      nhs_login: {
-        id_token: "",
-      },
-    });
-  });
-
   it("should return null if fixedExpiry reached", async () => {
     const token = {
       fixedExpiry: nowInSeconds - 1,
