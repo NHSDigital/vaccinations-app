@@ -33,6 +33,10 @@ The following steps will put Cloudfront access logs to S3 bucket.
   - use partitioning ```{DistributionId}/{yyyy}/{MM}/{dd}/{HH}```
   - use output format as JSON
 
+### Setting default limits
+
+- Increase the default throughput limit of the parameter store, instructions [here](https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-throughput.html#parameter-store-throughput-increasing)
+
 ## One time setup (once for the team)
 
 ### Tags
