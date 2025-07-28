@@ -11,7 +11,7 @@ import {
   RSV_PREGNANCY_PAGE_URL,
 } from "../constants";
 
-test.describe.configure({ mode: "serial" });
+test.describe.configure({ mode: "parallel", retries: 3 });
 
 test.describe("Application", () => {
   test.use({ storageState: `./e2e/.auth/default.json` });
