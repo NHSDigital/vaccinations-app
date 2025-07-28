@@ -12,12 +12,16 @@ describe("configProvider", () => {
     };
   });
 
-  it("should return config object with values from env if present, else from getSSMParam", async () => {
-    const prefix: string = "test/";
+  const setupTestEnvVars = (prefix: string) => {
     process.env.SSM_PREFIX = prefix;
     process.env.CONTENT_API_ENDPOINT = "https://api-endpoint";
     process.env.ELIGIBILITY_API_ENDPOINT = "https://elid-endpoint";
     process.env.APIM_AUTH_URL = "https://apim-endpoint";
+  };
+
+  it("should return config object with values from env if present, else from getSSMParam", async () => {
+    const prefix: string = "test/";
+    setupTestEnvVars(prefix);
     const mockGetSSMParam = (getSSMParam as jest.Mock).mockResolvedValue("api-key");
 
     const config: AppConfig = await configProvider();
@@ -39,5 +43,29 @@ describe("configProvider", () => {
     expect(mockGetSSMParam).not.toHaveBeenCalledWith(`${prefix}CONTENT_API_KEY`);
     expect(mockGetSSMParam).toHaveBeenCalledWith(`${prefix}CONTENT_API_ENDPOINT`);
     expect(mockGetSSMParam).toHaveBeenCalledTimes(1);
+  });
+
+  it("should convert IS_APIM_AVAILABLE to a false boolean value", async () => {
+    setupTestEnvVars("test/");
+    process.env.IS_APIM_AVAILABLE = "false";
+    (getSSMParam as jest.Mock).mockResolvedValue("api-key");
+
+    const config: AppConfig = await configProvider();
+
+    expect(config).toMatchObject({
+      IS_APIM_AVAILABLE: false,
+    });
+  });
+
+  it("should convert IS_APIM_AVAILABLE to a true boolean value", async () => {
+    setupTestEnvVars("test/");
+    process.env.IS_APIM_AVAILABLE = "true";
+    (getSSMParam as jest.Mock).mockResolvedValue("api-key");
+
+    const config: AppConfig = await configProvider();
+
+    expect(config).toMatchObject({
+      IS_APIM_AVAILABLE: true,
+    });
   });
 });

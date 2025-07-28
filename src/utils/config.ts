@@ -14,9 +14,7 @@ type AppConfig = {
   NBS_BOOKING_PATH: string;
   MAX_SESSION_AGE_MINUTES: number;
   NHS_APP_REDIRECT_LOGIN_URL: string;
-  APIM_PRIVATE_KEY: string;
-  APIM_AUTH_URL: URL;
-  APIM_KEY_ID: string;
+  IS_APIM_AVAILABLE: boolean;
 };
 
 const configProvider = async (): Promise<AppConfig> => {
@@ -35,13 +33,11 @@ const configProvider = async (): Promise<AppConfig> => {
     NBS_URL: await getFromEnvironmentOrSSM(SSM_PREFIX, "NBS_URL"),
     NBS_BOOKING_PATH: await getFromEnvironmentOrSSM(SSM_PREFIX, "NBS_BOOKING_PATH"),
     MAX_SESSION_AGE_MINUTES: Number(await getFromEnvironmentOrSSM(SSM_PREFIX, "MAX_SESSION_AGE_MINUTES")),
-    APIM_PRIVATE_KEY: await getFromEnvironmentOrSSM(SSM_PREFIX, "APIM_PRIVATE_KEY"),
-    APIM_AUTH_URL: await getUrlFromEnvironmentOrSSM(SSM_PREFIX, "APIM_AUTH_URL"),
-    APIM_KEY_ID: await getFromEnvironmentOrSSM(SSM_PREFIX, "APIM_KEY_ID"),
+    IS_APIM_AVAILABLE: (await getFromEnvironmentOrSSM(SSM_PREFIX, "IS_APIM_AVAILABLE")) === "true",
   };
 };
 
-const getFromEnvironmentOrSSM = async (ssmPrefix: string, param: string): Promise<string> => {
+export const getFromEnvironmentOrSSM = async (ssmPrefix: string, param: string): Promise<string> => {
   const value = process.env[param] ?? (await getSSMParam(`${ssmPrefix}${param}`));
 
   if (value === undefined || value === null) {
@@ -51,7 +47,7 @@ const getFromEnvironmentOrSSM = async (ssmPrefix: string, param: string): Promis
   return value;
 };
 
-const getUrlFromEnvironmentOrSSM = async (ssmPrefix: string, param: string): Promise<URL> => {
+export const getUrlFromEnvironmentOrSSM = async (ssmPrefix: string, param: string): Promise<URL> => {
   return new URL(await getFromEnvironmentOrSSM(ssmPrefix, param));
 };
 
