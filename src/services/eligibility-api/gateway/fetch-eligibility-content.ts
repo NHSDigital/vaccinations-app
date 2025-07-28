@@ -50,7 +50,10 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
     return toDomainModel(validatedApiData);
   } catch (error) {
     if (error instanceof ZodError) {
-      log.error({ nhsNumber, uri, schemaIssues: error.issues }, "EliD response schema validation error");
+      log.error(
+        { nhsNumber, uri, responseData: response.data, schemaIssues: error.issues },
+        "EliD response schema validation error",
+      );
       throw new EligibilityApiSchemaError(`Schema validation failed for ${uri}`);
     }
     throw error;
