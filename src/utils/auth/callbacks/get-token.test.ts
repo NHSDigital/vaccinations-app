@@ -68,6 +68,12 @@ describe("getToken", () => {
       nhs_login: {
         id_token: "newIdToken",
       },
+      apim: {
+        access_token: "",
+        expires_in: 0,
+        refresh_token: "",
+        refresh_token_expires_in: 0,
+      },
       fixedExpiry: nowInSeconds + maxAgeInSeconds,
     });
   });
@@ -90,6 +96,12 @@ describe("getToken", () => {
       },
       nhs_login: {
         id_token: "",
+      },
+      apim: {
+        access_token: "",
+        expires_in: 0,
+        refresh_token: "",
+        refresh_token_expires_in: 0,
       },
       fixedExpiry: nowInSeconds + maxAgeInSeconds,
     });
