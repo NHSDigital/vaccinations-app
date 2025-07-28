@@ -16,12 +16,6 @@ const fillMissingFieldsInTokenWithDefaultValues = (token: JWT): JWT => {
     nhs_login: {
       id_token: token.nhs_login?.id_token ?? "",
     },
-    apim: {
-      access_token: token.apim?.access_token ?? "",
-      expires_in: token.apim?.expires_in ?? 0,
-      refresh_token: token.apim?.refresh_token ?? "",
-      refresh_token_expires_in: token.apim?.refresh_token_expires_in ?? 0,
-    },
   };
 };
 
