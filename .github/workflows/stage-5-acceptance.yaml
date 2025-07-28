@@ -7,6 +7,13 @@ on:
         description: "Environment to run tests against"
         required: true
         type: string
+      tag:
+        description: "The commit SHA (DEV) or version tag (higher envs) to be deployed"
+        required: false
+        type: string
+
+env:
+  TAG: ${{ inputs.tag || github.sha }}
 
 jobs:
   test-e2e:
@@ -24,6 +31,8 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
       - name: "Install dependencies"
         run: |
           npm ci --ignore-scripts
@@ -64,6 +73,8 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
       - name: "Install dependencies"
         run: |
           npm ci --ignore-scripts

@@ -8,7 +8,7 @@ on:
         type: string
       tag:
         description: "The commit SHA (DEV) or version tag (higher envs) to be deployed"
-        required: true
+        required: false
         type: string
       environment:
         description: "Environment to deploy to"
@@ -17,6 +17,7 @@ on:
 
 env:
   AWS_REGION: eu-west-2
+  TAG: ${{ inputs.tag || github.sha }}
 
 jobs:
   deploy:
@@ -31,6 +32,8 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
       - name: "Install Terraform"
         uses: hashicorp/setup-terraform@v3
         with:
@@ -45,23 +48,23 @@ jobs:
         if: ${{ inputs.environment == 'dev' }}
         run: |
           AWS_S3_ARTEFACTS_BUCKET="vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-${{ inputs.environment }}"
-          app_s3_path="s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/${{ inputs.tag }}/open-next.zip"
+          app_s3_path="s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/${{ env.TAG }}/open-next.zip"
           echo "Artefact path: $app_s3_path"
           aws s3 cp "$app_s3_path" .
-          lambda_s3_path="s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/${{ inputs.tag }}/lambda.zip"
+          lambda_s3_path="s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/${{ env.TAG }}/lambda.zip"
           echo "Artefact path: $lambda_s3_path"
           aws s3 cp "$lambda_s3_path" .
       - name: "Download packages from ${{ inputs.environment}} S3 Releases bucket"
         if: ${{ inputs.environment == 'preprod' || inputs.environment == 'prod' }}
         run: |
           AWS_S3_RELEASE_BUCKET="vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${{ inputs.environment }}"
-          app_s3_path="s3://${AWS_S3_RELEASE_BUCKET}/tag/${{ inputs.tag }}/open-next.zip"
+          app_s3_path="s3://${AWS_S3_RELEASE_BUCKET}/tag/${{ env.TAG }}/open-next.zip"
           echo "Artefact path: $app_s3_path"
           aws s3 cp "$app_s3_path" .
-          lambda_s3_path="s3://${AWS_S3_RELEASE_BUCKET}/tag/${{ inputs.tag }}/lambda.zip"
+          lambda_s3_path="s3://${AWS_S3_RELEASE_BUCKET}/tag/${{ env.TAG }}/lambda.zip"
           echo "Artefact path: $lambda_s3_path"
           aws s3 cp "$lambda_s3_path" .
-          workflow_s3_path="s3://${AWS_S3_RELEASE_BUCKET}/tag/${{ inputs.tag }}/workflow.log"
+          workflow_s3_path="s3://${AWS_S3_RELEASE_BUCKET}/tag/${{ env.TAG }}/workflow.log"
           echo "Artefact path: $workflow_s3_path"
           aws s3 cp "$workflow_s3_path" .
       - name: "Unzip OpenNext Package"
@@ -73,7 +76,7 @@ jobs:
       - name: "Set the Slack channel id where alarms are sent"
         run: echo "TF_VAR_alarms_slack_channel_id=${{ secrets.ALARMS_SLACK_CHANNEL_ID }}" >> $GITHUB_ENV
       - name: "Set the app version being deployed"
-        run: echo "TF_VAR_app_version=${{ inputs.tag }}" >> $GITHUB_ENV
+        run: echo "TF_VAR_app_version=${{ env.TAG }}" >> $GITHUB_ENV
       - name: "Terraform init"
         id: init
         run: TF_ENV=${{ inputs.environment }} make terraform-init

@@ -31,6 +31,8 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.tag }}
       - name: "Set CI/CD variables"
         id: variables
         run: |
@@ -71,6 +73,7 @@ jobs:
     uses: ./.github/workflows/stage-5-acceptance.yaml
     with:
       environment: ${{ github.event.inputs.environment}}
+      tag: ${{ needs.metadata.outputs.tag }}
     secrets: inherit
   snapshot-test-stage:
     name: "Snapshot Test stage"
