@@ -61,12 +61,18 @@ describe("getToken", () => {
     const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
 
     expect(result).toMatchObject({
-      id_token: {
-        jti: "jti_test",
-      },
       user: {
         nhs_number: profile.nhs_number,
         birthdate: profile.birthdate,
+      },
+      nhs_login: {
+        id_token: "newIdToken",
+      },
+      apim: {
+        access_token: "",
+        expires_in: 0,
+        refresh_token: "",
+        refresh_token_expires_in: 0,
       },
       fixedExpiry: nowInSeconds + maxAgeInSeconds,
     });
@@ -84,12 +90,18 @@ describe("getToken", () => {
     const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
 
     expect(result).toMatchObject({
-      id_token: {
-        jti: "",
-      },
       user: {
         nhs_number: "",
         birthdate: "",
+      },
+      nhs_login: {
+        id_token: "",
+      },
+      apim: {
+        access_token: "",
+        expires_in: 0,
+        refresh_token: "",
+        refresh_token_expires_in: 0,
       },
       fixedExpiry: nowInSeconds + maxAgeInSeconds,
     });
@@ -104,21 +116,5 @@ describe("getToken", () => {
     const result = await getToken(token, null, undefined, mockConfig, 300);
 
     expect(result).toBeNull();
-  });
-
-  it("should return the token if no refresh needed", async () => {
-    const token = {
-      id_token: {
-        jti: "jti_test",
-      },
-      user: {
-        nhs_number: "test_nhs_number",
-        birthdate: "test_birthdate",
-      },
-    } as JWT;
-
-    const result = await getToken(token, null, undefined, mockConfig, 300);
-
-    expect(result).toEqual(token);
   });
 });
