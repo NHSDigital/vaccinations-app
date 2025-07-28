@@ -13,13 +13,6 @@ const getUpdatedSession = (session: Session, token: JWT) => {
     };
   }
 
-  if (token?.apim) {
-    session.apim = {
-      access_token: token.apim.access_token,
-      expires_in: token.apim.expires_in,
-    };
-  }
-
   return session;
 };
 
