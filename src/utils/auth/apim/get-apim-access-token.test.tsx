@@ -1,9 +1,9 @@
 /**
  * @jest-environment node
  */
+import { ApimConfig } from "@src/utils/apimConfig";
 import { generateAPIMTokenPayload } from "@src/utils/auth/apim/get-apim-access-token";
-import { AppConfig } from "@src/utils/config";
-import { appConfigBuilder } from "@test-data/config/builders";
+import { apimConfigBuilder } from "@test-data/config/builders";
 import jwt from "jsonwebtoken";
 
 jest.mock("jsonwebtoken", () => ({
@@ -14,7 +14,7 @@ const mockSignedJwt = "mock-signed-jwt";
 const mockIdToken = "id-token";
 const mockNowInSeconds = 1749052001;
 
-const mockConfig: AppConfig = appConfigBuilder()
+const mockApimConfig: ApimConfig = apimConfigBuilder()
   .withCONTENT_API_KEY("apim-api-key")
   .andAPIM_AUTH_URL("https://apim-test-auth-url.com/test")
   .andAPIM_KEY_ID("apim-key-id")
@@ -46,19 +46,19 @@ describe("generateAPIMTokenPayload", () => {
     (jwt.sign as jest.Mock).mockResolvedValue(mockSignedJwt);
 
     const expectedClientAssertionPayloadContent = {
-      iss: mockConfig.CONTENT_API_KEY,
-      sub: mockConfig.CONTENT_API_KEY,
-      aud: mockConfig.APIM_AUTH_URL.toString(),
+      iss: mockApimConfig.CONTENT_API_KEY,
+      sub: mockApimConfig.CONTENT_API_KEY,
+      aud: mockApimConfig.APIM_AUTH_URL.toString(),
       jti: mockRandomUUID,
       exp: mockNowInSeconds + 300,
     };
 
-    const apimTokenPayload = await generateAPIMTokenPayload(mockConfig, mockIdToken);
+    const apimTokenPayload = await generateAPIMTokenPayload(mockApimConfig, mockIdToken);
     const clientAssertionJWT = apimTokenPayload.client_assertion;
 
-    expect(jwt.sign).toHaveBeenCalledWith(expectedClientAssertionPayloadContent, mockConfig.APIM_PRIVATE_KEY, {
+    expect(jwt.sign).toHaveBeenCalledWith(expectedClientAssertionPayloadContent, mockApimConfig.APIM_PRIVATE_KEY, {
       algorithm: "RS512",
-      keyid: mockConfig.APIM_KEY_ID,
+      keyid: mockApimConfig.APIM_KEY_ID,
     });
     expect(clientAssertionJWT).toEqual(mockSignedJwt);
   });
@@ -66,7 +66,7 @@ describe("generateAPIMTokenPayload", () => {
   it("should use id_token as subject_token field", async () => {
     (jwt.sign as jest.Mock).mockResolvedValue(mockSignedJwt);
 
-    const apimTokenPayload = await generateAPIMTokenPayload(mockConfig, mockIdToken);
+    const apimTokenPayload = await generateAPIMTokenPayload(mockApimConfig, mockIdToken);
 
     expect(apimTokenPayload.subject_token).toBe(mockIdToken);
   });
@@ -74,6 +74,6 @@ describe("generateAPIMTokenPayload", () => {
   it("should propagate errors thrown by jwt.sign", async () => {
     (jwt.sign as jest.Mock).mockRejectedValue(new Error("Invalid key"));
 
-    await expect(generateAPIMTokenPayload(mockConfig, mockIdToken)).rejects.toThrow("Invalid key");
+    await expect(generateAPIMTokenPayload(mockApimConfig, mockIdToken)).rejects.toThrow("Invalid key");
   });
 });
