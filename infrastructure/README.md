@@ -4,9 +4,16 @@ Our infrastructure sits in the Europe(London) region coded 'eu-west-2' in AWS.
 
 ## Post deployment steps
 
-### Setting up environment secrets
+### Setting up and using secrets
 
-Update the values for environment secrets stored in AWS.
+Update the values for the following secrets after generating them: -
+
+- /vita/apim/prod-1.pem - APIM private key used to sign JWTs generated from [here](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/user-restricted-restful-apis-nhs-login-separate-authentication-and-authorisation#step-3-generate-a-key-pair). 'prod-1' here is the key id used during generation.
+- /vita/apim/prod-1.json - APIM public key in JWKS format generated above
+- /vita/nhslogin/private_key.pem - NHS Login private key generated from [here](https://nhsconnect.github.io/nhslogin/generating-pem/)
+- /vita/nhslogin/public_key.pem - NHS Login public key generated above
+
+Now fill the values used by the application below: -
 
 - Go to AWS service "Systems Manager"
 - Click on "Parameter Store" under application tools section
