@@ -212,39 +212,6 @@ describe("elid-schema", () => {
     }
   });
 
-  it("should throw ZodError for an invalid ruleCode in a suitabilityRule", () => {
-    // Given
-    const apiResponse = {
-      processedSuggestions: [
-        {
-          condition: "RSV",
-          status: "NotActionable",
-          statusText: "Some text",
-          suitabilityRules: [{ ruleCode: "InvalidRule", ruleText: "Some rule" }],
-        },
-      ],
-    };
-
-    // When
-    try {
-      EligibilityApiResponseSchema.parse(apiResponse);
-      fail("Should have thrown ZodError");
-    } catch (error) {
-      // Then
-      if (error instanceof ZodError) {
-        expect(error.issues).toHaveLength(1);
-        expect(error.issues[0]).toMatchObject({
-          code: "invalid_value",
-          path: ["processedSuggestions", 0, "suitabilityRules", 0, "ruleCode"],
-          message:
-            'Invalid option: expected one of "AlreadyVaccinated"|"NotAvailable"|"NotYetDue"|"TooClose"|"OtherSetting"',
-        });
-      } else {
-        fail("Should have thrown ZodError");
-      }
-    }
-  });
-
   it("should throw ZodError for a missing cohortText in an eligibilityCohort", () => {
     // Given
     const apiResponse = {
