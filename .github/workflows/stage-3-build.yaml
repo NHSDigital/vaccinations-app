@@ -32,9 +32,9 @@ on:
         required: true
         type: string
     outputs:
-      short_sha:
-        description: "Short SHA of the commit"
-        value: ${{ jobs.build-and-package.outputs.short_sha }}
+      tag:
+        description: "SHA of the commit"
+        value: ${{ jobs.build-and-package.outputs.tag }}
 
 env:
   AWS_REGION: eu-west-2
@@ -51,22 +51,15 @@ jobs:
       id-token: write
       contents: read
     outputs:
-      short_sha: ${{ steps.sha.outputs.short_sha }}
+      tag: ${{ steps.release-version.outputs.release_version }}
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
-      - name: "Get current date"
-        id: date
-        run: echo "today_date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
-      - name: "Get short SHA"
-        id: sha
-        run: echo "short_sha=$(echo ${GITHUB_SHA} | cut -c1-7)" >> $GITHUB_OUTPUT
       - name: "Get the release version"
-        id: strip-branch-name
+        id: release-version
         run: |
-          release_version=${{ steps.sha.outputs.short_sha }}
-          echo "Building release version $release_version"
-          echo "RELEASE_VERSION=$release_version" >> $GITHUB_ENV
+          echo "release_version=${{ github.sha }}" >> $GITHUB_OUTPUT
+          echo "RELEASE_VERSION=${{ github.sha }}" >> $GITHUB_ENV
       - name: "Build OpenNext Package"
         run: |
           npm ci --ignore-scripts
