@@ -4,7 +4,7 @@ const StatusSchema = z.enum(["NotEligible", "NotActionable", "Actionable"]);
 
 const ActionSchema = z
   .object({
-    actionType: z.enum(["InfoText", "CardWithText", "ButtonWithAuthLink"]), // TODO SB - do we want an enum here?
+    actionType: z.string(), // We still want to show actions with unrecognised actionTypes - we log a warning in eligibility-filter-service.ts
     description: z.string(),
     urlLink: z.url().optional(),
     urlLabel: z.string().optional(),
@@ -13,7 +13,7 @@ const ActionSchema = z
 
 const SuitabilityRuleSchema = z
   .object({
-    ruleCode: z.enum(["AlreadyVaccinated", "NotAvailable", "NotYetDue", "TooClose", "OtherSetting"]), // TODO SB - do we want an enum here?
+    ruleCode: z.string(), // We still want to show rules with unrecognised codes - we log a warning in eligibility-filter-service.ts
     ruleText: z.string(),
   })
   .readonly();

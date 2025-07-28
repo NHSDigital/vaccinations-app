@@ -1,5 +1,5 @@
 import { NhsNumber } from "@src/models/vaccine";
-import { EligibilityApiResponse } from "@src/services/eligibility-api/api-types";
+import { ActionType, EligibilityApiResponse, RuleCode } from "@src/services/eligibility-api/api-types";
 import {
   EligibilityApiResponseSchema,
   RawEligibilityApiResponse,
@@ -70,13 +70,13 @@ const toDomainModel = (apiResponse: RawEligibilityApiResponse): EligibilityApiRe
         cohortText: cohort.cohortText as Cohort,
       })),
       actions: suggestion.actions.map((action) => ({
-        actionType: action.actionType,
+        actionType: action.actionType as ActionType,
         description: action.description,
         urlLink: action.urlLink ? new URL(action.urlLink) : undefined,
         urlLabel: action.urlLabel,
       })),
       suitabilityRules: suggestion.suitabilityRules.map((rule) => ({
-        ruleCode: rule.ruleCode,
+        ruleCode: rule.ruleCode as RuleCode,
         ruleText: rule.ruleText,
       })),
     })),
