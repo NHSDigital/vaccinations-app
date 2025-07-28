@@ -31,6 +31,8 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag }}
 
       - name: "Configure AWS credentials for environment"
         uses: aws-actions/configure-aws-credentials@v4
