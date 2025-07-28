@@ -17,7 +17,6 @@ describe("configProvider", () => {
     process.env.SSM_PREFIX = prefix;
     process.env.CONTENT_API_ENDPOINT = "https://api-endpoint";
     process.env.ELIGIBILITY_API_ENDPOINT = "https://elid-endpoint";
-    process.env.APIM_AUTH_URL = "https://apim-endpoint";
     const mockGetSSMParam = (getSSMParam as jest.Mock).mockResolvedValue("api-key");
 
     const config: AppConfig = await configProvider();

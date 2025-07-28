@@ -6,12 +6,10 @@ import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-
 import { AppConfig } from "@src/utils/config";
 import { appConfigBuilder } from "@test-data/config/builders";
 import jwt from "jsonwebtoken";
-import { jwtDecode } from "jwt-decode";
 
 jest.mock("jsonwebtoken", () => ({
   sign: jest.fn(),
 }));
-jest.mock("jwt-decode");
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
 }));
@@ -27,8 +25,10 @@ const mockRandomUUID = "mock-jti";
 const mockNowInSeconds = 1749052001;
 const mockJtiFromSessionIdToken = "jti-from-session-id-token";
 const mockSession = {
-  nhs_login: {
-    id_token: "test-token",
+  user: {
+    id_token: {
+      jti: mockJtiFromSessionIdToken,
+    },
   },
 };
 
@@ -43,22 +43,18 @@ describe("generate-auth-payload", () => {
     randomUUIDSpy.mockClear();
     jest.useFakeTimers();
     jest.setSystemTime(mockNowInSeconds * 1000);
-    (jwtDecode as jest.Mock).mockReturnValue({
-      jti: mockJtiFromSessionIdToken,
-    });
   });
 
   afterAll(() => {
     randomUUIDSpy.mockRestore();
     jest.useRealTimers();
-    jest.clearAllMocks();
   });
 
   describe("generateAssertedLoginIdentityJwt", () => {
     it("should construct payload with code attribute set as jti from id-token, and other expected attributes", async () => {
       (auth as jest.Mock).mockResolvedValue(mockSession);
-      (jwt.sign as jest.Mock).mockResolvedValue(mockSignedJwt);
 
+      (jwt.sign as jest.Mock).mockResolvedValue(mockSignedJwt);
       const expectedAssertedLoginPayloadContent = {
         code: mockJtiFromSessionIdToken,
         iss: mockConfig.NHS_LOGIN_CLIENT_ID,
@@ -75,19 +71,21 @@ describe("generate-auth-payload", () => {
 
     it("should throw error if jti from id_token not available", async () => {
       const mockSessionWithMissingJti = {
-        nhs_login: {
-          id_token: "",
+        user: {
+          id_token: {
+            jti: "",
+          },
         },
       };
 
       (auth as jest.Mock).mockResolvedValue(mockSessionWithMissingJti);
 
       await expect(generateAssertedLoginIdentityJwt(mockConfig)).rejects.toThrow(
-        "Missing information. hasSession=true, hasNHSLogin=true, hasIDToken=false",
+        "Error creating SSO assertedLoginIdentity: id_token.jti attribute missing from session",
       );
     });
 
-    it("should propagate errors thrown by jwt.sign", async () => {
+    it("should propagate errors thrown by generateSignedJwt", async () => {
       (auth as jest.Mock).mockResolvedValue(mockSession);
 
       (jwt.sign as jest.Mock).mockRejectedValue(new Error("Invalid key"));

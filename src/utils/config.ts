@@ -14,9 +14,6 @@ type AppConfig = {
   NBS_BOOKING_PATH: string;
   MAX_SESSION_AGE_MINUTES: number;
   NHS_APP_REDIRECT_LOGIN_URL: string;
-  APIM_PRIVATE_KEY: string;
-  APIM_AUTH_URL: URL;
-  APIM_KEY_ID: string;
 };
 
 const configProvider = async (): Promise<AppConfig> => {
@@ -35,9 +32,6 @@ const configProvider = async (): Promise<AppConfig> => {
     NBS_URL: await getFromEnvironmentOrSSM(SSM_PREFIX, "NBS_URL"),
     NBS_BOOKING_PATH: await getFromEnvironmentOrSSM(SSM_PREFIX, "NBS_BOOKING_PATH"),
     MAX_SESSION_AGE_MINUTES: Number(await getFromEnvironmentOrSSM(SSM_PREFIX, "MAX_SESSION_AGE_MINUTES")),
-    APIM_PRIVATE_KEY: await getFromEnvironmentOrSSM(SSM_PREFIX, "APIM_PRIVATE_KEY"),
-    APIM_AUTH_URL: await getUrlFromEnvironmentOrSSM(SSM_PREFIX, "APIM_AUTH_URL"),
-    APIM_KEY_ID: await getFromEnvironmentOrSSM(SSM_PREFIX, "APIM_KEY_ID"),
   };
 };
 

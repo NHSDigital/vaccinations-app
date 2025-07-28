@@ -1,5 +1,7 @@
+import { DecodedIdToken } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
+import { jwtDecode } from "jwt-decode";
 import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import { Logger } from "pino";
@@ -13,19 +15,13 @@ const fillMissingFieldsInTokenWithDefaultValues = (token: JWT): JWT => {
       nhs_number: token.user?.nhs_number ?? "",
       birthdate: token.user?.birthdate ?? "",
     },
-    nhs_login: {
-      id_token: token.nhs_login?.id_token ?? "",
-    },
-    apim: {
-      access_token: token.apim?.access_token ?? "",
-      expires_in: token.apim?.expires_in ?? 0,
-      refresh_token: token.apim?.refresh_token ?? "",
-      refresh_token_expires_in: token.apim?.refresh_token_expires_in ?? 0,
+    id_token: token.id_token ?? {
+      jti: "",
     },
   };
 };
 
-const isInitialLoginJourney = (account: Account | null | undefined, profile: Profile | null | undefined) => {
+const isInitialLoginJourney = (account: Account | null | undefined, profile: Profile | undefined) => {
   return account && profile;
 };
 
@@ -36,14 +32,21 @@ const updateTokenWithValuesFromAccountAndProfile = (
   nowInSeconds: number,
   maxAgeInSeconds: number,
 ) => {
+  let jti = "";
+
+  if (account.id_token) {
+    const decodedToken = jwtDecode<DecodedIdToken>(account.id_token);
+    jti = decodedToken.jti;
+  }
+
   const updatedToken: JWT = {
     ...token,
+    id_token: {
+      jti: jti,
+    },
     user: {
       nhs_number: profile.nhs_number ?? "",
       birthdate: profile.birthdate ?? "",
-    },
-    nhs_login: {
-      id_token: account.id_token ?? "",
     },
     fixedExpiry: nowInSeconds + maxAgeInSeconds,
   };
@@ -92,7 +95,6 @@ const getToken = async (
     );
   }
 
-  log.info({ updatedToken: updatedToken }, "Returning JWT from callback");
   return updatedToken;
 };
 
