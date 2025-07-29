@@ -24,7 +24,7 @@ export type EligibilityCohort = {
 export type Action = {
   actionType: ActionType;
   description: string;
-  urlLink: URL | undefined;
+  url: URL | undefined;
   urlLabel: string | undefined;
 };
 

@@ -204,7 +204,7 @@ describe("eligibility-filter-service", () => {
             .withActionType("ButtonWithAuthLink")
             .andDescription("ButtonWithAuthLink Markdown")
             .andUrlLabel("Button Label")
-            .andUrlLink("https://test.example.com/foo/bar/")
+            .andUrl(new URL("https://test.example.com/foo/bar/"))
             .build(),
         ])
         .build();

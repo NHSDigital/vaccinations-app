@@ -54,7 +54,7 @@ export function actionFromApiBuilder() {
   return createTypeBuilder<ResponseAction>({
     actionType: randomValue(["ButtonWithAuthLink", "CardWithText", "InfoText"]),
     description: randomString(10),
-    urlLink: randomURL(),
+    url: randomURL(),
     urlLabel: randomString(10),
   });
 }
