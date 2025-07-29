@@ -7,9 +7,6 @@ on:
         description: 'Environment to deploy to'
         type: environment
         required: true
-      tag:
-        description: "The commit SHA (DEV) or version tag (higher envs) to be deployed"
-        required: true
 
 env:
   AWS_REGION: eu-west-2
@@ -32,7 +29,7 @@ jobs:
       - name: "Checkout code"
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.tag }}
+          ref: ${{ github.ref }}
       - name: "Set CI/CD variables"
         id: variables
         run: |
@@ -45,7 +42,7 @@ jobs:
           echo "terraform_version=$(grep "^terraform" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
           # TODO: Get the version, but it may not be the .version file as this should come from the CI/CD Pull Request Workflow
           echo "version=$(head -n 1 .version 2> /dev/null || echo unknown)" >> $GITHUB_OUTPUT
-          echo "tag=${{ github.event.inputs.tag }}" >> $GITHUB_OUTPUT
+          echo "tag=${{ github.ref_name }})" >> $GITHUB_OUTPUT
       - name: "List variables"
         run: |
           export BUILD_DATETIME="${{ steps.variables.outputs.build_datetime }}"
