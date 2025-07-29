@@ -1,10 +1,9 @@
-import { Matchers } from "@pact-foundation/pact";
 import { NhsNumber } from "@src/models/vaccine";
 import { EligibilityApiResponse } from "@src/services/eligibility-api/api-types";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import { AppConfig } from "@src/utils/config";
 import { appConfigBuilder } from "@test-data/config/builders";
-import { eligibilityApiResponseBuilder } from "@test-data/eligibility-api/builders";
+import { readFileSync } from "fs";
 import { pactWith } from "jest-pact";
 
 jest.mock("@src/utils/config", () => ({
@@ -17,14 +16,40 @@ jest.mock("@src/utils/config", () => ({
   }),
 }));
 
+const successfulResponse: EligibilityApiResponse = {
+  processedSuggestions: [
+    {
+      condition: "RSV",
+      status: "NotActionable",
+      statusText: "You should have the RSV vaccine",
+      eligibilityCohorts: [],
+      actions: [
+        {
+          actionType: "InfoText",
+          description:
+            "## If you think this is incorrect\n\nIf you have not had this vaccination and think you should, speak to your healthcare professional.\n\nFor anything else please see our [help and support page](https://www.nhs.uk/nhs-app/nhs-app-help-and-support/).",
+          url: undefined,
+          urlLabel: undefined,
+        },
+      ],
+      suitabilityRules: [
+        {
+          ruleCode: "AlreadyVaccinated",
+          ruleText: "## You've had your RSV vaccination\n\nWe believe you had the RSV vaccination on 3 April 2025.",
+        },
+      ],
+    },
+  ],
+};
+
 pactWith({ consumer: "VitA", provider: "EliD", port: 1234, logLevel: "warn" }, (provider) => {
   describe("EliD returns expected fields", () => {
-    const mockNhsNumber = "5123456789" as NhsNumber;
+    const mockNhsNumber = "9450114080" as NhsNumber;
     const vitaTraceId = "mock-trace-id";
 
     process.env._X_AMZN_TRACE_ID = vitaTraceId;
 
-    const successfulResponse: EligibilityApiResponse = eligibilityApiResponseBuilder().build();
+    const elidResponse = readFileSync(`./wiremock/__files/eligibility/9450114080.json`, "utf-8");
 
     const interaction = {
       given: "a patient with a valid NHS number exists",
@@ -43,7 +68,7 @@ pactWith({ consumer: "VitA", provider: "EliD", port: 1234, logLevel: "warn" }, (
         headers: {
           "Content-Type": "application/json; charset=utf-8",
         },
-        body: Matchers.like(successfulResponse),
+        body: elidResponse,
       },
     };
 
