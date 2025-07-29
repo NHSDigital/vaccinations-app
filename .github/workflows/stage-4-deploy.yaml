@@ -8,7 +8,7 @@ on:
         type: string
       tag:
         description: "The commit SHA (DEV) or version tag (higher envs) to be deployed"
-        required: false
+        required: true
         type: string
       environment:
         description: "Environment to deploy to"
@@ -17,7 +17,7 @@ on:
 
 env:
   AWS_REGION: eu-west-2
-  TAG: ${{ inputs.tag || github.sha }}
+  TAG: ${{ inputs.tag }}
 
 jobs:
   deploy:
