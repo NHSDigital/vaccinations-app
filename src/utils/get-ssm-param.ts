@@ -8,12 +8,15 @@ const log: Logger = logger.child({ module: "get-ssm-param" });
 
 const getSSMParam = async (name: string): Promise<string | undefined> => {
   try {
+    if (!(process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY && process.env.AWS_SESSION_TOKEN)) {
+      throw Error(`Unable to fetch param: ${name} from SSM. SSM configuration not set`);
+    }
     const client: SSMClient = new SSMClient({
       region: AWS_PRIMARY_REGION,
       credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? "not-set",
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? "not-set",
-        sessionToken: process.env.AWS_SESSION_TOKEN ?? "not-set",
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        sessionToken: process.env.AWS_SESSION_TOKEN,
       },
     });
 
@@ -26,13 +29,14 @@ const getSSMParam = async (name: string): Promise<string | undefined> => {
     if (response.$metadata.httpStatusCode === 200) {
       return response.Parameter?.Value;
     } else {
-      log.error(`Error GetParameterCommand response: ${response.$metadata}`);
+      throw Error(
+        `Unable to fetch param: ${name} from SSM. Error GetParameterCommand response code: ${response.$metadata.httpStatusCode}`,
+      );
     }
   } catch (error) {
     log.error(error);
+    throw error;
   }
-
-  return undefined;
 };
 
 export default getSSMParam;
