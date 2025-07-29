@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 import { ApimConfig } from "@src/utils/apimConfig";
-import { generateAPIMTokenPayload } from "@src/utils/auth/apim/get-apim-access-token";
+import { generateAPIMTokenPayload } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { apimConfigBuilder } from "@test-data/config/builders";
 import jwt from "jsonwebtoken";
 

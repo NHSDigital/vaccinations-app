@@ -1,4 +1,3 @@
-import { auth } from "@project/auth";
 import { NhsNumber } from "@src/models/vaccine";
 import { ActionType, EligibilityApiResponse, RuleCode } from "@src/services/eligibility-api/api-types";
 import {
@@ -9,13 +8,12 @@ import {
   EligibilityApiHttpStatusError,
   EligibilityApiSchemaError,
 } from "@src/services/eligibility-api/gateway/exceptions";
-import { ApimTokenResponse, getAPIMAccessTokenForIDToken } from "@src/utils/auth/apim/get-apim-access-token";
 import { Cohort, Heading } from "@src/services/eligibility-api/types";
+import { getApimAccessToken } from "@src/utils/auth/apim/get-apim-access-token";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import axios, { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { ZodError } from "zod";
-import { Session } from "next-auth";
 
 type Headers = {
   accept: string;
@@ -42,15 +40,8 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
   };
 
   if (config.IS_APIM_AVAILABLE) {
-    const session: Session | null = await auth();
-    const idToken: string | undefined = session?.nhs_login.id_token;
-
-    if (idToken) {
-      const response: ApimTokenResponse = await getAPIMAccessTokenForIDToken(idToken);
-      headers = { ...headers, Authorization: `Bearer ${response.access_token}` };
-    } else {
-      throw Error("No idToken for eligibility API call available");
-    }
+    const apimAccessToken = getApimAccessToken();
+    headers = { ...headers, Authorization: `Bearer ${apimAccessToken}` };
   }
 
   log.info({ nhsNumber }, "Fetching eligibility status from %s", uri);
