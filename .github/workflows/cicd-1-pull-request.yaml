@@ -114,7 +114,6 @@ jobs:
     with:
       environment: "dev"
       terraform_version: "${{ needs.metadata.outputs.terraform_version }}"
-      tag: "${{ needs.build-stage.outputs.tag }}"
     secrets: inherit
   acceptance-stage: # Recommended maximum execution time is 10 minutes
     name: "Acceptance stage"

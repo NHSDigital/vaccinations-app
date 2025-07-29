@@ -2,11 +2,6 @@ name: "Snapshot Test stage"
 
 on:
   workflow_call:
-    inputs:
-      tag:
-        description: "Tag of deployment"
-        required: true
-        type: string
 
 env:
   AWS_REGION: eu-west-2
@@ -31,8 +26,6 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.tag }}
 
       - name: "Configure AWS credentials for environment"
         uses: aws-actions/configure-aws-credentials@v4
@@ -57,10 +50,10 @@ jobs:
         run: |
           npm run e2e:snapshot
 
-      - name: "Upload snapshots to S3 bucket with tag ${{ inputs.tag }}"
+      - name: "Upload snapshots to S3 bucket with tag ${{ github.ref_name }}"
         if: failure()
         run: |
-          aws s3 sync ./e2e/snapshot/snapshot_review/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/${{ inputs.tag }}/
+          aws s3 sync ./e2e/snapshot/snapshot_review/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/${{ github.ref_name }}/
 
       - name: "Upload report"
         uses: actions/upload-artifact@v4

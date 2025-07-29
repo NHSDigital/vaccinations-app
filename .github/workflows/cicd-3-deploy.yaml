@@ -26,10 +26,14 @@ jobs:
       version: ${{ steps.variables.outputs.version }}
       tag: ${{ steps.variables.outputs.tag }}
     steps:
+      - name: "Check ref"
+        run: |
+          if ${{ !startsWith(github.ref, 'refs/tags/') }}; then
+            echo "❌ Only tagged deployments allowed."
+            exit 1
+          fi
       - name: "Checkout code"
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref }}
       - name: "Set CI/CD variables"
         id: variables
         run: |
@@ -61,7 +65,6 @@ jobs:
     with:
       environment: ${{ github.event.inputs.environment }}
       terraform_version: "${{ needs.metadata.outputs.terraform_version }}"
-      tag: "${{ needs.metadata.outputs.tag }}"
     secrets: inherit
   acceptance-stage:
     name: "Acceptance stage"
@@ -70,13 +73,10 @@ jobs:
     uses: ./.github/workflows/stage-5-acceptance.yaml
     with:
       environment: ${{ github.event.inputs.environment}}
-      tag: ${{ needs.metadata.outputs.tag }}
     secrets: inherit
   snapshot-test-stage:
     name: "Snapshot Test stage"
     if: ${{ github.event.inputs.environment == 'preprod' }}
     needs: [metadata, acceptance-stage]
     uses: ./.github/workflows/stage-7-snapshot-test.yaml
-    with:
-      tag: "${{ needs.metadata.outputs.tag }}"
     secrets: inherit
