@@ -3,16 +3,20 @@ import { VaccineTypes } from "@src/models/vaccine";
 import { getNbsQueryParams, getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
 import { logger } from "@src/utils/logger";
 import { getVaccineTypeFromUrlPath } from "@src/utils/path";
+import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { notFound, redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
 const log = logger.child({ name: "api-sso-to-nbs" });
 const VACCINE_PARAM = "vaccine";
 const REDIRECT_TARGET_PARAM = "redirectTarget";
+const ApiSSONBSPerformanceMarker = "api-sso-nbs";
 
 export const GET = async (request: NextRequest) => {
-  let shouldReturnNotFound = false;
-  let finalRedirectUrl: string = "";
+  let shouldReturnNotFound: boolean;
+  let finalRedirectUrl: string;
+
+  profilePerformanceStart(ApiSSONBSPerformanceMarker);
 
   if (request.nextUrl.searchParams.has(REDIRECT_TARGET_PARAM)) {
     const rawRedirectTarget = request.nextUrl.searchParams.get(REDIRECT_TARGET_PARAM);
@@ -21,6 +25,8 @@ export const GET = async (request: NextRequest) => {
     const vaccine: string | null = request.nextUrl.searchParams.get(VACCINE_PARAM);
     ({ finalRedirectUrl, shouldReturnNotFound } = await getGivenVaccine(vaccine));
   }
+
+  profilePerformanceEnd(ApiSSONBSPerformanceMarker);
 
   if (shouldReturnNotFound) {
     notFound();
