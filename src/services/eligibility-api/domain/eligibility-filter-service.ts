@@ -131,11 +131,11 @@ const _generateActions = (suggestion: ProcessedSuggestion, nhsNumber: NhsNumber)
       }
       case "ButtonWithAuthLink": {
         return [
-          action.urlLink
+          action.url && action.urlLabel
             ? {
                 type: ActionDisplayType.authButton,
                 content: action.description as Content,
-                button: { label: action.urlLabel as Label, url: new URL(action.urlLink) as ButtonUrl },
+                button: { label: action.urlLabel as Label, url: new URL(action.url) as ButtonUrl },
               }
             : {
                 type: ActionDisplayType.authButton,

@@ -72,7 +72,7 @@ const toDomainModel = (apiResponse: RawEligibilityApiResponse): EligibilityApiRe
       actions: suggestion.actions.map((action) => ({
         actionType: action.actionType as ActionType,
         description: action.description,
-        urlLink: action.urlLink ? new URL(action.urlLink) : undefined,
+        url: action.urlLink ? new URL(action.urlLink) : undefined,
         urlLabel: action.urlLabel,
       })),
       suitabilityRules: suggestion.suitabilityRules.map((rule) => ({
