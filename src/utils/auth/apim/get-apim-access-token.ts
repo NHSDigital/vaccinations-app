@@ -1,9 +1,19 @@
-import { ApimConfig } from "@src/utils/apimConfig";
+import { ApimConfig, apimConfigProvider } from "@src/utils/apimConfig";
 import { APIMClientAssertionPayload, APIMTokenPayload } from "@src/utils/auth/types";
 import { logger } from "@src/utils/logger";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import jwt from "jsonwebtoken";
 import { Logger } from "pino";
+
+export type ApimTokenResponse = {
+  access_token: string;
+  expires_in: string;
+  issued_token_type: "urn:ietf:params:oauth:token-type:access_token";
+  refresh_count: string;
+  refresh_token: string;
+  refresh_token_expires_in: string;
+  token_type: "Bearer";
+};
 
 const log: Logger = logger.child({ module: "get-apim-access-token" });
 
@@ -33,16 +43,22 @@ const generateAPIMTokenPayload = async (apimConfig: ApimConfig, idToken: string)
   return tokenPayload;
 };
 
-const getAPIMAccessTokenForIDToken = async (apimConfig: ApimConfig, idToken: string): Promise<string | undefined> => {
+const getAPIMAccessTokenForIDToken = async (idToken: string): Promise<ApimTokenResponse> => {
+  const apimConfig: ApimConfig = await apimConfigProvider();
+
   try {
     const tokenPayload = generateAPIMTokenPayload(apimConfig, idToken);
 
-    const response = await axios.post(apimConfig.APIM_AUTH_URL.toString(), tokenPayload, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+    const response: AxiosResponse<ApimTokenResponse> = await axios.post(
+      apimConfig.APIM_AUTH_URL.toString(),
+      tokenPayload,
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        timeout: 5000,
       },
-      timeout: 5000,
-    });
+    );
 
     log.info("APIM access token fetched");
     return response.data;

@@ -1,3 +1,4 @@
+import { auth } from "@project/auth";
 import { NhsNumber } from "@src/models/vaccine";
 import { ActionType, EligibilityApiResponse, RuleCode } from "@src/services/eligibility-api/api-types";
 import {
@@ -8,11 +9,20 @@ import {
   EligibilityApiHttpStatusError,
   EligibilityApiSchemaError,
 } from "@src/services/eligibility-api/gateway/exceptions";
+import { ApimTokenResponse, getAPIMAccessTokenForIDToken } from "@src/utils/auth/apim/get-apim-access-token";
 import { Cohort, Heading } from "@src/services/eligibility-api/types";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import axios, { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { ZodError } from "zod";
+import { Session } from "next-auth";
+
+type Headers = {
+  accept: string;
+  apikey: string;
+  "X-Correlation-ID": string | undefined;
+  Authorization?: string;
+};
 
 const log = logger.child({ module: "fetch-eligibility-content" });
 const ELIGIBILITY_API_PATH_SUFFIX = "eligibility-signposting-api/patient-check/";
@@ -25,15 +35,28 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
   const vitaTraceId: string | undefined = process.env._X_AMZN_TRACE_ID;
 
   const uri: string = `${apiEndpoint}${ELIGIBILITY_API_PATH_SUFFIX}${nhsNumber}`;
+  let headers: Headers = {
+    accept: "application/json, application/fhir+json",
+    apikey: apiKey,
+    "X-Correlation-ID": vitaTraceId,
+  };
+
+  if (config.IS_APIM_AVAILABLE) {
+    const session: Session | null = await auth();
+    const idToken: string | undefined = session?.nhs_login.id_token;
+
+    if (idToken) {
+      const response: ApimTokenResponse = await getAPIMAccessTokenForIDToken(idToken);
+      headers = { ...headers, Authorization: `Bearer ${response.access_token}` };
+    } else {
+      throw Error("No idToken for eligibility API call available");
+    }
+  }
 
   log.info({ nhsNumber }, "Fetching eligibility status from %s", uri);
-  const response: AxiosResponse = await axios
+  const response: AxiosResponse<EligibilityApiResponse> = await axios
     .get(uri, {
-      headers: {
-        accept: "application/json, application/fhir+json",
-        apikey: apiKey,
-        "X-Correlation-ID": vitaTraceId,
-      },
+      headers,
       timeout: 5000,
       validateStatus: (status) => {
         return status < HttpStatusCode.BadRequest;

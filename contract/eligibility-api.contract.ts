@@ -7,6 +7,10 @@ import {
 } from "@src/services/eligibility-api/types";
 import dotenv from "dotenv";
 
+jest.mock("@project/auth", () => ({
+  auth: jest.fn(),
+}));
+
 describe("EliD API contract", () => {
   beforeAll(async () => {
     dotenv.config({ path: ".env.local" });

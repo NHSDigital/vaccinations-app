@@ -16,6 +16,10 @@ jest.mock("@src/utils/config", () => ({
   }),
 }));
 
+jest.mock("@project/auth", () => ({
+  auth: jest.fn(),
+}));
+
 const successfulResponse: EligibilityApiResponse = {
   processedSuggestions: [
     {

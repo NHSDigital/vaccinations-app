@@ -8,6 +8,7 @@ const config: Config = {
   clearMocks: true,
   testMatch: ["**/*.contract.ts"],
   moduleNameMapper: {
+    "^@project/(.*)$": "<rootDir>/$1",
     "^@src/(.*)$": "<rootDir>/src/$1",
     "^@test-data/(.*)$": "<rootDir>/test-data/$1",
   },
