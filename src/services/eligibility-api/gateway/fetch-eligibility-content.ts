@@ -46,7 +46,7 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
   log.info({ nhsNumber }, "Eligibility status retrieved");
   try {
     const validatedApiData = EligibilityApiResponseSchema.parse(response.data);
-    log.debug({ nhsNumber, validatedApiData }, "Eligibility status data validated");
+    log.info({ nhsNumber, validatedApiData }, "Eligibility status data validated");
     return toDomainModel(validatedApiData);
   } catch (error) {
     if (error instanceof ZodError) {
