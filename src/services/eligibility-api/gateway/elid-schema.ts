@@ -2,6 +2,14 @@ import { z } from "zod";
 
 const StatusSchema = z.enum(["NotEligible", "NotActionable", "Actionable"]);
 
+const EligibilityCohortSchema = z
+  .object({
+    cohortCode: z.string(),
+    cohortText: z.string(),
+    cohortStatus: StatusSchema,
+  })
+  .readonly();
+
 const ActionSchema = z
   .object({
     actionType: z.string(), // We still want to show actions with unrecognised actionTypes - we log a warning in eligibility-filter-service.ts
@@ -15,14 +23,6 @@ const SuitabilityRuleSchema = z
   .object({
     ruleCode: z.string(), // We still want to show rules with unrecognised codes - we log a warning in eligibility-filter-service.ts
     ruleText: z.string(),
-  })
-  .readonly();
-
-const EligibilityCohortSchema = z
-  .object({
-    cohortCode: z.string(),
-    cohortText: z.string(),
-    cohortStatus: StatusSchema,
   })
   .readonly();
 

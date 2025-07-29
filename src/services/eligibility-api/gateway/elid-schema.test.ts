@@ -42,7 +42,7 @@ describe("elid-schema", () => {
     }
   });
 
-  it("should return empty processedSuggestions array for valid message with empty processedSuggestions array", () => {
+  it("should return empty arrays for valid message with empty eligibilityCohorts, actions and suitabilityRules arrays", () => {
     // Given
     const apiResponse = {
       processedSuggestions: [
