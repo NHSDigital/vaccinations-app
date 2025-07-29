@@ -21,8 +21,9 @@ locals {
   application_environment_variables = {
     SSM_PREFIX = "/${local.prefix}/"
 
-    PINO_LOG_LEVEL     = "warn"
-    DEPLOY_ENVIRONMENT = local.environment
+    PINO_LOG_LEVEL      = "warn"
+    DEPLOY_ENVIRONMENT  = local.environment
+    PROFILE_PERFORMANCE = "false"
 
     CONTENT_API_ENDPOINT = "https://api.service.nhs.uk/"
     CONTENT_CACHE_PATH   = "s3://${local.content_cache_bucket_name}"
@@ -34,9 +35,9 @@ locals {
     MAX_SESSION_AGE_MINUTES = 59
 
     ELIGIBILITY_API_ENDPOINT = "https://api.service.nhs.uk/"
-    IS_APIM_AVAILABLE = false
-    APIM_AUTH_URL = ""
-    APIM_KEY_ID = ""
+    IS_APIM_AVAILABLE        = false
+    APIM_AUTH_URL            = ""
+    APIM_KEY_ID              = ""
 
     AUTH_TRUST_HOST = "true"
     AUTH_SECRET     = random_password.auth_secret.result
