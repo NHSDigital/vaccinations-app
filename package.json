@@ -66,8 +66,8 @@
     "wiremock": "^3.13.0"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.850.0",
-    "@aws-sdk/client-ssm": "^3.849.0",
+    "@aws-sdk/client-s3": "^3.855.0",
+    "@aws-sdk/client-ssm": "^3.855.0",
     "@types/aws-lambda": "^8.10.152",
     "axios": "^1.11.0",
     "dotenv": "^17.2.1",
