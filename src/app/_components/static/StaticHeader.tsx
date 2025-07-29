@@ -1,3 +1,4 @@
+import { SERVICE_HEADING, VACCINATIONS_HUB_PAGE_ROUTE } from "@src/app/constants";
 import React from "react";
 
 export function StaticHeader() {
@@ -5,7 +6,7 @@ export function StaticHeader() {
     <header className="nhsuk-header nhsuk-header__transactional" role="banner">
       <div className="nhsuk-width-container nhsuk-header__container">
         <div className="nhsuk-header__logo nhsuk-header__transactional--logo">
-          <a className="nhsuk-header__link" aria-label="NHS homepage" href="/check-and-book-rsv">
+          <a className="nhsuk-header__link" aria-label="NHS homepage" href={`${VACCINATIONS_HUB_PAGE_ROUTE}`}>
             <svg
               className="nhsuk-logo"
               xmlns="http://www.w3.org/2000/svg"
@@ -25,8 +26,8 @@ export function StaticHeader() {
           </a>
         </div>
         <div className="nhsuk-header__transactional-service-name">
-          <a className="nhsuk-header__transactional-service-name--link" href="/check-and-book-rsv">
-            Check and book an RSV vaccination
+          <a className="nhsuk-header__transactional-service-name--link" href={`${VACCINATIONS_HUB_PAGE_ROUTE}`}>
+            {SERVICE_HEADING}
           </a>
         </div>
       </div>
