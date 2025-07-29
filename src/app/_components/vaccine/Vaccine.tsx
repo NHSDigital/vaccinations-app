@@ -16,6 +16,7 @@ import { getContentForVaccine } from "@src/services/content-api/gateway/content-
 import { ContentErrorTypes, StyledVaccineContent } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import { Eligibility, EligibilityErrorTypes } from "@src/services/eligibility-api/types";
+import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { Session } from "next-auth";
 import React, { JSX } from "react";
 
@@ -25,7 +26,11 @@ interface VaccineProps {
   vaccineType: VaccineTypes;
 }
 
+const VaccinePagePerformanceMarker = "vaccine-page";
+
 const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
+  profilePerformanceStart(VaccinePagePerformanceMarker);
+
   const session: Session | null = await auth();
   const nhsNumber: NhsNumber | undefined = session?.user.nhs_number as NhsNumber;
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
@@ -54,6 +59,8 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
   ) : (
     <HowToGetVaccineFallback vaccineType={vaccineType} />
   );
+
+  profilePerformanceEnd(VaccinePagePerformanceMarker);
 
   return (
     <div className={styles.tableCellSpanHide}>

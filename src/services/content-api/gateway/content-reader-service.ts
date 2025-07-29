@@ -16,6 +16,7 @@ import { AppConfig, configProvider } from "@src/utils/config";
 import { AWS_PRIMARY_REGION } from "@src/utils/constants";
 import { logger } from "@src/utils/logger";
 import { S3_PREFIX, isS3Path } from "@src/utils/path";
+import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { HttpStatusCode } from "axios";
 import { readFile } from "node:fs/promises";
 import { Logger } from "pino";
@@ -72,8 +73,12 @@ const _readContentFromCache = async (cacheLocation: string, cachePath: string): 
     : await readFile(`${cacheLocation}${cachePath}`, { encoding: "utf8" });
 };
 
+const GetVaccineContentPerformanceMarker = "get-vaccine-content";
+
 const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<GetContentForVaccineResponse> => {
   try {
+    profilePerformanceStart(GetVaccineContentPerformanceMarker);
+
     const config: AppConfig = await configProvider();
     const vaccineContentPath: VaccineContentPaths = vaccineTypeToPath[vaccineType];
 
@@ -85,6 +90,8 @@ const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<GetConte
     // filter and style content
     const filteredContent: VaccinePageContent = getFilteredContentForVaccine(vaccineContent);
     const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(vaccineType, filteredContent);
+
+    profilePerformanceEnd(GetVaccineContentPerformanceMarker);
 
     return { styledVaccineContent, contentError: undefined };
   } catch (error) {

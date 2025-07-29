@@ -25,17 +25,21 @@ import {
   SummaryContent,
 } from "@src/services/eligibility-api/types";
 import { logger } from "@src/utils/logger";
+import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { Logger } from "pino";
 
 const ELIGIBILITY_CONTENT_INTRO_TEXT: string = "This is because you:";
 
 const log: Logger = logger.child({ module: "eligibility-filter-service" });
+const GetEligibilityPerformanceMarker = "get-eligibility";
 
 const getEligibilityForPerson = async (
   vaccineType: VaccineTypes,
   nhsNumber: NhsNumber,
 ): Promise<EligibilityForPersonType> => {
   try {
+    profilePerformanceStart(GetEligibilityPerformanceMarker);
+
     const eligibilityApiResponse: EligibilityApiResponse = await fetchEligibilityContent(nhsNumber);
 
     const suggestionForVaccine: ProcessedSuggestion | undefined = eligibilityApiResponse.processedSuggestions.find(
@@ -62,6 +66,8 @@ const getEligibilityForPerson = async (
 
     const actions: Action[] = _generateActions(suggestionForVaccine, nhsNumber);
     const suitabilityRules: SuitabilityRule[] = _generateSuitabilityRules(suggestionForVaccine, nhsNumber);
+
+    profilePerformanceEnd(GetEligibilityPerformanceMarker);
 
     return {
       eligibility: {
