@@ -60,6 +60,7 @@ jobs:
       NBS_URL: "dummy"
       NBS_BOOKING_PATH: "dummy"
       MAX_SESSION_AGE_MINUTES: 0
+      IS_APIM_AVAILABLE: ${{ secrets.IS_APIM_AVAILABLE }}
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
