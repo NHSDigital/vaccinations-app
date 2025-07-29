@@ -1,4 +1,5 @@
 import getSSMParam from "@src/utils/get-ssm-param";
+import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 
 type AppConfig = {
   CONTENT_API_ENDPOINT: URL;
@@ -16,10 +17,12 @@ type AppConfig = {
   NHS_APP_REDIRECT_LOGIN_URL: string;
   IS_APIM_AVAILABLE: boolean;
 };
+const ConfigPerformanceMarker = "app-config";
 
 const configProvider = async (): Promise<AppConfig> => {
+  profilePerformanceStart(ConfigPerformanceMarker);
   const SSM_PREFIX = await getFromEnvironmentOrSSM("", "SSM_PREFIX");
-  return {
+  const config = {
     CONTENT_API_ENDPOINT: await getUrlFromEnvironmentOrSSM(SSM_PREFIX, "CONTENT_API_ENDPOINT"),
     ELIGIBILITY_API_ENDPOINT: await getUrlFromEnvironmentOrSSM(SSM_PREFIX, "ELIGIBILITY_API_ENDPOINT"),
     CONTENT_API_KEY: await getFromEnvironmentOrSSM(SSM_PREFIX, "CONTENT_API_KEY"),
@@ -35,6 +38,8 @@ const configProvider = async (): Promise<AppConfig> => {
     MAX_SESSION_AGE_MINUTES: Number(await getFromEnvironmentOrSSM(SSM_PREFIX, "MAX_SESSION_AGE_MINUTES")),
     IS_APIM_AVAILABLE: (await getFromEnvironmentOrSSM(SSM_PREFIX, "IS_APIM_AVAILABLE")) === "true",
   };
+  profilePerformanceEnd(ConfigPerformanceMarker);
+  return config;
 };
 
 export const getFromEnvironmentOrSSM = async (ssmPrefix: string, param: string): Promise<string> => {

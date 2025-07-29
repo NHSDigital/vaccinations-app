@@ -1,22 +1,29 @@
 import { auth } from "@project/auth";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
+import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "middleware" });
+const MiddlewarePerformanceMarker = "middleware";
 
 export async function middleware(request: NextRequest) {
+  profilePerformanceStart(MiddlewarePerformanceMarker);
   log.info(`Inspecting ${request.nextUrl}`);
   const config: AppConfig = await configProvider();
 
+  let response: NextResponse;
   const session: Session | null = await auth();
   if (!session?.user) {
-    return NextResponse.redirect(new URL(config.NHS_APP_REDIRECT_LOGIN_URL));
+    response = NextResponse.redirect(new URL(config.NHS_APP_REDIRECT_LOGIN_URL));
+  } else {
+    response = NextResponse.next();
   }
 
-  return NextResponse.next();
+  profilePerformanceEnd(MiddlewarePerformanceMarker);
+  return response;
 }
 
 export const config = {
