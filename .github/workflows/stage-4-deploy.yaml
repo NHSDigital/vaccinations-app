@@ -26,6 +26,9 @@ jobs:
     environment:
       name: ${{ inputs.environment }}
     timeout-minutes: 20
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
     permissions:
       id-token: write
       contents: read
