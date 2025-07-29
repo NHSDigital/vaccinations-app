@@ -1,0 +1,105 @@
+name: "Deploy"
+
+description: "Deploy to environment"
+
+inputs:
+  terraform_version:
+    description: "TF version"
+    required: true
+  environment:
+    description: "Environment to deploy to"
+    required: true
+  iam_role:
+    description: "IAM role for environment"
+    required: true
+  aws_account_id:
+    description: "AWS Account ID for environment"
+    required: true
+  alarms_slack_channel_id:
+    description: "Slack channel ID for alarms"
+
+
+runs:
+  using: "composite"
+  steps:
+    - name: "Tag or SHA"
+      id: tag-or-sha
+      shell: bash
+      run: |
+        if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
+          echo "value=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+        else
+          echo "value=${GITHUB_SHA}" >> $GITHUB_OUTPUT
+        fi
+
+    - name: "Install Terraform"
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: "${{ inputs.terraform_version }}"
+
+    - name: "Configure AWS credentials for env"
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-session-name: GitHubActionsSession
+        role-to-assume: ${{ inputs.iam_role }}
+        aws-region: eu-west-2
+
+    - name: "Download packages from dev S3 Artefacts bucket"
+      shell: bash
+      if: ${{ inputs.environment == 'dev' }}
+      run: |
+        AWS_S3_ARTEFACTS_BUCKET="vita-${{ inputs.aws_account_id }}-artefacts-${{ inputs.environment }}"
+        app_s3_path="s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/${{ steps.tag-or-sha.outputs.value }}/open-next.zip"
+        echo "Artefact path: $app_s3_path"
+        aws s3 cp "$app_s3_path" .
+        lambda_s3_path="s3://${AWS_S3_ARTEFACTS_BUCKET}/sha/${{ steps.tag-or-sha.outputs.value }}/lambda.zip"
+        echo "Artefact path: $lambda_s3_path"
+        aws s3 cp "$lambda_s3_path" .
+
+    - name: "Download packages from ${{ inputs.environment}} S3 Releases bucket"
+      shell: bash
+      if: ${{ inputs.environment == 'preprod' || inputs.environment == 'prod' }}
+      run: |
+        AWS_S3_RELEASE_BUCKET="vita-${{ inputs.aws_account_id }}-releases-${{ inputs.environment }}"
+        app_s3_path="s3://${AWS_S3_RELEASE_BUCKET}/tag/${{ steps.tag-or-sha.outputs.value }}/open-next.zip"
+        echo "Artefact path: $app_s3_path"
+        aws s3 cp "$app_s3_path" .
+        lambda_s3_path="s3://${AWS_S3_RELEASE_BUCKET}/tag/${{ steps.tag-or-sha.outputs.value }}/lambda.zip"
+        echo "Artefact path: $lambda_s3_path"
+        aws s3 cp "$lambda_s3_path" .
+        workflow_s3_path="s3://${AWS_S3_RELEASE_BUCKET}/tag/${{ steps.tag-or-sha.outputs.value }}/workflow.log"
+        echo "Artefact path: $workflow_s3_path"
+        aws s3 cp "$workflow_s3_path" .
+
+    - name: "Unzip OpenNext Package"
+      shell: bash
+      run: |
+        unzip open-next.zip
+        rm -rf open-next.zip
+
+    - name: "Set that it is GitHub actions user"
+      shell: bash
+      run: echo "TF_VAR_is_github_action=true" >> $GITHUB_ENV
+
+    - name: "Set the Slack channel id where alarms are sent"
+      shell: bash
+      run: echo "TF_VAR_alarms_slack_channel_id=${{ inputs.alarms_slack_channel_id }}" >> $GITHUB_ENV
+
+    - name: "Set the app version being deployed"
+      shell: bash
+      run: echo "TF_VAR_app_version=${{ steps.tag-or-sha.outputs.value }}" >> $GITHUB_ENV
+
+    - name: "Terraform init"
+      shell: bash
+      id: init
+      run: TF_ENV=${{ inputs.environment }} make terraform-init
+
+    - name: "Terraform plan"
+      shell: bash
+      id: plan
+      run: TF_ENV=${{ inputs.environment }} make terraform-plan opts="-out=terraform.tfplan"
+
+    - name: "Terraform apply"
+      shell: bash
+      id: apply
+      run: TF_ENV=${{ inputs.environment }} make terraform-apply opts="-auto-approve" opts="terraform.tfplan"
