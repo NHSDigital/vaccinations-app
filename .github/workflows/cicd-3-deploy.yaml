@@ -60,7 +60,6 @@ jobs:
           export VERSION="${{ steps.variables.outputs.version }}"
           export TAG="${{ steps.variables.outputs.tag }}"
           make list-variables
-
   deploy-stage:
     name: "Deploy stage"
     runs-on: ubuntu-latest
@@ -83,7 +82,6 @@ jobs:
           iam_role: ${{ secrets.IAM_ROLE }}
           aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
           alarms_slack_channel_id: ${{ secrets.ALARMS_SLACK_CHANNEL_ID }}
-
   acceptance-stage:
     name: "Acceptance stage"
     if: ${{ github.event.inputs.environment != 'prod' }}
@@ -92,7 +90,6 @@ jobs:
     with:
       environment: ${{ github.event.inputs.environment}}
     secrets: inherit
-
   snapshot-test-stage:
     name: "Snapshot Test stage"
     if: ${{ github.event.inputs.environment == 'preprod' }}
