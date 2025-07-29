@@ -48,6 +48,7 @@ jobs:
           export TERRAFORM_VERSION="${{ steps.variables.outputs.terraform_version }}"
           export VERSION="${{ steps.variables.outputs.version }}"
           make list-variables
+
   publish:
     name: "Publish packages"
     runs-on: ubuntu-latest
@@ -104,6 +105,7 @@ jobs:
           body_path: commit_history.txt
           draft: false
           prerelease: false
+
   promote-stage:
     name: "Promote stage"
     needs: [publish]

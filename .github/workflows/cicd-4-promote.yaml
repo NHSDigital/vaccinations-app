@@ -48,6 +48,7 @@ jobs:
           export VERSION="${{ steps.variables.outputs.version }}"
           export RELEASE_TAG="${{ steps.variables.outputs.release_tag }}"
           make list-variables
+
   promote-stage:
     name: "Promote stage"
     needs: [metadata]
