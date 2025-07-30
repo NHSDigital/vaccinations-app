@@ -35,7 +35,6 @@ const generateAPIMTokenPayload = async (apimConfig: ApimConfig, idToken: string)
 };
 
 const fetchAPIMAccessTokenForIDToken = async (idToken: string): Promise<ApimTokenResponse> => {
-  idToken = "";
   const apimConfig: ApimConfig = await apimConfigProvider();
 
   try {
