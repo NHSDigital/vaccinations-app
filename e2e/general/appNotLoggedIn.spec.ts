@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { HUB_PAGE_URL } from "@project/e2e/constants";
 import { getEnv } from "@project/e2e/helpers";
 
-test.describe.configure({ mode: "serial" });
+test.describe.configure({ mode: "parallel", retries: 3 });
 
 test.describe("Application - User Not Logged In", () => {
   test.beforeAll(async ({}, testInfo) => {

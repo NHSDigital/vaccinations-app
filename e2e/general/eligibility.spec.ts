@@ -2,7 +2,7 @@ import { Locator, expect, test } from "@playwright/test";
 import { MAX_AVG_LCP_DURATION_MS, RSV_PAGE_URL } from "@project/e2e/constants";
 import { accessibilityCheck, benchmark } from "@project/e2e/helpers";
 
-test.describe.configure({ mode: "serial" });
+test.describe.configure({ mode: "parallel", retries: 3 });
 
 test.describe("Eligibility", () => {
   test.afterEach(async ({ page }) => {
