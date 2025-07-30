@@ -48,7 +48,7 @@ describe("generateAPIMTokenPayload", () => {
     const expectedClientAssertionPayloadContent = {
       iss: mockApimConfig.CONTENT_API_KEY,
       sub: mockApimConfig.CONTENT_API_KEY,
-      aud: mockApimConfig.APIM_AUTH_URL.toString(),
+      aud: mockApimConfig.APIM_AUTH_URL.href,
       jti: mockRandomUUID,
       exp: mockNowInSeconds + 300,
     };

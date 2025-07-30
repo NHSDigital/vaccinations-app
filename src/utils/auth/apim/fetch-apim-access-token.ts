@@ -1,19 +1,10 @@
 import { ApimConfig, apimConfigProvider } from "@src/utils/apimConfig";
+import { ApimTokenResponse } from "@src/utils/auth/apim/types";
 import { APIMClientAssertionPayload, APIMTokenPayload } from "@src/utils/auth/types";
 import { logger } from "@src/utils/logger";
 import axios, { AxiosResponse } from "axios";
 import jwt from "jsonwebtoken";
 import { Logger } from "pino";
-
-export type ApimTokenResponse = {
-  access_token: string;
-  expires_in: string;
-  issued_token_type: "urn:ietf:params:oauth:token-type:access_token";
-  refresh_count: string;
-  refresh_token: string;
-  refresh_token_expires_in: string;
-  token_type: "Bearer";
-};
 
 const log: Logger = logger.child({ module: "get-apim-access-token" });
 
@@ -22,7 +13,7 @@ const generateClientAssertion = async (apimConfig: ApimConfig): Promise<string> 
   const payload: APIMClientAssertionPayload = {
     iss: apimConfig.CONTENT_API_KEY,
     sub: apimConfig.CONTENT_API_KEY,
-    aud: apimConfig.APIM_AUTH_URL.toString(),
+    aud: apimConfig.APIM_AUTH_URL.href,
     jti: crypto.randomUUID(),
     exp: Math.floor(Date.now() / 1000) + 300,
   };
@@ -44,21 +35,18 @@ const generateAPIMTokenPayload = async (apimConfig: ApimConfig, idToken: string)
 };
 
 const fetchAPIMAccessTokenForIDToken = async (idToken: string): Promise<ApimTokenResponse> => {
+  idToken = "";
   const apimConfig: ApimConfig = await apimConfigProvider();
 
   try {
     const tokenPayload = generateAPIMTokenPayload(apimConfig, idToken);
 
-    const response: AxiosResponse<ApimTokenResponse> = await axios.post(
-      apimConfig.APIM_AUTH_URL.toString(),
-      tokenPayload,
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        timeout: 5000,
+    const response: AxiosResponse<ApimTokenResponse> = await axios.post(apimConfig.APIM_AUTH_URL.href, tokenPayload, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-    );
+      timeout: 5000,
+    });
 
     log.info("APIM access token fetched");
     return response.data;
