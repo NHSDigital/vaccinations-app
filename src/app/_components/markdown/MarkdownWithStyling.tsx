@@ -38,10 +38,9 @@ type OLProps = ComponentPropsWithoutRef<"ol">;
 type PProps = ComponentPropsWithoutRef<"p">;
 
 const MarkdownWithStyling = ({ content, classNames = {} }: MarkdownProps): JSX.Element => {
-  const finalClassNames = { ...defaultClassNames, ...classNames };
-
-  const components = useMemo(
-    () => ({
+  const components = useMemo(() => {
+    const finalClassNames = { ...defaultClassNames, ...classNames };
+    return {
       h1: ({ children }: PropsWithChildren) => <H1 className={finalClassNames.h1 ?? undefined}>{children}</H1>,
       h2: ({ children }: PropsWithChildren) => <H2 className={finalClassNames.h2 ?? undefined}>{children}</H2>,
       h3: ({ children }: PropsWithChildren) => <H3 className={finalClassNames.h3 ?? undefined}>{children}</H3>,
@@ -51,12 +50,11 @@ const MarkdownWithStyling = ({ content, classNames = {} }: MarkdownProps): JSX.E
           {children}
         </A>
       ),
-      ul: ({ children }: PropsWithChildren) => <UL className={finalClassNames.ul ?? undefined}>{children}</UL>,
-      ol: ({ children }: PropsWithChildren) => <OL className={finalClassNames.ol ?? undefined}>{children}</OL>,
+      ul: ({ children }: PropsWithChildren) => <Ul className={finalClassNames.ul ?? undefined}>{children}</Ul>,
+      ol: ({ children }: PropsWithChildren) => <Ol className={finalClassNames.ol ?? undefined}>{children}</Ol>,
       p: ({ children }: PropsWithChildren) => <P className={finalClassNames.p ?? undefined}>{children}</P>,
-    }),
-    [finalClassNames],
-  );
+    };
+  }, [classNames]);
 
   return <Markdown components={components}>{content}</Markdown>;
 };
@@ -85,11 +83,11 @@ const A = ({ href, children, className = defaultClassNames.a }: AProps): JSX.Ele
   );
 };
 
-const UL = ({ children, className = defaultClassNames.ul }: ULProps): JSX.Element => {
+const Ul = ({ children, className = defaultClassNames.ul }: ULProps): JSX.Element => {
   return <ul className={className ?? undefined}>{children}</ul>;
 };
 
-const OL = ({ children, className = defaultClassNames.ol }: OLProps): JSX.Element => {
+const Ol = ({ children, className = defaultClassNames.ol }: OLProps): JSX.Element => {
   return <ol className={className ?? undefined}>{children}</ol>;
 };
 
@@ -97,4 +95,4 @@ const P = ({ children, className = defaultClassNames.p }: PProps): JSX.Element =
   return <p className={className ?? undefined}>{children}</p>;
 };
 
-export { MarkdownWithStyling, H1, H2, H3, H4, A, UL, OL, P };
+export { MarkdownWithStyling, H1, H2, H3, H4, A, Ul, Ol, P };

@@ -1,4 +1,4 @@
-import { A, H1, H2, H3, H4, MarkdownWithStyling, OL, P, UL } from "@src/app/_components/markdown/MarkdownWithStyling";
+import { A, H1, H2, H3, H4, MarkdownWithStyling, Ol, P, Ul } from "@src/app/_components/markdown/MarkdownWithStyling";
 import { render, screen } from "@testing-library/react";
 import React from "react";
 
@@ -142,45 +142,45 @@ describe("markdown", () => {
     it("should display styled Unordered List (ul)", () => {
       const children = "Example list item";
 
-      render(UL({ children }));
+      render(Ul({ children }));
 
-      const heading: HTMLElement = screen.getByText(children);
+      const list: HTMLElement = screen.getByText(children);
 
-      expect(heading).toBeVisible();
-      expect(heading).toHaveClass("nhsuk-list nhsuk-list--bullet");
+      expect(list).toBeVisible();
+      expect(list).toHaveClass("nhsuk-list nhsuk-list--bullet");
     });
 
     it("should display styled Unordered List (ul) with custom classes", () => {
       const children = "Example list item";
 
-      render(UL({ children, className: "bananas chips" }));
+      render(Ul({ children, className: "bananas chips" }));
 
-      const heading: HTMLElement = screen.getByText(children);
+      const list: HTMLElement = screen.getByText(children);
 
-      expect(heading).toBeVisible();
-      expect(heading).toHaveClass("bananas chips");
+      expect(list).toBeVisible();
+      expect(list).toHaveClass("bananas chips");
     });
 
     it("should display styled Ordered List (ol)", () => {
       const children = "Example list item";
 
-      render(OL({ children }));
+      render(Ol({ children }));
 
-      const heading: HTMLElement = screen.getByText(children);
+      const list: HTMLElement = screen.getByText(children);
 
-      expect(heading).toBeVisible();
-      expect(heading).toHaveClass("nhsuk-list nhsuk-list--number");
+      expect(list).toBeVisible();
+      expect(list).toHaveClass("nhsuk-list nhsuk-list--number");
     });
 
     it("should display styled Ordered List (ol) with custom classes", () => {
       const children = "Example list item";
 
-      render(OL({ children, className: "bananas chips" }));
+      render(Ol({ children, className: "bananas chips" }));
 
-      const heading: HTMLElement = screen.getByText(children);
+      const list: HTMLElement = screen.getByText(children);
 
-      expect(heading).toBeVisible();
-      expect(heading).toHaveClass("bananas chips");
+      expect(list).toBeVisible();
+      expect(list).toHaveClass("bananas chips");
     });
 
     it("should display styled Paragraph (p)", () => {
