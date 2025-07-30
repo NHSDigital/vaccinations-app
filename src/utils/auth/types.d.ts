@@ -37,6 +37,10 @@ declare module "next-auth" {
     nhs_login: {
       id_token: string;
     };
+    apim: {
+      access_token: string;
+      expires_in: number;
+    };
   }
 
   interface Profile {
@@ -52,6 +56,12 @@ declare module "next-auth/jwt" {
     };
     nhs_login: {
       id_token: string;
+    };
+    apim: {
+      access_token: string;
+      expires_in: number;
+      refresh_token: string;
+      refresh_token_expires_in: number;
     };
     fixedExpiry: number;
   }

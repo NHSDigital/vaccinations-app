@@ -13,6 +13,10 @@ describe("getSession", () => {
       nhs_login: {
         id_token: "",
       },
+      apim: {
+        access_token: "",
+        expires_in: 0,
+      },
     };
 
     const token = {
@@ -23,6 +27,10 @@ describe("getSession", () => {
       nhs_login: {
         id_token: "test-id-token",
       },
+      apim: {
+        access_token: "test-access-token",
+        expires_in: 0,
+      },
     } as JWT;
 
     const result: Session = getUpdatedSession(session, token);
@@ -30,6 +38,8 @@ describe("getSession", () => {
     expect(result.user.nhs_number).toBe("test-nhs-number");
     expect(result.user.birthdate).toBe("test-birthdate");
     expect(result.nhs_login.id_token).toBe("test-id-token");
+    expect(result.apim.access_token).toBe("test-access-token");
+    expect(result.apim.expires_in).toBe(0);
   });
 
   it("does not update session if token.user is missing", () => {
@@ -42,6 +52,10 @@ describe("getSession", () => {
       nhs_login: {
         id_token: "old-id-token",
       },
+      apim: {
+        access_token: "old-access-token",
+        expires_in: 0,
+      },
     };
 
     const token = {} as JWT;
@@ -51,6 +65,8 @@ describe("getSession", () => {
     expect(result.user.nhs_number).toBe("old-nhs-number");
     expect(result.user.birthdate).toBe("old-birthdate");
     expect(result.nhs_login.id_token).toBe("old-id-token");
+    expect(result.apim.access_token).toBe("old-access-token");
+    expect(result.apim.expires_in).toBe(0);
   });
 
   it("does not update session if session.user is missing", () => {
