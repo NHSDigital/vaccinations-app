@@ -1,5 +1,6 @@
 import { InactivityDialog } from "@src/app/_components/inactivity/InactivityDialog";
 import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
+import { NhsNumber } from "@src/models/vaccine";
 import useInactivityTimer from "@src/utils/auth/inactivity-timer";
 import { userLogout } from "@src/utils/auth/user-logout";
 import { render, screen } from "@testing-library/react";
@@ -8,7 +9,7 @@ import { Session } from "next-auth";
 const mockSessionValue: Partial<Session> = {
   expires: new Date(Date.now() + 60000).toISOString(),
   user: {
-    nhs_number: "",
+    nhs_number: "" as NhsNumber,
     birthdate: "",
   },
 };

@@ -1,3 +1,5 @@
+import { NhsNumber } from "@src/models/vaccine";
+import { AccessToken, ExpiresIn, IdToken, RefreshToken, RefreshTokenExpiresIn } from "@src/utils/auth/apim/types";
 import type { DefaultSession } from "next-auth";
 
 export interface DecodedIdToken {
@@ -31,15 +33,15 @@ export type AssertedLoginIdentityPayload = {
 declare module "next-auth" {
   interface Session {
     user: {
-      nhs_number: string;
+      nhs_number: NhsNumber;
       birthdate: string;
     } & DefaultSession["user"];
     nhs_login: {
-      id_token: string;
+      id_token: IdToken;
     };
     apim: {
-      access_token: string;
-      expires_in: number;
+      access_token: AccessToken;
+      expires_in: ExpiresIn;
     };
   }
 
@@ -51,17 +53,17 @@ declare module "next-auth" {
 declare module "next-auth/jwt" {
   interface JWT {
     user: {
-      nhs_number: string;
+      nhs_number: NhsNumber;
       birthdate: string;
     };
     nhs_login: {
-      id_token: string;
+      id_token: IdToken;
     };
     apim: {
-      access_token: string;
-      expires_in: number;
-      refresh_token: string;
-      refresh_token_expires_in: number;
+      access_token: AccessToken;
+      expires_in: ExpiresIn;
+      refresh_token: RefreshToken;
+      refresh_token_expires_in: RefreshTokenExpiresIn;
     };
     fixedExpiry: number;
   }

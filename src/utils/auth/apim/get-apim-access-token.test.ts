@@ -5,6 +5,7 @@ import {
   AccessToken,
   ApimTokenResponse,
   ExpiresIn,
+  IdToken,
   RefreshCount,
   RefreshToken,
   RefreshTokenExpiresIn,
@@ -24,10 +25,10 @@ jest.mock("@src/utils/auth/apim/fetch-apim-access-token", () => ({
 }));
 
 describe("get-apim-access-token", () => {
-  describe("when there is no accessToken in cookie session", () => {
+  describe("when there is no APIM accessToken in JWS session", () => {
     it("should use id token from session when calling APIM and return access token", async () => {
-      const expectedAccessToken = "test-access-token";
-      const idToken = "some-id-token";
+      const expectedAccessToken = "test-access-token" as AccessToken;
+      const idToken = "some-id-token" as IdToken;
       const mockAPIMFetchTokenResponse: ApimTokenResponse = {
         access_token: expectedAccessToken as AccessToken,
         expires_in: "80" as ExpiresIn,
@@ -41,6 +42,7 @@ describe("get-apim-access-token", () => {
         nhs_login: {
           id_token: idToken,
         },
+        apim: {},
       };
       const mockCookieStore = {
         has: jest.fn().mockReturnValue(false),

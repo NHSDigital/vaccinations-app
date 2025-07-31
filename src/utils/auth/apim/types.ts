@@ -5,6 +5,7 @@ export type RefreshToken = Brand<string, "RefreshToken">;
 export type ExpiresIn = Brand<string, "ExpiresIn">;
 export type RefreshCount = Brand<string, "RefreshCount">;
 export type RefreshTokenExpiresIn = Brand<string, "RefreshTokenExpiresIn">;
+export type IdToken = Brand<string, "IdToken">;
 
 export type ApimAccessCredentials = {
   accessToken: AccessToken;

@@ -2,7 +2,6 @@ import { auth } from "@project/auth";
 import { fetchAPIMAccessTokenForIDToken } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { AccessToken, ApimAccessCredentials, ApimTokenResponse } from "@src/utils/auth/apim/types";
 import { Session } from "next-auth";
-import { cookies } from "next/headers";
 
 // check the apim auth cookie first;
 
@@ -13,9 +12,26 @@ import { cookies } from "next/headers";
 // 3. or if access token does not exist/is missing, get a new one:
 // save access token, refresh token and expiration time as a cookie
 
-const getNewAccessTokenFromApim = async (): Promise<ApimAccessCredentials> => {
+const getApimAccessToken = async (): Promise<AccessToken> => {
   const session: Session | null = await auth();
-  const idToken: string | undefined = session?.nhs_login.id_token;
+  if (!session) {
+    throw Error("No session available for APIM call");
+  }
+
+  let accessToken = session.apim?.access_token;
+  if (!accessToken) {
+    const apimAccessCredentials = await getNewAccessTokenFromApim(session);
+    accessToken = apimAccessCredentials.accessToken;
+    session.apim.access_token = accessToken;
+  } else {
+    // TODO VIA-254 - Expired?
+  }
+
+  return accessToken;
+};
+
+const getNewAccessTokenFromApim = async (session: Session): Promise<ApimAccessCredentials> => {
+  const idToken: string | undefined = session.nhs_login.id_token;
 
   if (idToken) {
     const response: ApimTokenResponse = await fetchAPIMAccessTokenForIDToken(idToken);
@@ -27,16 +43,6 @@ const getNewAccessTokenFromApim = async (): Promise<ApimAccessCredentials> => {
   } else {
     throw Error("No idToken available on session for APIM call");
   }
-};
-
-const getApimAccessToken = async (): Promise<AccessToken> => {
-  const cookieStore = await cookies();
-  const hasCookie = cookieStore.has("apim");
-
-  if (!hasCookie) {
-    return (await getNewAccessTokenFromApim()).accessToken;
-  }
-  return "" as AccessToken;
 };
 
 export { getApimAccessToken };
