@@ -1,6 +1,6 @@
 import { ApimConfig, apimConfigProvider } from "@src/utils/apimConfig";
 import { ApimTokenResponse } from "@src/utils/auth/apim/types";
-import { APIMClientAssertionPayload, APIMTokenPayload } from "@src/utils/auth/types";
+import { APIMClientAssertionPayload, APIMTokenPayload, IdToken } from "@src/utils/auth/types";
 import { logger } from "@src/utils/logger";
 import axios, { AxiosResponse } from "axios";
 import jwt from "jsonwebtoken";
@@ -21,7 +21,7 @@ const generateClientAssertion = async (apimConfig: ApimConfig): Promise<string> 
   return jwt.sign(payload, privateKey, { algorithm: "RS512", keyid: apimConfig.APIM_KEY_ID });
 };
 
-const generateAPIMTokenPayload = async (apimConfig: ApimConfig, idToken: string): Promise<APIMTokenPayload> => {
+const generateAPIMTokenPayload = async (apimConfig: ApimConfig, idToken: IdToken): Promise<APIMTokenPayload> => {
   const clientAssertion: string = await generateClientAssertion(apimConfig);
 
   const tokenPayload: APIMTokenPayload = {
@@ -34,7 +34,7 @@ const generateAPIMTokenPayload = async (apimConfig: ApimConfig, idToken: string)
   return tokenPayload;
 };
 
-const fetchAPIMAccessTokenForIDToken = async (idToken: string): Promise<ApimTokenResponse> => {
+const fetchAPIMAccessTokenForIDToken = async (idToken: IdToken): Promise<ApimTokenResponse> => {
   const apimConfig: ApimConfig = await apimConfigProvider();
 
   try {

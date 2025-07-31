@@ -1,15 +1,15 @@
 import { auth } from "@project/auth";
 import { fetchAPIMAccessTokenForIDToken } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { getApimAccessToken } from "@src/utils/auth/apim/get-apim-access-token";
+import { ApimTokenResponse } from "@src/utils/auth/apim/types";
 import {
   AccessToken,
-  ApimTokenResponse,
   ExpiresIn,
   IdToken,
   RefreshCount,
   RefreshToken,
   RefreshTokenExpiresIn,
-} from "@src/utils/auth/apim/types";
+} from "@src/utils/auth/types";
 import { cookies } from "next/headers";
 
 jest.mock("@project/auth", () => ({

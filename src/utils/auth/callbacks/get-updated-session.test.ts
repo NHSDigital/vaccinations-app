@@ -1,6 +1,6 @@
 import { NhsNumber } from "@src/models/vaccine";
-import { AccessToken, ExpiresIn, IdToken } from "@src/utils/auth/apim/types";
 import { getUpdatedSession } from "@src/utils/auth/callbacks/get-updated-session";
+import { AccessToken, BirthDate, ExpiresIn, IdToken } from "@src/utils/auth/types";
 import { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
@@ -9,7 +9,7 @@ describe("getSession", () => {
     const session: Session = {
       user: {
         nhs_number: "" as NhsNumber,
-        birthdate: "",
+        birthdate: "" as BirthDate,
       },
       expires: "some-date",
       nhs_login: {
@@ -48,7 +48,7 @@ describe("getSession", () => {
     const session: Session = {
       user: {
         nhs_number: "old-nhs-number" as NhsNumber,
-        birthdate: "old-birthdate",
+        birthdate: "old-birthdate" as BirthDate,
       },
       expires: "some-date",
       nhs_login: {

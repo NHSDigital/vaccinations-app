@@ -1,5 +1,5 @@
 import { NhsNumber } from "@src/models/vaccine";
-import { IdToken } from "@src/utils/auth/apim/types";
+import { BirthDate, IdToken } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { Account, Profile } from "next-auth";
@@ -42,7 +42,7 @@ const updateTokenWithValuesFromAccountAndProfile = (
     ...token,
     user: {
       nhs_number: (profile.nhs_number ?? "") as NhsNumber,
-      birthdate: profile.birthdate ?? "",
+      birthdate: (profile.birthdate ?? "") as BirthDate,
     },
     nhs_login: {
       id_token: (account.id_token ?? "") as IdToken,

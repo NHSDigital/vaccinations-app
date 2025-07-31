@@ -1,6 +1,7 @@
 import { auth } from "@project/auth";
 import { fetchAPIMAccessTokenForIDToken } from "@src/utils/auth/apim/fetch-apim-access-token";
-import { AccessToken, ApimAccessCredentials, ApimTokenResponse } from "@src/utils/auth/apim/types";
+import { ApimAccessCredentials, ApimTokenResponse } from "@src/utils/auth/apim/types";
+import { AccessToken, IdToken } from "@src/utils/auth/types";
 import { Session } from "next-auth";
 
 // check the apim auth cookie first;
@@ -31,7 +32,7 @@ const getApimAccessToken = async (): Promise<AccessToken> => {
 };
 
 const getNewAccessTokenFromApim = async (session: Session): Promise<ApimAccessCredentials> => {
-  const idToken: string | undefined = session.nhs_login.id_token;
+  const idToken: IdToken | undefined = session.nhs_login.id_token;
 
   if (idToken) {
     const response: ApimTokenResponse = await fetchAPIMAccessTokenForIDToken(idToken);

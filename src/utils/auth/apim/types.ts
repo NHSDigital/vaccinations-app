@@ -1,11 +1,4 @@
-import { Brand } from "@src/utils/types";
-
-export type AccessToken = Brand<string, "AccessToken">;
-export type RefreshToken = Brand<string, "RefreshToken">;
-export type ExpiresIn = Brand<string, "ExpiresIn">;
-export type RefreshCount = Brand<string, "RefreshCount">;
-export type RefreshTokenExpiresIn = Brand<string, "RefreshTokenExpiresIn">;
-export type IdToken = Brand<string, "IdToken">;
+import { AccessToken, ExpiresIn, RefreshCount, RefreshToken, RefreshTokenExpiresIn } from "@src/utils/auth/types";
 
 export type ApimAccessCredentials = {
   accessToken: AccessToken;

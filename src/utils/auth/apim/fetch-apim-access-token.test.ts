@@ -3,6 +3,7 @@
  */
 import { ApimConfig } from "@src/utils/apimConfig";
 import { generateAPIMTokenPayload } from "@src/utils/auth/apim/fetch-apim-access-token";
+import { IdToken } from "@src/utils/auth/types";
 import { apimConfigBuilder } from "@test-data/config/builders";
 import jwt from "jsonwebtoken";
 
@@ -11,7 +12,7 @@ jest.mock("jsonwebtoken", () => ({
 }));
 const mockRandomUUID = "mock-jti";
 const mockSignedJwt = "mock-signed-jwt";
-const mockIdToken = "id-token";
+const mockIdToken = "id-token" as IdToken;
 const mockNowInSeconds = 1749052001;
 
 const mockApimConfig: ApimConfig = apimConfigBuilder()
