@@ -1,15 +1,29 @@
 import getSSMParam from "@src/utils/get-ssm-param";
+import { randomString } from "@test-data/meta-builder";
 
-import { AppConfig, configProvider } from "./config";
+import { AppConfig, _resetAppConfig, configProvider } from "./config";
 
 jest.mock("@src/utils/get-ssm-param");
 
 describe("configProvider", () => {
+  const nowInSeconds = 0;
+
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.useFakeTimers();
+    jest.setSystemTime(nowInSeconds * 1000);
+    _resetAppConfig();
     process.env = {
       NODE_ENV: "test",
     };
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
   });
 
   const setupTestEnvVars = (prefix: string) => {
@@ -67,5 +81,36 @@ describe("configProvider", () => {
     expect(config).toMatchObject({
       IS_APIM_AVAILABLE: true,
     });
+  });
+
+  it("should reuse config values between subsequent calls", async () => {
+    setupTestEnvVars("test/");
+    const mockGetSSMParam = (getSSMParam as jest.Mock).mockImplementation(() => randomString(5));
+
+    const config: AppConfig = await configProvider();
+
+    expect(mockGetSSMParam).toHaveBeenCalled();
+    mockGetSSMParam.mockClear();
+
+    const anotherConfig: AppConfig = await configProvider();
+
+    expect(mockGetSSMParam).not.toHaveBeenCalled();
+    expect(config).toBe(anotherConfig);
+  });
+
+  it("should expire config after ttl", async () => {
+    setupTestEnvVars("test/");
+    const mockGetSSMParam = (getSSMParam as jest.Mock).mockImplementation(() => "test-value");
+
+    const config: AppConfig = await configProvider();
+
+    expect(mockGetSSMParam).toHaveBeenCalled();
+    mockGetSSMParam.mockClear();
+    jest.setSystemTime(nowInSeconds * 1000 + 300 * 1000);
+
+    const anotherConfig: AppConfig = await configProvider();
+
+    expect(mockGetSSMParam).toHaveBeenCalled();
+    expect(config).toEqual(anotherConfig);
   });
 });
