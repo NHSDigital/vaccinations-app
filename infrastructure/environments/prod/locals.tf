@@ -45,6 +45,9 @@ locals {
 
     NBS_URL          = "https://nhs.uk/nbs" // TODO: unconfirmed - is this correct url?
     NBS_BOOKING_PATH = "/nhs-app"
+
+    SSM_PARAMETER_STORE_TTL                = 300
+    PARAMETERS_SECRETS_EXTENSION_LOG_LEVEL = "ERROR"
   }
 
   default_tags = {
