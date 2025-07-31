@@ -85,6 +85,7 @@
         "lambda:GetFunctionCodeSigningConfig",
         "lambda:GetFunctionConfiguration",
         "lambda:GetFunctionUrlConfig",
+        "lambda:GetLayerVersion",
         "lambda:GetPolicy",
         "lambda:ListFunctions",
         "lambda:ListTags",
