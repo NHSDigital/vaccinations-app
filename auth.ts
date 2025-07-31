@@ -33,6 +33,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
       strategy: "jwt",
       maxAge: MAX_SESSION_AGE_SECONDS,
     },
+    debug: process.env.DEPLOY_ENVIRONMENT === "local",
     trustHost: true,
     callbacks: {
       async signIn({ account }) {
