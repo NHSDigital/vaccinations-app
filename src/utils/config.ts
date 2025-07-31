@@ -18,14 +18,11 @@ type AppConfig = {
   IS_APIM_AVAILABLE: boolean;
 };
 const ConfigPerformanceMarker = "app-config";
-let globalConfig: AppConfig | undefined;
 
 const configProvider = async (): Promise<AppConfig> => {
-  if (globalConfig) return globalConfig;
-
   profilePerformanceStart(ConfigPerformanceMarker);
   const SSM_PREFIX = await getFromEnvironmentOrSSM("", "SSM_PREFIX");
-  globalConfig = {
+  const appConfig: AppConfig = {
     CONTENT_API_ENDPOINT: await getUrlFromEnvironmentOrSSM(SSM_PREFIX, "CONTENT_API_ENDPOINT"),
     ELIGIBILITY_API_ENDPOINT: await getUrlFromEnvironmentOrSSM(SSM_PREFIX, "ELIGIBILITY_API_ENDPOINT"),
     CONTENT_API_KEY: await getFromEnvironmentOrSSM(SSM_PREFIX, "CONTENT_API_KEY"),
@@ -42,7 +39,7 @@ const configProvider = async (): Promise<AppConfig> => {
     IS_APIM_AVAILABLE: (await getFromEnvironmentOrSSM(SSM_PREFIX, "IS_APIM_AVAILABLE")) === "true",
   };
   profilePerformanceEnd(ConfigPerformanceMarker);
-  return globalConfig;
+  return appConfig;
 };
 
 export const getFromEnvironmentOrSSM = async (ssmPrefix: string, param: string): Promise<string> => {
@@ -57,10 +54,6 @@ export const getFromEnvironmentOrSSM = async (ssmPrefix: string, param: string):
 
 export const getUrlFromEnvironmentOrSSM = async (ssmPrefix: string, param: string): Promise<URL> => {
   return new URL(await getFromEnvironmentOrSSM(ssmPrefix, param));
-};
-
-export const _resetConfig = () => {
-  globalConfig = undefined;
 };
 
 export { configProvider };

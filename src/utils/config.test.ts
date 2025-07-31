@@ -1,13 +1,11 @@
 import getSSMParam from "@src/utils/get-ssm-param";
-import { randomString } from "@test-data/meta-builder";
 
-import { AppConfig, _resetConfig, configProvider } from "./config";
+import { AppConfig, configProvider } from "./config";
 
 jest.mock("@src/utils/get-ssm-param");
 
 describe("configProvider", () => {
   beforeEach(() => {
-    _resetConfig();
     jest.clearAllMocks();
     process.env = {
       NODE_ENV: "test",
@@ -69,20 +67,5 @@ describe("configProvider", () => {
     expect(config).toMatchObject({
       IS_APIM_AVAILABLE: true,
     });
-  });
-
-  it("should reuse config values between subsequent calls", async () => {
-    setupTestEnvVars("test/");
-    const mockGetSSMParam = (getSSMParam as jest.Mock).mockImplementation(() => randomString(5));
-
-    const config: AppConfig = await configProvider();
-
-    expect(mockGetSSMParam).toHaveBeenCalled();
-    mockGetSSMParam.mockClear();
-
-    const anotherConfig: AppConfig = await configProvider();
-
-    expect(mockGetSSMParam).not.toHaveBeenCalled();
-    expect(config).toBe(anotherConfig);
   });
 });

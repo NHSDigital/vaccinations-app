@@ -8,16 +8,13 @@ export type ApimConfig = {
   APIM_KEY_ID: string;
 };
 
-let globalApimConfig: ApimConfig | undefined;
 const ApimConfigPerformanceMarker = "apim-config";
 
 const apimConfigProvider = async (): Promise<ApimConfig> => {
-  if (globalApimConfig) return globalApimConfig;
-
   profilePerformanceStart(ApimConfigPerformanceMarker);
   const SSM_PREFIX = await getFromEnvironmentOrSSM("", "SSM_PREFIX");
 
-  globalApimConfig = {
+  const apimConfig: ApimConfig = {
     CONTENT_API_KEY: await getFromEnvironmentOrSSM(SSM_PREFIX, "CONTENT_API_KEY"),
     APIM_PRIVATE_KEY: await getFromEnvironmentOrSSM(SSM_PREFIX, "APIM_PRIVATE_KEY"),
     APIM_AUTH_URL: await getUrlFromEnvironmentOrSSM(SSM_PREFIX, "APIM_AUTH_URL"),
@@ -25,11 +22,7 @@ const apimConfigProvider = async (): Promise<ApimConfig> => {
   };
   profilePerformanceEnd(ApimConfigPerformanceMarker);
 
-  return globalApimConfig;
-};
-
-export const _resetApimConfig = () => {
-  globalApimConfig = undefined;
+  return apimConfig;
 };
 
 export { apimConfigProvider };
