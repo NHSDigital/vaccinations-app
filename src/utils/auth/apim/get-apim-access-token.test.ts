@@ -1,5 +1,7 @@
 import { getApimAccessToken } from "@src/utils/auth/apim/get-apim-access-token";
 import { AccessToken } from "@src/utils/auth/types";
+import { configProvider } from "@src/utils/config";
+import { appConfigBuilder } from "@test-data/config/builders";
 import { getToken } from "next-auth/jwt";
 import { cookies, headers } from "next/headers";
 
@@ -12,7 +14,16 @@ jest.mock("next-auth/jwt", () => ({
   getToken: jest.fn(),
 }));
 
+jest.mock("@src/utils/config", () => ({
+  configProvider: jest.fn(),
+}));
+
 describe("get-apim-access-token", () => {
+  beforeEach(() => {
+    const mockConfig = appConfigBuilder().withAUTH_SECRET("test-auth-secret");
+    (configProvider as jest.Mock).mockResolvedValue(mockConfig);
+  });
+
   it("should use access token from JWT session when APIM access token populated", async () => {
     (headers as jest.Mock).mockResolvedValue([{}]);
     const mockCookieStore = { getAll: jest.fn().mockReturnValue([{}]) };

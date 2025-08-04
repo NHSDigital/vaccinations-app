@@ -18,6 +18,7 @@ export function appConfigBuilder() {
     NHS_APP_REDIRECT_LOGIN_URL: randomString(10),
     MAX_SESSION_AGE_MINUTES: randomInteger(1, 999),
     IS_APIM_AVAILABLE: randomBoolean(),
+    AUTH_SECRET: randomString(10),
   });
 }
 

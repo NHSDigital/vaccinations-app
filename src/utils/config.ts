@@ -16,6 +16,7 @@ type AppConfig = {
   MAX_SESSION_AGE_MINUTES: number;
   NHS_APP_REDIRECT_LOGIN_URL: string;
   IS_APIM_AVAILABLE: boolean;
+  AUTH_SECRET: string;
 };
 
 type AppConfigCache = {
@@ -49,6 +50,7 @@ const configProvider = async (): Promise<AppConfig> => {
       NBS_BOOKING_PATH: await getFromEnvironmentOrSSM(SSM_PREFIX, "NBS_BOOKING_PATH"),
       MAX_SESSION_AGE_MINUTES: Number(await getFromEnvironmentOrSSM(SSM_PREFIX, "MAX_SESSION_AGE_MINUTES")),
       IS_APIM_AVAILABLE: (await getFromEnvironmentOrSSM(SSM_PREFIX, "IS_APIM_AVAILABLE")) === "true",
+      AUTH_SECRET: await getFromEnvironmentOrSSM(SSM_PREFIX, "AUTH_SECRET"),
     },
     ttl: Date.now() + CACHE_TTL_MILLIS,
   };

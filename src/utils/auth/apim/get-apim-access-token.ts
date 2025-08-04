@@ -1,6 +1,7 @@
 import { fetchAPIMAccessTokenForIDToken } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { ApimAccessCredentials, ApimTokenResponse } from "@src/utils/auth/apim/types";
 import { AccessToken, IdToken } from "@src/utils/auth/types";
+import { configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { JWT, getToken } from "next-auth/jwt";
 import { cookies, headers } from "next/headers";
@@ -9,12 +10,12 @@ const log = logger.child({ module: "get-apim-access-token" });
 
 // check the apim auth cookie first;
 
-// 1. if access token exists and is not expired, return it DONE
+// 1. if access token exists and is not expired, return it
 
 // 2. or if access token exists but is expired, get the refresh token, call APIM to refresh and save the new access token on the cookie and return it
 
 // 3. or if access token does not exist/is missing, get a new one: DONE
-// save access token, refresh token and expiration time as a cookie PARTIALLY DONE
+// save access token, refresh token and expiration time as a cookie DONE
 
 const getApimAccessToken = async (): Promise<AccessToken> => {
   const token = await getJwtToken();
@@ -27,6 +28,7 @@ const getApimAccessToken = async (): Promise<AccessToken> => {
 };
 
 const getJwtToken = async (): Promise<JWT | null> => {
+  const config = await configProvider();
   const headerEntries = await headers();
   const cookieEntries = await cookies();
   const req = {
@@ -34,8 +36,7 @@ const getJwtToken = async (): Promise<JWT | null> => {
     cookies: Object.fromEntries(cookieEntries.getAll().map((c) => [c.name, c.value])),
   };
 
-  // const token = await getToken({ req, secret: config.AUTH_SECRET, secureCookie: true }); // TODO VIA-254: add AUTH_SECRET to config
-  const token = await getToken({ req, secret: process.env.AUTH_SECRET, secureCookie: true });
+  const token = await getToken({ req, secret: config.AUTH_SECRET, secureCookie: true });
   log.debug({ token }, "JWT Token");
   return token;
 };
