@@ -133,7 +133,7 @@ jobs:
         uses: actions/checkout@v4
       - name: "Install NPM packages"
         run: |
-          npm ci
+          npm ci --strict-peer-deps
       - name: "Check types with tsc"
         run: |
           tsc --noEmit
