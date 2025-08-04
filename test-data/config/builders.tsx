@@ -17,7 +17,7 @@ export function appConfigBuilder() {
     NBS_BOOKING_PATH: randomString(10),
     NHS_APP_REDIRECT_LOGIN_URL: randomString(10),
     MAX_SESSION_AGE_MINUTES: randomInteger(1, 999),
-    IS_APIM_AVAILABLE: randomBoolean(),
+    IS_APIM_AUTH_ENABLED: randomBoolean(),
     AUTH_SECRET: randomString(10),
   });
 }

@@ -11,7 +11,7 @@ jest.mock("@src/utils/config", () => ({
     const value: AppConfig = appConfigBuilder()
       .withELIGIBILITY_API_ENDPOINT(new URL("http://localhost:1234/"))
       .andELIGIBILITY_API_KEY("test-api-key")
-      .andIS_APIM_AVAILABLE(false)
+      .andIS_APIM_AUTH_ENABLED(false)
       .build();
     return Promise.resolve(value);
   }),

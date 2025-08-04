@@ -86,7 +86,7 @@ const getToken = async (
 
   let apimAccessCredentials: ApimAccessCredentials | undefined;
   if (
-    config.IS_APIM_AVAILABLE &&
+    config.IS_APIM_AUTH_ENABLED &&
     (!token.apim?.access_token || token.apim.access_token === "") &&
     token.nhs_login?.id_token
   ) {

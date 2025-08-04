@@ -39,7 +39,7 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
     "X-Correlation-ID": vitaTraceId,
   };
 
-  if (config.IS_APIM_AVAILABLE) {
+  if (config.IS_APIM_AUTH_ENABLED) {
     const apimAccessToken = getApimAccessToken();
     headers = { ...headers, Authorization: `Bearer ${apimAccessToken}` };
   }

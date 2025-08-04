@@ -59,27 +59,27 @@ describe("configProvider", () => {
     expect(mockGetSSMParam).toHaveBeenCalledTimes(1);
   });
 
-  it("should convert IS_APIM_AVAILABLE to a false boolean value", async () => {
+  it("should convert IS_APIM_AUTH_ENABLED to a false boolean value", async () => {
     setupTestEnvVars("test/");
-    process.env.IS_APIM_AVAILABLE = "false";
+    process.env.IS_APIM_AUTH_ENABLED = "false";
     (getSSMParam as jest.Mock).mockResolvedValue("api-key");
 
     const config: AppConfig = await configProvider();
 
     expect(config).toMatchObject({
-      IS_APIM_AVAILABLE: false,
+      IS_APIM_AUTH_ENABLED: false,
     });
   });
 
-  it("should convert IS_APIM_AVAILABLE to a true boolean value", async () => {
+  it("should convert IS_APIM_AUTH_ENABLED to a true boolean value", async () => {
     setupTestEnvVars("test/");
-    process.env.IS_APIM_AVAILABLE = "true";
+    process.env.IS_APIM_AUTH_ENABLED = "true";
     (getSSMParam as jest.Mock).mockResolvedValue("api-key");
 
     const config: AppConfig = await configProvider();
 
     expect(config).toMatchObject({
-      IS_APIM_AVAILABLE: true,
+      IS_APIM_AUTH_ENABLED: true,
     });
   });
 

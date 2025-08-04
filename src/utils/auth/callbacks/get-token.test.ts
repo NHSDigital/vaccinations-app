@@ -20,7 +20,7 @@ describe("getToken", () => {
       .withNHS_LOGIN_URL("https://mock.nhs.login")
       .andNHS_LOGIN_CLIENT_ID("mock-client-id")
       .andNHS_LOGIN_PRIVATE_KEY("mock-private-key")
-      .andIS_APIM_AVAILABLE(true)
+      .andIS_APIM_AUTH_ENABLED(true)
       .build();
 
     const nowInSeconds = 1749052001;
@@ -156,7 +156,7 @@ describe("getToken", () => {
       expect(result).toBeNull();
     });
 
-    it("should not update apim creds if already present (and not expired)", async () => {
+    it("should not update apim credentials if already present (and not expired)", async () => {
       // Given
       const token = { apim: { access_token: "test-apim-access-token" }, nhs_login: { id_token: "id-token" } } as JWT;
 
@@ -173,7 +173,7 @@ describe("getToken", () => {
       .withNHS_LOGIN_URL("https://mock.nhs.login")
       .andNHS_LOGIN_CLIENT_ID("mock-client-id")
       .andNHS_LOGIN_PRIVATE_KEY("mock-private-key")
-      .andIS_APIM_AVAILABLE(false)
+      .andIS_APIM_AUTH_ENABLED(false)
       .build();
 
     const nowInSeconds = 1749052001;
