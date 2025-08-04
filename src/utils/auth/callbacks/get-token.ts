@@ -85,7 +85,11 @@ const getToken = async (
   }
 
   let apimAccessCredentials: ApimAccessCredentials | undefined;
-  if ((!token.apim?.access_token || token.apim.access_token === "") && token.nhs_login?.id_token) {
+  if (
+    config.IS_APIM_AVAILABLE &&
+    (!token.apim?.access_token || token.apim.access_token === "") &&
+    token.nhs_login?.id_token
+  ) {
     apimAccessCredentials = await getNewAccessTokenFromApim(token.nhs_login.id_token);
   } else {
     // TODO VIA-254 // If expired or close to it?
