@@ -12,7 +12,6 @@ const profilePerformanceStart = (markerName: string) => {
 };
 
 const profilePerformanceEnd = (markerName: string) => {
-  console.log("Debugging pino", process.env.PINO_LOG_LEVEL, markerName, process.env.NEXT_RUNTIME);
   if (isPerformanceProfilingEnabled) {
     const measurement = performance.measure(`${markerName}-latency`, markerName);
     const message = {

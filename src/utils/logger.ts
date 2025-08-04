@@ -4,6 +4,7 @@ import pino, { LogDescriptor, Logger } from "pino";
 const REDACTED_KEYS = ["err.config.headers.apikey", "detail.responseElements.role", "detail.userIdentity"];
 
 const isEdgeRuntime = process?.env?.NEXT_RUNTIME === "edge";
+const currentLevel = process.env.PINO_LOG_LEVEL ?? "info";
 
 const formatterWithLevelAsText = {
   level: (label: string) => {
@@ -24,7 +25,7 @@ const applicationContextFields = {
 
 const pinoLoggerForNode = () => {
   return pino({
-    level: process.env.PINO_LOG_LEVEL ?? "info",
+    level: currentLevel,
     formatters: formatterWithLevelAsText,
     mixin() {
       return {
@@ -38,7 +39,7 @@ const pinoLoggerForNode = () => {
 
 const pinoLoggerForEdge = () => {
   return pino({
-    level: process.env.PINO_LOG_LEVEL ?? "info",
+    level: currentLevel,
     browser: {
       formatters: formatterWithLevelAsText,
       write: (logEvent: LogDescriptor) => {
