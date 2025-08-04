@@ -13,14 +13,16 @@ const profilePerformanceStart = (markerName: string) => {
 const profilePerformanceEnd = (markerName: string) => {
   if (isPerformanceProfilingEnabled) {
     const measurement = performance.measure(`${markerName}-latency`, markerName);
-    log.info(
-      {
-        marker: measurement.name,
-        startTimestamp: measurement.startTime,
-        latencyMillis: measurement.duration,
-      },
-      "performance profile",
-    );
+    const message = {
+      marker: measurement.name,
+      startTimestamp: measurement.startTime,
+      latencyMillis: measurement.duration,
+    };
+    if (process.env.PINO_LOG_LEVEL === "info") {
+      log.info(message, "performance profile");
+    } else {
+      log.warn(message, "performance profile");
+    }
   }
 };
 
