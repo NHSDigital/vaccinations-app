@@ -19,6 +19,7 @@ describe("getToken", () => {
     .withNHS_LOGIN_URL("https://mock.nhs.login")
     .andNHS_LOGIN_CLIENT_ID("mock-client-id")
     .andNHS_LOGIN_PRIVATE_KEY("mock-private-key")
+    .andIS_APIM_AVAILABLE(true) // TODO VIA-254 - Test with false
     .build();
 
   const nowInSeconds = 1749052001;
