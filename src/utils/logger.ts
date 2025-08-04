@@ -38,6 +38,7 @@ const pinoLoggerForNode = () => {
 
 const pinoLoggerForEdge = () => {
   return pino({
+    level: process.env.PINO_LOG_LEVEL ?? "info",
     browser: {
       formatters: formatterWithLevelAsText,
       write: (logEvent: LogDescriptor) => {
