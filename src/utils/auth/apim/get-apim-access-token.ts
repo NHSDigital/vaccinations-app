@@ -4,7 +4,6 @@ import { AccessToken, IdToken } from "@src/utils/auth/types";
 import { logger } from "@src/utils/logger";
 import { JWT, getToken } from "next-auth/jwt";
 import { cookies, headers } from "next/headers";
-import * as process from "node:process";
 
 const log = logger.child({ module: "get-apim-access-token" });
 
