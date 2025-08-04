@@ -1,84 +1,32 @@
-import { auth } from "@project/auth";
-import { fetchAPIMAccessTokenForIDToken } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { getApimAccessToken } from "@src/utils/auth/apim/get-apim-access-token";
-import { ApimTokenResponse } from "@src/utils/auth/apim/types";
-import {
-  AccessToken,
-  ExpiresIn,
-  IdToken,
-  RefreshCount,
-  RefreshToken,
-  RefreshTokenExpiresIn,
-} from "@src/utils/auth/types";
-import { cookies } from "next/headers";
-
-jest.mock("@project/auth", () => ({
-  auth: jest.fn(),
-}));
+import { AccessToken } from "@src/utils/auth/types";
+import { getToken } from "next-auth/jwt";
+import { cookies, headers } from "next/headers";
 
 jest.mock("next/headers", () => ({
+  headers: jest.fn(),
   cookies: jest.fn(),
 }));
 
-jest.mock("@src/utils/auth/apim/fetch-apim-access-token", () => ({
-  fetchAPIMAccessTokenForIDToken: jest.fn(),
+jest.mock("next-auth/jwt", () => ({
+  getToken: jest.fn(),
 }));
 
 describe("get-apim-access-token", () => {
-  describe("when there is no APIM accessToken in JWS session", () => {
-    it("should use id token from session when calling APIM and return access token", async () => {
-      const expectedAccessToken = "test-access-token" as AccessToken;
-      const idToken = "some-id-token" as IdToken;
-      const mockAPIMFetchTokenResponse: ApimTokenResponse = {
-        access_token: expectedAccessToken as AccessToken,
-        expires_in: "80" as ExpiresIn,
-        issued_token_type: "urn:ietf:params:oauth:token-type:access_token",
-        refresh_count: "2" as RefreshCount,
-        refresh_token: "test-refresh-token" as RefreshToken,
-        refresh_token_expires_in: "389" as RefreshTokenExpiresIn,
-        token_type: "Bearer",
-      };
-      const mockSession = {
-        nhs_login: {
-          id_token: idToken,
-        },
-        apim: {},
-      };
-      const mockCookieStore = {
-        has: jest.fn().mockReturnValue(false),
-      };
-      (cookies as jest.Mock).mockReturnValue(mockCookieStore);
-      (auth as jest.Mock).mockResolvedValue(mockSession);
-      (fetchAPIMAccessTokenForIDToken as jest.Mock).mockResolvedValue(mockAPIMFetchTokenResponse);
+  it("should use access token from JWT session when APIM access token populated", async () => {
+    (headers as jest.Mock).mockResolvedValue([{}]);
+    const mockCookieStore = { getAll: jest.fn().mockReturnValue([{}]) };
+    (cookies as jest.Mock).mockReturnValue(mockCookieStore);
+    (getToken as jest.Mock).mockResolvedValue({ apim: { access_token: "test-access-token" as AccessToken } });
 
-      const apimAccessToken = await getApimAccessToken();
+    const apimAccessToken = await getApimAccessToken();
 
-      expect(fetchAPIMAccessTokenForIDToken).toHaveBeenCalledWith(idToken);
-      expect(apimAccessToken).toEqual(expectedAccessToken);
-    });
+    expect(apimAccessToken).toEqual("test-access-token" as AccessToken);
+  });
 
-    it("should throw error if id_token not available on session", async () => {
-      const mockSessionWithMissingIdToken = {
-        nhs_login: {
-          id_token: undefined,
-        },
-      };
-      (auth as jest.Mock).mockResolvedValue(mockSessionWithMissingIdToken);
+  it("should throw error if APIM access token not available on JWT session", async () => {
+    (getToken as jest.Mock).mockResolvedValue({ apim: {} });
 
-      await expect(getApimAccessToken()).rejects.toThrow("No idToken available on session for APIM call");
-    });
-
-    it("should propagate errors from fetch APIM token method", async () => {
-      const fetchApimTokenError = new Error("fetch-apim-error");
-      (fetchAPIMAccessTokenForIDToken as jest.Mock).mockRejectedValue(fetchApimTokenError);
-      const mockSession = {
-        nhs_login: {
-          id_token: "some-id-token",
-        },
-      };
-      (auth as jest.Mock).mockResolvedValue(mockSession);
-
-      await expect(getApimAccessToken()).rejects.toThrow(fetchApimTokenError);
-    });
+    await expect(getApimAccessToken()).rejects.toThrow("No APIM access token available");
   });
 });

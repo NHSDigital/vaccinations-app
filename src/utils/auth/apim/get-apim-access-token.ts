@@ -1,49 +1,54 @@
-import { auth } from "@project/auth";
 import { fetchAPIMAccessTokenForIDToken } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { ApimAccessCredentials, ApimTokenResponse } from "@src/utils/auth/apim/types";
 import { AccessToken, IdToken } from "@src/utils/auth/types";
-import { Session } from "next-auth";
+import { logger } from "@src/utils/logger";
+import { JWT, getToken } from "next-auth/jwt";
+import { cookies, headers } from "next/headers";
+import * as process from "node:process";
+
+const log = logger.child({ module: "get-apim-access-token" });
 
 // check the apim auth cookie first;
 
-// 1. if accesstoken exists and is not expired, return it
+// 1. if access token exists and is not expired, return it DONE
 
 // 2. or if access token exists but is expired, get the refresh token, call APIM to refresh and save the new access token on the cookie and return it
 
-// 3. or if access token does not exist/is missing, get a new one:
-// save access token, refresh token and expiration time as a cookie
+// 3. or if access token does not exist/is missing, get a new one: DONE
+// save access token, refresh token and expiration time as a cookie PARTIALLY DONE
 
 const getApimAccessToken = async (): Promise<AccessToken> => {
-  const session: Session | null = await auth();
-  if (!session) {
-    throw Error("No session available for APIM call");
-  }
+  const token = await getJwtToken();
 
-  let accessToken = session.apim?.access_token;
-  if (!accessToken) {
-    const apimAccessCredentials = await getNewAccessTokenFromApim(session);
-    accessToken = apimAccessCredentials.accessToken;
-    session.apim.access_token = accessToken;
-  } else {
-    // TODO VIA-254 - Expired?
+  if (!token?.apim?.access_token) {
+    log.error({ token }, "Unable to get APIM access token");
+    throw Error("No APIM access token available");
   }
-
-  return accessToken;
+  return token.apim.access_token;
 };
 
-const getNewAccessTokenFromApim = async (session: Session): Promise<ApimAccessCredentials> => {
-  const idToken: IdToken | undefined = session.nhs_login.id_token;
+const getJwtToken = async (): Promise<JWT | null> => {
+  const headerEntries = await headers();
+  const cookieEntries = await cookies();
+  const req = {
+    headers: Object.fromEntries(headerEntries),
+    cookies: Object.fromEntries(cookieEntries.getAll().map((c) => [c.name, c.value])),
+  };
 
-  if (idToken) {
-    const response: ApimTokenResponse = await fetchAPIMAccessTokenForIDToken(idToken);
-    return {
-      accessToken: response.access_token,
-      refreshToken: response.refresh_token,
-      expiresIn: response.expires_in,
-    };
-  } else {
-    throw Error("No idToken available on session for APIM call");
-  }
+  // const token = await getToken({ req, secret: config.AUTH_SECRET, secureCookie: true }); // TODO VIA-254: add AUTH_SECRET to config
+  const token = await getToken({ req, secret: process.env.AUTH_SECRET, secureCookie: true });
+  log.debug({ token }, "JWT Token");
+  return token;
 };
 
-export { getApimAccessToken };
+const getNewAccessTokenFromApim = async (idToken: IdToken): Promise<ApimAccessCredentials> => {
+  const response: ApimTokenResponse = await fetchAPIMAccessTokenForIDToken(idToken);
+  return {
+    accessToken: response.access_token,
+    refreshToken: response.refresh_token,
+    expiresIn: response.expires_in,
+    refreshTokenExpiresIn: response.refresh_token_expires_in,
+  };
+};
+
+export { getApimAccessToken, getNewAccessTokenFromApim, getJwtToken };

@@ -1,4 +1,6 @@
 import { NhsNumber } from "@src/models/vaccine";
+import { getNewAccessTokenFromApim } from "@src/utils/auth/apim/get-apim-access-token";
+import { ApimAccessCredentials } from "@src/utils/auth/apim/types";
 import { BirthDate, IdToken } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
@@ -8,7 +10,7 @@ import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "utils-auth-callbacks-get-token" });
 
-const fillMissingFieldsInTokenWithDefaultValues = (token: JWT): JWT => {
+const fillMissingFieldsInTokenWithDefaultValues = (token: JWT, apimAccessCredentials?: ApimAccessCredentials): JWT => {
   return {
     ...token,
     user: {
@@ -19,10 +21,12 @@ const fillMissingFieldsInTokenWithDefaultValues = (token: JWT): JWT => {
       id_token: token.nhs_login?.id_token ?? "",
     },
     apim: {
-      access_token: token.apim?.access_token ?? "",
-      expires_in: token.apim?.expires_in ?? 0,
-      refresh_token: token.apim?.refresh_token ?? "",
-      refresh_token_expires_in: token.apim?.refresh_token_expires_in ?? 0,
+      access_token: (apimAccessCredentials ? apimAccessCredentials.accessToken : token.apim?.access_token) ?? "",
+      expires_in: (apimAccessCredentials ? apimAccessCredentials.expiresIn : token.apim?.expires_in) ?? "",
+      refresh_token: (apimAccessCredentials ? apimAccessCredentials.refreshToken : token.apim?.refresh_token) ?? "",
+      refresh_token_expires_in:
+        (apimAccessCredentials ? apimAccessCredentials.refreshTokenExpiresIn : token.apim?.refresh_token_expires_in) ??
+        "",
     },
   };
 };
@@ -80,8 +84,15 @@ const getToken = async (
     return null;
   }
 
+  let apimAccessCredentials: ApimAccessCredentials | undefined;
+  if ((!token.apim?.access_token || token.apim.access_token === "") && token.nhs_login?.id_token) {
+    apimAccessCredentials = await getNewAccessTokenFromApim(token.nhs_login.id_token);
+  } else {
+    // TODO VIA-254 // If expired or close to it?
+  }
+
   // Inspect the token (which was either returned from login or fetched from session), fill missing or blank values with defaults
-  let updatedToken: JWT = fillMissingFieldsInTokenWithDefaultValues(token);
+  let updatedToken: JWT = fillMissingFieldsInTokenWithDefaultValues(token, apimAccessCredentials);
 
   // Initial login scenario: account and profile are only defined for the initial login, afterward they become undefined
   if (isInitialLoginJourney(account, profile) && account != null && profile != null) {
@@ -94,7 +105,7 @@ const getToken = async (
     );
   }
 
-  log.info({ updatedToken: updatedToken }, "Returning JWT from callback");
+  log.debug({ updatedToken: updatedToken }, "Returning JWT from callback");
   return updatedToken;
 };
 

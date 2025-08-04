@@ -7,8 +7,8 @@ import {
 } from "@src/services/eligibility-api/types";
 import dotenv from "dotenv";
 
-jest.mock("@project/auth", () => ({
-  auth: jest.fn(),
+jest.mock("next-auth/jwt", () => ({
+  getToken: jest.fn(),
 }));
 
 describe("EliD API contract", () => {

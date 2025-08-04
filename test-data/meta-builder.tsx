@@ -144,3 +144,7 @@ export function randomInteger(min: number, max: number) {
 export function randomValue<T>(values: T[]): T {
   return values[Math.floor(Math.random() * values.length)];
 }
+
+export function randomBoolean() {
+  return Math.random() < 0.5;
+}

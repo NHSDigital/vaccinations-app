@@ -47,10 +47,6 @@ declare module "next-auth" {
     nhs_login: {
       id_token: IdToken;
     };
-    apim: {
-      access_token: AccessToken;
-      expires_in: ExpiresIn;
-    };
   }
 
   interface Profile {

@@ -4,6 +4,7 @@ export type ApimAccessCredentials = {
   accessToken: AccessToken;
   refreshToken: RefreshToken;
   expiresIn: ExpiresIn;
+  refreshTokenExpiresIn: RefreshTokenExpiresIn;
 };
 
 export type ApimTokenResponse = {

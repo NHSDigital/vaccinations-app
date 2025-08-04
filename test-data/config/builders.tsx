@@ -1,6 +1,6 @@
 import { ApimConfig } from "@src/utils/apimConfig";
 import { AppConfig } from "@src/utils/config";
-import { createTypeBuilder, randomInteger, randomString, randomURL } from "@test-data/meta-builder";
+import { createTypeBuilder, randomBoolean, randomInteger, randomString, randomURL } from "@test-data/meta-builder";
 
 export function appConfigBuilder() {
   return createTypeBuilder<AppConfig>({
@@ -17,7 +17,7 @@ export function appConfigBuilder() {
     NBS_BOOKING_PATH: randomString(10),
     NHS_APP_REDIRECT_LOGIN_URL: randomString(10),
     MAX_SESSION_AGE_MINUTES: randomInteger(1, 999),
-    IS_APIM_AVAILABLE: false,
+    IS_APIM_AVAILABLE: randomBoolean(),
   });
 }
 

@@ -11,13 +11,14 @@ jest.mock("@src/utils/config", () => ({
     const value: AppConfig = appConfigBuilder()
       .withELIGIBILITY_API_ENDPOINT(new URL("http://localhost:1234/"))
       .andELIGIBILITY_API_KEY("test-api-key")
+      .andIS_APIM_AVAILABLE(false)
       .build();
     return Promise.resolve(value);
   }),
 }));
 
-jest.mock("@project/auth", () => ({
-  auth: jest.fn(),
+jest.mock("next-auth/jwt", () => ({
+  getToken: jest.fn(),
 }));
 
 const successfulResponse: EligibilityApiResponse = {
