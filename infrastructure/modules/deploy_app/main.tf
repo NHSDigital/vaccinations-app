@@ -1,6 +1,6 @@
 module "deploy_app" {
   source                = "RJPearson94/open-next/aws//modules/tf-aws-open-next-zone"
-  version               = "3.6.0"
+  version               = "3.6.1"
   open_next_version     = "v3.x.x"
   function_architecture = "arm64"
   prefix                = var.prefix
@@ -37,7 +37,9 @@ module "deploy_app" {
       retention_in_days = var.log_retention_in_days
     }
     logging_config = {
-      log_format = "JSON"
+      log_format            = "JSON"
+      application_log_level = "INFO"
+      system_log_level      = "INFO"
     }
 
     runtime = var.nodejs_version
