@@ -44,7 +44,8 @@ locals {
     NBS_URL          = "https://f.nhswebsite-integration.nhs.uk/nbs"
     NBS_BOOKING_PATH = "/nhs-app"
 
-    SSM_PARAMETER_STORE_TTL                = 300
+    # TODO: revert it back to 300
+    SSM_PARAMETER_STORE_TTL                = 30
     PARAMETERS_SECRETS_EXTENSION_LOG_LEVEL = "INFO"
   }
 
