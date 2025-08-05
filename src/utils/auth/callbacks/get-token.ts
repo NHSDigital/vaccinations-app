@@ -88,7 +88,7 @@ const getToken = async (
   if (config.IS_APIM_AUTH_ENABLED && process.env.NEXT_RUNTIME === "nodejs") {
     if (!token.nhs_login?.id_token) {
       // TODO VIA-254 - Is this an error?
-      log.info("getToken: No ID token available in jwt callback. Returning null");
+      log.warn("getToken: No NHS login ID token available. Not getting APIM creds.");
     } else if (!token.apim?.access_token || token.apim.access_token === "") {
       apimAccessCredentials = await getNewAccessTokenFromApim(token.nhs_login.id_token);
     } else {

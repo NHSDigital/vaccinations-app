@@ -51,14 +51,7 @@ const fetchAPIMAccessTokenForIDToken = async (idToken: IdToken): Promise<ApimTok
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      log.error(
-        {
-          message: error.message,
-          status: error.response?.status,
-          data: error.response?.data,
-        },
-        `Error calling APIM token endpoint ${apimConfig.APIM_AUTH_URL.toString()}`,
-      );
+      log.error({ error, APIM_AUTH_URL: apimConfig.APIM_AUTH_URL.href }, `Error calling APIM token endpoint`);
     } else {
       log.error(error, `Error generating APIM token request`);
     }
