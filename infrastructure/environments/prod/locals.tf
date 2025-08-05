@@ -35,7 +35,7 @@ locals {
     MAX_SESSION_AGE_MINUTES = 59
 
     ELIGIBILITY_API_ENDPOINT = "https://api.service.nhs.uk/"
-    IS_APIM_AUTH_ENABLED        = false
+    IS_APIM_AUTH_ENABLED     = false
     APIM_AUTH_URL            = ""
     APIM_KEY_ID              = ""
 
