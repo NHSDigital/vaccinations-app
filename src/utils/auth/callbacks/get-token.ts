@@ -23,10 +23,14 @@ const fillMissingFieldsInTokenWithDefaultValues = (token: JWT, apimAccessCredent
     apim: {
       access_token: (apimAccessCredentials ? apimAccessCredentials.accessToken : token.apim?.access_token) ?? "",
       expires_in: (apimAccessCredentials ? apimAccessCredentials.expiresIn : token.apim?.expires_in) ?? "",
+      expires_at: (apimAccessCredentials ? apimAccessCredentials.expiresAt : token.apim?.expires_at) ?? 0,
       refresh_token: (apimAccessCredentials ? apimAccessCredentials.refreshToken : token.apim?.refresh_token) ?? "",
       refresh_token_expires_in:
         (apimAccessCredentials ? apimAccessCredentials.refreshTokenExpiresIn : token.apim?.refresh_token_expires_in) ??
         "",
+      refresh_token_expires_at:
+        (apimAccessCredentials ? apimAccessCredentials.refreshTokenExpiresAt : token.apim?.refresh_token_expires_at) ??
+        0,
     },
   };
 };

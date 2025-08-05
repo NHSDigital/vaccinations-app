@@ -1,6 +1,6 @@
 import { fetchAPIMAccessTokenForIDToken } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { ApimAccessCredentials, ApimTokenResponse } from "@src/utils/auth/apim/types";
-import { AccessToken, IdToken } from "@src/utils/auth/types";
+import { AccessToken, ExpiresAt, IdToken, RefreshTokenExpiresAt } from "@src/utils/auth/types";
 import { configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { JWT, getToken } from "next-auth/jwt";
@@ -42,12 +42,15 @@ const getJwtToken = async (): Promise<JWT | null> => {
 };
 
 const getNewAccessTokenFromApim = async (idToken: IdToken): Promise<ApimAccessCredentials> => {
+  const now = Date.now() / 1000;
   const response: ApimTokenResponse = await fetchAPIMAccessTokenForIDToken(idToken);
   return {
     accessToken: response.access_token,
     refreshToken: response.refresh_token,
-    expiresIn: response.expires_in,
-    refreshTokenExpiresIn: response.refresh_token_expires_in,
+    expiresIn: response.expires_in, // TODO VIA-254 - Do we still need expires_in if we have expires_at?
+    expiresAt: Math.floor(now + parseInt(response.expires_in)) as ExpiresAt,
+    refreshTokenExpiresIn: response.refresh_token_expires_in, // TODO VIA-254 - Do we still need expires_in if we have expires_at?
+    refreshTokenExpiresAt: Math.floor(now + parseInt(response.refresh_token_expires_in)) as RefreshTokenExpiresAt,
   };
 };
 

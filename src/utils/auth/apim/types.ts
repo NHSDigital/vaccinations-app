@@ -1,10 +1,20 @@
-import { AccessToken, ExpiresIn, RefreshCount, RefreshToken, RefreshTokenExpiresIn } from "@src/utils/auth/types";
+import {
+  AccessToken,
+  ExpiresAt,
+  ExpiresIn,
+  RefreshCount,
+  RefreshToken,
+  RefreshTokenExpiresAt,
+  RefreshTokenExpiresIn,
+} from "@src/utils/auth/types";
 
 export type ApimAccessCredentials = {
   accessToken: AccessToken;
   refreshToken: RefreshToken;
   expiresIn: ExpiresIn;
+  expiresAt: ExpiresAt;
   refreshTokenExpiresIn: RefreshTokenExpiresIn;
+  refreshTokenExpiresAt: RefreshTokenExpiresAt;
 };
 
 export type ApimTokenResponse = {

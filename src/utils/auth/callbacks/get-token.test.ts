@@ -45,6 +45,7 @@ describe("getToken", () => {
     });
 
     it("should return updated token on initial login with account profile, and APIM credentials", async () => {
+      // Given
       (jwtDecode as jest.Mock).mockReturnValue({
         jti: "jti_test",
       });
@@ -53,7 +54,9 @@ describe("getToken", () => {
         accessToken: "test-apim-access-token",
         refreshToken: "test-apim-refresh-token",
         expiresIn: "test-apim-expires-in",
+        expiresAt: 9999,
         refreshTokenExpiresIn: "test-apim-refresh-token-expires-in",
+        refreshTokenExpiresAt: 7777,
       });
 
       const account = {
@@ -70,8 +73,10 @@ describe("getToken", () => {
 
       const maxAgeInSeconds = 600;
 
+      // When
       const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
 
+      // Then
       expect(result).toMatchObject({
         user: {
           nhs_number: profile.nhs_number,
@@ -83,8 +88,10 @@ describe("getToken", () => {
         apim: {
           access_token: "test-apim-access-token",
           expires_in: "test-apim-expires-in",
+          expires_at: 9999,
           refresh_token: "test-apim-refresh-token",
           refresh_token_expires_in: "test-apim-refresh-token-expires-in",
+          refresh_token_expires_at: 7777,
         },
         fixedExpiry: nowInSeconds + maxAgeInSeconds,
       });

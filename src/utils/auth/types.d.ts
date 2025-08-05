@@ -5,8 +5,10 @@ import type { DefaultSession } from "next-auth";
 export type AccessToken = Brand<string, "AccessToken">;
 export type RefreshToken = Brand<string, "RefreshToken">;
 export type ExpiresIn = Brand<string, "ExpiresIn">;
+export type ExpiresAt = Brand<number, "ExpiresAt">;
 export type RefreshCount = Brand<string, "RefreshCount">;
 export type RefreshTokenExpiresIn = Brand<string, "RefreshTokenExpiresIn">;
+export type RefreshTokenExpiresAt = Brand<number, "RefreshTokenExpiresAt">;
 export type IdToken = Brand<string, "IdToken">;
 export type BirthDate = Brand<string, "BirthDate">;
 
@@ -66,8 +68,10 @@ declare module "next-auth/jwt" {
     apim: {
       access_token: AccessToken;
       expires_in: ExpiresIn;
+      expires_at: ExpiresAt;
       refresh_token: RefreshToken;
       refresh_token_expires_in: RefreshTokenExpiresIn;
+      refresh_token_expires_at: RefreshTokenExpiresAt;
     };
     fixedExpiry: number;
   }
