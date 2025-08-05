@@ -38,7 +38,7 @@ const fetchAPIMAccessTokenForIDToken = async (idToken: IdToken): Promise<ApimTok
   const apimConfig: ApimConfig = await apimConfigProvider();
 
   try {
-    const tokenPayload = generateAPIMTokenPayload(apimConfig, idToken);
+    const tokenPayload = await generateAPIMTokenPayload(apimConfig, idToken);
 
     const response: AxiosResponse<ApimTokenResponse> = await axios.post(apimConfig.APIM_AUTH_URL.href, tokenPayload, {
       headers: {
