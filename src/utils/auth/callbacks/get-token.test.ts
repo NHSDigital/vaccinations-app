@@ -27,8 +27,7 @@ describe("getToken", () => {
 
     beforeEach(() => {
       jest.clearAllMocks();
-      jest.useFakeTimers();
-      jest.setSystemTime(nowInSeconds * 1000);
+      jest.useFakeTimers().setSystemTime(nowInSeconds * 1000);
     });
 
     afterEach(() => {
@@ -56,19 +55,16 @@ describe("getToken", () => {
         expiresAt: 9999,
         refreshTokenExpiresAt: 7777,
       });
-
       const account = {
         expires_at: nowInSeconds + 1000,
         access_token: "newAccess",
         refresh_token: "newRefresh",
         id_token: "newIdToken",
       } as Account;
-
       const profile = {
         nhs_number: "test_nhs_number",
         birthdate: "test_birthdate",
       };
-
       const maxAgeInSeconds = 600;
 
       // When
@@ -90,6 +86,83 @@ describe("getToken", () => {
           refresh_token_expires_at: 7777,
         },
         fixedExpiry: nowInSeconds + maxAgeInSeconds,
+      });
+    });
+
+    it("should return stored APIM creds if fresh", async () => {
+      // Given
+      const token = {
+        apim: {
+          access_token: "old-access-token",
+          expires_at: nowInSeconds + 60,
+          refresh_token: "old-refresh-token",
+          refresh_token_expires_at: nowInSeconds + 60,
+        },
+        nhs_login: { id_token: "old-id-token" },
+      } as JWT;
+      const account = {
+        expires_at: nowInSeconds + 1000,
+        access_token: "newAccess",
+        refresh_token: "newRefresh",
+        id_token: "newIdToken",
+      } as Account;
+      const profile = {
+        nhs_number: "test_nhs_number",
+        birthdate: "test_birthdate",
+      };
+      const maxAgeInSeconds = 600;
+      (getNewAccessTokenFromApim as jest.Mock).mockResolvedValue({
+        accessToken: "new-access-token",
+        refreshToken: "new-refresh-token",
+        expiresAt: nowInSeconds - 1000,
+        refreshTokenExpiresAt: nowInSeconds - 2000,
+      });
+
+      // When
+      const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
+
+      // Then
+      expect(result?.apim).toEqual({
+        access_token: "old-access-token",
+        expires_at: nowInSeconds + 60,
+        refresh_token: "old-refresh-token",
+        refresh_token_expires_at: nowInSeconds + 60,
+      });
+    });
+
+    it("should return refreshed APIM creds if expired", async () => {
+      // Given
+      const token = {
+        apim: { access_token: "old-access-token", expires_at: nowInSeconds - 60 },
+        nhs_login: { id_token: "id-token" },
+      } as JWT;
+      const account = {
+        expires_at: nowInSeconds + 1000,
+        access_token: "newAccess",
+        refresh_token: "newRefresh",
+        id_token: "newIdToken",
+      } as Account;
+      const profile = {
+        nhs_number: "test_nhs_number",
+        birthdate: "test_birthdate",
+      };
+      const maxAgeInSeconds = 600;
+      (getNewAccessTokenFromApim as jest.Mock).mockResolvedValue({
+        accessToken: "new-access-token",
+        refreshToken: "new-refresh-token",
+        expiresAt: nowInSeconds + 1000,
+        refreshTokenExpiresAt: nowInSeconds + 2000,
+      });
+
+      // When
+      const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
+
+      // Then
+      expect(result?.apim).toEqual({
+        access_token: "new-access-token",
+        expires_at: nowInSeconds + 1000,
+        refresh_token: "new-refresh-token",
+        refresh_token_expires_at: nowInSeconds + 2000,
       });
     });
 
@@ -183,8 +256,7 @@ describe("getToken", () => {
 
     beforeEach(() => {
       jest.clearAllMocks();
-      jest.useFakeTimers();
-      jest.setSystemTime(nowInSeconds * 1000);
+      jest.useFakeTimers().setSystemTime(nowInSeconds * 1000);
     });
 
     afterEach(() => {

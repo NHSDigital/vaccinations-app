@@ -85,14 +85,19 @@ const getToken = async (
   }
 
   let apimAccessCredentials: ApimAccessCredentials | undefined;
-  if (
-    config.IS_APIM_AUTH_ENABLED &&
-    (!token.apim?.access_token || token.apim.access_token === "") &&
-    token.nhs_login?.id_token
-  ) {
-    apimAccessCredentials = await getNewAccessTokenFromApim(token.nhs_login.id_token);
-  } else {
-    // TODO VIA-254 // If expired or close to it?
+  if (config.IS_APIM_AUTH_ENABLED) {
+    if (!token.nhs_login?.id_token) {
+      // TODO VIA-254 - Is this an error?
+      log.info("getToken: No ID token available in jwt callback. Returning null");
+    } else if (!token.apim?.access_token || token.apim.access_token === "") {
+      apimAccessCredentials = await getNewAccessTokenFromApim(token.nhs_login.id_token);
+    } else {
+      const expiresSoonAt = token.apim?.expires_at - 30;
+      const refreshTokenExpiresSoonAt = token.apim?.refresh_token_expires_at - 30;
+      if (expiresSoonAt < nowInSeconds || refreshTokenExpiresSoonAt < nowInSeconds) {
+        apimAccessCredentials = await getNewAccessTokenFromApim(token.nhs_login.id_token);
+      }
+    }
   }
 
   // Inspect the token (which was either returned from login or fetched from session), fill missing or blank values with defaults
