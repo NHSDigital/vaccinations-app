@@ -36,9 +36,7 @@ const getJwtToken = async (): Promise<JWT | null> => {
     cookies: Object.fromEntries(cookieEntries.getAll().map((c) => [c.name, c.value])),
   };
 
-  const token = await getToken({ req, secret: config.AUTH_SECRET, secureCookie: true });
-  log.debug({ token }, "JWT Token");
-  return token;
+  return await getToken({ req, secret: config.AUTH_SECRET, secureCookie: true });
 };
 
 const getNewAccessTokenFromApim = async (idToken: IdToken): Promise<ApimAccessCredentials> => {
