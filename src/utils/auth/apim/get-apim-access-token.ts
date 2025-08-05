@@ -47,9 +47,7 @@ const getNewAccessTokenFromApim = async (idToken: IdToken): Promise<ApimAccessCr
   return {
     accessToken: response.access_token,
     refreshToken: response.refresh_token,
-    expiresIn: response.expires_in, // TODO VIA-254 - Do we still need expires_in if we have expires_at?
     expiresAt: Math.floor(now + parseInt(response.expires_in)) as ExpiresAt,
-    refreshTokenExpiresIn: response.refresh_token_expires_in, // TODO VIA-254 - Do we still need expires_in if we have expires_at?
     refreshTokenExpiresAt: Math.floor(now + parseInt(response.refresh_token_expires_in)) as RefreshTokenExpiresAt,
   };
 };

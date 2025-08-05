@@ -67,10 +67,8 @@ declare module "next-auth/jwt" {
     };
     apim: {
       access_token: AccessToken;
-      expires_in: ExpiresIn;
       expires_at: ExpiresAt;
       refresh_token: RefreshToken;
-      refresh_token_expires_in: RefreshTokenExpiresIn;
       refresh_token_expires_at: RefreshTokenExpiresAt;
     };
     fixedExpiry: number;

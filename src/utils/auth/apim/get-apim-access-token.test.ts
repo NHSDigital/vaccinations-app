@@ -72,10 +72,8 @@ describe("getNewAccessTokenFromApim", () => {
     expect(actual).toEqual({
       accessToken: "test-access-token",
       expiresAt: 1735792800,
-      expiresIn: "60000",
       refreshToken: "test-refresh-token",
       refreshTokenExpiresAt: 1735822800,
-      refreshTokenExpiresIn: "90000",
     });
   });
 });

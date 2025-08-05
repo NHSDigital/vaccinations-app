@@ -1,6 +1,6 @@
 import { NhsNumber } from "@src/models/vaccine";
 import { getUpdatedSession } from "@src/utils/auth/callbacks/get-updated-session";
-import { AccessToken, BirthDate, ExpiresIn, IdToken } from "@src/utils/auth/types";
+import { AccessToken, BirthDate, ExpiresAt, IdToken } from "@src/utils/auth/types";
 import { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
@@ -27,7 +27,7 @@ describe("getSession", () => {
       },
       apim: {
         access_token: "test-access-token" as AccessToken,
-        expires_in: "0" as ExpiresIn,
+        expires_at: 0 as ExpiresAt,
       },
     } as JWT;
 

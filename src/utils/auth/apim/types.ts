@@ -11,9 +11,7 @@ import {
 export type ApimAccessCredentials = {
   accessToken: AccessToken;
   refreshToken: RefreshToken;
-  expiresIn: ExpiresIn;
   expiresAt: ExpiresAt;
-  refreshTokenExpiresIn: RefreshTokenExpiresIn;
   refreshTokenExpiresAt: RefreshTokenExpiresAt;
 };
 

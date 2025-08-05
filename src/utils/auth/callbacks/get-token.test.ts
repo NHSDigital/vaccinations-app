@@ -53,9 +53,7 @@ describe("getToken", () => {
       (getNewAccessTokenFromApim as jest.Mock).mockResolvedValue({
         accessToken: "test-apim-access-token",
         refreshToken: "test-apim-refresh-token",
-        expiresIn: "test-apim-expires-in",
         expiresAt: 9999,
-        refreshTokenExpiresIn: "test-apim-refresh-token-expires-in",
         refreshTokenExpiresAt: 7777,
       });
 
@@ -87,10 +85,8 @@ describe("getToken", () => {
         },
         apim: {
           access_token: "test-apim-access-token",
-          expires_in: "test-apim-expires-in",
           expires_at: 9999,
           refresh_token: "test-apim-refresh-token",
-          refresh_token_expires_in: "test-apim-refresh-token-expires-in",
           refresh_token_expires_at: 7777,
         },
         fixedExpiry: nowInSeconds + maxAgeInSeconds,
@@ -118,9 +114,9 @@ describe("getToken", () => {
         },
         apim: {
           access_token: "",
-          expires_in: "",
+          expires_at: 0,
           refresh_token: "",
-          refresh_token_expires_in: "",
+          refresh_token_expires_at: 0,
         },
         fixedExpiry: nowInSeconds + maxAgeInSeconds,
       });
@@ -145,9 +141,9 @@ describe("getToken", () => {
         },
         apim: {
           access_token: "",
-          expires_in: "",
+          expires_at: 0,
           refresh_token: "",
-          refresh_token_expires_in: "",
+          refresh_token_expires_at: 0,
         },
       });
     });
@@ -231,9 +227,9 @@ describe("getToken", () => {
         },
         apim: {
           access_token: "",
-          expires_in: "",
+          expires_at: 0,
           refresh_token: "",
-          refresh_token_expires_in: "",
+          refresh_token_expires_at: 0,
         },
         fixedExpiry: nowInSeconds + maxAgeInSeconds,
       });
