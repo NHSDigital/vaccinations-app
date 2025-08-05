@@ -85,7 +85,7 @@ const getToken = async (
   }
 
   let apimAccessCredentials: ApimAccessCredentials | undefined;
-  if (config.IS_APIM_AUTH_ENABLED) {
+  if (config.IS_APIM_AUTH_ENABLED && process.env.NEXT_RUNTIME === "nodejs") {
     if (!token.nhs_login?.id_token) {
       // TODO VIA-254 - Is this an error?
       log.info("getToken: No ID token available in jwt callback. Returning null");

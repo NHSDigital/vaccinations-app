@@ -16,6 +16,8 @@ jest.mock("jwt-decode");
 
 describe("getToken", () => {
   describe("when AUTH APIM is available", () => {
+    const oldNEXT_RUNTIME = process.env.NEXT_RUNTIME;
+
     const mockConfig: AppConfig = appConfigBuilder()
       .withNHS_LOGIN_URL("https://mock.nhs.login")
       .andNHS_LOGIN_CLIENT_ID("mock-client-id")
@@ -28,10 +30,12 @@ describe("getToken", () => {
     beforeEach(() => {
       jest.clearAllMocks();
       jest.useFakeTimers().setSystemTime(nowInSeconds * 1000);
+      process.env.NEXT_RUNTIME = "nodejs";
     });
 
     afterEach(() => {
       jest.resetAllMocks();
+      process.env.NEXT_RUNTIME = oldNEXT_RUNTIME;
     });
 
     afterAll(() => {
