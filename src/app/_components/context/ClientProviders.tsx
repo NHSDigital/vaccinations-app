@@ -20,6 +20,7 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
 
   return (
     <BrowserContextProvider>
+      {/*TODO: revert back when NHS app fixes the bug*/}
       {/*<LinksInterceptor />*/}
       <SkipLink />
       <AppHeader />
