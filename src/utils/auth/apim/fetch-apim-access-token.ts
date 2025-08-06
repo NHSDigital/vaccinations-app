@@ -6,7 +6,7 @@ import axios, { AxiosResponse } from "axios";
 import jwt from "jsonwebtoken";
 import { Logger } from "pino";
 
-const log: Logger = logger.child({ module: "get-apim-access-token" });
+const log: Logger = logger.child({ module: "fetch-apim-access-token" });
 
 const generateClientAssertion = async (apimConfig: ApimConfig): Promise<string> => {
   const privateKey: string = apimConfig.APIM_PRIVATE_KEY;

@@ -40,11 +40,11 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
   };
 
   if (config.IS_APIM_AUTH_ENABLED) {
-    const apimAccessToken = getApimAccessToken();
+    const apimAccessToken = await getApimAccessToken();
     headers = { ...headers, Authorization: `Bearer ${apimAccessToken}` };
   }
 
-  log.info({ nhsNumber }, "Fetching eligibility status from %s", uri);
+  log.info({ nhsNumber, uri: uri }, "Fetching eligibility status");
   const response: AxiosResponse<EligibilityApiResponse> = await axios
     .get(uri, {
       headers,
