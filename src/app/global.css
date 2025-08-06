@@ -1,0 +1,26 @@
+.app-loader {
+  margin-bottom: 16px;
+  margin-top: 16px;
+  position: relative;
+  text-align: center;
+}
+
+@media (min-width: 40.0625em) {
+  .app-loader {
+    margin-bottom: 24px;
+    margin-top: 24px;
+  }
+}
+
+.app-loader__spinner {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

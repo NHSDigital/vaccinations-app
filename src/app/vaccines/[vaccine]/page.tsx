@@ -1,6 +1,6 @@
 "use server";
 
-import Loader from "@src/app/_components/loader/Loader";
+import LoadingSpinner from "@src/app/_components/loader/LoadingSpinner";
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import VaccineError from "@src/app/_components/vaccine-error/VaccineError";
@@ -20,6 +20,8 @@ const VaccinePage = async ({ params }: VaccinePageProps) => {
   const { vaccine } = await params;
   const vaccineType: VaccineTypes | undefined = getVaccineTypeFromUrlPath(vaccine);
 
+  // await new Promise(resolve => setTimeout(resolve, 3000));
+
   return vaccineType ? (
     <>
       <title>{`${VaccineInfo[vaccineType].heading} - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`}</title>
@@ -27,7 +29,7 @@ const VaccinePage = async ({ params }: VaccinePageProps) => {
       <MainContent>
         <h1 className={"app-dynamic-page-title__heading"}>{`${VaccineInfo[vaccineType].heading}`}</h1>
         <ErrorBoundary fallback={<VaccineError />}>
-          <Suspense fallback={<Loader />}>
+          <Suspense fallback={<LoadingSpinner />}>
             <Vaccine vaccineType={vaccineType} />
           </Suspense>
         </ErrorBoundary>
