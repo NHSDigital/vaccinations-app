@@ -54,7 +54,7 @@ describe("generateAPIMTokenPayload", () => {
       exp: mockNowInSeconds + 300,
     };
 
-    const apimTokenPayload = await generateAPIMTokenPayload(mockApimConfig, mockIdToken);
+    const apimTokenPayload = await generateAPIMTokenPayload(mockApimConfig, mockIdToken, false);
     const clientAssertionJWT = apimTokenPayload.client_assertion;
 
     expect(jwt.sign).toHaveBeenCalledWith(expectedClientAssertionPayloadContent, mockApimConfig.APIM_PRIVATE_KEY, {
@@ -67,7 +67,7 @@ describe("generateAPIMTokenPayload", () => {
   it("should use id_token as subject_token field", async () => {
     (jwt.sign as jest.Mock).mockResolvedValue(mockSignedJwt);
 
-    const apimTokenPayload = await generateAPIMTokenPayload(mockApimConfig, mockIdToken);
+    const apimTokenPayload = await generateAPIMTokenPayload(mockApimConfig, mockIdToken, false);
 
     expect(apimTokenPayload.subject_token).toBe(mockIdToken);
   });
@@ -75,6 +75,28 @@ describe("generateAPIMTokenPayload", () => {
   it("should propagate errors thrown by jwt.sign", async () => {
     (jwt.sign as jest.Mock).mockRejectedValue(new Error("Invalid key"));
 
-    await expect(generateAPIMTokenPayload(mockApimConfig, mockIdToken)).rejects.toThrow("Invalid key");
+    await expect(generateAPIMTokenPayload(mockApimConfig, mockIdToken, true)).rejects.toThrow("Invalid key");
+  });
+
+  it("should use token-exchange grant type if refresh not requested", async () => {
+    // Given
+    (jwt.sign as jest.Mock).mockResolvedValue(mockSignedJwt);
+
+    // When
+    const apimTokenPayload = await generateAPIMTokenPayload(mockApimConfig, mockIdToken, false);
+
+    // Then
+    expect(apimTokenPayload.grant_type).toBe("urn:ietf:params:oauth:grant-type:token-exchange");
+  });
+
+  it("should use refresh_token grant type if refresh requested", async () => {
+    // Given
+    (jwt.sign as jest.Mock).mockResolvedValue(mockSignedJwt);
+
+    // When
+    const apimTokenPayload = await generateAPIMTokenPayload(mockApimConfig, mockIdToken, true);
+
+    // Then
+    expect(apimTokenPayload.grant_type).toBe("urn:ietf:params:oauth:grant-type:refresh_token");
   });
 });

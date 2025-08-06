@@ -21,11 +21,15 @@ const generateClientAssertion = async (apimConfig: ApimConfig): Promise<string> 
   return jwt.sign(payload, privateKey, { algorithm: "RS512", keyid: apimConfig.APIM_KEY_ID });
 };
 
-const generateAPIMTokenPayload = async (apimConfig: ApimConfig, idToken: IdToken): Promise<APIMTokenPayload> => {
+const generateAPIMTokenPayload = async (
+  apimConfig: ApimConfig,
+  idToken: IdToken,
+  refresh: boolean,
+): Promise<APIMTokenPayload> => {
   const clientAssertion: string = await generateClientAssertion(apimConfig);
 
   const tokenPayload: APIMTokenPayload = {
-    grant_type: "urn:ietf:params:oauth:grant-type:token-exchange",
+    grant_type: `urn:ietf:params:oauth:grant-type:${refresh ? "refresh_token" : "token-exchange"}`,
     subject_token_type: "urn:ietf:params:oauth:token-type:id_token",
     client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
     subject_token: idToken,
@@ -34,11 +38,11 @@ const generateAPIMTokenPayload = async (apimConfig: ApimConfig, idToken: IdToken
   return tokenPayload;
 };
 
-const fetchAPIMAccessTokenForIDToken = async (idToken: IdToken): Promise<ApimTokenResponse> => {
+const fetchAPIMAccessTokenForIDToken = async (idToken: IdToken, refresh: boolean): Promise<ApimTokenResponse> => {
   const apimConfig: ApimConfig = await apimConfigProvider();
 
   try {
-    const tokenPayload = await generateAPIMTokenPayload(apimConfig, idToken);
+    const tokenPayload = await generateAPIMTokenPayload(apimConfig, idToken, refresh);
 
     const response: AxiosResponse<ApimTokenResponse> = await axios.post(apimConfig.APIM_AUTH_URL.href, tokenPayload, {
       headers: {

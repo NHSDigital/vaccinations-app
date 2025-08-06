@@ -1,4 +1,4 @@
-import { getNewAccessTokenFromApim } from "@src/utils/auth/apim/get-apim-access-token";
+import { getAccessTokenFromApim } from "@src/utils/auth/apim/get-apim-access-token";
 import { getToken } from "@src/utils/auth/callbacks/get-token";
 import { AppConfig } from "@src/utils/config";
 import { appConfigBuilder } from "@test-data/config/builders";
@@ -10,7 +10,7 @@ jest.mock("@project/auth", () => ({
   auth: jest.fn(),
 }));
 jest.mock("@src/utils/auth/apim/get-apim-access-token", () => ({
-  getNewAccessTokenFromApim: jest.fn(),
+  getAccessTokenFromApim: jest.fn(),
 }));
 jest.mock("jwt-decode");
 
@@ -53,7 +53,7 @@ describe("getToken", () => {
         jti: "jti_test",
       });
       const token = { apim: {}, nhs_login: { id_token: "id-token" } } as JWT;
-      (getNewAccessTokenFromApim as jest.Mock).mockResolvedValue({
+      (getAccessTokenFromApim as jest.Mock).mockResolvedValue({
         accessToken: "test-apim-access-token",
         refreshToken: "test-apim-refresh-token",
         expiresAt: 9999,
@@ -115,7 +115,7 @@ describe("getToken", () => {
         birthdate: "test_birthdate",
       };
       const maxAgeInSeconds = 600;
-      (getNewAccessTokenFromApim as jest.Mock).mockResolvedValue({
+      (getAccessTokenFromApim as jest.Mock).mockResolvedValue({
         accessToken: "new-access-token",
         refreshToken: "new-refresh-token",
         expiresAt: nowInSeconds - 1000,
@@ -151,7 +151,7 @@ describe("getToken", () => {
         birthdate: "test_birthdate",
       };
       const maxAgeInSeconds = 600;
-      (getNewAccessTokenFromApim as jest.Mock).mockResolvedValue({
+      (getAccessTokenFromApim as jest.Mock).mockResolvedValue({
         accessToken: "new-access-token",
         refreshToken: "new-refresh-token",
         expiresAt: nowInSeconds + 1000,

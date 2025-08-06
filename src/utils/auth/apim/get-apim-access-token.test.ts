@@ -1,5 +1,5 @@
 import { fetchAPIMAccessTokenForIDToken } from "@src/utils/auth/apim/fetch-apim-access-token";
-import { getApimAccessToken, getNewAccessTokenFromApim } from "@src/utils/auth/apim/get-apim-access-token";
+import { getAccessTokenFromApim, getApimAccessToken } from "@src/utils/auth/apim/get-apim-access-token";
 import { AccessToken, IdToken } from "@src/utils/auth/types";
 import { configProvider } from "@src/utils/config";
 import { appConfigBuilder } from "@test-data/config/builders";
@@ -53,7 +53,7 @@ describe("getApimAccessToken", () => {
   });
 });
 
-describe("getNewAccessTokenFromApim", () => {
+describe("getAccessTokenFromApim", () => {
   it("should build ApimAccessCredentials object", async () => {
     // Given
     const idToken = "test-id-token" as IdToken;
@@ -66,7 +66,7 @@ describe("getNewAccessTokenFromApim", () => {
     jest.useFakeTimers().setSystemTime(new Date("2025-01-01T12:00:00.000Z"));
 
     // When
-    const actual = await getNewAccessTokenFromApim(idToken);
+    const actual = await getAccessTokenFromApim(idToken);
 
     // Then
     expect(actual).toEqual({

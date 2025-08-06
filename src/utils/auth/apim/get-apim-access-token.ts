@@ -39,9 +39,9 @@ const getJwtToken = async (): Promise<JWT | null> => {
   return await getToken({ req, secret: config.AUTH_SECRET, secureCookie: true });
 };
 
-const getNewAccessTokenFromApim = async (idToken: IdToken): Promise<ApimAccessCredentials> => {
+const getAccessTokenFromApim = async (idToken: IdToken, refresh: boolean = false): Promise<ApimAccessCredentials> => {
   const now = Date.now() / 1000;
-  const response: ApimTokenResponse = await fetchAPIMAccessTokenForIDToken(idToken);
+  const response: ApimTokenResponse = await fetchAPIMAccessTokenForIDToken(idToken, refresh);
   return {
     accessToken: response.access_token,
     refreshToken: response.refresh_token,
@@ -50,4 +50,4 @@ const getNewAccessTokenFromApim = async (idToken: IdToken): Promise<ApimAccessCr
   };
 };
 
-export { getApimAccessToken, getNewAccessTokenFromApim, getJwtToken };
+export { getApimAccessToken, getAccessTokenFromApim, getJwtToken };
