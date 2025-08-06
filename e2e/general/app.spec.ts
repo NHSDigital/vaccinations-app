@@ -5,6 +5,8 @@ import {
   HUB_PAGE_TITLE,
   HUB_PAGE_URL,
   MAX_AVG_LCP_DURATION_MS,
+  PAGE_NOT_FOUND_TITLE,
+  PAGE_NOT_FOUND_URL,
   RSV_PAGE_TITLE,
   RSV_PAGE_URL,
   RSV_PREGNANCY_PAGE_TITLE,
@@ -54,5 +56,12 @@ test.describe("Application", () => {
     await page.getByTestId("skip-link").focus();
     await page.keyboard.press("Enter");
     await expect(page.getByRole("heading", { level: 1 })).toBeFocused();
+  });
+
+  test("HTTP 404 - Page not found", async ({ page }) => {
+    await page.goto(PAGE_NOT_FOUND_URL);
+    await expect(page).toHaveTitle(PAGE_NOT_FOUND_TITLE);
+    await expect(page.getByRole("heading", { level: 1, name: "Page not found" })).toBeVisible();
+    await accessibilityCheck(page);
   });
 });
