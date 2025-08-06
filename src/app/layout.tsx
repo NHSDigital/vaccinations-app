@@ -4,7 +4,6 @@ import { ClientProviders } from "@src/app/_components/context/ClientProviders";
 import { NoJsMessage } from "@src/app/_components/static/NoJsMessage";
 import { StaticFooter } from "@src/app/_components/static/StaticFooter";
 import { StaticHeader } from "@src/app/_components/static/StaticHeader";
-import "@src/app/global.css";
 import Script from "next/script";
 import React, { JSX } from "react";
 
@@ -14,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>): JSX.Element {
   return (
-    <html lang="en" className="js-hidden" suppressHydrationWarning>
+    <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -31,24 +30,18 @@ export default function RootLayout({
         <meta name="msapplication-wide310x150logo" content={"/assets/favicons/widetile-310x150.png"} />
         <meta name="msapplication-square310x310logo" content={"/assets/favicons/largetile-310x310.png"} />
 
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `document.documentElement.classList.remove('js-hidden');`,
-          }}
-        />
-
         {/* NHS app js - https://nhsconnect.github.io/nhsapp-developer-documentation/js-v2-api-specification/ */}
         <Script src={"https://www.nhsapp.service.nhs.uk/js/v2/nhsapp.js"} strategy="beforeInteractive" />
       </head>
 
       <body>
         <noscript>
+          <style>{`#app-root { display: none !important; }`}</style>
           <StaticHeader />
           <NoJsMessage />
           <StaticFooter />
         </noscript>
-
-        <div className="app-wrapper">
+        <div id={"app-root"}>
           <ClientProviders>{children}</ClientProviders>
         </div>
       </body>
