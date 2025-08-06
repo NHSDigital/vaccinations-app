@@ -1,9 +1,5 @@
 import { fetchAPIMAccessTokenForIDToken } from "@src/utils/auth/apim/fetch-apim-access-token";
-import {
-  getApimAccessToken,
-  getNewAccessTokenFromApim,
-  getRefreshedAccessTokenFromApim,
-} from "@src/utils/auth/apim/get-apim-access-token";
+import { getAccessTokenFromApim, getApimAccessToken } from "@src/utils/auth/apim/get-apim-access-token";
 import { AccessToken, IdToken } from "@src/utils/auth/types";
 import { configProvider } from "@src/utils/config";
 import { appConfigBuilder } from "@test-data/config/builders";
@@ -62,31 +58,29 @@ describe("get*AccessTokenFromApim", () => {
 
   beforeAll(async () => {
     (fetchAPIMAccessTokenForIDToken as jest.Mock).mockImplementation((idToken: IdToken, refresh: boolean) => {
-      if (refresh) {
-        return {
-          access_token: "refreshed-access-token",
-          refresh_token: "refreshed-refresh-token",
-          expires_in: "1111",
-          refresh_token_expires_in: "2222",
-        };
-      } else {
-        return {
-          access_token: "new-access-token",
-          refresh_token: "new-refresh-token",
-          expires_in: "3333",
-          refresh_token_expires_in: "4444",
-        };
-      }
+      return refresh
+        ? {
+            access_token: "refreshed-access-token",
+            refresh_token: "refreshed-refresh-token",
+            expires_in: "1111",
+            refresh_token_expires_in: "2222",
+          }
+        : {
+            access_token: "new-access-token",
+            refresh_token: "new-refresh-token",
+            expires_in: "3333",
+            refresh_token_expires_in: "4444",
+          };
     });
 
     jest.useFakeTimers().setSystemTime(new Date("2025-01-01T12:00:00.000Z"));
   });
 
-  it("getNewAccessTokenFromApim should build ApimAccessCredentials object", async () => {
+  it("getAccessTokenFromApim should build new ApimAccessCredentials object", async () => {
     // Given
 
     // When
-    const actual = await getNewAccessTokenFromApim(idToken);
+    const actual = await getAccessTokenFromApim(idToken, false);
 
     // Then
     expect(actual).toEqual({
@@ -97,11 +91,11 @@ describe("get*AccessTokenFromApim", () => {
     });
   });
 
-  it("getRefreshedAccessTokenFromApim should build ApimAccessCredentials object", async () => {
+  it("getAccessTokenFromApim should build refreshed ApimAccessCredentials object", async () => {
     // Given
 
     // When
-    const actual = await getRefreshedAccessTokenFromApim(idToken);
+    const actual = await getAccessTokenFromApim(idToken, true);
 
     // Then
     expect(actual).toEqual({

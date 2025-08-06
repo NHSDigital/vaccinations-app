@@ -1,5 +1,6 @@
-import { getNewAccessTokenFromApim, getRefreshedAccessTokenFromApim } from "@src/utils/auth/apim/get-apim-access-token";
+import { getAccessTokenFromApim } from "@src/utils/auth/apim/get-apim-access-token";
 import { getToken } from "@src/utils/auth/callbacks/get-token";
+import { IdToken } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
 import { appConfigBuilder } from "@test-data/config/builders";
 import { jwtDecode } from "jwt-decode";
@@ -10,8 +11,7 @@ jest.mock("@project/auth", () => ({
   auth: jest.fn(),
 }));
 jest.mock("@src/utils/auth/apim/get-apim-access-token", () => ({
-  getNewAccessTokenFromApim: jest.fn(),
-  getRefreshedAccessTokenFromApim: jest.fn(),
+  getAccessTokenFromApim: jest.fn(),
 }));
 jest.mock("jwt-decode");
 
@@ -35,17 +35,20 @@ describe("getToken", () => {
     });
 
     beforeEach(async () => {
-      (getNewAccessTokenFromApim as jest.Mock).mockResolvedValue({
-        accessToken: "new-apim-access-token",
-        refreshToken: "new-apim-refresh-token",
-        expiresAt: nowInSeconds + 1111,
-        refreshTokenExpiresAt: nowInSeconds + 2222,
-      });
-      (getRefreshedAccessTokenFromApim as jest.Mock).mockResolvedValue({
-        accessToken: "refreshed-apim-access-token",
-        refreshToken: "refreshed-apim-refresh-token",
-        expiresAt: nowInSeconds + 3333,
-        refreshTokenExpiresAt: nowInSeconds + 4444,
+      (getAccessTokenFromApim as jest.Mock).mockImplementation((idToken: IdToken, refresh: boolean = false) => {
+        return refresh
+          ? {
+              accessToken: "refreshed-apim-access-token",
+              refreshToken: "refreshed-apim-refresh-token",
+              expiresAt: nowInSeconds + 3333,
+              refreshTokenExpiresAt: nowInSeconds + 4444,
+            }
+          : {
+              accessToken: "new-apim-access-token",
+              refreshToken: "new-apim-refresh-token",
+              expiresAt: nowInSeconds + 1111,
+              refreshTokenExpiresAt: nowInSeconds + 2222,
+            };
       });
     });
 

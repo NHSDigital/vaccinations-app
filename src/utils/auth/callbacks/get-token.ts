@@ -1,5 +1,5 @@
 import { NhsNumber } from "@src/models/vaccine";
-import { getNewAccessTokenFromApim, getRefreshedAccessTokenFromApim } from "@src/utils/auth/apim/get-apim-access-token";
+import { getAccessTokenFromApim } from "@src/utils/auth/apim/get-apim-access-token";
 import { ApimAccessCredentials } from "@src/utils/auth/apim/types";
 import { BirthDate, IdToken } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
@@ -84,19 +84,19 @@ const getToken = async (
     return null;
   }
 
+  const cryproAvailable = process.env.NEXT_RUNTIME === "nodejs";
   let apimAccessCredentials: ApimAccessCredentials | undefined;
-  if (config.IS_APIM_AUTH_ENABLED && process.env.NEXT_RUNTIME === "nodejs") {
+  if (config.IS_APIM_AUTH_ENABLED && cryproAvailable) {
     if (!token.nhs_login?.id_token) {
       // TODO VIA-254 - Is this an error?
       log.warn("getToken: No NHS login ID token available. Not getting APIM creds.");
     } else if (!token.apim?.access_token || token.apim.access_token === "") {
-      apimAccessCredentials = await getNewAccessTokenFromApim(token.nhs_login.id_token);
+      apimAccessCredentials = await getAccessTokenFromApim(token.nhs_login.id_token);
     } else {
       const expiresSoonAt = token.apim?.expires_at - 30;
       const refreshTokenExpiresSoonAt = token.apim?.refresh_token_expires_at - 30;
       if (expiresSoonAt < nowInSeconds || refreshTokenExpiresSoonAt < nowInSeconds) {
-        // TODO VIA-254 - We probably need something slightly different here? https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/user-restricted-restful-apis-nhs-login-separate-authentication-and-authorisation#step-10-refresh-your-access-token
-        apimAccessCredentials = await getRefreshedAccessTokenFromApim(token.nhs_login.id_token);
+        apimAccessCredentials = await getAccessTokenFromApim(token.nhs_login.id_token, true);
       }
     }
   }
