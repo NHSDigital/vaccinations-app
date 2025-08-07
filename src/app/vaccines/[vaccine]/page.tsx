@@ -20,7 +20,8 @@ const VaccinePage = async ({ params }: VaccinePageProps) => {
   const { vaccine } = await params;
   const vaccineType: VaccineTypes | undefined = getVaccineTypeFromUrlPath(vaccine);
 
-  // await new Promise(resolve => setTimeout(resolve, 3000));
+  // TODO: Remove promise
+  // await new Promise(resolve => setTimeout(resolve, 5 * 1000));
 
   return vaccineType ? (
     <>

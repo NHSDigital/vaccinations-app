@@ -1,4 +1,4 @@
-.app-loader {
+.appLoader {
   margin-bottom: 16px;
   margin-top: 16px;
   position: relative;
@@ -6,13 +6,13 @@
 }
 
 @media (min-width: 40.0625em) {
-  .app-loader {
+  .appLoader {
     margin-bottom: 24px;
     margin-top: 24px;
   }
 }
 
-.app-loader__spinner {
+.appLoader__spinner {
   animation: spin 2s linear infinite;
 }
 

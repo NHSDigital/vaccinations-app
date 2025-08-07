@@ -40,6 +40,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
   let eligibility: Eligibility | undefined;
   let eligibilityError: EligibilityErrorTypes | undefined;
 
+  // TODO: Remove promise
   // await new Promise(resolve => setTimeout(resolve, 5000));
 
   if (vaccineInfo.personalisedEligibilityStatusRequired) {

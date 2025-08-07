@@ -97,6 +97,7 @@
         "lambda:UpdateAlias",
         "lambda:UpdateFunctionCode",
         "lambda:UpdateFunctionConfiguration",
+        "lambda:UpdateFunctionUrlConfig",
         "logs:CreateLogGroup",
         "logs:DeleteLogGroup",
         "logs:DeleteMetricFilter",
