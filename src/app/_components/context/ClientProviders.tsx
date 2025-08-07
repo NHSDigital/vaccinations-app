@@ -8,6 +8,7 @@ import AppHeader from "@src/app/_components/nhs-frontend/AppHeader";
 import SkipLink from "@src/app/_components/nhs-frontend/SkipLink";
 import { WARNING_TIME_MS } from "@src/utils/auth/inactivity-timer";
 import { SessionProvider } from "next-auth/react";
+import React from "react";
 
 export function ClientProviders({ children }: { children: React.ReactNode }) {
   // This is the session polling time on the client side,

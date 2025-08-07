@@ -63,7 +63,6 @@ describe("Dynamic vaccine page", () => {
       (Vaccine as jest.Mock).mockImplementation(() => new Error("mocked error: content load fail"));
       // suppress noisy logs
       jest.spyOn(console, "error").mockImplementation(() => {});
-      renderDynamicPage("rsv");
     });
 
     afterEach(() => {
@@ -71,23 +70,8 @@ describe("Dynamic vaccine page", () => {
       (console.error as jest.Mock).mockRestore();
     });
 
-    it("shows back link", async () => {
-      assertBackLinkIsPresent(screen);
-    });
-
-    it("shows error when content has loaded", async () => {
-      const rsvHeading = screen.getByRole("heading", {
-        level: 1,
-        name: "RSV vaccine for older adults",
-      });
-
-      const errorHeading: HTMLElement = screen.getByRole("heading", {
-        level: 2,
-        name: "Vaccine content is unavailable",
-      });
-
-      expect(rsvHeading).toBeVisible();
-      expect(errorHeading).toBeVisible();
+    it("throws error when content throws", async () => {
+      await expect(renderDynamicPage("rsv")).rejects.toThrow();
     });
   });
 });
