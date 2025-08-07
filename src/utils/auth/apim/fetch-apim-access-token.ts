@@ -49,7 +49,7 @@ const generateAPIMTokenPayload = (
   return tokenPayload;
 };
 
-const fetchAPIMAccessTokenForIDToken = async (
+const fetchAPIMAccessToken = async (
   idToken: IdToken,
   refreshToken: RefreshToken | undefined,
 ): Promise<ApimTokenResponse> => {
@@ -81,4 +81,4 @@ const fetchAPIMAccessTokenForIDToken = async (
   }
 };
 
-export { fetchAPIMAccessTokenForIDToken, generateAPIMTokenPayload };
+export { fetchAPIMAccessToken, generateAPIMTokenPayload };

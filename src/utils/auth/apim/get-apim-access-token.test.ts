@@ -1,4 +1,4 @@
-import { fetchAPIMAccessTokenForIDToken } from "@src/utils/auth/apim/fetch-apim-access-token";
+import { fetchAPIMAccessToken } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { getApimAccessToken, getApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
 import { AccessToken, IdToken, RefreshToken } from "@src/utils/auth/types";
 import { configProvider } from "@src/utils/config";
@@ -21,7 +21,7 @@ jest.mock("@src/utils/config", () => ({
 }));
 
 jest.mock("@src/utils/auth/apim/fetch-apim-access-token", () => ({
-  fetchAPIMAccessTokenForIDToken: jest.fn(),
+  fetchAPIMAccessToken: jest.fn(),
 }));
 
 describe("getApimAccessToken", () => {
@@ -58,7 +58,7 @@ describe("getApimCredentials", () => {
   const idToken = "test-id-token" as IdToken;
 
   beforeAll(async () => {
-    (fetchAPIMAccessTokenForIDToken as jest.Mock).mockImplementation(
+    (fetchAPIMAccessToken as jest.Mock).mockImplementation(
       (idToken: IdToken, refreshToken: RefreshToken | undefined) => {
         return refreshToken
           ? {
@@ -79,7 +79,7 @@ describe("getApimCredentials", () => {
     jest.useFakeTimers().setSystemTime(new Date("2025-01-01T12:00:00.000Z"));
   });
 
-  it("getAccessTokenFromApim should build new ApimAccessCredentials object", async () => {
+  it("should build new APIM access credentials if there is no refresh token", async () => {
     // Given
 
     // When
@@ -94,7 +94,7 @@ describe("getApimCredentials", () => {
     });
   });
 
-  it("getAccessTokenFromApim should build refreshed ApimAccessCredentials object", async () => {
+  it("should build refreshed APIM access credentials if there is refresh token present", async () => {
     // Given
     const refreshToken = randomString(10) as RefreshToken;
 

@@ -1,4 +1,4 @@
-import { fetchAPIMAccessTokenForIDToken } from "@src/utils/auth/apim/fetch-apim-access-token";
+import { fetchAPIMAccessToken } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { ApimAccessCredentials, ApimTokenResponse } from "@src/utils/auth/apim/types";
 import { AccessToken, ExpiresAt, IdToken, RefreshToken, RefreshTokenExpiresAt } from "@src/utils/auth/types";
 import { AppConfig, configProvider } from "@src/utils/config";
@@ -8,17 +8,7 @@ import { cookies, headers } from "next/headers";
 
 const log = logger.child({ module: "utils-auth-apim-get-apim-access-token" });
 
-const getApimAccessToken = async (): Promise<AccessToken> => {
-  const token = await getJwtToken();
-
-  if (!token?.apim?.access_token) {
-    log.error("Unable to get APIM access token");
-    throw Error("No APIM access token available");
-  }
-  return token.apim.access_token;
-};
-
-const getJwtToken = async (): Promise<JWT | null> => {
+const _getJwtToken = async (): Promise<JWT | null> => {
   const config: AppConfig = await configProvider();
   const headerEntries = await headers();
   const cookieEntries = await cookies();
@@ -30,12 +20,22 @@ const getJwtToken = async (): Promise<JWT | null> => {
   return await getToken({ req, secret: config.AUTH_SECRET, secureCookie: true });
 };
 
+const getApimAccessToken = async (): Promise<AccessToken> => {
+  const token = await _getJwtToken();
+
+  if (!token?.apim?.access_token) {
+    log.error("Unable to get APIM access token");
+    throw Error("No APIM access token available");
+  }
+  return token.apim.access_token;
+};
+
 const getApimCredentials = async (
   idToken: IdToken,
   refreshToken: RefreshToken | undefined = undefined,
 ): Promise<ApimAccessCredentials> => {
   const now = Date.now() / 1000;
-  const response: ApimTokenResponse = await fetchAPIMAccessTokenForIDToken(idToken, refreshToken);
+  const response: ApimTokenResponse = await fetchAPIMAccessToken(idToken, refreshToken);
   return {
     accessToken: response.access_token,
     refreshToken: response.refresh_token,
@@ -44,4 +44,4 @@ const getApimCredentials = async (
   };
 };
 
-export { getApimAccessToken, getApimCredentials, getJwtToken };
+export { getApimAccessToken, getApimCredentials };
