@@ -1,6 +1,6 @@
 import { ApimConfig, apimConfigProvider } from "@src/utils/apimConfig";
 import { ApimTokenResponse } from "@src/utils/auth/apim/types";
-import { APIMClientAssertionPayload, APIMTokenPayload, IdToken } from "@src/utils/auth/types";
+import { APIMClientAssertionPayload, APIMTokenPayload, IdToken, RefreshToken } from "@src/utils/auth/types";
 import { logger } from "@src/utils/logger";
 import axios, { AxiosResponse, HttpStatusCode } from "axios";
 import jwt from "jsonwebtoken";
@@ -22,37 +22,49 @@ const generateClientAssertion = (apimConfig: ApimConfig): string => {
   return jwt.sign(payload, privateKey, { algorithm: "RS512", keyid: apimConfig.APIM_KEY_ID });
 };
 
-const generateAPIMTokenPayload = (apimConfig: ApimConfig, idToken: IdToken, refresh: boolean): APIMTokenPayload => {
+const generateAPIMTokenPayload = (
+  apimConfig: ApimConfig,
+  idToken: IdToken,
+  refreshToken: RefreshToken | undefined,
+): APIMTokenPayload => {
   const clientAssertion: string = generateClientAssertion(apimConfig);
 
-  // TODO VIA-254 - Do we need the refresh_token here rather than the ID token?
-  const tokenPayload: APIMTokenPayload = {
-    grant_type: `urn:ietf:params:oauth:grant-type:${refresh ? "refresh_token" : "token-exchange"}`,
-    subject_token_type: "urn:ietf:params:oauth:token-type:id_token",
-    client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
-    subject_token: idToken,
-    client_assertion: clientAssertion,
-  };
+  let tokenPayload: APIMTokenPayload;
+  if (!refreshToken) {
+    tokenPayload = {
+      grant_type: "urn:ietf:params:oauth:grant-type:token-exchange",
+      subject_token_type: "urn:ietf:params:oauth:token-type:id_token",
+      client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+      subject_token: idToken,
+      client_assertion: clientAssertion,
+    };
+  } else {
+    tokenPayload = {
+      grant_type: "urn:ietf:params:oauth:grant-type:refresh_token",
+      client_id: apimConfig.ELIGIBILITY_API_KEY,
+      client_secret: apimConfig.APIM_PRIVATE_KEY,
+      refresh_token: refreshToken,
+    };
+  }
   return tokenPayload;
 };
 
-const fetchAPIMAccessTokenForIDToken = async (idToken: IdToken, refresh: boolean): Promise<ApimTokenResponse> => {
+const fetchAPIMAccessTokenForIDToken = async (
+  idToken: IdToken,
+  refreshToken: RefreshToken | undefined,
+): Promise<ApimTokenResponse> => {
   const apimConfig: ApimConfig = await apimConfigProvider();
   log.debug({ apimConfig }, "Fetching APIM Access Token");
 
   try {
-    const tokenPayload = generateAPIMTokenPayload(apimConfig, idToken, refresh);
+    const tokenPayload = generateAPIMTokenPayload(apimConfig, idToken, refreshToken);
     log.debug({ tokenPayload }, "APIM token payload");
 
-    const response: AxiosResponse<ApimTokenResponse> = await axios.post(
-      apimConfig.APIM_AUTH_URL.href,
-      { ...tokenPayload },
-      {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        timeout: 5000,
-        validateStatus: (status) => status < HttpStatusCode.BadRequest,
-      },
-    );
+    const response: AxiosResponse<ApimTokenResponse> = await axios.post(apimConfig.APIM_AUTH_URL.href, tokenPayload, {
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      timeout: 5000,
+      validateStatus: (status) => status < HttpStatusCode.BadRequest,
+    });
 
     log.info("APIM access token fetched");
     return response.data;

@@ -1,6 +1,6 @@
 import { fetchAPIMAccessTokenForIDToken } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { ApimAccessCredentials, ApimTokenResponse } from "@src/utils/auth/apim/types";
-import { AccessToken, ExpiresAt, IdToken, RefreshTokenExpiresAt } from "@src/utils/auth/types";
+import { AccessToken, ExpiresAt, IdToken, RefreshToken, RefreshTokenExpiresAt } from "@src/utils/auth/types";
 import { configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { JWT, getToken } from "next-auth/jwt";
@@ -30,9 +30,12 @@ const getJwtToken = async (): Promise<JWT | null> => {
   return await getToken({ req, secret: config.AUTH_SECRET, secureCookie: true });
 };
 
-const getAccessTokenFromApim = async (idToken: IdToken, refresh: boolean = false): Promise<ApimAccessCredentials> => {
+const getAccessTokenFromApim = async (
+  idToken: IdToken,
+  refreshToken: RefreshToken | undefined = undefined,
+): Promise<ApimAccessCredentials> => {
   const now = Date.now() / 1000;
-  const response: ApimTokenResponse = await fetchAPIMAccessTokenForIDToken(idToken, refresh);
+  const response: ApimTokenResponse = await fetchAPIMAccessTokenForIDToken(idToken, refreshToken);
   return {
     accessToken: response.access_token,
     refreshToken: response.refresh_token,

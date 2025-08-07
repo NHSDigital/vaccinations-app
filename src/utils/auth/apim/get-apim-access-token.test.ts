@@ -1,8 +1,9 @@
 import { fetchAPIMAccessTokenForIDToken } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { getAccessTokenFromApim, getApimAccessToken } from "@src/utils/auth/apim/get-apim-access-token";
-import { AccessToken, IdToken } from "@src/utils/auth/types";
+import { AccessToken, IdToken, RefreshToken } from "@src/utils/auth/types";
 import { configProvider } from "@src/utils/config";
 import { appConfigBuilder } from "@test-data/config/builders";
+import { randomString } from "@test-data/meta-builder";
 import { getToken } from "next-auth/jwt";
 import { cookies, headers } from "next/headers";
 
@@ -80,7 +81,7 @@ describe("get*AccessTokenFromApim", () => {
     // Given
 
     // When
-    const actual = await getAccessTokenFromApim(idToken, false);
+    const actual = await getAccessTokenFromApim(idToken, undefined);
 
     // Then
     expect(actual).toEqual({
@@ -93,9 +94,10 @@ describe("get*AccessTokenFromApim", () => {
 
   it("getAccessTokenFromApim should build refreshed ApimAccessCredentials object", async () => {
     // Given
+    const refreshToken = randomString(10) as RefreshToken;
 
     // When
-    const actual = await getAccessTokenFromApim(idToken, true);
+    const actual = await getAccessTokenFromApim(idToken, refreshToken);
 
     // Then
     expect(actual).toEqual({

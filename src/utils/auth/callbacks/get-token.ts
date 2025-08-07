@@ -98,7 +98,7 @@ const getToken = async (
       const refreshTokenExpiresSoonAt = token.apim?.refresh_token_expires_at - 30;
       if (expiresSoonAt < nowInSeconds || refreshTokenExpiresSoonAt < nowInSeconds) {
         log.debug({ apimAccessCredentials }, "getToken: Refreshing APIM creds.");
-        apimAccessCredentials = await getAccessTokenFromApim(token.nhs_login.id_token, true);
+        apimAccessCredentials = await getAccessTokenFromApim(token.nhs_login.id_token, token.apim?.refresh_token);
         log.debug({ apimAccessCredentials }, "getToken: Refreshed APIM creds retrieved.");
       } else {
         log.debug({ apimAccessCredentials }, "getToken: APIM creds still fresh.");

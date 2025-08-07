@@ -144,7 +144,7 @@ describe("getToken", () => {
     it("should return refreshed APIM creds if expired", async () => {
       // Given
       const token = {
-        apim: { access_token: "old-access-token", expires_at: nowInSeconds - 60 },
+        apim: { access_token: "old-access-token", expires_at: nowInSeconds - 60, refresh_token: "old-refresh-token" },
         nhs_login: { id_token: "id-token" },
       } as JWT;
       const account = {
