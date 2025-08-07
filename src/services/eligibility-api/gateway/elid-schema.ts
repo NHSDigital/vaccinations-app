@@ -14,7 +14,10 @@ const ActionSchema = z
   .object({
     actionType: z.string(), // We still want to show actions with unrecognised actionTypes - we log a warning in eligibility-filter-service.ts
     description: z.string(),
-    urlLink: z.url().optional(),
+    urlLink: z
+      .string()
+      .optional()
+      .transform((x) => x || undefined),
     urlLabel: z.string().optional(),
   })
   .readonly();

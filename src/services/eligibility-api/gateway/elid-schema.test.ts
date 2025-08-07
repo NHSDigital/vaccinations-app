@@ -31,13 +31,11 @@ describe("elid-schema", () => {
     // When
     try {
       EligibilityApiResponseSchema.parse(apiResponse);
-      fail("Should have thrown ZodError");
+      throw new Error("Should have thrown ZodError");
     } catch (error) {
       // Then
       if (error instanceof ZodError) {
         expect(error.issues).toHaveLength(3);
-      } else {
-        fail("Should have thrown ZodError");
       }
     }
   });
@@ -70,7 +68,7 @@ describe("elid-schema", () => {
     // When
     try {
       EligibilityApiResponseSchema.parse(apiResponse);
-      fail("Should have thrown ZodError");
+      throw new Error("Should have thrown ZodError");
     } catch (error) {
       // Then
       if (error instanceof ZodError) {
@@ -80,8 +78,6 @@ describe("elid-schema", () => {
           path: ["processedSuggestions", 0, "condition"],
           message: 'Invalid input: expected "RSV"',
         });
-      } else {
-        fail("Should have thrown ZodError");
       }
     }
   });
@@ -101,7 +97,7 @@ describe("elid-schema", () => {
     // When
     try {
       EligibilityApiResponseSchema.parse(apiResponse);
-      fail("Should have thrown ZodError");
+      throw new Error("Should have thrown ZodError");
     } catch (error) {
       // Then
       if (error instanceof ZodError) {
@@ -111,8 +107,6 @@ describe("elid-schema", () => {
           path: ["processedSuggestions", 0, "status"],
           message: 'Invalid option: expected one of "NotEligible"|"NotActionable"|"Actionable"',
         });
-      } else {
-        fail("Should have thrown ZodError");
       }
     }
   });
@@ -124,7 +118,7 @@ describe("elid-schema", () => {
     // When
     try {
       EligibilityApiResponseSchema.parse(apiResponse);
-      fail("Should have thrown ZodError");
+      throw new Error("Should have thrown ZodError");
     } catch (error) {
       // Then
       if (error instanceof ZodError) {
@@ -134,8 +128,6 @@ describe("elid-schema", () => {
           path: ["processedSuggestions", 0, "statusText"],
           message: "Invalid input: expected string, received undefined",
         });
-      } else {
-        fail("Should have thrown ZodError");
       }
     }
   });
@@ -196,7 +188,7 @@ describe("elid-schema", () => {
     // When
     try {
       EligibilityApiResponseSchema.parse(apiResponse);
-      fail("Should have thrown ZodError");
+      throw new Error("Should have thrown ZodError");
     } catch (error) {
       // Then
       if (error instanceof ZodError) {
@@ -206,10 +198,38 @@ describe("elid-schema", () => {
           path: ["processedSuggestions", 0, "actions", 0, "urlLink"],
           message: "Invalid URL",
         });
-      } else {
-        fail("Should have thrown ZodError");
       }
     }
+  });
+
+  it("should return empty URL as undefined", () => {
+    // Given
+    const apiResponse = {
+      processedSuggestions: [
+        {
+          condition: "RSV",
+          status: "Actionable",
+          statusText: "Some text",
+          actions: [{ actionType: "ButtonWithAuthLink", description: "Some desc", urlLink: "" }],
+        },
+      ],
+    };
+    const expected = {
+      processedSuggestions: [
+        {
+          condition: "RSV",
+          status: "Actionable",
+          statusText: "Some text",
+          actions: [{ actionType: "ButtonWithAuthLink", description: "Some desc", urlLink: undefined }],
+          eligibilityCohorts: [],
+          suitabilityRules: [],
+        },
+      ],
+    };
+    const actual = EligibilityApiResponseSchema.parse(apiResponse);
+
+    // When
+    expect(actual).toEqual(expected);
   });
 
   it("should throw ZodError for a missing cohortText in an eligibilityCohort", () => {
@@ -228,7 +248,7 @@ describe("elid-schema", () => {
     // When
     try {
       EligibilityApiResponseSchema.parse(apiResponse);
-      fail("Should have thrown ZodError");
+      throw new Error("Should have thrown ZodError");
     } catch (error) {
       // Then
       if (error instanceof ZodError) {
@@ -238,8 +258,6 @@ describe("elid-schema", () => {
           path: ["processedSuggestions", 0, "eligibilityCohorts", 0, "cohortText"],
           message: "Invalid input: expected string, received undefined",
         });
-      } else {
-        fail("Should have thrown ZodError");
       }
     }
   });
