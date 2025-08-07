@@ -6,16 +6,7 @@ import { logger } from "@src/utils/logger";
 import { JWT, getToken } from "next-auth/jwt";
 import { cookies, headers } from "next/headers";
 
-const log = logger.child({ module: "get-apim-access-token" });
-
-// check the apim auth cookie first;
-
-// 1. if access token exists and is not expired, return it
-
-// 2. or if access token exists but is expired, get the refresh token, call APIM to refresh and save the new access token on the cookie and return it
-
-// 3. or if access token does not exist/is missing, get a new one: DONE
-// save access token, refresh token and expiration time as a cookie DONE
+const log = logger.child({ module: "utils-auth-apim-get-apim-access-token" });
 
 const getApimAccessToken = async (): Promise<AccessToken> => {
   const token = await getJwtToken();

@@ -88,15 +88,20 @@ const getToken = async (
   let apimAccessCredentials: ApimAccessCredentials | undefined;
   if (config.IS_APIM_AUTH_ENABLED && cryproAvailable) {
     if (!token.nhs_login?.id_token) {
-      // TODO VIA-254 - Is this an error?
-      log.warn("getToken: No NHS login ID token available. Not getting APIM creds.");
+      log.debug("getToken: No NHS login ID token available. Not getting APIM creds.");
     } else if (!token.apim?.access_token || token.apim.access_token === "") {
+      log.debug({ apimAccessCredentials }, "getToken: Getting new APIM creds.");
       apimAccessCredentials = await getAccessTokenFromApim(token.nhs_login.id_token);
+      log.debug({ apimAccessCredentials }, "getToken: New APIM creds retrieved.");
     } else {
       const expiresSoonAt = token.apim?.expires_at - 30;
       const refreshTokenExpiresSoonAt = token.apim?.refresh_token_expires_at - 30;
       if (expiresSoonAt < nowInSeconds || refreshTokenExpiresSoonAt < nowInSeconds) {
+        log.debug({ apimAccessCredentials }, "getToken: Refreshing APIM creds.");
         apimAccessCredentials = await getAccessTokenFromApim(token.nhs_login.id_token, true);
+        log.debug({ apimAccessCredentials }, "getToken: Refreshed APIM creds retrieved.");
+      } else {
+        log.debug({ apimAccessCredentials }, "getToken: APIM creds still fresh.");
       }
     }
   }

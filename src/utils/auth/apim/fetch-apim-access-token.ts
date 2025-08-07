@@ -6,7 +6,7 @@ import axios, { AxiosResponse } from "axios";
 import jwt from "jsonwebtoken";
 import { Logger } from "pino";
 
-const log: Logger = logger.child({ module: "fetch-apim-access-token" });
+const log: Logger = logger.child({ module: "utils-auth-apim-fetch-apim-access-token" });
 
 const generateClientAssertion = async (apimConfig: ApimConfig): Promise<string> => {
   const privateKey: string = apimConfig.APIM_PRIVATE_KEY;
@@ -28,6 +28,7 @@ const generateAPIMTokenPayload = async (
 ): Promise<APIMTokenPayload> => {
   const clientAssertion: string = await generateClientAssertion(apimConfig);
 
+  // TODO VIA-254 - Do we need the refresh_token here rather than the ID token?
   const tokenPayload: APIMTokenPayload = {
     grant_type: `urn:ietf:params:oauth:grant-type:${refresh ? "refresh_token" : "token-exchange"}`,
     subject_token_type: "urn:ietf:params:oauth:token-type:id_token",
@@ -40,9 +41,11 @@ const generateAPIMTokenPayload = async (
 
 const fetchAPIMAccessTokenForIDToken = async (idToken: IdToken, refresh: boolean): Promise<ApimTokenResponse> => {
   const apimConfig: ApimConfig = await apimConfigProvider();
+  log.debug({ apimConfig }, "Fetching APIM Access Token");
 
   try {
     const tokenPayload = await generateAPIMTokenPayload(apimConfig, idToken, refresh);
+    log.debug({ tokenPayload }, "APIM token payload");
 
     const response: AxiosResponse<ApimTokenResponse> = await axios.post(apimConfig.APIM_AUTH_URL.href, tokenPayload, {
       headers: {
