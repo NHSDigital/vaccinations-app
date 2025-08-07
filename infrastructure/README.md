@@ -33,6 +33,21 @@ The following steps will put Cloudfront access logs to S3 bucket.
   - use partitioning ```{DistributionId}/{yyyy}/{MM}/{dd}/{HH}```
   - use output format as JSON
 
+### Setting up Cloudfront error pages
+
+Manually create the following error routes.
+
+- Go to AWS service "Cloudfront"
+- Select the distribution that serves VitA website (vaccinations.nhs.uk)
+- Select "Error pages" tab
+- Click "Create custom error response" button
+  - HTTP error code: 500
+  - Error caching minimum TTL: 300
+  - Customise error response: yes
+  - Response page path: /service-failure
+  - HTTP Response code: 500
+- Repeat the previous step for all other 5xx codes.
+
 ### Setting default limits
 
 - Increase the default throughput limit of the parameter store, instructions [here](https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-throughput.html#parameter-store-throughput-increasing)
