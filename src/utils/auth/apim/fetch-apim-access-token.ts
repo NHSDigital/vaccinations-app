@@ -2,7 +2,7 @@ import { ApimConfig, apimConfigProvider } from "@src/utils/apimConfig";
 import { ApimTokenResponse } from "@src/utils/auth/apim/types";
 import { APIMClientAssertionPayload, APIMTokenPayload, IdToken } from "@src/utils/auth/types";
 import { logger } from "@src/utils/logger";
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosResponse, HttpStatusCode } from "axios";
 import jwt from "jsonwebtoken";
 import { Logger } from "pino";
 
@@ -11,12 +11,13 @@ const log: Logger = logger.child({ module: "utils-auth-apim-fetch-apim-access-to
 const generateClientAssertion = async (apimConfig: ApimConfig): Promise<string> => {
   const privateKey: string = apimConfig.APIM_PRIVATE_KEY;
   const payload: APIMClientAssertionPayload = {
-    iss: apimConfig.CONTENT_API_KEY,
-    sub: apimConfig.CONTENT_API_KEY,
+    iss: apimConfig.ELIGIBILITY_API_KEY,
+    sub: apimConfig.ELIGIBILITY_API_KEY,
     aud: apimConfig.APIM_AUTH_URL.href,
     jti: crypto.randomUUID(),
     exp: Math.floor(Date.now() / 1000) + 300,
   };
+  log.debug({ payload }, "raw APIMClientAssertionPayload");
 
   return jwt.sign(payload, privateKey, { algorithm: "RS512", keyid: apimConfig.APIM_KEY_ID });
 };
@@ -52,15 +53,19 @@ const fetchAPIMAccessTokenForIDToken = async (idToken: IdToken, refresh: boolean
         "Content-Type": "application/x-www-form-urlencoded",
       },
       timeout: 5000,
+      validateStatus: (status) => status < HttpStatusCode.BadRequest,
     });
 
     log.info("APIM access token fetched");
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      log.error({ error, APIM_AUTH_URL: apimConfig.APIM_AUTH_URL.href }, `Error calling APIM token endpoint`);
+      log.error(
+        { error, APIM_AUTH_URL: apimConfig.APIM_AUTH_URL.href, response_data: error.response?.data },
+        `Error calling APIM token endpoint`,
+      );
     } else {
-      log.error(error, `Error generating APIM token request`);
+      log.error({ error }, `Error generating APIM token request`);
     }
     throw new Error(`Error getting APIM token`);
   }

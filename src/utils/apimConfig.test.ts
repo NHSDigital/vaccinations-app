@@ -40,12 +40,12 @@ describe("apimConfigProvider", () => {
     const config: ApimConfig = await apimConfigProvider();
 
     expect(config).toMatchObject({
-      CONTENT_API_KEY: "mock-ssm-value",
+      ELIGIBILITY_API_KEY: "mock-ssm-value",
       APIM_PRIVATE_KEY: "mock-ssm-value",
       APIM_AUTH_URL: new URL("https://apim-endpoint.com"),
       APIM_KEY_ID: "apim-key-id",
     });
-    expect(mockGetSSMParam).toHaveBeenCalledWith(`${prefix}CONTENT_API_KEY`);
+    expect(mockGetSSMParam).toHaveBeenCalledWith(`${prefix}ELIGIBILITY_API_KEY`);
     expect(mockGetSSMParam).toHaveBeenCalledWith(`${prefix}APIM_PRIVATE_KEY`);
   });
 

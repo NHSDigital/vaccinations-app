@@ -16,7 +16,7 @@ const mockIdToken = "id-token" as IdToken;
 const mockNowInSeconds = 1749052001;
 
 const mockApimConfig: ApimConfig = apimConfigBuilder()
-  .withCONTENT_API_KEY("apim-api-key")
+  .withELIGIBILITY_API_KEY("apim-api-key")
   .andAPIM_AUTH_URL("https://apim-test-auth-url.com/test")
   .andAPIM_KEY_ID("apim-key-id")
   .andAPIM_PRIVATE_KEY("apim-private-key")
@@ -47,8 +47,8 @@ describe("generateAPIMTokenPayload", () => {
     (jwt.sign as jest.Mock).mockResolvedValue(mockSignedJwt);
 
     const expectedClientAssertionPayloadContent = {
-      iss: mockApimConfig.CONTENT_API_KEY,
-      sub: mockApimConfig.CONTENT_API_KEY,
+      iss: mockApimConfig.ELIGIBILITY_API_KEY,
+      sub: mockApimConfig.ELIGIBILITY_API_KEY,
       aud: mockApimConfig.APIM_AUTH_URL.href,
       jti: mockRandomUUID,
       exp: mockNowInSeconds + 300,
