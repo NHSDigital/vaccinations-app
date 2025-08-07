@@ -46,6 +46,7 @@ declare module "next-auth" {
       nhs_number: NhsNumber;
       birthdate: BirthDate;
     } & DefaultSession["user"];
+    //TODO VIA-254 - remove this once we are finished.
     nhs_login: {
       id_token: IdToken;
     };
