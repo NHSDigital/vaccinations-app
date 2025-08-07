@@ -1,6 +1,6 @@
 import { getApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
 import { getToken } from "@src/utils/auth/callbacks/get-token";
-import { IdToken, MaxAgeInSeconds } from "@src/utils/auth/types";
+import { IdToken, MaxAgeInSeconds, RefreshToken } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
 import { appConfigBuilder } from "@test-data/config/builders";
 import { jwtDecode } from "jwt-decode";
@@ -37,8 +37,8 @@ describe("getToken", () => {
     });
 
     beforeEach(async () => {
-      (getApimCredentials as jest.Mock).mockImplementation((idToken: IdToken, refresh: boolean = false) => {
-        return refresh
+      (getApimCredentials as jest.Mock).mockImplementation((idToken: IdToken, refreshToken: RefreshToken) => {
+        return refreshToken
           ? {
               accessToken: "refreshed-apim-access-token",
               refreshToken: "refreshed-apim-refresh-token",

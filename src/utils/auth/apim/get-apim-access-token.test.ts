@@ -83,7 +83,7 @@ describe("getApimCredentials", () => {
     // Given
 
     // When
-    const actual = await getApimCredentials(idToken, undefined);
+    const actual = await getApimCredentials(idToken);
 
     // Then
     expect(actual).toEqual({
