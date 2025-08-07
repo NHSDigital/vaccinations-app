@@ -66,7 +66,7 @@
     "wiremock": "^3.13.0"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.862.0",
+    "@aws-sdk/client-s3": "^3.863.0",
     "@opennextjs/aws": "^3.7.4",
     "@types/aws-lambda": "^8.10.152",
     "axios": "^1.11.0",
