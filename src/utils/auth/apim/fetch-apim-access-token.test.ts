@@ -3,7 +3,7 @@
  */
 import { ApimConfig } from "@src/utils/apimConfig";
 import { generateAPIMTokenPayload } from "@src/utils/auth/apim/fetch-apim-access-token";
-import { APIMNewTokenPayload, IdToken, RefreshToken } from "@src/utils/auth/types";
+import { APIMNewTokenPayload, APIMRefreshTokenPayload, IdToken, RefreshToken } from "@src/utils/auth/types";
 import { apimConfigBuilder } from "@test-data/config/builders";
 import { randomString } from "@test-data/meta-builder";
 import jwt from "jsonwebtoken";
@@ -11,19 +11,21 @@ import jwt from "jsonwebtoken";
 jest.mock("jsonwebtoken", () => ({
   sign: jest.fn(),
 }));
+
 const mockRandomUUID = "mock-jti";
 const mockSignedJwt = "mock-signed-jwt";
 const mockIdToken = "id-token" as IdToken;
 const mockNowInSeconds = 1749052001;
 
+const apimApiKey = "apim-api-key";
+const apimKeyId = "apim-key-id";
+const apimPrivateKey = "apim-private-key";
 const mockApimConfig: ApimConfig = apimConfigBuilder()
-  .withELIGIBILITY_API_KEY("apim-api-key")
+  .withELIGIBILITY_API_KEY(apimApiKey)
   .andAPIM_AUTH_URL(new URL("https://apim-test-auth-url.com/test"))
-  .andAPIM_KEY_ID("apim-key-id")
-  .andAPIM_PRIVATE_KEY("apim-private-key")
+  .andAPIM_KEY_ID(apimKeyId)
+  .andAPIM_PRIVATE_KEY(apimPrivateKey)
   .build();
-
-describe("get-apim-access-token", () => {});
 
 describe("generateAPIMTokenPayload", () => {
   let randomUUIDSpy: jest.SpyInstance;
@@ -88,22 +90,36 @@ describe("generateAPIMTokenPayload", () => {
     // Given
     (jwt.sign as jest.Mock).mockReturnValue(mockSignedJwt);
 
+    const expectedTokenPayload: APIMNewTokenPayload = {
+      grant_type: "urn:ietf:params:oauth:grant-type:token-exchange",
+      subject_token_type: "urn:ietf:params:oauth:token-type:id_token",
+      client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+      subject_token: mockIdToken,
+      client_assertion: mockSignedJwt,
+    };
+
     // When
     const apimTokenPayload = generateAPIMTokenPayload(mockApimConfig, mockIdToken, undefined);
 
     // Then
-    expect(apimTokenPayload.grant_type).toBe("urn:ietf:params:oauth:grant-type:token-exchange");
+    expect(apimTokenPayload).toEqual(expectedTokenPayload);
   });
 
   it("should use refresh_token grant type if refresh requested", async () => {
     // Given
     (jwt.sign as jest.Mock).mockReturnValue(mockSignedJwt);
     const refreshToken = randomString(10) as RefreshToken;
+    const expectedTokenPayload: APIMRefreshTokenPayload = {
+      grant_type: "urn:ietf:params:oauth:grant-type:refresh_token",
+      client_id: apimApiKey,
+      client_secret: apimPrivateKey,
+      refresh_token: refreshToken,
+    };
 
     // When
     const apimTokenPayload = generateAPIMTokenPayload(mockApimConfig, mockIdToken, refreshToken);
 
     // Then
-    expect(apimTokenPayload.grant_type).toBe("urn:ietf:params:oauth:grant-type:refresh_token");
+    expect(apimTokenPayload).toEqual(expectedTokenPayload);
   });
 });

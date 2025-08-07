@@ -1,5 +1,5 @@
 import { fetchAPIMAccessTokenForIDToken } from "@src/utils/auth/apim/fetch-apim-access-token";
-import { getAccessTokenFromApim, getApimAccessToken } from "@src/utils/auth/apim/get-apim-access-token";
+import { getApimAccessToken, getApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
 import { AccessToken, IdToken, RefreshToken } from "@src/utils/auth/types";
 import { configProvider } from "@src/utils/config";
 import { appConfigBuilder } from "@test-data/config/builders";
@@ -54,25 +54,27 @@ describe("getApimAccessToken", () => {
   });
 });
 
-describe("get*AccessTokenFromApim", () => {
+describe("getApimCredentials", () => {
   const idToken = "test-id-token" as IdToken;
 
   beforeAll(async () => {
-    (fetchAPIMAccessTokenForIDToken as jest.Mock).mockImplementation((idToken: IdToken, refresh: boolean) => {
-      return refresh
-        ? {
-            access_token: "refreshed-access-token",
-            refresh_token: "refreshed-refresh-token",
-            expires_in: "1111",
-            refresh_token_expires_in: "2222",
-          }
-        : {
-            access_token: "new-access-token",
-            refresh_token: "new-refresh-token",
-            expires_in: "3333",
-            refresh_token_expires_in: "4444",
-          };
-    });
+    (fetchAPIMAccessTokenForIDToken as jest.Mock).mockImplementation(
+      (idToken: IdToken, refreshToken: RefreshToken | undefined) => {
+        return refreshToken
+          ? {
+              access_token: "refreshed-access-token",
+              refresh_token: "refreshed-refresh-token",
+              expires_in: "1111",
+              refresh_token_expires_in: "2222",
+            }
+          : {
+              access_token: "new-access-token",
+              refresh_token: "new-refresh-token",
+              expires_in: "3333",
+              refresh_token_expires_in: "4444",
+            };
+      },
+    );
 
     jest.useFakeTimers().setSystemTime(new Date("2025-01-01T12:00:00.000Z"));
   });
@@ -81,7 +83,7 @@ describe("get*AccessTokenFromApim", () => {
     // Given
 
     // When
-    const actual = await getAccessTokenFromApim(idToken, undefined);
+    const actual = await getApimCredentials(idToken, undefined);
 
     // Then
     expect(actual).toEqual({
@@ -97,7 +99,7 @@ describe("get*AccessTokenFromApim", () => {
     const refreshToken = randomString(10) as RefreshToken;
 
     // When
-    const actual = await getAccessTokenFromApim(idToken, refreshToken);
+    const actual = await getApimCredentials(idToken, refreshToken);
 
     // Then
     expect(actual).toEqual({

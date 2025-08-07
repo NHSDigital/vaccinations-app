@@ -1,5 +1,5 @@
 import { NhsNumber } from "@src/models/vaccine";
-import { getAccessTokenFromApim } from "@src/utils/auth/apim/get-apim-access-token";
+import { getApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
 import { ApimAccessCredentials } from "@src/utils/auth/apim/types";
 import { BirthDate, IdToken } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
@@ -91,14 +91,14 @@ const getToken = async (
       log.debug("getToken: No NHS login ID token available. Not getting APIM creds.");
     } else if (!token.apim?.access_token || token.apim.access_token === "") {
       log.debug({ apimAccessCredentials }, "getToken: Getting new APIM creds.");
-      apimAccessCredentials = await getAccessTokenFromApim(token.nhs_login.id_token);
+      apimAccessCredentials = await getApimCredentials(token.nhs_login.id_token);
       log.debug({ apimAccessCredentials }, "getToken: New APIM creds retrieved.");
     } else {
       const expiresSoonAt = token.apim?.expires_at - 30;
       const refreshTokenExpiresSoonAt = token.apim?.refresh_token_expires_at - 30;
       if (expiresSoonAt < nowInSeconds || refreshTokenExpiresSoonAt < nowInSeconds) {
         log.debug({ apimAccessCredentials }, "getToken: Refreshing APIM creds.");
-        apimAccessCredentials = await getAccessTokenFromApim(token.nhs_login.id_token, token.apim?.refresh_token);
+        apimAccessCredentials = await getApimCredentials(token.nhs_login.id_token, token.apim?.refresh_token);
         log.debug({ apimAccessCredentials }, "getToken: Refreshed APIM creds retrieved.");
       } else {
         log.debug({ apimAccessCredentials }, "getToken: APIM creds still fresh.");

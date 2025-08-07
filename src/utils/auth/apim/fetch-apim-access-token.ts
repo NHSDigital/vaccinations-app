@@ -8,7 +8,7 @@ import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "utils-auth-apim-fetch-apim-access-token" });
 
-const generateClientAssertion = (apimConfig: ApimConfig): string => {
+const _generateClientAssertion = (apimConfig: ApimConfig): string => {
   const privateKey: string = apimConfig.APIM_PRIVATE_KEY;
   const payload: APIMClientAssertionPayload = {
     iss: apimConfig.ELIGIBILITY_API_KEY,
@@ -27,7 +27,7 @@ const generateAPIMTokenPayload = (
   idToken: IdToken,
   refreshToken: RefreshToken | undefined,
 ): APIMTokenPayload => {
-  const clientAssertion: string = generateClientAssertion(apimConfig);
+  const clientAssertion: string = _generateClientAssertion(apimConfig);
 
   let tokenPayload: APIMTokenPayload;
   if (!refreshToken) {
