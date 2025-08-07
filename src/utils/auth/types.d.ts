@@ -11,6 +11,10 @@ export type RefreshTokenExpiresIn = Brand<string, "RefreshTokenExpiresIn">;
 export type RefreshTokenExpiresAt = Brand<number, "RefreshTokenExpiresAt">;
 export type IdToken = Brand<string, "IdToken">;
 export type BirthDate = Brand<string, "BirthDate">;
+export type NowInSeconds = Brand<number, "NowInSeconds">;
+export type MaxAgeInSeconds = Brand<number, "MaxAgeInSeconds">;
+export type ExpiresSoonAt = Brand<number, "ExpiresSoonAt">;
+export type RefreshTokenExpiresSoonAt = Brand<number, "RefreshTokenExpiresSoonAt">;
 
 export interface DecodedIdToken {
   iss: string;

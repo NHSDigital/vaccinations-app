@@ -1,7 +1,14 @@
 import { NhsNumber } from "@src/models/vaccine";
 import { getApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
 import { ApimAccessCredentials } from "@src/utils/auth/apim/types";
-import { BirthDate, IdToken } from "@src/utils/auth/types";
+import {
+  BirthDate,
+  ExpiresSoonAt,
+  IdToken,
+  MaxAgeInSeconds,
+  NowInSeconds,
+  RefreshTokenExpiresSoonAt,
+} from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { Account, Profile } from "next-auth";
@@ -39,8 +46,8 @@ const updateTokenWithValuesFromAccountAndProfile = (
   token: JWT,
   account: Account,
   profile: Profile,
-  nowInSeconds: number,
-  maxAgeInSeconds: number,
+  nowInSeconds: NowInSeconds,
+  maxAgeInSeconds: MaxAgeInSeconds,
 ) => {
   const updatedToken: JWT = {
     ...token,
@@ -69,7 +76,7 @@ const getToken = async (
   account: Account | null | undefined,
   profile: Profile | undefined,
   config: AppConfig,
-  maxAgeInSeconds: number,
+  maxAgeInSeconds: MaxAgeInSeconds,
 ) => {
   if (!token) {
     log.error("getToken: No token available in jwt callback. Returning null");
@@ -86,6 +93,7 @@ const getToken = async (
 
   const cryproAvailable = process.env.NEXT_RUNTIME === "nodejs";
   let apimAccessCredentials: ApimAccessCredentials | undefined;
+
   if (config.IS_APIM_AUTH_ENABLED && cryproAvailable) {
     if (!token.nhs_login?.id_token) {
       log.debug("getToken: No NHS login ID token available. Not getting APIM creds.");
@@ -94,8 +102,10 @@ const getToken = async (
       apimAccessCredentials = await getApimCredentials(token.nhs_login.id_token);
       log.debug({ apimAccessCredentials }, "getToken: New APIM creds retrieved.");
     } else {
-      const expiresSoonAt = token.apim?.expires_at - 30;
-      const refreshTokenExpiresSoonAt = token.apim?.refresh_token_expires_at - 30;
+      const expiresSoonAt: ExpiresSoonAt = (token.apim?.expires_at - 30) as ExpiresSoonAt;
+      const refreshTokenExpiresSoonAt: RefreshTokenExpiresSoonAt = (token.apim?.refresh_token_expires_at -
+        30) as RefreshTokenExpiresSoonAt;
+
       if (expiresSoonAt < nowInSeconds || refreshTokenExpiresSoonAt < nowInSeconds) {
         log.debug({ apimAccessCredentials }, "getToken: Refreshing APIM creds.");
         apimAccessCredentials = await getApimCredentials(token.nhs_login.id_token, token.apim?.refresh_token);
@@ -115,7 +125,7 @@ const getToken = async (
       updatedToken,
       account,
       profile,
-      nowInSeconds,
+      nowInSeconds as NowInSeconds,
       maxAgeInSeconds,
     );
   }

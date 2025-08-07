@@ -1,7 +1,7 @@
 import { fetchAPIMAccessTokenForIDToken } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { ApimAccessCredentials, ApimTokenResponse } from "@src/utils/auth/apim/types";
 import { AccessToken, ExpiresAt, IdToken, RefreshToken, RefreshTokenExpiresAt } from "@src/utils/auth/types";
-import { configProvider } from "@src/utils/config";
+import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { JWT, getToken } from "next-auth/jwt";
 import { cookies, headers } from "next/headers";
@@ -12,14 +12,14 @@ const getApimAccessToken = async (): Promise<AccessToken> => {
   const token = await getJwtToken();
 
   if (!token?.apim?.access_token) {
-    log.error({ token }, "Unable to get APIM access token");
+    log.error("Unable to get APIM access token");
     throw Error("No APIM access token available");
   }
   return token.apim.access_token;
 };
 
 const getJwtToken = async (): Promise<JWT | null> => {
-  const config = await configProvider();
+  const config: AppConfig = await configProvider();
   const headerEntries = await headers();
   const cookieEntries = await cookies();
   const req = {

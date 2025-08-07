@@ -1,6 +1,6 @@
 import { getApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
 import { getToken } from "@src/utils/auth/callbacks/get-token";
-import { IdToken } from "@src/utils/auth/types";
+import { IdToken, MaxAgeInSeconds } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
 import { appConfigBuilder } from "@test-data/config/builders";
 import { jwtDecode } from "jwt-decode";
@@ -10,9 +10,11 @@ import { JWT } from "next-auth/jwt";
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
 }));
+
 jest.mock("@src/utils/auth/apim/get-apim-access-token", () => ({
   getApimCredentials: jest.fn(),
 }));
+
 jest.mock("jwt-decode");
 
 describe("getToken", () => {
@@ -62,7 +64,7 @@ describe("getToken", () => {
     });
 
     it("should return null and logs error if token is falsy", async () => {
-      const result = await getToken(null as unknown as JWT, null, undefined, mockConfig, 300);
+      const result = await getToken(null as unknown as JWT, null, undefined, mockConfig, 300 as MaxAgeInSeconds);
       expect(result).toBeNull();
     });
 
@@ -82,7 +84,7 @@ describe("getToken", () => {
         nhs_number: "test_nhs_number",
         birthdate: "test_birthdate",
       };
-      const maxAgeInSeconds = 600;
+      const maxAgeInSeconds = 600 as MaxAgeInSeconds;
 
       // When
       const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
@@ -127,7 +129,7 @@ describe("getToken", () => {
         nhs_number: "test_nhs_number",
         birthdate: "test_birthdate",
       };
-      const maxAgeInSeconds = 600;
+      const maxAgeInSeconds = 600 as MaxAgeInSeconds;
 
       // When
       const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
@@ -157,7 +159,7 @@ describe("getToken", () => {
         nhs_number: "test_nhs_number",
         birthdate: "test_birthdate",
       };
-      const maxAgeInSeconds = 600;
+      const maxAgeInSeconds = 600 as MaxAgeInSeconds;
 
       // When
       const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
@@ -178,7 +180,7 @@ describe("getToken", () => {
 
       const profile = {} as Profile;
 
-      const maxAgeInSeconds = 600;
+      const maxAgeInSeconds = 600 as MaxAgeInSeconds;
 
       const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
 
@@ -207,7 +209,7 @@ describe("getToken", () => {
         apim: {},
       } as JWT;
 
-      const result = await getToken(token, null, undefined, mockConfig, 300);
+      const result = await getToken(token, null, undefined, mockConfig, 300 as MaxAgeInSeconds);
 
       expect(result).toMatchObject({
         user: {
@@ -232,7 +234,7 @@ describe("getToken", () => {
         user: {},
       } as JWT;
 
-      const result = await getToken(token, null, undefined, mockConfig, 300);
+      const result = await getToken(token, null, undefined, mockConfig, 300 as MaxAgeInSeconds);
 
       expect(result).toBeNull();
     });
@@ -242,7 +244,7 @@ describe("getToken", () => {
       const token = { apim: { access_token: "test-apim-access-token" }, nhs_login: { id_token: "id-token" } } as JWT;
 
       // When
-      const result = await getToken(token, null, undefined, mockConfig, 300);
+      const result = await getToken(token, null, undefined, mockConfig, 300 as MaxAgeInSeconds);
 
       // Then
       expect(result?.apim).toMatchObject({ access_token: "test-apim-access-token" });
@@ -290,7 +292,7 @@ describe("getToken", () => {
         birthdate: "test_birthdate",
       };
 
-      const maxAgeInSeconds = 600;
+      const maxAgeInSeconds = 600 as MaxAgeInSeconds;
 
       const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
 

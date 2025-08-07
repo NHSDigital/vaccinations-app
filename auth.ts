@@ -4,6 +4,7 @@ import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 import { getToken } from "@src/utils/auth/callbacks/get-token";
 import { getUpdatedSession } from "@src/utils/auth/callbacks/get-updated-session";
 import { isValidSignIn } from "@src/utils/auth/callbacks/is-valid-signin";
+import { MaxAgeInSeconds } from "@src/utils/auth/types";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
@@ -53,7 +54,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
         let response;
         try {
           profilePerformanceStart(AuthJWTPerformanceMarker);
-          response = getToken(token, account, profile, config, MAX_SESSION_AGE_SECONDS);
+          response = getToken(token, account, profile, config, MAX_SESSION_AGE_SECONDS as MaxAgeInSeconds);
           profilePerformanceEnd(AuthJWTPerformanceMarker);
         } catch (error) {
           log.error({ error: error }, "jwt() callback error");
