@@ -8,7 +8,7 @@ import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "utils-auth-apim-fetch-apim-access-token" });
 
-const generateClientAssertion = async (apimConfig: ApimConfig): Promise<string> => {
+const generateClientAssertion = (apimConfig: ApimConfig): string => {
   const privateKey: string = apimConfig.APIM_PRIVATE_KEY;
   const payload: APIMClientAssertionPayload = {
     iss: apimConfig.ELIGIBILITY_API_KEY,
@@ -22,12 +22,8 @@ const generateClientAssertion = async (apimConfig: ApimConfig): Promise<string> 
   return jwt.sign(payload, privateKey, { algorithm: "RS512", keyid: apimConfig.APIM_KEY_ID });
 };
 
-const generateAPIMTokenPayload = async (
-  apimConfig: ApimConfig,
-  idToken: IdToken,
-  refresh: boolean,
-): Promise<APIMTokenPayload> => {
-  const clientAssertion: string = await generateClientAssertion(apimConfig);
+const generateAPIMTokenPayload = (apimConfig: ApimConfig, idToken: IdToken, refresh: boolean): APIMTokenPayload => {
+  const clientAssertion: string = generateClientAssertion(apimConfig);
 
   // TODO VIA-254 - Do we need the refresh_token here rather than the ID token?
   const tokenPayload: APIMTokenPayload = {
@@ -45,16 +41,18 @@ const fetchAPIMAccessTokenForIDToken = async (idToken: IdToken, refresh: boolean
   log.debug({ apimConfig }, "Fetching APIM Access Token");
 
   try {
-    const tokenPayload = await generateAPIMTokenPayload(apimConfig, idToken, refresh);
+    const tokenPayload = generateAPIMTokenPayload(apimConfig, idToken, refresh);
     log.debug({ tokenPayload }, "APIM token payload");
 
-    const response: AxiosResponse<ApimTokenResponse> = await axios.post(apimConfig.APIM_AUTH_URL.href, tokenPayload, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+    const response: AxiosResponse<ApimTokenResponse> = await axios.post(
+      apimConfig.APIM_AUTH_URL.href,
+      { ...tokenPayload },
+      {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        timeout: 5000,
+        validateStatus: (status) => status < HttpStatusCode.BadRequest,
       },
-      timeout: 5000,
-      validateStatus: (status) => status < HttpStatusCode.BadRequest,
-    });
+    );
 
     log.info("APIM access token fetched");
     return response.data;

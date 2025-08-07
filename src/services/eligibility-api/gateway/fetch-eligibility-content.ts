@@ -54,7 +54,7 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
       },
     })
     .catch((error: AxiosError) => {
-      log.error({ nhsNumber, error }, `EliD response HTTP status error`);
+      log.error({ nhsNumber, error, response_data: error.response?.data }, `EliD response HTTP status error`);
       throw new EligibilityApiHttpStatusError(`Error in fetching ${uri}`);
     });
   log.info({ nhsNumber }, "Eligibility status retrieved");
@@ -65,7 +65,7 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
   } catch (error) {
     if (error instanceof ZodError) {
       log.error(
-        { nhsNumber, uri, responseData: response.data, schemaIssues: error.issues },
+        { nhsNumber, uri, response_data: response.data, schema_issues: error.issues },
         "EliD response schema validation error",
       );
       throw new EligibilityApiSchemaError(`Schema validation failed for ${uri}`);
