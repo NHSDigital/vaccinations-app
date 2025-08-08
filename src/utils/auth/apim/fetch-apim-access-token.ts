@@ -58,7 +58,7 @@ const generateAPIMTokenPayload = (
     };
   } else {
     tokenPayload = {
-      grant_type: "urn:ietf:params:oauth:grant-type:refresh_token",
+      grant_type: "refresh_token",
       client_id: apimConfig.ELIGIBILITY_API_KEY,
       client_secret: apimConfig.APIM_PRIVATE_KEY,
       refresh_token: refreshToken,

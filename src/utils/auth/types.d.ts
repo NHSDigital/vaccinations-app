@@ -40,7 +40,7 @@ export type APIMNewTokenPayload = {
 };
 
 export type APIMRefreshTokenPayload = {
-  grant_type: "urn:ietf:params:oauth:grant-type:refresh_token";
+  grant_type: "refresh_token";
   client_id: string;
   client_secret: string;
   refresh_token: RefreshToken;

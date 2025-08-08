@@ -111,7 +111,7 @@ describe("generateAPIMTokenPayload", () => {
       (jwt.sign as jest.Mock).mockReturnValue(mockSignedJwt);
       const refreshToken = randomString(10) as RefreshToken;
       const expectedTokenPayload: APIMRefreshTokenPayload = {
-        grant_type: "urn:ietf:params:oauth:grant-type:refresh_token",
+        grant_type: "refresh_token",
         client_id: apimApiKey,
         client_secret: apimPrivateKey,
         refresh_token: refreshToken,
