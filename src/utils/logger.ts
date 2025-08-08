@@ -1,25 +1,23 @@
 import { asyncLocalStorage } from "@src/utils/requestContext";
 import pino, { LogDescriptor, Logger } from "pino";
 
-const REDACTED_KEYS = [
-  "*.*.APIM_PRIVATE_KEY",
-  "*.*.CONTENT_API_KEY",
-  "*.*.accessToken",
-  "*.*.apim.access_token",
-  "*.*.apim.refresh_token",
-  "*.*.id_token",
-  "*.*.refreshToken",
-  "*.APIM_PRIVATE_KEY",
-  "*.CONTENT_API_KEY",
-  "*.accessToken",
-  "*.apim.access_token",
-  "*.apim.refresh_token",
-  "*.id_token",
-  "*.refreshToken",
-  "detail.responseElements.role",
-  "detail.userIdentity",
-  "err.config.headers.apikey",
+const REDACTED_PATHS: string[] = ["*.", "*.*.", "*.*.*.", "*.*.*.*."];
+const REDACTED_KEY_NAMES: string[] = [
+  "APIM_PRIVATE_KEY",
+  "CONTENT_API_KEY",
+  "accessToken",
+  "access_token",
+  "apiKey",
+  "api_key",
+  "idToken",
+  "id_token",
+  "refreshToken",
+  "refresh_token",
+  "role",
+  "userIdentity",
+  "user_identity",
 ];
+const REDACTED_KEYS = REDACTED_PATHS.flatMap((prefix) => REDACTED_KEY_NAMES.map((word) => prefix + word));
 
 const isEdgeRuntime = process?.env?.NEXT_RUNTIME === "edge";
 const currentLevel = process.env.PINO_LOG_LEVEL ?? "info";
