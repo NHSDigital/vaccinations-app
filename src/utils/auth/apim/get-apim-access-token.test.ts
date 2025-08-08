@@ -1,5 +1,5 @@
 import { fetchAPIMAccessToken } from "@src/utils/auth/apim/fetch-apim-access-token";
-import { getApimAccessToken, getApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
+import { getApimAccessToken, retrieveApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
 import { AccessToken, IdToken, RefreshToken } from "@src/utils/auth/types";
 import { configProvider } from "@src/utils/config";
 import { appConfigBuilder } from "@test-data/config/builders";
@@ -60,18 +60,18 @@ describe("getApimCredentials", () => {
   beforeAll(async () => {
     (fetchAPIMAccessToken as jest.Mock).mockImplementation(
       (idToken: IdToken, refreshToken: RefreshToken | undefined) => {
-        return refreshToken
+        return !refreshToken
           ? {
-              access_token: "refreshed-access-token",
-              refresh_token: "refreshed-refresh-token",
-              expires_in: "1111",
-              refresh_token_expires_in: "2222",
-            }
-          : {
               access_token: "new-access-token",
               refresh_token: "new-refresh-token",
               expires_in: "3333",
               refresh_token_expires_in: "4444",
+            }
+          : {
+              access_token: "refreshed-access-token",
+              refresh_token: "refreshed-refresh-token",
+              expires_in: "1111",
+              refresh_token_expires_in: "2222",
             };
       },
     );
@@ -83,7 +83,7 @@ describe("getApimCredentials", () => {
     // Given
 
     // When
-    const actual = await getApimCredentials(idToken);
+    const actual = await retrieveApimCredentials(idToken);
 
     // Then
     expect(actual).toEqual({
@@ -99,7 +99,7 @@ describe("getApimCredentials", () => {
     const refreshToken = randomString(10) as RefreshToken;
 
     // When
-    const actual = await getApimCredentials(idToken, refreshToken);
+    const actual = await retrieveApimCredentials(idToken, refreshToken);
 
     // Then
     expect(actual).toEqual({

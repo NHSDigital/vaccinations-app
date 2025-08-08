@@ -8,47 +8,6 @@ import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "utils-auth-apim-fetch-apim-access-token" });
 
-const _generateClientAssertion = (apimConfig: ApimConfig): string => {
-  const privateKey: string = apimConfig.APIM_PRIVATE_KEY;
-  const payload: APIMClientAssertionPayload = {
-    iss: apimConfig.ELIGIBILITY_API_KEY,
-    sub: apimConfig.ELIGIBILITY_API_KEY,
-    aud: apimConfig.APIM_AUTH_URL.href,
-    jti: crypto.randomUUID(),
-    exp: Math.floor(Date.now() / 1000) + 300,
-  };
-  log.debug({ payload }, "raw APIMClientAssertionPayload");
-
-  return jwt.sign(payload, privateKey, { algorithm: "RS512", keyid: apimConfig.APIM_KEY_ID });
-};
-
-const generateAPIMTokenPayload = (
-  apimConfig: ApimConfig,
-  idToken: IdToken,
-  refreshToken: RefreshToken | undefined,
-): APIMTokenPayload => {
-  const clientAssertion: string = _generateClientAssertion(apimConfig);
-
-  let tokenPayload: APIMTokenPayload;
-  if (!refreshToken) {
-    tokenPayload = {
-      grant_type: "urn:ietf:params:oauth:grant-type:token-exchange",
-      subject_token_type: "urn:ietf:params:oauth:token-type:id_token",
-      client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
-      subject_token: idToken,
-      client_assertion: clientAssertion,
-    };
-  } else {
-    tokenPayload = {
-      grant_type: "urn:ietf:params:oauth:grant-type:refresh_token",
-      client_id: apimConfig.ELIGIBILITY_API_KEY,
-      client_secret: apimConfig.APIM_PRIVATE_KEY,
-      refresh_token: refreshToken,
-    };
-  }
-  return tokenPayload;
-};
-
 const fetchAPIMAccessToken = async (
   idToken: IdToken,
   refreshToken: RefreshToken | undefined,
@@ -79,6 +38,47 @@ const fetchAPIMAccessToken = async (
     }
     throw new Error(`Error getting APIM token`);
   }
+};
+
+const generateAPIMTokenPayload = (
+  apimConfig: ApimConfig,
+  idToken: IdToken,
+  refreshToken: RefreshToken | undefined,
+): APIMTokenPayload => {
+  const clientAssertion: string = _generateClientAssertion(apimConfig);
+
+  let tokenPayload: APIMTokenPayload;
+  if (!refreshToken) {
+    tokenPayload = {
+      grant_type: "urn:ietf:params:oauth:grant-type:token-exchange",
+      subject_token_type: "urn:ietf:params:oauth:token-type:id_token",
+      client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+      subject_token: idToken,
+      client_assertion: clientAssertion,
+    };
+  } else {
+    tokenPayload = {
+      grant_type: "urn:ietf:params:oauth:grant-type:refresh_token",
+      client_id: apimConfig.ELIGIBILITY_API_KEY,
+      client_secret: apimConfig.APIM_PRIVATE_KEY,
+      refresh_token: refreshToken,
+    };
+  }
+  return tokenPayload;
+};
+
+const _generateClientAssertion = (apimConfig: ApimConfig): string => {
+  const privateKey: string = apimConfig.APIM_PRIVATE_KEY;
+  const payload: APIMClientAssertionPayload = {
+    iss: apimConfig.ELIGIBILITY_API_KEY,
+    sub: apimConfig.ELIGIBILITY_API_KEY,
+    aud: apimConfig.APIM_AUTH_URL.href,
+    jti: crypto.randomUUID(),
+    exp: Math.floor(Date.now() / 1000) + 300,
+  };
+  log.debug({ payload }, "raw APIMClientAssertionPayload");
+
+  return jwt.sign(payload, privateKey, { algorithm: "RS512", keyid: apimConfig.APIM_KEY_ID });
 };
 
 export { fetchAPIMAccessToken, generateAPIMTokenPayload };

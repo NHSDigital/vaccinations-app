@@ -1,4 +1,4 @@
-import { getApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
+import { retrieveApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
 import { getToken } from "@src/utils/auth/callbacks/get-token";
 import { IdToken, MaxAgeInSeconds, RefreshToken } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
@@ -12,7 +12,7 @@ jest.mock("@project/auth", () => ({
 }));
 
 jest.mock("@src/utils/auth/apim/get-apim-access-token", () => ({
-  getApimCredentials: jest.fn(),
+  retrieveApimCredentials: jest.fn(),
 }));
 
 jest.mock("jwt-decode");
@@ -37,19 +37,19 @@ describe("getToken", () => {
     });
 
     beforeEach(async () => {
-      (getApimCredentials as jest.Mock).mockImplementation((idToken: IdToken, refreshToken: RefreshToken) => {
-        return refreshToken
+      (retrieveApimCredentials as jest.Mock).mockImplementation((idToken: IdToken, refreshToken: RefreshToken) => {
+        return !refreshToken
           ? {
-              accessToken: "refreshed-apim-access-token",
-              refreshToken: "refreshed-apim-refresh-token",
-              expiresAt: nowInSeconds + 3333,
-              refreshTokenExpiresAt: nowInSeconds + 4444,
-            }
-          : {
               accessToken: "new-apim-access-token",
               refreshToken: "new-apim-refresh-token",
               expiresAt: nowInSeconds + 1111,
               refreshTokenExpiresAt: nowInSeconds + 2222,
+            }
+          : {
+              accessToken: "refreshed-apim-access-token",
+              refreshToken: "refreshed-apim-refresh-token",
+              expiresAt: nowInSeconds + 3333,
+              refreshTokenExpiresAt: nowInSeconds + 4444,
             };
       });
     });

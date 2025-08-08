@@ -2,16 +2,23 @@ import { asyncLocalStorage } from "@src/utils/requestContext";
 import pino, { LogDescriptor, Logger } from "pino";
 
 const REDACTED_KEYS = [
-  "apimAccessCredentials.accessToken",
-  "apimAccessCredentials.refreshToken",
-  "apimConfig.APIM_PRIVATE_KEY",
-  "apimConfig.CONTENT_API_KEY",
+  "*.*.APIM_PRIVATE_KEY",
+  "*.*.CONTENT_API_KEY",
+  "*.*.accessToken",
+  "*.*.apim.access_token",
+  "*.*.apim.refresh_token",
+  "*.*.id_token",
+  "*.*.refreshToken",
+  "*.APIM_PRIVATE_KEY",
+  "*.CONTENT_API_KEY",
+  "*.accessToken",
+  "*.apim.access_token",
+  "*.apim.refresh_token",
+  "*.id_token",
+  "*.refreshToken",
   "detail.responseElements.role",
   "detail.userIdentity",
   "err.config.headers.apikey",
-  "updatedToken.apim.access_token",
-  "updatedToken.apim.refresh_token",
-  "updatedToken.nhs_login.id_token",
 ];
 
 const isEdgeRuntime = process?.env?.NEXT_RUNTIME === "edge";
