@@ -1,7 +1,7 @@
 import { asyncLocalStorage } from "@src/utils/requestContext";
 import pino, { LogDescriptor, Logger } from "pino";
 
-const REDACTED_PATHS: string[] = ["*.", "*.*.", "*.*.*.", "*.*.*.*."];
+const REDACTED_PATHS: string[] = ["*.", "*.*.", "*.*.*."];
 const REDACTED_KEY_NAMES: string[] = [
   "APIM_PRIVATE_KEY",
   "CONTENT_API_KEY",
