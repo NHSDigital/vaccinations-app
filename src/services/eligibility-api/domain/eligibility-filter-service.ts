@@ -110,7 +110,7 @@ const _getStatus = (suggestion: ProcessedSuggestion, nhsNumber: NhsNumber): Elig
   if (suggestion.status === "Actionable") {
     return EligibilityStatus.ACTIONABLE; // WIP
   }
-  log.error({ nhsNumber }, `${suggestion.status} not yet implemented.`);
+  log.error({ nhsNumber, status: suggestion.status }, "EligibilityStatus not yet implemented.");
   throw new Error(`${suggestion.status} not yet implemented.`);
 };
 

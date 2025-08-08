@@ -23,7 +23,7 @@ const _writeFileS3 = async (bucket: string, key: string, data: string): Promise<
     });
     await s3Client.send(putObjectCommand);
   } catch (error) {
-    log.error("Error writing file to S3: %s", error);
+    log.error(error, "Error writing file to S3");
     throw error;
   }
 };
