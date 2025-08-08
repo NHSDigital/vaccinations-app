@@ -1,12 +1,12 @@
 "use client";
 
-import styles from "./LoadingSpinner.module.css";
+import styles from "@src/app/_components/loader/styles.module.css";
 
 const LoadingSpinner = () => {
   return (
-    <div className={styles.appLoader}>
+    <div className={`${styles.loaderContainer} ${styles.loaderContainerMiddle}`} id="loaderContainer">
       <svg
-        className={styles.appLoader__spinner}
+        className={styles.loaderSpinner}
         xmlns="http://www.w3.org/2000/svg"
         width="64"
         height="64"

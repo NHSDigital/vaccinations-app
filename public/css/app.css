@@ -1,0 +1,10 @@
+.appLayout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f0f4f5;
+}
+
+.nhsuk-width-container {
+  flex: 1;
+}

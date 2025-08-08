@@ -1,3 +1,4 @@
+import "@public/css/app.css";
 import "@public/css/nhsapp-3.1.0.min.css";
 import "@public/css/nhsuk-9.6.1.min.css";
 import { ClientProviders } from "@src/app/_components/context/ClientProviders";
@@ -37,11 +38,12 @@ export default function RootLayout({
       <body>
         <noscript>
           <style>{`#app-root { display: none !important; }`}</style>
+          <style>{`#loaderContainer { display: none !important; }`}</style>
           <StaticHeader />
           <NoJsMessage />
           <StaticFooter />
         </noscript>
-        <div id={"app-root"}>
+        <div id="app-root" className="appLayout">
           <ClientProviders>{children}</ClientProviders>
         </div>
       </body>
