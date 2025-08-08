@@ -5,6 +5,8 @@ const REDACTED_PATHS: string[] = ["*.", "*.*.", "*.*.*."];
 const REDACTED_KEY_NAMES: string[] = [
   "APIM_PRIVATE_KEY",
   "CONTENT_API_KEY",
+  "ELIGIBILITY_API_KEY",
+  "ELIGIBILITY_API_SECRET",
   "accessToken",
   "access_token",
   "apiKey",

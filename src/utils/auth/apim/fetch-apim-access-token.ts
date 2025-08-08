@@ -60,7 +60,7 @@ const generateAPIMTokenPayload = (
     tokenPayload = {
       grant_type: "refresh_token",
       client_id: apimConfig.ELIGIBILITY_API_KEY,
-      client_secret: apimConfig.APIM_PRIVATE_KEY,
+      client_secret: apimConfig.ELIGIBILITY_API_SECRET,
       refresh_token: refreshToken,
     };
   }

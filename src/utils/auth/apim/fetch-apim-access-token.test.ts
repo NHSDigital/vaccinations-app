@@ -18,10 +18,12 @@ const mockIdToken = "id-token" as IdToken;
 const mockNowInSeconds = 1749052001;
 
 const apimApiKey = "apim-api-key";
+const apimApiSecret = "apim-api-secret";
 const apimKeyId = "apim-key-id";
 const apimPrivateKey = "apim-private-key";
 const mockApimConfig: ApimConfig = apimConfigBuilder()
   .withELIGIBILITY_API_KEY(apimApiKey)
+  .withELIGIBILITY_API_SECRET(apimApiSecret)
   .andAPIM_AUTH_URL(new URL("https://apim-test-auth-url.com/test"))
   .andAPIM_KEY_ID(apimKeyId)
   .andAPIM_PRIVATE_KEY(apimPrivateKey)
@@ -113,7 +115,7 @@ describe("generateAPIMTokenPayload", () => {
       const expectedTokenPayload: APIMRefreshTokenPayload = {
         grant_type: "refresh_token",
         client_id: apimApiKey,
-        client_secret: apimPrivateKey,
+        client_secret: apimApiSecret,
         refresh_token: refreshToken,
       };
 

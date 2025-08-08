@@ -25,6 +25,7 @@ export function appConfigBuilder() {
 export function apimConfigBuilder() {
   return createTypeBuilder<ApimConfig>({
     ELIGIBILITY_API_KEY: randomString(10),
+    ELIGIBILITY_API_SECRET: randomString(10),
     APIM_PRIVATE_KEY: randomString(10),
     APIM_AUTH_URL: randomURL(),
     APIM_KEY_ID: randomString(10),
