@@ -8,3 +8,9 @@
 .nhsuk-width-container {
   flex: 1;
 }
+
+@media (min-width: 1024px) {
+  .nhsuk-width-container {
+    width: 100%;
+  }
+}
