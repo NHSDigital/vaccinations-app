@@ -11,6 +11,7 @@ import {
   RSV_PAGE_URL,
   RSV_PREGNANCY_PAGE_TITLE,
   RSV_PREGNANCY_PAGE_URL,
+  SESSION_LOGOUT_PAGE_TITLE,
 } from "../constants";
 
 test.describe.configure({ mode: "parallel", retries: 3 });
@@ -56,6 +57,12 @@ test.describe("Application", () => {
     await page.getByTestId("skip-link").focus();
     await page.keyboard.press("Enter");
     await expect(page.getByRole("heading", { level: 1 })).toBeFocused();
+  });
+
+  test("Log out link navigation", async ({ page }) => {
+    await page.goto(HUB_PAGE_URL);
+    await expect(page).toHaveTitle(HUB_PAGE_TITLE);
+    await clickLinkAndExpectPageTitle(page, "Log out", SESSION_LOGOUT_PAGE_TITLE);
   });
 
   test("HTTP 404 - Page not found", async ({ page }) => {

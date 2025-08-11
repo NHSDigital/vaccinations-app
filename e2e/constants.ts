@@ -10,4 +10,6 @@ export const RSV_PREGNANCY_PAGE_URL = "/vaccines/rsv-pregnancy";
 export const PAGE_NOT_FOUND_TITLE = "Page not found - Check and book an RSV vaccination - NHS";
 export const PAGE_NOT_FOUND_URL = "/page-does-not-exist";
 
+export const SESSION_LOGOUT_PAGE_TITLE = "You have logged out - Check and book an RSV vaccination - NHS";
+
 export const MAX_AVG_LCP_DURATION_MS = 3000;
