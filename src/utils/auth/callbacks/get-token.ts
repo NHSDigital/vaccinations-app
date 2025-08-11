@@ -37,6 +37,7 @@ const getToken = async (
     return null;
   }
 
+  // TODO VIA-254 - can we do this only once? https://www.youtube.com/watch?v=A4I9DMSvJxg
   const apimAccessCredentials = await _getOrRefreshApimCredentials(config, token, nowInSeconds);
 
   // Inspect the token (which was either returned from login or fetched from session), fill missing or blank values with defaults
@@ -69,7 +70,7 @@ async function _getOrRefreshApimCredentials(config: AppConfig, token: JWT, nowIn
       updatedApimCredentals = await retrieveApimCredentials(token.nhs_login.id_token);
       log.debug({ updatedApimCredentals }, "getOrRefreshApimCredentials: New APIM creds retrieved.");
     } else {
-      const expiryWriggleRoom = 30; // TODO VIA-254 - set to 30 or so. This value is just for manual testing.
+      const expiryWriggleRoom = 30; // TODO VIA-254 - set to 30 or so. This value is just for testing.
       const expiresSoonAt: ExpiresSoonAt = (token.apim?.expires_at - expiryWriggleRoom) as ExpiresSoonAt;
 
       if (expiresSoonAt < nowInSeconds) {
@@ -79,7 +80,7 @@ async function _getOrRefreshApimCredentials(config: AppConfig, token: JWT, nowIn
         log.debug({ updatedApimCredentals }, "getOrRefreshApimCredentials: Refreshed APIM creds retrieved.");
       } else {
         log.debug(
-          { existingApimCredentals: token.apim, nowInSeconds, timeRemaining: expiresSoonAt - nowInSeconds },
+          { existingApimCredentals: token.apim, nowInSeconds, timeRemaining: expiresSoonAt - nowInSeconds }, // TODO VIA-254 - don't log *all* this stuff?
           "getOrRefreshApimCredentials: APIM creds still fresh.",
         );
       }
