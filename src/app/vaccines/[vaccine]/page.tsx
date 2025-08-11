@@ -18,9 +18,6 @@ const VaccinePage = async ({ params }: VaccinePageProps) => {
   const { vaccine } = await params;
   const vaccineType: VaccineTypes | undefined = getVaccineTypeFromUrlPath(vaccine);
 
-  // TODO: Remove promise
-  // await new Promise(resolve => setTimeout(resolve, 5 * 1000));
-
   return vaccineType ? (
     <>
       <title>{`${VaccineInfo[vaccineType].heading} - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`}</title>
