@@ -1,6 +1,6 @@
 import { fetchAPIMAccessToken } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { ApimAccessCredentials, ApimTokenResponse } from "@src/utils/auth/apim/types";
-import { AccessToken, ExpiresAt, IdToken, RefreshToken, RefreshTokenExpiresAt } from "@src/utils/auth/types";
+import { AccessToken, ExpiresAt, IdToken } from "@src/utils/auth/types";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { JWT, getToken } from "next-auth/jwt";
@@ -38,10 +38,7 @@ const _getJwtToken = async (): Promise<JWT | null> => {
   return await getToken({ req, secret: config.AUTH_SECRET, secureCookie: true });
 };
 
-const retrieveApimCredentials = async (
-  idToken: IdToken,
-  refreshToken: RefreshToken | undefined = undefined,
-): Promise<ApimAccessCredentials> => {
+const retrieveApimCredentials = async (idToken: IdToken): Promise<ApimAccessCredentials> => {
   /**
    * Get APIM credentals from APIM. If no refreshToken is passed, it will get new credentials.
    * If refreshToken *is* passed, will refresh them.
@@ -49,12 +46,11 @@ const retrieveApimCredentials = async (
    * @returns A Promise, resolving to the APIM credentials.
    */
   const now = Date.now() / 1000;
-  const response: ApimTokenResponse = await fetchAPIMAccessToken(idToken, refreshToken);
+  // idToken = "" as IdToken; // TODO VIA-254 - For testing
+  const response: ApimTokenResponse = await fetchAPIMAccessToken(idToken);
   return {
     accessToken: response.access_token,
-    refreshToken: response.refresh_token,
     expiresAt: Math.floor(now + parseInt(response.expires_in)) as ExpiresAt,
-    refreshTokenExpiresAt: Math.floor(now + parseInt(response.refresh_token_expires_in)) as RefreshTokenExpiresAt,
   };
 };
 

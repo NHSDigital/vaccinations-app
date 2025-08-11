@@ -1,6 +1,6 @@
 import { ApimConfig, apimConfigProvider } from "@src/utils/apimConfig";
 import { ApimTokenResponse } from "@src/utils/auth/apim/types";
-import { APIMClientAssertionPayload, APIMTokenPayload, IdToken, RefreshToken } from "@src/utils/auth/types";
+import { APIMClientAssertionPayload, APIMTokenPayload, IdToken } from "@src/utils/auth/types";
 import { logger } from "@src/utils/logger";
 import axios, { AxiosResponse, HttpStatusCode } from "axios";
 import jwt from "jsonwebtoken";
@@ -8,15 +8,12 @@ import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "utils-auth-apim-fetch-apim-access-token" });
 
-const fetchAPIMAccessToken = async (
-  idToken: IdToken,
-  refreshToken: RefreshToken | undefined,
-): Promise<ApimTokenResponse> => {
+const fetchAPIMAccessToken = async (idToken: IdToken): Promise<ApimTokenResponse> => {
   const apimConfig: ApimConfig = await apimConfigProvider();
-  log.debug({ apimConfig }, "Fetching APIM Access Token");
+  log.debug({ apimConfig, idToken }, "Fetching APIM Access Token");
 
   try {
-    const tokenPayload: APIMTokenPayload = generateAPIMTokenPayload(apimConfig, idToken, refreshToken);
+    const tokenPayload: APIMTokenPayload = generateAPIMTokenPayload(apimConfig, idToken);
     log.debug({ tokenPayload }, "APIM token payload");
 
     const response: AxiosResponse<ApimTokenResponse> = await axios.post(apimConfig.APIM_AUTH_URL.href, tokenPayload, {
@@ -40,31 +37,16 @@ const fetchAPIMAccessToken = async (
   }
 };
 
-const generateAPIMTokenPayload = (
-  apimConfig: ApimConfig,
-  idToken: IdToken,
-  refreshToken: RefreshToken | undefined,
-): APIMTokenPayload => {
+const generateAPIMTokenPayload = (apimConfig: ApimConfig, idToken: IdToken): APIMTokenPayload => {
   const clientAssertion: string = _generateClientAssertion(apimConfig);
 
-  let tokenPayload: APIMTokenPayload;
-  if (!refreshToken) {
-    tokenPayload = {
-      grant_type: "urn:ietf:params:oauth:grant-type:token-exchange",
-      subject_token_type: "urn:ietf:params:oauth:token-type:id_token",
-      client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
-      subject_token: idToken,
-      client_assertion: clientAssertion,
-    };
-  } else {
-    tokenPayload = {
-      grant_type: "refresh_token",
-      client_id: apimConfig.ELIGIBILITY_API_KEY,
-      client_secret: apimConfig.ELIGIBILITY_API_SECRET,
-      refresh_token: refreshToken,
-    };
-  }
-  return tokenPayload;
+  return {
+    grant_type: "urn:ietf:params:oauth:grant-type:token-exchange",
+    subject_token_type: "urn:ietf:params:oauth:token-type:id_token",
+    client_assertion_type: "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+    subject_token: idToken,
+    client_assertion: clientAssertion,
+  };
 };
 
 const _generateClientAssertion = (apimConfig: ApimConfig): string => {

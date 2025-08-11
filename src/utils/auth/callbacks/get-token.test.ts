@@ -1,6 +1,6 @@
 import { retrieveApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
 import { getToken } from "@src/utils/auth/callbacks/get-token";
-import { IdToken, MaxAgeInSeconds, RefreshToken } from "@src/utils/auth/types";
+import { MaxAgeInSeconds } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
 import { appConfigBuilder } from "@test-data/config/builders";
 import { jwtDecode } from "jwt-decode";
@@ -37,20 +37,9 @@ describe("getToken", () => {
     });
 
     beforeEach(async () => {
-      (retrieveApimCredentials as jest.Mock).mockImplementation((idToken: IdToken, refreshToken: RefreshToken) => {
-        return !refreshToken
-          ? {
-              accessToken: "new-apim-access-token",
-              refreshToken: "new-apim-refresh-token",
-              expiresAt: nowInSeconds + 1111,
-              refreshTokenExpiresAt: nowInSeconds + 2222,
-            }
-          : {
-              accessToken: "refreshed-apim-access-token",
-              refreshToken: "refreshed-apim-refresh-token",
-              expiresAt: nowInSeconds + 3333,
-              refreshTokenExpiresAt: nowInSeconds + 4444,
-            };
+      (retrieveApimCredentials as jest.Mock).mockResolvedValue({
+        accessToken: "new-apim-access-token",
+        expiresAt: nowInSeconds + 1111,
       });
     });
 
@@ -101,8 +90,6 @@ describe("getToken", () => {
         apim: {
           access_token: "new-apim-access-token",
           expires_at: nowInSeconds + 1111,
-          refresh_token: "new-apim-refresh-token",
-          refresh_token_expires_at: nowInSeconds + 2222,
         },
         fixedExpiry: nowInSeconds + maxAgeInSeconds,
       });
@@ -114,15 +101,12 @@ describe("getToken", () => {
         apim: {
           access_token: "old-access-token",
           expires_at: nowInSeconds + 60,
-          refresh_token: "old-refresh-token",
-          refresh_token_expires_at: nowInSeconds + 60,
         },
         nhs_login: { id_token: "old-id-token" },
       } as JWT;
       const account = {
         expires_at: nowInSeconds + 1000,
         access_token: "newAccess",
-        refresh_token: "newRefresh",
         id_token: "newIdToken",
       } as Account;
       const profile = {
@@ -138,21 +122,18 @@ describe("getToken", () => {
       expect(result?.apim).toEqual({
         access_token: "old-access-token",
         expires_at: nowInSeconds + 60,
-        refresh_token: "old-refresh-token",
-        refresh_token_expires_at: nowInSeconds + 60,
       });
     });
 
-    it("should return refreshed APIM creds if expired", async () => {
+    it("should return new APIM creds if expired", async () => {
       // Given
       const token = {
-        apim: { access_token: "old-access-token", expires_at: nowInSeconds - 60, refresh_token: "old-refresh-token" },
+        apim: { access_token: "old-access-token", expires_at: nowInSeconds - 60 },
         nhs_login: { id_token: "id-token" },
       } as JWT;
       const account = {
         expires_at: nowInSeconds + 1000,
         access_token: "newAccess",
-        refresh_token: "newRefresh",
         id_token: "newIdToken",
       } as Account;
       const profile = {
@@ -166,10 +147,8 @@ describe("getToken", () => {
 
       // Then
       expect(result?.apim).toEqual({
-        access_token: "refreshed-apim-access-token",
-        expires_at: nowInSeconds + 3333,
-        refresh_token: "refreshed-apim-refresh-token",
-        refresh_token_expires_at: nowInSeconds + 4444,
+        access_token: "new-apim-access-token",
+        expires_at: nowInSeconds + 1111,
       });
     });
 
@@ -195,8 +174,6 @@ describe("getToken", () => {
         apim: {
           access_token: "",
           expires_at: 0,
-          refresh_token: "",
-          refresh_token_expires_at: 0,
         },
         fixedExpiry: nowInSeconds + maxAgeInSeconds,
       });
@@ -222,8 +199,6 @@ describe("getToken", () => {
         apim: {
           access_token: "",
           expires_at: 0,
-          refresh_token: "",
-          refresh_token_expires_at: 0,
         },
       });
     });
@@ -307,8 +282,6 @@ describe("getToken", () => {
         apim: {
           access_token: "",
           expires_at: 0,
-          refresh_token: "",
-          refresh_token_expires_at: 0,
         },
         fixedExpiry: nowInSeconds + maxAgeInSeconds,
       });

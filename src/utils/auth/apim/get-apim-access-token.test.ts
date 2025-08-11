@@ -1,9 +1,8 @@
 import { fetchAPIMAccessToken } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { getApimAccessToken, retrieveApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
-import { AccessToken, IdToken, RefreshToken } from "@src/utils/auth/types";
+import { AccessToken, IdToken } from "@src/utils/auth/types";
 import { configProvider } from "@src/utils/config";
 import { appConfigBuilder } from "@test-data/config/builders";
-import { randomString } from "@test-data/meta-builder";
 import { getToken } from "next-auth/jwt";
 import { cookies, headers } from "next/headers";
 
@@ -58,23 +57,10 @@ describe("getApimCredentials", () => {
   const idToken = "test-id-token" as IdToken;
 
   beforeAll(async () => {
-    (fetchAPIMAccessToken as jest.Mock).mockImplementation(
-      (idToken: IdToken, refreshToken: RefreshToken | undefined) => {
-        return !refreshToken
-          ? {
-              access_token: "new-access-token",
-              refresh_token: "new-refresh-token",
-              expires_in: "3333",
-              refresh_token_expires_in: "4444",
-            }
-          : {
-              access_token: "refreshed-access-token",
-              refresh_token: "refreshed-refresh-token",
-              expires_in: "1111",
-              refresh_token_expires_in: "2222",
-            };
-      },
-    );
+    (fetchAPIMAccessToken as jest.Mock).mockResolvedValue({
+      access_token: "new-access-token",
+      expires_in: "3333",
+    });
 
     jest.useFakeTimers().setSystemTime(new Date("2025-01-01T12:00:00.000Z"));
   });
@@ -89,24 +75,6 @@ describe("getApimCredentials", () => {
     expect(actual).toEqual({
       accessToken: "new-access-token",
       expiresAt: 1735736133,
-      refreshToken: "new-refresh-token",
-      refreshTokenExpiresAt: 1735737244,
-    });
-  });
-
-  it("should build refreshed APIM access credentials if there is refresh token present", async () => {
-    // Given
-    const refreshToken = randomString(10) as RefreshToken;
-
-    // When
-    const actual = await retrieveApimCredentials(idToken, refreshToken);
-
-    // Then
-    expect(actual).toEqual({
-      accessToken: "refreshed-access-token",
-      expiresAt: 1735733911,
-      refreshToken: "refreshed-refresh-token",
-      refreshTokenExpiresAt: 1735735022,
     });
   });
 });
