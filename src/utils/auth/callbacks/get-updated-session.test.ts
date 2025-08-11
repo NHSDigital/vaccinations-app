@@ -12,9 +12,6 @@ describe("getSession", () => {
         birthdate: "" as BirthDate,
       },
       expires: "some-date",
-      nhs_login: {
-        id_token: "" as IdToken,
-      },
     };
 
     const token = {
@@ -35,7 +32,6 @@ describe("getSession", () => {
 
     expect(result.user.nhs_number).toBe("test-nhs-number");
     expect(result.user.birthdate).toBe("test-birthdate");
-    expect(result.nhs_login.id_token).toBe("test-id-token");
   });
 
   it("does not update session if token.user is missing", () => {
@@ -45,9 +41,6 @@ describe("getSession", () => {
         birthdate: "old-birthdate" as BirthDate,
       },
       expires: "some-date",
-      nhs_login: {
-        id_token: "old-id-token" as IdToken,
-      },
     };
 
     const token = {} as JWT;
@@ -56,7 +49,6 @@ describe("getSession", () => {
 
     expect(result.user.nhs_number).toBe("old-nhs-number");
     expect(result.user.birthdate).toBe("old-birthdate");
-    expect(result.nhs_login.id_token).toBe("old-id-token");
   });
 
   it("does not update session if session.user is missing", () => {

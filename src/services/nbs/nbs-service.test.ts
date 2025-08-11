@@ -3,11 +3,10 @@ import { getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
 import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
 import { AppConfig, configProvider } from "@src/utils/config";
 
-jest.mock("@project/auth", () => ({
-  auth: jest.fn(),
-}));
 jest.mock("@src/utils/config");
-jest.mock("@src/utils/auth/generate-auth-payload");
+jest.mock("@src/utils/auth/generate-auth-payload", () => ({
+  generateAssertedLoginIdentityJwt: jest.fn(),
+}));
 
 const nbsUrlFromConfig = "https://test-nbs-url";
 const nbsBookingPathFromConfig = "/test/path/book";

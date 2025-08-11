@@ -7,12 +7,6 @@ const getUpdatedSession = (session: Session, token: JWT) => {
     session.user.birthdate = token.user.birthdate;
   }
 
-  if (token?.nhs_login) {
-    session.nhs_login = {
-      id_token: token.nhs_login.id_token,
-    };
-  }
-
   return session;
 };
 
