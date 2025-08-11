@@ -1,12 +1,20 @@
 import { useBrowserContext } from "@src/app/_components/context/BrowserContext";
 import AppHeader from "@src/app/_components/nhs-frontend/AppHeader";
+import { userLogout } from "@src/utils/auth/user-logout";
 import { mockNHSAppJSFunctions } from "@src/utils/nhsapp-js.test";
 import { render, screen } from "@testing-library/react";
 
 const mockIsOpenInNHSApp = jest.fn();
 const mockGoToHomePage = jest.fn();
+let mockSession = {};
 jest.mock("@src/app/_components/context/BrowserContext", () => ({
   useBrowserContext: jest.fn(),
+}));
+jest.mock("next-auth/react", () => ({
+  useSession: () => mockSession,
+}));
+jest.mock("@src/utils/auth/user-logout", () => ({
+  userLogout: jest.fn(),
 }));
 
 const testHeader = (expectedVisible: boolean) => {
@@ -31,16 +39,35 @@ describe("AppHeader", () => {
   });
 
   describe("when rendered in desktop browser", () => {
-    beforeAll(() => {
+    beforeEach(() => {
       (useBrowserContext as jest.Mock).mockReturnValue({
         hasContextLoaded: true,
         isOpenInMobileApp: false,
       });
-      render(<AppHeader />);
     });
 
-    it("shows the app header", async () => {
+    it("shows the app header with logout link when authenticated", async () => {
+      mockSession = { status: "authenticated" };
+      render(<AppHeader />);
       testHeader(true);
+      const logoutLink = screen.getByRole("link", { name: "Log out" });
+      expect(logoutLink).toBeVisible();
+      expect(logoutLink?.getAttribute("href")).toEqual("#");
+    });
+
+    it("shows the app header without logout link when unauthenticated", async () => {
+      mockSession = { status: "unauthenticated" };
+      render(<AppHeader />);
+      testHeader(true);
+      const logoutLink = screen.queryByRole("link", { name: "Log out" });
+      expect(logoutLink).toBeNull();
+    });
+
+    it("logs out on click", async () => {
+      mockSession = { status: "authenticated" };
+      render(<AppHeader />);
+      screen.getByRole("link", { name: "Log out" }).click();
+      expect(userLogout).toHaveBeenCalled();
     });
   });
 

@@ -24,12 +24,12 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
       {/*TODO: revert back when NHS app fixes the bug*/}
       {/*<LinksInterceptor />*/}
       <SkipLink />
-      <AppHeader />
       <SessionProvider refetchInterval={SESSION_REFETCH_SECONDS}>
+        <AppHeader />
         <InactivityDialog />
         <div className="nhsuk-width-container">{children}</div>
+        <AppFooter />
       </SessionProvider>
-      <AppFooter />
     </BrowserContextProvider>
   );
 }
