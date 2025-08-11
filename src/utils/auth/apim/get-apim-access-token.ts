@@ -32,7 +32,6 @@ const retrieveApimCredentials = async (idToken: IdToken): Promise<ApimAccessCred
    * @returns A Promise, resolving to the APIM credentials.
    */
   const now = Date.now() / 1000;
-  // idToken = "" as IdToken; // TODO VIA-254 - For testing
   const response: ApimTokenResponse = await fetchAPIMAccessToken(idToken);
   return {
     accessToken: response.access_token,
