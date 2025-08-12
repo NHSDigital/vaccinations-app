@@ -79,7 +79,7 @@ export const login = async (browser: Browser, nhsLoginUsername: string): Promise
     await page.getByRole("link", { name: "Check and book your RSV vaccination" }).click();
     const newTabPage = await newTabPromise;
 
-    await newTabPage.waitForURL(user.vaccinationsHubUrl, { timeout: 60000, waitUntil: "domcontentloaded" });
+    await newTabPage.waitForURL(user.vaccinationsHubUrl, { timeout: 60000, waitUntil: "networkidle" });
 
     return newTabPage;
   }
