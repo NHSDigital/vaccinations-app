@@ -39,7 +39,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: "Checkout code"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: "Install NPM packages"
         run: |
           npm ci --ignore-scripts
@@ -63,7 +63,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: "Checkout code"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0 # Full history is needed to improving relevancy of reporting
       - name: "Download coverage report from Unit Test artifacts"

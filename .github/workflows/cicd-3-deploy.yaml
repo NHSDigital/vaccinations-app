@@ -33,7 +33,7 @@ jobs:
             exit 1
           fi
       - name: "Checkout code"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: "Set CI/CD variables"
         id: variables
         run: |
