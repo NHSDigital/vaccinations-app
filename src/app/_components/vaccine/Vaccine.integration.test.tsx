@@ -54,12 +54,8 @@ describe("Vaccine", () => {
         }),
       ).toBeVisible();
 
-      // details expandable section for RSV but not for RSV in pregnancy
-      if (vaccine === VaccineTypes.RSV) {
-        expect(screen.getByText("How to get the vaccine").parentElement?.parentElement?.parentElement).toHaveClass(
-          "nhsuk-details nhsuk-expander",
-        );
-      } else {
+      // details non expandable section for RSV in pregnancy
+      if (vaccine === VaccineTypes.RSV_PREGNANCY) {
         expect(
           screen.getByRole("heading", {
             level: 3,

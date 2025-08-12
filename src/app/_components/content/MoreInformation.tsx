@@ -25,14 +25,6 @@ const MoreInformation = (props: {
           title={HEADINGS.WHO_SHOULD_HAVE_VACCINE}
           component={props.styledVaccineContent.whoVaccineIsFor.component}
         />
-
-        {/* How-to-get-vaccine expandable section for all vaccines except RSV in pregnancy */}
-        {props.vaccineType !== VaccineTypes.RSV_PREGNANCY && (
-          <Details
-            title={HEADINGS.HOW_TO_GET_VACCINE}
-            component={props.styledVaccineContent.howToGetVaccine.component}
-          />
-        )}
       </div>
       <FindOutMoreLink findOutMoreUrl={props.styledVaccineContent.webpageLink} vaccineType={props.vaccineType} />
     </>

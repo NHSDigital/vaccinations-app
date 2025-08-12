@@ -30,17 +30,6 @@ describe("MoreInformation component ", () => {
     expect(content).toBeInTheDocument();
   });
 
-  it("should display howToGetVaccine expander block for RSV", async () => {
-    const vaccineType = VaccineTypes.RSV;
-    render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
-
-    const heading: HTMLElement = screen.getByText("How to get the vaccine");
-    const content: HTMLElement = screen.getByText("How Section styled component");
-
-    expect(heading).toBeInTheDocument();
-    expect(content).toBeInTheDocument();
-  });
-
   it("should not include 'how to get' section for RSV_PREGNANCY ", async () => {
     const vaccineType = VaccineTypes.RSV_PREGNANCY;
     render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
