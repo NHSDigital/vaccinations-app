@@ -14,6 +14,6 @@ test.describe("Application - User Not Logged In", () => {
 
     await page.goto(HUB_PAGE_URL);
 
-    await expect(page.url()).toBe(expectedUrl);
+    expect(page.url()).toBe(expectedUrl);
   });
 });

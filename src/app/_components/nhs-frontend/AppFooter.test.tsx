@@ -11,11 +11,6 @@ describe("AppFooter", () => {
     expect(copyright).toBeVisible();
   });
 
-  it("renders terms of use", async () => {
-    const termsOfUse = screen.queryByText(/Terms of use/);
-    expect(termsOfUse).toBeVisible();
-  });
-
   it("renders privacy policy", async () => {
     const privacyPolicy = screen.queryByText(/Privacy policy/);
     expect(privacyPolicy).toBeVisible();

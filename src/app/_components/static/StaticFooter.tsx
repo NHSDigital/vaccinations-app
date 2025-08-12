@@ -9,9 +9,18 @@ export function StaticFooter() {
           <div className="nhsuk-footer">
             <ul className="nhsuk-footer__list">
               <li className="nhsuk-footer__list-item nhsuk-footer-default__list-item">
-                <a className="nhsuk-footer__list-item-link" href="/our-policies/terms">
-                  Terms of use
+                <a
+                  className="nhsuk-footer__list-item-link"
+                  href="https://www.nhs.uk/nhs-app/nhs-app-help-and-support/"
+                  target="_blank"
+                >
+                  Help and support
                 </a>
+                <li className="nhsuk-footer__list-item nhsuk-footer-default__list-item">
+                  <a className="nhsuk-footer__list-item-link" href="/our-policies/cookies-policy">
+                    Cookies
+                  </a>
+                </li>
               </li>
               <li className="nhsuk-footer__list-item nhsuk-footer-default__list-item">
                 <a
@@ -23,22 +32,8 @@ export function StaticFooter() {
                 </a>
               </li>
               <li className="nhsuk-footer__list-item nhsuk-footer-default__list-item">
-                <a
-                  className="nhsuk-footer__list-item-link"
-                  href="https://www.nhs.uk/nhs-app/nhs-app-help-and-support/"
-                  target="_blank"
-                >
-                  Help and support
-                </a>
-              </li>
-              <li className="nhsuk-footer__list-item nhsuk-footer-default__list-item">
                 <a className="nhsuk-footer__list-item-link" href="/our-policies/accessibility">
                   Accessibility statement
-                </a>
-              </li>
-              <li className="nhsuk-footer__list-item nhsuk-footer-default__list-item">
-                <a className="nhsuk-footer__list-item-link" href="/our-policies/cookies-policy">
-                  Cookies
                 </a>
               </li>
             </ul>
