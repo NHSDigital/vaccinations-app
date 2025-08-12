@@ -190,7 +190,7 @@ describe("eligibility-filter-service", () => {
 
       const result: EligibilityStatus | undefined = _getStatus(suggestion, nhsNumber);
 
-      expect(result).toEqual(EligibilityStatus.ALREADY_VACCINATED);
+      expect(result).toEqual(EligibilityStatus.NOT_ACTIONABLE);
     });
   });
 

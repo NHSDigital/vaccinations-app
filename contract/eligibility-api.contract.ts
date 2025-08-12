@@ -21,7 +21,7 @@ describe("EliD API contract", () => {
       { nhsNumber: "9686368973" as NhsNumber, expectedStatus: EligibilityStatus.ACTIONABLE, expectCohortElement: true },
       {
         nhsNumber: "9658218989" as NhsNumber,
-        expectedStatus: EligibilityStatus.ALREADY_VACCINATED,
+        expectedStatus: EligibilityStatus.NOT_ACTIONABLE,
         expectCohortElement: false,
       },
       {

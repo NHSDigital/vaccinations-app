@@ -106,10 +106,10 @@ const _getStatus = (suggestion: ProcessedSuggestion, nhsNumber: NhsNumber): Elig
     return EligibilityStatus.NOT_ELIGIBLE;
   }
   if (suggestion.status === "NotActionable") {
-    return EligibilityStatus.ALREADY_VACCINATED; // WIP
+    return EligibilityStatus.NOT_ACTIONABLE;
   }
   if (suggestion.status === "Actionable") {
-    return EligibilityStatus.ACTIONABLE; // WIP
+    return EligibilityStatus.ACTIONABLE;
   }
   log.error({ nhsNumber, status: suggestion.status }, "EligibilityStatus not yet implemented.");
   throw new Error(`${suggestion.status} not yet implemented.`);
