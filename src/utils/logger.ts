@@ -59,7 +59,7 @@ const pinoLoggerForEdge = () => {
       formatters: formatterWithLevelAsText,
       write: (logEvent: LogDescriptor) => {
         logEvent = { ...logEvent, ...applicationContextFields };
-        console.log(JSON.stringify(logEvent));
+        console.log(logEvent);
       },
     },
   });
