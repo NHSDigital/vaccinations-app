@@ -2,7 +2,7 @@
 
 import { BrowserContextProvider } from "@src/app/_components/context/BrowserContext";
 import { InactivityDialog } from "@src/app/_components/inactivity/InactivityDialog";
-// import LinksInterceptor from "@src/app/_components/interceptor/LinksInterceptor";
+import LinksInterceptor from "@src/app/_components/interceptor/LinksInterceptor";
 import AppFooter from "@src/app/_components/nhs-frontend/AppFooter";
 import AppHeader from "@src/app/_components/nhs-frontend/AppHeader";
 import SkipLink from "@src/app/_components/nhs-frontend/SkipLink";
@@ -21,8 +21,7 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
 
   return (
     <BrowserContextProvider>
-      {/*TODO: revert back when NHS app fixes the bug*/}
-      {/*<LinksInterceptor />*/}
+      <LinksInterceptor />
       <SkipLink />
       <SessionProvider refetchInterval={SESSION_REFETCH_SECONDS}>
         <AppHeader />
