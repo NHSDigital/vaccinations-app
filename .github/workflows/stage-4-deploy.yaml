@@ -37,7 +37,7 @@ jobs:
             echo "value=${{ github.sha }}" >> $GITHUB_OUTPUT
           fi
       - name: "Checkout code"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: "Install Terraform"
         uses: hashicorp/setup-terraform@v3
         with:

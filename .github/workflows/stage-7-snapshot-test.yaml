@@ -25,7 +25,7 @@ jobs:
       VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
     steps:
       - name: "Checkout code"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: "Configure AWS credentials for environment"
         uses: aws-actions/configure-aws-credentials@v4

@@ -23,7 +23,7 @@ jobs:
       VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
     steps:
       - name: "Checkout code"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: "Install dependencies"
         run: |
           npm ci --ignore-scripts
@@ -64,7 +64,7 @@ jobs:
       AUTH_SECRET: "dummy"
     steps:
       - name: "Checkout code"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: "Install dependencies"
         run: |
           npm ci --ignore-scripts
