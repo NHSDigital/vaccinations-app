@@ -1,0 +1,11 @@
+.feedbackBannerContainer {
+  padding: 16px;
+  background-color: rgb(210, 225, 239);
+  margin: 0 -1rem;
+}
+
+@media (min-width: 40.0625em) {
+  .feedbackBannerContainer {
+    margin: 0 0;
+  }
+}

@@ -1,11 +1,13 @@
 import BackToNHSAppLink from "@src/app/_components/nhs-app/BackToNHSAppLink";
 import CardLink from "@src/app/_components/nhs-app/CardLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
-import { NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
+import { HUB_FEEDBACK_REFERRER_ID, NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
 import { VaccineContentUrlPaths, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { ContentErrorTypes, StyledVaccineContent } from "@src/services/content-api/types";
 import React from "react";
+
+import { FeedbackBanner } from "../_components/feedback/FeedbackBanner";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +25,7 @@ const VaccinationsHub = async () => {
     <>
       <title>{`${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`}</title>
 
+      <FeedbackBanner referrer={HUB_FEEDBACK_REFERRER_ID} />
       <BackToNHSAppLink />
       <MainContent>
         {/* Page heading - H1 */}

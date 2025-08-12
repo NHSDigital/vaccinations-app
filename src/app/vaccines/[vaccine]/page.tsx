@@ -1,5 +1,6 @@
 "use server";
 
+import { FeedbackBanner } from "@src/app/_components/feedback/FeedbackBanner";
 import LoadingSpinner from "@src/app/_components/loader/LoadingSpinner";
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
@@ -21,6 +22,8 @@ const VaccinePage = async ({ params }: VaccinePageProps) => {
   return vaccineType ? (
     <>
       <title>{`${VaccineInfo[vaccineType].heading} - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`}</title>
+
+      <FeedbackBanner referrer={vaccine} />
       <BackLink />
       <MainContent>
         <h1 className={"app-dynamic-page-title__heading"}>{`${VaccineInfo[vaccineType].heading}`}</h1>

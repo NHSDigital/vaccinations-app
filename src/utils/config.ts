@@ -2,15 +2,18 @@ import getSSMParam from "@src/utils/get-ssm-param";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 
 type AppConfig = {
-  CONTENT_API_ENDPOINT: URL;
-  ELIGIBILITY_API_ENDPOINT: URL;
+  // SSM Params stored as SecureStrings
+  NHS_LOGIN_CLIENT_ID: string;
   CONTENT_API_KEY: string;
   ELIGIBILITY_API_KEY: string;
+  NHS_LOGIN_PRIVATE_KEY: string;
+
+  // Environment Variables in Lambda
+  CONTENT_API_ENDPOINT: URL;
+  ELIGIBILITY_API_ENDPOINT: URL;
   CONTENT_CACHE_PATH: string;
   NHS_LOGIN_URL: string;
-  NHS_LOGIN_CLIENT_ID: string;
   NHS_LOGIN_SCOPE: string;
-  NHS_LOGIN_PRIVATE_KEY: string;
   NBS_URL: string;
   NBS_BOOKING_PATH: string;
   MAX_SESSION_AGE_MINUTES: number;

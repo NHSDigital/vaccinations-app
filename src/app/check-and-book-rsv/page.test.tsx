@@ -17,6 +17,14 @@ describe("Vaccination Hub Page", () => {
       render(await VaccinationsHub());
     });
 
+    it("renders the feedback banner with correct url", async () => {
+      const feedbackLink: HTMLAnchorElement = screen.getByRole("link", { name: "give your feedback" });
+      const feedbackUrl: URL = new URL(feedbackLink.href);
+
+      expect(feedbackLink).toBeVisible();
+      expect(feedbackUrl.searchParams.get("page")).toBe("hub");
+    });
+
     it("should not display overview", async () => {
       expect(screen.queryByTestId("overview-text")).not.toBeInTheDocument();
     });
@@ -40,6 +48,14 @@ describe("Vaccination Hub Page", () => {
         styledVaccineContent: mockStyledContent,
       });
       render(await VaccinationsHub());
+    });
+
+    it("renders the feedback banner with correct url", async () => {
+      const feedbackLink: HTMLAnchorElement = screen.getByRole("link", { name: "give your feedback" });
+      const feedbackUrl: URL = new URL(feedbackLink.href);
+
+      expect(feedbackLink).toBeVisible();
+      expect(feedbackUrl.searchParams.get("page")).toBe("hub");
     });
 
     it("renders overview", async () => {

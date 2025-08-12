@@ -1,6 +1,7 @@
 export const VACCINATIONS_HUB_PAGE_ROUTE = "/check-and-book-rsv";
 export const SERVICE_HEADING = "Check and book an RSV vaccination";
 export const NHS_TITLE_SUFFIX = "NHS";
+export const HUB_FEEDBACK_REFERRER_ID = "hub";
 
 export const HEADINGS = {
   WHAT_VACCINE_IS_FOR: "What this vaccine is for",

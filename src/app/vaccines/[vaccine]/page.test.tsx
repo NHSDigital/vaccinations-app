@@ -29,6 +29,15 @@ describe("Dynamic vaccine page", () => {
     expect(document.title).toBe("RSV vaccine for older adults - Check and book an RSV vaccination - NHS");
   });
 
+  it("renders the feedback banner with correct url", async () => {
+    await renderDynamicPage("rsv");
+    const feedbackLink: HTMLAnchorElement = screen.getByRole("link", { name: "give your feedback" });
+    const feedbackUrl: URL = new URL(feedbackLink.href);
+
+    expect(feedbackLink).toBeVisible();
+    expect(feedbackUrl.searchParams.get("page")).toBe("rsv");
+  });
+
   describe("when content loads successfully", () => {
     beforeEach(() => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
