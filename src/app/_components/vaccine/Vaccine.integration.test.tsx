@@ -47,8 +47,6 @@ describe("Vaccine", () => {
     async (vaccine: VaccineTypes) => {
       render(await Vaccine({ vaccineType: vaccine }));
 
-      expect(screen.getByTestId("overview-inset-text")).toBeVisible();
-
       expect(
         screen.getByRole("heading", {
           level: 2,

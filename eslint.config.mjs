@@ -16,6 +16,11 @@ const eslintConfig = [
     "prettier",
     "next",
   ),
+  {
+    "rules": {
+      "@typescript-eslint/no-unused-vars": "error",
+    }
+  }
 ];
 
 export default eslintConfig;

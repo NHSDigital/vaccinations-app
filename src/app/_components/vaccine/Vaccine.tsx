@@ -8,7 +8,6 @@ import { Eligibility as EligibilityComponent } from "@src/app/_components/eligib
 import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
 import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
 import Details from "@src/app/_components/nhs-frontend/Details";
-import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import { HEADINGS } from "@src/app/constants";
 import { NhsNumber, VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
@@ -64,23 +63,6 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
 
   return (
     <div className={styles.tableCellSpanHide}>
-      {/* Cross-linking of related pages */}
-      {vaccineInfo.overviewInsetText && (
-        <div data-testid="overview-inset-text">
-          <InsetText
-            key={0}
-            content={
-              <div
-                className={styles.zeroMarginBottom}
-                dangerouslySetInnerHTML={{
-                  __html: vaccineInfo.overviewInsetText,
-                }}
-              />
-            }
-          />
-        </div>
-      )}
-
       {/* Personalised eligibility section for RSV */}
       {vaccineType === VaccineTypes.RSV && !eligibilityError && eligibility?.content && eligibility?.status && (
         <EligibilityComponent eligibilityContent={eligibility.content} />

@@ -2,7 +2,7 @@ import { auth } from "@project/auth";
 import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
 import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
-import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
+import { VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
@@ -72,27 +72,6 @@ describe("Any vaccine page", () => {
           birthdate: new Date(),
         },
       });
-    });
-
-    it("should display overview inset text if defined for vaccine", async () => {
-      const expectedInsetText: string | undefined = VaccineInfo[VaccineTypes.RSV].overviewInsetText;
-
-      await renderNamedVaccinePage(VaccineTypes.RSV);
-
-      const overviewInsetBlock: HTMLElement = screen.getByTestId("overview-inset-text");
-      expect(overviewInsetBlock).toBeInTheDocument();
-      expect(overviewInsetBlock.innerHTML).toContain(expectedInsetText);
-    });
-
-    it("should display link in overview text if defined for vaccine", async () => {
-      await renderNamedVaccinePage(VaccineTypes.RSV);
-
-      const rsvPregnancyLink: HTMLElement = screen.getByRole("link", {
-        name: "RSV in pregnancy",
-      });
-
-      expect(rsvPregnancyLink).toBeInTheDocument();
-      expect(rsvPregnancyLink).toHaveAttribute("href", "/vaccines/rsv-pregnancy");
     });
 
     it("should include lowercase vaccine name in more information text", async () => {
