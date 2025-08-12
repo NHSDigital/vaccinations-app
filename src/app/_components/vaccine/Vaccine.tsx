@@ -53,7 +53,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
     [{ styledVaccineContent, contentError }] = await Promise.all([getContentForVaccine(vaccineType)]);
   }
 
-  const howToGetVaccineFallback = styledVaccineContent ? (
+  const howToGetVaccineOrFallback = styledVaccineContent ? (
     styledVaccineContent.howToGetVaccine.component
   ) : (
     <HowToGetVaccineFallback vaccineType={vaccineType} />
@@ -70,7 +70,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
 
       {/* Fallback eligibility section for RSV */}
       {vaccineType === VaccineTypes.RSV && eligibilityError && (
-        <RSVEligibilityFallback howToGetVaccineFallback={howToGetVaccineFallback} vaccineType={vaccineType} />
+        <RSVEligibilityFallback howToGetVaccineFallback={howToGetVaccineOrFallback} vaccineType={vaccineType} />
       )}
 
       {/* Static eligibility section for RSV in pregnancy */}
@@ -91,7 +91,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
       {/* How-to-get-vaccine section for RSV in pregnancy */}
       {vaccineType === VaccineTypes.RSV_PREGNANCY && (
         <>
-          <Details title={HEADINGS.HOW_TO_GET_VACCINE} component={howToGetVaccineFallback} notExpandable={true} />
+          <Details title={HEADINGS.HOW_TO_GET_VACCINE} component={howToGetVaccineOrFallback} notExpandable={true} />
           <PharmacyBookingInfo vaccineType={vaccineType} />
         </>
       )}
