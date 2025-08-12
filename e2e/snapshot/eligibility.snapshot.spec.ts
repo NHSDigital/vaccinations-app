@@ -1,17 +1,7 @@
-import { Page, expect, test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { RSV_PAGE_URL } from "@project/e2e/constants";
-import { pathForCustomScreenshots } from "@project/e2e/helpers";
+import { openExpanders, pathForCustomScreenshots } from "@project/e2e/helpers";
 import users from "@test-data/test-users.json" with { type: "json" };
-
-const openExpanders = async (page: Page) => {
-  const expanderTitles = ["What this vaccine is for", "Who should have this vaccine", "How to get the vaccine"];
-
-  for (const title of expanderTitles) {
-    await page.getByText(title).click();
-  }
-
-  await page.mouse.click(0, 0);
-};
 
 test.describe("Snapshot Testing - Eligibility", () => {
   for (const key of Object.keys(users)) {

@@ -55,3 +55,13 @@ export const pathForCustomScreenshots = (testFileName: string, screenshotFileNam
 
   return path;
 };
+
+export const openExpanders = async (page: Page) => {
+  const expanderTitles = ["What this vaccine is for", "Who should have this vaccine"];
+
+  for (const title of expanderTitles) {
+    await page.getByText(title).click();
+  }
+
+  await page.mouse.click(0, 0);
+};

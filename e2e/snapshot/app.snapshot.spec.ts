@@ -1,5 +1,5 @@
 import { Page, expect, test } from "@playwright/test";
-import { pathForCustomScreenshots } from "@project/e2e/helpers";
+import { openExpanders, pathForCustomScreenshots } from "@project/e2e/helpers";
 import { ACCESSIBILITY_STATEMENT_ROUTE } from "@src/app/our-policies/accessibility/constants";
 import { COOKIES_POLICY_ROUTE } from "@src/app/our-policies/cookies-policy/constants";
 
@@ -16,13 +16,7 @@ const testPageSnapshot = async (
   await page.goto(pageRoute);
 
   if ([RSV_PAGE_URL, RSV_PREGNANCY_PAGE_URL].includes(pageRoute)) {
-    if (pageRoute === RSV_PAGE_URL) {
-      await page.getByText("How to get the vaccine").click();
-    }
-    await page.getByText("Who should have this vaccine").click();
-    await page.getByText("What this vaccine is for").click();
-
-    await page.mouse.click(0, 0);
+    await openExpanders(page);
   }
 
   await page.screenshot({
