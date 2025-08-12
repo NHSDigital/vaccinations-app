@@ -1,4 +1,5 @@
 import { ApimConfig, apimConfigProvider } from "@src/utils/apimConfig";
+import { ApimAuthError, ApimHttpError } from "@src/utils/auth/apim/exceptions";
 import { ApimTokenResponse } from "@src/utils/auth/apim/types";
 import { APIMClientAssertionPayload, APIMTokenPayload, IdToken } from "@src/utils/auth/types";
 import { logger } from "@src/utils/logger";
@@ -28,12 +29,13 @@ const fetchAPIMAccessToken = async (idToken: IdToken): Promise<ApimTokenResponse
     if (axios.isAxiosError(error)) {
       log.error(
         { error, APIM_AUTH_URL: apimConfig.APIM_AUTH_URL.href, response_data: error.response?.data },
-        `Error calling APIM token endpoint`,
+        `Error calling APIM token endpoint: HTTP request failed`,
       );
+      throw new ApimHttpError(`Error getting APIM token`);
     } else {
       log.error({ error }, `Error generating APIM token request`);
+      throw new ApimAuthError(`Error getting APIM token`);
     }
-    throw new Error(`Error getting APIM token`);
   }
 };
 

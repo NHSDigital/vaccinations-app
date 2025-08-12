@@ -29,7 +29,7 @@ describe("getApimAccessToken", () => {
   it("should throw error if APIM access token not available in JWT token", async () => {
     (getJwtToken as jest.Mock).mockResolvedValue({ apim: {} });
 
-    await expect(getApimAccessToken()).rejects.toThrow("No APIM access token available");
+    await expect(getApimAccessToken()).rejects.toThrow("APIM access token is not present on JWT token");
   });
 });
 

@@ -24,6 +24,7 @@ import {
   SuitabilityRule,
   SummaryContent,
 } from "@src/services/eligibility-api/types";
+import { ApimAuthError } from "@src/utils/auth/apim/exceptions";
 import { logger } from "@src/utils/logger";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { Logger } from "pino";
@@ -81,7 +82,7 @@ const getEligibilityForPerson = async (
       eligibilityError: undefined,
     };
   } catch (error: unknown) {
-    if (error instanceof EligibilityApiError) {
+    if (error instanceof EligibilityApiError || error instanceof ApimAuthError) {
       return {
         eligibility: undefined,
         eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,

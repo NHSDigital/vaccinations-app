@@ -1,3 +1,4 @@
+import { ApimMissingTokenError } from "@src/utils/auth/apim/exceptions";
 import { fetchAPIMAccessToken } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { ApimAccessCredentials, ApimTokenResponse } from "@src/utils/auth/apim/types";
 import { getJwtToken } from "@src/utils/auth/get-jwt-token";
@@ -18,8 +19,9 @@ const getApimAccessToken = async (): Promise<AccessToken> => {
   const token = await getJwtToken();
 
   if (!token?.apim?.access_token) {
-    log.error("Unable to get APIM access token");
-    throw Error("No APIM access token available");
+    // TODO VIA-254 evaluate test logging
+    log.error({ token }, "APIM access token is not present on JWT token");
+    throw new ApimMissingTokenError("APIM access token is not present on JWT token");
   }
   return token.apim.access_token;
 };
