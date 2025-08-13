@@ -1,6 +1,9 @@
 import { asyncLocalStorage } from "@src/utils/requestContext";
 import pino, { LogDescriptor, Logger } from "pino";
 
+const isEdgeRuntime = process?.env?.NEXT_RUNTIME === "edge";
+const currentLevel = process.env.PINO_LOG_LEVEL ?? "info";
+
 const REDACTED_PATHS: string[] = ["*.", "*.*.", "*.*.*."];
 const REDACTED_KEY_NAMES: string[] = [
   "APIM_PRIVATE_KEY",
@@ -16,10 +19,8 @@ const REDACTED_KEY_NAMES: string[] = [
   "userIdentity",
   "user_identity",
 ];
-const REDACTED_KEYS = REDACTED_PATHS.flatMap((prefix) => REDACTED_KEY_NAMES.map((word) => prefix + word));
-
-const isEdgeRuntime = process?.env?.NEXT_RUNTIME === "edge";
-const currentLevel = process.env.PINO_LOG_LEVEL ?? "info";
+const REDACTED_KEYS =
+  currentLevel === "debug" ? [] : REDACTED_PATHS.flatMap((prefix) => REDACTED_KEY_NAMES.map((word) => prefix + word));
 
 const formatterWithLevelAsText = {
   level: (label: string) => {
