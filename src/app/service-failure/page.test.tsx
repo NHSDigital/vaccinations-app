@@ -11,7 +11,7 @@ jest.mock("@src/app/_components/context/BrowserContext", () => ({
 
 describe("ServiceFailure", () => {
   beforeAll(() => {
-    mockNHSAppJSFunctions(jest.fn());
+    mockNHSAppJSFunctions(jest.fn(), jest.fn(), jest.fn(), jest.fn(), jest.fn());
   });
 
   it("renders the title and static content", () => {

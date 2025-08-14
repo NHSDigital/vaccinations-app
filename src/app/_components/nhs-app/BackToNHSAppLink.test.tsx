@@ -3,17 +3,20 @@ import BackToNHSAppLink from "@src/app/_components/nhs-app/BackToNHSAppLink";
 import { mockNHSAppJSFunctions } from "@src/utils/nhsapp-js.test";
 import { render, screen } from "@testing-library/react";
 
+import clearAllMocks = jest.clearAllMocks;
+
 jest.mock("@src/app/_components/context/BrowserContext", () => ({
   useBrowserContext: jest.fn(),
 }));
 
 describe("BackToNHSAppLink", () => {
   const mockIsOpenInNHSApp = jest.fn();
-  const mockGoToHomePage = jest.fn();
   const mockGoToPage = jest.fn();
+  const mockSetBackAction = jest.fn();
 
   beforeAll(() => {
-    mockNHSAppJSFunctions(mockIsOpenInNHSApp, mockGoToHomePage, mockGoToPage);
+    clearAllMocks();
+    mockNHSAppJSFunctions(mockIsOpenInNHSApp, jest.fn(), mockGoToPage, jest.fn(), mockSetBackAction);
   });
 
   describe("when inside mobile app", () => {
@@ -32,6 +35,11 @@ describe("BackToNHSAppLink", () => {
       backLink?.click();
       expect(mockGoToPage).toHaveBeenCalledWith("services");
     });
+
+    it("back action is set", async () => {
+      render(<BackToNHSAppLink />);
+      expect(mockSetBackAction).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe("when inside the browser", () => {
@@ -47,6 +55,11 @@ describe("BackToNHSAppLink", () => {
       render(<BackToNHSAppLink />);
       const backLink = screen.queryByRole("link", { name: "Back" });
       expect(backLink).toBeNull();
+    });
+
+    it("back action is not set", async () => {
+      render(<BackToNHSAppLink />);
+      expect(mockSetBackAction).not.toHaveBeenCalled();
     });
   });
 
