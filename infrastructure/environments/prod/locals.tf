@@ -35,9 +35,9 @@ locals {
     MAX_SESSION_AGE_MINUTES = 59
 
     ELIGIBILITY_API_ENDPOINT = "https://api.service.nhs.uk/"
-    IS_APIM_AUTH_ENABLED     = false
-    APIM_AUTH_URL            = ""
-    APIM_KEY_ID              = ""
+    IS_APIM_AUTH_ENABLED     = true
+    APIM_AUTH_URL            = "https://api.service.nhs.uk/oauth2/token"
+    APIM_KEY_ID              = "prod-1"
 
     AUTH_TRUST_HOST = "true"
     AUTH_SECRET     = random_password.auth_secret.result

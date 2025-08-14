@@ -12,7 +12,7 @@ locals {
   prefix                    = "${local.deploy_workspace}-${local.project_identifier_shortcode}-${data.aws_caller_identity.current.account_id}"
   open_next_path            = "../../../.open-next"
   node_version              = "nodejs22.x"
-  log_retention_in_days     = 7
+  log_retention_in_days     = 30
   cache_lambda_zip_path     = "../../../lambda.zip"
   content_cache_bucket_name = "${local.prefix}-content-cache"
   app_version               = var.app_version
