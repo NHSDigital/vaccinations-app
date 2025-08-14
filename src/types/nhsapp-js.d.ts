@@ -11,7 +11,7 @@ interface Window {
       goToPage: (nhsAppPage: string) => void;
       goToHomePage: () => void;
       openBrowserOverlay: (overlayUri: string) => void;
-      setBackAction: (backAction: function) => void;
+      setBackAction: (backAction: () => void) => void;
     };
   };
 }
