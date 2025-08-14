@@ -11,7 +11,9 @@ const MiddlewarePerformanceMarker = "middleware";
 
 export async function middleware(request: NextRequest) {
   profilePerformanceStart(MiddlewarePerformanceMarker);
-  log.info({ nextUrl: request.nextUrl, request, headers: request.headers }, `Inspecting request`);
+  const headers: Headers = request.headers;
+  const traceId = headers.get("X-Amzn-Trace-Id");
+  log.info({ nextUrl: request.nextUrl, traceId, headers: [...headers.entries()] }, "Inspecting request");
   const config: AppConfig = await configProvider();
 
   let response: NextResponse;

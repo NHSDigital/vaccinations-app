@@ -18,12 +18,17 @@ const middlewareRegex = new RegExp(config.matcher[0]);
 const otherExcludedPaths = ["/favicon.ico", "/assets", "/js", "/css", "/_next"];
 
 function getMockRequest(testUrl: string) {
+  const headers = new Headers([
+    ["X-Amzn-Trace-Id", "sausages"],
+    ["X-Clacks-Overhead", "GNU Terry Pratchett"],
+  ]);
   return {
     nextUrl: {
       origin: new URL(testUrl).origin,
       pathname: new URL(testUrl).pathname,
     },
     url: testUrl,
+    headers: headers,
   };
 }
 
