@@ -46,6 +46,7 @@ const pinoLoggerForNode = () => {
     mixin() {
       return {
         requestId: asyncLocalStorage?.getStore()?.requestId,
+        runtime: process?.env?.NEXT_RUNTIME,
         ...applicationContextFields,
       };
     },
@@ -59,10 +60,11 @@ const pinoLoggerForEdge = () => {
     browser: {
       formatters: formatterWithLevelAsText,
       write: (logEvent: LogDescriptor) => {
-        logEvent = { ...logEvent, ...applicationContextFields };
+        logEvent = { ...logEvent, ...applicationContextFields, runtime: process?.env?.NEXT_RUNTIME };
         console.log(logEvent);
       },
     },
+    redact: REDACTED_KEYS,
   });
 };
 
