@@ -34,7 +34,7 @@ const runContentCacheHydrator = async (event: object) => {
 
 export const handler = async (event: object, context: Context): Promise<void> => {
   const requestContext: RequestContext = {
-    requestId: context.awsRequestId,
+    traceId: context.awsRequestId,
   };
 
   await asyncLocalStorage.run(requestContext, () => runContentCacheHydrator(event));

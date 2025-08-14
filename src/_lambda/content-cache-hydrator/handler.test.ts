@@ -65,7 +65,7 @@ describe("Lambda Handler", () => {
     await expect(handler({}, context)).rejects.toThrow(`${numberOfVaccines} failures`);
   });
 
-  it("stores requestID in asyncLocalStorage context", async () => {
+  it("stores requestID as traceid in asyncLocalStorage context", async () => {
     (fetchContentForVaccine as jest.Mock).mockResolvedValue(undefined);
     (getFilteredContentForVaccine as jest.Mock).mockResolvedValue(undefined);
     (getStyledContentForVaccine as jest.Mock).mockResolvedValue(undefined);
@@ -75,6 +75,6 @@ describe("Lambda Handler", () => {
 
     await handler({}, contextWithRequestId);
 
-    expect(asyncLocalStorage.run).toHaveBeenCalledWith({ requestId: requestId }, expect.anything());
+    expect(asyncLocalStorage.run).toHaveBeenCalledWith({ traceId: requestId }, expect.anything());
   });
 });
