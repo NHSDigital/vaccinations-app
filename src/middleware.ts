@@ -11,7 +11,7 @@ const MiddlewarePerformanceMarker = "middleware";
 
 export async function middleware(request: NextRequest) {
   profilePerformanceStart(MiddlewarePerformanceMarker);
-  log.info(`Inspecting ${request.nextUrl}`);
+  log.info({ nextUrl: request.nextUrl, request, headers: request.headers }, `Inspecting request`);
   const config: AppConfig = await configProvider();
 
   let response: NextResponse;

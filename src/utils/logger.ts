@@ -29,7 +29,7 @@ const formatterWithLevelAsText = {
 };
 
 export const extractRootTraceIdFromAmznTraceId = (amznTraceId: string) => {
-  const amznTraceIdRootExtractionRegex = /Root=([\d\-\w]*);.*/;
+  const amznTraceIdRootExtractionRegex = /Root=([^;]*);.*/;
   return amznTraceIdRootExtractionRegex.exec(amznTraceId)?.[1];
 };
 
