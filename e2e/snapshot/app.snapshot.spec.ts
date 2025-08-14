@@ -14,6 +14,7 @@ const testPageSnapshot = async (
 ) => {
   const screenshotPath: string = pathForCustomScreenshots(testFileName, snapshotFileName, projectName);
   await page.goto(pageRoute);
+  await page.getByRole("link", { name: "Log out" }).waitFor();
 
   if ([RSV_PAGE_URL, RSV_PREGNANCY_PAGE_URL].includes(pageRoute)) {
     await openExpanders(page);

@@ -18,6 +18,7 @@ test.describe("Snapshot Testing - Eligibility", () => {
         const customScreenshotPath = pathForCustomScreenshots(testFileName, screenshotFileName, projectName);
 
         await page.goto(RSV_PAGE_URL);
+        await page.getByRole("link", { name: "Log out" }).waitFor();
         await openExpanders(page);
 
         await page.screenshot({
