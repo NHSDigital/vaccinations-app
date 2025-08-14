@@ -29,14 +29,14 @@ const formatterWithLevelAsText = {
 };
 
 export const extractRootTraceIdFromAmznTraceId = (amznTraceId: string) => {
-  const amznTraceIdRootExtractionRegex = /Root=([^;]*);.*/;
+  const amznTraceIdRootExtractionRegex = /Root=([^;]*).*/;
   return amznTraceIdRootExtractionRegex.exec(amznTraceId)?.[1];
 };
 
 const applicationContextFields = {
-  traceId: process.env._X_AMZN_TRACE_ID ? extractRootTraceIdFromAmznTraceId(process.env._X_AMZN_TRACE_ID) : undefined,
   lambdaVersion: process.env.AWS_LAMBDA_FUNCTION_VERSION,
   appVersion: process.env.APP_VERSION,
+  runtime: process?.env?.NEXT_RUNTIME,
 };
 
 const pinoLoggerForNode = () => {
@@ -45,7 +45,7 @@ const pinoLoggerForNode = () => {
     formatters: formatterWithLevelAsText,
     mixin() {
       return {
-        requestId: asyncLocalStorage?.getStore()?.requestId,
+        traceId: asyncLocalStorage?.getStore()?.traceId,
         ...applicationContextFields,
       };
     },
@@ -59,7 +59,11 @@ const pinoLoggerForEdge = () => {
     browser: {
       formatters: formatterWithLevelAsText,
       write: (logEvent: LogDescriptor) => {
-        logEvent = { ...logEvent, ...applicationContextFields };
+        logEvent = {
+          ...logEvent,
+          traceId: asyncLocalStorage?.getStore()?.traceId,
+          ...applicationContextFields,
+        };
         console.log(logEvent);
       },
     },

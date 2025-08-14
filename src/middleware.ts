@@ -1,7 +1,8 @@
 import { auth } from "@project/auth";
 import { AppConfig, configProvider } from "@src/utils/config";
-import { logger } from "@src/utils/logger";
+import { extractRootTraceIdFromAmznTraceId, logger } from "@src/utils/logger";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
+import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
 import { Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Logger } from "pino";
@@ -10,10 +11,17 @@ const log: Logger = logger.child({ module: "middleware" });
 const MiddlewarePerformanceMarker = "middleware";
 
 export async function middleware(request: NextRequest) {
+  const requestContext: RequestContext = {
+    traceId:
+      extractRootTraceIdFromAmznTraceId(request?.headers?.get("X-Amzn-Trace-Id") ?? "") ?? "undefined-request-id",
+  };
+
+  return await asyncLocalStorage.run(requestContext, () => middlewareWrapper(request));
+}
+
+const middlewareWrapper = async (request: NextRequest) => {
   profilePerformanceStart(MiddlewarePerformanceMarker);
-  const headers: Headers = request.headers;
-  const traceId = headers.get("X-Amzn-Trace-Id");
-  log.info({ nextUrl: request.nextUrl, traceId, headers: [...headers.entries()] }, "Inspecting request");
+  log.info({ nextUrl: request.nextUrl }, "Inspecting request");
   const config: AppConfig = await configProvider();
 
   let response: NextResponse;
@@ -26,7 +34,7 @@ export async function middleware(request: NextRequest) {
 
   profilePerformanceEnd(MiddlewarePerformanceMarker);
   return response;
-}
+};
 
 export const config = {
   matcher: [

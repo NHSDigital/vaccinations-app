@@ -5,6 +5,7 @@ import { HUB_FEEDBACK_REFERRER_ID, NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@sr
 import { VaccineContentUrlPaths, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
 import { ContentErrorTypes, StyledVaccineContent } from "@src/services/content-api/types";
+import { requestScopedStorageWrapper } from "@src/utils/requestScopedStorageWrapper";
 import React from "react";
 
 import { FeedbackBanner } from "../_components/feedback/FeedbackBanner";
@@ -19,6 +20,10 @@ const ifContentHasLoadedSuccessfully = (
 };
 
 const VaccinationsHub = async () => {
+  return requestScopedStorageWrapper(vaccinationsHubPage);
+};
+
+const vaccinationsHubPage = async () => {
   const { styledVaccineContent, contentError } = await getContentForVaccine(VaccineTypes.RSV);
 
   return (

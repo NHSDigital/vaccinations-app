@@ -1,7 +1,7 @@
 import { AsyncLocalStorage } from "async_hooks";
 
 export type RequestContext = {
-  requestId: string;
+  traceId: string;
 };
 
 const asyncLocalStorage = new AsyncLocalStorage<RequestContext>();
