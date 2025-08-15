@@ -24,7 +24,7 @@ jest.mock("next/headers", () => ({
 }));
 
 describe("Dynamic vaccine page", () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     const fakeHeaders: ReadonlyHeaders = {
       get(name: string): string | null {
         return `fake-${name}-header`;
