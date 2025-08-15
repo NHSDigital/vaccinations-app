@@ -6,6 +6,8 @@ import { configProvider } from "@src/utils/config";
 import { mockNHSAppJSFunctions } from "@src/utils/nhsapp-js.test";
 import { eligibilityApiResponseBuilder } from "@test-data/eligibility-api/builders";
 import { render, screen } from "@testing-library/react";
+import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
+import { headers } from "next/headers";
 
 jest.mock("@src/utils/auth/generate-auth-payload", () => jest.fn());
 jest.mock("@src/utils/config", () => ({
@@ -22,6 +24,9 @@ jest.mock("react-markdown", () => {
 });
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
+}));
+jest.mock("next/headers", () => ({
+  headers: jest.fn(),
 }));
 
 const nhsNumber = "5123456789";
@@ -40,6 +45,12 @@ describe("Vaccine", () => {
         birthdate: new Date(),
       },
     });
+    const fakeHeaders: ReadonlyHeaders = {
+      get(name: string): string | null {
+        return `fake-${name}-header`;
+      },
+    } as ReadonlyHeaders;
+    (headers as jest.Mock).mockResolvedValue(fakeHeaders);
   });
 
   it.each([VaccineTypes.RSV, VaccineTypes.RSV_PREGNANCY])(

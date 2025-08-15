@@ -16,6 +16,7 @@ import { ContentErrorTypes, StyledVaccineContent } from "@src/services/content-a
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import { Eligibility, EligibilityErrorTypes } from "@src/services/eligibility-api/types";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
+import { requestScopedStorageWrapper } from "@src/utils/requestScopedStorageWrapper";
 import { Session } from "next-auth";
 import React, { JSX } from "react";
 
@@ -27,7 +28,11 @@ interface VaccineProps {
 
 const VaccinePagePerformanceMarker = "vaccine-page";
 
-const Vaccine = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
+const Vaccine = async ({ vaccineType }: VaccineProps) => {
+  return await requestScopedStorageWrapper(VaccineComponent, { vaccineType });
+};
+
+const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
   profilePerformanceStart(VaccinePagePerformanceMarker);
 
   const session: Session | null = await auth();

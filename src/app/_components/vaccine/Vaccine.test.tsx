@@ -10,6 +10,8 @@ import { EligibilityErrorTypes, EligibilityStatus } from "@src/services/eligibil
 import { mockStyledContent } from "@test-data/content-api/data";
 import { eligibilityContentBuilder } from "@test-data/eligibility-api/builders";
 import { render, screen } from "@testing-library/react";
+import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
+import { headers } from "next/headers";
 import React from "react";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service", () => ({
@@ -43,6 +45,9 @@ jest.mock("@src/app/_components/content/HowToGetVaccineFallback", () => ({
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
 }));
+jest.mock("next/headers", () => ({
+  headers: jest.fn(),
+}));
 
 const nhsNumber = "5123456789";
 
@@ -72,6 +77,12 @@ describe("Any vaccine page", () => {
           birthdate: new Date(),
         },
       });
+      const fakeHeaders: ReadonlyHeaders = {
+        get(name: string): string | null {
+          return `fake-${name}-header`;
+        },
+      } as ReadonlyHeaders;
+      (headers as jest.Mock).mockResolvedValue(fakeHeaders);
     });
 
     it("should include lowercase vaccine name in more information text", async () => {
