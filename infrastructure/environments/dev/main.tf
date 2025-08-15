@@ -34,3 +34,12 @@ module "deploy_monitoring" {
   cloudfront_distribution_id = module.deploy.cloudfront_distribution_id
   is_local                   = !var.is_github_action
 }
+
+module "deploy_audit" {
+  source = "../../modules/deploy_audit"
+
+  audit_logs_retention_days = local.audit_logs_retention_days
+  default_tags              = local.default_tags
+  prefix                    = local.prefix
+  account_id                = data.aws_caller_identity.current.account_id
+}
