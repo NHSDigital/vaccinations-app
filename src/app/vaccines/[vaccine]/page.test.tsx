@@ -5,6 +5,8 @@ import { mockStyledContent } from "@test-data/content-api/data";
 import { assertBackLinkIsPresent } from "@test-data/utils/back-link-helpers";
 import { renderDynamicPage } from "@test-data/utils/dynamic-page-helpers";
 import { screen } from "@testing-library/react";
+import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 
 jest.mock("next/navigation", () => ({
@@ -17,8 +19,20 @@ jest.mock("@src/services/content-api/gateway/content-reader-service", () => ({
   getContentForVaccine: jest.fn(),
 }));
 jest.mock("@src/app/_components/nhs-frontend/BackLink", () => jest.fn(() => <div data-testid="back-link"></div>));
+jest.mock("next/headers", () => ({
+  headers: jest.fn(),
+}));
 
 describe("Dynamic vaccine page", () => {
+  beforeEach(async () => {
+    const fakeHeaders: ReadonlyHeaders = {
+      get(name: string): string | null {
+        return `fake-${name}-header`;
+      },
+    } as ReadonlyHeaders;
+    (headers as jest.Mock).mockResolvedValue(fakeHeaders);
+  });
+
   it("calls notFound when path is invalid", async () => {
     await renderDynamicPage("test");
     expect(notFound).toHaveBeenCalled();

@@ -1,9 +1,12 @@
 import { extractRootTraceIdFromAmznTraceId } from "@src/utils/logger";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
 import { headers } from "next/headers";
-import { ReactNode } from "react";
+import { JSX } from "react";
 
-const requestScopedStorageWrapper = async (wrappedFunction: () => Promise<ReactNode>) => {
+async function requestScopedStorageWrapper<A extends unknown[]>(
+  wrappedFunction: (...args: A) => Promise<JSX.Element>,
+  ...args: A
+) {
   const requestHeaders = await headers();
   const traceId =
     extractRootTraceIdFromAmznTraceId(requestHeaders.get("X-Amzn-Trace-Id") ?? "") ?? "undefined-request-id";
@@ -12,8 +15,8 @@ const requestScopedStorageWrapper = async (wrappedFunction: () => Promise<ReactN
   const requestContext: RequestContext = { traceId: traceId };
 
   return asyncLocalStorage.run(requestContext, () => {
-    return wrappedFunction();
+    return wrappedFunction(...args);
   });
-};
+}
 
 export { requestScopedStorageWrapper };
