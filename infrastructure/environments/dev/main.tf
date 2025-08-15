@@ -45,4 +45,5 @@ module "deploy_audit" {
   region                                = local.region
   audit_logs_buffering_size_mb          = local.audit_logs_buffering_size_mb
   audit_logs_buffering_interval_seconds = local.audit_logs_buffering_interval_seconds
+  log_retention_in_days                 = local.log_retention_in_days
 }

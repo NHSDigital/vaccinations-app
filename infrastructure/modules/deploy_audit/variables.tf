@@ -32,3 +32,8 @@ variable "audit_logs_buffering_interval_seconds" {
   type        = number
   description = "The buffering interval of kinesis firehose data stream before delivering logs, in seconds"
 }
+
+variable "log_retention_in_days" {
+  type = string
+  description = "Firehose logs retention in days"
+}

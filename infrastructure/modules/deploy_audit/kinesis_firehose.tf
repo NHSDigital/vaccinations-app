@@ -20,8 +20,8 @@ resource "aws_kinesis_firehose_delivery_stream" "audit_logs_kinesis_firehose_del
 
     cloudwatch_logging_options {
       enabled         = true
-      log_group_name  = "/aws/kinesisfirehose/${var.prefix}-audit-logs"
-      log_stream_name = "DestinationDelivery"
+      log_group_name  = aws_cloudwatch_log_group.audit_logs_kinesis_firehose_cloudwatch_log_group.name
+      log_stream_name = aws_cloudwatch_log_stream.audit_logs_kinesis_firehose_cloudwatch_log_stream.name
     }
 
     dynamic_partitioning_configuration {
