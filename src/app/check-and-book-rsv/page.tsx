@@ -1,5 +1,3 @@
-"use server";
-
 import BackToNHSAppLink from "@src/app/_components/nhs-app/BackToNHSAppLink";
 import CardLink from "@src/app/_components/nhs-app/CardLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
