@@ -18,7 +18,9 @@ locals {
   app_version               = var.app_version
   alarms_slack_channel_id   = var.alarms_slack_channel_id
 
-  audit_logs_retention_days = 7
+  audit_logs_retention_days             = 7
+  audit_logs_buffering_size_mb          = 64
+  audit_logs_buffering_interval_seconds = 60
 
   application_environment_variables = {
     SSM_PREFIX = "/${local.prefix}/"

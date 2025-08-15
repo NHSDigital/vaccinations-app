@@ -38,8 +38,11 @@ module "deploy_monitoring" {
 module "deploy_audit" {
   source = "../../modules/deploy_audit"
 
-  audit_logs_retention_days = local.audit_logs_retention_days
-  default_tags              = local.default_tags
-  prefix                    = local.prefix
-  account_id                = data.aws_caller_identity.current.account_id
+  audit_logs_retention_days             = local.audit_logs_retention_days
+  default_tags                          = local.default_tags
+  prefix                                = local.prefix
+  account_id                            = data.aws_caller_identity.current.account_id
+  region                                = local.region
+  audit_logs_buffering_size_mb          = local.audit_logs_buffering_size_mb
+  audit_logs_buffering_interval_seconds = local.audit_logs_buffering_interval_seconds
 }

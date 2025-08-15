@@ -127,6 +127,7 @@
         "s3:GetObjectTagging",
         "s3:GetReplicationConfiguration",
         "s3:ListBucket",
+        "s3:PutBucketObjectLockConfiguration",
         "s3:PutBucketPolicy",
         "s3:PutBucketPublicAccessBlock",
         "s3:PutBucketTagging",

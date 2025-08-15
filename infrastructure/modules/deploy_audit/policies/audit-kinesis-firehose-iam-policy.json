@@ -1,0 +1,30 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:AbortMultipartUpload",
+        "s3:GetBucketLocation",
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:ListBucketMultipartUploads",
+        "s3:PutObject"
+      ],
+      "Resource": ["${s3_bucket_arn}", "${s3_bucket_arn}/*"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["logs:PutLogEvents", "logs:CreateLogStream"],
+      "Resource": [
+        "arn:aws:logs:${region}:${account_id}:log-group:${log_group}",
+        "arn:aws:logs:${region}:${account_id}:log-group:${log_group}:log-stream:*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["glue:GetTable", "glue:GetTableVersion", "glue:GetTableVersions"],
+      "Resource": ["arn:aws:glue:${region}:${account_id}:catalog", "${glue_database_arn}", "${firehose_conversion_arn}"]
+    }
+  ]
+}
