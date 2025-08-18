@@ -10,8 +10,6 @@ async function requestScopedStorageWrapper<A extends unknown[]>(
   const requestHeaders = await headers();
   const traceId =
     extractRootTraceIdFromAmznTraceId(requestHeaders.get("X-Amzn-Trace-Id") ?? "") ?? "undefined-request-id";
-  // TODO VIA-390 local testing only
-  // const traceId = requestHeaders.get("x-forwarded-proto") ?? "undefined-request-id";
   const requestContext: RequestContext = { traceId: traceId };
 
   return asyncLocalStorage.run(requestContext, () => {

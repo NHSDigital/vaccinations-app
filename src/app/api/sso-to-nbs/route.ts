@@ -1,9 +1,10 @@
 import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 import { VaccineTypes } from "@src/models/vaccine";
 import { getNbsQueryParams, getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
-import { logger } from "@src/utils/logger";
+import { extractRootTraceIdFromAmznTraceId, logger } from "@src/utils/logger";
 import { getVaccineTypeFromUrlPath } from "@src/utils/path";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
+import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
 import { notFound, redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
@@ -13,24 +14,29 @@ const REDIRECT_TARGET_PARAM = "redirectTarget";
 const ApiSSONBSPerformanceMarker = "api-sso-nbs";
 
 export const GET = async (request: NextRequest) => {
-  let shouldReturnNotFound: boolean;
-  let finalRedirectUrl: string;
+  const traceId =
+    extractRootTraceIdFromAmznTraceId(request?.headers?.get("X-Amzn-Trace-Id") ?? "") ?? "undefined-request-id";
+  const requestContext: RequestContext = { traceId: traceId };
+  await asyncLocalStorage.run(requestContext, async () => {
+    let shouldReturnNotFound: boolean;
+    let finalRedirectUrl: string;
 
-  profilePerformanceStart(ApiSSONBSPerformanceMarker);
+    profilePerformanceStart(ApiSSONBSPerformanceMarker);
 
-  if (request.nextUrl.searchParams.has(REDIRECT_TARGET_PARAM)) {
-    const rawRedirectTarget = request.nextUrl.searchParams.get(REDIRECT_TARGET_PARAM);
-    ({ finalRedirectUrl, shouldReturnNotFound } = await getGivenRedirectTarget(rawRedirectTarget));
-  } else {
-    const vaccine: string | null = request.nextUrl.searchParams.get(VACCINE_PARAM);
-    ({ finalRedirectUrl, shouldReturnNotFound } = await getGivenVaccine(vaccine));
-  }
+    if (request.nextUrl.searchParams.has(REDIRECT_TARGET_PARAM)) {
+      const rawRedirectTarget = request.nextUrl.searchParams.get(REDIRECT_TARGET_PARAM);
+      ({ finalRedirectUrl, shouldReturnNotFound } = await getGivenRedirectTarget(rawRedirectTarget));
+    } else {
+      const vaccine: string | null = request.nextUrl.searchParams.get(VACCINE_PARAM);
+      ({ finalRedirectUrl, shouldReturnNotFound } = await getGivenVaccine(vaccine));
+    }
 
-  profilePerformanceEnd(ApiSSONBSPerformanceMarker);
+    profilePerformanceEnd(ApiSSONBSPerformanceMarker);
 
-  if (shouldReturnNotFound) {
-    notFound();
-  } else redirect(finalRedirectUrl);
+    if (shouldReturnNotFound) {
+      notFound();
+    } else redirect(finalRedirectUrl);
+  });
 };
 
 async function getGivenRedirectTarget(rawRedirectTarget: string | null) {
