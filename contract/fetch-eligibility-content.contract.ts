@@ -2,6 +2,7 @@ import { NhsNumber } from "@src/models/vaccine";
 import { EligibilityApiResponse } from "@src/services/eligibility-api/api-types";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import { AppConfig } from "@src/utils/config";
+import { asyncLocalStorage } from "@src/utils/requestContext";
 import { appConfigBuilder } from "@test-data/config/builders";
 import { readFileSync } from "fs";
 import { pactWith } from "jest-pact";
@@ -52,8 +53,6 @@ pactWith({ consumer: "VitA", provider: "EliD", port: 1234, logLevel: "warn" }, (
     const mockNhsNumber = "9450114080" as NhsNumber;
     const vitaTraceId = "mock-trace-id";
 
-    process.env._X_AMZN_TRACE_ID = vitaTraceId;
-
     const elidResponse = readFileSync(`./wiremock/__files/eligibility/9450114080.json`, "utf-8");
 
     const interaction = {
@@ -82,7 +81,10 @@ pactWith({ consumer: "VitA", provider: "EliD", port: 1234, logLevel: "warn" }, (
     });
 
     it("fetches eligibility content successfully", async () => {
-      const response = await fetchEligibilityContent(mockNhsNumber);
+      const response = await asyncLocalStorage.run({ traceId: vitaTraceId }, async () => {
+        return await fetchEligibilityContent(mockNhsNumber);
+      });
+
       expect(response).toEqual(successfulResponse);
     });
   });
