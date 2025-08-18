@@ -12,6 +12,7 @@ import { Cohort, Heading } from "@src/services/eligibility-api/types";
 import { getApimAccessToken } from "@src/utils/auth/apim/get-apim-access-token";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
+import { asyncLocalStorage } from "@src/utils/requestContext";
 import axios, { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { ZodError } from "zod";
 
@@ -30,7 +31,7 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
 
   const apiEndpoint: URL = config.ELIGIBILITY_API_ENDPOINT;
   const apiKey: string = config.ELIGIBILITY_API_KEY;
-  const vitaTraceId: string | undefined = process.env._X_AMZN_TRACE_ID;
+  const vitaTraceId: string | undefined = asyncLocalStorage?.getStore()?.traceId;
 
   const uri: string = `${apiEndpoint}${ELIGIBILITY_API_PATH_SUFFIX}${nhsNumber}`;
   let headers: Headers = {
