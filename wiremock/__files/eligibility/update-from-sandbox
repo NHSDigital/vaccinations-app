@@ -12,3 +12,5 @@ for file in +([0-9]).json; do
     echo "Updated $file"
   fi
 done
+
+npm run format
