@@ -30,7 +30,7 @@ const getSSMParam = async (name: string): Promise<string> => {
 
     return rawAPIResponse.data.Parameter.Value;
   } catch (error) {
-    log.error({ error });
+    log.error({ context: { param: name, error: error } }, "Error in getting SSM parameter");
     throw error;
   }
 };

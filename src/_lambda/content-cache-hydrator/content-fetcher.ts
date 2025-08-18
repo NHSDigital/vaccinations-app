@@ -28,7 +28,7 @@ const fetchContentForVaccine = async (vaccine: VaccineTypes): Promise<string> =>
     log.info("Successfully fetched content from %s", uri);
     return JSON.stringify(response.data);
   } catch (error) {
-    log.error(`Error in fetching ${uri}: ${error}`);
+    log.error({ context: { uri: uri, error: error } }, "Error in getting vaccine content from nhs.uk API");
     throw error;
   }
 };
