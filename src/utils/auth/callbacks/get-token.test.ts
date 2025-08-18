@@ -6,18 +6,30 @@ import { appConfigBuilder } from "@test-data/config/builders";
 import { jwtDecode } from "jwt-decode";
 import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
+import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
+import { headers } from "next/headers";
 
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
 }));
-
 jest.mock("@src/utils/auth/apim/get-apim-access-token", () => ({
   retrieveApimCredentials: jest.fn(),
 }));
-
+jest.mock("next/headers", () => ({
+  headers: jest.fn(),
+}));
 jest.mock("jwt-decode");
 
 describe("getToken", () => {
+  beforeAll(async () => {
+    const fakeHeaders: ReadonlyHeaders = {
+      get(name: string): string | null {
+        return `fake-${name}-header`;
+      },
+    } as ReadonlyHeaders;
+    (headers as jest.Mock).mockResolvedValue(fakeHeaders);
+  });
+
   describe("when AUTH APIM is available", () => {
     const oldNEXT_RUNTIME = process.env.NEXT_RUNTIME;
 

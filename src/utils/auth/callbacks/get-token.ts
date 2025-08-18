@@ -3,9 +3,11 @@ import { retrieveApimCredentials } from "@src/utils/auth/apim/get-apim-access-to
 import { ApimAccessCredentials } from "@src/utils/auth/apim/types";
 import { BirthDate, ExpiresSoonAt, IdToken, MaxAgeInSeconds, NowInSeconds } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
-import { logger } from "@src/utils/logger";
+import { extractRootTraceIdFromAmznTraceId, logger } from "@src/utils/logger";
+import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
 import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
+import { headers } from "next/headers";
 import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "utils-auth-callbacks-get-token" });
@@ -24,38 +26,44 @@ const getToken = async (
   config: AppConfig,
   maxAgeInSeconds: MaxAgeInSeconds,
 ) => {
-  if (!token) {
-    log.error("getToken: No token available in jwt callback. Returning null");
-    return null;
-  }
+  const headerValues = await headers();
+  const traceId =
+    extractRootTraceIdFromAmznTraceId(headerValues?.get("X-Amzn-Trace-Id") ?? "") ?? "undefined-request-id";
+  const requestContext: RequestContext = { traceId: traceId };
+  return await asyncLocalStorage.run(requestContext, async () => {
+    if (!token) {
+      log.error("getToken: No token available in jwt callback. Returning null");
+      return null;
+    }
 
-  const nowInSeconds = Math.floor(Date.now() / 1000);
+    const nowInSeconds = Math.floor(Date.now() / 1000);
 
-  // Maximum age reached scenario: invalidate session after fixedExpiry
-  if (token.fixedExpiry && nowInSeconds >= token.fixedExpiry) {
-    log.info("getToken: Token has reached fixedExpiry time, or session has reached the max age. Returning null");
-    return null;
-  }
+    // Maximum age reached scenario: invalidate session after fixedExpiry
+    if (token.fixedExpiry && nowInSeconds >= token.fixedExpiry) {
+      log.info("getToken: Token has reached fixedExpiry time, or session has reached the max age. Returning null");
+      return null;
+    }
 
-  // TODO VIA-254 - can we do this only once? https://www.youtube.com/watch?v=A4I9DMSvJxg
-  const apimAccessCredentials = await _getOrRefreshApimCredentials(config, token, nowInSeconds);
+    // TODO VIA-254 - can we do this only once? https://www.youtube.com/watch?v=A4I9DMSvJxg
+    const apimAccessCredentials = await _getOrRefreshApimCredentials(config, token, nowInSeconds);
 
-  // Inspect the token (which was either returned from login or fetched from session), fill missing or blank values with defaults
-  let updatedToken: JWT = fillMissingFieldsInTokenWithDefaultValues(token, apimAccessCredentials);
+    // Inspect the token (which was either returned from login or fetched from session), fill missing or blank values with defaults
+    let updatedToken: JWT = fillMissingFieldsInTokenWithDefaultValues(token, apimAccessCredentials);
 
-  // Initial login scenario: account and profile are only defined for the initial login, afterward they become undefined
-  if (isInitialLoginJourney(account, profile) && account != null && profile != null) {
-    updatedToken = updateTokenWithValuesFromAccountAndProfile(
-      updatedToken,
-      account,
-      profile,
-      nowInSeconds as NowInSeconds,
-      maxAgeInSeconds,
-    );
-  }
+    // Initial login scenario: account and profile are only defined for the initial login, afterward they become undefined
+    if (isInitialLoginJourney(account, profile) && account != null && profile != null) {
+      updatedToken = updateTokenWithValuesFromAccountAndProfile(
+        updatedToken,
+        account,
+        profile,
+        nowInSeconds as NowInSeconds,
+        maxAgeInSeconds,
+      );
+    }
 
-  log.debug({ updatedToken: updatedToken }, "Returning JWT from callback");
-  return updatedToken;
+    log.debug({ updatedToken: updatedToken }, "Returning JWT from callback");
+    return updatedToken;
+  });
 };
 
 async function _getOrRefreshApimCredentials(config: AppConfig, token: JWT, nowInSeconds: number) {
