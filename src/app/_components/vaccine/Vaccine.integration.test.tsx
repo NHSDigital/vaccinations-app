@@ -28,6 +28,7 @@ jest.mock("@project/auth", () => ({
 jest.mock("next/headers", () => ({
   headers: jest.fn(),
 }));
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 const nhsNumber = "5123456789";
 

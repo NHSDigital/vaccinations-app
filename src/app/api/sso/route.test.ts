@@ -6,10 +6,10 @@ import { NextRequest } from "next/server";
 jest.mock("@project/auth", () => ({
   signIn: jest.fn(),
 }));
-
 jest.mock("next/navigation", () => ({
   redirect: jest.fn(),
 }));
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 function getMockRequest(testUrl: string, params?: Record<string, string>) {
   return {

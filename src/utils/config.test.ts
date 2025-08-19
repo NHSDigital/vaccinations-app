@@ -4,6 +4,7 @@ import { randomString } from "@test-data/meta-builder";
 import { AppConfig, _resetAppConfig, configProvider } from "./config";
 
 jest.mock("@src/utils/get-ssm-param");
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("configProvider", () => {
   const nowInSeconds = 0;

@@ -19,6 +19,7 @@ jest.mock("next/headers", () => ({
   headers: jest.fn(),
 }));
 jest.mock("jwt-decode");
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("getToken", () => {
   beforeAll(async () => {

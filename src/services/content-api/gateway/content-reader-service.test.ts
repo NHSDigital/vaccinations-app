@@ -11,6 +11,7 @@ import { Readable } from "stream";
 
 jest.mock("@aws-sdk/client-s3");
 jest.mock("@src/utils/config");
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 const mockRsvResponse = {
   Body: new Readable({

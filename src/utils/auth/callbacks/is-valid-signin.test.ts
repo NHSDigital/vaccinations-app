@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import { Account } from "next-auth";
 
 jest.mock("jwt-decode");
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("isValidSignIn", () => {
   const mockConfig: AppConfig = appConfigBuilder()

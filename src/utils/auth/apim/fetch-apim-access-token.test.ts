@@ -10,6 +10,7 @@ import jwt from "jsonwebtoken";
 jest.mock("jsonwebtoken", () => ({
   sign: jest.fn(),
 }));
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 const mockRandomUUID = "mock-jti";
 const mockSignedJwt = "mock-signed-jwt";

@@ -11,6 +11,7 @@ jest.mock("@src/app/_components/nhs-app/BackToNHSAppLink");
 jest.mock("next/headers", () => ({
   headers: jest.fn(),
 }));
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("Vaccination Hub Page", () => {
   describe("when content fails to load", () => {

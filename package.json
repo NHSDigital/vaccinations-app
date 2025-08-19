@@ -83,6 +83,7 @@
     "react-dom": "^19.1.1",
     "react-error-boundary": "^6.0.0",
     "react-markdown": "^10.1.0",
+    "sanitize-data": "^1.0.5",
     "zod": "^4.0.17"
   },
   "overrides": {

@@ -8,11 +8,11 @@ jest.mock("@src/services/nbs/nbs-service", () => ({
   getSSOUrlToNBSForVaccine: jest.fn(),
   getNbsQueryParams: jest.fn(),
 }));
-
 jest.mock("next/navigation", () => ({
   redirect: jest.fn(),
   notFound: jest.fn(),
 }));
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 function getMockRequest(testUrl: string, params?: Record<string, string>) {
   return {

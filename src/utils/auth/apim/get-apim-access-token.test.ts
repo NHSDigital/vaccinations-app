@@ -10,6 +10,7 @@ jest.mock("@src/utils/auth/get-jwt-token", () => ({
 jest.mock("@src/utils/auth/apim/fetch-apim-access-token", () => ({
   fetchAPIMAccessToken: jest.fn(),
 }));
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("getApimAccessToken", () => {
   it("should use access token from JWT token when APIM access token populated", async () => {

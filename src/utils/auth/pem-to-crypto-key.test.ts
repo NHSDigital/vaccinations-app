@@ -4,6 +4,8 @@
 import pemToCryptoKey from "@src/utils/auth/pem-to-crypto-key";
 import { generateKeyPairSync } from "crypto";
 
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
+
 const generatePrivateKeyStub = (): string => {
   const { privateKey } = generateKeyPairSync("rsa", {
     modulusLength: 2048,

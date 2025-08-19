@@ -1,5 +1,7 @@
 import { extractRootTraceIdFromAmznTraceId } from "@src/utils/logger";
 
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
+
 describe("extractRootTraceIdFromAmznTraceId", () => {
   it("should extract TraceID root from longer AWS Trace Id string", () => {
     const amznTraceId =

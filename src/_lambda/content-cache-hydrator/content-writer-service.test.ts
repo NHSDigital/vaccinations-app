@@ -24,6 +24,7 @@ jest.mock("@aws-sdk/client-s3", () => {
     PutObjectCommand: jest.fn(),
   };
 });
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("Content Writer Service", () => {
   const location: string = "test-location";

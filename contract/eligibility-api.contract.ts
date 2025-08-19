@@ -10,6 +10,7 @@ import dotenv from "dotenv";
 jest.mock("next-auth/jwt", () => ({
   getToken: jest.fn(),
 }));
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("EliD API contract", () => {
   beforeAll(async () => {

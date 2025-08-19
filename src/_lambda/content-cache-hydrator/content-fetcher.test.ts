@@ -6,6 +6,7 @@ import axios from "axios";
 
 jest.mock("@src/utils/config");
 jest.mock("axios");
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("fetchContentForVaccine", () => {
   const testApiKey: string = "test-key";

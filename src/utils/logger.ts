@@ -1,5 +1,6 @@
 import { asyncLocalStorage } from "@src/utils/requestContext";
 import pino, { LogDescriptor, Logger } from "pino";
+import { SanitizerMode, sanitize } from "sanitize-data";
 
 const isEdgeRuntime = process?.env?.NEXT_RUNTIME === "edge";
 const currentLevel = process.env.PINO_LOG_LEVEL ?? "info";
@@ -25,6 +26,16 @@ const REDACT_KEYS: string[] = [
 // No redaction if at trace level.
 const REDACT =
   currentLevel === "trace" ? [] : REDACT_PATHS.flatMap((prefix) => REDACT_KEYS.map((word) => prefix + word));
+const REDACTION_RULES =
+  currentLevel === "trace"
+    ? {}
+    : REDACT_KEYS.reduce(
+        (rules, key) => {
+          rules[key] = "redact" as SanitizerMode;
+          return rules;
+        },
+        {} as { [key: string]: SanitizerMode },
+      );
 
 const formatterWithLevelAsText = {
   level: (label: string) => {
@@ -68,8 +79,7 @@ const pinoLoggerForEdge = () => {
           traceId: asyncLocalStorage?.getStore()?.traceId,
           ...applicationContextFields,
         };
-        // TODO VIA-392 - How do we redact here?
-        console.log(logEvent);
+        console.log(sanitize(logEvent, { rules: REDACTION_RULES }));
       },
     },
   });

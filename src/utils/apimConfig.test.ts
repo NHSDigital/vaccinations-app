@@ -3,6 +3,7 @@ import getSSMParam from "@src/utils/get-ssm-param";
 import { randomString } from "@test-data/meta-builder";
 
 jest.mock("@src/utils/get-ssm-param");
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("apimConfigProvider", () => {
   const nowInSeconds = 0;

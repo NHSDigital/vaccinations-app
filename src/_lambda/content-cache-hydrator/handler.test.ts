@@ -22,6 +22,7 @@ jest.mock("@src/utils/requestContext", () => ({
     name: "name",
   },
 }));
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("Lambda Handler", () => {
   const numberOfVaccines = Object.values(VaccineTypes).length;

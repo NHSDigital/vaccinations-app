@@ -3,6 +3,7 @@ import { configProvider } from "@src/utils/config";
 
 jest.mock("@src/utils/config");
 jest.mock("@src/utils/auth/pem-to-crypto-key");
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("provider", () => {
   (configProvider as jest.Mock).mockImplementation(() => ({

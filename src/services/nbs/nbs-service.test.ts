@@ -7,6 +7,7 @@ jest.mock("@src/utils/config");
 jest.mock("@src/utils/auth/generate-auth-payload", () => ({
   generateAssertedLoginIdentityJwt: jest.fn(),
 }));
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 const nbsUrlFromConfig = "https://test-nbs-url";
 const nbsBookingPathFromConfig = "/test/path/book";

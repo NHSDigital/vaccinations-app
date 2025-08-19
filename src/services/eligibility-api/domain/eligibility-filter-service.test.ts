@@ -27,6 +27,7 @@ import {
 jest.mock("@src/services/eligibility-api/gateway/fetch-eligibility-content", () => ({
   fetchEligibilityContent: jest.fn(),
 }));
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 const nhsNumber = "5123456789" as NhsNumber;
 

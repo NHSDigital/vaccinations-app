@@ -17,10 +17,10 @@ jest.mock("@src/utils/config", () => ({
     return Promise.resolve(value);
   }),
 }));
-
 jest.mock("next-auth/jwt", () => ({
   getToken: jest.fn(),
 }));
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 const successfulResponse: EligibilityApiResponse = {
   processedSuggestions: [

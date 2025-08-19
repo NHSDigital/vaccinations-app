@@ -6,6 +6,7 @@ import { headers } from "next/headers";
 jest.mock("next/headers", () => ({
   headers: jest.fn(),
 }));
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("requestScopedStorageWrapper", () => {
   beforeEach(async () => {

@@ -2,6 +2,7 @@ import getSSMParam from "@src/utils/get-ssm-param";
 import axios from "axios";
 
 jest.mock("axios");
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("getSSMParam", () => {
   beforeEach(() => {

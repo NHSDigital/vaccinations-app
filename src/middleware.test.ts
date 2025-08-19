@@ -11,6 +11,7 @@ jest.mock("@project/auth", () => ({
   auth: jest.fn(),
   signIn: jest.fn(),
 }));
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 jest.mock("@src/utils/config");
 
