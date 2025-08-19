@@ -1,0 +1,24 @@
+{
+  "responseId": "1a233ba5-e1eb-4080-a086-2962f6fc3473",
+  "meta": { "lastUpdated": "2025-02-12T16:11:22Z" },
+  "processedSuggestions": [
+    {
+      "condition": "RSV",
+      "status": "Actionable",
+      "statusText": "You should have the RSV vaccine",
+      "eligibilityCohorts": [
+        { "cohortCode": "rsv_age_rolling", "cohortText": "are aged 75 to 79", "cohortStatus": "Actionable" }
+      ],
+      "suitabilityRules": [],
+      "actions": [
+        {
+          "actionType": "ButtonWithAuthLink",
+          "actionCode": "BookNBS",
+          "description": "",
+          "urlLink": "https://f.nhswebsite-integration.nhs.uk/nbs/nhs-app/rsv",
+          "urlLabel": "Continue to booking"
+        }
+      ]
+    }
+  ]
+}
