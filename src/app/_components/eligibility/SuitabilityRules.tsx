@@ -12,16 +12,22 @@ const SuitabilityRules = ({ suitabilityRules }: SuitabilityRuleProps): (JSX.Elem
     switch (suitabilityRule.type) {
       case RuleDisplayType.card: {
         return (
-          <div key={suitabilityRule.content}>
-            <BasicCard content={suitabilityRule.content} />
-          </div>
+          <>
+            <div key={suitabilityRule.content} data-testid="suitability-rule-card">
+              <BasicCard content={suitabilityRule.content} />
+            </div>
+            {suitabilityRule.delineator && <hr />}
+          </>
         );
       }
       case RuleDisplayType.infotext: {
         return (
-          <div key={suitabilityRule.content} data-testid="action-paragraph">
-            <MarkdownWithStyling content={suitabilityRule.content} />
-          </div>
+          <>
+            <div key={suitabilityRule.content} data-testid="suitability-rule-paragraph">
+              <MarkdownWithStyling content={suitabilityRule.content} />
+            </div>
+            {suitabilityRule.delineator && <hr />}
+          </>
         );
       }
     }

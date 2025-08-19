@@ -44,6 +44,31 @@ describe("SuitabilityRules", () => {
         expect(content1).toBeVisible();
         expect(content2).toBeVisible();
       });
+
+      it("should display delineator depending on flag", () => {
+        render(
+          SuitabilityRules({
+            suitabilityRules: [
+              suitabilityRuleBuilder()
+                .withType(RuleDisplayType.card)
+                .andContent("Test Content 1")
+                .andDelineator(true)
+                .build(),
+              suitabilityRuleBuilder()
+                .withType(RuleDisplayType.card)
+                .andContent("Test Content 2")
+                .andDelineator(false)
+                .build(),
+            ],
+          }),
+        );
+
+        const content1: HTMLElement = screen.getByText("Test Content 1");
+        const content2: HTMLElement = screen.getByText("Test Content 2");
+
+        expect(content1.closest('[data-testid="suitability-rule-card"]')?.nextElementSibling?.tagName).toBe("HR");
+        expect(content2.closest('[data-testid="suitability-rule-card"]')?.nextElementSibling?.tagName).not.toBe("HR");
+      });
     });
 
     describe("infotext cardType", () => {
@@ -76,6 +101,33 @@ describe("SuitabilityRules", () => {
 
         expect(content1).toBeVisible();
         expect(content2).toBeVisible();
+      });
+
+      it("should display delineator depending on flag", () => {
+        render(
+          SuitabilityRules({
+            suitabilityRules: [
+              suitabilityRuleBuilder()
+                .withType(RuleDisplayType.infotext)
+                .andContent("Test Content 1")
+                .andDelineator(true)
+                .build(),
+              suitabilityRuleBuilder()
+                .withType(RuleDisplayType.infotext)
+                .andContent("Test Content 2")
+                .andDelineator(false)
+                .build(),
+            ],
+          }),
+        );
+
+        const content1: HTMLElement = screen.getByText("Test Content 1");
+        const content2: HTMLElement = screen.getByText("Test Content 2");
+
+        expect(content1.closest('[data-testid="suitability-rule-paragraph"]')?.nextElementSibling?.tagName).toBe("HR");
+        expect(content2.closest('[data-testid="suitability-rule-paragraph"]')?.nextElementSibling?.tagName).not.toBe(
+          "HR",
+        );
       });
     });
   });
