@@ -120,6 +120,7 @@
         "logs:DescribeLogGroups",
         "logs:DescribeLogStreams",
         "logs:DescribeMetricFilters",
+        "logs:DescribeSubscriptionFilters",
         "logs:ListTagsForResource",
         "logs:PutMetricFilter",
         "logs:PutRetentionPolicy",
