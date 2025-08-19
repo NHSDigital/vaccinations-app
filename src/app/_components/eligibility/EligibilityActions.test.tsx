@@ -5,7 +5,6 @@ import React from "react";
 
 import { EligibilityActions } from "./EligibilityActions";
 
-// TODO: Remove after final solution for testing with react-markdown
 jest.mock("react-markdown", () => {
   return function MockMarkdown({ children }: { children: React.ReactNode }) {
     return <div>{children}</div>;
@@ -46,6 +45,31 @@ describe("EligibilityActions", () => {
         expect(content1).toBeVisible();
         expect(content2).toBeVisible();
       });
+
+      it("should display delineator depending on flag", () => {
+        render(
+          EligibilityActions({
+            actions: [
+              actionBuilder()
+                .withType(ActionDisplayType.infotext)
+                .andContent("Test Content 1")
+                .andDelineator(true)
+                .build(),
+              actionBuilder()
+                .withType(ActionDisplayType.infotext)
+                .andContent("Test Content 2")
+                .andDelineator(false)
+                .build(),
+            ],
+          }),
+        );
+
+        const content1: HTMLElement = screen.getByText("Test Content 1");
+        const content2: HTMLElement = screen.getByText("Test Content 2");
+
+        expect(content1.closest('[data-testid="action-paragraph"]')?.nextElementSibling?.tagName).toBe("HR");
+        expect(content2.closest('[data-testid="action-paragraph"]')?.nextElementSibling?.tagName).not.toBe("HR");
+      });
     });
 
     describe("card", () => {
@@ -76,6 +100,27 @@ describe("EligibilityActions", () => {
 
         expect(content1).toBeVisible();
         expect(content2).toBeVisible();
+      });
+
+      it("should display delineator depending on flag", () => {
+        render(
+          EligibilityActions({
+            actions: [
+              actionBuilder()
+                .withType(ActionDisplayType.card)
+                .andContent("Test Content 1")
+                .andDelineator(false)
+                .build(),
+              actionBuilder().withType(ActionDisplayType.card).andContent("Test Content 2").andDelineator(true).build(),
+            ],
+          }),
+        );
+
+        const content1: HTMLElement = screen.getByText("Test Content 1");
+        const content2: HTMLElement = screen.getByText("Test Content 2");
+
+        expect(content1.closest('[data-testid="action-card-component"]')?.nextElementSibling?.tagName).not.toBe("HR");
+        expect(content2.closest('[data-testid="action-card-component"]')?.nextElementSibling?.tagName).toBe("HR");
       });
     });
 
@@ -137,6 +182,35 @@ describe("EligibilityActions", () => {
         const card = within(authButtonComponents).queryByTestId("action-auth-button-card");
 
         expect(card).not.toBeInTheDocument();
+      });
+
+      it("should display delineator depending on flag", () => {
+        render(
+          EligibilityActions({
+            actions: [
+              actionBuilder()
+                .withType(ActionDisplayType.authButton)
+                .andContent("Test Content 1")
+                .andDelineator(true)
+                .build(),
+              actionBuilder()
+                .withType(ActionDisplayType.authButton)
+                .andContent("Test Content 2")
+                .andDelineator(false)
+                .build(),
+            ],
+          }),
+        );
+
+        const content1: HTMLElement = screen.getByText("Test Content 1");
+        const content2: HTMLElement = screen.getByText("Test Content 2");
+
+        expect(content1.closest('[data-testid="action-auth-button-components"]')?.nextElementSibling?.tagName).toBe(
+          "HR",
+        );
+        expect(content2.closest('[data-testid="action-auth-button-components"]')?.nextElementSibling?.tagName).not.toBe(
+          "HR",
+        );
       });
     });
   });

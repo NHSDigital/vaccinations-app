@@ -23,7 +23,7 @@ import {
   SuitabilityRule,
   SummaryContent,
 } from "@src/services/eligibility-api/types";
-import { createTypeBuilder, randomString, randomURL, randomValue } from "@test-data/meta-builder";
+import { createTypeBuilder, randomBoolean, randomString, randomURL, randomValue } from "@test-data/meta-builder";
 
 export function eligibilityApiResponseBuilder() {
   return createTypeBuilder<EligibilityApiResponse>({
@@ -101,6 +101,7 @@ export function actionBuilder() {
     type: randomValue(Object.values(ActionDisplayType)),
     content: randomString(10) as Content,
     button: buttonBuilder().build(),
+    delineator: randomBoolean(),
   });
 }
 
@@ -115,5 +116,6 @@ export function suitabilityRuleBuilder() {
   return createTypeBuilder<SuitabilityRule>({
     type: randomValue(Object.values(RuleDisplayType)),
     content: randomString(10) as Content,
+    delineator: randomBoolean(),
   });
 }

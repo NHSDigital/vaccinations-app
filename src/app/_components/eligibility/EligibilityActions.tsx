@@ -13,16 +13,22 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
     switch (action.type) {
       case ActionDisplayType.infotext: {
         return (
-          <div key={action.content} data-testid="action-paragraph">
-            <MarkdownWithStyling content={action.content} />
-          </div>
+          <>
+            <div key={action.content} data-testid="action-paragraph">
+              <MarkdownWithStyling content={action.content} />
+            </div>
+            {action.delineator && <hr />}
+          </>
         );
       }
       case ActionDisplayType.card: {
         return (
-          <div key={action.content}>
-            <BasicCard content={action.content} />
-          </div>
+          <>
+            <div key={action.content} data-testid="action-card-component">
+              <BasicCard content={action.content} />
+            </div>
+            {action.delineator && <hr />}
+          </>
         );
       }
       case ActionDisplayType.authButton: {
@@ -35,10 +41,13 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
           />
         );
         return (
-          <div key={action.content} data-testid="action-auth-button-components">
-            {infotext}
-            {button}
-          </div>
+          <>
+            <div key={action.content} data-testid="action-auth-button-components">
+              {infotext}
+              {button}
+            </div>
+            {action.delineator && <hr />}
+          </>
         );
       }
     }
