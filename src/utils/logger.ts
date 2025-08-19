@@ -4,8 +4,8 @@ import pino, { LogDescriptor, Logger } from "pino";
 const isEdgeRuntime = process?.env?.NEXT_RUNTIME === "edge";
 const currentLevel = process.env.PINO_LOG_LEVEL ?? "info";
 
-const REDACTED_PATHS: string[] = ["*.", "*.*.", "*.*.*."];
-const REDACTED_KEY_NAMES: string[] = [
+const REDACT_PATHS: string[] = ["", "*.", "*.*.", "*.*.*."];
+const REDACT_KEYS: string[] = [
   "APIM_PRIVATE_KEY",
   "CONTENT_API_KEY",
   "ELIGIBILITY_API_KEY",
@@ -18,9 +18,11 @@ const REDACTED_KEY_NAMES: string[] = [
   "role",
   "userIdentity",
   "user_identity",
+  "nhsNumber",
+  "nhs_number",
 ];
-const REDACTED_KEYS =
-  currentLevel === "debug" ? [] : REDACTED_PATHS.flatMap((prefix) => REDACTED_KEY_NAMES.map((word) => prefix + word));
+const REDACT =
+  currentLevel === "debug" ? [] : REDACT_PATHS.flatMap((prefix) => REDACT_KEYS.map((word) => prefix + word));
 
 const formatterWithLevelAsText = {
   level: (label: string) => {
@@ -49,7 +51,7 @@ const pinoLoggerForNode = () => {
         ...applicationContextFields,
       };
     },
-    redact: REDACTED_KEYS,
+    redact: REDACT,
   });
 };
 
@@ -64,10 +66,10 @@ const pinoLoggerForEdge = () => {
           traceId: asyncLocalStorage?.getStore()?.traceId,
           ...applicationContextFields,
         };
+        // TODO VIA-392 - How do we redact here?
         console.log(logEvent);
       },
     },
-    redact: REDACTED_KEYS,
   });
 };
 
