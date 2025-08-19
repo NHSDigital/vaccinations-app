@@ -124,6 +124,7 @@
         "logs:ListTagsForResource",
         "logs:PutMetricFilter",
         "logs:PutRetentionPolicy",
+        "logs:PutSubscriptionFilter",
         "s3:CreateBucket",
         "s3:DeleteBucket",
         "s3:DeleteBucketPolicy",
