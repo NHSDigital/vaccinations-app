@@ -33,7 +33,7 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
   const apiKey: string = config.ELIGIBILITY_API_KEY;
   const vitaTraceId: string | undefined = asyncLocalStorage?.getStore()?.traceId;
 
-  const uri: string = `${apiEndpoint}${ELIGIBILITY_API_PATH_SUFFIX}${nhsNumber}`;
+  const elidUri: string = `${apiEndpoint}${ELIGIBILITY_API_PATH_SUFFIX}${nhsNumber}`;
   let headers: Headers = {
     accept: "application/json, application/fhir+json",
     apikey: apiKey,
@@ -45,9 +45,9 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
     headers = { ...headers, Authorization: `Bearer ${apimAccessToken}` };
   }
 
-  log.info({ context: { nhsNumber, uri } }, "Fetching eligibility status");
+  log.info({ context: { nhsNumber, elidUri } }, "Fetching eligibility status");
   const response: AxiosResponse<EligibilityApiResponse> = await axios
-    .get(uri, {
+    .get(elidUri, {
       headers,
       timeout: 5000,
       validateStatus: (status) => {
@@ -59,7 +59,7 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
         { error, context: { nhsNumber, response_data: error.response?.data } },
         "EliD response HTTP status error",
       );
-      throw new EligibilityApiHttpStatusError(`Error in fetching ${uri}`);
+      throw new EligibilityApiHttpStatusError("Error in fetching eligibility");
     });
   log.info({ context: { nhsNumber } }, "Eligibility status retrieved");
   try {
@@ -69,10 +69,10 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
   } catch (error) {
     if (error instanceof ZodError) {
       log.error(
-        { error, context: { nhsNumber, uri, response_data: response.data, schema_issues: error.issues } },
+        { error, context: { nhsNumber, elidUri, response_data: response.data, schema_issues: error.issues } },
         "EliD response schema validation error",
       );
-      throw new EligibilityApiSchemaError(`Schema validation failed for ${uri}`);
+      throw new EligibilityApiSchemaError("Schema validation failed");
     }
     throw error;
   }
