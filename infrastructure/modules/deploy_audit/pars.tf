@@ -1,6 +1,6 @@
 resource "aws_cloudwatch_log_group" "audit_log_group" {
   name              = "/aws/audit/${var.prefix}-audit-logs"
-  retention_in_days = var.log_retention_in_days
+  retention_in_days = var.audit_log_retention_in_days
 }
 
 resource "aws_cloudwatch_log_stream" "audit_log_stream" {
