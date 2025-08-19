@@ -127,6 +127,7 @@ const _generateActions = (suggestion: ProcessedSuggestion, nhsNumber: NhsNumber)
             type: ActionDisplayType.infotext,
             content: action.description as Content,
             button: undefined,
+            delineator: true,
           },
         ];
       }
@@ -136,6 +137,7 @@ const _generateActions = (suggestion: ProcessedSuggestion, nhsNumber: NhsNumber)
             type: ActionDisplayType.card,
             content: action.description as Content,
             button: undefined,
+            delineator: false,
           },
         ];
       }
@@ -146,11 +148,13 @@ const _generateActions = (suggestion: ProcessedSuggestion, nhsNumber: NhsNumber)
                 type: ActionDisplayType.authButton,
                 content: action.description as Content,
                 button: { label: action.urlLabel as Label, url: new URL(action.url) as ButtonUrl },
+                delineator: true,
               }
             : {
                 type: ActionDisplayType.authButton,
                 content: action.description as Content,
                 button: undefined,
+                delineator: true,
               },
         ];
       }
@@ -161,6 +165,7 @@ const _generateActions = (suggestion: ProcessedSuggestion, nhsNumber: NhsNumber)
             type: ActionDisplayType.infotext,
             content: action.description as Content,
             button: undefined,
+            delineator: true,
           },
         ];
       }
@@ -175,14 +180,14 @@ const _generateSuitabilityRules = (suggestion: ProcessedSuggestion, nhsNumber: N
     (rule: ResponseSuitabilityRule): SuitabilityRule[] => {
       switch (rule.ruleCode) {
         case "AlreadyVaccinated": {
-          return [{ type: RuleDisplayType.card, content: rule.ruleText as Content }];
+          return [{ type: RuleDisplayType.card, content: rule.ruleText as Content, delineator: false }];
         }
         case "OtherSetting": {
-          return [{ type: RuleDisplayType.infotext, content: rule.ruleText as Content }];
+          return [{ type: RuleDisplayType.infotext, content: rule.ruleText as Content, delineator: true }];
         }
         default: {
           log.warn({ context: { nhsNumber, ruleCode: rule.ruleCode } }, "SuitabilityRule code not yet implemented.");
-          return [{ type: RuleDisplayType.infotext, content: rule.ruleText as Content }];
+          return [{ type: RuleDisplayType.infotext, content: rule.ruleText as Content, delineator: true }];
         }
       }
     },

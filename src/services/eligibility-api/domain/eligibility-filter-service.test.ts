@@ -69,8 +69,8 @@ describe("eligibility-filter-service", () => {
             "You did not turn 80 between 2nd September 2024 and 31st August 2025",
           ],
         },
-        actions: [{ type: ActionDisplayType.infotext, content: "Text" }],
-        suitabilityRules: [{ content: "Test", type: RuleDisplayType.card }],
+        actions: [{ type: ActionDisplayType.infotext, content: "Text", delineator: true }],
+        suitabilityRules: [{ content: "Test", type: RuleDisplayType.card, delineator: false }],
       };
 
       const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineTypes.RSV, nhsNumber);
@@ -213,18 +213,13 @@ describe("eligibility-filter-service", () => {
       const result = _generateActions(processedSuggestion, nhsNumber);
 
       expect(result).toEqual([
-        {
-          type: ActionDisplayType.infotext,
-          content: "InfoText Markdown",
-        },
-        {
-          type: ActionDisplayType.card,
-          content: "CardWithText Markdown",
-        },
+        { type: ActionDisplayType.infotext, content: "InfoText Markdown", delineator: true },
+        { type: ActionDisplayType.card, content: "CardWithText Markdown", delineator: false },
         {
           type: ActionDisplayType.authButton,
           content: "ButtonWithAuthLink Markdown",
           button: { label: "Button Label", url: new URL("https://test.example.com/foo/bar/") },
+          delineator: true,
         },
       ]);
     });
@@ -240,14 +235,8 @@ describe("eligibility-filter-service", () => {
       const result = _generateActions(processedSuggestion, nhsNumber);
 
       expect(result).toEqual([
-        {
-          type: RuleDisplayType.infotext,
-          content: "InfoText Markdown 1",
-        },
-        {
-          type: RuleDisplayType.infotext,
-          content: "InfoText Markdown 2",
-        },
+        { type: RuleDisplayType.infotext, content: "InfoText Markdown 1", delineator: true },
+        { type: RuleDisplayType.infotext, content: "InfoText Markdown 2", delineator: true },
       ]);
     });
 
@@ -262,12 +251,7 @@ describe("eligibility-filter-service", () => {
         .build();
 
       const result = _generateActions(processedSuggestion, nhsNumber);
-      expect(result).toEqual([
-        {
-          type: RuleDisplayType.infotext,
-          content: "InfoText Markdown",
-        },
-      ]);
+      expect(result).toEqual([{ type: RuleDisplayType.infotext, content: "InfoText Markdown", delineator: true }]);
     });
   });
 
@@ -286,8 +270,8 @@ describe("eligibility-filter-service", () => {
       const result = _generateSuitabilityRules(processedSuggestion, nhsNumber);
 
       expect(result).toEqual([
-        { type: RuleDisplayType.card, content: "AlreadyVaccinated Markdown" },
-        { type: RuleDisplayType.infotext, content: "OtherSetting Markdown" },
+        { type: RuleDisplayType.card, content: "AlreadyVaccinated Markdown", delineator: false },
+        { type: RuleDisplayType.infotext, content: "OtherSetting Markdown", delineator: true },
       ]);
     });
 
@@ -308,8 +292,8 @@ describe("eligibility-filter-service", () => {
       const result = _generateSuitabilityRules(processedSuggestion, nhsNumber);
 
       expect(result).toEqual([
-        { type: RuleDisplayType.card, content: "AlreadyVaccinated Markdown 1" },
-        { type: RuleDisplayType.card, content: "AlreadyVaccinated Markdown 2" },
+        { type: RuleDisplayType.card, content: "AlreadyVaccinated Markdown 1", delineator: false },
+        { type: RuleDisplayType.card, content: "AlreadyVaccinated Markdown 2", delineator: false },
       ]);
     });
 
@@ -322,7 +306,7 @@ describe("eligibility-filter-service", () => {
 
       const result = _generateSuitabilityRules(processedSuggestion, nhsNumber);
 
-      expect(result).toEqual([{ type: RuleDisplayType.infotext, content: "TooClose Markdown" }]);
+      expect(result).toEqual([{ type: RuleDisplayType.infotext, content: "TooClose Markdown", delineator: true }]);
     });
   });
 });

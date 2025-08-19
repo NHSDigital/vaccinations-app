@@ -35,12 +35,14 @@ export type ActionWithoutButton = {
   type: ActionDisplayType;
   content: Content;
   button: undefined;
+  delineator: boolean;
 };
 
 export type ActionWithButton = {
   type: ActionDisplayType;
   content: Content;
   button: Button;
+  delineator: boolean;
 };
 
 export type Button = { label: Label; url: ButtonUrl };
@@ -52,7 +54,7 @@ export enum RuleDisplayType {
   infotext = "infotext",
 }
 
-export type SuitabilityRule = { type: RuleDisplayType; content: Content };
+export type SuitabilityRule = { type: RuleDisplayType; content: Content; delineator: boolean };
 
 export enum EligibilityErrorTypes {
   ELIGIBILITY_LOADING_ERROR = "ELIGIBILITY_LOADING",
