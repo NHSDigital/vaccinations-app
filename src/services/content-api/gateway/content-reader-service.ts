@@ -47,17 +47,17 @@ const _readFileS3 = async (bucket: string, key: string): Promise<string> => {
   } catch (error: unknown) {
     if (error instanceof S3ServiceException) {
       if (error.name === "NoSuchKey") {
-        log.error(error, `Error in reading Content API from S3: File not found ${bucket}/${key}`);
+        log.error({ error, context: { bucket, key } }, "Error in reading Content API from S3: File not found");
         throw new S3NoSuchKeyError(`Error in reading Content API from S3`);
       }
 
       const statusCode = error.$metadata?.httpStatusCode;
       if (statusCode && statusCode >= HttpStatusCode.BadRequest) {
-        log.error(error, `Error in reading Content API from S3 ${bucket}/${key}`);
+        log.error({ error, context: { bucket, key } }, "Error in reading Content API from S3");
         throw new S3HttpStatusError(`Error in reading Content API from S3`);
       }
 
-      log.error(error, `Unhandled error in reading Content API from S3: ${bucket}/${key}`);
+      log.error({ error, context: { bucket, key } }, "Unhandled error in reading Content API from S3:");
       throw error;
     }
   }
@@ -66,7 +66,7 @@ const _readFileS3 = async (bucket: string, key: string): Promise<string> => {
 };
 
 const _readContentFromCache = async (cacheLocation: string, cachePath: string): Promise<string> => {
-  log.info(`Reading file from cache: loc=${cacheLocation}, path=${cachePath}`);
+  log.info({ context: { cacheLocation, cachePath } }, "Reading file from cache");
 
   return isS3Path(cacheLocation)
     ? await _readFileS3(cacheLocation.slice(S3_PREFIX.length), cachePath)
@@ -83,9 +83,9 @@ const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<GetConte
     const vaccineContentPath: VaccineContentPaths = vaccineTypeToPath[vaccineType];
 
     // fetch content from api
-    log.info(`Fetching content from cache for vaccine: ${vaccineType}`);
+    log.info({ context: { vaccineType } }, "Fetching content from cache for vaccine");
     const vaccineContent = await _readContentFromCache(config.CONTENT_CACHE_PATH, `${vaccineContentPath}.json`);
-    log.info(`Finished fetching content from cache for vaccine: ${vaccineType}`);
+    log.info({ context: { vaccineType } }, "Finished fetching content from cache for vaccine");
 
     // filter and style content
     const filteredContent: VaccinePageContent = getFilteredContentForVaccine(vaccineContent);
@@ -101,7 +101,7 @@ const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<GetConte
         contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
       };
     } else {
-      log.error(error, `Error getting content for vaccine: ${vaccineType}`);
+      log.error({ error, context: { vaccineType } }, "Error getting content for vaccine");
       return {
         styledVaccineContent: undefined,
         contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,

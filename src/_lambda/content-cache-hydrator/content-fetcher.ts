@@ -25,10 +25,10 @@ const fetchContentForVaccine = async (vaccine: VaccineTypes): Promise<string> =>
       },
       timeout: 30000,
     });
-    log.info("Successfully fetched content from %s", uri);
+    log.info({ context: { uri } }, "Successfully fetched content from uri");
     return JSON.stringify(response.data);
   } catch (error) {
-    log.error({ context: { uri: uri, error: error } }, "Error in getting vaccine content from nhs.uk API");
+    log.error({ context: { uri }, error }, "Error in getting vaccine content from nhs.uk API");
     throw error;
   }
 };

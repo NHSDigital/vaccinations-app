@@ -20,9 +20,9 @@ const profilePerformanceEnd = (markerName: string) => {
       latencyMillis: measurement.duration,
     };
     if (isInfoLogLevel) {
-      log.info(message, "performance profile");
+      log.info({ context: { message } }, "performance profile");
     } else {
-      log.warn(message, "performance profile");
+      log.warn({ context: { message } }, "performance profile");
     }
   }
 };

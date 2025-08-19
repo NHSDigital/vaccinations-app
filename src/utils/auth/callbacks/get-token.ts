@@ -61,7 +61,7 @@ const getToken = async (
       );
     }
 
-    log.debug({ updatedToken: updatedToken }, "Returning JWT from callback");
+    log.debug({ context: { updatedToken } }, "Returning JWT from callback");
     return updatedToken;
   });
 };
@@ -74,20 +74,29 @@ async function _getOrRefreshApimCredentials(config: AppConfig, token: JWT, nowIn
     if (!token.nhs_login?.id_token) {
       log.debug("getOrRefreshApimCredentials: No NHS login ID token available. Not getting APIM creds.");
     } else if (!token.apim?.access_token || token.apim.access_token === "") {
-      log.debug({ existingApimCredentals: token.apim }, "getOrRefreshApimCredentials: Getting new APIM creds.");
+      log.debug(
+        { context: { existingApimCredentals: token.apim } },
+        "getOrRefreshApimCredentials: Getting new APIM creds.",
+      );
       updatedApimCredentals = await retrieveApimCredentials(token.nhs_login.id_token);
-      log.debug({ updatedApimCredentals }, "getOrRefreshApimCredentials: New APIM creds retrieved.");
+      log.debug({ context: { updatedApimCredentals } }, "getOrRefreshApimCredentials: New APIM creds retrieved.");
     } else {
       const expiryWriggleRoom = 30;
       const expiresSoonAt: ExpiresSoonAt = (token.apim?.expires_at - expiryWriggleRoom) as ExpiresSoonAt;
 
       if (expiresSoonAt < nowInSeconds) {
-        log.debug({ existingApimCredentals: token.apim }, "getOrRefreshApimCredentials: Refreshing APIM creds.");
+        log.debug(
+          { context: { existingApimCredentals: token.apim } },
+          "getOrRefreshApimCredentials: Refreshing APIM creds.",
+        );
         updatedApimCredentals = await retrieveApimCredentials(token.nhs_login.id_token);
-        log.debug({ updatedApimCredentals }, "getOrRefreshApimCredentials: Refreshed APIM creds retrieved.");
+        log.debug(
+          { context: { updatedApimCredentals } },
+          "getOrRefreshApimCredentials: Refreshed APIM creds retrieved.",
+        );
       } else {
         log.debug(
-          { existingApimCredentals: token.apim, timeRemaining: expiresSoonAt - nowInSeconds },
+          { context: { existingApimCredentals: token.apim, timeRemaining: expiresSoonAt - nowInSeconds } },
           "getOrRefreshApimCredentials: APIM creds still fresh.",
         );
       }

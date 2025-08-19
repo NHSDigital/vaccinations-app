@@ -22,9 +22,7 @@ const isValidSignIn = (account: Account | null | undefined, config: AppConfig) =
     iss === config.NHS_LOGIN_URL && aud === config.NHS_LOGIN_CLIENT_ID && identity_proofing_level === "P9";
 
   if (!isValidToken) {
-    log.info(
-      `Access denied from signIn callback. iss: ${iss}, aud: ${aud}, identity_proofing_level: ${identity_proofing_level}`,
-    );
+    log.info({ context: decodedToken }, "Access denied from signIn callback.");
   }
   return isValidToken;
 };

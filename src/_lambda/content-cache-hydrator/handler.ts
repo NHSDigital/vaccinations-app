@@ -11,7 +11,7 @@ import { Context } from "aws-lambda";
 const log = logger.child({ module: "content-writer-lambda" });
 
 const runContentCacheHydrator = async (event: object) => {
-  log.info(event, "Received event, hydrating content cache.");
+  log.info({ context: { event } }, "Received event, hydrating content cache.");
 
   let failureCount: number = 0;
   for (const vaccine of Object.values(VaccineTypes)) {
@@ -21,12 +21,12 @@ const runContentCacheHydrator = async (event: object) => {
       await getStyledContentForVaccine(vaccine, filteredContent);
       await writeContentForVaccine(vaccine, content);
     } catch (error) {
-      log.error(`Error occurred for vaccine ${vaccine}: ${error}.`);
+      log.error({ context: { vaccine }, error }, "Error occurred for vaccine.");
       failureCount++;
     }
   }
 
-  log.info(`Finished hydrating content cache with ${failureCount} failures.`);
+  log.info({ context: { failureCount } }, "Finished hydrating content cache with failures.");
   if (failureCount > 0) {
     throw new Error(`${failureCount} failures`);
   }

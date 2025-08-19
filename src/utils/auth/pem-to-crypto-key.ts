@@ -23,7 +23,7 @@ const pemToCryptoKey = async (pem: string): Promise<CryptoKey> => {
       ["sign"],
     );
   } catch (error) {
-    log.error(`Import key error: ${error}`);
+    log.error(error, "Import key error");
   }
 
   if (!importedKey) {
