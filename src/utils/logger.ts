@@ -20,9 +20,11 @@ const REDACT_KEYS: string[] = [
   "user_identity",
   "nhsNumber",
   "nhs_number",
+  "birthdate",
 ];
+// No redaction if at trace level.
 const REDACT =
-  currentLevel === "debug" ? [] : REDACT_PATHS.flatMap((prefix) => REDACT_KEYS.map((word) => prefix + word));
+  currentLevel === "trace" ? [] : REDACT_PATHS.flatMap((prefix) => REDACT_KEYS.map((word) => prefix + word));
 
 const formatterWithLevelAsText = {
   level: (label: string) => {
