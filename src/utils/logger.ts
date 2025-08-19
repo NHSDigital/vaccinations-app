@@ -5,7 +5,6 @@ import { SanitizerMode, sanitize } from "sanitize-data";
 const isEdgeRuntime = process?.env?.NEXT_RUNTIME === "edge";
 const currentLevel = process.env.PINO_LOG_LEVEL ?? "info";
 
-const REDACT_PATHS: string[] = ["", "*.", "*.*.", "*.*.*."];
 const REDACT_KEYS: string[] = [
   "APIM_PRIVATE_KEY",
   "CONTENT_API_KEY",
@@ -22,11 +21,10 @@ const REDACT_KEYS: string[] = [
   "nhsNumber",
   "nhs_number",
   "birthdate",
+  "validatedApiData.**",
 ];
 // No redaction if at trace level.
-const REDACT =
-  currentLevel === "trace" ? [] : REDACT_PATHS.flatMap((prefix) => REDACT_KEYS.map((word) => prefix + word));
-const REDACTION_RULES =
+const REDACT_RULES =
   currentLevel === "trace"
     ? {}
     : REDACT_KEYS.reduce(
@@ -40,6 +38,9 @@ const REDACTION_RULES =
 const formatterWithLevelAsText = {
   level: (label: string) => {
     return { level: label.toUpperCase() };
+  },
+  log(object: unknown) {
+    return sanitize(object, { rules: REDACT_RULES });
   },
 };
 
@@ -64,7 +65,6 @@ const pinoLoggerForNode = () => {
         ...applicationContextFields,
       };
     },
-    redact: REDACT,
   });
 };
 
@@ -79,7 +79,7 @@ const pinoLoggerForEdge = () => {
           traceId: asyncLocalStorage?.getStore()?.traceId,
           ...applicationContextFields,
         };
-        console.log(sanitize(logEvent, { rules: REDACTION_RULES }));
+        console.log(logEvent);
       },
     },
   });
