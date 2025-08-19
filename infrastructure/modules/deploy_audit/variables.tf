@@ -34,6 +34,21 @@ variable "audit_logs_buffering_interval_seconds" {
 }
 
 variable "log_retention_in_days" {
-  type = string
+  type        = string
   description = "Firehose logs retention in days"
+}
+
+variable "pars_target_environment_name" {
+  type        = string
+  description = "Target environment name for PARS"
+}
+
+variable "enable_pars" {
+  type        = bool
+  description = "Enable PARS audit log forwarding"
+}
+
+variable "pars_account_id" {
+  type        = string
+  description = "PARS Account ID"
 }

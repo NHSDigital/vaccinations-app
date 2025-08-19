@@ -46,4 +46,7 @@ module "deploy_audit" {
   audit_logs_buffering_size_mb          = local.audit_logs_buffering_size_mb
   audit_logs_buffering_interval_seconds = local.audit_logs_buffering_interval_seconds
   log_retention_in_days                 = local.log_retention_in_days
+  enable_pars                           = local.enable_pars
+  pars_account_id                       = local.pars_account_id
+  pars_target_environment_name          = local.pars_target_environment_name
 }
