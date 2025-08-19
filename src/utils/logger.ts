@@ -6,6 +6,7 @@ const isEdgeRuntime = process?.env?.NEXT_RUNTIME === "edge";
 const currentLevel = process.env.PINO_LOG_LEVEL ?? "info";
 
 const REDACT_KEYS: string[] = [
+  "**.validatedApiData.**",
   "APIM_PRIVATE_KEY",
   "CONTENT_API_KEY",
   "ELIGIBILITY_API_KEY",
