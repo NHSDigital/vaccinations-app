@@ -2,6 +2,7 @@ import { isError } from "@jest/expect-utils";
 import { vitaContentChangedSinceLastApproved } from "@src/_lambda/content-cache-hydrator/content-change-detector";
 import { fetchContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-fetcher";
 import { writeContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-writer-service";
+import { invalidateCacheForVaccine } from "@src/_lambda/content-cache-hydrator/invalidate-cache";
 import { VaccineTypes } from "@src/models/vaccine";
 import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
@@ -25,6 +26,8 @@ const runContentCacheHydrator = async (event: object) => {
       const DETECT_CONTENT_CHANGES_ENABLED: boolean = false;
       if (DETECT_CONTENT_CHANGES_ENABLED) {
         if (await vitaContentChangedSinceLastApproved(filteredContent, vaccine)) {
+          log.info(`Content changes detected for vaccine ${vaccine}; invalidating cache`);
+          await invalidateCacheForVaccine(vaccine);
           throw new Error(`Content changes detected for vaccine: ${vaccine}`);
         }
       }
