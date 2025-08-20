@@ -25,6 +25,7 @@ const RSVEligibilityFallback = (props: {
       />
       <Details title={HEADINGS.IF_YOU_THINK} component={props.howToGetVaccineFallback} notExpandable={true} />
       <PharmacyBookingInfo vaccineType={props.vaccineType} />
+      <hr />
     </div>
   );
 };
