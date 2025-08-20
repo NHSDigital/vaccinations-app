@@ -28,6 +28,7 @@ const REDACT_KEYS: string[] = [
   "userIdentity",
   "user_identity",
   "validatedApiData.**",
+  "X-Aws-Parameters-Secrets-Token",
 ];
 // No redaction if at trace level.
 const REDACT_RULES =
