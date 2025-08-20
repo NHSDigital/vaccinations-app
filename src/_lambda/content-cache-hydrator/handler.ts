@@ -1,3 +1,4 @@
+import { vitaContentChangedSinceLastApproved } from "@src/_lambda/content-cache-hydrator/content-change-detector";
 import { fetchContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-fetcher";
 import { writeContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-writer-service";
 import { VaccineTypes } from "@src/models/vaccine";
@@ -18,6 +19,15 @@ const runContentCacheHydrator = async (event: object) => {
     try {
       const content: string = await fetchContentForVaccine(vaccine);
       const filteredContent: VaccinePageContent = getFilteredContentForVaccine(content);
+
+      // VIA-378 Temporary feature toggle
+      const DETECT_CONTENT_CHANGES_ENABLED: boolean = false;
+      if (DETECT_CONTENT_CHANGES_ENABLED) {
+        if (await vitaContentChangedSinceLastApproved(filteredContent, vaccine)) {
+          throw new Error(`Content changes detected for vaccine: ${vaccine}`);
+        }
+      }
+
       await getStyledContentForVaccine(vaccine, filteredContent);
       await writeContentForVaccine(vaccine, content);
     } catch (error) {
