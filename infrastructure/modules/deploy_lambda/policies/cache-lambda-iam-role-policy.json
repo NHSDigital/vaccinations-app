@@ -8,6 +8,7 @@
         "ssm:GetParameter",
         "s3:ListBucket",
         "s3:PutObject",
+        "s3:GetObject",
         "logs:CreateLogGroup",
         "logs:CreateLogStream",
         "logs:PutLogEvents"
