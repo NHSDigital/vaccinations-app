@@ -1,3 +1,4 @@
+import { isError } from "@jest/expect-utils";
 import { vitaContentChangedSinceLastApproved } from "@src/_lambda/content-cache-hydrator/content-change-detector";
 import { fetchContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-fetcher";
 import { writeContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-writer-service";
@@ -31,7 +32,8 @@ const runContentCacheHydrator = async (event: object) => {
       await getStyledContentForVaccine(vaccine, filteredContent);
       await writeContentForVaccine(vaccine, content);
     } catch (error) {
-      log.error({ context: { vaccine }, error }, "Error occurred for vaccine.");
+      const errorMessage = isError(error) ? error.message : "unknown error";
+      log.error({ context: { vaccine }, error: { message: errorMessage } }, "Error occurred for vaccine.");
       failureCount++;
     }
   }
