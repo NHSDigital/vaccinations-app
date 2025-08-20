@@ -17,7 +17,7 @@ describe("markdown", () => {
 
     it("should call markdown component with correct content", () => {
       const content = "This is content";
-      render(<MarkdownWithStyling content={content} classNames={{ h2: "sausages" }} />);
+      render(<MarkdownWithStyling content={content} classNames={{ h2: "sausages" }} delineator={true} />);
 
       expect(mockedMarkdown).toHaveBeenCalledWith(expect.objectContaining({ children: content }), undefined);
     });

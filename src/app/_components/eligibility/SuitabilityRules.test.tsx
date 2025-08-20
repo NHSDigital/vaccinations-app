@@ -66,8 +66,8 @@ describe("SuitabilityRules", () => {
         const content1: HTMLElement = screen.getByText("Test Content 1");
         const content2: HTMLElement = screen.getByText("Test Content 2");
 
-        expect(content1.closest('[data-testid="suitability-rule-card"]')?.nextElementSibling?.tagName).toBe("HR");
-        expect(content2.closest('[data-testid="suitability-rule-card"]')?.nextElementSibling?.tagName).not.toBe("HR");
+        expect(content1.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).toBe("HR");
+        expect(content2.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).not.toBe("HR");
       });
     });
 
@@ -124,10 +124,8 @@ describe("SuitabilityRules", () => {
         const content1: HTMLElement = screen.getByText("Test Content 1");
         const content2: HTMLElement = screen.getByText("Test Content 2");
 
-        expect(content1.closest('[data-testid="suitability-rule-paragraph"]')?.nextElementSibling?.tagName).toBe("HR");
-        expect(content2.closest('[data-testid="suitability-rule-paragraph"]')?.nextElementSibling?.tagName).not.toBe(
-          "HR",
-        );
+        expect(content1.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).toBe("HR");
+        expect(content2.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).not.toBe("HR");
       });
     });
   });

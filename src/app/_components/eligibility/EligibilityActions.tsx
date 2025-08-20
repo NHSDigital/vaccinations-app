@@ -13,26 +13,20 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
     switch (action.type) {
       case ActionDisplayType.infotext: {
         return (
-          <>
-            <div key={action.content} data-testid="action-paragraph">
-              <MarkdownWithStyling content={action.content} />
-            </div>
-            {action.delineator && <hr />}
-          </>
+          <div key={action.content} data-testid="action-paragraph">
+            <MarkdownWithStyling content={action.content} delineator={action.delineator} />
+          </div>
         );
       }
       case ActionDisplayType.card: {
         return (
-          <>
-            <div key={action.content} data-testid="action-card-component">
-              <BasicCard content={action.content} />
-            </div>
-            {action.delineator && <hr />}
-          </>
+          <div key={action.content} data-testid="action-card-component">
+            <BasicCard content={action.content} delineator={action.delineator} />
+          </div>
         );
       }
       case ActionDisplayType.authButton: {
-        const infotext = action.content && <BasicCard content={action.content} />;
+        const infotext = action.content && <BasicCard content={action.content} delineator={false} />;
         const button = action.button && (
           <NBSBookingActionForBaseUrl
             url={action.button.url.href}
@@ -41,13 +35,11 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
           />
         );
         return (
-          <>
-            <div key={action.content} data-testid="action-auth-button-components">
-              {infotext}
-              {button}
-            </div>
+          <div key={action.content} data-testid="action-auth-button-components">
+            {infotext}
+            {button}
             {action.delineator && <hr />}
-          </>
+          </div>
         );
       }
     }

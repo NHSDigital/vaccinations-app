@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, JSX, PropsWithChildren, useMemo } from "react";
+import React, { ComponentPropsWithoutRef, JSX, PropsWithChildren, useMemo } from "react";
 import Markdown from "react-markdown";
 
 interface ComponentClassNames {
@@ -15,6 +15,7 @@ interface ComponentClassNames {
 interface MarkdownProps {
   content: string;
   classNames?: ComponentClassNames;
+  delineator: boolean;
 }
 
 const defaultClassNames = {
@@ -37,7 +38,7 @@ type ULProps = ComponentPropsWithoutRef<"ul">;
 type OLProps = ComponentPropsWithoutRef<"ol">;
 type PProps = ComponentPropsWithoutRef<"p">;
 
-const MarkdownWithStyling = ({ content, classNames = {} }: MarkdownProps): JSX.Element => {
+const MarkdownWithStyling = ({ content, classNames = {}, delineator }: MarkdownProps): JSX.Element => {
   const components = useMemo(() => {
     const finalClassNames = { ...defaultClassNames, ...classNames };
     return {
@@ -56,7 +57,14 @@ const MarkdownWithStyling = ({ content, classNames = {} }: MarkdownProps): JSX.E
     };
   }, [classNames]);
 
-  return <Markdown components={components}>{content}</Markdown>;
+  return (
+    <>
+      <div data-testid="markdown-with-styling">
+        <Markdown components={components}>{content}</Markdown>
+      </div>
+      {delineator && <hr />}
+    </>
+  );
 };
 
 const H1 = ({ children, className = defaultClassNames.h1 }: H1Props): JSX.Element => {

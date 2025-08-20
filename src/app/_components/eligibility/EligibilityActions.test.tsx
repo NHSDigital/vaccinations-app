@@ -67,8 +67,8 @@ describe("EligibilityActions", () => {
         const content1: HTMLElement = screen.getByText("Test Content 1");
         const content2: HTMLElement = screen.getByText("Test Content 2");
 
-        expect(content1.closest('[data-testid="action-paragraph"]')?.nextElementSibling?.tagName).toBe("HR");
-        expect(content2.closest('[data-testid="action-paragraph"]')?.nextElementSibling?.tagName).not.toBe("HR");
+        expect(content1.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).toBe("HR");
+        expect(content2.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).not.toBe("HR");
       });
     });
 
@@ -119,8 +119,8 @@ describe("EligibilityActions", () => {
         const content1: HTMLElement = screen.getByText("Test Content 1");
         const content2: HTMLElement = screen.getByText("Test Content 2");
 
-        expect(content1.closest('[data-testid="action-card-component"]')?.nextElementSibling?.tagName).not.toBe("HR");
-        expect(content2.closest('[data-testid="action-card-component"]')?.nextElementSibling?.tagName).toBe("HR");
+        expect(content1.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).not.toBe("HR");
+        expect(content2.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).toBe("HR");
       });
     });
 
@@ -205,12 +205,8 @@ describe("EligibilityActions", () => {
         const content1: HTMLElement = screen.getByText("Test Content 1");
         const content2: HTMLElement = screen.getByText("Test Content 2");
 
-        expect(content1.closest('[data-testid="action-auth-button-components"]')?.nextElementSibling?.tagName).toBe(
-          "HR",
-        );
-        expect(content2.closest('[data-testid="action-auth-button-components"]')?.nextElementSibling?.tagName).not.toBe(
-          "HR",
-        );
+        expect(content1.closest(".nhsuk-card")?.nextElementSibling?.nextElementSibling?.tagName).toBe("HR");
+        expect(content2.closest(".nhsuk-card")?.nextElementSibling?.nextElementSibling?.tagName).not.toBe("HR");
       });
     });
   });
