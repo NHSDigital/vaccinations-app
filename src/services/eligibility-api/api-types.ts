@@ -33,5 +33,10 @@ export type SuitabilityRule = {
   ruleText: string;
 };
 
-export type ActionType = "InfoText" | "CardWithText" | "ButtonWithAuthLink";
+export type ActionType =
+  | "InfoText"
+  | "CardWithText"
+  | "ButtonWithAuthLink"
+  | "ButtonWithAuthLinkWithInfoText"
+  | "ActionLinkWithInfoText";
 export type RuleCode = "AlreadyVaccinated" | "NotAvailable" | "NotYetDue" | "TooClose" | "OtherSetting";

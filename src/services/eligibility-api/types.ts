@@ -28,7 +28,9 @@ export type SummaryContent = {
 export enum ActionDisplayType {
   infotext = "infotext",
   card = "card",
-  authButton = "authButton",
+  buttonWithCard = "buttonWithCard",
+  buttonWithInfo = "buttonWithInfo",
+  actionLinkWithInfo = "actionLinkWithInfo",
 }
 
 export type ActionWithoutButton = {

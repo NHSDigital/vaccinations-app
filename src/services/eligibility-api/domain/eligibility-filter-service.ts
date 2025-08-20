@@ -142,21 +142,13 @@ const _generateActions = (suggestion: ProcessedSuggestion, nhsNumber: NhsNumber)
         ];
       }
       case "ButtonWithAuthLink": {
-        return [
-          action.url && action.urlLabel
-            ? {
-                type: ActionDisplayType.authButton,
-                content: action.description as Content,
-                button: { label: action.urlLabel as Label, url: new URL(action.url) as ButtonUrl },
-                delineator: true,
-              }
-            : {
-                type: ActionDisplayType.authButton,
-                content: action.description as Content,
-                button: undefined,
-                delineator: true,
-              },
-        ];
+        return [_linkAction(action, ActionDisplayType.buttonWithCard, true)];
+      }
+      case "ButtonWithAuthLinkWithInfoText": {
+        return [_linkAction(action, ActionDisplayType.buttonWithInfo, true)];
+      }
+      case "ActionLinkWithInfoText": {
+        return [_linkAction(action, ActionDisplayType.actionLinkWithInfo, true)];
       }
       default: {
         log.warn({ context: { nhsNumber, actionType: action.actionType } }, "Action type not yet implemented.");
@@ -174,6 +166,22 @@ const _generateActions = (suggestion: ProcessedSuggestion, nhsNumber: NhsNumber)
 
   return content;
 };
+
+function _linkAction(action: ResponseAction, type: ActionDisplayType, delineator: boolean): Action {
+  return action.url && action.urlLabel
+    ? {
+        type: type,
+        content: action.description as Content,
+        button: { label: action.urlLabel as Label, url: new URL(action.url) as ButtonUrl },
+        delineator: delineator,
+      }
+    : {
+        type: type,
+        content: action.description as Content,
+        button: undefined,
+        delineator: delineator,
+      };
+}
 
 const _generateSuitabilityRules = (suggestion: ProcessedSuggestion, nhsNumber: NhsNumber): SuitabilityRule[] => {
   const content: SuitabilityRule[] = suggestion.suitabilityRules.flatMap(

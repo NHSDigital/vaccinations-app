@@ -124,12 +124,12 @@ describe("EligibilityActions", () => {
       });
     });
 
-    describe("button", () => {
+    describe("buttonWithCard", () => {
       it("should display auth action card content successfully", () => {
         render(
           EligibilityActions({
             actions: [
-              actionBuilder().withType(ActionDisplayType.authButton).andContent("Test Auth Action Content").build(),
+              actionBuilder().withType(ActionDisplayType.buttonWithCard).andContent("Test Auth Action Content").build(),
             ],
           }),
         );
@@ -142,7 +142,7 @@ describe("EligibilityActions", () => {
       it("should display button content successfully", () => {
         render(
           EligibilityActions({
-            actions: [actionBuilder().withType(ActionDisplayType.authButton).andContent("Test Content").build()],
+            actions: [actionBuilder().withType(ActionDisplayType.buttonWithCard).andContent("Test Content").build()],
           }),
         );
 
@@ -157,8 +157,8 @@ describe("EligibilityActions", () => {
         render(
           EligibilityActions({
             actions: [
-              actionBuilder().withType(ActionDisplayType.authButton).andContent("Test Content 1").build(),
-              actionBuilder().withType(ActionDisplayType.authButton).andContent("Test Content 2").build(),
+              actionBuilder().withType(ActionDisplayType.buttonWithCard).andContent("Test Content 1").build(),
+              actionBuilder().withType(ActionDisplayType.buttonWithCard).andContent("Test Content 2").build(),
             ],
           }),
         );
@@ -173,7 +173,7 @@ describe("EligibilityActions", () => {
       it("should display button without card if no description present", () => {
         render(
           EligibilityActions({
-            actions: [actionBuilder().withType(ActionDisplayType.authButton).andContent("").build()],
+            actions: [actionBuilder().withType(ActionDisplayType.buttonWithCard).andContent("").build()],
           }),
         );
 
@@ -189,12 +189,12 @@ describe("EligibilityActions", () => {
           EligibilityActions({
             actions: [
               actionBuilder()
-                .withType(ActionDisplayType.authButton)
+                .withType(ActionDisplayType.buttonWithCard)
                 .andContent("Test Content 1")
                 .andDelineator(true)
                 .build(),
               actionBuilder()
-                .withType(ActionDisplayType.authButton)
+                .withType(ActionDisplayType.buttonWithCard)
                 .andContent("Test Content 2")
                 .andDelineator(false)
                 .build(),
@@ -207,6 +207,183 @@ describe("EligibilityActions", () => {
 
         expect(content1.closest(".nhsuk-card")?.nextElementSibling?.nextElementSibling?.tagName).toBe("HR");
         expect(content2.closest(".nhsuk-card")?.nextElementSibling?.nextElementSibling?.tagName).not.toBe("HR");
+      });
+    });
+
+    describe("buttonWithInfo", () => {
+      it("should display info content successfully", () => {
+        render(
+          EligibilityActions({
+            actions: [
+              actionBuilder().withType(ActionDisplayType.buttonWithInfo).andContent("Test Auth Action Content").build(),
+            ],
+          }),
+        );
+
+        const content: HTMLElement = screen.getByText("Test Auth Action Content");
+
+        expect(content).toBeVisible();
+      });
+
+      it("should display button content successfully", () => {
+        render(
+          EligibilityActions({
+            actions: [actionBuilder().withType(ActionDisplayType.buttonWithInfo).andContent("Test Content").build()],
+          }),
+        );
+
+        const content: HTMLElement = screen.getByText("Test Content");
+        const bookingButton: HTMLElement = screen.getByText("NBS Booking Link Test");
+
+        expect(content).toBeVisible();
+        expect(bookingButton).toBeInTheDocument();
+      });
+
+      it("should display multiple button content components successfully", () => {
+        render(
+          EligibilityActions({
+            actions: [
+              actionBuilder().withType(ActionDisplayType.buttonWithInfo).andContent("Test Content 1").build(),
+              actionBuilder().withType(ActionDisplayType.buttonWithInfo).andContent("Test Content 2").build(),
+            ],
+          }),
+        );
+
+        const content1: HTMLElement = screen.getByText("Test Content 1");
+        const content2: HTMLElement = screen.getByText("Test Content 2");
+
+        expect(content1).toBeVisible();
+        expect(content2).toBeVisible();
+      });
+
+      it("should display button without info if no description present", () => {
+        render(
+          EligibilityActions({
+            actions: [actionBuilder().withType(ActionDisplayType.buttonWithInfo).andContent("").build()],
+          }),
+        );
+
+        const authButtonComponents = screen.getByTestId("action-auth-button-components");
+
+        const card = within(authButtonComponents).queryByTestId("action-auth-button-card");
+
+        expect(card).not.toBeInTheDocument();
+      });
+
+      it("should display delineator depending on flag", () => {
+        render(
+          EligibilityActions({
+            actions: [
+              actionBuilder()
+                .withType(ActionDisplayType.buttonWithInfo)
+                .andContent("Test Content 1")
+                .andDelineator(true)
+                .build(),
+              actionBuilder()
+                .withType(ActionDisplayType.buttonWithInfo)
+                .andContent("Test Content 2")
+                .andDelineator(false)
+                .build(),
+            ],
+          }),
+        );
+
+        const content1: HTMLElement = screen.getByText("Test Content 1");
+        const content2: HTMLElement = screen.getByText("Test Content 2");
+
+        expect(content1.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).toBe("HR");
+        expect(content2.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).not.toBe("HR");
+      });
+    });
+
+    describe("actionLinkWithInfo", () => {
+      it("should display info content successfully", () => {
+        render(
+          EligibilityActions({
+            actions: [
+              actionBuilder()
+                .withType(ActionDisplayType.actionLinkWithInfo)
+                .andContent("Test Auth Action Content")
+                .build(),
+            ],
+          }),
+        );
+
+        const content: HTMLElement = screen.getByText("Test Auth Action Content");
+
+        expect(content).toBeVisible();
+      });
+
+      it("should display link content successfully", () => {
+        render(
+          EligibilityActions({
+            actions: [
+              actionBuilder().withType(ActionDisplayType.actionLinkWithInfo).andContent("Test Content").build(),
+            ],
+          }),
+        );
+
+        const content: HTMLElement = screen.getByText("Test Content");
+        const bookingButton: HTMLElement = screen.getByText("NBS Booking Link Test");
+
+        expect(content).toBeVisible();
+        expect(bookingButton).toBeInTheDocument();
+      });
+
+      it("should display multiple link content components successfully", () => {
+        render(
+          EligibilityActions({
+            actions: [
+              actionBuilder().withType(ActionDisplayType.actionLinkWithInfo).andContent("Test Content 1").build(),
+              actionBuilder().withType(ActionDisplayType.actionLinkWithInfo).andContent("Test Content 2").build(),
+            ],
+          }),
+        );
+
+        const content1: HTMLElement = screen.getByText("Test Content 1");
+        const content2: HTMLElement = screen.getByText("Test Content 2");
+
+        expect(content1).toBeVisible();
+        expect(content2).toBeVisible();
+      });
+
+      it("should display link without info if no description present", () => {
+        render(
+          EligibilityActions({
+            actions: [actionBuilder().withType(ActionDisplayType.actionLinkWithInfo).andContent("").build()],
+          }),
+        );
+
+        const linkComponents = screen.getByTestId("action-auth-button-components");
+
+        const card = within(linkComponents).queryByTestId("action-auth-button-card");
+
+        expect(card).not.toBeInTheDocument();
+      });
+
+      it("should display delineator depending on flag", () => {
+        render(
+          EligibilityActions({
+            actions: [
+              actionBuilder()
+                .withType(ActionDisplayType.actionLinkWithInfo)
+                .andContent("Test Content 1")
+                .andDelineator(true)
+                .build(),
+              actionBuilder()
+                .withType(ActionDisplayType.actionLinkWithInfo)
+                .andContent("Test Content 2")
+                .andDelineator(false)
+                .build(),
+            ],
+          }),
+        );
+
+        const content1: HTMLElement = screen.getByText("Test Content 1");
+        const content2: HTMLElement = screen.getByText("Test Content 2");
+
+        expect(content1.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).toBe("HR");
+        expect(content2.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).not.toBe("HR");
       });
     });
   });

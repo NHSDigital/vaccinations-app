@@ -204,8 +204,20 @@ describe("eligibility-filter-service", () => {
           actionFromApiBuilder()
             .withActionType("ButtonWithAuthLink")
             .andDescription("ButtonWithAuthLink Markdown")
-            .andUrlLabel("Button Label")
+            .andUrlLabel("Button 1 Label")
             .andUrl(new URL("https://test.example.com/foo/bar/"))
+            .build(),
+          actionFromApiBuilder()
+            .withActionType("ButtonWithAuthLinkWithInfoText")
+            .andDescription("ButtonWithAuthLinkWithInfoText Markdown")
+            .andUrlLabel("Button 2 Label")
+            .andUrl(new URL("https://test.example.com/baz/qux/"))
+            .build(),
+          actionFromApiBuilder()
+            .withActionType("ActionLinkWithInfoText")
+            .andDescription("ActionLinkWithInfoText Markdown")
+            .andUrlLabel("Button 3 Label")
+            .andUrl(new URL("https://test.example.com/quux/"))
             .build(),
         ])
         .build();
@@ -216,9 +228,21 @@ describe("eligibility-filter-service", () => {
         { type: ActionDisplayType.infotext, content: "InfoText Markdown", delineator: true },
         { type: ActionDisplayType.card, content: "CardWithText Markdown", delineator: false },
         {
-          type: ActionDisplayType.authButton,
+          type: ActionDisplayType.buttonWithCard,
           content: "ButtonWithAuthLink Markdown",
-          button: { label: "Button Label", url: new URL("https://test.example.com/foo/bar/") },
+          button: { label: "Button 1 Label", url: new URL("https://test.example.com/foo/bar/") },
+          delineator: true,
+        },
+        {
+          type: ActionDisplayType.buttonWithInfo,
+          content: "ButtonWithAuthLinkWithInfoText Markdown",
+          button: { label: "Button 2 Label", url: new URL("https://test.example.com/baz/qux/") },
+          delineator: true,
+        },
+        {
+          type: ActionDisplayType.actionLinkWithInfo,
+          content: "ActionLinkWithInfoText Markdown",
+          button: { label: "Button 3 Label", url: new URL("https://test.example.com/quux/") },
           delineator: true,
         },
       ]);
