@@ -66,14 +66,14 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
       case ActionDisplayType.actionLinkWithInfo: {
         const info = action.content && (
           <div key={action.content} data-testid="action-paragraph">
-            <MarkdownWithStyling content={action.content} delineator={action.delineator} />
+            <MarkdownWithStyling content={action.content} delineator={false} />
           </div>
         );
         const actionLink = action.button && (
           <NBSBookingActionForBaseUrl
             url={action.button.url.href}
             displayText={action.button.label}
-            renderAs={"anchor"}
+            renderAs={"actionLink"}
           />
         );
         return (
