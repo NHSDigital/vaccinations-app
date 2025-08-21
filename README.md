@@ -252,6 +252,17 @@ Avoid 'gh' as it is reserved for GitHub.
 - Make sure to build a zip artifact for the Vita app and the content-cache-hydrator lambda first using
 
     ```shell
+    npm run local-build-package
+    ```
+
+    or to build the cache hydrator only
+
+    ```shell
+    npm run local-build-package:hydrator
+    ```
+
+  (reference: commands included in the local package tasks)
+    ```shell
     npm run build:opennext
     npm run build:lambda
     zip -j -r lambda.zip dist/
