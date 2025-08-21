@@ -19,7 +19,7 @@ resource "aws_cloudwatch_event_rule" "cache_hydrator_lambda_schedule_event_rule"
   name                = "${var.prefix}-on-schedule-event-rule"
   description         = "Triggers content cache hydrator on schedule"
   tags                = var.default_tags
-  schedule_expression = "rate(7 days)"
+  schedule_expression = "cron(0 5 * * ? *)"
 }
 
 resource "aws_cloudwatch_event_target" "on_deployment_target" {
