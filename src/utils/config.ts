@@ -20,6 +20,8 @@ type AppConfig = {
   NHS_APP_REDIRECT_LOGIN_URL: string;
   IS_APIM_AUTH_ENABLED: boolean;
   AUTH_SECRET: string;
+  AUDIT_CLOUDWATCH_LOG_GROUP: string;
+  AUDIT_CLOUDWATCH_LOG_STREAM: string;
 };
 
 type AppConfigCache = {
@@ -54,6 +56,8 @@ const configProvider = async (): Promise<AppConfig> => {
       MAX_SESSION_AGE_MINUTES: Number(await getFromEnvironmentOrSSM(SSM_PREFIX, "MAX_SESSION_AGE_MINUTES")),
       IS_APIM_AUTH_ENABLED: (await getFromEnvironmentOrSSM(SSM_PREFIX, "IS_APIM_AUTH_ENABLED")) === "true",
       AUTH_SECRET: await getFromEnvironmentOrSSM(SSM_PREFIX, "AUTH_SECRET"),
+      AUDIT_CLOUDWATCH_LOG_GROUP: await getFromEnvironmentOrSSM(SSM_PREFIX, "AUDIT_CLOUDWATCH_LOG_GROUP"),
+      AUDIT_CLOUDWATCH_LOG_STREAM: await getFromEnvironmentOrSSM(SSM_PREFIX, "AUDIT_CLOUDWATCH_LOG_STREAM"),
     },
     ttl: Date.now() + CACHE_TTL_MILLIS,
   };

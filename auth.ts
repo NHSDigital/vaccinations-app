@@ -1,6 +1,7 @@
 import NHSLoginAuthProvider from "@src/app/api/auth/[...nextauth]/provider";
 import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
 import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
+import { sendAuditEvent } from "@src/utils/audit-logger";
 import { getToken } from "@src/utils/auth/callbacks/get-token";
 import { getUpdatedSession } from "@src/utils/auth/callbacks/get-updated-session";
 import { isValidSignIn } from "@src/utils/auth/callbacks/is-valid-signin";
@@ -44,7 +45,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
       debug: process.env.DEPLOY_ENVIRONMENT === "local",
       trustHost: true,
       callbacks: {
-        async signIn({ account }) {
+        async signIn({ account, profile }) {
           let response: boolean;
           try {
             profilePerformanceStart(AuthSignInPerformanceMarker);
@@ -54,6 +55,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
             log.error({ error: error }, "signIn() callback error");
             response = false;
           }
+
+          if (response) {
+            await sendAuditEvent({
+              event: "LogIn",
+              user: profile!.nhs_number,
+            });
+          }
+
           return response;
         },
 

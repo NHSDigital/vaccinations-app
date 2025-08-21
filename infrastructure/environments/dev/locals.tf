@@ -49,6 +49,9 @@ locals {
     NBS_URL          = "https://f.nhswebsite-integration.nhs.uk/nbs"
     NBS_BOOKING_PATH = "/nhs-app"
 
+    AUDIT_CLOUDWATCH_LOG_GROUP  = "/aws/audit/${local.prefix}-audit-logs"
+    AUDIT_CLOUDWATCH_LOG_STREAM = "audit-logs"
+
     SSM_PARAMETER_STORE_TTL                = 300
     PARAMETERS_SECRETS_EXTENSION_LOG_LEVEL = "INFO"
   }
