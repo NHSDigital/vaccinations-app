@@ -291,8 +291,12 @@ describe("EligibilityActions", () => {
         const content1: HTMLElement = screen.getByText("Test Content 1");
         const content2: HTMLElement = screen.getByText("Test Content 2");
 
-        expect(content1.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).toBe("HR");
-        expect(content2.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).not.toBe("HR");
+        expect(
+          content1.closest('[data-testid="action-paragraph"]')?.nextElementSibling?.nextElementSibling?.tagName,
+        ).toBe("HR");
+        expect(
+          content2.closest('[data-testid="action-paragraph"]')?.nextElementSibling?.nextElementSibling?.tagName,
+        ).not.toBe("HR");
       });
     });
 
@@ -354,7 +358,7 @@ describe("EligibilityActions", () => {
           }),
         );
 
-        const linkComponents = screen.getByTestId("action-auth-button-components");
+        const linkComponents = screen.getByTestId("action-auth-link-components");
 
         const card = within(linkComponents).queryByTestId("action-auth-button-card");
 

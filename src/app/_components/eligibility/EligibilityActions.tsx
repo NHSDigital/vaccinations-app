@@ -1,7 +1,7 @@
 import { MarkdownWithStyling } from "@src/app/_components/markdown/MarkdownWithStyling";
 import { NBSBookingActionForBaseUrl } from "@src/app/_components/nbs/NBSBookingAction";
 import { BasicCard } from "@src/app/_components/nhs-frontend/BasicCard";
-import { Action, ActionDisplayType } from "@src/services/eligibility-api/types";
+import { Action, ActionDisplayType, ButtonUrl, Content, Label } from "@src/services/eligibility-api/types";
 import React, { JSX } from "react";
 
 interface EligibilityActionProps {
@@ -12,28 +12,14 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
   return actions.map((action: Action) => {
     switch (action.type) {
       case ActionDisplayType.infotext: {
-        return (
-          <div key={action.content} data-testid="action-paragraph">
-            <MarkdownWithStyling content={action.content} delineator={action.delineator} />
-          </div>
-        );
+        return _infotext(action.content, action.delineator);
       }
       case ActionDisplayType.card: {
-        return (
-          <div key={action.content} data-testid="action-card-component">
-            <BasicCard content={action.content} delineator={action.delineator} />
-          </div>
-        );
+        return _card(action.content, action.delineator);
       }
       case ActionDisplayType.buttonWithCard: {
         const card = action.content && <BasicCard content={action.content} delineator={false} />;
-        const button = action.button && (
-          <NBSBookingActionForBaseUrl
-            url={action.button.url.href}
-            displayText={action.button.label}
-            renderAs={"button"}
-          />
-        );
+        const button = action.button && _button(action.button.url, action.button.label, "button");
         return (
           <div key={action.content} data-testid="action-auth-button-components">
             {card}
@@ -43,18 +29,8 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
         );
       }
       case ActionDisplayType.buttonWithInfo: {
-        const info = action.content && (
-          <div key={action.content} data-testid="action-paragraph">
-            <MarkdownWithStyling content={action.content} delineator={action.delineator} />
-          </div>
-        );
-        const button = action.button && (
-          <NBSBookingActionForBaseUrl
-            url={action.button.url.href}
-            displayText={action.button.label}
-            renderAs={"button"}
-          />
-        );
+        const info = action.content && _infotext(action.content, false);
+        const button = action.button && _button(action.button.url, action.button.label, "button");
         return (
           <div key={action.content} data-testid="action-auth-button-components">
             {info}
@@ -64,22 +40,12 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
         );
       }
       case ActionDisplayType.actionLinkWithInfo: {
-        const info = action.content && (
-          <div key={action.content} data-testid="action-paragraph">
-            <MarkdownWithStyling content={action.content} delineator={false} />
-          </div>
-        );
-        const actionLink = action.button && (
-          <NBSBookingActionForBaseUrl
-            url={action.button.url.href}
-            displayText={action.button.label}
-            renderAs={"actionLink"}
-          />
-        );
+        const info = action.content && _infotext(action.content, false);
+        const link = action.button && _button(action.button.url, action.button.label, "actionLink");
         return (
-          <div key={action.content} data-testid="action-auth-button-components">
+          <div key={action.content} data-testid="action-auth-link-components">
             {info}
-            {actionLink}
+            {link}
             {action.delineator && <hr />}
           </div>
         );
@@ -87,4 +53,25 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
     }
   });
 };
+
+const _infotext = (content: Content, delineator: boolean): JSX.Element => {
+  return (
+    <div key={content} data-testid="action-paragraph">
+      <MarkdownWithStyling content={content} delineator={delineator} />
+    </div>
+  );
+};
+
+const _card = (content: Content, delineator: boolean): JSX.Element => {
+  return (
+    <div key={content} data-testid="action-card-component">
+      <BasicCard content={content} delineator={delineator} />
+    </div>
+  );
+};
+
+const _button = (url: ButtonUrl, label: Label, renderAs: "anchor" | "button" | "actionLink"): JSX.Element => {
+  return <NBSBookingActionForBaseUrl url={url.href} displayText={label} renderAs={renderAs} />;
+};
+
 export { EligibilityActions };
