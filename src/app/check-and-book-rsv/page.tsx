@@ -3,7 +3,7 @@ import CardLink from "@src/app/_components/nhs-app/CardLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import { HUB_FEEDBACK_REFERRER_ID, NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
 import { VaccineContentUrlPaths, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
-import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
+import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { ContentErrorTypes, StyledVaccineContent } from "@src/services/content-api/types";
 import { requestScopedStorageWrapper } from "@src/utils/requestScopedStorageWrapper";
 import React from "react";

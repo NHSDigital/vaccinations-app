@@ -3,10 +3,8 @@
  */
 import { S3Client } from "@aws-sdk/client-s3";
 import mockRsvVaccineJson from "@project/wiremock/__files/rsv-vaccine.json";
-import { VaccineTypes } from "@src/models/vaccine";
-import { _readContentFromCache, getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
-import { ContentErrorTypes, GetContentForVaccineResponse } from "@src/services/content-api/types";
-import { configProvider } from "@src/utils/config";
+import { INVALIDATED_CONTENT_OVERWRITE_VALUE } from "@src/services/content-api/constants";
+import { readContentFromCache } from "@src/services/content-api/gateway/content-reader-service";
 import { Readable } from "stream";
 
 jest.mock("@aws-sdk/client-s3");
@@ -35,7 +33,7 @@ const mockErrorResponse = {
 };
 
 describe("Content Reader Service", () => {
-  describe("_readContentFromCache()", () => {
+  describe("readContentFromCache()", () => {
     const mockSend: jest.Mock = jest.fn();
 
     beforeEach(() => {
@@ -45,68 +43,35 @@ describe("Content Reader Service", () => {
     });
 
     it("returns content when object uri is local", async () => {
-      const actual: string = await _readContentFromCache("wiremock/__files", "/rsv-vaccine.json");
+      const actual: string = await readContentFromCache("wiremock/__files", "/rsv-vaccine.json");
       expect(JSON.parse(actual)).toStrictEqual(mockRsvVaccineJson);
     });
 
     it("returns content when object uri is remote", async () => {
       mockSend.mockImplementation(() => mockRsvResponse);
 
-      const actual: string = await _readContentFromCache("s3://bucket", "/file");
+      const actual: string = await readContentFromCache("s3://bucket", "/file");
       expect(JSON.parse(actual)).toStrictEqual(mockRsvVaccineJson);
     });
 
     it("throws when remote response is invalid", async () => {
       mockSend.mockImplementation(() => mockInvalidResponse);
 
-      const actualPromise: Promise<string> = _readContentFromCache("s3://bucket", "/file");
+      const actualPromise: Promise<string> = readContentFromCache("s3://bucket", "/file");
       await expect(actualPromise).rejects.toThrow("Error fetching content: unexpected response type");
     });
 
     it("throws when remote response has error", async () => {
       mockSend.mockImplementation(() => mockErrorResponse);
 
-      const actualPromise: Promise<string> = _readContentFromCache("s3://bucket", "/file");
+      const actualPromise: Promise<string> = readContentFromCache("s3://bucket", "/file");
       await expect(actualPromise).rejects.toThrow("test error");
     });
-  });
 
-  describe("getContentForVaccine()", () => {
-    describe("when readContent succeeds", () => {
-      beforeEach(() => {
-        (configProvider as jest.Mock).mockImplementation(() => ({
-          CONTENT_CACHE_PATH: "wiremock/__files/",
-        }));
-      });
+    it("throws if contents of cache have been invalidated while awaiting approval of changes from clinical", async () => {
+      const actualPromise = readContentFromCache("wiremock/__files", "/invalidated-cache.json");
 
-      it("should return response for rsv vaccine from content cache", async () => {
-        const vaccine: VaccineTypes = VaccineTypes.RSV;
-        const { styledVaccineContent, contentError }: GetContentForVaccineResponse =
-          await getContentForVaccine(vaccine);
-
-        expect(styledVaccineContent).toBeDefined();
-        expect(styledVaccineContent?.overview).toEqual(mockRsvVaccineJson.mainEntityOfPage[0].text);
-        expect(styledVaccineContent?.whatVaccineIsFor?.heading).toEqual(
-          mockRsvVaccineJson.mainEntityOfPage[1].headline,
-        );
-        expect(styledVaccineContent?.webpageLink.href).toEqual(mockRsvVaccineJson.webpage);
-        expect(contentError).toBeUndefined();
-      });
-    });
-
-    describe("when readContent fails", () => {
-      beforeEach(() => {
-        (configProvider as jest.Mock).mockImplementation(() => ({
-          CONTENT_CACHE_PATH: "wiremock/path-does-not-exist/",
-        }));
-      });
-
-      it("should return error if content read fails", async () => {
-        const { styledVaccineContent, contentError } = await getContentForVaccine(VaccineTypes.RSV);
-
-        expect(contentError).toEqual(ContentErrorTypes.CONTENT_LOADING_ERROR);
-        expect(styledVaccineContent).toBeUndefined();
-      });
+      await expect(actualPromise).rejects.toThrow(`Unable to load content: ${INVALIDATED_CONTENT_OVERWRITE_VALUE}`);
     });
   });
 });

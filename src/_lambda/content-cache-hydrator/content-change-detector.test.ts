@@ -1,6 +1,6 @@
 import { vitaContentChangedSinceLastApproved } from "@src/_lambda/content-cache-hydrator/content-change-detector";
 import { VaccineTypes } from "@src/models/vaccine";
-import { _readContentFromCache } from "@src/services/content-api/gateway/content-reader-service";
+import { readContentFromCache } from "@src/services/content-api/gateway/content-reader-service";
 import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { VaccinePageContent } from "@src/services/content-api/types";
 import { AppConfig, configProvider } from "@src/utils/config";
@@ -55,7 +55,7 @@ describe("vitaContentChangedSinceLastApproved", () => {
         CONTENT_CACHE_PATH: "wiremock/__files/",
       }),
     );
-    (_readContentFromCache as jest.Mock).mockImplementation((): string => "mock-cache-file-contents");
+    (readContentFromCache as jest.Mock).mockImplementation((): string => "mock-cache-file-contents");
     (getFilteredContentForVaccine as jest.Mock).mockImplementation(
       (): VaccinePageContent => mockPreviousApprovedVaccineContent,
     );

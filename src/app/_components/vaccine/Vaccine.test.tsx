@@ -3,7 +3,7 @@ import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVa
 import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { VaccineTypes } from "@src/models/vaccine";
-import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
+import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import { EligibilityErrorTypes, EligibilityStatus } from "@src/services/eligibility-api/types";
@@ -14,7 +14,7 @@ import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/he
 import { headers } from "next/headers";
 import React from "react";
 
-jest.mock("@src/services/content-api/gateway/content-reader-service", () => ({
+jest.mock("@src/services/content-api/content-service", () => ({
   getContentForVaccine: jest.fn(),
 }));
 jest.mock("@src/services/eligibility-api/domain/eligibility-filter-service", () => ({

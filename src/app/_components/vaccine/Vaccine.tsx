@@ -11,7 +11,7 @@ import Details from "@src/app/_components/nhs-frontend/Details";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import { HEADINGS } from "@src/app/constants";
 import { NhsNumber, VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
-import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
+import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { ContentErrorTypes, StyledVaccineContent } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import { Eligibility, EligibilityErrorTypes } from "@src/services/eligibility-api/types";

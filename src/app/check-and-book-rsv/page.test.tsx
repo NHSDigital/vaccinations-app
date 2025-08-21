@@ -1,12 +1,12 @@
 import VaccinationsHub from "@src/app/check-and-book-rsv/page";
-import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
+import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import { mockStyledContent } from "@test-data/content-api/data";
 import { render, screen } from "@testing-library/react";
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 import { headers } from "next/headers";
 
-jest.mock("@src/services/content-api/gateway/content-reader-service");
+jest.mock("@src/services/content-api/content-service");
 jest.mock("@src/app/_components/nhs-app/BackToNHSAppLink");
 jest.mock("next/headers", () => ({
   headers: jest.fn(),

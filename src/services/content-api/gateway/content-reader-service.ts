@@ -1,22 +1,15 @@
 "use server";
 
 import { GetObjectCommand, S3Client, S3ServiceException } from "@aws-sdk/client-s3";
-import { VaccineTypes } from "@src/models/vaccine";
-import { VaccineContentPaths, vaccineTypeToPath } from "@src/services/content-api/constants";
-import { ReadingS3Error, S3HttpStatusError, S3NoSuchKeyError } from "@src/services/content-api/gateway/exceptions";
-import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
-import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
+import { INVALIDATED_CONTENT_OVERWRITE_VALUE } from "@src/services/content-api/constants";
 import {
-  ContentErrorTypes,
-  GetContentForVaccineResponse,
-  StyledVaccineContent,
-  VaccinePageContent,
-} from "@src/services/content-api/types";
-import { AppConfig, configProvider } from "@src/utils/config";
+  InvalidatedCacheError,
+  S3HttpStatusError,
+  S3NoSuchKeyError,
+} from "@src/services/content-api/gateway/exceptions";
 import { AWS_PRIMARY_REGION } from "@src/utils/constants";
 import { logger } from "@src/utils/logger";
 import { S3_PREFIX, isS3Path } from "@src/utils/path";
-import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { HttpStatusCode } from "axios";
 import { readFile } from "node:fs/promises";
 import { Logger } from "pino";
@@ -65,55 +58,20 @@ const _readFileS3 = async (bucket: string, key: string): Promise<string> => {
   throw new Error("Error fetching content: unexpected response type");
 };
 
-const _readContentFromCache = async (cacheLocation: string, cachePath: string): Promise<string> => {
+const readContentFromCache = async (cacheLocation: string, cachePath: string): Promise<string> => {
   log.info({ context: { cacheLocation, cachePath } }, "Reading file from cache");
 
-  return isS3Path(cacheLocation)
-    ? await _readFileS3(cacheLocation.slice(S3_PREFIX.length), cachePath)
-    : await readFile(`${cacheLocation}${cachePath}`, { encoding: "utf8" });
-};
+  let contentFromCache;
+  isS3Path(cacheLocation)
+    ? (contentFromCache = await _readFileS3(cacheLocation.slice(S3_PREFIX.length), cachePath))
+    : (contentFromCache = await readFile(`${cacheLocation}${cachePath}`, { encoding: "utf8" }));
 
-const GetVaccineContentPerformanceMarker = "get-vaccine-content";
-
-const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<GetContentForVaccineResponse> => {
-  try {
-    profilePerformanceStart(GetVaccineContentPerformanceMarker);
-
-    const config: AppConfig = await configProvider();
-    const vaccineContentPath: VaccineContentPaths = vaccineTypeToPath[vaccineType];
-
-    // fetch content from api
-    log.info({ context: { vaccineType } }, "Fetching content from cache for vaccine");
-    const vaccineContent = await _readContentFromCache(config.CONTENT_CACHE_PATH, `${vaccineContentPath}.json`);
-    log.info({ context: { vaccineType } }, "Finished fetching content from cache for vaccine");
-
-    // filter and style content
-    const filteredContent: VaccinePageContent = getFilteredContentForVaccine(vaccineContent);
-    const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(vaccineType, filteredContent);
-
-    profilePerformanceEnd(GetVaccineContentPerformanceMarker);
-
-    return { styledVaccineContent, contentError: undefined };
-  } catch (error) {
-    if (error instanceof ReadingS3Error) {
-      return {
-        styledVaccineContent: undefined,
-        contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
-      };
-    } else {
-      const errorMessage = error instanceof Error && error?.message != undefined ? error.message : "unknown error";
-      const errorStackTrace = error instanceof Error ? error.stack : "";
-      const errorCause = error instanceof Error ? error.cause : "";
-      log.error(
-        { error: { message: errorMessage, stack: errorStackTrace, cause: errorCause }, context: { vaccineType } },
-        "Error getting content for vaccine",
-      );
-      return {
-        styledVaccineContent: undefined,
-        contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
-      };
-    }
+  if (contentFromCache.includes(INVALIDATED_CONTENT_OVERWRITE_VALUE)) {
+    log.info({ context: { cachePath } }, `Unable to load content: ${INVALIDATED_CONTENT_OVERWRITE_VALUE}`);
+    throw new InvalidatedCacheError(`Unable to load content: ${INVALIDATED_CONTENT_OVERWRITE_VALUE}`);
   }
+
+  return contentFromCache;
 };
 
-export { _readFileS3, _readContentFromCache, getContentForVaccine };
+export { _readFileS3, readContentFromCache };

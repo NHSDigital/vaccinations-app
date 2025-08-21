@@ -1,6 +1,6 @@
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { VaccineTypes } from "@src/models/vaccine";
-import { getContentForVaccine } from "@src/services/content-api/gateway/content-reader-service";
+import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { mockStyledContent } from "@test-data/content-api/data";
 import { assertBackLinkIsPresent } from "@test-data/utils/back-link-helpers";
 import { renderDynamicPage } from "@test-data/utils/dynamic-page-helpers";
@@ -15,7 +15,7 @@ jest.mock("next/navigation", () => ({
 
 jest.mock("@src/services/nbs/nbs-service", () => jest.fn());
 jest.mock("@src/app/_components/vaccine/Vaccine", () => jest.fn());
-jest.mock("@src/services/content-api/gateway/content-reader-service", () => ({
+jest.mock("@src/services/content-api/content-service", () => ({
   getContentForVaccine: jest.fn(),
 }));
 jest.mock("@src/app/_components/nhs-frontend/BackLink", () => jest.fn(() => <div data-testid="back-link"></div>));
