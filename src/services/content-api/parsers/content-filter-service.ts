@@ -1,3 +1,4 @@
+import { INVALIDATED_CONTENT_OVERWRITE_VALUE } from "@src/services/content-api/constants";
 import {
   ContentApiVaccineResponse,
   HasPartSubsection,
@@ -166,6 +167,10 @@ function _extractHeadlineForContraindicationsAspect(content: ContentApiVaccineRe
 }
 
 const getFilteredContentForVaccine = (apiContent: string): VaccinePageContent => {
+  if (apiContent.includes(INVALIDATED_CONTENT_OVERWRITE_VALUE)) {
+    throw Error(`Unable to load content: ${INVALIDATED_CONTENT_OVERWRITE_VALUE}`);
+  }
+
   const content: ContentApiVaccineResponse = JSON.parse(apiContent);
   const overview: string = _extractDescriptionForVaccine(content, "lead paragraph");
 

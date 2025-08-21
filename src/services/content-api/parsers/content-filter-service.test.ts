@@ -1,3 +1,4 @@
+import { INVALIDATED_CONTENT_OVERWRITE_VALUE } from "@src/services/content-api/constants";
 import {
   _extractDescriptionForVaccine,
   _extractHeadlineForAspect,
@@ -641,6 +642,12 @@ describe("Content Filter", () => {
       );
 
       expect(pageCopyForFlu.whatVaccineIsFor).toBeUndefined();
+    });
+
+    it("should throw if content from an invalidated cache is provided", async () => {
+      const errorMessage = () => getFilteredContentForVaccine(INVALIDATED_CONTENT_OVERWRITE_VALUE);
+
+      expect(errorMessage).toThrow(`Unable to load content: ${INVALIDATED_CONTENT_OVERWRITE_VALUE}`);
     });
   });
 });

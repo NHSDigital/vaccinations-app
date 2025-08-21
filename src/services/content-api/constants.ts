@@ -11,4 +11,7 @@ const vaccineTypeToPath: Record<VaccineTypes, VaccineContentPaths> = {
   [VaccineTypes.RSV_PREGNANCY]: VaccineContentPaths.RSV,
 };
 
-export { VaccineContentPaths, vaccineTypeToPath };
+const INVALIDATED_CONTENT_OVERWRITE_VALUE =
+  '{ "cacheStatus": "INVALIDATED", "reason": "Content changed since last approved" }';
+
+export { VaccineContentPaths, vaccineTypeToPath, INVALIDATED_CONTENT_OVERWRITE_VALUE };
