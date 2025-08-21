@@ -16,7 +16,12 @@ describe("NBSBookingAction", () => {
   describe("Given vaccine type", () => {
     const renderAndClickNBSBookingActionForVaccine = (displayText: string, renderAs: "anchor" | "button") => {
       render(
-        <NBSBookingActionForVaccine vaccineType={VaccineTypes.RSV} displayText={displayText} renderAs={renderAs} />,
+        <NBSBookingActionForVaccine
+          vaccineType={VaccineTypes.RSV}
+          displayText={displayText}
+          renderAs={renderAs}
+          reduceBottomPadding={false}
+        />,
       );
       let bookingAction;
       if (renderAs === "anchor") {
@@ -83,7 +88,14 @@ describe("NBSBookingAction", () => {
     const url = randomURL();
 
     const renderAndClickNBSBookingActionForBaseUrl = (displayText: string, renderAs: "anchor" | "button") => {
-      render(<NBSBookingActionForBaseUrl url={url.href} displayText={displayText} renderAs={renderAs} />);
+      render(
+        <NBSBookingActionForBaseUrl
+          url={url.href}
+          displayText={displayText}
+          renderAs={renderAs}
+          reduceBottomPadding={false}
+        />,
+      );
       let bookingAction;
       if (renderAs === "anchor") {
         bookingAction = screen.getByRole("link", { name: displayText });

@@ -8,6 +8,7 @@ interface ActionLinkProps {
 type ActionClickEvent = React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>;
 
 const ActionLink = (props: ActionLinkProps): JSX.Element => {
+  /* See https://service-manual.nhs.uk/design-system/components/action-link */
   const { hasContextLoaded, isOpenInMobileApp } = useBrowserContext();
 
   const handleClick = (e: ActionClickEvent) => {

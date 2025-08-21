@@ -1,5 +1,5 @@
-import { ActionDisplayType } from "@src/services/eligibility-api/types";
-import { actionBuilder } from "@test-data/eligibility-api/builders";
+import { ActionDisplayType, ButtonUrl, Label } from "@src/services/eligibility-api/types";
+import { actionBuilder, buttonBuilder } from "@test-data/eligibility-api/builders";
 import { render, screen, within } from "@testing-library/react";
 import React from "react";
 
@@ -322,16 +322,25 @@ describe("EligibilityActions", () => {
         render(
           EligibilityActions({
             actions: [
-              actionBuilder().withType(ActionDisplayType.actionLinkWithInfo).andContent("Test Content").build(),
+              actionBuilder()
+                .withType(ActionDisplayType.actionLinkWithInfo)
+                .andContent("Test Content")
+                .andButton(
+                  buttonBuilder()
+                    .withLabel("Action Link Test" as Label)
+                    .andUrl(new URL("https://example.com/bacon/") as ButtonUrl)
+                    .build(),
+                )
+                .build(),
             ],
           }),
         );
 
         const content: HTMLElement = screen.getByText("Test Content");
-        const bookingButton: HTMLElement = screen.getByText("NBS Booking Link Test");
+        const link = screen.getByRole("link", { name: "Action Link Test" });
 
         expect(content).toBeVisible();
-        expect(bookingButton).toBeInTheDocument();
+        expect(link).toHaveAttribute("href", "https://example.com/bacon/");
       });
 
       it("should display multiple link content components successfully", () => {

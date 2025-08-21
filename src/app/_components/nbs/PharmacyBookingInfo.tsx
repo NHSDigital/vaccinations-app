@@ -14,6 +14,7 @@ const PharmacyBookingInfo = ({ vaccineType }: PharmacyBookingProps): JSX.Element
         displayText={`book an ${VaccineInfo[vaccineType].displayName.midSentenceCase} vaccination in a pharmacy`}
         vaccineType={vaccineType}
         renderAs={"anchor"}
+        reduceBottomPadding={false}
       />
       .
     </p>

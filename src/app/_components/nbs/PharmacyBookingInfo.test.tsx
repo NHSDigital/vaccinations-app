@@ -21,6 +21,7 @@ describe("PharmacyBookingInfo", () => {
         vaccineType: VaccineTypes.RSV,
         displayText: "book an RSV vaccination in a pharmacy",
         renderAs: "anchor",
+        reduceBottomPadding: false,
       },
       undefined,
     );

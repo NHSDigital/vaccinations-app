@@ -11,18 +11,21 @@ interface NBSBookingActionForVaccineProps {
   vaccineType: VaccinesWithNBSBookingAvailable;
   displayText: string;
   renderAs: "anchor" | "button" | "actionLink";
+  reduceBottomPadding: boolean;
 }
 
 interface NBSBookingActionForBaseUrlProps {
   url: string; // I wanted a URL here, but something is coercing it to a string, so...
   displayText: string;
   renderAs: "anchor" | "button" | "actionLink";
+  reduceBottomPadding: boolean;
 }
 
 interface NBSBookingActionProps {
   url: string;
   displayText: string;
   renderAs: "anchor" | "button" | "actionLink";
+  reduceBottomPadding: boolean;
 }
 
 type ActionClickEvent = React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>;
@@ -31,19 +34,44 @@ const NBSBookingActionForVaccine = ({
   vaccineType,
   displayText,
   renderAs,
+  reduceBottomPadding = false,
 }: NBSBookingActionForVaccineProps): JSX.Element => {
   const vaccinePath: VaccineContentUrlPaths = vaccineTypeToUrlPath[vaccineType];
   const nbsSSOLink = `${SSO_TO_NBS_ROUTE}?vaccine=${vaccinePath}`;
 
-  return <NBSBookingAction url={nbsSSOLink} displayText={displayText} renderAs={renderAs} />;
+  return (
+    <NBSBookingAction
+      url={nbsSSOLink}
+      displayText={displayText}
+      renderAs={renderAs}
+      reduceBottomPadding={reduceBottomPadding}
+    />
+  );
 };
 
-const NBSBookingActionForBaseUrl = ({ url, displayText, renderAs }: NBSBookingActionForBaseUrlProps): JSX.Element => {
+const NBSBookingActionForBaseUrl = ({
+  url,
+  displayText,
+  renderAs,
+  reduceBottomPadding = false,
+}: NBSBookingActionForBaseUrlProps): JSX.Element => {
   const nbsSSOLink = `${SSO_TO_NBS_ROUTE}?redirectTarget=${encodeURI(url)}`;
-  return <NBSBookingAction url={nbsSSOLink} displayText={displayText} renderAs={renderAs} />;
+  return (
+    <NBSBookingAction
+      url={nbsSSOLink}
+      displayText={displayText}
+      renderAs={renderAs}
+      reduceBottomPadding={reduceBottomPadding}
+    />
+  );
 };
 
-const NBSBookingAction = ({ url, displayText, renderAs }: NBSBookingActionProps): JSX.Element => {
+const NBSBookingAction = ({
+  url,
+  displayText,
+  renderAs,
+  reduceBottomPadding = false,
+}: NBSBookingActionProps): JSX.Element => {
   const { hasContextLoaded, isOpenInMobileApp } = useBrowserContext();
 
   const handleClick = (e: ActionClickEvent) => {
@@ -61,8 +89,9 @@ const NBSBookingAction = ({ url, displayText, renderAs }: NBSBookingActionProps)
       );
     }
     case "button": {
+      const className = `nhsuk-button nhsapp-button${reduceBottomPadding ? " nhsuk-u-margin-bottom-2" : ""}`;
       return (
-        <button className={"nhsuk-button nhsapp-button"} onClick={handleClick}>
+        <button className={className} onClick={handleClick}>
           {displayText}
         </button>
       );
