@@ -101,7 +101,13 @@ const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<GetConte
         contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
       };
     } else {
-      log.error({ error, context: { vaccineType } }, "Error getting content for vaccine");
+      const errorMessage = error instanceof Error && error?.message != undefined ? error.message : "unknown error";
+      const errorStackTrace = error instanceof Error ? error.stack : "";
+      const errorCause = error instanceof Error ? error.cause : "";
+      log.error(
+        { error: { message: errorMessage, stack: errorStackTrace, cause: errorCause }, context: { vaccineType } },
+        "Error getting content for vaccine",
+      );
       return {
         styledVaccineContent: undefined,
         contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
