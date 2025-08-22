@@ -32,8 +32,9 @@ locals {
     DEPLOY_ENVIRONMENT  = local.environment
     PROFILE_PERFORMANCE = "true"
 
-    CONTENT_API_ENDPOINT = "https://int.api.service.nhs.uk/"
-    CONTENT_CACHE_PATH   = "s3://${local.content_cache_bucket_name}"
+    CONTENT_API_ENDPOINT                     = "https://int.api.service.nhs.uk/"
+    CONTENT_CACHE_PATH                       = "s3://${local.content_cache_bucket_name}"
+    CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED = false
 
     NHS_LOGIN_URL              = "https://auth.sandpit.signin.nhs.uk"
     NHS_LOGIN_SCOPE            = "openid profile"
