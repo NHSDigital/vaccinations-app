@@ -7,24 +7,26 @@ import { VaccineContentUrlPaths, vaccineTypeToUrlPath } from "@src/models/vaccin
 import { VaccinesWithNBSBookingAvailable } from "@src/services/nbs/nbs-service";
 import React, { JSX } from "react";
 
+type RenderOptions = "anchor" | "button" | "actionLink";
+
 interface NBSBookingActionForVaccineProps {
   vaccineType: VaccinesWithNBSBookingAvailable;
   displayText: string;
-  renderAs: "anchor" | "button" | "actionLink";
+  renderAs: RenderOptions;
   reduceBottomPadding: boolean;
 }
 
 interface NBSBookingActionForBaseUrlProps {
   url: string; // I wanted a URL here, but something is coercing it to a string, so...
   displayText: string;
-  renderAs: "anchor" | "button" | "actionLink";
+  renderAs: RenderOptions;
   reduceBottomPadding: boolean;
 }
 
 interface NBSBookingActionProps {
   url: string;
   displayText: string;
-  renderAs: "anchor" | "button" | "actionLink";
+  renderAs: RenderOptions;
   reduceBottomPadding: boolean;
 }
 
