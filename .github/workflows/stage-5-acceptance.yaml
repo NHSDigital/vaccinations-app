@@ -62,6 +62,8 @@ jobs:
       MAX_SESSION_AGE_MINUTES: 0
       IS_APIM_AUTH_ENABLED: ${{ vars.IS_APIM_AUTH_ENABLED }}
       AUTH_SECRET: "dummy"
+      AUDIT_CLOUDWATCH_LOG_GROUP: "dummy"
+      AUDIT_CLOUDWATCH_LOG_STREAM: "dummy"
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v5
