@@ -19,9 +19,9 @@ locals {
   alarms_slack_channel_id   = var.alarms_slack_channel_id
 
   enable_pars                  = var.is_github_action ? true : false
-  pars_account_id              = "381492316974" # TODO: 22/08/2025 VIA-253 AS Confirm this
+  pars_account_id              = "381492316974"
   pars_target_environment_name = "${local.deploy_workspace}-${local.project_identifier_shortcode}-${local.environment}"
-  audit_log_retention_in_days  = 30 # TODO: 22/08/2025 VIA-253 AS Confirm this
+  audit_log_retention_in_days  = 30
   audit_log_group_name         = "/aws/audit/${local.prefix}-audit-logs"
   audit_log_stream_name        = "audit-logs"
 
