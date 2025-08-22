@@ -1,20 +1,5 @@
 locals {
   alarms_lambda_logs = {
-    "server-lambda-error-logs" = {
-      alarm_description = "Server Lambda: error level log within last hour"
-      metric_name       = "ServerLambdaErrorLogs"
-
-      statistic           = "Sum"
-      comparison_operator = "GreaterThanThreshold"
-      threshold           = 0
-      unit                = "Count"
-
-      period              = 60 // 1min
-      evaluation_periods  = 60
-      datapoints_to_alarm = 1
-      treat_missing_data  = "notBreaching"
-    },
-
     "content-cache-hydrator-error-logs" = {
       alarm_description = "Content Cache Hydrator: error level log in last run"
       metric_name       = "ContentCacheHydratorErrorLogs"
@@ -29,20 +14,6 @@ locals {
       datapoints_to_alarm = 1
       treat_missing_data  = "ignore" // maintain alarm state
     }
-  }
-}
-
-resource "aws_cloudwatch_log_metric_filter" "server_lambda_error_logs" {
-  name           = "Server lambda error logs"
-  pattern        = "{ $.level = \"ERROR\" }"
-  log_group_name = "/aws/lambda/${var.prefix}-server-function"
-
-  metric_transformation {
-    name          = local.alarms_lambda_logs.server-lambda-error-logs.metric_name
-    namespace     = var.prefix
-    value         = "1"
-    default_value = "0"
-    unit          = "Count"
   }
 }
 
@@ -82,8 +53,8 @@ module "alarms_logs" {
   datapoints_to_alarm = each.value.datapoints_to_alarm
   treat_missing_data  = each.value.treat_missing_data
 
-  alarm_actions = [module.sns.topic_arn]
-  ok_actions    = [module.sns.topic_arn]
+  alarm_actions = [var.alerting_sns_topic_arn]
+  ok_actions    = [var.alerting_sns_topic_arn]
 
   tags = var.default_tags
 }

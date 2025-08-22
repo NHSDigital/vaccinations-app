@@ -99,8 +99,8 @@ module "alarms_lambda" {
   evaluation_periods  = each.value.evaluation_periods
   datapoints_to_alarm = each.value.datapoints_to_alarm
 
-  alarm_actions      = [module.sns.topic_arn]
-  ok_actions         = [module.sns.topic_arn]
+  alarm_actions      = [var.alerting_sns_topic_arn]
+  ok_actions         = [var.alerting_sns_topic_arn]
   treat_missing_data = "notBreaching"
 
   dimensions = {

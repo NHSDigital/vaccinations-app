@@ -54,12 +54,12 @@ module "alarms_cloudfront" {
   evaluation_periods  = each.value.evaluation_periods
   datapoints_to_alarm = each.value.datapoints_to_alarm
 
-  alarm_actions      = [module.sns.topic_arn]
-  ok_actions         = [module.sns.topic_arn]
+  alarm_actions      = [var.alerting_sns_topic_arn]
+  ok_actions         = [var.alerting_sns_topic_arn]
   treat_missing_data = "notBreaching"
 
   dimensions = {
-    DistributionId = var.cloudfront_distribution_id
+    DistributionId = module.deploy_app.cloudfront_distribution_id
   }
 
   tags = var.default_tags

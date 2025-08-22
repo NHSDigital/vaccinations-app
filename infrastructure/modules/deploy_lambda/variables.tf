@@ -27,3 +27,8 @@ variable "log_retention_in_days" {
   type        = string
   description = "The retention of logs in cloudwatch log groups in days"
 }
+
+variable "alerting_sns_topic_arn" {
+  type        = string
+  description = "SNS topic identifier for alerting"
+}

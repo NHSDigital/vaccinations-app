@@ -32,3 +32,13 @@ variable "pars_account_id" {
   type        = string
   description = "PARS Account ID"
 }
+
+variable "default_tags" {
+  type        = map(string)
+  description = "Map of default key-value pair of tags to add to resources"
+}
+
+variable "alerting_sns_topic_arn" {
+  type        = string
+  description = "SNS topic identifier for alerting"
+}
