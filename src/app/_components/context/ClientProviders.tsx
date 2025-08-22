@@ -10,7 +10,7 @@ import { WARNING_TIME_MS } from "@src/utils/auth/inactivity-timer";
 import { SessionProvider } from "next-auth/react";
 import React from "react";
 
-export function ClientProviders({ children }: { children: React.ReactNode }) {
+export function ClientProviders({ children }: Readonly<{ children: React.ReactNode }>) {
   // This is the session polling time on the client side,
   // so that the client can react to server side session expiry.
   // The value should be less than the time to warning dialog,
