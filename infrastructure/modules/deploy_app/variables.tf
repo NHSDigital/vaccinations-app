@@ -1,3 +1,8 @@
+variable "account_id" {
+  type        = string
+  description = "AWS Account Id"
+}
+
 variable "prefix" {
   type        = string
   description = "Prefix to be applied to resources created"
@@ -46,4 +51,9 @@ variable "domain" {
 variable "region" {
   type        = string
   description = "The AWS region to deploy to"
+}
+
+variable "audit_log_group_name" {
+  type        = string
+  description = "Log Group name for audit logs"
 }

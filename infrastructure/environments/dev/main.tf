@@ -22,6 +22,8 @@ module "deploy" {
   sub_domain                        = local.sub_domain
   default_tags                      = local.default_tags
   region                            = local.region
+  account_id                        = data.aws_caller_identity.current.account_id
+  audit_log_group_name              = local.audit_log_group_name
 }
 
 module "deploy_monitoring" {
@@ -43,4 +45,6 @@ module "deploy_audit" {
   audit_log_retention_in_days  = local.audit_log_retention_in_days
   pars_account_id              = local.pars_account_id
   pars_target_environment_name = local.pars_target_environment_name
+  audit_log_group_name         = local.audit_log_group_name
+  audit_log_stream_name        = local.audit_log_stream_name
 }

@@ -56,13 +56,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
             response = false;
           }
 
-          // WIP - need to check permissions for server function lambda role
-          // if (response) {
-          //   await sendAuditEvent({
-          //     event: "LogIn",
-          //     user: profile!.nhs_number,
-          //   });
-          // }
+          // TODO: Replace with FHIR endpoint
+          if (response) {
+            await sendAuditEvent({
+              event: "LogIn",
+              user: profile!.nhs_number,
+            });
+          }
 
           return response;
         },

@@ -8,6 +8,16 @@ variable "audit_log_retention_in_days" {
   description = "Retention of logs in audit log stream in days"
 }
 
+variable "audit_log_group_name" {
+  type        = string
+  description = "Log group name for audit logs"
+}
+
+variable "audit_log_stream_name" {
+  type        = string
+  description = "Log stream name for audit logs"
+}
+
 variable "pars_target_environment_name" {
   type        = string
   description = "Target environment name for PARS"

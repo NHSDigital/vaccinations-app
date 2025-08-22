@@ -22,6 +22,8 @@ locals {
   pars_account_id              = "381492316974"
   pars_target_environment_name = "${local.deploy_workspace}-${local.project_identifier_shortcode}-${local.environment}"
   audit_log_retention_in_days  = 7
+  audit_log_group_name         = "/aws/audit/${local.prefix}-audit-logs"
+  audit_log_stream_name        = "audit-logs"
 
   application_environment_variables = {
     SSM_PREFIX = "/${local.prefix}/"
@@ -49,8 +51,8 @@ locals {
     NBS_URL          = "https://f.nhswebsite-integration.nhs.uk/nbs"
     NBS_BOOKING_PATH = "/nhs-app"
 
-    AUDIT_CLOUDWATCH_LOG_GROUP  = "/aws/audit/${local.prefix}-audit-logs"
-    AUDIT_CLOUDWATCH_LOG_STREAM = "audit-logs"
+    AUDIT_CLOUDWATCH_LOG_GROUP  = local.audit_log_group_name
+    AUDIT_CLOUDWATCH_LOG_STREAM = local.audit_log_stream_name
 
     SSM_PARAMETER_STORE_TTL                = 300
     PARAMETERS_SECRETS_EXTENSION_LOG_LEVEL = "INFO"
