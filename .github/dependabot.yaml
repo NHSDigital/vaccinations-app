@@ -16,36 +16,33 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    dependency-type: "production"
     groups:
-      react:
-        patterns:
-          - "react"
-          - "react-dom"
-          - "@types/react"
-          - "@types/react-dom"
       next:
-        patterns:
-          - "next"
-          - "eslint-config-next"
+        patterns: ["next", "next*", "*next", "*next*"]
+      react:
+        patterns: ["react", "react*", "*react", "*react*"]
       aws-sdk:
-        patterns:
-          - "@aws-sdk/*"
+        patterns: ["@aws-sdk/*"]
+      miscellaneous-production-deps:
+        patterns: ["*"]
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    dependency-type: "development"
+    groups:
       jest:
-        patterns:
-          - "@pact-foundation/pact"
-          - "@types/jest"
-          - "jest"
-          - "jest-environment-jsdom"
-          - "jest-pact"
-          - "ts-jest"
+        patterns: ["jest", "jest*", "*jest", "*jest*"]
       testing-library:
-        patterns:
-          - "@testing-library/dom"
-          - "@testing-library/jest-dom"
+        patterns: ["@testing-library/*"]
+      eslint:
+        patterns: ["eslint", "eslint*", "*eslint", "*eslint*"]
       prettier:
-        patterns:
-          - "prettier"
-          - "@trivago/prettier-plugin-sort-imports"
+        patterns: ["prettier", "prettier*", "*prettier", "*prettier*"]
+      miscellaneous-dev-deps:
+        patterns: ["*"]
 
   - package-ecosystem: "pip"
     directory: "/"
