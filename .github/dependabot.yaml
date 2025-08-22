@@ -29,8 +29,7 @@ updates:
           - "eslint-config-next"
       aws-sdk:
         patterns:
-          - "@aws-sdk/client-s3"
-          - "@aws-sdk/client-ssm"
+          - "@aws-sdk/*"
       jest:
         patterns:
           - "@pact-foundation/pact"
