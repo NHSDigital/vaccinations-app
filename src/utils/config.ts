@@ -12,6 +12,7 @@ type AppConfig = {
   CONTENT_API_ENDPOINT: URL;
   ELIGIBILITY_API_ENDPOINT: URL;
   CONTENT_CACHE_PATH: string;
+  CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: boolean;
   NHS_LOGIN_URL: string;
   NHS_LOGIN_SCOPE: string;
   NBS_URL: string;
@@ -46,6 +47,8 @@ const configProvider = async (): Promise<AppConfig> => {
       CONTENT_API_KEY: await getFromEnvironmentOrSSM(SSM_PREFIX, "CONTENT_API_KEY"),
       ELIGIBILITY_API_KEY: await getFromEnvironmentOrSSM(SSM_PREFIX, "ELIGIBILITY_API_KEY"),
       CONTENT_CACHE_PATH: await getFromEnvironmentOrSSM(SSM_PREFIX, "CONTENT_CACHE_PATH"),
+      CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED:
+        (await getFromEnvironmentOrSSM(SSM_PREFIX, "CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED")) === "true",
       NHS_LOGIN_URL: await getFromEnvironmentOrSSM(SSM_PREFIX, "NHS_LOGIN_URL"),
       NHS_APP_REDIRECT_LOGIN_URL: await getFromEnvironmentOrSSM(SSM_PREFIX, "NHS_APP_REDIRECT_LOGIN_URL"),
       NHS_LOGIN_CLIENT_ID: await getFromEnvironmentOrSSM(SSM_PREFIX, "NHS_LOGIN_CLIENT_ID"),

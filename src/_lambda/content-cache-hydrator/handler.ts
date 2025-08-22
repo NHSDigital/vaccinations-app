@@ -6,6 +6,7 @@ import { VaccineTypes } from "@src/models/vaccine";
 import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
 import { VaccinePageContent } from "@src/services/content-api/types";
+import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
 import { Context } from "aws-lambda";
@@ -16,18 +17,19 @@ const runContentCacheHydrator = async (event: object) => {
   log.info({ context: { event } }, "Received event, hydrating content cache.");
 
   let failureCount: number = 0;
+  let invalidatedCount: number = 0;
   for (const vaccine of Object.values(VaccineTypes)) {
     try {
       const content: string = await fetchContentForVaccine(vaccine);
       const filteredContent: VaccinePageContent = getFilteredContentForVaccine(content);
 
       // VIA-378 Temporary feature toggle
-      const DETECT_CONTENT_CHANGES_ENABLED: boolean = false;
-      if (DETECT_CONTENT_CHANGES_ENABLED) {
+      const config: AppConfig = await configProvider();
+      if (config.CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED) {
         if (await vitaContentChangedSinceLastApproved(filteredContent, vaccine)) {
           log.info(`Content changes detected for vaccine ${vaccine}; invalidating cache`);
           await invalidateCacheForVaccine(vaccine);
-          throw new Error(`Content changes detected for vaccine: ${vaccine}`);
+          invalidatedCount++;
         }
       }
 
@@ -45,7 +47,7 @@ const runContentCacheHydrator = async (event: object) => {
     }
   }
 
-  log.info({ context: { failureCount } }, "Finished hydrating content cache with failures.");
+  log.info({ context: { failureCount, invalidatedCount } }, "Finished hydrating content cache: report.");
   if (failureCount > 0) {
     throw new Error(`${failureCount} failures`);
   }
