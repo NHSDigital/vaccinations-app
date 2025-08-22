@@ -2,7 +2,8 @@
  * @jest-environment node
  */
 import { CloudWatchLogsClient, InputLogEvent, PutLogEventsCommand } from "@aws-sdk/client-cloudwatch-logs";
-import { sendAuditEvent } from "@src/utils/audit-logger";
+import { createLoginAuditEvent } from "@src/utils/audit/audit-event";
+import { sendAuditEvent } from "@src/utils/audit/audit-logger";
 import { configProvider } from "@src/utils/config";
 import { AWS_PRIMARY_REGION } from "@src/utils/constants";
 
@@ -18,6 +19,7 @@ const mockConfig = {
 describe("Audit Logger: sendAuditEvent", () => {
   const now = 0;
   const mockSend = jest.fn();
+  const testMessage = createLoginAuditEvent("123456789", "test-trace-id", "Success");
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -37,7 +39,6 @@ describe("Audit Logger: sendAuditEvent", () => {
   });
 
   it("should send an audit event to CloudWatch successfully", async () => {
-    const testMessage = { event: "user_login", userId: "user-123" };
     mockSend.mockResolvedValueOnce({ $metadata: { httpStatusCode: 200 } });
 
     await sendAuditEvent(testMessage);
@@ -62,7 +63,6 @@ describe("Audit Logger: sendAuditEvent", () => {
   });
 
   it("should throw and log an error when sending the event fails", async () => {
-    const testMessage = { event: "user_login", userId: "user-456" };
     const cloudWatchError = new Error("Failed to send logs");
 
     mockSend.mockRejectedValueOnce(cloudWatchError);
@@ -73,7 +73,6 @@ describe("Audit Logger: sendAuditEvent", () => {
 
   it("should not call real cloudwatch client during local development", async () => {
     process.env.DEPLOY_ENVIRONMENT = "local";
-    const testMessage = { event: "user_login", userId: "user-456" };
 
     await sendAuditEvent(testMessage);
 

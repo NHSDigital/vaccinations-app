@@ -7,7 +7,7 @@ type AuditEventAction = "C" | "R" | "U" | "D" | "E";
 type AuditEventTimestamp = string;
 type AuditEventNHSNumber = string;
 type AuditEventTraceId = string;
-type AuditEventProductIdentifier = string;
+type AuditEventProductIdentifier = "Success";
 type AuditEventInteractionIdentifier = "nhs-login";
 
 // Ref: https://hl7.org/fhir/R4/auditevent.html

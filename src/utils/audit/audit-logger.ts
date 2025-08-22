@@ -13,7 +13,7 @@ const log = logger.child({ module: "utils-audit-logger" });
 
 const AuditLoggerPerformanceMarker = "audit-logger";
 
-const sendAuditEvent = async (message: object) => {
+const sendAuditEvent = async (message: AuditEvent) => {
   if (process.env.DEPLOY_ENVIRONMENT === "local") {
     // OR is it better to do the deny list
     log.info({ auditLog: message }, "Simulating audit log to Cloudwatch");
