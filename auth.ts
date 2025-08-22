@@ -56,12 +56,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
             response = false;
           }
 
-          if (response) {
-            await sendAuditEvent({
-              event: "LogIn",
-              user: profile!.nhs_number,
-            });
-          }
+          // WIP - need to check permissions for server function lambda role
+          // if (response) {
+          //   await sendAuditEvent({
+          //     event: "LogIn",
+          //     user: profile!.nhs_number,
+          //   });
+          // }
 
           return response;
         },
