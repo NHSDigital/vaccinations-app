@@ -7,6 +7,7 @@ module "deploy_lambda" {
   application_environment_variables = local.application_environment_variables
   log_retention_in_days             = local.log_retention_in_days
   default_tags                      = local.default_tags
+  alerting_sns_topic_arn            = module.deploy_monitoring.alerting_sns_topic_arn
 }
 
 module "deploy" {
@@ -24,6 +25,7 @@ module "deploy" {
   region                            = local.region
   account_id                        = data.aws_caller_identity.current.account_id
   audit_log_group_name              = local.audit_log_group_name
+  alerting_sns_topic_arn            = module.deploy_monitoring.alerting_sns_topic_arn
 }
 
 module "deploy_monitoring" {
@@ -47,4 +49,6 @@ module "deploy_audit" {
   pars_target_environment_name = local.pars_target_environment_name
   audit_log_group_name         = local.audit_log_group_name
   audit_log_stream_name        = local.audit_log_stream_name
+  alerting_sns_topic_arn       = module.deploy_monitoring.alerting_sns_topic_arn
+  default_tags                 = local.default_tags
 }
