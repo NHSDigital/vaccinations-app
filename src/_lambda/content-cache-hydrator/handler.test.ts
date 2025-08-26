@@ -5,6 +5,7 @@ import { writeContentForVaccine } from "@src/_lambda/content-cache-hydrator/cont
 import { handler } from "@src/_lambda/content-cache-hydrator/handler";
 import { invalidateCacheForVaccine } from "@src/_lambda/content-cache-hydrator/invalidate-cache";
 import { VaccineTypes } from "@src/models/vaccine";
+import { InvalidatedCacheError } from "@src/services/content-api/gateway/exceptions";
 import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
 import { configProvider } from "@src/utils/config";
@@ -60,6 +61,20 @@ describe("Lambda Handler", () => {
     Object.values(VaccineTypes).forEach((vaccineType) => {
       expect(invalidateCacheForVaccine).toHaveBeenCalledWith(vaccineType);
     });
+
+    expect(writeContentForVaccine).not.toHaveBeenCalled();
+  });
+
+  it("returns 200 when content change feature enabled and cached content had already been invalidated", async () => {
+    (configProvider as jest.Mock).mockImplementation(() => ({
+      CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: true,
+    }));
+
+    (loadCachedFilteredContentForVaccine as jest.Mock).mockRejectedValue(
+      new InvalidatedCacheError("cache invalidated"),
+    );
+
+    await expect(handler({}, context)).resolves.toBeUndefined();
 
     expect(writeContentForVaccine).not.toHaveBeenCalled();
   });
