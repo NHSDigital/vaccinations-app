@@ -1,3 +1,4 @@
+import { loadCachedFilteredContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-cache-reader";
 import { vitaContentChangedSinceLastApproved } from "@src/_lambda/content-cache-hydrator/content-change-detector";
 import { fetchContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-fetcher";
 import { writeContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-writer-service";
@@ -13,6 +14,7 @@ import { Context } from "aws-lambda";
 jest.mock("@src/utils/config");
 jest.mock("@src/_lambda/content-cache-hydrator/content-writer-service");
 jest.mock("@src/_lambda/content-cache-hydrator/content-fetcher");
+jest.mock("@src/_lambda/content-cache-hydrator/content-cache-reader");
 jest.mock("@src/_lambda/content-cache-hydrator/content-change-detector");
 jest.mock("@src/_lambda/content-cache-hydrator/invalidate-cache");
 jest.mock("@src/services/content-api/parsers/content-filter-service");
@@ -41,11 +43,7 @@ describe("Lambda Handler", () => {
   });
 
   it("returns 200 when cache hydration is successful", async () => {
-    (fetchContentForVaccine as jest.Mock).mockResolvedValue(undefined);
-    (getFilteredContentForVaccine as jest.Mock).mockResolvedValue(undefined);
-    (vitaContentChangedSinceLastApproved as jest.Mock).mockResolvedValue(false);
-    (getStyledContentForVaccine as jest.Mock).mockResolvedValue(undefined);
-    (writeContentForVaccine as jest.Mock).mockResolvedValue(undefined);
+    (vitaContentChangedSinceLastApproved as jest.Mock).mockReturnValue(false);
 
     await expect(handler({}, context)).resolves.toBeUndefined();
   });
@@ -55,17 +53,15 @@ describe("Lambda Handler", () => {
       CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: true,
     }));
 
-    (fetchContentForVaccine as jest.Mock).mockResolvedValue(undefined);
-    (getFilteredContentForVaccine as jest.Mock).mockResolvedValue(undefined);
-    (vitaContentChangedSinceLastApproved as jest.Mock).mockResolvedValue(true);
-    (getStyledContentForVaccine as jest.Mock).mockResolvedValue(undefined);
-    (writeContentForVaccine as jest.Mock).mockResolvedValue(undefined);
+    (vitaContentChangedSinceLastApproved as jest.Mock).mockReturnValue(true);
 
     await expect(handler({}, context)).resolves.toBeUndefined();
 
     Object.values(VaccineTypes).forEach((vaccineType) => {
       expect(invalidateCacheForVaccine).toHaveBeenCalledWith(vaccineType);
     });
+
+    expect(writeContentForVaccine).not.toHaveBeenCalled();
   });
 
   it("returns 200 and does not invalidate cache when content change feature disabled", async () => {
@@ -73,15 +69,15 @@ describe("Lambda Handler", () => {
       CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: false,
     }));
 
-    (fetchContentForVaccine as jest.Mock).mockResolvedValue(undefined);
-    (getFilteredContentForVaccine as jest.Mock).mockResolvedValue(undefined);
-    (vitaContentChangedSinceLastApproved as jest.Mock).mockResolvedValue(true);
-    (getStyledContentForVaccine as jest.Mock).mockResolvedValue(undefined);
-    (writeContentForVaccine as jest.Mock).mockResolvedValue(undefined);
+    const fetchedContentForVaccine = "some-content";
+
+    (fetchContentForVaccine as jest.Mock).mockResolvedValue(fetchedContentForVaccine);
+    (vitaContentChangedSinceLastApproved as jest.Mock).mockReturnValue(true);
 
     await expect(handler({}, context)).resolves.toBeUndefined();
 
     Object.values(VaccineTypes).forEach((vaccineType) => {
+      expect(writeContentForVaccine).toHaveBeenCalledWith(vaccineType, fetchedContentForVaccine);
       expect(invalidateCacheForVaccine).not.toHaveBeenCalledWith(vaccineType);
     });
   });
@@ -101,16 +97,18 @@ describe("Lambda Handler", () => {
 
   it("returns 500 when cache hydration has failed due to styling errors", async () => {
     (fetchContentForVaccine as jest.Mock).mockResolvedValue(undefined);
-    (getFilteredContentForVaccine as jest.Mock).mockResolvedValue(undefined);
-    (vitaContentChangedSinceLastApproved as jest.Mock).mockResolvedValue(false);
+    (getFilteredContentForVaccine as jest.Mock).mockReturnValue(undefined);
+    (loadCachedFilteredContentForVaccine as jest.Mock).mockResolvedValue(undefined);
+    (vitaContentChangedSinceLastApproved as jest.Mock).mockReturnValue(false);
     (getStyledContentForVaccine as jest.Mock).mockRejectedValue(new Error("test"));
     await expect(handler({}, context)).rejects.toThrow(`${numberOfVaccines} failures`);
   });
 
   it("returns 500 when cache hydration has failed due to writing errors", async () => {
     (fetchContentForVaccine as jest.Mock).mockResolvedValue(undefined);
-    (getFilteredContentForVaccine as jest.Mock).mockResolvedValue(undefined);
-    (vitaContentChangedSinceLastApproved as jest.Mock).mockResolvedValue(false);
+    (getFilteredContentForVaccine as jest.Mock).mockReturnValue(undefined);
+    (loadCachedFilteredContentForVaccine as jest.Mock).mockResolvedValue(undefined);
+    (vitaContentChangedSinceLastApproved as jest.Mock).mockReturnValue(false);
     (getStyledContentForVaccine as jest.Mock).mockResolvedValue(undefined);
     (writeContentForVaccine as jest.Mock).mockRejectedValue(new Error("test"));
 
@@ -119,7 +117,8 @@ describe("Lambda Handler", () => {
 
   it("stores requestID as traceid in asyncLocalStorage context", async () => {
     (fetchContentForVaccine as jest.Mock).mockResolvedValue(undefined);
-    (getFilteredContentForVaccine as jest.Mock).mockResolvedValue(undefined);
+    (getFilteredContentForVaccine as jest.Mock).mockReturnValue(undefined);
+    (loadCachedFilteredContentForVaccine as jest.Mock).mockResolvedValue(undefined);
     (vitaContentChangedSinceLastApproved as jest.Mock).mockResolvedValue(false);
     (getStyledContentForVaccine as jest.Mock).mockResolvedValue(undefined);
     (writeContentForVaccine as jest.Mock).mockResolvedValue(undefined);

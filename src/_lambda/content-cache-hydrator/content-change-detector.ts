@@ -1,29 +1,10 @@
-import { VaccineTypes } from "@src/models/vaccine";
-import { VaccineContentPaths, vaccineTypeToPath } from "@src/services/content-api/constants";
-import { readContentFromCache } from "@src/services/content-api/gateway/content-reader-service";
-import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { VaccinePageContent } from "@src/services/content-api/types";
-import { AppConfig, configProvider } from "@src/utils/config";
 
-const vitaContentChangedSinceLastApproved = async (
+const vitaContentChangedSinceLastApproved = (
   filteredContent: VaccinePageContent,
-  vaccine: VaccineTypes,
-): Promise<boolean> => {
-  const previousApprovedFilteredContent = await loadPreviousApprovedFilteredContentForVaccine(vaccine);
+  previousApprovedFilteredContent: VaccinePageContent,
+): boolean => {
   return JSON.stringify(filteredContent) !== JSON.stringify(previousApprovedFilteredContent);
-};
-
-const loadPreviousApprovedFilteredContentForVaccine = async (
-  vaccineType: VaccineTypes,
-): Promise<VaccinePageContent> => {
-  // TODO: VIA-387 temporarily compares to current cache; consider updating path to approved reference location
-  const config: AppConfig = await configProvider();
-  const vaccineContentPath: VaccineContentPaths = vaccineTypeToPath[vaccineType];
-  const previousApprovedVaccineContent = await readContentFromCache(
-    config.CONTENT_CACHE_PATH,
-    `${vaccineContentPath}.json`,
-  );
-  return getFilteredContentForVaccine(previousApprovedVaccineContent);
 };
 
 export { vitaContentChangedSinceLastApproved };

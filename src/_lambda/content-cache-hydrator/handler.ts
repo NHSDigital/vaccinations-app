@@ -1,3 +1,4 @@
+import { loadCachedFilteredContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-cache-reader";
 import { vitaContentChangedSinceLastApproved } from "@src/_lambda/content-cache-hydrator/content-change-detector";
 import { fetchContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-fetcher";
 import { writeContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-writer-service";
@@ -16,6 +17,8 @@ const log = logger.child({ module: "content-writer-lambda" });
 const runContentCacheHydrator = async (event: object) => {
   log.info({ context: { event } }, "Received event, hydrating content cache.");
 
+  const config: AppConfig = await configProvider();
+
   let failureCount: number = 0;
   let invalidatedCount: number = 0;
   for (const vaccine of Object.values(VaccineTypes)) {
@@ -23,18 +26,20 @@ const runContentCacheHydrator = async (event: object) => {
       const content: string = await fetchContentForVaccine(vaccine);
       const filteredContent: VaccinePageContent = getFilteredContentForVaccine(content);
 
-      // VIA-378 Temporary feature toggle
-      const config: AppConfig = await configProvider();
       if (config.CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED) {
-        if (await vitaContentChangedSinceLastApproved(filteredContent, vaccine)) {
+        const previousApprovedContent = await loadCachedFilteredContentForVaccine(vaccine);
+        if (vitaContentChangedSinceLastApproved(filteredContent, previousApprovedContent)) {
           log.info(`Content changes detected for vaccine ${vaccine}; invalidating cache`);
           await invalidateCacheForVaccine(vaccine);
           invalidatedCount++;
+        } else {
+          await getStyledContentForVaccine(vaccine, filteredContent);
+          await writeContentForVaccine(vaccine, content);
         }
+      } else {
+        await getStyledContentForVaccine(vaccine, filteredContent);
+        await writeContentForVaccine(vaccine, content);
       }
-
-      await getStyledContentForVaccine(vaccine, filteredContent);
-      await writeContentForVaccine(vaccine, content);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "unknown error";
       const errorStackTrace = error instanceof Error ? error.stack : "";
