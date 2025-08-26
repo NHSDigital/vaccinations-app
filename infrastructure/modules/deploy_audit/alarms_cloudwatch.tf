@@ -3,6 +3,7 @@ locals {
     "audit-logs-subscription-delivery-errors" = {
       alarm_description = "Audit Logs: Delivery error within last hour"
       metric_name       = "DeliveryErrors"
+      log_group         = var.audit_log_group_name
 
       statistic           = "Sum"
       extended_statistic  = null // as statistic is used
@@ -44,9 +45,9 @@ module "alarms_cloudwatch" {
   treat_missing_data = "notBreaching"
 
   dimensions = {
-    LogGroupName    = "/aws/lambda/my-function"
+    LogGroupName    = each.value.log_group
     DestinationType = "Firehose"
-    FilterName      = "MySubscriptionFilter"
+    FilterName      = each.key
   }
 
   tags = var.default_tags
