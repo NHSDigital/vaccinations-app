@@ -1,0 +1,22 @@
+{
+  "resourceType": "OperationOutcome",
+  "id": "rrt-2959959087381887325-c-geu2-24001-77777777-1",
+  "meta": { "lastUpdated": "2025-02-12T16:11:22Z" },
+  "issue": [
+    {
+      "severity": "error",
+      "code": "value",
+      "details": {
+        "coding": [
+          {
+            "system": "https://fhir.nhs.uk/CodeSystem/Spine-ErrorOrWarningCode",
+            "code": "VALIDATION_ERROR",
+            "display": "The given conditions were not in the expected format."
+          }
+        ]
+      },
+      "diagnostics": "FLU&COVID should be a single or comma separated list of condition strings with no other punctuation or special characters",
+      "location": ["parameters/conditions"]
+    }
+  ]
+}

@@ -24,7 +24,7 @@
     "e2e:snapshot": "npx playwright test e2e/snapshot/",
     "e2e:snapshot-update": "npx playwright test e2e/snapshot/ --update-snapshots",
     "contract": "jest --config=contract/contract.jest.config.ts",
-    "elid": "wiremock --root-dir ./wiremock --port 8081 --verbose --local-response-templating",
+    "elid": "wiremock --root-dir ./wiremock --port 8081 --no-request-journal --local-response-templating",
     "local-build-package": "npm run build:opennext && npm run local-build-package:hydrator",
     "local-build-package:hydrator": "npm run build:lambda && zip -j -r lambda.zip dist/"
   },

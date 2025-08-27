@@ -1,0 +1,22 @@
+{
+  "resourceType": "OperationOutcome",
+  "id": "rrt-2959959087381887325-c-geu2-24001-77777777-1",
+  "meta": { "lastUpdated": "2025-02-12T16:11:22Z" },
+  "issue": [
+    {
+      "severity": "error",
+      "code": "value",
+      "details": {
+        "coding": [
+          {
+            "system": "https://fhir.nhs.uk/CodeSystem/Spine-ErrorOrWarningCode",
+            "code": "VALIDATION_ERROR",
+            "display": "The supplied category was not recognised by the API."
+          }
+        ]
+      },
+      "diagnostics": "HEALTHCHECKS is not a category that is supported by the API",
+      "location": ["parameters/category"]
+    }
+  ]
+}

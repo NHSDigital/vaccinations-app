@@ -1,0 +1,41 @@
+{
+  "responseId": "1a233ba5-e1eb-4080-a086-2962f6fc3473",
+  "meta": { "lastUpdated": "2025-02-12T16:11:22Z" },
+  "processedSuggestions": [
+    {
+      "condition": "RSV",
+      "status": "Actionable",
+      "statusText": "You should have the RSV vaccine",
+      "eligibilityCohorts": [
+        { "cohortCode": "rsv_age_rolling", "cohortText": "are aged 75 to 79", "cohortStatus": "Actionable" }
+      ],
+      "suitabilityRules": [],
+      "actions": [
+        {
+          "actionType": "InfoText",
+          "actionCode": "BookLocal",
+          "description": "## Get vaccinated at your GP surgery\n\nContact your GP surgery to book an appointment."
+        },
+        {
+          "actionType": "ButtonWithAuthLinkWithInfoText",
+          "actionCode": "BookNBSInfoText",
+          "description": "## Book an appointment online at a pharmacy\n\nYou can book an appointment online at a pharmacy that offers the RSV vaccination. You need to be registered with a GP to do this.",
+          "urlLink": "https://f.nhswebsite-integration.nhs.uk/nbs/nhs-app/rsv",
+          "urlLabel": "Continue to booking"
+        },
+        {
+          "actionType": "ActionLinkWithInfoText",
+          "actionCode": "WalkIn",
+          "description": "## Get vaccinated without an appointment\n\nYou can get an RSV vaccination at some pharmacies without needing an appointment.\n\nYou do not need to be registered with a GP to do this.",
+          "urlLink": "https://www.nhs.uk/service-search/vaccination-and-booking-services/find-a-pharmacy-where-you-can-get-a-free-rsv-vaccination",
+          "urlLabel": "Find a pharmacy where you can get a free RSV vaccination"
+        },
+        {
+          "actionType": "InfoText",
+          "actionCode": "HelpSupportInfo",
+          "description": "## If you think this is incorrect\n\nIf you have already had this vaccination or your personal details are wrong, visit our [help and support page](https://digital.nhs.uk/services/eligibility-data-product-elid)."
+        }
+      ]
+    }
+  ]
+}
