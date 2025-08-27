@@ -82,13 +82,6 @@ const NBSBookingAction = ({
     window.open(url, isOpenInMobileApp ? "_self" : "_blank");
   };
 
-  const testHandleClick = (e: ActionClickEvent) => {
-    if (!hasContextLoaded) return false;
-    e.preventDefault(); // prevent default click behaviour
-    const url = `${SSO_TO_NBS_ROUTE}?redirectTarget=${encodeURI("https://f.nhswebsite-integration.nhs.uk/nbs/nhs-app/flu")}`;
-    window.open(url, isOpenInMobileApp ? "_self" : "_blank");
-  };
-
   switch (renderAs) {
     case "anchor": {
       return (
@@ -100,15 +93,9 @@ const NBSBookingAction = ({
     case "button": {
       const className = `nhsuk-button nhsapp-button${reduceBottomPadding ? " nhsuk-u-margin-bottom-2" : ""}`;
       return (
-        <>
-          <button className={className} onClick={handleClick}>
-            {displayText}
-          </button>{" "}
-          {/* TODO: For testing overlays in app, delete when done */}
-          <button className={className} onClick={testHandleClick}>
-            Test should not open in overlay
-          </button>
-        </>
+        <button className={className} onClick={handleClick}>
+          {displayText}
+        </button>
       );
     }
     case "actionLink": {
