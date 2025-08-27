@@ -5,7 +5,7 @@ import { writeContentForVaccine } from "@src/_lambda/content-cache-hydrator/cont
 import { handler } from "@src/_lambda/content-cache-hydrator/handler";
 import { invalidateCacheForVaccine } from "@src/_lambda/content-cache-hydrator/invalidate-cache";
 import { VaccineTypes } from "@src/models/vaccine";
-import { InvalidatedCacheError } from "@src/services/content-api/gateway/exceptions";
+import { InvalidatedCacheError, S3NoSuchKeyError } from "@src/services/content-api/gateway/exceptions";
 import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
 import { configProvider } from "@src/utils/config";
@@ -41,6 +41,8 @@ describe("Lambda Handler", () => {
     (configProvider as jest.Mock).mockImplementation(() => ({
       CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: true,
     }));
+
+    (loadCachedFilteredContentForVaccine as jest.Mock).mockResolvedValue("some-content");
   });
 
   it("returns 200 when cache hydration is successful", async () => {
@@ -49,11 +51,44 @@ describe("Lambda Handler", () => {
     await expect(handler({}, context)).resolves.toBeUndefined();
   });
 
+  it("saves new vaccine content when content change feature enabled and cache was empty", async () => {
+    (configProvider as jest.Mock).mockImplementation(() => ({
+      CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: true,
+    }));
+
+    (loadCachedFilteredContentForVaccine as jest.Mock).mockRejectedValue(new S3NoSuchKeyError("file not found"));
+
+    const fetchedContentForVaccine = "some-content";
+    (fetchContentForVaccine as jest.Mock).mockResolvedValue(fetchedContentForVaccine);
+
+    await expect(handler({}, context)).resolves.toBeUndefined();
+
+    Object.values(VaccineTypes).forEach((vaccineType) => {
+      expect(writeContentForVaccine).toHaveBeenCalledWith(vaccineType, fetchedContentForVaccine);
+    });
+  });
+
+  it("saves new vaccine content when content change feature disabled and cache was empty", async () => {
+    (configProvider as jest.Mock).mockImplementation(() => ({
+      CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: false,
+    }));
+
+    const fetchedContentForVaccine = "some-different-content";
+    (fetchContentForVaccine as jest.Mock).mockResolvedValue(fetchedContentForVaccine);
+
+    await expect(handler({}, context)).resolves.toBeUndefined();
+
+    Object.values(VaccineTypes).forEach((vaccineType) => {
+      expect(writeContentForVaccine).toHaveBeenCalledWith(vaccineType, fetchedContentForVaccine);
+    });
+  });
+
   it("returns 200 and invalidates cache when content change feature enabled and content changes detected", async () => {
     (configProvider as jest.Mock).mockImplementation(() => ({
       CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: true,
     }));
 
+    (loadCachedFilteredContentForVaccine as jest.Mock).mockResolvedValue(undefined);
     (vitaContentChangedSinceLastApproved as jest.Mock).mockReturnValue(true);
 
     await expect(handler({}, context)).resolves.toBeUndefined();
