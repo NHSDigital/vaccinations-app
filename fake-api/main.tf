@@ -216,6 +216,33 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
   role       = aws_iam_role.fake_api_ecs_task_execution_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
+
+# IAM role for Application Auto Scaling
+resource "aws_iam_role" "ecs_autoscale_role" {
+  name = "fake-api-ecs-autoscale-role"
+  assume_role_policy = jsonencode({
+    Version   = "2012-10-17"
+    Statement = [
+      {
+        Action    = "sts:AssumeRole"
+        Effect    = "Allow"
+        Principal = {
+          Service = "application-autoscaling.amazonaws.com"
+        }
+      }
+    ]
+  })
+  tags = {
+    Name = "fake-api-ecs-autoscale-role"
+  }
+}
+
+# Attach the required policy for autoscaling
+resource "aws_iam_role_policy_attachment" "ecs_autoscale_policy" {
+  role       = aws_iam_role.ecs_autoscale_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceAutoscaleRole"
+}
+
 # --------------------------------------------------------------------------------------------------
 # LOGGING (CLOUDWATCH)
 # --------------------------------------------------------------------------------------------------
@@ -329,11 +356,11 @@ resource "aws_ecs_service" "fake_api_ecs_service" {
   name            = "fake-api-ecs-service"
   cluster         = aws_ecs_cluster.fake_api_ecs_cluster.id
   task_definition = aws_ecs_task_definition.fake_api_task.arn
-  desired_count   = 1
+  desired_count   = 1 # The service starts with 1 task
   launch_type     = "FARGATE"
 
   # Give the task time to start before the ALB starts health checks
-  health_check_grace_period_seconds = 30
+  health_check_grace_period_seconds = 60
 
   network_configuration {
     # Place tasks in the private subnets
@@ -350,12 +377,102 @@ resource "aws_ecs_service" "fake_api_ecs_service" {
   # This ensures the service waits for the IGW to be created before starting.
   depends_on = [
     aws_lb_listener.fake_api_lb_listener_http,
-    aws_lb_target_group.fake_api_lb_target_group
+    aws_lb_target_group.fake_api_lb_target_group,
+    aws_iam_role.ecs_autoscale_role
   ]
   tags = {
     Name = "fake-api-ecs-service"
   }
 }
+
+# --------------------------------------------------------------------------------------------------
+# AUTOSCALING
+# --------------------------------------------------------------------------------------------------
+resource "aws_appautoscaling_target" "ecs_target" {
+  max_capacity       = 5 # Maximum number of tasks
+  min_capacity       = 1 # Minimum number of tasks
+  resource_id        = "service/${aws_ecs_cluster.fake_api_ecs_cluster.name}/${aws_ecs_service.fake_api_ecs_service.name}"
+  scalable_dimension = "ecs:service:DesiredCount"
+  service_namespace  = "ecs"
+  role_arn           = aws_iam_role.ecs_autoscale_role.arn
+}
+
+# --- Response Time Based Scaling ---
+
+# Alarm to trigger scale-out
+resource "aws_cloudwatch_metric_alarm" "high_latency" {
+  alarm_name          = "fake-api-high-latency"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "2"
+  metric_name         = "TargetResponseTime"
+  namespace           = "AWS/ApplicationELB"
+  period              = "60"
+  statistic           = "Average"
+  threshold           = "0.5" # 500ms
+  dimensions = {
+    LoadBalancer = aws_lb.fake_api_lb.arn_suffix
+    TargetGroup  = aws_lb_target_group.fake_api_lb_target_group.arn_suffix
+  }
+  alarm_actions = [aws_appautoscaling_policy.scale_up.arn]
+}
+
+# Alarm to trigger scale-in
+resource "aws_cloudwatch_metric_alarm" "low_latency" {
+  alarm_name          = "fake-api-low-latency"
+  comparison_operator = "LessThanOrEqualToThreshold"
+  evaluation_periods  = "10"
+  metric_name         = "TargetResponseTime"
+  namespace           = "AWS/ApplicationELB"
+  period              = "60"
+  statistic           = "Average"
+  threshold           = "0.2" # 200ms
+  dimensions = {
+    LoadBalancer = aws_lb.fake_api_lb.arn_suffix
+    TargetGroup  = aws_lb_target_group.fake_api_lb_target_group.arn_suffix
+  }
+  alarm_actions = [aws_appautoscaling_policy.scale_down.arn]
+}
+
+# Step scaling policy for scaling out
+resource "aws_appautoscaling_policy" "scale_up" {
+  name               = "fake-api-scale-up-latency"
+  policy_type        = "StepScaling"
+  resource_id        = aws_appautoscaling_target.ecs_target.resource_id
+  scalable_dimension = aws_appautoscaling_target.ecs_target.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.ecs_target.service_namespace
+
+  step_scaling_policy_configuration {
+    adjustment_type         = "ChangeInCapacity"
+    cooldown                = 60
+    metric_aggregation_type = "Average"
+
+    step_adjustment {
+      metric_interval_lower_bound = 0
+      scaling_adjustment          = 1
+    }
+  }
+}
+
+# Step scaling policy for scaling in
+resource "aws_appautoscaling_policy" "scale_down" {
+  name               = "fake-api-scale-down-latency"
+  policy_type        = "StepScaling"
+  resource_id        = aws_appautoscaling_target.ecs_target.resource_id
+  scalable_dimension = aws_appautoscaling_target.ecs_target.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.ecs_target.service_namespace
+
+  step_scaling_policy_configuration {
+    adjustment_type         = "ChangeInCapacity"
+    cooldown                = 300
+    metric_aggregation_type = "Average"
+
+    step_adjustment {
+      metric_interval_upper_bound = 0
+      scaling_adjustment          = -1
+    }
+  }
+}
+
 # --------------------------------------------------------------------------------------------------
 # SECURITY
 # --------------------------------------------------------------------------------------------------

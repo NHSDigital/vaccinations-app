@@ -67,10 +67,10 @@ brew install vegeta
 
 ### wiremock
 ```sh
-BASE_URL="http://localhost:8081/eligibility-signposting-api/patient-check"
 KEYS=("9657933617" "9658218989" "9658220142" "9686368906" "9735548852" "9450114080" "9658218873" "9658218997" "9658220150" "9686368973" "9658218881" "9658219004" "9686369120" "9466447939" "9658218903" "9658219012" "9661033498" "9735548844")
 
-for key in "${KEYS[@]}"; do echo "GET ${BASE_URL}/${key}"; done | vegeta attack -rate=3000/s -duration=60s | vegeta report
+BASE_URL="http://localhost:8081/eligibility-signposting-api/patient-check"
+for key in "${KEYS[@]}"; do echo "GET ${BASE_URL}/${key}"; done | vegeta attack -rate=10/s -duration=60s | vegeta report
 ```
 
 ### nginx
@@ -78,10 +78,10 @@ for key in "${KEYS[@]}"; do echo "GET ${BASE_URL}/${key}"; done | vegeta attack 
 BASE_URL="http://localhost:9123/api"
 ```
 
-### fargate
+### nginx on fargate
 
 ```sh
-BASE_URL=$(terraform output -raw application_url)
+BASE_URL="$(terraform output -raw application_url)/api"
 ```
 
 ### Misc
