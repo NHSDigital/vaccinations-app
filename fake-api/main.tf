@@ -250,7 +250,7 @@ resource "aws_lb_target_group" "fake_api_lb_target_group" {
   vpc_id      = aws_vpc.spike_fake_api_vpc.id
   target_type = "ip"
   health_check {
-    path = "/"
+    path = "/health" # Updated health check path
   }
   tags = {
     Name = "fake-api-lb-tg"
@@ -360,16 +360,18 @@ resource "aws_security_group" "fake_api_lb_sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  # Allow all outbound traffic.
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
   tags = {
     Name = "fake-api-lb-sg"
   }
+}
+
+resource "aws_security_group_rule" "allow_outbound_from_lb_to_service" {
+  type                     = "egress"
+  from_port                = 9123
+  to_port                  = 9123
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.fake_api_lb_sg.id
+  source_security_group_id = aws_security_group.fake_api_sg.id
 }
 
 resource "aws_security_group" "fake_api_sg" {

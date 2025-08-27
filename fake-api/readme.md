@@ -80,6 +80,10 @@ BASE_URL="http://localhost:9123/api"
 
 ### fargate
 
+```sh
+BASE_URL=$(terraform output -raw application_url)
+```
+
 ### Misc
 ```sh
 docker logs my-fake-api | less +F
