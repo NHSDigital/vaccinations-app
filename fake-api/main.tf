@@ -250,7 +250,14 @@ resource "aws_lb_target_group" "fake_api_lb_target_group" {
   vpc_id      = aws_vpc.spike_fake_api_vpc.id
   target_type = "ip"
   health_check {
-    path = "/health" # Updated health check path
+    path                = "/health"
+    protocol            = "HTTP"
+    port                = "traffic-port"
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    timeout             = 5
+    interval            = 10
+    matcher             = "200" # Expect a 200 OK status
   }
   tags = {
     Name = "fake-api-lb-tg"
@@ -324,6 +331,10 @@ resource "aws_ecs_service" "fake_api_ecs_service" {
   task_definition = aws_ecs_task_definition.fake_api_task.arn
   desired_count   = 1
   launch_type     = "FARGATE"
+
+  # Give the task time to start before the ALB starts health checks
+  health_check_grace_period_seconds = 30
+
   network_configuration {
     # Place tasks in the private subnets
     subnets         = [aws_subnet.fake_api_private_subnet_a.id, aws_subnet.fake_api_private_subnet_b.id]
@@ -353,53 +364,49 @@ resource "aws_security_group" "fake_api_lb_sg" {
   name        = "fake-api-lb-sg"
   description = "Allow inbound HTTP traffic to LB"
   vpc_id      = aws_vpc.spike_fake_api_vpc.id
-  # Allow inbound traffic on port 80 from anywhere.
+
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   tags = {
     Name = "fake-api-lb-sg"
   }
 }
 
-resource "aws_security_group_rule" "allow_outbound_from_lb_to_service" {
-  type                     = "egress"
-  from_port                = 9123
-  to_port                  = 9123
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.fake_api_lb_sg.id
-  source_security_group_id = aws_security_group.fake_api_sg.id
-}
-
+# Security group for the Fargate Service
 resource "aws_security_group" "fake_api_sg" {
   name        = "fake-api-service-sg"
   description = "Allow inbound traffic to Fargate service"
   vpc_id      = aws_vpc.spike_fake_api_vpc.id
 
+  ingress {
+    from_port       = 9123
+    to_port         = 9123
+    protocol        = "tcp"
+    security_groups = [aws_security_group.fake_api_lb_sg.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   tags = {
     Name = "fake-api-service-sg"
   }
-}
-
-resource "aws_security_group_rule" "allow_from_lb" {
-  type                     = "ingress"
-  from_port                = 9123
-  to_port                  = 9123
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.fake_api_sg.id
-  source_security_group_id = aws_security_group.fake_api_lb_sg.id
-}
-
-resource "aws_security_group_rule" "allow_all_egress_from_service" {
-  type              = "egress"
-  from_port         = 0
-  to_port           = 0
-  protocol          = "-1"
-  security_group_id = aws_security_group.fake_api_sg.id
-  cidr_blocks       = ["0.0.0.0/0"]
 }
 # --------------------------------------------------------------------------------------------------
 # OUTPUTS
