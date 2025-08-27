@@ -22,7 +22,7 @@ export class S3NoSuchKeyError extends ReadingS3Error {
   }
 }
 
-export class InvalidatedCacheError extends Error  {
+export class InvalidatedCacheError extends Error {
   constructor(message: string) {
     super(message);
     Object.setPrototypeOf(this, new.target.prototype);
