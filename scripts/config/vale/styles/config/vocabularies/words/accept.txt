@@ -25,7 +25,11 @@ Syft
 todo
 toolchain
 Trufflehog
-Wiremock
+[Ww]iremock
 [Cc]loudfront
 [Pp]reprod
 Lifecycle
+[Ff]argate
+buildx
+nginx
+vegeta
