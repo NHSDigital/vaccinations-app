@@ -1,10 +1,9 @@
-import { loadCachedFilteredContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-cache-reader";
+import { readCachedContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-cache-reader";
 import { vitaContentChangedSinceLastApproved } from "@src/_lambda/content-cache-hydrator/content-change-detector";
 import { fetchContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-fetcher";
 import { writeContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-writer-service";
 import { invalidateCacheForVaccine } from "@src/_lambda/content-cache-hydrator/invalidate-cache";
 import { VaccineTypes } from "@src/models/vaccine";
-import { InvalidatedCacheError, S3NoSuchKeyError } from "@src/services/content-api/gateway/exceptions";
 import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
 import { VaccinePageContent } from "@src/services/content-api/types";
@@ -15,43 +14,74 @@ import { Context } from "aws-lambda";
 
 const log = logger.child({ module: "content-writer-lambda" });
 
-async function hydrateCacheForVaccine(vaccine: VaccineTypes, approvalEnabled: boolean, forceUpdate: boolean) {
-  const status = { invalidatedCount: 0, failureCount: 0 };
+const checkContentPassesStylingAndWriteToCache = async (
+  vaccine: VaccineTypes,
+  content: string,
+  filteredContent: VaccinePageContent,
+): Promise<void> => {
+  try {
+    await getStyledContentForVaccine(vaccine, filteredContent);
+    await writeContentForVaccine(vaccine, content);
+  } catch (error) {
+    log.error(
+      {
+        context: {
+          vaccine: vaccine,
+          contentLength: content.length,
+        },
+      },
+      "Check failed in styling or writing content to cache.",
+    );
+    throw error;
+  }
+};
+
+interface HydrateCacheStatus {
+  invalidatedCount: number;
+  failureCount: number;
+}
+
+async function hydrateCacheForVaccine(
+  vaccine: VaccineTypes,
+  approvalEnabled: boolean,
+  forceUpdate: boolean,
+): Promise<HydrateCacheStatus> {
+  const status: HydrateCacheStatus = { invalidatedCount: 0, failureCount: 0 };
 
   try {
     const content: string = await fetchContentForVaccine(vaccine);
     const filteredContent: VaccinePageContent = getFilteredContentForVaccine(content);
 
-    if (approvalEnabled) {
-      try {
-        const previousApprovedContent = await loadCachedFilteredContentForVaccine(vaccine);
-        if (vitaContentChangedSinceLastApproved(filteredContent, previousApprovedContent)) {
+    if (!approvalEnabled) {
+      await checkContentPassesStylingAndWriteToCache(vaccine, content, filteredContent);
+      return status;
+    } else {
+      const { cacheStatus, cacheContent } = await readCachedContentForVaccine(vaccine);
+
+      if (cacheStatus === "empty" || (cacheStatus === "invalidated" && forceUpdate)) {
+        await checkContentPassesStylingAndWriteToCache(vaccine, content, filteredContent);
+        return status;
+      }
+
+      if (cacheStatus === "invalidated" && !forceUpdate) {
+        log.info({ context: { vaccine: vaccine } }, "Cache is invalidated already, no action taken.");
+        status.invalidatedCount++;
+        return status;
+      }
+
+      if (cacheStatus === "valid") {
+        if (vitaContentChangedSinceLastApproved(filteredContent, getFilteredContentForVaccine(cacheContent))) {
           log.info(`Content changes detected for vaccine ${vaccine}; invalidating cache`);
           await invalidateCacheForVaccine(vaccine);
           status.invalidatedCount++;
           return status;
-        }
-      } catch (error) {
-        if (error instanceof S3NoSuchKeyError) {
-          log.info(`Content cache for vaccine ${vaccine} currently empty; continuing to update cache`);
-        } else if (error instanceof InvalidatedCacheError) {
-          if (forceUpdate) {
-            await getStyledContentForVaccine(vaccine, filteredContent);
-            await writeContentForVaccine(vaccine, content);
-            return status;
-          } else {
-            log.error(`Content cache for vaccine ${vaccine} has already been invalidated in a previous run`);
-            status.invalidatedCount++;
-            return status;
-          }
         } else {
-          throw error;
+          await checkContentPassesStylingAndWriteToCache(vaccine, content, filteredContent);
+          return status;
         }
       }
+      throw new Error("Unexpected scenario, should never have happened.");
     }
-    await getStyledContentForVaccine(vaccine, filteredContent);
-    await writeContentForVaccine(vaccine, content);
-    return status;
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : "unknown error";
     const errorStackTrace = error instanceof Error ? error.stack : "";
@@ -69,6 +99,7 @@ interface ContentCacheHydratorEvent {
   forceUpdate?: boolean;
 }
 
+// Ref: https://nhsd-confluence.digital.nhs.uk/spaces/Vacc/pages/1113364124/Caching+strategy+for+content+from+NHS.uk+content+API
 const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
   log.info({ context: { event } }, "Received event, hydrating content cache.");
 

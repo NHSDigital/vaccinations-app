@@ -1,16 +1,58 @@
-import { VaccinePageContent } from "@project/src/services/content-api/types";
 import { VaccineTypes } from "@src/models/vaccine";
 import { VaccineContentPaths, vaccineTypeToPath } from "@src/services/content-api/constants";
 import { readContentFromCache } from "@src/services/content-api/gateway/content-reader-service";
-import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
+import { InvalidatedCacheError, S3NoSuchKeyError } from "@src/services/content-api/gateway/exceptions";
 import { AppConfig, configProvider } from "@src/utils/config";
+import { logger } from "@src/utils/logger";
 
-const loadCachedFilteredContentForVaccine = async (vaccineType: VaccineTypes): Promise<VaccinePageContent> => {
-  // TODO: VIA-387 temporarily compares to current cache; consider updating path to approved reference location
+const log = logger.child({ module: "content-cache-reader" });
+
+export interface ReadCachedContentResult {
+  cacheStatus: "empty" | "valid" | "invalidated";
+  cacheContent: string;
+}
+
+const readCachedContentForVaccine = async (vaccineType: VaccineTypes): Promise<ReadCachedContentResult> => {
   const config: AppConfig = await configProvider();
   const vaccineContentPath: VaccineContentPaths = vaccineTypeToPath[vaccineType];
-  const cachedVaccineContent = await readContentFromCache(config.CONTENT_CACHE_PATH, `${vaccineContentPath}.json`);
-  return getFilteredContentForVaccine(cachedVaccineContent);
+  let cachedContent: string;
+
+  try {
+    cachedContent = await readContentFromCache(config.CONTENT_CACHE_PATH, `${vaccineContentPath}.json`);
+  } catch (error) {
+    if (error instanceof S3NoSuchKeyError) {
+      log.info(
+        {
+          context: {
+            error,
+            vaccine: vaccineType,
+            cacheLocation: config.CONTENT_CACHE_PATH,
+            vaccineKey: vaccineContentPath,
+          },
+        },
+        "Vaccine not found in the cache. Usually happens when cache is empty during first deployment.",
+      );
+      return { cacheStatus: "empty", cacheContent: "" };
+    } else if (error instanceof InvalidatedCacheError) {
+      log.info(
+        {
+          context: {
+            error,
+            vaccine: vaccineType,
+            cacheLocation: config.CONTENT_CACHE_PATH,
+            vaccineKey: vaccineContentPath,
+          },
+        },
+        "Vaccine content was found to be invalidated.",
+      );
+      return { cacheStatus: "invalidated", cacheContent: "" };
+    } else {
+      log.error({ context: { error } }, "Unexpected error occurred.");
+      throw error;
+    }
+  }
+
+  return { cacheStatus: "valid", cacheContent: cachedContent };
 };
 
-export { loadCachedFilteredContentForVaccine };
+export { readCachedContentForVaccine };
