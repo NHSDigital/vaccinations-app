@@ -21,30 +21,8 @@ const readCachedContentForVaccine = async (vaccineType: VaccineTypes): Promise<R
     cachedContent = await readContentFromCache(config.CONTENT_CACHE_PATH, `${vaccineContentPath}.json`);
   } catch (error) {
     if (error instanceof S3NoSuchKeyError) {
-      log.info(
-        {
-          context: {
-            error,
-            vaccine: vaccineType,
-            cacheLocation: config.CONTENT_CACHE_PATH,
-            vaccineKey: vaccineContentPath,
-          },
-        },
-        "Vaccine not found in the cache. Usually happens when cache is empty during first deployment.",
-      );
       return { cacheStatus: "empty", cacheContent: "" };
     } else if (error instanceof InvalidatedCacheError) {
-      log.info(
-        {
-          context: {
-            error,
-            vaccine: vaccineType,
-            cacheLocation: config.CONTENT_CACHE_PATH,
-            vaccineKey: vaccineContentPath,
-          },
-        },
-        "Vaccine content was found to be invalidated.",
-      );
       return { cacheStatus: "invalidated", cacheContent: "" };
     } else {
       log.error({ context: { error } }, "Unexpected error occurred.");

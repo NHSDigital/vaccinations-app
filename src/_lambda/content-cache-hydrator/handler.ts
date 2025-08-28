@@ -12,7 +12,9 @@ import { logger } from "@src/utils/logger";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
 import { Context } from "aws-lambda";
 
-const log = logger.child({ module: "content-writer-lambda" });
+const log = logger.child({ module: "content-cache-hydrator" });
+
+// TODO: When cache is valid and content has changed - cache is invalidated for RSV, but when forceUpdate=true it is validated again for RSV-pregnancy
 
 const checkContentPassesStylingAndWriteToCache = async (
   vaccine: VaccineTypes,
@@ -59,6 +61,10 @@ async function hydrateCacheForVaccine(
       const { cacheStatus, cacheContent } = await readCachedContentForVaccine(vaccine);
 
       if (cacheStatus === "empty" || (cacheStatus === "invalidated" && forceUpdate)) {
+        log.info(
+          { context: { vaccine: vaccine, cacheStatus: cacheStatus, forceUpdate: forceUpdate } },
+          `Cache was ${cacheStatus} previously, writing updated content.`,
+        );
         await checkContentPassesStylingAndWriteToCache(vaccine, content, filteredContent);
         return status;
       }
