@@ -1,13 +1,18 @@
 # Docker in AWS Fargate
 
+## AWS config
+
 ### ~/.aws/credentials
-```[default]
+
+```ini
+[default]
 aws_access_key_id = [redacted]
 aws_secret_access_key = [redacted]
 ```
 
 ### ~/.aws/config
-```
+
+```ini
 [default]
 region = eu-west-1
 
@@ -21,9 +26,12 @@ region = eu-west-2
 sso_start_url = https://d-9c67018f89.awsapps.com/start/#
 sso_region = eu-west-2
 sso_registration_scopes = sso:account:access
-````
+```
+
+## Tasks
 
 ### Build infra
+
 ```sh
 aws sso login --profile vita-dev
 aws sts get-caller-identity --profile vita-dev
@@ -32,8 +40,8 @@ AWS_PROFILE="vita-dev" terraform plan
 # AWS_PROFILE="vita-dev" terraform apply
 ```
 
-
 ### Build & test image
+
 ```sh
 docker build -t fake-api . # Local testing
 docker build --platform linux/amd64 -t fake-api . # For AWS
@@ -45,7 +53,8 @@ curl -v http://localhost:9123/eligibility-signposting-api/patient-check/96582189
 curl -v -X POST http://localhost:9123/oauth2/token
 ```
 
-# Upload image
+### Upload image
+
 ```sh
 aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin $(terraform output -raw ecr_repository_url | cut -d/ -f1)
 
@@ -58,17 +67,18 @@ aws ecs update-service --cluster fake-api-ecs-cluster --service fake-api-ecs-ser
 curl $(terraform output -raw application_url)/api/9658220150
 ```
 
-# vegeta load testing
+## Load testing
 
-## Install
+### Install
 
 ```sh
 brew install vegeta
 ```
 
-## Run
+### Run
 
-### wiremock
+#### wiremock
+
 ```sh
 KEYS=("9657933617" "9658218989" "9658220142" "9686368906" "9735548852" "9450114080" "9658218873" "9658218997" "9658220150" "9686368973" "9658218881" "9658219004" "9686369120" "9466447939" "9658218903" "9658219012" "9661033498" "9735548844")
 
@@ -76,18 +86,20 @@ BASE_URL="http://localhost:8081/eligibility-signposting-api/patient-check"
 for key in "${KEYS[@]}"; do echo "GET ${BASE_URL}/${key}"; done | vegeta attack -rate=10/s -duration=30s | vegeta report
 ```
 
-### nginx
+#### nginx
+
 ```sh
 BASE_URL="http://localhost:9123/eligibility-signposting-api/patient-check"
 ```
 
-### nginx on fargate
+#### nginx on fargate
 
 ```sh
 BASE_URL="$(terraform output -raw application_url)/eligibility-signposting-api/patient-check"
 ```
 
-### Misc
+## Misc commands
+
 ```sh
 docker logs local-fake-api | less +G
 docker stats
