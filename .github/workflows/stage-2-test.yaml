@@ -54,7 +54,7 @@ jobs:
           retention-days: 21
         if: always()
   perform-static-analysis:
-    name: "Perform static analysis"
+    name: "Static analysis"
     needs: [test-unit]
     runs-on: ubuntu-latest
     permissions:
