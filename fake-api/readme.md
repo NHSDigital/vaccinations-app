@@ -38,9 +38,10 @@ AWS_PROFILE="vita-dev" terraform plan
 docker build -t fake-api . # Local testing
 docker build --platform linux/amd64 -t fake-api . # For AWS
 
-docker stop local-fake-api ; docker rm local-fake-api ; docker run -d -p 9123:9123 --name local-fake-api fake-api
+docker stop local-fake-api ; docker rm local-fake-api ; docker run -d --rm -p 9123:9123 -e ELID_DELAY_SECONDS=2 -e APIM_DELAY_SECONDS=10 --name local-fake-api fake-api
 
-curl http://localhost:9123/eligibility-signposting-api/patient-check/9658218989
+curl -v http://localhost:9123/health
+curl -v http://localhost:9123/eligibility-signposting-api/patient-check/9658218989
 curl -v -X POST http://localhost:9123/oauth2/token
 ```
 
@@ -88,7 +89,7 @@ BASE_URL="$(terraform output -raw application_url)/eligibility-signposting-api/p
 
 ### Misc
 ```sh
-docker logs local-fake-api | less +F
+docker logs local-fake-api | less +G
 docker stats
 colima stop && colima start -e
 ```
