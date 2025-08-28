@@ -102,3 +102,62 @@ colima stop && colima start
 docker buildx create --use
 docker buildx build --platform linux/amd64 -t fake-api --load .
 ```
+
+## Architecture
+
+```mermaid
+graph TD
+    subgraph "User"
+        direction LR
+        U[User]
+    end
+
+    subgraph "AWS Cloud"
+        subgraph "VPC (fake-api-vpc)"
+            subgraph "Public Subnets (eu-west-2a/b)"
+                ALB["Application Load Balancer"];
+            end
+
+            subgraph "Private Subnets (eu-west-2a/b)"
+                ECS_Service["ECS Service <br>(Autoscales 1-3 Tasks)"];
+                Task["Fargate Task <br>(nginx container)"];
+
+                subgraph "VPC Endpoints"
+                    S3_GW["S3 Gateway Endpoint"];
+                    ECR_IF["ECR Interface Endpoints"];
+                    Logs_IF["CloudWatch Logs<br>Interface Endpoint"];
+                end
+            end
+
+            IGW["Internet Gateway"];
+        end
+
+        subgraph "Other AWS Services"
+            ECR["ECR Repository"];
+            CloudWatch["CloudWatch <br>(Logs & Alarms)"];
+            AutoScaling["Application Auto Scaling"];
+        end
+
+        %% Request Flow
+        U -- "HTTP Request" --> ALB;
+        ALB -- "Forwards to Target Group" --> Task;
+
+        %% Health Check Flow
+        ALB -- "Health Check on /health" --> Task;
+
+        %% Private Service Communication
+        Task -- "Pulls image via private link" --> ECR_IF;
+        ECR_IF -- "Accesses image layers" --> S3_GW;
+        Task -- "Sends logs via private link" --> Logs_IF;
+
+        %% Autoscaling Flow
+        ALB -- "TargetResponseTime metric" --> CloudWatch;
+        CloudWatch -- "Triggers High/Low Latency Alarms" --> AutoScaling;
+        AutoScaling -- "Adjusts task count" --> ECS_Service;
+
+        %% External Connections
+        ALB -- "Receives traffic from" --> IGW;
+        ECR <--> ECR_IF;
+        CloudWatch <--> Logs_IF;
+    end
+```
