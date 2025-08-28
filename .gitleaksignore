@@ -4,3 +4,5 @@ cd9c0efec38c5d63053dd865e5d4e207c0760d91:docs/guides/Perform_static_analysis.md:
 3337754bb81f8174c04105c7af74c75aa4c97d3b:src/views/nhs-html-elements/card.pug:ipv4:7
 src/app/_components/_nhs/card.tsx:ipv4:16
 src/app/_components/nhs-app/CardLink.tsx:ipv4:30
+4042f9b1238dd4efc8bfdee65fa4ecbd5e08504e:fake-api/data/apim/token.json:generic-api-key:2
+4042f9b1238dd4efc8bfdee65fa4ecbd5e08504e:fake-api/data/apim/token.json:generic-api-key:6
