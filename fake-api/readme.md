@@ -35,11 +35,13 @@ AWS_PROFILE="vita-dev" terraform plan
 
 ### Build & test image
 ```sh
-docker build --platform linux/amd64 -t fake-api .
+docker build -t fake-api . # Local testing
+docker build --platform linux/amd64 -t fake-api . # For AWS
 
+docker rm my-fake-api
 docker run -d -p 9123:9123 --name my-fake-api fake-api
 
-curl http://localhost:9123/api/9658218989
+curl http://localhost:9123/eligibility-signposting-api/patient-check/9658218989
 ```
 
 # Upload image
@@ -70,18 +72,18 @@ brew install vegeta
 KEYS=("9657933617" "9658218989" "9658220142" "9686368906" "9735548852" "9450114080" "9658218873" "9658218997" "9658220150" "9686368973" "9658218881" "9658219004" "9686369120" "9466447939" "9658218903" "9658219012" "9661033498" "9735548844")
 
 BASE_URL="http://localhost:8081/eligibility-signposting-api/patient-check"
-for key in "${KEYS[@]}"; do echo "GET ${BASE_URL}/${key}"; done | vegeta attack -rate=10/s -duration=60s | vegeta report
+for key in "${KEYS[@]}"; do echo "GET ${BASE_URL}/${key}"; done | vegeta attack -rate=10/s -duration=30s | vegeta report
 ```
 
 ### nginx
 ```sh
-BASE_URL="http://localhost:9123/api"
+BASE_URL="http://localhost:9123/eligibility-signposting-api/patient-check"
 ```
 
 ### nginx on fargate
 
 ```sh
-BASE_URL="$(terraform output -raw application_url)/api"
+BASE_URL="$(terraform output -raw application_url)/eligibility-signposting-api/patient-check"
 ```
 
 ### Misc

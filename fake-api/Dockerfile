@@ -1,5 +1,5 @@
-FROM --platform=linux/amd64 nginx:alpine
+FROM nginx:alpine
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY json/ /usr/share/nginx/html/json/
+COPY data/ /usr/share/nginx/html/data/
 EXPOSE 9123
