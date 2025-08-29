@@ -30,33 +30,38 @@ sso_registration_scopes = sso:account:access
 
 ## Tasks
 
-### Build infra
-
-```sh
-aws sso login --profile vita-dev
-aws sts get-caller-identity --profile vita-dev
-terraform init
-AWS_PROFILE="vita-dev" terraform plan
-# AWS_PROFILE="vita-dev" terraform apply
-```
-
 ### Build & test image
 
 ```sh
-docker build -t fake-api . # Local testing
-docker build --platform linux/amd64 -t fake-api . # For AWS
+docker build -t fake-api . # For local testing
 
 docker stop local-fake-api ; docker rm local-fake-api ; docker run -d --rm -p 9123:9123 -e ELID_DELAY_SECONDS=2 -e APIM_DELAY_SECONDS=10 --name local-fake-api fake-api
 
 curl -v http://localhost:9123/health
 curl -v http://localhost:9123/eligibility-signposting-api/patient-check/9658218989
 curl -v -X POST http://localhost:9123/oauth2/token
+
+docker build --platform linux/amd64 -t fake-api . # For AWS
+```
+
+### Build infra
+
+```sh
+aws sso login --profile vita-dev
+
+aws sts get-caller-identity --profile vita-dev
+
+terraform init
+
+AWS_PROFILE="vita-dev" terraform plan
+
+AWS_PROFILE="vita-dev" terraform apply
 ```
 
 ### Upload image
 
 ```sh
-aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin $(terraform output -raw ecr_repository_url | cut -d/ -f1)
+aws ecr get-login-password --region eu-west-2 --profile vita-dev | docker login --username AWS --password-stdin $(terraform output -raw ecr_repository_url | cut -d/ -f1)
 
 docker tag fake-api:latest $(terraform output -raw ecr_repository_url):latest
 
@@ -64,7 +69,9 @@ docker push $(terraform output -raw ecr_repository_url):latest
 
 aws ecs update-service --cluster fake-api-ecs-cluster --service fake-api-ecs-service --force-new-deployment --profile vita-dev --region eu-west-2
 
-curl $(terraform output -raw application_url)/api/9658220150
+curl -v $(terraform output -raw application_url)/health
+curl -v $(terraform output -raw application_url)/eligibility-signposting-api/patient-check/9658218989
+curl -v -X POST $(terraform output -raw application_url)/oauth2/token
 ```
 
 ## Load testing
