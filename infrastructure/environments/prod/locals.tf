@@ -18,7 +18,7 @@ locals {
   app_version               = var.app_version
   alarms_slack_channel_id   = var.alarms_slack_channel_id
 
-  enable_pars                  = var.is_github_action ? true : false
+  enable_pars                  = false # TODO: var.is_github_action ? true : false
   pars_account_id              = "to-be-replaced" # TODO: 22/08/2025 VIA-253 AS Replace with correct value
   pars_target_environment_name = "${local.deploy_workspace}-${local.project_identifier_shortcode}-${local.environment}"
   audit_log_retention_in_days  = 30
