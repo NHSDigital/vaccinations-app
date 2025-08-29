@@ -37,7 +37,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       - name: "Run ${{ inputs.environment}} Content Cache Hydrator for ${{ inputs.vaccine_name }} vaccine"
         run: |
-          aws lambda invoke --function-name ${AWS_CONTENT_CACHE_HYDRATOR_LAMBDA} --cli-binary-format 'raw-in-base64-out' --payload '{"forceUpdate": true, "vaccineToUpdate": ${{ inputs.vaccine_name}}}' response.json || {
+          aws lambda invoke --function-name ${AWS_CONTENT_CACHE_HYDRATOR_LAMBDA} --cli-binary-format 'raw-in-base64-out' --payload '{"forceUpdate": true, "vaccineToUpdate": "${{ inputs.vaccine_name}}"}' response.json || {
             echo "Invocation of Content Cache Hydrator failed"
             cat response.json
             exit 1
