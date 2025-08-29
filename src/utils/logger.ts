@@ -25,6 +25,8 @@ const REDACT_KEYS: string[] = [
   "nhs_number",
   "role",
   "sub",
+  "subjectToken",
+  "subject_token",
   "userIdentity",
   "user_identity",
   "validatedApiData.**",
