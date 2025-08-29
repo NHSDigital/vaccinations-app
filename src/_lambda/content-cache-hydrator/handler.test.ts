@@ -106,24 +106,37 @@ describe("Lambda Handler", () => {
       }));
     });
 
-    it("saves new vaccine content and returns 200 when forceUpdate is true in inbound event and cached content was previously invalidated", async () => {
+    it("overwrites invalidated cache with new updated content when forceUpdate is true in inbound event", async () => {
       (readCachedContentForVaccine as jest.Mock).mockResolvedValue(mockInvalidatedCacheReadResult);
-      const fetchedContentForVaccine = "some-content";
-      (fetchContentForVaccine as jest.Mock).mockResolvedValue(fetchedContentForVaccine);
+      const newContentFromContentAPI = "new-content";
+      (fetchContentForVaccine as jest.Mock).mockResolvedValue(newContentFromContentAPI);
 
-      await expect(handler({ forceUpdate: true }, context)).resolves.toBeUndefined();
+      const event = { forceUpdate: true };
+      await expect(handler(event, context)).resolves.toBeUndefined();
 
       Object.values(VaccineTypes).forEach((vaccineType) => {
-        expect(writeContentForVaccine).toHaveBeenCalledWith(vaccineType, fetchedContentForVaccine);
+        expect(writeContentForVaccine).toHaveBeenCalledWith(vaccineType, newContentFromContentAPI);
       });
     });
 
-    it("returns 200 when forceUpdate is not present in inbound event and cached content was previously invalidated", async () => {
+    it("does not overwrite invalidated cache with new content when forceUpdate is false in inbound event", async () => {
       (readCachedContentForVaccine as jest.Mock).mockResolvedValue(mockInvalidatedCacheReadResult);
-      const fetchedContentForVaccine = "some-content";
-      (fetchContentForVaccine as jest.Mock).mockResolvedValue(fetchedContentForVaccine);
+      const newContentFromContentAPI = "new-content";
+      (fetchContentForVaccine as jest.Mock).mockResolvedValue(newContentFromContentAPI);
 
-      await expect(handler({}, context)).resolves.toBeUndefined();
+      const event = { forceUpdate: false };
+      await expect(handler(event, context)).resolves.toBeUndefined();
+
+      expect(writeContentForVaccine).not.toHaveBeenCalled();
+    });
+
+    it("does not overwrite invalidated cache with new content when forceUpdate is not present in inbound event", async () => {
+      (readCachedContentForVaccine as jest.Mock).mockResolvedValue(mockInvalidatedCacheReadResult);
+      const newContentFromContentAPI = "new-content";
+      (fetchContentForVaccine as jest.Mock).mockResolvedValue(newContentFromContentAPI);
+
+      const event = {};
+      await expect(handler(event, context)).resolves.toBeUndefined();
 
       expect(writeContentForVaccine).not.toHaveBeenCalled();
     });
