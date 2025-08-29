@@ -7,11 +7,11 @@ import axios, { AxiosResponse } from "axios";
 const log = logger.child({ module: "content-fetcher" });
 const CONTENT_API_PATH_PREFIX = "nhs-website-content/vaccinations/";
 
-const fetchContentForVaccine = async (vaccine: VaccineTypes): Promise<string> => {
+const fetchContentForVaccine = async (vaccineType: VaccineTypes): Promise<string> => {
   const config: AppConfig = await configProvider();
 
   const apiEndpoint: URL = config.CONTENT_API_ENDPOINT;
-  const vaccinePath: VaccineContentPaths = vaccineTypeToPath[vaccine];
+  const vaccinePath: VaccineContentPaths = vaccineTypeToPath[vaccineType];
   const apiKey: string = config.CONTENT_API_KEY;
 
   const uri: string = `${apiEndpoint}${CONTENT_API_PATH_PREFIX}${vaccinePath}`;
@@ -25,10 +25,10 @@ const fetchContentForVaccine = async (vaccine: VaccineTypes): Promise<string> =>
       },
       timeout: 30000,
     });
-    log.info({ context: { uri } }, "Successfully fetched content from uri");
+    log.info({ context: { uri, vaccineType } }, "Successfully fetched content from API");
     return JSON.stringify(response.data);
   } catch (error) {
-    log.error({ context: { uri }, error }, "Error in getting vaccine content from nhs.uk API");
+    log.error({ context: { uri, vaccineType }, error }, "Error in getting vaccine content from nhs.uk API");
     throw error;
   }
 };

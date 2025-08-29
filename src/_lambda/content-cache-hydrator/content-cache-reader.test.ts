@@ -30,7 +30,11 @@ describe("readCachedContentForVaccine", () => {
   it("should read content for named vaccine from cache", async () => {
     const { cacheStatus, cacheContent }: ReadCachedContentResult = await readCachedContentForVaccine(vaccineType);
 
-    expect(readContentFromCache).toHaveBeenCalledWith(mockContentCachePath, `${vaccineTypeToPath[vaccineType]}.json`);
+    expect(readContentFromCache).toHaveBeenCalledWith(
+      mockContentCachePath,
+      `${vaccineTypeToPath[vaccineType]}.json`,
+      vaccineType,
+    );
     expect(cacheContent).toBe(mockCacheFileContents);
     expect(cacheStatus).toBe("valid");
   });

@@ -27,9 +27,11 @@ const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<GetConte
     const vaccineContentPath: VaccineContentPaths = vaccineTypeToPath[vaccineType];
 
     // fetch content from api
-    log.info({ context: { vaccineType } }, "Fetching content from cache for vaccine");
-    const vaccineContent = await readContentFromCache(config.CONTENT_CACHE_PATH, `${vaccineContentPath}.json`);
-    log.info({ context: { vaccineType } }, "Finished fetching content from cache for vaccine");
+    const vaccineContent = await readContentFromCache(
+      config.CONTENT_CACHE_PATH,
+      `${vaccineContentPath}.json`,
+      vaccineType,
+    );
 
     // filter and style content
     const filteredContent: VaccinePageContent = getFilteredContentForVaccine(vaccineContent);

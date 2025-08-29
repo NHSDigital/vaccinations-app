@@ -1,6 +1,7 @@
 "use server";
 
 import { GetObjectCommand, S3Client, S3ServiceException } from "@aws-sdk/client-s3";
+import { VaccineTypes } from "@src/models/vaccine";
 import { INVALIDATED_CONTENT_OVERWRITE_VALUE } from "@src/services/content-api/constants";
 import {
   InvalidatedCacheError,
@@ -58,18 +59,24 @@ const _readFileS3 = async (bucket: string, key: string): Promise<string> => {
   throw new Error("Error fetching content: unexpected response type");
 };
 
-const readContentFromCache = async (cacheLocation: string, cachePath: string): Promise<string> => {
-  log.info({ context: { cacheLocation, cachePath } }, "Reading file from cache");
-
+const readContentFromCache = async (
+  cacheLocation: string,
+  cachePath: string,
+  vaccineType: VaccineTypes,
+): Promise<string> => {
   let contentFromCache;
   isS3Path(cacheLocation)
     ? (contentFromCache = await _readFileS3(cacheLocation.slice(S3_PREFIX.length), cachePath))
     : (contentFromCache = await readFile(`${cacheLocation}${cachePath}`, { encoding: "utf8" }));
 
   if (contentFromCache.includes(INVALIDATED_CONTENT_OVERWRITE_VALUE)) {
-    log.info({ context: { cachePath } }, `Unable to load content: ${INVALIDATED_CONTENT_OVERWRITE_VALUE}`);
-    throw new InvalidatedCacheError(`Unable to load content: ${INVALIDATED_CONTENT_OVERWRITE_VALUE}`);
+    log.info(
+      { context: { cacheLocation, cachePath, vaccineType } },
+      `Unable to load content from cache: ${INVALIDATED_CONTENT_OVERWRITE_VALUE}`,
+    );
+    throw new InvalidatedCacheError(`Unable to load content from cache: ${INVALIDATED_CONTENT_OVERWRITE_VALUE}`);
   }
+  log.info({ context: { cacheLocation, cachePath, vaccineType } }, "Content loaded from cache");
 
   return contentFromCache;
 };

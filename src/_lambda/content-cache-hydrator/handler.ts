@@ -17,19 +17,19 @@ const log = logger.child({ module: "content-cache-hydrator" });
 // TODO: When cache is valid and content has changed - cache is invalidated for RSV, but when forceUpdate=true it is validated again for RSV-pregnancy
 
 const checkContentPassesStylingAndWriteToCache = async (
-  vaccine: VaccineTypes,
+  vaccineType: VaccineTypes,
   content: string,
   filteredContent: VaccinePageContent,
 ): Promise<void> => {
   try {
-    await getStyledContentForVaccine(vaccine, filteredContent);
-    await writeContentForVaccine(vaccine, content);
-    log.info({ context: { vaccine } }, `Content written to cache for ${vaccine} vaccine`);
+    await getStyledContentForVaccine(vaccineType, filteredContent);
+    await writeContentForVaccine(vaccineType, content);
+    log.info({ context: { vaccineType } }, `Content written to cache for vaccine ${vaccineType} `);
   } catch (error) {
     log.error(
       {
         context: {
-          vaccine: vaccine,
+          vaccineType,
           contentLength: content.length,
         },
       },
@@ -45,35 +45,35 @@ interface HydrateCacheStatus {
 }
 
 async function hydrateCacheForVaccine(
-  vaccine: VaccineTypes,
+  vaccineType: VaccineTypes,
   approvalEnabled: boolean,
   forceUpdate: boolean,
 ): Promise<HydrateCacheStatus> {
   const status: HydrateCacheStatus = { invalidatedCount: 0, failureCount: 0 };
 
   try {
-    const content: string = await fetchContentForVaccine(vaccine);
+    const content: string = await fetchContentForVaccine(vaccineType);
     const filteredContent: VaccinePageContent = getFilteredContentForVaccine(content);
 
     if (!approvalEnabled) {
-      await checkContentPassesStylingAndWriteToCache(vaccine, content, filteredContent);
+      await checkContentPassesStylingAndWriteToCache(vaccineType, content, filteredContent);
       return status;
     } else {
-      const { cacheStatus, cacheContent } = await readCachedContentForVaccine(vaccine);
+      const { cacheStatus, cacheContent } = await readCachedContentForVaccine(vaccineType);
 
       if (cacheStatus === "empty" || (cacheStatus === "invalidated" && forceUpdate)) {
         log.info(
-          { context: { vaccine: vaccine, cacheStatus: cacheStatus, forceUpdate: forceUpdate } },
+          { context: { vaccineType, cacheStatus, forceUpdate } },
           `Cache was ${cacheStatus} previously, writing updated content`,
         );
-        await checkContentPassesStylingAndWriteToCache(vaccine, content, filteredContent);
+        await checkContentPassesStylingAndWriteToCache(vaccineType, content, filteredContent);
         return status;
       }
 
       if (cacheStatus === "invalidated" && !forceUpdate) {
         log.info(
-          { context: { vaccine: vaccine } },
-          `Content changes detected for ${vaccine} vaccine: cache is already invalidated, no action taken`,
+          { context: { vaccineType, cacheStatus, forceUpdate } },
+          `Content changes detected for vaccine ${vaccineType} : cache is already invalidated, no action taken`,
         );
         status.invalidatedCount++;
         return status;
@@ -81,12 +81,15 @@ async function hydrateCacheForVaccine(
 
       if (cacheStatus === "valid") {
         if (vitaContentChangedSinceLastApproved(filteredContent, getFilteredContentForVaccine(cacheContent))) {
-          log.info(`Content changes detected for ${vaccine} vaccine; invalidating cache`);
-          await invalidateCacheForVaccine(vaccine);
+          log.info(
+            { context: { vaccineType } },
+            `Content changes detected for vaccine ${vaccineType}; invalidating cache`,
+          );
+          await invalidateCacheForVaccine(vaccineType);
           status.invalidatedCount++;
           return status;
         } else {
-          await checkContentPassesStylingAndWriteToCache(vaccine, content, filteredContent);
+          await checkContentPassesStylingAndWriteToCache(vaccineType, content, filteredContent);
           return status;
         }
       }
@@ -97,7 +100,7 @@ async function hydrateCacheForVaccine(
     const errorStackTrace = error instanceof Error ? error.stack : "";
     const errorCause = error instanceof Error ? error.cause : "";
     log.error(
-      { context: { vaccine }, error: { message: errorMessage, stack: errorStackTrace, cause: errorCause } },
+      { context: { vaccineType }, error: { message: errorMessage, stack: errorStackTrace, cause: errorCause } },
       "Error occurred for vaccine",
     );
     status.failureCount++;
