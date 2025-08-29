@@ -14,7 +14,7 @@ env:
 
 jobs:
   hydrate:
-    name: "Hydrate Content Cache in ${{inputs.environment}} environment"
+    name: "${{inputs.environment}}: Hydrate content-cache"
     runs-on: ubuntu-latest
     environment:
       name: ${{ inputs.environment }}
@@ -29,7 +29,7 @@ jobs:
           role-session-name: GitHubActionsSession
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
-      - name: "Run ${{ inputs.environment}} Content Cache Hydrator"
+      - name: "${{ inputs.environment}}: Run content-cache-hydrator"
         run: |
           aws lambda invoke --function-name ${AWS_CONTENT_CACHE_HYDRATOR_LAMBDA} response.json || {
             echo "Invocation of Content Cache Hydrator failed"
