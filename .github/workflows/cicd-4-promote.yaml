@@ -7,9 +7,6 @@ on:
         description: 'Environment to promote to'
         type: environment
         required: true
-      release_tag:
-        description: "The tag of the release to be promoted"
-        required: true
 
 env:
   AWS_REGION: eu-west-2
@@ -28,6 +25,12 @@ jobs:
       version: ${{ steps.variables.outputs.version }}
       release_tag: ${{ steps.variables.outputs.release_tag }}
     steps:
+      - name: "Check ref"
+        run: |
+          if ${{ !startsWith(github.ref, 'refs/tags/') }}; then
+            echo "❌ Only tagged promotions allowed."
+            exit 1
+          fi
       - name: "Checkout code"
         uses: actions/checkout@v5
       - name: "Set CI/CD variables"
@@ -39,7 +42,7 @@ jobs:
           echo "build_epoch=$(date --date=$datetime -u +'%s')" >> $GITHUB_OUTPUT
           # TODO: Get the version, but it may not be the .version file as this should come from the CI/CD Pull Request Workflow
           echo "version=$(head -n 1 .version 2> /dev/null || echo unknown)" >> $GITHUB_OUTPUT
-          echo "release_tag=${{ github.event.inputs.release_tag }}" >> $GITHUB_OUTPUT
+          echo "release_tag=${{ github.ref_name }}" >> $GITHUB_OUTPUT
       - name: "List variables"
         run: |
           export BUILD_DATETIME="${{ steps.variables.outputs.build_datetime }}"
@@ -54,5 +57,5 @@ jobs:
     uses: ./.github/workflows/stage-6-promote.yaml
     with:
       environment: ${{ inputs.environment }}
-      release_tag: ${{ inputs.release_tag }}
+      release_tag: ${{ needs.metadata.outputs.release_tag }}
     secrets: inherit
