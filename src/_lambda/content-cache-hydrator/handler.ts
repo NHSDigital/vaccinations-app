@@ -24,6 +24,7 @@ const checkContentPassesStylingAndWriteToCache = async (
   try {
     await getStyledContentForVaccine(vaccine, filteredContent);
     await writeContentForVaccine(vaccine, content);
+    log.info({ context: { vaccine } }, `Content written to cache for ${vaccine} vaccine`);
   } catch (error) {
     log.error(
       {
@@ -32,7 +33,7 @@ const checkContentPassesStylingAndWriteToCache = async (
           contentLength: content.length,
         },
       },
-      "Check failed in styling or writing content to cache.",
+      "Vaccine content either failed styling check or encountered write error",
     );
     throw error;
   }
@@ -63,21 +64,24 @@ async function hydrateCacheForVaccine(
       if (cacheStatus === "empty" || (cacheStatus === "invalidated" && forceUpdate)) {
         log.info(
           { context: { vaccine: vaccine, cacheStatus: cacheStatus, forceUpdate: forceUpdate } },
-          `Cache was ${cacheStatus} previously, writing updated content.`,
+          `Cache was ${cacheStatus} previously, writing updated content`,
         );
         await checkContentPassesStylingAndWriteToCache(vaccine, content, filteredContent);
         return status;
       }
 
       if (cacheStatus === "invalidated" && !forceUpdate) {
-        log.info({ context: { vaccine: vaccine } }, "Cache is invalidated already, no action taken.");
+        log.info(
+          { context: { vaccine: vaccine } },
+          `Content changes detected for ${vaccine} vaccine: cache is already invalidated, no action taken`,
+        );
         status.invalidatedCount++;
         return status;
       }
 
       if (cacheStatus === "valid") {
         if (vitaContentChangedSinceLastApproved(filteredContent, getFilteredContentForVaccine(cacheContent))) {
-          log.info(`Content changes detected for vaccine ${vaccine}; invalidating cache`);
+          log.info(`Content changes detected for ${vaccine} vaccine; invalidating cache`);
           await invalidateCacheForVaccine(vaccine);
           status.invalidatedCount++;
           return status;
@@ -86,7 +90,7 @@ async function hydrateCacheForVaccine(
           return status;
         }
       }
-      throw new Error("Unexpected scenario, should never have happened.");
+      throw new Error("Unexpected scenario, should never have happened");
     }
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : "unknown error";
@@ -94,7 +98,7 @@ async function hydrateCacheForVaccine(
     const errorCause = error instanceof Error ? error.cause : "";
     log.error(
       { context: { vaccine }, error: { message: errorMessage, stack: errorStackTrace, cause: errorCause } },
-      "Error occurred for vaccine.",
+      "Error occurred for vaccine",
     );
     status.failureCount++;
     return status;
@@ -124,7 +128,7 @@ const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
     failureCount += status.failureCount;
   }
 
-  log.info({ context: { failureCount, invalidatedCount } }, "Finished hydrating content cache: report.");
+  log.info({ context: { failureCount, invalidatedCount } }, "Finished hydrating content cache: report");
   if (failureCount > 0) {
     throw new Error(`${failureCount} failures`);
   }
