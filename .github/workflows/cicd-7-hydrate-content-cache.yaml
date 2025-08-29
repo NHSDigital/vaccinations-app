@@ -37,3 +37,7 @@ jobs:
             exit 1
           }
           cat response.json
+          if grep -q '"FunctionError": "Unhandled"' response.json; then
+            echo "Error during Content Cache Hydrator run"
+            exit 1
+          fi
