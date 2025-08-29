@@ -14,7 +14,7 @@ env:
 
 jobs:
   hydrate:
-    name: "Hydrate Content Cache in ${{ inputs.environment}} environment"
+    name: "Hydrate Content Cache in ${{inputs.environment}} environment"
     runs-on: ubuntu-latest
     environment:
       name: ${{ inputs.environment }}
@@ -36,8 +36,8 @@ jobs:
             cat response.json
             exit 1
           }
-          cat response.json
-          if grep -q '"FunctionError": "Unhandled"' response.json; then
+          if grep -q "errorMessage" response.json; then
             echo "Error during Content Cache Hydrator run"
+            cat response.json
             exit 1
           fi
