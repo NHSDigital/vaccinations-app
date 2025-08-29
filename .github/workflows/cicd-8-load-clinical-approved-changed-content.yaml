@@ -1,0 +1,49 @@
+name: "DevOps: Load Clinical Approved Changed Content"
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run in'
+        type: environment
+        required: true
+      vaccine_name:
+        description: 'Vaccine to update'
+        type: choice
+        options:
+          - RSV
+        required: true
+
+env:
+  AWS_REGION: eu-west-2
+  AWS_CONTENT_CACHE_HYDRATOR_LAMBDA: gh-vita-${{ secrets.AWS_ACCOUNT_ID }}-content-cache-hydrator
+
+jobs:
+  hydrate:
+    name: "Load New ${{inputs.vaccine_name}} Content into Cache in ${{inputs.environment}} environment"
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment }}
+    timeout-minutes: 5
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: "Configure AWS credentials for env"
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-session-name: GitHubActionsSession
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: "Run ${{ inputs.environment}} Content Cache Hydrator for ${{ inputs.vaccine_name }} vaccine"
+        run: |
+          aws lambda invoke --function-name ${AWS_CONTENT_CACHE_HYDRATOR_LAMBDA} --cli-binary-format 'raw-in-base64-out' --payload '{"forceUpdate": true, "vaccineToUpdate": ${{ inputs.vaccine_name}}}' response.json || {
+            echo "Invocation of Content Cache Hydrator failed"
+            cat response.json
+            exit 1
+          }
+          if grep -q "errorMessage" response.json; then
+            echo "Error during Content Cache Hydrator run"
+            cat response.json
+            exit 1
+          fi

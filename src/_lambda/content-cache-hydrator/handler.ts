@@ -103,18 +103,22 @@ async function hydrateCacheForVaccine(
 
 interface ContentCacheHydratorEvent {
   forceUpdate?: boolean;
+  vaccineToUpdate?: VaccineTypes;
 }
 
 // Ref: https://nhsd-confluence.digital.nhs.uk/spaces/Vacc/pages/1113364124/Caching+strategy+for+content+from+NHS.uk+content+API
 const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
   log.info({ context: { event } }, "Received event, hydrating content cache.");
 
+  const forceUpdate = typeof event.forceUpdate === "boolean" ? event.forceUpdate : false;
+  const vaccinesToRunOn = event.vaccineToUpdate ? [event.vaccineToUpdate] : Object.values(VaccineTypes);
+
   const config: AppConfig = await configProvider();
 
   let failureCount: number = 0;
   let invalidatedCount: number = 0;
-  const forceUpdate = typeof event.forceUpdate === "boolean" ? event.forceUpdate : false;
-  for (const vaccine of Object.values(VaccineTypes)) {
+
+  for (const vaccine of vaccinesToRunOn) {
     const status = await hydrateCacheForVaccine(vaccine, config.CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED, forceUpdate);
     invalidatedCount += status.invalidatedCount;
     failureCount += status.failureCount;

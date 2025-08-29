@@ -97,6 +97,19 @@ describe("Lambda Handler", () => {
         expect(invalidateCacheForVaccine).not.toHaveBeenCalledWith(vaccineType);
       });
     });
+
+    it("should only update one vaccine if vaccine name is set in inbound event", async () => {
+      const vaccineToUpdate = VaccineTypes.RSV;
+      const fetchedContentForVaccine = "some-different-content";
+      (fetchContentForVaccine as jest.Mock).mockResolvedValue(fetchedContentForVaccine);
+
+      const event = { vaccineToUpdate: vaccineToUpdate };
+      await expect(handler(event, context)).resolves.toBeUndefined();
+
+      expect(writeContentForVaccine).toHaveBeenCalledTimes(1);
+      expect(writeContentForVaccine).toHaveBeenCalledWith(VaccineTypes.RSV, fetchedContentForVaccine);
+      expect(writeContentForVaccine).not.toHaveBeenCalledWith(VaccineTypes.RSV_PREGNANCY, fetchedContentForVaccine);
+    });
   });
 
   describe("when content-change-approval-needed feature enabled", () => {
@@ -213,6 +226,19 @@ describe("Lambda Handler", () => {
       await handler({}, contextWithRequestId);
 
       expect(asyncLocalStorage.run).toHaveBeenCalledWith({ traceId: requestId }, expect.anything());
+    });
+
+    it("should only update one vaccine if vaccine name is set in inbound event", async () => {
+      const vaccineToUpdate = VaccineTypes.RSV;
+      const fetchedContentForVaccine = "some-different-content";
+      (fetchContentForVaccine as jest.Mock).mockResolvedValue(fetchedContentForVaccine);
+
+      const event = { vaccineToUpdate: vaccineToUpdate };
+      await expect(handler(event, context)).resolves.toBeUndefined();
+
+      expect(writeContentForVaccine).toHaveBeenCalledTimes(1);
+      expect(writeContentForVaccine).toHaveBeenCalledWith(VaccineTypes.RSV, fetchedContentForVaccine);
+      expect(writeContentForVaccine).not.toHaveBeenCalledWith(VaccineTypes.RSV_PREGNANCY, fetchedContentForVaccine);
     });
   });
 });
