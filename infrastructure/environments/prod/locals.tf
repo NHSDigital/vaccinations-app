@@ -34,7 +34,7 @@ locals {
 
     CONTENT_API_ENDPOINT                      = "https://api.service.nhs.uk/"
     CONTENT_CACHE_PATH                        = "s3://${local.content_cache_bucket_name}"
-    CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED  = false
+    CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED  = true
 
     NHS_LOGIN_URL              = "https://auth.login.nhs.uk/"
     NHS_LOGIN_SCOPE            = "openid profile"
