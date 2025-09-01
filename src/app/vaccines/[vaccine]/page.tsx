@@ -7,7 +7,7 @@ import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
 import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
-import { getVaccineTypeFromUrlPath } from "@src/utils/path";
+import { getVaccineTypeFromLowercaseString } from "@src/utils/path";
 import { notFound } from "next/navigation";
 import React, { Suspense } from "react";
 
@@ -17,7 +17,7 @@ interface VaccinePageProps {
 
 const VaccinePage = async ({ params }: VaccinePageProps) => {
   const { vaccine } = await params;
-  const vaccineType: VaccineTypes | undefined = getVaccineTypeFromUrlPath(vaccine);
+  const vaccineType: VaccineTypes | undefined = getVaccineTypeFromLowercaseString(vaccine);
 
   return vaccineType ? (
     <>

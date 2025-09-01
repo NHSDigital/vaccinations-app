@@ -11,7 +11,7 @@ on:
         description: 'Vaccine to update'
         type: choice
         options:
-          - RSV
+          - rsv
         required: true
 
 env:

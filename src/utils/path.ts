@@ -6,7 +6,7 @@ const isS3Path = (path: string): boolean => {
   return path.startsWith(S3_PREFIX);
 };
 
-const getVaccineTypeFromUrlPath = (path: string): VaccineTypes | undefined => {
+const getVaccineTypeFromLowercaseString = (path: string): VaccineTypes | undefined => {
   if (!Object.values(VaccineContentUrlPaths).includes(path as VaccineContentUrlPaths)) {
     return undefined;
   } else {
@@ -14,4 +14,4 @@ const getVaccineTypeFromUrlPath = (path: string): VaccineTypes | undefined => {
   }
 };
 
-export { S3_PREFIX, isS3Path, getVaccineTypeFromUrlPath };
+export { S3_PREFIX, isS3Path, getVaccineTypeFromLowercaseString };

@@ -9,6 +9,7 @@ import { getStyledContentForVaccine } from "@src/services/content-api/parsers/co
 import { VaccinePageContent } from "@src/services/content-api/types";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
+import { getVaccineTypeFromLowercaseString } from "@src/utils/path";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
 import { Context } from "aws-lambda";
 
@@ -110,7 +111,7 @@ async function hydrateCacheForVaccine(
 
 interface ContentCacheHydratorEvent {
   forceUpdate?: boolean;
-  vaccineToUpdate?: VaccineTypes;
+  vaccineToUpdate?: string;
 }
 
 // Ref: https://nhsd-confluence.digital.nhs.uk/spaces/Vacc/pages/1113364124/Caching+strategy+for+content+from+NHS.uk+content+API
@@ -118,7 +119,25 @@ const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
   log.info({ context: { event } }, "Received event, hydrating content cache.");
 
   const forceUpdate = typeof event.forceUpdate === "boolean" ? event.forceUpdate : false;
-  const vaccinesToRunOn = event.vaccineToUpdate ? [event.vaccineToUpdate] : Object.values(VaccineTypes);
+
+  let vaccinesToRunOn: VaccineTypes[];
+  if (event.vaccineToUpdate) {
+    const vaccineType = getVaccineTypeFromLowercaseString(event.vaccineToUpdate);
+    if (typeof vaccineType === "undefined") {
+      throw new Error(`Bad request: Vaccine name not recognised: ${event.vaccineToUpdate}`);
+    } else {
+      vaccinesToRunOn = [vaccineType];
+    }
+  } else {
+    vaccinesToRunOn = Object.values(VaccineTypes);
+  }
+
+  if (forceUpdate) {
+    log.info(
+      { context: { vaccineType: event.vaccineToUpdate, forceUpdate } },
+      `Clinical approval received for force update of vaccine ${event.vaccineToUpdate}`,
+    );
+  }
 
   const config: AppConfig = await configProvider();
 

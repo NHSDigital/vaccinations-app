@@ -99,7 +99,7 @@ describe("Lambda Handler", () => {
     });
 
     it("should only update one vaccine if vaccine name is set in inbound event", async () => {
-      const vaccineToUpdate = VaccineTypes.RSV;
+      const vaccineToUpdate = "rsv";
       const fetchedContentForVaccine = "some-different-content";
       (fetchContentForVaccine as jest.Mock).mockResolvedValue(fetchedContentForVaccine);
 
@@ -109,6 +109,20 @@ describe("Lambda Handler", () => {
       expect(writeContentForVaccine).toHaveBeenCalledTimes(1);
       expect(writeContentForVaccine).toHaveBeenCalledWith(VaccineTypes.RSV, fetchedContentForVaccine);
       expect(writeContentForVaccine).not.toHaveBeenCalledWith(VaccineTypes.RSV_PREGNANCY, fetchedContentForVaccine);
+    });
+
+    it("should throw if invalid vaccine name sent on inbound event", async () => {
+      const vaccineToUpdate = "not-a-real-vaccine";
+      const fetchedContentForVaccine = "some-different-content";
+      (fetchContentForVaccine as jest.Mock).mockResolvedValue(fetchedContentForVaccine);
+
+      const event = { vaccineToUpdate: vaccineToUpdate };
+
+      await expect(handler(event, context)).rejects.toThrow(
+        `Bad request: Vaccine name not recognised: ${vaccineToUpdate}`,
+      );
+
+      expect(writeContentForVaccine).toHaveBeenCalledTimes(0);
     });
   });
 
@@ -229,7 +243,7 @@ describe("Lambda Handler", () => {
     });
 
     it("should only update one vaccine if vaccine name is set in inbound event", async () => {
-      const vaccineToUpdate = VaccineTypes.RSV;
+      const vaccineToUpdate = "rsv";
       const fetchedContentForVaccine = "some-different-content";
       (fetchContentForVaccine as jest.Mock).mockResolvedValue(fetchedContentForVaccine);
 

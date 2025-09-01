@@ -2,7 +2,7 @@ import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 import { VaccineTypes } from "@src/models/vaccine";
 import { getNbsQueryParams, getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
 import { extractRootTraceIdFromAmznTraceId, logger } from "@src/utils/logger";
-import { getVaccineTypeFromUrlPath } from "@src/utils/path";
+import { getVaccineTypeFromLowercaseString } from "@src/utils/path";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
 import { notFound, redirect } from "next/navigation";
@@ -73,7 +73,7 @@ async function getGivenRedirectTarget(rawRedirectTarget: string | null) {
 async function getGivenVaccine(vaccine: string | null) {
   let shouldReturnNotFound = false;
   let finalRedirectUrl: string = "";
-  const vaccineType: VaccineTypes | undefined = vaccine ? getVaccineTypeFromUrlPath(vaccine) : undefined;
+  const vaccineType: VaccineTypes | undefined = vaccine ? getVaccineTypeFromLowercaseString(vaccine) : undefined;
 
   if (vaccine && vaccineType) {
     try {

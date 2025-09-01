@@ -1,5 +1,5 @@
 import { VaccineTypes } from "@src/models/vaccine";
-import { getVaccineTypeFromUrlPath, isS3Path } from "@src/utils/path";
+import { getVaccineTypeFromLowercaseString, isS3Path } from "@src/utils/path";
 
 describe("path", () => {
   describe("isS3Path()", () => {
@@ -14,11 +14,11 @@ describe("path", () => {
 
   describe("getVaccineTypeFromUrlPath()", () => {
     it("returns undefined when path does not exist", async () => {
-      expect(getVaccineTypeFromUrlPath("test-vaccine")).toBeUndefined();
+      expect(getVaccineTypeFromLowercaseString("test-vaccine")).toBeUndefined();
     });
     it("returns vaccine type corresponding to the path", async () => {
-      expect(getVaccineTypeFromUrlPath("rsv")).toBe(VaccineTypes.RSV);
-      expect(getVaccineTypeFromUrlPath("rsv-pregnancy")).toBe(VaccineTypes.RSV_PREGNANCY);
+      expect(getVaccineTypeFromLowercaseString("rsv")).toBe(VaccineTypes.RSV);
+      expect(getVaccineTypeFromLowercaseString("rsv-pregnancy")).toBe(VaccineTypes.RSV_PREGNANCY);
     });
   });
 });
