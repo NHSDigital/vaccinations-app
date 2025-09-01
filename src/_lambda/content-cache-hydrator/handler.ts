@@ -124,7 +124,9 @@ const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
   if (event.vaccineToUpdate) {
     const vaccineType = getVaccineTypeFromLowercaseString(event.vaccineToUpdate);
     if (typeof vaccineType === "undefined") {
-      throw new Error(`Bad request: Vaccine name not recognised: ${event.vaccineToUpdate}`);
+      const errorMessage = `Bad request: Vaccine name not recognised: ${event.vaccineToUpdate}`;
+      log.error({ context: { vaccineType: event.vaccineToUpdate } }, errorMessage);
+      throw new Error(errorMessage);
     } else {
       vaccinesToRunOn = [vaccineType];
     }
@@ -153,6 +155,9 @@ const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
   log.info({ context: { failureCount, invalidatedCount } }, "Finished hydrating content cache: report");
   if (failureCount > 0) {
     throw new Error(`${failureCount} failures`);
+  }
+  if (invalidatedCount > 0) {
+    log.error(`${invalidatedCount} cache invalidation(s) found. Needs approval and force update`);
   }
 };
 
