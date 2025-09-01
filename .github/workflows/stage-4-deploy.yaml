@@ -59,7 +59,7 @@ jobs:
           echo "Artefact path: $lambda_s3_path"
           aws s3 cp "$lambda_s3_path" .
       - name: "Download packages from ${{ inputs.environment}} S3 Releases bucket"
-        if: ${{ inputs.environment == 'preprod' || inputs.environment == 'prod' }}
+        if: ${{ contains(fromJSON('["prod", "preprod", "test"]'), inputs.environment) }}
         run: |
           AWS_S3_RELEASE_BUCKET="vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${{ inputs.environment }}"
           app_s3_path="s3://${AWS_S3_RELEASE_BUCKET}/tag/${{ steps.tag-or-sha.outputs.value }}/open-next.zip"

@@ -68,7 +68,7 @@ jobs:
     secrets: inherit
   acceptance-stage:
     name: "Acceptance stage"
-    if: ${{ github.event.inputs.environment != 'prod' }}
+    if: ${{ contains(fromJSON('["dev","preprod"]'), github.event.inputs.environment) }}
     needs: [metadata, deploy-stage]
     uses: ./.github/workflows/stage-5-acceptance.yaml
     with:
