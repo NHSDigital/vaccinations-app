@@ -59,43 +59,43 @@ async function hydrateCacheForVaccine(
     if (!approvalEnabled) {
       await checkContentPassesStylingAndWriteToCache(vaccineType, content, filteredContent);
       return status;
-    } else {
-      const { cacheStatus, cacheContent } = await readCachedContentForVaccine(vaccineType);
+    }
 
-      if (cacheStatus === "empty" || (cacheStatus === "invalidated" && forceUpdate)) {
+    const { cacheStatus, cacheContent } = await readCachedContentForVaccine(vaccineType);
+
+    if (cacheStatus === "empty" || (cacheStatus === "invalidated" && forceUpdate)) {
+      log.info(
+        { context: { vaccineType, cacheStatus, forceUpdate } },
+        `Cache was ${cacheStatus} previously, writing updated content`,
+      );
+      await checkContentPassesStylingAndWriteToCache(vaccineType, content, filteredContent);
+      return status;
+    }
+
+    if (cacheStatus === "invalidated" && !forceUpdate) {
+      log.info(
+        { context: { vaccineType, cacheStatus, forceUpdate } },
+        `Content changes detected for vaccine ${vaccineType} : cache is already invalidated, no action taken`,
+      );
+      status.invalidatedCount++;
+      return status;
+    }
+
+    if (cacheStatus === "valid") {
+      if (vitaContentChangedSinceLastApproved(filteredContent, getFilteredContentForVaccine(cacheContent))) {
         log.info(
-          { context: { vaccineType, cacheStatus, forceUpdate } },
-          `Cache was ${cacheStatus} previously, writing updated content`,
+          { context: { vaccineType } },
+          `Content changes detected for vaccine ${vaccineType}; invalidating cache`,
         );
+        await invalidateCacheForVaccine(vaccineType);
+        status.invalidatedCount++;
+        return status;
+      } else {
         await checkContentPassesStylingAndWriteToCache(vaccineType, content, filteredContent);
         return status;
       }
-
-      if (cacheStatus === "invalidated" && !forceUpdate) {
-        log.info(
-          { context: { vaccineType, cacheStatus, forceUpdate } },
-          `Content changes detected for vaccine ${vaccineType} : cache is already invalidated, no action taken`,
-        );
-        status.invalidatedCount++;
-        return status;
-      }
-
-      if (cacheStatus === "valid") {
-        if (vitaContentChangedSinceLastApproved(filteredContent, getFilteredContentForVaccine(cacheContent))) {
-          log.info(
-            { context: { vaccineType } },
-            `Content changes detected for vaccine ${vaccineType}; invalidating cache`,
-          );
-          await invalidateCacheForVaccine(vaccineType);
-          status.invalidatedCount++;
-          return status;
-        } else {
-          await checkContentPassesStylingAndWriteToCache(vaccineType, content, filteredContent);
-          return status;
-        }
-      }
-      throw new Error("Unexpected scenario, should never have happened");
     }
+    throw new Error("Unexpected scenario, should never have happened");
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : "unknown error";
     const errorStackTrace = error instanceof Error ? error.stack : "";
