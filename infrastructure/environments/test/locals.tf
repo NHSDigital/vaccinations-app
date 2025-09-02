@@ -42,7 +42,7 @@ locals {
 
     MAX_SESSION_AGE_MINUTES = 59
 
-    IS_APIM_AUTH_ENABLED     = false // Eventually use APIM mock
+    IS_APIM_AUTH_ENABLED     = true
     APIM_KEY_ID              = "test-1"
 
     AUTH_TRUST_HOST = "true"
