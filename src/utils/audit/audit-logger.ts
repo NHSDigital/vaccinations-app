@@ -43,7 +43,7 @@ const sendAuditEvent = async (message: AuditEvent) => {
     const command = new PutLogEventsCommand(params);
     await client.send(command);
     profilePerformanceEnd(AuditLoggerPerformanceMarker);
-    log.info("Audit log sent successfully."); // TODO: 21/08/2025 VIA-263 AS Remove later
+    log.info({ context: { auditEventId: message.id } }, `Audited event id ${message.id}`);
   } catch (error) {
     log.error({ error }, "Error sending audit log to cloudwatch");
     throw error;

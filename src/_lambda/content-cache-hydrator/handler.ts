@@ -15,8 +15,6 @@ import { Context } from "aws-lambda";
 
 const log = logger.child({ module: "content-cache-hydrator" });
 
-// TODO: When cache is valid and content has changed - cache is invalidated for RSV, but when forceUpdate=true it is validated again for RSV-pregnancy
-
 const checkContentPassesStylingAndWriteToCache = async (
   vaccineType: VaccineTypes,
   content: string,
