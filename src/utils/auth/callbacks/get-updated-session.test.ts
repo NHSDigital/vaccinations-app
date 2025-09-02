@@ -4,6 +4,8 @@ import { AccessToken, BirthDate, ExpiresAt, IdToken } from "@src/utils/auth/type
 import { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
+
 describe("getSession", () => {
   it("updates session user fields from token when both defined", () => {
     const session: Session = {

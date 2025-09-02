@@ -27,6 +27,7 @@ const middlewareWrapper = async (request: NextRequest) => {
   let response: NextResponse;
   const session: Session | null = await auth();
   if (!session?.user) {
+    log.info({ context: { nextUrl: request.nextUrl.href } }, "Missing user session, redirecting to login");
     response = NextResponse.redirect(new URL(config.NHS_APP_REDIRECT_LOGIN_URL));
   } else {
     response = NextResponse.next();
