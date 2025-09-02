@@ -93,7 +93,6 @@ async function hydrateCacheForVaccine(
         return status;
       }
     }
-    throw new Error("Unexpected scenario, should never have happened");
   } catch (error) {
     log.error(
       {
@@ -105,6 +104,10 @@ async function hydrateCacheForVaccine(
     status.failureCount++;
     return status;
   }
+
+  log.error("Unexpected scenario, should never have happened");
+  status.failureCount++;
+  return status;
 }
 
 interface ContentCacheHydratorEvent {
