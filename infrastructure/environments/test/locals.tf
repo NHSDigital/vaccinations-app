@@ -36,14 +36,14 @@ locals {
     CONTENT_CACHE_PATH                        = "s3://${local.content_cache_bucket_name}"
     CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED  = true
 
-    NHS_LOGIN_URL              = "https://auth.aos.signin.nhs.uk"
+    NHS_LOGIN_URL              = "https://auth.sandpit.signin.nhs.uk" // Eventually use mock NHS Login
     NHS_LOGIN_SCOPE            = "openid profile"
-    NHS_APP_REDIRECT_LOGIN_URL = "https://www-onboardingaos.nhsapp.service.nhs.uk/login?redirect_to=index"
+    NHS_APP_REDIRECT_LOGIN_URL = "https://www-onboardingsandpit.nhsapp.service.nhs.uk/login?redirect_to=index"
 
     MAX_SESSION_AGE_MINUTES = 59
 
     ELIGIBILITY_API_ENDPOINT = "https://sandbox.api.service.nhs.uk/" // From fargate deployment
-    IS_APIM_AUTH_ENABLED     = true
+    IS_APIM_AUTH_ENABLED     = false // Eventually use APIM mock
     APIM_AUTH_URL            = "https://int.api.service.nhs.uk/oauth2/token" // From fargate deployment
     APIM_KEY_ID              = "test-1"
 
