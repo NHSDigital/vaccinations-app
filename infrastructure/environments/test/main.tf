@@ -23,7 +23,7 @@ module "deploy" {
   log_retention_in_days             = local.log_retention_in_days
   application_environment_variables = merge(local.application_environment_variables,
     {
-      ELIGIBILITY_API_ENDPOINT = module.deploy_fake_api.application_url,
+      ELIGIBILITY_API_ENDPOINT = "${module.deploy_fake_api.application_url}/",
       APIM_AUTH_URL = "${module.deploy_fake_api.application_url}/oauth2/token"
     })
   acm_certificate_arn               = data.aws_acm_certificate.website.arn
