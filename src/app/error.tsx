@@ -7,7 +7,6 @@ import React, { useEffect } from "react";
 
 interface GlobalErrorProps {
   error: Error & { digest?: string };
-  reset: () => void;
 }
 
 const UncaughtError = (props: GlobalErrorProps) => {

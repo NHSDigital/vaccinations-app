@@ -58,7 +58,7 @@ describe("generateAPIMTokenPayload", () => {
         exp: mockNowInSeconds + 300,
       };
 
-      const apimTokenPayload = generateAPIMTokenPayload(mockApimConfig, mockIdToken) as APIMTokenPayload;
+      const apimTokenPayload: APIMTokenPayload = generateAPIMTokenPayload(mockApimConfig, mockIdToken);
       const clientAssertionJWT = apimTokenPayload.client_assertion;
 
       expect(jwt.sign).toHaveBeenCalledWith(expectedClientAssertionPayloadContent, mockApimConfig.APIM_PRIVATE_KEY, {

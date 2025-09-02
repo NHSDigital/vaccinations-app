@@ -65,9 +65,11 @@ const readContentFromCache = async (
   vaccineType: VaccineTypes,
 ): Promise<string> => {
   let contentFromCache;
-  isS3Path(cacheLocation)
-    ? (contentFromCache = await _readFileS3(cacheLocation.slice(S3_PREFIX.length), cachePath))
-    : (contentFromCache = await readFile(`${cacheLocation}${cachePath}`, { encoding: "utf8" }));
+  if (isS3Path(cacheLocation)) {
+    contentFromCache = await _readFileS3(cacheLocation.slice(S3_PREFIX.length), cachePath);
+  } else {
+    contentFromCache = await readFile(`${cacheLocation}${cachePath}`, { encoding: "utf8" });
+  }
 
   if (contentFromCache.includes(INVALIDATED_CONTENT_OVERWRITE_VALUE)) {
     log.info(

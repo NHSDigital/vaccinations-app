@@ -97,11 +97,11 @@ async function hydrateCacheForVaccine(
     }
     throw new Error("Unexpected scenario, should never have happened");
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : "unknown error";
-    const errorStackTrace = error instanceof Error ? error.stack : "";
-    const errorCause = error instanceof Error ? error.cause : "";
     log.error(
-      { context: { vaccineType }, error: { message: errorMessage, stack: errorStackTrace, cause: errorCause } },
+      {
+        context: { vaccineType },
+        error: error instanceof Error ? { message: error.message, stack: error.stack, cause: error.cause } : error,
+      },
       "Error occurred for vaccine",
     );
     status.failureCount++;
