@@ -10,6 +10,10 @@ module "deploy_lambda" {
   alerting_sns_topic_arn            = module.deploy_monitoring.alerting_sns_topic_arn
 }
 
+module "deploy_fake_api" {
+  source = "./fake-api"
+}
+
 module "deploy" {
   source = "../../modules/deploy_app"
 
@@ -17,7 +21,11 @@ module "deploy" {
   open-next-path                    = local.open_next_path
   nodejs_version                    = local.node_version
   log_retention_in_days             = local.log_retention_in_days
-  application_environment_variables = local.application_environment_variables
+  application_environment_variables = merge(local.application_environment_variables,
+    {
+      ELIGIBILITY_API_ENDPOINT = module.deploy_fake_api.application_url,
+      APIM_AUTH_URL = "${module.deploy_fake_api.application_url}/oauth2/token"
+    })
   acm_certificate_arn               = data.aws_acm_certificate.website.arn
   domain                            = local.domain
   sub_domain                        = local.sub_domain
