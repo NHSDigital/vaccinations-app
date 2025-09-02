@@ -38,29 +38,30 @@ From NHS repository template:
     brew install make gnu-sed gawk coreutils binutils
     ```
 
-  - Add the following to .zshrc to override default OSX tools with their GNU equivalents
+  - Override default OSX tools with their GNU equivalents
     - On M1 Macs:
 
       ```shell
-      export HOMEBREW_PATH="/opt/homebrew"
+      echo 'export HOMEBREW_PATH="/opt/homebrew"' >> ~/.zshrc
       ```
 
     - For Intel Macs:
 
       ```shell
-      export HOMEBREW_PATH="/usr/local"
+      echo 'export HOMEBREW_PATH="/usr/local"' >> ~/.zshrc
       ```
 
     - Then:
 
       ```shell
-      export PATH="$HOMEBREW_PATH/opt/make/libexec/gnubin:$PATH"
-      export PATH="$HOMEBREW_PATH/opt/gnu-sed/libexec/gnubin:$PATH"
-      export PATH="$HOMEBREW_PATH/opt/gawk/libexec/gnubin:$PATH"
-      export PATH="$HOMEBREW_PATH/opt/coreutils/libexec/gnubin:$PATH"
-      export PATH="$HOMEBREW_PATH/opt/binutils/bin:$PATH"
-      export LDFLAGS="-L$HOMEBREW_PATH/opt/binutils/lib"
-      export CPPFLAGS="-I$HOMEBREW_PATH/opt/binutils/include"
+      echo 'export PATH="$HOMEBREW_PATH/opt/make/libexec/gnubin:$PATH"' >> ~/.zshrc
+      echo 'export PATH="$HOMEBREW_PATH/opt/gnu-sed/libexec/gnubin:$PATH"' >> ~/.zshrc
+      echo 'export PATH="$HOMEBREW_PATH/opt/gawk/libexec/gnubin:$PATH"' >> ~/.zshrc
+      echo 'export PATH="$HOMEBREW_PATH/opt/coreutils/libexec/gnubin:$PATH"' >> ~/.zshrc
+      echo 'export PATH="$HOMEBREW_PATH/opt/binutils/bin:$PATH"' >> ~/.zshrc
+      echo 'export LDFLAGS="-L$HOMEBREW_PATH/opt/binutils/lib"' >> ~/.zshrc
+      echo 'export CPPFLAGS="-I$HOMEBREW_PATH/opt/binutils/include"' >> ~/.zshrc
+      source ~/.zshrc
       ```
 
 - **asdf** - version manager with support for multiple languages
