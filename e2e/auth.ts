@@ -76,7 +76,7 @@ export const login = async (browser: Browser, nhsLoginUsername: string): Promise
     await page.waitForURL("**/patient/services", { timeout: 30000 });
 
     const newTabPromise = page.context().waitForEvent("page");
-    await page.getByRole("link", { name: "Check and book your RSV vaccination" }).click();
+    await page.getByRole("link", { name: "Check and book an RSV vaccination" }).click();
     const newTabPage = await newTabPromise;
 
     await newTabPage.waitForURL(user.vaccinationsHubUrl, { timeout: 60000, waitUntil: "networkidle" });
