@@ -28,7 +28,7 @@ locals {
   application_environment_variables = {
     SSM_PREFIX = "/${local.prefix}/"
 
-    PINO_LOG_LEVEL      = "info"
+    PINO_LOG_LEVEL      = "debug"
     DEPLOY_ENVIRONMENT  = local.environment
     PROFILE_PERFORMANCE = "true"
 
