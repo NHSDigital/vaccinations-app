@@ -1,10 +1,10 @@
 [A-Z]+s
 Bitwarden
 bot
-cli
+CLI
 config
 Cyber
-Dependabot
+[Dd]ependabot
 [Dd]ev
 env
 gh
@@ -22,7 +22,7 @@ sed
 src
 Syft
 [Tt]erraform
-todo
+TODO
 toolchain
 Trufflehog
 [Ww]iremock
@@ -31,5 +31,5 @@ Trufflehog
 Lifecycle
 [Ff]argate
 buildx
-nginx
+[Nn]ginx
 vegeta

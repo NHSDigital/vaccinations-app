@@ -114,7 +114,7 @@ From NHS repository template:
     npx playwright install
     ```
 
-- **AWS CLI** - Install aws cli for local deployments.
+- **AWS CLI** - Install AWS CLI for local deployments.
   - For the following commands, use the settings from your [AWS access portal](https://d-9c67018f89.awsapps.com/start/#/?tab=accounts) "Access keys". Give the name 'vita-dev' to your new profile.
 
     ```shell
@@ -263,6 +263,7 @@ Avoid 'gh' as it is reserved for GitHub.
     ```
 
   (reference: commands included in the local package tasks)
+
     ```shell
     npm run build:opennext
     npm run build:lambda
@@ -381,7 +382,7 @@ Our release strategy is based on Semantic Versioning and utilizes tagged commits
 
 6. **Verify Release and Artifact:** Upon successful execution of the publish/release workflow, you should observe:
     - A new tagged release in the "Releases" section of the GitHub repository.
-    - The corresponding build artifact within the `/tags` folder of the github AWS S3 bucket.
+    - The corresponding build artifact within the `/tags` folder of the GitHub AWS S3 bucket.
 
 **The branching and tagging strategy to fix broken deployed releases can be found [here](https://nhsd-confluence.digital.nhs.uk/spaces/Vacc/pages/989220238/Branching+and+release+strategy#Branchingandreleasestrategy-Fixingdeployedbrokenreleases).**
 
