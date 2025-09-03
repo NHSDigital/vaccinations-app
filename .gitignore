@@ -118,5 +118,5 @@ lambda.zip
 /pact/
 
 # terraform
-.terraform*
+.terraform/
 terraform.tfstate*
