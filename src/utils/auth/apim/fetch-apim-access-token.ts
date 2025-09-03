@@ -11,11 +11,11 @@ const log: Logger = logger.child({ module: "utils-auth-apim-fetch-apim-access-to
 
 const fetchAPIMAccessToken = async (idToken: IdToken): Promise<ApimTokenResponse> => {
   const apimConfig: ApimConfig = await apimConfigProvider();
-  log.debug({ context: { apimConfig, idToken } }, "Fetching APIM Access Token");
+  log.info({ context: { apimConfig, idToken } }, "Fetching APIM Access Token");
 
   try {
     const tokenPayload: APIMTokenPayload = generateAPIMTokenPayload(apimConfig, idToken);
-    log.debug({ context: { tokenPayload } }, "APIM token payload");
+    log.info({ context: { tokenPayload } }, "APIM token payload");
 
     const response: AxiosResponse<ApimTokenResponse> = await axios.post(apimConfig.APIM_AUTH_URL.href, tokenPayload, {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -31,11 +31,10 @@ const fetchAPIMAccessToken = async (idToken: IdToken): Promise<ApimTokenResponse
         { error, context: { APIM_AUTH_URL: apimConfig.APIM_AUTH_URL.href, response_data: error.response?.data } },
         "Error calling APIM token endpoint: HTTP request failed",
       );
-      throw new ApimHttpError(`Error getting APIM token`);
+      throw new ApimHttpError("Error getting APIM token");
     } else {
-      log.error({ error }, `Error generating APIM token request`);
-      log.error(error, `Error generating APIM token request 2`);
-      throw new ApimAuthError(`Error getting APIM token`);
+      log.error({ error, context: { error_message: (error as Error).message } }, "Error generating APIM token request");
+      throw new ApimAuthError("Error getting APIM token");
     }
   }
 };
