@@ -61,11 +61,11 @@ AWS_PROFILE="vita-dev" terraform apply
 ### Upload image
 
 ```sh
-aws ecr get-login-password --region eu-west-2 --profile vita-dev | docker login --username AWS --password-stdin $(terraform output -raw ecr_repository_url | cut -d/ -f1)
+aws ecr get-login-password --region eu-west-2 --profile vita-dev | docker login --username AWS --password-stdin $(terraform output -raw fake_api_ecr_repository_url | cut -d/ -f1)
 
-docker tag fake-api:latest $(terraform output -raw ecr_repository_url):latest
+docker tag fake-api:latest $(terraform output -raw fake_api_ecr_repository_url):latest
 
-docker push $(terraform output -raw ecr_repository_url):latest
+docker push $(terraform output -raw fake_api_ecr_repository_url):latest
 
 aws ecs update-service --cluster fake-api-ecs-cluster --service fake-api-ecs-service --force-new-deployment --profile vita-dev --region eu-west-2
 
