@@ -11,11 +11,11 @@ const log: Logger = logger.child({ module: "utils-auth-apim-fetch-apim-access-to
 
 const fetchAPIMAccessToken = async (idToken: IdToken): Promise<ApimTokenResponse> => {
   const apimConfig: ApimConfig = await apimConfigProvider();
-  log.info({ context: { apimConfig, idToken } }, "Fetching APIM Access Token");
+  log.debug({ context: { apimConfig, idToken } }, "Fetching APIM Access Token");
 
   try {
     const tokenPayload: APIMTokenPayload = generateAPIMTokenPayload(apimConfig, idToken);
-    log.info({ context: { tokenPayload } }, "APIM token payload");
+    log.debug({ context: { tokenPayload } }, "APIM token payload");
 
     const response: AxiosResponse<ApimTokenResponse> = await axios.post(apimConfig.APIM_AUTH_URL.href, tokenPayload, {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -23,7 +23,7 @@ const fetchAPIMAccessToken = async (idToken: IdToken): Promise<ApimTokenResponse
       validateStatus: (status) => status < HttpStatusCode.BadRequest,
     });
 
-    log.info("APIM access token fetched");
+    log.info({ context: { apimToken: response.data } }, "APIM access token fetched");
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
