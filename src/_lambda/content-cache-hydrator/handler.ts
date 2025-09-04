@@ -115,6 +115,29 @@ interface ContentCacheHydratorEvent {
   vaccineToUpdate?: string;
 }
 
+// currently whenever the cache hydrator lambda has a cold start (initialises)
+// the call to SSM fails with HTTP 400: Bad Request. It succeeds when lambda retries after 1min
+const _getConfigsThatThrowsOnColdStarts = async (waitBetweenTriesMillis: number = 5000): Promise<AppConfig> => {
+  const MaxTries: number = 3;
+  let tryCount: number = 1;
+
+  while (tryCount <= MaxTries) {
+    try {
+      return await configProvider();
+    } catch (error) {
+      log.warn(
+        {
+          error: error instanceof Error ? { message: error.message } : error,
+        },
+        `Failed to get configs. Sleeping for ${waitBetweenTriesMillis}ms and trying again. Tried ${tryCount}/${MaxTries}`,
+      );
+      await new Promise((resolve) => setTimeout(resolve, waitBetweenTriesMillis));
+    }
+    tryCount++;
+  }
+  throw new Error("Failed to get configs");
+};
+
 // Ref: https://nhsd-confluence.digital.nhs.uk/spaces/Vacc/pages/1113364124/Caching+strategy+for+content+from+NHS.uk+content+API
 const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
   log.info({ context: { event } }, "Received event, hydrating content cache.");
@@ -142,7 +165,7 @@ const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
     );
   }
 
-  const config: AppConfig = await configProvider();
+  const config: AppConfig = await _getConfigsThatThrowsOnColdStarts();
 
   let failureCount: number = 0;
   let invalidatedCount: number = 0;
@@ -169,3 +192,5 @@ export const handler = async (event: object, context: Context): Promise<void> =>
 
   await asyncLocalStorage.run(requestContext, () => runContentCacheHydrator(event));
 };
+
+export { _getConfigsThatThrowsOnColdStarts };

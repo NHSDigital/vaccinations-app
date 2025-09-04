@@ -5,7 +5,7 @@ import {
 import { vitaContentChangedSinceLastApproved } from "@src/_lambda/content-cache-hydrator/content-change-detector";
 import { fetchContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-fetcher";
 import { writeContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-writer-service";
-import { handler } from "@src/_lambda/content-cache-hydrator/handler";
+import { _getConfigsThatThrowsOnColdStarts, handler } from "@src/_lambda/content-cache-hydrator/handler";
 import { invalidateCacheForVaccine } from "@src/_lambda/content-cache-hydrator/invalidate-cache";
 import { VaccineTypes } from "@src/models/vaccine";
 import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
@@ -50,6 +50,25 @@ describe("Lambda Handler", () => {
     (vitaContentChangedSinceLastApproved as jest.Mock).mockReturnValue(false);
     (getStyledContentForVaccine as jest.Mock).mockResolvedValue(undefined);
     (writeContentForVaccine as jest.Mock).mockResolvedValue(undefined);
+  });
+
+  describe("when config provider is flaky on cold starts", () => {
+    it("tries 3 times and throws when configProvider fails", async () => {
+      (configProvider as jest.Mock).mockRejectedValue(undefined);
+
+      await expect(_getConfigsThatThrowsOnColdStarts(0)).rejects.toThrow("Failed to get configs");
+
+      expect(configProvider).toHaveBeenCalledTimes(3);
+    });
+    it("returns configs when configProvider succeeds", async () => {
+      const testConfig = { test: "test" };
+      (configProvider as jest.Mock).mockResolvedValue(testConfig);
+
+      const configs = await _getConfigsThatThrowsOnColdStarts(0);
+      expect(configs).toBe(testConfig);
+
+      expect(configProvider).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe("when content-change-approval-needed feature disabled", () => {
