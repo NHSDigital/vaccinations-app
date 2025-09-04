@@ -43,7 +43,7 @@ jobs:
         with:
           terraform_version: "${{ inputs.terraform_version }}"
       - name: "Configure AWS credentials for env"
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v5
         with:
           role-session-name: GitHubActionsSession
           role-to-assume: ${{ secrets.IAM_ROLE }}

@@ -64,7 +64,7 @@ jobs:
         run: |
           echo "Workflow URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> workflow.log
       - name: "Configure AWS credentials"
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v5
         with:
           role-session-name: GitHubActionsSession
           role-to-assume: ${{ secrets.IAM_ROLE }}
