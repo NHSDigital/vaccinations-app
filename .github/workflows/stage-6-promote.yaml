@@ -29,7 +29,7 @@ jobs:
       contents: read
     steps:
       - name: "Configure AWS credentials for promote source ${{ vars.PROMOTE_SOURCE_ENVIRONMENT }} env"
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v5
         with:
           role-session-name: GitHubActionsSession
           role-to-assume: ${{ secrets.PROMOTE_SOURCE_IAM_ROLE }}
@@ -46,7 +46,7 @@ jobs:
           echo "Artefact path: $workflow_s3_path"
           aws s3 cp "$workflow_s3_path" .
       - name: "Configure AWS credentials for target ${{ inputs.environment }} env"
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v5
         with:
           role-session-name: GitHubActionsSession
           role-to-assume: ${{ secrets.IAM_ROLE }}
