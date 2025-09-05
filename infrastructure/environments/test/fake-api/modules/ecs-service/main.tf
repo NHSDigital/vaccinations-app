@@ -109,16 +109,16 @@ resource "aws_ecs_task_definition" "main" {
 
 # --- ECS Service ---
 resource "aws_ecs_service" "main" {
-  name            = var.name
-  cluster         = var.ecs_cluster_id
-  task_definition = aws_ecs_task_definition.main.arn
-  desired_count   = var.min_capacity
-  launch_type     = "FARGATE"
+  name                              = var.name
+  cluster                           = var.ecs_cluster_id
+  task_definition                   = aws_ecs_task_definition.main.arn
+  desired_count                     = var.min_capacity
+  launch_type                       = "FARGATE"
   health_check_grace_period_seconds = 60
 
   network_configuration {
-    subnets         = var.private_subnet_ids
-    security_groups = [aws_security_group.service_sg.id]
+    subnets          = var.private_subnet_ids
+    security_groups  = [aws_security_group.service_sg.id]
     assign_public_ip = false
   }
 

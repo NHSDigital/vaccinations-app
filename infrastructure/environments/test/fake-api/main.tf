@@ -37,11 +37,11 @@ module "fake_api_service" {
   source = "./modules/ecs-service"
 
   # Service config
-  name                = "fake-api"
-  container_port      = 9123
-  health_check_path   = "/health"
-  cpu                 = 256
-  memory              = 512
+  name              = "fake-api"
+  container_port    = 9123
+  health_check_path = "/health"
+  cpu               = 256
+  memory            = 512
 
   # Infrastructure config
   region                = var.region

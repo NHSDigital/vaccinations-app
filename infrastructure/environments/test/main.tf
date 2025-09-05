@@ -17,23 +17,23 @@ module "deploy_fake_api" {
 module "deploy" {
   source = "../../modules/deploy_app"
 
-  prefix                            = local.prefix
-  open-next-path                    = local.open_next_path
-  nodejs_version                    = local.node_version
-  log_retention_in_days             = local.log_retention_in_days
+  prefix                = local.prefix
+  open-next-path        = local.open_next_path
+  nodejs_version        = local.node_version
+  log_retention_in_days = local.log_retention_in_days
   application_environment_variables = merge(local.application_environment_variables,
     {
       ELIGIBILITY_API_ENDPOINT = "${module.deploy_fake_api.application_url}/",
-      APIM_AUTH_URL = "${module.deploy_fake_api.application_url}/oauth2/token"
-    })
-  acm_certificate_arn               = data.aws_acm_certificate.website.arn
-  domain                            = local.domain
-  sub_domain                        = local.sub_domain
-  default_tags                      = local.default_tags
-  region                            = local.region
-  account_id                        = data.aws_caller_identity.current.account_id
-  audit_log_group_name              = local.audit_log_group_name
-  alerting_sns_topic_arn            = module.deploy_monitoring.alerting_sns_topic_arn
+      APIM_AUTH_URL            = "${module.deploy_fake_api.application_url}/oauth2/token"
+  })
+  acm_certificate_arn    = data.aws_acm_certificate.website.arn
+  domain                 = local.domain
+  sub_domain             = local.sub_domain
+  default_tags           = local.default_tags
+  region                 = local.region
+  account_id             = data.aws_caller_identity.current.account_id
+  audit_log_group_name   = local.audit_log_group_name
+  alerting_sns_topic_arn = module.deploy_monitoring.alerting_sns_topic_arn
 }
 
 module "deploy_monitoring" {

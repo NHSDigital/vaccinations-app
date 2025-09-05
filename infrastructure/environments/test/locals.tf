@@ -32,9 +32,9 @@ locals {
     DEPLOY_ENVIRONMENT  = local.environment
     PROFILE_PERFORMANCE = "true"
 
-    CONTENT_API_ENDPOINT                      = "https://int.api.service.nhs.uk/"
-    CONTENT_CACHE_PATH                        = "s3://${local.content_cache_bucket_name}"
-    CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED  = true
+    CONTENT_API_ENDPOINT                     = "https://int.api.service.nhs.uk/"
+    CONTENT_CACHE_PATH                       = "s3://${local.content_cache_bucket_name}"
+    CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED = true
 
     NHS_LOGIN_URL              = "https://auth.sandpit.signin.nhs.uk" // Eventually use mock NHS Login
     NHS_LOGIN_SCOPE            = "openid profile"
@@ -42,8 +42,8 @@ locals {
 
     MAX_SESSION_AGE_MINUTES = 59
 
-    IS_APIM_AUTH_ENABLED     = true
-    APIM_KEY_ID              = "test-1"
+    IS_APIM_AUTH_ENABLED = true
+    APIM_KEY_ID          = "test-1"
 
     AUTH_TRUST_HOST = "true"
     AUTH_SECRET     = random_password.auth_secret.result

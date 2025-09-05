@@ -18,7 +18,7 @@ locals {
   app_version               = var.app_version
   alarms_slack_channel_id   = var.alarms_slack_channel_id
 
-  enable_pars                  = false # TODO: var.is_github_action ? true : false
+  enable_pars                  = false            # TODO: var.is_github_action ? true : false
   pars_account_id              = "to-be-replaced" # TODO: 22/08/2025 VIA-253 AS Replace with correct value
   pars_target_environment_name = "${local.deploy_workspace}-${local.project_identifier_shortcode}-${local.environment}"
   audit_log_retention_in_days  = 30
@@ -32,9 +32,9 @@ locals {
     DEPLOY_ENVIRONMENT  = local.environment
     PROFILE_PERFORMANCE = "false"
 
-    CONTENT_API_ENDPOINT                      = "https://api.service.nhs.uk/"
-    CONTENT_CACHE_PATH                        = "s3://${local.content_cache_bucket_name}"
-    CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED  = true
+    CONTENT_API_ENDPOINT                     = "https://api.service.nhs.uk/"
+    CONTENT_CACHE_PATH                       = "s3://${local.content_cache_bucket_name}"
+    CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED = true
 
     NHS_LOGIN_URL              = "https://auth.login.nhs.uk/"
     NHS_LOGIN_SCOPE            = "openid profile"
