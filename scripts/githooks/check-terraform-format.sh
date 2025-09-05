@@ -33,7 +33,7 @@ function terraform-fmt() {
   if is-arg-true "$check_only"; then
     opts="-check"
   fi
-  opts=$opts make terraform-fmt
+  opts=$opts make terraform-fmt dir=infrastructure
 }
 
 # ==============================================================================
