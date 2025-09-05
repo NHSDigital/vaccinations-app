@@ -1,34 +1,12 @@
-# Docker in AWS Fargate
+# Fake API for performance testing.
 
-## AWS config
+## Deploying to Test environment
 
-### ~/.aws/credentials
+### Deploying infrastructure
 
-```ini
-[default]
-aws_access_key_id = [redacted]
-aws_secret_access_key = [redacted]
-```
+Tag and deploy to the test environment  as per the [usual process](https://nhsd-confluence.digital.nhs.uk/spaces/Vacc/pages/989220238/Branching+and+release+strategy).
 
-### ~/.aws/config
-
-```ini
-[default]
-region = eu-west-1
-
-[profile vita-dev]
-sso_session = vita-dev
-sso_account_id = 050451358653
-sso_role_name = Admin
-region = eu-west-2
-
-[sso-session vita-dev]
-sso_start_url = https://d-9c67018f89.awsapps.com/start/#
-sso_region = eu-west-2
-sso_registration_scopes = sso:account:access
-```
-
-## Tasks
+Look at the output from the relevant run of the [CI/DD deploy](https://github.com/NHSDigital/vaccinations-app/actions/workflows/cicd-3-deploy.yaml) workflow. You want the "Terraform apply" stage of the "Deploy" stage. Make a note of the `application_url` and `fake_api_ecr_repository_url` outputs.
 
 ### Build & test image
 
@@ -43,6 +21,30 @@ curl -v -X POST http://localhost:9123/oauth2/token
 
 docker build --platform linux/amd64 -t fake-api . # For AWS
 ```
+
+### Upload image
+
+```sh
+fake_api_ecr_repository_url="as noted"
+aws ecr get-login-password --region eu-west-2 --profile vita-dev | docker login --username AWS --password-stdin $($fake_api_ecr_repository_url | cut -d/ -f1)
+
+docker tag fake-api:latest $fake_api_ecr_repository_url:latest
+
+docker push $fake_api_ecr_repository_url:latest
+```
+
+### Check it's working
+
+Give it a minute, then:
+
+```sh
+application_url="as noted"
+curl -v $application_url/health
+curl -v $application_url/eligibility-signposting-api/patient-check/9658218989
+curl -v -X POST $application_url/oauth2/token
+```
+
+## Local testing
 
 ### Build infra
 
