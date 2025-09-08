@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "cloudwatch_subscription_filter_trust_policy" {
     condition {
       test     = "StringLike"
       variable = "aws:SourceArn"
-      values   = ["arn:aws:logs:${var.region}:${var.account_id}:log-group:/aws/lambda/${var.prefix}-server-function"]
+      values   = ["arn:aws:logs:${var.region}:${var.account_id}:*"]
     }
   }
 }
