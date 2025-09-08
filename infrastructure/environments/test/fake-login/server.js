@@ -4,8 +4,8 @@ const { Provider } = require("oidc-provider");
 const app = express();
 
 const ISSUER = process.env.ISSUER || "http://localhost:3001";
-const CLIENT_ID = process.env.CLIENT_ID || "your_app_client_id";
-const CLIENT_SECRET = process.env.CLIENT_SECRET || "your_app_client_secret";
+const CLIENT_ID = process.env.CLIENT_ID || "some-app-client-id";
+const CLIENT_SECRET = process.env.CLIENT_SECRET || "some-app-client-secret";
 const REDIRECT_URIS = (process.env.REDIRECT_URIS || "http://localhost:3000/callback").split(",");
 
 if (!ISSUER || !CLIENT_ID || !CLIENT_SECRET || !REDIRECT_URIS.length) {
