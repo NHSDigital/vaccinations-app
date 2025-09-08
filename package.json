@@ -69,7 +69,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-cloudwatch-logs": "^3.883.0",
-    "@aws-sdk/client-s3": "^3.883.0",
+    "@aws-sdk/client-s3": "^3.884.0",
     "@aws-sdk/signature-v4-crt": "^3.883.0",
     "@opennextjs/aws": "^3.7.6",
     "@types/aws-lambda": "^8.10.152",
