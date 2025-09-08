@@ -7,7 +7,7 @@ resource "aws_kinesis_firehose_delivery_stream" "splunk_log_forwarder" {
     hec_token                  = data.aws_secretsmanager_secret_version.splunk_hec_token_id.secret_string
     hec_acknowledgment_timeout = 180
     retry_duration             = 300
-    hec_endpoint_type          = "Event"
+    hec_endpoint_type          = "Raw"
     s3_backup_mode             = "FailedEventsOnly"
     buffering_interval         = 60
     buffering_size             = 5
