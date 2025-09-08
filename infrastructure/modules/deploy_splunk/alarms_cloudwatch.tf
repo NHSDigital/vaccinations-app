@@ -47,7 +47,6 @@ module "alarms_cloudwatch" {
   dimensions = {
     LogGroupName    = each.value.log_group
     DestinationType = "Firehose"
-    FilterName      = each.key
   }
 
   tags = var.default_tags
