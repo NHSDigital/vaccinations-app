@@ -4,9 +4,7 @@
 
 ### Deploying infrastructure
 
-Tag and deploy to the test environment  as per the [usual process](https://nhsd-confluence.digital.nhs.uk/spaces/Vacc/pages/989220238/Branching+and+release+strategy).
-
-Look at the output from the relevant run of the [CI/DD deploy](https://github.com/NHSDigital/vaccinations-app/actions/workflows/cicd-3-deploy.yaml) workflow. You want the "Terraform apply" stage of the "Deploy" stage. Make a note of the `application_url` and `fake_api_ecr_repository_url` outputs.
+Tag, promote, and deploy to the test environment, as per the [usual process](https://nhsd-confluence.digital.nhs.uk/spaces/Vacc/pages/989220238/Branching+and+release+strategy). Wait for the deployment to complete.
 
 ### Build & test image
 
@@ -25,12 +23,15 @@ docker build --platform linux/amd64 -t fake-api . # For AWS
 ### Upload image
 
 ```sh
-fake_api_ecr_repository_url="as noted"
-aws ecr get-login-password --region eu-west-2 --profile vita-dev | docker login --username AWS --password-stdin $($fake_api_ecr_repository_url | cut -d/ -f1)
+aws sso login --profile vita-test
 
-docker tag fake-api:latest $fake_api_ecr_repository_url:latest
+fake_api_ecr_repository_url=$(aws ecr describe-repositories --profile vita-test | jq -r '.repositories[] | select(.repositoryName == "fake-api") | .repositoryUri')
 
-docker push $fake_api_ecr_repository_url:latest
+aws ecr get-login-password --region eu-west-2 --profile vita-test | docker login --username AWS --password-stdin $(echo $fake_api_ecr_repository_url | cut -d/ -f1)
+
+docker tag fake-api:latest "$fake_api_ecr_repository_url":latest
+
+docker push "$fake_api_ecr_repository_url":latest
 ```
 
 ### Check it's working
@@ -38,10 +39,11 @@ docker push $fake_api_ecr_repository_url:latest
 Give it a minute, then:
 
 ```sh
-application_url="as noted"
-curl -v $application_url/health
-curl -v $application_url/eligibility-signposting-api/patient-check/9658218989
-curl -v -X POST $application_url/oauth2/token
+fake_api_url="http://"$(aws elbv2 describe-load-balancers --profile vita-test | jq -r '.LoadBalancers[] | select(.LoadBalancerName == "fake-api-project-alb") | .DNSName')
+
+curl -v $fake_api_url/health
+curl -v $fake_api_url/eligibility-signposting-api/patient-check/9658218989
+curl -v -X POST $fake_api_url/oauth2/token
 ```
 
 ## Local testing
