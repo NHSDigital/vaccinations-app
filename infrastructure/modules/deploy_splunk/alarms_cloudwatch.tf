@@ -4,6 +4,8 @@ locals {
       alarm_description = "Operational Logs: Cloudwatch to Firehose delivery error within last hour"
       metric_name       = "DeliveryErrors"
       log_group         = "/aws/lambda/${var.prefix}-server-function"
+      filter_name       = aws_cloudwatch_log_subscription_filter.cloudwatch_to_firehose_log_forwarder_subscription_filter.name
+      delivery_type     = "Firehose"
 
       statistic           = "Sum"
       extended_statistic  = null // as statistic is used
@@ -45,8 +47,9 @@ module "alarms_cloudwatch" {
   treat_missing_data = "notBreaching"
 
   dimensions = {
-    LogGroupName    = each.value.log_group
-    DestinationType = "Firehose"
+    LogGroupName = each.value.log_group
+    FilterName   = each.value.filter_name
+    DeliveryType = each.value.delivery_type
   }
 
   tags = var.default_tags

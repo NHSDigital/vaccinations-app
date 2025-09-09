@@ -4,6 +4,8 @@ locals {
       alarm_description = "Audit Logs: Delivery error within last hour"
       metric_name       = "DeliveryErrors"
       log_group         = var.audit_log_group_name
+      destination_type  = "Firehose"
+      filter_name       = var.enable_pars ? aws_cloudwatch_log_subscription_filter.pars[0].name : null
 
       statistic           = "Sum"
       extended_statistic  = null // as statistic is used
@@ -19,7 +21,10 @@ locals {
 }
 
 module "alarms_cloudwatch" {
-  for_each = local.alarms_cloudwatch
+  for_each = {
+    for key, value in local.alarms_cloudwatch : key => value
+    if value.filter_name != null
+  }
 
   source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarm"
   version = "~> 5.7.1"
@@ -46,8 +51,8 @@ module "alarms_cloudwatch" {
 
   dimensions = {
     LogGroupName    = each.value.log_group
-    DestinationType = "Firehose"
-    FilterName      = each.key
+    DestinationType = each.value.destination_type
+    FilterName      = each.value.filter_name
   }
 
   tags = var.default_tags
