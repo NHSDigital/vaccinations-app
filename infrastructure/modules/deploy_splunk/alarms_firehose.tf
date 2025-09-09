@@ -46,7 +46,6 @@ module "alarms_firehose" {
 
   dimensions = {
     DeliveryStreamName = each.value.delivery_stream
-    FilterName         = each.key
   }
 
   tags = var.default_tags
