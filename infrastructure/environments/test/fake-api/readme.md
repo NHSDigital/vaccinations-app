@@ -2,6 +2,8 @@
 
 ## Deploying to Test environment
 
+You'll need to have installed [docker](https://www.docker.com/), the [AWS CLI tools](https://aws.amazon.com/cli/), and [jq](https://jqlang.org/): `brew install docker colima awscli jq` if necessary.
+
 ### Deploying infrastructure
 
 Tag, promote, and deploy to the test environment, as per the [usual process](https://nhsd-confluence.digital.nhs.uk/spaces/Vacc/pages/989220238/Branching+and+release+strategy). Wait for the deployment to complete.
@@ -21,8 +23,6 @@ docker build --platform linux/amd64 -t fake-api . # For AWS
 ```
 
 ### Upload image
-
-You'll need to have installed [docker](https://www.docker.com/), the [AWS CLI tools](https://aws.amazon.com/cli/), and [jq](https://jqlang.org/): `brew install docker colima awscli jq` if necessary.
 
 Ensure you are [configured to access the test environment in AWS via the command line](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html). These instructions assume you've named your profile `vita-test`. All the info you need for that should be available via the [access portal](https://d-9c67018f89.awsapps.com/start/#/?tab=accounts).
 
