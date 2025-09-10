@@ -1,0 +1,84 @@
+{
+  "realm": "nhs-app-fake",
+  "enabled": true,
+  "clients": [
+    {
+      "clientId": "vita-app-sandpit",
+      "enabled": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "clientAuthenticatorType": "client-jwt",
+      "redirectUris": ["*"],
+      "attributes": {
+        "jwks.keys": "[{\"kty\":\"RSA\",\"n\":\"REPLACE_WITH_BASE64_ENCODED_PUBLIC_KEY_N\",\"e\":\"AQAB\"}]"
+      }
+    }
+  ],
+  "users": [
+    {
+      "username": "testuser-nhsapp",
+      "enabled": true,
+      "firstName": "Mandy",
+      "lastName": "Carter",
+      "email": "mandy@example.com",
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "sausages",
+          "temporary": false
+        }
+      ],
+      "attributes": {
+        "nhs_number": ["9686368973"]
+      }
+    }
+  ],
+  "authenticationFlows": [
+    {
+      "alias": "Asserted Identity Flow",
+      "description": "Custom flow to handle asserted identity JWTs.",
+      "providerId": "basic-flow",
+      "topLevel": true,
+      "builtIn": false,
+      "authenticationExecutions": [
+        {
+          "authenticator": "asserted-identity-authenticator",
+          "requirement": "ALTERNATIVE",
+          "priority": 10
+        },
+        {
+          "authenticator": "identity-provider-redirector",
+          "requirement": "ALTERNATIVE",
+          "priority": 20
+        },
+        {
+          "requirement": "ALTERNATIVE",
+          "priority": 30,
+          "flowAlias": "forms",
+          "authenticatorFlow": true
+        }
+      ]
+    },
+    {
+      "alias": "forms",
+      "description": "Username/Password and OTP forms",
+      "providerId": "basic-flow",
+      "topLevel": false,
+      "builtIn": false,
+      "authenticationExecutions": [
+        {
+          "authenticator": "auth-username-password-form",
+          "requirement": "REQUIRED",
+          "priority": 10
+        },
+        {
+          "authenticator": "conditional-otp-form",
+          "requirement": "REQUIRED",
+          "priority": 20
+        }
+      ]
+    }
+  ],
+  "browserFlow": "Asserted Identity Flow"
+}

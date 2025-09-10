@@ -7,7 +7,7 @@ openssl genrsa -out private_key.pem 2048  # Generate private key
 
 openssl rsa -in private_key.pem -pubout -out public_key.pem  # Generate public key from private
 
-sed "s#REPLACE_WITH_BASE64_ENCODED_PUBLIC_KEY#$(grep -v -- '-----' public_key.pem | base64 -w0)#g" realm.template.json > realm.json
+pub_key_base64=$(grep -v -- '-----' public_key.pem | base64 -w0); for f in ./*-realm.template.json; do sed "s#REPLACE_WITH_BASE64_ENCODED_PUBLIC_KEY#$pub_key_base64#g" "$f" > "${f/.template.json/.json}"; done
 
 docker build --no-cache -t fake-login . # For local testing
 
@@ -28,6 +28,7 @@ NHS_APP_REDIRECT_LOGIN_URL=http://localhost:3001/realms/nhs-login-fake
 ```
 
 * [Start point for /](http://localhost:3001/realms/nhs-login-fake/protocol/openid-connect/auth?client_id=vita-app-sandpit&redirect_uri=https%3A%2F%2Flocalhost%3A3000%2F&scope=openid%20profile&response_type=code)
+* [Start point for /callback](http://localhost:3001/realms/nhs-login-fake/protocol/openid-connect/auth?client_id=nhs-login-client&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback&scope=openid%20profile&response_type=code)
 * [Start point for /check-and-book-rsv](http://localhost:3001/realms/nhs-login-fake/protocol/openid-connect/auth?client_id=vita-app-sandpit&redirect_uri=https%3A%2F%2Flocalhost%3A3000%2Fcheck-and-book-rsv&scope=openid%20profile&response_type=code)
 * [Start point for /api/auth/session](http://localhost:3001/realms/nhs-login-fake/protocol/openid-connect/auth?client_id=vita-app-sandpit&redirect_uri=https%3A%2F%2Flocalhost%3A3000%2Fapi%2Fauth%2Fsession&scope=openid%20profile&response_type=code)
 * [Start point for /api/sso](http://localhost:3001/realms/nhs-login-fake/protocol/openid-connect/auth?client_id=vita-app-sandpit&redirect_uri=https%3A%2F%2Flocalhost%3A3000%2Fapi%2Fsso&scope=openid%20profile&response_type=code)

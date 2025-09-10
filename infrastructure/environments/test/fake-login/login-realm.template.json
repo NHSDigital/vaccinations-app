@@ -14,13 +14,13 @@
       "webOrigins": ["*"],
       "attributes": {
         "use.jwks.url": "false",
-        "jwks.keys": "[{\"kty\":\"RSA\",\"n\":\"REPLACE_WITH_BASE64_ENCODED_PUBLIC_KEY\",\"e\":\"AQAB\",\"kid\":\"nhs-login-fake-key-id\"}]"
+        "jwks.keys": "[{\"kty\":\"RSA\",\"n\":\"REPLACE_WITH_BASE64_ENCODED_PUBLIC_KEY\",\"e\":\"AQAB\",\"kid\":\"some-key-id\"}]"
       }
     }
   ],
   "users": [
     {
-      "username": "testuser",
+      "username": "testuser-nhslogin",
       "enabled": true,
       "firstName": "Mandy",
       "lastName": "Carter",
