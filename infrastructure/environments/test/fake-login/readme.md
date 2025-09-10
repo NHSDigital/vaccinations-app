@@ -16,7 +16,7 @@ docker build --no-cache --platform linux/amd64 -t fake-login . # For AWS
 
 In `.env.local`, you want:
 
-```
+```sh
 NHS_LOGIN_URL=http://localhost:3001
 NHS_APP_REDIRECT_LOGIN_URL=http://localhost:3001/realms/nhs-login-fake
 ```
