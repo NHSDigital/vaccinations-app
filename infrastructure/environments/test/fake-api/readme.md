@@ -11,7 +11,7 @@ Tag, promote, and deploy to the test environment, as per the [usual process](htt
 ### Build & test image
 
 ```sh
-docker build -t fake-api . # For local testing
+docker build --no-cache -t fake-api . # For local testing
 
 docker stop local-fake-api ; docker rm local-fake-api ; docker run -d --rm -p 9123:9123 -e ELID_DELAY_SECONDS=2 -e APIM_DELAY_SECONDS=10 --name local-fake-api fake-api
 
@@ -19,7 +19,7 @@ curl -v http://localhost:9123/health
 curl -v http://localhost:9123/eligibility-signposting-api/patient-check/9658218989
 curl -v -X POST http://localhost:9123/oauth2/token
 
-docker build --platform linux/amd64 -t fake-api . # For AWS
+docker build --no-cache --platform linux/amd64 -t fake-api . # For AWS
 ```
 
 ### Upload image
