@@ -1,6 +1,6 @@
 FROM quay.io/keycloak/keycloak:24.0.4 as builder
 
-COPY realm-export.json /opt/keycloak/data/import/realm.json
+COPY realm.json /opt/keycloak/data/import/realm.json
 
 RUN /opt/keycloak/bin/kc.sh build
 

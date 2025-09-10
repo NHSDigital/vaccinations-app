@@ -4,23 +4,27 @@
   "clients": [
     {
       "clientId": "vita-app-sandpit",
-      "secret": "dummy-key",
+      "clientAuthenticatorType": "jwt.auth",
       "publicClient": false,
       "authorizationServicesEnabled": false,
       "serviceAccountsEnabled": true,
       "directAccessGrantsEnabled": true,
       "standardFlowEnabled": true,
       "redirectUris": ["*"],
-      "webOrigins": ["*"]
+      "webOrigins": ["*"],
+      "attributes": {
+        "use.jwks.url": "false",
+        "jwks.keys": "[{\"kty\":\"RSA\",\"n\":\"REPLACE_WITH_BASE64_ENCODED_PUBLIC_KEY\",\"e\":\"AQAB\",\"kid\":\"nhs-login-fake-key-id\"}]"
+      }
     }
   ],
   "users": [
     {
       "username": "testuser",
       "enabled": true,
-      "firstName": "Test",
-      "lastName": "User",
-      "email": "testuser@example.com",
+      "firstName": "Mandy",
+      "lastName": "Carter",
+      "email": "mandy@example.com",
       "emailVerified": true,
       "credentials": [
         {

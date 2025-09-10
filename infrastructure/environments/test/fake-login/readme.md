@@ -3,11 +3,17 @@
 ## Build & test image
 
 ```sh
+openssl genrsa -out private_key.pem 2048  # Generate private key
+
+openssl rsa -in private_key.pem -pubout -out public_key.pem  # Generate public key from private
+
+sed "s#REPLACE_WITH_BASE64_ENCODED_PUBLIC_KEY#$(grep -v -- '-----' public_key.pem | base64 -w0)#g" realm.template.json > realm.json
+
 docker build --no-cache -t fake-login . # For local testing
 
-docker run -d --rm -p 3001:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin --name local-fake-login fake-login start-dev --import-realm
+docker run -d --rm -p 3001:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin --name local-fake-login fake-login start-dev --import-realm --log-level=debug
 
-docker logs local-fake-login | less +G
+docker logs local-fake-login --follow
 
 docker stop local-fake-login
 
