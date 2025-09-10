@@ -13,7 +13,7 @@ docker build --no-cache -t fake-login . # For local testing
 
 docker run -d --rm -p 3001:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin --name local-fake-login fake-login start-dev --import-realm --log-level=debug
 
-docker logs local-fake-login --follow
+docker logs local-fake-login --follow | less +FG
 
 docker stop local-fake-login
 
