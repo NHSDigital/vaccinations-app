@@ -6,7 +6,6 @@ export type AccessToken = Brand<string, "AccessToken">;
 export type ExpiresIn = Brand<string, "ExpiresIn">;
 export type ExpiresAt = Brand<number, "ExpiresAt">;
 export type IdToken = Brand<string, "IdToken">;
-export type BirthDate = Brand<string, "BirthDate">;
 export type NowInSeconds = Brand<number, "NowInSeconds">;
 export type MaxAgeInSeconds = Brand<number, "MaxAgeInSeconds">;
 export type ExpiresSoonAt = Brand<number, "ExpiresSoonAt">;
@@ -43,7 +42,6 @@ declare module "next-auth" {
   interface Session {
     user: {
       nhs_number: NhsNumber;
-      birthdate: BirthDate;
     } & DefaultSession["user"];
   }
 
@@ -56,7 +54,6 @@ declare module "next-auth/jwt" {
   interface JWT {
     user: {
       nhs_number: NhsNumber;
-      birthdate: BirthDate;
     };
     nhs_login: {
       id_token: IdToken;

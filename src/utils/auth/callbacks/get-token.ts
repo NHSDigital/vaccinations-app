@@ -1,7 +1,7 @@
 import { NhsNumber } from "@src/models/vaccine";
 import { retrieveApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
 import { ApimAccessCredentials } from "@src/utils/auth/apim/types";
-import { BirthDate, ExpiresSoonAt, IdToken, MaxAgeInSeconds, NowInSeconds } from "@src/utils/auth/types";
+import { ExpiresSoonAt, IdToken, MaxAgeInSeconds, NowInSeconds } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
 import { extractRootTraceIdFromAmznTraceId, logger } from "@src/utils/logger";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
@@ -110,7 +110,6 @@ const fillMissingFieldsInTokenWithDefaultValues = (token: JWT, apimAccessCredent
     ...token,
     user: {
       nhs_number: token.user?.nhs_number ?? "",
-      birthdate: token.user?.birthdate ?? "",
     },
     nhs_login: {
       id_token: token.nhs_login?.id_token ?? "",
@@ -137,7 +136,6 @@ const updateTokenWithValuesFromAccountAndProfile = (
     ...token,
     user: {
       nhs_number: (profile.nhs_number ?? "") as NhsNumber,
-      birthdate: (profile.birthdate ?? "") as BirthDate,
     },
     nhs_login: {
       id_token: (account.id_token ?? "") as IdToken,

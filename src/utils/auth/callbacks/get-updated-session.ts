@@ -10,7 +10,6 @@ const log: Logger = logger.child({
 const getUpdatedSession = (session: Session, token: JWT) => {
   if (token?.user && session.user) {
     session.user.nhs_number = token.user.nhs_number;
-    session.user.birthdate = token.user.birthdate;
   } else {
     log.info(
       {

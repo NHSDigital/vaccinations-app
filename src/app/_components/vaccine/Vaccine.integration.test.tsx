@@ -43,7 +43,6 @@ describe("Vaccine", () => {
     (auth as jest.Mock).mockResolvedValue({
       user: {
         nhs_number: nhsNumber,
-        birthdate: new Date(),
       },
     });
     const fakeHeaders: ReadonlyHeaders = {

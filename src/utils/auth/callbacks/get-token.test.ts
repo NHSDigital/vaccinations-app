@@ -84,7 +84,6 @@ describe("getToken", () => {
       } as Account;
       const profile = {
         nhs_number: "test_nhs_number",
-        birthdate: "test_birthdate",
       };
       const maxAgeInSeconds = 600 as MaxAgeInSeconds;
 
@@ -95,7 +94,6 @@ describe("getToken", () => {
       expect(result).toMatchObject({
         user: {
           nhs_number: profile.nhs_number,
-          birthdate: profile.birthdate,
         },
         nhs_login: {
           id_token: "newIdToken",
@@ -124,7 +122,6 @@ describe("getToken", () => {
       } as Account;
       const profile = {
         nhs_number: "test_nhs_number",
-        birthdate: "test_birthdate",
       };
       const maxAgeInSeconds = 600 as MaxAgeInSeconds;
 
@@ -151,7 +148,6 @@ describe("getToken", () => {
       } as Account;
       const profile = {
         nhs_number: "test_nhs_number",
-        birthdate: "test_birthdate",
       };
       const maxAgeInSeconds = 600 as MaxAgeInSeconds;
 
@@ -179,7 +175,6 @@ describe("getToken", () => {
       expect(result).toMatchObject({
         user: {
           nhs_number: "",
-          birthdate: "",
         },
         nhs_login: {
           id_token: "",
@@ -204,7 +199,6 @@ describe("getToken", () => {
       expect(result).toMatchObject({
         user: {
           nhs_number: "",
-          birthdate: "",
         },
         nhs_login: {
           id_token: "",
@@ -277,7 +271,6 @@ describe("getToken", () => {
 
       const profile = {
         nhs_number: "test_nhs_number",
-        birthdate: "test_birthdate",
       };
 
       const maxAgeInSeconds = 600 as MaxAgeInSeconds;
@@ -287,7 +280,6 @@ describe("getToken", () => {
       expect(result).toMatchObject({
         user: {
           nhs_number: profile.nhs_number,
-          birthdate: profile.birthdate,
         },
         nhs_login: {
           id_token: "newIdToken",
