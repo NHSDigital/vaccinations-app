@@ -1,4 +1,4 @@
-# Fake API for performance testing.
+# Fake API for performance testing
 
 ## Deploying to Test environment
 
