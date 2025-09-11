@@ -25,14 +25,14 @@ const getIDTokenForNHSNumber = (nhsNumber: string): string => {
   const FAKE_LOGIN_PRIVATE_KEY: string = process.env.NHS_LOGIN_PRIVATE_KEY ?? "private-key-not-found";
   const payload = {
     iss: FAKE_LOGIN_ENDPOINT,
-    sub: "1947649f-082a-4baf-b92b-cdd203ae0288",
+    sub: "fake-login-sub",
     aud: "vita-app-sandpit",
     iat: 1757518101,
     vtm: `${FAKE_LOGIN_ENDPOINT}/trustmark/localhost:3000`,
     auth_time: 1757518097,
     vot: "P9.Cp.Cd",
     exp: 4913196422,
-    jti: "93382949-55d3-4452-9205-b4df718a9c82",
+    jti: "fake-login-jti",
     nhs_number: nhsNumber,
     identity_proofing_level: "P9",
     id_status: "verified",
