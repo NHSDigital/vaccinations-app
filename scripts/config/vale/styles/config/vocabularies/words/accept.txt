@@ -33,3 +33,4 @@ Lifecycle
 buildx
 [Nn]ginx
 vegeta
+jq
