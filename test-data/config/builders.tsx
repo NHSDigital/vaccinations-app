@@ -12,6 +12,7 @@ export function appConfigBuilder() {
     NHS_LOGIN_URL: randomString(10),
     NHS_LOGIN_CLIENT_ID: randomString(10),
     NHS_LOGIN_SCOPE: randomString(10),
+    NHS_LOGIN_IDENTITY_PARAM: randomString(10),
     NHS_LOGIN_PRIVATE_KEY: randomString(10),
     NBS_URL: randomString(10),
     NBS_BOOKING_PATH: randomString(10),

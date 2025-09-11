@@ -1,5 +1,6 @@
 import { signIn } from "@project/auth";
 import { GET } from "@src/app/api/sso/route";
+import { configProvider } from "@src/utils/config";
 import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
@@ -10,6 +11,7 @@ jest.mock("next/navigation", () => ({
   redirect: jest.fn(),
 }));
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
+jest.mock("@src/utils/config");
 
 function getMockRequest(testUrl: string, params?: Record<string, string>) {
   return {
@@ -24,6 +26,9 @@ function getMockRequest(testUrl: string, params?: Record<string, string>) {
 describe("GET handler", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    (configProvider as jest.Mock).mockImplementation(() => ({
+      NHS_LOGIN_IDENTITY_PARAM: "assertedLoginIdentity",
+    }));
   });
 
   it("redirects to sso-failure if assertedLoginIdentity parameter is missing", async () => {

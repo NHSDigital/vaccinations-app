@@ -4,17 +4,14 @@
   "clients": [
     {
       "clientId": "vita-app-sandpit",
-      "clientAuthenticatorType": "jwt.auth",
-      "publicClient": false,
-      "authorizationServicesEnabled": false,
-      "serviceAccountsEnabled": true,
-      "directAccessGrantsEnabled": true,
+      "enabled": true,
       "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "clientAuthenticatorType": "client-jwt",
       "redirectUris": ["*"],
-      "webOrigins": ["*"],
       "attributes": {
-        "use.jwks.url": "false",
-        "jwks.keys": "[{\"kty\":\"RSA\",\"n\":\"REPLACE_WITH_BASE64_ENCODED_PUBLIC_KEY\",\"e\":\"AQAB\",\"kid\":\"some-key-id\"}]"
+        "jwks.keys": "[{\"kty\":\"RSA\",\"n\":\"REPLACE_WITH_BASE64_ENCODED_PUBLIC_KEY_N\",\"e\":\"AQAB\"}]",
+        "oidc.jarm.signed.response.alg": "RS512"
       }
     }
   ],
