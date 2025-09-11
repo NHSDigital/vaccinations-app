@@ -8,6 +8,11 @@ output "dns_name" {
   value       = aws_lb.main.dns_name
 }
 
+output "zone_id" {
+  description = "The hosted zone id of the ALB."
+  value       = aws_lb.main.zone_id
+}
+
 output "security_group_id" {
   description = "The ID of the ALB's security group."
   value       = aws_security_group.lb_sg.id
