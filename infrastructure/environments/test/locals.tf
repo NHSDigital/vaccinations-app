@@ -18,7 +18,7 @@ locals {
   app_version               = var.app_version
   alarms_slack_channel_id   = var.alarms_slack_channel_id
 
-  enable_pars                  = false
+  enable_pars                  = var.is_github_action ? true : false
   pars_account_id              = "381492316974"
   pars_target_environment_name = "${local.deploy_workspace}-${local.project_identifier_shortcode}-${local.environment}"
   audit_log_retention_in_days  = 30
