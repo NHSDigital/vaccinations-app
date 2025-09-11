@@ -1,17 +1,58 @@
+import { FAKE_LOGIN_ENDPOINT } from "@src/app/api/fake-login/.well-known/openid-configuration/route";
 import { logger } from "@src/utils/logger";
+import jwt from "jsonwebtoken";
 
 const log = logger.child({ name: "fake-login" });
 
-const token = {
-  access_token: "fake-login-access-token",
-  refresh_token: "fake-login-refresh-token",
-  token_type: "Bearer",
-  expires_in: 3600,
-  id_token:
-    "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODEiLCJzdWIiOiIxOTQ3NjQ5Zi0wODJhLTRiYWYtYjkyYi1jZGQyMDNhZTAyODgiLCJhdWQiOiJ2aXRhLWFwcC1zYW5kcGl0IiwiaWF0IjoxNzU3NTE4MTAxLCJ2dG0iOiJodHRwOi8vbG9jYWxob3N0OjgwODEvdHJ1c3RtYXJrL2xvY2FsaG9zdDo4MDgxIiwiYXV0aF90aW1lIjoxNzU3NTE4MDk3LCJ2b3QiOiJQOS5DcC5DZCIsImV4cCI6NDkxMzE5NjQyMiwianRpIjoiOTMzODI5NDktNTVkMy00NDUyLTkyMDUtYjRkZjcxOGE5YzgyIiwibmhzX251bWJlciI6Ijk2ODYzNjg5NzMiLCJpZGVudGl0eV9wcm9vZmluZ19sZXZlbCI6IlA5IiwiaWRfc3RhdHVzIjoidmVyaWZpZWQiLCJ0b2tlbl91c2UiOiJpZCIsInN1cm5hbWUiOiJNSUxMQVIiLCJmYW1pbHlfbmFtZSI6Ik1JTExBUiIsImJpcnRoZGF0ZSI6IjE5NjgtMTItMDIifQ.fH-z6hEs2ITwvHrCHFHjcL5D2HC9moNpRVQ6JwnhdQSq5VY2tNqZBk1cRfDvAxmFbzqGlFii6QuNnQ5vYM_NuUN48P04XE034LnVt41b-spi4qUZTneENhmuCtt1JDtc-tpEFDwRSvuDneNUhN5jMlgrcECfY3e8DvShy6smpHvC7VZkYQn4xkQ_ygLB3hv8v1T9V8rm671e8njEjK3ACjchPnEgM3o28I24p82-vZsH69QNVGeLEQXmNZPSP-M1LWK4zEgKz4Zs98u3IiHQzbd8IQohEuNkmNiLSauohU9ZSiFUiLLeH6rgRb4gJYvFRakwzaUkav3M5Bb9DuR-YA",
+const NHS_NUMBERS = [
+  "9686368973",
+  "9686368906",
+  "9658218873",
+  "9658218881",
+  "9658218903",
+  "9658218989",
+  "9658218997",
+  "9658219004",
+  "9658219012",
+  "9658220142",
+  "9658220150",
+];
+const getRandomNHSNumber = (): string => {
+  return NHS_NUMBERS.at(Math.floor(Math.random() * NHS_NUMBERS.length))!;
+};
+
+const getIDTokenForNHSNumber = (nhsNumber: string): string => {
+  const FAKE_LOGIN_PRIVATE_KEY: string = process.env.NHS_LOGIN_PRIVATE_KEY ?? "private-key-not-found";
+  const payload = {
+    iss: FAKE_LOGIN_ENDPOINT,
+    sub: "1947649f-082a-4baf-b92b-cdd203ae0288",
+    aud: "vita-app-sandpit",
+    iat: 1757518101,
+    vtm: `${FAKE_LOGIN_ENDPOINT}/trustmark/localhost:3000`,
+    auth_time: 1757518097,
+    vot: "P9.Cp.Cd",
+    exp: 4913196422,
+    jti: "93382949-55d3-4452-9205-b4df718a9c82",
+    nhs_number: nhsNumber,
+    identity_proofing_level: "P9",
+    id_status: "verified",
+    token_use: "id",
+    surname: "MILLAR",
+    family_name: "MILLAR",
+    birthdate: "1968-12-02",
+  };
+  return jwt.sign(payload, FAKE_LOGIN_PRIVATE_KEY, { algorithm: "RS512" });
 };
 
 export const POST = async () => {
   log.info("token endpoint called");
-  return Response.json(token);
+
+  const idToken: string = getIDTokenForNHSNumber(getRandomNHSNumber());
+  return Response.json({
+    access_token: "fake-login-access-token",
+    refresh_token: "fake-login-refresh-token",
+    token_type: "Bearer",
+    expires_in: 3600,
+    id_token: idToken,
+  });
 };
