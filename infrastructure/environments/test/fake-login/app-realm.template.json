@@ -34,51 +34,33 @@
       }
     }
   ],
-  "authenticationFlows": [
+  "identityProviders": [
     {
-      "alias": "Asserted Identity Flow",
-      "description": "Custom flow to handle asserted identity JWTs.",
-      "providerId": "basic-flow",
-      "topLevel": true,
-      "builtIn": false,
-      "authenticationExecutions": [
-        {
-          "authenticator": "asserted-identity-authenticator",
-          "requirement": "ALTERNATIVE",
-          "priority": 10
-        },
-        {
-          "authenticator": "identity-provider-redirector",
-          "requirement": "ALTERNATIVE",
-          "priority": 20
-        },
-        {
-          "requirement": "ALTERNATIVE",
-          "priority": 30,
-          "flowAlias": "forms",
-          "authenticatorFlow": true
-        }
-      ]
-    },
-    {
-      "alias": "forms",
-      "description": "Username/Password and OTP forms",
-      "providerId": "basic-flow",
-      "topLevel": false,
-      "builtIn": false,
-      "authenticationExecutions": [
-        {
-          "authenticator": "auth-username-password-form",
-          "requirement": "REQUIRED",
-          "priority": 10
-        },
-        {
-          "authenticator": "conditional-otp-form",
-          "requirement": "REQUIRED",
-          "priority": 20
-        }
-      ]
+      "alias": "nhs-login-broker",
+      "displayName": "NHS Login",
+      "providerId": "keycloak-oidc",
+      "enabled": true,
+      "trustEmail": true,
+      "config": {
+        "authorizationUrl": "http://localhost:3001/realms/nhs-login-fake/protocol/openid-connect/auth",
+        "tokenUrl": "http://host.docker.internal:3001/realms/nhs-login-fake/protocol/openid-connect/token",
+        "jwksUrl": "http://host.docker.internal:3001/realms/nhs-login-fake/protocol/openid-connect/certs",
+        "clientId": "broker-client",
+        "clientSecret": "broker-secret",
+        "useJwksUrl": "true"
+      }
     }
   ],
-  "browserFlow": "Asserted Identity Flow"
+  "identityProviderMappers": [
+    {
+      "name": "nhs-number-mapper",
+      "identityProviderAlias": "nhs-login-broker",
+      "identityProviderMapper": "oidc-user-attribute-idp-mapper",
+      "config": {
+        "user.attribute": "nhs_number",
+        "claim.name": "nhs_number",
+        "syncMode": "FORCE"
+      }
+    }
+  ]
 }

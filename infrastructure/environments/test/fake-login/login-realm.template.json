@@ -5,14 +5,9 @@
     {
       "clientId": "vita-app-sandpit",
       "enabled": true,
+      "publicClient": true,
       "standardFlowEnabled": true,
-      "directAccessGrantsEnabled": true,
-      "clientAuthenticatorType": "client-jwt",
-      "redirectUris": ["*"],
-      "attributes": {
-        "jwks.keys": "[{\"kty\":\"RSA\",\"n\":\"REPLACE_WITH_BASE64_ENCODED_PUBLIC_KEY_N\",\"e\":\"AQAB\"}]",
-        "oidc.jarm.signed.response.alg": "RS512"
-      }
+      "redirectUris": ["*"]
     }
   ],
   "users": [
@@ -29,10 +24,7 @@
           "value": "sausages",
           "temporary": false
         }
-      ],
-      "attributes": {
-        "nhs_number": ["9686368973"]
-      }
+      ]
     }
   ]
 }

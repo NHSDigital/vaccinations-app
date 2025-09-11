@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  # Service 1: The stable, fake NHS Login provider
+  fake-nhs-login:
+    image: quay.io/keycloak/keycloak:24.0.4
+    command: start-dev --import-realm
+    ports:
+      - "3001:8080"
+    volumes:
+      - ./login-realm.json:/opt/keycloak/data/import/login-realm.json
+    environment:
+      KEYCLAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+
+  # Service 2: The simple, fake NHS App broker/proxy
+  fake-nhs-app:
+    build:
+      context: ./fake-nhs-app
+    ports:
+      - "3002:3002"
+    environment:
+      # This tells the fake app how to find the fake login service
+      NHS_LOGIN_ISSUER: http://fake-nhs-login:8080/realms/nhs-login-fake
+      NHS_LOGIN_CLIENT_ID: vita-app-sandpit
+      # This is YOUR application's callback URL
+      VITA_CALLBACK_URL: https://localhost:3000/api/sso
