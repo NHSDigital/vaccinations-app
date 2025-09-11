@@ -2,7 +2,7 @@ import { logger } from "@src/utils/logger";
 
 const log = logger.child({ name: "fake-login" });
 
-const FAKE_LOGIN_ENDPOINT = "https://localhost:3000/api/fake-login";
+export const FAKE_LOGIN_ENDPOINT = "https://localhost:3000/api/fake-login";
 const config = {
   issuer: `${FAKE_LOGIN_ENDPOINT}`,
   authorization_endpoint: `${FAKE_LOGIN_ENDPOINT}/authorize`,
