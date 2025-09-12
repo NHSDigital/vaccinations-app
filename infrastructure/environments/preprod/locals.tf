@@ -20,7 +20,7 @@ locals {
 
   enable_pars                  = var.is_github_action ? true : false
   pars_account_id              = "381492316974"
-  pars_target_environment_name = "${local.deploy_workspace}-${local.project_identifier_shortcode}-${local.environment}"
+  pars_target_environment_name = "gh-vita-preprod"
   audit_log_retention_in_days  = 30
   audit_log_group_name         = "/aws/audit/${local.prefix}-audit-logs"
   audit_log_stream_name        = "audit-logs"
