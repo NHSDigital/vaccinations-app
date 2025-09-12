@@ -19,7 +19,7 @@ docker build --no-cache -t fake-api .
 
 docker stop local-fake-api
 
-docker run -d --rm -p 9123:9123 -e LOGIN_ROOT_URL="http://localhost:9123" -e ELID_DELAY_SECONDS=1 -e APIM_DELAY_SECONDS=1 --name local-fake-api fake-api
+docker run -d --rm -p 9123:9123 -e LOGIN_ROOT_URL="http://localhost:9123" -e APP_ROOT_URL="https://localhost:3000" -e ELID_DELAY_SECONDS=1 -e APIM_DELAY_SECONDS=1 --name local-fake-api fake-api
 
 docker logs local-fake-api --follow | less +F  # If you need to see what's going on in nginx
 
@@ -72,7 +72,7 @@ docker tag fake-api:latest "$fake_api_ecr_repository_url":latest
 
 docker push "$fake_api_ecr_repository_url":latest
 
-aws ecs update-service --cluster fake-api-ecs-cluster --service fake-api-ecs-service --force-new-deployment --profile vita-dev --region eu-west-2
+aws ecs update-service --cluster fake-api-project-cluster --service fake-api --force-new-deployment --profile vita-test --region eu-west-2
 ```
 
 ### Check it's working
