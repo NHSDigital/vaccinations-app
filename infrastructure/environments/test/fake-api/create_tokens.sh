@@ -2,9 +2,14 @@
 
 set -e
 
-PRIVATE_KEY_FILE="../../../../../../../../vita-app-sandpit.pid"
+if [ "$#" -ne 3 ]; then
+    echo "Usage: $0 <private_key_file> <issuer_url> <expires_in>" >&2
+    exit 1
+fi
 
-ISSUER_URL="http://localhost:9123/api/fake-login"
+PRIVATE_KEY_FILE="$1"
+ISSUER_URL="$2"
+EXPIRES_IN="$3"
 
 NHS_NUMBERS=(
   "9436793375"
@@ -42,7 +47,7 @@ NHS_NUMBERS=(
 )
 
 if [ ! -f "$PRIVATE_KEY_FILE" ]; then
-    echo "Error: Private key file not found at '$PRIVATE_KEY_FILE'"
+    echo "Error: Private key file not found at '$PRIVATE_KEY_FILE'" >&2
     exit 1
 fi
 
@@ -52,6 +57,8 @@ base64url() {
 
 header_json='{"alg":"RS512","typ":"JWT"}'
 header_base64url=$(echo -n "$header_json" | base64url)
+
+mkdir -p data/login/tokens
 
 for nhs_num in "${NHS_NUMBERS[@]}"; do
   current_time=$(date +%s)
@@ -78,14 +85,15 @@ for nhs_num in "${NHS_NUMBERS[@]}"; do
     --arg id_token "$id_token" \
     --arg access_token "fake-access-token-${nhs_num}" \
     --arg refresh_token "fake-refresh-token-${nhs_num}" \
+    --arg expires_in $EXPIRES_IN \
     '{
       "access_token": $access_token,
       "refresh_token": $refresh_token,
       "token_type": "Bearer",
-      "expires_in": 3600,
+      "expires_in": $expires_in,
       "id_token": $id_token
     }')
 
-  output_file="${nhs_num}.json"
+  output_file="data/login/tokens/${nhs_num}.json"
   echo "$final_json_response" > "$output_file"
 done

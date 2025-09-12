@@ -1,8 +1,8 @@
 {
-  "issuer": "@@LOGIN_ROOT_URL@@/api/fake-login",
-  "authorization_endpoint": "@@LOGIN_ROOT_URL@@/api/fake-login/authorize",
-  "token_endpoint": "@@LOGIN_ROOT_URL@@/api/fake-login/token",
-  "jwks_uri": "@@LOGIN_ROOT_URL@@/api/fake-login/.well-known/jwks.json",
+  "issuer": "@@LOGIN_ROOT_URL@@",
+  "authorization_endpoint": "@@LOGIN_ROOT_URL@@/authorize",
+  "token_endpoint": "@@LOGIN_ROOT_URL@@/token",
+  "jwks_uri": "@@LOGIN_ROOT_URL@@/.well-known/jwks.json",
   "scopes_supported": [
     "basic_demographics",
     "client_metadata",
@@ -54,11 +54,11 @@
     "client_user_metadata",
     "identity_proofing_level"
   ],
-  "userinfo_endpoint": "@@LOGIN_ROOT_URL@@/api/fake-login/userinfo",
+  "userinfo_endpoint": "@@LOGIN_ROOT_URL@@/userinfo",
   "token_endpoint_auth_signing_alg_values_supported": ["RS512"],
   "token_endpoint_auth_methods_supported": ["private_key_jwt"],
-  "fido_uaf_authentication_request_endpoint": "@@LOGIN_ROOT_URL@@/api/fake-login/authRequest",
-  "fido_uaf_registration_request_endpoint": "@@LOGIN_ROOT_URL@@/api/fake-login/regRequest",
-  "fido_uaf_registration_response_endpoint": "@@LOGIN_ROOT_URL@@/api/fake-login/regResponse",
-  "fido_uaf_deregistration_endpoint": "@@LOGIN_ROOT_URL@@/api/fake-login/dereg"
+  "fido_uaf_authentication_request_endpoint": "@@LOGIN_ROOT_URL@@/authRequest",
+  "fido_uaf_registration_request_endpoint": "@@LOGIN_ROOT_URL@@/regRequest",
+  "fido_uaf_registration_response_endpoint": "@@LOGIN_ROOT_URL@@/regResponse",
+  "fido_uaf_deregistration_endpoint": "@@LOGIN_ROOT_URL@@/dereg"
 }
