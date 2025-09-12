@@ -92,6 +92,16 @@ resource "aws_ecs_task_definition" "main" {
           hostPort      = var.container_port
         }
       ]
+      environment = [
+        {
+          name  = "LOGIN_ROOT_URL"
+          value = var.alb_dns_name
+        },
+        {
+          name  = "APP_ROOT_URL"
+          value = var.app_root_url
+        }
+      ]
       logConfiguration = {
         logDriver = "awslogs"
         options = {

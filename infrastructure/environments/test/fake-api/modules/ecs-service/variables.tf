@@ -53,6 +53,14 @@ variable "alb_arn" {
   description = "The ARN of the Application Load Balancer."
   type        = string
 }
+variable "alb_dns_name" {
+  description = "The DNS name of the Application Load Balancer."
+  type        = string
+}
+variable "app_root_url" {
+  description = "The root URL of the application"
+  type        = string
+}
 variable "alb_security_group_id" {
   description = "The security group ID of the ALB."
   type        = string

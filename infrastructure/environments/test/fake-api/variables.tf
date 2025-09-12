@@ -15,3 +15,9 @@ variable "availability_zones" {
   type        = list(string)
   default     = ["eu-west-2a", "eu-west-2b"]
 }
+
+variable "app_root_url" {
+  description = "URL of the application"
+  type        = string
+  default     = "https://test.vaccinations.nhs.uk"
+}
