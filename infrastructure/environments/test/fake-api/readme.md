@@ -10,12 +10,16 @@ Tag, promote, and deploy to the test environment, as per the [usual process](htt
 
 ### Build & test image
 
+#### Test locally
+
 ```sh
+./create_tokens.sh "../../../../../vita-app-sandpit.pid" "http://localhost:9123" 86400
+
 docker build --no-cache -t fake-api . # For local testing
 
 docker stop local-fake-api
 
-docker run -d --rm -p 9123:9123 -e ELID_DELAY_SECONDS=2 -e APIM_DELAY_SECONDS=10 --name local-fake-api fake-api
+docker run -d --rm -p 9123:9123 -e LOGIN_ROOT_URL="http://localhost:9123" -e ELID_DELAY_SECONDS=2 -e APIM_DELAY_SECONDS=10 --name local-fake-api fake-api
 
 curl -v http://localhost:9123/health
 
@@ -26,8 +30,29 @@ curl -v -X POST http://localhost:9123/oauth2/token
 curl http://localhost:9123/.well-known/openid-configuration | jq
 curl -v http://localhost:9123/authorize?state=sausages
 curl -X POST http://localhost:9123/token
+```
 
-docker build --no-cache --platform linux/amd64 -t fake-api . # For AWS
+##### Test against local VitA
+
+In `.env.local` you'll want:
+
+```sh
+# For local fake API versions
+ELIGIBILITY_API_ENDPOINT=http://localhost:9123/
+IS_APIM_AUTH_ENABLED=true
+APIM_AUTH_URL=http://localhost:9123/oauth2/token
+NHS_LOGIN_URL=http://localhost:9123
+NHS_APP_REDIRECT_LOGIN_URL=http://localhost:3000/api/sso?assertedLoginIdentity=sausages
+```
+
+Start up VitA as normal, then hit [/api/sso](https://localhost:3000/api/sso?assertedLoginIdentity=sausages).
+
+#### Build image for deployment
+
+```sh
+./create_tokens.sh "../../../../../vita-app-sandpit.pid" "http://api.test.vita.internal" 315569520
+
+docker build --no-cache --platform linux/amd64 -t fake-api .
 ```
 
 ### Upload image
