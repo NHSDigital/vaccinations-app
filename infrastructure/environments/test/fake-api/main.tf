@@ -50,7 +50,7 @@ module "fake_api_service" {
   ecs_cluster_id        = module.ecs_cluster.cluster_id
   ecs_cluster_name      = module.ecs_cluster.cluster_name
   alb_arn               = module.alb.arn
-  alb_dns_name          = module.alb.dns_name
+  alb_dns_name          = "http://${module.alb.dns_name}"
   app_root_url          = var.app_root_url
   alb_security_group_id = module.alb.security_group_id
 

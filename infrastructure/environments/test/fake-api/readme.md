@@ -19,7 +19,7 @@ docker build --no-cache -t fake-api .
 
 docker stop local-fake-api
 
-docker run -d --rm -p 9123:9123 -e LOGIN_ROOT_URL="http://localhost:9123" -e APP_ROOT_URL="https://localhost:3000" -e ELID_DELAY_SECONDS=1 -e APIM_DELAY_SECONDS=1 --name local-fake-api fake-api
+docker run -d --rm -p 9123:9123 -e ELID_DELAY_SECONDS=1 -e APIM_DELAY_SECONDS=1 --name local-fake-api fake-api
 
 docker logs local-fake-api --follow | less +F  # If you need to see what's going on in nginx
 
@@ -44,15 +44,18 @@ ELIGIBILITY_API_ENDPOINT=http://localhost:9123/
 IS_APIM_AUTH_ENABLED=true
 APIM_AUTH_URL=http://localhost:9123/oauth2/token
 NHS_LOGIN_URL=http://localhost:9123
-NHS_APP_REDIRECT_LOGIN_URL=http://localhost:3000/api/sso?assertedLoginIdentity=sausages
+NHS_APP_REDIRECT_LOGIN_URL=https://localhost:3000/api/sso?assertedLoginIdentity=sausages
 ```
 
 Start up VitA as normal, then hit [/api/sso](https://localhost:3000/api/sso?assertedLoginIdentity=sausages).
 
 #### Build image for deployment
 
+For the following steps, you need to have deployed the infrastructure at least once, to get the ALB DNS name.
+
 ```sh
-./create_tokens.sh "../../../../../vita-app-sandpit.pid" "http://api.test.vita.internal" 315569520
+fake_api_url="http://"$(aws elbv2 describe-load-balancers --profile vita-test | jq -r '.LoadBalancers[] | select(.LoadBalancerName == "fake-api-project-alb") | .DNSName')
+./create_tokens.sh "../../../../../vita-app-sandpit.pid" "$fake_api_url" 315569520
 
 docker build --no-cache --platform linux/amd64 -t fake-api .
 ```
