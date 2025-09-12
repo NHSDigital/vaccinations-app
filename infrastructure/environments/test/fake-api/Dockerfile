@@ -10,10 +10,11 @@ COPY --chmod=0755 <<EOF /entrypoint.sh
 set -e
 
 export LOGIN_ROOT_URL=\${LOGIN_ROOT_URL:-'http://api.test.vita.internal'}
+export APP_ROOT_URL=\${APP_ROOT_URL:-'http://app.test.vita.internal'}
 export ELID_DELAY_SECONDS=\${ELID_DELAY_SECONDS:-0}
 export APIM_DELAY_SECONDS=\${APIM_DELAY_SECONDS:-0}
 
-envsubst '\$LOGIN_ROOT_URL \$ELID_DELAY_SECONDS \$APIM_DELAY_SECONDS' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf
+envsubst '\$LOGIN_ROOT_URL \$APP_ROOT_URL \$ELID_DELAY_SECONDS \$APIM_DELAY_SECONDS' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf
 
 exec "\$@"
 EOF
