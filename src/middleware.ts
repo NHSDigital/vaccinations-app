@@ -1,8 +1,9 @@
 import { auth } from "@project/auth";
 import { AppConfig, configProvider } from "@src/utils/config";
-import { extractRootTraceIdFromAmznTraceId, logger } from "@src/utils/logger";
+import { logger } from "@src/utils/logger";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
+import { extractRequestContextFromHeaders } from "@src/utils/requestScopedStorageWrapper";
 import { Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Logger } from "pino";
@@ -11,10 +12,7 @@ const log: Logger = logger.child({ module: "middleware" });
 const MiddlewarePerformanceMarker = "middleware";
 
 export async function middleware(request: NextRequest) {
-  const requestContext: RequestContext = {
-    traceId:
-      extractRootTraceIdFromAmznTraceId(request?.headers?.get("X-Amzn-Trace-Id") ?? "") ?? "undefined-request-id",
-  };
+  const requestContext: RequestContext = extractRequestContextFromHeaders(request?.headers);
 
   return await asyncLocalStorage.run(requestContext, () => middlewareWrapper(request));
 }
@@ -22,6 +20,11 @@ export async function middleware(request: NextRequest) {
 const middlewareWrapper = async (request: NextRequest) => {
   profilePerformanceStart(MiddlewarePerformanceMarker);
   log.info({ context: { nextUrl: request.nextUrl.href } }, "Inspecting request");
+
+  // Add URL to request headers to make available for logging in the nodejs layer
+  const headers = new Headers(request.headers);
+  headers.set("nextUrl", request.nextUrl.href);
+
   const config: AppConfig = await configProvider();
 
   let response: NextResponse;
@@ -30,7 +33,7 @@ const middlewareWrapper = async (request: NextRequest) => {
     log.info({ context: { nextUrl: request.nextUrl.href } }, "Missing user session, redirecting to login");
     response = NextResponse.redirect(new URL(config.NHS_APP_REDIRECT_LOGIN_URL));
   } else {
-    response = NextResponse.next();
+    response = NextResponse.next({ headers });
   }
 
   profilePerformanceEnd(MiddlewarePerformanceMarker);

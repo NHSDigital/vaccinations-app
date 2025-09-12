@@ -81,7 +81,7 @@ pactWith({ consumer: "VitA", provider: "EliD", port: 1234, logLevel: "warn" }, (
     });
 
     it("fetches eligibility content successfully", async () => {
-      const response = await asyncLocalStorage.run({ traceId: vitaTraceId }, async () => {
+      const response = await asyncLocalStorage.run({ traceId: vitaTraceId, nextUrl: "" }, async () => {
         return await fetchEligibilityContent(mockNhsNumber);
       });
 

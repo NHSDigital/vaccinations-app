@@ -1,10 +1,11 @@
 import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 import { VaccineTypes } from "@src/models/vaccine";
 import { getNbsQueryParams, getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
-import { extractRootTraceIdFromAmznTraceId, logger } from "@src/utils/logger";
+import { logger } from "@src/utils/logger";
 import { getVaccineTypeFromLowercaseString } from "@src/utils/path";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
+import { extractRequestContextFromHeaders } from "@src/utils/requestScopedStorageWrapper";
 import { notFound, redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
@@ -14,9 +15,7 @@ const REDIRECT_TARGET_PARAM = "redirectTarget";
 const ApiSSONBSPerformanceMarker = "api-sso-nbs";
 
 export const GET = async (request: NextRequest) => {
-  const traceId =
-    extractRootTraceIdFromAmznTraceId(request?.headers?.get("X-Amzn-Trace-Id") ?? "") ?? "undefined-request-id";
-  const requestContext: RequestContext = { traceId: traceId };
+  const requestContext: RequestContext = extractRequestContextFromHeaders(request?.headers);
   await asyncLocalStorage.run(requestContext, async () => {
     let shouldReturnNotFound: boolean;
     let finalRedirectUrl: string;

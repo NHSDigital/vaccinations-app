@@ -8,9 +8,10 @@ import { getUpdatedSession } from "@src/utils/auth/callbacks/get-updated-session
 import { isValidSignIn } from "@src/utils/auth/callbacks/is-valid-signin";
 import { MaxAgeInSeconds } from "@src/utils/auth/types";
 import { AppConfig, configProvider } from "@src/utils/config";
-import { extractRootTraceIdFromAmznTraceId, logger } from "@src/utils/logger";
+import { logger } from "@src/utils/logger";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
+import { extractRequestContextFromHeaders } from "@src/utils/requestScopedStorageWrapper";
 import NextAuth from "next-auth";
 import "next-auth/jwt";
 import { headers } from "next/headers";
@@ -25,9 +26,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
   const config: AppConfig = await configProvider();
   const MAX_SESSION_AGE_SECONDS: number = config.MAX_SESSION_AGE_MINUTES * 60;
   const headerValues = await headers();
-  const traceId =
-    extractRootTraceIdFromAmznTraceId(headerValues.get("X-Amzn-Trace-Id") ?? "") ?? "undefined-request-id";
-  const requestContext: RequestContext = { traceId: traceId };
+
+  const requestContext: RequestContext = extractRequestContextFromHeaders(headerValues);
 
   return await asyncLocalStorage.run(requestContext, async () => {
     return {
@@ -58,7 +58,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
           }
 
           if (response) {
-            const auditEvent: AuditEvent = createLoginAuditEvent(profile!.nhs_number, traceId, "Success");
+            const auditEvent: AuditEvent = createLoginAuditEvent(
+              profile!.nhs_number,
+              requestContext.traceId,
+              "Success",
+            );
             await sendAuditEvent(auditEvent);
           }
 

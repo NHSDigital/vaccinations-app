@@ -3,8 +3,9 @@ import { retrieveApimCredentials } from "@src/utils/auth/apim/get-apim-access-to
 import { ApimAccessCredentials } from "@src/utils/auth/apim/types";
 import { ExpiresSoonAt, IdToken, MaxAgeInSeconds, NowInSeconds } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
-import { extractRootTraceIdFromAmznTraceId, logger } from "@src/utils/logger";
+import { logger } from "@src/utils/logger";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
+import { extractRequestContextFromHeaders } from "@src/utils/requestScopedStorageWrapper";
 import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import { headers } from "next/headers";
@@ -27,9 +28,9 @@ const getToken = async (
   maxAgeInSeconds: MaxAgeInSeconds,
 ) => {
   const headerValues = await headers();
-  const traceId =
-    extractRootTraceIdFromAmznTraceId(headerValues?.get("X-Amzn-Trace-Id") ?? "") ?? "undefined-request-id";
-  const requestContext: RequestContext = { traceId: traceId };
+
+  const requestContext: RequestContext = extractRequestContextFromHeaders(headerValues);
+
   return await asyncLocalStorage.run(requestContext, async () => {
     if (!token) {
       log.error("getToken: No token available in jwt callback. Returning null");

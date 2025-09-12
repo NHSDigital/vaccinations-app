@@ -75,6 +75,7 @@ const pinoLoggerForNode = () => {
     mixin() {
       return {
         traceId: asyncLocalStorage?.getStore()?.traceId,
+        nextUrl: asyncLocalStorage?.getStore()?.nextUrl,
         ...applicationContextFields,
       };
     },
