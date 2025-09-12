@@ -20,7 +20,7 @@ locals {
 
   enable_pars                  = var.is_github_action ? true : false
   pars_account_id              = "381492316974"
-  pars_target_environment_name = "gh-vita-preprod" // the preprod suffix is used for testing also
+  pars_target_environment_name = "gh-vita-test"
   audit_log_retention_in_days  = 30
   audit_log_group_name         = "/aws/audit/${local.prefix}-audit-logs"
   audit_log_stream_name        = "audit-logs"
@@ -34,7 +34,7 @@ locals {
 
     CONTENT_API_ENDPOINT                     = "https://int.api.service.nhs.uk/"
     CONTENT_CACHE_PATH                       = "s3://${local.content_cache_bucket_name}"
-    CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED = true
+    CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED = false
 
     NHS_LOGIN_URL              = "https://auth.sandpit.signin.nhs.uk" // Eventually use mock NHS Login
     NHS_LOGIN_SCOPE            = "openid profile"
