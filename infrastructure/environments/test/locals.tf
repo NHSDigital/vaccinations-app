@@ -36,9 +36,9 @@ locals {
     CONTENT_CACHE_PATH                       = "s3://${local.content_cache_bucket_name}"
     CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED = false
 
-    NHS_LOGIN_URL              = "https://auth.sandpit.signin.nhs.uk" // Eventually use mock NHS Login
+    NHS_LOGIN_URL              = module.deploy_fake_api.application_url
     NHS_LOGIN_SCOPE            = "openid profile"
-    NHS_APP_REDIRECT_LOGIN_URL = "https://www-onboardingsandpit.nhsapp.service.nhs.uk/login?redirect_to=index"
+    NHS_APP_REDIRECT_LOGIN_URL = "https://${local.sub_domain}.${local.domain}/api/sso?assertedLoginIdentity=from-test-nhs-app"
 
     MAX_SESSION_AGE_MINUTES = 59
 
