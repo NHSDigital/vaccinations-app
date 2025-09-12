@@ -89,7 +89,7 @@ curl  $fake_api_url/eligibility-signposting-api/patient-check/9658218989 | jq
 curl -v -X POST $fake_api_url/oauth2/token
 
 curl $fake_api_url/.well-known/openid-configuration | jq
-curl -v $fake_api_url/authorize?state=sausages
+curl -v "$fake_api_url/authorize?state=sausages"
 curl -X POST $fake_api_url/token
 ```
 
