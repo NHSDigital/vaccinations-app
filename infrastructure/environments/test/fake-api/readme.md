@@ -71,6 +71,8 @@ aws ecr get-login-password --region eu-west-2 --profile vita-test | docker login
 docker tag fake-api:latest "$fake_api_ecr_repository_url":latest
 
 docker push "$fake_api_ecr_repository_url":latest
+
+aws ecs update-service --cluster fake-api-ecs-cluster --service fake-api-ecs-service --force-new-deployment --profile vita-dev --region eu-west-2
 ```
 
 ### Check it's working
@@ -81,8 +83,14 @@ Give it a minute, then:
 fake_api_url="http://"$(aws elbv2 describe-load-balancers --profile vita-test | jq -r '.LoadBalancers[] | select(.LoadBalancerName == "fake-api-project-alb") | .DNSName')
 
 curl -v $fake_api_url/health
-curl -v $fake_api_url/eligibility-signposting-api/patient-check/9658218989
+
+curl  $fake_api_url/eligibility-signposting-api/patient-check/9658218989 | jq
+
 curl -v -X POST $fake_api_url/oauth2/token
+
+curl $fake_api_url/.well-known/openid-configuration | jq
+curl -v $fake_api_url/authorize?state=sausages
+curl -X POST $fake_api_url/token
 ```
 
 ## Local testing
