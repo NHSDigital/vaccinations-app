@@ -12,7 +12,12 @@ const logClientSideError = async (clientSideErrorType: ClientSideErrorTypes): Pr
 };
 
 const logClientSideErrorAction = async (clientSideErrorType: ClientSideErrorTypes): Promise<void> => {
-  log.error({ context: { clientSideErrorType: clientSideErrorType } }, "Client side error occurred");
+  const validClientSideErrorTypes = Object.values(ClientSideErrorTypes) as string[];
+  const validatedErrorType = validClientSideErrorTypes.includes(clientSideErrorType)
+    ? clientSideErrorType
+    : ClientSideErrorTypes.UNKNOWN_ERROR_REASON;
+
+  log.error({ context: { clientSideErrorType: validatedErrorType } }, "Client side error occurred");
 };
 
 export default logClientSideError;
