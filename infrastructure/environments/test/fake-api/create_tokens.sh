@@ -50,7 +50,7 @@ mkdir -p data/login/tokens
 
 for nhs_num in "${NHS_NUMBERS[@]}"; do
   current_time=$(date +%s)
-  expiration_time=$((current_time + 3600)) # Expires in 1 hour
+  expiration_time=$((current_time + $EXPIRES_IN))
 
   payload_json=$(jq -n \
     --arg iss "$ISSUER_URL" --arg sub "fake-login-sub" --arg aud "vita-app-sandpit" \
