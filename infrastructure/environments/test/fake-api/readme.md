@@ -21,7 +21,7 @@ docker stop local-fake-api
 
 docker run -d --rm -p 9123:9123 -e LOGIN_ROOT_URL="http://localhost:9123" -e ELID_DELAY_SECONDS=2 -e APIM_DELAY_SECONDS=10 --name local-fake-api fake-api
 
-docker logs local-fake-login --follow | less +F  # If you need to see what's going on in nginx
+docker logs local-fake-api --follow | less +F  # If you need to see what's going on in nginx
 
 curl -v http://localhost:9123/health
 
