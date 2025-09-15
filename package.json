@@ -73,7 +73,7 @@
     "@aws-sdk/signature-v4-crt": "^3.888.0",
     "@opennextjs/aws": "^3.7.6",
     "@types/aws-lambda": "^8.10.152",
-    "axios": "^1.12.1",
+    "axios": "^1.12.2",
     "dotenv": "^17.2.2",
     "isomorphic-dompurify": "^2.26.0",
     "jsonwebtoken": "^9.0.2",
