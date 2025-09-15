@@ -13,13 +13,11 @@ Tag, promote, and deploy to the test environment, as per the [usual process](htt
 #### Test locally
 
 ```sh
+docker stop local-fake-api  ## Will fail if the contain doesn't exist, which is fine
+
 ./create_tokens.sh "../../../../../vita-app-sandpit.pid" "http://localhost:9123" 86400
 
-docker build --no-cache -t fake-api .
-
-docker stop local-fake-api
-
-docker run -d --rm -p 9123:9123 -e ELID_DELAY_SECONDS=1 -e APIM_DELAY_SECONDS=1 --name local-fake-api fake-api
+docker build --no-cache -t fake-api . && docker run -d --rm -p 9123:9123 -e ELID_DELAY_SECONDS=1 -e APIM_DELAY_SECONDS=1 --name local-fake-api fake-api
 
 docker logs local-fake-api --follow | less +F  # If you need to see what's going on in nginx
 
@@ -34,7 +32,7 @@ curl http://localhost:9123/.well-known/openid-configuration | jq
 curl -v http://localhost:9123/authorize?state=sausages
 curl -X POST http://localhost:9123/token
 
-curl -v http://localhost:9123/nbs
+curl -v http://localhost:9123/nbs?any=old&rubbish=here
 ```
 
 ##### Test against local VitA
@@ -57,7 +55,10 @@ Start up VitA as normal, then hit [/api/sso](https://localhost:3000/api/sso?asse
 For the following steps, you need to have deployed the infrastructure at least once, to get the ALB DNS name.
 
 ```sh
+aws sso login --profile vita-test
+
 fake_api_url="http://"$(aws elbv2 describe-load-balancers --profile vita-test | jq -r '.LoadBalancers[] | select(.LoadBalancerName == "fake-api-project-alb") | .DNSName')
+
 ./create_tokens.sh "../../../../../vita-app-sandpit.pid" "$fake_api_url" 315569520
 
 docker build --no-cache --platform linux/amd64 -t fake-api .
@@ -68,8 +69,6 @@ docker build --no-cache --platform linux/amd64 -t fake-api .
 Ensure you are [configured to access the test environment in AWS via the command line](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html). These instructions assume you've named your profile `vita-test`. All the info you need for that should be available via the [access portal](https://d-9c67018f89.awsapps.com/start/#/?tab=accounts).
 
 ```sh
-aws sso login --profile vita-test
-
 fake_api_ecr_repository_url=$(aws ecr describe-repositories --profile vita-test | jq -r '.repositories[] | select(.repositoryName == "fake-api") | .repositoryUri')
 
 aws ecr get-login-password --region eu-west-2 --profile vita-test | docker login --username AWS --password-stdin $(echo $fake_api_ecr_repository_url | cut -d/ -f1)
@@ -90,7 +89,8 @@ fake_api_url="http://"$(aws elbv2 describe-load-balancers --profile vita-test | 
 
 curl -v $fake_api_url/health
 
-curl  $fake_api_url/eligibility-signposting-api/patient-check/9658218989 | jq
+curl $fake_api_url/eligibility-signposting-api/patient-check/9658218989 | jq
+curl $fake_api_url/eligibility-signposting-api/patient-check/9658218881 | jq
 
 curl -v -X POST $fake_api_url/oauth2/token
 
