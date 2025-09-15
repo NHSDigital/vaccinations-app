@@ -11,7 +11,7 @@ set -e
 
 export LOGIN_ROOT_URL=\${LOGIN_ROOT_URL:-'http://localhost:9123'}
 export APP_ROOT_URL=\${APP_ROOT_URL:-'https://localhost:3000'}
-export NBS_URL=\${LOGIN_ROOT_URL:-'http://localhost:9123/nbs'}
+export NBS_URL=\${NBS_URL:-'http://localhost:9123/nbs'}
 export ELID_DELAY_SECONDS=\${ELID_DELAY_SECONDS:-0}
 export APIM_DELAY_SECONDS=\${APIM_DELAY_SECONDS:-0}
 
