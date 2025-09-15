@@ -50,6 +50,18 @@ jobs:
         run: |
           npx playwright install --with-deps
 
+      - name: "Run Playwright tests"
+        run: |
+          npm run e2e
+
+      - name: "Upload report"
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report-e2e
+          path: playwright-report/
+          retention-days: 30
+
   test-contract:
     name: "Contract Test: ${{inputs.environment}} environment"
     runs-on: ubuntu-latest
