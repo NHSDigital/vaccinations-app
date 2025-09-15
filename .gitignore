@@ -120,3 +120,4 @@ lambda.zip
 # terraform
 .terraform/
 terraform.tfstate*
+/infrastructure/environments/*/builds/

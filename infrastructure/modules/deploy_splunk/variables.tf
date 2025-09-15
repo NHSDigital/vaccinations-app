@@ -8,7 +8,7 @@ variable "default_tags" {
   description = "Map of default key-value pair of tags to add to resources"
 }
 
-variable "log_retention_in_days" {
+variable "splunk_log_retention_in_days" {
   type        = string
   description = "The retention of logs in cloudwatch log groups in days"
 }
@@ -26,4 +26,9 @@ variable "region" {
 variable "alerting_sns_topic_arn" {
   type        = string
   description = "SNS topic identifier for alerting"
+}
+
+variable "python_version" {
+  type        = string
+  description = "Python Version of lambda runtime to run firehose formatter function"
 }

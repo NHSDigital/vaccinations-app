@@ -30,6 +30,17 @@ data "aws_iam_policy_document" "firehose_splunk_log_forwarder_permissions_policy
   }
 
   statement {
+    sid    = "AllowFirehoseInvokeTransformerLambda"
+    effect = "Allow"
+    actions = [
+      "lambda:InvokeFunction",
+      "lambda:GetFunctionConfiguration",
+    ]
+    resources = [
+    "${module.firehose_transformer_lambda_function.lambda_function_arn}:$LATEST"]
+  }
+
+  statement {
     sid    = "AllowFirehoseCloudWatchLogging"
     effect = "Allow"
     actions = [

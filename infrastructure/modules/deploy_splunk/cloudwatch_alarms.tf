@@ -1,10 +1,10 @@
 locals {
   alarms_cloudwatch = {
-    "cloudwatch-to-firehose-subscription-delivery-errors" = {
-      alarm_description = "Operational Logs: Cloudwatch to Firehose delivery error within last hour"
+    "cloudwatch-to-firehose-server-function-subscription-delivery-errors" = {
+      alarm_description = "Operational Logs: Server function - Cloudwatch to Firehose delivery error within last hour"
       metric_name       = "DeliveryErrors"
       log_group         = "/aws/lambda/${var.prefix}-server-function"
-      filter_name       = aws_cloudwatch_log_subscription_filter.cloudwatch_to_firehose_log_forwarder_subscription_filter.name
+      filter_name       = aws_cloudwatch_log_subscription_filter.cloudwatch_to_firehose_server_function_log_forwarder_subscription_filter.name
       delivery_type     = "Firehose"
 
       statistic           = "Sum"
@@ -16,7 +16,25 @@ locals {
       period              = 60 // 1min
       evaluation_periods  = 60 // 60 periods
       datapoints_to_alarm = 1  // number of breaches within the last evaluation period to alarm
-    },
+    }
+
+    "cloudwatch-to-firehose-cache-hydrator-function-subscription-delivery-errors" = {
+      alarm_description = "Operational Logs: Cache Hydrator function - Cloudwatch to Firehose delivery error within last hour"
+      metric_name       = "DeliveryErrors"
+      log_group         = "/aws/lambda/${var.prefix}-content-cache-hydrator"
+      filter_name       = aws_cloudwatch_log_subscription_filter.cloudwatch_to_firehose_content_cache_hydrator_function_log_forwarder_subscription_filter.name
+      delivery_type     = "Firehose"
+
+      statistic           = "Sum"
+      extended_statistic  = null // as statistic is used
+      comparison_operator = "GreaterThanThreshold"
+      threshold           = 0
+      unit                = "Count"
+
+      period              = 60 // 1min
+      evaluation_periods  = 60 // 60 periods
+      datapoints_to_alarm = 1  // number of breaches within the last evaluation period to alarm
+    }
   }
 }
 
