@@ -100,6 +100,10 @@ resource "aws_ecs_task_definition" "main" {
         {
           name  = "APP_ROOT_URL"
           value = var.app_root_url
+        },
+        {
+          name  = "NBS_URL"
+          value = "${var.app_root_url}/nbs"
         }
       ]
       logConfiguration = {

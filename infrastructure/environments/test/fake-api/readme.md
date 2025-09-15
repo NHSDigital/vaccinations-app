@@ -26,12 +26,15 @@ docker logs local-fake-api --follow | less +F  # If you need to see what's going
 curl -v http://localhost:9123/health
 
 curl http://localhost:9123/eligibility-signposting-api/patient-check/9658218989 | jq
+curl http://localhost:9123/eligibility-signposting-api/patient-check/9658218881 | jq
 
 curl -v -X POST http://localhost:9123/oauth2/token
 
 curl http://localhost:9123/.well-known/openid-configuration | jq
 curl -v http://localhost:9123/authorize?state=sausages
 curl -X POST http://localhost:9123/token
+
+curl -v http://localhost:9123/nbs
 ```
 
 ##### Test against local VitA
@@ -94,6 +97,8 @@ curl -v -X POST $fake_api_url/oauth2/token
 curl $fake_api_url/.well-known/openid-configuration | jq
 curl -v "$fake_api_url/authorize?state=sausages"
 curl -X POST $fake_api_url/token
+
+curl -v $fake_api_url/nbs
 ```
 
 ## Local testing
