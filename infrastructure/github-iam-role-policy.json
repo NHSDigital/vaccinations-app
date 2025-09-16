@@ -147,6 +147,7 @@
         "s3:PutBucketPublicAccessBlock",
         "s3:PutBucketTagging",
         "s3:PutBucketVersioning",
+        "s3:PutLifecycleConfiguration",
         "s3:PutObject",
         "secretsmanager:DescribeSecret",
         "secretsmanager:GetResourcePolicy",
