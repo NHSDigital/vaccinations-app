@@ -41,11 +41,11 @@ resource "aws_kinesis_firehose_delivery_stream" "splunk_log_forwarder" {
         }
         parameters {
           parameter_name  = "BufferSizeInMBs"
-          parameter_value = "0.256" # Should this be passed from main file?
+          parameter_value = "0.256"
         }
         parameters {
           parameter_name  = "BufferIntervalInSeconds"
-          parameter_value = "60" # Should this be passed from main file?
+          parameter_value = "60"
         }
       }
     }

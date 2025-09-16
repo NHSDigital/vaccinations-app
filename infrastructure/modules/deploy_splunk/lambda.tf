@@ -13,7 +13,6 @@ module "firehose_transformer_lambda_function" {
   source_path = "${path.module}/files"
 
   cloudwatch_logs_retention_in_days = var.splunk_log_retention_in_days
-  cloudwatch_logs_skip_destroy      = true
   logging_log_format                = "JSON"
 
   tags = var.default_tags
