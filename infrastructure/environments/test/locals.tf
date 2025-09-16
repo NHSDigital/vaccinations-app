@@ -25,6 +25,10 @@ locals {
   audit_log_group_name         = "/aws/audit/${local.prefix}-audit-logs"
   audit_log_stream_name        = "audit-logs"
 
+  # Splunk
+  python_version               = "python3.13" # Transformer lambda runtime
+  splunk_log_retention_in_days = 30
+
   application_environment_variables = {
     SSM_PREFIX = "/${local.prefix}/"
 
