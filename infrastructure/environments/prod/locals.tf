@@ -18,9 +18,9 @@ locals {
   app_version               = var.app_version
   alarms_slack_channel_id   = var.alarms_slack_channel_id
 
-  enable_pars                  = false            # TODO: var.is_github_action ? true : false
+  enable_pars                  = false            // to enable -> var.is_github_action ? true : false
   pars_account_id              = "to-be-replaced" # TODO: 22/08/2025 VIA-253 AS Replace with correct value
-  pars_target_environment_name = "${local.deploy_workspace}-${local.project_identifier_shortcode}-${local.environment}"
+  pars_target_environment_name = "gh-vita-prod"
   audit_log_retention_in_days  = 30
   audit_log_group_name         = "/aws/audit/${local.prefix}-audit-logs"
   audit_log_stream_name        = "audit-logs"

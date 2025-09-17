@@ -18,7 +18,7 @@ locals {
   app_version               = var.app_version
   alarms_slack_channel_id   = var.alarms_slack_channel_id
 
-  enable_pars                  = var.is_github_action ? true : false
+  enable_pars                  = false // to enable -> var.is_github_action ? true : false
   pars_account_id              = "381492316974"
   pars_target_environment_name = "gh-vita-dev"
   audit_log_retention_in_days  = 7
