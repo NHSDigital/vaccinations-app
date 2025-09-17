@@ -19,20 +19,6 @@ Now fill the values used by the application below: -
 - Click on "Parameter Store" under application tools section
 - Update the values as per integrations in that environment
 
-### Setting up monitoring configuration
-
-The following steps will put Cloudfront access logs to S3 bucket.
-
-- Go to AWS service "Cloudfront"
-- Select the distribution that serves VitA website (vaccinations.nhs.uk)
-- Select "Logging" tab
-- Click "Create a log delivery" button
-- Select the destination S3 bucket for storing the cloudfront-access-logs.
-- In additional settings
-  - make sure all fields are selected
-  - use partitioning ```{DistributionId}/{yyyy}/{MM}/{dd}/{HH}```
-  - use output format as JSON
-
 ### Setting up Cloudfront error pages
 
 Manually create the following error routes.
