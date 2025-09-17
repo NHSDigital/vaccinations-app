@@ -60,6 +60,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
         },
 
         async jwt({ token, account, profile }) {
+          log.info("jwt / getToken callback invoked");
           let response;
           try {
             profilePerformanceStart(AuthJWTPerformanceMarker);
@@ -73,6 +74,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
         },
 
         async session({ session, token }) {
+          log.info("getsession callback invoked");
           let response;
           try {
             profilePerformanceStart(AuthSessionPerformanceMarker);

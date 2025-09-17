@@ -41,7 +41,9 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
   };
 
   if (config.IS_APIM_AUTH_ENABLED) {
+    log.info("elid service fetching apim token");
     const apimAccessToken = await getApimAccessToken();
+    log.info("elid service retrieved apim token");
     headers = { ...headers, Authorization: `Bearer ${apimAccessToken}` };
   }
 

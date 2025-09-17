@@ -16,7 +16,9 @@ const getApimAccessToken = async (): Promise<AccessToken> => {
    *
    * @returns A Promise, resolving to the APIM access token.
    */
+  log.info("awaiting getJwtToken");
   const token = await getJwtToken();
+  log.info("getJwtToken complete");
 
   if (!token?.apim?.access_token) {
     log.error({ context: { token } }, "APIM access token is not present on JWT token");

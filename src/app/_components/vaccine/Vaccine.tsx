@@ -15,12 +15,15 @@ import { getContentForVaccine } from "@src/services/content-api/content-service"
 import { ContentErrorTypes, StyledVaccineContent } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import { Eligibility, EligibilityErrorTypes } from "@src/services/eligibility-api/types";
+import { logger } from "@src/utils/logger";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { requestScopedStorageWrapper } from "@src/utils/requestScopedStorageWrapper";
 import { Session } from "next-auth";
 import React, { JSX } from "react";
 
 import styles from "./styles.module.css";
+
+const log = logger.child({ name: "vaccine component" });
 
 interface VaccineProps {
   vaccineType: VaccineTypes;
@@ -35,7 +38,9 @@ const Vaccine = async ({ vaccineType }: VaccineProps) => {
 const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
   profilePerformanceStart(VaccinePagePerformanceMarker);
 
+  log.info("vaccine component calling auth()");
   const session: Session | null = await auth();
+  log.info("vaccine component auth() call complete");
   const nhsNumber: NhsNumber | undefined = session?.user.nhs_number as NhsNumber;
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
 
