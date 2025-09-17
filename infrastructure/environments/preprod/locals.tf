@@ -18,13 +18,6 @@ locals {
   app_version               = var.app_version
   alarms_slack_channel_id   = var.alarms_slack_channel_id
 
-  enable_pars                  = false // to enable -> var.is_github_action ? true : false
-  pars_account_id              = "381492316974"
-  pars_target_environment_name = "gh-vita-preprod"
-  audit_log_retention_in_days  = 30
-  audit_log_group_name         = "/aws/audit/${local.prefix}-audit-logs"
-  audit_log_stream_name        = "audit-logs"
-
   # Splunk
   python_version               = "python3.13" # Transformer lambda runtime
   splunk_log_retention_in_days = 30
@@ -57,9 +50,6 @@ locals {
 
     NBS_URL          = "https://www.nhswebsite-staging.nhs.uk/nbs"
     NBS_BOOKING_PATH = "/nhs-app"
-
-    AUDIT_CLOUDWATCH_LOG_GROUP  = local.audit_log_group_name
-    AUDIT_CLOUDWATCH_LOG_STREAM = local.audit_log_stream_name
 
     SSM_PARAMETER_STORE_TTL                = 300
     PARAMETERS_SECRETS_EXTENSION_LOG_LEVEL = "WARN"

@@ -18,13 +18,6 @@ locals {
   app_version               = var.app_version
   alarms_slack_channel_id   = var.alarms_slack_channel_id
 
-  enable_pars                  = false            // to enable -> var.is_github_action ? true : false
-  pars_account_id              = "to-be-replaced" # TODO: 22/08/2025 VIA-253 AS Replace with correct value
-  pars_target_environment_name = "gh-vita-prod"
-  audit_log_retention_in_days  = 30
-  audit_log_group_name         = "/aws/audit/${local.prefix}-audit-logs"
-  audit_log_stream_name        = "audit-logs"
-
   # Splunk
   python_version               = "python3.13" # Transformer lambda runtime
   splunk_log_retention_in_days = 90
@@ -57,9 +50,6 @@ locals {
 
     NBS_URL          = "https://nhs.uk/nbs" // TODO: unconfirmed - is this correct url?
     NBS_BOOKING_PATH = "/nhs-app"
-
-    AUDIT_CLOUDWATCH_LOG_GROUP  = local.audit_log_group_name
-    AUDIT_CLOUDWATCH_LOG_STREAM = local.audit_log_stream_name
 
     SSM_PARAMETER_STORE_TTL                = 300
     PARAMETERS_SECRETS_EXTENSION_LOG_LEVEL = "ERROR"

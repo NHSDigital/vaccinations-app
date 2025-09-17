@@ -113,6 +113,7 @@
         "logs:DeleteLogGroup",
         "logs:DeleteLogStream",
         "logs:DeleteMetricFilter",
+        "logs:DeleteSubscriptionFilter",
         "logs:DescribeLogGroups",
         "logs:DescribeLogStreams",
         "logs:DescribeMetricFilters",

@@ -15,11 +15,6 @@
       "Effect": "Allow",
       "Action": ["s3:ListBucket", "s3:GetObject"],
       "Resource": "arn:aws:s3:::${prefix}*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": ["logs:PutLogEvents"],
-      "Resource": "arn:aws:logs:${region}:${account_id}:log-group:${audit_log_group_name}:*"
     }
   ]
 }

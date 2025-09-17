@@ -53,11 +53,6 @@ variable "region" {
   description = "The AWS region to deploy to"
 }
 
-variable "audit_log_group_name" {
-  type        = string
-  description = "Log Group name for audit logs"
-}
-
 variable "alerting_sns_topic_arn" {
   type        = string
   description = "SNS topic identifier for alerting"
