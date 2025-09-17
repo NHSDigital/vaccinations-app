@@ -80,7 +80,7 @@ async function _getOrRefreshApimCredentials(config: AppConfig, token: JWT, nowIn
         "getOrRefreshApimCredentials: Getting new APIM creds.",
       );
       updatedApimCredentals = await retrieveApimCredentials(token.nhs_login.id_token);
-      log.info(`First APIM token fetched. expiry time: ${token.apim.expires_at}`);
+      log.info(`First APIM token fetched. expiry time: ${updatedApimCredentals.expiresAt}`);
       log.debug({ context: { updatedApimCredentals } }, "getOrRefreshApimCredentials: New APIM creds retrieved.");
     } else {
       const expiryWriggleRoom = 30;
@@ -99,7 +99,7 @@ async function _getOrRefreshApimCredentials(config: AppConfig, token: JWT, nowIn
           "getOrRefreshApimCredentials: Refreshed APIM creds retrieved.",
         );
 
-        log.info(`New APIM token fetched. expiry time: ${token.apim.expires_at}`);
+        log.info(`New APIM token fetched. expiry time: ${updatedApimCredentals.expiresAt}`);
       } else {
         log.debug(
           { context: { existingApimCredentals: token.apim, timeRemaining: expiresSoonAt - nowInSeconds } },
