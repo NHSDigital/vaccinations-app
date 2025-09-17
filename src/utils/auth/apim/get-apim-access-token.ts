@@ -22,6 +22,7 @@ const getApimAccessToken = async (): Promise<AccessToken> => {
     log.error({ context: { token } }, "APIM access token is not present on JWT token");
     throw new ApimMissingTokenError("APIM access token is not present on JWT token");
   }
+  log.info(`Preparing to fetch-eligibility-content: APIM expires at ${token.apim.expires_at}`);
   return token.apim.access_token;
 };
 
