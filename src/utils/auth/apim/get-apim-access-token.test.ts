@@ -1,7 +1,10 @@
 import { fetchAPIMAccessToken } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { getApimAccessToken, retrieveApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
+import { _getOrRefreshApimCredentials } from "@src/utils/auth/callbacks/get-token";
 import { getJwtToken } from "@src/utils/auth/get-jwt-token";
 import { AccessToken, IdToken } from "@src/utils/auth/types";
+import { AppConfig } from "@src/utils/config";
+import { appConfigBuilder } from "@test-data/config/builders";
 
 jest.mock("@src/utils/auth/get-jwt-token", () => ({
   getJwtToken: jest.fn(),
@@ -12,25 +15,59 @@ jest.mock("@src/utils/auth/apim/fetch-apim-access-token", () => ({
 }));
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
+jest.mock("@src/utils/auth/callbacks/get-token", () => ({
+  _getOrRefreshApimCredentials: jest.fn(),
+}));
+
+const mockConfig: AppConfig = appConfigBuilder().build();
+const nowInSeconds = 1000;
+
+const apimAccessTokenFromJwt = "test-access-token" as AccessToken;
+const mockJwtToken = {
+  apim: {
+    access_token: apimAccessTokenFromJwt,
+    expires_in: "600000",
+    refresh_token_expires_at: "700000",
+  },
+};
+
 describe("getApimAccessToken", () => {
-  it("should use access token from JWT token when APIM access token populated", async () => {
-    (getJwtToken as jest.Mock).mockResolvedValue({
-      apim: {
-        access_token: "test-access-token" as AccessToken,
-        expires_in: "600000",
-        refresh_token_expires_at: "700000",
-      },
+  beforeAll(() => {
+    jest.useFakeTimers();
+    jest.setSystemTime(nowInSeconds * 1000);
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
+  it("should pass JWT token to getOrRefresh method and return what it returns", async () => {
+    const getOrRefreshedApimAccessToken = "apim-access-token";
+    (_getOrRefreshApimCredentials as jest.Mock).mockResolvedValue({
+      accessToken: getOrRefreshedApimAccessToken,
+      expiresAt: nowInSeconds + 1111,
     });
 
-    const apimAccessToken = await getApimAccessToken();
+    (getJwtToken as jest.Mock).mockResolvedValue(mockJwtToken);
 
-    expect(apimAccessToken).toEqual("test-access-token" as AccessToken);
+    const apimAccessToken = await getApimAccessToken(mockConfig);
+
+    expect(_getOrRefreshApimCredentials).toHaveBeenCalledWith(mockConfig, mockJwtToken, nowInSeconds);
+    expect(apimAccessToken).toEqual(getOrRefreshedApimAccessToken as AccessToken);
   });
 
   it("should throw error if APIM access token not available in JWT token", async () => {
     (getJwtToken as jest.Mock).mockResolvedValue({ apim: {} });
 
-    await expect(getApimAccessToken()).rejects.toThrow("APIM access token is not present on JWT token");
+    await expect(getApimAccessToken(mockConfig)).rejects.toThrow("APIM access token is not present on JWT token");
+  });
+
+  it("should throw error if _getOrRefresh APIM access token returns undefined", async () => {
+    (_getOrRefreshApimCredentials as jest.Mock).mockResolvedValue(undefined);
+
+    (getJwtToken as jest.Mock).mockResolvedValue(mockJwtToken);
+
+    await expect(getApimAccessToken(mockConfig)).rejects.toThrow("getOrRefreshApimCredentials returned undefined");
   });
 });
 
