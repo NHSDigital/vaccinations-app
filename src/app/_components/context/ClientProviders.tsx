@@ -6,7 +6,6 @@ import LinksInterceptor from "@src/app/_components/interceptor/LinksInterceptor"
 import AppFooter from "@src/app/_components/nhs-frontend/AppFooter";
 import AppHeader from "@src/app/_components/nhs-frontend/AppHeader";
 import SkipLink from "@src/app/_components/nhs-frontend/SkipLink";
-import { WARNING_TIME_MS } from "@src/utils/auth/inactivity-timer";
 import { SessionProvider } from "next-auth/react";
 import React from "react";
 
@@ -17,7 +16,8 @@ export function ClientProviders({ children }: Readonly<{ children: React.ReactNo
   // to ensure that the warning dialog is only shown when a user is authenticated
   // But not too less to avoid frequent polling.
   // One needs to also account for the polling request latency (assume 5 sec).
-  const SESSION_REFETCH_SECONDS = Math.floor(0.9 * (WARNING_TIME_MS / 1000)) - 5;
+  // Update: setting to 60s to mitigate APIM token expiry issue, see VIA-254
+  const SESSION_REFETCH_SECONDS = 60;
 
   return (
     <BrowserContextProvider>
