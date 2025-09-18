@@ -1,13 +1,15 @@
 import { ApimMissingTokenError } from "@src/utils/auth/apim/exceptions";
 import { fetchAPIMAccessToken } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { ApimAccessCredentials, ApimTokenResponse } from "@src/utils/auth/apim/types";
+import { _getOrRefreshApimCredentials } from "@src/utils/auth/callbacks/get-token";
 import { getJwtToken } from "@src/utils/auth/get-jwt-token";
 import { AccessToken, ExpiresAt, IdToken } from "@src/utils/auth/types";
+import { AppConfig } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 
 const log = logger.child({ module: "utils-auth-apim-get-apim-access-token" });
 
-const getApimAccessToken = async (): Promise<AccessToken> => {
+const getApimAccessToken = async (config: AppConfig): Promise<AccessToken> => {
   /**
    * Gets the APIM access token from the JWT session cookie.
    *
@@ -22,8 +24,19 @@ const getApimAccessToken = async (): Promise<AccessToken> => {
     log.error({ context: { token } }, "APIM access token is not present on JWT token");
     throw new ApimMissingTokenError("APIM access token is not present on JWT token");
   }
-  log.info(`Preparing to fetch-eligibility-content: APIM expires at ${token.apim.expires_at}`);
-  return token.apim.access_token;
+
+  // Extract APIM token from token. Fetch a new one if it's about to expire
+  const nowInSeconds = Math.floor(Date.now() / 1000);
+  const apimAccessCredentials = await _getOrRefreshApimCredentials(config, token, nowInSeconds);
+
+  if (!apimAccessCredentials) {
+    // TODO: consider error type, message and re-word if ness
+    log.error("Error: getOrRefreshApimCredentials returned undefined");
+    throw new Error("getOrRefreshApimCredentials returned undefined");
+  } else {
+    log.info(`Preparing to fetch-eligibility-content: APIM expires at ${apimAccessCredentials.expiresAt}`);
+    return apimAccessCredentials.accessToken;
+  }
 };
 
 const retrieveApimCredentials = async (idToken: IdToken): Promise<ApimAccessCredentials> => {

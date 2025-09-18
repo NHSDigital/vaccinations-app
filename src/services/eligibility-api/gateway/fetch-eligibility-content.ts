@@ -41,7 +41,7 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
   };
 
   if (config.IS_APIM_AUTH_ENABLED) {
-    const apimAccessToken = await getApimAccessToken();
+    const apimAccessToken = await getApimAccessToken(config);
     headers = { ...headers, Authorization: `Bearer ${apimAccessToken}` };
   }
 

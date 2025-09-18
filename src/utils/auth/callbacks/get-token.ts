@@ -68,7 +68,8 @@ const getToken = async (
 };
 
 async function _getOrRefreshApimCredentials(config: AppConfig, token: JWT, nowInSeconds: number) {
-  let updatedApimCredentals: ApimAccessCredentials | undefined;
+  // Check the APIM creds on the token; if valid return them, else if empty or expiring soon fetch new creds
+  let apimCredentials: ApimAccessCredentials | undefined;
 
   const cryproAvailable = process.env.NEXT_RUNTIME === "nodejs";
   if (config.IS_APIM_AUTH_ENABLED && cryproAvailable) {
@@ -79,9 +80,12 @@ async function _getOrRefreshApimCredentials(config: AppConfig, token: JWT, nowIn
         { context: { existingApimCredentals: token.apim } },
         "getOrRefreshApimCredentials: Getting new APIM creds.",
       );
-      updatedApimCredentals = await retrieveApimCredentials(token.nhs_login.id_token);
-      log.info(`First APIM token fetched. expiry time: ${updatedApimCredentals.expiresAt}`);
-      log.debug({ context: { updatedApimCredentals } }, "getOrRefreshApimCredentials: New APIM creds retrieved.");
+      apimCredentials = await retrieveApimCredentials(token.nhs_login.id_token);
+      log.info(`First APIM token fetched. expiry time: ${apimCredentials.expiresAt}`);
+      log.debug(
+        { context: { updatedApimCredentals: apimCredentials } },
+        "getOrRefreshApimCredentials: New APIM creds retrieved.",
+      );
     } else {
       const expiryWriggleRoom = 30;
       const expiresSoonAt: ExpiresSoonAt = (token.apim?.expires_at - expiryWriggleRoom) as ExpiresSoonAt;
@@ -93,22 +97,26 @@ async function _getOrRefreshApimCredentials(config: AppConfig, token: JWT, nowIn
         );
 
         log.info(`APIM token expires soon ${token.apim.expires_at} ; fetching new token`);
-        updatedApimCredentals = await retrieveApimCredentials(token.nhs_login.id_token);
+        apimCredentials = await retrieveApimCredentials(token.nhs_login.id_token);
         log.debug(
-          { context: { updatedApimCredentals } },
+          { context: { updatedApimCredentals: apimCredentials } },
           "getOrRefreshApimCredentials: Refreshed APIM creds retrieved.",
         );
 
-        log.info(`New APIM token fetched. expiry time: ${updatedApimCredentals.expiresAt}`);
+        log.info(`New APIM token fetched. expiry time: ${apimCredentials.expiresAt}`);
       } else {
         log.debug(
           { context: { existingApimCredentals: token.apim, timeRemaining: expiresSoonAt - nowInSeconds } },
           "getOrRefreshApimCredentials: APIM creds still fresh.",
         );
+        apimCredentials = {
+          accessToken: token.apim.access_token,
+          expiresAt: token.apim.expires_at,
+        };
       }
     }
   }
-  return updatedApimCredentals;
+  return apimCredentials;
 }
 
 const fillMissingFieldsInTokenWithDefaultValues = (token: JWT, apimAccessCredentials?: ApimAccessCredentials): JWT => {
@@ -152,4 +160,4 @@ const updateTokenWithValuesFromAccountAndProfile = (
   return updatedToken;
 };
 
-export { getToken };
+export { getToken, _getOrRefreshApimCredentials };
