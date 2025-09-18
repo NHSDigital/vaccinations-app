@@ -71,6 +71,12 @@ export const login = async (browser: Browser, nhsLoginUsername: string): Promise
     await page.waitForURL(user.vaccinationsHubUrl, { timeout: 60000, waitUntil: "domcontentloaded" });
     return page;
   } else {
+    await page.waitForURL(/\/(terms-and-conditions\?redirect_to=index|patient\/)$/, { timeout: 30000 });
+    if (new URL(page.url()).pathname === "/terms-and-conditions") {
+      await page.locator("#termsAndConditions-agree_checkbox").setChecked(true);
+      await page.getByRole("button", { name: "Continue" }).click();
+    }
+
     await page.waitForURL("**/patient/", { timeout: 30000 });
     await page.getByRole("heading", { name: "Services" }).locator("..").getByRole("link", { name: "View all" }).click();
     await page.waitForURL("**/patient/services", { timeout: 30000 });
