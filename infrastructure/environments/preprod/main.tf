@@ -27,6 +27,19 @@ module "deploy" {
   alerting_sns_topic_arn            = module.deploy_monitoring.alerting_sns_topic_arn
 }
 
+resource "aws_cloudfront_monitoring_subscription" "enable_more_cloudfront_metrics" {
+  count           = var.is_github_action ? 1 : 0
+  distribution_id = module.deploy.cloudfront_distribution_id
+
+  monitoring_subscription {
+    realtime_metrics_subscription_config {
+      realtime_metrics_subscription_status = "Enabled"
+    }
+  }
+
+  depends_on = [module.deploy]
+}
+
 module "deploy_monitoring" {
   source = "../../modules/deploy_monitoring"
 
