@@ -1,6 +1,6 @@
 import { fetchAPIMAccessToken } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { getApimAccessToken, retrieveApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
-import { _getOrRefreshApimCredentials } from "@src/utils/auth/callbacks/get-token";
+import { _getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import { getJwtToken } from "@src/utils/auth/get-jwt-token";
 import { AccessToken, IdToken } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
@@ -15,7 +15,7 @@ jest.mock("@src/utils/auth/apim/fetch-apim-access-token", () => ({
 }));
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
-jest.mock("@src/utils/auth/callbacks/get-token", () => ({
+jest.mock("@src/utils/auth/apim/get-or-refresh-apim-credentials", () => ({
   _getOrRefreshApimCredentials: jest.fn(),
 }));
 

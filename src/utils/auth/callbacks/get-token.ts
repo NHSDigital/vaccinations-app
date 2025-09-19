@@ -1,7 +1,7 @@
 import { NhsNumber } from "@src/models/vaccine";
-import { retrieveApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
+import { _getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import { ApimAccessCredentials } from "@src/utils/auth/apim/types";
-import { ExpiresSoonAt, IdToken, MaxAgeInSeconds, NowInSeconds } from "@src/utils/auth/types";
+import { IdToken, MaxAgeInSeconds, NowInSeconds } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
@@ -67,58 +67,6 @@ const getToken = async (
   });
 };
 
-async function _getOrRefreshApimCredentials(config: AppConfig, token: JWT, nowInSeconds: number) {
-  // Check the APIM creds on the token; if valid return them, else if empty or expiring soon fetch new creds
-  let apimCredentials: ApimAccessCredentials | undefined;
-
-  const cryproAvailable = process.env.NEXT_RUNTIME === "nodejs";
-  if (config.IS_APIM_AUTH_ENABLED && cryproAvailable) {
-    if (!token.nhs_login?.id_token) {
-      log.debug("getOrRefreshApimCredentials: No NHS login ID token available. Not getting APIM creds.");
-    } else if (!token.apim?.access_token || token.apim.access_token === "") {
-      log.debug(
-        { context: { existingApimCredentals: token.apim } },
-        "getOrRefreshApimCredentials: Getting new APIM creds.",
-      );
-      apimCredentials = await retrieveApimCredentials(token.nhs_login.id_token);
-      log.info(`First APIM token fetched. expiry time: ${apimCredentials.expiresAt}`);
-      log.debug(
-        { context: { updatedApimCredentals: apimCredentials } },
-        "getOrRefreshApimCredentials: New APIM creds retrieved.",
-      );
-    } else {
-      const expiryWriggleRoom = 30;
-      const expiresSoonAt: ExpiresSoonAt = (token.apim?.expires_at - expiryWriggleRoom) as ExpiresSoonAt;
-
-      if (expiresSoonAt < nowInSeconds) {
-        log.debug(
-          { context: { existingApimCredentals: token.apim } },
-          "getOrRefreshApimCredentials: Refreshing APIM creds.",
-        );
-
-        log.info(`APIM token expires soon ${token.apim.expires_at} ; fetching new token`);
-        apimCredentials = await retrieveApimCredentials(token.nhs_login.id_token);
-        log.debug(
-          { context: { updatedApimCredentals: apimCredentials } },
-          "getOrRefreshApimCredentials: Refreshed APIM creds retrieved.",
-        );
-
-        log.info(`New APIM token fetched. expiry time: ${apimCredentials.expiresAt}`);
-      } else {
-        log.debug(
-          { context: { existingApimCredentals: token.apim, timeRemaining: expiresSoonAt - nowInSeconds } },
-          "getOrRefreshApimCredentials: APIM creds still fresh.",
-        );
-        apimCredentials = {
-          accessToken: token.apim.access_token,
-          expiresAt: token.apim.expires_at,
-        };
-      }
-    }
-  }
-  return apimCredentials;
-}
-
 const fillMissingFieldsInTokenWithDefaultValues = (token: JWT, apimAccessCredentials?: ApimAccessCredentials): JWT => {
   return {
     ...token,
@@ -160,4 +108,4 @@ const updateTokenWithValuesFromAccountAndProfile = (
   return updatedToken;
 };
 
-export { getToken, _getOrRefreshApimCredentials };
+export { getToken };
