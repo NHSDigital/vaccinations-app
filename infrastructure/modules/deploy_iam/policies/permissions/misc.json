@@ -1,0 +1,186 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "SSLCertificatesListAction",
+      "Effect": "Allow",
+      "Action": ["acm:ListCertificates"],
+      "Resource": "*"
+    },
+
+    {
+      "Sid": "SSLCertificates",
+      "Effect": "Allow",
+      "Action": ["acm:DescribeCertificate", "acm:GetCertificate", "acm:ListTagsForCertificate"],
+      "Resource": "arn:aws:acm:us-east-1:${account_id}:certificate/*"
+    },
+
+    {
+      "Sid": "SlackWorkspaces",
+      "Effect": "Allow",
+      "Action": ["chatbot:DescribeSlackWorkspaces"],
+      "Resource": "*"
+    },
+
+    {
+      "Sid": "ChatBot",
+      "Effect": "Allow",
+      "Action": [
+        "chatbot:CreateSlackChannelConfiguration",
+        "chatbot:DescribeSlackChannelConfigurations",
+        "chatbot:TagResource",
+        "chatbot:UpdateSlackChannelConfiguration"
+      ],
+      "Resource": "arn:aws:chatbot::${account_id}:chat-configuration/slack-channel/${prefix}-*"
+    },
+
+    {
+      "Sid": "Alarms",
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:DeleteAlarms",
+        "cloudwatch:DescribeAlarms",
+        "cloudwatch:ListTagsForResource",
+        "cloudwatch:PutMetricAlarm"
+      ],
+      "Resource": "arn:aws:cloudwatch:${region}:${account_id}:alarm:${prefix}-*"
+    },
+
+    {
+      "Sid": "DynamoDB",
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:CreateTable",
+        "dynamodb:DescribeContinuousBackups",
+        "dynamodb:DescribeTable",
+        "dynamodb:DescribeTimeToLive",
+        "dynamodb:ListTagsOfResource",
+        "dynamodb:PutItem",
+        "dynamodb:TagResource"
+      ],
+      "Resource": "arn:aws:dynamodb:${region}:${account_id}:table/${prefix}-*"
+    },
+
+    {
+      "Sid": "EventBus",
+      "Effect": "Allow",
+      "Action": [
+        "events:DeleteRule",
+        "events:PutRule",
+        "events:PutTargets",
+        "events:RemoveTargets",
+        "events:TagResource"
+      ],
+      "Resource": "arn:aws:events:${region}:${account_id}:event-bus/default"
+    },
+
+    {
+      "Sid": "EventRule",
+      "Effect": "Allow",
+      "Action": ["events:DescribeRule", "events:ListTagsForResource", "events:ListTargetsByRule"],
+      "Resource": "arn:aws:events:${region}:${account_id}:rule/${prefix}-*"
+    },
+
+    {
+      "Sid": "Firehose",
+      "Effect": "Allow",
+      "Action": [
+        "firehose:CreateDeliveryStream",
+        "firehose:DescribeDeliveryStream",
+        "firehose:ListTagsForDeliveryStream",
+        "firehose:StartDeliveryStreamEncryption",
+        "firehose:TagDeliveryStream",
+        "firehose:UpdateDestination"
+      ],
+      "Resource": "arn:aws:firehose:${region}:${account_id}:deliverystream/${prefix}-*"
+    },
+
+    {
+      "Sid": "CloudWatchListAction",
+      "Effect": "Allow",
+      "Action": ["logs:DescribeLogGroups"],
+      "Resource": "*"
+    },
+
+    {
+      "Sid": "CloudWatch",
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:DeleteLogGroup",
+        "logs:ListTagsForResource",
+        "logs:DeleteLogStream",
+        "logs:DeleteMetricFilter",
+        "logs:DeleteSubscriptionFilter",
+        "logs:DescribeLogStreams",
+        "logs:DescribeMetricFilters",
+        "logs:DescribeSubscriptionFilters",
+        "logs:PutMetricFilter",
+        "logs:PutRetentionPolicy",
+        "logs:PutSubscriptionFilter"
+      ],
+      "Resource": [
+        "arn:aws:logs:${region}:${account_id}:log-group:/aws/lambda/${prefix}-*:*",
+        "arn:aws:logs:${region}:${account_id}:log-group:/aws/lambda/${prefix}-*",
+        "arn:aws:logs:${region}:${account_id}:log-group:/aws/firehose/${prefix}-*:*",
+        "arn:aws:logs:${region}:${account_id}:log-group:/aws/firehose/${prefix}-*"
+      ]
+    },
+
+    {
+      "Sid": "SecretsManager",
+      "Effect": "Allow",
+      "Action": ["secretsmanager:DescribeSecret", "secretsmanager:GetResourcePolicy", "secretsmanager:GetSecretValue"],
+      "Resource": ["arn:aws:secretsmanager:${region}:${account_id}:secret:${project_shortcode}/splunk/*"]
+    },
+
+    {
+      "Sid": "SNS",
+      "Effect": "Allow",
+      "Action": [
+        "SNS:CreateTopic",
+        "SNS:DeleteTopic",
+        "SNS:GetTopicAttributes",
+        "SNS:ListTagsForResource",
+        "SNS:SetTopicAttributes",
+        "SNS:TagResource"
+      ],
+      "Resource": "arn:aws:sns:${region}:${account_id}:${prefix}-*"
+    },
+
+    {
+      "Sid": "SQS",
+      "Effect": "Allow",
+      "Action": ["sqs:CreateQueue", "sqs:deletequeue", "sqs:GetQueueAttributes", "sqs:ListQueueTags", "sqs:TagQueue"],
+      "Resource": "arn:aws:sqs:${region}:${account_id}:${prefix}-*"
+    },
+
+    {
+      "Sid": "SSMListAction",
+      "Effect": "Allow",
+      "Action": ["ssm:DescribeParameters"],
+      "Resource": "*"
+    },
+
+    {
+      "Sid": "SSM",
+      "Effect": "Allow",
+      "Action": [
+        "ssm:AddTagsToResource",
+        "ssm:GetParameter",
+        "ssm:GetParameters",
+        "ssm:ListTagsForResource",
+        "ssm:PutParameter"
+      ],
+      "Resource": ["arn:aws:ssm:${region}:${account_id}:parameter/${prefix}*"]
+    },
+
+    {
+      "Sid": "InvokeCacheHydrator",
+      "Effect": "Allow",
+      "Action": ["lambda:InvokeFunction"],
+      "Resource": "arn:aws:lambda:eu-west-2:*:function:gh-vita-*-content-cache-hydrator"
+    }
+  ]
+}

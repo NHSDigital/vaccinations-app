@@ -1,0 +1,61 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "CloudFrontListActions",
+      "Effect": "Allow",
+      "Action": ["cloudfront:ListOriginRequestPolicies", "cloudfront:ListCachePolicies"],
+      "Resource": "*"
+    },
+
+    {
+      "Sid": "CloudFrontFunction",
+      "Effect": "Allow",
+      "Action": ["cloudfront:DescribeFunction", "cloudfront:GetFunction"],
+      "Resource": "arn:aws:cloudfront::${account_id}:function/${prefix}-*"
+    },
+
+    {
+      "Sid": "CloudFrontOAC",
+      "Effect": "Allow",
+      "Action": ["cloudfront:GetOriginAccessControl"],
+      "Resource": "arn:aws:cloudfront::${account_id}:origin-access-control/*"
+    },
+
+    {
+      "Sid": "CloudFrontCachePolicy",
+      "Effect": "Allow",
+      "Action": ["cloudfront:GetCachePolicy"],
+      "Resource": "arn:aws:cloudfront::${account_id}:cache-policy/*"
+    },
+
+    {
+      "Sid": "CloudFrontOriginRequestPolicy",
+      "Effect": "Allow",
+      "Action": ["cloudfront:GetOriginRequestPolicy"],
+      "Resource": "arn:aws:cloudfront::${account_id}:origin-request-policy/*"
+    },
+
+    {
+      "Sid": "CloudFront",
+      "Effect": "Allow",
+      "Action": [
+        "cloudfront:CreateCachePolicy",
+        "cloudfront:CreateDistribution",
+        "cloudfront:CreateFunction",
+        "cloudfront:CreateMonitoringSubscription",
+        "cloudfront:CreateOriginAccessControl",
+        "cloudfront:DeleteFunction",
+        "cloudfront:DeleteMonitoringSubscription",
+        "cloudfront:GetDistribution",
+        "cloudfront:GetMonitoringSubscription",
+        "cloudfront:ListTagsForResource",
+        "cloudfront:PublishFunction",
+        "cloudfront:TagResource",
+        "cloudfront:UpdateDistribution",
+        "cloudfront:UpdateOriginAccessControl"
+      ],
+      "Resource": "arn:aws:cloudfront::${account_id}:distribution/*"
+    }
+  ]
+}
