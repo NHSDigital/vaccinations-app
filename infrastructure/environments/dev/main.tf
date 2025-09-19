@@ -19,8 +19,6 @@ module "deploy_lambda" {
   log_retention_in_days             = local.log_retention_in_days
   default_tags                      = local.default_tags
   alerting_sns_topic_arn            = module.deploy_monitoring.alerting_sns_topic_arn
-
-  depends_on = [module.deploy_iam]
 }
 
 module "deploy" {
@@ -49,8 +47,6 @@ resource "aws_cloudfront_monitoring_subscription" "enable_more_cloudfront_metric
       realtime_metrics_subscription_status = "Enabled"
     }
   }
-
-  depends_on = [module.deploy_iam, module.deploy]
 }
 
 module "deploy_monitoring" {
@@ -62,8 +58,6 @@ module "deploy_monitoring" {
   alarms_slack_channel_id    = local.alarms_slack_channel_id
   cloudfront_distribution_id = module.deploy.cloudfront_distribution_id
   is_local                   = !var.is_github_action
-
-  depends_on = [module.deploy_iam]
 }
 
 module "deploy_splunk" {
@@ -77,6 +71,4 @@ module "deploy_splunk" {
   account_id                   = data.aws_caller_identity.current.account_id
   alerting_sns_topic_arn       = module.deploy_monitoring.alerting_sns_topic_arn
   python_version               = local.python_version
-
-  depends_on = [module.deploy_iam, module.deploy]
 }
