@@ -1,4 +1,4 @@
-import { retrieveApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
+import { _getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import { getToken } from "@src/utils/auth/callbacks/get-token";
 import { MaxAgeInSeconds } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
@@ -12,9 +12,11 @@ import { headers } from "next/headers";
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
 }));
-jest.mock("@src/utils/auth/apim/get-apim-access-token", () => ({
-  retrieveApimCredentials: jest.fn(),
+
+jest.mock("@src/utils/auth/apim/get-or-refresh-apim-credentials", () => ({
+  _getOrRefreshApimCredentials: jest.fn(),
 }));
+
 jest.mock("next/headers", () => ({
   headers: jest.fn(),
 }));
@@ -38,7 +40,6 @@ describe("getToken", () => {
       .withNHS_LOGIN_URL("https://mock.nhs.login")
       .andNHS_LOGIN_CLIENT_ID("mock-client-id")
       .andNHS_LOGIN_PRIVATE_KEY("mock-private-key")
-      .andIS_APIM_AUTH_ENABLED(true)
       .build();
 
     const nowInSeconds = 1749052001;
@@ -50,7 +51,7 @@ describe("getToken", () => {
     });
 
     beforeEach(async () => {
-      (retrieveApimCredentials as jest.Mock).mockResolvedValue({
+      (_getOrRefreshApimCredentials as jest.Mock).mockResolvedValue({
         accessToken: "new-apim-access-token",
         expiresAt: nowInSeconds + 1111,
       });
@@ -106,61 +107,7 @@ describe("getToken", () => {
       });
     });
 
-    it("should return stored APIM creds if fresh", async () => {
-      // Given
-      const token = {
-        apim: {
-          access_token: "old-access-token",
-          expires_at: nowInSeconds + 60,
-        },
-        nhs_login: { id_token: "old-id-token" },
-      } as JWT;
-      const account = {
-        expires_at: nowInSeconds + 1000,
-        access_token: "newAccess",
-        id_token: "newIdToken",
-      } as Account;
-      const profile = {
-        nhs_number: "test_nhs_number",
-      };
-      const maxAgeInSeconds = 600 as MaxAgeInSeconds;
-
-      // When
-      const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
-
-      // Then
-      expect(result?.apim).toEqual({
-        access_token: "old-access-token",
-        expires_at: nowInSeconds + 60,
-      });
-    });
-
-    it("should return new APIM creds if expired", async () => {
-      // Given
-      const token = {
-        apim: { access_token: "old-access-token", expires_at: nowInSeconds - 60 },
-        nhs_login: { id_token: "id-token" },
-      } as JWT;
-      const account = {
-        expires_at: nowInSeconds + 1000,
-        access_token: "newAccess",
-        id_token: "newIdToken",
-      } as Account;
-      const profile = {
-        nhs_number: "test_nhs_number",
-      };
-      const maxAgeInSeconds = 600 as MaxAgeInSeconds;
-
-      // When
-      const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
-
-      // Then
-      expect(result?.apim).toEqual({
-        access_token: "new-apim-access-token",
-        expires_at: nowInSeconds + 1111,
-      });
-    });
-
+    // todo: check the apim assertion still holds
     it("should return token with empty values on initial login if account and profile are undefined", async () => {
       const token = {} as JWT;
 
@@ -169,6 +116,8 @@ describe("getToken", () => {
       const profile = {} as Profile;
 
       const maxAgeInSeconds = 600 as MaxAgeInSeconds;
+
+      (_getOrRefreshApimCredentials as jest.Mock).mockResolvedValue(undefined);
 
       const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
 
@@ -193,6 +142,8 @@ describe("getToken", () => {
         nhs_login: {},
         apim: {},
       } as JWT;
+
+      (_getOrRefreshApimCredentials as jest.Mock).mockResolvedValue(undefined);
 
       const result = await getToken(token, null, undefined, mockConfig, 300 as MaxAgeInSeconds);
 
@@ -220,25 +171,16 @@ describe("getToken", () => {
 
       expect(result).toBeNull();
     });
-
-    it("should not update apim credentials if already present (and not expired)", async () => {
-      // Given
-      const token = { apim: { access_token: "test-apim-access-token" }, nhs_login: { id_token: "id-token" } } as JWT;
-
-      // When
-      const result = await getToken(token, null, undefined, mockConfig, 300 as MaxAgeInSeconds);
-
-      // Then
-      expect(result?.apim).toMatchObject({ access_token: "test-apim-access-token" });
-    });
   });
 
+  // this condition is now not relevant at this layer
   describe("when AUTH APIM is not available", () => {
+    (_getOrRefreshApimCredentials as jest.Mock).mockResolvedValue(undefined);
+
     const mockConfig: AppConfig = appConfigBuilder()
       .withNHS_LOGIN_URL("https://mock.nhs.login")
       .andNHS_LOGIN_CLIENT_ID("mock-client-id")
       .andNHS_LOGIN_PRIVATE_KEY("mock-private-key")
-      .andIS_APIM_AUTH_ENABLED(false)
       .build();
 
     const nowInSeconds = 1749052001;
@@ -256,7 +198,7 @@ describe("getToken", () => {
       jest.useRealTimers();
     });
 
-    it("should return updated token on initial login with account profile, and APIM credentials", async () => {
+    it("should return updated token on initial login with account profile, and default APIM credentials", async () => {
       (jwtDecode as jest.Mock).mockReturnValue({
         jti: "jti_test",
       });
