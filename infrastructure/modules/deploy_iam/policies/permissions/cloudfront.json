@@ -37,18 +37,26 @@
     },
 
     {
+      "Sid": "CloudFrontMonitoringSubscription",
+      "Effect": "Allow",
+      "Action": [
+        "cloudfront:CreateMonitoringSubscription",
+        "cloudfront:GetMonitoringSubscription",
+        "cloudfront:DeleteMonitoringSubscription"
+      ],
+      "Resource": "*"
+    },
+
+    {
       "Sid": "CloudFront",
       "Effect": "Allow",
       "Action": [
         "cloudfront:CreateCachePolicy",
         "cloudfront:CreateDistribution",
         "cloudfront:CreateFunction",
-        "cloudfront:CreateMonitoringSubscription",
         "cloudfront:CreateOriginAccessControl",
         "cloudfront:DeleteFunction",
-        "cloudfront:DeleteMonitoringSubscription",
         "cloudfront:GetDistribution",
-        "cloudfront:GetMonitoringSubscription",
         "cloudfront:ListTagsForResource",
         "cloudfront:PublishFunction",
         "cloudfront:TagResource",
