@@ -103,6 +103,7 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
         <>
           <Details title={HEADINGS.HOW_TO_GET_VACCINE} component={howToGetVaccineOrFallback} notExpandable={true} />
           <PharmacyBookingInfo vaccineType={vaccineType} />
+          <hr />
         </>
       )}
 
