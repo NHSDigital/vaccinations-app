@@ -1,6 +1,6 @@
 import { fetchAPIMAccessToken } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { getApimAccessToken, retrieveApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
-import { _getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
+import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import { getJwtToken } from "@src/utils/auth/get-jwt-token";
 import { AccessToken, IdToken } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
@@ -16,7 +16,7 @@ jest.mock("@src/utils/auth/apim/fetch-apim-access-token", () => ({
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 jest.mock("@src/utils/auth/apim/get-or-refresh-apim-credentials", () => ({
-  _getOrRefreshApimCredentials: jest.fn(),
+  getOrRefreshApimCredentials: jest.fn(),
 }));
 
 const mockConfig: AppConfig = appConfigBuilder().build();
@@ -43,7 +43,7 @@ describe("getApimAccessToken", () => {
 
   it("should pass JWT token to getOrRefresh method and return what it returns", async () => {
     const getOrRefreshedApimAccessToken = "apim-access-token";
-    (_getOrRefreshApimCredentials as jest.Mock).mockResolvedValue({
+    (getOrRefreshApimCredentials as jest.Mock).mockResolvedValue({
       accessToken: getOrRefreshedApimAccessToken,
       expiresAt: nowInSeconds + 1111,
     });
@@ -52,7 +52,7 @@ describe("getApimAccessToken", () => {
 
     const apimAccessToken = await getApimAccessToken(mockConfig);
 
-    expect(_getOrRefreshApimCredentials).toHaveBeenCalledWith(mockConfig, mockJwtToken, nowInSeconds);
+    expect(getOrRefreshApimCredentials).toHaveBeenCalledWith(mockConfig, mockJwtToken, nowInSeconds);
     expect(apimAccessToken).toEqual(getOrRefreshedApimAccessToken as AccessToken);
   });
 
@@ -63,7 +63,7 @@ describe("getApimAccessToken", () => {
   });
 
   it("should throw error if _getOrRefresh APIM access token returns undefined", async () => {
-    (_getOrRefreshApimCredentials as jest.Mock).mockResolvedValue(undefined);
+    (getOrRefreshApimCredentials as jest.Mock).mockResolvedValue(undefined);
 
     (getJwtToken as jest.Mock).mockResolvedValue(mockJwtToken);
 

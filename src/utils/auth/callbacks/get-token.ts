@@ -1,5 +1,5 @@
 import { NhsNumber } from "@src/models/vaccine";
-import { _getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
+import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import { ApimAccessCredentials } from "@src/utils/auth/apim/types";
 import { IdToken, MaxAgeInSeconds, NowInSeconds } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
@@ -46,7 +46,7 @@ const getToken = async (
     }
 
     // TODO VIA-254 - can we do this only once? https://www.youtube.com/watch?v=A4I9DMSvJxg
-    const apimAccessCredentials = await _getOrRefreshApimCredentials(config, token, nowInSeconds);
+    const apimAccessCredentials = await getOrRefreshApimCredentials(config, token, nowInSeconds);
 
     // Inspect the token (which was either returned from login or fetched from session), fill missing or blank values with defaults
     let updatedToken: JWT = fillMissingFieldsInTokenWithDefaultValues(token, apimAccessCredentials);

@@ -1,6 +1,6 @@
 import { ApimMissingTokenError } from "@src/utils/auth/apim/exceptions";
 import { fetchAPIMAccessToken } from "@src/utils/auth/apim/fetch-apim-access-token";
-import { _getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
+import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import { ApimAccessCredentials, ApimTokenResponse } from "@src/utils/auth/apim/types";
 import { getJwtToken } from "@src/utils/auth/get-jwt-token";
 import { AccessToken, ExpiresAt, IdToken } from "@src/utils/auth/types";
@@ -26,7 +26,7 @@ const getApimAccessToken = async (config: AppConfig): Promise<AccessToken> => {
   }
 
   const nowInSeconds = Math.floor(Date.now() / 1000);
-  const apimAccessCredentials = await _getOrRefreshApimCredentials(config, token, nowInSeconds);
+  const apimAccessCredentials = await getOrRefreshApimCredentials(config, token, nowInSeconds);
 
   if (!apimAccessCredentials) {
     log.error("Error: getOrRefreshApimCredentials returned undefined");

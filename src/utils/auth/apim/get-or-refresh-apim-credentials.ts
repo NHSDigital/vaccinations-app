@@ -8,7 +8,7 @@ import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "get-or-refresh-apim-credentials" });
 
-async function _getOrRefreshApimCredentials(config: AppConfig, token: JWT, nowInSeconds: number) {
+const getOrRefreshApimCredentials = async (config: AppConfig, token: JWT, nowInSeconds: number) => {
   // Return the APIM creds from the token if still valid, or fetch new creds from APIM if expiring soon or empty
   let apimCredentials: ApimAccessCredentials | undefined;
 
@@ -69,6 +69,6 @@ async function _getOrRefreshApimCredentials(config: AppConfig, token: JWT, nowIn
     }
   }
   return apimCredentials;
-}
+};
 
-export { _getOrRefreshApimCredentials };
+export { getOrRefreshApimCredentials };

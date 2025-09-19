@@ -1,5 +1,5 @@
 import { retrieveApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
-import { _getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
+import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import { AppConfig } from "@src/utils/config";
 import { appConfigBuilder } from "@test-data/config/builders";
 import { JWT } from "next-auth/jwt";
@@ -43,7 +43,7 @@ describe("getOrRefreshApimCredentials", () => {
     it("should return undefined and logs error if token does not contain id_token", async () => {
       const token = { apim: {}, nhs_login: {} } as JWT;
 
-      const result = await _getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
+      const result = await getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
 
       expect(result).toBeUndefined();
     });
@@ -51,7 +51,7 @@ describe("getOrRefreshApimCredentials", () => {
     it("should return new APIM creds if stored creds are empty", async () => {
       const token = { apim: {}, nhs_login: { id_token: "id-token" } } as JWT;
 
-      const result = await _getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
+      const result = await getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
 
       expect(result).toMatchObject({
         accessToken: "new-apim-access-token",
@@ -68,7 +68,7 @@ describe("getOrRefreshApimCredentials", () => {
         nhs_login: { id_token: "old-id-token" },
       } as JWT;
 
-      const result = await _getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
+      const result = await getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
 
       expect(result).toEqual({
         accessToken: "old-access-token",
@@ -82,7 +82,7 @@ describe("getOrRefreshApimCredentials", () => {
         nhs_login: { id_token: "id-token" },
       } as JWT;
 
-      const result = await _getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
+      const result = await getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
 
       expect(result).toEqual({
         accessToken: "new-apim-access-token",
@@ -98,7 +98,7 @@ describe("getOrRefreshApimCredentials", () => {
           nhs_login: { id_token: "id-token" },
         } as JWT;
 
-        const result = await _getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
+        const result = await getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
 
         expect(result).toEqual({
           accessToken: "stored-access-token",
@@ -110,7 +110,7 @@ describe("getOrRefreshApimCredentials", () => {
         process.env.NEXT_RUNTIME = "edge";
         const token = { apim: {}, nhs_login: { id_token: "id-token" } } as JWT;
 
-        const result = await _getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
+        const result = await getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
         expect(result).toBeUndefined();
       });
     });
@@ -137,7 +137,7 @@ describe("getOrRefreshApimCredentials", () => {
     it("should return undefined if APIM auth is not enabled", async () => {
       const token = { apim: {}, nhs_login: { id_token: "id-token" } } as JWT;
 
-      const result = await _getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
+      const result = await getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
 
       expect(result).toBeUndefined();
     });

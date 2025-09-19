@@ -1,4 +1,4 @@
-import { _getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
+import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import { getToken } from "@src/utils/auth/callbacks/get-token";
 import { MaxAgeInSeconds } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
@@ -14,7 +14,7 @@ jest.mock("@project/auth", () => ({
 }));
 
 jest.mock("@src/utils/auth/apim/get-or-refresh-apim-credentials", () => ({
-  _getOrRefreshApimCredentials: jest.fn(),
+  getOrRefreshApimCredentials: jest.fn(),
 }));
 
 jest.mock("next/headers", () => ({
@@ -51,7 +51,7 @@ describe("getToken", () => {
     });
 
     beforeEach(async () => {
-      (_getOrRefreshApimCredentials as jest.Mock).mockResolvedValue({
+      (getOrRefreshApimCredentials as jest.Mock).mockResolvedValue({
         accessToken: "new-apim-access-token",
         expiresAt: nowInSeconds + 1111,
       });
@@ -117,7 +117,7 @@ describe("getToken", () => {
 
       const maxAgeInSeconds = 600 as MaxAgeInSeconds;
 
-      (_getOrRefreshApimCredentials as jest.Mock).mockResolvedValue(undefined);
+      (getOrRefreshApimCredentials as jest.Mock).mockResolvedValue(undefined);
 
       const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
 
@@ -143,7 +143,7 @@ describe("getToken", () => {
         apim: {},
       } as JWT;
 
-      (_getOrRefreshApimCredentials as jest.Mock).mockResolvedValue(undefined);
+      (getOrRefreshApimCredentials as jest.Mock).mockResolvedValue(undefined);
 
       const result = await getToken(token, null, undefined, mockConfig, 300 as MaxAgeInSeconds);
 
@@ -175,7 +175,7 @@ describe("getToken", () => {
 
   // this condition is now not relevant at this layer
   describe("when AUTH APIM is not available", () => {
-    (_getOrRefreshApimCredentials as jest.Mock).mockResolvedValue(undefined);
+    (getOrRefreshApimCredentials as jest.Mock).mockResolvedValue(undefined);
 
     const mockConfig: AppConfig = appConfigBuilder()
       .withNHS_LOGIN_URL("https://mock.nhs.login")
