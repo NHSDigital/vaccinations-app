@@ -36,10 +36,13 @@
       ],
       "Resource": [
         "arn:aws:s3:::${prefix}-*",
+        "arn:aws:s3:::${prefix}-*/*",
         "arn:aws:s3:::vaccinations-app-tfstate-${environment}",
         "arn:aws:s3:::vaccinations-app-tfstate-${environment}/*",
         "arn:aws:s3:::${project_shortcode}-${account_id}-artefacts-${environment}",
-        "arn:aws:s3:::${project_shortcode}-${account_id}-releases-${environment}"
+        "arn:aws:s3:::${project_shortcode}-${account_id}-artefacts-${environment}/*",
+        "arn:aws:s3:::${project_shortcode}-${account_id}-releases-${environment}",
+        "arn:aws:s3:::${project_shortcode}-${account_id}-releases-${environment}/*"
       ]
     }
   ]
