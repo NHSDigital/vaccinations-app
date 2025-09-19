@@ -230,6 +230,31 @@ After one successful initial deployment, there should be a role created with the
 
 - Now point GitHub environment secret IAM_ROLE to point to that role going forward.
 
+##### As a developer, how to assume the restricted role
+
+Use the steps below to deploy with restricted role instead of administrator, in order to test permissions before updating.
+
+- Get AWS credentials for restricted role - replace "my-initial-iam-role" with your personal one already in AWS
+
+  ```shell
+  aws sts assume-role --role-arn "arn:aws:iam::050451358653:role/my-initial-iam-role" --role-session-name "my-session"
+  ```
+
+- Store the credentials obtained above in ~/.aws/credentials file
+
+  ```
+  [my-assumed-role]
+  aws_access_key_id=xyz
+  aws_secret_access_key=abc
+  aws_session_token=pqr
+  ```
+
+- Run terraform commands assuming the restricted role
+
+  ```shell
+  AWS_PROFILE=my-assumed-role AWS_REGION=eu-west-2 TF_ENV=dev make terraform-apply
+  ```
+
 ## OpenNext
 
 OpenNext takes the Next.js build output and converts it into packages that can be deployed across a variety of environments.
