@@ -132,7 +132,7 @@
       "Sid": "SecretsManager",
       "Effect": "Allow",
       "Action": ["secretsmanager:DescribeSecret", "secretsmanager:GetResourcePolicy", "secretsmanager:GetSecretValue"],
-      "Resource": ["arn:aws:secretsmanager:${region}:${account_id}:secret:${project_shortcode}/splunk/*"]
+      "Resource": ["arn:aws:secretsmanager:${region}:${account_id}:secret:/${project_shortcode}/splunk/*"]
     },
 
     {

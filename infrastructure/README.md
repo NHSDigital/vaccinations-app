@@ -12,6 +12,8 @@ Update the values for the following secrets after generating them: -
 - /vita/apim/prod-1.json - APIM public key in JWKS format generated above
 - /vita/nhslogin/private_key.pem - NHS Login private key generated from [here](https://nhsconnect.github.io/nhslogin/generating-pem/)
 - /vita/nhslogin/public_key.pem - NHS Login public key generated above
+- /vita/splunk/hec/endpoint - HEC endpoint of Splunk
+- /vita/splunk/hec/token - HEC token of Splunk endpoint to store operational logs
 
 Now fill the values used by the application below: -
 
@@ -209,15 +211,24 @@ We need an IAM role policy and identity provider for GitHub actions to provision
 
 #### Role
 
-We go with the least privilege approach, giving only enough permissions to GitHub as needed to be able to create, update and destroy resources.
-This is an iterative approach, so whenever a deployment fails due to missing permissions, the same should be added, tested to ensure it works, and then
-checked in to the repository.
+##### Step 1 - Initial deployment
 
 - Open the role just created - `vaccinations-app-github-iam-role`
 - Add permissions policy -> `add permissions` -> `Create inline policy` to it.
 - Select JSON in the policy editor, and paste the contents of the [policy file](github-iam-role-policy.json).
 - Give it a name `vaccinations-app-github-iam-role-policy`.
 - Save
+- Deploy locally or via GitHub
+
+##### Step 2 - Subsequent deployments
+
+We go with the least privilege approach, giving only enough permissions to GitHub as needed to be able to create, update and destroy resources.
+This is an iterative approach, so whenever a deployment fails due to missing permissions, the same should be added, tested to ensure it works, and then
+checked in to the repository.
+
+After one successful initial deployment, there should be a role created with the application prefix containing the least set of permissions to only specific resources.
+
+- Now point GitHub environment secret IAM_ROLE to point to that role going forward.
 
 ## OpenNext
 
