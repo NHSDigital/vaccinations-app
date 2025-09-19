@@ -1,0 +1,33 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "IAM",
+      "Effect": "Allow",
+      "Action": [
+        "iam:AttachRolePolicy",
+        "iam:CreatePolicy",
+        "iam:CreatePolicyVersion",
+        "iam:CreateRole",
+        "iam:CreateServiceLinkedRole",
+        "iam:DeletePolicy",
+        "iam:DeleteRole",
+        "iam:DeleteRolePolicy",
+        "iam:DetachRolePolicy",
+        "iam:GetPolicy",
+        "iam:GetPolicyVersion",
+        "iam:GetRole",
+        "iam:GetRolePolicy",
+        "iam:ListAttachedRolePolicies",
+        "iam:ListInstanceProfilesForRole",
+        "iam:ListPolicyVersions",
+        "iam:ListRolePolicies",
+        "iam:PassRole",
+        "iam:PutRolePolicy",
+        "iam:TagPolicy",
+        "iam:TagRole"
+      ],
+      "Resource": ["arn:aws:iam::${account_id}:role/${prefix}-*", "arn:aws:iam::${account_id}:policy/${prefix}-*"]
+    }
+  ]
+}
