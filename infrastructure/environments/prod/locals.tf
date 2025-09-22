@@ -25,7 +25,7 @@ locals {
   application_environment_variables = {
     SSM_PREFIX = "/${local.prefix}/"
 
-    PINO_LOG_LEVEL      = "error"
+    PINO_LOG_LEVEL      = "info"
     DEPLOY_ENVIRONMENT  = local.environment
     PROFILE_PERFORMANCE = "false"
 
@@ -52,7 +52,7 @@ locals {
     NBS_BOOKING_PATH = "/nhs-app"
 
     SSM_PARAMETER_STORE_TTL                = 300
-    PARAMETERS_SECRETS_EXTENSION_LOG_LEVEL = "ERROR"
+    PARAMETERS_SECRETS_EXTENSION_LOG_LEVEL = "INFO"
   }
 
   default_tags = {

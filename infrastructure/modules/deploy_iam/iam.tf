@@ -92,3 +92,24 @@ resource "aws_iam_role_policy_attachment" "lambda_iam_role_policy_attachment" {
   role       = aws_iam_role.terraform_iam_role.name
   policy_arn = aws_iam_policy.lambda_iam_role_permissions.arn
 }
+
+########################
+# Fake API permissions
+########################
+resource "aws_iam_policy" "fake_api_iam_role_permissions" {
+  count = var.environment == "test" ? 1 : 0
+
+  name = "${var.prefix}-fake-api-iam-role-policy"
+  policy = templatefile("${path.module}/policies/permissions/test/fake-api.json", {
+    account_id : var.account_id
+    prefix : var.prefix
+    region : var.region
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "fake_api_iam_role_policy_attachment" {
+  count = var.environment == "test" ? 1 : 0
+
+  role       = aws_iam_role.terraform_iam_role.name
+  policy_arn = aws_iam_policy.fake_api_iam_role_permissions.arn
+}

@@ -52,7 +52,7 @@ locals {
     NBS_BOOKING_PATH = "/nhs-app"
 
     SSM_PARAMETER_STORE_TTL                = 300
-    PARAMETERS_SECRETS_EXTENSION_LOG_LEVEL = "WARN"
+    PARAMETERS_SECRETS_EXTENSION_LOG_LEVEL = "INFO"
   }
 
   default_tags = {
