@@ -3,17 +3,29 @@
   "Statement": [
     {
       "Effect": "Allow",
-      "Action": [
-        "kms:Decrypt",
-        "ssm:GetParameter",
-        "s3:ListBucket",
-        "s3:PutObject",
-        "s3:GetObject",
-        "logs:CreateLogGroup",
-        "logs:CreateLogStream",
-        "logs:PutLogEvents"
-      ],
-      "Resource": "*"
+      "Action": ["kms:Decrypt"],
+      "Resource": "arn:aws:kms:${region}:${account_id}:alias/aws/ssm"
+    },
+
+    {
+      "Effect": "Allow",
+      "Action": ["ssm:GetParameter"],
+      "Resource": "arn:aws:ssm:${region}:${account_id}:parameter/${prefix}/*"
+    },
+
+    {
+      "Effect": "Allow",
+      "Action": ["s3:ListBucket", "s3:GetObject", "s3:PutObject"],
+      "Resource": ["arn:aws:s3:::${prefix}-content-cache", "arn:aws:s3:::${prefix}-content-cache/*"]
+    },
+
+    {
+      "Effect": "Allow",
+      "Action": ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"],
+      "Resource": [
+        "arn:aws:logs:${region}:${account_id}:log-group:/aws/lambda/${prefix}-content-cache-hydrator:*",
+        "arn:aws:logs:${region}:${account_id}:log-group:/aws/lambda/${prefix}-content-cache-hydrator"
+      ]
     }
   ]
 }
