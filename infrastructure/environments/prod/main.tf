@@ -19,6 +19,8 @@ module "deploy_lambda" {
   log_retention_in_days             = local.log_retention_in_days
   default_tags                      = local.default_tags
   alerting_sns_topic_arn            = module.deploy_monitoring.alerting_sns_topic_arn
+  account_id                        = data.aws_caller_identity.current.account_id
+  region                            = local.region
 }
 
 module "deploy" {

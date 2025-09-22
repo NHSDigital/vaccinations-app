@@ -111,5 +111,5 @@ resource "aws_iam_role_policy_attachment" "fake_api_iam_role_policy_attachment" 
   count = var.environment == "test" ? 1 : 0
 
   role       = aws_iam_role.terraform_iam_role.name
-  policy_arn = aws_iam_policy.fake_api_iam_role_permissions.arn
+  policy_arn = aws_iam_policy.fake_api_iam_role_permissions[0].arn
 }

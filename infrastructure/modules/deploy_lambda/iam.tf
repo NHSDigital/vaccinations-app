@@ -4,8 +4,12 @@ resource "aws_iam_role" "cache_lambda_iam_role" {
 }
 
 resource "aws_iam_policy" "cache_lambda_iam_role_policy" {
-  name   = "${var.prefix}-cache-lambda-iam-role-policy"
-  policy = templatefile("${path.module}/policies/cache-lambda-iam-role-policy.json", {})
+  name = "${var.prefix}-cache-lambda-iam-role-policy"
+  policy = templatefile("${path.module}/policies/cache-lambda-iam-role-policy.json", {
+    region     = var.region
+    account_id = var.account_id
+    prefix     = var.prefix
+  })
 }
 
 resource "aws_iam_role_policy_attachment" "example-attach" {
