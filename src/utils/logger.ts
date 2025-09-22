@@ -93,7 +93,13 @@ const pinoLoggerForEdge = () => {
           traceId: asyncLocalStorage?.getStore()?.traceId,
           ...applicationContextFields,
         };
-        console.log(logEvent);
+        if (logEvent.level === "error") {
+          console.error(logEvent);
+        } else if (logEvent.level === "warn") {
+          console.warn(logEvent);
+        } else {
+          console.log(logEvent);
+        }
       },
     },
   });
