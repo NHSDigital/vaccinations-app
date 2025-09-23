@@ -4,6 +4,7 @@ import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import { NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
+import CookiesTable from "@src/app/our-policies/cookies-policy/CookiesTable";
 import React from "react";
 
 const CookiesPolicy = () => {
@@ -44,10 +45,6 @@ const CookiesPolicy = () => {
       </MainContent>
     </>
   );
-};
-
-const CookiesTable = () => {
-  return <div></div>;
 };
 
 export default CookiesPolicy;
