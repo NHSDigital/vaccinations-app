@@ -57,6 +57,20 @@ describe("CookiesPolicy Component", () => {
     );
   });
 
+  it("displays Strictly necessary cookies heading", () => {
+    render(<CookiesPolicy />);
+    const heading: HTMLElement = screen.getByRole("heading", { level: 2, name: "Strictly necessary cookies" });
+
+    expect(heading).toBeInTheDocument();
+  });
+
+  it("displays expandable Details for table", () => {
+    render(<CookiesPolicy />);
+    const details: HTMLElement = screen.getByText("List of necessary cookies that make this service work");
+
+    expect(details).toBeInTheDocument();
+  });
+
   it("displays Changes to cookies heading", () => {
     render(<CookiesPolicy />);
     const heading: HTMLElement = screen.getByRole("heading", { level: 2, name: "Changes to cookies" });

@@ -1,12 +1,12 @@
 import { JSX } from "react";
 
-interface DetailsProps {
+interface ExpanderProps {
   title: string;
   component: JSX.Element;
   notExpandable?: boolean;
 }
 
-const Details = (detailsProps: DetailsProps) => {
+const Expander = (detailsProps: ExpanderProps) => {
   return detailsProps.notExpandable ? (
     <>
       <h3 dangerouslySetInnerHTML={{ __html: detailsProps.title }} />
@@ -24,4 +24,4 @@ const Details = (detailsProps: DetailsProps) => {
   );
 };
 
-export default Details;
+export default Expander;

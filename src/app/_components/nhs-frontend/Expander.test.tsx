@@ -1,14 +1,14 @@
-import Details from "@src/app/_components/nhs-frontend/Details";
+import Expander from "@src/app/_components/nhs-frontend/Expander";
 import { render, screen } from "@testing-library/react";
 
-describe("Details Component", () => {
+describe("Expander Component", () => {
   it("renders expandable section by default", () => {
-    render(<Details title={"title"} component={<div>subsection</div>} />);
+    render(<Expander title={"title"} component={<div>subsection</div>} />);
     expect(screen.getByRole("group")).toBeInTheDocument();
   });
 
   it("renders non expandable section correctly", () => {
-    render(<Details title={"title"} component={<p>test</p>} notExpandable={true} />);
+    render(<Expander title={"title"} component={<p>test</p>} notExpandable={true} />);
     expect(screen.queryByRole("group")).not.toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 3, name: "title" })).toBeInTheDocument();
     expect(screen.getByText("test")).toBeInTheDocument();
