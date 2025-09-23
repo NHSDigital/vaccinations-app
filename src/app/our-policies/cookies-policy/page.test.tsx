@@ -5,30 +5,35 @@ import CookiesPolicy from "../../our-policies/cookies-policy/page";
 jest.mock("@src/app/_components/nhs-frontend/BackLink", () => jest.fn(() => <div data-testid="back-link"></div>));
 
 describe("CookiesPolicy Component", () => {
-  it("renders Cookies policy page", () => {
+  it("renders Cookies page", () => {
     render(<CookiesPolicy />);
-    expect(screen.getByRole("heading", { level: 1, name: "Cookies" })).toBeInTheDocument();
+    const title: HTMLElement = screen.getByRole("heading", { level: 1, name: "Cookies" });
+
+    expect(title).toBeInTheDocument();
   });
 
   it("displays Summary heading and its text", () => {
     render(<CookiesPolicy />);
 
-    expect(screen.getByRole("heading", { level: 2, name: "Summary" })).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "NHS England (“we” or “us”) uses cookies to deliver this service. The information set out in this policy is provided in addition to our",
-      ),
-    ).toBeInTheDocument();
-    expect(screen.getByText("and should be read alongside it.")).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "We put small files called cookies onto your device, like your mobile phone or computer. Cookies are widely used to make websites and apps work, or work more efficiently, as well as to provide services and functionalities for users.",
-      ),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText("Cookies fall into 2 categories, strictly necessary cookies and optional cookies."),
-    ).toBeInTheDocument();
-    expect(screen.getByText("We only put:")).toBeInTheDocument();
+    const heading: HTMLElement = screen.getByRole("heading", { level: 2, name: "Summary" });
+    const firstParagraph1: HTMLElement = screen.getByText(
+      "NHS England (“we” or “us”) uses cookies to deliver this service. The information set out in this policy is provided in addition to our",
+    );
+    const firstParagraph2: HTMLElement = screen.getByText("and should be read alongside it.");
+    const secondParagraph: HTMLElement = screen.getByText(
+      "We put small files called cookies onto your device, like your mobile phone or computer. Cookies are widely used to make websites and apps work, or work more efficiently, as well as to provide services and functionalities for users.",
+    );
+    const thirdParagraph: HTMLElement = screen.getByText(
+      "Cookies fall into 2 categories, strictly necessary cookies and optional cookies.",
+    );
+    const forthParagraph: HTMLElement = screen.getByText("We only put:");
+
+    expect(heading).toBeInTheDocument();
+    expect(firstParagraph1).toBeInTheDocument();
+    expect(firstParagraph2).toBeInTheDocument();
+    expect(secondParagraph).toBeInTheDocument();
+    expect(thirdParagraph).toBeInTheDocument();
+    expect(forthParagraph).toBeInTheDocument();
   });
 
   it("displays list in the Summary text", () => {
@@ -44,12 +49,18 @@ describe("CookiesPolicy Component", () => {
 
   it("has a correct link to privacy policy in Summary", () => {
     render(<CookiesPolicy />);
-
     const link: HTMLElement = screen.getByRole("link", { name: "privacy policy" });
 
     expect(link).toHaveAttribute(
       "href",
       "https://www.england.nhs.uk/contact-us/privacy-notice/national-flu-vaccination-programme/",
     );
+  });
+
+  it("displays Changes to cookies heading", () => {
+    render(<CookiesPolicy />);
+    const heading: HTMLElement = screen.getByRole("heading", { level: 2, name: "Changes to cookies" });
+
+    expect(heading).toBeInTheDocument();
   });
 });

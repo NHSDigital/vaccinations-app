@@ -32,6 +32,7 @@ const CookiesPolicy = () => {
         <ul aria-label={"what-cookies"}>
           <li>strictly necessary cookies on your device to make this service work</li>
         </ul>
+        <h2>Changes to cookies</h2>
       </MainContent>
     </>
   );
