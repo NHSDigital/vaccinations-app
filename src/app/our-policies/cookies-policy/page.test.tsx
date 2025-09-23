@@ -64,11 +64,13 @@ describe("CookiesPolicy Component", () => {
     expect(heading).toBeInTheDocument();
   });
 
-  it("displays expandable Details for table", () => {
+  it("displays expandable Details with table", () => {
     render(<CookiesPolicy />);
     const details: HTMLElement = screen.getByText("List of necessary cookies that make this service work");
+    const table: HTMLElement = screen.getByRole("columnheader", { name: "Purpose" });
 
     expect(details).toBeInTheDocument();
+    expect(table).toBeInTheDocument();
   });
 
   it("displays Changes to cookies heading", () => {
