@@ -121,3 +121,6 @@ lambda.zip
 .terraform/
 terraform.tfstate*
 /infrastructure/environments/*/builds/
+
+# Content validation
+*.temp.json
