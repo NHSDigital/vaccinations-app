@@ -90,7 +90,7 @@ variable "min_capacity" {
 variable "max_capacity" {
   description = "The maximum number of tasks for the service."
   type        = number
-  default     = 5
+  default     = 16
 }
 variable "scale_up_threshold_ms" {
   description = "The average response time in milliseconds to trigger a scale-up event."
@@ -101,4 +101,19 @@ variable "scale_down_threshold_ms" {
   description = "The average response time in milliseconds to trigger a scale-down event."
   type        = number
   default     = 200
+}
+variable "cpu_target" {
+  description = "Target CPU utilization percentage"
+  type        = number
+  default     = 75
+}
+variable "cpu_target_scale_out_cooldown" {
+  description = "Seconds to wait before another CPU target scale-out activity"
+  type        = number
+  default     = 30
+}
+variable "cpu_target_scale_in_cooldown" {
+  description = "Seconds to wait before another CPU target scale-in activity"
+  type        = number
+  default     = 300
 }

@@ -225,3 +225,21 @@ resource "aws_appautoscaling_policy" "scale_down" {
     }
   }
 }
+
+resource "aws_appautoscaling_policy" "cpu_scaling" {
+  name               = "${var.name}-cpu-scaling"
+  policy_type        = "TargetTrackingScaling"
+  resource_id        = aws_appautoscaling_target.main.resource_id
+  scalable_dimension = aws_appautoscaling_target.main.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.main.service_namespace
+
+  target_tracking_scaling_policy_configuration {
+    target_value       = var.cpu_target
+    scale_out_cooldown = var.cpu_target_scale_out_cooldown
+    scale_in_cooldown  = var.cpu_target_scale_in_cooldown
+
+    predefined_metric_specification {
+      predefined_metric_type = "ECSServiceAverageCPUUtilization"
+    }
+  }
+}
