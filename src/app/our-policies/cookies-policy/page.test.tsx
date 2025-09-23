@@ -63,4 +63,13 @@ describe("CookiesPolicy Component", () => {
 
     expect(heading).toBeInTheDocument();
   });
+
+  it("displays Changes to cookies paragraph", () => {
+    render(<CookiesPolicy />);
+    const paragraph: HTMLElement = screen.getByText(
+      "Our cookie policy may change. The latest version of our cookie policy will be accessible through this service. We will inform you if we make any material changes to our cookies policy or privacy notice. This will allow you to refresh your consent if you wish to continue using this service.",
+    );
+
+    expect(paragraph).toBeInTheDocument();
+  });
 });
