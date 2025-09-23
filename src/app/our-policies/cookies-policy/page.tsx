@@ -1,7 +1,7 @@
 "use client";
 
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
-import Expander from "@src/app/_components/nhs-frontend/Expander";
+import Details from "@src/app/_components/nhs-frontend/Details";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import { NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
 import React from "react";
@@ -35,7 +35,7 @@ const CookiesPolicy = () => {
         </ul>
         <h2>Strictly necessary cookies</h2>
         <h2>Changes to cookies</h2>
-        <Expander title={"List of necessary cookies that make this service work"} component={<CookiesTable />} />
+        <Details title={"List of necessary cookies that make this service work"} component={<CookiesTable />} />
         <p>
           Our cookie policy may change. The latest version of our cookie policy will be accessible through this service.
           We will inform you if we make any material changes to our cookies policy or privacy notice. This will allow
