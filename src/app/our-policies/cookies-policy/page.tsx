@@ -1,6 +1,7 @@
 "use client";
 
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
+import ContentsList from "@src/app/_components/nhs-frontend/ContentsList";
 import Details from "@src/app/_components/nhs-frontend/Details";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import { NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
@@ -15,6 +16,7 @@ const CookiesPolicy = () => {
       <BackLink />
       <MainContent>
         <h1>Cookies</h1>
+        <ContentsList contents={["Summary", "Strictly necessary cookies", "Changes to our cookies policy"]} />
         <h2>Summary</h2>
         <p>
           NHS England (“we” or “us”) uses cookies to deliver this service. The information set out in this policy is
