@@ -48,10 +48,7 @@ const getEligibilityForPerson = async (
     );
 
     if (!suggestionForVaccine) {
-      log.error(
-        { context: { nhsNumber, vaccineType } },
-        "EliD response validation error: Processed suggestion not found",
-      );
+      log.error({ context: { vaccineType } }, "EliD response validation error: Processed suggestion not found");
       return {
         eligibility: undefined,
         eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
@@ -68,14 +65,14 @@ const getEligibilityForPerson = async (
       };
     }
 
-    const actions: Action[] = _generateActions(suggestionForVaccine, nhsNumber);
-    const suitabilityRules: SuitabilityRule[] = _generateSuitabilityRules(suggestionForVaccine, nhsNumber);
+    const actions: Action[] = _generateActions(suggestionForVaccine);
+    const suitabilityRules: SuitabilityRule[] = _generateSuitabilityRules(suggestionForVaccine);
 
     profilePerformanceEnd(GetEligibilityPerformanceMarker);
 
     return {
       eligibility: {
-        status: _getStatus(suggestionForVaccine, nhsNumber),
+        status: _getStatus(suggestionForVaccine),
         content: {
           summary: summary,
           actions,
@@ -91,7 +88,7 @@ const getEligibilityForPerson = async (
         eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
       };
     } else {
-      log.error({ context: { nhsNumber, vaccineType }, error }, "Unexpected error");
+      log.error({ context: { vaccineType }, error }, "Unexpected error");
       return {
         eligibility: undefined,
         eligibilityError: EligibilityErrorTypes.UNKNOWN,
@@ -104,7 +101,7 @@ const _extractAllCohortText = (suggestion: ProcessedSuggestion): string[] => {
   return suggestion.eligibilityCohorts.map((cohort: EligibilityCohort) => cohort.cohortText);
 };
 
-const _getStatus = (suggestion: ProcessedSuggestion, nhsNumber: NhsNumber): EligibilityStatus => {
+const _getStatus = (suggestion: ProcessedSuggestion): EligibilityStatus => {
   if (suggestion.status === "NotEligible") {
     return EligibilityStatus.NOT_ELIGIBLE;
   }
@@ -114,11 +111,11 @@ const _getStatus = (suggestion: ProcessedSuggestion, nhsNumber: NhsNumber): Elig
   if (suggestion.status === "Actionable") {
     return EligibilityStatus.ACTIONABLE;
   }
-  log.error({ context: { nhsNumber, status: suggestion.status } }, "EligibilityStatus not yet implemented.");
+  log.error({ context: { status: suggestion.status } }, "EligibilityStatus not yet implemented.");
   throw new Error(`${suggestion.status} not yet implemented.`);
 };
 
-const _generateActions = (suggestion: ProcessedSuggestion, nhsNumber: NhsNumber): Action[] => {
+const _generateActions = (suggestion: ProcessedSuggestion): Action[] => {
   const content: Action[] = suggestion.actions.flatMap((action: ResponseAction): Action[] => {
     switch (action.actionType) {
       case "InfoText": {
@@ -151,7 +148,7 @@ const _generateActions = (suggestion: ProcessedSuggestion, nhsNumber: NhsNumber)
         return [_linkAction(action, ActionDisplayType.actionLinkWithInfo, true)];
       }
       default: {
-        log.warn({ context: { nhsNumber, actionType: action.actionType } }, "Action type not yet implemented.");
+        log.warn({ context: { actionType: action.actionType } }, "Action type not yet implemented.");
         return [
           {
             type: ActionDisplayType.infotext,
@@ -183,7 +180,7 @@ function _linkAction(action: ResponseAction, type: ActionDisplayType, delineator
       };
 }
 
-const _generateSuitabilityRules = (suggestion: ProcessedSuggestion, nhsNumber: NhsNumber): SuitabilityRule[] => {
+const _generateSuitabilityRules = (suggestion: ProcessedSuggestion): SuitabilityRule[] => {
   const content: SuitabilityRule[] = suggestion.suitabilityRules.flatMap(
     (rule: ResponseSuitabilityRule): SuitabilityRule[] => {
       switch (rule.ruleCode) {
@@ -194,7 +191,7 @@ const _generateSuitabilityRules = (suggestion: ProcessedSuggestion, nhsNumber: N
           return [{ type: RuleDisplayType.infotext, content: rule.ruleText as Content, delineator: true }];
         }
         default: {
-          log.warn({ context: { nhsNumber, ruleCode: rule.ruleCode } }, "SuitabilityRule code not yet implemented.");
+          log.warn({ context: { ruleCode: rule.ruleCode } }, "SuitabilityRule code not yet implemented.");
           return [{ type: RuleDisplayType.infotext, content: rule.ruleText as Content, delineator: true }];
         }
       }

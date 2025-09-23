@@ -45,7 +45,7 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
     headers = { ...headers, Authorization: `Bearer ${apimAccessToken}` };
   }
 
-  log.info({ context: { nhsNumber, elidUri } }, "Fetching eligibility status");
+  log.info({ context: { apiEndpoint, ELIGIBILITY_API_PATH_SUFFIX } }, "Fetching eligibility status");
   const response: AxiosResponse<EligibilityApiResponse> = await axios
     .get(elidUri, {
       headers,
@@ -56,20 +56,29 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
     })
     .catch((error: AxiosError) => {
       log.error(
-        { error, context: { nhsNumber, response_data: error.response?.data } },
+        {
+          error: {
+            code: error.code,
+            message: error.message,
+            status: error.status,
+            stack: error.stack,
+            response_data: error.response?.data,
+          },
+          context: {},
+        },
         "EliD response HTTP status error",
       );
       throw new EligibilityApiHttpStatusError("Error in fetching eligibility");
     });
-  log.info({ context: { nhsNumber } }, "Eligibility status retrieved");
+  log.info("Eligibility status retrieved");
   try {
     const validatedApiData = EligibilityApiResponseSchema.parse(response.data);
-    log.info({ context: { nhsNumber, validatedApiData } }, "Eligibility status data validated");
+    log.info({ context: { validatedApiData } }, "Eligibility status data validated");
     return toDomainModel(validatedApiData);
   } catch (error) {
     if (error instanceof ZodError) {
       log.error(
-        { error, context: { nhsNumber, elidUri, response_data: response.data, schema_issues: error.issues } },
+        { error, context: { elidUri, response_data: response.data, schema_issues: error.issues } },
         "EliD response schema validation error",
       );
       throw new EligibilityApiSchemaError("Schema validation failed");

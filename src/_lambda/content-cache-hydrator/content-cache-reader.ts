@@ -25,7 +25,7 @@ const readCachedContentForVaccine = async (vaccineType: VaccineTypes): Promise<R
     } else if (error instanceof InvalidatedCacheError) {
       return { cacheStatus: "invalidated", cacheContent: "" };
     } else {
-      log.error({ context: { error } }, "Unexpected error occurred.");
+      log.error({ error }, "Unexpected error occurred.");
       throw error;
     }
   }

@@ -161,7 +161,7 @@ describe("eligibility-filter-service", () => {
         suitabilityRules: [],
       };
 
-      expect(_getStatus(suggestion, nhsNumber)).toEqual(EligibilityStatus.NOT_ELIGIBLE);
+      expect(_getStatus(suggestion)).toEqual(EligibilityStatus.NOT_ELIGIBLE);
     });
 
     it("should return eligible status when status is actionable", () => {
@@ -174,7 +174,7 @@ describe("eligibility-filter-service", () => {
         suitabilityRules: [],
       };
 
-      const result: EligibilityStatus | undefined = _getStatus(suggestion, nhsNumber);
+      const result: EligibilityStatus | undefined = _getStatus(suggestion);
 
       expect(result).toEqual(EligibilityStatus.ACTIONABLE);
     });
@@ -189,7 +189,7 @@ describe("eligibility-filter-service", () => {
         suitabilityRules: [],
       };
 
-      const result: EligibilityStatus | undefined = _getStatus(suggestion, nhsNumber);
+      const result: EligibilityStatus | undefined = _getStatus(suggestion);
 
       expect(result).toEqual(EligibilityStatus.NOT_ACTIONABLE);
     });
@@ -222,7 +222,7 @@ describe("eligibility-filter-service", () => {
         ])
         .build();
 
-      const result = _generateActions(processedSuggestion, nhsNumber);
+      const result = _generateActions(processedSuggestion);
 
       expect(result).toEqual([
         { type: ActionDisplayType.infotext, content: "InfoText Markdown", delineator: true },
@@ -256,7 +256,7 @@ describe("eligibility-filter-service", () => {
         ])
         .build();
 
-      const result = _generateActions(processedSuggestion, nhsNumber);
+      const result = _generateActions(processedSuggestion);
 
       expect(result).toEqual([
         { type: RuleDisplayType.infotext, content: "InfoText Markdown 1", delineator: true },
@@ -274,7 +274,7 @@ describe("eligibility-filter-service", () => {
         ])
         .build();
 
-      const result = _generateActions(processedSuggestion, nhsNumber);
+      const result = _generateActions(processedSuggestion);
       expect(result).toEqual([{ type: RuleDisplayType.infotext, content: "InfoText Markdown", delineator: true }]);
     });
   });
@@ -291,7 +291,7 @@ describe("eligibility-filter-service", () => {
         ])
         .build();
 
-      const result = _generateSuitabilityRules(processedSuggestion, nhsNumber);
+      const result = _generateSuitabilityRules(processedSuggestion);
 
       expect(result).toEqual([
         { type: RuleDisplayType.card, content: "AlreadyVaccinated Markdown", delineator: false },
@@ -313,7 +313,7 @@ describe("eligibility-filter-service", () => {
         ])
         .build();
 
-      const result = _generateSuitabilityRules(processedSuggestion, nhsNumber);
+      const result = _generateSuitabilityRules(processedSuggestion);
 
       expect(result).toEqual([
         { type: RuleDisplayType.card, content: "AlreadyVaccinated Markdown 1", delineator: false },
@@ -328,7 +328,7 @@ describe("eligibility-filter-service", () => {
         ])
         .build();
 
-      const result = _generateSuitabilityRules(processedSuggestion, nhsNumber);
+      const result = _generateSuitabilityRules(processedSuggestion);
 
       expect(result).toEqual([{ type: RuleDisplayType.infotext, content: "TooClose Markdown", delineator: true }]);
     });

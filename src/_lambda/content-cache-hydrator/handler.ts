@@ -105,7 +105,7 @@ async function hydrateCacheForVaccine(
     return status;
   }
 
-  log.error("Unexpected scenario, should never have happened");
+  log.error("Unexpected content hydration scenario, should never have happened");
   status.failureCount++;
   return status;
 }
@@ -161,7 +161,7 @@ const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
   if (forceUpdate) {
     log.info(
       { context: { vaccineType: event.vaccineToUpdate, forceUpdate } },
-      `Clinical approval received for force update of vaccine ${event.vaccineToUpdate}`,
+      "Clinical approval received for force update of vaccine",
     );
   }
 
@@ -181,7 +181,7 @@ const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
     throw new Error(`${failureCount} failures`);
   }
   if (invalidatedCount > 0) {
-    log.error(`${invalidatedCount} cache invalidation(s) found. Needs approval and force update`);
+    log.error({ context: { invalidatedCount } }, "Cache invalidation(s) found. Needs approval and force update");
   }
 };
 
