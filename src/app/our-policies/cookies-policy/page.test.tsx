@@ -12,6 +12,17 @@ describe("CookiesPolicy Component", () => {
     expect(title).toBeInTheDocument();
   });
 
+  it("displays contents list", () => {
+    render(<CookiesPolicy />);
+    const firstContentLink: HTMLElement = screen.getAllByText("Summary")[0];
+    const secondContentLink: HTMLElement = screen.getAllByText("Strictly necessary cookies")[0];
+    const thirdContentLink: HTMLElement = screen.getAllByText("Changes to our cookies policy")[0];
+
+    expect(firstContentLink).toBeInTheDocument();
+    expect(secondContentLink).toBeInTheDocument();
+    expect(thirdContentLink).toBeInTheDocument();
+  });
+
   it("displays Summary heading and its text", () => {
     render(<CookiesPolicy />);
 
