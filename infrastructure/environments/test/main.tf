@@ -12,15 +12,19 @@ module "deploy_iam" {
 module "deploy_lambda" {
   source = "../../modules/deploy_lambda"
 
-  prefix                            = local.prefix
-  nodejs_version                    = local.node_version
-  cache_lambda_zip_path             = local.cache_lambda_zip_path
-  application_environment_variables = local.application_environment_variables
-  log_retention_in_days             = local.log_retention_in_days
-  default_tags                      = local.default_tags
-  alerting_sns_topic_arn            = module.deploy_monitoring.alerting_sns_topic_arn
-  account_id                        = data.aws_caller_identity.current.account_id
-  region                            = local.region
+  prefix                = local.prefix
+  nodejs_version        = local.node_version
+  cache_lambda_zip_path = local.cache_lambda_zip_path
+  application_environment_variables = merge(local.application_environment_variables,
+    {
+      ELIGIBILITY_API_ENDPOINT = "${module.deploy_fake_api.application_url}/",
+      APIM_AUTH_URL            = "${module.deploy_fake_api.application_url}/oauth2/token"
+  })
+  log_retention_in_days  = local.log_retention_in_days
+  default_tags           = local.default_tags
+  alerting_sns_topic_arn = module.deploy_monitoring.alerting_sns_topic_arn
+  account_id             = data.aws_caller_identity.current.account_id
+  region                 = local.region
 }
 
 module "deploy_fake_api" {
