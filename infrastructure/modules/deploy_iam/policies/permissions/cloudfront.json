@@ -11,21 +11,27 @@
     {
       "Sid": "CloudFrontFunction",
       "Effect": "Allow",
-      "Action": ["cloudfront:DescribeFunction", "cloudfront:GetFunction"],
+      "Action": [
+        "cloudfront:DescribeFunction",
+        "cloudfront:GetFunction",
+        "cloudfront:CreateFunction",
+        "cloudfront:DeleteFunction",
+        "cloudfront:PublishFunction"
+      ],
       "Resource": "arn:aws:cloudfront::${account_id}:function/${prefix}-*"
     },
 
     {
       "Sid": "CloudFrontOAC",
       "Effect": "Allow",
-      "Action": ["cloudfront:GetOriginAccessControl"],
+      "Action": ["cloudfront:GetOriginAccessControl", "cloudfront:CreateOriginAccessControl"],
       "Resource": "arn:aws:cloudfront::${account_id}:origin-access-control/*"
     },
 
     {
       "Sid": "CloudFrontCachePolicy",
       "Effect": "Allow",
-      "Action": ["cloudfront:GetCachePolicy"],
+      "Action": ["cloudfront:GetCachePolicy", "cloudfront:CreateCachePolicy"],
       "Resource": "arn:aws:cloudfront::${account_id}:cache-policy/*"
     },
 
@@ -51,14 +57,9 @@
       "Sid": "CloudFront",
       "Effect": "Allow",
       "Action": [
-        "cloudfront:CreateCachePolicy",
         "cloudfront:CreateDistribution",
-        "cloudfront:CreateFunction",
-        "cloudfront:CreateOriginAccessControl",
-        "cloudfront:DeleteFunction",
         "cloudfront:GetDistribution",
         "cloudfront:ListTagsForResource",
-        "cloudfront:PublishFunction",
         "cloudfront:TagResource",
         "cloudfront:UpdateDistribution",
         "cloudfront:UpdateOriginAccessControl"

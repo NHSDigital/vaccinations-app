@@ -64,20 +64,23 @@
     {
       "Sid": "EventBus",
       "Effect": "Allow",
-      "Action": [
-        "events:DeleteRule",
-        "events:PutRule",
-        "events:PutTargets",
-        "events:RemoveTargets",
-        "events:TagResource"
-      ],
+      "Action": ["events:TagResource"],
       "Resource": "arn:aws:events:${region}:${account_id}:event-bus/default"
     },
 
     {
       "Sid": "EventRule",
       "Effect": "Allow",
-      "Action": ["events:DescribeRule", "events:ListTagsForResource", "events:ListTargetsByRule"],
+      "Action": [
+        "events:DescribeRule",
+        "events:ListTagsForResource",
+        "events:ListTargetsByRule",
+        "events:TagResource",
+        "events:PutRule",
+        "events:DeleteRule",
+        "events:PutTargets",
+        "events:RemoveTargets"
+      ],
       "Resource": "arn:aws:events:${region}:${account_id}:rule/${prefix}-*"
     },
 
@@ -180,7 +183,7 @@
       "Sid": "InvokeCacheHydrator",
       "Effect": "Allow",
       "Action": ["lambda:InvokeFunction"],
-      "Resource": "arn:aws:lambda:eu-west-2:*:function:gh-vita-*-content-cache-hydrator"
+      "Resource": "arn:aws:lambda:${region}:${account_id}:function:${prefix}-content-cache-hydrator"
     }
   ]
 }

@@ -28,6 +28,17 @@
         "iam:TagRole"
       ],
       "Resource": ["arn:aws:iam::${account_id}:role/${prefix}-*", "arn:aws:iam::${account_id}:policy/${prefix}-*"]
+    },
+    {
+      "Sid": "IAMPassRole",
+      "Effect": "Allow",
+      "Action": ["iam:PassRole"],
+      "Resource": [
+        "arn:aws:iam::${account_id}:role/${prefix}-cache-lambda-iam-role",
+        "arn:aws:iam::${account_id}:role/${prefix}-image-optimization-function-role",
+        "arn:aws:iam::${account_id}:role/${prefix}-revalidation-function-role",
+        "arn:aws:iam::${account_id}:role/${prefix}-server-function-role"
+      ]
     }
   ]
 }

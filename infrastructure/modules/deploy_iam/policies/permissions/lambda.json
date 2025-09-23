@@ -4,8 +4,20 @@
     {
       "Sid": "LambdaEventSourceMapping",
       "Effect": "Allow",
-      "Action": ["lambda:GetEventSourceMapping", "lambda:ListTags"],
+      "Action": [
+        "lambda:GetEventSourceMapping",
+        "lambda:ListTags",
+        "lambda:TagResource",
+        "lambda:CreateEventSourceMapping"
+      ],
       "Resource": "arn:aws:lambda:${region}:${account_id}:event-source-mapping:*"
+    },
+
+    {
+      "Sid": "LambdaLayer",
+      "Effect": "Allow",
+      "Action": ["lambda:GetLayerVersion"],
+      "Resource": "arn:aws:lambda:eu-west-2:133256977650:layer:AWS-Parameters-and-Secrets-Lambda-Extension-Arm64:18"
     },
 
     {
@@ -14,7 +26,6 @@
       "Action": [
         "lambda:AddPermission",
         "lambda:CreateAlias",
-        "lambda:CreateEventSourceMapping",
         "lambda:CreateFunction",
         "lambda:CreateFunctionUrlConfig",
         "lambda:DeleteEventSourceMapping",
@@ -27,7 +38,6 @@
         "lambda:GetFunctionConfiguration",
         "lambda:GetFunctionEventInvokeConfig",
         "lambda:GetFunctionUrlConfig",
-        "lambda:GetLayerVersion",
         "lambda:GetPolicy",
         "lambda:ListFunctions",
         "lambda:ListVersionsByFunction",
