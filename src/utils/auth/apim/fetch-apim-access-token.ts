@@ -19,7 +19,7 @@ const fetchAPIMAccessToken = async (idToken: IdToken): Promise<ApimTokenResponse
 
     const response: AxiosResponse<ApimTokenResponse> = await axios.post(apimConfig.APIM_AUTH_URL.href, tokenPayload, {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      timeout: 5000,
+      timeout: 10000,
       validateStatus: (status) => status < HttpStatusCode.BadRequest,
     });
 

@@ -49,7 +49,7 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
   const response: AxiosResponse<EligibilityApiResponse> = await axios
     .get(elidUri, {
       headers,
-      timeout: 5000,
+      timeout: 10000,
       validateStatus: (status) => {
         return status < HttpStatusCode.BadRequest;
       },

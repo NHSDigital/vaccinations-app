@@ -19,7 +19,7 @@ const getSSMParam = async (name: string): Promise<string> => {
     };
     const rawAPIResponse = await axios.get("http://localhost:2773/systemsmanager/parameters/get", {
       params,
-      timeout: 5000,
+      timeout: 10000,
       headers,
       validateStatus: (status: number) => {
         return status < HttpStatusCode.BadRequest;
