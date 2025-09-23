@@ -1,5 +1,5 @@
 import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
-import Details from "@src/app/_components/nhs-frontend/Details";
+import Expander from "@src/app/_components/nhs-frontend/Expander";
 import { HEADINGS } from "@src/app/constants";
 import { VaccineTypes } from "@src/models/vaccine";
 import { StyledVaccineContent } from "@src/services/content-api/types";
@@ -14,14 +14,14 @@ const MoreInformation = (props: {
       <div className="nhsuk-expander-group" data-testid="more-information-expander-group">
         {/* What-vaccine-is-for expandable section */}
         {props.styledVaccineContent.whatVaccineIsFor && (
-          <Details
+          <Expander
             title={HEADINGS.WHAT_VACCINE_IS_FOR}
             component={props.styledVaccineContent.whatVaccineIsFor.component}
           />
         )}
 
         {/* Who-vaccine-is-for expandable section */}
-        <Details
+        <Expander
           title={HEADINGS.WHO_SHOULD_HAVE_VACCINE}
           component={props.styledVaccineContent.whoVaccineIsFor.component}
         />

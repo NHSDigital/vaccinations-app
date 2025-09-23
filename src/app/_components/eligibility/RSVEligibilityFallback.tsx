@@ -1,5 +1,5 @@
 import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
-import Details from "@src/app/_components/nhs-frontend/Details";
+import Expander from "@src/app/_components/nhs-frontend/Expander";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import styles from "@src/app/_components/vaccine/styles.module.css";
 import { HEADINGS } from "@src/app/constants";
@@ -23,7 +23,7 @@ const RSVEligibilityFallback = (props: {
           </div>
         }
       />
-      <Details title={HEADINGS.IF_YOU_THINK} component={props.howToGetVaccineFallback} notExpandable={true} />
+      <Expander title={HEADINGS.IF_YOU_THINK} component={props.howToGetVaccineFallback} notExpandable={true} />
       <PharmacyBookingInfo vaccineType={props.vaccineType} />
       <hr />
     </div>
