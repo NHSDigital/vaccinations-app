@@ -2,6 +2,8 @@ import { expect, test } from "@playwright/test";
 import { accessibilityCheck, benchmark, clickLinkAndExpectPageTitle } from "@project/e2e/helpers";
 
 import {
+  COOKIE_POLICY_PAGE_TITLE,
+  COOKIE_POLICY_PAGE_URL,
   HUB_PAGE_TITLE,
   HUB_PAGE_URL,
   MAX_AVG_LCP_DURATION_MS,
@@ -38,6 +40,13 @@ test.describe("Application", () => {
     await expect(page).toHaveTitle(RSV_PREGNANCY_PAGE_TITLE);
     await accessibilityCheck(page);
     expect.soft(await benchmark(page, RSV_PREGNANCY_PAGE_URL)).toBeLessThanOrEqual(MAX_AVG_LCP_DURATION_MS);
+  });
+
+  test("Cookie policy page", async ({ page }) => {
+    await page.goto(COOKIE_POLICY_PAGE_URL);
+    await expect(page).toHaveTitle(COOKIE_POLICY_PAGE_TITLE);
+    await accessibilityCheck(page);
+    expect.soft(await benchmark(page, COOKIE_POLICY_PAGE_URL)).toBeLessThanOrEqual(MAX_AVG_LCP_DURATION_MS);
   });
 
   test("Back link navigation", async ({ page }) => {
