@@ -22,7 +22,6 @@
         "iam:ListInstanceProfilesForRole",
         "iam:ListPolicyVersions",
         "iam:ListRolePolicies",
-        "iam:PassRole",
         "iam:PutRolePolicy",
         "iam:TagPolicy",
         "iam:TagRole"
