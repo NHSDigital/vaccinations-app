@@ -5,8 +5,8 @@ THREADS=1
 RAMPUP=1
 DURATION=60
 ENVIRONMENT="test"
-JMETER_PATH="./jmeter"
-TEST_PLAN="vita-user-journey" 
+JMETER_PATH="$HOMEBREW_PATH/bin/jmeter"
+TEST_PLAN="vita-user-journey"
 
 # Help message for options
 show_help() {
@@ -47,11 +47,11 @@ echo "  Ramp-up: $RAMPUP seconds"
 echo "  Duration: $DURATION seconds"
 echo "  Environment: $ENVIRONMENT"
 echo "  Timestamp: $TIMESTAMP"
-echo " " 
+echo " "
 echo " "
 
 #Generate log file name
-LOG_FILE="${TEST_PLAN}_${THREADS}Users_${TIMESTAMP}.jtl" 
+LOG_FILE="${TEST_PLAN}_${THREADS}Users_${TIMESTAMP}.jtl"
 
 $JMETER_PATH -n \
   -t "$TEST_PLAN.jmx" \
