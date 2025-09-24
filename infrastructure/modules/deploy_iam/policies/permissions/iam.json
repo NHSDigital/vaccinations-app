@@ -24,7 +24,9 @@
         "iam:ListRolePolicies",
         "iam:PutRolePolicy",
         "iam:TagPolicy",
-        "iam:TagRole"
+        "iam:TagRole",
+        "iam:UpdateAssumeRolePolicy",
+        "iam:DeletePolicyVersion"
       ],
       "Resource": ["arn:aws:iam::${account_id}:role/${prefix}-*", "arn:aws:iam::${account_id}:policy/${prefix}-*"]
     },
