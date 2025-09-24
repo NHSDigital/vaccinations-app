@@ -33,6 +33,7 @@
       "Effect": "Allow",
       "Action": ["iam:PassRole"],
       "Resource": [
+        "arn:aws:iam::${account_id}:role/${prefix}-firehose-splunk-log-forwader-role",
         "arn:aws:iam::${account_id}:role/${prefix}-cache-lambda-iam-role",
         "arn:aws:iam::${account_id}:role/${prefix}-image-optimization-function-role",
         "arn:aws:iam::${account_id}:role/${prefix}-revalidation-function-role",
