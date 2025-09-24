@@ -7,6 +7,7 @@ resource "aws_iam_role" "terraform_iam_role" {
   assume_role_policy = templatefile("${path.module}/policies/trust/${local.trust_for}.json", {
     account_id : var.account_id
     region : var.region
+    environment : var.environment
   })
 }
 
