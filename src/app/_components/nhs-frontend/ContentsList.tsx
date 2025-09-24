@@ -22,11 +22,17 @@ const ContentsList = (props: ContentsListProps): JSX.Element => {
               key={index}
               aria-current="page"
               onClick={() => handleClick(contentItem)}
+              onKeyDown={() => handleClick}
             >
               <span className="nhsuk-contents-list__link__current">{contentItem}</span>
             </li>
           ) : (
-            <li className="nhsuk-contents-list__item" key={index} onClick={() => handleClick(contentItem)}>
+            <li
+              className="nhsuk-contents-list__item"
+              key={index}
+              onClick={() => handleClick(contentItem)}
+              onKeyDown={() => handleClick}
+            >
               <a href={`#${contentItem.toLowerCase()}`} className="nhsuk-contents-list__link">
                 {contentItem}
               </a>
