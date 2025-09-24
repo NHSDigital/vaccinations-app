@@ -33,7 +33,7 @@ const CookiesPolicy = () => {
         </p>
         <p>Cookies fall into 2 categories, strictly necessary cookies and optional cookies.</p>
         <p>We only put:</p>
-        <ul aria-label={"what-cookies"}>
+        <ul aria-label={"list of cookies"}>
           <li>strictly necessary cookies on your device to make this service work</li>
         </ul>
         <h2>Strictly necessary cookies</h2>

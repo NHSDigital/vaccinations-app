@@ -9,7 +9,7 @@ describe("CookiesPolicy Component", () => {
     render(<CookiesPolicy />);
     const title: HTMLElement = screen.getByRole("heading", { level: 1, name: "Cookies" });
 
-    expect(title).toBeInTheDocument();
+    expect(title).toBeVisible();
   });
 
   it("displays contents list", () => {
@@ -18,9 +18,9 @@ describe("CookiesPolicy Component", () => {
     const secondContentLink: HTMLElement = screen.getAllByText("Strictly necessary cookies")[0];
     const thirdContentLink: HTMLElement = screen.getAllByText("Changes to our cookies policy")[0];
 
-    expect(firstContentLink).toBeInTheDocument();
-    expect(secondContentLink).toBeInTheDocument();
-    expect(thirdContentLink).toBeInTheDocument();
+    expect(firstContentLink).toBeVisible();
+    expect(secondContentLink).toBeVisible();
+    expect(thirdContentLink).toBeVisible();
   });
 
   it("displays Summary heading and its text", () => {
@@ -39,22 +39,22 @@ describe("CookiesPolicy Component", () => {
     );
     const forthParagraph: HTMLElement = screen.getByText("We only put:");
 
-    expect(heading).toBeInTheDocument();
-    expect(firstParagraph1).toBeInTheDocument();
-    expect(firstParagraph2).toBeInTheDocument();
-    expect(secondParagraph).toBeInTheDocument();
-    expect(thirdParagraph).toBeInTheDocument();
-    expect(forthParagraph).toBeInTheDocument();
+    expect(heading).toBeVisible();
+    expect(firstParagraph1).toBeVisible();
+    expect(firstParagraph2).toBeVisible();
+    expect(secondParagraph).toBeVisible();
+    expect(thirdParagraph).toBeVisible();
+    expect(forthParagraph).toBeVisible();
   });
 
   it("displays list in the Summary text", () => {
     render(<CookiesPolicy />);
 
-    const list: HTMLElement = screen.getByRole("list", { name: "what-cookies" });
+    const list: HTMLElement = screen.getByRole("list", { name: "list of cookies" }); // check spaces if they work in accessibility
     const { getAllByRole } = within(list);
     const items: HTMLElement[] = getAllByRole("listitem");
 
-    expect(list).toBeInTheDocument();
+    expect(list).toBeVisible();
     expect(items.length).toBe(1);
   });
 
@@ -72,7 +72,7 @@ describe("CookiesPolicy Component", () => {
     render(<CookiesPolicy />);
     const heading: HTMLElement = screen.getByRole("heading", { level: 2, name: "Strictly necessary cookies" });
 
-    expect(heading).toBeInTheDocument();
+    expect(heading).toBeVisible();
   });
 
   it("displays expandable Details with table", () => {
@@ -80,7 +80,7 @@ describe("CookiesPolicy Component", () => {
     const details: HTMLElement = screen.getByText("List of necessary cookies that make this service work");
     const table: HTMLElement = screen.getByRole("columnheader", { name: "Purpose" });
 
-    expect(details).toBeInTheDocument();
+    expect(details).toBeVisible();
     expect(table).toBeInTheDocument();
   });
 
@@ -88,7 +88,7 @@ describe("CookiesPolicy Component", () => {
     render(<CookiesPolicy />);
     const heading: HTMLElement = screen.getByRole("heading", { level: 2, name: "Changes to cookies" });
 
-    expect(heading).toBeInTheDocument();
+    expect(heading).toBeVisible();
   });
 
   it("displays Changes to cookies paragraph", () => {
@@ -97,6 +97,6 @@ describe("CookiesPolicy Component", () => {
       "Our cookie policy may change. The latest version of our cookie policy will be accessible through this service. We will inform you if we make any material changes to our cookies policy or privacy notice. This will allow you to refresh your consent if you wish to continue using this service.",
     );
 
-    expect(paragraph).toBeInTheDocument();
+    expect(paragraph).toBeVisible();
   });
 });

@@ -8,9 +8,9 @@ describe("CookiesTable component", () => {
     const purposeColumn: HTMLElement = screen.getByRole("columnheader", { name: "Purpose" });
     const expiresColumn: HTMLElement = screen.getByRole("columnheader", { name: "Expires" });
 
-    expect(nameColumn).toBeInTheDocument();
-    expect(purposeColumn).toBeInTheDocument();
-    expect(expiresColumn).toBeInTheDocument();
+    expect(nameColumn).toBeVisible();
+    expect(purposeColumn).toBeVisible();
+    expect(expiresColumn).toBeVisible();
   });
 
   it("displays table with correct row headers", () => {
@@ -19,9 +19,9 @@ describe("CookiesTable component", () => {
     const rowHeader2: HTMLElement = screen.getByRole("rowheader", { name: "__Secure-authjs.callback-url" });
     const rowHeader3: HTMLElement = screen.getByRole("rowheader", { name: "__Secure-authjs.session-token" });
 
-    expect(rowHeader1).toBeInTheDocument();
-    expect(rowHeader2).toBeInTheDocument();
-    expect(rowHeader3).toBeInTheDocument();
+    expect(rowHeader1).toBeVisible();
+    expect(rowHeader2).toBeVisible();
+    expect(rowHeader3).toBeVisible();
   });
 
   it("displays table with correct cell values", () => {
@@ -38,10 +38,10 @@ describe("CookiesTable component", () => {
     const cell4: HTMLElement = screen.getByRole("cell", { name: "After 1 hour" });
     const cells5and6: HTMLElement[] = screen.getAllByRole("cell", { name: "When you close the browser" });
 
-    expect(cell1).toBeInTheDocument();
-    expect(cell2).toBeInTheDocument();
-    expect(cell3).toBeInTheDocument();
-    expect(cell4).toBeInTheDocument();
+    expect(cell1).toBeVisible();
+    expect(cell2).toBeVisible();
+    expect(cell3).toBeVisible();
+    expect(cell4).toBeVisible();
     expect(cells5and6.length).toBe(2);
   });
 });

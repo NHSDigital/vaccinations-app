@@ -8,8 +8,8 @@ describe("ContentsList component", () => {
     const secondContentLink: HTMLElement = screen.getByText("Strictly necessary cookies");
     const thirdContentLink: HTMLElement = screen.getByText("Changes to our cookies policy");
 
-    expect(firstContentLink).toBeInTheDocument();
-    expect(secondContentLink).toBeInTheDocument();
-    expect(thirdContentLink).toBeInTheDocument();
+    expect(firstContentLink).toBeVisible();
+    expect(secondContentLink).toBeVisible();
+    expect(thirdContentLink).toBeVisible();
   });
 });
