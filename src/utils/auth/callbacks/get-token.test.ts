@@ -8,6 +8,7 @@ import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 import { headers } from "next/headers";
+import { ApimHttpError } from "@src/utils/auth/apim/exceptions";
 
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
@@ -33,37 +34,37 @@ describe("getToken", () => {
     (headers as jest.Mock).mockResolvedValue(fakeHeaders);
   });
 
+  const oldNEXT_RUNTIME = process.env.NEXT_RUNTIME;
+
+  const mockConfig: AppConfig = appConfigBuilder()
+    .withNHS_LOGIN_URL("https://mock.nhs.login")
+    .andNHS_LOGIN_CLIENT_ID("mock-client-id")
+    .andNHS_LOGIN_PRIVATE_KEY("mock-private-key")
+    .build();
+
+  const nowInSeconds = 1749052001;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.useFakeTimers().setSystemTime(nowInSeconds * 1000);
+    process.env.NEXT_RUNTIME = "nodejs";
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+    process.env.NEXT_RUNTIME = oldNEXT_RUNTIME;
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
   describe("when AUTH APIM is available", () => {
-    const oldNEXT_RUNTIME = process.env.NEXT_RUNTIME;
-
-    const mockConfig: AppConfig = appConfigBuilder()
-      .withNHS_LOGIN_URL("https://mock.nhs.login")
-      .andNHS_LOGIN_CLIENT_ID("mock-client-id")
-      .andNHS_LOGIN_PRIVATE_KEY("mock-private-key")
-      .build();
-
-    const nowInSeconds = 1749052001;
-
-    beforeEach(() => {
-      jest.clearAllMocks();
-      jest.useFakeTimers().setSystemTime(nowInSeconds * 1000);
-      process.env.NEXT_RUNTIME = "nodejs";
-    });
-
     beforeEach(async () => {
       (getOrRefreshApimCredentials as jest.Mock).mockResolvedValue({
         accessToken: "new-apim-access-token",
         expiresAt: nowInSeconds + 1111,
       });
-    });
-
-    afterEach(() => {
-      jest.resetAllMocks();
-      process.env.NEXT_RUNTIME = oldNEXT_RUNTIME;
-    });
-
-    afterAll(() => {
-      jest.useRealTimers();
     });
 
     it("should return null and logs error if token is falsy", async () => {
@@ -173,32 +174,12 @@ describe("getToken", () => {
     });
   });
 
-  // this condition is now not relevant at this layer
   describe("when AUTH APIM is not available", () => {
-    (getOrRefreshApimCredentials as jest.Mock).mockResolvedValue(undefined);
-
-    const mockConfig: AppConfig = appConfigBuilder()
-      .withNHS_LOGIN_URL("https://mock.nhs.login")
-      .andNHS_LOGIN_CLIENT_ID("mock-client-id")
-      .andNHS_LOGIN_PRIVATE_KEY("mock-private-key")
-      .build();
-
-    const nowInSeconds = 1749052001;
-
     beforeEach(() => {
-      jest.clearAllMocks();
-      jest.useFakeTimers().setSystemTime(nowInSeconds * 1000);
+      (getOrRefreshApimCredentials as jest.Mock).mockResolvedValue(undefined);
     });
 
-    afterEach(() => {
-      jest.resetAllMocks();
-    });
-
-    afterAll(() => {
-      jest.useRealTimers();
-    });
-
-    it("should return updated token on initial login with account profile, and default APIM credentials", async () => {
+    it("should return updated token on initial login with account profile, and default empty APIM credentials", async () => {
       (jwtDecode as jest.Mock).mockReturnValue({
         jti: "jti_test",
       });
