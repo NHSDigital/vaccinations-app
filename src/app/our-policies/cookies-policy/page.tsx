@@ -20,15 +20,18 @@ const CookiesPolicy = () => {
       <MainContent>
         <h1>Cookies</h1>
         <ContentsList urlsWithContents={urlPathsWithContentLinks} />
-        <h2 id={Object.keys(urlPathsWithContentLinks[0])[0]}>{urlPathsWithContentLinks[0].summary}</h2>
+        <h2 id={Object.keys(urlPathsWithContentLinks[0])[0]}>{urlPathsWithContentLinks[0]["summary"]}</h2>
         <p>
           NHS England (“we” or “us”) uses cookies to deliver this service. The information set out in this policy is
           provided in addition to our{" "}
-          <a href={"https://www.england.nhs.uk/contact-us/privacy-notice/national-flu-vaccination-programme/"}>
+          <a
+            href="https://www.england.nhs.uk/contact-us/privacy-notice/national-flu-vaccination-programme/"
+            target="_blank"
+          >
             privacy policy
-          </a>
+          </a>{" "}
+          and should be read alongside it.
         </p>
-        <p>and should be read alongside it.</p>
         <p>
           We put small files called cookies onto your device, like your mobile phone or computer. Cookies are widely
           used to make websites and apps work, or work more efficiently, as well as to provide services and
@@ -41,7 +44,7 @@ const CookiesPolicy = () => {
         </ul>
         <h2 id={Object.keys(urlPathsWithContentLinks[1])[0]}>{urlPathsWithContentLinks[1]["necessary-cookies"]}</h2>
         <Details title={"List of necessary cookies that make this service work"} component={<CookiesTable />} />
-        <h2 id={Object.keys(urlPathsWithContentLinks[2])[0]}>Changes to cookies</h2>
+        <h2 id={Object.keys(urlPathsWithContentLinks[2])[0]}>{urlPathsWithContentLinks[2]["changes"]}</h2>
         <p>
           Our cookie policy may change. The latest version of our cookie policy will be accessible through this service.
           We will inform you if we make any material changes to our cookies policy or privacy notice. This will allow

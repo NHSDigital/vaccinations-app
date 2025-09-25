@@ -30,7 +30,7 @@ describe("CookiesTable component", () => {
       name: "Helps keep the site secure by preventing cross-site request forgery (CSRF) attacks",
     });
     const cell2: HTMLElement = screen.getByRole("cell", {
-      name: "After a successful login, this stores the URL that you are re-directed to",
+      name: "After a successful login, this stores the URL that you are redirected to",
     });
     const cell3: HTMLElement = screen.getByRole("cell", {
       name: "Stores information in an encrypted format that allows us to communicate with other services",

@@ -27,10 +27,10 @@ describe("CookiesPolicy Component", () => {
     render(<CookiesPolicy />);
 
     const heading: HTMLElement = screen.getByRole("heading", { level: 2, name: "Summary" });
-    const firstParagraph1: HTMLElement = screen.getByText(
-      "NHS England (“we” or “us”) uses cookies to deliver this service. The information set out in this policy is provided in addition to our",
-    );
-    const firstParagraph2: HTMLElement = screen.getByText("and should be read alongside it.");
+    const firstParagraph1: HTMLElement = screen.getByText("NHS England (“we” or “us”) uses cookies to deliver", {
+      exact: false,
+    });
+    const firstParagraph2: HTMLElement = screen.getByText(/should be read alongside it./i);
     const secondParagraph: HTMLElement = screen.getByText(
       "We put small files called cookies onto your device, like your mobile phone or computer. Cookies are widely used to make websites and apps work, or work more efficiently, as well as to provide services and functionalities for users.",
     );
@@ -86,7 +86,7 @@ describe("CookiesPolicy Component", () => {
 
   it("displays Changes to cookies heading", () => {
     render(<CookiesPolicy />);
-    const heading: HTMLElement = screen.getByRole("heading", { level: 2, name: "Changes to cookies" });
+    const heading: HTMLElement = screen.getByRole("heading", { level: 2, name: "Changes to our cookies policy" });
 
     expect(heading).toBeVisible();
   });

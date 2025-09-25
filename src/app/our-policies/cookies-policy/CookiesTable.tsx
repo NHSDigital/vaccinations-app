@@ -8,10 +8,10 @@ const CookiesTable = (): JSX.Element => {
           <th scope="col" className="nhsuk-table__header">
             Name
           </th>
-          <th scope="col" className="nhsuk-table__header nhsuk-table__header--numeric">
+          <th scope="col" className="nhsuk-table__header nhsuk-table__header">
             Purpose
           </th>
-          <th scope="col" className="nhsuk-table__header nhsuk-table__header--numeric">
+          <th scope="col" className="nhsuk-table__header nhsuk-table__header">
             Expires
           </th>
         </tr>
@@ -21,28 +21,28 @@ const CookiesTable = (): JSX.Element => {
           <th scope="row" className="nhsuk-table__header">
             __Host-authjs.csrf-token
           </th>
-          <td className="nhsuk-table__cell nhsuk-table__cell--numeric">
+          <td className="nhsuk-table__cell nhsuk-table__cell">
             Helps keep the site secure by preventing cross-site request forgery (CSRF) attacks
           </td>
-          <td className="nhsuk-table__cell nhsuk-table__cell--numeric">When you close the browser</td>
+          <td className="nhsuk-table__cell nhsuk-table__cell">When you close the browser</td>
         </tr>
         <tr className="nhsuk-table__row">
           <th scope="row" className="nhsuk-table__header">
             __Secure-authjs.callback-url
           </th>
-          <td className="nhsuk-table__cell nhsuk-table__cell--numeric">
-            After a successful login, this stores the URL that you are re-directed to
+          <td className="nhsuk-table__cell nhsuk-table__cell">
+            After a successful login, this stores the URL that you are redirected to
           </td>
-          <td className="nhsuk-table__cell nhsuk-table__cell--numeric">When you close the browser</td>
+          <td className="nhsuk-table__cell nhsuk-table__cell-">When you close the browser</td>
         </tr>
         <tr className="nhsuk-table__row">
           <th scope="row" className="nhsuk-table__header">
             __Secure-authjs.session-token
           </th>
-          <td className="nhsuk-table__cell nhsuk-table__cell--numeric">
+          <td className="nhsuk-table__cell nhsuk-table__cell">
             Stores information in an encrypted format that allows us to communicate with other services
           </td>
-          <td className="nhsuk-table__cell nhsuk-table__cell--numeric">After 1 hour</td>
+          <td className="nhsuk-table__cell nhsuk-table__cell">After 1 hour</td>
         </tr>
       </tbody>
     </table>
