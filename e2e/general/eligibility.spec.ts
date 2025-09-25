@@ -1,6 +1,13 @@
 import { Locator, expect, test } from "@playwright/test";
 import { MAX_AVG_LCP_DURATION_MS, RSV_PAGE_URL } from "@project/e2e/constants";
-import { accessibilityCheck, benchmark } from "@project/e2e/helpers";
+import { elidCopyThatDiffersByEnvironment } from "@project/e2e/elid-copy-helper";
+import { accessibilityCheck, benchmark, getEnv } from "@project/e2e/helpers";
+
+const environment = getEnv("DEPLOY_ENVIRONMENT");
+const elidCopyForEnvironment =
+  environment === "preprod"
+    ? elidCopyThatDiffersByEnvironment["integration"]
+    : elidCopyThatDiffersByEnvironment["sandpit"];
 
 test.describe.configure({ mode: "parallel", retries: 0 });
 
@@ -23,7 +30,7 @@ test.describe("Eligibility", () => {
       });
       const bulletPoint1: Locator = eligibility.getByText("are not aged 75 to 79", { exact: true }).first();
       const bulletPoint2: Locator = eligibility
-        .getByText("did not turn 80 between 2nd September 2024 and 31st August 2025", { exact: true })
+        .getByText(elidCopyForEnvironment.user15.bulletPoint2, { exact: true })
         .first();
 
       await expect(heading).toBeVisible();
@@ -34,15 +41,18 @@ test.describe("Eligibility", () => {
     test("Not Eligible - InfoText action content", async ({ page }) => {
       await page.goto(RSV_PAGE_URL);
 
-      const infoTextHeading = page.getByRole("heading", { level: 2, name: "If you think you need this vaccine" });
-      const infoTextParagraph = page.locator('h2:has-text("If you think you need this vaccine") + p').first();
+      const infoTextHeading = page.getByRole("heading", {
+        level: 2,
+        name: elidCopyForEnvironment.user15.infoTextHeading,
+      });
+      const infoTextParagraph = page
+        .locator(`h2:has-text("${elidCopyForEnvironment.user15.infoTextHeading}") + p`)
+        .first();
       const tagName = await infoTextParagraph.evaluate((element) => element.tagName);
 
       await expect(infoTextHeading).toBeVisible();
       await expect(infoTextParagraph).toBeVisible();
-      await expect(infoTextParagraph).toHaveText(
-        "Speak to your healthcare professional if you think you should be offered this vaccination.",
-      );
+      await expect(infoTextParagraph).toHaveText(elidCopyForEnvironment.user15.infoTextParagraph);
       expect(tagName).toBe("P");
     });
   });
@@ -55,7 +65,9 @@ test.describe("Eligibility", () => {
 
       const eligibility: Locator = page.getByTestId("Eligibility");
       const heading: Locator = eligibility.getByRole("heading", { level: 3, name: "You should have the RSV vaccine" });
-      const bulletPoint: Locator = eligibility.getByText("are aged 75 to 79", { exact: true }).first();
+      const bulletPoint: Locator = eligibility
+        .getByText(elidCopyForEnvironment.user01.bulletPoint1, { exact: true })
+        .first();
 
       await expect(heading).toBeVisible();
       await expect(bulletPoint).toBeVisible();
@@ -102,9 +114,7 @@ test.describe("Eligibility", () => {
       await expect(cardHeading).toBeVisible();
       await expect(cardHeading).toHaveClass("nhsuk-heading-m nhsuk-card__heading");
       await expect(cardParagraph).toBeVisible();
-      await expect(cardParagraph).toHaveText(
-        "To change or cancel your appointment, contact the provider you booked with.",
-      );
+      await expect(cardParagraph).toHaveText(elidCopyForEnvironment.user05.cardParagraphText);
       await expect(cardParagraph).toHaveClass("nhsuk-card__description");
     });
   });
@@ -133,7 +143,7 @@ test.describe("Eligibility", () => {
       await expect(cardHeading).toBeVisible();
       await expect(cardHeading).toHaveClass("nhsuk-heading-m nhsuk-card__heading");
       await expect(cardParagraph).toBeVisible();
-      await expect(cardParagraph).toHaveText("We believe you had the RSV vaccination on 3 April 2025.");
+      await expect(cardParagraph).toHaveText(elidCopyForEnvironment.user13.cardParagraphText);
       await expect(cardParagraph).toHaveClass("nhsuk-card__description");
     });
   });
