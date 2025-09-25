@@ -23,6 +23,18 @@ describe("CookiesPolicy Component", () => {
     expect(thirdContentLink).toBeVisible();
   });
 
+  it("takes user to the correct section when content link is clicked", () => {
+    render(<CookiesPolicy />);
+
+    const contentLink: HTMLElement = screen.getByRole("link", { name: "Summary" });
+    contentLink.click();
+    const summarySectionAfterClick: HTMLElement = screen.getByText(
+      "NHS England (“we” or “us”) uses cookies to deliver this service. The information set out in this policy is provided in addition to our",
+    );
+
+    expect(summarySectionAfterClick).toBeVisible();
+  });
+
   it("displays Summary heading and its text", () => {
     render(<CookiesPolicy />);
 

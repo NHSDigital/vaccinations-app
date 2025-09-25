@@ -3,13 +3,27 @@ import { render, screen } from "@testing-library/react";
 
 describe("ContentsList component", () => {
   it("displays list of contents", () => {
-    render(<ContentsList contents={["Summary", "Strictly necessary cookies", "Changes to our cookies policy"]} />);
-    const firstContentLink: HTMLElement = screen.getByText("Summary");
-    const secondContentLink: HTMLElement = screen.getByText("Strictly necessary cookies");
-    const thirdContentLink: HTMLElement = screen.getByText("Changes to our cookies policy");
+    const urlsWithContents: Record<string, string>[] = [
+      { summary: "Summary" },
+      { "necessary-cookies": "Strictly necessary cookies" },
+      { changes: "Changes to our cookies policy" },
+    ];
+    render(<ContentsList urlsWithContents={urlsWithContents} />);
+    const firstContentLink: HTMLElement = screen.getByRole("link", { name: "Summary" });
+    const secondContentLink: HTMLElement = screen.getByRole("link", { name: "Strictly necessary cookies" });
+    const thirdContentLink: HTMLElement = screen.getByRole("link", { name: "Changes to our cookies policy" });
 
     expect(firstContentLink).toBeVisible();
     expect(secondContentLink).toBeVisible();
     expect(thirdContentLink).toBeVisible();
+  });
+
+  it("has correct link on content item", () => {
+    const urlsWithContents: Record<string, string>[] = [{ summary: "Summary" }];
+    render(<ContentsList urlsWithContents={urlsWithContents} />);
+
+    const contentLink: HTMLElement = screen.getByRole("link", { name: "Summary" });
+
+    expect(contentLink).toHaveAttribute("href", "#summary");
   });
 });

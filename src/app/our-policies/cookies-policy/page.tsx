@@ -9,6 +9,11 @@ import CookiesTable from "@src/app/our-policies/cookies-policy/CookiesTable";
 import React from "react";
 
 const CookiesPolicy = () => {
+  const urlPathsWithContentLinks: Record<string, string>[] = [
+    { summary: "Summary" },
+    { "necessary-cookies": "Strictly necessary cookies" },
+    { changes: "Changes to our cookies policy" },
+  ];
   return (
     <>
       <title>{`Cookies policy - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`}</title>
@@ -16,8 +21,8 @@ const CookiesPolicy = () => {
       <BackLink />
       <MainContent>
         <h1>Cookies</h1>
-        <ContentsList contents={["Summary", "Strictly necessary cookies", "Changes to our cookies policy"]} />
-        <h2 id={"summary"}>Summary</h2>
+        <ContentsList urlsWithContents={urlPathsWithContentLinks} />
+        <h2 id={Object.keys(urlPathsWithContentLinks[0])[0]}>{urlPathsWithContentLinks[0].summary}</h2>
         <p>
           NHS England (“we” or “us”) uses cookies to deliver this service. The information set out in this policy is
           provided in addition to our{" "}
@@ -36,9 +41,9 @@ const CookiesPolicy = () => {
         <ul aria-label={"list of cookies"}>
           <li>strictly necessary cookies on your device to make this service work</li>
         </ul>
-        <h2>Strictly necessary cookies</h2>
+        <h2 id={Object.keys(urlPathsWithContentLinks[1])[0]}>{urlPathsWithContentLinks[1]["necessary-cookies"]}</h2>
         <Details title={"List of necessary cookies that make this service work"} component={<CookiesTable />} />
-        <h2>Changes to cookies</h2>
+        <h2 id={Object.keys(urlPathsWithContentLinks[2])[0]}>Changes to cookies</h2>
         <p>
           Our cookie policy may change. The latest version of our cookie policy will be accessible through this service.
           We will inform you if we make any material changes to our cookies policy or privacy notice. This will allow

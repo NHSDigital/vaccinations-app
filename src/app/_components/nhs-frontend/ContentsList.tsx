@@ -1,7 +1,7 @@
 import { JSX } from "react";
 
 interface ContentsListProps {
-  contents: string[];
+  urlsWithContents: Record<string, string>[];
 }
 
 const ContentsList = (props: ContentsListProps): JSX.Element => {
@@ -9,13 +9,16 @@ const ContentsList = (props: ContentsListProps): JSX.Element => {
     <nav className="nhsuk-contents-list" role="navigation" aria-label="Pages in this guide">
       <h2 className="nhsuk-u-visually-hidden">Contents</h2>
       <ol className="nhsuk-contents-list__list">
-        {props.contents.map((contentItem: string, index: number) => (
-          <li className="nhsuk-contents-list__item" key={index}>
-            <a href={`#${contentItem.toLowerCase()}`} className="nhsuk-contents-list__link">
-              {contentItem}
-            </a>
-          </li>
-        ))}
+        {props.urlsWithContents.map((item: Record<string, string>, index: number) => {
+          const urlPath = Object.keys(item)[0];
+          return (
+            <li className="nhsuk-contents-list__item" key={index}>
+              <a href={`#${urlPath}`} className="nhsuk-contents-list__link">
+                {item[urlPath]}
+              </a>
+            </li>
+          );
+        })}
       </ol>
     </nav>
   );
