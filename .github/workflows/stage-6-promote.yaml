@@ -42,7 +42,7 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - name: "Configure AWS credentials for env:${ENVIRONMENT}"
+      - name: "Configure AWS credentials for env:${{ env.ENVIRONMENT }}"
         uses: aws-actions/configure-aws-credentials@v5
         with:
           role-session-name: GitHubActionsSession
@@ -50,7 +50,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       - name: "Download package from source S3 releases bucket"
         env:
-          AWS_S3_SOURCE_RELEASES_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${ENVIRONMENT}
+          AWS_S3_SOURCE_RELEASES_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${{ env.ENVIRONMENT }}
         run: |
           app_s3_path="s3://${AWS_S3_SOURCE_RELEASES_BUCKET}/tag/${{ inputs.release_tag }}/open-next.zip"
           echo "Artefact path: $app_s3_path"
