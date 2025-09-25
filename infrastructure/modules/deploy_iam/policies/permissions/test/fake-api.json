@@ -113,6 +113,30 @@
         "elasticloadbalancing:ModifyTargetGroupAttributes"
       ],
       "Resource": "*"
+    },
+
+    {
+      "Sid": "CloudWatchLogs",
+      "Effect": "Allow",
+      "Action": ["logs:*"],
+      "Resource": [
+        "arn:aws:logs:${region}:${account_id}:log-group:/ecs/fake-api*",
+        "arn:aws:logs:${region}:${account_id}:log-group:/ecs/fake-api*:*"
+      ]
+    },
+
+    {
+      "Sid": "CloudWatchAlarms",
+      "Effect": "Allow",
+      "Action": ["cloudwatch:*"],
+      "Resource": ["arn:aws:cloudwatch:${region}:${account_id}:alarm:fake-api*"]
+    },
+
+    {
+      "Sid": "IAM",
+      "Effect": "Allow",
+      "Action": ["iam:*"],
+      "Resource": ["arn:aws:iam::${account_id}:role/fake-api-*", "arn:aws:iam::${account_id}:policy/fake-api-*"]
     }
   ]
 }
