@@ -14,27 +14,43 @@ on:
 
 env:
   AWS_REGION: eu-west-2
-  AWS_S3_SOURCE_RELEASES_BUCKET: vita-${{ secrets.PROMOTE_SOURCE_AWS_ACCOUNT_ID }}-releases-${{ vars.PROMOTE_SOURCE_ENVIRONMENT  }}
-  AWS_S3_TARGET_RELEASES_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${{ inputs.environment }}
 
 jobs:
-  promote:
-    name: "Promote to ${{ inputs.environment}} environment"
+  prepare:
+    name: "Prepare lower environment variables"
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    timeout-minutes: 3
+    outputs:
+      PROMOTE_SOURCE_ENVIRONMENT: ${{ steps.get-env.outputs.PROMOTE_SOURCE_ENVIRONMENT }}
+    steps:
+      - name: "Export lower environment name"
+        id: get-env
+        run: |
+          echo "PROMOTE_SOURCE_ENVIRONMENT=${{ vars.PROMOTE_SOURCE_ENVIRONMENT }}" >> $GITHUB_OUTPUT
+
+  download:
+    name: "Download package from ${{ needs.prepare.outputs.PROMOTE_SOURCE_ENVIRONMENT }} env"
+    runs-on: ubuntu-latest
+    needs: [prepare]
     environment:
-      name: ${{ inputs.environment }}
-    timeout-minutes: 20
+      name: ${{ needs.prepare.outputs.PROMOTE_SOURCE_ENVIRONMENT }}
+    timeout-minutes: 5
+    env:
+      ENVIRONMENT: ${{ needs.prepare.outputs.PROMOTE_SOURCE_ENVIRONMENT }}
     permissions:
       id-token: write
       contents: read
     steps:
-      - name: "Configure AWS credentials for promote source ${{ vars.PROMOTE_SOURCE_ENVIRONMENT }} env"
+      - name: "Configure AWS credentials for env:${ENVIRONMENT}"
         uses: aws-actions/configure-aws-credentials@v5
         with:
           role-session-name: GitHubActionsSession
-          role-to-assume: ${{ secrets.PROMOTE_SOURCE_IAM_ROLE }}
+          role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
       - name: "Download package from source S3 releases bucket"
+        env:
+          AWS_S3_SOURCE_RELEASES_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${ENVIRONMENT}
         run: |
           app_s3_path="s3://${AWS_S3_SOURCE_RELEASES_BUCKET}/tag/${{ inputs.release_tag }}/open-next.zip"
           echo "Artefact path: $app_s3_path"
@@ -45,13 +61,41 @@ jobs:
           workflow_s3_path="s3://${AWS_S3_SOURCE_RELEASES_BUCKET}/tag/${{ inputs.release_tag }}/workflow.log"
           echo "Artefact path: $workflow_s3_path"
           aws s3 cp "$workflow_s3_path" .
-      - name: "Configure AWS credentials for target ${{ inputs.environment }} env"
+
+      - name: "Upload release package as artifact"
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-package
+          path: |
+            open-next.zip
+            lambda.zip
+            workflow.log
+          retention-days: 1
+
+  promote:
+    name: "Promote to ${{ inputs.environment}} environment"
+    runs-on: ubuntu-latest
+    needs: [download]
+    environment:
+      name: ${{ inputs.environment }}
+    timeout-minutes: 20
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: "Download release package from artifact"
+        uses: actions/download-artifact@v4
+        with:
+          name: release-package
+      - name: "Configure AWS credentials for target env:${{ inputs.environment }}"
         uses: aws-actions/configure-aws-credentials@v5
         with:
           role-session-name: GitHubActionsSession
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
-      - name: "Upload package to ${{ inputs.environment }} S3 releases bucket"
+      - name: "Upload package to target S3 releases bucket"
+        env:
+          AWS_S3_TARGET_RELEASES_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${{ inputs.environment }}
         run: |
           aws s3api put-object --bucket "${AWS_S3_TARGET_RELEASES_BUCKET}" --key "tag/${{inputs.release_tag}}/open-next.zip" --body "open-next.zip" --if-none-match '*' || {
             echo "Uploading open-next.zip to environment S3 bucket failed"
@@ -68,3 +112,12 @@ jobs:
             exit 1
           }
 
+  cleanup:
+    name: "Cleanup release package from artifact"
+    runs-on: ubuntu-latest
+    needs: [promote]
+    steps:
+      - name: "Delete workflow artifact"
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: release-package
