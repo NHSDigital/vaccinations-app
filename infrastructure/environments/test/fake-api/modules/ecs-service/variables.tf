@@ -85,7 +85,7 @@ variable "ecs_autoscale_role_arn" {
 variable "min_capacity" {
   description = "The minimum number of tasks for the service."
   type        = number
-  default     = 1
+  default     = 3
 }
 variable "max_capacity" {
   description = "The maximum number of tasks for the service."
@@ -110,7 +110,7 @@ variable "cpu_target" {
 variable "cpu_target_scale_out_cooldown" {
   description = "Seconds to wait before another CPU target scale-out activity"
   type        = number
-  default     = 60
+  default     = 30
 }
 variable "cpu_target_scale_in_cooldown" {
   description = "Seconds to wait before another CPU target scale-in activity"
