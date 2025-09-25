@@ -1,3 +1,4 @@
+import { ApimHttpError } from "@src/utils/auth/apim/exceptions";
 import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import { getToken } from "@src/utils/auth/callbacks/get-token";
 import { MaxAgeInSeconds } from "@src/utils/auth/types";
@@ -8,7 +9,6 @@ import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 import { headers } from "next/headers";
-import { ApimHttpError } from "@src/utils/auth/apim/exceptions";
 
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
@@ -171,6 +171,44 @@ describe("getToken", () => {
       const result = await getToken(token, null, undefined, mockConfig, 300 as MaxAgeInSeconds);
 
       expect(result).toBeNull();
+    });
+
+    it("should still return login token even if fetching APIM credentials fails", async () => {
+      (getOrRefreshApimCredentials as jest.Mock).mockRejectedValue(new ApimHttpError("Error getting APIM token"));
+
+      (jwtDecode as jest.Mock).mockReturnValue({
+        jti: "jti_test",
+      });
+      const token = { apim: {}, nhs_login: { id_token: "id-token" } } as JWT;
+
+      const account = {
+        expires_at: nowInSeconds + 1000,
+        access_token: "newAccess",
+        refresh_token: "newRefresh",
+        id_token: "newIdToken",
+      } as Account;
+
+      const profile = {
+        nhs_number: "test_nhs_number",
+      };
+
+      const maxAgeInSeconds = 600 as MaxAgeInSeconds;
+
+      const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
+
+      expect(result).toMatchObject({
+        user: {
+          nhs_number: profile.nhs_number,
+        },
+        nhs_login: {
+          id_token: "newIdToken",
+        },
+        apim: {
+          access_token: "",
+          expires_at: 0,
+        },
+        fixedExpiry: nowInSeconds + maxAgeInSeconds,
+      });
     });
   });
 

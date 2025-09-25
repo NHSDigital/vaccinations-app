@@ -45,8 +45,21 @@ const getToken = async (
       return null;
     }
 
-    // TODO VIA-254 - can we do this only once? https://www.youtube.com/watch?v=A4I9DMSvJxg
-    const apimAccessCredentials = await getOrRefreshApimCredentials(config, token, nowInSeconds);
+    let apimAccessCredentials = undefined;
+
+    try {
+      // TODO VIA-254 - can we do this only once? https://www.youtube.com/watch?v=A4I9DMSvJxg
+      apimAccessCredentials = await getOrRefreshApimCredentials(config, token, nowInSeconds);
+    } catch (error) {
+      let errorMessage = undefined;
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      log.error(
+        { context: { errorMessage: errorMessage } },
+        "Error fetching APIM credentials; continuing to create session with empty APIM fields",
+      );
+    }
 
     // Inspect the token (which was either returned from login or fetched from session), fill missing or blank values with defaults
     let updatedToken: JWT = fillMissingFieldsInTokenWithDefaultValues(token, apimAccessCredentials);
