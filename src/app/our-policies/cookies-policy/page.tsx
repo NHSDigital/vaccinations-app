@@ -1,5 +1,3 @@
-"use client";
-
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import ContentsList from "@src/app/_components/nhs-frontend/ContentsList";
 import Details from "@src/app/_components/nhs-frontend/Details";
