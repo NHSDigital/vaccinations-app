@@ -17,7 +17,7 @@ const CookiesPolicy = () => {
       <MainContent>
         <h1>Cookies</h1>
         <ContentsList contents={["Summary", "Strictly necessary cookies", "Changes to our cookies policy"]} />
-        <h2>Summary</h2>
+        <h2 id={"summary"}>Summary</h2>
         <p>
           NHS England (“we” or “us”) uses cookies to deliver this service. The information set out in this policy is
           provided in addition to our{" "}
