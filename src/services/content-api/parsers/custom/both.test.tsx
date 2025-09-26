@@ -8,6 +8,7 @@ const mockNBSBookingActionHTML = "NBS Booking Link Test";
 jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
   NBSBookingAction: () => mockNBSBookingActionHTML,
 }));
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 const mockNonSimpleSubsection: VaccinePageSubsection = {
   type: "tableElement",
@@ -29,6 +30,13 @@ const mockRsvForOlderAdultsSubsection: VaccinePageSubsection = {
   name: "",
 };
 
+const mockRsvForOlderAdultsNewerSubsection: VaccinePageSubsection = {
+  type: "simpleElement",
+  text: "<h3>If you're aged 75 to 79 (or turned 80 after 1 September 2024)</h3><p>Paragraph 1</p><p>Paragraph 2</p>",
+  headline: "",
+  name: "",
+};
+
 describe("styleHowToGetSubsection for rsv in older adults", () => {
   it("returns empty fragment if type is not 'simpleElement'", () => {
     const { container } = render(<>{styleHowToGetSubsectionForRsv(mockNonSimpleSubsection, 0)}</>);
@@ -42,6 +50,11 @@ describe("styleHowToGetSubsection for rsv in older adults", () => {
 
   it("renders HTML if subsection contains rsv for older adults", () => {
     const { container } = render(<>{styleHowToGetSubsectionForRsv(mockRsvForOlderAdultsSubsection, 0)}</>);
+    expect(container.innerHTML).toBe("<div><p>Paragraph 1</p><p>Paragraph 2</p></div>");
+  });
+
+  it("renders HTML if newer subsection contains rsv for older adults", () => {
+    const { container } = render(<>{styleHowToGetSubsectionForRsv(mockRsvForOlderAdultsNewerSubsection, 0)}</>);
     expect(container.innerHTML).toBe("<div><p>Paragraph 1</p><p>Paragraph 2</p></div>");
   });
 });
