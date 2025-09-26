@@ -49,7 +49,7 @@ locals {
     APP_VERSION     = local.app_version
 
     NBS_URL          = "https://www.nhswebsite-staging.nhs.uk/nbs"
-    NBS_BOOKING_PATH = "/nhs-app"
+    NBS_BOOKING_PATH = "/nhs-app/vita"
 
     SSM_PARAMETER_STORE_TTL                = 300
     PARAMETERS_SECRETS_EXTENSION_LOG_LEVEL = "INFO"

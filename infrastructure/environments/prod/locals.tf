@@ -48,8 +48,8 @@ locals {
     AUTH_SECRET     = random_password.auth_secret.result
     APP_VERSION     = local.app_version
 
-    NBS_URL          = "https://nhs.uk/nbs" // TODO: unconfirmed - is this correct url?
-    NBS_BOOKING_PATH = "/nhs-app"
+    NBS_URL          = "https://www.nhs.uk/nbs"
+    NBS_BOOKING_PATH = "/nhs-app/vita"
 
     SSM_PARAMETER_STORE_TTL                = 300
     PARAMETERS_SECRETS_EXTENSION_LOG_LEVEL = "INFO"
