@@ -88,7 +88,7 @@ const getEligibilityForPerson = async (
         eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
       };
     } else {
-      log.error({ context: { vaccineType }, error }, "Unexpected error");
+      log.error({ error: error, context: { vaccineType } }, "Unexpected error");
       return {
         eligibility: undefined,
         eligibilityError: EligibilityErrorTypes.UNKNOWN,

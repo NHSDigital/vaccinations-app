@@ -41,17 +41,17 @@ const _readFileS3 = async (bucket: string, key: string): Promise<string> => {
   } catch (error: unknown) {
     if (error instanceof S3ServiceException) {
       if (error.name === "NoSuchKey") {
-        log.error({ error, context: { bucket, key } }, "Error in reading Content API from S3: File not found");
+        log.error({ error: error, context: { bucket, key } }, "Error in reading Content API from S3: File not found");
         throw new S3NoSuchKeyError(`Error in reading Content API from S3`);
       }
 
       const statusCode = error.$metadata?.httpStatusCode;
       if (statusCode && statusCode >= HttpStatusCode.BadRequest) {
-        log.error({ error, context: { bucket, key } }, "Error in reading Content API from S3");
+        log.error({ error: error, context: { bucket, key } }, "Error in reading Content API from S3");
         throw new S3HttpStatusError(`Error in reading Content API from S3`);
       }
 
-      log.error({ error, context: { bucket, key } }, "Unhandled error in reading Content API from S3:");
+      log.error({ error: error, context: { bucket, key } }, "Unhandled error in reading Content API from S3:");
       throw error;
     }
   }

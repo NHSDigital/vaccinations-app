@@ -14,6 +14,7 @@ const REDACT_KEYS: string[] = [
   "accessToken",
   "access_token",
   "apiKey",
+  "apikey",
   "api_key",
   "apimToken",
   "aud",

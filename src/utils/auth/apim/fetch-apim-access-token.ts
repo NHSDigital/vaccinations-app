@@ -33,7 +33,10 @@ const fetchAPIMAccessToken = async (idToken: IdToken): Promise<ApimTokenResponse
       );
       throw new ApimHttpError("Error getting APIM token");
     } else {
-      log.error({ error, context: { error_message: (error as Error).message } }, "Error generating APIM token request");
+      log.error(
+        { error: error, context: { error_message: (error as Error).message } },
+        "Error generating APIM token request",
+      );
       throw new ApimAuthError("Error getting APIM token");
     }
   }

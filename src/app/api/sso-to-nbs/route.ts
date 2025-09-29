@@ -9,7 +9,7 @@ import { extractRequestContextFromHeaders } from "@src/utils/requestScopedStorag
 import { notFound, redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
-const log = logger.child({ name: "api-sso-to-nbs" });
+const log = logger.child({ module: "api-sso-to-nbs" });
 const VACCINE_PARAM = "vaccine";
 const REDIRECT_TARGET_PARAM = "redirectTarget";
 const ApiSSONBSPerformanceMarker = "api-sso-nbs";
@@ -59,7 +59,10 @@ async function getGivenRedirectTarget(rawRedirectTarget: string | null) {
         finalRedirectUrl = SSO_FAILURE_ROUTE;
       }
     } catch (error) {
-      log.warn({ error, context: { rawRedirectTarget } }, "SSO to NBS but with invalid redirectTarget parameter");
+      log.warn(
+        { error: error, context: { rawRedirectTarget } },
+        "SSO to NBS but with invalid redirectTarget parameter",
+      );
       shouldReturnNotFound = true;
     }
   } else {
@@ -78,7 +81,7 @@ async function getGivenVaccine(vaccine: string | null) {
     try {
       finalRedirectUrl = await getSSOUrlToNBSForVaccine(vaccineType);
     } catch (error) {
-      log.error({ context: { VACCINE_PARAM, vaccine }, error }, "Error getting redirect url to NBS");
+      log.error({ error: error, context: { VACCINE_PARAM, vaccine } }, "Error getting redirect url to NBS");
       finalRedirectUrl = SSO_FAILURE_ROUTE;
     }
   } else {

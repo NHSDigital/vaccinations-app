@@ -1,6 +1,6 @@
 import { logger } from "@src/utils/logger";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
-import axios, { HttpStatusCode } from "axios";
+import axios, { AxiosError, HttpStatusCode } from "axios";
 import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "get-ssm-param" });
@@ -30,7 +30,22 @@ const getSSMParam = async (name: string): Promise<string> => {
 
     return rawAPIResponse.data.Parameter.Value;
   } catch (error) {
-    log.error({ error, context: { param: name } }, "Error in getting SSM parameter");
+    if (error instanceof AxiosError) {
+      log.error(
+        {
+          error: {
+            code: error.code,
+            message: error.message,
+            status: error.status,
+            response_data: error.response?.data,
+          },
+          context: { param: name },
+        },
+        "AxiosError: Error in getting SSM parameter",
+      );
+    } else {
+      log.error({ context: { param: name } }, "Error in getting SSM parameter");
+    }
     throw error;
   }
 };

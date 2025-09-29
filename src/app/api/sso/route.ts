@@ -8,7 +8,7 @@ import { extractRequestContextFromHeaders } from "@src/utils/requestScopedStorag
 import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
-const log = logger.child({ name: "api-sso" });
+const log = logger.child({ module: "api-sso" });
 const ASSERTED_LOGIN_IDENTITY_PARAM = "assertedLoginIdentity";
 const ApiSSOPerformanceMarker = "api-sso";
 

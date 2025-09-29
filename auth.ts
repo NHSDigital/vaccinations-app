@@ -14,7 +14,7 @@ import NextAuth from "next-auth";
 import "next-auth/jwt";
 import { headers } from "next/headers";
 
-const log = logger.child({ name: "auth" });
+const log = logger.child({ module: "auth" });
 
 const AuthSignInPerformanceMarker = "auth-sign-in-callback";
 const AuthJWTPerformanceMarker = "auth-jwt-callback";

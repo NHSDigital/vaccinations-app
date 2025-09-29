@@ -2,7 +2,7 @@ import { VaccineTypes } from "@src/models/vaccine";
 import { VaccineContentPaths, vaccineTypeToPath } from "@src/services/content-api/constants";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 
 const log = logger.child({ module: "content-fetcher" });
 const CONTENT_API_PATH_PREFIX = "nhs-website-content/vaccinations/";
@@ -28,7 +28,19 @@ const fetchContentForVaccine = async (vaccineType: VaccineTypes): Promise<string
     log.info({ context: { uri, vaccineType } }, "Successfully fetched content from API");
     return JSON.stringify(response.data);
   } catch (error) {
-    log.error({ context: { uri, vaccineType }, error }, "Error in getting vaccine content from nhs.uk API");
+    if (error instanceof AxiosError) {
+      log.error({
+        error: {
+          code: error.code,
+          status: error.status,
+          message: error.message,
+          response_data: error.response?.data,
+        },
+        context: { uri, vaccineType },
+      });
+    } else {
+      log.error({ context: { uri, vaccineType } }, "Error in getting vaccine content from nhs.uk API");
+    }
     throw error;
   }
 };
