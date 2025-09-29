@@ -34,6 +34,15 @@
     },
 
     {
+      "Sid": "LambdaAutoScalingAlarms",
+      "Effect": "Allow",
+      "Action": ["cloudwatch:PutMetricAlarm", "cloudwatch:DeleteAlarms", "cloudwatch:DescribeAlarms"],
+      "Resource": [
+        "arn:aws:cloudwatch:${region}:${account_id}:alarm:TargetTracking-function:${prefix}-server-function:nextjs-*"
+      ]
+    },
+
+    {
       "Sid": "Lambda",
       "Effect": "Allow",
       "Action": [
@@ -44,6 +53,7 @@
         "lambda:DeleteEventSourceMapping",
         "lambda:DeleteFunction",
         "lambda:DeleteFunctionEventInvokeConfig",
+        "lambda:DeleteProvisionedConcurrencyConfig",
         "lambda:GetAlias",
         "lambda:GetEventSourceMapping",
         "lambda:GetFunction",
@@ -52,11 +62,13 @@
         "lambda:GetFunctionEventInvokeConfig",
         "lambda:GetFunctionUrlConfig",
         "lambda:GetPolicy",
+        "lambda:GetProvisionedConcurrencyConfig",
         "lambda:ListFunctions",
         "lambda:ListVersionsByFunction",
         "lambda:PublishVersion",
         "lambda:PutFunctionConcurrency",
         "lambda:PutFunctionEventInvokeConfig",
+        "lambda:PutProvisionedConcurrencyConfig",
         "lambda:RemovePermission",
         "lambda:TagResource",
         "lambda:UpdateAlias",
