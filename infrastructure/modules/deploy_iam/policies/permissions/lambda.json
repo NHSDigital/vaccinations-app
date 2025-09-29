@@ -29,6 +29,7 @@
         "application-autoscaling:DescribeScalingPolicies",
         "application-autoscaling:PutScalingPolicy",
         "application-autoscaling:ListTagsForResource",
+        "application-autoscaling:DeregisterScalableTarget",
         "application-autoscaling:TagResource"
       ],
       "Resource": "arn:aws:application-autoscaling:${region}:${account_id}:scalable-target/*"
