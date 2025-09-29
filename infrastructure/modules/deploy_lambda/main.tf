@@ -6,7 +6,7 @@ module "content_cache_hydrator_lambda_function" {
   description           = "Content cache hydrator lambda"
   handler               = "lambda.handler"
   environment_variables = var.application_environment_variables
-  layers                = ["arn:aws:lambda:eu-west-2:133256977650:layer:AWS-Parameters-and-Secrets-Lambda-Extension-Arm64:18"]
+  layers                = ["arn:aws:lambda:eu-west-2:133256977650:layer:AWS-Parameters-and-Secrets-Lambda-Extension-Arm64:19"]
 
   architectures                  = ["arm64"]
   runtime                        = var.nodejs_version
