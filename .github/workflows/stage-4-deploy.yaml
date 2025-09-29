@@ -81,12 +81,21 @@ jobs:
         run: echo "TF_VAR_alarms_slack_channel_id=${{ secrets.ALARMS_SLACK_CHANNEL_ID }}" >> $GITHUB_ENV
       - name: "Set the app version being deployed"
         run: echo "TF_VAR_app_version=${{ steps.tag-or-sha.outputs.value }}" >> $GITHUB_ENV
-      - name: "Terraform init"
-        id: init
+      - name: "Terraform init (shared)"
+        id: init-shared
+        run: TF_ENV=shared make terraform-init
+      - name: "Terraform plan (shared)"
+        id: plan-shared
+        run: TF_ENV=shared make terraform-plan opts="-out=terraform-shared.tfplan"
+      - name: "Terraform apply (shared)"
+        id: apply-shared
+        run: TF_ENV=shared make terraform-apply opts="-auto-approve" opts="terraform-shared.tfplan"
+      - name: "Terraform init (app)"
+        id: init-app
         run: TF_ENV=${{ inputs.environment }} make terraform-init
-      - name: "Terraform plan"
-        id: plan
-        run: TF_ENV=${{ inputs.environment }} make terraform-plan opts="-out=terraform.tfplan"
-      - name: "Terraform apply"
-        id: apply
-        run: TF_ENV=${{ inputs.environment }} make terraform-apply opts="-auto-approve" opts="terraform.tfplan"
+      - name: "Terraform plan (app)"
+        id: plan-app
+        run: TF_ENV=${{ inputs.environment }} make terraform-plan opts="-out=terraform-app.tfplan"
+      - name: "Terraform apply (app)"
+        id: apply-app
+        run: TF_ENV=${{ inputs.environment }} make terraform-apply opts="-auto-approve" opts="terraform-app.tfplan"
