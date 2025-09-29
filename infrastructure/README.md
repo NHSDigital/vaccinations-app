@@ -203,8 +203,9 @@ We need an IAM role policy and identity provider for GitHub actions to provision
   - Audience: select the one created above
   - GitHub organisation: NHSDigital
   - GitHub repository: vaccinations-app
-  - GitHub branch: _leave empty_ and `Next`
-  - Skip adding permissions
+  - GitHub branch: *
+  - Click `Next` button
+  - Add `AdministratorAccess` permission policy
   - Give the new role a name `vaccinations-app-github-iam-role`
   - Give Tags: refer [above](#tags)
   - Save
@@ -213,22 +214,18 @@ We need an IAM role policy and identity provider for GitHub actions to provision
 
 ##### Step 1 - Initial deployment
 
-- Open the role just created - `vaccinations-app-github-iam-role`
-- Add permissions policy -> `add permissions` -> `Create inline policy` to it.
-- Select JSON in the policy editor, and paste the contents of the [policy file](github-iam-role-policy.json).
-- Give it a name `vaccinations-app-github-iam-role-policy`.
-- Save
-- Deploy locally or via GitHub
+- Update GitHub secret `IAM_ROLE` to the ARN of the role created above, for the corresponding environment
+- Trigger the deployment, which should succeed
+- DELETE the IAM role `vaccinations-app-github-iam-role`
 
 ##### Step 2 - Subsequent deployments
 
 We go with the least privilege approach, giving only enough permissions to GitHub as needed to be able to create, update and destroy resources.
-This is an iterative approach, so whenever a deployment fails due to missing permissions, the same should be added, tested to ensure it works, and then
-checked in to the repository.
+This is an iterative approach, so whenever a deployment fails due to missing permissions, those should be added to only specific resources in [deploy_iam](modules/deploy_iam) module
 
-After one successful initial deployment, there should be a role created with the application prefix containing the least set of permissions to only specific resources.
-
-- Now point GitHub environment secret IAM_ROLE to point to that role going forward.
+- After one successful initial deployment, copy the ARN of the IAM role matching `gh-vita-***-iam-role`
+- Update GitHub secret `IAM_ROLE` to the ARN of the role copied, for the corresponding environment
+- Trigger the deployment, which should succeed
 
 ##### As a developer, how to assume the restricted role
 
