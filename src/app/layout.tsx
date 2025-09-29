@@ -1,6 +1,7 @@
 import "@public/css/app.css";
 import "@public/css/nhsapp-3.1.0.min.css";
 import "@public/css/nhsuk-9.6.1.min.css";
+import { ClientUnhandledErrorLogger } from "@src/app/_components/client-unhandled-error-logger/ClientUnhandledErrorLogger";
 import { ClientProviders } from "@src/app/_components/context/ClientProviders";
 import { NoJsMessage } from "@src/app/_components/static/NoJsMessage";
 import { StaticFooter } from "@src/app/_components/static/StaticFooter";
@@ -43,6 +44,7 @@ export default function RootLayout({
           <NoJsMessage />
           <StaticFooter />
         </noscript>
+        <ClientUnhandledErrorLogger />
         <div id="app-root" className="appLayout">
           <ClientProviders>{children}</ClientProviders>
         </div>
