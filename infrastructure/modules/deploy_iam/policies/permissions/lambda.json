@@ -21,6 +21,18 @@
     },
 
     {
+      "Sid": "LambdaAutoScaling",
+      "Effect": "Allow",
+      "Action": [
+        "application-autoscaling:RegisterScalableTarget",
+        "application-autoscaling:PutScalingPolicy",
+        "application-autoscaling:DescribeScalableTargets",
+        "application-autoscaling:DescribeScalingPolicies"
+      ],
+      "Resource": "arn:aws:application-autoscaling:${region}:${account_id}:scalable-target/*"
+    },
+
+    {
       "Sid": "Lambda",
       "Effect": "Allow",
       "Action": [
