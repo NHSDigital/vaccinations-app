@@ -1,5 +1,5 @@
 module "deploy_iam" {
-  source = "../../modules/deploy_iam"
+  source = "../../../modules/deploy_iam"
 
   account_id        = data.aws_caller_identity.current.account_id
   prefix            = local.prefix
