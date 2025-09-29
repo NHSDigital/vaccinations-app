@@ -37,9 +37,7 @@
       "Sid": "LambdaAutoScalingAlarms",
       "Effect": "Allow",
       "Action": ["cloudwatch:PutMetricAlarm", "cloudwatch:DeleteAlarms", "cloudwatch:DescribeAlarms"],
-      "Resource": [
-        "arn:aws:cloudwatch:${region}:${account_id}:alarm:TargetTracking-function:${prefix}-server-function:nextjs-*"
-      ]
+      "Resource": ["arn:aws:cloudwatch:${region}:${account_id}:alarm:*"]
     },
 
     {
