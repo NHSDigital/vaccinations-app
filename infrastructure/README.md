@@ -239,7 +239,7 @@ Use the steps below to deploy with restricted role instead of administrator, in 
 
 - Store the credentials obtained above in ~/.aws/credentials file
 
-  ```
+  ```text
   [my-assumed-role]
   aws_access_key_id=xyz
   aws_secret_access_key=abc
