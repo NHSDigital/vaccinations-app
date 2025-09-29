@@ -33,7 +33,7 @@ locals {
     CONTENT_CACHE_PATH                       = "s3://${local.content_cache_bucket_name}"
     CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED = true
 
-    NHS_LOGIN_URL              = "https://auth.login.nhs.uk/"
+    NHS_LOGIN_URL              = "https://auth.login.nhs.uk"
     NHS_LOGIN_SCOPE            = "openid profile"
     NHS_APP_REDIRECT_LOGIN_URL = "https://www.nhsapp.service.nhs.uk/login?redirect_to=index"
 
