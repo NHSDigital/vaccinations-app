@@ -35,7 +35,11 @@ const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<GetConte
 
     // filter and style content
     const filteredContent: VaccinePageContent = getFilteredContentForVaccine(vaccineContent);
-    const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(vaccineType, filteredContent);
+    const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
+      vaccineType,
+      filteredContent,
+      false,
+    );
 
     profilePerformanceEnd(GetVaccineContentPerformanceMarker);
 

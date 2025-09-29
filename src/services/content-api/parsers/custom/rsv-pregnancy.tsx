@@ -1,3 +1,4 @@
+import { ContentParsingError } from "@src/services/content-api/parsers/custom/exceptions";
 import type { StyledPageSection, VaccinePageSection, VaccinePageSubsection } from "@src/services/content-api/types";
 import { logger } from "@src/utils/logger";
 import sanitiseHtml from "@src/utils/sanitise-html";
@@ -9,16 +10,24 @@ const log: Logger = logger.child({ module: "services-content-api-parsers-custom-
 const rsvInPregnancyRegExp: RegExp = /<h3>If you're pregnant<\/h3>((?:\s*<p>.*?<\/p>)+)/i;
 const paragraphsRegExp: RegExp = /<p>.*?<\/p>/g;
 
-export const styleHowToGetSubsection = (subsection: VaccinePageSubsection, index: number) => {
+export const styleHowToGetSubsection = (subsection: VaccinePageSubsection, index: number, fragile: boolean) => {
   if (subsection.type !== "simpleElement") {
     log.warn({ context: { type: subsection.type } }, "HowToGetSubsection element not found");
-    return <></>;
+    if (fragile) {
+      throw new ContentParsingError("HowToGetSubsection element not found");
+    } else {
+      return <></>;
+    }
   }
 
   const rsvInPregnancyMatches = rsvInPregnancyRegExp.exec(subsection.text);
   if (!rsvInPregnancyMatches) {
     log.warn({ context: { text: subsection.text } }, "HowToGetSubsection header not found - has the content changed?");
-    return <></>;
+    if (fragile) {
+      throw new ContentParsingError("HowToGetSubsection header not found - has the content changed?");
+    } else {
+      return <></>;
+    }
   }
 
   const paragraphsMatches = rsvInPregnancyMatches[1].match(paragraphsRegExp);
@@ -27,7 +36,11 @@ export const styleHowToGetSubsection = (subsection: VaccinePageSubsection, index
       { context: { text: rsvInPregnancyMatches[1] } },
       "HowToGetSubsection paragraph not found - has the content changed?",
     );
-    return <></>;
+    if (fragile) {
+      throw new ContentParsingError("HowToGetSubsection paragraph not found - has the content changed?");
+    } else {
+      return <></>;
+    }
   }
 
   return (
@@ -41,12 +54,15 @@ export const styleHowToGetSubsection = (subsection: VaccinePageSubsection, index
   );
 };
 
-export const styleHowToGetSectionForRsvPregnancy = (section: VaccinePageSection): StyledPageSection => {
+export const styleHowToGetSectionForRsvPregnancy = (
+  section: VaccinePageSection,
+  fragile: boolean,
+): StyledPageSection => {
   const heading = section.headline;
   const styledComponent = (
     <>
       {section.subsections.map((subsection: VaccinePageSubsection, index: number) =>
-        styleHowToGetSubsection(subsection, index),
+        styleHowToGetSubsection(subsection, index, fragile),
       )}
     </>
   );

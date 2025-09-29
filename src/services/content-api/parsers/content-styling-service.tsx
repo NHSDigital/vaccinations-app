@@ -112,14 +112,16 @@ const extractHeadingAndContent = (text: string): HeadingWithContent => {
   }
 };
 
-const styleHowToGetSection: Record<VaccineTypes, (section: VaccinePageSection) => StyledPageSection> = {
-  [VaccineTypes.RSV]: styleHowToGetSectionForRsv,
-  [VaccineTypes.RSV_PREGNANCY]: styleHowToGetSectionForRsvPregnancy,
-};
+const styleHowToGetSection: Record<VaccineTypes, (section: VaccinePageSection, fragile: boolean) => StyledPageSection> =
+  {
+    [VaccineTypes.RSV]: styleHowToGetSectionForRsv,
+    [VaccineTypes.RSV_PREGNANCY]: styleHowToGetSectionForRsvPregnancy,
+  };
 
 const getStyledContentForVaccine = async (
   vaccine: VaccineTypes,
   filteredContent: VaccinePageContent,
+  fragile: boolean,
 ): Promise<StyledVaccineContent> => {
   const overview: string = filteredContent.overview;
   let whatVaccineIsFor;
@@ -127,7 +129,7 @@ const getStyledContentForVaccine = async (
     whatVaccineIsFor = styleSection(filteredContent.whatVaccineIsFor);
   }
   const whoVaccineIsFor: StyledPageSection = styleSection(filteredContent.whoVaccineIsFor);
-  const howToGetVaccine: StyledPageSection = styleHowToGetSection[vaccine](filteredContent.howToGetVaccine);
+  const howToGetVaccine: StyledPageSection = styleHowToGetSection[vaccine](filteredContent.howToGetVaccine, fragile);
   const webpageLink: URL = filteredContent.webpageLink;
 
   return {

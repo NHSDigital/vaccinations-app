@@ -1,3 +1,4 @@
+import { ContentParsingError } from "@src/services/content-api/parsers/custom/exceptions";
 import { styleHowToGetSubsection as styleHowToGetSubsectionForRsv } from "@src/services/content-api/parsers/custom/rsv";
 import { styleHowToGetSubsection as styleHowToGetSubsectionForRsvInPregnancy } from "@src/services/content-api/parsers/custom/rsv-pregnancy";
 import { VaccinePageSubsection } from "@src/services/content-api/types";
@@ -39,39 +40,67 @@ const mockRsvForOlderAdultsNewerSubsection: VaccinePageSubsection = {
 
 describe("styleHowToGetSubsection for rsv in older adults", () => {
   it("returns empty fragment if type is not 'simpleElement'", () => {
-    const { container } = render(<>{styleHowToGetSubsectionForRsv(mockNonSimpleSubsection, 0)}</>);
+    const { container } = render(<>{styleHowToGetSubsectionForRsv(mockNonSimpleSubsection, 0, false)}</>);
     expect(container.innerHTML).toBe("");
   });
 
   it("returns empty fragment if no h3 is found for rsv for older adults", () => {
-    const { container } = render(<>{styleHowToGetSubsectionForRsv(mockRsvInPregnancySubsection, 0)}</>);
+    const { container } = render(<>{styleHowToGetSubsectionForRsv(mockRsvInPregnancySubsection, 0, false)}</>);
     expect(container.innerHTML).toBe("");
   });
 
+  it("throws ContentParsingError if type is not 'simpleElement'", () => {
+    expect(() => {
+      render(<>{styleHowToGetSubsectionForRsv(mockNonSimpleSubsection, 0, true)}</>);
+    }).toThrow(ContentParsingError);
+  });
+
+  it("throws ContentParsingError if no h3 is found for rsv for older adults", () => {
+    expect(() => {
+      render(<>{styleHowToGetSubsectionForRsv(mockRsvInPregnancySubsection, 0, true)}</>);
+    }).toThrow(ContentParsingError);
+  });
+
   it("renders HTML if subsection contains rsv for older adults", () => {
-    const { container } = render(<>{styleHowToGetSubsectionForRsv(mockRsvForOlderAdultsSubsection, 0)}</>);
+    const { container } = render(<>{styleHowToGetSubsectionForRsv(mockRsvForOlderAdultsSubsection, 0, false)}</>);
     expect(container.innerHTML).toBe("<div><p>Paragraph 1</p><p>Paragraph 2</p></div>");
   });
 
   it("renders HTML if newer subsection contains rsv for older adults", () => {
-    const { container } = render(<>{styleHowToGetSubsectionForRsv(mockRsvForOlderAdultsNewerSubsection, 0)}</>);
+    const { container } = render(<>{styleHowToGetSubsectionForRsv(mockRsvForOlderAdultsNewerSubsection, 0, false)}</>);
     expect(container.innerHTML).toBe("<div><p>Paragraph 1</p><p>Paragraph 2</p></div>");
   });
 });
 
 describe("styleHowToGetSubsection for rsv in pregnancy", () => {
   it("returns empty fragment if type is not 'simpleElement'", () => {
-    const { container } = render(<>{styleHowToGetSubsectionForRsvInPregnancy(mockNonSimpleSubsection, 0)}</>);
+    const { container } = render(<>{styleHowToGetSubsectionForRsvInPregnancy(mockNonSimpleSubsection, 0, false)}</>);
     expect(container.innerHTML).toBe("");
   });
 
   it("returns empty fragment if no h3 is found for rsv in pregnancy", () => {
-    const { container } = render(<>{styleHowToGetSubsectionForRsvInPregnancy(mockRsvForOlderAdultsSubsection, 0)}</>);
+    const { container } = render(
+      <>{styleHowToGetSubsectionForRsvInPregnancy(mockRsvForOlderAdultsSubsection, 0, false)}</>,
+    );
     expect(container.innerHTML).toBe("");
   });
 
+  it("throws ContentParsingError if type is not 'simpleElement'", () => {
+    expect(() => {
+      render(<>{styleHowToGetSubsectionForRsvInPregnancy(mockNonSimpleSubsection, 0, true)}</>);
+    }).toThrow(ContentParsingError);
+  });
+
+  it("throws ContentParsingError if no h3 is found for rsv in pregnancy", () => {
+    expect(() => {
+      render(<>{styleHowToGetSubsectionForRsvInPregnancy(mockRsvForOlderAdultsSubsection, 0, true)}</>);
+    }).toThrow(ContentParsingError);
+  });
+
   it("renders HTML if subsection contains rsv in pregnancy", () => {
-    const { container } = render(<>{styleHowToGetSubsectionForRsvInPregnancy(mockRsvInPregnancySubsection, 0)}</>);
+    const { container } = render(
+      <>{styleHowToGetSubsectionForRsvInPregnancy(mockRsvInPregnancySubsection, 0, true)}</>,
+    );
     expect(container.innerHTML).toBe(`<div><div><p>Paragraph 1</p><p>Paragraph 2</p></div></div>`);
   });
 });

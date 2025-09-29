@@ -197,7 +197,11 @@ describe("ContentStylingService", () => {
           webpageLink: new URL("https://test.example.com/"),
         };
 
-        const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(vaccine, mockContent);
+        const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
+          vaccine,
+          mockContent,
+          false,
+        );
 
         expect(styledVaccineContent).not.toBeNull();
         expect(styledVaccineContent.overview).toEqual("This is an overview");
@@ -241,6 +245,7 @@ describe("ContentStylingService", () => {
       const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
         VaccineTypes.RSV,
         mockContent,
+        false,
       );
 
       expect(styledVaccineContent).not.toBeNull();
