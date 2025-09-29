@@ -33,7 +33,9 @@ const middlewareWrapper = async (request: NextRequest) => {
     log.info({ context: { nextUrl: request.nextUrl.href } }, "Missing user session, redirecting to login");
     response = NextResponse.redirect(new URL(config.NHS_APP_REDIRECT_LOGIN_URL));
   } else {
-    response = NextResponse.next({ headers });
+    response = NextResponse.next({
+      request: { headers: headers },
+    });
   }
 
   profilePerformanceEnd(MiddlewarePerformanceMarker);
