@@ -17,16 +17,15 @@ jest.mock("@src/utils/auth/user-logout", () => ({
   userLogout: jest.fn(),
 }));
 
-const testHeader = (expectedVisible: boolean) => {
+const expectHeaderVisible = (expectedVisible: boolean) => {
   const serviceLink = screen.queryByRole("link", {
     name: "Check and book an RSV vaccination",
   });
   const logoLink = screen.queryByRole("link", { name: "NHS homepage" });
+
   if (expectedVisible) {
     expect(serviceLink).toBeVisible();
-    expect(serviceLink?.getAttribute("href")).toEqual("/check-and-book-rsv");
     expect(logoLink).toBeVisible();
-    expect(logoLink?.getAttribute("href")).toEqual("/check-and-book-rsv");
   } else {
     expect(serviceLink).toBeNull();
     expect(logoLink).toBeNull();
@@ -46,28 +45,61 @@ describe("AppHeader", () => {
       });
     });
 
-    it("shows the app header with logout link when authenticated", async () => {
-      mockSession = { status: "authenticated" };
-      render(<AppHeader />);
-      testHeader(true);
-      const logoutLink = screen.getByRole("link", { name: "Log out" });
-      expect(logoutLink).toBeVisible();
-      expect(logoutLink?.getAttribute("href")).toEqual("#");
+    describe("when authenticated", () => {
+      beforeEach(() => {
+        mockSession = { status: "authenticated" };
+      });
+
+      it("shows the app header with logout link", async () => {
+        render(<AppHeader />);
+        expectHeaderVisible(true);
+        const logoutLink = screen.getByRole("link", { name: "Log out" });
+        expect(logoutLink).toBeVisible();
+        expect(logoutLink?.getAttribute("href")).toEqual("#");
+      });
+
+      it("logo and service name should link to service homepage", async () => {
+        render(<AppHeader />);
+
+        const logoLink = screen.queryByRole("link", { name: "NHS homepage" });
+        const serviceLink = screen.queryByRole("link", {
+          name: "Check and book an RSV vaccination",
+        });
+        expect(serviceLink?.getAttribute("href")).toEqual("/check-and-book-rsv");
+        expect(logoLink?.getAttribute("href")).toEqual("/check-and-book-rsv");
+      });
+
+      it("logs out on click", async () => {
+        render(<AppHeader />);
+        screen.getByRole("link", { name: "Log out" }).click();
+        expect(userLogout).toHaveBeenCalled();
+      });
     });
 
-    it("shows the app header without logout link when unauthenticated", async () => {
-      mockSession = { status: "unauthenticated" };
-      render(<AppHeader />);
-      testHeader(true);
-      const logoutLink = screen.queryByRole("link", { name: "Log out" });
-      expect(logoutLink).toBeNull();
-    });
+    describe("when unauthenticated", () => {
+      beforeEach(() => {
+        mockSession = { status: "unauthenticated" };
+      });
 
-    it("logs out on click", async () => {
-      mockSession = { status: "authenticated" };
-      render(<AppHeader />);
-      screen.getByRole("link", { name: "Log out" }).click();
-      expect(userLogout).toHaveBeenCalled();
+      it("shows the app header without logout link", async () => {
+        mockSession = { status: "unauthenticated" };
+        render(<AppHeader />);
+        expectHeaderVisible(true);
+        const logoutLink = screen.queryByRole("link", { name: "Log out" });
+        expect(logoutLink).toBeNull();
+      });
+
+      it("should not include link destination for logo and service name", async () => {
+        mockSession = { status: "unauthenticated" };
+        render(<AppHeader />);
+
+        const logoLink = screen.queryByRole("link", { name: "NHS homepage" });
+        const serviceLink = screen.queryByRole("link", {
+          name: "Check and book an RSV vaccination",
+        });
+        expect(serviceLink?.getAttribute("href")).toEqual("#");
+        expect(logoLink?.getAttribute("href")).toEqual("#");
+      });
     });
   });
 
@@ -81,7 +113,7 @@ describe("AppHeader", () => {
     });
 
     it("hides the app header", async () => {
-      testHeader(false);
+      expectHeaderVisible(false);
     });
   });
 
@@ -95,7 +127,7 @@ describe("AppHeader", () => {
     });
 
     it("hides the app header", async () => {
-      testHeader(false);
+      expectHeaderVisible(false);
     });
   });
 });
