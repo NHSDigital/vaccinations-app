@@ -101,7 +101,7 @@ describe("Any vaccine page", () => {
     it("should display inset text for rsv in pregnancy", async () => {
       await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
 
-      const recommendedBlock: HTMLElement | undefined = screen.getAllByRole("heading", { level: 3 }).at(0);
+      const recommendedBlock: HTMLElement | undefined = screen.getAllByRole("heading", { level: 2 }).at(0);
       expect(recommendedBlock).toHaveClass("nhsuk-card--care__heading");
       expect(recommendedBlock?.innerHTML).toContain("The RSV vaccine is recommended if you:");
     });

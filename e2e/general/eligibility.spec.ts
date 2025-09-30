@@ -25,7 +25,7 @@ test.describe("Eligibility", () => {
 
       const eligibility: Locator = page.getByTestId("Eligibility");
       const heading: Locator = eligibility.getByRole("heading", {
-        level: 3,
+        level: 2,
         name: "We do not believe you can have it",
       });
       const bulletPoint1: Locator = eligibility.getByText("are not aged 75 to 79", { exact: true }).first();
@@ -64,7 +64,7 @@ test.describe("Eligibility", () => {
       await page.goto(RSV_PAGE_URL);
 
       const eligibility: Locator = page.getByTestId("Eligibility");
-      const heading: Locator = eligibility.getByRole("heading", { level: 3, name: "You should have the RSV vaccine" });
+      const heading: Locator = eligibility.getByRole("heading", { level: 2, name: "You should have the RSV vaccine" });
       const bulletPoint: Locator = eligibility
         .getByText(elidCopyForEnvironment.user01.bulletPoint1, { exact: true })
         .first();
