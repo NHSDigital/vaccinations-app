@@ -52,7 +52,7 @@
     "@types/jest": "^30.0.0",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.5.2",
-    "@types/react": "^19.1.14",
+    "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",
     "esbuild": "0.25.10",
     "eslint": "^9.36.0",
