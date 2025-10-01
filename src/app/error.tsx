@@ -13,7 +13,7 @@ interface GlobalErrorProps {
 
 const UncaughtError = (props: GlobalErrorProps) => {
   useEffect(() => {
-    logClientSideError(ClientSideErrorTypes.UNHANDLED_ERROR);
+    logClientSideError(ClientSideErrorTypes.UNHANDLED_ERROR_DURING_RENDER);
   }, [props.error]);
 
   return <ServiceFailure />;
