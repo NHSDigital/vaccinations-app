@@ -34,5 +34,13 @@
   "actionable-with-already-vaccinated-suitability-rule": {
     "nhsNumber": "9450114080",
     "user_identifier": "13"
+  },
+  "actionable-with-booking-button": {
+    "nhsNumber": "9735548852",
+    "user_identifier": "21"
+  },
+  "actionable-with-managing-button": {
+    "nhsNumber": "9735548844",
+    "user_identifier": "22"
   }
 }

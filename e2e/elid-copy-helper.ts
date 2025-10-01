@@ -1,5 +1,5 @@
 type PageCopy = Record<string, string>;
-type UserCopy = Record<string, PageCopy>;
+export type UserCopy = Record<string, PageCopy>;
 
 export const elidCopyThatDiffersByEnvironment: Record<string, UserCopy> = {
   ["sandpit"]: {

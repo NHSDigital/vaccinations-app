@@ -1,10 +1,10 @@
 import { Locator, expect, test } from "@playwright/test";
 import { MAX_AVG_LCP_DURATION_MS, RSV_PAGE_URL } from "@project/e2e/constants";
-import { elidCopyThatDiffersByEnvironment } from "@project/e2e/elid-copy-helper";
+import { UserCopy, elidCopyThatDiffersByEnvironment } from "@project/e2e/elid-copy-helper";
 import { accessibilityCheck, benchmark, getEnv } from "@project/e2e/helpers";
 
 const environment = getEnv("DEPLOY_ENVIRONMENT");
-const elidCopyForEnvironment =
+const elidCopyForEnvironment: UserCopy =
   environment === "preprod"
     ? elidCopyThatDiffersByEnvironment["integration"]
     : elidCopyThatDiffersByEnvironment["sandpit"];
