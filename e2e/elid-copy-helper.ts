@@ -8,9 +8,6 @@ export const elidCopyThatDiffersByEnvironment: Record<string, UserCopy> = {
       infoTextHeading: "If you think you need this vaccine",
       infoTextParagraph: "Speak to your healthcare professional if you think you should be offered this vaccination.",
     },
-    user05: {
-      cardParagraphText: "To change or cancel your appointment, contact the provider you booked with.",
-    },
     user01: {
       bulletPoint1: "are aged 75 to 79",
     },
@@ -21,11 +18,8 @@ export const elidCopyThatDiffersByEnvironment: Record<string, UserCopy> = {
   ["integration"]: {
     user15: {
       bulletPoint2: "did not turn 80 after 1 September 2024",
-      infoTextHeading: "If you think this is incorrect",
+      infoTextHeading: "If this applies to you",
       infoTextParagraph: "Speak to your healthcare professional if you think you should be offered this vaccine.",
-    },
-    user05: {
-      cardParagraphText: "To change or cancel your appointment, contact the provider you booked it with.",
     },
     user01: {
       bulletPoint1: "are aged between 75 and 79",

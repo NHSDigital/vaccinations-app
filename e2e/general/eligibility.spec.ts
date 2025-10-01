@@ -41,13 +41,21 @@ test.describe("Eligibility", () => {
     test("Not Eligible - InfoText action content", async ({ page }) => {
       await page.goto(RSV_PAGE_URL);
 
-      const infoTextHeading = page.getByRole("heading", {
-        level: 2,
-        name: elidCopyForEnvironment.user15.infoTextHeading,
-      });
-      const infoTextParagraph = page
-        .locator(`h2:has-text("${elidCopyForEnvironment.user15.infoTextHeading}") + p`)
-        .first();
+      let infoTextHeading, infoTextParagraph;
+
+      if (environment === "preprod") {
+        infoTextHeading = page.getByRole("heading", {
+          level: 3,
+          name: elidCopyForEnvironment.user15.infoTextHeading,
+        });
+        infoTextParagraph = page.locator(`h3:has-text("${elidCopyForEnvironment.user15.infoTextHeading}") + p`).first();
+      } else {
+        infoTextHeading = page.getByRole("heading", {
+          level: 2,
+          name: elidCopyForEnvironment.user15.infoTextHeading,
+        });
+        infoTextParagraph = page.locator(`h2:has-text("${elidCopyForEnvironment.user15.infoTextHeading}") + p`).first();
+      }
       const tagName = await infoTextParagraph.evaluate((element) => element.tagName);
 
       await expect(infoTextHeading).toBeVisible();
@@ -76,8 +84,14 @@ test.describe("Eligibility", () => {
     test("Actionable - InfoText action content", async ({ page }) => {
       await page.goto(RSV_PAGE_URL);
 
-      const infoTextHeading = page.getByRole("heading", { level: 2, name: "Getting the vaccine" });
-      const infoTextParagraph = page.locator('h2:has-text("Getting the vaccine") + p').first();
+      let infoTextHeading, infoTextParagraph;
+      if (environment === "preprod") {
+        infoTextHeading = page.getByRole("heading", { level: 3, name: "Getting the vaccine" });
+        infoTextParagraph = page.locator('h3:has-text("Getting the vaccine") + p').first();
+      } else {
+        infoTextHeading = page.getByRole("heading", { level: 2, name: "Getting the vaccine" });
+        infoTextParagraph = page.locator('h2:has-text("Getting the vaccine") + p').first();
+      }
       const tagName = await infoTextParagraph.evaluate((element) => element.tagName);
 
       await expect(infoTextHeading).toBeVisible();
@@ -114,7 +128,9 @@ test.describe("Eligibility", () => {
       await expect(cardHeading).toBeVisible();
       await expect(cardHeading).toHaveClass("nhsuk-heading-m nhsuk-card__heading");
       await expect(cardParagraph).toBeVisible();
-      await expect(cardParagraph).toHaveText(elidCopyForEnvironment.user05.cardParagraphText);
+      await expect(cardParagraph).toHaveText(
+        "To change or cancel your appointment, contact the provider you booked with.",
+      );
       await expect(cardParagraph).toHaveClass("nhsuk-card__description");
     });
   });
