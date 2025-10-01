@@ -33,7 +33,7 @@ module "deploy_app" {
     layers                           = ["arn:aws:lambda:eu-west-2:133256977650:layer:AWS-Parameters-and-Secrets-Lambda-Extension-Arm64:19"]
     enable_streaming                 = true
     timeout                          = 30
-    memory_size                      = 512
+    memory_size                      = 2048
 
     cloudwatch_log = {
       skip_destroy      = true
