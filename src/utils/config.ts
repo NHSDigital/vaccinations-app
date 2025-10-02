@@ -32,6 +32,7 @@ const CACHE_TTL_MILLIS: number = 300 * 1000;
 const ConfigPerformanceMarker = "app-config";
 let appConfigCache: AppConfigCache | undefined;
 
+/** @deprecated Use lazyConfig instead. */
 const configProvider = async (): Promise<AppConfig> => {
   if (appConfigCache && appConfigCache.ttl > Date.now()) return appConfigCache.config;
 

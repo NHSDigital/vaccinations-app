@@ -54,7 +54,7 @@ class LazyConfig {
     if (lowercasedValue === "false") return false;
 
     const num = Number(trimmedValue);
-    if (!isNaN(num)) return num;
+    if (!Number.isNaN(num)) return num;
 
     try {
       return new URL(trimmedValue);
@@ -87,19 +87,11 @@ class LazyConfig {
     return coercedValue;
   }
 
-  private getFromEnvironmentOrSSM = async (key: string): Promise<string> => {
+  private async getFromEnvironmentOrSSM(key: string): Promise<string> {
     let value = process.env[key];
 
     if (value === undefined || value === null) {
-      const ssmPrefix = await this.getAttribute("SSM_PREFIX");
-
-      if (typeof ssmPrefix !== "string" || ssmPrefix === "") {
-        log.error(
-          { context: { key, ssmPrefix } },
-          "SSM_PREFIX is not configured correctly. Expected a non-empty string.",
-        );
-        throw new Error(`SSM_PREFIX is not configured correctly. Expected a non-empty string, but got: ${ssmPrefix}`);
-      }
+      const ssmPrefix = await this.getSsmPrefix();
 
       log.debug({ context: { key, ssmPrefix } }, "getting from SSM");
       value = await getSSMParam(`${ssmPrefix}${key}`);
@@ -111,7 +103,24 @@ class LazyConfig {
     }
 
     return value;
-  };
+  }
+
+  private async getSsmPrefix(): Promise<string> {
+    const key = "SSM_PREFIX";
+
+    if (this._cache.has(key)) {
+      return this._cache.get(key) as string;
+    }
+
+    const prefix = process.env[key];
+    if (typeof prefix === "string" && prefix !== "") {
+      this._cache.set(key, prefix);
+      return prefix;
+    }
+
+    log.error({ context: { key } }, "SSM_PREFIX is not configured in the environment.");
+    throw new Error("SSM_PREFIX is not configured correctly in the environment.");
+  }
 
   public resetCache() {
     this._cache = new Map();

@@ -10,7 +10,7 @@ import {
 } from "@src/services/eligibility-api/gateway/exceptions";
 import { Cohort, Heading } from "@src/services/eligibility-api/types";
 import { getApimAccessToken } from "@src/utils/auth/apim/get-apim-access-token";
-import { AppConfig, configProvider } from "@src/utils/config";
+import lazyConfig from "@src/utils/lazy-config";
 import { logger } from "@src/utils/logger";
 import { asyncLocalStorage } from "@src/utils/requestContext";
 import axios, { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
@@ -27,10 +27,8 @@ const log = logger.child({ module: "fetch-eligibility-content" });
 const ELIGIBILITY_API_PATH_SUFFIX = "eligibility-signposting-api/patient-check/";
 
 export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<EligibilityApiResponse> => {
-  const config: AppConfig = await configProvider();
-
-  const apiEndpoint: URL = config.ELIGIBILITY_API_ENDPOINT;
-  const apiKey: string = config.ELIGIBILITY_API_KEY;
+  const apiEndpoint: URL = (await lazyConfig.ELIGIBILITY_API_ENDPOINT) as URL;
+  const apiKey: string = (await lazyConfig.ELIGIBILITY_API_KEY) as string;
   const vitaTraceId: string | undefined = asyncLocalStorage?.getStore()?.traceId;
 
   const elidUri: string = `${apiEndpoint}${ELIGIBILITY_API_PATH_SUFFIX}${nhsNumber}`;
@@ -40,7 +38,7 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
     "X-Correlation-ID": vitaTraceId,
   };
 
-  if (config.IS_APIM_AUTH_ENABLED) {
+  if (await lazyConfig.IS_APIM_AUTH_ENABLED) {
     const apimAccessToken = await getApimAccessToken();
     headers = { ...headers, Authorization: `Bearer ${apimAccessToken}` };
   }

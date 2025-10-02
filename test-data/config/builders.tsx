@@ -102,6 +102,29 @@ class LazyConfigBuilder {
     return this;
   }
 
+  public andIsApimAuthEnabled(value: boolean): this {
+    return this.withIsApimAuthEnabled(value);
+  }
+
+  public withContentCachePath(value: string): this {
+    this._configValues.CONTENT_CACHE_PATH = value;
+    return this;
+  }
+
+  public withEligibilityApiEndpoint(value: URL): this {
+    this._configValues.ELIGIBILITY_API_ENDPOINT = value;
+    return this;
+  }
+
+  public withEligibilityApiKey(value: string): this {
+    this._configValues.ELIGIBILITY_API_KEY = value;
+    return this;
+  }
+
+  public andEligibilityApiKey(value: string): this {
+    return this.withEligibilityApiKey(value);
+  }
+
   public build(): AsyncConfigMock {
     const asyncMock: AsyncConfigMock = {};
     for (const key in this._configValues) {
