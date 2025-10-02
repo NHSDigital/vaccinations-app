@@ -4,6 +4,8 @@ import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "lazy-config" });
 
+type ConfigValue = string | number | boolean | URL | undefined;
+
 function createReadOnlyDynamic<T extends object>(instance: T): T & { [key: string]: Promise<unknown> } {
   const handler: ProxyHandler<T> = {
     get(target, prop, receiver) {
@@ -30,26 +32,37 @@ function createReadOnlyDynamic<T extends object>(instance: T): T & { [key: strin
 }
 
 class LazyConfig {
-  private _cache = new Map<string, unknown>();
+  private _cache = new Map<string, ConfigValue>();
 
-  private _coerceType(value: string | undefined): unknown {
-    if (value === undefined) {
+  private _coerceType(value: string | undefined): ConfigValue {
+    if (value === undefined || value.trim() === "") {
       return undefined;
     }
-    if (value.toLowerCase() === "true") return true;
-    if (value.toLowerCase() === "false") return false;
 
-    const num = Number(value);
-    if (!isNaN(num) && value.trim() !== "") return num;
+    const trimmedValue = value.trim();
+    const lowercasedValue = trimmedValue.toLowerCase();
 
-    return value;
+    if (lowercasedValue === "true") return true;
+    if (lowercasedValue === "false") return false;
+
+    const num = Number(trimmedValue);
+    if (!isNaN(num)) return num;
+
+    try {
+      return new URL(trimmedValue);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_) {
+      // Not a URL
+    }
+
+    return trimmedValue;
   }
 
   public hasAttribute(key: string): boolean {
     return this._cache.has(key) || process.env[key] !== undefined;
   }
 
-  public async getAttribute(key: string): Promise<unknown> {
+  public async getAttribute(key: string): Promise<ConfigValue> {
     if (this._cache.has(key)) {
       log.debug({ context: { key } }, "cache hit");
       return this._cache.get(key);
@@ -84,11 +97,15 @@ class LazyConfig {
     }
 
     if (value === undefined || value === null) {
-      throw new Error(`Unable to get param: ${key} from environment or SSM`);
+      throw new Error(`Unable to get config item ${key}`);
     }
 
     return value;
   };
+
+  public resetCache() {
+    this._cache = new Map();
+  }
 
   public _inspectCache(): Record<string, unknown> {
     return Object.fromEntries(this._cache);
