@@ -31,8 +31,13 @@ const AccessibilityStatement = () => {
             </h2>
             <p>
               On a phone or tablet you can use the built-in{" "}
-              <a href="https://www.apple.com/uk/accessibility/iphone/">Apple iOS</a> or{" "}
-              <a href="https://support.google.com/accessibility/android/answer/6006564?hl=en-GB">Android</a>{" "}
+              <a href="https://www.apple.com/uk/accessibility/iphone/" target="_blank">
+                Apple iOS
+              </a>{" "}
+              or{" "}
+              <a href="https://support.google.com/accessibility/android/answer/6006564?hl=en-GB" target="_blank">
+                Android
+              </a>{" "}
               accessibility settings to make some parts of this service more accessible.
               <br />
               <br /> You can also log in from the NHS website. By changing the settings on your web browser or computer
@@ -49,20 +54,30 @@ const AccessibilityStatement = () => {
               </li>
             </ul>
             <p>
-              <a href="https://mcmw.abilitynet.org.uk/">AbilityNet</a> has advice to help you make your device easier to
-              use if you have a disability.
+              <a href="https://mcmw.abilitynet.org.uk/" target="_blank">
+                AbilityNet
+              </a>{" "}
+              has advice to help you make your device easier to use if you have a disability.
             </p>
             <p>
               You need to create an NHS login to use this service. You can read the{" "}
-              <a href="https://access.login.nhs.uk/accessibility">NHS login accessibility statement</a>.
+              <a href="https://access.login.nhs.uk/accessibility" target="_blank">
+                NHS login accessibility statement
+              </a>
+              .
             </p>
             <h2>How accessible is Check and book an RSV vaccination?</h2>
             <p>
               We regularly test our content to Web Content Accessibility Guidelines (WCAG) 2.2 on both mobile and
               desktop devices. We follow the NHS service manual guidance on{" "}
-              <a href="https://service-manual.nhs.uk/accessibility">accessible design</a>. We also try to make text as
-              simple as possible to understand, following the{" "}
-              <a href="https://service-manual.nhs.uk/content">NHS style guide</a>.
+              <a href="https://service-manual.nhs.uk/accessibility" target="_blank">
+                accessible design
+              </a>
+              . We also try to make text as simple as possible to understand, following the{" "}
+              <a href="https://service-manual.nhs.uk/content" target="_blank">
+                NHS style guide
+              </a>
+              .
             </p>
             <p>Our latest accessibility audit showed all pages in this service to be fully accessible.</p>
 
@@ -79,27 +94,30 @@ const AccessibilityStatement = () => {
 
             <h3>Enforcement procedure</h3>
             <p>
-              The Equality and Human Rights Commission (EHRC) is responsible for enforcing the{" "}
-              <a href="https://www.legislation.gov.uk/uksi/2018/952/contents/made">
-                Public Sector Bodies (Website and Mobile Applications) (No.2) Accessibility Regulations 2018 (the
-                &apos;accessibility regulations&apos;)
+              The Equality and Human Rights Commission (EHRC) is responsible for enforcing the
+              <a href="https://www.legislation.gov.uk/uksi/2018/952/contents/made" target="_blank">
+                Public Sector Bodies (Website and Mobile Applications) (No.2) Accessibility Regulations 2018
+                (the&apos;accessibility regulations&apos;)
               </a>
-              . If you&apos;re not happy with how we respond to your complaint, contact the{" "}
-              <a href="https://www.equalityadvisoryservice.com/">Equality Advisory and Support Service (EASS)</a>.
+              . If you&apos;re not happy with how we respond to your complaint, contact the
+              <a href="https://www.equalityadvisoryservice.com/" target="_blank">
+                Equality Advisory and Support Service (EASS)
+              </a>
+              .
             </p>
 
             <h2>Technical information about the accessibility of Check and book an RSV vaccination</h2>
             <p>
-              NHS England is committed to making this service accessible, in accordance with the{" "}
-              <a href="https://www.legislation.gov.uk/uksi/2018/952/contents/made">
+              NHS England is committed to making this service accessible, in accordance with the
+              <a href="https://www.legislation.gov.uk/uksi/2018/952/contents/made" target="_blank">
                 Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018
               </a>
               .
             </p>
             <h3>Compliance status</h3>
             <p>
-              This service is fully compliant with the{" "}
-              <a href="https://www.legislation.gov.uk/uksi/2018/952/contents/made">
+              This service is fully compliant with the
+              <a href="https://www.legislation.gov.uk/uksi/2018/952/contents/made" target="_blank">
                 Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018
               </a>
               .
@@ -111,7 +129,10 @@ const AccessibilityStatement = () => {
               specialist assessors.
             </p>
             <p>
-              The NHS App was last audited by <a href="https://diginclusion.com">Dig Inclusion</a>
+              The NHS App was last audited by
+              <a href="https://diginclusion.com" target="_blank">
+                Dig Inclusion
+              </a>
             </p>
             <p>iOS on 9 September 2025.</p>
             <p>Android on 9 September 2025.</p>
