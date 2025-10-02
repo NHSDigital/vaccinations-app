@@ -61,9 +61,8 @@ class LazyConfig {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_) {
       // Not a URL
+      return trimmedValue;
     }
-
-    return trimmedValue;
   }
 
   public async getAttribute(key: string): Promise<ConfigValue> {
