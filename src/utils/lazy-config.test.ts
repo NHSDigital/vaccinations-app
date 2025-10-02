@@ -92,4 +92,19 @@ describe("lazyConfig", () => {
 
     expect(mockGetSSMParam).not.toHaveBeenCalled();
   });
+
+  it("should expire config after ttl", async () => {
+    setupTestEnvVars("test/");
+    const mockGetSSMParam = (getSSMParam as jest.Mock).mockImplementation(() => "test-value");
+
+    await lazyConfig.CONTENT_API_KEY;
+
+    expect(mockGetSSMParam).toHaveBeenCalled();
+    mockGetSSMParam.mockClear();
+    jest.setSystemTime(nowInSeconds * 1000 + 300 * 1000);
+
+    await lazyConfig.CONTENT_API_KEY;
+
+    expect(mockGetSSMParam).toHaveBeenCalled();
+  });
 });

@@ -20,12 +20,6 @@ function createReadOnlyDynamic<T extends object>(instance: T): T & { [key: strin
       }
       return Promise.resolve(undefined);
     },
-    has(target, prop) {
-      if ("hasAttribute" in target && typeof target.hasAttribute === "function") {
-        return target.hasAttribute(prop) || prop in target;
-      }
-      return prop in target;
-    },
   };
 
   return new Proxy(instance, handler) as T & { [key: string]: Promise<unknown> };
@@ -33,6 +27,8 @@ function createReadOnlyDynamic<T extends object>(instance: T): T & { [key: strin
 
 class LazyConfig {
   private _cache = new Map<string, ConfigValue>();
+  private ttl: number = 0;
+  static readonly CACHE_TTL_MILLIS: number = 300 * 1000;
 
   private _coerceType(value: string | undefined): ConfigValue {
     if (value === undefined || value.trim() === "") {
@@ -58,11 +54,11 @@ class LazyConfig {
     return trimmedValue;
   }
 
-  public hasAttribute(key: string): boolean {
-    return this._cache.has(key) || process.env[key] !== undefined;
-  }
-
   public async getAttribute(key: string): Promise<ConfigValue> {
+    if (this.ttl < Date.now()) {
+      (this.resetCache(), (this.ttl = Date.now() + LazyConfig.CACHE_TTL_MILLIS));
+    }
+
     if (this._cache.has(key)) {
       log.debug({ context: { key } }, "cache hit");
       return this._cache.get(key);
@@ -97,6 +93,7 @@ class LazyConfig {
     }
 
     if (value === undefined || value === null) {
+      log.error({ context: { key } }, "Unable to get config item.");
       throw new Error(`Unable to get config item ${key}`);
     }
 
@@ -105,10 +102,6 @@ class LazyConfig {
 
   public resetCache() {
     this._cache = new Map();
-  }
-
-  public _inspectCache(): Record<string, unknown> {
-    return Object.fromEntries(this._cache);
   }
 }
 
