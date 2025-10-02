@@ -7,7 +7,10 @@ const AppFooter = () => {
   return (
     <Footer>
       <Footer.List>
-        <Footer.ListItem href="https://www.nhs.uk/nhs-app/nhs-app-help-and-support/" target={"_blank"}>
+        <Footer.ListItem
+          href="https://www.nhs.uk/nhs-app/nhs-app-help-and-support/vaccinations/check-and-book-an-rsv-vaccination"
+          target={"_blank"}
+        >
           Help and support
         </Footer.ListItem>
         <Footer.ListItem href="/our-policies/cookies-policy">Cookies</Footer.ListItem>

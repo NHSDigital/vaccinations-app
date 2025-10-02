@@ -11,7 +11,7 @@ export function StaticFooter() {
               <li className="nhsuk-footer__list-item nhsuk-footer-default__list-item">
                 <a
                   className="nhsuk-footer__list-item-link"
-                  href="https://www.nhs.uk/nhs-app/nhs-app-help-and-support/"
+                  href="https://www.nhs.uk/nhs-app/nhs-app-help-and-support/vaccinations/check-and-book-an-rsv-vaccination"
                   target="_blank"
                 >
                   Help and support
