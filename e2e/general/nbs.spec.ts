@@ -29,6 +29,26 @@ export const loginToNBS = async (browser: Browser) => {
   return { page: await nbsContext.newPage(), context: nbsContext };
 };
 
+const testLinkToBookAppointmentForPregnantPeople = () => {
+  test("link to book appointment at pharmacy on RSV page for pregnant people", async ({ browser }) => {
+    const { page, context } = await loginToNBS(browser);
+
+    await page.goto(RSV_PREGNANCY_PAGE_URL);
+    await expect(page).toHaveTitle(RSV_PREGNANCY_PAGE_TITLE);
+
+    const bookingLink = page.getByRole("link", { name: "book an RSV vaccination in a pharmacy" });
+    await expect(bookingLink).toBeVisible();
+
+    const [newPage] = await Promise.all([context.waitForEvent("page"), bookingLink.click()]);
+
+    await newPage.waitForLoadState("domcontentloaded");
+    await newPage.bringToFront();
+
+    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE);
+    expect(newPage.url()).toContain(BOOKING_PAGE_URL);
+  });
+};
+
 test.describe.configure({ mode: "parallel", retries: 0 });
 
 test.describe("NBS booking redirection - user 19", () => {
@@ -52,23 +72,7 @@ test.describe("NBS booking redirection - user 19", () => {
     expect(newPage.url()).toContain(BOOKING_PAGE_URL);
   });
 
-  test("link to book appointment at pharmacy on RSV page for pregnant people", async ({ browser }) => {
-    const { page, context } = await loginToNBS(browser);
-
-    await page.goto(RSV_PREGNANCY_PAGE_URL);
-    await expect(page).toHaveTitle(RSV_PREGNANCY_PAGE_TITLE);
-
-    const bookingLink = page.getByRole("link", { name: "book an RSV vaccination in a pharmacy" });
-    await expect(bookingLink).toBeVisible();
-
-    const [newPage] = await Promise.all([context.waitForEvent("page"), bookingLink.click()]);
-
-    await newPage.waitForLoadState("domcontentloaded");
-    await newPage.bringToFront();
-
-    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE);
-    expect(newPage.url()).toContain(BOOKING_PAGE_URL);
-  });
+  testLinkToBookAppointmentForPregnantPeople();
 });
 
 test.describe("NBS booking redirection - user 21", () => {
@@ -92,23 +96,7 @@ test.describe("NBS booking redirection - user 21", () => {
     expect(newPage.url()).toContain(BOOKING_PAGE_URL);
   });
 
-  test("link to book appointment at pharmacy on RSV page for pregnant people", async ({ browser }) => {
-    const { page, context } = await loginToNBS(browser);
-
-    await page.goto(RSV_PREGNANCY_PAGE_URL);
-    await expect(page).toHaveTitle(RSV_PREGNANCY_PAGE_TITLE);
-
-    const bookingLink = page.getByRole("link", { name: "book an RSV vaccination in a pharmacy" });
-    await expect(bookingLink).toBeVisible();
-
-    const [newPage] = await Promise.all([context.waitForEvent("page"), bookingLink.click()]);
-
-    await newPage.waitForLoadState("domcontentloaded");
-    await newPage.bringToFront();
-
-    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE);
-    expect(newPage.url()).toContain(BOOKING_PAGE_URL);
-  });
+  testLinkToBookAppointmentForPregnantPeople();
 });
 
 test.describe("NBS booking redirection - user 22", () => {
@@ -134,21 +122,5 @@ test.describe("NBS booking redirection - user 22", () => {
     expect(newPage.url()).toContain(BOOKING_PAGE_URL);
   });
 
-  test("link to book appointment at pharmacy on RSV page for pregnant people", async ({ browser }) => {
-    const { page, context } = await loginToNBS(browser);
-
-    await page.goto(RSV_PREGNANCY_PAGE_URL);
-    await expect(page).toHaveTitle(RSV_PREGNANCY_PAGE_TITLE);
-
-    const bookingLink = page.getByRole("link", { name: "book an RSV vaccination in a pharmacy" });
-    await expect(bookingLink).toBeVisible();
-
-    const [newPage] = await Promise.all([context.waitForEvent("page"), bookingLink.click()]);
-
-    await newPage.waitForLoadState("domcontentloaded");
-    await newPage.bringToFront();
-
-    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE);
-    expect(newPage.url()).toContain(BOOKING_PAGE_URL);
-  });
+  testLinkToBookAppointmentForPregnantPeople();
 });
