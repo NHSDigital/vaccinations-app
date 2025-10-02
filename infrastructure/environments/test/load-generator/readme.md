@@ -64,4 +64,23 @@ Number of concurrent users = (Number of tasks) x (Number of threads/task)
     - `THREADS`: the number of concurrent threads to use, <based on above formula>
     - `ENVIRONMENT`: the subdomain that represents the environment to run the test on, e.g. `test`
     - `S3_BUCKET`: the bucket name to use for test inputs and outputs
-    - `TEST_PLAN`: the *.jmx file name to use as the jmeter test plan
+    - `TEST_PLAN`: the *.jmx file name to use as the JMeter test plan
+
+## Analysing the results
+
+Download the *.jtl files locally, as they might be big and many and use the following script (change the sample values).
+
+```shell
+# download the logs locally
+AWS_PROFILE=vita-test aws s3 sync s3://gh-vita-741448960880-load-testing/results/2025/10/02/ .
+
+# take header from one of the logs and merge all logs into one file
+head -n 1 16_34_59_655_29833.jtl > combined.jtl
+for file in *.jtl; do
+  tail -n +2 "$file" >> combined.jtl
+done
+
+# generate an HTML report
+jmeter -g combined.jtl -o report
+open report/index.html
+```

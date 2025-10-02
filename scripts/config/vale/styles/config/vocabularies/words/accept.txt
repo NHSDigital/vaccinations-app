@@ -35,3 +35,4 @@ buildx
 [Nn]ginx
 vegeta
 jq
+JMeter
