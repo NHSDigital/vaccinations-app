@@ -13,7 +13,7 @@ export const COOKIE_POLICY_PAGE_URL = "our-policies/cookies-policy";
 export const PAGE_NOT_FOUND_TITLE = "Page not found - Check and book an RSV vaccination - NHS";
 export const PAGE_NOT_FOUND_URL = "/page-does-not-exist";
 
-export const BOOKING_PAGE_URL = "app-start-page?wt.mc_id=vita-RSV-booking";
+export const BOOKING_PAGE_URL = "book-an-rsv-vaccination/app-start-page?wt.mc_id=vita-RSV-booking";
 export const BOOKING_PAGE_TITLE =
   "Book, cancel or change an RSV vaccination appointment - Book an RSV vaccination - NHS";
 
