@@ -4,7 +4,7 @@
 import { auth } from "@project/auth";
 import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
 import { config, middleware } from "@src/middleware";
-import { AppConfig, configProvider } from "@src/utils/config";
+import lazyConfig, { ConfigValue } from "@src/utils/lazy-config";
 import { NextRequest } from "next/server";
 
 jest.mock("@project/auth", () => ({
@@ -12,8 +12,7 @@ jest.mock("@project/auth", () => ({
   signIn: jest.fn(),
 }));
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
-
-jest.mock("@src/utils/config");
+jest.mock("@src/utils/lazy-config");
 
 const middlewareRegex = new RegExp(config.matcher[0]);
 const otherExcludedPaths = ["/favicon.ico", "/assets", "/js", "/css", "/_next"];
@@ -34,12 +33,10 @@ function getMockRequest(testUrl: string) {
 }
 
 describe("middleware", () => {
+  const mockedConfig = lazyConfig as { [key: string]: Promise<ConfigValue> };
+
   beforeEach(() => {
-    (configProvider as jest.Mock).mockImplementation(
-      (): Partial<AppConfig> => ({
-        NHS_APP_REDIRECT_LOGIN_URL: "https://nhs-app-redirect-login-url",
-      }),
-    );
+    mockedConfig.NHS_APP_REDIRECT_LOGIN_URL = Promise.resolve(new URL("https://nhs-app-redirect-login-url"));
     jest.clearAllMocks();
   });
 

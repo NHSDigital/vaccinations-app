@@ -4,7 +4,7 @@ import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "lazy-config" });
 
-type ConfigValue = string | number | boolean | URL | undefined;
+export type ConfigValue = string | number | boolean | URL | undefined;
 
 function createReadOnlyDynamic<T extends object>(instance: T): T & { [key: string]: Promise<unknown> } {
   const handler: ProxyHandler<T> = {
