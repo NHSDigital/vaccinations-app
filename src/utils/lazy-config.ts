@@ -1,3 +1,4 @@
+import getSSMParam from "@src/utils/get-ssm-param";
 import { logger } from "@src/utils/logger";
 import { Logger } from "pino";
 
@@ -55,14 +56,39 @@ class LazyConfig {
     }
 
     log.debug({ context: { key } }, "cache miss");
-    const valueFromEnv = process.env[key];
+    const value = await this.getFromEnvironmentOrSSM(key);
 
-    const coercedValue = this._coerceType(valueFromEnv);
+    const coercedValue = this._coerceType(value);
 
     this._cache.set(key, coercedValue);
 
     return coercedValue;
   }
+
+  private getFromEnvironmentOrSSM = async (key: string): Promise<string> => {
+    let value = process.env[key];
+
+    if (value === undefined || value === null) {
+      const ssmPrefix = await this.getAttribute("SSM_PREFIX");
+
+      if (typeof ssmPrefix !== "string" || ssmPrefix === "") {
+        log.error(
+          { context: { key, ssmPrefix } },
+          "SSM_PREFIX is not configured correctly. Expected a non-empty string.",
+        );
+        throw new Error(`SSM_PREFIX is not configured correctly. Expected a non-empty string, but got: ${ssmPrefix}`);
+      }
+
+      log.debug({ context: { key, ssmPrefix } }, "getting from SSM");
+      value = await getSSMParam(`${ssmPrefix}${key}`);
+    }
+
+    if (value === undefined || value === null) {
+      throw new Error(`Unable to get param: ${key} from environment or SSM`);
+    }
+
+    return value;
+  };
 
   public _inspectCache(): Record<string, unknown> {
     return Object.fromEntries(this._cache);

@@ -4,7 +4,7 @@ import lazyConfig from "@src/utils/lazy-config";
 jest.mock("@src/utils/get-ssm-param");
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
-describe("configProvider", () => {
+describe("lazyConfig", () => {
   const nowInSeconds = 0;
 
   beforeEach(() => {
@@ -37,9 +37,9 @@ describe("configProvider", () => {
     const mockGetSSMParam = (getSSMParam as jest.Mock).mockResolvedValue("api-key");
 
     expect(await lazyConfig.CONTENT_API_ENDPOINT).toEqual("https://api-endpoint");
-    // expect(lazyConfig.CONTENT_API_KEY()).toEqual("https://api-endpoint");
+    expect(await lazyConfig.CONTENT_API_KEY).toEqual("api-key");
 
-    // expect(mockGetSSMParam).toHaveBeenCalledWith(`${prefix}CONTENT_API_KEY`);
+    expect(mockGetSSMParam).toHaveBeenCalledWith(`${prefix}CONTENT_API_KEY`);
     expect(mockGetSSMParam).not.toHaveBeenCalledWith(`${prefix}CONTENT_API_ENDPOINT`);
   });
 });
