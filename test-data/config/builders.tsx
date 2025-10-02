@@ -74,6 +74,34 @@ class LazyConfigBuilder {
     return this;
   }
 
+  public withNhsLoginUrl(value: URL): this {
+    this._configValues.NHS_LOGIN_URL = value;
+    return this;
+  }
+
+  public withNhsLoginClientId(value: string): this {
+    this._configValues.NHS_LOGIN_CLIENT_ID = value;
+    return this;
+  }
+
+  public andNhsLoginClientId(value: string): this {
+    return this.withNhsLoginClientId(value);
+  }
+
+  public withNhsLoginPrivateKey(value: string): this {
+    this._configValues.NHS_LOGIN_PRIVATE_KEY = value;
+    return this;
+  }
+
+  public andNhsLoginPrivateKey(value: string): this {
+    return this.withNhsLoginPrivateKey(value);
+  }
+
+  public withIsApimAuthEnabled(value: boolean): this {
+    this._configValues.IS_APIM_AUTH_ENABLED = value;
+    return this;
+  }
+
   public build(): AsyncConfigMock {
     const asyncMock: AsyncConfigMock = {};
     for (const key in this._configValues) {

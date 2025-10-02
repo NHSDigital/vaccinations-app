@@ -68,7 +68,8 @@ class LazyConfig {
 
   public async getAttribute(key: string): Promise<ConfigValue> {
     if (this.ttl < Date.now()) {
-      (this.resetCache(), (this.ttl = Date.now() + LazyConfig.CACHE_TTL_MILLIS));
+      this.resetCache();
+      this.ttl = Date.now() + LazyConfig.CACHE_TTL_MILLIS;
     }
 
     if (this._cache.has(key)) {

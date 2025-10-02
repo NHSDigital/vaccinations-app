@@ -1,14 +1,14 @@
 import { retrieveApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
 import { ApimAccessCredentials } from "@src/utils/auth/apim/types";
 import { ExpiresSoonAt } from "@src/utils/auth/types";
-import { AppConfig } from "@src/utils/config";
+import lazyConfig from "@src/utils/lazy-config";
 import { logger } from "@src/utils/logger";
 import { JWT } from "next-auth/jwt";
 import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "get-or-refresh-apim-credentials" });
 
-const getOrRefreshApimCredentials = async (config: AppConfig, token: JWT, nowInSeconds: number) => {
+const getOrRefreshApimCredentials = async (token: JWT, nowInSeconds: number) => {
   // Return the APIM creds from the token if still valid, or fetch new creds from APIM if expiring soon or empty
   let apimCredentials: ApimAccessCredentials | undefined;
 
@@ -24,7 +24,7 @@ const getOrRefreshApimCredentials = async (config: AppConfig, token: JWT, nowInS
     } else return undefined;
   }
 
-  if (config.IS_APIM_AUTH_ENABLED && cryproAvailable) {
+  if ((await lazyConfig.IS_APIM_AUTH_ENABLED) && cryproAvailable) {
     if (!token.nhs_login?.id_token) {
       log.debug("getOrRefreshApimCredentials: No NHS login ID token available. Not getting APIM creds.");
     } else if (!token.apim?.access_token || token.apim.access_token === "") {

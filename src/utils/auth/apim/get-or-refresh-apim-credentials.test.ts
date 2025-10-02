@@ -1,20 +1,27 @@
 import { retrieveApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
 import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
-import { AppConfig } from "@src/utils/config";
-import { appConfigBuilder } from "@test-data/config/builders";
+import lazyConfig from "@src/utils/lazy-config";
+import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
 import { JWT } from "next-auth/jwt";
 
 jest.mock("@src/utils/auth/apim/get-apim-access-token", () => ({
   retrieveApimCredentials: jest.fn(),
 }));
-
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
+jest.mock("@src/utils/lazy-config");
 
 describe("getOrRefreshApimCredentials", () => {
+  const mockedConfig = lazyConfig as AsyncConfigMock;
+
+  beforeEach(() => {
+    const defaultConfig = lazyConfigBuilder().withIsApimAuthEnabled(true).build();
+    Object.assign(mockedConfig, defaultConfig);
+  });
+
   describe("when AUTH APIM is available", () => {
     const oldNEXT_RUNTIME = process.env.NEXT_RUNTIME;
 
-    const mockConfig: AppConfig = appConfigBuilder().andIS_APIM_AUTH_ENABLED(true).build();
+    mockedConfig.IS_APIM_AUTH_ENABLED = Promise.resolve(true);
 
     const nowInSeconds = 1749052001;
 
@@ -43,7 +50,7 @@ describe("getOrRefreshApimCredentials", () => {
     it("should return undefined and logs error if token does not contain id_token", async () => {
       const token = { apim: {}, nhs_login: {} } as JWT;
 
-      const result = await getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
+      const result = await getOrRefreshApimCredentials(token, nowInSeconds);
 
       expect(result).toBeUndefined();
     });
@@ -51,7 +58,7 @@ describe("getOrRefreshApimCredentials", () => {
     it("should return new APIM creds if stored creds are empty", async () => {
       const token = { apim: {}, nhs_login: { id_token: "id-token" } } as JWT;
 
-      const result = await getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
+      const result = await getOrRefreshApimCredentials(token, nowInSeconds);
 
       expect(result).toMatchObject({
         accessToken: "new-apim-access-token",
@@ -68,7 +75,7 @@ describe("getOrRefreshApimCredentials", () => {
         nhs_login: { id_token: "old-id-token" },
       } as JWT;
 
-      const result = await getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
+      const result = await getOrRefreshApimCredentials(token, nowInSeconds);
 
       expect(result).toEqual({
         accessToken: "old-access-token",
@@ -82,7 +89,7 @@ describe("getOrRefreshApimCredentials", () => {
         nhs_login: { id_token: "id-token" },
       } as JWT;
 
-      const result = await getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
+      const result = await getOrRefreshApimCredentials(token, nowInSeconds);
 
       expect(result).toEqual({
         accessToken: "new-apim-access-token",
@@ -98,7 +105,7 @@ describe("getOrRefreshApimCredentials", () => {
           nhs_login: { id_token: "id-token" },
         } as JWT;
 
-        const result = await getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
+        const result = await getOrRefreshApimCredentials(token, nowInSeconds);
 
         expect(result).toEqual({
           accessToken: "stored-access-token",
@@ -110,14 +117,14 @@ describe("getOrRefreshApimCredentials", () => {
         process.env.NEXT_RUNTIME = "edge";
         const token = { apim: {}, nhs_login: { id_token: "id-token" } } as JWT;
 
-        const result = await getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
+        const result = await getOrRefreshApimCredentials(token, nowInSeconds);
         expect(result).toBeUndefined();
       });
     });
   });
 
   describe("when AUTH APIM is not available", () => {
-    const mockConfig: AppConfig = appConfigBuilder().andIS_APIM_AUTH_ENABLED(false).build();
+    mockedConfig.IS_APIM_AUTH_ENABLED = Promise.resolve(true);
 
     const nowInSeconds = 1749052001;
 
@@ -137,7 +144,7 @@ describe("getOrRefreshApimCredentials", () => {
     it("should return undefined if APIM auth is not enabled", async () => {
       const token = { apim: {}, nhs_login: { id_token: "id-token" } } as JWT;
 
-      const result = await getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
+      const result = await getOrRefreshApimCredentials(token, nowInSeconds);
 
       expect(result).toBeUndefined();
     });
