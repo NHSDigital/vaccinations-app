@@ -6,6 +6,10 @@ const log: Logger = logger.child({ module: "lazy-config" });
 
 export type ConfigValue = string | number | boolean | URL | undefined;
 
+/**
+ * A wrapper around an object which intercepts access to properties. If the property really exists on the object,
+ * that's what the caller gets, but if it doesn't, the object's getAttribute("property-name") is called instead.
+ */
 function createReadOnlyDynamic<T extends object>(instance: T): T & { [key: string]: Promise<unknown> } {
   const handler: ProxyHandler<T> = {
     get(target, prop, receiver) {
@@ -25,11 +29,19 @@ function createReadOnlyDynamic<T extends object>(instance: T): T & { [key: strin
   return new Proxy(instance, handler) as T & { [key: string]: Promise<unknown> };
 }
 
+/**
+ * Config object which only loads config items when, and crucially if, they are used.
+ * Loads config from environment if it exists there, from SSM otherwise.
+ * Caches items for CACHE_TTL_MILLIS milliseconds, so we don't get items more than once.
+ */
 class LazyConfig {
   private _cache = new Map<string, ConfigValue>();
   private ttl: number = 0;
   static readonly CACHE_TTL_MILLIS: number = 300 * 1000;
 
+  /**
+   * Make sure that the config items are returned as the correct types - booleans, numbers, strings, what have you.
+   */
   private _coerceType(value: string | undefined): ConfigValue {
     if (value === undefined || value.trim() === "") {
       return undefined;
