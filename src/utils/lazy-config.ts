@@ -6,7 +6,7 @@ import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "lazy-config" });
 
-type ConfigValue = string | number | boolean | URL | undefined;
+export type ConfigValue = string | number | boolean | URL | undefined;
 
 /**
  * A wrapper around an object which intercepts access to properties. If the property really exists on the object,
@@ -94,7 +94,8 @@ class LazyConfig {
 
   public async getAttribute(key: string): Promise<ConfigValue> {
     if (this.ttl < Date.now()) {
-      (this.resetCache(), (this.ttl = Date.now() + LazyConfig.CACHE_TTL_MILLIS));
+      this.resetCache();
+      this.ttl = Date.now() + LazyConfig.CACHE_TTL_MILLIS;
     }
 
     if (this._cache.has(key)) {
@@ -112,19 +113,11 @@ class LazyConfig {
     return coercedValue;
   }
 
-  private getFromEnvironmentOrSSM = async (key: string): Promise<string> => {
+  private async getFromEnvironmentOrSSM(key: string): Promise<string> {
     let value = process.env[key];
 
     if (value === undefined || value === null) {
-      const ssmPrefix = await this.getAttribute("SSM_PREFIX");
-
-      if (typeof ssmPrefix !== "string" || ssmPrefix === "") {
-        log.error(
-          { context: { key, ssmPrefix } },
-          "SSM_PREFIX is not configured correctly. Expected a non-empty string.",
-        );
-        throw new Error(`SSM_PREFIX is not configured correctly. Expected a non-empty string, but got: ${ssmPrefix}`);
-      }
+      const ssmPrefix = await this.getSsmPrefix();
 
       log.debug({ context: { key, ssmPrefix } }, "getting from SSM");
       value = await retry(() => getSSMParam(`${ssmPrefix}${key}`), {
