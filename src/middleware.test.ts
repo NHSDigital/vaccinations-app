@@ -4,7 +4,8 @@
 import { auth } from "@project/auth";
 import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
 import { config, middleware } from "@src/middleware";
-import lazyConfig, { ConfigValue } from "@src/utils/lazy-config";
+import lazyConfig from "@src/utils/lazy-config";
+import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
 import { NextRequest } from "next/server";
 
 jest.mock("@project/auth", () => ({
@@ -33,10 +34,14 @@ function getMockRequest(testUrl: string) {
 }
 
 describe("middleware", () => {
-  const mockedConfig = lazyConfig as { [key: string]: Promise<ConfigValue> };
+  const mockedConfig = lazyConfig as AsyncConfigMock;
 
   beforeEach(() => {
-    mockedConfig.NHS_APP_REDIRECT_LOGIN_URL = Promise.resolve(new URL("https://nhs-app-redirect-login-url"));
+    const defaultConfig = lazyConfigBuilder()
+      .withNhsAppRedirectLoginUrl(new URL("https://nhs-app-redirect-login-url"))
+      .build();
+    Object.assign(mockedConfig, defaultConfig);
+
     jest.clearAllMocks();
   });
 
