@@ -20,6 +20,13 @@ module "deploy_fake_api" {
   source = "./fake-api"
 }
 
+module "deploy_load_generator" {
+  source = "./load-generator"
+
+  s3_bucket_name = module.load_testing_s3_bucket.s3_bucket_id
+  depends_on     = [module.deploy_fake_api]
+}
+
 module "deploy" {
   source = "../../modules/deploy_app"
 

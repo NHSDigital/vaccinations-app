@@ -10,3 +10,13 @@ module "content_cache_s3_bucket" {
 
   tags = local.default_tags
 }
+
+module "load_testing_s3_bucket" {
+  source  = "terraform-aws-modules/s3-bucket/aws"
+  version = "~> 4.11.0"
+
+  bucket        = "${local.prefix}-load-testing"
+  force_destroy = true
+
+  tags = local.default_tags
+}

@@ -1,0 +1,56 @@
+# --- Task Definition ---
+resource "aws_ecs_task_definition" "load_generator_task" {
+  family                   = local.project
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  cpu                      = 1024
+  memory                   = 2048
+  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
+
+  container_definitions = jsonencode([
+    {
+      name      = "${local.project}-container"
+      image     = "${aws_ecr_repository.load_generator.repository_url}:latest"
+      essential = true
+      environment = [
+        {
+          name  = "DURATION"
+          value = local.environment.DURATION
+        },
+        {
+          name  = "RAMPUP"
+          value = local.environment.RAMPUP
+        },
+        {
+          name  = "THREADS"
+          value = local.environment.THREADS
+        },
+        {
+          name  = "ENVIRONMENT"
+          value = local.environment.ENVIRONMENT
+        },
+        {
+          name  = "S3_BUCKET"
+          value = local.environment.S3_BUCKET
+        },
+        {
+          name  = "TEST_PLAN"
+          value = local.environment.TEST_PLAN
+        },
+      ]
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          "awslogs-group"         = "/ecs/${local.project}"
+          "awslogs-create-group"  = "true"
+          "awslogs-region"        = "eu-west-2"
+          "awslogs-stream-prefix" = "ecs"
+        }
+      }
+    }
+  ])
+
+  tags = {
+    Name = "${local.project}-task-definition"
+  }
+}
