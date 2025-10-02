@@ -24,6 +24,7 @@ module "deploy_load_generator" {
   source = "./load-generator"
 
   s3_bucket_name = module.load_testing_s3_bucket.s3_bucket_id
+  account_id     = data.aws_caller_identity.current.account_id
   depends_on     = [module.deploy_fake_api]
 }
 

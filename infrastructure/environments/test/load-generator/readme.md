@@ -33,6 +33,8 @@ docker push "$load_generator_ecr_repository_url":latest
 
 ### Check it's working
 
+Manually upload the [test plan](/performance/vita-user-journey.jmx) to the s3 path `s3://gh-vita-***-load-testing/plans/`.
+
 Trigger the task from AWS console UI. For the number of desired tasks and threads, apply the formula
 
 ```text

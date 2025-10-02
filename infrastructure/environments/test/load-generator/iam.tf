@@ -33,3 +33,20 @@ resource "aws_iam_role_policy" "ecs_task_to_s3_access_policy" {
     ]
   })
 }
+
+# Attach the policy that allows ECS tasks to create CloudWatch log group
+resource "aws_iam_role_policy" "ecs_task_to_logs_access_policy" {
+  name = "${local.project}-ecs-to-logs"
+  role = aws_iam_role.ecs_task_execution_role.name
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action   = ["logs:CreateLogGroup"]
+        Effect   = "Allow"
+        Resource = "arn:aws:logs:eu-west-2:${var.account_id}:log-group:/ecs/${local.project}:log-stream:*"
+      }
+    ]
+  })
+}
