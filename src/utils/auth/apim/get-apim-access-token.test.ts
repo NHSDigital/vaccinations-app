@@ -3,8 +3,6 @@ import { getApimAccessToken, retrieveApimCredentials } from "@src/utils/auth/api
 import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import { getJwtToken } from "@src/utils/auth/get-jwt-token";
 import { AccessToken, IdToken } from "@src/utils/auth/types";
-import { AppConfig } from "@src/utils/config";
-import { appConfigBuilder } from "@test-data/config/builders";
 
 jest.mock("@src/utils/auth/get-jwt-token", () => ({
   getJwtToken: jest.fn(),
@@ -19,7 +17,6 @@ jest.mock("@src/utils/auth/apim/get-or-refresh-apim-credentials", () => ({
   getOrRefreshApimCredentials: jest.fn(),
 }));
 
-const mockConfig: AppConfig = appConfigBuilder().build();
 const nowInSeconds = 1000;
 
 const apimAccessTokenFromJwt = "test-access-token" as AccessToken;
@@ -50,16 +47,16 @@ describe("getApimAccessToken", () => {
 
     (getJwtToken as jest.Mock).mockResolvedValue(mockJwtToken);
 
-    const apimAccessToken = await getApimAccessToken(mockConfig);
+    const apimAccessToken = await getApimAccessToken();
 
-    expect(getOrRefreshApimCredentials).toHaveBeenCalledWith(mockConfig, mockJwtToken, nowInSeconds);
+    expect(getOrRefreshApimCredentials).toHaveBeenCalledWith(mockJwtToken, nowInSeconds);
     expect(apimAccessToken).toEqual(getOrRefreshedApimAccessToken as AccessToken);
   });
 
   it("should throw error if APIM access token not available in JWT token", async () => {
     (getJwtToken as jest.Mock).mockResolvedValue({ apim: {} });
 
-    await expect(getApimAccessToken(mockConfig)).rejects.toThrow("APIM access token is not present on JWT token");
+    await expect(getApimAccessToken()).rejects.toThrow("APIM access token is not present on JWT token");
   });
 
   it("should throw error if _getOrRefresh APIM access token returns undefined", async () => {
@@ -67,7 +64,7 @@ describe("getApimAccessToken", () => {
 
     (getJwtToken as jest.Mock).mockResolvedValue(mockJwtToken);
 
-    await expect(getApimAccessToken(mockConfig)).rejects.toThrow("getOrRefreshApimCredentials returned undefined");
+    await expect(getApimAccessToken()).rejects.toThrow("getOrRefreshApimCredentials returned undefined");
   });
 });
 
