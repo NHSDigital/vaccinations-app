@@ -2,7 +2,6 @@ import { NhsNumber } from "@src/models/vaccine";
 import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import { ApimAccessCredentials } from "@src/utils/auth/apim/types";
 import { IdToken, MaxAgeInSeconds, NowInSeconds } from "@src/utils/auth/types";
-import { AppConfig } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
 import { extractRequestContextFromHeaders } from "@src/utils/requestScopedStorageWrapper";
@@ -24,7 +23,6 @@ const getToken = async (
   token: JWT,
   account: Account | null | undefined,
   profile: Profile | undefined,
-  config: AppConfig,
   maxAgeInSeconds: MaxAgeInSeconds,
 ) => {
   const headerValues = await headers();
@@ -64,7 +62,7 @@ const getToken = async (
       // TODO VIA-254 - can we do this only once per request?
       // every time auth() is called, the getToken() callback is invoked by NextAuth
       // this results in fetching APIM access token multiple times ( in case it has expired )
-      apimAccessCredentials = await getOrRefreshApimCredentials(config, updatedToken, nowInSeconds);
+      apimAccessCredentials = await getOrRefreshApimCredentials(token, nowInSeconds);
     } catch (error) {
       let errorMessage = undefined;
       if (error instanceof Error) {

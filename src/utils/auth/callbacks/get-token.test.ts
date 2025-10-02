@@ -2,8 +2,8 @@ import { ApimHttpError } from "@src/utils/auth/apim/exceptions";
 import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import { getToken } from "@src/utils/auth/callbacks/get-token";
 import { MaxAgeInSeconds } from "@src/utils/auth/types";
-import { AppConfig } from "@src/utils/config";
-import { appConfigBuilder } from "@test-data/config/builders";
+import lazyConfig from "@src/utils/lazy-config";
+import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
 import { jwtDecode } from "jwt-decode";
 import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
@@ -23,8 +23,11 @@ jest.mock("next/headers", () => ({
 }));
 jest.mock("jwt-decode");
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
+jest.mock("@src/utils/lazy-config");
 
 describe("getToken", () => {
+  const mockedConfig = lazyConfig as AsyncConfigMock;
+
   beforeAll(async () => {
     const fakeHeaders: ReadonlyHeaders = {
       get(name: string): string | null {
@@ -32,15 +35,16 @@ describe("getToken", () => {
       },
     } as ReadonlyHeaders;
     (headers as jest.Mock).mockResolvedValue(fakeHeaders);
+
+    const defaultConfig = lazyConfigBuilder()
+      .withNhsLoginUrl(new URL("https://nhs-app-redirect-login-url"))
+      .andNhsLoginClientId("mock-client-id")
+      .andNhsLoginPrivateKey("mock-private-key")
+      .build();
+    Object.assign(mockedConfig, defaultConfig);
   });
 
   const oldNEXT_RUNTIME = process.env.NEXT_RUNTIME;
-
-  const mockConfig: AppConfig = appConfigBuilder()
-    .withNHS_LOGIN_URL("https://mock.nhs.login")
-    .andNHS_LOGIN_CLIENT_ID("mock-client-id")
-    .andNHS_LOGIN_PRIVATE_KEY("mock-private-key")
-    .build();
 
   const nowInSeconds = 1749052001;
 
@@ -83,7 +87,7 @@ describe("getToken", () => {
     });
 
     it("should return null and logs error if token is falsy", async () => {
-      const result = await getToken(null as unknown as JWT, null, undefined, mockConfig, 300 as MaxAgeInSeconds);
+      const result = await getToken(null as unknown as JWT, null, undefined, 300 as MaxAgeInSeconds);
       expect(result).toBeNull();
     });
 
@@ -91,7 +95,8 @@ describe("getToken", () => {
       const token = { apim: {}, nhs_login: { id_token: "id-token" } } as JWT;
       const maxAgeInSeconds = 600 as MaxAgeInSeconds;
 
-      const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
+      // When
+      const result = await getToken(token, account, profile, maxAgeInSeconds);
 
       expectResultToMatchTokenWith(
         result,
@@ -111,7 +116,7 @@ describe("getToken", () => {
       const maxAgeInSeconds = 600 as MaxAgeInSeconds;
       (getOrRefreshApimCredentials as jest.Mock).mockResolvedValue(undefined);
 
-      const result = await getToken(undefinedToken, undefinedAccount, undefinedProfile, mockConfig, maxAgeInSeconds);
+      const result = await getToken(undefinedToken, undefinedAccount, undefinedProfile, maxAgeInSeconds);
 
       expectResultToMatchTokenWith(result, "", "", "", 0, maxAgeInSeconds);
     });
@@ -125,7 +130,7 @@ describe("getToken", () => {
 
       (getOrRefreshApimCredentials as jest.Mock).mockResolvedValue(undefined);
 
-      const result = await getToken(token, null, undefined, mockConfig, 300 as MaxAgeInSeconds);
+      const result = await getToken(token, null, undefined, 300 as MaxAgeInSeconds);
 
       expect(result).toMatchObject({
         user: {
@@ -147,7 +152,7 @@ describe("getToken", () => {
         user: {},
       } as JWT;
 
-      const result = await getToken(token, null, undefined, mockConfig, 300 as MaxAgeInSeconds);
+      const result = await getToken(token, null, undefined, 300 as MaxAgeInSeconds);
 
       expect(result).toBeNull();
     });
@@ -159,7 +164,7 @@ describe("getToken", () => {
 
       const maxAgeInSeconds = 600 as MaxAgeInSeconds;
 
-      const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
+      const result = await getToken(token, account, profile, maxAgeInSeconds);
 
       expectResultToMatchTokenWith(result, profile.nhs_number, "newIdToken", "", 0, maxAgeInSeconds);
     });
@@ -175,7 +180,7 @@ describe("getToken", () => {
 
       const maxAgeInSeconds = 600 as MaxAgeInSeconds;
 
-      const result = await getToken(token, account, profile, mockConfig, maxAgeInSeconds);
+      const result = await getToken(token, account, profile, maxAgeInSeconds);
 
       expectResultToMatchTokenWith(result, profile.nhs_number, "newIdToken", "", 0, maxAgeInSeconds);
     });

@@ -1,5 +1,5 @@
 import { auth } from "@project/auth";
-import { AppConfig, configProvider } from "@src/utils/config";
+import lazyConfig from "@src/utils/lazy-config";
 import { logger } from "@src/utils/logger";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
@@ -25,13 +25,11 @@ const middlewareWrapper = async (request: NextRequest) => {
   const headers = new Headers(request.headers);
   headers.set("nextUrl", request.nextUrl.href);
 
-  const config: AppConfig = await configProvider();
-
   let response: NextResponse;
   const session: Session | null = await auth();
   if (!session?.user) {
     log.info({ context: { nextUrl: request.nextUrl.href } }, "Missing user session, redirecting to login");
-    response = NextResponse.redirect(new URL(config.NHS_APP_REDIRECT_LOGIN_URL));
+    response = NextResponse.redirect((await lazyConfig.NHS_APP_REDIRECT_LOGIN_URL) as URL);
     response.headers.set("Cache-Control", "no-cache, no-store, max-age=0, must-revalidate");
   } else {
     response = NextResponse.next({
