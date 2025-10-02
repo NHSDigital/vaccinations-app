@@ -15,15 +15,15 @@ resource "aws_ecs_task_definition" "load_generator_task" {
       environment = [
         {
           name  = "DURATION"
-          value = local.environment.DURATION
+          value = tostring(local.environment.DURATION)
         },
         {
           name  = "RAMPUP"
-          value = local.environment.RAMPUP
+          value = tostring(local.environment.RAMPUP)
         },
         {
           name  = "THREADS"
-          value = local.environment.THREADS
+          value = tostring(local.environment.THREADS)
         },
         {
           name  = "ENVIRONMENT"
