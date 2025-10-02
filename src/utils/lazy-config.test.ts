@@ -107,4 +107,24 @@ describe("lazyConfig", () => {
 
     expect(mockGetSSMParam).toHaveBeenCalled();
   });
+
+  it("should retry fetching from SSM if the first attempt fails", async () => {
+    const key = "API_SECRET";
+    const expectedValue = "value-from-ssm-on-second-try";
+    const expectedSsmPath = `/test/ci/${key}`;
+
+    process.env.SSM_PREFIX = "/test/ci/";
+
+    const mockGetSSMParam = (getSSMParam as jest.Mock)
+      .mockRejectedValueOnce(new Error("SSM is temporarily unavailable"))
+      .mockResolvedValue(expectedValue);
+
+    const resultPromise = lazyConfig.API_SECRET;
+    await jest.runOnlyPendingTimersAsync();
+    const result = await resultPromise;
+
+    expect(result).toBe(expectedValue);
+    expect(mockGetSSMParam).toHaveBeenCalledTimes(2);
+    expect(mockGetSSMParam).toHaveBeenCalledWith(expectedSsmPath);
+  });
 });

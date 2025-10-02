@@ -1,5 +1,6 @@
 import getSSMParam from "@src/utils/get-ssm-param";
 import { logger } from "@src/utils/logger";
+import { retry } from "es-toolkit";
 import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "lazy-config" });
@@ -93,7 +94,10 @@ class LazyConfig {
       const ssmPrefix = await this.getSsmPrefix();
 
       log.debug({ context: { key, ssmPrefix } }, "getting from SSM");
-      value = await getSSMParam(`${ssmPrefix}${key}`);
+      value = await retry(() => getSSMParam(`${ssmPrefix}${key}`), {
+        retries: 10,
+        delay: (attempt) => 100 * Math.pow(2, attempt - 1),
+      });
     }
 
     if (value === undefined || value === null) {
