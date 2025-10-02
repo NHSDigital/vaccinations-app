@@ -32,6 +32,12 @@
         "arn:aws:iam::${account_id}:role/load-generator-*",
         "arn:aws:iam::${account_id}:policy/load-generator-*"
       ]
+    },
+    {
+      "Sid": "IAMLoadGeneratorPassRole",
+      "Effect": "Allow",
+      "Action": ["iam:PassRole"],
+      "Resource": ["arn:aws:iam::${account_id}:role/load-generator-ecs-task-execution-role"]
     }
   ]
 }
