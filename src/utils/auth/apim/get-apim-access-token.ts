@@ -4,12 +4,11 @@ import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh
 import { ApimAccessCredentials, ApimTokenResponse } from "@src/utils/auth/apim/types";
 import { getJwtToken } from "@src/utils/auth/get-jwt-token";
 import { AccessToken, ExpiresAt, IdToken } from "@src/utils/auth/types";
-import { AppConfig } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 
 const log = logger.child({ module: "utils-auth-apim-get-apim-access-token" });
 
-const getApimAccessToken = async (config: AppConfig): Promise<AccessToken> => {
+const getApimAccessToken = async (): Promise<AccessToken> => {
   /**
    * Gets the APIM access token from the JWT session cookie.
    *
@@ -26,7 +25,7 @@ const getApimAccessToken = async (config: AppConfig): Promise<AccessToken> => {
   }
 
   const nowInSeconds = Math.floor(Date.now() / 1000);
-  const apimAccessCredentials = await getOrRefreshApimCredentials(config, token, nowInSeconds);
+  const apimAccessCredentials = await getOrRefreshApimCredentials(token, nowInSeconds);
 
   if (!apimAccessCredentials) {
     log.error("Error: getOrRefreshApimCredentials returned undefined");

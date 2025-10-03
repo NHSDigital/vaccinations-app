@@ -1,22 +1,13 @@
 import { NhsNumber } from "@src/models/vaccine";
 import { EligibilityApiResponse } from "@src/services/eligibility-api/api-types";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
-import { AppConfig } from "@src/utils/config";
+import lazyConfig from "@src/utils/lazy-config";
 import { asyncLocalStorage } from "@src/utils/requestContext";
-import { appConfigBuilder } from "@test-data/config/builders";
+import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
 import { readFileSync } from "fs";
 import { pactWith } from "jest-pact";
 
-jest.mock("@src/utils/config", () => ({
-  configProvider: jest.fn((): Promise<AppConfig> => {
-    const value: AppConfig = appConfigBuilder()
-      .withELIGIBILITY_API_ENDPOINT(new URL("http://localhost:1234/"))
-      .andELIGIBILITY_API_KEY("test-api-key")
-      .andIS_APIM_AUTH_ENABLED(false)
-      .build();
-    return Promise.resolve(value);
-  }),
-}));
+jest.mock("@src/utils/lazy-config");
 jest.mock("next-auth/jwt", () => ({
   getToken: jest.fn(),
 }));
@@ -49,6 +40,17 @@ const successfulResponse: EligibilityApiResponse = {
 };
 
 pactWith({ consumer: "VitA", provider: "EliD", port: 1234, logLevel: "warn" }, (provider) => {
+  const mockedConfig = lazyConfig as AsyncConfigMock;
+
+  beforeEach(() => {
+    const defaultConfig = lazyConfigBuilder()
+      .withEligibilityApiEndpoint(new URL("http://localhost:1234/"))
+      .andEligibilityApiKey("test-api-key")
+      .andIsApimAuthEnabled(false)
+      .build();
+    Object.assign(mockedConfig, defaultConfig);
+  });
+
   describe("EliD returns expected fields", () => {
     const mockNhsNumber = "9450114080" as NhsNumber;
     const vitaTraceId = "mock-trace-id";

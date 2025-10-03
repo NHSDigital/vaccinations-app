@@ -4,18 +4,20 @@ import { getContentForVaccine } from "@src/services/content-api/content-service"
 import { readContentFromCache } from "@src/services/content-api/gateway/content-reader-service";
 import { InvalidatedCacheError, S3NoSuchKeyError } from "@src/services/content-api/gateway/exceptions";
 import { ContentErrorTypes, GetContentForVaccineResponse } from "@src/services/content-api/types";
-import { configProvider } from "@src/utils/config";
+import lazyConfig from "@src/utils/lazy-config";
+import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
-jest.mock("@src/utils/config");
+jest.mock("@src/utils/lazy-config");
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("getContentForVaccine()", () => {
+  const mockedConfig = lazyConfig as AsyncConfigMock;
+
   describe("when readContent succeeds", () => {
     beforeEach(() => {
-      (configProvider as jest.Mock).mockImplementation(() => ({
-        CONTENT_CACHE_PATH: "wiremock/__files/",
-      }));
+      const defaultConfig = lazyConfigBuilder().withContentCachePath("wiremock/__files/").build();
+      Object.assign(mockedConfig, defaultConfig);
     });
 
     it("should return response for rsv vaccine from content cache", async () => {

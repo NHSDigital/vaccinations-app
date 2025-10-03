@@ -5,7 +5,7 @@ import { getToken } from "@src/utils/auth/callbacks/get-token";
 import { getUpdatedSession } from "@src/utils/auth/callbacks/get-updated-session";
 import { isValidSignIn } from "@src/utils/auth/callbacks/is-valid-signin";
 import { MaxAgeInSeconds } from "@src/utils/auth/types";
-import { AppConfig, configProvider } from "@src/utils/config";
+import lazyConfig from "@src/utils/lazy-config";
 import { logger } from "@src/utils/logger";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
@@ -21,8 +21,7 @@ const AuthJWTPerformanceMarker = "auth-jwt-callback";
 const AuthSessionPerformanceMarker = "auth-session-callback";
 
 export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
-  const config: AppConfig = await configProvider();
-  const MAX_SESSION_AGE_SECONDS: number = config.MAX_SESSION_AGE_MINUTES * 60;
+  const MAX_SESSION_AGE_SECONDS: number = ((await lazyConfig.MAX_SESSION_AGE_MINUTES) as number) * 60;
   const headerValues = await headers();
 
   const requestContext: RequestContext = extractRequestContextFromHeaders(headerValues);
@@ -48,7 +47,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
           let response: boolean;
           try {
             profilePerformanceStart(AuthSignInPerformanceMarker);
-            response = isValidSignIn(account, config);
+            response = await isValidSignIn(account);
             profilePerformanceEnd(AuthSignInPerformanceMarker);
           } catch (error) {
             log.error({ error: error }, "signIn() callback error");
@@ -63,7 +62,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
           let response;
           try {
             profilePerformanceStart(AuthJWTPerformanceMarker);
-            response = getToken(token, account, profile, config, MAX_SESSION_AGE_SECONDS as MaxAgeInSeconds);
+            response = getToken(token, account, profile, MAX_SESSION_AGE_SECONDS as MaxAgeInSeconds);
             profilePerformanceEnd(AuthJWTPerformanceMarker);
           } catch (error) {
             log.error({ error: error }, "jwt() callback error");
