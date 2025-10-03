@@ -1,0 +1,21 @@
+name: "CI/CD scheduled assurances"
+
+on:
+  schedule:
+    - cron: '20 15 * * *'  # Runs at 15:20 UTC every day (TODO: update time to 6am UTC)
+
+jobs:
+  acceptance-stage-dev: # Recommended maximum execution time is 10 minutes
+    name: "Acceptance stage dev"
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/stage-5-acceptance.yaml
+    with:
+      environment: "dev"
+    secrets: inherit
+  acceptance-stage-preprod: # Recommended maximum execution time is 10 minutes
+    name: "Acceptance stage preprod"
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/stage-5-acceptance.yaml
+    with:
+      environment: "preprod"
+    secrets: inherit
