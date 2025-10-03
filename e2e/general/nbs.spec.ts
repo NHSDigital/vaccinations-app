@@ -1,7 +1,7 @@
 import { Browser, BrowserContext, Locator, expect, test } from "@playwright/test";
 import {
-  BOOKING_PAGE_TITLE,
-  BOOKING_PAGE_URL,
+  BOOKING_PAGE_TITLE_REGEX,
+  BOOKING_PAGE_URL_REGEX,
   RSV_PAGE_TITLE,
   RSV_PAGE_URL,
   RSV_PREGNANCY_PAGE_TITLE,
@@ -44,8 +44,8 @@ const testLinkToBookAppointmentForPregnantPeople = () => {
     await newPage.waitForLoadState("domcontentloaded");
     await newPage.bringToFront();
 
-    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE);
-    expect(newPage.url()).toContain(BOOKING_PAGE_URL);
+    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE_REGEX);
+    expect(newPage.url()).toMatch(BOOKING_PAGE_URL_REGEX);
   });
 };
 
@@ -68,8 +68,8 @@ test.describe("NBS booking redirection - user 19", () => {
     await newPage.waitForLoadState("domcontentloaded");
     await newPage.bringToFront();
 
-    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE);
-    expect(newPage.url()).toContain(BOOKING_PAGE_URL);
+    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE_REGEX);
+    expect(newPage.url()).toMatch(BOOKING_PAGE_URL_REGEX);
   });
 
   testLinkToBookAppointmentForPregnantPeople();
@@ -92,8 +92,8 @@ test.describe("NBS booking redirection - user 21", () => {
     await newPage.waitForLoadState("domcontentloaded");
     await newPage.bringToFront();
 
-    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE);
-    expect(newPage.url()).toContain(BOOKING_PAGE_URL);
+    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE_REGEX);
+    expect(newPage.url()).toMatch(BOOKING_PAGE_URL_REGEX);
   });
 
   testLinkToBookAppointmentForPregnantPeople();
@@ -118,8 +118,8 @@ test.describe("NBS booking redirection - user 22", () => {
     await newPage.waitForLoadState("domcontentloaded");
     await newPage.bringToFront();
 
-    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE);
-    expect(newPage.url()).toContain(BOOKING_PAGE_URL);
+    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE_REGEX);
+    expect(newPage.url()).toMatch(BOOKING_PAGE_URL_REGEX);
   });
 
   testLinkToBookAppointmentForPregnantPeople();
