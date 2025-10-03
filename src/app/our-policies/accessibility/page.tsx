@@ -94,12 +94,12 @@ const AccessibilityStatement = () => {
 
             <h3>Enforcement procedure</h3>
             <p>
-              The Equality and Human Rights Commission (EHRC) is responsible for enforcing the
+              The Equality and Human Rights Commission (EHRC) is responsible for enforcing the{" "}
               <a href="https://www.legislation.gov.uk/uksi/2018/952/contents/made" target="_blank">
                 Public Sector Bodies (Website and Mobile Applications) (No.2) Accessibility Regulations 2018
                 (the&apos;accessibility regulations&apos;)
               </a>
-              . If you&apos;re not happy with how we respond to your complaint, contact the
+              . If you&apos;re not happy with how we respond to your complaint, contact the{" "}
               <a href="https://www.equalityadvisoryservice.com/" target="_blank">
                 Equality Advisory and Support Service (EASS)
               </a>
@@ -108,7 +108,7 @@ const AccessibilityStatement = () => {
 
             <h2>Technical information about the accessibility of Check and book an RSV vaccination</h2>
             <p>
-              NHS England is committed to making this service accessible, in accordance with the
+              NHS England is committed to making this service accessible, in accordance with the{" "}
               <a href="https://www.legislation.gov.uk/uksi/2018/952/contents/made" target="_blank">
                 Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018
               </a>
@@ -116,7 +116,7 @@ const AccessibilityStatement = () => {
             </p>
             <h3>Compliance status</h3>
             <p>
-              This service is fully compliant with the
+              This service is fully compliant with the{" "}
               <a href="https://www.legislation.gov.uk/uksi/2018/952/contents/made" target="_blank">
                 Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018
               </a>
@@ -129,7 +129,7 @@ const AccessibilityStatement = () => {
               specialist assessors.
             </p>
             <p>
-              The NHS App was last audited by
+              The NHS App was last audited by{" "}
               <a href="https://diginclusion.com" target="_blank">
                 Dig Inclusion
               </a>
