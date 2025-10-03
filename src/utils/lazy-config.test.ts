@@ -1,5 +1,5 @@
 import getSSMParam from "@src/utils/get-ssm-param";
-import lazyConfig from "@src/utils/lazy-config";
+import lazyConfig, { ConfigError } from "@src/utils/lazy-config";
 import { randomString } from "@test-data/meta-builder";
 
 jest.mock("@src/utils/get-ssm-param");
@@ -62,7 +62,6 @@ describe("lazyConfig", () => {
   it("should convert IS_APIM_AUTH_ENABLED to a false boolean value", async () => {
     setupTestEnvVars("test/");
     process.env.IS_APIM_AUTH_ENABLED = "false";
-    (getSSMParam as jest.Mock).mockResolvedValue("api-key");
 
     const actual = await lazyConfig.IS_APIM_AUTH_ENABLED;
 
@@ -72,23 +71,49 @@ describe("lazyConfig", () => {
   it("should convert IS_APIM_AUTH_ENABLED to a true boolean value", async () => {
     setupTestEnvVars("test/");
     process.env.IS_APIM_AUTH_ENABLED = "true";
-    (getSSMParam as jest.Mock).mockResolvedValue("api-key");
 
     const actual = await lazyConfig.IS_APIM_AUTH_ENABLED;
 
     expect(actual).toBe(true);
   });
 
+  it("should convert MAX_SESSION_AGE_MINUTES to a number", async () => {
+    setupTestEnvVars("test/");
+    process.env.MAX_SESSION_AGE_MINUTES = "99";
+
+    const actual = await lazyConfig.MAX_SESSION_AGE_MINUTES;
+
+    expect(actual).toBe(99);
+  });
+
+  it("should throw for invalid URL", async () => {
+    setupTestEnvVars("test/");
+    process.env.APIM_AUTH_URL = "not-a-url";
+
+    await expect(async () => {
+      await lazyConfig.APIM_AUTH_URL;
+    }).rejects.toThrow(ConfigError);
+  });
+
+  it("should throw for invalid number", async () => {
+    setupTestEnvVars("test/");
+    process.env.MAX_SESSION_AGE_MINUTES = "not-a-number";
+
+    await expect(async () => {
+      await lazyConfig.MAX_SESSION_AGE_MINUTES;
+    }).rejects.toThrow(ConfigError);
+  });
+
   it("should reuse config values between subsequent calls", async () => {
     setupTestEnvVars("test/");
     const mockGetSSMParam = (getSSMParam as jest.Mock).mockImplementation(() => randomString(5));
 
-    await lazyConfig.IS_APIM_AUTH_ENABLED;
+    await lazyConfig.NHS_LOGIN_CLIENT_ID;
 
     expect(mockGetSSMParam).toHaveBeenCalled();
     mockGetSSMParam.mockClear();
 
-    await lazyConfig.IS_APIM_AUTH_ENABLED;
+    await lazyConfig.NHS_LOGIN_CLIENT_ID;
 
     expect(mockGetSSMParam).not.toHaveBeenCalled();
   });

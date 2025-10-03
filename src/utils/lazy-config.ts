@@ -1,3 +1,4 @@
+import { EligibilityApiError } from "@src/services/eligibility-api/gateway/exceptions";
 import getSSMParam from "@src/utils/get-ssm-param";
 import { logger } from "@src/utils/logger";
 import { retry } from "es-toolkit";
@@ -40,30 +41,55 @@ class LazyConfig {
   private ttl: number = Date.now() + LazyConfig.CACHE_TTL_MILLIS;
   static readonly CACHE_TTL_MILLIS: number = 300 * 1000;
 
+  private static toUrl = (value: string): URL => new URL(value);
+  private static toBoolean = (value: string): boolean | undefined => {
+    const lower = value.toLowerCase();
+    if (lower === "true") return true;
+    if (lower === "false") return false;
+    return undefined;
+  };
+  static readonly converters: Record<string, (value: string) => ConfigValue> = {
+    APIM_AUTH_URL: LazyConfig.toUrl,
+    CONTENT_API_ENDPOINT: LazyConfig.toUrl,
+    ELIGIBILITY_API_ENDPOINT: LazyConfig.toUrl,
+    NBS_URL: LazyConfig.toUrl,
+    NHS_LOGIN_URL: LazyConfig.toUrl,
+    CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: LazyConfig.toBoolean,
+    IS_APIM_AUTH_ENABLED: LazyConfig.toBoolean,
+    MAX_SESSION_AGE_MINUTES: (value: string) => {
+      const num = Number(value);
+      if (!isNaN(num)) return num;
+      return undefined;
+    },
+  };
+
   /**
    * Make sure that the config items are returned as the correct types - booleans, numbers, strings, what have you.
    */
-  private _coerceType(value: string | undefined): ConfigValue {
+  private _coerceType(key: string, value: string | undefined): ConfigValue {
+    let result: ConfigValue;
+
     if (value === undefined || value.trim() === "") {
-      return undefined;
+      result = undefined;
+    } else {
+      const converter = LazyConfig.converters[key];
+      if (!converter) {
+        result = value.trim();
+      } else {
+        try {
+          result = converter(value.trim());
+        } catch (error) {
+          log.warn({ context: { key, value }, error }, "Config item type coercion failed");
+          result = undefined;
+        }
+      }
     }
 
-    const trimmedValue = value.trim();
-    const lowercasedValue = trimmedValue.toLowerCase();
-
-    if (lowercasedValue === "true") return true;
-    if (lowercasedValue === "false") return false;
-
-    const num = Number(trimmedValue);
-    if (!Number.isNaN(num)) return num;
-
-    try {
-      return new URL(trimmedValue);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (_) {
-      // Not a URL
-      return trimmedValue;
+    if (result === undefined) {
+      log.error({ context: { key, value } }, "Unable to get config item");
+      throw new ConfigError(`Unable to get config item ${key}`);
     }
+    return result;
   }
 
   public async getAttribute(key: string): Promise<ConfigValue> {
@@ -79,7 +105,7 @@ class LazyConfig {
     log.debug({ context: { key } }, "cache miss");
     const value = await this.getFromEnvironmentOrSSM(key);
 
-    const coercedValue = this._coerceType(value);
+    const coercedValue = this._coerceType(key, value);
 
     this._cache.set(key, coercedValue);
 
@@ -101,7 +127,7 @@ class LazyConfig {
 
     if (value === undefined || value === null) {
       log.error({ context: { key } }, "Unable to get config item.");
-      throw new Error(`Unable to get config item ${key}`);
+      throw new ConfigError(`Unable to get config item ${key}`);
     }
 
     return value;
@@ -121,13 +147,21 @@ class LazyConfig {
     }
 
     log.error({ context: { key } }, "SSM_PREFIX is not configured in the environment.");
-    throw new Error("SSM_PREFIX is not configured correctly in the environment.");
+    throw new ConfigError("SSM_PREFIX is not configured correctly in the environment.");
   }
 
   public resetCache() {
     log.info("reset cache");
     this._cache.clear();
     this.ttl = Date.now() + LazyConfig.CACHE_TTL_MILLIS;
+  }
+}
+
+export class ConfigError extends EligibilityApiError {
+  constructor(message: string) {
+    super(message);
+    Object.setPrototypeOf(this, new.target.prototype);
+    this.name = "ConfigError";
   }
 }
 
