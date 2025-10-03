@@ -30,7 +30,7 @@ module "deploy_app" {
   server_function = {
     additional_iam_policies          = [aws_iam_policy.server_lambda_additional_policy]
     additional_environment_variables = var.application_environment_variables
-    layers                           = ["arn:aws:lambda:eu-west-2:133256977650:layer:AWS-Parameters-and-Secrets-Lambda-Extension-Arm64:19"]
+    layers                           = ["arn:aws:lambda:eu-west-2:133256977650:layer:AWS-Parameters-and-Secrets-Lambda-Extension-Arm64:20"]
     enable_streaming                 = true
     timeout                          = 30
     memory_size                      = 2048
