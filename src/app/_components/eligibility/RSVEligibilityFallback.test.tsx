@@ -13,12 +13,12 @@ describe("RSVEligibilityFallback", () => {
   const vaccineType = VaccineTypes.RSV;
   const howToGetVaccineFallback = <div>How Section styled component</div>;
 
-  it("should display fallback care card w", async () => {
+  it("should display fallback care card", async () => {
     await render(
       <RSVEligibilityFallback howToGetVaccineFallback={howToGetVaccineFallback} vaccineType={vaccineType} />,
     );
 
-    const fallbackHeading: HTMLElement = screen.getByText("You should have the RSV vaccine if you:");
+    const fallbackHeading: HTMLElement = screen.getByText("The RSV vaccine is recommended if you:");
     const fallbackBulletPoint1: HTMLElement = screen.getByText("are aged between 75 and 79");
     const fallbackBulletPoint2: HTMLElement = screen.getByText("turned 80 after 1 September 2024");
 
@@ -41,13 +41,13 @@ describe("RSVEligibilityFallback", () => {
     );
   });
 
-  it("should display 'If you think' paragraph with provided how-to-get content", async () => {
+  it("should display 'If this applies' paragraph with provided how-to-get content", async () => {
     render(<RSVEligibilityFallback howToGetVaccineFallback={howToGetVaccineFallback} vaccineType={vaccineType} />);
 
     const fallback = screen.getByTestId("elid-fallback");
 
     const fallbackHeading: HTMLElement = within(fallback).getByRole("heading", {
-      name: "If you think you need this vaccine",
+      name: "If this applies to you",
       level: 3,
     });
     const howToGetContent: HTMLElement = within(fallback).getByText("How Section styled component");
