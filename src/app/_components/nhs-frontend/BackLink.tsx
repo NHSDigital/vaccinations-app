@@ -5,11 +5,7 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
-const handleClick = (router: AppRouterInstance, event?: string) => {
-  console.log({
-    msg: "BackLink handleClick() invoked",
-    event: event ?? "unknown",
-  });
+const handleClick = (router: AppRouterInstance) => {
   router.back();
 };
 
@@ -19,7 +15,7 @@ const BackLink = () => {
 
   useEffect(() => {
     if (hasContextLoaded && isOpenInMobileApp) {
-      window.nhsapp.navigation.setBackAction(() => handleClick(router, "native"));
+      window.nhsapp.navigation.setBackAction(() => handleClick(router));
     }
   }, [hasContextLoaded, isOpenInMobileApp, router]);
 
@@ -29,7 +25,7 @@ const BackLink = () => {
         href="#"
         onClick={(event: React.MouseEvent<HTMLAnchorElement>) => {
           event.preventDefault();
-          handleClick(router, "click");
+          handleClick(router);
         }}
         className="nhsuk-back-link__link"
       >
