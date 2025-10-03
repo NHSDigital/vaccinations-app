@@ -37,7 +37,7 @@ function createReadOnlyDynamic<T extends object>(instance: T): T & { [key: strin
  */
 class LazyConfig {
   private _cache = new Map<string, ConfigValue>();
-  private ttl: number = 0;
+  private ttl: number = Date.now() + LazyConfig.CACHE_TTL_MILLIS;
   static readonly CACHE_TTL_MILLIS: number = 300 * 1000;
 
   /**
@@ -69,7 +69,6 @@ class LazyConfig {
   public async getAttribute(key: string): Promise<ConfigValue> {
     if (this.ttl < Date.now()) {
       this.resetCache();
-      this.ttl = Date.now() + LazyConfig.CACHE_TTL_MILLIS;
     }
 
     if (this._cache.has(key)) {
@@ -126,7 +125,9 @@ class LazyConfig {
   }
 
   public resetCache() {
-    this._cache = new Map();
+    log.info("reset cache");
+    this._cache.clear();
+    this.ttl = Date.now() + LazyConfig.CACHE_TTL_MILLIS;
   }
 }
 

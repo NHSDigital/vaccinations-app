@@ -101,7 +101,7 @@ describe("lazyConfig", () => {
 
     expect(mockGetSSMParam).toHaveBeenCalled();
     mockGetSSMParam.mockClear();
-    jest.setSystemTime(nowInSeconds * 1000 + 300 * 1000);
+    jest.setSystemTime(nowInSeconds * 1000 + 300 * 1000 + 1);
 
     await lazyConfig.CONTENT_API_KEY;
 
