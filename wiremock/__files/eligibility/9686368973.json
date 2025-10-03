@@ -20,7 +20,7 @@
           "actionType": "ButtonWithAuthLinkWithInfoText",
           "actionCode": "BookNBSInfoText",
           "description": "## Book an appointment online at a pharmacy\n\nYou can book an appointment online at a pharmacy that offers the RSV vaccination. You need to be registered with a GP to do this.",
-          "urlLink": "https://f.nhswebsite-integration.nhs.uk/nbs/nhs-app/rsv",
+          "urlLink": "https://f.nhswebsite-integration.nhs.uk/nbs/nhs-app/vita/rsv",
           "urlLabel": "Continue to booking"
         },
         {

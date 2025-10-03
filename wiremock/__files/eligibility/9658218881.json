@@ -13,7 +13,7 @@
           "actionType": "ButtonWithAuthLink",
           "actionCode": "AmendNBS",
           "description": "## You have an RSV vaccination appointment booked\n\nYou can view, change or cancel your appointment below.",
-          "urlLink": "https://f.nhswebsite-integration.nhs.uk/nbs/nhs-app/rsv",
+          "urlLink": "https://f.nhswebsite-integration.nhs.uk/nbs/nhs-app/vita/rsv",
           "urlLabel": "Manage your appointment"
         }
       ]
