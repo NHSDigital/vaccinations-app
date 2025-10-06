@@ -39,9 +39,10 @@ const AccessibilityStatement = () => {
                 Android
               </a>{" "}
               accessibility settings to make some parts of this service more accessible.
-              <br />
-              <br /> You can also log in from the NHS website. By changing the settings on your web browser or computer
-              you should be able to:
+            </p>
+            <p>
+              You can also log in from the NHS website. By changing the settings on your web browser or computer you
+              should be able to:
             </p>
             <ul>
               <li>change colours, contrast levels and fonts</li>
