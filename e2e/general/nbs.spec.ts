@@ -9,8 +9,6 @@ import {
 } from "@project/e2e/constants";
 import { getEnv } from "@project/e2e/helpers";
 
-const environment = getEnv("DEPLOY_ENVIRONMENT");
-
 const loadNBSAuthEnvironmentVariables = () => {
   return {
     NBSUsername: getEnv("TEST_NBS_APP_USERNAME"),
@@ -33,11 +31,6 @@ export const loginToNBS = async (browser: Browser) => {
 
 const testLinkToBookAppointmentForPregnantPeople = () => {
   test("link to book appointment at pharmacy on RSV page for pregnant people", async ({ browser }) => {
-    test.skip(
-      environment === "preprod",
-      "Temporarily skip in Preprod until NBS re-deploy changes required by VIA-335, eta 2025-10-08",
-    );
-
     const { page, context } = await loginToNBS(browser);
 
     await page.goto(RSV_PREGNANCY_PAGE_URL);
@@ -59,11 +52,6 @@ const testLinkToBookAppointmentForPregnantPeople = () => {
 test.describe.configure({ mode: "parallel", retries: 0 });
 
 test.describe("NBS booking redirection - user 19", () => {
-  test.skip(
-    () => environment === "preprod",
-    "Temporarily skip in Preprod until NBS re-deploy changes required by VIA-335, eta 2025-10-08",
-  );
-
   test.use({ storageState: "./e2e/.auth/actionable-with-booking-link.json" });
 
   test("link to book appointment at pharmacy on RSV page for older adults", async ({ browser }) => {
@@ -88,11 +76,6 @@ test.describe("NBS booking redirection - user 19", () => {
 });
 
 test.describe("NBS booking redirection - user 21", () => {
-  test.skip(
-    () => environment === "preprod",
-    "Temporarily skip in Preprod until NBS re-deploy changes required by VIA-335, eta 2025-10-08",
-  );
-
   test.use({ storageState: "./e2e/.auth/actionable-with-booking-button.json" });
 
   test("button to book appointment on RSV page", async ({ browser }) => {
@@ -117,11 +100,6 @@ test.describe("NBS booking redirection - user 21", () => {
 });
 
 test.describe("NBS booking redirection - user 22", () => {
-  test.skip(
-    () => environment === "preprod",
-    "Temporarily skip in Preprod until NBS re-deploy changes required by VIA-335, eta 2025-10-08",
-  );
-
   test.use({ storageState: "./e2e/.auth/actionable-with-managing-button.json" });
 
   test("button to manage the appointment on RSV page", async ({ browser }) => {
