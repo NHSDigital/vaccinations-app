@@ -2,7 +2,7 @@ name: "CI/CD scheduled assurances"
 
 on:
   schedule:
-    - cron: '20 15 * * *'  # Runs at 15:20 UTC every day (TODO: update time to 6am UTC)
+    - cron: '13 50 * * *'  # Runs at 15:20 UTC every day (TODO: update time to 6am UTC)
 
 jobs:
   acceptance-stage-dev: # Recommended maximum execution time is 10 minutes
@@ -11,11 +11,33 @@ jobs:
     uses: ./.github/workflows/stage-5-acceptance.yaml
     with:
       environment: "dev"
+      checkout_ref: ${{ github.ref }}
+      cross_browser: true
     secrets: inherit
-  acceptance-stage-preprod: # Recommended maximum execution time is 10 minutes
-    name: "Acceptance stage preprod"
-    if: github.ref == 'refs/heads/main'
+
+  get-latest-tag:
+    name: "Get latest tag"
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.get_tag.outputs.tag }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get latest tag
+        id: get_tag
+        run: |
+          latest_tag=$(git describe --tags --abbrev=0)
+          echo "tag=$latest_tag" >> $GITHUB_OUTPUT
+
+  acceptance-stage-preprod:
+    name: "Acceptance stage preprod (latest tag)"
+    needs: [get-latest-tag]
     uses: ./.github/workflows/stage-5-acceptance.yaml
     with:
       environment: "preprod"
+      checkout_ref: ${{ needs.get-latest-tag.outputs.tag }}
+      cross_browser: true
     secrets: inherit

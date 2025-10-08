@@ -7,6 +7,15 @@ on:
         description: "Environment to run tests against"
         required: true
         type: string
+      checkout_ref:
+        description: "Ref to checkout"
+        required: true
+        type: string
+      cross_browser:
+        description: "Run E2E with playwright config with all devices"
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   test-e2e:
@@ -30,6 +39,8 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.checkout_ref }}
 
       - name: "Install dependencies"
         run: |
@@ -54,8 +65,14 @@ jobs:
           npx playwright install --with-deps
 
       - name: "Run Playwright tests"
+        if: ${{ inputs.cross_browser == false }}
         run: |
           npm run e2e
+
+      - name: "Run Playwright tests (cross browser)"
+        if: ${{ inputs.cross_browser == true }}
+        run: |
+          npm run e2e -- --config=playwright.config.cross-browser.ts
 
       - name: "Upload report"
         uses: actions/upload-artifact@v4
@@ -91,6 +108,8 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.checkout_ref }}
       - name: "Install dependencies"
         run: |
           npm ci --ignore-scripts

@@ -73,6 +73,7 @@ jobs:
     uses: ./.github/workflows/stage-5-acceptance.yaml
     with:
       environment: ${{ github.event.inputs.environment}}
+      checkout_ref: ${{ github.ref }}
     secrets: inherit
   snapshot-test-stage:
     name: "Snapshot Test stage"

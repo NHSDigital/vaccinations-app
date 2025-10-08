@@ -52,7 +52,7 @@ jobs:
 
       - name: "Run Playwright snapshot tests (no update)"
         run: |
-          npm run e2e:snapshot
+          npm run e2e:snapshot -- --config=playwright.config.cross-browser.ts
 
       - name: "Upload snapshots to S3 bucket with tag ${{ inputs.tag }}"
         if: failure()
