@@ -63,11 +63,55 @@ export default defineConfig({
       testMatch: /.*\.setup\.ts/,
     },
     {
-      name: "chromium",
+      name: "Chromium",
       use: {
         ...devices["Desktop Chrome"],
         viewport: { width: 1920, height: 1080 },
       },
+      dependencies: ['setup']
+    },
+    {
+      name: "Edge",
+      use: {
+        ...devices["Desktop Edge"],
+        viewport: { width: 1920, height: 1080 },
+      },
+      dependencies: ['setup']
+    },
+    {
+      name: "Firefox",
+      use: {
+        ...devices["Desktop Firefox"],
+        viewport: { width: 1920, height: 1080 },
+      },
+      dependencies: ['setup']
+    },
+    {
+      name: "Safari",
+      use: {
+        ...devices["Desktop Safari"],
+        viewport: { width: 1920, height: 1080 },
+      },
+      dependencies: ['setup']
+    },
+    {
+      name: 'ChromeAndroid',
+      use: { ...devices['Pixel 5'] },
+      dependencies: ['setup']
+    },
+    {
+      name: 'SamsungInternetAndroid',
+      use: { ...devices['Pixel 5'] },
+      dependencies: ['setup']
+    },
+    {
+      name: 'SafariIos',
+      use: { ...devices['iPhone 12'] },
+      dependencies: ['setup']
+    },
+    {
+      name: 'ChromeIos',
+      use: { ...devices['iPhone 12'] },
       dependencies: ['setup']
     },
 

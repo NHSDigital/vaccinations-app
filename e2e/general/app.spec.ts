@@ -1,5 +1,5 @@
-import { expect, test } from "@playwright/test";
-import { accessibilityCheck, benchmark, clickLinkAndExpectPageTitle } from "@project/e2e/helpers";
+import { TestInfo, expect, test } from "@playwright/test";
+import { accessibilityCheck, benchmarkIfChromium, clickLinkAndExpectPageTitle } from "@project/e2e/helpers";
 
 import {
   COOKIE_POLICY_PAGE_TITLE,
@@ -21,32 +21,32 @@ test.describe.configure({ mode: "parallel", retries: 3 });
 test.describe("Application", () => {
   test.use({ storageState: `./e2e/.auth/default.json` });
 
-  test("Hub page", async ({ page }) => {
+  test("Hub page", async ({ page }, testInfo: TestInfo) => {
     await page.goto(HUB_PAGE_URL);
     await expect(page).toHaveTitle(HUB_PAGE_TITLE);
     await accessibilityCheck(page);
-    expect.soft(await benchmark(page, HUB_PAGE_URL)).toBeLessThanOrEqual(MAX_AVG_LCP_DURATION_MS);
+    await benchmarkIfChromium(page, HUB_PAGE_URL, MAX_AVG_LCP_DURATION_MS, testInfo);
   });
 
-  test("RSV page", async ({ page }) => {
+  test("RSV page", async ({ page }, testInfo: TestInfo) => {
     await page.goto(RSV_PAGE_URL);
     await expect(page).toHaveTitle(RSV_PAGE_TITLE);
     await accessibilityCheck(page);
-    expect.soft(await benchmark(page, RSV_PAGE_URL)).toBeLessThanOrEqual(MAX_AVG_LCP_DURATION_MS);
+    await benchmarkIfChromium(page, RSV_PAGE_URL, MAX_AVG_LCP_DURATION_MS, testInfo);
   });
 
-  test("RSV in pregnancy page", async ({ page }) => {
+  test("RSV in pregnancy page", async ({ page }, testInfo: TestInfo) => {
     await page.goto(RSV_PREGNANCY_PAGE_URL);
     await expect(page).toHaveTitle(RSV_PREGNANCY_PAGE_TITLE);
     await accessibilityCheck(page);
-    expect.soft(await benchmark(page, RSV_PREGNANCY_PAGE_URL)).toBeLessThanOrEqual(MAX_AVG_LCP_DURATION_MS);
+    await benchmarkIfChromium(page, RSV_PREGNANCY_PAGE_URL, MAX_AVG_LCP_DURATION_MS, testInfo);
   });
 
-  test("Cookie policy page", async ({ page }) => {
+  test("Cookie policy page", async ({ page }, testInfo: TestInfo) => {
     await page.goto(COOKIE_POLICY_PAGE_URL);
     await expect(page).toHaveTitle(COOKIE_POLICY_PAGE_TITLE);
     await accessibilityCheck(page);
-    expect.soft(await benchmark(page, COOKIE_POLICY_PAGE_URL)).toBeLessThanOrEqual(MAX_AVG_LCP_DURATION_MS);
+    await benchmarkIfChromium(page, COOKIE_POLICY_PAGE_URL, MAX_AVG_LCP_DURATION_MS, testInfo);
   });
 
   test("Back link navigation", async ({ page }) => {

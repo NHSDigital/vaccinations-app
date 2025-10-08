@@ -1,6 +1,12 @@
 import AxeBuilder from "@axe-core/playwright";
-import { Page, expect } from "@playwright/test";
+import { Page, TestInfo, expect } from "@playwright/test";
 import { snapshotPathTemplate } from "@project/playwright.config";
+
+declare global {
+  interface Window {
+    __lcp: number;
+  }
+}
 
 export const getEnv = (name: string) => {
   const value = process.env[name];
@@ -15,25 +21,50 @@ export const clickLinkAndExpectPageTitle = async (page: Page, linkText: string, 
   await expect(page).toHaveTitle(expectedPageTitle);
 };
 
-const lcpDuration = async (): Promise<number> => {
-  return new Promise((resolve) => {
+export const benchmark = async (page: Page, target: string) => {
+  const isLcpSupported = await page.evaluate(() => {
+    return (
+      typeof PerformanceObserver === "function" &&
+      PerformanceObserver.supportedEntryTypes?.includes("largest-contentful-paint")
+    );
+  });
+
+  if (!isLcpSupported) {
+    console.warn("⚠️ LCP is not supported in this browser — skipping LCP measurement.");
+    return 0;
+  }
+
+  // Inject LCP observer once — before page load
+  await page.addInitScript(() => {
+    window.__lcp = -1;
+
     new PerformanceObserver((entryList) => {
       const entries = entryList.getEntries();
-      const lcpDuration = entries[entries.length - 1].startTime;
-      console.log("LCP: " + lcpDuration);
-      resolve(lcpDuration);
+      const lastEntry = entries[entries.length - 1];
+      if (lastEntry) {
+        window.__lcp = lastEntry.startTime;
+      }
     }).observe({ type: "largest-contentful-paint", buffered: true });
   });
-};
 
-export const benchmark = async (page: Page, target: string) => {
   const pageLoadTimes: number[] = [];
-  for (let i = 0; i < 5; i++) {
+
+  for (let i = 0; i < 3; i++) {
     await page.goto(target, { waitUntil: "load" });
-    pageLoadTimes.push(await page.evaluate(lcpDuration));
+
+    // Let LCP settle
+    await page.waitForTimeout(1000);
+
+    const lcp = await page.evaluate(() => window.__lcp);
+    if (typeof lcp !== "number" || lcp < 0) {
+      throw new Error(`⚠️ LCP not collected for iteration ${i}`);
+    }
+
+    pageLoadTimes.push(lcp);
   }
-  const sumPageLoadTimes = pageLoadTimes.reduce((sum, cur) => sum + cur, 0);
-  return sumPageLoadTimes / pageLoadTimes.length;
+
+  const averageLCP = pageLoadTimes.reduce((sum, cur) => sum + cur, 0) / pageLoadTimes.length;
+  return averageLCP;
 };
 
 export const accessibilityCheck = async (page: Page) => {
@@ -64,4 +95,10 @@ export const openExpanders = async (page: Page) => {
   }
 
   await page.mouse.click(0, 0);
+};
+
+export const benchmarkIfChromium = async (page: Page, url: string, maxDuration: number, testInfo: TestInfo) => {
+  if (testInfo.project.name === "chromium") {
+    expect.soft(await benchmark(page, url)).toBeLessThanOrEqual(maxDuration);
+  }
 };

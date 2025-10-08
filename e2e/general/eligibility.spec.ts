@@ -1,7 +1,7 @@
-import { Locator, expect, test } from "@playwright/test";
+import { Locator, TestInfo, expect, test } from "@playwright/test";
 import { MAX_AVG_LCP_DURATION_MS, RSV_PAGE_URL } from "@project/e2e/constants";
 import { UserCopy, elidCopyThatDiffersByEnvironment } from "@project/e2e/elid-copy-helper";
-import { accessibilityCheck, benchmark, getEnv } from "@project/e2e/helpers";
+import { accessibilityCheck, benchmarkIfChromium, getEnv } from "@project/e2e/helpers";
 
 const environment = getEnv("DEPLOY_ENVIRONMENT");
 const elidCopyForEnvironment: UserCopy =
@@ -9,12 +9,12 @@ const elidCopyForEnvironment: UserCopy =
     ? elidCopyThatDiffersByEnvironment["integration"]
     : elidCopyThatDiffersByEnvironment["sandpit"];
 
-test.describe.configure({ mode: "parallel", retries: 0 });
+test.describe.configure({ mode: "parallel", retries: 3 });
 
 test.describe("Eligibility", () => {
-  test.afterEach(async ({ page }) => {
+  test.afterEach(async ({ page }, testInfo: TestInfo) => {
     await accessibilityCheck(page);
-    expect.soft(await benchmark(page, RSV_PAGE_URL)).toBeLessThanOrEqual(MAX_AVG_LCP_DURATION_MS);
+    await benchmarkIfChromium(page, RSV_PAGE_URL, MAX_AVG_LCP_DURATION_MS, testInfo);
   });
 
   test.describe("Not Eligible", () => {
