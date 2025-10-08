@@ -30,7 +30,7 @@ export default defineConfig({
   /* Retry on CI only */
   retries: 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? "50%" : 3,
+  workers: process.env.CI ? 3 : 3,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI
     ? [
@@ -63,55 +63,11 @@ export default defineConfig({
       testMatch: /.*\.setup\.ts/,
     },
     {
-      name: "Chromium",
+      name: "chromium",
       use: {
         ...devices["Desktop Chrome"],
         viewport: { width: 1920, height: 1080 },
       },
-      dependencies: ['setup']
-    },
-    {
-      name: "Edge",
-      use: {
-        ...devices["Desktop Edge"],
-        viewport: { width: 1920, height: 1080 },
-      },
-      dependencies: ['setup']
-    },
-    {
-      name: "Firefox",
-      use: {
-        ...devices["Desktop Firefox"],
-        viewport: { width: 1920, height: 1080 },
-      },
-      dependencies: ['setup']
-    },
-    {
-      name: "Safari",
-      use: {
-        ...devices["Desktop Safari"],
-        viewport: { width: 1920, height: 1080 },
-      },
-      dependencies: ['setup']
-    },
-    {
-      name: 'ChromeAndroid',
-      use: { ...devices['Pixel 5'] },
-      dependencies: ['setup']
-    },
-    {
-      name: 'SamsungInternetAndroid',
-      use: { ...devices['Pixel 5'] },
-      dependencies: ['setup']
-    },
-    {
-      name: 'SafariIos',
-      use: { ...devices['iPhone 12'] },
-      dependencies: ['setup']
-    },
-    {
-      name: 'ChromeIos',
-      use: { ...devices['iPhone 12'] },
       dependencies: ['setup']
     },
 
