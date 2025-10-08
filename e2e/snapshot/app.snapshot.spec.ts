@@ -2,6 +2,10 @@ import { Page, expect, test } from "@playwright/test";
 import { openExpanders, pathForCustomScreenshots } from "@project/e2e/helpers";
 import { ACCESSIBILITY_STATEMENT_ROUTE } from "@src/app/our-policies/accessibility/constants";
 import { COOKIES_POLICY_ROUTE } from "@src/app/our-policies/cookies-policy/constants";
+import { SERVICE_FAILURE_ROUTE } from "@src/app/service-failure/constants";
+import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
+import { SESSION_TIMEOUT_ROUTE } from "@src/app/session-timeout/constants";
+import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 
 import { HUB_PAGE_URL, RSV_PAGE_URL, RSV_PREGNANCY_PAGE_URL } from "../constants";
 
@@ -38,6 +42,11 @@ test.describe("Snapshot Testing", () => {
     { snapshotFilename: "default-rsv-pregnancy.png", pageRoute: RSV_PREGNANCY_PAGE_URL },
     { snapshotFilename: "default-accessibility-statement.png", pageRoute: ACCESSIBILITY_STATEMENT_ROUTE },
     { snapshotFilename: "default-cookies-policy.png", pageRoute: COOKIES_POLICY_ROUTE },
+    { snapshotFilename: "default-service-failure.png", pageRoute: SERVICE_FAILURE_ROUTE },
+    { snapshotFilename: "default-sso-failure.png", pageRoute: SSO_FAILURE_ROUTE },
+    { snapshotFilename: "default-session-timeout.png", pageRoute: SESSION_TIMEOUT_ROUTE },
+    { snapshotFilename: "default-not-found.png", pageRoute: "/no-such-route" },
+    { snapshotFilename: "default-session-logout.png", pageRoute: SESSION_LOGOUT_ROUTE },
   ];
 
   PathsToSnapshots.forEach(({ snapshotFilename, pageRoute }) => {
