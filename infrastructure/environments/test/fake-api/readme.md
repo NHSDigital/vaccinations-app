@@ -15,8 +15,22 @@ Tag, promote, and deploy to the test environment, as per the [usual process](htt
 ```sh
 docker stop local-fake-api  ## Will fail if the contain doesn't exist, which is fine
 
-./create_tokens.sh "../../../../../vita-app-sandpit.pid" "http://localhost:9123" 86400
+./create_tokens.sh "../../../../../../../vita_private_key.pem" "http://localhost:9123" 86400
+```
 
+Before you continue, set up buildx for Docker if you haven't done it yet:
+```sh
+brew install docker-buildx
+````
+Run the above command and follow the instructions in the output to update ~/.docker/config.json.
+
+```sh
+colima stop && colima start
+docker buildx version
+```
+
+After this, you can build the image and spin up the docker image, and test that it works:
+```sh
 docker build --no-cache -t fake-api . && docker run -d --rm -p 9123:9123 -e ELID_DELAY_SECONDS=1 -e APIM_DELAY_SECONDS=1 --name local-fake-api fake-api
 
 docker logs local-fake-api --follow | less +F  # If you need to see what's going on in nginx
@@ -170,15 +184,6 @@ BASE_URL="$(terraform output -raw application_url)/eligibility-signposting-api/p
 docker logs local-fake-api | less +G
 docker stats
 colima stop && colima start -e
-```
-
-### buildx shenannegans
-
-```sh
-brew install docker-buildx
-colima stop && colima start
-docker buildx create --use
-docker buildx build --platform linux/amd64 -t fake-api --load .
 ```
 
 ## Architecture
