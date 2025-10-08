@@ -26,7 +26,7 @@ jobs:
 
     steps:
       - name: "Configure AWS credentials for S3 upload"
-        uses: aws-actions/configure-aws-credentials@v5
+        uses: aws-actions/configure-aws-credentials@v6
         with:
           role-session-name: GitHubActionsSessionUpload
           role-to-assume: ${{ env.IAM_ROLE }}
