@@ -2,16 +2,15 @@ name: "CI/CD scheduled assurances"
 
 on:
   schedule:
-    - cron: '13 50 * * *'  # Runs at 15:20 UTC every day (TODO: update time to 6am UTC)
+    - cron: '0 14 * * *'  # Runs at 14:00 UTC every day (TODO: update time to 6am UTC)
 
 jobs:
   acceptance-stage-dev: # Recommended maximum execution time is 10 minutes
     name: "Acceptance stage dev"
-    if: github.ref == 'refs/heads/main'
     uses: ./.github/workflows/stage-5-acceptance.yaml
     with:
       environment: "dev"
-      checkout_ref: ${{ github.ref }}
+      checkout_ref: main
       cross_browser: true
     secrets: inherit
 

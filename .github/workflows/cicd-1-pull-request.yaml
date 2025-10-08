@@ -122,5 +122,5 @@ jobs:
     uses: ./.github/workflows/stage-5-acceptance.yaml
     with:
       environment: "dev"
-      checkout_ref: ${{ github.ref }}
+      checkout_ref: "main"
     secrets: inherit
