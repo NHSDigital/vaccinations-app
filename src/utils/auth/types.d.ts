@@ -15,6 +15,7 @@ export interface DecodedIdToken {
   aud: string;
   identity_proofing_level: string;
   jti: string;
+  vot: string;
 }
 
 export type APIMClientAssertionPayload = {

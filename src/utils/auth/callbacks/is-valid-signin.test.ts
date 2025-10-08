@@ -36,19 +36,63 @@ describe("isValidSignIn", () => {
       iss: mockConfig.NHS_LOGIN_URL,
       aud: mockConfig.NHS_LOGIN_CLIENT_ID,
       identity_proofing_level: "P9",
+      vot: "P9.Cp.Ck",
     });
 
     const result = isValidSignIn(mockAccount, mockConfig);
     expect(result).toBe(true);
   });
 
-  it("should return false and logs if token is invalid", () => {
+  it("should return false and logs if iss is invalid", () => {
     const mockAccount = { id_token: "invalid-token" } as Account;
 
     (jwtDecode as jest.Mock).mockReturnValue({
       iss: "incorrect-issuer",
+      aud: mockConfig.NHS_LOGIN_CLIENT_ID,
+      identity_proofing_level: "P9",
+      vot: "P9.Cp.Ck",
+    });
+
+    const result = isValidSignIn(mockAccount, mockConfig);
+    expect(result).toBe(false);
+  });
+
+  it("should return false and logs if aud is invalid", () => {
+    const mockAccount = { id_token: "invalid-token" } as Account;
+
+    (jwtDecode as jest.Mock).mockReturnValue({
+      iss: mockConfig.NHS_LOGIN_URL,
       aud: "incorrect-audience",
+      identity_proofing_level: "P9",
+      vot: "P9.Cp.Ck",
+    });
+
+    const result = isValidSignIn(mockAccount, mockConfig);
+    expect(result).toBe(false);
+  });
+
+  it("should return false and logs if identity_proofing_level is invalid", () => {
+    const mockAccount = { id_token: "invalid-token" } as Account;
+
+    (jwtDecode as jest.Mock).mockReturnValue({
+      iss: mockConfig.NHS_LOGIN_URL,
+      aud: mockConfig.NHS_LOGIN_CLIENT_ID,
       identity_proofing_level: "P0",
+      vot: "P9.Cp.Ck",
+    });
+
+    const result = isValidSignIn(mockAccount, mockConfig);
+    expect(result).toBe(false);
+  });
+
+  it("should return false and logs if vot is invalid", () => {
+    const mockAccount = { id_token: "invalid-token" } as Account;
+
+    (jwtDecode as jest.Mock).mockReturnValue({
+      iss: mockConfig.NHS_LOGIN_URL,
+      aud: mockConfig.NHS_LOGIN_CLIENT_ID,
+      identity_proofing_level: "P9",
+      vot: "P9.Sausages",
     });
 
     const result = isValidSignIn(mockAccount, mockConfig);
