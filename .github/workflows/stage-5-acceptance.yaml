@@ -60,7 +60,6 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ steps.cache_key_values.outputs.week_num }}-${{ steps.cache_key_values.outputs.playwright_version }}-${{ hashFiles('**/playwright.config*') }}
 
       - name: "Install Playwright browsers"
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: |
           npx playwright install --with-deps
 
