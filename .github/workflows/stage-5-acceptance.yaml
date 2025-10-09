@@ -65,6 +65,7 @@ jobs:
           npx playwright install chromium firefox --with-deps
 
       - name: "Install Playwright browsers (Webkit)"
+        if: ${{ inputs.cross_browser == true }}
         run: |
           npx playwright install webkit --with-deps
 
