@@ -43,7 +43,7 @@ describe("middleware", () => {
     jest.clearAllMocks();
   });
 
-  it("redirects users without active session to session-logout page", async () => {
+  it("redirects users without active session to session-logout page and prevent browser caching the redirect", async () => {
     const testUrl = "https://nhs-app-redirect-login-url/";
     const mockRequest = getMockRequest(testUrl);
 
@@ -53,6 +53,7 @@ describe("middleware", () => {
 
     expect(result.status).toBe(307);
     expect(result.headers.get("Location")).toEqual(testUrl);
+    expect(result.headers.get("Cache-Control")).toEqual("no-cache, no-store, max-age=0, must-revalidate");
   });
 
   it("pass through for users with active session", async () => {

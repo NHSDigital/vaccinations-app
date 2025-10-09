@@ -32,6 +32,7 @@ const middlewareWrapper = async (request: NextRequest) => {
   if (!session?.user) {
     log.info({ context: { nextUrl: request.nextUrl.href } }, "Missing user session, redirecting to login");
     response = NextResponse.redirect(new URL(config.NHS_APP_REDIRECT_LOGIN_URL));
+    response.headers.set("Cache-Control", "no-cache, no-store, max-age=0, must-revalidate");
   } else {
     response = NextResponse.next({
       request: { headers: headers },
