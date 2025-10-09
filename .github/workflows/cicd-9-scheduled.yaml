@@ -2,41 +2,50 @@ name: "CI/CD scheduled assurances"
 
 on:
   schedule:
-    - cron: '0 14 * * *'  # Runs at 14:00 UTC every day (TODO: update time to 6am UTC)
+    - cron: '0 6 * * *'  # Runs at 14:00 UTC every day (TODO: update time to 6am UTC)
+  workflow_dispatch:
 
 jobs:
-  acceptance-stage-dev: # Recommended maximum execution time is 10 minutes
-    name: "Acceptance stage dev"
-    uses: ./.github/workflows/stage-5-acceptance.yaml
-    with:
-      environment: "dev"
-      checkout_ref: main
-      cross_browser: true
-    secrets: inherit
-
-  get-latest-tag:
-    name: "Get latest tag"
+  get-app-version:
+    name: "Get app version"
     runs-on: ubuntu-latest
-    outputs:
-      tag: ${{ steps.get_tag.outputs.tag }}
+    environment:
+      name: "preprod"
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: "Configure AWS credentials for env"
+        uses: aws-actions/configure-aws-credentials@v5
         with:
-          fetch-depth: 0
-
-      - name: Get latest tag
-        id: get_tag
+          role-session-name: GitHubActionsSession
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: "Get app version"
         run: |
-          latest_tag=$(git describe --tags --abbrev=0)
-          echo "tag=$latest_tag" >> $GITHUB_OUTPUT
+          APP_VERSION=$(aws lambda get-function-configuration --function-name gh-vita-${{ secrets.AWS_ACCOUNT_ID }}-server-function | jq '.Environment.Variables.APP_VERSION')
+          echo $APP_VERSION
 
-  acceptance-stage-preprod:
-    name: "Acceptance stage preprod (latest tag)"
-    needs: [get-latest-tag]
-    uses: ./.github/workflows/stage-5-acceptance.yaml
-    with:
-      environment: "preprod"
-      checkout_ref: ${{ needs.get-latest-tag.outputs.tag }}
-      cross_browser: true
-    secrets: inherit
+#  get-latest-tag:
+#    name: "Get latest tag"
+#    runs-on: ubuntu-latest
+#    outputs:
+#      tag: ${{ steps.get_tag.outputs.tag }}
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v4
+#        with:
+#          fetch-depth: 0
+#
+#      - name: Get latest tag
+#        id: get_tag
+#        run: |
+#          latest_tag=$(git describe --tags --abbrev=0)
+#          echo "tag=$latest_tag" >> $GITHUB_OUTPUT
+#
+#  acceptance-stage-preprod:
+#    name: "Acceptance stage preprod (latest tag)"
+#    needs: [get-latest-tag]
+#    uses: ./.github/workflows/stage-5-acceptance.yaml
+#    with:
+#      environment: "preprod"
+#      checkout_ref: ${{ needs.get-latest-tag.outputs.tag }}
+#      cross_browser: true
+#    secrets: inherit
