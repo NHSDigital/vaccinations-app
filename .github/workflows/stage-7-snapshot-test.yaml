@@ -2,6 +2,11 @@ name: "Snapshot Test stage"
 
 on:
   workflow_call:
+    inputs:
+      checkout_ref:
+        description: "Ref to checkout"
+        required: true
+        type: string
 
 env:
   AWS_REGION: eu-west-2
@@ -26,6 +31,8 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.checkout_ref }}
 
       - name: "Configure AWS credentials for environment"
         uses: aws-actions/configure-aws-credentials@v5
@@ -38,7 +45,21 @@ jobs:
         run: |
           npm ci --ignore-scripts
 
+      - name: "Get current week number and playwright version"
+        id: cache_key_values
+        run: |
+          echo "week_num=$(date -u +'%Y-%V')" | tee -a $GITHUB_OUTPUT
+          echo "playwright_version=$(npm view @playwright/test version)" | tee -a $GITHUB_OUTPUT
+
+      - name: "Cache Playwright browsers"
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ steps.cache_key_values.outputs.week_num }}-${{ steps.cache_key_values.outputs.playwright_version }}-${{ hashFiles('**/playwright.config*') }}
+
       - name: "Install Playwright browsers"
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: |
           npx playwright install --with-deps
 

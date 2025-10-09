@@ -38,15 +38,15 @@ jobs:
         id: variables
         run: |
           datetime=$(date -u +'%Y-%m-%dT%H:%M:%S%z')
-          echo "build_datetime=$datetime" >> $GITHUB_OUTPUT
-          echo "build_timestamp=$(date --date=$datetime -u +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
-          echo "build_epoch=$(date --date=$datetime -u +'%s')" >> $GITHUB_OUTPUT
-          echo "nodejs_version=$(grep "^nodejs" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
-          echo "python_version=$(grep "^nodejs" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
-          echo "terraform_version=$(grep "^terraform" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
+          echo "build_datetime=$datetime" | tee -a $GITHUB_OUTPUT
+          echo "build_timestamp=$(date --date=$datetime -u +'%Y%m%d%H%M%S')" | tee -a $GITHUB_OUTPUT
+          echo "build_epoch=$(date --date=$datetime -u +'%s')" | tee -a $GITHUB_OUTPUT
+          echo "nodejs_version=$(grep "^nodejs" .tool-versions | cut -f2 -d' ')" | tee -a $GITHUB_OUTPUT
+          echo "python_version=$(grep "^nodejs" .tool-versions | cut -f2 -d' ')" | tee -a $GITHUB_OUTPUT
+          echo "terraform_version=$(grep "^terraform" .tool-versions | cut -f2 -d' ')" | tee -a $GITHUB_OUTPUT
           # TODO: Get the version, but it may not be the .version file as this should come from the CI/CD Pull Request Workflow
-          echo "version=$(head -n 1 .version 2> /dev/null || echo unknown)" >> $GITHUB_OUTPUT
-          echo "tag=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          echo "version=$(head -n 1 .version 2> /dev/null || echo unknown)" | tee -a $GITHUB_OUTPUT
+          echo "tag=${{ github.ref_name }}" | tee -a $GITHUB_OUTPUT
       - name: "List variables"
         run: |
           export BUILD_DATETIME="${{ steps.variables.outputs.build_datetime }}"
@@ -74,10 +74,4 @@ jobs:
     with:
       environment: ${{ github.event.inputs.environment}}
       checkout_ref: ${{ github.ref }}
-    secrets: inherit
-  snapshot-test-stage:
-    name: "Snapshot Test stage"
-    if: ${{ github.event.inputs.environment == 'preprod' }}
-    needs: [metadata, acceptance-stage]
-    uses: ./.github/workflows/stage-7-snapshot-test.yaml
     secrets: inherit
