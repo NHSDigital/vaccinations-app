@@ -5,6 +5,9 @@ on:
     - cron: '0 6 * * *'  # Runs at 14:00 UTC every day (TODO: update time to 6am UTC)
   workflow_dispatch:
 
+env:
+  AWS_REGION: eu-west-2
+
 jobs:
   get-app-version:
     name: "Get app version"
