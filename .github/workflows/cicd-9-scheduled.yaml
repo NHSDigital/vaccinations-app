@@ -12,8 +12,12 @@ jobs:
   get-app-version:
     name: "Get app version"
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     environment:
       name: "preprod"
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: "Configure AWS credentials for env"
         uses: aws-actions/configure-aws-credentials@v5
