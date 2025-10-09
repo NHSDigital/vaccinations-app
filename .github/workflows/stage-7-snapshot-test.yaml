@@ -58,9 +58,14 @@ jobs:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ steps.cache_key_values.outputs.week_num }}-${{ steps.cache_key_values.outputs.playwright_version }}-${{ hashFiles('**/playwright.config*') }}
 
-      - name: "Install Playwright browsers"
+      - name: "Install Playwright browsers (Chromium, Firefox)"
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: |
-          npx playwright install --with-deps
+          npx playwright install chromium firefox --with-deps
+
+      - name: "Install Playwright browsers (Webkit)"
+        run: |
+          npx playwright install webkit --with-deps
 
       - name: "Download snapshots from S3 bucket"
         run: |
