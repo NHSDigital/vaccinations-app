@@ -10,39 +10,38 @@ Tag, promote, and deploy to the test environment, as per the [usual process](htt
 
 ### Build & test image
 
-#### Test locally
+#### buildx
 
-```sh
-docker stop local-fake-api  ## Will fail if the contain doesn't exist, which is fine
+Before you start, set up [buildx](https://docs.docker.com/reference/cli/docker/buildx/) for Docker if you haven't already:
 
-./create_tokens.sh "../../../../../../../vita_private_key.pem" "http://localhost:9123" 86400
-```
-
-Before you continue, set up buildx for Docker if you haven't done it yet:
 ```sh
 brew install docker-buildx
-````
-Run the above command and follow the instructions in the output to update ~/.docker/config.json.
-
-```sh
-colima stop && colima start
-docker buildx version
 ```
 
-After this, you can build the image and spin up the docker image, and test that it works:
+Run the above command and follow the instructions in the output to update `~/.docker/config.json`.
+
+#### Build image & test locally
+
+The first argument to the `create_tokens` script below is the [VitA application private key](https://github.com/NHSDigital/vaccinations-app#simulating-nhs-login-sso-flow), i.e. the file you are using to populate your `NHS_LOGIN_PRIVATE_KEY` variable.
+
 ```sh
+./create_tokens.sh "../../../../../vita-app-sandpit.pid" "http://localhost:9123" 86400
+
+docker stop local-fake-api  ## Will fail if the contain doesn't exist, which is fine
+
 docker build --no-cache -t fake-api . && docker run -d --rm -p 9123:9123 -e ELID_DELAY_SECONDS=1 -e APIM_DELAY_SECONDS=1 --name local-fake-api fake-api
 
 docker logs local-fake-api --follow | less +F  # If you need to see what's going on in nginx
 
+# Check it's running
 curl -v http://localhost:9123/health
 
-curl http://localhost:9123/eligibility-signposting-api/patient-check/9658218989 | jq
-curl http://localhost:9123/eligibility-signposting-api/patient-check/9658218881 | jq
+curl http://localhost:9123/eligibility-signposting-api/patient-check/9658218989 | jq .
+curl http://localhost:9123/eligibility-signposting-api/patient-check/9658218881 | jq .
 
 curl -v -X POST http://localhost:9123/oauth2/token
 
-curl http://localhost:9123/.well-known/openid-configuration | jq
+curl http://localhost:9123/.well-known/openid-configuration | jq .
 curl -v http://localhost:9123/authorize?state=sausages
 curl -X POST http://localhost:9123/token
 
@@ -103,12 +102,12 @@ fake_api_url="http://"$(aws elbv2 describe-load-balancers --profile vita-test | 
 
 curl -v $fake_api_url/health
 
-curl $fake_api_url/eligibility-signposting-api/patient-check/9658218989 | jq
-curl $fake_api_url/eligibility-signposting-api/patient-check/9658218881 | jq
+curl $fake_api_url/eligibility-signposting-api/patient-check/9658218989 | jq .
+curl $fake_api_url/eligibility-signposting-api/patient-check/9658218881 | jq .
 
 curl -v -X POST $fake_api_url/oauth2/token
 
-curl $fake_api_url/.well-known/openid-configuration | jq
+curl $fake_api_url/.well-known/openid-configuration | jq .
 curl -v "$fake_api_url/authorize?state=sausages"
 curl -X POST $fake_api_url/token
 
@@ -142,6 +141,7 @@ docker push $(terraform output -raw fake_api_ecr_repository_url):latest
 
 aws ecs update-service --cluster fake-api-ecs-cluster --service fake-api-ecs-service --force-new-deployment --profile vita-dev --region eu-west-2
 
+# Check it's working
 curl -v $(terraform output -raw application_url)/health
 curl -v $(terraform output -raw application_url)/eligibility-signposting-api/patient-check/9658218989
 curl -v -X POST $(terraform output -raw application_url)/oauth2/token
