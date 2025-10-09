@@ -46,18 +46,18 @@ jobs:
         run: |
           npm ci --ignore-scripts
 
-      - name: "Get current week number"
-        id: date
-        run: echo "week_num=$(date -u +'%Y-%V')" >> "$GITHUB_OUTPUT"
+      - name: "Get current week number and playwright version"
+        id: cache_key_values
+        run: |
+          echo "week_num=$(date -u +'%Y-%V')" | tee -a $GITHUB_OUTPUT
+          echo "playwright_version=$(npm view @playwright/test version)" | tee -a $GITHUB_OUTPUT
 
       - name: "Cache Playwright browsers"
         uses: actions/cache@v4
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ steps.date.outputs.week_num }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-${{ steps.date.outputs.week_num }}-
+          key: ${{ runner.os }}-playwright-${{ steps.cache_key_values.outputs.week_num }}-${{ steps.cache_key_values.outputs.playwright_version }}-${{ hashFiles('**/playwright.config*') }}
 
       - name: "Install Playwright browsers"
         if: steps.playwright-cache.outputs.cache-hit != 'true'

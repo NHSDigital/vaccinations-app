@@ -31,7 +31,7 @@ jobs:
         id: get_deployed_app_version
         run: |
           APP_VERSION=$(aws lambda get-function-configuration --function-name gh-vita-${{ secrets.AWS_ACCOUNT_ID }}-server-function | jq -r '.Environment.Variables.APP_VERSION')
-          echo "deployed_app_version=$APP_VERSION" >> $GITHUB_OUTPUT
+          echo "deployed_app_version=$APP_VERSION" | tee -a $GITHUB_OUTPUT
 
   acceptance-stage-preprod:
     name: "Acceptance stage preprod (latest tag)"
