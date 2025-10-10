@@ -39,7 +39,7 @@ const getOrRefreshApimCredentials = async (config: AppConfig, token: JWT, nowInS
         "getOrRefreshApimCredentials: New APIM creds retrieved.",
       );
     } else {
-      const expiryWriggleRoom = 30;
+      const expiryWriggleRoom = 120;
       const expiresSoonAt: ExpiresSoonAt = (token.apim?.expires_at - expiryWriggleRoom) as ExpiresSoonAt;
 
       if (expiresSoonAt < nowInSeconds) {

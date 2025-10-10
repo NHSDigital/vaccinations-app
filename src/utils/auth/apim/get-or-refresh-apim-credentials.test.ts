@@ -27,7 +27,7 @@ describe("getOrRefreshApimCredentials", () => {
     beforeEach(async () => {
       (retrieveApimCredentials as jest.Mock).mockResolvedValue({
         accessToken: "new-apim-access-token",
-        expiresAt: nowInSeconds + 1111,
+        expiresAt: nowInSeconds + 600,
       });
     });
 
@@ -55,7 +55,7 @@ describe("getOrRefreshApimCredentials", () => {
 
       expect(result).toMatchObject({
         accessToken: "new-apim-access-token",
-        expiresAt: nowInSeconds + 1111,
+        expiresAt: nowInSeconds + 600,
       });
     });
 
@@ -63,7 +63,7 @@ describe("getOrRefreshApimCredentials", () => {
       const token = {
         apim: {
           access_token: "old-access-token",
-          expires_at: nowInSeconds + 60,
+          expires_at: nowInSeconds + 120,
         },
         nhs_login: { id_token: "old-id-token" },
       } as JWT;
@@ -72,7 +72,7 @@ describe("getOrRefreshApimCredentials", () => {
 
       expect(result).toEqual({
         accessToken: "old-access-token",
-        expiresAt: nowInSeconds + 60,
+        expiresAt: nowInSeconds + 120,
       });
     });
 
@@ -86,7 +86,21 @@ describe("getOrRefreshApimCredentials", () => {
 
       expect(result).toEqual({
         accessToken: "new-apim-access-token",
-        expiresAt: nowInSeconds + 1111,
+        expiresAt: nowInSeconds + 600,
+      });
+    });
+
+    it("should return new APIM creds if near expiry", async () => {
+      const token = {
+        apim: { access_token: "old-access-token", expires_at: nowInSeconds + 119 },
+        nhs_login: { id_token: "id-token" },
+      } as JWT;
+
+      const result = await getOrRefreshApimCredentials(mockConfig, token, nowInSeconds);
+
+      expect(result).toEqual({
+        accessToken: "new-apim-access-token",
+        expiresAt: nowInSeconds + 600,
       });
     });
 
