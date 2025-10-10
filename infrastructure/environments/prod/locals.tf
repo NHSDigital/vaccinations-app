@@ -27,7 +27,7 @@ locals {
 
     PINO_LOG_LEVEL      = "info"
     DEPLOY_ENVIRONMENT  = local.environment
-    PROFILE_PERFORMANCE = "false"
+    PROFILE_PERFORMANCE = "true"
 
     CONTENT_API_ENDPOINT                     = "https://api.service.nhs.uk/"
     CONTENT_CACHE_PATH                       = "s3://${local.content_cache_bucket_name}"
