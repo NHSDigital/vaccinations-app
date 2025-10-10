@@ -37,20 +37,32 @@ test.describe("Snapshot Testing", () => {
   test.use({ storageState: `./e2e/.auth/default.json` });
 
   const PathsToSnapshots = [
-    { snapshotFilename: "default-hub.png", pageRoute: HUB_PAGE_URL },
-    { snapshotFilename: "default-rsv.png", pageRoute: RSV_PAGE_URL },
-    { snapshotFilename: "default-rsv-pregnancy.png", pageRoute: RSV_PREGNANCY_PAGE_URL },
-    { snapshotFilename: "default-accessibility-statement.png", pageRoute: ACCESSIBILITY_STATEMENT_ROUTE },
-    { snapshotFilename: "default-cookies-policy.png", pageRoute: COOKIES_POLICY_ROUTE },
-    { snapshotFilename: "default-service-failure.png", pageRoute: SERVICE_FAILURE_ROUTE },
-    { snapshotFilename: "default-sso-failure.png", pageRoute: SSO_FAILURE_ROUTE },
-    { snapshotFilename: "default-session-timeout.png", pageRoute: SESSION_TIMEOUT_ROUTE },
-    { snapshotFilename: "default-not-found.png", pageRoute: "/no-such-route" },
-    { snapshotFilename: "default-session-logout.png", pageRoute: SESSION_LOGOUT_ROUTE },
+    { snapshotFilename: "default-hub.png", pageRoute: HUB_PAGE_URL, reportLabel: "Hub" },
+    { snapshotFilename: "default-rsv.png", pageRoute: RSV_PAGE_URL, reportLabel: "RSV" },
+    { snapshotFilename: "default-rsv-pregnancy.png", pageRoute: RSV_PREGNANCY_PAGE_URL, reportLabel: "RSV pregnancy" },
+    {
+      snapshotFilename: "default-accessibility-statement.png",
+      pageRoute: ACCESSIBILITY_STATEMENT_ROUTE,
+      reportLabel: "Accessibility statement",
+    },
+    { snapshotFilename: "default-cookies-policy.png", pageRoute: COOKIES_POLICY_ROUTE, reportLabel: "Cookie policy" },
+    {
+      snapshotFilename: "default-service-failure.png",
+      pageRoute: SERVICE_FAILURE_ROUTE,
+      reportLabel: "Service failure",
+    },
+    { snapshotFilename: "default-sso-failure.png", pageRoute: SSO_FAILURE_ROUTE, reportLabel: "SSO failure" },
+    {
+      snapshotFilename: "default-session-timeout.png",
+      pageRoute: SESSION_TIMEOUT_ROUTE,
+      reportLabel: "Session timeout",
+    },
+    { snapshotFilename: "default-not-found.png", pageRoute: "/no-such-route", reportLabel: "Page not found" },
+    { snapshotFilename: "default-session-logout.png", pageRoute: SESSION_LOGOUT_ROUTE, reportLabel: "Session logout" },
   ];
 
-  PathsToSnapshots.forEach(({ snapshotFilename, pageRoute }) => {
-    test(`Testing snapshot for ${pageRoute}`, async ({ page }, testInfo) => {
+  PathsToSnapshots.forEach(({ snapshotFilename, pageRoute, reportLabel }) => {
+    test(`Testing snapshot for ${reportLabel} page`, async ({ page }, testInfo) => {
       const projectName = testInfo.project.name;
       const testFileName = testInfo.file.split("/").pop()!;
 

@@ -15,7 +15,7 @@ for (const scenario in users) {
   setup(`authenticate ${key}`, async ({ browser }, testInfo: TestInfo) => {
     testInfo.setTimeout(60000);
 
-    const userEmail = testUserPattern.replace("{id}", users[key].user_identifier);
+    const userEmail = testUserPattern.replace("{id}", users[key].emailSuffix);
     const authFile = `./e2e/.auth/${key}.json`;
 
     const page = await login(browser, userEmail);

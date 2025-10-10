@@ -1,46 +1,57 @@
 {
   "default": {
     "nhsNumber": "9686368973",
-    "user_identifier": ""
+    "emailSuffix": "",
+    "reportLabel": "Actionable, in CP area"
   },
   "not-eligible-with-infotext-action": {
     "nhsNumber": "9657933617",
-    "user_identifier": "15"
+    "emailSuffix": "15",
+    "reportLabel": "Not Eligible"
   },
   "actionable-with-infotext-action": {
     "nhsNumber": "9686368906",
-    "user_identifier": "01"
+    "emailSuffix": "01",
+    "reportLabel": "Actionable, out of CP area"
   },
   "actionable-with-buttonwithauthlink-action": {
     "nhsNumber": "9658218881",
-    "user_identifier": "04"
+    "emailSuffix": "04",
+    "reportLabel": "Actionable - Existing NBS booking"
   },
   "actionable-with-cardwithtext-action": {
     "nhsNumber": "9658218903",
-    "user_identifier": "05"
+    "emailSuffix": "05",
+    "reportLabel": "Actionable - Existing non-NBS booking"
   },
   "eligibility-error-400": {
     "nhsNumber": "9800878378",
-    "user_identifier": "16"
+    "emailSuffix": "16",
+    "reportLabel": "HTTP status 400 (Bad request) from EliD"
   },
   "actionable-with-other-setting-suitability-rule": {
     "nhsNumber": "9658220150",
-    "user_identifier": "12"
+    "emailSuffix": "12",
+    "reportLabel": "Not Actionable - other setting"
   },
   "actionable-with-already-vaccinated-suitability-rule": {
     "nhsNumber": "9450114080",
-    "user_identifier": "13"
+    "emailSuffix": "13",
+    "reportLabel": "Not Actionable - already vaccinated"
   },
   "actionable-with-booking-link": {
     "nhsNumber": "9436793375",
-    "user_identifier": "19"
+    "emailSuffix": "19",
+    "reportLabel": "HTTP status 500 (Bad request) from EliD"
   },
   "actionable-with-booking-button": {
     "nhsNumber": "9735548852",
-    "user_identifier": "21"
+    "emailSuffix": "21",
+    "reportLabel": "Actionable with booking button"
   },
   "actionable-with-managing-button": {
     "nhsNumber": "9735548844",
-    "user_identifier": "22"
+    "emailSuffix": "22",
+    "reportLabel": "Actionable with managing button"
   }
 }

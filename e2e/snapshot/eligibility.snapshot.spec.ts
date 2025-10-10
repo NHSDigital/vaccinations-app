@@ -4,8 +4,10 @@ import { openExpanders, pathForCustomScreenshots } from "@project/e2e/helpers";
 import users from "@test-data/test-users.json" with { type: "json" };
 
 test.describe("Snapshot Testing - Eligibility", () => {
-  for (const key of Object.keys(users)) {
-    test.describe(key, () => {
+  for (const scenario in users) {
+    const key = scenario as keyof typeof users;
+
+    test.describe(`Testing snapshot for user ${users[key].nhsNumber}, ${users[key].reportLabel}`, () => {
       const authContextFile = `./e2e/.auth/${key}.json`;
       const screenshotFileName = `${key}.png`;
 
