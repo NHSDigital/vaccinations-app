@@ -45,11 +45,26 @@ const getToken = async (
       return null;
     }
 
+    let updatedToken: JWT = token;
+
+    // Initial login scenario: account and profile are only defined for the initial login, afterward they become undefined
+    if (isInitialLoginJourney(account, profile) && account != null && profile != null) {
+      updatedToken = updateTokenWithValuesFromAccountAndProfile(
+        token,
+        account,
+        profile,
+        nowInSeconds as NowInSeconds,
+        maxAgeInSeconds,
+      );
+    }
+
     let apimAccessCredentials = undefined;
 
     try {
-      // TODO VIA-254 - can we do this only once? https://www.youtube.com/watch?v=A4I9DMSvJxg
-      apimAccessCredentials = await getOrRefreshApimCredentials(config, token, nowInSeconds);
+      // TODO VIA-254 - can we do this only once per request?
+      // every time auth() is called, the getToken() callback is invoked by NextAuth
+      // this results in fetching APIM access token multiple times ( in case it has expired )
+      apimAccessCredentials = await getOrRefreshApimCredentials(config, updatedToken, nowInSeconds);
     } catch (error) {
       let errorMessage = undefined;
       if (error instanceof Error) {
@@ -62,18 +77,7 @@ const getToken = async (
     }
 
     // Inspect the token (which was either returned from login or fetched from session), fill missing or blank values with defaults
-    let updatedToken: JWT = fillMissingFieldsInTokenWithDefaultValues(token, apimAccessCredentials);
-
-    // Initial login scenario: account and profile are only defined for the initial login, afterward they become undefined
-    if (isInitialLoginJourney(account, profile) && account != null && profile != null) {
-      updatedToken = updateTokenWithValuesFromAccountAndProfile(
-        updatedToken,
-        account,
-        profile,
-        nowInSeconds as NowInSeconds,
-        maxAgeInSeconds,
-      );
-    }
+    updatedToken = fillMissingFieldsInTokenWithDefaultValues(updatedToken, apimAccessCredentials);
 
     log.debug({ context: { updatedToken } }, "Returning JWT from callback");
     return updatedToken;

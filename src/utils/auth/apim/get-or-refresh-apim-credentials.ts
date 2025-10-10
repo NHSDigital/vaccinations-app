@@ -12,9 +12,9 @@ const getOrRefreshApimCredentials = async (config: AppConfig, token: JWT, nowInS
   // Return the APIM creds from the token if still valid, or fetch new creds from APIM if expiring soon or empty
   let apimCredentials: ApimAccessCredentials | undefined;
 
-  const cryproAvailable = process.env.NEXT_RUNTIME === "nodejs";
+  const isNodeJsRuntime = process.env.NEXT_RUNTIME === "nodejs";
 
-  if (!cryproAvailable) {
+  if (!isNodeJsRuntime) {
     // edge runtime
     if (token?.apim?.access_token && token?.apim?.expires_at) {
       return {
@@ -24,10 +24,10 @@ const getOrRefreshApimCredentials = async (config: AppConfig, token: JWT, nowInS
     } else return undefined;
   }
 
-  if (config.IS_APIM_AUTH_ENABLED && cryproAvailable) {
+  if (config.IS_APIM_AUTH_ENABLED && isNodeJsRuntime) {
     if (!token.nhs_login?.id_token) {
       log.debug("getOrRefreshApimCredentials: No NHS login ID token available. Not getting APIM creds.");
-    } else if (!token.apim?.access_token || token.apim.access_token === "") {
+    } else if (!token.apim?.access_token) {
       log.debug(
         { context: { existingApimCredentals: token.apim } },
         "getOrRefreshApimCredentials: Getting new APIM creds.",
