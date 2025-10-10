@@ -42,7 +42,7 @@
   "actionable-with-booking-link": {
     "nhsNumber": "9436793375",
     "emailSuffix": "19",
-    "reportLabel": "HTTP status 500 (Bad request) from EliD"
+    "reportLabel": "HTTP status 500 (Internal server error) from EliD"
   },
   "actionable-with-booking-button": {
     "nhsNumber": "9735548852",
