@@ -62,7 +62,7 @@ test.describe("Snapshot Testing", () => {
   ];
 
   PathsToSnapshots.forEach(({ snapshotFilename, pageRoute, reportLabel }) => {
-    test(`Testing snapshot for ${reportLabel} page`, async ({ page }, testInfo) => {
+    test(`Testing snapshot for "${reportLabel}" page`, async ({ page }, testInfo) => {
       const projectName = testInfo.project.name;
       const testFileName = testInfo.file.split("/").pop()!;
 

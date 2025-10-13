@@ -6,8 +6,9 @@ import users from "@test-data/test-users.json" with { type: "json" };
 test.describe("Snapshot Testing - Eligibility", () => {
   for (const scenario in users) {
     const key = scenario as keyof typeof users;
+    const user = users[key];
 
-    test.describe(`Testing snapshot for user ${users[key].nhsNumber}, ${users[key].reportLabel}`, () => {
+    test.describe(`Testing snapshot for user ${user.nhsNumber}, ref ${user.nhsNumber}, "${user.reportLabel}"`, () => {
       const authContextFile = `./e2e/.auth/${key}.json`;
       const screenshotFileName = `${key}.png`;
 
