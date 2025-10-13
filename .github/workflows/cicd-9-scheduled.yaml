@@ -45,7 +45,7 @@ jobs:
 
   snapshot-stage-preprod:
     name: "Snapshot stage preprod"
-    needs: [acceptance-stage-preprod]
+    needs: [acceptance-stage-preprod, get-app-version]
     uses: ./.github/workflows/stage-7-snapshot-test.yaml
     with:
       checkout_ref: ${{ needs.get-app-version.outputs.deployed_app_version }}
