@@ -51,6 +51,11 @@ jobs:
           echo "week_num=$(date -u +'%Y-%V')" | tee -a $GITHUB_OUTPUT
           echo "playwright_version=$(npm view @playwright/test version)" | tee -a $GITHUB_OUTPUT
 
+      - name: "Get current date"
+        id: folder_name_value
+        run: |
+          echo "current_date=$(date +'%Y-%m-%d')" | tee -a $GITHUB_OUTPUT
+
       - name: "Cache Playwright browsers"
         uses: actions/cache@v4
         id: playwright-cache
@@ -78,7 +83,7 @@ jobs:
       - name: "Upload snapshots to S3 bucket with tag ${{ inputs.checkout_ref }}"
         if: failure()
         run: |
-          aws s3 sync --delete ./e2e/snapshot/snapshot_review/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/${{ inputs.checkout_ref }}/
+          aws s3 sync --delete ./e2e/snapshot/snapshot_review/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/${{ inputs.checkout_ref }}-${{ steps.folder_name_value.outputs.current_date }}/
 
       - name: "Upload report"
         uses: actions/upload-artifact@v4

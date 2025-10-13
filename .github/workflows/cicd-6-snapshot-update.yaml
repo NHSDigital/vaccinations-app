@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Tag of snapshots to set as reference"
+        description: "Tag and date of snapshots to set as reference"
         required: true
         type: string
 
