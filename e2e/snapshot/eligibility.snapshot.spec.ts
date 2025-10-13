@@ -8,7 +8,7 @@ test.describe("Snapshot Testing - Eligibility", () => {
     const key = scenario as keyof typeof users;
     const user = users[key];
 
-    test.describe(`Testing snapshot for user ${user.nhsNumber}, ref ${user.nhsNumber}, "${user.reportLabel}"`, () => {
+    test.describe(`Testing snapshot for user ${user.nhsNumber}, ref ${user.elidPostmanRef}, "${user.reportLabel}"`, () => {
       const authContextFile = `./e2e/.auth/${key}.json`;
       const screenshotFileName = `${key}.png`;
 
