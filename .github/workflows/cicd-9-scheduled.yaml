@@ -2,7 +2,7 @@ name: "CI/CD scheduled assurances"
 
 on:
   schedule:
-    - cron: '0 6 * * MON-FRI'  # Runs at 06:00 UTC every weekday
+    - cron: '30 8 * * MON-FRI'  # Runs at 08:30 UTC every weekday
   workflow_dispatch:
 
 env:
