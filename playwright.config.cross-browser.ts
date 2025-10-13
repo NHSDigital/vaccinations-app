@@ -107,16 +107,6 @@ export default defineConfig({
       use: { ...devices['iPhone 12'] },
       dependencies: ['setup']
     },
-    {
-      name: 'SamsungInternetAndroid',
-      use: { ...devices['Pixel 5'] },
-      dependencies: ['setup']
-    },
-    {
-      name: 'ChromeiPhone',
-      use: { ...devices['iPhone 12'] },
-      dependencies: ['setup']
-    },
 
     /* Test against mobile viewports. */
     // {
