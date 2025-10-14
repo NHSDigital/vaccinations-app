@@ -68,19 +68,19 @@ Number of concurrent users = (Number of tasks) x (Number of threads/task)
 
 ## Analysing the results
 
-Download the *.jtl files locally, as they might be big and many and use the following script (change the sample values).
+Download the test logs locally and generate a report using the following commands.
 
 ```shell
-# download the logs locally
-AWS_PROFILE=vita-test aws s3 sync s3://gh-vita-741448960880-load-testing/results/2025/10/02/ .
+# download the logs locally, replace yyyy/mm/dd with test date
+AWS_PROFILE=vita-test aws s3 sync s3://gh-vita-741448960880-load-testing/results/yyyy/mm/dd/ .
 
 # take header from one of the logs and merge all logs into one file
-head -n 1 16_34_59_655_29833.jtl > combined.jtl
+head -n 1 $(ls *.jtl | head -n 1) > performance.logs
 for file in *.jtl; do
-  tail -n +2 "$file" >> combined.jtl
+  tail -n +2 "$file" >> performance.logs
 done
 
 # generate an HTML report
-jmeter -g combined.jtl -o report
+jmeter -g performance.logs -o report
 open report/index.html
 ```

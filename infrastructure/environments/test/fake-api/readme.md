@@ -25,7 +25,7 @@ Run the above command and follow the instructions in the output to update `~/.do
 The first argument to the `create_tokens` script below is the [VitA application private key](https://github.com/NHSDigital/vaccinations-app#simulating-nhs-login-sso-flow), i.e. the file you are using to populate your `NHS_LOGIN_PRIVATE_KEY` variable.
 
 ```sh
-./create_tokens.sh "../../../../../vita-app-sandpit.pid" "http://localhost:9123" 86400
+./create_tokens.sh "<path/to/file/containing/NHS_LOGIN_PRIVATE_KEY>" "http://localhost:9123" 315569520
 
 docker stop local-fake-api  ## Will fail if the contain doesn't exist, which is fine
 
@@ -72,7 +72,7 @@ aws sso login --profile vita-test
 
 fake_api_url="http://"$(aws elbv2 describe-load-balancers --profile vita-test | jq -r '.LoadBalancers[] | select(.LoadBalancerName == "fake-api-project-alb") | .DNSName')
 
-./create_tokens.sh "../../../../../vita-app-sandpit.pid" "$fake_api_url" 315569520
+./create_tokens.sh "<path/to/file/containing/NHS_LOGIN_PRIVATE_KEY>" "$fake_api_url" 315569520
 
 docker build --no-cache --platform linux/amd64 -t fake-api .
 ```
