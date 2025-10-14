@@ -6,34 +6,36 @@ import users from "@test-data/test-users.json" with { type: "json" };
 test.describe("Snapshot Testing - Eligibility", () => {
   for (const scenario in users) {
     const key = scenario as keyof typeof users;
-    const user = users[key];
-    const ref = user.elidPostmanRef ? `ref ${user.elidPostmanRef}, ` : "";
+    if (users[key].snapshot) {
+      const user = users[key];
+      const ref = user.elidPostmanRef ? `ref ${user.elidPostmanRef}, ` : "";
 
-    test.describe(`Testing snapshot for user ${user.nhsNumber}, ${ref}"${user.reportLabel}"`, () => {
-      const authContextFile = `./e2e/.auth/${key}.json`;
-      const screenshotFileName = `${key}.png`;
+      test.describe(`Testing snapshot for user ${user.nhsNumber}, ${ref}"${user.reportLabel}"`, () => {
+        const authContextFile = `./e2e/.auth/${key}.json`;
+        const screenshotFileName = `${key}.png`;
 
-      test.use({ storageState: authContextFile });
+        test.use({ storageState: authContextFile });
 
-      test(key, async ({ page }, testInfo) => {
-        const testFileName = testInfo.file.split("/").pop()!;
-        const projectName = testInfo.project.name;
+        test(key, async ({ page }, testInfo) => {
+          const testFileName = testInfo.file.split("/").pop()!;
+          const projectName = testInfo.project.name;
 
-        const customScreenshotPath = pathForCustomScreenshots(testFileName, screenshotFileName, projectName);
+          const customScreenshotPath = pathForCustomScreenshots(testFileName, screenshotFileName, projectName);
 
-        await page.goto(RSV_PAGE_URL);
-        await page.getByRole("link", { name: "Log out" }).waitFor();
-        await openExpanders(page);
+          await page.goto(RSV_PAGE_URL);
+          await page.getByRole("link", { name: "Log out" }).waitFor();
+          await openExpanders(page);
 
-        await page.screenshot({
-          path: customScreenshotPath,
-          fullPage: true,
-        });
+          await page.screenshot({
+            path: customScreenshotPath,
+            fullPage: true,
+          });
 
-        await expect.soft(page).toHaveScreenshot(screenshotFileName, {
-          fullPage: true,
+          await expect.soft(page).toHaveScreenshot(screenshotFileName, {
+            fullPage: true,
+          });
         });
       });
-    });
+    }
   }
 });
