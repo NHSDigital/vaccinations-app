@@ -9,14 +9,14 @@ type PharmacyBookingProps = {
 const PharmacyBookingInfo = ({ vaccineType }: PharmacyBookingProps): JSX.Element => {
   return (
     <p data-testid="pharmacy-booking-info">
-      {"In some areas you can also "}
+      {"In some areas you can "}
       <NBSBookingActionForVaccine
         displayText={`book an ${VaccineInfo[vaccineType].displayName.midSentenceCase} vaccination in a pharmacy`}
         vaccineType={vaccineType}
         renderAs={"anchor"}
         reduceBottomPadding={false}
       />
-      .
+      {". This pharmacy service is only for adults aged 75 to 79."}
     </p>
   );
 };
