@@ -111,6 +111,7 @@ export function createTypeBuilder<T extends object>(defaults?: Partial<T>) {
         }
 
         return (value: T[keyof T]) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (target.instance as any)[finalKey] = value;
           return receiver; // Return the proxy for chaining
         };
@@ -120,6 +121,7 @@ export function createTypeBuilder<T extends object>(defaults?: Partial<T>) {
     },
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return proxy as any as TypeBuilder<T> & BuilderMethods<T, any>;
 }
 

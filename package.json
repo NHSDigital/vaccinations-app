@@ -14,7 +14,7 @@
     "build:opennext": "npx --yes @opennextjs/aws@3.x.x build --streaming",
     "build:lambda": "node esbuild.config.mjs",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "format": "npx prettier . --write",
     "check": "npx prettier . --check",
     "test": "tsc --noEmit && jest --collectCoverage",

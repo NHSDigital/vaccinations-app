@@ -77,6 +77,7 @@ pactWith({ consumer: "VitA", provider: "EliD", port: 1234, logLevel: "warn" }, (
     };
 
     beforeEach(() => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return provider.addInteraction(interaction as any);
     });
 
