@@ -1,9 +1,12 @@
 import { expect, test } from "@playwright/test";
 import { RSV_PAGE_URL } from "@project/e2e/constants";
-import { openExpanders, pathForCustomScreenshots } from "@project/e2e/helpers";
+import { getEnv, openExpanders, pathForCustomScreenshots } from "@project/e2e/helpers";
 import users from "@test-data/test-users.json" with { type: "json" };
 
-test.describe("Snapshot Testing - Eligibility", () => {
+const currentDatetime = getEnv("CURRENT_DATETIME");
+const checkoutRef = getEnv("CHECKOUT_REF");
+
+test.describe(`Snapshot Testing - Eligibility - ${currentDatetime}-${checkoutRef}`, () => {
   for (const scenario in users) {
     const key = scenario as keyof typeof users;
     if (users[key].snapshot) {

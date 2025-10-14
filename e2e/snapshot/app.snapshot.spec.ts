@@ -1,5 +1,5 @@
 import { Page, expect, test } from "@playwright/test";
-import { openExpanders, pathForCustomScreenshots } from "@project/e2e/helpers";
+import { getEnv, openExpanders, pathForCustomScreenshots } from "@project/e2e/helpers";
 import { ACCESSIBILITY_STATEMENT_ROUTE } from "@src/app/our-policies/accessibility/constants";
 import { COOKIES_POLICY_ROUTE } from "@src/app/our-policies/cookies-policy/constants";
 import { SERVICE_FAILURE_ROUTE } from "@src/app/service-failure/constants";
@@ -8,6 +8,9 @@ import { SESSION_TIMEOUT_ROUTE } from "@src/app/session-timeout/constants";
 import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 
 import { HUB_PAGE_URL, RSV_PAGE_URL, RSV_PREGNANCY_PAGE_URL } from "../constants";
+
+const currentDatetime = getEnv("CURRENT_DATETIME");
+const checkoutRef = getEnv("CHECKOUT_REF");
 
 const testPageSnapshot = async (
   page: Page,
@@ -33,8 +36,8 @@ const testPageSnapshot = async (
   });
 };
 
-test.describe("Snapshot Testing", () => {
-  test.use({ storageState: `./e2e/.auth/default.json` });
+test.describe(`Snapshot Testing - ${currentDatetime}-${checkoutRef}`, () => {
+  test.use({ storageState: "./e2e/.auth/default.json" });
 
   const PathsToSnapshots = [
     { snapshotFilename: "default-hub.png", pageRoute: HUB_PAGE_URL, reportLabel: "Hub" },

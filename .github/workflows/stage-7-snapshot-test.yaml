@@ -54,7 +54,7 @@ jobs:
       - name: "Get current date"
         id: folder_name_value
         run: |
-          echo "current_date=$(date +'%Y-%m-%d')" | tee -a $GITHUB_OUTPUT
+          echo "current_datetime=$(date -u +'%Y-%m-%dT%H%M%SZ')" | tee -a $GITHUB_OUTPUT
 
       - name: "Cache Playwright browsers"
         uses: actions/cache@v4
@@ -79,11 +79,14 @@ jobs:
       - name: "Run Playwright snapshot tests (no update)"
         run: |
           npm run e2e:snapshot -- --config=playwright.config.cross-browser.ts
+        env:
+          CURRENT_DATETIME: ${{ steps.folder_name_value.outputs.current_datetime }}
+          CHECKOUT_REF: ${{ inputs.checkout_ref }}
 
       - name: "Upload snapshots to S3 bucket with tag ${{ inputs.checkout_ref }}"
         if: failure()
         run: |
-          aws s3 sync --delete ./e2e/snapshot/snapshot_review/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/${{ inputs.checkout_ref }}-${{ steps.folder_name_value.outputs.current_date }}/
+          aws s3 sync --delete ./e2e/snapshot/snapshot_review/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/${{ steps.folder_name_value.outputs.current_datetime }}-${{ inputs.checkout_ref }}/
 
       - name: "Upload report"
         uses: actions/upload-artifact@v4
