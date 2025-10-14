@@ -92,6 +92,6 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: playwright-report-snapshot
+          name: playwright-report-snapshot-${{ steps.folder_name_value.outputs.current_datetime }}-${{ inputs.checkout_ref }}
           path: playwright-report/
           retention-days: 30

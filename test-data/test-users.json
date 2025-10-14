@@ -4,6 +4,7 @@
     "emailSuffix": "",
     "reportLabel": "Actionable, in CP area",
     "elidPostmanRef": "5_1",
+    "e2e": true,
     "snapshot": true
   },
   "not-eligible-with-infotext-action": {
@@ -11,6 +12,7 @@
     "emailSuffix": "15",
     "reportLabel": "Not Eligible",
     "elidPostmanRef": "5_14",
+    "e2e": true,
     "snapshot": true
   },
   "actionable-with-infotext-action": {
@@ -18,6 +20,7 @@
     "emailSuffix": "01",
     "reportLabel": "Actionable, out of CP area",
     "elidPostmanRef": "5_2",
+    "e2e": true,
     "snapshot": true
   },
   "actionable-with-buttonwithauthlink-action": {
@@ -25,6 +28,7 @@
     "emailSuffix": "04",
     "reportLabel": "Actionable - Existing NBS booking",
     "elidPostmanRef": "5_4",
+    "e2e": true,
     "snapshot": true
   },
   "actionable-with-cardwithtext-action": {
@@ -32,6 +36,7 @@
     "emailSuffix": "05",
     "reportLabel": "Actionable - Existing non-NBS booking",
     "elidPostmanRef": "5_5",
+    "e2e": true,
     "snapshot": true
   },
   "eligibility-error-400": {
@@ -39,6 +44,7 @@
     "emailSuffix": "16",
     "reportLabel": "HTTP status 400 (Bad request) from EliD",
     "elidPostmanRef": "",
+    "e2e": false,
     "snapshot": false
   },
   "actionable-with-other-setting-suitability-rule": {
@@ -46,6 +52,7 @@
     "emailSuffix": "12",
     "reportLabel": "Not Actionable - other setting",
     "elidPostmanRef": "5_11",
+    "e2e": false,
     "snapshot": true
   },
   "actionable-with-already-vaccinated-suitability-rule": {
@@ -53,6 +60,7 @@
     "emailSuffix": "13",
     "reportLabel": "Not Actionable - already vaccinated",
     "elidPostmanRef": "5_12",
+    "e2e": true,
     "snapshot": true
   },
   "actionable-with-booking-link": {
@@ -60,6 +68,7 @@
     "emailSuffix": "19",
     "reportLabel": "HTTP status 500 (Internal server error) from EliD",
     "elidPostmanRef": "",
+    "e2e": true,
     "snapshot": true
   },
   "actionable-with-booking-button": {
@@ -67,6 +76,7 @@
     "emailSuffix": "21",
     "reportLabel": "Actionable with booking button",
     "elidPostmanRef": "",
+    "e2e": true,
     "snapshot": false
   },
   "actionable-with-managing-button": {
@@ -74,6 +84,7 @@
     "emailSuffix": "22",
     "reportLabel": "Actionable with managing button",
     "elidPostmanRef": "",
+    "e2e": true,
     "snapshot": false
   },
   "actionable-catchup": {
@@ -81,6 +92,7 @@
     "emailSuffix": "03",
     "reportLabel": "Actionable, in CP area, catchup",
     "elidPostmanRef": "5_3",
+    "e2e": false,
     "snapshot": true
   }
 }

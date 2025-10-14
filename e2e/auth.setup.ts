@@ -1,5 +1,6 @@
 import { TestInfo, test as setup } from "@playwright/test";
 import { login } from "@project/e2e/auth";
+import { getEnv } from "@project/e2e/helpers";
 import users from "@test-data/test-users.json" with { type: "json" };
 
 setup.describe.configure({ mode: "parallel" });
@@ -15,10 +16,15 @@ for (const scenario in users) {
   setup(`authenticate ${key}`, async ({ browser }, testInfo: TestInfo) => {
     testInfo.setTimeout(60000);
 
-    const userEmail = testUserPattern.replace("{id}", users[key].emailSuffix);
-    const authFile = `./e2e/.auth/${key}.json`;
+    const user = users[key];
+    const suite = getEnv("SUITE") as keyof typeof user;
 
-    const page = await login(browser, userEmail);
-    await page.context().storageState({ path: authFile });
+    if (user[suite]) {
+      const userEmail = testUserPattern.replace("{id}", user.emailSuffix);
+      const authFile = `./e2e/.auth/${key}.json`;
+
+      const page = await login(browser, userEmail);
+      await page.context().storageState({ path: authFile });
+    }
   });
 }
