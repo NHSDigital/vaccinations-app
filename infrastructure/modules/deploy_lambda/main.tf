@@ -12,7 +12,7 @@ module "content_cache_hydrator_lambda_function" {
   runtime                        = var.nodejs_version
   reserved_concurrent_executions = 1
   timeout                        = 60
-  memory_size                    = 1024
+  memory_size                    = 512
   publish                        = true
 
   create_role = false
