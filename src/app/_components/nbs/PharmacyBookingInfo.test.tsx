@@ -26,4 +26,24 @@ describe("PharmacyBookingInfo", () => {
       undefined,
     );
   });
+
+  it("should contain include correct text for older adults", () => {
+    render(<PharmacyBookingInfo vaccineType={VaccineTypes.RSV} />);
+
+    const pharmacyBookingInfo: HTMLElement | null = screen.queryByText(
+      /This pharmacy service is only for adults aged 75 to 79./,
+    );
+
+    expect(pharmacyBookingInfo).toBeInTheDocument();
+  });
+
+  it("should contain include correct text for younger adults", () => {
+    render(<PharmacyBookingInfo vaccineType={VaccineTypes.RSV_PREGNANCY} />);
+
+    const pharmacyBookingInfo: HTMLElement | null = screen.queryByText(
+      /This pharmacy service is only for adults aged 75 to 79./,
+    );
+
+    expect(pharmacyBookingInfo).not.toBeInTheDocument();
+  });
 });

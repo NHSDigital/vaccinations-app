@@ -7,16 +7,18 @@ type PharmacyBookingProps = {
 };
 
 const PharmacyBookingInfo = ({ vaccineType }: PharmacyBookingProps): JSX.Element => {
+  const vaccineInfo = VaccineInfo[vaccineType];
+
   return (
     <p data-testid="pharmacy-booking-info">
-      {"In some areas you can "}
+      {vaccineInfo.forOlderAdults ? "In some areas you can " : "In some areas you can also "}
       <NBSBookingActionForVaccine
-        displayText={`book an ${VaccineInfo[vaccineType].displayName.midSentenceCase} vaccination in a pharmacy`}
+        displayText={`book ${vaccineInfo.displayName.indefiniteArticle} ${vaccineInfo.displayName.midSentenceCase} vaccination in a pharmacy`}
         vaccineType={vaccineType}
         renderAs={"anchor"}
         reduceBottomPadding={false}
       />
-      {". This pharmacy service is only for adults aged 75 to 79."}
+      {vaccineInfo.forOlderAdults ? ". This pharmacy service is only for adults aged 75 to 79." : "."}
     </p>
   );
 };

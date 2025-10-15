@@ -28,11 +28,13 @@ export type VaccineDetails = {
   nhsWebpageLink: URL;
   nhsHowToGetWebpageLink: URL;
   personalisedEligibilityStatusRequired: boolean;
+  forOlderAdults: boolean;
 };
 
 type displayName = {
   titleCase: string;
   midSentenceCase: string;
+  indefiniteArticle: string;
 };
 
 const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
@@ -40,21 +42,25 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     displayName: {
       titleCase: "RSV",
       midSentenceCase: "RSV",
+      indefiniteArticle: "an",
     },
     heading: "RSV vaccine for older adults",
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: true,
+    forOlderAdults: true,
   },
   [VaccineTypes.RSV_PREGNANCY]: {
     displayName: {
       titleCase: "RSV",
       midSentenceCase: "RSV",
+      indefiniteArticle: "an",
     },
     heading: "RSV vaccine in pregnancy",
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
+    forOlderAdults: false,
   },
 };
 

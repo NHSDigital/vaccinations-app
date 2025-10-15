@@ -10,7 +10,7 @@ const HowToGetVaccineFallback = (props: { vaccineType: VaccineTypes }): JSX.Elem
       <a href={vaccineInfo.nhsHowToGetWebpageLink.href} target="_blank" rel="noopener">
         how to get
       </a>{" "}
-      {`an ${vaccineInfo.displayName.midSentenceCase} vaccination`}
+      {`${vaccineInfo.displayName.indefiniteArticle} ${vaccineInfo.displayName.midSentenceCase} vaccination`}
     </p>
   );
 };
