@@ -330,13 +330,21 @@ Use the Logs Insights UI to query logs:
     | limit 10000
     ```
 
-To enable debug logging of OpenNext, add OPEN_NEXT_DEBUG=true to package.json build command:
+### Enable full debug logs in Node.js and OpenNext
 
-```json
-{
-  "build:opennext": "OPEN_NEXT_DEBUG=true DEBUG=* npx --yes @opennextjs/aws@latest build"
-}
-```
+- To enable debug logging in OpenNext, add `OPEN_NEXT_DEBUG=true` to [package.json](/package.json) `build:opennext` command:
+
+  ```json
+  {
+  "build:opennext": "OPEN_NEXT_DEBUG=true npx --yes @opennextjs/aws@latest build"
+  }
+  ```
+
+- To enable debug logging in Node.js at runtime, add `NODE_DEBUG=<modules>` to the [list](/infrastructure/environments/dev/locals.tf) of lambda environment variables:
+
+  ```text
+  NODE_DEBUG=*
+  ```
 
 ## Creating Releases
 
