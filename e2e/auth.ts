@@ -50,11 +50,17 @@ export const login = async (browser: Browser, nhsLoginUsername: string): Promise
   }
 
   await page.waitForURL("**/enter-email", { timeout: 30000 });
-  await page.getByLabel("Email address").fill(user.nhsLoginUsername);
+  await page.getByLabel("Email address").evaluate((input: HTMLInputElement, fillText) => {
+    input.value = fillText;
+    input.dispatchEvent(new Event("input"));
+  }, user.nhsLoginUsername);
   await page.getByRole("button", { name: "Continue" }).click();
 
   await page.waitForURL("**/log-in-password", { timeout: 30000 });
-  await page.getByRole("textbox", { name: "Password" }).fill(user.nhsLoginPassword);
+  await page.getByRole("textbox", { name: "Password" }).evaluate((input: HTMLInputElement, fillText) => {
+    input.value = fillText;
+    input.dispatchEvent(new Event("input"));
+  }, user.nhsLoginPassword);
   await page.getByRole("button", { name: "Continue" }).click();
 
   await page.waitForURL(/\/(enter-mobile-code|choose-authentication-method)$/, { timeout: 30000 });
@@ -64,7 +70,10 @@ export const login = async (browser: Browser, nhsLoginUsername: string): Promise
   }
 
   await page.waitForURL("**/enter-mobile-code", { timeout: 30000 });
-  await page.getByRole("textbox", { name: "Security code" }).fill(user.nhsLoginOTP);
+  await page.getByRole("textbox", { name: "Security code" }).evaluate((input: HTMLInputElement, fillText) => {
+    input.value = fillText;
+    input.dispatchEvent(new Event("input"));
+  }, user.nhsLoginOTP);
   await page.getByRole("button", { name: "Continue" }).click();
 
   if (useFakeAuth) {
