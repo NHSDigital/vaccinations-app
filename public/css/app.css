@@ -18,9 +18,8 @@
   margin-left: auto;
 }
 
-@supports (font: -apple-system-body) {
+@media (max-width: 641px) {
   html {
     font: -apple-system-body;
-    font-size: 1em;
   }
 }
