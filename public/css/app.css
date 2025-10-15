@@ -21,5 +21,6 @@
 @supports (font: -apple-system-body) {
   html {
     font: -apple-system-body;
+    font-size: 1em;
   }
 }
