@@ -19,7 +19,11 @@ const eslintConfig = [{
     "public/**",
     "dist/**",
     "docs/**",
-    "coverage/**"
+    "coverage/**",
+    "**/.terraform/**",
+    ".open-next/**",
+    "playwright-report/**",
+    "pact/**"
   ]
 }, ...compat.extends(
   "next/core-web-vitals",
