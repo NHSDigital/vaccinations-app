@@ -5,18 +5,22 @@ import { ClientSideErrorTypes } from "@src/utils/constants";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
+const supressConsole = (process.env.NEXT_PUBLIC_SUPRESS_CONSOLE ?? "true") !== "false";
 let router;
 
 const reportClientSideUnhandledError = (errorEvent: ErrorEvent) => {
-  errorEvent.preventDefault();
-  logClientSideError(ClientSideErrorTypes.UNHANDLED_ERROR).catch(() => {
+  if (supressConsole) errorEvent.preventDefault();
+
+  logClientSideError(ClientSideErrorTypes.UNHANDLED_ERROR).catch((err: Error) => {
+    if (!supressConsole) console.error(err.message);
     // do not show anything to the user; catching prevents an infinite loop if the logger itself throws an error which is unhandled
   });
   router.push("/service-failure");
 };
 
 const reportClientSideUnhandledPromiseRejectionError = () => {
-  logClientSideError(ClientSideErrorTypes.UNHANDLED_PROMISE_REJECT_ERROR).catch(() => {
+  logClientSideError(ClientSideErrorTypes.UNHANDLED_PROMISE_REJECT_ERROR).catch((err: Error) => {
+    if (!supressConsole) console.error(err.message);
     // do not show anything to the user; catching prevents an infinite loop if the logger itself throws an error which is unhandled
   });
   router.push("/service-failure");
