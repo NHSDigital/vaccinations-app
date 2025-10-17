@@ -71,7 +71,7 @@
     "@aws-sdk/client-s3": "^3.911.0",
     "@aws-sdk/signature-v4-crt": "^3.911.0",
     "@opennextjs/aws": "^3.8.5",
-    "@types/aws-lambda": "^8.10.155",
+    "@types/aws-lambda": "^8.10.156",
     "axios": "^1.12.2",
     "dotenv": "^17.2.3",
     "isomorphic-dompurify": "^2.28.0",
