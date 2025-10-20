@@ -103,7 +103,7 @@ export default defineConfig({
       dependencies: ['setup']
     },
     {
-      name: 'SafariPhone',
+      name: 'SafariIphone',
       use: { ...devices['iPhone 12'] },
       dependencies: ['setup']
     },

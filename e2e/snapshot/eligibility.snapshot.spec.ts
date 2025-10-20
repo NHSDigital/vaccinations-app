@@ -29,13 +29,17 @@ test.describe(`Snapshot Testing - Eligibility - ${currentDatetime}-${checkoutRef
           await page.getByRole("link", { name: "Log out" }).waitFor();
           await openExpanders(page);
 
+          // This screenshot is NOT used for comparison; used to upload to S3 on failure
           await page.screenshot({
             path: customScreenshotPath,
             fullPage: true,
+            scale: "device",
           });
 
+          // This screenshot IS used for comparison with the snapshot from S3
           await expect.soft(page).toHaveScreenshot(screenshotFileName, {
             fullPage: true,
+            scale: "device",
           });
         });
       });

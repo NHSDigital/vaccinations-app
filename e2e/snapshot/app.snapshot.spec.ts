@@ -27,12 +27,17 @@ const testPageSnapshot = async (
     await openExpanders(page);
   }
 
+  // This screenshot is NOT used for comparison; used to upload to S3 on failure
   await page.screenshot({
     path: screenshotPath,
     fullPage: true,
+    scale: "device",
   });
+
+  // This screenshot IS used for comparison with the snapshot from S3
   await expect.soft(page).toHaveScreenshot(snapshotFileName, {
     fullPage: true,
+    scale: "device",
   });
 };
 
