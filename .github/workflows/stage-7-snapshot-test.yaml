@@ -92,7 +92,7 @@ jobs:
           CURRENT_DATETIME: ${{ steps.folder_name_value.outputs.current_datetime }}
           CHECKOUT_REF: ${{ inputs.checkout_ref }}
 
-      - name: "Upload snapshots to S3 bucket with tag ${{ inputs.checkout_ref }}"
+      - name: "Upload snapshots to S3 bucket with tag ${{ steps.folder_name_value.outputs.current_datetime }}-${{ inputs.checkout_ref }}"
         if: failure()
         run: |
           aws s3 sync --delete ./e2e/snapshot/snapshot_review/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/${{ steps.folder_name_value.outputs.current_datetime }}-${{ inputs.checkout_ref }}/
