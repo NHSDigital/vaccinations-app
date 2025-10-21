@@ -5,15 +5,14 @@ import useInactivityTimer from "@src/utils/auth/inactivity-timer";
 import { userLogout } from "@src/utils/auth/user-logout";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
-import { JSX, createRef, useEffect, useRef } from "react";
+import { JSX, RefObject, useEffect, useRef } from "react";
 
 import styles from "./styles.module.css";
 
 const InactivityDialog = (): JSX.Element => {
   const { status } = useSession();
   const { isIdle, isTimedOut } = useInactivityTimer();
-  const dialogRef = createRef<HTMLDialogElement>();
-  useRef<string | null>(null);
+  const dialogRef: RefObject<HTMLDialogElement | null> = useRef<HTMLDialogElement>(null);
   const pathname = usePathname();
 
   useEffect(() => {

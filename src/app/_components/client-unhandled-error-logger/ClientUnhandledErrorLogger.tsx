@@ -39,7 +39,7 @@ const reportClientSideUnhandledPromiseRejectionError = (promiseRejectionEvent: P
   router.push("/service-failure");
 };
 
-const ClientUnhandledErrorLogger = (): undefined => {
+const ClientUnhandledErrorLogger = (): null => {
   router = useRouter();
 
   useEffect(() => {
@@ -54,6 +54,8 @@ const ClientUnhandledErrorLogger = (): undefined => {
       window.removeEventListener("error", (event) => reportClientSideUnhandledError(event));
     };
   }, []);
+
+  return null;
 };
 
 export { ClientUnhandledErrorLogger };

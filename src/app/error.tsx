@@ -13,7 +13,15 @@ interface GlobalErrorProps {
 
 const UncaughtError = (props: GlobalErrorProps) => {
   useEffect(() => {
-    logClientSideError(ClientSideErrorTypes.UNHANDLED_ERROR_DURING_RENDER);
+    logClientSideError(ClientSideErrorTypes.UNHANDLED_ERROR_DURING_RENDER)
+      .then((logOnClientConsole: boolean) => {
+        if (logOnClientConsole) {
+          console.log("From error component", props.error);
+        }
+      })
+      .catch(() => {
+        // do not show anything to the user; catching prevents an infinite loop if the logger itself throws an error which is unhandled
+      });
   }, [props.error]);
 
   return <ServiceFailure />;
