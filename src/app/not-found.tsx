@@ -2,6 +2,8 @@ import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import { NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
 
+export const dynamic = "force-dynamic";
+
 const NotFound = () => {
   return (
     <>
