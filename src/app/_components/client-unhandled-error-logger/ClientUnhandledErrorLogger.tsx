@@ -5,24 +5,37 @@ import { ClientSideErrorTypes } from "@src/utils/constants";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const supressConsole = (process.env.NEXT_PUBLIC_SUPRESS_CONSOLE ?? "true") !== "false";
 let router;
 
 const reportClientSideUnhandledError = (errorEvent: ErrorEvent) => {
-  if (supressConsole) errorEvent.preventDefault();
+  errorEvent.preventDefault();
 
-  logClientSideError(ClientSideErrorTypes.UNHANDLED_ERROR).catch((err: Error) => {
-    if (!supressConsole) console.error(err.message);
-    // do not show anything to the user; catching prevents an infinite loop if the logger itself throws an error which is unhandled
-  });
+  logClientSideError(ClientSideErrorTypes.UNHANDLED_ERROR)
+    .then((logOnClientConsole: boolean) => {
+      if (logOnClientConsole) {
+        console.log("Unhandled error event", errorEvent);
+      }
+    })
+    .catch(() => {
+      // do not show anything to the user; catching prevents an infinite loop if the logger itself throws an error which is unhandled
+    });
+
   router.push("/service-failure");
 };
 
-const reportClientSideUnhandledPromiseRejectionError = () => {
-  logClientSideError(ClientSideErrorTypes.UNHANDLED_PROMISE_REJECT_ERROR).catch((err: Error) => {
-    if (!supressConsole) console.error(err.message);
-    // do not show anything to the user; catching prevents an infinite loop if the logger itself throws an error which is unhandled
-  });
+const reportClientSideUnhandledPromiseRejectionError = (promiseRejectionEvent: PromiseRejectionEvent) => {
+  promiseRejectionEvent.preventDefault();
+
+  logClientSideError(ClientSideErrorTypes.UNHANDLED_PROMISE_REJECT_ERROR)
+    .then((logOnClientConsole: boolean) => {
+      if (logOnClientConsole) {
+        console.log("Unhandled promise rejection event", promiseRejectionEvent);
+      }
+    })
+    .catch(() => {
+      // do not show anything to the user; catching prevents an infinite loop if the logger itself throws an error which is unhandled
+    });
+
   router.push("/service-failure");
 };
 
@@ -30,13 +43,15 @@ const ClientUnhandledErrorLogger = (): undefined => {
   router = useRouter();
 
   useEffect(() => {
-    window.addEventListener("unhandledrejection", reportClientSideUnhandledPromiseRejectionError);
-    window.addEventListener("error", (event: ErrorEvent) => reportClientSideUnhandledError(event));
+    window.addEventListener("unhandledrejection", (event) => reportClientSideUnhandledPromiseRejectionError(event));
+    window.addEventListener("error", (event) => reportClientSideUnhandledError(event));
 
     // on component unmount
     return () => {
-      window.removeEventListener("unhandledrejection", reportClientSideUnhandledPromiseRejectionError);
-      window.removeEventListener("error", (event: ErrorEvent) => reportClientSideUnhandledError(event));
+      window.removeEventListener("unhandledrejection", (event) =>
+        reportClientSideUnhandledPromiseRejectionError(event),
+      );
+      window.removeEventListener("error", (event) => reportClientSideUnhandledError(event));
     };
   }, []);
 };

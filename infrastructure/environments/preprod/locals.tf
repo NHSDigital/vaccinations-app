@@ -25,10 +25,9 @@ locals {
   application_environment_variables = {
     SSM_PREFIX = "/${local.prefix}/"
 
-    PINO_LOG_LEVEL              = "info"
-    NEXT_PUBLIC_SUPRESS_CONSOLE = "false"
-    DEPLOY_ENVIRONMENT          = local.environment
-    PROFILE_PERFORMANCE         = "true"
+    PINO_LOG_LEVEL      = "info"
+    DEPLOY_ENVIRONMENT  = local.environment
+    PROFILE_PERFORMANCE = "true"
 
     CONTENT_API_ENDPOINT                     = "https://int.api.service.nhs.uk/"
     CONTENT_CACHE_PATH                       = "s3://${local.content_cache_bucket_name}"
