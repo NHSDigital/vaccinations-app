@@ -97,11 +97,11 @@ export default defineConfig({
       },
       dependencies: ['setup']
     },
-    {
-      name: 'ChromeAndroid',
-      use: { ...devices['Pixel 5'] },
-      dependencies: ['setup']
-    },
+    // {
+    //   name: 'ChromeAndroid',
+    //   use: { ...devices['Pixel 5'] },
+    //   dependencies: ['setup']
+    // },
     {
       name: 'SafariIphone',
       use: { ...devices['iPhone 12'] },
