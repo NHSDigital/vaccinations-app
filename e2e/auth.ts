@@ -49,11 +49,14 @@ export const login = async (browser: Browser, nhsLoginUsername: string): Promise
     await page.getByRole("button", { name: "Continue" }).click();
   }
 
-  await page.waitForURL("**/login", { timeout: 30000 });
+  await page.waitForURL("**/enter-email", { timeout: 30000 });
   await page.getByLabel("Email address").evaluate((input: HTMLInputElement, fillText) => {
     input.value = fillText;
     input.dispatchEvent(new Event("input"));
   }, user.nhsLoginUsername);
+  await page.getByRole("button", { name: "Continue" }).click();
+
+  await page.waitForURL("**/log-in-password", { timeout: 30000 });
   await page.getByRole("textbox", { name: "Password" }).evaluate((input: HTMLInputElement, fillText) => {
     input.value = fillText;
     input.dispatchEvent(new Event("input"));
