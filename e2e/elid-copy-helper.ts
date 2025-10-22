@@ -18,7 +18,7 @@ export const elidCopyThatDiffersByEnvironment: Record<string, UserCopy> = {
   ["integration"]: {
     user15: {
       bulletPoint2: "did not turn 80 after 1 September 2024",
-      infoTextHeading: "If this applies to you",
+      infoTextHeading: "If you think this is incorrect",
       infoTextParagraph: "Speak to your healthcare professional if you think you should be offered this vaccine.",
     },
     user01: {
