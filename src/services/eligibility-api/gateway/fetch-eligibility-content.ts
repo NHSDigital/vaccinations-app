@@ -62,7 +62,6 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
             message: error.message,
             status: error.status,
             stack: error.stack,
-            response_data: error.response?.data,
           },
           context: {},
         },
