@@ -72,14 +72,12 @@ jobs:
         run: |
           echo "Workflow URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> workflow.log
       - name: "Configure AWS credentials"
-        if: github.ref == 'refs/heads/main'
         uses: aws-actions/configure-aws-credentials@v5
         with:
           role-session-name: GitHubActionsSession
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
       - name: "Upload Packages To S3"
-        if: github.ref == 'refs/heads/main'
         run: | # Prevent overwriting of existing artefacts
           aws s3api put-object --bucket "${AWS_S3_ARTEFACTS_BUCKET}" --key "sha/${{ github.sha }}/open-next.zip" --body "open-next.zip" --if-none-match '*' || {
             echo "❌ Uploading open-next.zip to S3 bucket failed!"
