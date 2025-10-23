@@ -1,0 +1,41 @@
+%% To build (from project root): uv run --with mermaid-cli mmdc -i docs/diagrams/vita-branch-strat.mmd -o docs/diagrams/vita-branch-strat.svg
+
+gitGraph
+  commit
+  commit tag: "v0.87.0"
+  commit
+  commit tag: "v0.87.1"
+  branch "release/v1.0"
+  commit tag: "v1.0.0-rc1"
+  switch main
+  commit
+  commit id: "toggles introduced!" type: HIGHLIGHT
+  commit
+  switch "release/v1.0"
+  commit id: "fix-1" type: HIGHLIGHT
+  commit id: "quickfix-2" type: HIGHLIGHT
+  commit tag: "v1.0.0-rc2"
+  switch main
+  cherry-pick id: "fix-1"
+  commit id: "fix-2" type: HIGHLIGHT
+  commit
+  commit
+  switch "release/v1.0"
+  commit tag: "v1.0.0"
+  switch main
+  commit
+  commit tag: "v2.0.0-dev-001"
+  commit
+  commit tag: "v2.0.0-dev-002"
+  commit
+  switch "release/v1.0"
+  commit id: "fix-3" type: HIGHLIGHT
+  commit tag: "v1.0.1"
+  switch main
+  cherry-pick id: "fix-3"
+  commit
+  commit tag: "v2.0.0-dev-003"
+  commit tag: "v2.0.0-rc1"
+  commit
+  commit tag: "v2.0.0"
+  commit
