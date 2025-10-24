@@ -69,7 +69,7 @@ export const login = async (browser: Browser, nhsLoginUsername: string): Promise
     await page.getByRole("button", { name: "Continue" }).click();
   }
 
-  await page.waitForURL("**/enter-mobile-code", { timeout: 30000 });
+  await page.waitForURL("**/enter-mobile-code", { waitUntil: "networkidle", timeout: 30000 });
   await page.getByRole("textbox", { name: "Security code" }).evaluate((input: HTMLInputElement, fillText) => {
     input.value = fillText;
     input.dispatchEvent(new Event("input"));
