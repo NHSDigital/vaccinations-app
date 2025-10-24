@@ -16,7 +16,6 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    dependency-type: "production"
     groups:
       next:
         patterns: ["next", "next*", "*next", "*next*"]
@@ -24,15 +23,6 @@ updates:
         patterns: ["react", "react*", "*react", "*react*"]
       aws-sdk:
         patterns: ["@aws-sdk/*"]
-      miscellaneous-production-deps:
-        patterns: ["*"]
-
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    dependency-type: "development"
-    groups:
       jest:
         patterns: ["jest", "jest*", "*jest", "*jest*"]
       testing-library:
@@ -41,8 +31,11 @@ updates:
         patterns: ["eslint", "eslint*", "*eslint", "*eslint*"]
       prettier:
         patterns: ["prettier", "prettier*", "*prettier", "*prettier*"]
-      miscellaneous-dev-deps:
-        patterns: ["*"]
+    ignore:
+      - dependency-name: "next"
+        versions: [ ">=16.0.0" ]
+      - dependency-name: "eslint-config-next"
+        versions: [ ">=16.0.0" ]
 
   - package-ecosystem: "pip"
     directory: "/"
