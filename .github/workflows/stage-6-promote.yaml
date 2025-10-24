@@ -84,7 +84,7 @@ jobs:
       contents: read
     steps:
       - name: "Download release package from artifact"
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: release-package
       - name: "Configure AWS credentials for target env:${{ inputs.environment }}"
