@@ -1,4 +1,4 @@
-%% To build (from project root): uv run --with mermaid-cli mmdc -i docs/diagrams/vita-branch-strat.mmd -o docs/diagrams/vita-branch-strat.svg
+%% To build (from project root): uv run --with mermaid-cli mmdc -i docs/diagrams/vita-branch-strat.mmd -o docs/diagrams/vita-branch-strat.png -w 2048
 
 gitGraph
   commit
@@ -24,9 +24,9 @@ gitGraph
   commit tag: "v1.0.0"
   switch main
   commit
-  commit tag: "v2.0.0-a1"
+  commit tag: "v1.1.0-a1"
   commit
-  commit tag: "v2.0.0-a2"
+  commit tag: "v1.1.0-a2"
   commit
   switch "release/v1.0"
   commit id: "fix-3" type: HIGHLIGHT
@@ -34,8 +34,8 @@ gitGraph
   switch main
   cherry-pick id: "fix-3"
   commit
-  commit tag: "v2.0.0-a3"
-  commit tag: "v2.0.0-rc1"
+  commit tag: "v1.1.0-a3"
+  commit tag: "v1.1.0-rc1"
   commit
-  commit tag: "v2.0.0"
+  commit tag: "v1.1.0"
   commit
