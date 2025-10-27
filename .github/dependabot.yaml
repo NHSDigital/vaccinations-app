@@ -11,6 +11,9 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    groups:
+      artifact:
+        patterns: ["actions/*artifact"]
 
   - package-ecosystem: "npm"
     directory: "/"
