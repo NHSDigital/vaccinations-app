@@ -7,14 +7,6 @@ on:
         description: "Datetime and version of snapshots to set as reference"
         required: true
         type: string
-      release_version:
-        description: "Release to update references for (R1 or R2)"
-        required: true
-        type: choice
-        options:
-          - v0
-          - v1
-          - v2
 
 env:
   AWS_REGION: eu-west-2
@@ -33,6 +25,17 @@ jobs:
       IAM_ROLE: ${{ secrets.IAM_ROLE }}
 
     steps:
+      - name: "Identify release_version"
+        id: identify_release_version
+        run: |
+          RELEASE_VERSION=$(echo ${{ inputs.tag }} | grep -o "v\d*")
+          if echo "$RELEASE_VERSION" | grep "^v"; then
+            echo "release_version=$RELEASE_VERSION" >> $GITHUB_OUTPUT
+          else
+            echo "Invalid tag ${{ inputs.tag }} does not contain version number in format v0.0.0"
+            exit 1
+          fi
+
       - name: "Configure AWS credentials for S3 upload"
         uses: aws-actions/configure-aws-credentials@v5
         with:
@@ -40,6 +43,6 @@ jobs:
           role-to-assume: ${{ env.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: "Set ${{inputs.release_version}} reference to ${{ inputs.tag }} tagged snapshots"
+      - name: "Set ${{ steps.identify_release_version.outputs.release_version }} reference to ${{ inputs.tag }} tagged snapshots"
         run: |
-          aws s3 sync --delete s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/snapshots-for-review/${{inputs.release_version}}/${{ inputs.tag }}/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/reference/${{inputs.release_version}}/__snapshots__/
+          aws s3 sync --delete s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/snapshots-for-review/${{ steps.identify_release_version.outputs.release_version }}/${{ inputs.tag }}/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/reference/${{ steps.identify_release_version.outputs.release_version }}/__snapshots__/
