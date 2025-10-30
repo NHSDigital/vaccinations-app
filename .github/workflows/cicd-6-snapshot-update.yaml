@@ -7,6 +7,14 @@ on:
         description: "Datetime and version of snapshots to set as reference"
         required: true
         type: string
+      release_version:
+        description: "Release to update references for (R1 or R2)"
+        required: true
+        type: choice
+        options:
+          - v0
+          - v1
+          - v2
 
 env:
   AWS_REGION: eu-west-2
@@ -32,6 +40,6 @@ jobs:
           role-to-assume: ${{ env.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: "Set reference to ${{ inputs.tag }} tagged snapshots"
+      - name: "Set ${{inputs.release_version}} reference to ${{ inputs.tag }} tagged snapshots"
         run: |
-          aws s3 sync --delete s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/${{ inputs.tag }}/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/reference/__snapshots__/
+          aws s3 sync --delete s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/${{inputs.release_version}}/${{ inputs.tag }}/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/reference/__snapshots__/${{inputs.release_version}}/

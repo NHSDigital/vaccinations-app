@@ -92,7 +92,7 @@ jobs:
         uses: actions/upload-artifact@v5
         if: ${{ !cancelled() }}
         with:
-          name: playwright-report-e2e
+          name: playwright-report-e2e-${{ inputs.checkout_ref }}
           path: playwright-report/
           retention-days: 30
 

@@ -34,7 +34,7 @@ jobs:
           echo "deployed_app_version=$APP_VERSION" | tee -a $GITHUB_OUTPUT
 
   acceptance-stage-preprod:
-    name: "Acceptance stage preprod"
+    name: "Acceptance stage preprod ${{ needs.get-app-version.outputs.deployed_app_version }}"
     needs: [get-app-version]
     uses: ./.github/workflows/stage-5-acceptance.yaml
     with:
@@ -44,7 +44,7 @@ jobs:
     secrets: inherit
 
   snapshot-stage-preprod:
-    name: "Snapshot stage preprod"
+    name: "Snapshot stage preprod ${{ needs.get-app-version.outputs.deployed_app_version }}"
     needs: [acceptance-stage-preprod, get-app-version]
     uses: ./.github/workflows/stage-7-snapshot-test.yaml
     with:

@@ -29,6 +29,17 @@ jobs:
       TEST_APP_URL: ${{ secrets.TEST_APP_URL }}
       VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
     steps:
+      - name: "Identify release_version"
+        id: identify_release_version
+        run: |
+          RELEASE_VERSION=$(echo ${{ inputs.checkout_ref }} | cut -c1-2)
+          if echo "$RELEASE_VERSION" | grep "^v"; then
+            echo "release_version=$RELEASE_VERSION" >> $GITHUB_OUTPUT
+          else
+            echo "Invalid release number ${{ inputs.checkout_ref }} does not begin with v (unable to determine if R1 or R2)"
+            exit 1
+          fi
+
       - name: "Checkout code"
         uses: actions/checkout@v5
         with:
@@ -83,7 +94,7 @@ jobs:
 
       - name: "Download snapshots from S3 bucket"
         run: |
-          aws s3 sync s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/reference/ ./e2e/snapshot/
+          aws s3 sync s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/reference/${{ steps.identify_release_version.outputs.release_version }}/ ./e2e/snapshot/
 
       - name: "Run Playwright snapshot tests (no update)"
         run: |
@@ -95,7 +106,7 @@ jobs:
       - name: "Upload snapshots to S3 bucket with tag ${{ steps.folder_name_value.outputs.current_datetime }}-${{ inputs.checkout_ref }}"
         if: failure()
         run: |
-          aws s3 sync --delete ./e2e/snapshot/snapshot_review/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/${{ steps.folder_name_value.outputs.current_datetime }}-${{ inputs.checkout_ref }}/
+          aws s3 sync --delete ./e2e/snapshot/snapshot_review/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/snapshots-for-review/${{ steps.identify_release_version.outputs.release_version }}/${{ steps.folder_name_value.outputs.current_datetime }}-${{ inputs.checkout_ref }}/
 
       - name: "Upload report"
         uses: actions/upload-artifact@v5
