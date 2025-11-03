@@ -23,7 +23,7 @@ jobs:
       deployed_app_version: ${{ steps.get_deployed_app_version.outputs.deployed_app_version }}
     timeout-minutes: 20
     environment:
-      name: "preprod"
+      name: preprod
     permissions:
       id-token: write
       contents: read
