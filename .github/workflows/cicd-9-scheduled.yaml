@@ -15,6 +15,10 @@ jobs:
     outputs:
       latest_version_on_main_branch: ${{ steps.variables.outputs.latest_version_on_main_branch }}
     steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v5
+        with:
+          ref: "main"
       - name: "Get latest tag version"
         run: |
           echo "latest_version_on_main_branch=$(git describe --tags --abbrev=0 --first-parent)" >> @GITHUB_OUTPUT
