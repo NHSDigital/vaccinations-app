@@ -64,7 +64,6 @@ jobs:
     uses: ./.github/workflows/stage-4-deploy.yaml
     with:
       environment: ${{ github.event.inputs.environment }}
-      terraform_version: "${{ needs.metadata.outputs.terraform_version }}"
       tag_or_sha_to_deploy: "${{ needs.metadata.outputs.tag }}"
     secrets: inherit
   acceptance-stage:
