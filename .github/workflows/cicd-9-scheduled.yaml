@@ -23,7 +23,7 @@ jobs:
       - name: "Get latest tag version"
         id: get-latest-tag-version
         run: |
-          echo "latest_version_on_main_branch=$(git describe --tags --abbrev=0 --first-parent)" >> @GITHUB_OUTPUT
+          echo "latest_version_on_main_branch=$(git describe --tags --abbrev=0 --first-parent)" | tee -a $GITHUB_OUTPUT
 
   deploy-latest-main-version-to-preprod:
     name: "Deploy latest version on main to Preprod"
