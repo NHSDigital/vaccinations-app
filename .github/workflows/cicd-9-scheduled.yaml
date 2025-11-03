@@ -9,44 +9,29 @@ env:
   AWS_REGION: eu-west-2
 
 jobs:
-  get-app-version:
-    name: "Get deployed app version"
+  identify-latest-version-on-main:
+    name: "Identify Latest App Version on main"
     runs-on: ubuntu-latest
     outputs:
-      deployed_app_version: ${{ steps.get_deployed_app_version.outputs.deployed_app_version }}
-    timeout-minutes: 20
-    environment:
-      name: "preprod"
-    permissions:
-      id-token: write
-      contents: read
+      latest_version_on_main_branch: ${{ steps.variables.outputs.latest_version_on_main_branch }}
     steps:
-      - name: "Configure AWS credentials for env"
-        uses: aws-actions/configure-aws-credentials@v5
-        with:
-          role-session-name: GitHubActionsSession
-          role-to-assume: ${{ secrets.IAM_ROLE }}
-          aws-region: ${{ env.AWS_REGION }}
-      - name: "Get deployed app version"
-        id: get_deployed_app_version
+      - name: "Get latest tag version"
         run: |
-          APP_VERSION=$(aws lambda get-function-configuration --function-name gh-vita-${{ secrets.AWS_ACCOUNT_ID }}-server-function | jq -r '.Environment.Variables.APP_VERSION')
-          echo "deployed_app_version=$APP_VERSION" | tee -a $GITHUB_OUTPUT
+          echo "latest_version_on_main_branch=$(git describe --tags --abbrev=0 --first-parent)" >> @GITHUB_OUTPUT
 
-  acceptance-stage-preprod:
-    name: "Acceptance stage preprod ${{ needs.get-app-version.outputs.deployed_app_version }}"
-    needs: [get-app-version]
-    uses: ./.github/workflows/stage-5-acceptance.yaml
+  deploy-latest-main-version-to-preprod:
+    name: "Deploy latest version on main to Preprod"
+    needs: [identify-latest-version-on-main]
+    uses: ./.github/workflows/stage-4-deploy.yaml
     with:
       environment: "preprod"
-      checkout_ref: ${{ needs.get-app-version.outputs.deployed_app_version }}
-      cross_browser: true
+      tag_or_sha_to_deploy: "${{ needs.identify-latest-version-on-main.outputs.latest_version_on_main_branch }}"
     secrets: inherit
 
-  snapshot-stage-preprod:
-    name: "Snapshot stage preprod ${{ needs.get-app-version.outputs.deployed_app_version }}"
-    needs: [acceptance-stage-preprod, get-app-version]
-    uses: ./.github/workflows/stage-7-snapshot-test.yaml
+  run-assurance-test-for-latest-main-version:
+    name: "Run Assurance Tests on latest main version"
+    needs: [deploy-latest-main-version-to-preprod, identify-latest-version-on-main]
+    uses: ./.github/workflows/stage-8-assurance-test.yaml
     with:
-      checkout_ref: ${{ needs.get-app-version.outputs.deployed_app_version }}
-    secrets: inherit
+      checkout_ref: "${{ needs.identify-latest-version-on-main.outputs.latest_version_on_main_branch }}"
+      release_name: "latest-main-tag"

@@ -7,6 +7,11 @@ on:
         description: "Ref to checkout"
         required: true
         type: string
+      release_name:
+        description: "S3 folder to use for references and storing results (e.g. 'release1', 'latest-main')"
+        required: true
+        type: string
+
 
 env:
   AWS_REGION: eu-west-2
@@ -29,17 +34,6 @@ jobs:
       TEST_APP_URL: ${{ secrets.TEST_APP_URL }}
       VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
     steps:
-      - name: "Identify release_version"
-        id: identify_release_version
-        run: |
-          RELEASE_VERSION=$(echo ${{ inputs.checkout_ref }} | grep -oP "^v\d*")
-          if echo "$RELEASE_VERSION" | grep "^v"; then
-            echo "release_version=$RELEASE_VERSION" >> $GITHUB_OUTPUT
-          else
-            echo "Unable to determine release number from build tag ${{ inputs.checkout_ref }} (expected to be in format v0.0.0)"
-            exit 1
-          fi
-
       - name: "Checkout code"
         uses: actions/checkout@v5
         with:
@@ -92,9 +86,9 @@ jobs:
         run: |
           npx playwright install webkit --with-deps
 
-      - name: "Download snapshots from S3 bucket"
+      - name: "Download snapshots from ${{ inputs.release_name }} S3 bucket"
         run: |
-          aws s3 sync s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/reference/${{ steps.identify_release_version.outputs.release_version }}/ ./e2e/snapshot/
+          aws s3 sync s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/reference/${{ inputs.release_name }}/ ./e2e/snapshot/
 
       - name: "Run Playwright snapshot tests (no update)"
         run: |
@@ -103,10 +97,10 @@ jobs:
           CURRENT_DATETIME: ${{ steps.folder_name_value.outputs.current_datetime }}
           CHECKOUT_REF: ${{ inputs.checkout_ref }}
 
-      - name: "Upload snapshots to ${{ steps.identify_release_version.outputs.release_version }} S3 bucket with tag ${{ steps.folder_name_value.outputs.current_datetime }}-${{ inputs.checkout_ref }}"
+      - name: "Upload snapshots to ${{ inputs.release_name }} S3 bucket with tag ${{ steps.folder_name_value.outputs.current_datetime }}-${{ inputs.checkout_ref }}"
         if: failure()
         run: |
-          aws s3 sync --delete ./e2e/snapshot/snapshot_review/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/snapshots-for-review/${{ steps.identify_release_version.outputs.release_version }}/${{ steps.folder_name_value.outputs.current_datetime }}-${{ inputs.checkout_ref }}/
+          aws s3 sync --delete ./e2e/snapshot/snapshot_review/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/snapshots-for-review/${{ inputs.release_name }}/${{ steps.folder_name_value.outputs.current_datetime }}-${{ inputs.checkout_ref }}/
 
       - name: "Upload report"
         uses: actions/upload-artifact@v5

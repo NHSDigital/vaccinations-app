@@ -2,12 +2,12 @@ name: "Deploy stage"
 on:
   workflow_call:
     inputs:
-      terraform_version:
-        description: "TF version"
-        required: true
-        type: string
       environment:
         description: "Environment to deploy to"
+        required: true
+        type: string
+      tag_or_sha_to_deploy:
+        description: "Commit sha or tag to deploy"
         required: true
         type: string
 
@@ -31,17 +31,19 @@ jobs:
       - name: "Tag or SHA"
         id: tag-or-sha
         run: |
-          if [[ "${{ github.ref_type }}" == "tag" ]]; then
-            echo "value=${{ github.ref_name }}" >> $GITHUB_OUTPUT
-          else
-            echo "value=${{ github.sha }}" >> $GITHUB_OUTPUT
-          fi
+           echo "value=${{ inputs.tag_or_sha_to_deploy }}" >> $GITHUB_OUTPUT
       - name: "Checkout code"
         uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.tag_or_sha_to_deploy }}
+      - name: "Identify Terraform version"
+        id: identify_terraform_version
+        run: |
+          echo "terraform_version=$(grep "^terraform" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
       - name: "Install Terraform"
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "${{ inputs.terraform_version }}"
+          terraform_version: "${{ steps.identify_terraform_version.outputs.terraform_version }}"
       - name: "Configure AWS credentials for env"
         uses: aws-actions/configure-aws-credentials@v5
         with:

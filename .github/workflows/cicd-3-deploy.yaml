@@ -65,6 +65,7 @@ jobs:
     with:
       environment: ${{ github.event.inputs.environment }}
       terraform_version: "${{ needs.metadata.outputs.terraform_version }}"
+      tag_or_sha_to_deploy: "${{ needs.metadata.outputs.tag }}"
     secrets: inherit
   acceptance-stage:
     name: "Acceptance stage"
@@ -73,5 +74,5 @@ jobs:
     uses: ./.github/workflows/stage-5-acceptance.yaml
     with:
       environment: ${{ github.event.inputs.environment}}
-      checkout_ref: ${{ github.ref }}
+      checkout_ref: ${{ needs.metadata.outputs.tag }}
     secrets: inherit
