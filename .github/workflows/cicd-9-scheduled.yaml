@@ -9,6 +9,40 @@ env:
   AWS_REGION: eu-west-2
 
 jobs:
+  identify-latest-version-on-r1:
+    name: "Identify Latest App Version for R1"
+    runs-on: ubuntu-latest
+    outputs:
+      latest_version_r1: ${{ steps.get-latest-tag-version-r1.outputs.latest_version_r1 }}
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: "release/v1.0"
+      - name: "Get latest tag version r1"
+        id: get-latest-tag-version-r1
+        run: |
+          echo "latest_version_r1=$(git describe --tags --abbrev=0 --first-parent)" | tee -a $GITHUB_OUTPUT
+
+  deploy-latest-r1-version-to-preprod:
+    name: "Deploy latest version for R1 to Preprod"
+    needs: [ identify-latest-version-on-r1 ]
+    uses: ./.github/workflows/stage-4-deploy.yaml
+    with:
+      environment: "preprod"
+      tag_or_sha_to_deploy: "${{ needs.identify-latest-version-on-r1.outputs.latest_version_r1 }}"
+    secrets: inherit
+
+  run-assurance-test-for-r1-version:
+    name: "Run Assurance Tests on latest version for R1"
+    needs: [ deploy-latest-r1-version-to-preprod, identify-latest-version-on-r1 ]
+    uses: ./.github/workflows/stage-8-assurance-test.yaml
+    with:
+      checkout_ref: "${{ needs.identify-latest-version-on-r1.outputs.latest_version_r1 }}"
+      release_name: "release1"
+    secrets: inherit
+
   identify-latest-version-on-main:
     name: "Identify Latest App Version on main"
     runs-on: ubuntu-latest
