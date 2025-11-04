@@ -70,7 +70,7 @@ const styleSubsection = (subsection: VaccinePageSubsection, id: number): JSX.Ele
     return (
       <WarningCallout key={id}>
         <WarningCallout.Heading>{_getDivWithSanitisedHtml(heading)}</WarningCallout.Heading>
-        <p>{_getDivWithSanitisedHtml(content)}</p>
+        {_getDivWithSanitisedHtml(content)}
       </WarningCallout>
     );
   } else {
