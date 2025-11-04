@@ -25,7 +25,7 @@ const AppHeader = () => {
   if (!hasContextLoaded || isOpenInMobileApp) return null;
 
   return (
-    <Header service={{ text: SERVICE_HEADING, href: userIsLoggedIn ? VACCINATIONS_HUB_PAGE_ROUTE : "#" }}>
+    <Header service={{ href: userIsLoggedIn ? VACCINATIONS_HUB_PAGE_ROUTE : "#", text: SERVICE_HEADING }}>
       {userIsLoggedIn && (
         <Header.Account>
           <Header.AccountItem href={"#"} onClick={handleClick}>

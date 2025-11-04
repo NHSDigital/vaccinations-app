@@ -5,7 +5,7 @@ import { Card } from "nhsuk-react-components";
 import { JSX } from "react";
 
 interface NonUrgentCareCardProps {
-  heading: Heading | string;
+  heading: Heading | string | JSX.Element;
   content: JSX.Element;
 }
 

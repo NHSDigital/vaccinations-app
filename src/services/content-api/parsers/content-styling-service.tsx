@@ -11,10 +11,10 @@ import type {
   VaccinePageSubsection,
 } from "@src/services/content-api/types";
 import sanitiseHtml from "@src/utils/sanitise-html";
+import { InsetText, WarningCallout } from "nhsuk-react-components";
 import React, { JSX } from "react";
 
 import styles from "./styles.module.css";
-import { InsetText } from "nhsuk-react-components";
 
 enum SubsectionTypes {
   INFORMATION = "INFORMATION",
@@ -68,11 +68,10 @@ const styleSubsection = (subsection: VaccinePageSubsection, id: number): JSX.Ele
   } else if (subsection.name === Subsections.CALLOUT) {
     const { heading, content } = extractHeadingAndContent(subsection.text);
     return (
-      <WarningCallout
-        key={id}
-        heading={_getDivWithSanitisedHtml(heading)}
-        content={_getDivWithSanitisedHtml(content)}
-      />
+      <WarningCallout key={id}>
+        <WarningCallout.Heading>{_getDivWithSanitisedHtml(heading)}</WarningCallout.Heading>
+        <p>{_getDivWithSanitisedHtml(content)}</p>
+      </WarningCallout>
     );
   } else {
     return <div key={id} dangerouslySetInnerHTML={{ __html: sanitiseHtml(text) }}></div>;
