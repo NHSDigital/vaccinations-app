@@ -2,40 +2,35 @@
 
 gitGraph
   commit
-  commit tag: "v0.87.0"
+  commit tag: "v0.52.0"
   commit
-  commit tag: "v0.87.1"
+  commit tag: "v0.52.1"
   branch "release/v1.0"
   commit tag: "v1.0.0-rc1"
-  switch main
-  commit
-  commit id: "toggles introduced!" type: HIGHLIGHT
-  commit
-  switch "release/v1.0"
+  checkout main
+  commit tag: "v1.1.0"
+  checkout "release/v1.0"
   commit id: "fix-1" type: HIGHLIGHT
-  commit id: "quickfix-2" type: HIGHLIGHT
   commit tag: "v1.0.0-rc2"
-  switch main
+  checkout main
   cherry-pick id: "fix-1"
-  commit id: "fix-2" type: HIGHLIGHT
-  commit
-  commit
-  switch "release/v1.0"
+  commit id: ".."
+  checkout "release/v1.0"
   commit tag: "v1.0.0"
-  switch main
-  commit
-  commit tag: "v2.0.0-a1"
-  commit
-  commit tag: "v2.0.0-a2"
-  commit
-  switch "release/v1.0"
-  commit id: "fix-3" type: HIGHLIGHT
+  checkout main
+  commit tag: "v1.x.x"
+  commit id:"..."
+  commit id: "fix-2" type: HIGHLIGHT
+  checkout "release/v1.0"
+  cherry-pick id: "fix-2"
   commit tag: "v1.0.1"
-  switch main
-  cherry-pick id: "fix-3"
-  commit
-  commit tag: "v2.0.0-a3"
+  checkout main
+  commit id: "...."
+  commit tag: "v1.40.0"
+  branch "release/v2.0"
   commit tag: "v2.0.0-rc1"
-  commit
+  checkout main
+  commit id: "....."
+  commit tag: "v2.1.0"
+  checkout "release/v2.0"
   commit tag: "v2.0.0"
-  commit
