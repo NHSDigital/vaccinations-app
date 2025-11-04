@@ -7,7 +7,6 @@ import { MoreInformation } from "@src/app/_components/content/MoreInformation";
 import { Eligibility as EligibilityComponent } from "@src/app/_components/eligibility/Eligibility";
 import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
 import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
-import Expander from "@src/app/_components/nhs-frontend/Expander";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import { HEADINGS } from "@src/app/constants";
 import { NhsNumber, VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
@@ -81,14 +80,14 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
       {/* Static eligibility section for RSV in pregnancy */}
       {vaccineType === VaccineTypes.RSV_PREGNANCY && (
         <NonUrgentCareCard
-          heading={<div>The RSV vaccine is recommended if you:</div>}
+          heading={"The RSV vaccine is recommended if you:"}
           content={
-            <div className={styles.zeroMarginBottom}>
+            <>
               <ul>
                 <li>are over 28 weeks pregnant</li>
                 <li>have not had the vaccine during this pregnancy</li>
               </ul>
-            </div>
+            </>
           }
         />
       )}
@@ -96,7 +95,8 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
       {/* How-to-get-vaccine section for RSV in pregnancy */}
       {vaccineType === VaccineTypes.RSV_PREGNANCY && (
         <>
-          <Expander title={HEADINGS.HOW_TO_GET_VACCINE} component={howToGetVaccineOrFallback} notExpandable={true} />
+          <h3>{HEADINGS.HOW_TO_GET_VACCINE}</h3>
+          {howToGetVaccineOrFallback}
           <PharmacyBookingInfo vaccineType={vaccineType} />
           <hr />
         </>

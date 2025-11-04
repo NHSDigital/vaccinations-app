@@ -1,6 +1,4 @@
-import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
-import WarningCallout from "@src/app/_components/nhs-frontend/WarningCallout";
 import { VaccineTypes } from "@src/models/vaccine";
 import { styleHowToGetSectionForRsv } from "@src/services/content-api/parsers/custom/rsv";
 import { styleHowToGetSectionForRsvPregnancy } from "@src/services/content-api/parsers/custom/rsv-pregnancy";
@@ -16,6 +14,7 @@ import sanitiseHtml from "@src/utils/sanitise-html";
 import React, { JSX } from "react";
 
 import styles from "./styles.module.css";
+import { InsetText } from "nhsuk-react-components";
 
 enum SubsectionTypes {
   INFORMATION = "INFORMATION",
@@ -56,7 +55,7 @@ const styleSubsection = (subsection: VaccinePageSubsection, id: number): JSX.Ele
   }
 
   if (subsection.name === Subsections.INFORMATION) {
-    return <InsetText key={id} content={_getDivWithSanitisedHtml(text)} />;
+    return <InsetText key={id}>{_getDivWithSanitisedHtml(text)}</InsetText>;
   } else if (subsection.name === Subsections.NON_URGENT) {
     const { heading, content } = extractHeadingAndContent(subsection.text);
     return (

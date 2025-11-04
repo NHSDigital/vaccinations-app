@@ -41,7 +41,7 @@ const vaccinationsHubPage = async () => {
         )}
 
         {/* List of vaccines */}
-        <div className="nhsapp-cards nhsapp-cards--stacked">
+        <ul className="nhsapp-cards nhsapp-cards--stacked">
           <CardLink
             title={`${VaccineInfo[VaccineTypes.RSV].heading}`}
             link={`/vaccines/${VaccineContentUrlPaths.RSV}`}
@@ -50,7 +50,7 @@ const vaccinationsHubPage = async () => {
             title={`${VaccineInfo[VaccineTypes.RSV_PREGNANCY].heading}`}
             link={`/vaccines/${VaccineContentUrlPaths.RSV_PREGNANCY}`}
           />
-        </div>
+        </ul>
       </MainContent>
     </>
   );

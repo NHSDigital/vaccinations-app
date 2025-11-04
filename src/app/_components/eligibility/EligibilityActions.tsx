@@ -1,8 +1,8 @@
 import { MarkdownWithStyling } from "@src/app/_components/markdown/MarkdownWithStyling";
 import { NBSBookingActionForBaseUrl } from "@src/app/_components/nbs/NBSBookingAction";
-import ActionLink from "@src/app/_components/nhs-frontend/ActionLink";
 import { BasicCard } from "@src/app/_components/nhs-frontend/BasicCard";
 import { Action, ActionDisplayType, ButtonUrl, Content, Label } from "@src/services/eligibility-api/types";
+import { ActionLink } from "nhsuk-react-components";
 import React, { JSX } from "react";
 
 interface EligibilityActionProps {
@@ -42,7 +42,11 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
       }
       case ActionDisplayType.actionLinkWithInfo: {
         const info = action.content && _infotext(action.content, false);
-        const link = action.button && <ActionLink url={action.button.url.href} displayText={action.button.label} />;
+        const link = action.button && (
+          <ActionLink asElement="a" href={action.button.url.href} rel="noopener" target="_blank">
+            {action.button.label}
+          </ActionLink>
+        );
         return (
           <div key={action.content} data-testid="action-auth-link-components">
             {info}

@@ -1,31 +1,33 @@
 import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
-import Expander from "@src/app/_components/nhs-frontend/Expander";
 import { HEADINGS } from "@src/app/constants";
 import { VaccineTypes } from "@src/models/vaccine";
 import { StyledVaccineContent } from "@src/services/content-api/types";
+import { Details } from "nhsuk-react-components";
 import React, { JSX } from "react";
 
+// Ref: https://main--65aa76b29d00a047fe683b95.chromatic.com/?path=/docs/content-presentation-details--docs#expander-group-2
 const MoreInformation = (props: {
   styledVaccineContent: StyledVaccineContent;
   vaccineType: VaccineTypes;
 }): JSX.Element => {
   return (
     <>
-      <div className="nhsuk-expander-group" data-testid="more-information-expander-group">
+      <Details.ExpanderGroup data-testid="more-information-expander-group">
         {/* What-vaccine-is-for expandable section */}
         {props.styledVaccineContent.whatVaccineIsFor && (
-          <Expander
-            title={HEADINGS.WHAT_VACCINE_IS_FOR}
-            component={props.styledVaccineContent.whatVaccineIsFor.component}
-          />
+          <Details expander>
+            <Details.Summary>{HEADINGS.WHAT_VACCINE_IS_FOR}</Details.Summary>
+            <Details.Text>{props.styledVaccineContent.whatVaccineIsFor.component}</Details.Text>
+          </Details>
         )}
 
         {/* Who-vaccine-is-for expandable section */}
-        <Expander
-          title={HEADINGS.WHO_SHOULD_HAVE_VACCINE}
-          component={props.styledVaccineContent.whoVaccineIsFor.component}
-        />
-      </div>
+        <Details expander>
+          <Details.Summary>{HEADINGS.WHO_SHOULD_HAVE_VACCINE}</Details.Summary>
+          <Details.Text>{props.styledVaccineContent.whoVaccineIsFor.component}</Details.Text>
+        </Details>
+      </Details.ExpanderGroup>
+
       <FindOutMoreLink findOutMoreUrl={props.styledVaccineContent.webpageLink} vaccineType={props.vaccineType} />
     </>
   );
