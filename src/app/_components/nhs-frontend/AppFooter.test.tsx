@@ -7,7 +7,7 @@ describe("AppFooter", () => {
   });
 
   it("renders crown copyright", async () => {
-    const copyright = screen.queryByText(/© Crown copyright/);
+    const copyright = screen.queryByText(/© NHS England/);
     expect(copyright).toBeVisible();
   });
 
