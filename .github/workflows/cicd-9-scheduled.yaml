@@ -41,3 +41,4 @@ jobs:
     with:
       checkout_ref: "${{ needs.identify-latest-version-on-main.outputs.latest_version_on_main_branch }}"
       release_name: "latest-main-tag"
+    secrets: inherit
