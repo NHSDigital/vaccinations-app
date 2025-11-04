@@ -18,17 +18,15 @@ jest.mock("@src/utils/auth/user-logout", () => ({
 }));
 
 const expectHeaderVisible = (expectedVisible: boolean) => {
-  const serviceLink = screen.queryByRole("link", {
-    name: "Check and book an RSV vaccination",
-  });
-  const logoLink = screen.queryByRole("link", { name: "NHS homepage" });
+  const serviceLink: HTMLElement | null = screen.queryByText("Check and book an RSV vaccination");
+  const logo: HTMLElement | null = screen.queryByRole("img", { name: "NHS" });
 
   if (expectedVisible) {
     expect(serviceLink).toBeVisible();
-    expect(logoLink).toBeVisible();
+    expect(logo).toBeVisible();
   } else {
     expect(serviceLink).toBeNull();
-    expect(logoLink).toBeNull();
+    expect(logo).toBeNull();
   }
 };
 
@@ -61,12 +59,11 @@ describe("AppHeader", () => {
       it("logo and service name should link to service homepage", async () => {
         render(<AppHeader />);
 
-        const logoLink = screen.queryByRole("link", { name: "NHS homepage" });
-        const serviceLink = screen.queryByRole("link", {
-          name: "Check and book an RSV vaccination",
+        const logoAndServiceLink: HTMLElement = screen.getByRole("link", {
+          name: "NHS Check and book an RSV vaccination homepage",
         });
-        expect(serviceLink?.getAttribute("href")).toEqual("/check-and-book-rsv");
-        expect(logoLink?.getAttribute("href")).toEqual("/check-and-book-rsv");
+
+        expect(logoAndServiceLink?.getAttribute("href")).toEqual("/check-and-book-rsv");
       });
 
       it("logs out on click", async () => {
@@ -93,12 +90,11 @@ describe("AppHeader", () => {
         mockSession = { status: "unauthenticated" };
         render(<AppHeader />);
 
-        const logoLink = screen.queryByRole("link", { name: "NHS homepage" });
-        const serviceLink = screen.queryByRole("link", {
-          name: "Check and book an RSV vaccination",
+        const logoAndServiceLink: HTMLElement = screen.getByRole("link", {
+          name: "NHS Check and book an RSV vaccination homepage",
         });
-        expect(serviceLink?.getAttribute("href")).toEqual("#");
-        expect(logoLink?.getAttribute("href")).toEqual("#");
+
+        expect(logoAndServiceLink.getAttribute("href")).toEqual("#");
       });
     });
   });
