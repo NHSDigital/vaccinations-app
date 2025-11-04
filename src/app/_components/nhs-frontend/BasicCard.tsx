@@ -7,6 +7,7 @@ interface BasicCardProps {
   delineator: boolean;
 }
 
+// Ref: https://service-manual.nhs.uk/design-system/components/card
 export const BasicCard = ({ content, delineator }: BasicCardProps): JSX.Element => {
   const classNames = {
     h2: "nhsuk-heading-m nhsuk-card__heading",

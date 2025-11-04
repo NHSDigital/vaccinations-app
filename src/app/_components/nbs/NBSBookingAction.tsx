@@ -1,10 +1,10 @@
 "use client";
 
 import { useBrowserContext } from "@src/app/_components/context/BrowserContext";
-import ActionLink from "@src/app/_components/nhs-frontend/ActionLink";
 import { SSO_TO_NBS_ROUTE } from "@src/app/api/sso-to-nbs/constants";
 import { VaccineContentUrlPaths, vaccineTypeToUrlPath } from "@src/models/vaccine";
 import { VaccinesWithNBSBookingAvailable } from "@src/services/nbs/nbs-service";
+import { ActionLink } from "nhsuk-react-components";
 import React, { JSX } from "react";
 
 type RenderOptions = "anchor" | "button" | "actionLink";
@@ -99,7 +99,12 @@ const NBSBookingAction = ({
       );
     }
     case "actionLink": {
-      return <ActionLink url={url} displayText={displayText} />;
+      // Ref: https://main--65aa76b29d00a047fe683b95.chromatic.com/?path=/docs/navigation-actionlink--docs
+      return (
+        <ActionLink asElement={"a"} rel="noopener" target={"_blank"} href={url}>
+          {displayText}
+        </ActionLink>
+      );
     }
   }
 };

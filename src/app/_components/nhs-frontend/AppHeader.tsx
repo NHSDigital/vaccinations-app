@@ -12,6 +12,7 @@ const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
   userLogout();
 };
 
+// Ref: https://main--65aa76b29d00a047fe683b95.chromatic.com/?path=/docs/navigation-header--docs#header-with-account-1
 const AppHeader = () => {
   const { hasContextLoaded, isOpenInMobileApp } = useBrowserContext();
   const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(false);
@@ -24,27 +25,14 @@ const AppHeader = () => {
   if (!hasContextLoaded || isOpenInMobileApp) return null;
 
   return (
-    <Header transactional>
-      <Header.Container>
-        {userIsLoggedIn && (
-          <>
-            <Header.Logo href={`${VACCINATIONS_HUB_PAGE_ROUTE}`} />
-            <Header.ServiceName href={`${VACCINATIONS_HUB_PAGE_ROUTE}`}>{SERVICE_HEADING}</Header.ServiceName>
-            <div className={"nhsuk-header__transactional-service-name appHeaderLogoutContainer"}>
-              <a className="nhsuk-link--reverse" href="#" onClick={handleClick}>
-                Log out
-              </a>
-            </div>
-          </>
-        )}
-
-        {!userIsLoggedIn && (
-          <>
-            <Header.Logo href="#" />
-            <Header.ServiceName href="#">{SERVICE_HEADING}</Header.ServiceName>
-          </>
-        )}
-      </Header.Container>
+    <Header service={{ text: SERVICE_HEADING, href: userIsLoggedIn ? VACCINATIONS_HUB_PAGE_ROUTE : "#" }}>
+      {userIsLoggedIn && (
+        <Header.Account>
+          <Header.AccountItem href={"#"} onClick={handleClick}>
+            Log out
+          </Header.AccountItem>
+        </Header.Account>
+      )}
     </Header>
   );
 };

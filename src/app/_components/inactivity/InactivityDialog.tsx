@@ -42,9 +42,12 @@ const InactivityDialog = (): JSX.Element => {
   return (
     <dialog ref={dialogRef} className={styles.warningDialog}>
       <p>For security reasons, you&#39;ll be logged out in 1 minute.</p>
-      <div className={"nhsapp-button-group nhsuk-u-margin-bottom-0"}>
+      {/* Ref: https://service-manual.nhs.uk/design-system/components/buttons */}
+      <div className={"nhsuk-button-group nhsuk-u-margin-bottom-0"}>
+        {/* Ref: https://design-system.nhsapp.service.nhs.uk/components/buttons/ */}
         <button
           autoFocus={true}
+          data-module={"nhsuk-button"}
           className={"nhsuk-button nhsapp-button"}
           onClick={() => {
             dialogRef.current?.close();
@@ -53,7 +56,8 @@ const InactivityDialog = (): JSX.Element => {
           Stay logged in
         </button>
         <button
-          className={"nhsuk-button nhsapp-button nhsapp-button--secondary"}
+          data-module={"nhsuk-button"}
+          className={"nhsuk-button nhsuk-button--secondary nhsapp-button"}
           onClick={() => {
             dialogRef.current?.close();
             userLogout();

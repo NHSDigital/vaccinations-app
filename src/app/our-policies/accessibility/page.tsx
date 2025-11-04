@@ -12,11 +12,7 @@ const AccessibilityStatement = () => {
 
       <BackLink />
       <MainContent>
-        <div className="app-dynamic-page-title nhsuk-u-margin-bottom-5  ">
-          <h1 className="app-dynamic-page-title__heading">
-            Accessibility statement for Check and book an RSV vaccination
-          </h1>
-        </div>
+        <h1>Accessibility statement for Check and book an RSV vaccination</h1>
 
         <article>
           <section>

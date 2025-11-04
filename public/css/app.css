@@ -14,10 +14,6 @@
   }
 }
 
-.appHeaderLogoutContainer {
-  margin-left: auto;
-}
-
 @media (max-width: 641px) {
   html {
     font: -apple-system-body;

@@ -3,10 +3,11 @@
 import { Footer } from "nhsuk-react-components";
 import React from "react";
 
+// Ref: https://main--65aa76b29d00a047fe683b95.chromatic.com/?path=/docs/navigation-footer--docs
 const AppFooter = () => {
   return (
     <Footer>
-      <Footer.List>
+      <Footer.Meta>
         <Footer.ListItem
           href="https://www.nhs.uk/nhs-app/nhs-app-help-and-support/vaccinations/check-and-book-an-rsv-vaccination"
           target={"_blank"}
@@ -21,8 +22,8 @@ const AppFooter = () => {
           Privacy policy
         </Footer.ListItem>
         <Footer.ListItem href="/our-policies/accessibility">Accessibility statement</Footer.ListItem>
-      </Footer.List>
-      <Footer.Copyright>© Crown copyright</Footer.Copyright>
+        <Footer.Copyright />
+      </Footer.Meta>
     </Footer>
   );
 };
