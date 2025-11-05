@@ -64,7 +64,7 @@ jobs:
       name: preprod
     steps:
       - name: "Snapshot test preprod"
-        uses: ./.github/actions/run-snapshot-tests/action.yaml
+        uses: ./.github/actions/run-snapshot-tests
         with:
           checkout_ref: ${{ inputs.checkout_ref }}
           release_name: ${{ inputs.release_name }}
