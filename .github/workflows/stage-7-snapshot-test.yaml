@@ -1,0 +1,111 @@
+name: "Snapshot Test stage"
+
+on:
+  workflow_call:
+    inputs:
+      checkout_ref:
+        description: "Ref to checkout"
+        required: true
+        type: string
+      release_name:
+        description: "S3 folder to use for references and storing results (e.g. 'release1', 'latest-main')"
+        required: true
+        type: string
+
+
+env:
+  AWS_REGION: eu-west-2
+  AWS_S3_ARTEFACTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-preprod
+
+jobs:
+  snapshot-test:
+    name: "Snapshot Test"
+    runs-on: ubuntu-latest
+    environment:
+      name: preprod
+    timeout-minutes: 30
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      TEST_NHS_APP_URL: ${{ secrets.TEST_NHS_APP_URL }}
+      TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
+      TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
+      TEST_APP_URL: ${{ secrets.TEST_APP_URL }}
+      VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.checkout_ref }}
+
+      - name: "Configure AWS credentials for environment"
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-session-name: GitHubActionsSession
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: "Install dependencies"
+        run: |
+          npm ci --ignore-scripts
+
+      - name: "Get current week number and playwright version"
+        id: cache_key_values
+        run: |
+          echo "week_num=$(date -u +'%Y-%V')" | tee -a $GITHUB_OUTPUT
+          echo "playwright_version=$(npm view @playwright/test version)" | tee -a $GITHUB_OUTPUT
+
+      - name: "Get current date"
+        id: folder_name_value
+        run: |
+          echo "current_datetime=$(date -u +'%Y-%m-%dT%H%M%SZ')" | tee -a $GITHUB_OUTPUT
+
+      - name: "Cache Playwright browsers"
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ steps.cache_key_values.outputs.week_num }}-${{ steps.cache_key_values.outputs.playwright_version }}-${{ hashFiles('**/playwright.config*') }}
+
+      - name: "Install Playwright browsers (Chromium, Firefox)"
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: |
+          npx playwright install chromium firefox --with-deps
+
+      - name: "Install Playwright browsers (Webkit)"
+        run: |
+          npx playwright install webkit --with-deps
+
+      - name: "Download snapshots from ${{ inputs.release_name }} S3 bucket"
+        run: |
+          aws s3 sync s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/reference/${{ inputs.release_name }}/ ./e2e/snapshot/
+
+      - name: "Run Playwright snapshot tests (no update)"
+        run: |
+          npm run e2e:snapshot -- --config=playwright.config.cross-browser.ts
+        env:
+          CURRENT_DATETIME: ${{ steps.folder_name_value.outputs.current_datetime }}
+          CHECKOUT_REF: ${{ inputs.checkout_ref }}
+
+      - name: "Upload snapshots to ${{ inputs.release_name }} S3 bucket with tag ${{ steps.folder_name_value.outputs.current_datetime }}-${{ inputs.checkout_ref }}"
+        if: failure()
+        run: |
+          aws s3 sync --delete ./e2e/snapshot/snapshot_review/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/snapshots-for-review/${{ inputs.release_name }}/${{ steps.folder_name_value.outputs.current_datetime }}-${{ inputs.checkout_ref }}/
+
+      - name: "Upload report"
+        uses: actions/upload-artifact@v5
+        if: always()
+        with:
+          name: playwright-report-snapshot-${{ steps.folder_name_value.outputs.current_datetime }}-${{ inputs.checkout_ref }}
+          path: playwright-report/
+          retention-days: 30
