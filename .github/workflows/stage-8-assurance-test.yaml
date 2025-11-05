@@ -58,10 +58,14 @@ jobs:
 
   snapshot-stage-preprod:
     name: "Snapshot stage preprod ${{ inputs.release_name }} ${{ inputs.checkout_ref }}"
+    runs-on: ubuntu-latest
     needs: [acceptance-stage-preprod, check-build-is-deployed-in-preprod]
-    uses: ./.github/workflows/stage-7-snapshot-test.yaml
-    with:
-      checkout_ref: ${{ inputs.checkout_ref }}
-      release_name: ${{ inputs.release_name }}
-    secrets: inherit
+    environment:
+      name: preprod
+    steps:
+      - name: "Snapshot test preprod"
+        uses: ./.github/actions/run-snapshot-tests/action.yaml
+        with:
+          checkout_ref: ${{ inputs.checkout_ref }}
+          release_name: ${{ inputs.release_name }}
 
