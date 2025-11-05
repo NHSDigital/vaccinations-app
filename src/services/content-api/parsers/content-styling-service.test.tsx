@@ -189,11 +189,16 @@ describe("ContentStylingService", () => {
           headline: "How to get this Vaccine",
           subsections: [mockRsvMarkdownSubsection],
         };
+        const mockSideEffectsSection: VaccinePageSection = {
+          headline: "Side effects of the generic vaccine",
+          subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
+        };
         const mockContent: VaccinePageContent = {
           overview: "This is an overview",
           whatVaccineIsFor: mockWhatSection,
           whoVaccineIsFor: mockWhoSection,
           howToGetVaccine: mockHowSection,
+          vaccineSideEffects: mockSideEffectsSection,
           webpageLink: new URL("https://test.example.com/"),
         };
 
@@ -235,10 +240,15 @@ describe("ContentStylingService", () => {
         headline: "How to get this Vaccine",
         subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
       };
+      const mockSideEffectsSection: VaccinePageSection = {
+        headline: "Side effects of the generic vaccine",
+        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
+      };
       const mockContent: VaccinePageContent = {
         overview: "This is an overview",
         whoVaccineIsFor: mockWhoSection,
         howToGetVaccine: mockHowSection,
+        vaccineSideEffects: mockSideEffectsSection,
         webpageLink: new URL("https://test.example.com/"),
       };
 

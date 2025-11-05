@@ -36,6 +36,17 @@ const mockPreviousApprovedVaccineContent: VaccinePageContent = {
       },
     ],
   },
+  vaccineSideEffects: {
+    headline: "Side effects of the vaccine",
+    subsections: [
+      {
+        type: "simpleElement",
+        text: "<p>para</p><h3>If you're aged 75 to 79</h3><p>para1</p><p>para2</p><h3>If you're pregnant</h3><p>para3</p><p>para4</p>",
+        name: "markdown",
+        headline: "Headline",
+      },
+    ],
+  },
   webpageLink: new URL("https://test.example.com/"),
 };
 

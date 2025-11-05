@@ -12,7 +12,8 @@ type Aspect =
   | "BenefitsHealthAspect"
   | "SuitabilityHealthAspect"
   | "ContraindicationsHealthAspect"
-  | "GettingAccessHealthAspect";
+  | "GettingAccessHealthAspect"
+  | "SideEffectsHealthAspect";
 
 const _findAspect = (response: ContentApiVaccineResponse, aspectName: Aspect): MainEntityOfPage => {
   const aspect: MainEntityOfPage | undefined = response.mainEntityOfPage.find((page: MainEntityOfPage) =>
@@ -189,6 +190,11 @@ const getFilteredContentForVaccine = (apiContent: string): VaccinePageContent =>
     subsections: _extractPartsForAspect(content, "GettingAccessHealthAspect"),
   };
 
+  const vaccineSideEffects: VaccinePageSection = {
+    headline: _extractHeadlineForAspect(content, "SideEffectsHealthAspect"),
+    subsections: _extractPartsForAspect(content, "SideEffectsHealthAspect"),
+  };
+
   const webpageLink: URL = new URL(content.webpage);
 
   return {
@@ -196,6 +202,7 @@ const getFilteredContentForVaccine = (apiContent: string): VaccinePageContent =>
     whatVaccineIsFor,
     whoVaccineIsFor,
     howToGetVaccine,
+    vaccineSideEffects,
     webpageLink,
   };
 };
