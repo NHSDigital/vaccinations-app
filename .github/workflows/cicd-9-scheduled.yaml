@@ -4,6 +4,13 @@ on:
   schedule:
     - cron: '30 8 * * MON-FRI'  # Runs at 08:30 UTC every weekday
   workflow_dispatch:
+    inputs:
+      release:
+        description: 'Release to deploy and assure'
+        type: choice
+        options:
+          - release1
+          - latest-main-tag
 
 env:
   AWS_REGION: eu-west-2
@@ -11,6 +18,7 @@ env:
 jobs:
   deploy-and-test-r1:
     name: "R1 Assurance Tests"
+    if: ${{ github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && inputs.release=='release1') }}
     uses: ./.github/workflows/stage-9-deploy-and-assure.yaml
     with:
       branch_name: "release/v1.0"
@@ -19,11 +27,10 @@ jobs:
 
   deploy-and-test-main:
     name: "Main Branch Assurance Tests"
-    if: always()
+    if: ${{ always() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && inputs.release=='latest-main-tag')) }}
     needs: [ deploy-and-test-r1 ]
     uses: ./.github/workflows/stage-9-deploy-and-assure.yaml
     with:
       branch_name: "main"
       release_name: "latest-main-tag"
     secrets: inherit
-
