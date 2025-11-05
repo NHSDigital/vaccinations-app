@@ -9,7 +9,7 @@ describe("MoreInformation component ", () => {
     const vaccineType = VaccineTypes.RSV;
     render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
 
-    const heading: HTMLElement = screen.getByText("What this vaccine is for");
+    const heading: HTMLElement = screen.getByText("What the vaccine is for");
     const content: HTMLElement = screen.getByText("What Section styled component");
 
     expect(heading).toBeInTheDocument();
@@ -20,7 +20,7 @@ describe("MoreInformation component ", () => {
     const vaccineType = VaccineTypes.RSV;
     render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
 
-    const heading: HTMLElement = screen.getByText("Who should have this vaccine");
+    const heading: HTMLElement = screen.getByText("Who should have the vaccine");
     const content: HTMLElement = screen.getByRole("heading", {
       level: 2,
       name: "Who Section styled component",
@@ -67,7 +67,7 @@ describe("MoreInformation component ", () => {
     const vaccineType = VaccineTypes.RSV;
     render(<MoreInformation styledVaccineContent={mockStyledContentWithoutWhatSection} vaccineType={vaccineType} />);
 
-    const whatItIsForHeading: HTMLElement | null = screen.queryByText("What this vaccine is for");
+    const whatItIsForHeading: HTMLElement | null = screen.queryByText("What the vaccine is for");
     const whatItIsForContent: HTMLElement | null = screen.queryByText("What Section styled component");
 
     expect(whatItIsForHeading).not.toBeInTheDocument();
@@ -78,7 +78,7 @@ describe("MoreInformation component ", () => {
     const vaccineType = VaccineTypes.RSV;
     render(<MoreInformation styledVaccineContent={mockStyledContentWithoutWhatSection} vaccineType={vaccineType} />);
 
-    const whoVaccineIsForHeading: HTMLElement = screen.getByText("Who should have this vaccine");
+    const whoVaccineIsForHeading: HTMLElement = screen.getByText("Who should have the vaccine");
     const whoVaccineIsForContent: HTMLElement = screen.getByRole("heading", {
       level: 2,
       name: "Who Section styled component",

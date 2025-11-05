@@ -152,7 +152,7 @@ const _getDescription = (name: string, description?: string): string => {
 };
 
 const _generateWhoVaccineIsForHeading = (): string => {
-  return `Who should have this vaccine`;
+  return "Who should have the vaccine";
 };
 
 function _extractHeadlineForContraindicationsAspect(content: ContentApiVaccineResponse): VaccinePageSubsection[] {

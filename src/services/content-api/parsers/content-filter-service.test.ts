@@ -557,7 +557,7 @@ describe("Content Filter", () => {
     it("should return all parts for whoVaccineIsFor section", () => {
       const expectedWhoVaccineIsFor = {
         whoVaccineIsFor: {
-          headline: "Who should have this vaccine",
+          headline: "Who should have the vaccine",
           subsections: [
             {
               type: "simpleElement",
