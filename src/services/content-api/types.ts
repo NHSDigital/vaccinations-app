@@ -124,6 +124,7 @@ export type StyledVaccineContent = {
   whatVaccineIsFor?: StyledPageSection;
   whoVaccineIsFor: StyledPageSection;
   howToGetVaccine: StyledPageSection;
+  vaccineSideEffects: StyledPageSection;
   webpageLink: URL;
 };
 

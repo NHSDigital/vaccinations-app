@@ -128,6 +128,7 @@ const getStyledContentForVaccine = async (
   }
   const whoVaccineIsFor: StyledPageSection = styleSection(filteredContent.whoVaccineIsFor);
   const howToGetVaccine: StyledPageSection = styleHowToGetSection[vaccine](filteredContent.howToGetVaccine, fragile);
+  const vaccineSideEffects: StyledPageSection = styleSection(filteredContent.vaccineSideEffects);
   const webpageLink: URL = filteredContent.webpageLink;
 
   return {
@@ -135,6 +136,7 @@ const getStyledContentForVaccine = async (
     whatVaccineIsFor,
     whoVaccineIsFor,
     howToGetVaccine,
+    vaccineSideEffects,
     webpageLink,
   };
 };

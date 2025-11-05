@@ -572,6 +572,10 @@ export const mockStyledContent: StyledVaccineContent = {
     heading: "how-heading",
     component: <div>How Section styled component</div>,
   },
+  vaccineSideEffects: {
+    heading: "side-effects-heading",
+    component: <div>Side effects section styled component</div>,
+  },
   webpageLink: new URL("https://test.example.com/"),
 };
 
@@ -584,6 +588,10 @@ export const mockStyledContentWithoutWhatSection: StyledVaccineContent = {
   howToGetVaccine: {
     heading: "how-heading",
     component: <div>How Section styled component</div>,
+  },
+  vaccineSideEffects: {
+    heading: "side-effects-heading",
+    component: <div>Side effects section styled component</div>,
   },
   webpageLink: new URL("https://test.example.com/"),
 };

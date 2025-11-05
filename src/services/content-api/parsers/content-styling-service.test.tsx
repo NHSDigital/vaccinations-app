@@ -209,10 +209,11 @@ describe("ContentStylingService", () => {
         );
 
         expect(styledVaccineContent).not.toBeNull();
-        expect(styledVaccineContent.overview).toEqual("This is an overview");
-        expect(styledVaccineContent.whatVaccineIsFor?.heading).toEqual("What Vaccine Is For");
-        expect(styledVaccineContent.whoVaccineIsFor.heading).toEqual("Who is this Vaccine For");
-        expect(styledVaccineContent.howToGetVaccine.heading).toEqual("How to get this Vaccine");
+        expect(styledVaccineContent.overview).toEqual(mockContent.overview);
+        expect(styledVaccineContent.whatVaccineIsFor?.heading).toEqual(mockWhatSection.headline);
+        expect(styledVaccineContent.whoVaccineIsFor.heading).toEqual(mockWhoSection.headline);
+        expect(styledVaccineContent.howToGetVaccine.heading).toEqual(mockHowSection.headline);
+        expect(styledVaccineContent.vaccineSideEffects.heading).toEqual(mockSideEffectsSection.headline);
 
         const expectedRsvSection = "<div><p>para1</p><p>para2</p></div>";
         const expectedRsvPregnancySection = `<div><div><p>para3</p><p>para4</p></div></div>`;
@@ -227,6 +228,7 @@ describe("ContentStylingService", () => {
         expect(isValidElement(styledVaccineContent.whatVaccineIsFor?.component)).toBe(true);
         expect(isValidElement(styledVaccineContent.whoVaccineIsFor.component)).toBe(true);
         expect(isValidElement(styledVaccineContent.howToGetVaccine.component)).toBe(true);
+        expect(isValidElement(styledVaccineContent.vaccineSideEffects.component)).toBe(true);
         expect(styledVaccineContent.webpageLink).toEqual(new URL("https://test.example.com/"));
       },
     );
@@ -263,6 +265,7 @@ describe("ContentStylingService", () => {
       expect(styledVaccineContent.whatVaccineIsFor).toBeUndefined();
       expect(isValidElement(styledVaccineContent.whoVaccineIsFor.component)).toBe(true);
       expect(isValidElement(styledVaccineContent.howToGetVaccine.component)).toBe(true);
+      expect(isValidElement(styledVaccineContent.vaccineSideEffects.component)).toBe(true);
       expect(styledVaccineContent.webpageLink).toEqual(new URL("https://test.example.com/"));
     });
   });
