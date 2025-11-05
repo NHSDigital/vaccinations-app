@@ -30,6 +30,17 @@ describe("MoreInformation component ", () => {
     expect(content).toBeInTheDocument();
   });
 
+  it("should display vaccineSideEffects expander block", async () => {
+    const vaccineType = VaccineTypes.RSV;
+    render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
+
+    const heading: HTMLElement = screen.getByText("Side effects of the vaccine");
+    const content: HTMLElement = screen.getByText("Side effects section styled component");
+
+    expect(heading).toBeInTheDocument();
+    expect(content).toBeInTheDocument();
+  });
+
   it("should not include 'how to get' section for RSV_PREGNANCY ", async () => {
     const vaccineType = VaccineTypes.RSV_PREGNANCY;
     render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);

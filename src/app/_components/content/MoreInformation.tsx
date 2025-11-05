@@ -26,6 +26,12 @@ const MoreInformation = (props: {
           <Details.Summary>{HEADINGS.WHO_SHOULD_HAVE_VACCINE}</Details.Summary>
           <Details.Text>{props.styledVaccineContent.whoVaccineIsFor.component}</Details.Text>
         </Details>
+
+        {/* Side-effects-of-the-vaccine expandable section */}
+        <Details expander>
+          <Details.Summary>{HEADINGS.VACCINE_SIDE_EFFECTS}</Details.Summary>
+          <Details.Text>{props.styledVaccineContent.vaccineSideEffects.component}</Details.Text>
+        </Details>
       </Details.ExpanderGroup>
 
       <FindOutMoreLink findOutMoreUrl={props.styledVaccineContent.webpageLink} vaccineType={props.vaccineType} />
