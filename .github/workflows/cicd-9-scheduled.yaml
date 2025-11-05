@@ -19,6 +19,7 @@ jobs:
 
   deploy-and-test-main:
     name: "Main Branch Assurance Tests"
+    if: always()
     needs: [ deploy-and-test-r1 ]
     uses: ./.github/workflows/stage-9-deploy-and-assure.yaml
     with:
