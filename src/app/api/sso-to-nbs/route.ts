@@ -77,7 +77,7 @@ async function getGivenVaccine(vaccine: string | null) {
   let finalRedirectUrl: string = "";
   const vaccineType: VaccineTypes | undefined = vaccine ? getVaccineTypeFromLowercaseString(vaccine) : undefined;
 
-  if (vaccine && vaccineType) {
+  if (vaccine && vaccineType && (vaccineType === VaccineTypes.RSV || vaccineType === VaccineTypes.RSV_PREGNANCY)) {
     try {
       finalRedirectUrl = await getSSOUrlToNBSForVaccine(vaccineType);
     } catch (error) {

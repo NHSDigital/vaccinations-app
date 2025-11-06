@@ -1,9 +1,10 @@
 import { NBSBookingActionForVaccine } from "@src/app/_components/nbs/NBSBookingAction";
-import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
+import { VaccineInfo } from "@src/models/vaccine";
+import { VaccinesWithNBSBookingAvailable } from "@src/services/nbs/nbs-service";
 import React, { JSX } from "react";
 
 type PharmacyBookingProps = {
-  vaccineType: VaccineTypes;
+  vaccineType: VaccinesWithNBSBookingAvailable;
 };
 
 const PharmacyBookingInfo = ({ vaccineType }: PharmacyBookingProps): JSX.Element => {

@@ -1,0 +1,446 @@
+{
+  "@context": "http://schema.org",
+  "@type": "MedicalWebPage",
+  "name": "Td/IPV vaccine (3-in-1 teenage booster)",
+  "copyrightHolder": {
+    "name": "Crown Copyright",
+    "@type": "Organization"
+  },
+  "license": "https://developer.api.nhs.uk/terms",
+  "author": {
+    "url": "https://www.nhs.uk",
+    "logo": "https://assets.nhs.uk/nhsuk-cms/images/nhs-attribution.width-510.png",
+    "email": "nhswebsite.servicedesk@nhs.net",
+    "@type": "Organization",
+    "name": "NHS website"
+  },
+  "about": {
+    "@type": "WebPage",
+    "name": "Td/IPV vaccine (3-in-1 teenage booster)",
+    "alternateName": ["3-in-1 teenage booster vaccine"]
+  },
+  "description": "Find out about the Td/IPV vaccine (3-in-1 teenage booster) for tetanus, diphtheria and polio, including who it's for, how to get it and possible side effects.",
+  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/",
+  "genre": ["Vaccine"],
+  "keywords": "",
+  "dateModified": "2025-04-15T14:21:01+00:00",
+  "lastReviewed": ["2024-02-12T08:48:00+00:00", "2027-02-12T08:48:00+00:00"],
+  "breadcrumb": {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 0,
+        "item": {
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "name": "Vaccinations",
+          "genre": []
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/",
+          "name": "Td/IPV vaccine (3-in-1 teenage booster)",
+          "genre": ["Vaccine"]
+        }
+      }
+    ]
+  },
+  "hasPart": [
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#overview",
+      "description": "The Td/IPV vaccine (also called the 3-in-1 teenager booster) helps protect against tetanus, diphtheria and polio.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "Td/IPV vaccine (3-in-1 teenage booster)",
+          "text": "Who it's for"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Td/IPV vaccine (3-in-1 teenage booster)",
+          "text": "Contraindications"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Td/IPV vaccine (3-in-1 teenage booster)",
+          "text": "How to get it"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Td/IPV vaccine (3-in-1 teenage booster)",
+          "text": "Side effects"
+        },
+        {
+          "text": "<p>The Td/IPV vaccine is recommended for children in school year 9 and people at higher risk of tetanus, diphtheria or polio.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Most people can have the Td/IPV vaccine. You only need to avoid it if you've had a serious allergic reaction to the vaccine or an ingredient in it.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Children are given the Td/IPV vaccine at school. If you need it for travel, you can get it from some travel clinics, pharmacies or GP surgeries.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Common side effects of the Td/IPV vaccine include swelling or pain where the injection was given. Serious side effects are very rare.</p> ",
+          "@type": "WebPageElement"
+        }
+      ],
+      "headline": ""
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#what-its-for",
+      "description": "The Td/IPV vaccine helps protect against 3 serious illnesses called tetanus, diphtheria and polio.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The Td/IPV vaccine protects against 3 serious illnesses:</p><ul><li><a href=\"https://www.nhs.uk/conditions/tetanus/\">tetanus</a></li><li><a href=\"https://www.nhs.uk/conditions/diphtheria/\">diphtheria</a></li><li><a href=\"https://www.nhs.uk/conditions/polio/\">polio</a></li></ul><p>It boosts the protection provided by the <a href=\"https://www.nhs.uk/vaccinations/6-in-1-vaccine/\">6-in-1 vaccine</a> and <a href=\"https://www.nhs.uk/vaccinations/4-in-1-preschool-booster-vaccine/\">4-in-1 pre-school booster vaccine</a>.</p>"
+        }
+      ],
+      "headline": "What the Td/IPV vaccine is for"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#who-its-for",
+      "description": "The Td/IPV vaccine is recommended for children in school year 9 and people at higher risk of tetanus, diphtheria or polio.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Children are given the Td/IPV vaccine (3-in-1 teenage booster) at around 13 or 14 years old (school year 9) as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>If you or your child missed getting vaccinated, speak to your school nurse, or your GP surgery if you've left school, about getting vaccinated.</p><p>The Td/IPV vaccine is also given to adults at higher risk of tetanus, diphtheria or polio, such as:</p><ul><li>people who need protection against these illnesses before travelling abroad (the vaccine may be recommended if you're going to an area where it may be difficult to get medical help quickly and your last dose was more than 10 years ago)</li><li>people who have a large, dirty or deep wound that could mean they're at risk of tetanus</li><li>people at risk of these illnesses through their work, such as some laboratory staff</li></ul>"
+        }
+      ],
+      "headline": "Who should have the Td/IPV vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#contraindications",
+      "description": "Most people can have the Td/IPV vaccine. You only need to avoid it if you've had a serious allergic reaction to the vaccine or an ingredient in it.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Most people who need it can have the Td/IPV vaccine, including if you're pregnant or breastfeeding.</p><p>You only cannot have the vaccine if:</p><ul><li>you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine</li><li>you've had a serious allergic reaction to anything in the vaccine (including neomycin, streptomycin or polymyxin)</li></ul><p>The vaccine may also not be suitable for you if you have a rare condition called <a href=\"https://www.nhs.uk/conditions/phenylketonuria/\">phenylketonuria</a>. Tell the person who'll be vaccinating you if you have this.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Information",
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>If you have a high temperature or feel too unwell to do your normal activities, wait until you're feeling better before having the vaccine.</p>"
+        }
+      ],
+      "headline": "Who cannot have the Td/IPV vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#ingredients",
+      "description": "You can check the ingredients in the Td/IPV vaccine by asking to see the patient leaflet or searching for it online.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>There is 1 type of Td/IPV vaccine given in the UK. You can check the ingredients in the patient leaflet:</p><p><a href=\"https://www.medicines.org.uk/emc/product/5581/pil\">Revaxis vaccine patient leaflet (Electronic Medicines Compendium website)</a></p>"
+        }
+      ],
+      "headline": "Td/IPV vaccine ingredients"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#how-to-get-it",
+      "description": "Children are given the Td/IPV vaccine at school. If you need it for travel, you can get it from some travel clinics, pharmacies or GP surgeries.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>There are different ways to get the Td/IPV vaccine.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Information",
+          "text": "<h3>Having the Td/IPV vaccine at the same time as other vaccines</h3><p>You can have the Td/IPV vaccine at the same time as other vaccines, such as the <a href=\"https://www.nhs.uk/vaccinations/menacwy-vaccine/\">MenACWY vaccine</a>.</p>"
+        }
+      ],
+      "headline": "How to get the Td/IPV vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#side-effects",
+      "description": "Common side effects of the Td/IPV vaccine include swelling or pain where the injection was given. Serious side effects are very rare.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Most of the side effects of the Td/IPV vaccine are mild and do not last long.</p><p>They can include:</p><ul><li>swelling or pain where the injection was given</li><li>a high temperature</li><li>a headache</li><li>dizziness</li><li>feeling or being sick</li></ul><p>More serious side effects such as a severe allergic reaction are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p><p>The vaccine used in the UK contains killed (destroyed) versions of the illnesses it protects against, so there's no risk of getting the infections from the vaccine.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Information",
+          "text": "<h3>More about vaccine safety</h3><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccination is important and the safest way to protect yourself</a></p>"
+        }
+      ],
+      "headline": "Side effects of the Td/IPV vaccine"
+    }
+  ],
+  "relatedLink": [
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "name": "Vaccinations",
+      "linkRelationship": "Navigation",
+      "position": 0
+    }
+  ],
+  "contentSubTypes": [],
+  "mainEntityOfPage": [
+    {
+      "position": 0,
+      "identifier": 0,
+      "text": "The Td/IPV vaccine (also called the 3-in-1 teenage booster) helps protect against tetanus, diphtheria and polio. It's recommended for children in school year 9 and people at higher risk of these illnesses.",
+      "name": "lead paragraph",
+      "@type": "WebPageElement"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 1,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The Td/IPV vaccine protects against 3 serious illnesses:</p><ul><li><a href=\"https://www.nhs.uk/conditions/tetanus/\">tetanus</a></li><li><a href=\"https://www.nhs.uk/conditions/diphtheria/\">diphtheria</a></li><li><a href=\"https://www.nhs.uk/conditions/polio/\">polio</a></li></ul><p>It boosts the protection provided by the <a href=\"https://www.nhs.uk/vaccinations/6-in-1-vaccine/\">6-in-1 vaccine</a> and <a href=\"https://www.nhs.uk/vaccinations/4-in-1-preschool-booster-vaccine/\">4-in-1 pre-school booster vaccine</a>.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "The Td/IPV vaccine helps protect against 3 serious illnesses called tetanus, diphtheria and polio.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The Td/IPV vaccine protects against 3 serious illnesses:</p><ul><li><a href=\"https://www.nhs.uk/conditions/tetanus/\">tetanus</a></li><li><a href=\"https://www.nhs.uk/conditions/diphtheria/\">diphtheria</a></li><li><a href=\"https://www.nhs.uk/conditions/polio/\">polio</a></li></ul><p>It boosts the protection provided by the <a href=\"https://www.nhs.uk/vaccinations/6-in-1-vaccine/\">6-in-1 vaccine</a> and <a href=\"https://www.nhs.uk/vaccinations/4-in-1-preschool-booster-vaccine/\">4-in-1 pre-school booster vaccine</a>.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
+      "headline": "What the Td/IPV vaccine is for"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 2,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Children are given the Td/IPV vaccine (3-in-1 teenage booster) at around 13 or 14 years old (school year 9) as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>If you or your child missed getting vaccinated, speak to your school nurse, or your GP surgery if you've left school, about getting vaccinated.</p><p>The Td/IPV vaccine is also given to adults at higher risk of tetanus, diphtheria or polio, such as:</p><ul><li>people who need protection against these illnesses before travelling abroad (the vaccine may be recommended if you're going to an area where it may be difficult to get medical help quickly and your last dose was more than 10 years ago)</li><li>people who have a large, dirty or deep wound that could mean they're at risk of tetanus</li><li>people at risk of these illnesses through their work, such as some laboratory staff</li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "The Td/IPV vaccine is recommended for children in school year 9 and people at higher risk of tetanus, diphtheria or polio.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Children are given the Td/IPV vaccine (3-in-1 teenage booster) at around 13 or 14 years old (school year 9) as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>If you or your child missed getting vaccinated, speak to your school nurse, or your GP surgery if you've left school, about getting vaccinated.</p><p>The Td/IPV vaccine is also given to adults at higher risk of tetanus, diphtheria or polio, such as:</p><ul><li>people who need protection against these illnesses before travelling abroad (the vaccine may be recommended if you're going to an area where it may be difficult to get medical help quickly and your last dose was more than 10 years ago)</li><li>people who have a large, dirty or deep wound that could mean they're at risk of tetanus</li><li>people at risk of these illnesses through their work, such as some laboratory staff</li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
+      "headline": "Who should have the Td/IPV vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 3,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most people who need it can have the Td/IPV vaccine, including if you're pregnant or breastfeeding.</p><p>You only cannot have the vaccine if:</p><ul><li>you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine</li><li>you've had a serious allergic reaction to anything in the vaccine (including neomycin, streptomycin or polymyxin)</li></ul><p>The vaccine may also not be suitable for you if you have a rare condition called <a href=\"https://www.nhs.uk/conditions/phenylketonuria/\">phenylketonuria</a>. Tell the person who'll be vaccinating you if you have this.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>If you have a high temperature or feel too unwell to do your normal activities, wait until you're feeling better before having the vaccine.</p>"
+        }
+      ],
+      "description": "Most people can have the Td/IPV vaccine. You only need to avoid it if you've had a serious allergic reaction to the vaccine or an ingredient in it.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most people who need it can have the Td/IPV vaccine, including if you're pregnant or breastfeeding.</p><p>You only cannot have the vaccine if:</p><ul><li>you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine</li><li>you've had a serious allergic reaction to anything in the vaccine (including neomycin, streptomycin or polymyxin)</li></ul><p>The vaccine may also not be suitable for you if you have a rare condition called <a href=\"https://www.nhs.uk/conditions/phenylketonuria/\">phenylketonuria</a>. Tell the person who'll be vaccinating you if you have this.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>If you have a high temperature or feel too unwell to do your normal activities, wait until you're feeling better before having the vaccine.</p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
+      "headline": "Who cannot have the Td/IPV vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 4,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There is 1 type of Td/IPV vaccine given in the UK. You can check the ingredients in the patient leaflet:</p><p><a href=\"https://www.medicines.org.uk/emc/product/5581/pil\">Revaxis vaccine patient leaflet (Electronic Medicines Compendium website)</a></p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "You can check the ingredients in the Td/IPV vaccine by asking to see the patient leaflet or searching for it online.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There is 1 type of Td/IPV vaccine given in the UK. You can check the ingredients in the patient leaflet:</p><p><a href=\"https://www.medicines.org.uk/emc/product/5581/pil\">Revaxis vaccine patient leaflet (Electronic Medicines Compendium website)</a></p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
+      "headline": "Td/IPV vaccine ingredients"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 5,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There are different ways to get the Td/IPV vaccine.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "@type": "WebPageElement",
+          "name": "Table",
+          "mainEntity": "\n\n\n<div class=\"nhsuk-table-container\">\n    <table role=\"table\">\n      <caption>Where to get the Td/IPV vaccine</caption>\n      <thead role=\"rowgroup\">\n        <tr role=\"row\">\n          \n          <th role=\"columnheader\" class=\"\" scope=\"col\">\n            Who should have it\n          </th>\n          \n          <th role=\"columnheader\" class=\"\" scope=\"col\">\n            Where to get it\n          </th>\n          \n        </tr>\n      </thead>\n      <tbody>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"8pno3\">Children aged 13 or 14 (school year 9)</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Where to get it\n                    \n                </span>\n                <p data-block-key=\"8pno3\">Secondary school (or community clinics for those not in school)</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"8pno3\">Anyone who missed getting vaccinated at 13 or 14</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Where to get it\n                    \n                </span>\n                <p data-block-key=\"8pno3\">Check with your school nurse (or your GP surgery if you&#x27;ve left school)</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"8pno3\">People who need the vaccination for travel (you may have to pay for this)</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Where to get it\n                    \n                </span>\n                <p data-block-key=\"8pno3\">Travel vaccination clinics, pharmacies with travel health services and some GP surgeries</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"8pno3\">People who need the vaccination for their job</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Where to get it\n                    \n                </span>\n                <p data-block-key=\"8pno3\">Speak to your employer about getting vaccinated</p>\n            </td>\n            \n        </tr>\n        \n      </tbody>\n    </table>\n  </div>",
+          "position": 1
+        },
+        {
+          "position": 2,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Having the Td/IPV vaccine at the same time as other vaccines</h3><p>You can have the Td/IPV vaccine at the same time as other vaccines, such as the <a href=\"https://www.nhs.uk/vaccinations/menacwy-vaccine/\">MenACWY vaccine</a>.</p>"
+        }
+      ],
+      "description": "Children are given the Td/IPV vaccine at school. If you need it for travel, you can get it from some travel clinics, pharmacies or GP surgeries.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There are different ways to get the Td/IPV vaccine.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "@type": "WebPageElement",
+          "name": "Table",
+          "mainEntity": "\n\n\n<div class=\"nhsuk-table-container\">\n    <table role=\"table\">\n      <caption>Where to get the Td/IPV vaccine</caption>\n      <thead role=\"rowgroup\">\n        <tr role=\"row\">\n          \n          <th role=\"columnheader\" class=\"\" scope=\"col\">\n            Who should have it\n          </th>\n          \n          <th role=\"columnheader\" class=\"\" scope=\"col\">\n            Where to get it\n          </th>\n          \n        </tr>\n      </thead>\n      <tbody>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"8pno3\">Children aged 13 or 14 (school year 9)</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Where to get it\n                    \n                </span>\n                <p data-block-key=\"8pno3\">Secondary school (or community clinics for those not in school)</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"8pno3\">Anyone who missed getting vaccinated at 13 or 14</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Where to get it\n                    \n                </span>\n                <p data-block-key=\"8pno3\">Check with your school nurse (or your GP surgery if you&#x27;ve left school)</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"8pno3\">People who need the vaccination for travel (you may have to pay for this)</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Where to get it\n                    \n                </span>\n                <p data-block-key=\"8pno3\">Travel vaccination clinics, pharmacies with travel health services and some GP surgeries</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"8pno3\">People who need the vaccination for their job</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Where to get it\n                    \n                </span>\n                <p data-block-key=\"8pno3\">Speak to your employer about getting vaccinated</p>\n            </td>\n            \n        </tr>\n        \n      </tbody>\n    </table>\n  </div>",
+          "position": 1
+        },
+        {
+          "position": 2,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Having the Td/IPV vaccine at the same time as other vaccines</h3><p>You can have the Td/IPV vaccine at the same time as other vaccines, such as the <a href=\"https://www.nhs.uk/vaccinations/menacwy-vaccine/\">MenACWY vaccine</a>.</p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "headline": "How to get the Td/IPV vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 6,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most of the side effects of the Td/IPV vaccine are mild and do not last long.</p><p>They can include:</p><ul><li>swelling or pain where the injection was given</li><li>a high temperature</li><li>a headache</li><li>dizziness</li><li>feeling or being sick</li></ul><p>More serious side effects such as a severe allergic reaction are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p><p>The vaccine used in the UK contains killed (destroyed) versions of the illnesses it protects against, so there's no risk of getting the infections from the vaccine.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>More about vaccine safety</h3><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccination is important and the safest way to protect yourself</a></p>"
+        }
+      ],
+      "description": "Common side effects of the Td/IPV vaccine include swelling or pain where the injection was given. Serious side effects are very rare.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most of the side effects of the Td/IPV vaccine are mild and do not last long.</p><p>They can include:</p><ul><li>swelling or pain where the injection was given</li><li>a high temperature</li><li>a headache</li><li>dizziness</li><li>feeling or being sick</li></ul><p>More serious side effects such as a severe allergic reaction are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p><p>The vaccine used in the UK contains killed (destroyed) versions of the illnesses it protects against, so there's no risk of getting the infections from the vaccine.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>More about vaccine safety</h3><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccination is important and the safest way to protect yourself</a></p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
+      "headline": "Side effects of the Td/IPV vaccine"
+    }
+  ],
+  "webpage": "https://www.nhs.uk/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/"
+}

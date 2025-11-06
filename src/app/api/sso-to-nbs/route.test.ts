@@ -47,6 +47,17 @@ describe("GET /sso-to-nbs", () => {
     expect(redirect).not.toHaveBeenCalled();
   });
 
+  it("returns 404 if vaccine parameter is not an allowed vaccine", async () => {
+    const testUrl = "https://testurl";
+    const mockRequest = getMockRequest(testUrl, {
+      vaccine: "td-ipv-vaccine-3-in-1-teenage-booster",
+    });
+
+    await GET(mockRequest);
+    expect(notFound).toHaveBeenCalled();
+    expect(redirect).not.toHaveBeenCalled();
+  });
+
   it("redirects to /sso-failure on getSSOUrlToNBSForVaccine error", async () => {
     const testUrl = "https://testurl";
     const mockRequest = getMockRequest(testUrl, {

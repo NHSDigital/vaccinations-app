@@ -6,7 +6,7 @@ import React, { JSX } from "react";
 
 const RSVEligibilityFallback = (props: {
   howToGetVaccineFallback: JSX.Element;
-  vaccineType: VaccineTypes;
+  vaccineType: VaccineTypes.RSV;
 }): JSX.Element => {
   return (
     <div data-testid="elid-fallback">

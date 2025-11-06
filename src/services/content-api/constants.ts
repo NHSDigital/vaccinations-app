@@ -3,12 +3,14 @@ import { VaccineTypes } from "@src/models/vaccine";
 // vaccine suffix paths used in content API endpoint
 enum VaccineContentPaths {
   RSV = "rsv-vaccine",
+  TD_IPV_3_IN_1 = "td-ipv-vaccine-3-in-1-teenage-booster",
 }
 
 // maps vaccine type to content API paths (many to one, e.g. case RSV)
 const vaccineTypeToPath: Record<VaccineTypes, VaccineContentPaths> = {
   [VaccineTypes.RSV]: VaccineContentPaths.RSV,
   [VaccineTypes.RSV_PREGNANCY]: VaccineContentPaths.RSV,
+  [VaccineTypes.TD_IPV_3_IN_1]: VaccineContentPaths.TD_IPV_3_IN_1,
 };
 
 const INVALIDATED_CONTENT_OVERWRITE_VALUE =

@@ -14,9 +14,7 @@ describe("RSVEligibilityFallback", () => {
   const howToGetVaccineFallback = <div>How Section styled component</div>;
 
   it("should display fallback care card", async () => {
-    await render(
-      <RSVEligibilityFallback howToGetVaccineFallback={howToGetVaccineFallback} vaccineType={vaccineType} />,
-    );
+    render(<RSVEligibilityFallback howToGetVaccineFallback={howToGetVaccineFallback} vaccineType={vaccineType} />);
 
     const fallbackHeading: HTMLElement = screen.getByText("The RSV vaccine is recommended if you:");
     const fallbackBulletPoint1: HTMLElement = screen.getByText("are aged between 75 and 79");
