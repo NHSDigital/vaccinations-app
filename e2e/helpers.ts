@@ -88,7 +88,7 @@ export const pathForCustomScreenshots = (testFileName: string, screenshotFileNam
 };
 
 export const openExpanders = async (page: Page) => {
-  const expanderTitles = ["What this vaccine is for", "Who should have this vaccine", "Side effects of the vaccine"];
+  const expanderTitles = ["What the vaccine is for", "Who should have the vaccine", "Side effects of the vaccine"];
 
   for (const title of expanderTitles) {
     await page.getByText(title).click();
