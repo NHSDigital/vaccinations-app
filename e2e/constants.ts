@@ -4,7 +4,7 @@ export const HUB_PAGE_URL = "/check-and-book-rsv";
 export const RSV_PAGE_TITLE = "RSV - Check and book an RSV vaccination - NHS";
 export const RSV_PAGE_URL = "/vaccines/rsv";
 
-export const RSV_PREGNANCY_PAGE_TITLE = "RSV pregnancy - Check and book an RSV vaccination - NHS";
+export const RSV_PREGNANCY_PAGE_TITLE = "RSV in pregnancy - Check and book an RSV vaccination - NHS";
 export const RSV_PREGNANCY_PAGE_URL = "/vaccines/rsv-pregnancy";
 
 export const COOKIE_POLICY_PAGE_TITLE = "Cookies policy - Check and book an RSV vaccination - NHS";
