@@ -21,12 +21,12 @@ const VaccinePage = async ({ params }: VaccinePageProps) => {
 
   return vaccineType ? (
     <>
-      <title>{`${VaccineInfo[vaccineType].heading} - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`}</title>
+      <title>{`${VaccineInfo[vaccineType].newHeading} - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`}</title>
 
       <FeedbackBanner referrer={vaccine} />
       <BackLink />
       <MainContent>
-        <h1 className={"app-dynamic-page-title__heading"}>{`${VaccineInfo[vaccineType].heading}`}</h1>
+        <h1 className={"app-dynamic-page-title__heading"}>{`${VaccineInfo[vaccineType].newHeading}`}</h1>
         <Suspense fallback={<LoadingSpinner />}>
           <Vaccine vaccineType={vaccineType} />
         </Suspense>
