@@ -114,7 +114,7 @@ const styleHowToGetSection: Record<VaccineTypes, (section: VaccinePageSection, f
   {
     [VaccineTypes.RSV]: styleHowToGetSectionForRsv,
     [VaccineTypes.RSV_PREGNANCY]: styleHowToGetSectionForRsvPregnancy,
-    [VaccineTypes.TD_IPV_3_IN_1]: styleHowToGetSectionForRsv, //TODO: needs updating
+    [VaccineTypes.TD_IPV_3_IN_1]: styleSection,
   };
 
 const getStyledContentForVaccine = async (

@@ -30,11 +30,11 @@ describe("ContentStylingService", () => {
     headline: "Headline",
   };
 
-  const mockRsvMarkdownSubsection: VaccinePageSubsection = {
+  const mockHowToGetMarkdownSubsection: VaccinePageSubsection = {
     type: "simpleElement",
     text: "<p>para</p><h3>If you're aged 75 to 79</h3><p>para1</p><p>para2</p><h3>If you're pregnant</h3><p>para3</p><p>para4</p>",
     name: "markdown",
-    headline: "Headline",
+    headline: "How To Get Headline",
   };
 
   const mockNonUrgentSubsection: VaccinePageSubsection = {
@@ -174,64 +174,60 @@ describe("ContentStylingService", () => {
   });
 
   describe("getStyledContentForVaccine", () => {
-    it.each([VaccineTypes.RSV, VaccineTypes.RSV_PREGNANCY])(
-      "should return styled content for %s",
-      async (vaccine: VaccineTypes) => {
-        const mockWhatSection: VaccinePageSection = {
-          headline: "What Vaccine Is For",
-          subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
-        };
-        const mockWhoSection: VaccinePageSection = {
-          headline: "Who is this Vaccine For",
-          subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
-        };
-        const mockHowSection: VaccinePageSection = {
-          headline: "How to get this Vaccine",
-          subsections: [mockRsvMarkdownSubsection],
-        };
-        const mockSideEffectsSection: VaccinePageSection = {
-          headline: "Side effects of the generic vaccine",
-          subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
-        };
-        const mockContent: VaccinePageContent = {
-          overview: "This is an overview",
-          whatVaccineIsFor: mockWhatSection,
-          whoVaccineIsFor: mockWhoSection,
-          howToGetVaccine: mockHowSection,
-          vaccineSideEffects: mockSideEffectsSection,
-          webpageLink: new URL("https://test.example.com/"),
-        };
+    it.each(Object.values(VaccineTypes))("should return styled content for %s", async (vaccine: VaccineTypes) => {
+      const mockWhatSection: VaccinePageSection = {
+        headline: "What Vaccine Is For",
+        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
+      };
+      const mockWhoSection: VaccinePageSection = {
+        headline: "Who is this Vaccine For",
+        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
+      };
+      const mockHowSection: VaccinePageSection = {
+        headline: "How to get this Vaccine",
+        subsections: [mockHowToGetMarkdownSubsection],
+      };
+      const mockSideEffectsSection: VaccinePageSection = {
+        headline: "Side effects of the generic vaccine",
+        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
+      };
+      const mockContent: VaccinePageContent = {
+        overview: "This is an overview",
+        whatVaccineIsFor: mockWhatSection,
+        whoVaccineIsFor: mockWhoSection,
+        howToGetVaccine: mockHowSection,
+        vaccineSideEffects: mockSideEffectsSection,
+        webpageLink: new URL("https://test.example.com/"),
+      };
 
-        const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
-          vaccine,
-          mockContent,
-          false,
-        );
+      const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(vaccine, mockContent, false);
 
-        expect(styledVaccineContent).not.toBeNull();
-        expect(styledVaccineContent.overview).toEqual(mockContent.overview);
-        expect(styledVaccineContent.whatVaccineIsFor?.heading).toEqual(mockWhatSection.headline);
-        expect(styledVaccineContent.whoVaccineIsFor.heading).toEqual(mockWhoSection.headline);
-        expect(styledVaccineContent.howToGetVaccine.heading).toEqual(mockHowSection.headline);
-        expect(styledVaccineContent.vaccineSideEffects.heading).toEqual(mockSideEffectsSection.headline);
+      expect(styledVaccineContent).not.toBeNull();
+      expect(styledVaccineContent.overview).toEqual(mockContent.overview);
+      expect(styledVaccineContent.whatVaccineIsFor?.heading).toEqual(mockWhatSection.headline);
+      expect(styledVaccineContent.whoVaccineIsFor.heading).toEqual(mockWhoSection.headline);
+      expect(styledVaccineContent.howToGetVaccine.heading).toEqual(mockHowSection.headline);
+      expect(styledVaccineContent.vaccineSideEffects.heading).toEqual(mockSideEffectsSection.headline);
 
-        const expectedRsvSection = "<div><p>para1</p><p>para2</p></div>";
-        const expectedRsvPregnancySection = `<div><div><p>para3</p><p>para4</p></div></div>`;
-        const { container } = render(styledVaccineContent.howToGetVaccine.component);
-        if (vaccine === VaccineTypes.RSV) {
-          expect(container).toContainHTML(expectedRsvSection);
-        }
-        if (vaccine === VaccineTypes.RSV_PREGNANCY) {
-          expect(container.innerHTML).toBe(expectedRsvPregnancySection);
-        }
+      const expectedRsvHowToGetSection = "<div><p>para1</p><p>para2</p></div>";
+      const expectedRsvPregnancyHowToGetSection = `<div><div><p>para3</p><p>para4</p></div></div>`;
+      const expectedGenericVaccineHowToGetSection =
+        "<div><h3>How To Get Headline</h3><p>para</p><h3>If you're aged 75 to 79</h3><p>para1</p><p>para2</p><h3>If you're pregnant</h3><p>para3</p><p>para4</p></div>";
+      const { container } = render(styledVaccineContent.howToGetVaccine.component);
+      if (vaccine === VaccineTypes.RSV) {
+        expect(container).toContainHTML(expectedRsvHowToGetSection);
+      } else if (vaccine === VaccineTypes.RSV_PREGNANCY) {
+        expect(container.innerHTML).toBe(expectedRsvPregnancyHowToGetSection);
+      } else {
+        expect(container.innerHTML).toBe(expectedGenericVaccineHowToGetSection);
+      }
 
-        expect(isValidElement(styledVaccineContent.whatVaccineIsFor?.component)).toBe(true);
-        expect(isValidElement(styledVaccineContent.whoVaccineIsFor.component)).toBe(true);
-        expect(isValidElement(styledVaccineContent.howToGetVaccine.component)).toBe(true);
-        expect(isValidElement(styledVaccineContent.vaccineSideEffects.component)).toBe(true);
-        expect(styledVaccineContent.webpageLink).toEqual(new URL("https://test.example.com/"));
-      },
-    );
+      expect(isValidElement(styledVaccineContent.whatVaccineIsFor?.component)).toBe(true);
+      expect(isValidElement(styledVaccineContent.whoVaccineIsFor.component)).toBe(true);
+      expect(isValidElement(styledVaccineContent.howToGetVaccine.component)).toBe(true);
+      expect(isValidElement(styledVaccineContent.vaccineSideEffects.component)).toBe(true);
+      expect(styledVaccineContent.webpageLink).toEqual(new URL("https://test.example.com/"));
+    });
 
     it("should return styled content without what-section when what-section is missing", async () => {
       const mockWhoSection: VaccinePageSection = {
