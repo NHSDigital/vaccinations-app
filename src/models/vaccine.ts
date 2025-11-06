@@ -29,6 +29,7 @@ const vaccineTypeToUrlPath: Record<VaccineTypes, VaccineContentUrlPaths> = {
 export type VaccineDetails = {
   displayName: displayName;
   heading: string;
+  newHeading: string; // this is going to be replaced by above heading
   nhsWebpageLink: URL;
   nhsHowToGetWebpageLink: URL;
   personalisedEligibilityStatusRequired: boolean;
@@ -49,6 +50,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
       indefiniteArticle: "an",
     },
     heading: "RSV vaccine for older adults",
+    newHeading: "RSV",
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: true,
@@ -61,6 +63,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
       indefiniteArticle: "an",
     },
     heading: "RSV vaccine in pregnancy",
+    newHeading: "RSV in pregnancy",
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
