@@ -7,7 +7,7 @@ import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
 import { SESSION_TIMEOUT_ROUTE } from "@src/app/session-timeout/constants";
 import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 
-import { HUB_PAGE_URL, RSV_PAGE_URL, RSV_PREGNANCY_PAGE_URL } from "../constants";
+import { HUB_PAGE_URL, RSV_PAGE_URL, RSV_PREGNANCY_PAGE_URL, VACCINES_FOR_ALL_AGES_PAGE_URL } from "../constants";
 
 const currentDatetime = getEnv("CURRENT_DATETIME");
 const checkoutRef = getEnv("CHECKOUT_REF");
@@ -46,6 +46,11 @@ test.describe(`Snapshot Testing - ${currentDatetime}-${checkoutRef}`, () => {
 
   const PathsToSnapshots = [
     { snapshotFilename: "default-hub.png", pageRoute: HUB_PAGE_URL, reportLabel: "Hub" },
+    {
+      snapshotFilename: "default-vaccines-for-all-ages.png",
+      pageRoute: VACCINES_FOR_ALL_AGES_PAGE_URL,
+      reportLabel: "Vaccines for all ages",
+    },
     { snapshotFilename: "default-rsv.png", pageRoute: RSV_PAGE_URL, reportLabel: "RSV" },
     { snapshotFilename: "default-rsv-pregnancy.png", pageRoute: RSV_PREGNANCY_PAGE_URL, reportLabel: "RSV pregnancy" },
     {

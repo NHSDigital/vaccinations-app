@@ -1,6 +1,9 @@
 export const HUB_PAGE_TITLE = "Check and book an RSV vaccination - NHS";
 export const HUB_PAGE_URL = "/check-and-book-rsv";
 
+export const VACCINES_FOR_ALL_AGES_PAGE_TITLE = "Vaccines for all ages - NHS";
+export const VACCINES_FOR_ALL_AGES_PAGE_URL = "/vaccines-for-all-ages";
+
 export const RSV_PAGE_TITLE = "RSV - Check and book an RSV vaccination - NHS";
 export const RSV_PAGE_URL = "/vaccines/rsv";
 

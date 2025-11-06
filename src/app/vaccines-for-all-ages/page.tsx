@@ -1,17 +1,17 @@
 import CardLink from "@src/app/_components/nhs-app/CardLink";
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
-import { NHS_TITLE_SUFFIX, VACCINES_FOR_ALL_PAGE } from "@src/app/constants";
+import { NHS_TITLE_SUFFIX, VACCINES_FOR_ALL_AGES_PAGE } from "@src/app/constants";
 import { VaccineContentUrlPaths, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import React, { JSX } from "react";
 
 const VaccinesForAllAges = (): JSX.Element => {
   return (
     <>
-      <title>{`${VACCINES_FOR_ALL_PAGE} - ${NHS_TITLE_SUFFIX}`}</title>
+      <title>{`${VACCINES_FOR_ALL_AGES_PAGE} - ${NHS_TITLE_SUFFIX}`}</title>
       <BackLink />
       <MainContent>
-        <h1 className={"app-dynamic-page-title__heading"}>{VACCINES_FOR_ALL_PAGE}</h1>
+        <h1 className={"app-dynamic-page-title__heading"}>{VACCINES_FOR_ALL_AGES_PAGE}</h1>
         <p>
           Find out about vaccinations for babies, children and adults, including why they&#39;re important and how to
           get them.

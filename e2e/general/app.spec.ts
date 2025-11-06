@@ -14,6 +14,8 @@ import {
   RSV_PREGNANCY_PAGE_TITLE,
   RSV_PREGNANCY_PAGE_URL,
   SESSION_LOGOUT_PAGE_TITLE,
+  VACCINES_FOR_ALL_AGES_PAGE_TITLE,
+  VACCINES_FOR_ALL_AGES_PAGE_URL,
 } from "../constants";
 
 test.describe.configure({ mode: "parallel", retries: 3 });
@@ -26,6 +28,13 @@ test.describe("Application", () => {
     await expect(page).toHaveTitle(HUB_PAGE_TITLE);
     await accessibilityCheck(page);
     await benchmarkIfChromium(page, HUB_PAGE_URL, MAX_AVG_LCP_DURATION_MS, testInfo);
+  });
+
+  test("Vaccines for all ages page", async ({ page }, testInfo: TestInfo) => {
+    await page.goto(VACCINES_FOR_ALL_AGES_PAGE_URL);
+    await expect(page).toHaveTitle(VACCINES_FOR_ALL_AGES_PAGE_TITLE);
+    await accessibilityCheck(page);
+    await benchmarkIfChromium(page, VACCINES_FOR_ALL_AGES_PAGE_URL, MAX_AVG_LCP_DURATION_MS, testInfo);
   });
 
   test("RSV page", async ({ page }, testInfo: TestInfo) => {
