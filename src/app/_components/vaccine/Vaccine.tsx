@@ -101,9 +101,11 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
           <h3>{HEADINGS.HOW_TO_GET_VACCINE}</h3>
           {howToGetVaccineOrFallback}
           <PharmacyBookingInfo vaccineType={vaccineType} />
-          <hr />
         </>
       )}
+
+      {!vaccineInfo.personalisedEligibilityStatusRequired && <hr data-testid="more-information-hr" />}
+
       {/* Sections heading - H2 */}
       <h2 className="nhsuk-heading-s">{`More information about the ${vaccineInfo.displayName.midSentenceCase} vaccine`}</h2>
       {/* Expandable sections */}

@@ -134,6 +134,14 @@ describe("Any vaccine page", () => {
 
       expect(findOutMore).not.toBeInTheDocument();
     });
+
+    it("should display hr above MoreInformation section when personalised eligibility not in use", async () => {
+      await renderNamedVaccinePage(VaccineTypes.TD_IPV_3_IN_1);
+
+      const hrAboveMoreInformation: HTMLElement = screen.getByTestId("more-information-hr");
+
+      expect(hrAboveMoreInformation).toBeInTheDocument();
+    });
   });
 
   describe("shows content section, when content load fails", () => {
@@ -187,6 +195,14 @@ describe("Any vaccine page", () => {
       const fallbackHowToGetLink: HTMLElement = screen.getByTestId("how-to-get-content-fallback-mock");
 
       expect(fallbackHowToGetLink).toBeInTheDocument();
+    });
+
+    it("should still display hr above MoreInformation section", async () => {
+      await renderNamedVaccinePage(VaccineTypes.TD_IPV_3_IN_1);
+
+      const hrAboveMoreInformation: HTMLElement = screen.getByTestId("more-information-hr");
+
+      expect(hrAboveMoreInformation).toBeInTheDocument();
     });
   });
 
@@ -252,6 +268,15 @@ describe("Any vaccine page", () => {
 
       const eligibilitySection: HTMLElement | null = screen.queryByText("Test Eligibility Component");
       expect(eligibilitySection).not.toBeInTheDocument();
+    });
+
+    it("should not display hr above MoreInformation section when personalised eligibility is use", async () => {
+      // Personalised actions are always separated by hr; avoids duplicate line appearing after final element
+      await renderNamedVaccinePage(VaccineTypes.RSV);
+
+      const hrAboveMoreInformation: HTMLElement | null = screen.queryByTestId("more-information-hr");
+
+      expect(hrAboveMoreInformation).not.toBeInTheDocument();
     });
   });
 
