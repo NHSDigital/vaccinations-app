@@ -76,7 +76,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
       indefiniteArticle: "a",
     },
     heading: "Td/IPV vaccine (3-in-1 teenage booster)",
-    cardLinkTitle: "",
+    cardLinkTitle: "Td/IPV (3-in-1 teenage booster)",
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/"),
     nhsHowToGetWebpageLink: new URL(
       "https://www.nhs.uk/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#how-to-get-it",

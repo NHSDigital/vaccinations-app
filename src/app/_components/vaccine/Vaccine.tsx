@@ -67,16 +67,20 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
 
   return (
     <div className={styles.tableCellSpanHide}>
+      {/*/!* Overview section *!/*/}
+      {contentError != ContentErrorTypes.CONTENT_LOADING_ERROR && styledVaccineContent != undefined && (
+        <>
+          <p data-testid="overview-text">{styledVaccineContent?.overview}</p>
+        </>
+      )}
       {/* Personalised eligibility section for RSV */}
       {vaccineType === VaccineTypes.RSV && !eligibilityError && eligibility?.content && eligibility?.status && (
         <EligibilityComponent eligibilityContent={eligibility.content} />
       )}
-
       {/* Fallback eligibility section for RSV */}
       {vaccineType === VaccineTypes.RSV && eligibilityError && (
         <RSVEligibilityFallback howToGetVaccineFallback={howToGetVaccineOrFallback} vaccineType={vaccineType} />
       )}
-
       {/* Static eligibility section for RSV in pregnancy */}
       {vaccineType === VaccineTypes.RSV_PREGNANCY && (
         <NonUrgentCareCard
@@ -91,7 +95,6 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
           }
         />
       )}
-
       {/* How-to-get-vaccine section for RSV in pregnancy */}
       {vaccineType === VaccineTypes.RSV_PREGNANCY && (
         <>
@@ -101,10 +104,8 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
           <hr />
         </>
       )}
-
       {/* Sections heading - H2 */}
       <h2 className="nhsuk-heading-s">{`More information about the ${vaccineInfo.displayName.midSentenceCase} vaccine`}</h2>
-
       {/* Expandable sections */}
       {contentError != ContentErrorTypes.CONTENT_LOADING_ERROR && styledVaccineContent != undefined ? (
         <MoreInformation styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />

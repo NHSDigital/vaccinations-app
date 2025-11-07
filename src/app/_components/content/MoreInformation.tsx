@@ -27,6 +27,14 @@ const MoreInformation = (props: {
           <Details.Text>{props.styledVaccineContent.whoVaccineIsFor.component}</Details.Text>
         </Details>
 
+        {/* How-to-get-the-vaccine expandable section */}
+        {props.vaccineType != VaccineTypes.RSV && props.vaccineType != VaccineTypes.RSV_PREGNANCY && (
+          <Details expander>
+            <Details.Summary>{HEADINGS.HOW_TO_GET_VACCINE}</Details.Summary>
+            <Details.Text>{props.styledVaccineContent.howToGetVaccine.component}</Details.Text>
+          </Details>
+        )}
+
         {/* Side-effects-of-the-vaccine expandable section */}
         <Details expander>
           <Details.Summary>{HEADINGS.VACCINE_SIDE_EFFECTS}</Details.Summary>

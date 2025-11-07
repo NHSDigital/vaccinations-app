@@ -61,6 +61,20 @@ describe("Any vaccine page", () => {
     await renderNamedVaccinePage(VaccineTypes.RSV);
   };
 
+  beforeEach(() => {
+    (auth as jest.Mock).mockResolvedValue({
+      user: {
+        nhs_number: nhsNumber,
+      },
+    });
+    const fakeHeaders: ReadonlyHeaders = {
+      get(name: string): string | null {
+        return `fake-${name}-header`;
+      },
+    } as ReadonlyHeaders;
+    (headers as jest.Mock).mockResolvedValue(fakeHeaders);
+  });
+
   describe("shows content section, when content available", () => {
     beforeEach(() => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
@@ -72,17 +86,14 @@ describe("Any vaccine page", () => {
           content: undefined,
         },
       });
-      (auth as jest.Mock).mockResolvedValue({
-        user: {
-          nhs_number: nhsNumber,
-        },
-      });
-      const fakeHeaders: ReadonlyHeaders = {
-        get(name: string): string | null {
-          return `fake-${name}-header`;
-        },
-      } as ReadonlyHeaders;
-      (headers as jest.Mock).mockResolvedValue(fakeHeaders);
+    });
+
+    it("should include overview text", async () => {
+      await renderNamedVaccinePage(VaccineTypes.TD_IPV_3_IN_1);
+
+      const overviewText: HTMLElement = screen.getByTestId("overview-text");
+
+      expect(overviewText).toBeInTheDocument();
     });
 
     it("should include lowercase vaccine name in more information text", async () => {
@@ -137,6 +148,14 @@ describe("Any vaccine page", () => {
           content: eligibilityContentBuilder().build(),
         },
       });
+    });
+
+    it("should not display overview paragraph", async () => {
+      await renderNamedVaccinePage(VaccineTypes.TD_IPV_3_IN_1);
+
+      const overviewText: HTMLElement | null = screen.queryByTestId("overview-text");
+
+      expect(overviewText).not.toBeInTheDocument();
     });
 
     it("should not display vaccine info expanders", async () => {
