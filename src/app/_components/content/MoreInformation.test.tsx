@@ -9,47 +9,28 @@ describe("MoreInformation component ", () => {
     const vaccineType = VaccineTypes.RSV;
     render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
 
-    const heading: HTMLElement = screen.getByText("What the vaccine is for");
-    const content: HTMLElement = screen.getByText("What Section styled component");
-
-    expect(heading).toBeInTheDocument();
-    expect(content).toBeInTheDocument();
+    expectExpanderBlockToBePresent("What the vaccine is for", "What Section styled component");
   });
 
   it("should display whoVaccineIsFor expander block", async () => {
     const vaccineType = VaccineTypes.RSV;
     render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
 
-    const heading: HTMLElement = screen.getByText("Who should have the vaccine");
-    const content: HTMLElement = screen.getByRole("heading", {
-      level: 2,
-      name: "Who Section styled component",
-    });
-
-    expect(heading).toBeInTheDocument();
-    expect(content).toBeInTheDocument();
+    expectExpanderBlockToBePresent("Who should have the vaccine", "Who Section styled component");
   });
 
   it("should display howToGet expander block", async () => {
     const vaccineType = VaccineTypes.TD_IPV_3_IN_1;
     render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
 
-    const heading: HTMLElement = screen.getByText("How to get the vaccine");
-    const content: HTMLElement = screen.getByText("How Section styled component");
-
-    expect(heading).toBeInTheDocument();
-    expect(content).toBeInTheDocument();
+    expectExpanderBlockToBePresent("How to get the vaccine", "How Section styled component");
   });
 
   it("should display vaccineSideEffects expander block", async () => {
     const vaccineType = VaccineTypes.RSV;
     render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
 
-    const heading: HTMLElement = screen.getByText("Side effects of the vaccine");
-    const content: HTMLElement = screen.getByText("Side effects section styled component");
-
-    expect(heading).toBeInTheDocument();
-    expect(content).toBeInTheDocument();
+    expectExpanderBlockToBePresent("Side effects of the vaccine", "Side effects section styled component");
   });
 
   it("should not include 'how to get' section for RSV_PREGNANCY ", async () => {
@@ -98,13 +79,14 @@ describe("MoreInformation component ", () => {
     const vaccineType = VaccineTypes.RSV;
     render(<MoreInformation styledVaccineContent={mockStyledContentWithoutWhatSection} vaccineType={vaccineType} />);
 
-    const whoVaccineIsForHeading: HTMLElement = screen.getByText("Who should have the vaccine");
-    const whoVaccineIsForContent: HTMLElement = screen.getByRole("heading", {
-      level: 2,
-      name: "Who Section styled component",
-    });
-
-    expect(whoVaccineIsForHeading).toBeInTheDocument();
-    expect(whoVaccineIsForContent).toBeInTheDocument();
+    expectExpanderBlockToBePresent("Who should have the vaccine", "Who Section styled component");
   });
 });
+
+const expectExpanderBlockToBePresent = (expanderHeading: string, expanderContent: string) => {
+  const heading: HTMLElement = screen.getByText(expanderHeading);
+  const content: HTMLElement = screen.getByText(expanderContent);
+
+  expect(heading).toBeInTheDocument();
+  expect(content).toBeInTheDocument();
+};
