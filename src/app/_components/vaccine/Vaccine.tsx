@@ -4,8 +4,7 @@ import { auth } from "@project/auth";
 import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
 import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
 import { MoreInformation } from "@src/app/_components/content/MoreInformation";
-import { Eligibility as EligibilityComponent } from "@src/app/_components/eligibility/Eligibility";
-import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
+import { EligibilityVaccinePageContent } from "@src/app/_components/eligibility/EligibilityVaccinePageContent";
 import { RSVPregnancyInfo } from "@src/app/_components/vaccine-custom/RSVPregnancyInfo";
 import { NhsNumber, VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
@@ -71,13 +70,14 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
           <p data-testid="overview-text">{styledVaccineContent?.overview}</p>
         </>
       )}
-      {/* Personalised eligibility section for RSV */}
-      {vaccineType === VaccineTypes.RSV && !eligibilityError && eligibility?.content && eligibility?.status && (
-        <EligibilityComponent eligibilityContent={eligibility.content} />
-      )}
-      {/* Fallback eligibility section for RSV */}
-      {vaccineType === VaccineTypes.RSV && eligibilityError && (
-        <RSVEligibilityFallback howToGetVaccineFallback={howToGetVaccineOrFallback} vaccineType={vaccineType} />
+      {/* Eligibility section for RSV */}
+      {vaccineType === VaccineTypes.RSV && (
+        <EligibilityVaccinePageContent
+          vaccineType={vaccineType}
+          eligibility={eligibility}
+          eligibilityError={eligibilityError}
+          howToGetVaccineOrFallback={howToGetVaccineOrFallback}
+        />
       )}
 
       {/* Static eligibility section for RSV in pregnancy */}
