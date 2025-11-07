@@ -36,7 +36,7 @@ Manually create the following error routes.
   - HTTP Response code: 500
 - Repeat the previous step for all other 5xx codes.
 
-### Setting default limits
+### Setting default limits and settings
 
 - Increase the default throughput limit of the parameter store, instructions [here](https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-throughput.html#parameter-store-throughput-increasing)
 - Also setup [service quotas automatic management](https://docs.aws.amazon.com/servicequotas/latest/userguide/automatic-management.html) to alert on Slack channel
@@ -44,6 +44,9 @@ Manually create the following error routes.
   - AWS Lambda > Concurrent executions: Default is 1000 counts.
   - AWS Systems Manager > Rate of GetParameter requests: Currently 10,000 per second. Cannot request an increase via AWS console.
   - AWS Key Management Service (AWS KMS) > Cryptographic operations (symmetric) request rate: Currently 20,000 per second (used by SSM and Lambda)
+- Setup important notifications
+  - AWS > User Notifications > Delivery Channels > Chat channels. Select the channel
+  - Turn ON all 4 AWS managed subscriptions
 
 ## One time setup (once for the team)
 
