@@ -10,6 +10,10 @@ export const RSV_PAGE_URL = "/vaccines/rsv";
 export const RSV_PREGNANCY_PAGE_TITLE = "RSV vaccine in pregnancy - Check and book an RSV vaccination - NHS";
 export const RSV_PREGNANCY_PAGE_URL = "/vaccines/rsv-pregnancy";
 
+export const TD_IPV_3_IN_1_PAGE_TITLE =
+  "Td/IPV vaccine (3-in-1 teenage booster) - Check and book an RSV vaccination - NHS";
+export const TD_IPV_3_IN_1_PAGE_URL = "/vaccines/td-ipv-vaccine-3-in-1-teenage-booster";
+
 export const COOKIE_POLICY_PAGE_TITLE = "Cookies policy - Check and book an RSV vaccination - NHS";
 export const COOKIE_POLICY_PAGE_URL = "our-policies/cookies-policy";
 

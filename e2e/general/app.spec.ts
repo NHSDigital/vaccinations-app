@@ -14,6 +14,8 @@ import {
   RSV_PREGNANCY_PAGE_TITLE,
   RSV_PREGNANCY_PAGE_URL,
   SESSION_LOGOUT_PAGE_TITLE,
+  TD_IPV_3_IN_1_PAGE_TITLE,
+  TD_IPV_3_IN_1_PAGE_URL,
   VACCINES_FOR_ALL_AGES_PAGE_TITLE,
   VACCINES_FOR_ALL_AGES_PAGE_URL,
 } from "../constants";
@@ -49,6 +51,13 @@ test.describe("Application", () => {
     await expect(page).toHaveTitle(RSV_PREGNANCY_PAGE_TITLE);
     await accessibilityCheck(page);
     await benchmarkIfChromium(page, RSV_PREGNANCY_PAGE_URL, MAX_AVG_LCP_DURATION_MS, testInfo);
+  });
+
+  test("Td/IPV page", async ({ page }, testInfo: TestInfo) => {
+    await page.goto(TD_IPV_3_IN_1_PAGE_URL);
+    await expect(page).toHaveTitle(TD_IPV_3_IN_1_PAGE_TITLE);
+    await accessibilityCheck(page);
+    await benchmarkIfChromium(page, TD_IPV_3_IN_1_PAGE_URL, MAX_AVG_LCP_DURATION_MS, testInfo);
   });
 
   test("Cookie policy page", async ({ page }, testInfo: TestInfo) => {
