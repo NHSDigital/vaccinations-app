@@ -1,6 +1,6 @@
 import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
 import { HEADINGS } from "@src/app/constants";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { StyledVaccineContent } from "@src/services/content-api/types";
 import { Details } from "nhsuk-react-components";
 import React, { JSX } from "react";
@@ -10,6 +10,11 @@ const MoreInformation = (props: {
   styledVaccineContent: StyledVaccineContent;
   vaccineType: VaccineTypes;
 }): JSX.Element => {
+  const vaccineInfo = VaccineInfo[props.vaccineType];
+  const showHowToGetExpander =
+    vaccineInfo.removeHowToGetExpanderFromMoreInformationSection === undefined ||
+    !vaccineInfo.removeHowToGetExpanderFromMoreInformationSection;
+
   return (
     <>
       <Details.ExpanderGroup data-testid="more-information-expander-group">
@@ -28,7 +33,7 @@ const MoreInformation = (props: {
         </Details>
 
         {/* How-to-get-the-vaccine expandable section */}
-        {props.vaccineType != VaccineTypes.RSV && props.vaccineType != VaccineTypes.RSV_PREGNANCY && (
+        {showHowToGetExpander && (
           <Details expander>
             <Details.Summary>{HEADINGS.HOW_TO_GET_VACCINE}</Details.Summary>
             <Details.Text>{props.styledVaccineContent.howToGetVaccine.component}</Details.Text>

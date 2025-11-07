@@ -33,7 +33,8 @@ export type VaccineDetails = {
   nhsWebpageLink: URL;
   nhsHowToGetWebpageLink: URL;
   personalisedEligibilityStatusRequired: boolean;
-  forOlderAdults: boolean;
+  forOlderAdults?: boolean;
+  removeHowToGetExpanderFromMoreInformationSection?: boolean;
 };
 
 type displayName = {
@@ -55,6 +56,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: true,
     forOlderAdults: true,
+    removeHowToGetExpanderFromMoreInformationSection: true,
   },
   [VaccineTypes.RSV_PREGNANCY]: {
     displayName: {
@@ -68,6 +70,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
     forOlderAdults: false,
+    removeHowToGetExpanderFromMoreInformationSection: true,
   },
   [VaccineTypes.TD_IPV_3_IN_1]: {
     displayName: {
@@ -82,7 +85,6 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
       "https://www.nhs.uk/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#how-to-get-it",
     ),
     personalisedEligibilityStatusRequired: false,
-    forOlderAdults: false,
   },
 };
 
