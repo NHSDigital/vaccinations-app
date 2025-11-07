@@ -1,6 +1,7 @@
 import { auth } from "@project/auth";
 import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
 import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
+import { RSVPregnancyInfo } from "@src/app/_components/vaccine-custom/RSVPregnancyInfo";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
@@ -25,6 +26,11 @@ jest.mock("@src/app/_components/eligibility/Eligibility", () => ({
 }));
 jest.mock("@src/app/_components/eligibility/RSVEligibilityFallback", () => ({
   RSVEligibilityFallback: jest.fn().mockImplementation(() => <div data-testid="elid-fallback-mock">EliD fallback</div>),
+}));
+jest.mock("@src/app/_components/vaccine-custom/RSVPregnancyInfo", () => ({
+  RSVPregnancyInfo: jest
+    .fn()
+    .mockImplementation(() => <div data-testid="rsv-pregnancy-mock">Test RSV Pregnancy Component</div>),
 }));
 jest.mock("@src/app/_components/content/MoreInformation", () => ({
   MoreInformation: jest.fn().mockImplementation(() => <div data-testid="more-information-mock">More Information</div>),
@@ -109,22 +115,28 @@ describe("Any vaccine page", () => {
       expect(moreInfoHeading).toBeInTheDocument();
     });
 
-    it("should display inset text for rsv in pregnancy", async () => {
+    it("should display custom RSV Pregnancy vaccine component with contentApi howToGet section", async () => {
       await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
 
-      const recommendedBlock: HTMLElement | undefined = screen.getAllByRole("heading", { level: 2 }).at(0);
-      expect(recommendedBlock).toHaveClass("nhsuk-card--care__heading");
-      expect(recommendedBlock?.innerHTML).toContain("The RSV vaccine is recommended if you:");
+      const rsvPregnancyInfo = screen.queryByTestId("rsv-pregnancy-mock");
+
+      expect(rsvPregnancyInfo).toBeInTheDocument();
+      expect(RSVPregnancyInfo).toHaveBeenCalledWith(
+        {
+          vaccineType: VaccineTypes.RSV_PREGNANCY,
+          howToGetVaccineOrFallback: mockStyledContent.howToGetVaccine.component,
+        },
+        undefined,
+      );
     });
 
-    it("should display how to get text outside of expander in rsv pregnancy page", async () => {
-      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
+    it("should not display RSV Pregnancy component when vaccineType is not RSV_PREGNANCY", async () => {
+      await renderNamedVaccinePage(VaccineTypes.TD_IPV_3_IN_1);
 
-      const heading: HTMLElement = screen.getByText("How to get the vaccine");
-      const content: HTMLElement = screen.getByText("How Section styled component");
+      const rsvPregnancyInfo = screen.queryByTestId("rsv-pregnancy-mock");
 
-      expect(heading).toBeInTheDocument();
-      expect(content).toBeInTheDocument();
+      expect(rsvPregnancyInfo).not.toBeInTheDocument();
+      expect(RSVPregnancyInfo).not.toHaveBeenCalled();
     });
 
     it("should not display find out more link", async () => {
@@ -189,12 +201,17 @@ describe("Any vaccine page", () => {
       expect(eligibilitySection).toBeInTheDocument();
     });
 
-    it("should display fallback how-to-get link on rsv pregnancy page", async () => {
-      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
+    it("should use fallback how-to-get text when rendering rsv pregnancy component", async () => {
+      const vaccineType = VaccineTypes.RSV_PREGNANCY;
+      await renderNamedVaccinePage(vaccineType);
 
-      const fallbackHowToGetLink: HTMLElement = screen.getByTestId("how-to-get-content-fallback-mock");
-
-      expect(fallbackHowToGetLink).toBeInTheDocument();
+      expect(RSVPregnancyInfo).toHaveBeenCalledWith(
+        {
+          vaccineType: vaccineType,
+          howToGetVaccineOrFallback: <HowToGetVaccineFallback vaccineType={vaccineType} />,
+        },
+        undefined,
+      );
     });
 
     it("should still display hr above MoreInformation section", async () => {
@@ -237,14 +254,6 @@ describe("Any vaccine page", () => {
       await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
 
       expect(getEligibilityForPerson).not.toHaveBeenCalled();
-    });
-
-    it("should contain pharmacy booking link in how to get section", async () => {
-      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
-
-      const pharmacyBookingLink = screen.getByTestId("pharmacy-booking-link-mock");
-
-      expect(pharmacyBookingLink).toBeVisible();
     });
 
     it("should not display the eligibility when there is no content ", async () => {

@@ -6,9 +6,7 @@ import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVa
 import { MoreInformation } from "@src/app/_components/content/MoreInformation";
 import { Eligibility as EligibilityComponent } from "@src/app/_components/eligibility/Eligibility";
 import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
-import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
-import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
-import { HEADINGS } from "@src/app/constants";
+import { RSVPregnancyInfo } from "@src/app/_components/vaccine-custom/RSVPregnancyInfo";
 import { NhsNumber, VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { ContentErrorTypes, StyledVaccineContent } from "@src/services/content-api/types";
@@ -81,27 +79,10 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
       {vaccineType === VaccineTypes.RSV && eligibilityError && (
         <RSVEligibilityFallback howToGetVaccineFallback={howToGetVaccineOrFallback} vaccineType={vaccineType} />
       )}
+
       {/* Static eligibility section for RSV in pregnancy */}
       {vaccineType === VaccineTypes.RSV_PREGNANCY && (
-        <NonUrgentCareCard
-          heading={"The RSV vaccine is recommended if you:"}
-          content={
-            <>
-              <ul>
-                <li>are over 28 weeks pregnant</li>
-                <li>have not had the vaccine during this pregnancy</li>
-              </ul>
-            </>
-          }
-        />
-      )}
-      {/* How-to-get-vaccine section for RSV in pregnancy */}
-      {vaccineType === VaccineTypes.RSV_PREGNANCY && (
-        <>
-          <h3>{HEADINGS.HOW_TO_GET_VACCINE}</h3>
-          {howToGetVaccineOrFallback}
-          <PharmacyBookingInfo vaccineType={vaccineType} />
-        </>
+        <RSVPregnancyInfo vaccineType={vaccineType} howToGetVaccineOrFallback={howToGetVaccineOrFallback} />
       )}
 
       {!vaccineInfo.personalisedEligibilityStatusRequired && <hr data-testid="more-information-hr" />}
