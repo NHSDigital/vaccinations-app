@@ -18,7 +18,7 @@ const VaccinesForAllAges = (): JSX.Element => {
         </p>
 
         <h2 className="nhsuk-heading-s">Vaccines for adults</h2>
-        <ul className="nhsapp-cards nhsapp-cards--stacked">
+        <ul className="nhsapp-cards nhsapp-cards--stacked" data-testid={"vaccine-cardlinks-adults"}>
           <CardLink
             title={`${VaccineInfo[VaccineTypes.RSV].cardLinkTitle}`}
             link={`/vaccines/${VaccineContentUrlPaths.RSV}`}
@@ -26,7 +26,7 @@ const VaccinesForAllAges = (): JSX.Element => {
         </ul>
 
         <h2 className="nhsuk-heading-s">Vaccines for pregnancy</h2>
-        <ul className="nhsapp-cards nhsapp-cards--stacked">
+        <ul className="nhsapp-cards nhsapp-cards--stacked" data-testid="vaccine-cardlinks-pregnancy">
           <CardLink
             title={`${VaccineInfo[VaccineTypes.RSV_PREGNANCY].cardLinkTitle}`}
             link={`/vaccines/${VaccineContentUrlPaths.RSV_PREGNANCY}`}
@@ -34,7 +34,14 @@ const VaccinesForAllAges = (): JSX.Element => {
         </ul>
 
         <h2 className="nhsuk-heading-s">Vaccines for children aged 1 to 15</h2>
+        <ul className="nhsapp-cards nhsapp-cards--stacked" data-testid="vaccine-cardlinks-children">
+          <CardLink
+            title={`${VaccineInfo[VaccineTypes.TD_IPV_3_IN_1].cardLinkTitle}`}
+            link={`/vaccines/${VaccineContentUrlPaths.TD_IPV_3_IN_1}`}
+          />
+        </ul>
         <h2 className="nhsuk-heading-s">Vaccines for babies under 1 year old</h2>
+        <ul className="nhsapp-cards nhsapp-cards--stacked" data-testid={"vaccine-cardlinks-babies"}></ul>
       </MainContent>
     </>
   );

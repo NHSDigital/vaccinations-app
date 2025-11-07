@@ -1,6 +1,13 @@
 import VaccinesForAllAges from "@src/app/vaccines-for-all-ages/page";
 import { assertBackLinkIsPresent } from "@test-data/utils/back-link-helpers";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
+
+enum AgeSectionTestId {
+  ADULTS = "vaccine-cardlinks-adults",
+  CHILDREN = "vaccine-cardlinks-children",
+  PREGNANCY = "vaccine-cardlinks-pregnancy",
+  //  BABIES = "vaccine-cardlinks-babies"
+}
 
 jest.mock("@src/app/_components/nhs-frontend/BackLink", () => jest.fn(() => <div data-testid="back-link"></div>));
 
@@ -35,8 +42,13 @@ describe("VaccinesForAllAges", () => {
   it("should render all vaccine card links", () => {
     render(<VaccinesForAllAges />);
 
-    assertCardLinkIsPresent("RSV", "/vaccines/rsv");
-    assertCardLinkIsPresent("RSV in pregnancy", "/vaccines/rsv-pregnancy");
+    assertCardLinkIsPresentInSection("RSV", "/vaccines/rsv", AgeSectionTestId.ADULTS);
+    assertCardLinkIsPresentInSection("RSV in pregnancy", "/vaccines/rsv-pregnancy", AgeSectionTestId.PREGNANCY);
+    assertCardLinkIsPresentInSection(
+      "Td/IPV (3-in-1 teenage booster)",
+      "/vaccines/td-ipv-vaccine-3-in-1-teenage-booster",
+      AgeSectionTestId.CHILDREN,
+    );
   });
 
   it("should render back link", () => {
@@ -52,9 +64,11 @@ const assertSubheadingIsPresent = (text: string) => {
   expect(subheading).toBeVisible();
 };
 
-const assertCardLinkIsPresent = (text: string, link: string) => {
-  const rsvLink: HTMLElement = screen.getByRole("link", { name: text });
+const assertCardLinkIsPresentInSection = (text: string, path: string, section: string) => {
+  const ageSection = screen.getByTestId(section);
 
-  expect(rsvLink).toBeVisible();
-  expect(rsvLink.getAttribute("href")).toEqual(link);
+  const link: HTMLElement = within(ageSection).getByRole("link", { name: text });
+
+  expect(link).toBeVisible();
+  expect(link.getAttribute("href")).toEqual(path);
 };
