@@ -29,7 +29,7 @@ const vaccineTypeToUrlPath: Record<VaccineTypes, VaccineContentUrlPaths> = {
 export type VaccineDetails = {
   displayName: displayName;
   heading: string;
-  newHeading: string; // this is going to be replaced by above heading
+  cardLinkTitle: string;
   nhsWebpageLink: URL;
   nhsHowToGetWebpageLink: URL;
   personalisedEligibilityStatusRequired: boolean;
@@ -50,7 +50,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
       indefiniteArticle: "an",
     },
     heading: "RSV vaccine for older adults",
-    newHeading: "RSV",
+    cardLinkTitle: "RSV",
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: true,
@@ -63,7 +63,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
       indefiniteArticle: "an",
     },
     heading: "RSV vaccine in pregnancy",
-    newHeading: "RSV in pregnancy",
+    cardLinkTitle: "RSV in pregnancy",
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
@@ -76,7 +76,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
       indefiniteArticle: "a",
     },
     heading: "Td/IPV vaccine (3-in-1 teenage booster)",
-    newHeading: "", // will be deleted in the future
+    cardLinkTitle: "",
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/"),
     nhsHowToGetWebpageLink: new URL(
       "https://www.nhs.uk/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#how-to-get-it",

@@ -20,7 +20,7 @@ const VaccinesForAllAges = (): JSX.Element => {
         <h2 className="nhsuk-heading-s">Vaccines for adults</h2>
         <ul className="nhsapp-cards nhsapp-cards--stacked">
           <CardLink
-            title={`${VaccineInfo[VaccineTypes.RSV].newHeading}`}
+            title={`${VaccineInfo[VaccineTypes.RSV].cardLinkTitle}`}
             link={`/vaccines/${VaccineContentUrlPaths.RSV}`}
           />
         </ul>
@@ -28,7 +28,7 @@ const VaccinesForAllAges = (): JSX.Element => {
         <h2 className="nhsuk-heading-s">Vaccines for pregnancy</h2>
         <ul className="nhsapp-cards nhsapp-cards--stacked">
           <CardLink
-            title={`${VaccineInfo[VaccineTypes.RSV_PREGNANCY].newHeading}`}
+            title={`${VaccineInfo[VaccineTypes.RSV_PREGNANCY].cardLinkTitle}`}
             link={`/vaccines/${VaccineContentUrlPaths.RSV_PREGNANCY}`}
           />
         </ul>
