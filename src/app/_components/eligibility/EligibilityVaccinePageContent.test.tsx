@@ -15,43 +15,23 @@ jest.mock("@src/app/_components/eligibility/RSVEligibilityFallback", () => ({
   RSVEligibilityFallback: jest.fn().mockImplementation(() => <div data-testid="elid-fallback-mock">EliD fallback</div>),
 }));
 
+const eligibilityForPerson = {
+  eligibility: {
+    status: EligibilityStatus.NOT_ELIGIBLE,
+    content: eligibilityContentBuilder().build(),
+  },
+  eligibilityError: undefined,
+};
+
+const eligibilityUnavailable = {
+  eligibility: undefined,
+  eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+};
+const howToGetContent = <div>How Section styled component</div>;
+const howToGetContentFallback = <HowToGetVaccineFallback vaccineType={VaccineTypes.RSV} />;
+
 describe("EligibilityVaccinePageContent", () => {
-  describe("when content load has failed", () => {
-    const eligibilityForPerson = {
-      eligibility: {
-        status: EligibilityStatus.NOT_ELIGIBLE,
-        content: eligibilityContentBuilder().build(),
-      },
-      eligibilityError: undefined,
-    };
-
-    const howToGetContentFallback = <HowToGetVaccineFallback vaccineType={VaccineTypes.RSV} />;
-
-    it("should still render eligibility section of vaccine page", async () => {
-      render(
-        <EligibilityVaccinePageContent
-          vaccineType={VaccineTypes.RSV}
-          eligibilityForPerson={eligibilityForPerson}
-          howToGetVaccineOrFallback={howToGetContentFallback}
-        />,
-      );
-
-      const eligibilitySection: HTMLElement = screen.getByText("Test Eligibility Component");
-      expect(eligibilitySection).toBeInTheDocument();
-    });
-  });
-
-  describe("when eligibility content available", () => {
-    const eligibilityForPerson = {
-      eligibility: {
-        status: EligibilityStatus.NOT_ELIGIBLE,
-        content: eligibilityContentBuilder().build(),
-      },
-      eligibilityError: undefined,
-    };
-
-    const howToGetContent = <div>How Section styled component</div>;
-
+  describe("when eligibility data available", () => {
     it("should display the eligibility on RSV vaccine page", async () => {
       render(
         <EligibilityVaccinePageContent
@@ -66,15 +46,8 @@ describe("EligibilityVaccinePageContent", () => {
     });
   });
 
-  describe("when eligibility content not available", () => {
-    const eligibilityUnavailable = {
-      eligibility: undefined,
-      eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
-    };
-
-    const howToGetContent = <div>How Section styled component</div>;
-
-    it("should display fallback eligibility component using howToGet text from content-api when eligibility API has failed", async () => {
+  describe("when eligibility data not available", () => {
+    it("should display fallback RSV eligibility component using howToGet text from content-api when eligibility API has failed", async () => {
       const vaccineType = VaccineTypes.RSV;
 
       render(
@@ -98,14 +71,22 @@ describe("EligibilityVaccinePageContent", () => {
     });
   });
 
-  describe("shows content and eligibility sections, when eligibility AND content not available", () => {
-    const eligibilityUnavailable = {
-      eligibility: undefined,
-      eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
-    };
+  describe("when eligibility data available but content service fallback", () => {
+    it("should still render eligibility section of vaccine page", async () => {
+      render(
+        <EligibilityVaccinePageContent
+          vaccineType={VaccineTypes.RSV}
+          eligibilityForPerson={eligibilityForPerson}
+          howToGetVaccineOrFallback={howToGetContentFallback}
+        />,
+      );
 
-    const howToGetVaccineFallback = <HowToGetVaccineFallback vaccineType={VaccineTypes.RSV} />;
+      const eligibilitySection: HTMLElement = screen.getByText("Test Eligibility Component");
+      expect(eligibilitySection).toBeInTheDocument();
+    });
+  });
 
+  describe("when eligibility AND content not available", () => {
     it("should use fallback how-to-get text when rendering eligibility fallback component", async () => {
       const vaccineType = VaccineTypes.RSV;
 
@@ -113,7 +94,7 @@ describe("EligibilityVaccinePageContent", () => {
         <EligibilityVaccinePageContent
           vaccineType={VaccineTypes.RSV}
           eligibilityForPerson={eligibilityUnavailable}
-          howToGetVaccineOrFallback={howToGetVaccineFallback}
+          howToGetVaccineOrFallback={howToGetContentFallback}
         />,
       );
 
