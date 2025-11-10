@@ -1,6 +1,6 @@
 import { Page, TestInfo, expect, test } from "@playwright/test";
 import { AppPageDetails, type PageDetails } from "@project/e2e/constants";
-import { getEnv, openExpanders, pathForCustomScreenshots } from "@project/e2e/helpers";
+import { getEnv, openExpandersIfPresent, pathForCustomScreenshots } from "@project/e2e/helpers";
 
 const currentDatetime = getEnv("CURRENT_DATETIME");
 const checkoutRef = getEnv("CHECKOUT_REF");
@@ -16,9 +16,7 @@ const testPageSnapshot = async (
   await page.goto(pageRoute);
   await page.getByRole("link", { name: "Log out" }).waitFor();
 
-  if ([AppPageDetails["rsv-older-adults"].url, AppPageDetails["rsv-pregnancy"].url].includes(pageRoute)) {
-    await openExpanders(page);
-  }
+  await openExpandersIfPresent(page);
 
   // This screenshot is NOT used for comparison; used to upload to S3 on failure
   await page.screenshot({

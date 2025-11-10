@@ -1,5 +1,5 @@
 import AxeBuilder from "@axe-core/playwright";
-import { Page, TestInfo, expect } from "@playwright/test";
+import { Locator, Page, TestInfo, expect } from "@playwright/test";
 import { snapshotPathTemplate } from "@project/playwright.config";
 
 declare global {
@@ -75,7 +75,7 @@ export const accessibilityCheck = async (page: Page) => {
 export const pathForCustomScreenshots = (testFileName: string, screenshotFileName: string, projectName: string) => {
   const baseFile: string = screenshotFileName.substring(0, screenshotFileName.lastIndexOf("."));
 
-  const path = snapshotPathTemplate
+  return snapshotPathTemplate
     .replace("{testDir}", "./e2e")
     .replace("__snapshots__", "snapshot_review")
     .replace("{testFileName}", testFileName)
@@ -83,15 +83,21 @@ export const pathForCustomScreenshots = (testFileName: string, screenshotFileNam
     .replace("{projectName}", projectName)
     .replace("{platform}", process.platform)
     .replace("{ext}", ".png");
-
-  return path;
 };
 
-export const openExpanders = async (page: Page) => {
-  const expanderTitles = ["What the vaccine is for", "Who should have the vaccine", "Side effects of the vaccine"];
+export const openExpandersIfPresent = async (page: Page) => {
+  const expanderTitles = [
+    "What the vaccine is for",
+    "Who should have the vaccine",
+    "How to get the vaccine",
+    "Side effects of the vaccine",
+  ];
 
   for (const title of expanderTitles) {
-    await page.getByText(title).click();
+    const expander: Locator = page.getByText(title);
+    if ((await expander.count()) > 0) {
+      await expander.click();
+    }
   }
 
   await page.mouse.click(0, 0);

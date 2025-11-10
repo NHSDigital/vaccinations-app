@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { AppPageDetails } from "@project/e2e/constants";
-import { getEnv, openExpanders, pathForCustomScreenshots } from "@project/e2e/helpers";
+import { getEnv, openExpandersIfPresent, pathForCustomScreenshots } from "@project/e2e/helpers";
 import users from "@test-data/test-users.json" with { type: "json" };
 
 const currentDatetime = getEnv("CURRENT_DATETIME");
@@ -27,7 +27,7 @@ test.describe(`Snapshot Testing - Eligibility - ${currentDatetime}-${checkoutRef
 
           await page.goto(AppPageDetails["rsv-older-adults"].url);
           await page.getByRole("link", { name: "Log out" }).waitFor();
-          await openExpanders(page);
+          await openExpandersIfPresent(page);
 
           // This screenshot is NOT used for comparison; used to upload to S3 on failure
           await page.screenshot({
