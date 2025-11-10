@@ -1,6 +1,8 @@
 import { isValidSignIn } from "@src/utils/auth/callbacks/is-valid-signin";
+import type { DecodedIdToken } from "@src/utils/auth/types";
 import { AppConfig } from "@src/utils/config";
 import { appConfigBuilder } from "@test-data/config/builders";
+import { createTypeBuilder } from "@test-data/meta-builder";
 import { jwtDecode } from "jwt-decode";
 import { Account } from "next-auth";
 
@@ -12,6 +14,15 @@ describe("isValidSignIn", () => {
     .withNHS_LOGIN_URL("https://mock.nhs.login/")
     .andNHS_LOGIN_CLIENT_ID("mock-client-id")
     .build();
+
+  const decodedIdTokenBuilder = () => {
+    return createTypeBuilder<DecodedIdToken>({
+      iss: mockConfig.NHS_LOGIN_URL,
+      aud: mockConfig.NHS_LOGIN_CLIENT_ID,
+      identity_proofing_level: "P9",
+      vot: "P9.Cp.Ck",
+    });
+  };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -32,12 +43,7 @@ describe("isValidSignIn", () => {
   it("should return true if token is valid", () => {
     const mockAccount = { id_token: "valid-token" } as Account;
 
-    (jwtDecode as jest.Mock).mockReturnValue({
-      iss: mockConfig.NHS_LOGIN_URL,
-      aud: mockConfig.NHS_LOGIN_CLIENT_ID,
-      identity_proofing_level: "P9",
-      vot: "P9.Cp.Ck",
-    });
+    (jwtDecode as jest.Mock).mockReturnValue(decodedIdTokenBuilder().build());
 
     const result = isValidSignIn(mockAccount, mockConfig);
     expect(result).toBe(true);
@@ -46,12 +52,7 @@ describe("isValidSignIn", () => {
   it("should return false and logs if iss is invalid", () => {
     const mockAccount = { id_token: "invalid-token" } as Account;
 
-    (jwtDecode as jest.Mock).mockReturnValue({
-      iss: "incorrect-issuer",
-      aud: mockConfig.NHS_LOGIN_CLIENT_ID,
-      identity_proofing_level: "P9",
-      vot: "P9.Cp.Ck",
-    });
+    (jwtDecode as jest.Mock).mockReturnValue(decodedIdTokenBuilder().withIss("incorrect-issuer").build());
 
     const result = isValidSignIn(mockAccount, mockConfig);
     expect(result).toBe(false);
@@ -60,12 +61,7 @@ describe("isValidSignIn", () => {
   it("should return false and logs if aud is invalid", () => {
     const mockAccount = { id_token: "invalid-token" } as Account;
 
-    (jwtDecode as jest.Mock).mockReturnValue({
-      iss: mockConfig.NHS_LOGIN_URL,
-      aud: "incorrect-audience",
-      identity_proofing_level: "P9",
-      vot: "P9.Cp.Ck",
-    });
+    (jwtDecode as jest.Mock).mockReturnValue(decodedIdTokenBuilder().withAud("incorrect-audience").build());
 
     const result = isValidSignIn(mockAccount, mockConfig);
     expect(result).toBe(false);
@@ -74,12 +70,7 @@ describe("isValidSignIn", () => {
   it("should return false and logs if identity_proofing_level is invalid", () => {
     const mockAccount = { id_token: "invalid-token" } as Account;
 
-    (jwtDecode as jest.Mock).mockReturnValue({
-      iss: mockConfig.NHS_LOGIN_URL,
-      aud: mockConfig.NHS_LOGIN_CLIENT_ID,
-      identity_proofing_level: "P0",
-      vot: "P9.Cp.Ck",
-    });
+    (jwtDecode as jest.Mock).mockReturnValue(decodedIdTokenBuilder().withIdentity_proofing_level("P0").build());
 
     const result = isValidSignIn(mockAccount, mockConfig);
     expect(result).toBe(false);
@@ -88,12 +79,7 @@ describe("isValidSignIn", () => {
   it("should return false and logs if vot is invalid", () => {
     const mockAccount = { id_token: "invalid-token" } as Account;
 
-    (jwtDecode as jest.Mock).mockReturnValue({
-      iss: mockConfig.NHS_LOGIN_URL,
-      aud: mockConfig.NHS_LOGIN_CLIENT_ID,
-      identity_proofing_level: "P9",
-      vot: "P9.Sausages",
-    });
+    (jwtDecode as jest.Mock).mockReturnValue(decodedIdTokenBuilder().withVot("P9.Sausages").build());
 
     const result = isValidSignIn(mockAccount, mockConfig);
     expect(result).toBe(false);
