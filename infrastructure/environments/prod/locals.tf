@@ -45,7 +45,6 @@ locals {
     APIM_KEY_ID              = "prod-1"
 
     AUTH_TRUST_HOST = "true"
-    AUTH_SECRET     = random_password.auth_secret.result
     APP_VERSION     = local.app_version
 
     NBS_URL          = "https://www.nhs.uk/nbs"
@@ -60,12 +59,6 @@ locals {
     Project     = local.project_identifier
     Environment = local.environment
   }
-}
-
-resource "random_password" "auth_secret" {
-  length           = 64
-  special          = true
-  override_special = "/+"
 }
 
 resource "null_resource" "check_workspace" {

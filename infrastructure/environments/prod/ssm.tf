@@ -32,3 +32,16 @@ resource "aws_ssm_parameter" "apim_private_key" {
   value_wo         = "to-be-replaced-manually"
   value_wo_version = 0
 }
+
+resource "aws_ssm_parameter" "auth_secret" {
+  name             = "/${local.prefix}/AUTH_SECRET"
+  type             = "SecureString"
+  value_wo         = random_password.auth_secret.result
+  value_wo_version = 0
+}
+
+resource "random_password" "auth_secret" {
+  length           = 64
+  special          = true
+  override_special = "/+"
+}
