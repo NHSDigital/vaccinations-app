@@ -17,9 +17,12 @@ jest.mock("@src/app/_components/eligibility/RSVEligibilityFallback", () => ({
 
 describe("EligibilityVaccinePageContent", () => {
   describe("when content load has failed", () => {
-    const eligibility = {
-      status: EligibilityStatus.NOT_ELIGIBLE,
-      content: eligibilityContentBuilder().build(),
+    const eligibilityForPerson = {
+      eligibility: {
+        status: EligibilityStatus.NOT_ELIGIBLE,
+        content: eligibilityContentBuilder().build(),
+      },
+      eligibilityError: undefined,
     };
 
     const howToGetContentFallback = <HowToGetVaccineFallback vaccineType={VaccineTypes.RSV} />;
@@ -28,8 +31,7 @@ describe("EligibilityVaccinePageContent", () => {
       render(
         <EligibilityVaccinePageContent
           vaccineType={VaccineTypes.RSV}
-          eligibility={eligibility}
-          eligibilityError={undefined}
+          eligibilityForPerson={eligibilityForPerson}
           howToGetVaccineOrFallback={howToGetContentFallback}
         />,
       );
@@ -40,9 +42,12 @@ describe("EligibilityVaccinePageContent", () => {
   });
 
   describe("when eligibility content available", () => {
-    const eligibility = {
-      status: EligibilityStatus.NOT_ELIGIBLE,
-      content: eligibilityContentBuilder().build(),
+    const eligibilityForPerson = {
+      eligibility: {
+        status: EligibilityStatus.NOT_ELIGIBLE,
+        content: eligibilityContentBuilder().build(),
+      },
+      eligibilityError: undefined,
     };
 
     const howToGetContent = <div>How Section styled component</div>;
@@ -51,8 +56,7 @@ describe("EligibilityVaccinePageContent", () => {
       render(
         <EligibilityVaccinePageContent
           vaccineType={VaccineTypes.RSV}
-          eligibility={eligibility}
-          eligibilityError={undefined}
+          eligibilityForPerson={eligibilityForPerson}
           howToGetVaccineOrFallback={howToGetContent}
         />,
       );
@@ -63,10 +67,10 @@ describe("EligibilityVaccinePageContent", () => {
   });
 
   describe("when eligibility content not available", () => {
-    // const eligibilityUnavailable = {
-    //   eligibility: undefined,
-    //   eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
-    // };
+    const eligibilityUnavailable = {
+      eligibility: undefined,
+      eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+    };
 
     const howToGetContent = <div>How Section styled component</div>;
 
@@ -76,8 +80,7 @@ describe("EligibilityVaccinePageContent", () => {
       render(
         <EligibilityVaccinePageContent
           vaccineType={VaccineTypes.RSV}
-          eligibility={undefined}
-          eligibilityError={EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR}
+          eligibilityForPerson={eligibilityUnavailable}
           howToGetVaccineOrFallback={howToGetContent}
         />,
       );
@@ -96,10 +99,10 @@ describe("EligibilityVaccinePageContent", () => {
   });
 
   describe("shows content and eligibility sections, when eligibility AND content not available", () => {
-    // const eligibilityUnavailable = {
-    //   eligibility: undefined,
-    //   eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
-    // };
+    const eligibilityUnavailable = {
+      eligibility: undefined,
+      eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+    };
 
     const howToGetVaccineFallback = <HowToGetVaccineFallback vaccineType={VaccineTypes.RSV} />;
 
@@ -109,8 +112,7 @@ describe("EligibilityVaccinePageContent", () => {
       render(
         <EligibilityVaccinePageContent
           vaccineType={VaccineTypes.RSV}
-          eligibility={undefined}
-          eligibilityError={EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR}
+          eligibilityForPerson={eligibilityUnavailable}
           howToGetVaccineOrFallback={howToGetVaccineFallback}
         />,
       );

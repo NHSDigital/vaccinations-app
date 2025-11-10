@@ -153,9 +153,12 @@ describe("Any vaccine page", () => {
   });
 
   describe("shows content section, when content load fails", () => {
-    const eligibilityMockResult = {
-      status: EligibilityStatus.NOT_ELIGIBLE,
-      content: eligibilityContentBuilder().build(),
+    const eligibilityForPerson = {
+      eligibility: {
+        status: EligibilityStatus.NOT_ELIGIBLE,
+        content: eligibilityContentBuilder().build(),
+      },
+      eligibilityError: undefined,
     };
 
     beforeEach(() => {
@@ -163,9 +166,7 @@ describe("Any vaccine page", () => {
         styledVaccineContent: undefined,
         contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
       });
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
-        eligibility: eligibilityMockResult,
-      });
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilityForPerson);
     });
 
     it("should not display overview paragraph", async () => {
@@ -201,8 +202,7 @@ describe("Any vaccine page", () => {
       expect(EligibilityVaccinePageContent).toHaveBeenCalledWith(
         {
           vaccineType: VaccineTypes.RSV,
-          eligibility: eligibilityMockResult,
-          eligibilityError: undefined,
+          eligibilityForPerson: eligibilityForPerson,
           howToGetVaccineOrFallback: <HowToGetVaccineFallback vaccineType={VaccineTypes.RSV} />,
         },
         undefined,
@@ -232,18 +232,19 @@ describe("Any vaccine page", () => {
   });
 
   describe("shows eligibility section, when eligibility response available", () => {
-    const eligibility = {
-      status: EligibilityStatus.NOT_ELIGIBLE,
-      content: eligibilityContentBuilder().build(),
+    const eligibilityForPerson = {
+      eligibility: {
+        status: EligibilityStatus.NOT_ELIGIBLE,
+        content: eligibilityContentBuilder().build(),
+      },
+      eligibilityError: undefined,
     };
 
     beforeEach(() => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
         styledVaccineContent: mockStyledContent,
       });
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
-        eligibility: eligibility,
-      });
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilityForPerson);
     });
 
     it("should display the eligibility on RSV vaccine page", async () => {
@@ -254,8 +255,7 @@ describe("Any vaccine page", () => {
       expect(EligibilityVaccinePageContent).toHaveBeenCalledWith(
         {
           vaccineType: VaccineTypes.RSV,
-          eligibility: eligibility,
-          eligibilityError: undefined,
+          eligibilityForPerson: eligibilityForPerson,
           howToGetVaccineOrFallback: mockStyledContent.howToGetVaccine.component,
         },
         undefined,
@@ -283,16 +283,17 @@ describe("Any vaccine page", () => {
 
     it("should pass eligibility on to eligibility component even if there is no content ", async () => {
       const eligibilityResponseWithNoContentSection = {
-        status: EligibilityStatus.NOT_ELIGIBLE,
-        content: {
-          summary: undefined,
-          actions: [],
-          suitabilityRules: [],
+        eligibility: {
+          status: EligibilityStatus.NOT_ELIGIBLE,
+          content: {
+            summary: undefined,
+            actions: [],
+            suitabilityRules: [],
+          },
         },
+        eligibilityError: undefined,
       };
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
-        eligibility: eligibilityResponseWithNoContentSection,
-      });
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilityResponseWithNoContentSection);
 
       await renderNamedVaccinePage(VaccineTypes.RSV);
 
@@ -301,8 +302,7 @@ describe("Any vaccine page", () => {
       expect(EligibilityVaccinePageContent).toHaveBeenCalledWith(
         {
           vaccineType: VaccineTypes.RSV,
-          eligibility: eligibilityResponseWithNoContentSection,
-          eligibilityError: undefined,
+          eligibilityForPerson: eligibilityResponseWithNoContentSection,
           howToGetVaccineOrFallback: mockStyledContent.howToGetVaccine.component,
         },
         undefined,
@@ -319,8 +319,10 @@ describe("Any vaccine page", () => {
       expect(EligibilityVaccinePageContent).toHaveBeenCalledWith(
         {
           vaccineType: VaccineTypes.RSV,
-          eligibility: undefined,
-          eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+          eligibilityForPerson: {
+            eligibility: undefined,
+            eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+          },
           howToGetVaccineOrFallback: mockStyledContent.howToGetVaccine.component,
         },
         undefined,
@@ -359,8 +361,7 @@ describe("Any vaccine page", () => {
       expect(EligibilityVaccinePageContent).toHaveBeenCalledWith(
         {
           vaccineType: VaccineTypes.RSV,
-          eligibility: undefined,
-          eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+          eligibilityForPerson: eligibilityUnavailable,
           howToGetVaccineOrFallback: mockStyledContent.howToGetVaccine.component,
         },
         undefined,
@@ -392,8 +393,7 @@ describe("Any vaccine page", () => {
       expect(EligibilityVaccinePageContent).toHaveBeenCalledWith(
         {
           vaccineType: VaccineTypes.RSV,
-          eligibility: undefined,
-          eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+          eligibilityForPerson: eligibilityUnavailable,
           howToGetVaccineOrFallback: <HowToGetVaccineFallback vaccineType={VaccineTypes.RSV} />,
         },
         undefined,

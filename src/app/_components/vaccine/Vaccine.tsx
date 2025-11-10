@@ -10,7 +10,7 @@ import { NhsNumber, VaccineDetails, VaccineInfo, VaccineTypes } from "@src/model
 import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { ContentErrorTypes, StyledVaccineContent } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
-import { Eligibility, EligibilityErrorTypes } from "@src/services/eligibility-api/types";
+import { EligibilityErrorTypes, EligibilityForPersonType } from "@src/services/eligibility-api/types";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { requestScopedStorageWrapper } from "@src/utils/requestScopedStorageWrapper";
 import { Session } from "next-auth";
@@ -37,11 +37,10 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
 
   let styledVaccineContent: StyledVaccineContent | undefined;
   let contentError: ContentErrorTypes | undefined;
-  let eligibility: Eligibility | undefined;
-  let eligibilityError: EligibilityErrorTypes | undefined;
+  let eligibilityForPerson: EligibilityForPersonType | undefined;
 
   if (vaccineInfo.personalisedEligibilityStatusRequired) {
-    [{ styledVaccineContent, contentError }, { eligibility, eligibilityError }] = await Promise.all([
+    [{ styledVaccineContent, contentError }, eligibilityForPerson] = await Promise.all([
       getContentForVaccine(vaccineType),
       nhsNumber
         ? getEligibilityForPerson(vaccineType, nhsNumber)
@@ -71,11 +70,10 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
         </>
       )}
       {/* Eligibility section for RSV */}
-      {vaccineType === VaccineTypes.RSV && (
+      {vaccineType === VaccineTypes.RSV && eligibilityForPerson !== undefined && (
         <EligibilityVaccinePageContent
           vaccineType={vaccineType}
-          eligibility={eligibility}
-          eligibilityError={eligibilityError}
+          eligibilityForPerson={eligibilityForPerson}
           howToGetVaccineOrFallback={howToGetVaccineOrFallback}
         />
       )}
