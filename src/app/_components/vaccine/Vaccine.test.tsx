@@ -58,6 +58,28 @@ jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 const nhsNumber = "5123456789";
 
+const eligibilitySuccessResponse = {
+  eligibility: {
+    status: EligibilityStatus.NOT_ELIGIBLE,
+    content: eligibilityContentBuilder().build(),
+  },
+  eligibilityError: undefined,
+};
+
+const eligibilityErrorResponse = {
+  eligibility: undefined,
+  eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
+};
+
+const contentSuccessResponse = {
+  styledVaccineContent: mockStyledContent,
+};
+
+const contentErrorResponse = {
+  styledVaccineContent: undefined,
+  contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
+};
+
 describe("Any vaccine page", () => {
   const renderNamedVaccinePage = async (vaccineType: VaccineTypes) => {
     render(await Vaccine({ vaccineType: vaccineType }));
@@ -65,6 +87,14 @@ describe("Any vaccine page", () => {
 
   const renderRsvVaccinePage = async () => {
     await renderNamedVaccinePage(VaccineTypes.RSV);
+  };
+
+  const expectTdIPVPageToHaveHrAboveMoreInformationSection = async () => {
+    await renderNamedVaccinePage(VaccineTypes.TD_IPV_3_IN_1);
+
+    const hrAboveMoreInformation: HTMLElement = screen.getByTestId("more-information-hr");
+
+    expect(hrAboveMoreInformation).toBeInTheDocument();
   };
 
   beforeEach(() => {
@@ -83,15 +113,8 @@ describe("Any vaccine page", () => {
 
   describe("shows content section, when content available", () => {
     beforeEach(() => {
-      (getContentForVaccine as jest.Mock).mockResolvedValue({
-        styledVaccineContent: mockStyledContent,
-      });
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue({
-        eligibility: {
-          status: EligibilityStatus.NOT_ELIGIBLE,
-          content: undefined,
-        },
-      });
+      (getContentForVaccine as jest.Mock).mockResolvedValue(contentSuccessResponse);
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilitySuccessResponse);
     });
 
     it("should include overview text", async () => {
@@ -148,29 +171,14 @@ describe("Any vaccine page", () => {
     });
 
     it("should display hr above MoreInformation section when personalised eligibility not in use", async () => {
-      await renderNamedVaccinePage(VaccineTypes.TD_IPV_3_IN_1);
-
-      const hrAboveMoreInformation: HTMLElement = screen.getByTestId("more-information-hr");
-
-      expect(hrAboveMoreInformation).toBeInTheDocument();
+      await expectTdIPVPageToHaveHrAboveMoreInformationSection();
     });
   });
 
   describe("shows content section, when content load fails", () => {
-    const eligibilityForPerson = {
-      eligibility: {
-        status: EligibilityStatus.NOT_ELIGIBLE,
-        content: eligibilityContentBuilder().build(),
-      },
-      eligibilityError: undefined,
-    };
-
     beforeEach(() => {
-      (getContentForVaccine as jest.Mock).mockResolvedValue({
-        styledVaccineContent: undefined,
-        contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
-      });
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilityForPerson);
+      (getContentForVaccine as jest.Mock).mockResolvedValue(contentErrorResponse);
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilitySuccessResponse);
     });
 
     it("should not display overview paragraph", async () => {
@@ -202,7 +210,7 @@ describe("Any vaccine page", () => {
 
       expectRenderEligibilitySectionWith(
         VaccineTypes.RSV,
-        eligibilityForPerson,
+        eligibilitySuccessResponse,
         <HowToGetVaccineFallback vaccineType={VaccineTypes.RSV} />,
       );
     });
@@ -221,36 +229,22 @@ describe("Any vaccine page", () => {
     });
 
     it("should still display hr above MoreInformation section", async () => {
-      await renderNamedVaccinePage(VaccineTypes.TD_IPV_3_IN_1);
-
-      const hrAboveMoreInformation: HTMLElement = screen.getByTestId("more-information-hr");
-
-      expect(hrAboveMoreInformation).toBeInTheDocument();
+      await expectTdIPVPageToHaveHrAboveMoreInformationSection();
     });
   });
 
   describe("shows eligibility section, when eligibility response available", () => {
-    const eligibilityForPerson = {
-      eligibility: {
-        status: EligibilityStatus.NOT_ELIGIBLE,
-        content: eligibilityContentBuilder().build(),
-      },
-      eligibilityError: undefined,
-    };
-
     beforeEach(() => {
-      (getContentForVaccine as jest.Mock).mockResolvedValue({
-        styledVaccineContent: mockStyledContent,
-      });
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilityForPerson);
+      (getContentForVaccine as jest.Mock).mockResolvedValue(contentSuccessResponse);
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilitySuccessResponse);
     });
 
     it("should display the eligibility on RSV vaccine page", async () => {
-      await renderNamedVaccinePage(VaccineTypes.RSV);
+      await renderRsvVaccinePage();
 
       expectRenderEligibilitySectionWith(
         VaccineTypes.RSV,
-        eligibilityForPerson,
+        eligibilitySuccessResponse,
         mockStyledContent.howToGetVaccine.component,
       );
     });
@@ -288,7 +282,7 @@ describe("Any vaccine page", () => {
       };
       (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilityResponseWithNoContentSection);
 
-      await renderNamedVaccinePage(VaccineTypes.RSV);
+      await renderRsvVaccinePage();
 
       expectRenderEligibilitySectionWith(
         VaccineTypes.RSV,
@@ -300,21 +294,18 @@ describe("Any vaccine page", () => {
     it("should pass eligibilityLoadingError to eligibilityComponent when there is no session / no nhsNumber", async () => {
       (auth as jest.Mock).mockResolvedValue(undefined);
 
-      await renderNamedVaccinePage(VaccineTypes.RSV);
+      await renderRsvVaccinePage();
 
       expectRenderEligibilitySectionWith(
         VaccineTypes.RSV,
-        {
-          eligibility: undefined,
-          eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
-        },
+        eligibilityErrorResponse,
         mockStyledContent.howToGetVaccine.component,
       );
     });
 
     it("should not display hr above MoreInformation section when personalised eligibility is use", async () => {
       // Personalised actions are always separated by hr; avoids duplicate line appearing after final element
-      await renderNamedVaccinePage(VaccineTypes.RSV);
+      await renderRsvVaccinePage();
 
       const hrAboveMoreInformation: HTMLElement | null = screen.queryByTestId("more-information-hr");
 
@@ -323,16 +314,9 @@ describe("Any vaccine page", () => {
   });
 
   describe("shows eligibility section, when eligibility response not available", () => {
-    const eligibilityUnavailable = {
-      eligibility: undefined,
-      eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
-    };
-
     beforeEach(() => {
-      (getContentForVaccine as jest.Mock).mockResolvedValue({
-        styledVaccineContent: mockStyledContent,
-      });
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilityUnavailable);
+      (getContentForVaccine as jest.Mock).mockResolvedValue(contentSuccessResponse);
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilityErrorResponse);
     });
 
     it("should call eligibility component with error response when eligibility API has failed", async () => {
@@ -341,24 +325,16 @@ describe("Any vaccine page", () => {
 
       expectRenderEligibilitySectionWith(
         VaccineTypes.RSV,
-        eligibilityUnavailable,
+        eligibilityErrorResponse,
         mockStyledContent.howToGetVaccine.component,
       );
     });
   });
 
   describe("shows content and eligibility sections, when eligibility AND content not available", () => {
-    const eligibilityUnavailable = {
-      eligibility: undefined,
-      eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
-    };
-
     beforeEach(() => {
-      (getContentForVaccine as jest.Mock).mockResolvedValue({
-        styledVaccineContent: undefined,
-        contentError: ContentErrorTypes.CONTENT_LOADING_ERROR,
-      });
-      (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilityUnavailable);
+      (getContentForVaccine as jest.Mock).mockResolvedValue(contentErrorResponse);
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilityErrorResponse);
     });
 
     it("should use fallback how-to-get text when rendering eligibility fallback component", async () => {
@@ -367,9 +343,9 @@ describe("Any vaccine page", () => {
       await renderNamedVaccinePage(vaccineType);
 
       expectRenderEligibilitySectionWith(
-        VaccineTypes.RSV,
-        eligibilityUnavailable,
-        <HowToGetVaccineFallback vaccineType={VaccineTypes.RSV} />,
+        vaccineType,
+        eligibilityErrorResponse,
+        <HowToGetVaccineFallback vaccineType={vaccineType} />,
       );
     });
   });
