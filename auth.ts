@@ -30,6 +30,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
   return await asyncLocalStorage.run(requestContext, async () => {
     return {
       providers: [await NHSLoginAuthProvider()],
+      secret: config.AUTH_SECRET,
       pages: {
         signIn: SSO_FAILURE_ROUTE,
         signOut: SESSION_LOGOUT_ROUTE,
