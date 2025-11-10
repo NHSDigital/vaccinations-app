@@ -23,9 +23,7 @@ describe("SuitabilityRules", () => {
           }),
         );
 
-        const content: HTMLElement = screen.getByText("Test Content");
-
-        expect(content).toBeVisible();
+        expectContentToBeVisible("Test Content");
       });
 
       it("should display multiple paragraphs successfully", () => {
@@ -38,11 +36,8 @@ describe("SuitabilityRules", () => {
           }),
         );
 
-        const content1: HTMLElement = screen.getByText("Test Content 1");
-        const content2: HTMLElement = screen.getByText("Test Content 2");
-
-        expect(content1).toBeVisible();
-        expect(content2).toBeVisible();
+        expectContentToBeVisible("Test Content 1");
+        expectContentToBeVisible("Test Content 2");
       });
 
       it("should display delineator depending on flag", () => {
@@ -81,9 +76,7 @@ describe("SuitabilityRules", () => {
           }),
         );
 
-        const content: HTMLElement = screen.getByText("Test Content");
-
-        expect(content).toBeVisible();
+        expectContentToBeVisible("Test Content");
       });
 
       it("should display multiple paragraphs successfully", () => {
@@ -96,11 +89,8 @@ describe("SuitabilityRules", () => {
           }),
         );
 
-        const content1: HTMLElement = screen.getByText("Test Content 1");
-        const content2: HTMLElement = screen.getByText("Test Content 2");
-
-        expect(content1).toBeVisible();
-        expect(content2).toBeVisible();
+        expectContentToBeVisible("Test Content 1");
+        expectContentToBeVisible("Test Content 2");
       });
 
       it("should display delineator depending on flag", () => {
@@ -129,4 +119,9 @@ describe("SuitabilityRules", () => {
       });
     });
   });
+
+  const expectContentToBeVisible = (content: string) => {
+    const contentElement: HTMLElement = screen.getByText(content);
+    expect(contentElement).toBeVisible();
+  };
 });

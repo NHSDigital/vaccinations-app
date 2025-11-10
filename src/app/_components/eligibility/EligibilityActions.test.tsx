@@ -24,9 +24,7 @@ describe("EligibilityActions", () => {
           }),
         );
 
-        const content: HTMLElement = screen.getByText("Test Content");
-
-        expect(content).toBeVisible();
+        expectContentStringToBeVisible("Test Content");
       });
 
       it("should display multiple infotexts successfully", () => {
@@ -39,11 +37,7 @@ describe("EligibilityActions", () => {
           }),
         );
 
-        const content1: HTMLElement = screen.getByText("Test Content 1");
-        const content2: HTMLElement = screen.getByText("Test Content 2");
-
-        expect(content1).toBeVisible();
-        expect(content2).toBeVisible();
+        expectEachContentStringToBeVisible(["Test Content 1", "Test Content 2"]);
       });
 
       it("should display delineator depending on flag", () => {
@@ -80,9 +74,7 @@ describe("EligibilityActions", () => {
           }),
         );
 
-        const content: HTMLElement = screen.getByText("Test Content");
-
-        expect(content).toBeVisible();
+        expectContentStringToBeVisible("Test Content");
       });
 
       it("should display multiple cards successfully", () => {
@@ -95,11 +87,7 @@ describe("EligibilityActions", () => {
           }),
         );
 
-        const content1: HTMLElement = screen.getByText("Test Content 1");
-        const content2: HTMLElement = screen.getByText("Test Content 2");
-
-        expect(content1).toBeVisible();
-        expect(content2).toBeVisible();
+        expectEachContentStringToBeVisible(["Test Content 1", "Test Content 2"]);
       });
 
       it("should display delineator depending on flag", () => {
@@ -134,9 +122,7 @@ describe("EligibilityActions", () => {
           }),
         );
 
-        const content: HTMLElement = screen.getByText("Test Auth Action Content");
-
-        expect(content).toBeVisible();
+        expectContentStringToBeVisible("Test Auth Action Content");
       });
 
       it("should display button content successfully", () => {
@@ -146,10 +132,8 @@ describe("EligibilityActions", () => {
           }),
         );
 
-        const content: HTMLElement = screen.getByText("Test Content");
+        expectContentStringToBeVisible("Test Content");
         const bookingButton: HTMLElement = screen.getByText("NBS Booking Link Test");
-
-        expect(content).toBeVisible();
         expect(bookingButton).toBeInTheDocument();
       });
 
@@ -163,11 +147,7 @@ describe("EligibilityActions", () => {
           }),
         );
 
-        const content1: HTMLElement = screen.getByText("Test Content 1");
-        const content2: HTMLElement = screen.getByText("Test Content 2");
-
-        expect(content1).toBeVisible();
-        expect(content2).toBeVisible();
+        expectEachContentStringToBeVisible(["Test Content 1", "Test Content 2"]);
       });
 
       it("should display button without card if no description present", () => {
@@ -202,11 +182,8 @@ describe("EligibilityActions", () => {
           }),
         );
 
-        const content1: HTMLElement = screen.getByText("Test Content 1");
-        const content2: HTMLElement = screen.getByText("Test Content 2");
-
-        expect(content1.closest(".nhsuk-card")?.nextElementSibling?.nextElementSibling?.tagName).toBe("HR");
-        expect(content2.closest(".nhsuk-card")?.nextElementSibling?.nextElementSibling?.tagName).not.toBe("HR");
+        expectDelineatorToBePresentAfterElementWithSelector("Test Content 1", ".nhsuk-card");
+        expectDelineatorToNotBePresentAfterElementWithSelector("Test Content 2", ".nhsuk-card");
       });
     });
 
@@ -220,9 +197,7 @@ describe("EligibilityActions", () => {
           }),
         );
 
-        const content: HTMLElement = screen.getByText("Test Auth Action Content");
-
-        expect(content).toBeVisible();
+        expectContentStringToBeVisible("Test Auth Action Content");
       });
 
       it("should display button content successfully", () => {
@@ -232,10 +207,8 @@ describe("EligibilityActions", () => {
           }),
         );
 
-        const content: HTMLElement = screen.getByText("Test Content");
+        expectContentStringToBeVisible("Test Content");
         const bookingButton: HTMLElement = screen.getByText("NBS Booking Link Test");
-
-        expect(content).toBeVisible();
         expect(bookingButton).toBeInTheDocument();
       });
 
@@ -249,11 +222,7 @@ describe("EligibilityActions", () => {
           }),
         );
 
-        const content1: HTMLElement = screen.getByText("Test Content 1");
-        const content2: HTMLElement = screen.getByText("Test Content 2");
-
-        expect(content1).toBeVisible();
-        expect(content2).toBeVisible();
+        expectEachContentStringToBeVisible(["Test Content 1", "Test Content 2"]);
       });
 
       it("should display button without info if no description present", () => {
@@ -288,15 +257,8 @@ describe("EligibilityActions", () => {
           }),
         );
 
-        const content1: HTMLElement = screen.getByText("Test Content 1");
-        const content2: HTMLElement = screen.getByText("Test Content 2");
-
-        expect(
-          content1.closest('[data-testid="action-paragraph"]')?.nextElementSibling?.nextElementSibling?.tagName,
-        ).toBe("HR");
-        expect(
-          content2.closest('[data-testid="action-paragraph"]')?.nextElementSibling?.nextElementSibling?.tagName,
-        ).not.toBe("HR");
+        expectDelineatorToBePresentAfterElementWithSelector("Test Content 1", '[data-testid="action-paragraph"]');
+        expectDelineatorToNotBePresentAfterElementWithSelector("Test Content 2", '[data-testid="action-paragraph"]');
       });
     });
 
@@ -313,9 +275,7 @@ describe("EligibilityActions", () => {
           }),
         );
 
-        const content: HTMLElement = screen.getByText("Test Auth Action Content");
-
-        expect(content).toBeVisible();
+        expectEachContentStringToBeVisible(["Test Auth Action Content"]);
       });
 
       it("should display link content successfully", () => {
@@ -336,10 +296,8 @@ describe("EligibilityActions", () => {
           }),
         );
 
-        const content: HTMLElement = screen.getByText("Test Content");
+        expectContentStringToBeVisible("Test Content");
         const link = screen.getByRole("link", { name: "Action Link Test" });
-
-        expect(content).toBeVisible();
         expect(link).toHaveAttribute("href", "https://example.com/bacon/");
       });
 
@@ -353,11 +311,7 @@ describe("EligibilityActions", () => {
           }),
         );
 
-        const content1: HTMLElement = screen.getByText("Test Content 1");
-        const content2: HTMLElement = screen.getByText("Test Content 2");
-
-        expect(content1).toBeVisible();
-        expect(content2).toBeVisible();
+        expectEachContentStringToBeVisible(["Test Content 1", "Test Content 2"]);
       });
 
       it("should display link without info if no description present", () => {
@@ -392,16 +346,30 @@ describe("EligibilityActions", () => {
           }),
         );
 
-        const content1: HTMLElement = screen.getByText("Test Content 1");
-        const content2: HTMLElement = screen.getByText("Test Content 2");
-
-        expect(
-          content1.closest('[data-testid="action-paragraph"]')?.nextElementSibling?.nextElementSibling?.tagName,
-        ).toBe("HR");
-        expect(
-          content2.closest('[data-testid="action-paragraph"]')?.nextElementSibling?.nextElementSibling?.tagName,
-        ).not.toBe("HR");
+        expectDelineatorToBePresentAfterElementWithSelector("Test Content 1", '[data-testid="action-paragraph"]');
+        expectDelineatorToNotBePresentAfterElementWithSelector("Test Content 2", '[data-testid="action-paragraph"]');
       });
     });
   });
+
+  const expectContentStringToBeVisible = (content: string) => {
+    expectEachContentStringToBeVisible([content]);
+  };
+
+  const expectEachContentStringToBeVisible = (contentList: string[]) => {
+    contentList.forEach((content) => {
+      const contentElement: HTMLElement = screen.getByText(content);
+      expect(contentElement).toBeVisible();
+    });
+  };
+
+  const expectDelineatorToBePresentAfterElementWithSelector = (content: string, selector: string) => {
+    const contentElement: HTMLElement = screen.getByText(content);
+    expect(contentElement.closest(selector)?.nextElementSibling?.nextElementSibling?.tagName).toBe("HR");
+  };
+
+  const expectDelineatorToNotBePresentAfterElementWithSelector = (content: string, selector: string) => {
+    const contentElement: HTMLElement = screen.getByText(content);
+    expect(contentElement.closest(selector)?.nextElementSibling?.nextElementSibling?.tagName).not.toBe("HR");
+  };
 });
