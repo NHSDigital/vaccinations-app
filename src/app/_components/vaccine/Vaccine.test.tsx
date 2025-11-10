@@ -7,13 +7,17 @@ import { VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
-import { EligibilityErrorTypes, EligibilityStatus } from "@src/services/eligibility-api/types";
+import {
+  EligibilityErrorTypes,
+  EligibilityForPersonType,
+  EligibilityStatus,
+} from "@src/services/eligibility-api/types";
 import { mockStyledContent } from "@test-data/content-api/data";
 import { eligibilityContentBuilder } from "@test-data/eligibility-api/builders";
 import { render, screen } from "@testing-library/react";
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 import { headers } from "next/headers";
-import React from "react";
+import React, { JSX } from "react";
 
 jest.mock("@src/services/content-api/content-service", () => ({
   getContentForVaccine: jest.fn(),
@@ -196,16 +200,10 @@ describe("Any vaccine page", () => {
     it("should still render eligibility section of vaccine page", async () => {
       await renderRsvVaccinePage();
 
-      const eligibilitySection: HTMLElement = screen.getByTestId("eligibility-page-content-mock");
-      expect(eligibilitySection).toBeInTheDocument();
-
-      expect(EligibilityVaccinePageContent).toHaveBeenCalledWith(
-        {
-          vaccineType: VaccineTypes.RSV,
-          eligibilityForPerson: eligibilityForPerson,
-          howToGetVaccineOrFallback: <HowToGetVaccineFallback vaccineType={VaccineTypes.RSV} />,
-        },
-        undefined,
+      expectRenderEligibilitySectionWith(
+        VaccineTypes.RSV,
+        eligibilityForPerson,
+        <HowToGetVaccineFallback vaccineType={VaccineTypes.RSV} />,
       );
     });
 
@@ -250,15 +248,10 @@ describe("Any vaccine page", () => {
     it("should display the eligibility on RSV vaccine page", async () => {
       await renderNamedVaccinePage(VaccineTypes.RSV);
 
-      const eligibilitySection: HTMLElement = screen.getByTestId("eligibility-page-content-mock");
-      expect(eligibilitySection).toBeInTheDocument();
-      expect(EligibilityVaccinePageContent).toHaveBeenCalledWith(
-        {
-          vaccineType: VaccineTypes.RSV,
-          eligibilityForPerson: eligibilityForPerson,
-          howToGetVaccineOrFallback: mockStyledContent.howToGetVaccine.component,
-        },
-        undefined,
+      expectRenderEligibilitySectionWith(
+        VaccineTypes.RSV,
+        eligibilityForPerson,
+        mockStyledContent.howToGetVaccine.component,
       );
     });
 
@@ -297,15 +290,10 @@ describe("Any vaccine page", () => {
 
       await renderNamedVaccinePage(VaccineTypes.RSV);
 
-      const eligibilitySection: HTMLElement | null = screen.getByTestId("eligibility-page-content-mock");
-      expect(eligibilitySection).toBeInTheDocument();
-      expect(EligibilityVaccinePageContent).toHaveBeenCalledWith(
-        {
-          vaccineType: VaccineTypes.RSV,
-          eligibilityForPerson: eligibilityResponseWithNoContentSection,
-          howToGetVaccineOrFallback: mockStyledContent.howToGetVaccine.component,
-        },
-        undefined,
+      expectRenderEligibilitySectionWith(
+        VaccineTypes.RSV,
+        eligibilityResponseWithNoContentSection,
+        mockStyledContent.howToGetVaccine.component,
       );
     });
 
@@ -314,18 +302,13 @@ describe("Any vaccine page", () => {
 
       await renderNamedVaccinePage(VaccineTypes.RSV);
 
-      const eligibilitySection: HTMLElement = screen.getByTestId("eligibility-page-content-mock");
-      expect(eligibilitySection).toBeInTheDocument();
-      expect(EligibilityVaccinePageContent).toHaveBeenCalledWith(
+      expectRenderEligibilitySectionWith(
+        VaccineTypes.RSV,
         {
-          vaccineType: VaccineTypes.RSV,
-          eligibilityForPerson: {
-            eligibility: undefined,
-            eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
-          },
-          howToGetVaccineOrFallback: mockStyledContent.howToGetVaccine.component,
+          eligibility: undefined,
+          eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
         },
-        undefined,
+        mockStyledContent.howToGetVaccine.component,
       );
     });
 
@@ -356,15 +339,10 @@ describe("Any vaccine page", () => {
       const vaccineType = VaccineTypes.RSV;
       await renderNamedVaccinePage(vaccineType);
 
-      const eligibilitySection: HTMLElement = screen.getByTestId("eligibility-page-content-mock");
-      expect(eligibilitySection).toBeInTheDocument();
-      expect(EligibilityVaccinePageContent).toHaveBeenCalledWith(
-        {
-          vaccineType: VaccineTypes.RSV,
-          eligibilityForPerson: eligibilityUnavailable,
-          howToGetVaccineOrFallback: mockStyledContent.howToGetVaccine.component,
-        },
-        undefined,
+      expectRenderEligibilitySectionWith(
+        VaccineTypes.RSV,
+        eligibilityUnavailable,
+        mockStyledContent.howToGetVaccine.component,
       );
     });
   });
@@ -388,16 +366,28 @@ describe("Any vaccine page", () => {
 
       await renderNamedVaccinePage(vaccineType);
 
-      const eligibilitySection: HTMLElement = screen.getByTestId("eligibility-page-content-mock");
-      expect(eligibilitySection).toBeInTheDocument();
-      expect(EligibilityVaccinePageContent).toHaveBeenCalledWith(
-        {
-          vaccineType: VaccineTypes.RSV,
-          eligibilityForPerson: eligibilityUnavailable,
-          howToGetVaccineOrFallback: <HowToGetVaccineFallback vaccineType={VaccineTypes.RSV} />,
-        },
-        undefined,
+      expectRenderEligibilitySectionWith(
+        VaccineTypes.RSV,
+        eligibilityUnavailable,
+        <HowToGetVaccineFallback vaccineType={VaccineTypes.RSV} />,
       );
     });
   });
+
+  const expectRenderEligibilitySectionWith = (
+    vaccineType: VaccineTypes,
+    eligibilityForPerson: EligibilityForPersonType,
+    howToGetVaccineOrFallback: JSX.Element,
+  ) => {
+    const eligibilitySection: HTMLElement = screen.getByTestId("eligibility-page-content-mock");
+    expect(eligibilitySection).toBeInTheDocument();
+    expect(EligibilityVaccinePageContent).toHaveBeenCalledWith(
+      {
+        vaccineType: vaccineType,
+        eligibilityForPerson: eligibilityForPerson,
+        howToGetVaccineOrFallback: howToGetVaccineOrFallback,
+      },
+      undefined,
+    );
+  };
 });
