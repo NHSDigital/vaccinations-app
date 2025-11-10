@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { RSV_PAGE_URL } from "@project/e2e/constants";
+import { AppPageDetails } from "@project/e2e/constants";
 import { getEnv, openExpanders, pathForCustomScreenshots } from "@project/e2e/helpers";
 import users from "@test-data/test-users.json" with { type: "json" };
 
@@ -25,7 +25,7 @@ test.describe(`Snapshot Testing - Eligibility - ${currentDatetime}-${checkoutRef
 
           const customScreenshotPath = pathForCustomScreenshots(testFileName, screenshotFileName, projectName);
 
-          await page.goto(RSV_PAGE_URL);
+          await page.goto(AppPageDetails["rsv-older-adults"].url);
           await page.getByRole("link", { name: "Log out" }).waitFor();
           await openExpanders(page);
 

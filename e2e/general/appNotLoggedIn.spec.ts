@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { HUB_PAGE_URL } from "@project/e2e/constants";
+import { AppPageDetails } from "@project/e2e/constants";
 import { getEnv } from "@project/e2e/helpers";
 
 test.describe.configure({ mode: "parallel", retries: 3 });
@@ -12,7 +12,7 @@ test.describe("Application - User Not Logged In", () => {
   test("Not logged in user is directed", async ({ page }) => {
     const expectedUrl = getEnv("NHS_APP_REDIRECT_LOGIN_URL");
 
-    await page.goto(HUB_PAGE_URL);
+    await page.goto(AppPageDetails["vaccines-hub"].url);
 
     expect(page.url()).toBe(expectedUrl);
   });

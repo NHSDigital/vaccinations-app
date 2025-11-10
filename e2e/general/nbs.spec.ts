@@ -1,12 +1,5 @@
 import { Browser, BrowserContext, Locator, expect, test } from "@playwright/test";
-import {
-  BOOKING_PAGE_TITLE_REGEX,
-  BOOKING_PAGE_URL_REGEX,
-  RSV_PAGE_TITLE,
-  RSV_PAGE_URL,
-  RSV_PREGNANCY_PAGE_TITLE,
-  RSV_PREGNANCY_PAGE_URL,
-} from "@project/e2e/constants";
+import { AppPageDetails, BOOKING_PAGE_TITLE_REGEX, BOOKING_PAGE_URL_REGEX } from "@project/e2e/constants";
 import { getEnv } from "@project/e2e/helpers";
 
 const environment = getEnv("DEPLOY_ENVIRONMENT");
@@ -40,8 +33,8 @@ const testLinkToBookAppointmentForPregnantPeople = () => {
 
     const { page, context } = await loginToNBS(browser);
 
-    await page.goto(RSV_PREGNANCY_PAGE_URL);
-    await expect(page).toHaveTitle(RSV_PREGNANCY_PAGE_TITLE);
+    await page.goto(AppPageDetails["rsv-pregnancy"].url);
+    await expect(page).toHaveTitle(AppPageDetails["rsv-pregnancy"].title);
 
     const bookingLink = page.getByRole("link", { name: "book an RSV vaccination in a pharmacy" });
     await expect(bookingLink).toBeVisible();
@@ -69,8 +62,8 @@ test.describe("NBS booking redirection - user 19", () => {
   test("link to book appointment at pharmacy on RSV page for older adults", async ({ browser }) => {
     const { page, context } = await loginToNBS(browser);
 
-    await page.goto(RSV_PAGE_URL);
-    await expect(page).toHaveTitle(RSV_PAGE_TITLE);
+    await page.goto(AppPageDetails["rsv-older-adults"].url);
+    await expect(page).toHaveTitle(AppPageDetails["rsv-older-adults"].title);
 
     const bookingLink = page.getByRole("link", { name: "book an RSV vaccination in a pharmacy" });
     await expect(bookingLink).toBeVisible();
@@ -98,8 +91,8 @@ test.describe("NBS booking redirection - user 21", () => {
   test("button to book appointment on RSV page", async ({ browser }) => {
     const { page, context } = await loginToNBS(browser);
 
-    await page.goto(RSV_PAGE_URL);
-    await expect(page).toHaveTitle(RSV_PAGE_TITLE);
+    await page.goto(AppPageDetails["rsv-older-adults"].url);
+    await expect(page).toHaveTitle(AppPageDetails["rsv-older-adults"].title);
 
     const bookingButton = page.getByRole("button", { name: "Continue to booking" });
     await expect(bookingButton).toBeVisible();
@@ -127,8 +120,8 @@ test.describe("NBS booking redirection - user 22", () => {
   test("button to manage the appointment on RSV page", async ({ browser }) => {
     const { page, context } = await loginToNBS(browser);
 
-    await page.goto(RSV_PAGE_URL);
-    await expect(page).toHaveTitle(RSV_PAGE_TITLE);
+    await page.goto(AppPageDetails["rsv-older-adults"].url);
+    await expect(page).toHaveTitle(AppPageDetails["rsv-older-adults"].title);
 
     const manageButton: Locator = page.getByRole("button", {
       name: "Manage your appointment",
