@@ -6,7 +6,7 @@ enum AgeSectionTestId {
   ADULTS = "vaccine-cardlinks-adults",
   CHILDREN = "vaccine-cardlinks-children",
   PREGNANCY = "vaccine-cardlinks-pregnancy",
-  //  BABIES = "vaccine-cardlinks-babies"
+  BABIES = "vaccine-cardlinks-babies",
 }
 
 jest.mock("@src/app/_components/nhs-frontend/BackLink", () => jest.fn(() => <div data-testid="back-link"></div>));
@@ -49,6 +49,7 @@ describe("VaccinesForAllAges", () => {
       "/vaccines/td-ipv-vaccine-3-in-1-teenage-booster",
       AgeSectionTestId.CHILDREN,
     );
+    assertCardLinkIsPresentInSection("6-in-1", "/vaccines/6-in-1-vaccine", AgeSectionTestId.BABIES);
   });
 
   it("should render back link", () => {

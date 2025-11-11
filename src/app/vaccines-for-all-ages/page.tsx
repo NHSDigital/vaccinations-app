@@ -41,7 +41,12 @@ const VaccinesForAllAges = (): JSX.Element => {
           />
         </ul>
         <h2 className="nhsuk-heading-s">Vaccines for babies under 1 year old</h2>
-        <ul className="nhsapp-cards nhsapp-cards--stacked" data-testid={"vaccine-cardlinks-babies"}></ul>
+        <ul className="nhsapp-cards nhsapp-cards--stacked" data-testid={"vaccine-cardlinks-babies"}>
+          <CardLink
+            title={`${VaccineInfo[VaccineTypes.VACCINE_6_IN_1].cardLinkTitle}`}
+            link={`/vaccines/${VaccineContentUrlPaths.VACCINE_6_IN_1}`}
+          />
+        </ul>
       </MainContent>
     </>
   );
