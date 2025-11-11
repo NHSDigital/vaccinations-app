@@ -58,6 +58,7 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
       },
     })
     .catch((error: AxiosError) => {
+      log.error({ error }, "Debug EliD 404 error");
       log.error(
         {
           error: {
