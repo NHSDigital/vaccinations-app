@@ -45,7 +45,10 @@ export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<Eli
     headers = { ...headers, Authorization: `Bearer ${apimAccessToken}` };
   }
 
-  log.info({ context: { apiEndpoint, ELIGIBILITY_API_PATH_SUFFIX } }, "Fetching eligibility status");
+  log.info(
+    { context: { apiEndpoint: apiEndpoint.toString(), ELIGIBILITY_API_PATH_SUFFIX } },
+    "Fetching eligibility status",
+  );
   const response: AxiosResponse<EligibilityApiResponse> = await axios
     .get(elidUri, {
       headers,
