@@ -1,4 +1,5 @@
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
+import UrgentCareCard from "@src/app/_components/nhs-frontend/UrgentCareCard";
 import { VaccineTypes } from "@src/models/vaccine";
 import { styleHowToGetSectionForRsv } from "@src/services/content-api/parsers/custom/rsv";
 import { styleHowToGetSectionForRsvPregnancy } from "@src/services/content-api/parsers/custom/rsv-pregnancy";
@@ -19,12 +20,14 @@ import styles from "./styles.module.css";
 enum SubsectionTypes {
   INFORMATION = "INFORMATION",
   NON_URGENT = "NON_URGENT",
+  URGENT = "URGENT",
   CALLOUT = "CALLOUT",
 }
 
 const Subsections: Record<SubsectionTypes, string> = {
   [SubsectionTypes.INFORMATION]: "Information",
   [SubsectionTypes.NON_URGENT]: "non-urgent",
+  [SubsectionTypes.URGENT]: "urgent",
   [SubsectionTypes.CALLOUT]: "Callout",
 };
 
@@ -60,6 +63,15 @@ const styleSubsection = (subsection: VaccinePageSubsection, id: number): JSX.Ele
     const { heading, content } = extractHeadingAndContent(subsection.text);
     return (
       <NonUrgentCareCard
+        key={id}
+        heading={_getDivWithSanitisedHtml(heading)}
+        content={_getDivWithSanitisedHtml(content)}
+      />
+    );
+  } else if (subsection.name === Subsections.URGENT) {
+    const { heading, content } = extractHeadingAndContent(subsection.text);
+    return (
+      <UrgentCareCard
         key={id}
         heading={_getDivWithSanitisedHtml(heading)}
         content={_getDivWithSanitisedHtml(content)}

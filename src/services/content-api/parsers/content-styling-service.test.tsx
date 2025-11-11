@@ -44,6 +44,13 @@ describe("ContentStylingService", () => {
     headline: "",
   };
 
+  const mockUrgentSubsection: VaccinePageSubsection = {
+    type: "simpleElement",
+    text: "<h3>Heading for Urgent Component</h3><p>This is a styled paragraph urgent subsection</p>",
+    name: "urgent",
+    headline: "",
+  };
+
   const mockTableSubsection: VaccinePageSubsection = {
     type: "tableElement",
     mainEntity: "<table><tr><th>Name</th><th>Age</th></tr><tr><td>Jane Smith</td><td>35</td></tr></table>",
@@ -122,6 +129,19 @@ describe("ContentStylingService", () => {
       expect(nonUrgent).toBeInTheDocument();
     });
 
+    it("should return styled urgent component for subsection", async () => {
+      const styledSubsection: JSX.Element = styleSubsection(mockUrgentSubsection, 1);
+      render(styledSubsection);
+
+      const text: HTMLElement = screen.getByText("This is a styled paragraph urgent subsection");
+      const heading: HTMLElement = screen.getByText("Heading for Urgent Component");
+      const nonUrgent: HTMLElement = screen.getByText("Urgent advice:");
+
+      expect(text).toBeInTheDocument();
+      expect(heading).toBeInTheDocument();
+      expect(nonUrgent).toBeInTheDocument();
+    });
+
     it("should return table component for subsection", async () => {
       const styledSubsection: JSX.Element = styleSubsection(mockTableSubsection, 1);
       render(styledSubsection);
@@ -155,7 +175,7 @@ describe("ContentStylingService", () => {
     it("should display several subsections of a concrete vaccine in one section", async () => {
       const mockSection: VaccinePageSection = {
         headline: "This is a heading",
-        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection, mockTableSubsection],
+        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection, mockUrgentSubsection, mockTableSubsection],
       };
 
       const styledSection: StyledPageSection = styleSection(mockSection);
@@ -163,12 +183,14 @@ describe("ContentStylingService", () => {
 
       const markdownSubsection: HTMLElement = screen.getByText("This is a styled paragraph markdown subsection");
       const nonUrgentSubsection: HTMLElement = screen.getByText("This is a styled paragraph non-urgent subsection");
+      const urgentSubsection: HTMLElement = screen.getByText("This is a styled paragraph urgent subsection");
 
       const columnOfTable: HTMLElement = screen.getByText("Name");
 
       expect(styledSection.heading).toEqual(mockSection.headline);
       expect(markdownSubsection).toBeInTheDocument();
       expect(nonUrgentSubsection).toBeInTheDocument();
+      expect(urgentSubsection).toBeInTheDocument();
       expect(columnOfTable).toBeInTheDocument();
     });
   });
@@ -189,7 +211,7 @@ describe("ContentStylingService", () => {
       };
       const mockSideEffectsSection: VaccinePageSection = {
         headline: "Side effects of the generic vaccine",
-        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
+        subsections: [mockMarkdownSubsection, mockUrgentSubsection],
       };
       const mockContent: VaccinePageContent = {
         overview: "This is an overview",
