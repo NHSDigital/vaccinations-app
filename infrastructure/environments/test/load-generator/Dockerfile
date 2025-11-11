@@ -1,4 +1,6 @@
-FROM openjdk:11
+FROM eclipse-temurin:17
+
+RUN apt-get update && apt-get install zip -y
 
 # Install JMeter
 RUN wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.3.tgz && \
