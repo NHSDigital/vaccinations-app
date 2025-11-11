@@ -1,5 +1,5 @@
 type PoliciesPageName = "cookies-policy" | "accessibility-statement";
-type VaccinePageName = "rsv-older-adults" | "rsv-pregnancy" | "td-ipv";
+type VaccinePageName = "rsv-older-adults" | "rsv-pregnancy" | "td-ipv" | "6-in-1";
 type FailurePageName = "sso-failure" | "service-failure" | "not-found";
 type SessionPageName = "session-timeout" | "session-logout";
 type IndexPageName = "vaccines-hub" | "vaccines-for-all-ages" | "multi-vaccines-hub";
@@ -54,6 +54,12 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     heading: "Td/IPV vaccine (3-in-1 teenage booster)",
     title: `Td/IPV vaccine (3-in-1 teenage booster) - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-td-ipv-vaccine-3-in-1-teenage-booster.png",
+  },
+  "6-in-1": {
+    url: "/vaccines/6-in-1-vaccine",
+    heading: "6-in-1 vaccine",
+    title: `6-in-1 vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-6-in-1.png",
   },
 
   // failure pages
