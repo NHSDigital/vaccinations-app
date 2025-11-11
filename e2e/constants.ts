@@ -2,7 +2,7 @@ type PoliciesPageName = "cookies-policy" | "accessibility-statement";
 type VaccinePageName = "rsv-older-adults" | "rsv-pregnancy" | "td-ipv";
 type FailurePageName = "sso-failure" | "service-failure" | "not-found";
 type SessionPageName = "session-timeout" | "session-logout";
-type IndexPageName = "vaccines-hub" | "vaccines-for-all-ages";
+type IndexPageName = "vaccines-hub" | "vaccines-for-all-ages" | "multi-vaccines-hub";
 
 export type PageName = IndexPageName | VaccinePageName | FailurePageName | SessionPageName | PoliciesPageName;
 export type PageDetails = {
@@ -22,6 +22,12 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     heading: `${SERVICE_HEADING}`,
     title: `${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-hub.png",
+  },
+  "multi-vaccines-hub": {
+    url: "/check-and-book-vaccinations",
+    heading: `${SERVICE_HEADING}`,
+    title: `${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-multi-vaccines-hub.png",
   },
   "vaccines-for-all-ages": {
     url: "/vaccines-for-all-ages",
