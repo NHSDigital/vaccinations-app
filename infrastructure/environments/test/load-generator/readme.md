@@ -10,6 +10,8 @@ Tag, promote, and deploy to the test environment, as per the [usual process](htt
 
 ### Build image
 
+You should only need to build and upload an image if something has been modified in the load-generator Dockerfile.
+
 #### Build image for deployment
 
 ```sh
@@ -33,9 +35,13 @@ docker push "$load_generator_ecr_repository_url":latest
 
 ### Check it's working
 
-Manually upload the [test plan](/performance/vita-user-journey.jmx) to the s3 path `s3://gh-vita-***-load-testing/plans/`.
+Manually upload the [test plan](/performance/vita-user-journey.jmx) to the s3 path `s3://gh-vita-***-load-testing/plans/`. You should only need to do this if the test plan has been modified.
 
-Trigger the task from AWS console UI. For the number of desired tasks and threads, apply the formula
+#### Triggering the task
+
+Trigger the task from AWS console UI or via the aws-cli command. For the number of desired tasks and threads, apply the formula
+
+##### Via AWS Console UI
 
 ```text
 Number of concurrent users = (Number of tasks) x (Number of threads/task)
@@ -47,7 +53,7 @@ Number of concurrent users = (Number of tasks) x (Number of threads/task)
 - Click `Deploy` -> `Run task`
 - Task details
   - `Task definition revision`: LATEST
-  - `Desired tasks`: <based on above formula>
+  - `Desired tasks`: `<based on above formula>`
   - `Task group`: load-generator
 - Environment
   - Existing cluster: fake-api-project-cluster
@@ -61,10 +67,31 @@ Number of concurrent users = (Number of tasks) x (Number of threads/task)
   - Change the default values as per need
     - `DURATION`: duration of the test in seconds
     - `RAMPUP`: seconds to ramp up concurrent threads linearly, 1 -> $THREADS
-    - `THREADS`: the number of concurrent threads to use, <based on above formula>
+    - `THREADS`: the number of concurrent threads to use (threads/task), `<based on above formula>`
     - `ENVIRONMENT`: the subdomain that represents the environment to run the test on, e.g. `test`
     - `S3_BUCKET`: the bucket name to use for test inputs and outputs
     - `TEST_PLAN`: the *.jmx file name to use as the JMeter test plan
+
+##### Via aws-cli
+
+These instructions assume you've named your profile `vita-test`.
+
+```shell
+subnets=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=fake-api-project-public-subnet-1,fake-api-project-public-subnet-2,fake-api-project-private-subnet-1,fake-api-project-private-subnet-2" --profile vita-test | jq -r "[.Subnets[].SubnetId] | join(\",\")")
+
+sec_group=$(aws ec2 describe-security-groups --filters "Name=tag:Name,Values=fake-api-service-sg" --profile vita-test | jq -r ".SecurityGroups[].GroupId")
+
+aws ecs run-task \
+  --cluster fake-api-project-cluster \
+  --task-definition load-generator \
+  --launch-type FARGATE \
+  --platform-version LATEST \
+  --count 10 \
+  --group load-generator \
+  --network-configuration "awsvpcConfiguration={subnets=[$subnets],securityGroups=[$sec_group],assignPublicIp=ENABLED}" \
+  --overrides '{"containerOverrides": [{"name": "load-generator-container", "environment": [{"name": "DURATION", "value": "3600"}, {"name": "RAMPUP", "value": "300"}, {"name": "THREADS", "value": "40"}, {"name": "ENVIRONMENT", "value": "test"}, {"name": "S3_BUCKET", "value": "gh-vita-741448960880-load-testing"}, {"name": "TEST_PLAN", "value": "vita-user-journey.jmx"}]}]}' \
+  --profile vita-test
+```
 
 ## Analysing the results
 
