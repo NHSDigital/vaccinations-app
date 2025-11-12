@@ -16,6 +16,16 @@ test.describe("Navigation", () => {
     await clickLinkAndExpectPageTitle(page, "Back", AppPageDetails["vaccines-hub"].title);
   });
 
+  test("Vaccines and back links from multi vaccine hub page", async ({ page }) => {
+    await page.goto(AppPageDetails["multi-vaccines-hub"].url);
+    await clickLinkAndExpectPageTitle(
+      page,
+      "View vaccines for all ages",
+      AppPageDetails["vaccines-for-all-ages"].title,
+    );
+    await clickLinkAndExpectPageTitle(page, "Back", AppPageDetails["multi-vaccines-hub"].title);
+  });
+
   test("Vaccines and back links from vaccines-for-all-ages page", async ({ page }) => {
     await page.goto(AppPageDetails["vaccines-for-all-ages"].url);
     await clickLinkAndExpectPageTitle(page, "RSV", AppPageDetails["rsv-older-adults"].title);
