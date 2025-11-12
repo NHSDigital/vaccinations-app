@@ -1,0 +1,83 @@
+name: "CI/CD scheduled assurances WIP"
+
+on:
+  schedule:
+    - cron: '30 9 * * MON-FRI'  # Runs at 09:30 UTC every weekday
+  workflow_dispatch:
+    inputs:
+      release:
+        description: 'Release to deploy and assure'
+        type: choice
+        options:
+          - release1
+          - latest-main-tag
+
+jobs:
+  deploy-and-test-r1:
+    name: "R1.0 Assurance"
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 20
+    concurrency:
+      group: "preprod-env"
+      cancel-in-progress: false
+    permissions:
+      id-token: write
+      contents: read
+    environment:
+      name: "preprod"
+
+    if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && inputs.release=='release1')) }}
+    steps:
+    - name: "Checkout code"
+      uses: actions/checkout@v5
+      with:
+        fetch-depth: 0
+        ref: "release/v1.0"
+
+    - name: "Get latest tag name on release/v1.0 branch"
+      id: get-latest-tag-name
+      run: |
+        echo "value=$(git describe --tags --abbrev=0 --first-parent)" | tee -a $GITHUB_OUTPUT
+        echo "Latest tag name on release/v1.0 branch is : ${value}"
+
+    - name: "Deploy to AWS (preprod)"
+      timeout-minutes: 10
+      uses: ./.github/actions/deploy
+      with:
+        environment: "preprod"
+        tag_or_sha_to_deploy: ${{ steps.get-latest-tag-name.outputs.value }}
+
+  deploy-and-test-main:
+    name: "Main Branch Assurance"
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 20
+    concurrency:
+      group: "preprod-env"
+      cancel-in-progress: false
+    permissions:
+      id-token: write
+      contents: read
+    environment:
+      name: "preprod"
+
+    needs: [ deploy-and-test-r1 ]
+    if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && inputs.release=='latest-main-tag')) }}
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: "main"
+
+      - name: "Get latest tag name on main branch"
+        id: get-latest-tag-name
+        run: |
+          echo "value=$(git describe --tags --abbrev=0 --first-parent)" | tee -a $GITHUB_OUTPUT
+          echo "Latest tag name on main branch is : ${value}"
+
+      - name: "Deploy to AWS (preprod)"
+        timeout-minutes: 10
+        uses: ./.github/actions/deploy
+        with:
+          environment: "preprod"
+          tag_or_sha_to_deploy: ${{ steps.get-latest-tag-name.outputs.value }}

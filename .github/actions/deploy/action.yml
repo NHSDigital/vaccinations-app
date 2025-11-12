@@ -1,0 +1,93 @@
+name: deploy
+description: "Deployment to AWS"
+
+inputs:
+  environment:
+    description: "Environment to deploy to"
+    required: true
+  tag_or_sha_to_deploy:
+    description: "Commit sha or tag to deploy"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: "Show inputs"
+      shell: bash
+      run: |
+        echo "Deploying to ( ${{ inputs.environment }} ) environment"
+        echo "Deploying tag/sha ${{ inputs.tag_or_sha_to_deploy }}"
+
+    - name: "Checkout code"
+      uses: actions/checkout@v5
+      with:
+        ref: ${{ inputs.tag_or_sha_to_deploy }}
+
+    - name: "Identify Terraform version"
+      shell: bash
+      id: identify-terraform-version
+      run: |
+        echo "terraform_version=$(grep "^terraform" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
+
+    - name: "Install Terraform version"
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: "${{ steps.identify-terraform-version.outputs.terraform_version }}"
+
+    - name: "Configure AWS credentials"
+      uses: aws-actions/configure-aws-credentials@v5
+      with:
+        role-session-name: GitHubActionsSession
+        role-to-assume: ${{ secrets.IAM_ROLE }}
+        aws-region: eu-west-2
+
+    - name: "Download artefacts from S3 bucket"
+      shell: bash
+      run: |
+        if [[ "${{ inputs.environment }}" == "dev" ]]; then
+          bucket_name="vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-${{ inputs.environment }}"
+          folder_name="sha"
+        else
+          bucket_name="vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${{ inputs.environment }}"
+          folder_name="tag"
+
+        s3_artefacts_path="s3://${bucket_name}/${folder_name}/${{ steps.tag-or-sha.outputs.value }}"
+        echo "Copying from path : ${s3_artefacts_path}"
+        aws s3 cp "${app_s3_path}" . --recursive
+
+    - name: "Unzip OpenNext package"
+      shell: bash
+      run: |
+        unzip open-next.zip
+        rm -rf open-next.zip
+
+    - name: "Set terraform environment vars"
+      shell: bash
+      run: |
+        echo "TF_VAR_is_github_action=true" >> $GITHUB_ENV
+        echo "TF_VAR_alarms_slack_channel_id=${{ secrets.ALARMS_SLACK_CHANNEL_ID }}" >> $GITHUB_ENV
+        echo "TF_VAR_app_version=${{ steps.tag-or-sha.outputs.value }}" >> $GITHUB_ENV
+
+    - name: "Terraform init (iam)"
+      shell: bash
+      run: TF_ENV=${{ inputs.environment }}/iam make terraform-init
+
+    - name: "Terraform plan (iam)"
+      shell: bash
+      run: TF_ENV=${{ inputs.environment }}/iam make terraform-plan opts="-out=terraform-iam.tfplan"
+
+    - name: "Terraform apply (iam)"
+      shell: bash
+      run: TF_ENV=${{ inputs.environment }}/iam make terraform-apply opts="-auto-approve" opts="terraform-iam.tfplan"
+
+    - name: "Terraform init (app)"
+      shell: bash
+      run: TF_ENV=${{ inputs.environment }} make terraform-init
+
+    - name: "Terraform plan (app)"
+      shell: bash
+      run: TF_ENV=${{ inputs.environment }} make terraform-plan opts="-out=terraform-app.tfplan"
+
+    - name: "Terraform apply (app)"
+      shell: bash
+      run: TF_ENV=${{ inputs.environment }} make terraform-apply opts="-auto-approve" opts="terraform-app.tfplan"
