@@ -40,7 +40,7 @@ describe("Dynamic vaccine page", () => {
 
   it("has vaccine title", async () => {
     await renderDynamicPage("rsv");
-    expect(document.title).toBe("RSV vaccine for older adults - Check and book an RSV vaccination - NHS");
+    expect(document.title).toBe("RSV vaccine for older adults - Check and book vaccinations - NHS");
   });
 
   it("renders the feedback banner with correct url", async () => {

@@ -18,7 +18,7 @@ jest.mock("@src/utils/auth/user-logout", () => ({
 }));
 
 const expectHeaderVisible = (expectedVisible: boolean) => {
-  const serviceLink: HTMLElement | null = screen.queryByText("Check and book an RSV vaccination");
+  const serviceLink: HTMLElement | null = screen.queryByText("Check and book vaccinations");
   const logo: HTMLElement | null = screen.queryByRole("img", { name: "NHS" });
 
   if (expectedVisible) {
@@ -60,7 +60,7 @@ describe("AppHeader", () => {
         render(<AppHeader />);
 
         const logoAndServiceLink: HTMLElement = screen.getByRole("link", {
-          name: "NHS Check and book an RSV vaccination homepage",
+          name: "NHS Check and book vaccinations homepage",
         });
 
         expect(logoAndServiceLink?.getAttribute("href")).toEqual("/check-and-book-rsv");
@@ -91,7 +91,7 @@ describe("AppHeader", () => {
         render(<AppHeader />);
 
         const logoAndServiceLink: HTMLElement = screen.getByRole("link", {
-          name: "NHS Check and book an RSV vaccination homepage",
+          name: "NHS Check and book vaccinations homepage",
         });
 
         expect(logoAndServiceLink.getAttribute("href")).toEqual("#");

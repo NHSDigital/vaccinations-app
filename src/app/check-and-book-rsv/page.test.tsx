@@ -114,6 +114,6 @@ describe("Vaccination Hub Page", () => {
   };
 
   const expectHeadingToBeRendered = () => {
-    expect(queryHeading("Check and book an RSV vaccination", 1)).toBeVisible();
+    expect(queryHeading("Check and book vaccinations", 1)).toBeVisible();
   };
 });
