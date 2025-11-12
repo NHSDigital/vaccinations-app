@@ -113,6 +113,6 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
 
 export const BOOKING_PAGE_URL_REGEX =
   /^https:\/\/.+nhs\.uk\/book-an-rsv-vaccination\/app-start-page\?wt\.mc_id=vita-RSV-booking$/;
-export const BOOKING_PAGE_TITLE_REGEX = /Book an RSV vaccination - NHS$/;
+export const BOOKING_PAGE_TITLE_REGEX = /Book vaccinations - NHS$/i;
 
 export const MAX_AVG_LCP_DURATION_MS = 3000;
