@@ -12,7 +12,7 @@ export type PageDetails = {
   snapshotFilename: string;
 };
 
-const SERVICE_HEADING = "Check and book vaccinations";
+const SERVICE_HEADING = "Check and book an RSV vaccination";
 const NHS_TITLE_SUFFIX = "NHS";
 
 export const AppPageDetails: Record<PageName, PageDetails> = {
