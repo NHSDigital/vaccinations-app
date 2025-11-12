@@ -64,7 +64,7 @@ describe("AppHeader", () => {
           name: `NHS ${SERVICE_HEADING} homepage`,
         });
 
-        expect(logoAndServiceLink?.getAttribute("href")).toEqual("/check-and-book-rsv");
+        expect(logoAndServiceLink?.getAttribute("href")).toEqual("/check-and-book-vaccinations");
       });
 
       it("logs out on click", async () => {
