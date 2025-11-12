@@ -1,4 +1,5 @@
 import VaccinationsHub from "@src/app/check-and-book-rsv/page";
+import { SERVICE_HEADING } from "@src/app/constants";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import { mockStyledContent } from "@test-data/content-api/data";
@@ -114,6 +115,6 @@ describe("Vaccination Hub Page", () => {
   };
 
   const expectHeadingToBeRendered = () => {
-    expect(queryHeading("Check and book an RSV vaccination", 1)).toBeVisible();
+    expect(queryHeading(SERVICE_HEADING, 1)).toBeVisible();
   };
 });

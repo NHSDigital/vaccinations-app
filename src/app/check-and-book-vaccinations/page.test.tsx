@@ -1,4 +1,5 @@
 import VaccinationsHub from "@src/app/check-and-book-vaccinations/page";
+import { SERVICE_HEADING } from "@src/app/constants";
 import { render, screen } from "@testing-library/react";
 
 describe("Vaccination Hub Page", () => {
@@ -12,7 +13,7 @@ describe("Vaccination Hub Page", () => {
 });
 
 const expectHeadingToBeRendered = () => {
-  expect(queryHeading("Check and book an RSV vaccination", 1)).toBeVisible();
+  expect(queryHeading(SERVICE_HEADING, 1)).toBeVisible();
 };
 
 const queryHeading = (text: string, level: number): HTMLElement | null => {

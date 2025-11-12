@@ -1,4 +1,5 @@
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
+import { SERVICE_HEADING } from "@src/app/constants";
 import { VaccineTypes } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { mockStyledContent } from "@test-data/content-api/data";
@@ -40,7 +41,7 @@ describe("Dynamic vaccine page", () => {
 
   it("has vaccine title", async () => {
     await renderDynamicPage("rsv");
-    expect(document.title).toBe("RSV vaccine for older adults - Check and book an RSV vaccination - NHS");
+    expect(document.title).toBe(`RSV vaccine for older adults - ${SERVICE_HEADING} - NHS`);
   });
 
   it("renders the feedback banner with correct url", async () => {

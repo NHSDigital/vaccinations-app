@@ -12,7 +12,7 @@ const AccessibilityStatement = () => {
 
       <BackLink />
       <MainContent>
-        <h1>Accessibility statement for Check and book an RSV vaccination</h1>
+        <h1>Accessibility statement for {SERVICE_HEADING}</h1>
 
         <article>
           <section>

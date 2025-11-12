@@ -1,5 +1,6 @@
 import { useBrowserContext } from "@src/app/_components/context/BrowserContext";
 import AppHeader from "@src/app/_components/nhs-frontend/AppHeader";
+import { SERVICE_HEADING } from "@src/app/constants";
 import { userLogout } from "@src/utils/auth/user-logout";
 import { mockNHSAppJSFunctions } from "@src/utils/nhsapp-js.test";
 import { render, screen } from "@testing-library/react";
@@ -18,7 +19,7 @@ jest.mock("@src/utils/auth/user-logout", () => ({
 }));
 
 const expectHeaderVisible = (expectedVisible: boolean) => {
-  const serviceLink: HTMLElement | null = screen.queryByText("Check and book an RSV vaccination");
+  const serviceLink: HTMLElement | null = screen.queryByText(SERVICE_HEADING);
   const logo: HTMLElement | null = screen.queryByRole("img", { name: "NHS" });
 
   if (expectedVisible) {
@@ -60,7 +61,7 @@ describe("AppHeader", () => {
         render(<AppHeader />);
 
         const logoAndServiceLink: HTMLElement = screen.getByRole("link", {
-          name: "NHS Check and book an RSV vaccination homepage",
+          name: `NHS ${SERVICE_HEADING} homepage`,
         });
 
         expect(logoAndServiceLink?.getAttribute("href")).toEqual("/check-and-book-rsv");
@@ -91,7 +92,7 @@ describe("AppHeader", () => {
         render(<AppHeader />);
 
         const logoAndServiceLink: HTMLElement = screen.getByRole("link", {
-          name: "NHS Check and book an RSV vaccination homepage",
+          name: `NHS ${SERVICE_HEADING} homepage`,
         });
 
         expect(logoAndServiceLink.getAttribute("href")).toEqual("#");
