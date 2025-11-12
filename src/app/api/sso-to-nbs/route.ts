@@ -54,7 +54,7 @@ async function getGivenRedirectTarget(rawRedirectTarget: string | null) {
       } catch (error) {
         log.error(
           { context: { REDIRECT_TARGET_PARAM, rawRedirectTarget }, error },
-          "Error getting redirect url to NBS",
+          "Error building redirect url for NBS",
         );
         finalRedirectUrl = SSO_FAILURE_ROUTE;
       }

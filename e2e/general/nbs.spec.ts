@@ -44,8 +44,8 @@ const testLinkToBookAppointmentForPregnantPeople = () => {
     await newPage.waitForLoadState("domcontentloaded");
     await newPage.bringToFront();
 
-    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE_REGEX);
     expect(newPage.url()).toMatch(BOOKING_PAGE_URL_REGEX);
+    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE_REGEX);
   });
 };
 
