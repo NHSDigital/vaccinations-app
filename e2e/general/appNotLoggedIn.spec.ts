@@ -12,7 +12,7 @@ test.describe("Application - User Not Logged In", () => {
   test("Not logged in user is directed", async ({ page }) => {
     const expectedUrl = getEnv("NHS_APP_REDIRECT_LOGIN_URL");
 
-    await page.goto(AppPageDetails["vaccines-hub"].url);
+    await page.goto(AppPageDetails["vaccine-hub"].url);
 
     expect(page.url()).toBe(expectedUrl);
   });
