@@ -2,7 +2,7 @@ name: "CI/CD scheduled assurances WIP"
 
 on:
   schedule:
-    - cron: '30 9 * * MON-FRI'  # Runs at 09:30 UTC every weekday
+    - cron: '22 15 * * MON-FRI'  # Runs at 09:30 UTC every weekday
   workflow_dispatch:
     inputs:
       release:
