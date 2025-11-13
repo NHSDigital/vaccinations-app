@@ -33,6 +33,7 @@ runs:
       uses: actions/checkout@v5
       with:
         ref: 'main'
+        path: "code-for-iam"
 
     - name: "Configure AWS credentials"
       uses: aws-actions/configure-aws-credentials@v5
@@ -43,6 +44,7 @@ runs:
 
     - name: "Identify Terraform version"
       shell: bash
+      working-directory: "./code-for-iam"
       id: identify-terraform-version-main
       run: |
         echo "terraform_version=$(grep "^terraform" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
@@ -61,14 +63,17 @@ runs:
 
     - name: "Terraform init (iam)"
       shell: bash
+      working-directory: "./code-for-iam"
       run: TF_ENV=${{ inputs.environment }}/iam make terraform-init
 
     - name: "Terraform plan (iam)"
       shell: bash
+      working-directory: "./code-for-iam"
       run: TF_ENV=${{ inputs.environment }}/iam make terraform-plan opts="-out=terraform-iam.tfplan"
 
     - name: "Terraform apply (iam)"
       shell: bash
+      working-directory: "./code-for-iam"
       run: TF_ENV=${{ inputs.environment }}/iam make terraform-apply opts="-auto-approve" opts="terraform-iam.tfplan"
 
     #################################################
@@ -79,9 +84,11 @@ runs:
       uses: actions/checkout@v5
       with:
         ref: ${{ inputs.tag_or_sha_to_deploy }}
+        path: "code-for-app"
 
     - name: "Download artefacts from S3 bucket"
       shell: bash
+      working-directory: "./code-for-app"
       run: |
         if [[ "${{ inputs.environment }}" == "dev" ]]; then
           bucket_name="vita-${{ inputs.secret_aws_account_id }}-artefacts-${{ inputs.environment }}"
@@ -93,10 +100,11 @@ runs:
 
         s3_artefacts_path="s3://${bucket_name}/${folder_name}/${{ inputs.tag_or_sha_to_deploy }}"
         echo "Copying from path : ${s3_artefacts_path}"
-        aws s3 cp "${s3_artefacts_path}" . --recursive
+        aws s3 sync "${s3_artefacts_path}" .
 
     - name: "Unzip OpenNext package"
       shell: bash
+      working-directory: "./code-for-app"
       run: |
         unzip open-next.zip
         rm -rf open-next.zip
@@ -108,6 +116,7 @@ runs:
     - name: "Identify Terraform version"
       shell: bash
       id: identify-terraform-version-tag
+      working-directory: "./code-for-app"
       run: |
         echo "terraform_version=$(grep "^terraform" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
 
@@ -118,12 +127,15 @@ runs:
 
     - name: "Terraform init (app)"
       shell: bash
+      working-directory: "./code-for-app"
       run: TF_ENV=${{ inputs.environment }} make terraform-init
 
     - name: "Terraform plan (app)"
       shell: bash
+      working-directory: "./code-for-app"
       run: TF_ENV=${{ inputs.environment }} make terraform-plan opts="-out=terraform-app.tfplan"
 
     - name: "Terraform apply (app)"
       shell: bash
+      working-directory: "./code-for-app"
       run: TF_ENV=${{ inputs.environment }} make terraform-apply opts="-auto-approve" opts="terraform-app.tfplan"
