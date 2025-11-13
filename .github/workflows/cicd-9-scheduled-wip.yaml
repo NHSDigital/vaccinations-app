@@ -50,6 +50,9 @@ jobs:
       with:
         environment: "preprod"
         tag_or_sha_to_deploy: ${{ steps.get-latest-tag-name.outputs.value }}
+        secret_aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+        secret_aws_iam_role: ${{ secrets.IAM_ROLE }}
+        secret_aws_slack_channel_id: ${{ secrets.ALARMS_SLACK_CHANNEL_ID }}
 
   deploy-and-test-main:
     name: "Main Branch Assurance"
@@ -90,3 +93,6 @@ jobs:
         with:
           environment: "preprod"
           tag_or_sha_to_deploy: ${{ steps.get-latest-tag-name.outputs.value }}
+          secret_aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+          secret_aws_iam_role: ${{ secrets.IAM_ROLE }}
+          secret_aws_slack_channel_id: ${{ secrets.ALARMS_SLACK_CHANNEL_ID }}

@@ -8,6 +8,15 @@ inputs:
   tag_or_sha_to_deploy:
     description: "Commit sha or tag to deploy"
     required: true
+  secret_aws_iam_role:
+    description: "AWS IAM role"
+    required: true
+  secret_aws_account_id:
+    description: "AWS account id"
+    required: true
+  secret_aws_slack_channel_id:
+    description: "AWS slack channel id"
+    required: true
 
 runs:
   using: composite
@@ -38,17 +47,17 @@ runs:
       uses: aws-actions/configure-aws-credentials@v5
       with:
         role-session-name: GitHubActionsSession
-        role-to-assume: ${{ secrets.IAM_ROLE }}
+        role-to-assume: ${{ inputs.secret_aws_account_id }}
         aws-region: eu-west-2
 
     - name: "Download artefacts from S3 bucket"
       shell: bash
       run: |
         if [[ "${{ inputs.environment }}" == "dev" ]]; then
-          bucket_name="vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-${{ inputs.environment }}"
+          bucket_name="vita-${{ inputs.secret_aws_account_id }}-artefacts-${{ inputs.environment }}"
           folder_name="sha"
         else
-          bucket_name="vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${{ inputs.environment }}"
+          bucket_name="vita-${{ inputs.secret_aws_account_id }}-releases-${{ inputs.environment }}"
           folder_name="tag"
 
         s3_artefacts_path="s3://${bucket_name}/${folder_name}/${{ steps.tag-or-sha.outputs.value }}"
@@ -65,7 +74,7 @@ runs:
       shell: bash
       run: |
         echo "TF_VAR_is_github_action=true" >> $GITHUB_ENV
-        echo "TF_VAR_alarms_slack_channel_id=${{ secrets.ALARMS_SLACK_CHANNEL_ID }}" >> $GITHUB_ENV
+        echo "TF_VAR_alarms_slack_channel_id=${{ inputs.secret_aws_slack_channel_id }}" >> $GITHUB_ENV
         echo "TF_VAR_app_version=${{ steps.tag-or-sha.outputs.value }}" >> $GITHUB_ENV
 
     - name: "Terraform init (iam)"
