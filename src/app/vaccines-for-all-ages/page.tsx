@@ -46,6 +46,10 @@ const VaccinesForAllAges = (): JSX.Element => {
             title={`${VaccineInfo[VaccineTypes.VACCINE_6_IN_1].cardLinkTitle}`}
             link={`/vaccines/${VaccineContentUrlPaths.VACCINE_6_IN_1}`}
           />
+          <CardLink
+            title={`${VaccineInfo[VaccineTypes.ROTAVIRUS].cardLinkTitle}`}
+            link={`/vaccines/${VaccineContentUrlPaths.ROTAVIRUS}`}
+          />
         </ul>
       </MainContent>
     </>

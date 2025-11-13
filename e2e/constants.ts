@@ -1,5 +1,5 @@
 type PoliciesPageName = "cookies-policy" | "accessibility-statement";
-type VaccinePageName = "rsv-older-adults" | "rsv-pregnancy" | "td-ipv" | "6-in-1";
+type VaccinePageName = "rsv-older-adults" | "rsv-pregnancy" | "td-ipv" | "6-in-1" | "rotavirus";
 type FailurePageName = "sso-failure" | "service-failure" | "not-found";
 type SessionPageName = "session-timeout" | "session-logout";
 type IndexPageName = "vaccines-for-all-ages" | "vaccine-hub";
@@ -54,6 +54,12 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     heading: "6-in-1 vaccine",
     title: `6-in-1 vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-6-in-1.png",
+  },
+  rotavirus: {
+    url: "/vaccines/rotavirus-vaccine",
+    heading: "Rotavirus vaccine",
+    title: `Rotavirus vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-rotavirus.png",
   },
 
   // failure pages

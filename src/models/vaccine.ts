@@ -5,6 +5,7 @@ enum VaccineTypes {
   RSV_PREGNANCY = "RSV_PREGNANCY",
   TD_IPV_3_IN_1 = "TD_IPV_3_IN_1",
   VACCINE_6_IN_1 = "VACCINE_6_IN_1",
+  ROTAVIRUS = "ROTAVIRUS",
 }
 
 // vaccine suffix paths used by the app (e.g. /vaccines/"rsv")
@@ -13,6 +14,7 @@ enum VaccineContentUrlPaths {
   RSV_PREGNANCY = "rsv-pregnancy",
   TD_IPV_3_IN_1 = "td-ipv-vaccine-3-in-1-teenage-booster",
   VACCINE_6_IN_1 = "6-in-1-vaccine",
+  ROTAVIRUS = "rotavirus-vaccine",
 }
 
 // maps vaccine url path to vaccine type (one to one)
@@ -21,6 +23,7 @@ const vaccineUrlPathToType: Record<VaccineContentUrlPaths, VaccineTypes> = {
   [VaccineContentUrlPaths.RSV_PREGNANCY]: VaccineTypes.RSV_PREGNANCY,
   [VaccineContentUrlPaths.TD_IPV_3_IN_1]: VaccineTypes.TD_IPV_3_IN_1,
   [VaccineContentUrlPaths.VACCINE_6_IN_1]: VaccineTypes.VACCINE_6_IN_1,
+  [VaccineContentUrlPaths.ROTAVIRUS]: VaccineTypes.ROTAVIRUS,
 };
 // maps vaccine type to url path (one to one)
 const vaccineTypeToUrlPath: Record<VaccineTypes, VaccineContentUrlPaths> = {
@@ -28,6 +31,7 @@ const vaccineTypeToUrlPath: Record<VaccineTypes, VaccineContentUrlPaths> = {
   [VaccineTypes.RSV_PREGNANCY]: VaccineContentUrlPaths.RSV_PREGNANCY,
   [VaccineTypes.TD_IPV_3_IN_1]: VaccineContentUrlPaths.TD_IPV_3_IN_1,
   [VaccineTypes.VACCINE_6_IN_1]: VaccineContentUrlPaths.VACCINE_6_IN_1,
+  [VaccineTypes.ROTAVIRUS]: VaccineContentUrlPaths.ROTAVIRUS,
 };
 
 export type VaccineDetails = {
@@ -100,6 +104,18 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     cardLinkTitle: "6-in-1",
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/6-in-1-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/6-in-1-vaccine/#how-to-get-it"),
+    personalisedEligibilityStatusRequired: false,
+  },
+  [VaccineTypes.ROTAVIRUS]: {
+    displayName: {
+      titleCase: "Rotavirus",
+      midSentenceCase: "rotavirus",
+      indefiniteArticle: "a",
+    },
+    heading: "Rotavirus vaccine",
+    cardLinkTitle: "Rotavirus",
+    nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/rotavirus-vaccine/"),
+    nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/rotavirus-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
   },
 };

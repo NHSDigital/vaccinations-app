@@ -28,6 +28,8 @@ test.describe("Navigation", () => {
     await clickLinkAndExpectPageTitle(page, "Back", AppPageDetails["vaccines-for-all-ages"].title);
     await clickLinkAndExpectPageTitle(page, "6-in-1", AppPageDetails["6-in-1"].title);
     await clickLinkAndExpectPageTitle(page, "Back", AppPageDetails["vaccines-for-all-ages"].title);
+    await clickLinkAndExpectPageTitle(page, "Rotavirus", AppPageDetails["rotavirus"].title);
+    await clickLinkAndExpectPageTitle(page, "Back", AppPageDetails["vaccines-for-all-ages"].title);
   });
 
   test("Skip link navigation", async ({ page }) => {

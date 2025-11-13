@@ -50,6 +50,7 @@ describe("VaccinesForAllAges", () => {
       AgeSectionTestId.CHILDREN,
     );
     assertCardLinkIsPresentInSection("6-in-1", "/vaccines/6-in-1-vaccine", AgeSectionTestId.BABIES);
+    assertCardLinkIsPresentInSection("Rotavirus", "/vaccines/rotavirus-vaccine", AgeSectionTestId.BABIES);
   });
 
   it("should render back link", () => {
