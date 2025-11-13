@@ -129,6 +129,12 @@ const styleHowToGetSection: Record<VaccineTypes, (section: VaccinePageSection, f
     [VaccineTypes.TD_IPV_3_IN_1]: styleSection,
     [VaccineTypes.VACCINE_6_IN_1]: styleSection,
     [VaccineTypes.ROTAVIRUS]: styleSection,
+    [VaccineTypes.HPV]: styleSection,
+    [VaccineTypes.MENB_CHILDREN]: styleSection,
+    [VaccineTypes.MMR]: styleSection,
+    [VaccineTypes.PNEUMOCOCCAL]: styleSection,
+    [VaccineTypes.SHINGLES]: styleSection,
+    [VaccineTypes.MENACWY]: styleSection,
   };
 
 const getStyledContentForVaccine = async (

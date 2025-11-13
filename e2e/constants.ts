@@ -1,5 +1,16 @@
 type PoliciesPageName = "cookies-policy" | "accessibility-statement";
-type VaccinePageName = "rsv-older-adults" | "rsv-pregnancy" | "td-ipv" | "6-in-1" | "rotavirus";
+type VaccinePageName =
+  | "rsv-older-adults"
+  | "rsv-pregnancy"
+  | "td-ipv"
+  | "6-in-1"
+  | "rotavirus"
+  | "hpv"
+  | "menb-children"
+  | "mmr"
+  | "pneumococcal"
+  | "shingles"
+  | "menacwy";
 type FailurePageName = "sso-failure" | "service-failure" | "not-found";
 type SessionPageName = "session-timeout" | "session-logout";
 type IndexPageName = "vaccines-for-all-ages" | "vaccine-hub";
@@ -60,6 +71,42 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     heading: "Rotavirus vaccine",
     title: `Rotavirus vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-rotavirus.png",
+  },
+  hpv: {
+    url: "/vaccines/hpv-vaccine",
+    heading: "HPV vaccine",
+    title: `HPV vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-hpv.png",
+  },
+  "menb-children": {
+    url: "/vaccines/menb-vaccine-for-children",
+    heading: "MenB vaccine",
+    title: `MenB vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-menb-vaccine-for-children.png",
+  },
+  mmr: {
+    url: "/vaccines/mmr-vaccine",
+    heading: "MMR vaccine",
+    title: `MMR vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-mmr.png",
+  },
+  pneumococcal: {
+    url: "/vaccines/pneumococcal-vaccine",
+    heading: "Pneumococcal vaccine",
+    title: `Pneumococcal vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-pneumococcal.png",
+  },
+  shingles: {
+    url: "/vaccines/shingles-vaccine",
+    heading: "Shingles vaccine",
+    title: `Shingles vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-shingles.png",
+  },
+  menacwy: {
+    url: "/vaccines/menacwy-vaccine",
+    heading: "MenACWY vaccine",
+    title: `MenACWY vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-menacwy.png",
   },
 
   // failure pages

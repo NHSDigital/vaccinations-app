@@ -43,14 +43,25 @@ describe("VaccinesForAllAges", () => {
     render(<VaccinesForAllAges />);
 
     assertCardLinkIsPresentInSection("RSV", "/vaccines/rsv", AgeSectionTestId.ADULTS);
+    assertCardLinkIsPresentInSection("Pneumococcal", "/vaccines/pneumococcal-vaccine", AgeSectionTestId.ADULTS);
+
     assertCardLinkIsPresentInSection("RSV in pregnancy", "/vaccines/rsv-pregnancy", AgeSectionTestId.PREGNANCY);
+
     assertCardLinkIsPresentInSection(
       "Td/IPV (3-in-1 teenage booster)",
       "/vaccines/td-ipv-vaccine-3-in-1-teenage-booster",
       AgeSectionTestId.CHILDREN,
     );
+    assertCardLinkIsPresentInSection("MenACWY", "/vaccines/menacwy-vaccine", AgeSectionTestId.CHILDREN);
+    assertCardLinkIsPresentInSection("HPV", "/vaccines/hpv-vaccine", AgeSectionTestId.CHILDREN);
+    assertCardLinkIsPresentInSection("MMR", "/vaccines/mmr-vaccine", AgeSectionTestId.CHILDREN);
+    assertCardLinkIsPresentInSection("MenB", "/vaccines/menb-vaccine-for-children", AgeSectionTestId.CHILDREN);
+    assertCardLinkIsPresentInSection("Pneumococcal", "/vaccines/pneumococcal-vaccine", AgeSectionTestId.CHILDREN);
+
     assertCardLinkIsPresentInSection("6-in-1", "/vaccines/6-in-1-vaccine", AgeSectionTestId.BABIES);
     assertCardLinkIsPresentInSection("Rotavirus", "/vaccines/rotavirus-vaccine", AgeSectionTestId.BABIES);
+    assertCardLinkIsPresentInSection("Pneumococcal", "/vaccines/pneumococcal-vaccine", AgeSectionTestId.BABIES);
+    assertCardLinkIsPresentInSection("MenB", "/vaccines/menb-vaccine-for-children", AgeSectionTestId.BABIES);
   });
 
   it("should render back link", () => {

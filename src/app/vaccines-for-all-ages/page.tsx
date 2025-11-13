@@ -23,6 +23,14 @@ const VaccinesForAllAges = (): JSX.Element => {
             title={`${VaccineInfo[VaccineTypes.RSV].cardLinkTitle}`}
             link={`/vaccines/${VaccineContentUrlPaths.RSV}`}
           />
+          <CardLink
+            title={`${VaccineInfo[VaccineTypes.SHINGLES].cardLinkTitle}`}
+            link={`/vaccines/${VaccineContentUrlPaths.SHINGLES}`}
+          />
+          <CardLink
+            title={`${VaccineInfo[VaccineTypes.PNEUMOCOCCAL].cardLinkTitle}`}
+            link={`/vaccines/${VaccineContentUrlPaths.PNEUMOCOCCAL}`}
+          />
         </ul>
 
         <h2 className="nhsuk-heading-s">Vaccines for pregnancy</h2>
@@ -39,6 +47,26 @@ const VaccinesForAllAges = (): JSX.Element => {
             title={`${VaccineInfo[VaccineTypes.TD_IPV_3_IN_1].cardLinkTitle}`}
             link={`/vaccines/${VaccineContentUrlPaths.TD_IPV_3_IN_1}`}
           />
+          <CardLink
+            title={`${VaccineInfo[VaccineTypes.MENACWY].cardLinkTitle}`}
+            link={`/vaccines/${VaccineContentUrlPaths.MENACWY}`}
+          />
+          <CardLink
+            title={`${VaccineInfo[VaccineTypes.HPV].cardLinkTitle}`}
+            link={`/vaccines/${VaccineContentUrlPaths.HPV}`}
+          />
+          <CardLink
+            title={`${VaccineInfo[VaccineTypes.MMR].cardLinkTitle}`}
+            link={`/vaccines/${VaccineContentUrlPaths.MMR}`}
+          />
+          <CardLink
+            title={`${VaccineInfo[VaccineTypes.MENB_CHILDREN].cardLinkTitle}`}
+            link={`/vaccines/${VaccineContentUrlPaths.MENB_CHILDREN}`}
+          />
+          <CardLink
+            title={`${VaccineInfo[VaccineTypes.PNEUMOCOCCAL].cardLinkTitle}`}
+            link={`/vaccines/${VaccineContentUrlPaths.PNEUMOCOCCAL}`}
+          />
         </ul>
         <h2 className="nhsuk-heading-s">Vaccines for babies under 1 year old</h2>
         <ul className="nhsapp-cards nhsapp-cards--stacked" data-testid={"vaccine-cardlinks-babies"}>
@@ -49,6 +77,14 @@ const VaccinesForAllAges = (): JSX.Element => {
           <CardLink
             title={`${VaccineInfo[VaccineTypes.ROTAVIRUS].cardLinkTitle}`}
             link={`/vaccines/${VaccineContentUrlPaths.ROTAVIRUS}`}
+          />
+          <CardLink
+            title={`${VaccineInfo[VaccineTypes.PNEUMOCOCCAL].cardLinkTitle}`}
+            link={`/vaccines/${VaccineContentUrlPaths.PNEUMOCOCCAL}`}
+          />
+          <CardLink
+            title={`${VaccineInfo[VaccineTypes.MENB_CHILDREN].cardLinkTitle}`}
+            link={`/vaccines/${VaccineContentUrlPaths.MENB_CHILDREN}`}
           />
         </ul>
       </MainContent>
