@@ -76,7 +76,17 @@ runs:
       run: |
         echo "TF_VAR_is_github_action=true" >> $GITHUB_ENV
         echo "TF_VAR_alarms_slack_channel_id=${{ inputs.secret_aws_slack_channel_id }}" >> $GITHUB_ENV
-        echo "TF_VAR_app_version=${{ steps.tag-or-sha.outputs.value }}" >> $GITHUB_ENV
+        echo "TF_VAR_app_version=${{ inputs.tag_or_sha_to_deploy }}" >> $GITHUB_ENV
+
+    # Rationale:
+    #  - why? given we reuse preprod for R1.0 and R2.0, when IAM permission change across releases, then deployment fails
+    #  - constraint? make sure IAM permissions in R2.0 is a superset of R1.0
+    #  - what? deploy IAM from R2.0 as it is a superset and will succeed R1.0 deployments as well
+    - name: "Checkout code"
+      uses: actions/checkout@v5
+      with:
+        fetch-depth: 0
+        ref: 'main'
 
     - name: "Terraform init (iam)"
       shell: bash
@@ -89,6 +99,11 @@ runs:
     - name: "Terraform apply (iam)"
       shell: bash
       run: TF_ENV=${{ inputs.environment }}/iam make terraform-apply opts="-auto-approve" opts="terraform-iam.tfplan"
+
+    - name: "Checkout code"
+      uses: actions/checkout@v5
+      with:
+        ref: ${{ inputs.tag_or_sha_to_deploy }}
 
     - name: "Terraform init (app)"
       shell: bash
