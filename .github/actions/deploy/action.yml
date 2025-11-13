@@ -44,14 +44,14 @@ runs:
 
     - name: "Identify Terraform version"
       shell: bash
-      id: identify-terraform-version
+      id: identify-terraform-version-main
       run: |
         echo "terraform_version=$(grep "^terraform" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
 
     - name: "Install Terraform version"
       uses: hashicorp/setup-terraform@v3
       with:
-        terraform_version: "${{ steps.identify-terraform-version.outputs.terraform_version }}"
+        terraform_version: "${{ steps.identify-terraform-version-main.outputs.terraform_version }}"
 
     - name: "Set terraform environment vars"
       shell: bash
@@ -108,14 +108,14 @@ runs:
 
     - name: "Identify Terraform version"
       shell: bash
-      id: identify-terraform-version
+      id: identify-terraform-version-tag
       run: |
         echo "terraform_version=$(grep "^terraform" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
 
     - name: "Install Terraform version"
       uses: hashicorp/setup-terraform@v3
       with:
-        terraform_version: "${{ steps.identify-terraform-version.outputs.terraform_version }}"
+        terraform_version: "${{ steps.identify-terraform-version-tag.outputs.terraform_version }}"
 
     - name: "Terraform init (app)"
       shell: bash
