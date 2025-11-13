@@ -47,7 +47,7 @@ runs:
       uses: aws-actions/configure-aws-credentials@v5
       with:
         role-session-name: GitHubActionsSession
-        role-to-assume: ${{ inputs.secret_aws_account_id }}
+        role-to-assume: ${{ inputs.secret_aws_iam_role }}
         aws-region: eu-west-2
 
     - name: "Download artefacts from S3 bucket"
