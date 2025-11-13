@@ -21,16 +21,26 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: "Show inputs"
-      shell: bash
-      run: |
-        echo "Deploying to ( ${{ inputs.environment }} ) environment"
-        echo "Deploying tag/sha ${{ inputs.tag_or_sha_to_deploy }}"
+    #################################################
+    # Setup GitHub IAM user permissions in AWS first
+    #################################################
 
+    # Rationale:
+    #  - why? given we reuse preprod for R1.0 and R2.0, when IAM permission change across releases, then deployment fails
+    #  - constraint? make sure R2.0 IAM permissions are a superset of R1.0 IAM permissions
+    #  - what? deploy IAM from R2.0 as it is a superset and then R1.0 deployments will succeed as well
     - name: "Checkout code"
       uses: actions/checkout@v5
       with:
-        ref: ${{ inputs.tag_or_sha_to_deploy }}
+        fetch-depth: 0
+        ref: 'main'
+
+    - name: "Configure AWS credentials"
+      uses: aws-actions/configure-aws-credentials@v5
+      with:
+        role-session-name: GitHubActionsSession
+        role-to-assume: ${{ inputs.secret_aws_iam_role }}
+        aws-region: eu-west-2
 
     - name: "Identify Terraform version"
       shell: bash
@@ -43,12 +53,28 @@ runs:
       with:
         terraform_version: "${{ steps.identify-terraform-version.outputs.terraform_version }}"
 
-    - name: "Configure AWS credentials"
-      uses: aws-actions/configure-aws-credentials@v5
-      with:
-        role-session-name: GitHubActionsSession
-        role-to-assume: ${{ inputs.secret_aws_iam_role }}
-        aws-region: eu-west-2
+    - name: "Set terraform environment vars"
+      shell: bash
+      run: |
+        echo "TF_VAR_is_github_action=true" >> $GITHUB_ENV
+        echo "TF_VAR_alarms_slack_channel_id=${{ inputs.secret_aws_slack_channel_id }}" >> $GITHUB_ENV
+        echo "TF_VAR_app_version=${{ inputs.tag_or_sha_to_deploy }}" >> $GITHUB_ENV
+
+    - name: "Terraform init (iam)"
+      shell: bash
+      run: TF_ENV=${{ inputs.environment }}/iam make terraform-init
+
+    - name: "Terraform plan (iam)"
+      shell: bash
+      run: TF_ENV=${{ inputs.environment }}/iam make terraform-plan opts="-out=terraform-iam.tfplan"
+
+    - name: "Terraform apply (iam)"
+      shell: bash
+      run: TF_ENV=${{ inputs.environment }}/iam make terraform-apply opts="-auto-approve" opts="terraform-iam.tfplan"
+
+    #################################################
+    # Download the required artefacts from AWS
+    #################################################
 
     - name: "Download artefacts from S3 bucket"
       shell: bash
@@ -71,39 +97,25 @@ runs:
         unzip open-next.zip
         rm -rf open-next.zip
 
-    - name: "Set terraform environment vars"
-      shell: bash
-      run: |
-        echo "TF_VAR_is_github_action=true" >> $GITHUB_ENV
-        echo "TF_VAR_alarms_slack_channel_id=${{ inputs.secret_aws_slack_channel_id }}" >> $GITHUB_ENV
-        echo "TF_VAR_app_version=${{ inputs.tag_or_sha_to_deploy }}" >> $GITHUB_ENV
-
-    # Rationale:
-    #  - why? given we reuse preprod for R1.0 and R2.0, when IAM permission change across releases, then deployment fails
-    #  - constraint? make sure IAM permissions in R2.0 is a superset of R1.0
-    #  - what? deploy IAM from R2.0 as it is a superset and will succeed R1.0 deployments as well
-    - name: "Checkout code"
-      uses: actions/checkout@v5
-      with:
-        fetch-depth: 0
-        ref: 'main'
-
-    - name: "Terraform init (iam)"
-      shell: bash
-      run: TF_ENV=${{ inputs.environment }}/iam make terraform-init
-
-    - name: "Terraform plan (iam)"
-      shell: bash
-      run: TF_ENV=${{ inputs.environment }}/iam make terraform-plan opts="-out=terraform-iam.tfplan"
-
-    - name: "Terraform apply (iam)"
-      shell: bash
-      run: TF_ENV=${{ inputs.environment }}/iam make terraform-apply opts="-auto-approve" opts="terraform-iam.tfplan"
+    #################################################
+    # Deploy the artefacts to AWS
+    #################################################
 
     - name: "Checkout code"
       uses: actions/checkout@v5
       with:
         ref: ${{ inputs.tag_or_sha_to_deploy }}
+
+    - name: "Identify Terraform version"
+      shell: bash
+      id: identify-terraform-version
+      run: |
+        echo "terraform_version=$(grep "^terraform" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
+
+    - name: "Install Terraform version"
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: "${{ steps.identify-terraform-version.outputs.terraform_version }}"
 
     - name: "Terraform init (app)"
       shell: bash
