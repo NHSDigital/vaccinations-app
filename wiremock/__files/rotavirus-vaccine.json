@@ -1,0 +1,573 @@
+{
+  "@context": "http://schema.org",
+  "@type": "MedicalWebPage",
+  "name": "Rotavirus vaccine",
+  "copyrightHolder": { "name": "Crown Copyright", "@type": "Organization" },
+  "license": "https://developer.api.nhs.uk/terms",
+  "author": {
+    "url": "https://www.nhs.uk",
+    "logo": "https://assets.nhs.uk/nhsuk-cms/images/nhs-attribution.width-510.png",
+    "email": "nhswebsite.servicedesk@nhs.net",
+    "@type": "Organization",
+    "name": "NHS website"
+  },
+  "about": { "@type": "WebPage", "name": "Rotavirus vaccine", "alternateName": "" },
+  "description": "Find out about the rotavirus vaccine, including why it's given, who should have it and what the possible side effects are.",
+  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/",
+  "genre": ["Vaccine"],
+  "keywords": "",
+  "dateModified": "2025-04-15T14:21:34+00:00",
+  "lastReviewed": ["2023-12-13T08:45:00+00:00", "2026-12-13T08:45:00+00:00"],
+  "breadcrumb": {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 0,
+        "item": {
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "name": "Vaccinations",
+          "genre": []
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/",
+          "name": "Rotavirus vaccine",
+          "genre": ["Vaccine"]
+        }
+      }
+    ]
+  },
+  "hasPart": [
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#overview",
+      "description": "The rotavirus vaccine helps protect against rotavirus, a common cause of diarrhoea and vomiting. It's given to babies when they're 8 and 12 weeks old.",
+      "hasPart": [
+        { "@type": "WebPageElement", "headline": "Rotavirus vaccine", "text": "What it's for" },
+        { "@type": "WebPageElement", "headline": "Rotavirus vaccine", "text": "Who it's for" },
+        { "@type": "WebPageElement", "headline": "Rotavirus vaccine", "text": "How to get it" },
+        { "@type": "WebPageElement", "headline": "Rotavirus vaccine", "text": "Side effects" },
+        { "@type": "WebPageElement", "headline": "Rotavirus vaccine", "text": "Contraindications" },
+        {
+          "text": "<p>The rotavirus vaccine is recommended for babies because rotavirus spreads very easily and can make some babies very ill.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>The rotavirus vaccine is for babies. They're given a dose of the vaccine at 8 weeks old and 12 weeks old.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Your GP surgery will usually contact you to arrange your baby's rotavirus vaccinations. Speak to your GP surgery if you have not been contacted.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>The most common side effects of the rotavirus vaccine are diarrhoea and irritability. More serious side effects are very rare.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>A small number of babies cannot have the rotavirus vaccine, such as babies with a rare condition called severe combined immunodeficiency (SCID).</p> ",
+          "@type": "WebPageElement"
+        }
+      ],
+      "headline": ""
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#what-its-for",
+      "description": "The rotavirus vaccine is recommended for babies because rotavirus spreads very easily and can make some babies very ill.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Rotavirus is an infection that causes diarrhoea and vomiting. It's very common, especially in babies and young children.</p><p>Most children with rotavirus will get better in a few days, but some children can become very dehydrated and need treatment in hospital. Very rarely, rotavirus can be life-threatening.</p><p>Rotavirus spreads very easily. Vaccination is recommended for babies to help stop them getting infected.</p>"
+        }
+      ],
+      "headline": "What the rotavirus vaccine is for"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#who-its-for",
+      "description": "The rotavirus vaccine is for babies. They're given a dose of the vaccine at 8 weeks old and 12 weeks old.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Babies are given 2 doses of the rotavirus vaccine as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>They are given the vaccine at:</p><ul><li>8 weeks old</li><li>12 weeks old</li></ul><p>If your baby has missed their rotavirus vaccinations, contact their GP surgery.</p><p>If they missed the 1st dose, they can have it up to 15 weeks old. If they missed the 2nd dose, they can have it up to 24 weeks old.</p>"
+        }
+      ],
+      "headline": "When babies should have the rotavirus vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#contraindications",
+      "description": "A small number of babies cannot have the rotavirus vaccine, such as babies with a rare condition called severe combined immunodeficiency (SCID).",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Most babies who are eligible for the rotavirus vaccine can have it.</p><p>Your baby cannot have the vaccine if:</p><ul><li>they've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine or an ingredient in the vaccine</li><li>they have a rare condition that affects the immune system called severe combined immunodeficiency (SCID)</li><li>they've had a bowel blockage (called intussusception) in the past or have a problem with their bowel that means they're at higher risk of intussusception</li><li>they have rare conditions called fructose intolerance, glucose-galactose malabsorption or sucrase-isomaltase insufficiency</li><li>their mother took medicines called biological medicines (which weaken the immune system) while pregnant or breastfeeding</li></ul><p>Speak to your GP surgery if you're not sure if your baby can have the rotavirus vaccine.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Information",
+          "text": "<h3><b>Getting vaccinated if your baby is unwell</b></h3><p>If your baby has a high temperature, diarrhoea or vomiting, wait until they're feeling better before having the vaccine.</p>"
+        }
+      ],
+      "headline": "Babies who cannot have the rotavirus vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#ingredients",
+      "description": "You can check the ingredients in the rotavirus vaccine by asking to see the patient leaflet or searching for it online.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>There is 1 type of rotavirus vaccine used in the UK. You can check the ingredients in the patient leaflet:</p><p><a href=\"https://www.medicines.org.uk/emc/files/pil.2739.pdf\">Rotarix vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 370KB)</a></p>"
+        }
+      ],
+      "headline": "Rotavirus vaccine ingredients"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#how-to-get-it",
+      "description": "Your GP surgery will usually contact you to arrange your baby's rotavirus vaccinations. Speak to your GP surgery if you have not been contacted.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Your GP surgery will usually contact you about your baby's rotavirus vaccinations. This will usually be by letter, text, phone call or email.</p><p>It's best to have the vaccinations on time, but your baby can still have the rotavirus vaccine up to 15 weeks old (for the 1st dose) or 24 weeks (for the 2nd dose).</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "identifier": "primary",
+          "headline": "Speak to your GP surgery if:",
+          "text": "<ul>\n<li>\n  you have not been contacted to get your baby's rotavirus vaccinations\n </li>\n<li>\n  your baby has missed their rotavirus vaccinations, or you're not sure if they've had both doses of the vaccine\n </li>\n<li>\n  your baby is unwell and is due to have the vaccine – they may need to wait until they're feeling better before having the vaccine\n </li>\n<li>\n  you need to change a vaccination appointment\n </li>\n</ul>\n<p>\n Your GP surgery can book or rearrange an appointment.\n</p>\n"
+        }
+      ],
+      "headline": "How to get the rotavirus vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/UsageOrScheduleHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#how-its-used-previously-dosage-and-administration",
+      "description": "The rotavirus vaccine is a liquid that is squirted into your baby's mouth. They may need to be given another dose if they spit it out straight away.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The rotavirus vaccine is given as a liquid that's squirted into your baby's mouth.</p><p>If your baby spits out or brings up the liquid straight away, they'll be given another dose.</p><h3>After the vaccination</h3><p>Your baby can feed as normal and do their usual activities (including swimming) after having the vaccine.</p><p>For a few weeks after being vaccinated, your baby's poo may contain a weakened version of rotavirus.</p><p>Although the risk of getting ill from this is very small, it's a good idea to keep washing your hands regularly (especially after changing your baby's nappy).</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Information",
+          "text": "<h3><b>Having the rotavirus vaccine at the same time as other vaccines</b></h3><p>Your baby can have the rotavirus vaccine at the same time as other vaccines.</p>"
+        }
+      ],
+      "headline": "How the rotavirus vaccine is given"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#side-effects",
+      "description": "The most common side effects of the rotavirus vaccine are diarrhoea and irritability. More serious side effects are very rare.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Like all medicines, the rotavirus vaccine can cause side effects, but not all babies get them.</p><h3>Common side effects</h3><p>The most common side effects of the rotavirus vaccine are:</p><ul><li>diarrhoea</li><li>being irritable</li></ul><p>Some babies may also have other side effects such as:</p><ul><li>being sick (vomiting)</li><li>a rash</li><li>a high temperature</li><li>loss of appetite</li></ul><h3>Rare side effects</h3><p>More serious side effects, such as a severe allergic reaction, are very rare. The person who vaccinates your child will be trained to deal with allergic reactions and treat them immediately.</p><p>There is also a very small risk of a serious problem when the bowel becomes blocked (intussusception) in the week after being vaccinated.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "identifier": "urgent",
+          "headline": "Ask for an urgent GP appointment or call NHS 111 if your baby:",
+          "text": "<ul>\n<li>\n  keeps being sick\n </li>\n<li>\n  has blood in their poo, or their poo looks like redcurrant jelly\n </li>\n<li>\n  has a swollen or painful tummy\n </li>\n<li>\n  stops feeding\n </li>\n<li>\n  has signs of dehydration – such as fewer wet nappies\n </li>\n<li>\n  is under 3 months old and has a temperature of 38C or higher (or you think they have a high temperature)\n </li>\n<li>\n  is 3 to 6 months old and has a temperature of 39C or higher (or you think they have a high temperature)\n </li>\n<li>\n  has diarrhoea for more than 7 days\n </li>\n</ul>\n<p>\n These could be signs of an infection or a blocked bowel.\n</p>\n<p>\n If you're worried about your baby, it's best to trust your instincts and contact your GP surgery or call 111 for advice.\n</p>\n"
+        }
+      ],
+      "headline": "Side effects of the rotavirus vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/EffectivenessHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#effectiveness",
+      "description": "About 8 out of every 10 babies who have the rotavirus vaccine will be protected from diarrhoea and vomiting caused by rotavirus.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The rotavirus vaccine works very well at stopping babies getting infected by rotavirus.</p><p>It prevents rotavirus infections in about 8 out of every 10 babies who have it.</p><p>The vaccine does not protect against diarrhoea and vomiting caused by other illnesses, such as <a href=\"https://www.nhs.uk/conditions/norovirus/\">norovirus</a>.</p>"
+        }
+      ],
+      "headline": "How well the rotavirus vaccine works"
+    }
+  ],
+  "relatedLink": [
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "name": "Vaccinations",
+      "linkRelationship": "Navigation",
+      "position": 0
+    }
+  ],
+  "contentSubTypes": [],
+  "mainEntityOfPage": [
+    {
+      "position": 0,
+      "identifier": 0,
+      "text": "The rotavirus vaccine helps protect against rotavirus, a common cause of diarrhoea and vomiting. It's given to babies when they're 8 and 12 weeks old.",
+      "name": "lead paragraph",
+      "@type": "WebPageElement"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 1,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Rotavirus is an infection that causes diarrhoea and vomiting. It's very common, especially in babies and young children.</p><p>Most children with rotavirus will get better in a few days, but some children can become very dehydrated and need treatment in hospital. Very rarely, rotavirus can be life-threatening.</p><p>Rotavirus spreads very easily. Vaccination is recommended for babies to help stop them getting infected.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "The rotavirus vaccine is recommended for babies because rotavirus spreads very easily and can make some babies very ill.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Rotavirus is an infection that causes diarrhoea and vomiting. It's very common, especially in babies and young children.</p><p>Most children with rotavirus will get better in a few days, but some children can become very dehydrated and need treatment in hospital. Very rarely, rotavirus can be life-threatening.</p><p>Rotavirus spreads very easily. Vaccination is recommended for babies to help stop them getting infected.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
+      "headline": "What the rotavirus vaccine is for"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 2,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Babies are given 2 doses of the rotavirus vaccine as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>They are given the vaccine at:</p><ul><li>8 weeks old</li><li>12 weeks old</li></ul><p>If your baby has missed their rotavirus vaccinations, contact their GP surgery.</p><p>If they missed the 1st dose, they can have it up to 15 weeks old. If they missed the 2nd dose, they can have it up to 24 weeks old.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "The rotavirus vaccine is for babies. They're given a dose of the vaccine at 8 weeks old and 12 weeks old.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Babies are given 2 doses of the rotavirus vaccine as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>They are given the vaccine at:</p><ul><li>8 weeks old</li><li>12 weeks old</li></ul><p>If your baby has missed their rotavirus vaccinations, contact their GP surgery.</p><p>If they missed the 1st dose, they can have it up to 15 weeks old. If they missed the 2nd dose, they can have it up to 24 weeks old.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
+      "headline": "When babies should have the rotavirus vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 3,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most babies who are eligible for the rotavirus vaccine can have it.</p><p>Your baby cannot have the vaccine if:</p><ul><li>they've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine or an ingredient in the vaccine</li><li>they have a rare condition that affects the immune system called severe combined immunodeficiency (SCID)</li><li>they've had a bowel blockage (called intussusception) in the past or have a problem with their bowel that means they're at higher risk of intussusception</li><li>they have rare conditions called fructose intolerance, glucose-galactose malabsorption or sucrase-isomaltase insufficiency</li><li>their mother took medicines called biological medicines (which weaken the immune system) while pregnant or breastfeeding</li></ul><p>Speak to your GP surgery if you're not sure if your baby can have the rotavirus vaccine.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3><b>Getting vaccinated if your baby is unwell</b></h3><p>If your baby has a high temperature, diarrhoea or vomiting, wait until they're feeling better before having the vaccine.</p>"
+        }
+      ],
+      "description": "A small number of babies cannot have the rotavirus vaccine, such as babies with a rare condition called severe combined immunodeficiency (SCID).",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most babies who are eligible for the rotavirus vaccine can have it.</p><p>Your baby cannot have the vaccine if:</p><ul><li>they've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine or an ingredient in the vaccine</li><li>they have a rare condition that affects the immune system called severe combined immunodeficiency (SCID)</li><li>they've had a bowel blockage (called intussusception) in the past or have a problem with their bowel that means they're at higher risk of intussusception</li><li>they have rare conditions called fructose intolerance, glucose-galactose malabsorption or sucrase-isomaltase insufficiency</li><li>their mother took medicines called biological medicines (which weaken the immune system) while pregnant or breastfeeding</li></ul><p>Speak to your GP surgery if you're not sure if your baby can have the rotavirus vaccine.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3><b>Getting vaccinated if your baby is unwell</b></h3><p>If your baby has a high temperature, diarrhoea or vomiting, wait until they're feeling better before having the vaccine.</p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
+      "headline": "Babies who cannot have the rotavirus vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 4,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There is 1 type of rotavirus vaccine used in the UK. You can check the ingredients in the patient leaflet:</p><p><a href=\"https://www.medicines.org.uk/emc/files/pil.2739.pdf\">Rotarix vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 370KB)</a></p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "You can check the ingredients in the rotavirus vaccine by asking to see the patient leaflet or searching for it online.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There is 1 type of rotavirus vaccine used in the UK. You can check the ingredients in the patient leaflet:</p><p><a href=\"https://www.medicines.org.uk/emc/files/pil.2739.pdf\">Rotarix vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 370KB)</a></p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
+      "headline": "Rotavirus vaccine ingredients"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 5,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Your GP surgery will usually contact you about your baby's rotavirus vaccinations. This will usually be by letter, text, phone call or email.</p><p>It's best to have the vaccinations on time, but your baby can still have the rotavirus vaccine up to 15 weeks old (for the 1st dose) or 24 weeks (for the 2nd dose).</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "non-urgent",
+          "identifier": "5",
+          "text": "<h3>Speak to your GP surgery if:</h3><div class=\"block-richtext\">\n<ul><li>you have not been contacted to get your baby's rotavirus vaccinations</li><li>your baby has missed their rotavirus vaccinations, or you're not sure if they've had both doses of the vaccine</li><li>your baby is unwell and is due to have the vaccine – they may need to wait until they're feeling better before having the vaccine</li><li>you need to change a vaccination appointment</li></ul><p>Your GP surgery can book or rearrange an appointment.</p>\n</div>"
+        }
+      ],
+      "description": "Your GP surgery will usually contact you to arrange your baby's rotavirus vaccinations. Speak to your GP surgery if you have not been contacted.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Your GP surgery will usually contact you about your baby's rotavirus vaccinations. This will usually be by letter, text, phone call or email.</p><p>It's best to have the vaccinations on time, but your baby can still have the rotavirus vaccine up to 15 weeks old (for the 1st dose) or 24 weeks (for the 2nd dose).</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "non-urgent",
+          "identifier": "5",
+          "text": "<h3>Speak to your GP surgery if:</h3><div class=\"block-richtext\">\n<ul><li>you have not been contacted to get your baby's rotavirus vaccinations</li><li>your baby has missed their rotavirus vaccinations, or you're not sure if they've had both doses of the vaccine</li><li>your baby is unwell and is due to have the vaccine – they may need to wait until they're feeling better before having the vaccine</li><li>you need to change a vaccination appointment</li></ul><p>Your GP surgery can book or rearrange an appointment.</p>\n</div>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "headline": "How to get the rotavirus vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 6,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3><b>Appointment advice for parents</b></h3><ul><li><a href=\"https://www.nhs.uk/vaccinations/booking-your-childs-vaccination-appointment/\">Booking your child's vaccination appointment</a></li><li><a href=\"https://www.nhs.uk/vaccinations/vaccination-tips-for-parents/\">Vaccination tips for parents</a></li></ul>"
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3><b>Appointment advice for parents</b></h3><ul><li><a href=\"https://www.nhs.uk/vaccinations/booking-your-childs-vaccination-appointment/\">Booking your child's vaccination appointment</a></li><li><a href=\"https://www.nhs.uk/vaccinations/vaccination-tips-for-parents/\">Vaccination tips for parents</a></li></ul>"
+        }
+      ]
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 7,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The rotavirus vaccine is given as a liquid that's squirted into your baby's mouth.</p><p>If your baby spits out or brings up the liquid straight away, they'll be given another dose.</p><h3>After the vaccination</h3><p>Your baby can feed as normal and do their usual activities (including swimming) after having the vaccine.</p><p>For a few weeks after being vaccinated, your baby's poo may contain a weakened version of rotavirus.</p><p>Although the risk of getting ill from this is very small, it's a good idea to keep washing your hands regularly (especially after changing your baby's nappy).</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3><b>Having the rotavirus vaccine at the same time as other vaccines</b></h3><p>Your baby can have the rotavirus vaccine at the same time as other vaccines.</p>"
+        }
+      ],
+      "description": "The rotavirus vaccine is a liquid that is squirted into your baby's mouth. They may need to be given another dose if they spit it out straight away.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The rotavirus vaccine is given as a liquid that's squirted into your baby's mouth.</p><p>If your baby spits out or brings up the liquid straight away, they'll be given another dose.</p><h3>After the vaccination</h3><p>Your baby can feed as normal and do their usual activities (including swimming) after having the vaccine.</p><p>For a few weeks after being vaccinated, your baby's poo may contain a weakened version of rotavirus.</p><p>Although the risk of getting ill from this is very small, it's a good idea to keep washing your hands regularly (especially after changing your baby's nappy).</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3><b>Having the rotavirus vaccine at the same time as other vaccines</b></h3><p>Your baby can have the rotavirus vaccine at the same time as other vaccines.</p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/UsageOrScheduleHealthAspect",
+      "headline": "How the rotavirus vaccine is given"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 8,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Like all medicines, the rotavirus vaccine can cause side effects, but not all babies get them.</p><h3>Common side effects</h3><p>The most common side effects of the rotavirus vaccine are:</p><ul><li>diarrhoea</li><li>being irritable</li></ul><p>Some babies may also have other side effects such as:</p><ul><li>being sick (vomiting)</li><li>a rash</li><li>a high temperature</li><li>loss of appetite</li></ul><h3>Rare side effects</h3><p>More serious side effects, such as a severe allergic reaction, are very rare. The person who vaccinates your child will be trained to deal with allergic reactions and treat them immediately.</p><p>There is also a very small risk of a serious problem when the bowel becomes blocked (intussusception) in the week after being vaccinated.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "urgent",
+          "identifier": "5",
+          "text": "<h4>Ask for an urgent GP appointment or call NHS 111 if your baby:</h4><div class=\"block-richtext\">\n<ul><li>keeps being sick</li><li>has blood in their poo, or their poo looks like redcurrant jelly</li><li>has a swollen or painful tummy</li><li>stops feeding</li><li>has signs of dehydration – such as fewer wet nappies</li><li>is under 3 months old and has a temperature of 38C or higher (or you think they have a high temperature)</li><li>is 3 to 6 months old and has a temperature of 39C or higher (or you think they have a high temperature)</li><li>has diarrhoea for more than 7 days</li></ul><p>These could be signs of an infection or a blocked bowel.</p><p>If you're worried about your baby, it's best to trust your instincts and contact your GP surgery or call 111 for advice.</p>\n</div>"
+        }
+      ],
+      "description": "The most common side effects of the rotavirus vaccine are diarrhoea and irritability. More serious side effects are very rare.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Like all medicines, the rotavirus vaccine can cause side effects, but not all babies get them.</p><h3>Common side effects</h3><p>The most common side effects of the rotavirus vaccine are:</p><ul><li>diarrhoea</li><li>being irritable</li></ul><p>Some babies may also have other side effects such as:</p><ul><li>being sick (vomiting)</li><li>a rash</li><li>a high temperature</li><li>loss of appetite</li></ul><h3>Rare side effects</h3><p>More serious side effects, such as a severe allergic reaction, are very rare. The person who vaccinates your child will be trained to deal with allergic reactions and treat them immediately.</p><p>There is also a very small risk of a serious problem when the bowel becomes blocked (intussusception) in the week after being vaccinated.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "urgent",
+          "identifier": "5",
+          "text": "<h4>Ask for an urgent GP appointment or call NHS 111 if your baby:</h4><div class=\"block-richtext\">\n<ul><li>keeps being sick</li><li>has blood in their poo, or their poo looks like redcurrant jelly</li><li>has a swollen or painful tummy</li><li>stops feeding</li><li>has signs of dehydration – such as fewer wet nappies</li><li>is under 3 months old and has a temperature of 38C or higher (or you think they have a high temperature)</li><li>is 3 to 6 months old and has a temperature of 39C or higher (or you think they have a high temperature)</li><li>has diarrhoea for more than 7 days</li></ul><p>These could be signs of an infection or a blocked bowel.</p><p>If you're worried about your baby, it's best to trust your instincts and contact your GP surgery or call 111 for advice.</p>\n</div>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
+      "headline": "Side effects of the rotavirus vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 9,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3><b>More about vaccine safety</b></h3><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccination is important and the safest way to protect yourself</a></p>"
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3><b>More about vaccine safety</b></h3><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccination is important and the safest way to protect yourself</a></p>"
+        }
+      ]
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 10,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The rotavirus vaccine works very well at stopping babies getting infected by rotavirus.</p><p>It prevents rotavirus infections in about 8 out of every 10 babies who have it.</p><p>The vaccine does not protect against diarrhoea and vomiting caused by other illnesses, such as <a href=\"https://www.nhs.uk/conditions/norovirus/\">norovirus</a>.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "About 8 out of every 10 babies who have the rotavirus vaccine will be protected from diarrhoea and vomiting caused by rotavirus.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The rotavirus vaccine works very well at stopping babies getting infected by rotavirus.</p><p>It prevents rotavirus infections in about 8 out of every 10 babies who have it.</p><p>The vaccine does not protect against diarrhoea and vomiting caused by other illnesses, such as <a href=\"https://www.nhs.uk/conditions/norovirus/\">norovirus</a>.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/EffectivenessHealthAspect",
+      "headline": "How well the rotavirus vaccine works"
+    }
+  ],
+  "webpage": "https://www.nhs.uk/vaccinations/rotavirus-vaccine/"
+}
