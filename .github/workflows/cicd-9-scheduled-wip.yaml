@@ -28,7 +28,7 @@ jobs:
 
     if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && inputs.release=='release1')) }}
     steps:
-    - name: "Checkout code"
+    - name: "Checkout release/v1.0 branch"
       uses: actions/checkout@v5
       with:
         fetch-depth: 0
@@ -38,7 +38,11 @@ jobs:
       id: get-latest-tag-name
       run: |
         echo "value=$(git describe --tags --abbrev=0 --first-parent)" | tee -a $GITHUB_OUTPUT
-        echo "Latest tag name on release/v1.0 branch is : ${value}"
+
+    - name: "Checkout code"
+      uses: actions/checkout@v5
+      with:
+        fetch-depth: 0
 
     - name: "Deploy to AWS (preprod)"
       timeout-minutes: 10
@@ -63,7 +67,7 @@ jobs:
     needs: [ deploy-and-test-r1 ]
     if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && inputs.release=='latest-main-tag')) }}
     steps:
-      - name: "Checkout code"
+      - name: "Checkout main branch"
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
@@ -74,6 +78,11 @@ jobs:
         run: |
           echo "value=$(git describe --tags --abbrev=0 --first-parent)" | tee -a $GITHUB_OUTPUT
           echo "Latest tag name on main branch is : ${value}"
+
+      - name: "Checkout code"
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: "Deploy to AWS (preprod)"
         timeout-minutes: 10
