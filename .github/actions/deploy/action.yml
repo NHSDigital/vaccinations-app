@@ -32,7 +32,6 @@ runs:
     - name: "Checkout code"
       uses: actions/checkout@v5
       with:
-        fetch-depth: 0
         ref: 'main'
 
     - name: "Configure AWS credentials"
@@ -76,6 +75,11 @@ runs:
     # Download the required artefacts from AWS
     #################################################
 
+    - name: "Checkout code"
+      uses: actions/checkout@v5
+      with:
+        ref: ${{ inputs.tag_or_sha_to_deploy }}
+
     - name: "Download artefacts from S3 bucket"
       shell: bash
       run: |
@@ -100,11 +104,6 @@ runs:
     #################################################
     # Deploy the artefacts to AWS
     #################################################
-
-    - name: "Checkout code"
-      uses: actions/checkout@v5
-      with:
-        ref: ${{ inputs.tag_or_sha_to_deploy }}
 
     - name: "Identify Terraform version"
       shell: bash
