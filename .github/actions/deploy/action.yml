@@ -59,6 +59,7 @@ runs:
         else
           bucket_name="vita-${{ inputs.secret_aws_account_id }}-releases-${{ inputs.environment }}"
           folder_name="tag"
+        fi
 
         s3_artefacts_path="s3://${bucket_name}/${folder_name}/${{ steps.tag-or-sha.outputs.value }}"
         echo "Copying from path : ${s3_artefacts_path}"
