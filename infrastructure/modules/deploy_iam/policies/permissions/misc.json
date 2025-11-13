@@ -171,6 +171,7 @@
       "Effect": "Allow",
       "Action": [
         "ssm:AddTagsToResource",
+        "ssm:DeleteParameter",
         "ssm:GetParameter",
         "ssm:GetParameters",
         "ssm:ListTagsForResource",
