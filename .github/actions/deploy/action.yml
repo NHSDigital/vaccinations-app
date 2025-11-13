@@ -61,9 +61,9 @@ runs:
           folder_name="tag"
         fi
 
-        s3_artefacts_path="s3://${bucket_name}/${folder_name}/${{ steps.tag-or-sha.outputs.value }}"
+        s3_artefacts_path="s3://${bucket_name}/${folder_name}/${{ inputs.tag_or_sha_to_deploy }}"
         echo "Copying from path : ${s3_artefacts_path}"
-        aws s3 cp "${app_s3_path}" . --recursive
+        aws s3 cp "${s3_artefacts_path}" . --recursive
 
     - name: "Unzip OpenNext package"
       shell: bash
