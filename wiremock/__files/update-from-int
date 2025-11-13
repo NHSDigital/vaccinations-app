@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -euo pipefail
+shopt -s extglob
 
 if [ "$#" -eq 0 ]; then
     echo "Please supply API key as the first argument." >&2
@@ -9,13 +10,14 @@ fi
 
 API_KEY="$1"
 
-for file in *-vaccine.json; do
+for file in *-vaccine.json *-children.json *-booster.json; do
   if [ -f "$file" ]; then
     filename_no_ext="${file%.json}"
 
     curl -s -o "$file" "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/${filename_no_ext}" --header 'Accept: application/json,' --header "apikey: ${API_KEY}"
 
     echo "Updated $file"
+    sleep 5
   fi
 done
 

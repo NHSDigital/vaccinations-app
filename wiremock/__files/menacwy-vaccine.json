@@ -2,10 +2,7 @@
   "@context": "http://schema.org",
   "@type": "MedicalWebPage",
   "name": "MenACWY vaccine",
-  "copyrightHolder": {
-    "name": "Crown Copyright",
-    "@type": "Organization"
-  },
+  "copyrightHolder": { "name": "Crown Copyright", "@type": "Organization" },
   "license": "https://developer.api.nhs.uk/terms",
   "author": {
     "url": "https://www.nhs.uk",
@@ -14,11 +11,7 @@
     "@type": "Organization",
     "name": "NHS website"
   },
-  "about": {
-    "@type": "WebPage",
-    "name": "MenACWY vaccine",
-    "alternateName": ""
-  },
+  "about": { "@type": "WebPage", "name": "MenACWY vaccine", "alternateName": "" },
   "description": "Find out about the MenACWY vaccine, including what it’s for, who should have it, how to get it and possible side effects.",
   "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/",
   "genre": ["Vaccine"],
@@ -56,26 +49,10 @@
       "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#overview",
       "description": "The MenACWY vaccine helps protect against meningitis. It’s given to teenagers and young people up to the age of 25.",
       "hasPart": [
-        {
-          "@type": "WebPageElement",
-          "headline": "MenACWY vaccine",
-          "text": "Who it's for"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "MenACWY vaccine",
-          "text": "Contraindications"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "MenACWY vaccine",
-          "text": "How to get it"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "MenACWY vaccine",
-          "text": "Side effects"
-        },
+        { "@type": "WebPageElement", "headline": "MenACWY vaccine", "text": "Who it's for" },
+        { "@type": "WebPageElement", "headline": "MenACWY vaccine", "text": "Contraindications" },
+        { "@type": "WebPageElement", "headline": "MenACWY vaccine", "text": "How to get it" },
+        { "@type": "WebPageElement", "headline": "MenACWY vaccine", "text": "Side effects" },
         {
           "text": "<p>The MenACWY vaccine is given to teenagers as part of the NHS vaccination schedule, but it can be given up to the age of 25 if needed.</p> ",
           "@type": "WebPageElement"
@@ -104,7 +81,7 @@
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p><a href=\"https://www.nhs.uk/conditions/meningitis/\">Meningitis</a>, <a href=\"https://www.nhs.uk/conditions/sepsis/\">sepsis</a> and septicaemia (blood poisoning) are very serious, potentially life-threatening illnesses that can lead to life-changing disabilities, such as amputations, hearing loss and brain damage.</p><p>Anyone can get meningitis but it's most common in babies, children, teenagers and young adults.</p><p>Babies are given the <a href=\"https://www.nhs.uk/vaccinations/menb-vaccine/\">MenB vaccine</a> to help protect against a common type of bacteria that causes meningitis.</p><p>The MenACWY vaccine is given to teenagers and helps protect against 4 other types of bacteria linked to meningitis.</p><p>Although the vaccine is very effective, it does not prevent all types of meningitis, so it's still important to be aware of the <a href=\"https://www.nhs.uk/conditions/meningitis/symptoms/\">symptoms of meningitis</a> even if you've been vaccinated.</p>"
+          "text": "<p><a href=\"https://www.nhs.uk/conditions/meningitis/\">Meningitis</a>, <a href=\"https://www.nhs.uk/conditions/sepsis/\">sepsis</a> and septicaemia (blood poisoning) are very serious, potentially life-threatening illnesses that can lead to life-changing disabilities, such as amputations, hearing loss and brain damage.</p><p>Anyone can get meningitis but it's most common in babies, children, teenagers and young adults.</p><p>Babies are given the <a href=\"https://www.nhs.uk/vaccinations/menb-vaccine-for-children/\">MenB vaccine</a> to help protect against a common type of bacteria that causes meningitis.</p><p>The MenACWY vaccine is given to teenagers and helps protect against 4 other types of bacteria linked to meningitis.</p><p>Although the vaccine is very effective, it does not prevent all types of meningitis, so it's still important to be aware of the <a href=\"https://www.nhs.uk/conditions/meningitis/symptoms/\">symptoms of meningitis</a> even if you've been vaccinated.</p>"
         }
       ],
       "headline": "What the MenACWY vaccine is for"
@@ -236,7 +213,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p><a href=\"https://www.nhs.uk/conditions/meningitis/\">Meningitis</a>, <a href=\"https://www.nhs.uk/conditions/sepsis/\">sepsis</a> and septicaemia (blood poisoning) are very serious, potentially life-threatening illnesses that can lead to life-changing disabilities, such as amputations, hearing loss and brain damage.</p><p>Anyone can get meningitis but it's most common in babies, children, teenagers and young adults.</p><p>Babies are given the <a href=\"https://www.nhs.uk/vaccinations/menb-vaccine/\">MenB vaccine</a> to help protect against a common type of bacteria that causes meningitis.</p><p>The MenACWY vaccine is given to teenagers and helps protect against 4 other types of bacteria linked to meningitis.</p><p>Although the vaccine is very effective, it does not prevent all types of meningitis, so it's still important to be aware of the <a href=\"https://www.nhs.uk/conditions/meningitis/symptoms/\">symptoms of meningitis</a> even if you've been vaccinated.</p>",
+          "text": "<p><a href=\"https://www.nhs.uk/conditions/meningitis/\">Meningitis</a>, <a href=\"https://www.nhs.uk/conditions/sepsis/\">sepsis</a> and septicaemia (blood poisoning) are very serious, potentially life-threatening illnesses that can lead to life-changing disabilities, such as amputations, hearing loss and brain damage.</p><p>Anyone can get meningitis but it's most common in babies, children, teenagers and young adults.</p><p>Babies are given the <a href=\"https://www.nhs.uk/vaccinations/menb-vaccine-for-children/\">MenB vaccine</a> to help protect against a common type of bacteria that causes meningitis.</p><p>The MenACWY vaccine is given to teenagers and helps protect against 4 other types of bacteria linked to meningitis.</p><p>Although the vaccine is very effective, it does not prevent all types of meningitis, so it's still important to be aware of the <a href=\"https://www.nhs.uk/conditions/meningitis/symptoms/\">symptoms of meningitis</a> even if you've been vaccinated.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -247,7 +224,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p><a href=\"https://www.nhs.uk/conditions/meningitis/\">Meningitis</a>, <a href=\"https://www.nhs.uk/conditions/sepsis/\">sepsis</a> and septicaemia (blood poisoning) are very serious, potentially life-threatening illnesses that can lead to life-changing disabilities, such as amputations, hearing loss and brain damage.</p><p>Anyone can get meningitis but it's most common in babies, children, teenagers and young adults.</p><p>Babies are given the <a href=\"https://www.nhs.uk/vaccinations/menb-vaccine/\">MenB vaccine</a> to help protect against a common type of bacteria that causes meningitis.</p><p>The MenACWY vaccine is given to teenagers and helps protect against 4 other types of bacteria linked to meningitis.</p><p>Although the vaccine is very effective, it does not prevent all types of meningitis, so it's still important to be aware of the <a href=\"https://www.nhs.uk/conditions/meningitis/symptoms/\">symptoms of meningitis</a> even if you've been vaccinated.</p>",
+          "text": "<p><a href=\"https://www.nhs.uk/conditions/meningitis/\">Meningitis</a>, <a href=\"https://www.nhs.uk/conditions/sepsis/\">sepsis</a> and septicaemia (blood poisoning) are very serious, potentially life-threatening illnesses that can lead to life-changing disabilities, such as amputations, hearing loss and brain damage.</p><p>Anyone can get meningitis but it's most common in babies, children, teenagers and young adults.</p><p>Babies are given the <a href=\"https://www.nhs.uk/vaccinations/menb-vaccine-for-children/\">MenB vaccine</a> to help protect against a common type of bacteria that causes meningitis.</p><p>The MenACWY vaccine is given to teenagers and helps protect against 4 other types of bacteria linked to meningitis.</p><p>Although the vaccine is very effective, it does not prevent all types of meningitis, so it's still important to be aware of the <a href=\"https://www.nhs.uk/conditions/meningitis/symptoms/\">symptoms of meningitis</a> even if you've been vaccinated.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""

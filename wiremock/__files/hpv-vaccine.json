@@ -1,0 +1,585 @@
+{
+  "@context": "http://schema.org",
+  "@type": "MedicalWebPage",
+  "name": "HPV vaccine",
+  "copyrightHolder": { "name": "Crown Copyright", "@type": "Organization" },
+  "license": "https://developer.api.nhs.uk/terms",
+  "author": {
+    "url": "https://www.nhs.uk",
+    "logo": "https://assets.nhs.uk/nhsuk-cms/images/nhs-attribution.width-510.png",
+    "email": "nhswebsite.servicedesk@nhs.net",
+    "@type": "Organization",
+    "name": "NHS website"
+  },
+  "about": { "@type": "WebPage", "name": "HPV vaccine", "alternateName": "" },
+  "description": "Find out about the HPV vaccine, including who it's for, how to get it and possible side effects.",
+  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hpv-vaccine/",
+  "genre": ["Vaccine"],
+  "keywords": "",
+  "dateModified": "2025-07-07T14:02:31+00:00",
+  "lastReviewed": ["2023-09-01T07:37:00+00:00", "2026-09-01T07:37:00+00:00"],
+  "breadcrumb": {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 0,
+        "item": {
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "name": "Vaccinations",
+          "genre": []
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hpv-vaccine/",
+          "name": "HPV vaccine",
+          "genre": ["Vaccine"]
+        }
+      }
+    ]
+  },
+  "hasPart": [
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hpv-vaccine/#overview",
+      "description": "The HPV vaccine helps protect against human papillomavirus (HPV), a common virus that can cause some types of cancer.",
+      "hasPart": [
+        { "@type": "WebPageElement", "headline": "HPV vaccine", "text": "What it's for" },
+        { "@type": "WebPageElement", "headline": "HPV vaccine", "text": "Who it's for" },
+        { "@type": "WebPageElement", "headline": "HPV vaccine", "text": "Contraindications" },
+        { "@type": "WebPageElement", "headline": "HPV vaccine", "text": "How to get it" },
+        { "@type": "WebPageElement", "headline": "HPV vaccine", "text": "Side effects" },
+        {
+          "text": "<p>The HPV vaccine can help reduce your chances of getting certain types of cancer, such as cervical cancer, mouth cancer and penile cancer.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>The HPV vaccine is for children aged 12 to 13 years old and people at higher risk from HPV, such as men aged 45 and under who have sex with men.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Most people can have the HPV vaccine. You only need to avoid it if you've had a serious allergic reaction to the vaccine, or an ingredient in it.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Children aged 12 to 13 usually have the HPV vaccine at school. People at higher risk from HPV can get the vaccine from sexual health or HIV clinics.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Common side effects of the HPV vaccine include swelling or pain where the injection was given. Serious side effects are very rare.</p> ",
+          "@type": "WebPageElement"
+        }
+      ],
+      "headline": ""
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hpv-vaccine/#what-its-for",
+      "description": "The HPV vaccine can help reduce your chances of getting certain types of cancer, such as cervical cancer, mouth cancer and penile cancer.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The HPV vaccine reduces your chances of getting <a href=\"https://www.nhs.uk/conditions/human-papilloma-virus-hpv/\">human papillomavirus (HPV)</a>, a common virus that's spread through skin contact (usually when having sex).</p><p>Most types of HPV are harmless. But some types are linked to an increased risk of certain types of cancer, including:</p><ul><li><a href=\"https://www.nhs.uk/conditions/cervical-cancer/\">cervical cancer</a></li><li><a href=\"https://www.nhs.uk/conditions/mouth-cancer/\">mouth cancer</a></li><li><a href=\"https://www.nhs.uk/conditions/anal-cancer/\">anal cancer</a></li><li><a href=\"https://www.nhs.uk/conditions/penile-cancer/\">penile cancer</a></li><li><a href=\"https://www.nhs.uk/conditions/vulval-cancer/\">vulval cancer</a></li><li><a href=\"https://www.nhs.uk/conditions/vaginal-cancer/\">vaginal cancer</a></li></ul><p>HPV can also cause <a href=\"https://www.nhs.uk/conditions/genital-warts/\">genital warts</a>.</p>"
+        }
+      ],
+      "headline": "What the HPV vaccine is for"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hpv-vaccine/#who-its-for",
+      "description": "The HPV vaccine is for children aged 12 to 13 years old and people at higher risk from HPV, such as men aged 45 and under who have sex with men.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The HPV vaccine is recommended for children aged 12 to 13 years old and people at higher risk from HPV.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<listvalue: 'children=\"\" ('body',=\"\" 0x7f377ccd9650=\"\" 12=\"\" 13'),=\"\" <streamvalue=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" [structvalue([('title',=\"\" aged=\"\" at=\"\" object=\"\" richtext:=\"\" to=\"\">&gt;]&gt;)]), StructValue([('title', 'Men aged 45 and under who have sex with men'), ('body', <streamvalue 0x7f377ccd9310=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)]), StructValue([('title', 'Other people at higher risk from HPV'), ('body', <streamvalue 0x7f377ccd9610=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)])]&gt;</streamvalue></streamvalue></listvalue:>"
+        }
+      ],
+      "headline": "Who should have the HPV vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hpv-vaccine/#contraindications",
+      "description": "Most people can have the HPV vaccine. You only need to avoid it if you've had a serious allergic reaction to the vaccine, or an ingredient in it.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Most people who are eligible for the HPV vaccine can have it.</p><p>You only cannot have the vaccine if you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine, or an ingredient in the vaccine.</p><p>There's no evidence the vaccine is harmful if you're pregnant, but sometimes you may be advised to wait until you're no longer pregnant before having the vaccine.</p><p>You can have the HPV vaccine while breastfeeding.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Information",
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>If you have a high temperature or feel too unwell to do your normal activities, wait until you're feeling better before having the vaccine.</p>"
+        }
+      ],
+      "headline": "Who cannot have the HPV vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hpv-vaccine/#ingredients",
+      "description": "You can check the ingredients in the HPV vaccine by asking to see the patient leaflet or searching for it online.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>There is 1 type of HPV vaccine given in the UK. You can check the ingredients in the patient leaflet:</p><p><a href=\"https://www.medicines.org.uk/emc/product/7330/pil\">Gardasil 9 HPV vaccine patient leaflet (Electronic Medicines Compendium website)</a></p>"
+        }
+      ],
+      "headline": "HPV vaccine ingredients"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hpv-vaccine/#how-to-get-it",
+      "description": "Children aged 12 to 13 usually have the HPV vaccine at school. People at higher risk from HPV can get the vaccine from sexual health or HIV clinics.",
+      "hasPart": [
+        { "@type": "WebPageElement", "headline": "", "text": "<p>There are different ways to get the HPV vaccine.</p>" }
+      ],
+      "headline": "How to get the HPV vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/UsageOrScheduleHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hpv-vaccine/#how-its-used-previously-dosage-and-administration",
+      "description": "Most people under 25 have 1 dose of the HPV vaccine. Older people and those with weakened immune systems usually have 2 or 3 doses.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The HPV vaccine is given as an injection into your arm.</p><p>The number of doses you need depends on your age and how well your immune system works:</p><ul><li>people under 25 usually have 1 dose</li><li>people aged 25 to 45 usually have 2 doses (given between 6 months and 2 years apart)</li><li>people with a weakened immune system have 3 doses (given over a 12-month period)</li></ul>"
+        }
+      ],
+      "headline": "How the HPV vaccine is given"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hpv-vaccine/#side-effects",
+      "description": "Common side effects of the HPV vaccine include swelling or pain where the injection was given. Serious side effects are very rare.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The most common side effects of the HPV vaccine are mild and do not last long.</p><p>They can include:</p><ul><li>swelling or pain where the injection was given</li><li>a headache</li><li>a high temperature</li><li>dizziness</li><li>feeling sick</li><li>tiredness</li></ul><p>More serious side effects such as a severe allergic reaction are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p>"
+        }
+      ],
+      "headline": "Side effects of the HPV vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/EffectivenessHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hpv-vaccine/#effectiveness",
+      "description": "The HPV vaccines works very well in helping prevent HPV. There has been a big drop in cancers linked to HPV since the vaccine has been used in the UK.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The HPV vaccine works very well in reducing your risk of getting HPV.</p><p>Since the vaccine has been used, there has been a big drop in the number of young people getting conditions linked to HPV, such as cervical cancer and genital warts.</p><p>Research suggests that over time the HPV vaccine will help save thousands of lives in the UK.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Important",
+          "text": "<p>It's still important to attend <a href=\"https://www.nhs.uk/tests-and-treatments/cervical-screening/\">cervical screening</a> appointments if you've been vaccinated against HPV, as there's still a small chance you could get cervical cancer.</p>"
+        }
+      ],
+      "headline": "How well the HPV vaccine works"
+    }
+  ],
+  "relatedLink": [
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "name": "Vaccinations",
+      "linkRelationship": "Navigation",
+      "position": 0
+    }
+  ],
+  "contentSubTypes": [],
+  "mainEntityOfPage": [
+    {
+      "position": 0,
+      "identifier": 0,
+      "text": "The HPV vaccine helps protect against human papillomavirus (HPV). It's recommended for children aged 12 to 13 years old and people at higher risk from HPV.",
+      "name": "lead paragraph",
+      "@type": "WebPageElement"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 1,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The HPV vaccine reduces your chances of getting <a href=\"https://www.nhs.uk/conditions/human-papilloma-virus-hpv/\">human papillomavirus (HPV)</a>, a common virus that's spread through skin contact (usually when having sex).</p><p>Most types of HPV are harmless. But some types are linked to an increased risk of certain types of cancer, including:</p><ul><li><a href=\"https://www.nhs.uk/conditions/cervical-cancer/\">cervical cancer</a></li><li><a href=\"https://www.nhs.uk/conditions/mouth-cancer/\">mouth cancer</a></li><li><a href=\"https://www.nhs.uk/conditions/anal-cancer/\">anal cancer</a></li><li><a href=\"https://www.nhs.uk/conditions/penile-cancer/\">penile cancer</a></li><li><a href=\"https://www.nhs.uk/conditions/vulval-cancer/\">vulval cancer</a></li><li><a href=\"https://www.nhs.uk/conditions/vaginal-cancer/\">vaginal cancer</a></li></ul><p>HPV can also cause <a href=\"https://www.nhs.uk/conditions/genital-warts/\">genital warts</a>.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "The HPV vaccine can help reduce your chances of getting certain types of cancer, such as cervical cancer, mouth cancer and penile cancer.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The HPV vaccine reduces your chances of getting <a href=\"https://www.nhs.uk/conditions/human-papilloma-virus-hpv/\">human papillomavirus (HPV)</a>, a common virus that's spread through skin contact (usually when having sex).</p><p>Most types of HPV are harmless. But some types are linked to an increased risk of certain types of cancer, including:</p><ul><li><a href=\"https://www.nhs.uk/conditions/cervical-cancer/\">cervical cancer</a></li><li><a href=\"https://www.nhs.uk/conditions/mouth-cancer/\">mouth cancer</a></li><li><a href=\"https://www.nhs.uk/conditions/anal-cancer/\">anal cancer</a></li><li><a href=\"https://www.nhs.uk/conditions/penile-cancer/\">penile cancer</a></li><li><a href=\"https://www.nhs.uk/conditions/vulval-cancer/\">vulval cancer</a></li><li><a href=\"https://www.nhs.uk/conditions/vaginal-cancer/\">vaginal cancer</a></li></ul><p>HPV can also cause <a href=\"https://www.nhs.uk/conditions/genital-warts/\">genital warts</a>.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
+      "headline": "What the HPV vaccine is for"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 2,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The HPV vaccine is recommended for children aged 12 to 13 years old and people at higher risk from HPV.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "@type": "WebPageElement",
+          "position": 1,
+          "name": "Expander Group",
+          "identifier": "20",
+          "mainEntity": [
+            {
+              "position": 0,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "Children aged 12 to 13",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"az4am\">All children aged 12 to 13 (school year 8) are offered the HPV vaccine.</p><p data-block-key=\"5520h\">If you missed getting vaccinated when you were 12 or 13, the HPV vaccine is available for free on the NHS for:</p><ul><li data-block-key=\"evqh7\">all girls under 25</li><li data-block-key=\"c0rlk\">boys born after 1 September 2006</li></ul><p data-block-key=\"ff3vp\">Contact your school nurse, school vaccination team or GP surgery if you or your child were eligible for the HPV vaccine but did not get vaccinated.</p>\n</div>"
+            },
+            {
+              "position": 1,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "Men aged 45 and under who have sex with men",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"az4am\">Gay, bisexual and other men who have sex with men are at higher risk from HPV.</p><p data-block-key=\"255l\">If you're a man aged 45 or under who has sex with men and you attend a sexual health or HIV clinic, you can get vaccinated against HPV.</p><p data-block-key=\"5fs9m\">You're eligible for the vaccine up until your 46th birthday.</p>\n</div>"
+            },
+            {
+              "position": 2,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "Other people at higher risk from HPV",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"az4am\">The HPV vaccine is also sometimes recommended for other people at higher risk from HPV, such as:</p><ul><li data-block-key=\"33cal\">any transgender people who are felt to have the same risk as men who have sex with men</li><li data-block-key=\"78o30\">sex workers</li><li data-block-key=\"9lmm7\">people with HIV</li></ul>\n</div>"
+            }
+          ]
+        }
+      ],
+      "description": "The HPV vaccine is for children aged 12 to 13 years old and people at higher risk from HPV, such as men aged 45 and under who have sex with men.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The HPV vaccine is recommended for children aged 12 to 13 years old and people at higher risk from HPV.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "@type": "WebPageElement",
+          "position": 1,
+          "name": "Expander Group",
+          "identifier": "20",
+          "mainEntity": [
+            {
+              "position": 0,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "Children aged 12 to 13",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"az4am\">All children aged 12 to 13 (school year 8) are offered the HPV vaccine.</p><p data-block-key=\"5520h\">If you missed getting vaccinated when you were 12 or 13, the HPV vaccine is available for free on the NHS for:</p><ul><li data-block-key=\"evqh7\">all girls under 25</li><li data-block-key=\"c0rlk\">boys born after 1 September 2006</li></ul><p data-block-key=\"ff3vp\">Contact your school nurse, school vaccination team or GP surgery if you or your child were eligible for the HPV vaccine but did not get vaccinated.</p>\n</div>"
+            },
+            {
+              "position": 1,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "Men aged 45 and under who have sex with men",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"az4am\">Gay, bisexual and other men who have sex with men are at higher risk from HPV.</p><p data-block-key=\"255l\">If you're a man aged 45 or under who has sex with men and you attend a sexual health or HIV clinic, you can get vaccinated against HPV.</p><p data-block-key=\"5fs9m\">You're eligible for the vaccine up until your 46th birthday.</p>\n</div>"
+            },
+            {
+              "position": 2,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "Other people at higher risk from HPV",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"az4am\">The HPV vaccine is also sometimes recommended for other people at higher risk from HPV, such as:</p><ul><li data-block-key=\"33cal\">any transgender people who are felt to have the same risk as men who have sex with men</li><li data-block-key=\"78o30\">sex workers</li><li data-block-key=\"9lmm7\">people with HIV</li></ul>\n</div>"
+            }
+          ]
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
+      "headline": "Who should have the HPV vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 3,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most people who are eligible for the HPV vaccine can have it.</p><p>You only cannot have the vaccine if you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine, or an ingredient in the vaccine.</p><p>There's no evidence the vaccine is harmful if you're pregnant, but sometimes you may be advised to wait until you're no longer pregnant before having the vaccine.</p><p>You can have the HPV vaccine while breastfeeding.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>If you have a high temperature or feel too unwell to do your normal activities, wait until you're feeling better before having the vaccine.</p>"
+        }
+      ],
+      "description": "Most people can have the HPV vaccine. You only need to avoid it if you've had a serious allergic reaction to the vaccine, or an ingredient in it.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most people who are eligible for the HPV vaccine can have it.</p><p>You only cannot have the vaccine if you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine, or an ingredient in the vaccine.</p><p>There's no evidence the vaccine is harmful if you're pregnant, but sometimes you may be advised to wait until you're no longer pregnant before having the vaccine.</p><p>You can have the HPV vaccine while breastfeeding.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>If you have a high temperature or feel too unwell to do your normal activities, wait until you're feeling better before having the vaccine.</p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
+      "headline": "Who cannot have the HPV vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 4,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There is 1 type of HPV vaccine given in the UK. You can check the ingredients in the patient leaflet:</p><p><a href=\"https://www.medicines.org.uk/emc/product/7330/pil\">Gardasil 9 HPV vaccine patient leaflet (Electronic Medicines Compendium website)</a></p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "You can check the ingredients in the HPV vaccine by asking to see the patient leaflet or searching for it online.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There is 1 type of HPV vaccine given in the UK. You can check the ingredients in the patient leaflet:</p><p><a href=\"https://www.medicines.org.uk/emc/product/7330/pil\">Gardasil 9 HPV vaccine patient leaflet (Electronic Medicines Compendium website)</a></p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
+      "headline": "HPV vaccine ingredients"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 5,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There are different ways to get the HPV vaccine.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "@type": "WebPageElement",
+          "name": "Table",
+          "mainEntity": "\n\n\n<div class=\"nhsuk-table-container\">\n    <table role=\"table\">\n      <caption>Where to get the HPV vaccine</caption>\n      <thead role=\"rowgroup\">\n        <tr role=\"row\">\n          \n          <th role=\"columnheader\" class=\"\" scope=\"col\">\n            Who should have it\n          </th>\n          \n          <th role=\"columnheader\" class=\"\" scope=\"col\">\n            Where to get it\n          </th>\n          \n        </tr>\n      </thead>\n      <tbody>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"p9i0a\">Children aged 12 to 13 (school year 8)</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Where to get it\n                    \n                </span>\n                <p data-block-key=\"p9i0a\">Secondary school (or community clinics for those not in school)</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"p9i0a\">Girls under 25 and boys born after 1 September 2006 who missed having the vaccine at school</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Where to get it\n                    \n                </span>\n                <p data-block-key=\"p9i0a\">Check with your school nurse, school vaccination team or GP surgery</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"p9i0a\">Men aged 45 and under who have sex with men, and other people at higher risk of HPV</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Where to get it\n                    \n                </span>\n                <p data-block-key=\"p9i0a\"><a href=\"https://www.nhs.uk/nhs-services/sexual-health-services/find-a-sexual-health-clinic/\">Sexual health clinics</a> or HIV clinics</p>\n            </td>\n            \n        </tr>\n        \n      </tbody>\n    </table>\n  </div>",
+          "position": 1
+        }
+      ],
+      "description": "Children aged 12 to 13 usually have the HPV vaccine at school. People at higher risk from HPV can get the vaccine from sexual health or HIV clinics.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There are different ways to get the HPV vaccine.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "@type": "WebPageElement",
+          "name": "Table",
+          "mainEntity": "\n\n\n<div class=\"nhsuk-table-container\">\n    <table role=\"table\">\n      <caption>Where to get the HPV vaccine</caption>\n      <thead role=\"rowgroup\">\n        <tr role=\"row\">\n          \n          <th role=\"columnheader\" class=\"\" scope=\"col\">\n            Who should have it\n          </th>\n          \n          <th role=\"columnheader\" class=\"\" scope=\"col\">\n            Where to get it\n          </th>\n          \n        </tr>\n      </thead>\n      <tbody>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"p9i0a\">Children aged 12 to 13 (school year 8)</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Where to get it\n                    \n                </span>\n                <p data-block-key=\"p9i0a\">Secondary school (or community clinics for those not in school)</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"p9i0a\">Girls under 25 and boys born after 1 September 2006 who missed having the vaccine at school</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Where to get it\n                    \n                </span>\n                <p data-block-key=\"p9i0a\">Check with your school nurse, school vaccination team or GP surgery</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"p9i0a\">Men aged 45 and under who have sex with men, and other people at higher risk of HPV</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Where to get it\n                    \n                </span>\n                <p data-block-key=\"p9i0a\"><a href=\"https://www.nhs.uk/nhs-services/sexual-health-services/find-a-sexual-health-clinic/\">Sexual health clinics</a> or HIV clinics</p>\n            </td>\n            \n        </tr>\n        \n      </tbody>\n    </table>\n  </div>",
+          "position": 1
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "headline": "How to get the HPV vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 6,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The HPV vaccine is given as an injection into your arm.</p><p>The number of doses you need depends on your age and how well your immune system works:</p><ul><li>people under 25 usually have 1 dose</li><li>people aged 25 to 45 usually have 2 doses (given between 6 months and 2 years apart)</li><li>people with a weakened immune system have 3 doses (given over a 12-month period)</li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "Most people under 25 have 1 dose of the HPV vaccine. Older people and those with weakened immune systems usually have 2 or 3 doses.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The HPV vaccine is given as an injection into your arm.</p><p>The number of doses you need depends on your age and how well your immune system works:</p><ul><li>people under 25 usually have 1 dose</li><li>people aged 25 to 45 usually have 2 doses (given between 6 months and 2 years apart)</li><li>people with a weakened immune system have 3 doses (given over a 12-month period)</li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/UsageOrScheduleHealthAspect",
+      "headline": "How the HPV vaccine is given"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 7,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The most common side effects of the HPV vaccine are mild and do not last long.</p><p>They can include:</p><ul><li>swelling or pain where the injection was given</li><li>a headache</li><li>a high temperature</li><li>dizziness</li><li>feeling sick</li><li>tiredness</li></ul><p>More serious side effects such as a severe allergic reaction are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "Common side effects of the HPV vaccine include swelling or pain where the injection was given. Serious side effects are very rare.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The most common side effects of the HPV vaccine are mild and do not last long.</p><p>They can include:</p><ul><li>swelling or pain where the injection was given</li><li>a headache</li><li>a high temperature</li><li>dizziness</li><li>feeling sick</li><li>tiredness</li></ul><p>More serious side effects such as a severe allergic reaction are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
+      "headline": "Side effects of the HPV vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 8,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>More about vaccine safety</h3><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccinations are important and the safest way to protect yourself</a></p>"
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>More about vaccine safety</h3><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccinations are important and the safest way to protect yourself</a></p>"
+        }
+      ]
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 9,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The HPV vaccine works very well in reducing your risk of getting HPV.</p><p>Since the vaccine has been used, there has been a big drop in the number of young people getting conditions linked to HPV, such as cervical cancer and genital warts.</p><p>Research suggests that over time the HPV vaccine will help save thousands of lives in the UK.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Callout",
+          "identifier": "4",
+          "text": "<h3>Important</h3><p>It's still important to attend <a href=\"https://www.nhs.uk/tests-and-treatments/cervical-screening/\">cervical screening</a> appointments if you've been vaccinated against HPV, as there's still a small chance you could get cervical cancer.</p>"
+        }
+      ],
+      "description": "The HPV vaccines works very well in helping prevent HPV. There has been a big drop in cancers linked to HPV since the vaccine has been used in the UK.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The HPV vaccine works very well in reducing your risk of getting HPV.</p><p>Since the vaccine has been used, there has been a big drop in the number of young people getting conditions linked to HPV, such as cervical cancer and genital warts.</p><p>Research suggests that over time the HPV vaccine will help save thousands of lives in the UK.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Callout",
+          "identifier": "4",
+          "text": "<h3>Important</h3><p>It's still important to attend <a href=\"https://www.nhs.uk/tests-and-treatments/cervical-screening/\">cervical screening</a> appointments if you've been vaccinated against HPV, as there's still a small chance you could get cervical cancer.</p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/EffectivenessHealthAspect",
+      "headline": "How well the HPV vaccine works"
+    }
+  ],
+  "webpage": "https://www.nhs.uk/vaccinations/hpv-vaccine/"
+}

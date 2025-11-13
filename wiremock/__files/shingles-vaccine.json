@@ -2,10 +2,7 @@
   "@context": "http://schema.org",
   "@type": "MedicalWebPage",
   "name": "Shingles vaccine",
-  "copyrightHolder": {
-    "name": "Crown Copyright",
-    "@type": "Organization"
-  },
+  "copyrightHolder": { "name": "Crown Copyright", "@type": "Organization" },
   "license": "https://developer.api.nhs.uk/terms",
   "author": {
     "url": "https://www.nhs.uk",
@@ -14,16 +11,12 @@
     "@type": "Organization",
     "name": "NHS website"
   },
-  "about": {
-    "@type": "WebPage",
-    "name": "Shingles vaccine",
-    "alternateName": ""
-  },
+  "about": { "@type": "WebPage", "name": "Shingles vaccine", "alternateName": "" },
   "description": "Find out about the shingles vaccine, including who it's for, how to get it and possible side effects.",
   "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/",
   "genre": ["Vaccine"],
   "keywords": "",
-  "dateModified": "2025-04-15T14:16:33+00:00",
+  "dateModified": "2025-09-01T06:36:24+00:00",
   "lastReviewed": ["2023-09-01T07:46:00+00:00", "2026-09-01T07:46:00+00:00"],
   "breadcrumb": {
     "@context": "http://schema.org",
@@ -56,37 +49,17 @@
       "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#overview",
       "description": "The shingles vaccine helps protect you against shingles, a common condition in adults that causes a painful rash.",
       "hasPart": [
-        {
-          "@type": "WebPageElement",
-          "headline": "Shingles vaccine",
-          "text": "What it's for"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "Shingles vaccine",
-          "text": "Who it's for"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "Shingles vaccine",
-          "text": "Contraindications"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "Shingles vaccine",
-          "text": "How to get it"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "Shingles vaccine",
-          "text": "Side effects"
-        },
+        { "@type": "WebPageElement", "headline": "Shingles vaccine", "text": "What it's for" },
+        { "@type": "WebPageElement", "headline": "Shingles vaccine", "text": "Who it's for" },
+        { "@type": "WebPageElement", "headline": "Shingles vaccine", "text": "Contraindications" },
+        { "@type": "WebPageElement", "headline": "Shingles vaccine", "text": "How to get it" },
+        { "@type": "WebPageElement", "headline": "Shingles vaccine", "text": "Side effects" },
         {
           "text": "<p>The shingles vaccine is used to reduce your chances of getting shingles and of getting serious problems if you do get shingles.</p> ",
           "@type": "WebPageElement"
         },
         {
-          "text": "<p>The shingles vaccine is recommended for some older adults (including everyone aged 70 to 79) and some people with a severely weakened immune system.</p> ",
+          "text": "<p>The shingles vaccine is offered to all adults turning 65, those aged 70 to 79 and those aged 18 and over with a severely weakened immune system.</p> ",
           "@type": "WebPageElement"
         },
         {
@@ -122,17 +95,17 @@
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
       "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#who-its-for",
-      "description": "The shingles vaccine is recommended for some older adults (including everyone aged 70 to 79) and some people with a severely weakened immune system.",
+      "description": "The shingles vaccine is offered to all adults turning 65, those aged 70 to 79 and those aged 18 and over with a severely weakened immune system.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>The shingles vaccine is recommended for some older adults and people with a severely weakened immune system.</p>"
+          "text": "<p>The shingles vaccine is available on the NHS for some older adults and people with a severely weakened immune system.</p>"
         },
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<listvalue: 'people=\"\" ('body',=\"\" 0x7f6c75514eb0=\"\" 1=\"\" 2023'),=\"\" 65=\"\" <streamvalue=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" [structvalue([('title',=\"\" after=\"\" at=\"\" object=\"\" on=\"\" or=\"\" richtext:=\"\" september=\"\" turn=\"\" who=\"\">&gt;, <block 0x7f6c75514280=\"\" <wagtail.rich_text.richtext=\"\" at=\"\" inset_text:=\"\" object=\"\" structvalue([('body',=\"\">)])&gt;]&gt;)]), StructValue([('title', 'People aged 70 to 79'), ('body', <streamvalue 0x7f6c75514340=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)]), StructValue([('title', 'People aged 50 and over with a severely weakened immune system'), ('body', <streamvalue 0x7f6c75514670=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)])]&gt;</streamvalue></streamvalue></block></listvalue:>"
+          "text": "<listvalue: 'people=\"\" ('body',=\"\" 0x7fe6dbd43890=\"\" 1=\"\" 2023'),=\"\" 65=\"\" <streamvalue=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" [structvalue([('title',=\"\" after=\"\" at=\"\" object=\"\" on=\"\" or=\"\" richtext:=\"\" september=\"\" turn=\"\" who=\"\">&gt;, <block 0x7fe6dbd43310=\"\" <wagtail.rich_text.richtext=\"\" at=\"\" inset_text:=\"\" object=\"\" structvalue([('body',=\"\">)])&gt;]&gt;)]), StructValue([('title', 'People aged 70 to 79'), ('body', <streamvalue 0x7fe6dbd42d50=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)]), StructValue([('title', 'People aged 18 and over with a severely weakened immune system'), ('body', <streamvalue 0x7fe6dbd41050=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)])]&gt;</streamvalue></streamvalue></block></listvalue:>"
         },
         {
           "@type": "WebPageElement",
@@ -160,20 +133,6 @@
         }
       ],
       "headline": "Who cannot have the shingles vaccine"
-    },
-    {
-      "@type": "HealthTopicContent",
-      "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#ingredients",
-      "description": "You can check the ingredients in the shingles vaccine by asking to see the patient leaflet or searching for it online.",
-      "hasPart": [
-        {
-          "@type": "WebPageElement",
-          "headline": "",
-          "text": "<p>There is 1 type of shingles vaccine given in the UK. You can check the ingredients in the patient leaflet:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/files/pil.12054.pdf\">Shingrix vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 136kb)</a></li></ul>"
-        }
-      ],
-      "headline": "Shingles vaccine ingredients"
     },
     {
       "@type": "HealthTopicContent",
@@ -229,7 +188,7 @@
     {
       "position": 0,
       "identifier": 0,
-      "text": "The shingles vaccine helps protect against shingles. It's recommended for all adults turning 65, those aged 70 to 79 and those aged 50 and over with a severely weakened immune system.",
+      "text": "The shingles vaccine helps protect against shingles. It's available on the NHS for all adults turning 65, those aged 70 to 79 and those aged 18 and over with a severely weakened immune system.",
       "name": "lead paragraph",
       "@type": "WebPageElement"
     },
@@ -271,7 +230,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>The shingles vaccine is recommended for some older adults and people with a severely weakened immune system.</p>",
+          "text": "<p>The shingles vaccine is available on the NHS for some older adults and people with a severely weakened immune system.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -302,9 +261,9 @@
               "position": 2,
               "@type": "WebPageElement",
               "name": "Expander",
-              "subjectOf": "People aged 50 and over with a severely weakened immune system",
+              "subjectOf": "People aged 18 and over with a severely weakened immune system",
               "identifier": "18",
-              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"hkkse\">You're eligible for the shingles vaccine if you're aged 50 or over and you're at higher risk from shingles because you have a severely weakened immune system.</p><p data-block-key=\"cs410\">This includes:</p><ul><li data-block-key=\"6l79j\">some people with blood cancer (such as leukaemia or lymphoma)</li><li data-block-key=\"5o6lq\">some people with HIV or AIDS</li><li data-block-key=\"1b1n0\">some people who've recently had a stem cell transplant, radiotherapy, chemotherapy or an organ transplant</li><li data-block-key=\"br8t7\">people taking certain medicines that severely weaken the immune system</li></ul><p data-block-key=\"9i31u\">You'll be given 2 doses of the shingles vaccine. These are given between 8 weeks and 6 months apart.</p><p data-block-key=\"1aqc6\">Ask your GP or care team if you're not sure if you're eligible for the shingles vaccine.</p>\n</div>"
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"hkkse\">You're eligible for the shingles vaccine if you're aged 18 or over and you're at higher risk from shingles because you have a severely weakened immune system.</p><p data-block-key=\"cs410\">This includes:</p><ul><li data-block-key=\"6l79j\">some people with blood cancer (such as leukaemia or lymphoma)</li><li data-block-key=\"5o6lq\">some people with HIV or AIDS</li><li data-block-key=\"1b1n0\">some people who've recently had a stem cell transplant, radiotherapy, chemotherapy or an organ transplant</li><li data-block-key=\"br8t7\">people taking certain medicines that severely weaken the immune system</li></ul><p data-block-key=\"9i31u\">You'll be given 2 doses of the shingles vaccine. These are given between 8 weeks and 6 months apart.</p><p data-block-key=\"1aqc6\">Ask your GP or care team if you're not sure if you're eligible for the shingles vaccine.</p>\n</div>"
             }
           ]
         },
@@ -316,12 +275,12 @@
           "text": "<h3>Important</h3><p>You can get shingles more than once, so it's important to get vaccinated even if you've had shingles before.</p>"
         }
       ],
-      "description": "The shingles vaccine is recommended for some older adults (including everyone aged 70 to 79) and some people with a severely weakened immune system.",
+      "description": "The shingles vaccine is offered to all adults turning 65, those aged 70 to 79 and those aged 18 and over with a severely weakened immune system.",
       "hasPart": [
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>The shingles vaccine is recommended for some older adults and people with a severely weakened immune system.</p>",
+          "text": "<p>The shingles vaccine is available on the NHS for some older adults and people with a severely weakened immune system.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -352,9 +311,9 @@
               "position": 2,
               "@type": "WebPageElement",
               "name": "Expander",
-              "subjectOf": "People aged 50 and over with a severely weakened immune system",
+              "subjectOf": "People aged 18 and over with a severely weakened immune system",
               "identifier": "18",
-              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"hkkse\">You're eligible for the shingles vaccine if you're aged 50 or over and you're at higher risk from shingles because you have a severely weakened immune system.</p><p data-block-key=\"cs410\">This includes:</p><ul><li data-block-key=\"6l79j\">some people with blood cancer (such as leukaemia or lymphoma)</li><li data-block-key=\"5o6lq\">some people with HIV or AIDS</li><li data-block-key=\"1b1n0\">some people who've recently had a stem cell transplant, radiotherapy, chemotherapy or an organ transplant</li><li data-block-key=\"br8t7\">people taking certain medicines that severely weaken the immune system</li></ul><p data-block-key=\"9i31u\">You'll be given 2 doses of the shingles vaccine. These are given between 8 weeks and 6 months apart.</p><p data-block-key=\"1aqc6\">Ask your GP or care team if you're not sure if you're eligible for the shingles vaccine.</p>\n</div>"
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"hkkse\">You're eligible for the shingles vaccine if you're aged 18 or over and you're at higher risk from shingles because you have a severely weakened immune system.</p><p data-block-key=\"cs410\">This includes:</p><ul><li data-block-key=\"6l79j\">some people with blood cancer (such as leukaemia or lymphoma)</li><li data-block-key=\"5o6lq\">some people with HIV or AIDS</li><li data-block-key=\"1b1n0\">some people who've recently had a stem cell transplant, radiotherapy, chemotherapy or an organ transplant</li><li data-block-key=\"br8t7\">people taking certain medicines that severely weaken the immune system</li></ul><p data-block-key=\"9i31u\">You'll be given 2 doses of the shingles vaccine. These are given between 8 weeks and 6 months apart.</p><p data-block-key=\"1aqc6\">Ask your GP or care team if you're not sure if you're eligible for the shingles vaccine.</p>\n</div>"
             }
           ]
         },
@@ -421,35 +380,6 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>There is 1 type of shingles vaccine given in the UK. You can check the ingredients in the patient leaflet:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/files/pil.12054.pdf\">Shingrix vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 136kb)</a></li></ul>",
-          "@type": "WebPageElement",
-          "name": "markdown",
-          "headline": ""
-        }
-      ],
-      "description": "You can check the ingredients in the shingles vaccine by asking to see the patient leaflet or searching for it online.",
-      "hasPart": [
-        {
-          "position": 0,
-          "identifier": "1",
-          "text": "<p>There is 1 type of shingles vaccine given in the UK. You can check the ingredients in the patient leaflet:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/files/pil.12054.pdf\">Shingrix vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 136kb)</a></li></ul>",
-          "@type": "WebPageElement",
-          "name": "markdown",
-          "headline": ""
-        }
-      ],
-      "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
-      "headline": "Shingles vaccine ingredients"
-    },
-    {
-      "identifier": "0",
-      "name": "section heading",
-      "position": 5,
-      "@type": "WebPageElement",
-      "mainEntityOfPage": [
-        {
-          "position": 0,
-          "identifier": "1",
           "text": "<p>Your GP surgery will usually contact you when you become eligible for the shingles vaccine. This will usually be by letter, text message, phone or email.</p><p>Sometimes you might be offered the vaccine during a GP appointment you're having for another reason.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
@@ -501,7 +431,7 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 6,
+      "position": 5,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {
@@ -530,7 +460,7 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 7,
+      "position": 6,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {

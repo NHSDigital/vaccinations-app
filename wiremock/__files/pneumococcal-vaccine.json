@@ -2,10 +2,7 @@
   "@context": "http://schema.org",
   "@type": "MedicalWebPage",
   "name": "Pneumococcal vaccine",
-  "copyrightHolder": {
-    "name": "Crown Copyright",
-    "@type": "Organization"
-  },
+  "copyrightHolder": { "name": "Crown Copyright", "@type": "Organization" },
   "license": "https://developer.api.nhs.uk/terms",
   "author": {
     "url": "https://www.nhs.uk",
@@ -14,16 +11,12 @@
     "@type": "Organization",
     "name": "NHS website"
   },
-  "about": {
-    "@type": "WebPage",
-    "name": "Pneumococcal vaccine",
-    "alternateName": ""
-  },
+  "about": { "@type": "WebPage", "name": "Pneumococcal vaccine", "alternateName": "" },
   "description": "NHS information about the pneumococcal vaccine, including what the vaccine helps protect against, who should have it, how to get it and side effects.",
   "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/",
   "genre": ["Vaccine"],
   "keywords": "",
-  "dateModified": "2025-04-15T14:18:09+00:00",
+  "dateModified": "2025-10-28T15:59:43+00:00",
   "lastReviewed": ["2023-06-26T07:44:00+00:00", "2026-06-26T07:44:00+00:00"],
   "breadcrumb": {
     "@context": "http://schema.org",
@@ -56,31 +49,11 @@
       "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/#overview",
       "description": "The pneumococcal vaccine protects against serious illnesses like pneumonia and sepsis. It's recommended for people at higher risk of these illnesses.",
       "hasPart": [
-        {
-          "@type": "WebPageElement",
-          "headline": "Pneumococcal vaccine",
-          "text": "What it's for"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "Pneumococcal vaccine",
-          "text": "Who it's for"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "Pneumococcal vaccine",
-          "text": "Contraindications"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "Pneumococcal vaccine",
-          "text": "How to get it"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "Pneumococcal vaccine",
-          "text": "Side effects"
-        },
+        { "@type": "WebPageElement", "headline": "Pneumococcal vaccine", "text": "What it's for" },
+        { "@type": "WebPageElement", "headline": "Pneumococcal vaccine", "text": "Who it's for" },
+        { "@type": "WebPageElement", "headline": "Pneumococcal vaccine", "text": "Contraindications" },
+        { "@type": "WebPageElement", "headline": "Pneumococcal vaccine", "text": "How to get it" },
+        { "@type": "WebPageElement", "headline": "Pneumococcal vaccine", "text": "Side effects" },
         {
           "text": "<p>The pneumococcal vaccine helps protect against some types of infections that can cause serious illnesses like meningitis, sepsis and pneumonia.</p> ",
           "@type": "WebPageElement"
@@ -113,7 +86,7 @@
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>The pneumococcal vaccine helps protect against some types of bacterial infections that can cause serious illnesses like:</p><ul><li><a href=\"https://www.nhs.uk/conditions/meningitis/\">meningitis</a> (an infection in the brain and spinal cord)</li><li><a href=\"https://www.nhs.uk/conditions/sepsis/\">sepsis</a> (a life-threatening reaction to an infection)</li><li><a href=\"https://www.nhs.uk/conditions/pneumonia/\">pneumonia</a> (an infection in the lungs)</li></ul><p>It can also help protect against other illnesses such as sinusitis and ear infections.</p>"
+          "text": "<p>The pneumococcal vaccine helps protect against some types of bacterial infections that can cause serious illnesses like:</p><ul><li><a href=\"https://www.nhs.uk/conditions/meningitis/\">meningitis</a> (an infection in the brain and spinal cord)</li><li><a href=\"https://www.nhs.uk/conditions/sepsis/\">sepsis</a> (a life-threatening reaction to an infection)</li><li><a href=\"https://www.nhs.uk/conditions/pneumonia/\">pneumonia</a> (an infection in the lungs)</li></ul><p>Some types of pneumococcal vaccine can also help protect against other illnesses such as sinusitis and ear infections.</p>"
         }
       ],
       "headline": "What the pneumococcal vaccine is for"
@@ -137,7 +110,7 @@
         {
           "@type": "WebPageElement",
           "headline": "Who's at higher risk of getting seriously ill",
-          "text": "<div class=\"block-richtext\">\n<p>You're at higher risk of getting seriously ill from pneumococcal infections if you have:</p><ul><li>sickle cell disease, coeliac disease, problems with your spleen or you've had your spleen removed</li><li>a long-term condition that affects your breathing such as chronic obstructive pulmonary disease (COPD) or cystic fibrosis</li><li>a long-term condition that affects your heart such as coronary heart disease or heart failure</li><li>chronic kidney disease</li><li>a long-term condition that affects your liver such as cirrhosis</li><li>diabetes</li><li>a weakened immune system due to a condition such as HIV, or a treatment such as steroid medicine or chemotherapy</li><li>a condition where fluid that protects the brain and spinal cord leaks out (cerebrospinal fluid leaks)</li><li>cochlear implants</li></ul><p>Some welders and metal workers who are exposed to metal fumes at work should also have the vaccine. Check with your employer if you think you may need it.</p>\n</div>"
+          "text": "<div class=\"block-richtext\">\n<p>You're at higher risk of getting seriously ill from pneumococcal infections if you have:</p><ul><li>sickle cell disease, coeliac disease, problems with your spleen or you've had your spleen removed</li><li>a long-term condition that affects your breathing, such as chronic obstructive pulmonary disease (COPD) or cystic fibrosis</li><li>a long-term condition that affects your heart, such as coronary heart disease or heart failure</li><li>chronic kidney disease</li><li>a long-term condition that affects your liver, such as cirrhosis</li><li>diabetes</li><li>a weakened immune system due to a condition, such as HIV, or a treatment, such as steroid medicine or chemotherapy</li><li>a condition where fluid that protects the brain and spinal cord leaks out (cerebrospinal fluid leaks)</li><li>cochlear implants</li></ul><p>Some welders and metal workers who are exposed to metal fumes at work should also have the vaccine. Check with your employer if you think you may need it.</p>\n</div>"
         }
       ],
       "headline": "Who should have the pneumococcal vaccine"
@@ -170,7 +143,7 @@
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>There are 2 types of pneumococcal vaccine given in the UK. You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/product/9692/pil\">Pneumovax pneumococcal vaccine patient leaflet (Electronic Medicines Compendium website)</a> – usually given to adults and children over 2</li><li><a href=\"https://www.medicines.org.uk/emc/files/pil.453.pdf\">Prevenar pneumococcal vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 121kb)</a> – usually given to babies under 2</li></ul><p></p>"
+          "text": "<p>There are 2 types of pneumococcal vaccine given in the UK.</p><p>You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/product/9692/pil\">Pneumovax pneumococcal vaccine patient leaflet (Electronic Medicines Compendium website)</a> – usually given to adults and children over 2</li><li><a href=\"https://www.medicines.org.uk/emc/files/pil.453.pdf\">Prevenar pneumococcal vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 121kb)</a> – usually given to babies under 2</li></ul><p></p>"
         }
       ],
       "headline": "Pneumococcal vaccine ingredients"
@@ -215,7 +188,7 @@
           "@type": "WebPageElement",
           "identifier": "urgent",
           "headline": "Ask for an urgent GP appointment or call 111 if your baby:",
-          "text": "<ul>\n<li>\n  is under 3 months old and has a temperature of 38C or higher, or you think they have a high temperature\n </li>\n<li>\n  is 3 to 6 months old and has a temperature of 39C or higher, or you think they have a high temperature\n </li>\n<li>\n  has a seizure (fit)\n </li>\n<li>\n  is unwell and you're worried about them\n </li>\n</ul>\n"
+          "text": "<ul>\n<li>\n  is 3 to 6 months old and has a temperature of 39C or higher, or you think they have a high temperature\n </li>\n<li>\n  has a seizure (fit)\n </li>\n<li>\n  is unwell and you're worried about them\n </li>\n</ul>\n"
         },
         {
           "@type": "WebPageElement",
@@ -267,7 +240,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>The pneumococcal vaccine helps protect against some types of bacterial infections that can cause serious illnesses like:</p><ul><li><a href=\"https://www.nhs.uk/conditions/meningitis/\">meningitis</a> (an infection in the brain and spinal cord)</li><li><a href=\"https://www.nhs.uk/conditions/sepsis/\">sepsis</a> (a life-threatening reaction to an infection)</li><li><a href=\"https://www.nhs.uk/conditions/pneumonia/\">pneumonia</a> (an infection in the lungs)</li></ul><p>It can also help protect against other illnesses such as sinusitis and ear infections.</p>",
+          "text": "<p>The pneumococcal vaccine helps protect against some types of bacterial infections that can cause serious illnesses like:</p><ul><li><a href=\"https://www.nhs.uk/conditions/meningitis/\">meningitis</a> (an infection in the brain and spinal cord)</li><li><a href=\"https://www.nhs.uk/conditions/sepsis/\">sepsis</a> (a life-threatening reaction to an infection)</li><li><a href=\"https://www.nhs.uk/conditions/pneumonia/\">pneumonia</a> (an infection in the lungs)</li></ul><p>Some types of pneumococcal vaccine can also help protect against other illnesses such as sinusitis and ear infections.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -278,7 +251,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>The pneumococcal vaccine helps protect against some types of bacterial infections that can cause serious illnesses like:</p><ul><li><a href=\"https://www.nhs.uk/conditions/meningitis/\">meningitis</a> (an infection in the brain and spinal cord)</li><li><a href=\"https://www.nhs.uk/conditions/sepsis/\">sepsis</a> (a life-threatening reaction to an infection)</li><li><a href=\"https://www.nhs.uk/conditions/pneumonia/\">pneumonia</a> (an infection in the lungs)</li></ul><p>It can also help protect against other illnesses such as sinusitis and ear infections.</p>",
+          "text": "<p>The pneumococcal vaccine helps protect against some types of bacterial infections that can cause serious illnesses like:</p><ul><li><a href=\"https://www.nhs.uk/conditions/meningitis/\">meningitis</a> (an infection in the brain and spinal cord)</li><li><a href=\"https://www.nhs.uk/conditions/sepsis/\">sepsis</a> (a life-threatening reaction to an infection)</li><li><a href=\"https://www.nhs.uk/conditions/pneumonia/\">pneumonia</a> (an infection in the lungs)</li></ul><p>Some types of pneumococcal vaccine can also help protect against other illnesses such as sinusitis and ear infections.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -304,7 +277,7 @@
         {
           "@type": "WebPageElement",
           "name": "Table",
-          "mainEntity": "\n\n\n<div class=\"nhsuk-table-container\">\n    <table role=\"table\">\n      <caption>When the pneumococcal vaccine is given</caption>\n      <thead role=\"rowgroup\">\n        <tr role=\"row\">\n          \n          <th role=\"columnheader\" class=\"\" scope=\"col\">\n            Who should have it\n          </th>\n          \n          <th role=\"columnheader\" class=\"\" scope=\"col\">\n            How many doses\n          </th>\n          \n        </tr>\n      </thead>\n      <tbody>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">Babies</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      How many doses\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">1st dose at 12 weeks and a booster dose at 1 year</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">People aged 65 and over</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      How many doses\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">1 dose when you&#x27;re 65</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">Children and adults at higher risk of getting seriously ill</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      How many doses\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">At least 1 dose (some people may need extra doses or regular doses)</p>\n            </td>\n            \n        </tr>\n        \n      </tbody>\n    </table>\n  </div>",
+          "mainEntity": "\n\n\n<div class=\"nhsuk-table-container\">\n    <table role=\"table\">\n      <caption>When the pneumococcal vaccine is given</caption>\n      <thead role=\"rowgroup\">\n        <tr role=\"row\">\n          \n          <th role=\"columnheader\" class=\"\" scope=\"col\">\n            Who should have it\n          </th>\n          \n          <th role=\"columnheader\" class=\"\" scope=\"col\">\n            How many doses\n          </th>\n          \n        </tr>\n      </thead>\n      <tbody>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">Babies</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      How many doses\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">1st dose at 16 weeks and a booster dose at 1 year</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">People aged 65 and over</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      How many doses\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">1 dose when you&#x27;re 65</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">Children and adults at higher risk of getting seriously ill</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      How many doses\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">At least 1 dose (some people may need extra doses or regular doses)</p>\n            </td>\n            \n        </tr>\n        \n      </tbody>\n    </table>\n  </div>",
           "position": 1
         },
         {
@@ -321,7 +294,7 @@
           "name": "Expander",
           "subjectOf": "Who's at higher risk of getting seriously ill",
           "identifier": "18",
-          "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"1vczl\">You're at higher risk of getting seriously ill from pneumococcal infections if you have:</p><ul><li data-block-key=\"ec0o\">sickle cell disease, coeliac disease, problems with your spleen or you've had your spleen removed</li><li data-block-key=\"em7m0\">a long-term condition that affects your breathing such as chronic obstructive pulmonary disease (COPD) or cystic fibrosis</li><li data-block-key=\"2jgib\">a long-term condition that affects your heart such as coronary heart disease or heart failure</li><li data-block-key=\"fbjml\">chronic kidney disease</li><li data-block-key=\"2r3qv\">a long-term condition that affects your liver such as cirrhosis</li><li data-block-key=\"1ubmn\">diabetes</li><li data-block-key=\"847ar\">a weakened immune system due to a condition such as HIV, or a treatment such as steroid medicine or chemotherapy</li><li data-block-key=\"i347\">a condition where fluid that protects the brain and spinal cord leaks out (cerebrospinal fluid leaks)</li><li data-block-key=\"fnhtm\">cochlear implants</li></ul><p data-block-key=\"amcfg\">Some welders and metal workers who are exposed to metal fumes at work should also have the vaccine. Check with your employer if you think you may need it.</p>\n</div>"
+          "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"1vczl\">You're at higher risk of getting seriously ill from pneumococcal infections if you have:</p><ul><li data-block-key=\"ec0o\">sickle cell disease, coeliac disease, problems with your spleen or you've had your spleen removed</li><li data-block-key=\"em7m0\">a long-term condition that affects your breathing, such as chronic obstructive pulmonary disease (COPD) or cystic fibrosis</li><li data-block-key=\"2jgib\">a long-term condition that affects your heart, such as coronary heart disease or heart failure</li><li data-block-key=\"fbjml\">chronic kidney disease</li><li data-block-key=\"2r3qv\">a long-term condition that affects your liver, such as cirrhosis</li><li data-block-key=\"1ubmn\">diabetes</li><li data-block-key=\"847ar\">a weakened immune system due to a condition, such as HIV, or a treatment, such as steroid medicine or chemotherapy</li><li data-block-key=\"i347\">a condition where fluid that protects the brain and spinal cord leaks out (cerebrospinal fluid leaks)</li><li data-block-key=\"fnhtm\">cochlear implants</li></ul><p data-block-key=\"amcfg\">Some welders and metal workers who are exposed to metal fumes at work should also have the vaccine. Check with your employer if you think you may need it.</p>\n</div>"
         }
       ],
       "description": "The pneumococcal vaccine is for babies, adults aged 65 and over, and people at higher risk of getting seriously ill from pneumococcal infections.",
@@ -337,7 +310,7 @@
         {
           "@type": "WebPageElement",
           "name": "Table",
-          "mainEntity": "\n\n\n<div class=\"nhsuk-table-container\">\n    <table role=\"table\">\n      <caption>When the pneumococcal vaccine is given</caption>\n      <thead role=\"rowgroup\">\n        <tr role=\"row\">\n          \n          <th role=\"columnheader\" class=\"\" scope=\"col\">\n            Who should have it\n          </th>\n          \n          <th role=\"columnheader\" class=\"\" scope=\"col\">\n            How many doses\n          </th>\n          \n        </tr>\n      </thead>\n      <tbody>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">Babies</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      How many doses\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">1st dose at 12 weeks and a booster dose at 1 year</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">People aged 65 and over</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      How many doses\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">1 dose when you&#x27;re 65</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">Children and adults at higher risk of getting seriously ill</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      How many doses\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">At least 1 dose (some people may need extra doses or regular doses)</p>\n            </td>\n            \n        </tr>\n        \n      </tbody>\n    </table>\n  </div>",
+          "mainEntity": "\n\n\n<div class=\"nhsuk-table-container\">\n    <table role=\"table\">\n      <caption>When the pneumococcal vaccine is given</caption>\n      <thead role=\"rowgroup\">\n        <tr role=\"row\">\n          \n          <th role=\"columnheader\" class=\"\" scope=\"col\">\n            Who should have it\n          </th>\n          \n          <th role=\"columnheader\" class=\"\" scope=\"col\">\n            How many doses\n          </th>\n          \n        </tr>\n      </thead>\n      <tbody>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">Babies</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      How many doses\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">1st dose at 16 weeks and a booster dose at 1 year</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">People aged 65 and over</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      How many doses\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">1 dose when you&#x27;re 65</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">Children and adults at higher risk of getting seriously ill</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      How many doses\n                    \n                </span>\n                <p data-block-key=\"9xl6t\">At least 1 dose (some people may need extra doses or regular doses)</p>\n            </td>\n            \n        </tr>\n        \n      </tbody>\n    </table>\n  </div>",
           "position": 1
         },
         {
@@ -354,7 +327,7 @@
           "name": "Expander",
           "subjectOf": "Who's at higher risk of getting seriously ill",
           "identifier": "18",
-          "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"1vczl\">You're at higher risk of getting seriously ill from pneumococcal infections if you have:</p><ul><li data-block-key=\"ec0o\">sickle cell disease, coeliac disease, problems with your spleen or you've had your spleen removed</li><li data-block-key=\"em7m0\">a long-term condition that affects your breathing such as chronic obstructive pulmonary disease (COPD) or cystic fibrosis</li><li data-block-key=\"2jgib\">a long-term condition that affects your heart such as coronary heart disease or heart failure</li><li data-block-key=\"fbjml\">chronic kidney disease</li><li data-block-key=\"2r3qv\">a long-term condition that affects your liver such as cirrhosis</li><li data-block-key=\"1ubmn\">diabetes</li><li data-block-key=\"847ar\">a weakened immune system due to a condition such as HIV, or a treatment such as steroid medicine or chemotherapy</li><li data-block-key=\"i347\">a condition where fluid that protects the brain and spinal cord leaks out (cerebrospinal fluid leaks)</li><li data-block-key=\"fnhtm\">cochlear implants</li></ul><p data-block-key=\"amcfg\">Some welders and metal workers who are exposed to metal fumes at work should also have the vaccine. Check with your employer if you think you may need it.</p>\n</div>"
+          "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"1vczl\">You're at higher risk of getting seriously ill from pneumococcal infections if you have:</p><ul><li data-block-key=\"ec0o\">sickle cell disease, coeliac disease, problems with your spleen or you've had your spleen removed</li><li data-block-key=\"em7m0\">a long-term condition that affects your breathing, such as chronic obstructive pulmonary disease (COPD) or cystic fibrosis</li><li data-block-key=\"2jgib\">a long-term condition that affects your heart, such as coronary heart disease or heart failure</li><li data-block-key=\"fbjml\">chronic kidney disease</li><li data-block-key=\"2r3qv\">a long-term condition that affects your liver, such as cirrhosis</li><li data-block-key=\"1ubmn\">diabetes</li><li data-block-key=\"847ar\">a weakened immune system due to a condition, such as HIV, or a treatment, such as steroid medicine or chemotherapy</li><li data-block-key=\"i347\">a condition where fluid that protects the brain and spinal cord leaks out (cerebrospinal fluid leaks)</li><li data-block-key=\"fnhtm\">cochlear implants</li></ul><p data-block-key=\"amcfg\">Some welders and metal workers who are exposed to metal fumes at work should also have the vaccine. Check with your employer if you think you may need it.</p>\n</div>"
         }
       ],
       "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
@@ -412,7 +385,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>There are 2 types of pneumococcal vaccine given in the UK. You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/product/9692/pil\">Pneumovax pneumococcal vaccine patient leaflet (Electronic Medicines Compendium website)</a> – usually given to adults and children over 2</li><li><a href=\"https://www.medicines.org.uk/emc/files/pil.453.pdf\">Prevenar pneumococcal vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 121kb)</a> – usually given to babies under 2</li></ul><p></p>",
+          "text": "<p>There are 2 types of pneumococcal vaccine given in the UK.</p><p>You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/product/9692/pil\">Pneumovax pneumococcal vaccine patient leaflet (Electronic Medicines Compendium website)</a> – usually given to adults and children over 2</li><li><a href=\"https://www.medicines.org.uk/emc/files/pil.453.pdf\">Prevenar pneumococcal vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 121kb)</a> – usually given to babies under 2</li></ul><p></p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -423,7 +396,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>There are 2 types of pneumococcal vaccine given in the UK. You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/product/9692/pil\">Pneumovax pneumococcal vaccine patient leaflet (Electronic Medicines Compendium website)</a> – usually given to adults and children over 2</li><li><a href=\"https://www.medicines.org.uk/emc/files/pil.453.pdf\">Prevenar pneumococcal vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 121kb)</a> – usually given to babies under 2</li></ul><p></p>",
+          "text": "<p>There are 2 types of pneumococcal vaccine given in the UK.</p><p>You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/product/9692/pil\">Pneumovax pneumococcal vaccine patient leaflet (Electronic Medicines Compendium website)</a> – usually given to adults and children over 2</li><li><a href=\"https://www.medicines.org.uk/emc/files/pil.453.pdf\">Prevenar pneumococcal vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 121kb)</a> – usually given to babies under 2</li></ul><p></p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -508,7 +481,7 @@
           "@type": "WebPageElement",
           "name": "urgent",
           "identifier": "5",
-          "text": "<h3>Ask for an urgent GP appointment or call 111 if your baby:</h3><div class=\"block-richtext\">\n<ul><li>is under 3 months old and has a temperature of 38C or higher, or you think they have a high temperature</li><li>is 3 to 6 months old and has a temperature of 39C or higher, or you think they have a high temperature</li><li>has a seizure (fit)</li><li>is unwell and you're worried about them</li></ul>\n</div>"
+          "text": "<h3>Ask for an urgent GP appointment or call 111 if your baby:</h3><div class=\"block-richtext\">\n<ul><li>is 3 to 6 months old and has a temperature of 39C or higher, or you think they have a high temperature</li><li>has a seizure (fit)</li><li>is unwell and you're worried about them</li></ul>\n</div>"
         },
         {
           "position": 2,
@@ -534,7 +507,7 @@
           "@type": "WebPageElement",
           "name": "urgent",
           "identifier": "5",
-          "text": "<h3>Ask for an urgent GP appointment or call 111 if your baby:</h3><div class=\"block-richtext\">\n<ul><li>is under 3 months old and has a temperature of 38C or higher, or you think they have a high temperature</li><li>is 3 to 6 months old and has a temperature of 39C or higher, or you think they have a high temperature</li><li>has a seizure (fit)</li><li>is unwell and you're worried about them</li></ul>\n</div>"
+          "text": "<h3>Ask for an urgent GP appointment or call 111 if your baby:</h3><div class=\"block-richtext\">\n<ul><li>is 3 to 6 months old and has a temperature of 39C or higher, or you think they have a high temperature</li><li>has a seizure (fit)</li><li>is unwell and you're worried about them</li></ul>\n</div>"
         },
         {
           "position": 2,
