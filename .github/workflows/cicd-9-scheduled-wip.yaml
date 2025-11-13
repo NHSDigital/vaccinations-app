@@ -6,11 +6,12 @@ on:
   workflow_dispatch:
     inputs:
       release:
-        description: 'Release to deploy and assure'
+        description: 'Deploy and run assurance tests on'
         type: choice
         options:
-          - release1
-          - latest-main-tag
+          - Latest R1 tag
+          - Latest main tag
+          - All
 
 jobs:
   deploy-and-test-r1:
@@ -26,7 +27,7 @@ jobs:
     environment:
       name: "preprod"
 
-    if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && inputs.release=='release1')) }}
+    if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && (inputs.release=='All' || inputs.release=='Latest R1 tag'))) }}
     steps:
     - name: "Checkout release/v1.0 branch"
       uses: actions/checkout@v5
@@ -66,7 +67,7 @@ jobs:
       name: "preprod"
 
     needs: [ deploy-and-test-r1 ]
-    if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && inputs.release=='latest-main-tag')) }}
+    if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && (inputs.release=='All' || inputs.release=='Latest main tag'))) }}
     steps:
       - name: "Checkout main branch"
         uses: actions/checkout@v5
