@@ -27,6 +27,7 @@ const useInactivityTimer = (warningTimeMs: number = WARNING_TIME_MS, logoutTimeM
   }, [warningTimeMs, logoutTimeMs]);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
     ACTIVITY_EVENTS.forEach((event) => window.addEventListener(event, resetTimer));
 
     resetTimer(); // Start timer on component mount

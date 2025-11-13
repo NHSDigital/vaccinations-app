@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 const SkipLink = () => {
@@ -8,9 +10,11 @@ const SkipLink = () => {
       data-testid="skip-link"
       onClick={(event) => {
         event.preventDefault();
-        const contentTitle = document.getElementsByTagName("h1").item(0);
-        contentTitle?.setAttribute("tabindex", "-1");
-        contentTitle?.focus();
+        if (typeof document !== "undefined") {
+          const contentTitle = document.getElementsByTagName("h1").item(0);
+          contentTitle?.setAttribute("tabindex", "-1");
+          contentTitle?.focus();
+        }
       }}
     >
       Skip to main content
