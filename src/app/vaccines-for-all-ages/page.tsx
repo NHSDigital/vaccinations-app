@@ -36,12 +36,12 @@ const VaccinesForAllAges = (): JSX.Element => {
         <h2 className="nhsuk-heading-s">Vaccines for pregnancy</h2>
         <ul className="nhsapp-cards nhsapp-cards--stacked" data-testid="vaccine-cardlinks-pregnancy">
           <CardLink
-            title={`${VaccineInfo[VaccineType.RSV_PREGNANCY].cardLinkTitle}`}
-            link={`/vaccines/${VaccineInfo.RSV_PREGNANCY.urlPath}`}
-          />
-          <CardLink
             title={`${VaccineInfo[VaccineType.WHOOPING_COUGH].cardLinkTitle}`}
             link={`/vaccines/${VaccineInfo.WHOOPING_COUGH.urlPath}`}
+          />
+          <CardLink
+            title={`${VaccineInfo[VaccineType.RSV_PREGNANCY].cardLinkTitle}`}
+            link={`/vaccines/${VaccineInfo.RSV_PREGNANCY.urlPath}`}
           />
         </ul>
 
