@@ -1,5 +1,5 @@
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { Filename, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
+import { Filename, VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { AWS_PRIMARY_REGION } from "@src/utils/constants";
 import { logger } from "@src/utils/logger";
@@ -37,7 +37,7 @@ const _writeContentToCache = async (
     : await writeFile(`${cacheLocation}${cachePath}`, cacheContent);
 };
 
-const writeContentForVaccine = async (vaccineType: VaccineTypes, vaccineContent: string) => {
+const writeContentForVaccine = async (vaccineType: VaccineType, vaccineContent: string) => {
   const config: AppConfig = await configProvider();
   const cacheFilename = VaccineInfo[vaccineType].cacheFilename;
   await _writeContentToCache(config.CONTENT_CACHE_PATH, cacheFilename, vaccineContent);

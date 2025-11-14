@@ -1,7 +1,7 @@
-import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
+import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import React, { JSX } from "react";
 
-const HowToGetVaccineFallback = (props: { vaccineType: VaccineTypes }): JSX.Element => {
+const HowToGetVaccineFallback = (props: { vaccineType: VaccineType }): JSX.Element => {
   const vaccineInfo = VaccineInfo[props.vaccineType];
 
   return (

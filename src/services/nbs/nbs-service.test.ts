@@ -1,4 +1,4 @@
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import { getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
 import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
 import { AppConfig, configProvider } from "@src/utils/config";
@@ -27,18 +27,18 @@ describe("getSSOUrlToNBSForVaccine", () => {
   });
 
   it("returns sso url of NBS configured in config for RSV vaccine", async () => {
-    const nbsRedirectUrl = new URL(await getSSOUrlToNBSForVaccine(VaccineTypes.RSV));
+    const nbsRedirectUrl = new URL(await getSSOUrlToNBSForVaccine(VaccineType.RSV));
     expect(nbsRedirectUrl.origin).toEqual(nbsUrlFromConfig);
     expect(nbsRedirectUrl.pathname).toEqual(`${nbsBookingPathFromConfig}/rsv`);
   });
 
   it("should include campaignID query param in NBS URL", async () => {
-    const nbsRedirectUrl = new URL(await getSSOUrlToNBSForVaccine(VaccineTypes.RSV));
+    const nbsRedirectUrl = new URL(await getSSOUrlToNBSForVaccine(VaccineType.RSV));
     expect(nbsRedirectUrl.searchParams.get("wt.mc_id")).toEqual(expect.any(String));
   });
 
   it("should include assertedLoginIdentity query param in NBS URL", async () => {
-    const nbsRedirectUrl = new URL(await getSSOUrlToNBSForVaccine(VaccineTypes.RSV));
+    const nbsRedirectUrl = new URL(await getSSOUrlToNBSForVaccine(VaccineType.RSV));
     expect(nbsRedirectUrl.searchParams.get("assertedLoginIdentity")).toEqual(mockAssertedLoginIdentityJWT);
   });
 
@@ -47,7 +47,7 @@ describe("getSSOUrlToNBSForVaccine", () => {
       new Error("Error creating SSO assertedLoginIdentity: id_token.jti attribute missing from session"),
     );
 
-    const nbsRedirectUrl = await getSSOUrlToNBSForVaccine(VaccineTypes.RSV);
+    const nbsRedirectUrl = await getSSOUrlToNBSForVaccine(VaccineType.RSV);
     expect(nbsRedirectUrl).toBe("/sso-failure");
   });
 
@@ -59,7 +59,7 @@ describe("getSSOUrlToNBSForVaccine", () => {
       }),
     );
 
-    const nbsRedirectUrl = await getSSOUrlToNBSForVaccine(VaccineTypes.RSV);
+    const nbsRedirectUrl = await getSSOUrlToNBSForVaccine(VaccineType.RSV);
     expect(nbsRedirectUrl).toBe("/sso-failure");
   });
 });

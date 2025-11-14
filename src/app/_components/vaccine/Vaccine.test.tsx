@@ -3,7 +3,7 @@ import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVa
 import { EligibilityVaccinePageContent } from "@src/app/_components/eligibility/EligibilityVaccinePageContent";
 import { RSVPregnancyInfo } from "@src/app/_components/vaccine-custom/RSVPregnancyInfo";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
@@ -81,16 +81,16 @@ const contentErrorResponse = {
 };
 
 describe("Any vaccine page", () => {
-  const renderNamedVaccinePage = async (vaccineType: VaccineTypes) => {
+  const renderNamedVaccinePage = async (vaccineType: VaccineType) => {
     render(await Vaccine({ vaccineType: vaccineType }));
   };
 
   const renderRsvVaccinePage = async () => {
-    await renderNamedVaccinePage(VaccineTypes.RSV);
+    await renderNamedVaccinePage(VaccineType.RSV);
   };
 
   const expectTdIPVPageToHaveHrAboveMoreInformationSection = async () => {
-    await renderNamedVaccinePage(VaccineTypes.TD_IPV_3_IN_1);
+    await renderNamedVaccinePage(VaccineType.TD_IPV_3_IN_1);
 
     const hrAboveMoreInformation: HTMLElement = screen.getByTestId("more-information-hr");
 
@@ -118,7 +118,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should include overview text", async () => {
-      await renderNamedVaccinePage(VaccineTypes.TD_IPV_3_IN_1);
+      await renderNamedVaccinePage(VaccineType.TD_IPV_3_IN_1);
 
       const overviewText: HTMLElement = screen.getByTestId("overview-text");
 
@@ -139,14 +139,14 @@ describe("Any vaccine page", () => {
     });
 
     it("should display custom RSV Pregnancy vaccine component with contentApi howToGet section", async () => {
-      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
+      await renderNamedVaccinePage(VaccineType.RSV_PREGNANCY);
 
       const rsvPregnancyInfo = screen.queryByTestId("rsv-pregnancy-mock");
 
       expect(rsvPregnancyInfo).toBeInTheDocument();
       expect(RSVPregnancyInfo).toHaveBeenCalledWith(
         {
-          vaccineType: VaccineTypes.RSV_PREGNANCY,
+          vaccineType: VaccineType.RSV_PREGNANCY,
           howToGetVaccineOrFallback: mockStyledContent.howToGetVaccine.component,
         },
         undefined,
@@ -154,7 +154,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should not display RSV Pregnancy component when vaccineType is not RSV_PREGNANCY", async () => {
-      await renderNamedVaccinePage(VaccineTypes.TD_IPV_3_IN_1);
+      await renderNamedVaccinePage(VaccineType.TD_IPV_3_IN_1);
 
       const rsvPregnancyInfo = screen.queryByTestId("rsv-pregnancy-mock");
 
@@ -182,7 +182,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should not display overview paragraph", async () => {
-      await renderNamedVaccinePage(VaccineTypes.TD_IPV_3_IN_1);
+      await renderNamedVaccinePage(VaccineType.TD_IPV_3_IN_1);
 
       const overviewText: HTMLElement | null = screen.queryByTestId("overview-text");
 
@@ -209,14 +209,14 @@ describe("Any vaccine page", () => {
       await renderRsvVaccinePage();
 
       expectRenderEligibilitySectionWith(
-        VaccineTypes.RSV,
+        VaccineType.RSV,
         eligibilitySuccessResponse,
-        <HowToGetVaccineFallback vaccineType={VaccineTypes.RSV} />,
+        <HowToGetVaccineFallback vaccineType={VaccineType.RSV} />,
       );
     });
 
     it("should use fallback how-to-get text when rendering rsv pregnancy component", async () => {
-      const vaccineType = VaccineTypes.RSV_PREGNANCY;
+      const vaccineType = VaccineType.RSV_PREGNANCY;
       await renderNamedVaccinePage(vaccineType);
 
       expect(RSVPregnancyInfo).toHaveBeenCalledWith(
@@ -243,27 +243,27 @@ describe("Any vaccine page", () => {
       await renderRsvVaccinePage();
 
       expectRenderEligibilitySectionWith(
-        VaccineTypes.RSV,
+        VaccineType.RSV,
         eligibilitySuccessResponse,
         mockStyledContent.howToGetVaccine.component,
       );
     });
 
     it("should not display the eligibility on RSV pregnancy vaccine page", async () => {
-      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
+      await renderNamedVaccinePage(VaccineType.RSV_PREGNANCY);
 
       const eligibilitySection: HTMLElement | null = screen.queryByTestId("eligibility-page-content-mock");
       expect(eligibilitySection).not.toBeInTheDocument();
     });
 
     it("should not call EliD API on RSV pregnancy vaccine page", async () => {
-      await renderNamedVaccinePage(VaccineTypes.RSV_PREGNANCY);
+      await renderNamedVaccinePage(VaccineType.RSV_PREGNANCY);
 
       expect(getEligibilityForPerson).not.toHaveBeenCalled();
     });
 
     it("should not call EliD API on Td/IPV page pregnancy vaccine page", async () => {
-      await renderNamedVaccinePage(VaccineTypes.TD_IPV_3_IN_1);
+      await renderNamedVaccinePage(VaccineType.TD_IPV_3_IN_1);
 
       expect(getEligibilityForPerson).not.toHaveBeenCalled();
     });
@@ -285,7 +285,7 @@ describe("Any vaccine page", () => {
       await renderRsvVaccinePage();
 
       expectRenderEligibilitySectionWith(
-        VaccineTypes.RSV,
+        VaccineType.RSV,
         eligibilityResponseWithNoContentSection,
         mockStyledContent.howToGetVaccine.component,
       );
@@ -297,7 +297,7 @@ describe("Any vaccine page", () => {
       await renderRsvVaccinePage();
 
       expectRenderEligibilitySectionWith(
-        VaccineTypes.RSV,
+        VaccineType.RSV,
         eligibilityErrorResponse,
         mockStyledContent.howToGetVaccine.component,
       );
@@ -320,11 +320,11 @@ describe("Any vaccine page", () => {
     });
 
     it("should call eligibility component with error response when eligibility API has failed", async () => {
-      const vaccineType = VaccineTypes.RSV;
+      const vaccineType = VaccineType.RSV;
       await renderNamedVaccinePage(vaccineType);
 
       expectRenderEligibilitySectionWith(
-        VaccineTypes.RSV,
+        VaccineType.RSV,
         eligibilityErrorResponse,
         mockStyledContent.howToGetVaccine.component,
       );
@@ -338,7 +338,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should use fallback how-to-get text when rendering eligibility fallback component", async () => {
-      const vaccineType = VaccineTypes.RSV;
+      const vaccineType = VaccineType.RSV;
 
       await renderNamedVaccinePage(vaccineType);
 
@@ -351,7 +351,7 @@ describe("Any vaccine page", () => {
   });
 
   const expectRenderEligibilitySectionWith = (
-    vaccineType: VaccineTypes,
+    vaccineType: VaccineType,
     eligibilityForPerson: EligibilityForPersonType,
     howToGetVaccineOrFallback: JSX.Element,
   ) => {

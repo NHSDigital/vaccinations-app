@@ -1,6 +1,6 @@
 import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
 import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import { render, screen, within } from "@testing-library/react";
 
 jest.mock("@src/app/_components/nbs/PharmacyBookingInfo", () => ({
@@ -10,7 +10,7 @@ jest.mock("@src/app/_components/nbs/PharmacyBookingInfo", () => ({
 }));
 
 describe("RSVEligibilityFallback", () => {
-  const vaccineType = VaccineTypes.RSV;
+  const vaccineType = VaccineType.RSV;
   const howToGetVaccineFallback = <div>How Section styled component</div>;
 
   it("should display fallback care card", async () => {

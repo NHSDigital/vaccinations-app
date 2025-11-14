@@ -1,12 +1,12 @@
 import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import { HEADINGS } from "@src/app/constants";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import React, { JSX } from "react";
 
 const RSVEligibilityFallback = (props: {
   howToGetVaccineFallback: JSX.Element;
-  vaccineType: VaccineTypes.RSV;
+  vaccineType: VaccineType.RSV;
 }): JSX.Element => {
   return (
     <div data-testid="elid-fallback">

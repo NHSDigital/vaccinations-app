@@ -1,7 +1,7 @@
 "use server";
 
 import { GetObjectCommand, S3Client, S3ServiceException } from "@aws-sdk/client-s3";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import { INVALIDATED_CONTENT_OVERWRITE_VALUE } from "@src/services/content-api/constants";
 import {
   InvalidatedCacheError,
@@ -62,7 +62,7 @@ const _readFileS3 = async (bucket: string, key: string): Promise<string> => {
 const readContentFromCache = async (
   cacheLocation: string,
   cachePath: string,
-  vaccineType: VaccineTypes,
+  vaccineType: VaccineType,
 ): Promise<string> => {
   let contentFromCache;
   if (isS3Path(cacheLocation)) {

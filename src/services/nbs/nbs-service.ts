@@ -1,7 +1,7 @@
 "use server";
 
 import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
 import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
@@ -16,11 +16,11 @@ const NBS_QUERY_PARAMS = {
 
 const PLACEHOLDER_CAMPAIGN_ID = "vita-RSV-booking";
 
-export type VaccinesWithNBSBookingAvailable = VaccineTypes.RSV | VaccineTypes.RSV_PREGNANCY;
+export type VaccinesWithNBSBookingAvailable = VaccineType.RSV | VaccineType.RSV_PREGNANCY;
 
 const nbsVaccinePath: Record<VaccinesWithNBSBookingAvailable, string> = {
-  [VaccineTypes.RSV]: "/rsv",
-  [VaccineTypes.RSV_PREGNANCY]: "/rsv",
+  [VaccineType.RSV]: "/rsv",
+  [VaccineType.RSV_PREGNANCY]: "/rsv",
 };
 
 const getSSOUrlToNBSForVaccine = async (vaccineType: VaccinesWithNBSBookingAvailable) => {

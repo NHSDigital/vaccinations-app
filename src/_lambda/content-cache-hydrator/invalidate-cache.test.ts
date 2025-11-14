@@ -1,6 +1,6 @@
 import { writeContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-writer-service";
 import { invalidateCacheForVaccine } from "@src/_lambda/content-cache-hydrator/invalidate-cache";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import { INVALIDATED_CONTENT_OVERWRITE_VALUE } from "@src/services/content-api/constants";
 
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
@@ -10,7 +10,7 @@ describe("invalidateCacheForVaccine", () => {
   it("should call writer service with empty data for given vaccine", async () => {
     (writeContentForVaccine as jest.Mock).mockImplementation(() => {});
 
-    const vaccine = VaccineTypes.RSV;
+    const vaccine = VaccineType.RSV;
     await invalidateCacheForVaccine(vaccine);
 
     expect(writeContentForVaccine).toHaveBeenCalledWith(vaccine, INVALIDATED_CONTENT_OVERWRITE_VALUE);
@@ -20,6 +20,6 @@ describe("invalidateCacheForVaccine", () => {
     const writerError: string = "writer-error";
     (writeContentForVaccine as jest.Mock).mockRejectedValue(new Error(writerError));
 
-    await expect(invalidateCacheForVaccine(VaccineTypes.RSV)).rejects.toThrow(writerError);
+    await expect(invalidateCacheForVaccine(VaccineType.RSV)).rejects.toThrow(writerError);
   });
 });

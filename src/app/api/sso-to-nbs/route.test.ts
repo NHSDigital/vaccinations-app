@@ -1,5 +1,5 @@
 import { GET } from "@src/app/api/sso-to-nbs/route";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import { getNbsQueryParams, getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
 import { notFound, redirect } from "next/navigation";
 import { NextRequest } from "next/server";
@@ -58,7 +58,7 @@ describe("GET /sso-to-nbs", () => {
     (getSSOUrlToNBSForVaccine as jest.Mock).mockRejectedValue(new Error("error"));
 
     await GET(mockRequest);
-    expect(getSSOUrlToNBSForVaccine).toHaveBeenCalledWith(VaccineTypes.RSV);
+    expect(getSSOUrlToNBSForVaccine).toHaveBeenCalledWith(VaccineType.RSV);
     expect(redirect).toHaveBeenCalledWith("/sso-failure");
   });
 
@@ -70,7 +70,7 @@ describe("GET /sso-to-nbs", () => {
     (getSSOUrlToNBSForVaccine as jest.Mock).mockResolvedValue(mockNBSUrl);
 
     await GET(mockRequest);
-    expect(getSSOUrlToNBSForVaccine).toHaveBeenCalledWith(VaccineTypes.RSV);
+    expect(getSSOUrlToNBSForVaccine).toHaveBeenCalledWith(VaccineType.RSV);
     expect(redirect).toHaveBeenCalledWith(mockNBSUrl);
   });
 

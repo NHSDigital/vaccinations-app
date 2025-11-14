@@ -1,6 +1,6 @@
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import UrgentCareCard from "@src/app/_components/nhs-frontend/UrgentCareCard";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import { styleHowToGetSectionForRsv } from "@src/services/content-api/parsers/custom/rsv";
 import { styleHowToGetSectionForRsvPregnancy } from "@src/services/content-api/parsers/custom/rsv-pregnancy";
 import type {
@@ -122,24 +122,24 @@ const extractHeadingAndContent = (text: string): HeadingWithContent => {
   }
 };
 
-const styleHowToGetSection: Record<VaccineTypes, (section: VaccinePageSection, fragile: boolean) => StyledPageSection> =
+const styleHowToGetSection: Record<VaccineType, (section: VaccinePageSection, fragile: boolean) => StyledPageSection> =
   {
-    [VaccineTypes.RSV]: styleHowToGetSectionForRsv,
-    [VaccineTypes.RSV_PREGNANCY]: styleHowToGetSectionForRsvPregnancy,
-    [VaccineTypes.TD_IPV_3_IN_1]: styleSection,
-    [VaccineTypes.VACCINE_6_IN_1]: styleSection,
-    [VaccineTypes.ROTAVIRUS]: styleSection,
-    [VaccineTypes.HPV]: styleSection,
-    [VaccineTypes.MENB_CHILDREN]: styleSection,
-    [VaccineTypes.MMR]: styleSection,
-    [VaccineTypes.PNEUMOCOCCAL]: styleSection,
-    [VaccineTypes.SHINGLES]: styleSection,
-    [VaccineTypes.MENACWY]: styleSection,
-    [VaccineTypes.VACCINE_4_IN_1]: styleSection,
+    [VaccineType.RSV]: styleHowToGetSectionForRsv,
+    [VaccineType.RSV_PREGNANCY]: styleHowToGetSectionForRsvPregnancy,
+    [VaccineType.TD_IPV_3_IN_1]: styleSection,
+    [VaccineType.VACCINE_6_IN_1]: styleSection,
+    [VaccineType.ROTAVIRUS]: styleSection,
+    [VaccineType.HPV]: styleSection,
+    [VaccineType.MENB_CHILDREN]: styleSection,
+    [VaccineType.MMR]: styleSection,
+    [VaccineType.PNEUMOCOCCAL]: styleSection,
+    [VaccineType.SHINGLES]: styleSection,
+    [VaccineType.MENACWY]: styleSection,
+    [VaccineType.VACCINE_4_IN_1]: styleSection,
   };
 
 const getStyledContentForVaccine = async (
-  vaccine: VaccineTypes,
+  vaccine: VaccineType,
   filteredContent: VaccinePageContent,
   fragile: boolean,
 ): Promise<StyledVaccineContent> => {

@@ -1,7 +1,7 @@
 import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
 import { EligibilityVaccinePageContent } from "@src/app/_components/eligibility/EligibilityVaccinePageContent";
 import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import { EligibilityErrorTypes, EligibilityStatus } from "@src/services/eligibility-api/types";
 import { mockStyledContent } from "@test-data/content-api/data";
 import { eligibilityContentBuilder } from "@test-data/eligibility-api/builders";
@@ -28,14 +28,14 @@ const eligibilityUnavailable = {
   eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
 };
 const howToGetContent = <div>How Section styled component</div>;
-const howToGetContentFallback = <HowToGetVaccineFallback vaccineType={VaccineTypes.RSV} />;
+const howToGetContentFallback = <HowToGetVaccineFallback vaccineType={VaccineType.RSV} />;
 
 describe("EligibilityVaccinePageContent", () => {
   describe("when eligibility data available", () => {
     it("should display the eligibility on RSV vaccine page", async () => {
       render(
         <EligibilityVaccinePageContent
-          vaccineType={VaccineTypes.RSV}
+          vaccineType={VaccineType.RSV}
           eligibilityForPerson={eligibilityForPerson}
           howToGetVaccineOrFallback={howToGetContent}
         />,
@@ -48,11 +48,11 @@ describe("EligibilityVaccinePageContent", () => {
 
   describe("when eligibility data not available", () => {
     it("should display fallback RSV eligibility component using howToGet text from content-api when eligibility API has failed", async () => {
-      const vaccineType = VaccineTypes.RSV;
+      const vaccineType = VaccineType.RSV;
 
       render(
         <EligibilityVaccinePageContent
-          vaccineType={VaccineTypes.RSV}
+          vaccineType={VaccineType.RSV}
           eligibilityForPerson={eligibilityUnavailable}
           howToGetVaccineOrFallback={howToGetContent}
         />,
@@ -75,7 +75,7 @@ describe("EligibilityVaccinePageContent", () => {
     it("should still render eligibility section of vaccine page", async () => {
       render(
         <EligibilityVaccinePageContent
-          vaccineType={VaccineTypes.RSV}
+          vaccineType={VaccineType.RSV}
           eligibilityForPerson={eligibilityForPerson}
           howToGetVaccineOrFallback={howToGetContentFallback}
         />,
@@ -88,11 +88,11 @@ describe("EligibilityVaccinePageContent", () => {
 
   describe("when eligibility AND content not available", () => {
     it("should use fallback how-to-get text when rendering eligibility fallback component", async () => {
-      const vaccineType = VaccineTypes.RSV;
+      const vaccineType = VaccineType.RSV;
 
       render(
         <EligibilityVaccinePageContent
-          vaccineType={VaccineTypes.RSV}
+          vaccineType={VaccineType.RSV}
           eligibilityForPerson={eligibilityUnavailable}
           howToGetVaccineOrFallback={howToGetContentFallback}
         />,

@@ -1,4 +1,4 @@
-import { Filename, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
+import { Filename, VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { readContentFromCache } from "@src/services/content-api/gateway/content-reader-service";
 import { InvalidatedCacheError, S3NoSuchKeyError } from "@src/services/content-api/gateway/exceptions";
 import { AppConfig, configProvider } from "@src/utils/config";
@@ -11,7 +11,7 @@ export interface ReadCachedContentResult {
   cacheContent: string;
 }
 
-const readCachedContentForVaccine = async (vaccineType: VaccineTypes): Promise<ReadCachedContentResult> => {
+const readCachedContentForVaccine = async (vaccineType: VaccineType): Promise<ReadCachedContentResult> => {
   const config: AppConfig = await configProvider();
   const cacheFilename: Filename = VaccineInfo[vaccineType].cacheFilename;
   let cachedContent: string;

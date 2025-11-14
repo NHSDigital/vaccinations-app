@@ -1,4 +1,4 @@
-import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
+import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { readContentFromCache } from "@src/services/content-api/gateway/content-reader-service";
 import { InvalidatedCacheError, ReadingS3Error } from "@src/services/content-api/gateway/exceptions";
 import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
@@ -18,7 +18,7 @@ const log: Logger = logger.child({ module: "content-service" });
 
 const GetVaccineContentPerformanceMarker = "get-vaccine-content";
 
-const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<GetContentForVaccineResponse> => {
+const getContentForVaccine = async (vaccineType: VaccineType): Promise<GetContentForVaccineResponse> => {
   try {
     profilePerformanceStart(GetVaccineContentPerformanceMarker);
 

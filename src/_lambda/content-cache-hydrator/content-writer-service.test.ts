@@ -7,7 +7,7 @@ import {
   _writeFileS3,
   writeContentForVaccine,
 } from "@src/_lambda/content-cache-hydrator/content-writer-service";
-import { Filename, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
+import { Filename, VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { configProvider } from "@src/utils/config";
 import { writeFile } from "node:fs/promises";
 
@@ -79,9 +79,9 @@ describe("Content Writer Service", () => {
     }));
 
     it("should return response for rsv vaccine from content cache", async () => {
-      const vaccine: VaccineTypes = VaccineTypes.RSV;
+      const vaccine: VaccineType = VaccineType.RSV;
       await writeContentForVaccine(vaccine, content);
-      expect(writeFile).toHaveBeenCalledWith(`${location}${VaccineInfo[VaccineTypes.RSV].cacheFilename}`, content);
+      expect(writeFile).toHaveBeenCalledWith(`${location}${VaccineInfo[VaccineType.RSV].cacheFilename}`, content);
     });
   });
 });

@@ -2,7 +2,7 @@ import {
   ReadCachedContentResult,
   readCachedContentForVaccine,
 } from "@src/_lambda/content-cache-hydrator/content-cache-reader";
-import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
+import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { readContentFromCache } from "@src/services/content-api/gateway/content-reader-service";
 import { InvalidatedCacheError, S3NoSuchKeyError } from "@src/services/content-api/gateway/exceptions";
 import { AppConfig, configProvider } from "@src/utils/config";
@@ -15,7 +15,7 @@ const mockContentCachePath = "wiremock/__files/";
 
 describe("readCachedContentForVaccine", () => {
   const mockCacheFileContents = "mock-cache-file-contents";
-  const vaccineType = VaccineTypes.RSV;
+  const vaccineType = VaccineType.RSV;
 
   beforeEach(() => {
     (configProvider as jest.Mock).mockImplementation(

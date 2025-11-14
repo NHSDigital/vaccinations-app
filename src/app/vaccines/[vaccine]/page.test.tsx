@@ -1,6 +1,6 @@
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { SERVICE_HEADING } from "@src/app/constants";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { mockStyledContent } from "@test-data/content-api/data";
 import { assertBackLinkIsPresent } from "@test-data/utils/back-link-helpers";
@@ -75,7 +75,7 @@ describe("Dynamic vaccine page", () => {
 
       expect(Vaccine).toHaveBeenCalledWith(
         {
-          vaccineType: VaccineTypes.RSV,
+          vaccineType: VaccineType.RSV,
         },
         undefined,
       );

@@ -7,7 +7,7 @@ import { fetchContentForVaccine } from "@src/_lambda/content-cache-hydrator/cont
 import { writeContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-writer-service";
 import { _getConfigsThatThrowsOnColdStarts, handler } from "@src/_lambda/content-cache-hydrator/handler";
 import { invalidateCacheForVaccine } from "@src/_lambda/content-cache-hydrator/invalidate-cache";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
 import { configProvider } from "@src/utils/config";
@@ -40,7 +40,7 @@ const mockInvalidatedCacheReadResult: ReadCachedContentResult = { cacheStatus: "
 const mockEmptyCacheReadResult: ReadCachedContentResult = { cacheStatus: "empty", cacheContent: "" };
 
 describe("Lambda Handler", () => {
-  const numberOfVaccines = Object.values(VaccineTypes).length;
+  const numberOfVaccines = Object.values(VaccineType).length;
   const context = {} as Context;
 
   beforeEach(() => {
@@ -128,7 +128,7 @@ describe("Lambda Handler", () => {
       const event = { forceUpdate: true };
       await expectHandlerToResolveSuccessfullyWithUndefinedResponse(event, context);
 
-      Object.values(VaccineTypes).forEach((vaccineType) => {
+      Object.values(VaccineType).forEach((vaccineType) => {
         expect(writeContentForVaccine).toHaveBeenCalledWith(vaccineType, newContentFromContentAPI);
       });
     });
@@ -175,7 +175,7 @@ describe("Lambda Handler", () => {
 
       await expectHandlerToResolveSuccessfullyWithUndefinedResponse({}, context);
 
-      Object.values(VaccineTypes).forEach((vaccineType) => {
+      Object.values(VaccineType).forEach((vaccineType) => {
         expect(invalidateCacheForVaccine).toHaveBeenCalledWith(vaccineType);
       });
 
@@ -253,8 +253,8 @@ describe("Lambda Handler", () => {
     await expect(handler(event, context)).resolves.toBeUndefined();
 
     expect(writeContentForVaccine).toHaveBeenCalledTimes(1);
-    expect(writeContentForVaccine).toHaveBeenCalledWith(VaccineTypes.RSV, fetchedContentForVaccine);
-    expect(writeContentForVaccine).not.toHaveBeenCalledWith(VaccineTypes.RSV_PREGNANCY, fetchedContentForVaccine);
+    expect(writeContentForVaccine).toHaveBeenCalledWith(VaccineType.RSV, fetchedContentForVaccine);
+    expect(writeContentForVaccine).not.toHaveBeenCalledWith(VaccineType.RSV_PREGNANCY, fetchedContentForVaccine);
   };
 
   const expectHydrationToThrowFailureForAllVaccines = async () => {
@@ -269,7 +269,7 @@ describe("Lambda Handler", () => {
 
     await expectHandlerToResolveSuccessfullyWithUndefinedResponse({}, context);
 
-    Object.values(VaccineTypes).forEach((vaccineType) => {
+    Object.values(VaccineType).forEach((vaccineType) => {
       expect(writeContentForVaccine).toHaveBeenCalledWith(vaccineType, fetchedContentForVaccine);
       expect(invalidateCacheForVaccine).not.toHaveBeenCalledWith(vaccineType);
     });
@@ -283,7 +283,7 @@ describe("Lambda Handler", () => {
   };
 
   const expectWriteContentToHaveBeenCalledForAllVaccinesWithFetchedContent = (fetchedContentForVaccine: string) => {
-    Object.values(VaccineTypes).forEach((vaccineType) => {
+    Object.values(VaccineType).forEach((vaccineType) => {
       expect(writeContentForVaccine).toHaveBeenCalledWith(vaccineType, fetchedContentForVaccine);
     });
   };

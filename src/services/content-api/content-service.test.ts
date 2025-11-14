@@ -1,5 +1,5 @@
 import mockRsvVaccineJson from "@project/wiremock/__files/rsv-vaccine.json";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { readContentFromCache } from "@src/services/content-api/gateway/content-reader-service";
 import { InvalidatedCacheError, S3NoSuchKeyError } from "@src/services/content-api/gateway/exceptions";
@@ -22,7 +22,7 @@ describe("getContentForVaccine()", () => {
       (readContentFromCache as jest.Mock).mockImplementation(() => {
         return JSON.stringify(mockRsvVaccineJson);
       });
-      const vaccine: VaccineTypes = VaccineTypes.RSV;
+      const vaccine: VaccineType = VaccineType.RSV;
       const { styledVaccineContent, contentError }: GetContentForVaccineResponse = await getContentForVaccine(vaccine);
 
       expect(styledVaccineContent).toBeDefined();
@@ -37,7 +37,7 @@ describe("getContentForVaccine()", () => {
     it("should return content error response if content read fails", async () => {
       (readContentFromCache as jest.Mock).mockRejectedValue(new S3NoSuchKeyError("s3 error"));
 
-      const { styledVaccineContent, contentError } = await getContentForVaccine(VaccineTypes.RSV);
+      const { styledVaccineContent, contentError } = await getContentForVaccine(VaccineType.RSV);
 
       expect(contentError).toEqual(ContentErrorTypes.CONTENT_LOADING_ERROR);
       expect(styledVaccineContent).toBeUndefined();
@@ -46,7 +46,7 @@ describe("getContentForVaccine()", () => {
     it("should return content error response if cache invalidated", async () => {
       (readContentFromCache as jest.Mock).mockRejectedValue(new InvalidatedCacheError("invalidated cache"));
 
-      const { styledVaccineContent, contentError } = await getContentForVaccine(VaccineTypes.RSV);
+      const { styledVaccineContent, contentError } = await getContentForVaccine(VaccineType.RSV);
 
       expect(contentError).toEqual(ContentErrorTypes.CONTENT_LOADING_ERROR);
       expect(styledVaccineContent).toBeUndefined();

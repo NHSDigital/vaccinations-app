@@ -1,12 +1,12 @@
 import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import { randomURL } from "@test-data/meta-builder";
 import { render, screen } from "@testing-library/react";
 import React from "react";
 
 it("should include 'how to get' link with url from vaccineInfo config ", async () => {
   const findOutMoreUrl = randomURL();
-  const vaccineType = VaccineTypes.RSV;
+  const vaccineType = VaccineType.RSV;
 
   render(<FindOutMoreLink findOutMoreUrl={findOutMoreUrl} vaccineType={vaccineType} />);
 

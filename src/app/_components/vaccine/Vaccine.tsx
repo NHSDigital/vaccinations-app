@@ -6,7 +6,7 @@ import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVa
 import { MoreInformation } from "@src/app/_components/content/MoreInformation";
 import { EligibilityVaccinePageContent } from "@src/app/_components/eligibility/EligibilityVaccinePageContent";
 import { RSVPregnancyInfo } from "@src/app/_components/vaccine-custom/RSVPregnancyInfo";
-import { NhsNumber, VaccineDetails, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
+import { NhsNumber, VaccineDetails, VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { ContentErrorTypes, StyledVaccineContent } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
@@ -19,7 +19,7 @@ import React, { JSX } from "react";
 import styles from "./styles.module.css";
 
 interface VaccineProps {
-  vaccineType: VaccineTypes;
+  vaccineType: VaccineType;
 }
 
 const VaccinePagePerformanceMarker = "vaccine-page";
@@ -70,7 +70,7 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
         </>
       )}
       {/* Eligibility section for RSV */}
-      {vaccineType === VaccineTypes.RSV && eligibilityForPerson !== undefined && (
+      {vaccineType === VaccineType.RSV && eligibilityForPerson !== undefined && (
         <EligibilityVaccinePageContent
           vaccineType={vaccineType}
           eligibilityForPerson={eligibilityForPerson}
@@ -79,7 +79,7 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
       )}
 
       {/* Static eligibility section for RSV in pregnancy */}
-      {vaccineType === VaccineTypes.RSV_PREGNANCY && (
+      {vaccineType === VaccineType.RSV_PREGNANCY && (
         <RSVPregnancyInfo vaccineType={vaccineType} howToGetVaccineOrFallback={howToGetVaccineOrFallback} />
       )}
 

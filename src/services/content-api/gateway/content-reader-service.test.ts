@@ -3,7 +3,7 @@
  */
 import { S3Client } from "@aws-sdk/client-s3";
 import mockRsvVaccineJson from "@project/wiremock/__files/rsv-vaccine.json";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import { INVALIDATED_CONTENT_OVERWRITE_VALUE } from "@src/services/content-api/constants";
 import { readContentFromCache } from "@src/services/content-api/gateway/content-reader-service";
 import { Readable } from "stream";
@@ -36,7 +36,7 @@ const mockErrorResponse = {
 describe("Content Reader Service", () => {
   describe("readContentFromCache()", () => {
     const mockSend: jest.Mock = jest.fn();
-    const vaccineType = VaccineTypes.RSV;
+    const vaccineType = VaccineType.RSV;
 
     beforeEach(() => {
       (S3Client as jest.Mock).mockImplementation(() => ({

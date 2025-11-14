@@ -1,6 +1,6 @@
 import { auth } from "@project/auth";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import { configProvider } from "@src/utils/config";
 import { mockNHSAppJSFunctions } from "@src/utils/nhsapp-js.test";
@@ -53,9 +53,9 @@ describe("Vaccine", () => {
     (headers as jest.Mock).mockResolvedValue(fakeHeaders);
   });
 
-  it.each([VaccineTypes.RSV, VaccineTypes.RSV_PREGNANCY])(
+  it.each([VaccineType.RSV, VaccineType.RSV_PREGNANCY])(
     "has right content from cache for %s",
-    async (vaccine: VaccineTypes) => {
+    async (vaccine: VaccineType) => {
       render(await Vaccine({ vaccineType: vaccine }));
 
       expect(
@@ -66,7 +66,7 @@ describe("Vaccine", () => {
       ).toBeVisible();
 
       // details non expandable section for RSV in pregnancy
-      if (vaccine === VaccineTypes.RSV_PREGNANCY) {
+      if (vaccine === VaccineType.RSV_PREGNANCY) {
         expect(
           screen.getByRole("heading", {
             level: 3,

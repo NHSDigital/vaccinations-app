@@ -1,40 +1,40 @@
 import { MoreInformation } from "@src/app/_components/content/MoreInformation";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import { mockStyledContent, mockStyledContentWithoutWhatSection } from "@test-data/content-api/data";
 import { render, screen } from "@testing-library/react";
 import React from "react";
 
 describe("MoreInformation component ", () => {
   it("should display whatItIsFor expander block", async () => {
-    const vaccineType = VaccineTypes.RSV;
+    const vaccineType = VaccineType.RSV;
     render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
 
     expectExpanderBlockToBePresent("What the vaccine is for", "What Section styled component");
   });
 
   it("should display whoVaccineIsFor expander block", async () => {
-    const vaccineType = VaccineTypes.RSV;
+    const vaccineType = VaccineType.RSV;
     render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
 
     expectExpanderBlockToBePresent("Who should have the vaccine", "Who Section styled component");
   });
 
   it("should display howToGet expander block", async () => {
-    const vaccineType = VaccineTypes.TD_IPV_3_IN_1;
+    const vaccineType = VaccineType.TD_IPV_3_IN_1;
     render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
 
     expectExpanderBlockToBePresent("How to get the vaccine", "How Section styled component");
   });
 
   it("should display vaccineSideEffects expander block", async () => {
-    const vaccineType = VaccineTypes.RSV;
+    const vaccineType = VaccineType.RSV;
     render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
 
     expectExpanderBlockToBePresent("Side effects of the vaccine", "Side effects section styled component");
   });
 
   it("should not include 'how to get' section for RSV_PREGNANCY ", async () => {
-    const vaccineType = VaccineTypes.RSV_PREGNANCY;
+    const vaccineType = VaccineType.RSV_PREGNANCY;
     render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
 
     const heading: HTMLElement | null = screen.queryByText("How to get the vaccine");
@@ -43,7 +43,7 @@ describe("MoreInformation component ", () => {
   });
 
   it("should not include 'how to get' section for RSV ", async () => {
-    const vaccineType = VaccineTypes.RSV;
+    const vaccineType = VaccineType.RSV;
     render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
 
     const heading: HTMLElement | null = screen.queryByText("How to get the vaccine");
@@ -52,7 +52,7 @@ describe("MoreInformation component ", () => {
   });
 
   it("should display webpage link to more information about vaccine", async () => {
-    const vaccineType = VaccineTypes.RSV;
+    const vaccineType = VaccineType.RSV;
     render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
 
     const webpageLink: HTMLElement = screen.getByRole("link", {
@@ -65,7 +65,7 @@ describe("MoreInformation component ", () => {
   });
 
   it("should not display whatItIsFor section if undefined in content", async () => {
-    const vaccineType = VaccineTypes.RSV;
+    const vaccineType = VaccineType.RSV;
     render(<MoreInformation styledVaccineContent={mockStyledContentWithoutWhatSection} vaccineType={vaccineType} />);
 
     const whatItIsForHeading: HTMLElement | null = screen.queryByText("What the vaccine is for");
@@ -76,7 +76,7 @@ describe("MoreInformation component ", () => {
   });
 
   it("should display whoVaccineIsFor section even if whatItIsFor is undefined in content", async () => {
-    const vaccineType = VaccineTypes.RSV;
+    const vaccineType = VaccineType.RSV;
     render(<MoreInformation styledVaccineContent={mockStyledContentWithoutWhatSection} vaccineType={vaccineType} />);
 
     expectExpanderBlockToBePresent("Who should have the vaccine", "Who Section styled component");

@@ -1,4 +1,4 @@
-import { NhsNumber, VaccineTypes } from "@src/models/vaccine";
+import { NhsNumber, VaccineType } from "@src/models/vaccine";
 import {
   EligibilityApiResponse,
   EligibilityCohort,
@@ -35,7 +35,7 @@ const log: Logger = logger.child({ module: "eligibility-filter-service" });
 const GetEligibilityPerformanceMarker = "get-eligibility";
 
 const getEligibilityForPerson = async (
-  vaccineType: VaccineTypes,
+  vaccineType: VaccineType,
   nhsNumber: NhsNumber,
 ): Promise<EligibilityForPersonType> => {
   try {

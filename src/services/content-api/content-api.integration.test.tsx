@@ -3,7 +3,7 @@
  */
 import { S3Client } from "@aws-sdk/client-s3";
 import mockRsvVaccineJson from "@project/wiremock/__files/rsv-vaccine.json";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { GetContentForVaccineResponse } from "@src/services/content-api/types";
 import { configProvider } from "@src/utils/config";
@@ -25,7 +25,7 @@ const mockRsvResponse = {
 describe("Content API Read Integration Test ", () => {
   afterEach(async () => {
     const { styledVaccineContent, contentError }: GetContentForVaccineResponse = await getContentForVaccine(
-      VaccineTypes.RSV,
+      VaccineType.RSV,
     );
 
     expect(styledVaccineContent).not.toBeNull();

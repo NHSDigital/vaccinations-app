@@ -3,7 +3,7 @@ import { vitaContentChangedSinceLastApproved } from "@src/_lambda/content-cache-
 import { fetchContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-fetcher";
 import { writeContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-writer-service";
 import { invalidateCacheForVaccine } from "@src/_lambda/content-cache-hydrator/invalidate-cache";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
 import { VaccinePageContent } from "@src/services/content-api/types";
@@ -16,7 +16,7 @@ import { Context } from "aws-lambda";
 const log = logger.child({ module: "content-cache-hydrator" });
 
 const checkContentPassesStylingAndWriteToCache = async (
-  vaccineType: VaccineTypes,
+  vaccineType: VaccineType,
   content: string,
   filteredContent: VaccinePageContent,
 ): Promise<void> => {
@@ -44,7 +44,7 @@ interface HydrateCacheStatus {
 }
 
 async function hydrateCacheForVaccine(
-  vaccineType: VaccineTypes,
+  vaccineType: VaccineType,
   approvalEnabled: boolean,
   forceUpdate: boolean,
 ): Promise<HydrateCacheStatus> {
@@ -144,7 +144,7 @@ const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
 
   const forceUpdate = typeof event.forceUpdate === "boolean" ? event.forceUpdate : false;
 
-  let vaccinesToRunOn: VaccineTypes[];
+  let vaccinesToRunOn: VaccineType[];
   if (event.vaccineToUpdate) {
     const vaccineType = getVaccineTypeFromLowercaseString(event.vaccineToUpdate);
     if (typeof vaccineType === "undefined") {
@@ -155,7 +155,7 @@ const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
       vaccinesToRunOn = [vaccineType];
     }
   } else {
-    vaccinesToRunOn = Object.values(VaccineTypes);
+    vaccinesToRunOn = Object.values(VaccineType);
   }
 
   if (forceUpdate) {

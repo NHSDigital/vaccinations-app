@@ -1,4 +1,4 @@
-import { NhsNumber, VaccineTypes } from "@src/models/vaccine";
+import { NhsNumber, VaccineType } from "@src/models/vaccine";
 import { ActionType, ProcessedSuggestion } from "@src/services/eligibility-api/api-types";
 import {
   _extractAllCohortText,
@@ -73,7 +73,7 @@ describe("eligibility-filter-service", () => {
         suitabilityRules: [{ content: "Test", type: RuleDisplayType.card, delineator: false }],
       };
 
-      const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineTypes.RSV, nhsNumber);
+      const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineType.RSV, nhsNumber);
 
       expect(result.eligibility?.status).toEqual(EligibilityStatus.NOT_ELIGIBLE);
       expect(result.eligibility?.content).toEqual(expectedEligibilityContent);
@@ -85,7 +85,7 @@ describe("eligibility-filter-service", () => {
         eligibilityApiResponseBuilder().withProcessedSuggestions([]).build(),
       );
 
-      const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineTypes.RSV, nhsNumber);
+      const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineType.RSV, nhsNumber);
 
       expect(result.eligibility).toBeUndefined();
       expect(result.eligibilityError).toEqual(EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR);
@@ -106,7 +106,7 @@ describe("eligibility-filter-service", () => {
           .build(),
       );
 
-      const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineTypes.RSV, nhsNumber);
+      const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineType.RSV, nhsNumber);
 
       expect(result.eligibility?.status).toBe(status);
       expect(result.eligibility?.content.summary).toBeUndefined();
@@ -116,7 +116,7 @@ describe("eligibility-filter-service", () => {
     it("should return loading error when fetchEligibilityContent fails", async () => {
       (fetchEligibilityContent as jest.Mock).mockResolvedValue(undefined);
 
-      const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineTypes.RSV, nhsNumber);
+      const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineType.RSV, nhsNumber);
 
       expect(result.eligibility).toBeUndefined();
       expect(result.eligibilityError).toBe(EligibilityErrorTypes.UNKNOWN);
@@ -127,7 +127,7 @@ describe("eligibility-filter-service", () => {
         new EligibilityApiHttpStatusError("Call to EliD failed"),
       );
 
-      const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineTypes.RSV, nhsNumber);
+      const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineType.RSV, nhsNumber);
 
       expect(result.eligibility).toBeUndefined();
       expect(result.eligibilityError).toBe(EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR);

@@ -1,6 +1,6 @@
 import { useBrowserContext } from "@src/app/_components/context/BrowserContext";
 import { NBSBookingActionForBaseUrl, NBSBookingActionForVaccine } from "@src/app/_components/nbs/NBSBookingAction";
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import { randomURL } from "@test-data/meta-builder";
 import { render, screen } from "@testing-library/react";
 
@@ -17,7 +17,7 @@ describe("NBSBookingAction", () => {
     const renderAndClickNBSBookingActionForVaccine = (displayText: string, renderAs: "anchor" | "button") => {
       render(
         <NBSBookingActionForVaccine
-          vaccineType={VaccineTypes.RSV}
+          vaccineType={VaccineType.RSV}
           displayText={displayText}
           renderAs={renderAs}
           reduceBottomPadding={false}

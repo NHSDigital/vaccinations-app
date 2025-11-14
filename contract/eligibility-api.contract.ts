@@ -1,4 +1,4 @@
-import { NhsNumber, VaccineTypes } from "@src/models/vaccine";
+import { NhsNumber, VaccineType } from "@src/models/vaccine";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import {
   EligibilityErrorTypes,
@@ -35,7 +35,7 @@ describe("EliD API contract", () => {
     test.each(successTestCases)(
       "$nhsNumber should be $expectedStatus with cohort $expectCohortElement",
       async ({ nhsNumber, expectedStatus, expectCohortElement }) => {
-        const eligibilityForPerson = await getEligibilityForPerson(VaccineTypes.RSV, nhsNumber);
+        const eligibilityForPerson = await getEligibilityForPerson(VaccineType.RSV, nhsNumber);
 
         expect(Object.keys(eligibilityForPerson).length).toEqual(2);
         expect(eligibilityForPerson.eligibility?.status).toEqual(expectedStatus);
@@ -58,7 +58,7 @@ describe("EliD API contract", () => {
     ];
 
     it.each(failureTestCases)(`$nhsNumber should have error $expectedError `, async ({ nhsNumber, expectedError }) => {
-      const eligibilityForPerson: EligibilityForPersonType = await getEligibilityForPerson(VaccineTypes.RSV, nhsNumber);
+      const eligibilityForPerson: EligibilityForPersonType = await getEligibilityForPerson(VaccineType.RSV, nhsNumber);
 
       expect(Object.keys(eligibilityForPerson).length).toEqual(2);
       expect(eligibilityForPerson.eligibility).toBeUndefined();

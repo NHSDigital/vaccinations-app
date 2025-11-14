@@ -1,4 +1,4 @@
-import { VaccineTypes } from "@src/models/vaccine";
+import { VaccineType } from "@src/models/vaccine";
 import {
   extractHeadingAndContent,
   getStyledContentForVaccine,
@@ -196,7 +196,7 @@ describe("ContentStylingService", () => {
   });
 
   describe("getStyledContentForVaccine", () => {
-    it.each(Object.values(VaccineTypes))("should return styled content for %s", async (vaccine: VaccineTypes) => {
+    it.each(Object.values(VaccineType))("should return styled content for %s", async (vaccine: VaccineType) => {
       const mockWhatSection: VaccinePageSection = {
         headline: "What Vaccine Is For",
         subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
@@ -236,9 +236,9 @@ describe("ContentStylingService", () => {
       const expectedGenericVaccineHowToGetSection =
         "<div><h3>How To Get Headline</h3><p>para</p><h3>If you're aged 75 to 79</h3><p>para1</p><p>para2</p><h3>If you're pregnant</h3><p>para3</p><p>para4</p></div>";
       const { container } = render(styledVaccineContent.howToGetVaccine.component);
-      if (vaccine === VaccineTypes.RSV) {
+      if (vaccine === VaccineType.RSV) {
         expect(container).toContainHTML(expectedRsvHowToGetSection);
-      } else if (vaccine === VaccineTypes.RSV_PREGNANCY) {
+      } else if (vaccine === VaccineType.RSV_PREGNANCY) {
         expect(container.innerHTML).toBe(expectedRsvPregnancyHowToGetSection);
       } else {
         expect(container.innerHTML).toBe(expectedGenericVaccineHowToGetSection);
@@ -273,7 +273,7 @@ describe("ContentStylingService", () => {
       };
 
       const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
-        VaccineTypes.RSV,
+        VaccineType.RSV,
         mockContent,
         false,
       );

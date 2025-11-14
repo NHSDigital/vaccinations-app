@@ -1,5 +1,5 @@
 import { CONTENT_API_PATH_PREFIX, fetchContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-fetcher";
-import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
+import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { AppConfig, configProvider } from "@src/utils/config";
 import axios from "axios";
 
@@ -24,9 +24,9 @@ describe("fetchContentForVaccine", () => {
 
   it("should fetch content for vaccine", async () => {
     (axios.get as jest.Mock).mockResolvedValue({ data: testApiContent });
-    const actual = await fetchContentForVaccine(VaccineTypes.RSV);
+    const actual = await fetchContentForVaccine(VaccineType.RSV);
     expect(axios.get).toHaveBeenCalledWith(
-      `${testApiEndpoint}${CONTENT_API_PATH_PREFIX}${VaccineInfo[VaccineTypes.RSV].contentPath}`,
+      `${testApiEndpoint}${CONTENT_API_PATH_PREFIX}${VaccineInfo[VaccineType.RSV].contentPath}`,
       { headers: { accept: "application/json", apikey: testApiKey }, timeout: 30000 },
     );
     expect(actual).toBe(JSON.stringify(testApiContent));
@@ -36,6 +36,6 @@ describe("fetchContentForVaccine", () => {
     const errorMessage = "Network Error";
     (axios.get as jest.Mock).mockRejectedValue(new Error(errorMessage));
 
-    await expect(fetchContentForVaccine(VaccineTypes.RSV)).rejects.toThrow(errorMessage);
+    await expect(fetchContentForVaccine(VaccineType.RSV)).rejects.toThrow(errorMessage);
   });
 });

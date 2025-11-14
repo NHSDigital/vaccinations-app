@@ -4,7 +4,7 @@ export type NhsNumber = Brand<string, "NhsNumber">;
 export type UrlPathFragment = Brand<string, "UrlPathFragment">;
 export type Filename = Brand<string, "Filename">;
 
-enum VaccineTypes {
+enum VaccineType {
   RSV = "RSV",
   RSV_PREGNANCY = "RSV_PREGNANCY",
   TD_IPV_3_IN_1 = "TD_IPV_3_IN_1",
@@ -40,8 +40,8 @@ type displayName = {
   indefiniteArticle: string;
 };
 
-const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
-  [VaccineTypes.RSV]: {
+const VaccineInfo: Record<VaccineType, VaccineDetails> = {
+  [VaccineType.RSV]: {
     urlPath: "rsv" as UrlPathFragment,
     displayName: {
       titleCase: "RSV",
@@ -59,7 +59,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     cacheFilename: "rsv-vaccine.json" as Filename,
     nboPath: "rsv" as UrlPathFragment,
   },
-  [VaccineTypes.RSV_PREGNANCY]: {
+  [VaccineType.RSV_PREGNANCY]: {
     urlPath: "rsv-pregnancy" as UrlPathFragment,
     displayName: {
       titleCase: "RSV",
@@ -77,7 +77,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     cacheFilename: "rsv-pregnancy.json" as Filename,
     nboPath: "rsv-pregnancy" as UrlPathFragment,
   },
-  [VaccineTypes.TD_IPV_3_IN_1]: {
+  [VaccineType.TD_IPV_3_IN_1]: {
     urlPath: "td-ipv-vaccine-3-in-1-teenage-booster" as UrlPathFragment,
     displayName: {
       titleCase: "Td/IPV",
@@ -95,7 +95,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     cacheFilename: "td-ipv-vaccine-3-in-1-teenage-booster.json" as Filename,
     nboPath: "td-ipv-vaccine-3-in-1-teenage-booster" as UrlPathFragment,
   },
-  [VaccineTypes.VACCINE_6_IN_1]: {
+  [VaccineType.VACCINE_6_IN_1]: {
     urlPath: "6-in-1-vaccine" as UrlPathFragment,
     displayName: {
       titleCase: "6-in-1",
@@ -111,7 +111,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     cacheFilename: "6-in-1-vaccine.json" as Filename,
     nboPath: "6-in-1-vaccine" as UrlPathFragment,
   },
-  [VaccineTypes.ROTAVIRUS]: {
+  [VaccineType.ROTAVIRUS]: {
     urlPath: "rotavirus-vaccine" as UrlPathFragment,
     displayName: {
       titleCase: "Rotavirus",
@@ -127,7 +127,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     cacheFilename: "rotavirus-vaccine.json" as Filename,
     nboPath: "rotavirus-vaccine" as UrlPathFragment,
   },
-  [VaccineTypes.HPV]: {
+  [VaccineType.HPV]: {
     urlPath: "hpv-vaccine" as UrlPathFragment,
     displayName: {
       titleCase: "HPV",
@@ -143,7 +143,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     cacheFilename: "hpv-vaccine.json" as Filename,
     nboPath: "hpv-vaccine" as UrlPathFragment,
   },
-  [VaccineTypes.MENB_CHILDREN]: {
+  [VaccineType.MENB_CHILDREN]: {
     urlPath: "menb-vaccine-for-children" as UrlPathFragment,
     displayName: {
       titleCase: "MenB",
@@ -159,7 +159,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     cacheFilename: "menb-vaccine-for-children.json" as Filename,
     nboPath: "menb-vaccine-for-children" as UrlPathFragment,
   },
-  [VaccineTypes.MMR]: {
+  [VaccineType.MMR]: {
     urlPath: "mmr-vaccine" as UrlPathFragment,
     displayName: {
       titleCase: "MMR",
@@ -175,7 +175,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     cacheFilename: "mmr-vaccine.json" as Filename,
     nboPath: "mmr-vaccine" as UrlPathFragment,
   },
-  [VaccineTypes.PNEUMOCOCCAL]: {
+  [VaccineType.PNEUMOCOCCAL]: {
     urlPath: "pneumococcal-vaccine" as UrlPathFragment,
     displayName: {
       titleCase: "Pneumococcal",
@@ -191,7 +191,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     cacheFilename: "pneumococcal-vaccine.json" as Filename,
     nboPath: "pneumococcal-vaccine" as UrlPathFragment,
   },
-  [VaccineTypes.SHINGLES]: {
+  [VaccineType.SHINGLES]: {
     urlPath: "shingles-vaccine" as UrlPathFragment,
     displayName: {
       titleCase: "Shingles",
@@ -207,7 +207,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     cacheFilename: "shingles-vaccine.json" as Filename,
     nboPath: "shingles-vaccine" as UrlPathFragment,
   },
-  [VaccineTypes.MENACWY]: {
+  [VaccineType.MENACWY]: {
     urlPath: "menacwy-vaccine" as UrlPathFragment,
     displayName: {
       titleCase: "MenACWY",
@@ -223,7 +223,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     cacheFilename: "menacwy-vaccine.json" as Filename,
     nboPath: "menacwy-vaccine" as UrlPathFragment,
   },
-  [VaccineTypes.VACCINE_4_IN_1]: {
+  [VaccineType.VACCINE_4_IN_1]: {
     urlPath: "4-in-1-preschool-booster-vaccine" as UrlPathFragment,
     displayName: {
       titleCase: "4-in-1 pre-school booster vaccine",
@@ -241,9 +241,9 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
   },
 };
 
-const vaccineUrlPathToVaccineType = new Map<UrlPathFragment, VaccineTypes>();
+const vaccineUrlPathToVaccineType = new Map<UrlPathFragment, VaccineType>();
 Object.entries(VaccineInfo).forEach(([vaccineType, vaccineDetails]) => {
-  vaccineUrlPathToVaccineType.set(vaccineDetails.urlPath, vaccineType as VaccineTypes);
+  vaccineUrlPathToVaccineType.set(vaccineDetails.urlPath, vaccineType as VaccineType);
 });
 
-export { VaccineTypes, VaccineInfo, vaccineUrlPathToVaccineType };
+export { VaccineType, VaccineInfo, vaccineUrlPathToVaccineType };
