@@ -10,13 +10,20 @@ fi
 
 API_KEY="$1"
 
-for file in *-vaccine.json *-children.json *-booster.json; do
+for file in *-vaccine.json *-children.json *-booster.json *-vaccination.json; do
   if [ -f "$file" ]; then
     filename_no_ext="${file%.json}"
 
-    curl -s -o "$file" "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/${filename_no_ext}" --header 'Accept: application/json,' --header "apikey: ${API_KEY}"
-
-    echo "Updated $file"
+    if curl -f -s -o "$file" "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/${filename_no_ext}" --header 'Accept: application/json,' --header "apikey: ${API_KEY}"; then
+      echo "Updated $file from vaccinations/"
+    else
+      sleep 5
+      if curl -f -s -o "$file" "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/${filename_no_ext}" --header 'Accept: application/json,' --header "apikey: ${API_KEY}"; then
+         echo "Updated $file from pregnancy/keeping-well/"
+      else
+        echo "Failed to retrieve $file" >&2
+      fi
+    fi
     sleep 5
   fi
 done

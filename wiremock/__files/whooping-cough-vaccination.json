@@ -1,0 +1,755 @@
+{
+  "@context": "http://schema.org",
+  "@type": "WebPage",
+  "name": "Whooping cough vaccination in pregnancy",
+  "copyrightHolder": { "name": "Crown Copyright", "@type": "Organization" },
+  "license": "https://developer.api.nhs.uk/terms",
+  "author": {
+    "url": "https://www.nhs.uk",
+    "logo": "https://assets.nhs.uk/nhsuk-cms/images/nhs-attribution.width-510.png",
+    "email": "nhswebsite.servicedesk@nhs.net",
+    "@type": "Organization",
+    "name": "NHS website"
+  },
+  "about": { "@type": "WebPage", "name": "Whooping cough vaccination in pregnancy", "alternateName": "" },
+  "description": "The whooping cough vaccination is recommended for all pregnant women, ideally at 20 weeks pregnant. Find out how this vaccine may help protect your baby's health.",
+  "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/whooping-cough-vaccination/",
+  "genre": ["Advice or information"],
+  "keywords": "",
+  "dateModified": "2024-11-14T22:05:56+00:00",
+  "lastReviewed": ["2023-03-24T01:00:00+00:00", "2026-03-24T01:00:00+00:00"],
+  "breadcrumb": {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 0,
+        "item": {
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/",
+          "name": "Pregnancy",
+          "genre": []
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/",
+          "name": "Keeping well in pregnancy",
+          "genre": []
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/whooping-cough-vaccination/",
+          "name": "Whooping cough vaccination in pregnancy",
+          "genre": ["Advice or information"]
+        }
+      }
+    ]
+  },
+  "hasPart": [],
+  "relatedLink": [
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/",
+      "name": "Keeping well in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 0
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/have-a-healthy-diet/",
+      "name": "Have a healthy diet in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 1
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/vegetarian-or-vegan-and-pregnant/",
+      "name": "Vegetarian or vegan and pregnant",
+      "linkRelationship": "Navigation",
+      "position": 2
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/foods-to-avoid/",
+      "name": "Foods to avoid in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 3
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/vitamins-supplements-and-nutrition/",
+      "name": "Vitamins, supplements and nutrition in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 4
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/exercise/",
+      "name": "Exercise in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 5
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/medicines/",
+      "name": "Medicines in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 6
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/mental-health/",
+      "name": "Mental health in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 7
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/depression/",
+      "name": "Depression in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 8
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/sex/",
+      "name": "Sex in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 9
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/travelling/",
+      "name": "Travelling in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 10
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/your-health-at-work/",
+      "name": "Work and pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 11
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/your-babys-movements/",
+      "name": "Your baby's movements",
+      "linkRelationship": "Navigation",
+      "position": 12
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/reducing-the-risk-of-stillbirth/",
+      "name": "Reducing the risk of stillbirth",
+      "linkRelationship": "Navigation",
+      "position": 13
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/drinking-alcohol-while-pregnant/",
+      "name": "Drinking alcohol while pregnant",
+      "linkRelationship": "Navigation",
+      "position": 14
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/stop-smoking/",
+      "name": "Stop smoking in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 15
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/illegal-drugs/",
+      "name": "Illegal drugs in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 16
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/vaccinations/",
+      "name": "Vaccinations in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 17
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/flu-jab/",
+      "name": "The flu jab in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 18
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/whooping-cough-vaccination/",
+      "name": "Whooping cough vaccination in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 19
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/infections-that-may-affect-your-baby/",
+      "name": "Infections in pregnancy that may affect your baby",
+      "linkRelationship": "Navigation",
+      "position": 20
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/pregnancy-and-covid-19/",
+      "name": "Pregnancy and COVID-19",
+      "linkRelationship": "Navigation",
+      "position": 21
+    }
+  ],
+  "contentSubTypes": [],
+  "mainEntityOfPage": [
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 0,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Whooping cough (pertussis) rates have risen recently. Babies who are too young to start their vaccinations are at greatest risk.</p><p>Whooping cough can be serious for babies and may lead to complications resulting in hospitalisation and even death.</p><p>Pregnant women can help protect their babies by getting vaccinated.</p><p>You should usually have the whooping cough vaccine around the time of your mid-pregnancy scan (usually at 20 weeks pregnant), but you can have it from 16 weeks.</p><p>To help give the best protection to your baby, you should have the vaccine before 32 weeks. If you miss out, you can still have the vaccine later.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Whooping cough (pertussis) rates have risen recently. Babies who are too young to start their vaccinations are at greatest risk.</p><p>Whooping cough can be serious for babies and may lead to complications resulting in hospitalisation and even death.</p><p>Pregnant women can help protect their babies by getting vaccinated.</p><p>You should usually have the whooping cough vaccine around the time of your mid-pregnancy scan (usually at 20 weeks pregnant), but you can have it from 16 weeks.</p><p>To help give the best protection to your baby, you should have the vaccine before 32 weeks. If you miss out, you can still have the vaccine later.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ]
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 1,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Getting vaccinated while you're pregnant is highly effective in protecting your baby from developing whooping cough in the first few weeks of their life.</p><p>The immunity you get from the vaccine will pass to your baby through the placenta and provide passive protection for them until they are old enough to be routinely vaccinated against whooping cough at 8 weeks old.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Getting vaccinated while you're pregnant is highly effective in protecting your baby from developing whooping cough in the first few weeks of their life.</p><p>The immunity you get from the vaccine will pass to your baby through the placenta and provide passive protection for them until they are old enough to be routinely vaccinated against whooping cough at 8 weeks old.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "Why are pregnant women advised to have the whooping cough vaccine?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 2,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>You usually have the whooping cough vaccine at 20 weeks pregnant, but you can have it from 16 weeks.</p><p>If you are 20 weeks pregnant and have not been offered the whooping cough vaccine, contact your midwife or GP surgery.</p><p>To give your baby the best protection against whooping cough, you should have the vaccine before 32 weeks of pregnancy. This maximises the chance that your baby will be protected from birth, through the transfer of your antibodies before they are born.</p><p>If for any reason you miss having the vaccine before 32 weeks, you can have it later, even after you give birth. However, this is not ideal, as your baby is less likely to get protection from you. At this stage, having the vaccination may not directly protect your baby, but would help protect you from whooping cough and from passing it on to your baby.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>You usually have the whooping cough vaccine at 20 weeks pregnant, but you can have it from 16 weeks.</p><p>If you are 20 weeks pregnant and have not been offered the whooping cough vaccine, contact your midwife or GP surgery.</p><p>To give your baby the best protection against whooping cough, you should have the vaccine before 32 weeks of pregnancy. This maximises the chance that your baby will be protected from birth, through the transfer of your antibodies before they are born.</p><p>If for any reason you miss having the vaccine before 32 weeks, you can have it later, even after you give birth. However, this is not ideal, as your baby is less likely to get protection from you. At this stage, having the vaccination may not directly protect your baby, but would help protect you from whooping cough and from passing it on to your baby.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "When should I have the whooping cough vaccine?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 3,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There's no evidence to suggest that the whooping cough vaccine is unsafe for you or your unborn baby.</p><p>Pertussis-containing vaccine (whooping cough vaccine) has been used routinely in pregnant women in the UK since October 2012. The Medicines and Healthcare products Regulatory Agency (MHRA) carefully monitors the ongoing safety of all medicines.</p><p>The <a href=\"http://www.bmj.com/content/349/bmj.g4219\">MHRA's study of around 20,000 vaccinated women published in the British Medical Journal (BMJ)</a> found no evidence of risks to pregnancy or babies.</p><p>A number of other countries, including the US, Argentina, Belgium, Spain, Australia and New Zealand, recommend vaccination against whooping cough in pregnancy.</p><p>Read more about <a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">why vaccinations are important and the safest way to protect you and your baby</a>.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There's no evidence to suggest that the whooping cough vaccine is unsafe for you or your unborn baby.</p><p>Pertussis-containing vaccine (whooping cough vaccine) has been used routinely in pregnant women in the UK since October 2012. The Medicines and Healthcare products Regulatory Agency (MHRA) carefully monitors the ongoing safety of all medicines.</p><p>The <a href=\"http://www.bmj.com/content/349/bmj.g4219\">MHRA's study of around 20,000 vaccinated women published in the British Medical Journal (BMJ)</a> found no evidence of risks to pregnancy or babies.</p><p>A number of other countries, including the US, Argentina, Belgium, Spain, Australia and New Zealand, recommend vaccination against whooping cough in pregnancy.</p><p>Read more about <a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">why vaccinations are important and the safest way to protect you and your baby</a>.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "Is the whooping cough vaccine safe in pregnancy?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 4,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Yes, it is. Published research from the UK vaccination programme shows that vaccinating pregnant women against whooping cough has been highly effective in protecting young babies until they can have their first vaccination when they are 8 weeks old.</p><p>An additional benefit is that the protection the mother receives from the vaccination will lower her own risk of infection and of passing whooping cough on to her baby.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Yes, it is. Published research from the UK vaccination programme shows that vaccinating pregnant women against whooping cough has been highly effective in protecting young babies until they can have their first vaccination when they are 8 weeks old.</p><p>An additional benefit is that the protection the mother receives from the vaccination will lower her own risk of infection and of passing whooping cough on to her baby.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "Is whooping cough vaccination in pregnancy working?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 5,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There is no whooping cough-only vaccine. You'll be offered a vaccine that also protects against other illnesses.</p><p>You'll usually be offered a vaccine called ADACEL that protects against whooping cough, diphtheria and tetanus.</p><p>If the ADACEL vaccine is not available or suitable for you, you'll be offered a vaccine called Boostrix IPV that protects against whooping cough, diphtheria, tetanus and polio.</p><p>Find out more about the ADACEL and Boostrix IPV vaccines:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/product/15553/pil\">ADACEL vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li><a href=\"https://www.medicines.org.uk/emc/files/pil.5302.pdf\">Boostrix IPV 4-in-1 vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 150KB)</a></li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There is no whooping cough-only vaccine. You'll be offered a vaccine that also protects against other illnesses.</p><p>You'll usually be offered a vaccine called ADACEL that protects against whooping cough, diphtheria and tetanus.</p><p>If the ADACEL vaccine is not available or suitable for you, you'll be offered a vaccine called Boostrix IPV that protects against whooping cough, diphtheria, tetanus and polio.</p><p>Find out more about the ADACEL and Boostrix IPV vaccines:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/product/15553/pil\">ADACEL vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li><a href=\"https://www.medicines.org.uk/emc/files/pil.5302.pdf\">Boostrix IPV 4-in-1 vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 150KB)</a></li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "Which whooping cough vaccine will I be given?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 6,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>After having the whooping cough vaccine, you may have some mild side effects such as swelling, redness or tenderness where the vaccine is injected in your upper arm. This is normal after having a vaccine and it should only last a few days.</p><p>Other side effects can include a high temperature, irritation at the injection site, nausea and loss of appetite, tiredness and headache. Serious side effects are extremely rare.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>After having the whooping cough vaccine, you may have some mild side effects such as swelling, redness or tenderness where the vaccine is injected in your upper arm. This is normal after having a vaccine and it should only last a few days.</p><p>Other side effects can include a high temperature, irritation at the injection site, nausea and loss of appetite, tiredness and headache. Serious side effects are extremely rare.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "What are the side effects of the whooping cough vaccine?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 7,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Whooping cough (medically known as pertussis) is a serious infection that causes long bouts of coughing and choking, making it hard to breathe. The \"whoop\" is caused by gasping for breath after each bout of coughing, though babies do not always make this noise.</p><p>Read more about <a href=\"https://www.nhs.uk/conditions/whooping-cough/\">whooping cough</a>.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Whooping cough (medically known as pertussis) is a serious infection that causes long bouts of coughing and choking, making it hard to breathe. The \"whoop\" is caused by gasping for breath after each bout of coughing, though babies do not always make this noise.</p><p>Read more about <a href=\"https://www.nhs.uk/conditions/whooping-cough/\">whooping cough</a>.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "What is whooping cough?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 8,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Whooping cough is a highly infectious, serious illness that can lead to <a href=\"https://www.nhs.uk/conditions/pneumonia/\">pneumonia</a> and brain damage, particularly in young babies. Most babies with whooping cough will need hospital treatment, and when whooping cough is very severe they may die.</p><p>Research from the vaccination programme in England shows that vaccinating pregnant women against whooping cough has been highly effective in protecting young babies until they can receive their own vaccinations from 8 weeks of age.</p><p>Babies can be infected by people with whooping cough in these older age groups, so it is still important for pregnant women to be vaccinated to protect their babies.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Whooping cough is a highly infectious, serious illness that can lead to <a href=\"https://www.nhs.uk/conditions/pneumonia/\">pneumonia</a> and brain damage, particularly in young babies. Most babies with whooping cough will need hospital treatment, and when whooping cough is very severe they may die.</p><p>Research from the vaccination programme in England shows that vaccinating pregnant women against whooping cough has been highly effective in protecting young babies until they can receive their own vaccinations from 8 weeks of age.</p><p>Babies can be infected by people with whooping cough in these older age groups, so it is still important for pregnant women to be vaccinated to protect their babies.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "Should I be concerned about whooping cough?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 9,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Yes, usually at 8 weeks old, but the babies that have been getting whooping cough are generally too young to have started their normal vaccinations, so they are not yet protected against the illness.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Yes, usually at 8 weeks old, but the babies that have been getting whooping cough are generally too young to have started their normal vaccinations, so they are not yet protected against the illness.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "Are babies not vaccinated against whooping cough to protect them?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 10,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The only way you can help protect your baby from getting whooping cough in their first few weeks after birth is by having the whooping cough vaccination yourself while you are pregnant (before 32 weeks for the best protection).</p><p>After vaccination, your body produces antibodies to protect against whooping cough. You will then pass some immunity to your unborn baby.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The only way you can help protect your baby from getting whooping cough in their first few weeks after birth is by having the whooping cough vaccination yourself while you are pregnant (before 32 weeks for the best protection).</p><p>After vaccination, your body produces antibodies to protect against whooping cough. You will then pass some immunity to your unborn baby.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "How can I protect my baby against whooping cough?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 11,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>No. The whooping cough vaccine is not a \"live\" vaccine. This means it does not contain whooping cough (or polio, diphtheria or tetanus), and cannot cause whooping cough in you, or in your baby.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>No. The whooping cough vaccine is not a \"live\" vaccine. This means it does not contain whooping cough (or polio, diphtheria or tetanus), and cannot cause whooping cough in you, or in your baby.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "Will the whooping cough vaccine in pregnancy give me whooping cough?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 12,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Yes. Whenever you have the whooping cough vaccine, your baby will still need to be vaccinated according to the normal <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a> when they reach 8 weeks old. Babies are protected against whooping cough by the <a href=\"https://www.nhs.uk/vaccinations/6-in-1-vaccine/\">6-in-1 vaccine</a>.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Yes. Whenever you have the whooping cough vaccine, your baby will still need to be vaccinated according to the normal <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a> when they reach 8 weeks old. Babies are protected against whooping cough by the <a href=\"https://www.nhs.uk/vaccinations/6-in-1-vaccine/\">6-in-1 vaccine</a>.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "Will my baby still need to be vaccinated against whooping cough at 8 weeks if I've had the vaccine while pregnant?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 13,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Yes, you can have the whooping cough vaccine when you get the flu vaccine, but do not delay either vaccine so that you can have both at the same time.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Yes, you can have the whooping cough vaccine when you get the flu vaccine, but do not delay either vaccine so that you can have both at the same time.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "Can I have the whooping cough vaccine at the same time as the flu jab?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 14,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The vaccine is available from your GP, though some antenatal clinics may also offer it.</p><p>You're usually offered the vaccination around the time of your mid-pregnancy scan at 20 weeks pregnant, but you can have it from 16 weeks of your pregnancy. You may be offered the vaccination at a routine antenatal appointment.</p><p>If you are 20 weeks pregnant and have not been offered the vaccine, talk to your midwife or GP and make an appointment to get vaccinated.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The vaccine is available from your GP, though some antenatal clinics may also offer it.</p><p>You're usually offered the vaccination around the time of your mid-pregnancy scan at 20 weeks pregnant, but you can have it from 16 weeks of your pregnancy. You may be offered the vaccination at a routine antenatal appointment.</p><p>If you are 20 weeks pregnant and have not been offered the vaccine, talk to your midwife or GP and make an appointment to get vaccinated.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "How can I get the whooping cough vaccination?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 15,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Yes, because any protection you may have had through either having whooping cough or being vaccinated when you were young is likely to have worn off and will not provide sufficient protection for your baby.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Yes, because any protection you may have had through either having whooping cough or being vaccinated when you were young is likely to have worn off and will not provide sufficient protection for your baby.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "I was vaccinated against whooping cough as a child, do I need to get vaccinated again?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 16,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Yes, you should get re-vaccinated at 20 weeks in each pregnancy to maximise protection for your baby.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Yes, you should get re-vaccinated at 20 weeks in each pregnancy to maximise protection for your baby.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "I was vaccinated against whooping cough in a previous pregnancy, do I need to be vaccinated again?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 17,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Be alert to the <a href=\"https://www.nhs.uk/conditions/whooping-cough/\">signs and symptoms of whooping cough</a>, which include severe coughing fits that may be accompanied by difficulty breathing (or pauses in breathing in young infants) or vomiting after coughing, and the characteristic \"whoop\" sound. Young babies might not make the \"whoop\" sound.</p><p>If you are worried your baby may have whooping cough, contact your doctor immediately.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Be alert to the <a href=\"https://www.nhs.uk/conditions/whooping-cough/\">signs and symptoms of whooping cough</a>, which include severe coughing fits that may be accompanied by difficulty breathing (or pauses in breathing in young infants) or vomiting after coughing, and the characteristic \"whoop\" sound. Young babies might not make the \"whoop\" sound.</p><p>If you are worried your baby may have whooping cough, contact your doctor immediately.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "How do I spot whooping cough in my baby?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 18,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p><a href=\"https://www.gov.uk/government/publications/resources-to-support-whooping-cough-vaccination/whooping-cough-vaccination-in-pregnancy-guide\">GOV.UK: whooping cough vaccination in pregnancy guide</a></p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p><a href=\"https://www.gov.uk/government/publications/resources-to-support-whooping-cough-vaccination/whooping-cough-vaccination-in-pregnancy-guide\">GOV.UK: whooping cough vaccination in pregnancy guide</a></p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "More information"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 19,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [],
+      "description": "",
+      "hasPart": []
+    }
+  ],
+  "webpage": "https://www.nhs.uk/pregnancy/keeping-well/whooping-cough-vaccination/"
+}
