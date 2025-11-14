@@ -59,7 +59,6 @@ jobs:
       with:
         checkout_ref: ${{ steps.get-latest-tag-name.outputs.value }}
         cross_browser: true
-        environment: "preprod"
       env:
         TEST_NHS_APP_URL: ${{ secrets.TEST_NHS_APP_URL }}
         TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
@@ -142,7 +141,6 @@ jobs:
         with:
           checkout_ref: ${{ steps.get-latest-tag-name.outputs.value }}
           cross_browser: true
-          environment: "preprod"
         env:
           TEST_NHS_APP_URL: ${{ secrets.TEST_NHS_APP_URL }}
           TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
