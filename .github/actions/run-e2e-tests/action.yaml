@@ -1,4 +1,4 @@
-name: "E2E test: ${{inputs.environment}} environment"
+name: "Run E2E tests"
 description: "Run E2E tests"
 inputs:
   environment:
