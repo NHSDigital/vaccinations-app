@@ -1,5 +1,4 @@
-import { VaccineTypes } from "@src/models/vaccine";
-import { VaccineContentPaths, vaccineTypeToPath } from "@src/services/content-api/constants";
+import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { readContentFromCache } from "@src/services/content-api/gateway/content-reader-service";
 import { InvalidatedCacheError, ReadingS3Error } from "@src/services/content-api/gateway/exceptions";
 import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
@@ -24,14 +23,10 @@ const getContentForVaccine = async (vaccineType: VaccineTypes): Promise<GetConte
     profilePerformanceStart(GetVaccineContentPerformanceMarker);
 
     const config: AppConfig = await configProvider();
-    const vaccineContentPath: VaccineContentPaths = vaccineTypeToPath[vaccineType];
+    const vaccineCacheFilename = VaccineInfo[vaccineType].cacheFilename;
 
     // fetch content from api
-    const vaccineContent = await readContentFromCache(
-      config.CONTENT_CACHE_PATH,
-      `${vaccineContentPath}.json`,
-      vaccineType,
-    );
+    const vaccineContent = await readContentFromCache(config.CONTENT_CACHE_PATH, vaccineCacheFilename, vaccineType);
 
     // filter and style content
     const filteredContent: VaccinePageContent = getFilteredContentForVaccine(vaccineContent);

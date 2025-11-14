@@ -1,5 +1,9 @@
 import { Brand } from "@src/utils/types";
 
+export type NhsNumber = Brand<string, "NhsNumber">;
+export type UrlPathFragment = Brand<string, "UrlPathFragment">;
+export type Filename = Brand<string, "Filename">;
+
 enum VaccineTypes {
   RSV = "RSV",
   RSV_PREGNANCY = "RSV_PREGNANCY",
@@ -15,54 +19,8 @@ enum VaccineTypes {
   VACCINE_4_IN_1 = "VACCINE_4_IN_1",
 }
 
-// vaccine suffix paths used by the app (e.g. /vaccines/"rsv")
-enum VaccineContentUrlPaths {
-  RSV = "rsv",
-  RSV_PREGNANCY = "rsv-pregnancy",
-  TD_IPV_3_IN_1 = "td-ipv-vaccine-3-in-1-teenage-booster",
-  VACCINE_6_IN_1 = "6-in-1-vaccine",
-  ROTAVIRUS = "rotavirus-vaccine",
-  HPV = "hpv-vaccine",
-  MENB_CHILDREN = "menb-vaccine-for-children",
-  MMR = "mmr-vaccine",
-  PNEUMOCOCCAL = "pneumococcal-vaccine",
-  SHINGLES = "shingles-vaccine",
-  MENACWY = "menacwy-vaccine",
-  VACCINE_4_IN_1 = "4-in-1-preschool-booster-vaccine",
-}
-
-// maps vaccine url path to vaccine type (one to one)
-const vaccineUrlPathToType: Record<VaccineContentUrlPaths, VaccineTypes> = {
-  [VaccineContentUrlPaths.RSV]: VaccineTypes.RSV,
-  [VaccineContentUrlPaths.RSV_PREGNANCY]: VaccineTypes.RSV_PREGNANCY,
-  [VaccineContentUrlPaths.TD_IPV_3_IN_1]: VaccineTypes.TD_IPV_3_IN_1,
-  [VaccineContentUrlPaths.VACCINE_6_IN_1]: VaccineTypes.VACCINE_6_IN_1,
-  [VaccineContentUrlPaths.ROTAVIRUS]: VaccineTypes.ROTAVIRUS,
-  [VaccineContentUrlPaths.HPV]: VaccineTypes.HPV,
-  [VaccineContentUrlPaths.MENB_CHILDREN]: VaccineTypes.MENB_CHILDREN,
-  [VaccineContentUrlPaths.MMR]: VaccineTypes.MMR,
-  [VaccineContentUrlPaths.PNEUMOCOCCAL]: VaccineTypes.PNEUMOCOCCAL,
-  [VaccineContentUrlPaths.SHINGLES]: VaccineTypes.SHINGLES,
-  [VaccineContentUrlPaths.MENACWY]: VaccineTypes.MENACWY,
-  [VaccineContentUrlPaths.VACCINE_4_IN_1]: VaccineTypes.VACCINE_4_IN_1,
-};
-// maps vaccine type to url path (one to one)
-const vaccineTypeToUrlPath: Record<VaccineTypes, VaccineContentUrlPaths> = {
-  [VaccineTypes.RSV]: VaccineContentUrlPaths.RSV,
-  [VaccineTypes.RSV_PREGNANCY]: VaccineContentUrlPaths.RSV_PREGNANCY,
-  [VaccineTypes.TD_IPV_3_IN_1]: VaccineContentUrlPaths.TD_IPV_3_IN_1,
-  [VaccineTypes.VACCINE_6_IN_1]: VaccineContentUrlPaths.VACCINE_6_IN_1,
-  [VaccineTypes.ROTAVIRUS]: VaccineContentUrlPaths.ROTAVIRUS,
-  [VaccineTypes.HPV]: VaccineContentUrlPaths.HPV,
-  [VaccineTypes.MENB_CHILDREN]: VaccineContentUrlPaths.MENB_CHILDREN,
-  [VaccineTypes.MMR]: VaccineContentUrlPaths.MMR,
-  [VaccineTypes.PNEUMOCOCCAL]: VaccineContentUrlPaths.PNEUMOCOCCAL,
-  [VaccineTypes.SHINGLES]: VaccineContentUrlPaths.SHINGLES,
-  [VaccineTypes.MENACWY]: VaccineContentUrlPaths.MENACWY,
-  [VaccineTypes.VACCINE_4_IN_1]: VaccineContentUrlPaths.VACCINE_4_IN_1,
-};
-
 export type VaccineDetails = {
+  urlPath: UrlPathFragment;
   displayName: displayName;
   heading: string;
   cardLinkTitle: string;
@@ -71,6 +29,9 @@ export type VaccineDetails = {
   personalisedEligibilityStatusRequired: boolean;
   forOlderAdults?: boolean;
   removeHowToGetExpanderFromMoreInformationSection?: boolean;
+  contentPath: UrlPathFragment;
+  cacheFilename: Filename;
+  nboPath: UrlPathFragment;
 };
 
 type displayName = {
@@ -81,6 +42,7 @@ type displayName = {
 
 const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
   [VaccineTypes.RSV]: {
+    urlPath: "rsv" as UrlPathFragment,
     displayName: {
       titleCase: "RSV",
       midSentenceCase: "RSV",
@@ -93,8 +55,12 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     personalisedEligibilityStatusRequired: true,
     forOlderAdults: true,
     removeHowToGetExpanderFromMoreInformationSection: true,
+    contentPath: "vaccinations/rsv-vaccine" as UrlPathFragment,
+    cacheFilename: "rsv-vaccine.json" as Filename,
+    nboPath: "rsv" as UrlPathFragment,
   },
   [VaccineTypes.RSV_PREGNANCY]: {
+    urlPath: "rsv-pregnancy" as UrlPathFragment,
     displayName: {
       titleCase: "RSV",
       midSentenceCase: "RSV",
@@ -107,8 +73,12 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     forOlderAdults: false,
     removeHowToGetExpanderFromMoreInformationSection: true,
+    contentPath: "vaccinations/rsv-pregnancy" as UrlPathFragment,
+    cacheFilename: "rsv-pregnancy.json" as Filename,
+    nboPath: "rsv-pregnancy" as UrlPathFragment,
   },
   [VaccineTypes.TD_IPV_3_IN_1]: {
+    urlPath: "td-ipv-vaccine-3-in-1-teenage-booster" as UrlPathFragment,
     displayName: {
       titleCase: "Td/IPV",
       midSentenceCase: "Td/IPV",
@@ -121,8 +91,12 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
       "https://www.nhs.uk/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#how-to-get-it",
     ),
     personalisedEligibilityStatusRequired: false,
+    contentPath: "vaccinations/td-ipv-vaccine-3-in-1-teenage-booster" as UrlPathFragment,
+    cacheFilename: "td-ipv-vaccine-3-in-1-teenage-booster.json" as Filename,
+    nboPath: "td-ipv-vaccine-3-in-1-teenage-booster" as UrlPathFragment,
   },
   [VaccineTypes.VACCINE_6_IN_1]: {
+    urlPath: "6-in-1-vaccine" as UrlPathFragment,
     displayName: {
       titleCase: "6-in-1",
       midSentenceCase: "6-in-1",
@@ -133,8 +107,12 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/6-in-1-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/6-in-1-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
+    contentPath: "vaccinations/6-in-1-vaccine" as UrlPathFragment,
+    cacheFilename: "6-in-1-vaccine.json" as Filename,
+    nboPath: "6-in-1-vaccine" as UrlPathFragment,
   },
   [VaccineTypes.ROTAVIRUS]: {
+    urlPath: "rotavirus-vaccine" as UrlPathFragment,
     displayName: {
       titleCase: "Rotavirus",
       midSentenceCase: "rotavirus",
@@ -145,8 +123,12 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/rotavirus-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/rotavirus-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
+    contentPath: "vaccinations/rotavirus-vaccine" as UrlPathFragment,
+    cacheFilename: "rotavirus-vaccine.json" as Filename,
+    nboPath: "rotavirus-vaccine" as UrlPathFragment,
   },
   [VaccineTypes.HPV]: {
+    urlPath: "hpv-vaccine" as UrlPathFragment,
     displayName: {
       titleCase: "HPV",
       midSentenceCase: "HPV",
@@ -157,8 +139,12 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/hpv-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/hpv-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
+    contentPath: "vaccinations/hpv-vaccine" as UrlPathFragment,
+    cacheFilename: "hpv-vaccine.json" as Filename,
+    nboPath: "hpv-vaccine" as UrlPathFragment,
   },
   [VaccineTypes.MENB_CHILDREN]: {
+    urlPath: "menb-vaccine-for-children" as UrlPathFragment,
     displayName: {
       titleCase: "MenB",
       midSentenceCase: "MenB",
@@ -169,8 +155,12 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/menb-vaccine-for-children/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/menb-vaccine-for-children/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
+    contentPath: "vaccinations/menb-vaccine-for-children" as UrlPathFragment,
+    cacheFilename: "menb-vaccine-for-children.json" as Filename,
+    nboPath: "menb-vaccine-for-children" as UrlPathFragment,
   },
   [VaccineTypes.MMR]: {
+    urlPath: "mmr-vaccine" as UrlPathFragment,
     displayName: {
       titleCase: "MMR",
       midSentenceCase: "MMR",
@@ -181,8 +171,12 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/mmr-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/mmr-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
+    contentPath: "vaccinations/mmr-vaccine" as UrlPathFragment,
+    cacheFilename: "mmr-vaccine.json" as Filename,
+    nboPath: "mmr-vaccine" as UrlPathFragment,
   },
   [VaccineTypes.PNEUMOCOCCAL]: {
+    urlPath: "pneumococcal-vaccine" as UrlPathFragment,
     displayName: {
       titleCase: "Pneumococcal",
       midSentenceCase: "pneumococcal",
@@ -193,8 +187,12 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/pneumococcal-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/pneumococcal-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
+    contentPath: "vaccinations/pneumococcal-vaccine" as UrlPathFragment,
+    cacheFilename: "pneumococcal-vaccine.json" as Filename,
+    nboPath: "pneumococcal-vaccine" as UrlPathFragment,
   },
   [VaccineTypes.SHINGLES]: {
+    urlPath: "shingles-vaccine" as UrlPathFragment,
     displayName: {
       titleCase: "Shingles",
       midSentenceCase: "Shingles",
@@ -205,8 +203,12 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/shingles-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/shingles-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
+    contentPath: "vaccinations/shingles-vaccine" as UrlPathFragment,
+    cacheFilename: "shingles-vaccine.json" as Filename,
+    nboPath: "shingles-vaccine" as UrlPathFragment,
   },
   [VaccineTypes.MENACWY]: {
+    urlPath: "menacwy-vaccine" as UrlPathFragment,
     displayName: {
       titleCase: "MenACWY",
       midSentenceCase: "MenACWY",
@@ -217,8 +219,12 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/menacwy-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/menacwy-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
+    contentPath: "vaccinations/menacwy-vaccine" as UrlPathFragment,
+    cacheFilename: "menacwy-vaccine.json" as Filename,
+    nboPath: "menacwy-vaccine" as UrlPathFragment,
   },
   [VaccineTypes.VACCINE_4_IN_1]: {
+    urlPath: "4-in-1-preschool-booster-vaccine" as UrlPathFragment,
     displayName: {
       titleCase: "4-in-1 pre-school booster vaccine",
       midSentenceCase: "4-in-1 pre-school booster vaccine",
@@ -229,9 +235,15 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/4-in-1-preschool-booster-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/4-in-1-preschool-booster-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
+    contentPath: "vaccinations/4-in-1-preschool-booster-vaccine" as UrlPathFragment,
+    cacheFilename: "4-in-1-preschool-booster-vaccine.json" as Filename,
+    nboPath: "4-in-1-preschool-booster-vaccine" as UrlPathFragment,
   },
 };
 
-export type NhsNumber = Brand<string, "NhsNumber">;
+const vaccineUrlPathToVaccineType = new Map<UrlPathFragment, VaccineTypes>();
+Object.entries(VaccineInfo).forEach(([vaccineType, vaccineDetails]) => {
+  vaccineUrlPathToVaccineType.set(vaccineDetails.urlPath, vaccineType as VaccineTypes);
+});
 
-export { VaccineTypes, VaccineInfo, VaccineContentUrlPaths, vaccineUrlPathToType, vaccineTypeToUrlPath };
+export { VaccineTypes, VaccineInfo, vaccineUrlPathToVaccineType };

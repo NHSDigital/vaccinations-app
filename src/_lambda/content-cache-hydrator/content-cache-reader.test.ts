@@ -2,8 +2,7 @@ import {
   ReadCachedContentResult,
   readCachedContentForVaccine,
 } from "@src/_lambda/content-cache-hydrator/content-cache-reader";
-import { VaccineTypes } from "@src/models/vaccine";
-import { vaccineTypeToPath } from "@src/services/content-api/constants";
+import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { readContentFromCache } from "@src/services/content-api/gateway/content-reader-service";
 import { InvalidatedCacheError, S3NoSuchKeyError } from "@src/services/content-api/gateway/exceptions";
 import { AppConfig, configProvider } from "@src/utils/config";
@@ -32,7 +31,7 @@ describe("readCachedContentForVaccine", () => {
 
     expect(readContentFromCache).toHaveBeenCalledWith(
       mockContentCachePath,
-      `${vaccineTypeToPath[vaccineType]}.json`,
+      VaccineInfo[vaccineType].cacheFilename,
       vaccineType,
     );
     expect(cacheContent).toBe(mockCacheFileContents);

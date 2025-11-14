@@ -7,8 +7,7 @@ import {
   _writeFileS3,
   writeContentForVaccine,
 } from "@src/_lambda/content-cache-hydrator/content-writer-service";
-import { VaccineTypes } from "@src/models/vaccine";
-import { vaccineTypeToPath } from "@src/services/content-api/constants";
+import { Filename, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { configProvider } from "@src/utils/config";
 import { writeFile } from "node:fs/promises";
 
@@ -27,8 +26,8 @@ jest.mock("@aws-sdk/client-s3", () => {
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("Content Writer Service", () => {
-  const location: string = "test-location";
-  const path: string = "/test-path";
+  const location: string = "test-location/";
+  const path: Filename = "test-filename.json" as Filename;
   const content: string = "test-data";
 
   beforeEach(() => {
@@ -82,7 +81,7 @@ describe("Content Writer Service", () => {
     it("should return response for rsv vaccine from content cache", async () => {
       const vaccine: VaccineTypes = VaccineTypes.RSV;
       await writeContentForVaccine(vaccine, content);
-      expect(writeFile).toHaveBeenCalledWith(`${location}${vaccineTypeToPath[vaccine]}.json`, content);
+      expect(writeFile).toHaveBeenCalledWith(`${location}${VaccineInfo[VaccineTypes.RSV].cacheFilename}`, content);
     });
   });
 });

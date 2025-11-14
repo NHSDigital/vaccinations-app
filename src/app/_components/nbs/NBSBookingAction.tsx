@@ -2,7 +2,7 @@
 
 import { useBrowserContext } from "@src/app/_components/context/BrowserContext";
 import { SSO_TO_NBS_ROUTE } from "@src/app/api/sso-to-nbs/constants";
-import { VaccineContentUrlPaths, vaccineTypeToUrlPath } from "@src/models/vaccine";
+import { UrlPathFragment, VaccineInfo } from "@src/models/vaccine";
 import { VaccinesWithNBSBookingAvailable } from "@src/services/nbs/nbs-service";
 import { ActionLink } from "nhsuk-react-components";
 import React, { JSX } from "react";
@@ -38,7 +38,7 @@ const NBSBookingActionForVaccine = ({
   renderAs,
   reduceBottomPadding = false,
 }: NBSBookingActionForVaccineProps): JSX.Element => {
-  const vaccinePath: VaccineContentUrlPaths = vaccineTypeToUrlPath[vaccineType];
+  const vaccinePath: UrlPathFragment = VaccineInfo[vaccineType].nboPath;
   const nbsSSOLink = `${SSO_TO_NBS_ROUTE}?vaccine=${vaccinePath}`;
 
   return (

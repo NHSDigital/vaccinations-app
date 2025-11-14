@@ -1,6 +1,5 @@
 import { CONTENT_API_PATH_PREFIX, fetchContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-fetcher";
-import { VaccineTypes } from "@src/models/vaccine";
-import { vaccineTypeToPath } from "@src/services/content-api/constants";
+import { VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { AppConfig, configProvider } from "@src/utils/config";
 import axios from "axios";
 
@@ -26,13 +25,10 @@ describe("fetchContentForVaccine", () => {
   it("should fetch content for vaccine", async () => {
     (axios.get as jest.Mock).mockResolvedValue({ data: testApiContent });
     const actual = await fetchContentForVaccine(VaccineTypes.RSV);
-    expect(axios.get).toHaveBeenCalledWith(`${testApiEndpoint}${CONTENT_API_PATH_PREFIX}${vaccineTypeToPath.RSV}`, {
-      headers: {
-        accept: "application/json",
-        apikey: testApiKey,
-      },
-      timeout: 30000,
-    });
+    expect(axios.get).toHaveBeenCalledWith(
+      `${testApiEndpoint}${CONTENT_API_PATH_PREFIX}${VaccineInfo[VaccineTypes.RSV].contentPath}`,
+      { headers: { accept: "application/json", apikey: testApiKey }, timeout: 30000 },
+    );
     expect(actual).toBe(JSON.stringify(testApiContent));
   });
 

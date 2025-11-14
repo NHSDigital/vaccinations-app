@@ -1,5 +1,4 @@
-import { VaccineTypes } from "@src/models/vaccine";
-import { VaccineContentPaths, vaccineTypeToPath } from "@src/services/content-api/constants";
+import { Filename, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
 import { readContentFromCache } from "@src/services/content-api/gateway/content-reader-service";
 import { InvalidatedCacheError, S3NoSuchKeyError } from "@src/services/content-api/gateway/exceptions";
 import { AppConfig, configProvider } from "@src/utils/config";
@@ -14,11 +13,11 @@ export interface ReadCachedContentResult {
 
 const readCachedContentForVaccine = async (vaccineType: VaccineTypes): Promise<ReadCachedContentResult> => {
   const config: AppConfig = await configProvider();
-  const vaccineContentPath: VaccineContentPaths = vaccineTypeToPath[vaccineType];
+  const cacheFilename: Filename = VaccineInfo[vaccineType].cacheFilename;
   let cachedContent: string;
 
   try {
-    cachedContent = await readContentFromCache(config.CONTENT_CACHE_PATH, `${vaccineContentPath}.json`, vaccineType);
+    cachedContent = await readContentFromCache(config.CONTENT_CACHE_PATH, cacheFilename, vaccineType);
   } catch (error) {
     if (error instanceof S3NoSuchKeyError) {
       return { cacheStatus: "empty", cacheContent: "" };
