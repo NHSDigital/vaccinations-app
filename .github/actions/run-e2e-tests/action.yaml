@@ -33,7 +33,9 @@ runs:
       run: |
         echo "::group::Installing dependencies"
         npm ci --ignore-scripts
+        EXIT_STATUS=$?
         echo "::endgroup::"
+        exit $EXIT_STATUS
 
     - name: Get current week number and playwright version
       shell: bash
@@ -43,7 +45,9 @@ runs:
         echo "::group::Get current week number and playwright version"
         echo "week_num=$(date -u +'%Y-%V')" | tee -a $GITHUB_OUTPUT
         echo "playwright_version=$(npm view @playwright/test version)" | tee -a $GITHUB_OUTPUT
+        EXIT_STATUS=$?
         echo "::endgroup::"
+        exit $EXIT_STATUS
 
     - name: Cache Playwright browsers
       uses: actions/cache@v4
@@ -59,7 +63,9 @@ runs:
       run: |
         echo "::group::Install Playwright browsers (Chromium, Firefox)"
         npx playwright install chromium firefox --with-deps
+        EXIT_STATUS=$?
         echo "::endgroup::"
+        exit $EXIT_STATUS
 
     - name: Install Playwright browsers (Webkit)
       if: ${{ inputs.cross_browser == 'true' }}
@@ -68,7 +74,9 @@ runs:
       run: |
         echo "::group::Install Playwright browsers (Webkit)"
         npx playwright install webkit --with-deps
+        EXIT_STATUS=$?
         echo "::endgroup::"
+        exit $EXIT_STATUS
 
     - name: Run Playwright tests
       if: ${{ inputs.cross_browser == 'false' }}
@@ -77,7 +85,9 @@ runs:
       run: |
         echo "::group::Run Playwright tests"
         npm run e2e
+        EXIT_STATUS=$?
         echo "::endgroup::"
+        exit $EXIT_STATUS
 
     - name: Run Playwright tests (cross browser)
       if: ${{ inputs.cross_browser == 'true' }}
@@ -86,7 +96,9 @@ runs:
       run: |
         echo "::group::Run Playwright tests (cross browser)"
         npm run e2e -- --config=playwright.config.cross-browser.ts
+        EXIT_STATUS=$?
         echo "::endgroup::"
+        exit $EXIT_STATUS
 
     - name: Upload report
       uses: actions/upload-artifact@v5
