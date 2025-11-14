@@ -54,7 +54,7 @@ jobs:
         secret_aws_slack_channel_id: ${{ secrets.ALARMS_SLACK_CHANNEL_ID }}
 
     - name: "Run contract tests (sandpit+mocked)"
-      timeout-minutes: 10
+      timeout-minutes: 3
       uses: ./.github/actions/run-contract-tests
       with:
         target_ref: ${{ steps.get-latest-tag-name.outputs.value }}
@@ -119,7 +119,7 @@ jobs:
           secret_aws_slack_channel_id: ${{ secrets.ALARMS_SLACK_CHANNEL_ID }}
 
       - name: "Run contract tests (sandpit+mocked)"
-        timeout-minutes: 10
+        timeout-minutes: 3
         uses: ./.github/actions/run-contract-tests
         with:
           target_ref: ${{ steps.get-latest-tag-name.outputs.value }}

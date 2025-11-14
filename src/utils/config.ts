@@ -7,6 +7,7 @@ type AppConfig = {
   CONTENT_API_KEY: string;
   ELIGIBILITY_API_KEY: string;
   NHS_LOGIN_PRIVATE_KEY: string;
+  AUTH_SECRET: string;
 
   // Environment Variables in Lambda
   CONTENT_API_ENDPOINT: URL;
@@ -20,7 +21,6 @@ type AppConfig = {
   MAX_SESSION_AGE_MINUTES: number;
   NHS_APP_REDIRECT_LOGIN_URL: string;
   IS_APIM_AUTH_ENABLED: boolean;
-  AUTH_SECRET: string;
 };
 
 type AppConfigCache = {
