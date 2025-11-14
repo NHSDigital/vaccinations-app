@@ -34,15 +34,19 @@ runs:
       shell: bash
       working-directory: "./code-for-e2e-tests"
       run: |
+        echo "::group::Installing dependencies"
         npm ci --ignore-scripts
+        echo "::endgroup::"
 
     - name: "Get current week number and playwright version"
       shell: bash
       working-directory: "./code-for-e2e-tests"
       id: cache_key_values
       run: |
+        echo "::group::Get current week number and playwright version"
         echo "week_num=$(date -u +'%Y-%V')" | tee -a $GITHUB_OUTPUT
         echo "playwright_version=$(npm view @playwright/test version)" | tee -a $GITHUB_OUTPUT
+        echo "::endgroup::"
 
     - name: "Cache Playwright browsers"
       uses: actions/cache@v4
@@ -56,28 +60,36 @@ runs:
       shell: bash
       working-directory: "./code-for-e2e-tests"
       run: |
+        echo "::group::Install Playwright browsers (Chromium, Firefox)"
         npx playwright install chromium firefox --with-deps
+        echo "::endgroup::"
 
     - name: "Install Playwright browsers (Webkit)"
       if: ${{ inputs.cross_browser == 'true' }}
       shell: bash
       working-directory: "./code-for-e2e-tests"
       run: |
+        echo "::group::Install Playwright browsers (Webkit)"
         npx playwright install webkit --with-deps
+        echo "::endgroup::"
 
     - name: "Run Playwright tests"
       if: ${{ inputs.cross_browser == 'false' }}
       shell: bash
       working-directory: "./code-for-e2e-tests"
       run: |
+        echo "::group::Run Playwright tests"
         npm run e2e
+        echo "::endgroup::"
 
     - name: "Run Playwright tests (cross browser)"
       if: ${{ inputs.cross_browser == 'true' }}
       shell: bash
       working-directory: "./code-for-e2e-tests"
       run: |
+        echo "::group::Run Playwright tests (cross browser)"
         npm run e2e -- --config=playwright.config.cross-browser.ts
+        echo "::endgroup::"
 
     - name: "Upload report"
       uses: actions/upload-artifact@v5
