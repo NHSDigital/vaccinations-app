@@ -2,7 +2,7 @@ name: "CI/CD scheduled assurances WIP"
 
 on:
   schedule:
-    - cron: '22 15 * * MON-FRI'  # Runs at 09:30 UTC every weekday
+    - cron: '30 9 * * MON-FRI'  # Runs at 09:30 UTC every weekday
   workflow_dispatch:
     inputs:
       release:
@@ -52,6 +52,12 @@ jobs:
         secret_aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
         secret_aws_iam_role: ${{ secrets.IAM_ROLE }}
         secret_aws_slack_channel_id: ${{ secrets.ALARMS_SLACK_CHANNEL_ID }}
+
+    - name: "Run contract tests (sandpit+mocked)"
+      timeout-minutes: 10
+      uses: ./.github/actions/run-contract-tests
+      with:
+        target_ref: ${{ steps.get-latest-tag-name.outputs.value }}
 
   deploy-and-test-main:
     name: "Main Branch Assurance"

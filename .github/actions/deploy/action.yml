@@ -29,7 +29,7 @@ runs:
     #  - why? given we reuse preprod for R1.0 and R2.0, when IAM permission change across releases, then deployment fails
     #  - constraint? make sure R2.0 IAM permissions are a superset of R1.0 IAM permissions
     #  - what? deploy IAM from R2.0 as it is a superset and then R1.0 deployments will succeed as well
-    - name: "Checkout code"
+    - name: "Checkout main branch"
       uses: actions/checkout@v5
       with:
         ref: 'main'
@@ -80,7 +80,7 @@ runs:
     # Download the required artefacts from AWS
     #################################################
 
-    - name: "Checkout code"
+    - name: "Checkout target code"
       uses: actions/checkout@v5
       with:
         ref: ${{ inputs.tag_or_sha_to_deploy }}
