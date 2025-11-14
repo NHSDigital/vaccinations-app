@@ -46,6 +46,11 @@ describe("VaccinesForAllAges", () => {
     assertCardLinkIsPresentInSection("Pneumococcal", "/vaccines/pneumococcal-vaccine", AgeSectionTestId.ADULTS);
 
     assertCardLinkIsPresentInSection("RSV in pregnancy", "/vaccines/rsv-pregnancy", AgeSectionTestId.PREGNANCY);
+    assertCardLinkIsPresentInSection(
+      "Whooping cough (pertussis)",
+      "/vaccines/whooping-cough-vaccination",
+      AgeSectionTestId.PREGNANCY,
+    );
 
     assertCardLinkIsPresentInSection(
       "Td/IPV (3-in-1 teenage booster)",

@@ -17,6 +17,7 @@ enum VaccineType {
   SHINGLES = "SHINGLES",
   MENACWY = "MENACWY",
   VACCINE_4_IN_1 = "VACCINE_4_IN_1",
+  WHOOPING_COUGH = "WHOOPING_COUGH",
 }
 
 export type VaccineDetails = {
@@ -238,6 +239,24 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     contentPath: "vaccinations/4-in-1-preschool-booster-vaccine" as UrlPathFragment,
     cacheFilename: "4-in-1-preschool-booster-vaccine.json" as Filename,
     nboPath: "4-in-1-preschool-booster-vaccine" as UrlPathFragment,
+  },
+  [VaccineType.WHOOPING_COUGH]: {
+    urlPath: "whooping-cough-vaccination" as UrlPathFragment,
+    displayName: {
+      titleCase: "Whooping cough vaccination in pregnancy",
+      midSentenceCase: "whooping cough vaccination",
+      indefiniteArticle: "a",
+    },
+    heading: "Whooping cough vaccination in pregnancy",
+    cardLinkTitle: "Whooping cough (pertussis)",
+    nhsWebpageLink: new URL("https://www.nhs.uk/pregnancy/keeping-well/whooping-cough-vaccination/"),
+    nhsHowToGetWebpageLink: new URL(
+      "https://www.nhs.uk/pregnancy/keeping-well/whooping-cough-vaccination/#how-to-get-it",
+    ),
+    personalisedEligibilityStatusRequired: false,
+    contentPath: "pregnancy/keeping-well/whooping-cough-vaccination" as UrlPathFragment,
+    cacheFilename: "whooping-cough-vaccination.json" as Filename,
+    nboPath: "whooping-cough-vaccination" as UrlPathFragment,
   },
 };
 

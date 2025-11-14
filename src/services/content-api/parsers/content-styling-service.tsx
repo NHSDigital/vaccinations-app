@@ -136,6 +136,7 @@ const styleHowToGetSection: Record<VaccineType, (section: VaccinePageSection, fr
     [VaccineType.SHINGLES]: styleSection,
     [VaccineType.MENACWY]: styleSection,
     [VaccineType.VACCINE_4_IN_1]: styleSection,
+    [VaccineType.WHOOPING_COUGH]: styleSection,
   };
 
 const getStyledContentForVaccine = async (

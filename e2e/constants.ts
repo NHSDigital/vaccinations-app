@@ -11,7 +11,8 @@ type VaccinePageName =
   | "pneumococcal"
   | "shingles"
   | "menacwy"
-  | "4-in-1";
+  | "4-in-1"
+  | "whooping-cough";
 type FailurePageName = "sso-failure" | "service-failure" | "not-found";
 type SessionPageName = "session-timeout" | "session-logout";
 type IndexPageName = "vaccines-for-all-ages" | "vaccine-hub";
@@ -114,6 +115,12 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     heading: "4-in-1 pre-school booster vaccine",
     title: `4-in-1 pre-school booster vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-4-in-1.png",
+  },
+  "whooping-cough": {
+    url: "/vaccines/whooping-cough-vaccination",
+    heading: "Whooping cough vaccination in pregnancy",
+    title: `Whooping cough vaccination in pregnancy - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-whooping-cough.png",
   },
 
   // failure pages

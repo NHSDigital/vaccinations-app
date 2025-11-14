@@ -39,6 +39,10 @@ const VaccinesForAllAges = (): JSX.Element => {
             title={`${VaccineInfo[VaccineType.RSV_PREGNANCY].cardLinkTitle}`}
             link={`/vaccines/${VaccineInfo.RSV_PREGNANCY.urlPath}`}
           />
+          <CardLink
+            title={`${VaccineInfo[VaccineType.WHOOPING_COUGH].cardLinkTitle}`}
+            link={`/vaccines/${VaccineInfo.WHOOPING_COUGH.urlPath}`}
+          />
         </ul>
 
         <h2 className="nhsuk-heading-s">Vaccines for children aged 1 to 15</h2>

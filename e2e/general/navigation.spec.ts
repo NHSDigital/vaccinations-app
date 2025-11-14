@@ -31,6 +31,7 @@ test.describe("Navigation", () => {
     { section: AgeSectionTestId.ADULTS, linkText: "Pneumococcal", pageName: "pneumococcal" },
 
     { section: AgeSectionTestId.PREGNANCY, linkText: "RSV in pregnancy", pageName: "rsv-pregnancy" },
+    { section: AgeSectionTestId.PREGNANCY, linkText: "Whooping cough (pertussis)", pageName: "whooping-cough" },
 
     { section: AgeSectionTestId.CHILDREN, linkText: "Td/IPV (3-in-1 teenage booster)", pageName: "td-ipv" },
     { section: AgeSectionTestId.CHILDREN, linkText: "MenACWY", pageName: "menacwy" },
