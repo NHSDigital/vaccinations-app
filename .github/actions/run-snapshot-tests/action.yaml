@@ -1,59 +1,66 @@
 name: "Run Snapshot Tests"
-description: "Run snapshot tests against Preprod environment"
+description: "Run snapshot tests"
 
 inputs:
   checkout_ref:
     description: "Ref to checkout"
     required: true
   release_name:
-    description: "S3 folder to use for references and storing results (e.g. 'release1', 'latest-main')"
+    description: "S3 folder to use for references and storing results ('release1' / 'latest-main-tag')"
     required: true
 
 runs:
   using: "composite"
+
   steps:
-    - name: "Checkout code"
+    - name: "Checkout target code"
       uses: actions/checkout@v5
       with:
         ref: ${{ inputs.checkout_ref }}
         path: "code-for-snapshot-tests"
 
-    - name: "Configure AWS credentials for environment"
+    - name: "Configure AWS credentials"
       uses: aws-actions/configure-aws-credentials@v5
       with:
         role-session-name: GitHubActionsSession
-        role-to-assume: ${{ secrets.IAM_ROLE }}
-        aws-region: ${{ env.AWS_REGION }}
+        role-to-assume: ${{ env.SECRET_IAM_ROLE }}
+        aws-region: eu-west-2
 
-    - name: Cache node modules
+    - name: "Cache node modules"
       id: cache-npm
       uses: actions/cache@v4
       env:
         cache-name: cache-node-modules
       with:
         path: ~/.npm
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./code-for-snapshot-tests**/package-lock.json') }}
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./code-for-snapshot-tests/**/package-lock.json') }}
 
     - name: "Install dependencies"
       shell: bash
       working-directory: "./code-for-snapshot-tests"
       run: |
+        echo "::group::Install dependencies"
         npm ci --ignore-scripts
+        echo "::endgroup::"
 
     - name: "Get current week number and playwright version"
-      id: cache_key_values
       shell: bash
       working-directory: "./code-for-snapshot-tests"
+      id: cache_key_values
       run: |
+        echo "::group::Get current week number and playwright version"
         echo "week_num=$(date -u +'%Y-%V')" | tee -a $GITHUB_OUTPUT
         echo "playwright_version=$(npm view @playwright/test version)" | tee -a $GITHUB_OUTPUT
+        echo "::endgroup::"
 
     - name: "Get current date"
-      id: folder_name_value
       shell: bash
       working-directory: "./code-for-snapshot-tests"
+      id: folder_name_value
       run: |
+        echo "::group::Get current date"
         echo "current_datetime=$(date -u +'%Y-%m-%dT%H%M%SZ')" | tee -a $GITHUB_OUTPUT
+        echo "::endgroup::"
 
     - name: "Cache Playwright browsers"
       uses: actions/cache@v4
@@ -67,15 +74,23 @@ runs:
       shell: bash
       working-directory: "./code-for-snapshot-tests"
       run: |
+        echo "::group::Install Playwright browsers (Chromium, Firefox)"
         npx playwright install chromium firefox --with-deps
+        EXIT_STATUS=$?
+        echo "::endgroup::"
+        exit $EXIT_STATUS
 
     - name: "Install Playwright browsers (Webkit)"
       shell: bash
       working-directory: "./code-for-snapshot-tests"
       run: |
+        echo "::group::Install Playwright browsers (Webkit)"
         npx playwright install webkit --with-deps
+        EXIT_STATUS=$?
+        echo "::endgroup::"
+        exit $EXIT_STATUS
 
-    - name: "Download snapshots from ${{ inputs.release_name }} S3 bucket"
+    - name: "Download reference snapshots from S3"
       shell: bash
       working-directory: "./code-for-snapshot-tests"
       run: |
@@ -90,8 +105,8 @@ runs:
         CURRENT_DATETIME: ${{ steps.folder_name_value.outputs.current_datetime }}
         CHECKOUT_REF: ${{ inputs.checkout_ref }}
 
-    - name: "Upload snapshots to ${{ inputs.release_name }} S3 bucket with tag ${{ steps.folder_name_value.outputs.current_datetime }}-${{ inputs.checkout_ref }}"
-      if: failure()
+    - name: "Upload snapshots to S3 bucket with tag ${{ steps.folder_name_value.outputs.current_datetime }}-${{ inputs.checkout_ref }}"
+      if: ${{ failure() }}
       shell: bash
       working-directory: "./code-for-snapshot-tests"
       run: |
@@ -99,8 +114,8 @@ runs:
 
     - name: "Upload report"
       uses: actions/upload-artifact@v5
-      if: always()
+      if: ${{ failure() }}
       with:
         name: playwright-report-snapshot-${{ inputs.release_name }}-${{ steps.folder_name_value.outputs.current_datetime }}-${{ inputs.checkout_ref }}
-        path: playwright-report/
+        path: ./code-for-snapshot-tests/playwright-report/
         retention-days: 30
