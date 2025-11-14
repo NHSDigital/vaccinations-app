@@ -56,6 +56,10 @@ const VaccinesForAllAges = (): JSX.Element => {
             link={`/vaccines/${VaccineContentUrlPaths.HPV}`}
           />
           <CardLink
+            title={`${VaccineInfo[VaccineTypes.VACCINE_4_IN_1].cardLinkTitle}`}
+            link={`/vaccines/${VaccineContentUrlPaths.VACCINE_4_IN_1}`}
+          />
+          <CardLink
             title={`${VaccineInfo[VaccineTypes.MMR].cardLinkTitle}`}
             link={`/vaccines/${VaccineContentUrlPaths.MMR}`}
           />
@@ -66,10 +70,6 @@ const VaccinesForAllAges = (): JSX.Element => {
           <CardLink
             title={`${VaccineInfo[VaccineTypes.PNEUMOCOCCAL].cardLinkTitle}`}
             link={`/vaccines/${VaccineContentUrlPaths.PNEUMOCOCCAL}`}
-          />
-          <CardLink
-            title={`${VaccineInfo[VaccineTypes.VACCINE_4_IN_1].cardLinkTitle}`}
-            link={`/vaccines/${VaccineContentUrlPaths.VACCINE_4_IN_1}`}
           />
         </ul>
         <h2 className="nhsuk-heading-s">Vaccines for babies under 1 year old</h2>

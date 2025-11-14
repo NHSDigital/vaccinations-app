@@ -225,7 +225,7 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
       indefiniteArticle: "a",
     },
     heading: "4-in-1 pre-school booster vaccine",
-    cardLinkTitle: "4-in-1",
+    cardLinkTitle: "4-in-1 pre-school booster",
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/4-in-1-preschool-booster-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/4-in-1-preschool-booster-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,

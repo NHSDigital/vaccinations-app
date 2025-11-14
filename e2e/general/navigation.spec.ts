@@ -35,10 +35,10 @@ test.describe("Navigation", () => {
     { section: AgeSectionTestId.CHILDREN, linkText: "Td/IPV (3-in-1 teenage booster)", pageName: "td-ipv" },
     { section: AgeSectionTestId.CHILDREN, linkText: "MenACWY", pageName: "menacwy" },
     { section: AgeSectionTestId.CHILDREN, linkText: "HPV", pageName: "hpv" },
+    { section: AgeSectionTestId.CHILDREN, linkText: "4-in-1 pre-school booster", pageName: "4-in-1" },
     { section: AgeSectionTestId.CHILDREN, linkText: "MMR", pageName: "mmr" },
     { section: AgeSectionTestId.CHILDREN, linkText: "MenB", pageName: "menb-children" },
     { section: AgeSectionTestId.CHILDREN, linkText: "Pneumococcal", pageName: "pneumococcal" },
-    { section: AgeSectionTestId.CHILDREN, linkText: "4-in-1", pageName: "4-in-1" },
 
     { section: AgeSectionTestId.BABIES, linkText: "6-in-1", pageName: "6-in-1" },
     { section: AgeSectionTestId.BABIES, linkText: "Rotavirus", pageName: "rotavirus" },
