@@ -136,6 +136,24 @@ jobs:
           secret_aws_iam_role: ${{ secrets.IAM_ROLE }}
           secret_aws_slack_channel_id: ${{ secrets.ALARMS_SLACK_CHANNEL_ID }}
 
+      - name: "Run E2E tests on ${{ steps.get-latest-tag-name.outputs.value }} (preprod)"
+        timeout-minutes: 10
+        uses: ./.github/actions/run-e2e-tests
+        with:
+          checkout_ref: ${{ steps.get-latest-tag-name.outputs.value }}
+          cross_browser: true
+          environment: "preprod"
+        env:
+          TEST_NHS_APP_URL: ${{ secrets.TEST_NHS_APP_URL }}
+          TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
+          TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
+          TEST_NBS_APP_USERNAME: ${{ secrets.TEST_NBS_APP_USERNAME }}
+          TEST_NBS_APP_PASSWORD: ${{ secrets.TEST_NBS_APP_PASSWORD }}
+          TEST_APP_URL: ${{ secrets.TEST_APP_URL }}
+          NHS_APP_REDIRECT_LOGIN_URL: ${{ secrets.NHS_APP_REDIRECT_LOGIN_URL }}
+          VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
+          DEPLOY_ENVIRONMENT: "preprod"
+
       - name: "Run contract tests (sandpit+mocked)"
         timeout-minutes: 3
         uses: ./.github/actions/run-contract-tests
