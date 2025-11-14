@@ -12,6 +12,7 @@ enum VaccineContentPaths {
   PNEUMOCOCCAL = "pneumococcal-vaccine",
   SHINGLES = "shingles-vaccine",
   MENACWY = "menacwy-vaccine",
+  VACCINE_4_IN_1 = "4-in-1-preschool-booster-vaccine",
 }
 
 // maps vaccine type to content API paths (many to one, e.g. case RSV)
@@ -27,6 +28,7 @@ const vaccineTypeToPath: Record<VaccineTypes, VaccineContentPaths> = {
   [VaccineTypes.PNEUMOCOCCAL]: VaccineContentPaths.PNEUMOCOCCAL,
   [VaccineTypes.SHINGLES]: VaccineContentPaths.SHINGLES,
   [VaccineTypes.MENACWY]: VaccineContentPaths.MENACWY,
+  [VaccineTypes.VACCINE_4_IN_1]: VaccineContentPaths.VACCINE_4_IN_1,
 };
 
 const INVALIDATED_CONTENT_OVERWRITE_VALUE =

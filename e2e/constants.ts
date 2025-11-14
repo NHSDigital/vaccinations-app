@@ -10,7 +10,8 @@ type VaccinePageName =
   | "mmr"
   | "pneumococcal"
   | "shingles"
-  | "menacwy";
+  | "menacwy"
+  | "4-in-1";
 type FailurePageName = "sso-failure" | "service-failure" | "not-found";
 type SessionPageName = "session-timeout" | "session-logout";
 type IndexPageName = "vaccines-for-all-ages" | "vaccine-hub";
@@ -107,6 +108,12 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     heading: "MenACWY vaccine",
     title: `MenACWY vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-menacwy.png",
+  },
+  "4-in-1": {
+    url: "/vaccines/4-in-1-preschool-booster-vaccine",
+    heading: "4-in-1 pre-school booster vaccine",
+    title: `4-in-1 pre-school booster vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-4-in-1.png",
   },
 
   // failure pages

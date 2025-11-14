@@ -29,13 +29,17 @@ test.describe("Navigation", () => {
     { section: AgeSectionTestId.ADULTS, linkText: "RSV", pageName: "rsv-older-adults" },
     { section: AgeSectionTestId.ADULTS, linkText: "Shingles", pageName: "shingles" },
     { section: AgeSectionTestId.ADULTS, linkText: "Pneumococcal", pageName: "pneumococcal" },
+
     { section: AgeSectionTestId.PREGNANCY, linkText: "RSV in pregnancy", pageName: "rsv-pregnancy" },
+
     { section: AgeSectionTestId.CHILDREN, linkText: "Td/IPV (3-in-1 teenage booster)", pageName: "td-ipv" },
     { section: AgeSectionTestId.CHILDREN, linkText: "MenACWY", pageName: "menacwy" },
     { section: AgeSectionTestId.CHILDREN, linkText: "HPV", pageName: "hpv" },
     { section: AgeSectionTestId.CHILDREN, linkText: "MMR", pageName: "mmr" },
     { section: AgeSectionTestId.CHILDREN, linkText: "MenB", pageName: "menb-children" },
     { section: AgeSectionTestId.CHILDREN, linkText: "Pneumococcal", pageName: "pneumococcal" },
+    { section: AgeSectionTestId.CHILDREN, linkText: "4-in-1", pageName: "4-in-1" },
+
     { section: AgeSectionTestId.BABIES, linkText: "6-in-1", pageName: "6-in-1" },
     { section: AgeSectionTestId.BABIES, linkText: "Rotavirus", pageName: "rotavirus" },
     { section: AgeSectionTestId.BABIES, linkText: "Pneumococcal", pageName: "pneumococcal" },

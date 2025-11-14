@@ -57,6 +57,7 @@ describe("VaccinesForAllAges", () => {
     assertCardLinkIsPresentInSection("MMR", "/vaccines/mmr-vaccine", AgeSectionTestId.CHILDREN);
     assertCardLinkIsPresentInSection("MenB", "/vaccines/menb-vaccine-for-children", AgeSectionTestId.CHILDREN);
     assertCardLinkIsPresentInSection("Pneumococcal", "/vaccines/pneumococcal-vaccine", AgeSectionTestId.CHILDREN);
+    assertCardLinkIsPresentInSection("4-in-1", "/vaccines/4-in-1-preschool-booster-vaccine", AgeSectionTestId.CHILDREN);
 
     assertCardLinkIsPresentInSection("6-in-1", "/vaccines/6-in-1-vaccine", AgeSectionTestId.BABIES);
     assertCardLinkIsPresentInSection("Rotavirus", "/vaccines/rotavirus-vaccine", AgeSectionTestId.BABIES);

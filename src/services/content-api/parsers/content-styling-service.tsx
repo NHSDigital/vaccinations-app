@@ -135,6 +135,7 @@ const styleHowToGetSection: Record<VaccineTypes, (section: VaccinePageSection, f
     [VaccineTypes.PNEUMOCOCCAL]: styleSection,
     [VaccineTypes.SHINGLES]: styleSection,
     [VaccineTypes.MENACWY]: styleSection,
+    [VaccineTypes.VACCINE_4_IN_1]: styleSection,
   };
 
 const getStyledContentForVaccine = async (

@@ -12,6 +12,7 @@ enum VaccineTypes {
   PNEUMOCOCCAL = "PNEUMOCOCCAL",
   SHINGLES = "SHINGLES",
   MENACWY = "MENACWY",
+  VACCINE_4_IN_1 = "VACCINE_4_IN_1",
 }
 
 // vaccine suffix paths used by the app (e.g. /vaccines/"rsv")
@@ -27,6 +28,7 @@ enum VaccineContentUrlPaths {
   PNEUMOCOCCAL = "pneumococcal-vaccine",
   SHINGLES = "shingles-vaccine",
   MENACWY = "menacwy-vaccine",
+  VACCINE_4_IN_1 = "4-in-1-preschool-booster-vaccine",
 }
 
 // maps vaccine url path to vaccine type (one to one)
@@ -42,6 +44,7 @@ const vaccineUrlPathToType: Record<VaccineContentUrlPaths, VaccineTypes> = {
   [VaccineContentUrlPaths.PNEUMOCOCCAL]: VaccineTypes.PNEUMOCOCCAL,
   [VaccineContentUrlPaths.SHINGLES]: VaccineTypes.SHINGLES,
   [VaccineContentUrlPaths.MENACWY]: VaccineTypes.MENACWY,
+  [VaccineContentUrlPaths.VACCINE_4_IN_1]: VaccineTypes.VACCINE_4_IN_1,
 };
 // maps vaccine type to url path (one to one)
 const vaccineTypeToUrlPath: Record<VaccineTypes, VaccineContentUrlPaths> = {
@@ -56,6 +59,7 @@ const vaccineTypeToUrlPath: Record<VaccineTypes, VaccineContentUrlPaths> = {
   [VaccineTypes.PNEUMOCOCCAL]: VaccineContentUrlPaths.PNEUMOCOCCAL,
   [VaccineTypes.SHINGLES]: VaccineContentUrlPaths.SHINGLES,
   [VaccineTypes.MENACWY]: VaccineContentUrlPaths.MENACWY,
+  [VaccineTypes.VACCINE_4_IN_1]: VaccineContentUrlPaths.VACCINE_4_IN_1,
 };
 
 export type VaccineDetails = {
@@ -212,6 +216,18 @@ const VaccineInfo: Record<VaccineTypes, VaccineDetails> = {
     cardLinkTitle: "MenACWY",
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/menacwy-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/menacwy-vaccine/#how-to-get-it"),
+    personalisedEligibilityStatusRequired: false,
+  },
+  [VaccineTypes.VACCINE_4_IN_1]: {
+    displayName: {
+      titleCase: "4-in-1 pre-school booster vaccine",
+      midSentenceCase: "4-in-1 pre-school booster vaccine",
+      indefiniteArticle: "a",
+    },
+    heading: "4-in-1 pre-school booster vaccine",
+    cardLinkTitle: "4-in-1",
+    nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/4-in-1-preschool-booster-vaccine/"),
+    nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/4-in-1-preschool-booster-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
   },
 };
