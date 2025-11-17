@@ -93,7 +93,7 @@ jobs:
         TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
         TEST_NBS_APP_USERNAME: ${{ secrets.TEST_NBS_APP_USERNAME }}
         TEST_NBS_APP_PASSWORD: ${{ secrets.TEST_NBS_APP_PASSWORD }}
-        TEST_APP_URL: ${{ secrets.TEST_APP_URL }}
+        TEST_APP_URL: ${{ secrets.TEST_APP_URL_R1 }}
         NHS_APP_REDIRECT_LOGIN_URL: ${{ secrets.NHS_APP_REDIRECT_LOGIN_URL }}
         VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
         DEPLOY_ENVIRONMENT: "preprod"
@@ -108,7 +108,7 @@ jobs:
         TEST_NHS_APP_URL: ${{ secrets.TEST_NHS_APP_URL }}
         TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
         TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
-        TEST_APP_URL: ${{ secrets.TEST_APP_URL }}
+        TEST_APP_URL: ${{ secrets.TEST_APP_URL_R1 }}
         VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
         AWS_S3_ARTEFACTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-preprod
 
@@ -193,7 +193,7 @@ jobs:
           TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
           TEST_NBS_APP_USERNAME: ${{ secrets.TEST_NBS_APP_USERNAME }}
           TEST_NBS_APP_PASSWORD: ${{ secrets.TEST_NBS_APP_PASSWORD }}
-          TEST_APP_URL: ${{ secrets.TEST_APP_URL }}
+          TEST_APP_URL: ${{ secrets.TEST_APP_URL_MAIN }}
           NHS_APP_REDIRECT_LOGIN_URL: ${{ secrets.NHS_APP_REDIRECT_LOGIN_URL }}
           VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
           DEPLOY_ENVIRONMENT: "preprod"
@@ -208,6 +208,6 @@ jobs:
           TEST_NHS_APP_URL: ${{ secrets.TEST_NHS_APP_URL }}
           TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
           TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
-          TEST_APP_URL: ${{ secrets.TEST_APP_URL }}
+          TEST_APP_URL: ${{ secrets.TEST_APP_URL_MAIN }}
           VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
           AWS_S3_ARTEFACTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-preprod
