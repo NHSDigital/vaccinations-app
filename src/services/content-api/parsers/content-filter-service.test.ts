@@ -1,3 +1,4 @@
+import { VaccineType } from "@src/models/vaccine";
 import {
   _extractDescriptionForVaccine,
   _extractHeadlineForAspect,
@@ -529,7 +530,10 @@ describe("Content Filter", () => {
         overview: "Generic Vaccine Lead Paragraph (overview)",
       };
 
-      const pageCopyForRsv = getFilteredContentForVaccine(JSON.stringify(genericVaccineContentAPIResponse));
+      const pageCopyForRsv = getFilteredContentForVaccine(
+        VaccineType.RSV,
+        JSON.stringify(genericVaccineContentAPIResponse),
+      );
 
       expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedOverview));
     });
@@ -549,7 +553,10 @@ describe("Content Filter", () => {
         },
       };
 
-      const pageCopyForRsv = getFilteredContentForVaccine(JSON.stringify(genericVaccineContentAPIResponse));
+      const pageCopyForRsv = getFilteredContentForVaccine(
+        VaccineType.RSV,
+        JSON.stringify(genericVaccineContentAPIResponse),
+      );
 
       expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedWhatVaccineIsFor));
     });
@@ -593,7 +600,10 @@ describe("Content Filter", () => {
         },
       };
 
-      const pageCopyForRsv = getFilteredContentForVaccine(JSON.stringify(genericVaccineContentAPIResponse));
+      const pageCopyForRsv = getFilteredContentForVaccine(
+        VaccineType.RSV,
+        JSON.stringify(genericVaccineContentAPIResponse),
+      );
 
       expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedWhoVaccineIsFor));
     });
@@ -619,7 +629,10 @@ describe("Content Filter", () => {
         },
       };
 
-      const pageCopyForRsv = getFilteredContentForVaccine(JSON.stringify(genericVaccineContentAPIResponse));
+      const pageCopyForRsv = getFilteredContentForVaccine(
+        VaccineType.RSV,
+        JSON.stringify(genericVaccineContentAPIResponse),
+      );
 
       expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedHowToGetVaccine));
     });
@@ -650,6 +663,7 @@ describe("Content Filter", () => {
       };
 
       const pageCopyForRsv: VaccinePageContent = getFilteredContentForVaccine(
+        VaccineType.RSV,
         JSON.stringify(genericVaccineContentAPIResponse),
       );
 
@@ -661,7 +675,10 @@ describe("Content Filter", () => {
         webpageLink: new URL("https://www.nhs.uk/vaccinations/generic-vaccine/"),
       };
 
-      const pageCopyForRsv = getFilteredContentForVaccine(JSON.stringify(genericVaccineContentAPIResponse));
+      const pageCopyForRsv = getFilteredContentForVaccine(
+        VaccineType.RSV,
+        JSON.stringify(genericVaccineContentAPIResponse),
+      );
 
       expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedWebpageLink));
     });
@@ -670,6 +687,7 @@ describe("Content Filter", () => {
       const responseWithoutBenefitsHealthAspect = contentWithoutBenefitsHealthAspect();
 
       const pageCopyForFlu: VaccinePageContent = getFilteredContentForVaccine(
+        VaccineType.RSV,
         JSON.stringify(responseWithoutBenefitsHealthAspect),
       );
 

@@ -52,7 +52,7 @@ async function hydrateCacheForVaccine(
 
   try {
     const content: string = await fetchContentForVaccine(vaccineType);
-    const filteredContent: VaccinePageContent = getFilteredContentForVaccine(content);
+    const filteredContent: VaccinePageContent = getFilteredContentForVaccine(vaccineType, content);
 
     if (!approvalEnabled) {
       await checkContentPassesStylingAndWriteToCache(vaccineType, content, filteredContent);
@@ -80,7 +80,9 @@ async function hydrateCacheForVaccine(
     }
 
     if (cacheStatus === "valid") {
-      if (vitaContentChangedSinceLastApproved(filteredContent, getFilteredContentForVaccine(cacheContent))) {
+      if (
+        vitaContentChangedSinceLastApproved(filteredContent, getFilteredContentForVaccine(vaccineType, cacheContent))
+      ) {
         log.info(
           { context: { vaccineType } },
           `Content changes detected for vaccine ${vaccineType}; invalidating cache`,
