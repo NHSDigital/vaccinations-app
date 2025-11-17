@@ -101,7 +101,7 @@ jobs:
     - name: "Run snapshot tests on ${{ steps.get-latest-tag-name.outputs.value }} (preprod)"
       uses: ./.github/actions/run-snapshot-tests
       with:
-        checkout_ref: ${{ inputs.checkout_ref }}
+        checkout_ref: ${{ steps.get-latest-tag-name.outputs.value }}
         release_name: "release1"
       env:
         SECRET_IAM_ROLE: ${{ secrets.IAM_ROLE }}
@@ -201,7 +201,7 @@ jobs:
       - name: "Run snapshot tests on ${{ steps.get-latest-tag-name.outputs.value }} (preprod)"
         uses: ./.github/actions/run-snapshot-tests
         with:
-          checkout_ref: ${{ inputs.checkout_ref }}
+          checkout_ref: ${{ steps.get-latest-tag-name.outputs.value }}
           release_name: "latest-main-tag"
         env:
           SECRET_IAM_ROLE: ${{ secrets.IAM_ROLE }}
