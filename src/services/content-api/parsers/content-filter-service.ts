@@ -1,4 +1,5 @@
 import { VaccineType } from "@src/models/vaccine";
+import { getFilteredContentForWhoopingCoughVaccine } from "@src/services/content-api/parsers/custom/whooping-cough";
 import {
   ContentApiVaccineResponse,
   HasPartSubsection,
@@ -168,17 +169,17 @@ function _extractHeadlineForContraindicationsAspect(content: ContentApiVaccineRe
 }
 
 const getFilteredContentForVaccine = (vaccineType: VaccineType, apiContent: string): VaccinePageContent => {
-  const content: ContentApiVaccineResponse = JSON.parse(apiContent);
-
   switch (vaccineType) {
     case VaccineType.WHOOPING_COUGH:
-      return getFilteredContentForWhoopingCoughVaccine(content);
+      return getFilteredContentForWhoopingCoughVaccine(apiContent);
     default:
-      return getFilteredContentForStandardVaccine(content);
+      return getFilteredContentForStandardVaccine(apiContent);
   }
 };
 
-const getFilteredContentForStandardVaccine = (content: ContentApiVaccineResponse): VaccinePageContent => {
+const getFilteredContentForStandardVaccine = (apiContent: string): VaccinePageContent => {
+  const content: ContentApiVaccineResponse = JSON.parse(apiContent);
+
   const overview: string = _extractDescriptionForVaccine(content, "lead paragraph");
 
   let whatVaccineIsFor;
@@ -211,24 +212,6 @@ const getFilteredContentForStandardVaccine = (content: ContentApiVaccineResponse
   return {
     overview,
     whatVaccineIsFor,
-    whoVaccineIsFor,
-    howToGetVaccine,
-    vaccineSideEffects,
-    webpageLink,
-  };
-};
-
-const getFilteredContentForWhoopingCoughVaccine = (content: ContentApiVaccineResponse): VaccinePageContent => {
-  const overview = "overview";
-  const whatVaccineIsFor = undefined;
-  const whoVaccineIsFor: VaccinePageSection = { headline: "", subsections: [] };
-  const howToGetVaccine: VaccinePageSection = { headline: "", subsections: [] };
-  const vaccineSideEffects: VaccinePageSection = { headline: "", subsections: [] };
-  const webpageLink: URL = new URL(content.webpage);
-
-  return {
-    overview: overview,
-    whatVaccineIsFor: whatVaccineIsFor,
     whoVaccineIsFor,
     howToGetVaccine,
     vaccineSideEffects,
