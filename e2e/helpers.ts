@@ -18,6 +18,7 @@ export const getEnv = (name: string) => {
 
 export const clickLinkAndExpectPageTitle = async (page: Page, linkText: string, expectedPageTitle: string) => {
   await page.getByRole("link", { name: linkText, exact: true }).click();
+  await page.waitForLoadState("networkidle", { timeout: 30000 });
   await expect(page).toHaveTitle(expectedPageTitle);
 };
 
