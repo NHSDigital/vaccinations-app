@@ -54,6 +54,7 @@ jobs:
       environment: "preprod"
       checkout_ref: ${{ inputs.checkout_ref }}
       cross_browser: true
+      release: ${{ inputs.release_name }}
     secrets: inherit
 
   snapshot-stage-preprod:

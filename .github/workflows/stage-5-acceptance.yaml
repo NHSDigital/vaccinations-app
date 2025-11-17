@@ -16,6 +16,10 @@ on:
         required: false
         type: boolean
         default: false
+      release:
+        description: "Release name used to infer the URL of the VitA Hub page"
+        required: true
+        type: string
 
 jobs:
   test-e2e:
@@ -26,115 +30,71 @@ jobs:
     concurrency:
       group: ${{ inputs.environment }}-env
       cancel-in-progress: false
-    env:
-      TEST_NHS_APP_URL: ${{ secrets.TEST_NHS_APP_URL }}
-      TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
-      TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
-      TEST_NBS_APP_USERNAME: ${{ secrets.TEST_NBS_APP_USERNAME }}
-      TEST_NBS_APP_PASSWORD: ${{ secrets.TEST_NBS_APP_PASSWORD }}
-      TEST_APP_URL: ${{ secrets.TEST_APP_URL }}
-      NHS_APP_REDIRECT_LOGIN_URL: ${{ secrets.NHS_APP_REDIRECT_LOGIN_URL }}
-      VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
-      DEPLOY_ENVIRONMENT: ${{ inputs.environment }}
     steps:
+      - name: "Get URL of VitA Hub Page for release"
+        id: get-hub-url
+        run: |
+          if ${{ inputs.release == 'R1' || inputs.release == 'release1' }}; then
+             TEST_APP_URL=${{vars.TEST_APP_URL_R1}}
+          else
+             TEST_APP_URL=${{vars.TEST_APP_URL_MAIN}}
+          fi
+          echo "test_app_url=$TEST_APP_URL" >> $GITHUB_OUTPUT
+
       - name: "Checkout code"
         uses: actions/checkout@v5
         with:
           ref: ${{ inputs.checkout_ref }}
 
-      - name: Cache node modules
-        id: cache-npm
-        uses: actions/cache@v4
+
+      - name: "Run E2E tests on ${{ inputs.checkout_ref }} (${{ inputs.environment }})"
+        timeout-minutes: 10
+        uses: ./.github/actions/run-e2e-tests
+        with:
+          checkout_ref: ${{ inputs.checkout_ref }}
+          cross_browser: ${{ inputs.cross_browser }}
         env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-
-      - name: "Install dependencies"
-        run: |
-          npm ci --ignore-scripts
-
-      - name: "Get current week number and playwright version"
-        id: cache_key_values
-        run: |
-          echo "week_num=$(date -u +'%Y-%V')" | tee -a $GITHUB_OUTPUT
-          echo "playwright_version=$(npm view @playwright/test version)" | tee -a $GITHUB_OUTPUT
-
-      - name: "Cache Playwright browsers"
-        uses: actions/cache@v4
-        id: playwright-cache
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ steps.cache_key_values.outputs.week_num }}-${{ steps.cache_key_values.outputs.playwright_version }}-${{ hashFiles('**/playwright.config*') }}
-
-      - name: "Install Playwright browsers (Chromium, Firefox)"
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: |
-          npx playwright install chromium firefox --with-deps
-
-      - name: "Install Playwright browsers (Webkit)"
-        if: ${{ inputs.cross_browser == true }}
-        run: |
-          npx playwright install webkit --with-deps
-
-      - name: "Run Playwright tests"
-        if: ${{ inputs.cross_browser == false }}
-        run: |
-          npm run e2e
-
-      - name: "Run Playwright tests (cross browser)"
-        if: ${{ inputs.cross_browser == true }}
-        run: |
-          npm run e2e -- --config=playwright.config.cross-browser.ts
-
-      - name: "Upload report"
-        uses: actions/upload-artifact@v5
-        if: ${{ !cancelled() }}
-        with:
-          name: playwright-report-e2e-${{ inputs.checkout_ref }}
-          path: playwright-report/
-          retention-days: 30
+          TEST_NHS_APP_URL: ${{ secrets.TEST_NHS_APP_URL }}
+          TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
+          TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
+          TEST_NBS_APP_USERNAME: ${{ secrets.TEST_NBS_APP_USERNAME }}
+          TEST_NBS_APP_PASSWORD: ${{ secrets.TEST_NBS_APP_PASSWORD }}
+          TEST_APP_URL: ${{ steps.get-hub-url.outputs.test_app_url }}
+          NHS_APP_REDIRECT_LOGIN_URL: ${{ secrets.NHS_APP_REDIRECT_LOGIN_URL }}
+          VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
+          DEPLOY_ENVIRONMENT: ${{ inputs.environment }}
 
   test-contract:
     name: "Contract Test: ${{inputs.environment}} environment"
     runs-on: ubuntu-latest
     timeout-minutes: 5
     environment: ${{ inputs.environment }}
-    env:
-      CONTENT_API_ENDPOINT: ${{ secrets.CONTENT_API_ENDPOINT }}
-      CONTENT_API_KEY: ${{ secrets.CONTENT_API_KEY }}
-      CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: "false"
-      ELIGIBILITY_API_ENDPOINT: ${{ secrets.ELIGIBILITY_API_ENDPOINT }}
-      ELIGIBILITY_API_KEY: ${{ secrets.ELIGIBILITY_API_KEY }}
-      SSM_PREFIX: ${{ secrets.SSM_PREFIX }}
-      NHS_APP_REDIRECT_LOGIN_URL: "dummy"
-      CONTENT_CACHE_PATH: "dummy"
-      NHS_LOGIN_URL: "dummy"
-      NHS_LOGIN_CLIENT_ID: "dummy"
-      NHS_LOGIN_SCOPE: "dummy"
-      NHS_LOGIN_PRIVATE_KEY: "dummy"
-      NBS_URL: "dummy"
-      NBS_BOOKING_PATH: "dummy"
-      MAX_SESSION_AGE_MINUTES: 0
-      IS_APIM_AUTH_ENABLED: ${{ vars.IS_APIM_AUTH_ENABLED }}
-      AUTH_SECRET: "dummy"
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v5
         with:
           ref: ${{ inputs.checkout_ref }}
-      - name: Cache node modules
-        id: cache-npm
-        uses: actions/cache@v4
-        env:
-          cache-name: cache-node-modules
+
+      - name: "Run contract tests (sandpit+mocked)"
+        timeout-minutes: 3
+        uses: ./.github/actions/run-contract-tests
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-      - name: "Install dependencies"
-        run: |
-          npm ci --ignore-scripts
-      - name: "Run contract tests"
-        run: |
-          npm run contract
+          target_ref: ${{ inputs.checkout_ref }}
+        env:
+          CONTENT_API_ENDPOINT: ${{ secrets.CONTENT_API_ENDPOINT }}
+          CONTENT_API_KEY: ${{ secrets.CONTENT_API_KEY }}
+          ELIGIBILITY_API_ENDPOINT: ${{ secrets.ELIGIBILITY_API_ENDPOINT }}
+          ELIGIBILITY_API_KEY: ${{ secrets.ELIGIBILITY_API_KEY }}
+          SSM_PREFIX: ${{ secrets.SSM_PREFIX }}
+          IS_APIM_AUTH_ENABLED: ${{ vars.IS_APIM_AUTH_ENABLED }}
+          CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: "false"
+          NHS_APP_REDIRECT_LOGIN_URL: "dummy"
+          CONTENT_CACHE_PATH: "dummy"
+          NHS_LOGIN_URL: "dummy"
+          NHS_LOGIN_CLIENT_ID: "dummy"
+          NHS_LOGIN_SCOPE: "dummy"
+          NHS_LOGIN_PRIVATE_KEY: "dummy"
+          NBS_URL: "dummy"
+          NBS_BOOKING_PATH: "dummy"
+          MAX_SESSION_AGE_MINUTES: 0
+          AUTH_SECRET: "dummy"

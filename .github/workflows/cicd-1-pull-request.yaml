@@ -123,4 +123,5 @@ jobs:
     with:
       environment: "dev"
       checkout_ref: "${{ github.sha }}"
+      release: "Latest main tag"
     secrets: inherit
