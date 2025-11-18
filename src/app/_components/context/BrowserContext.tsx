@@ -21,13 +21,10 @@ const BrowserContextProvider = ({ children }: { children: ReactNode }): JSX.Elem
   });
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const isOpenInMobile: boolean = window.nhsapp?.tools?.isOpenInNHSApp?.() ?? false;
-      setBrowserContext({
-        hasContextLoaded: true,
-        isOpenInMobileApp: isOpenInMobile,
-      });
-    }
+    setBrowserContext({
+      hasContextLoaded: true,
+      isOpenInMobileApp: window.nhsapp?.tools.isOpenInNHSApp(),
+    });
   }, []);
 
   return <BrowserContext.Provider value={browserContext}>{children}</BrowserContext.Provider>;

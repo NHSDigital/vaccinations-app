@@ -1,5 +1,3 @@
-"use client";
-
 import { useBrowserContext } from "@src/app/_components/context/BrowserContext";
 import { useEffect } from "react";
 
