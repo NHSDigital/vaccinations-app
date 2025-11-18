@@ -4,9 +4,7 @@ import { JSX } from "react";
 
 const Overview = (props: { styledVaccineContent: StyledVaccineContent; vaccineType: VaccineType }): JSX.Element => {
   return (
-    <>
-      <p data-testid="overview-text">{props.styledVaccineContent?.overview}</p>
-    </>
+    <p data-testid="overview-text" dangerouslySetInnerHTML={{ __html: props.styledVaccineContent?.overview || "" }} />
   );
 };
 export { Overview };

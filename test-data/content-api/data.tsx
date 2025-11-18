@@ -559,7 +559,7 @@ export const genericVaccineContentAPIResponse: ContentApiVaccineResponse = {
 };
 
 export const mockStyledContent: StyledVaccineContent = {
-  overview: "Overview text",
+  overview: "Overview <b>text</b>",
   whatVaccineIsFor: {
     heading: "what-heading",
     component: <p>What Section styled component</p>,
