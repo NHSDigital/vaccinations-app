@@ -4,6 +4,7 @@ import { auth } from "@project/auth";
 import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
 import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
 import { MoreInformation } from "@src/app/_components/content/MoreInformation";
+import { Overview } from "@src/app/_components/content/Overview";
 import { EligibilityVaccinePageContent } from "@src/app/_components/eligibility/EligibilityVaccinePageContent";
 import { RSVPregnancyInfo } from "@src/app/_components/vaccine-custom/RSVPregnancyInfo";
 import { NhsNumber, VaccineDetails, VaccineInfo, VaccineType } from "@src/models/vaccine";
@@ -63,11 +64,8 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
 
   return (
     <div className={styles.tableCellSpanHide}>
-      {/*/!* Overview section *!/*/}
       {contentError != ContentErrorTypes.CONTENT_LOADING_ERROR && styledVaccineContent != undefined && (
-        <>
-          <p data-testid="overview-text">{styledVaccineContent?.overview}</p>
-        </>
+        <Overview styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
       )}
       {/* Eligibility section for RSV */}
       {vaccineType === VaccineType.RSV && eligibilityForPerson !== undefined && (
