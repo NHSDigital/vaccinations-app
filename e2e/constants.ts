@@ -12,7 +12,8 @@ type VaccinePageName =
   | "shingles"
   | "menacwy"
   | "4-in-1"
-  | "whooping-cough";
+  | "whooping-cough"
+  | "hib-menc";
 type FailurePageName = "sso-failure" | "service-failure" | "not-found";
 type SessionPageName = "session-timeout" | "session-logout";
 type IndexPageName = "vaccines-for-all-ages" | "vaccine-hub";
@@ -121,6 +122,12 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     heading: "Whooping cough vaccination in pregnancy",
     title: `Whooping cough vaccination in pregnancy - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-whooping-cough.png",
+  },
+  "hib-menc": {
+    url: "/vaccines/hib-menc-vaccine",
+    heading: "Hib/MenC vaccine",
+    title: `Hib/MenC vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-hib-menc.png",
   },
 
   // failure pages

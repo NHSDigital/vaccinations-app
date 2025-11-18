@@ -18,6 +18,7 @@ enum VaccineType {
   MENACWY = "MENACWY",
   VACCINE_4_IN_1 = "VACCINE_4_IN_1",
   WHOOPING_COUGH = "WHOOPING_COUGH",
+  HIB_MENC = "HIB_MENC",
 }
 
 export type VaccineDetails = {
@@ -257,6 +258,22 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     contentPath: "pregnancy/keeping-well/whooping-cough-vaccination" as UrlPathFragment,
     cacheFilename: "whooping-cough-vaccination.json" as Filename,
     nboPath: "whooping-cough-vaccination" as UrlPathFragment,
+  },
+  [VaccineType.HIB_MENC]: {
+    urlPath: "hib-menc-vaccine" as UrlPathFragment,
+    displayName: {
+      titleCase: "Hib/MenC vaccine",
+      midSentenceCase: "Hib/MenC vaccine",
+      indefiniteArticle: "a",
+    },
+    heading: "Hib/MenC vaccine",
+    cardLinkTitle: "Hib/MenC",
+    nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/hib-menc-vaccine/"),
+    nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/hib-menc-vaccine/#how-to-get-it"),
+    personalisedEligibilityStatusRequired: false,
+    contentPath: "vaccinations/hib-menc-vaccine" as UrlPathFragment,
+    cacheFilename: "hib-menc-vaccine.json" as Filename,
+    nboPath: "hib-menc-vaccine" as UrlPathFragment,
   },
 };
 

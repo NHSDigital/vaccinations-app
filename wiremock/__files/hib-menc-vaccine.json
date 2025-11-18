@@ -1,0 +1,535 @@
+{
+  "@context": "http://schema.org",
+  "@type": "MedicalWebPage",
+  "name": "Hib/MenC vaccine",
+  "copyrightHolder": { "name": "Crown Copyright", "@type": "Organization" },
+  "license": "https://developer.api.nhs.uk/terms",
+  "author": {
+    "url": "https://www.nhs.uk",
+    "logo": "https://assets.nhs.uk/nhsuk-cms/images/nhs-attribution.width-510.png",
+    "email": "nhswebsite.servicedesk@nhs.net",
+    "@type": "Organization",
+    "name": "NHS website"
+  },
+  "about": { "@type": "WebPage", "name": "Hib/MenC vaccine", "alternateName": "" },
+  "description": "Find out about the Hib/MenC vaccine, including what it's for, who should have it and how to get it.",
+  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hib-menc-vaccine/",
+  "genre": ["Vaccine"],
+  "keywords": "",
+  "dateModified": "2025-07-02T14:14:39+00:00",
+  "lastReviewed": ["2023-11-30T08:36:00+00:00", "2026-11-30T08:36:00+00:00"],
+  "breadcrumb": {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 0,
+        "item": {
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "name": "Vaccinations",
+          "genre": []
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hib-menc-vaccine/",
+          "name": "Hib/MenC vaccine",
+          "genre": ["Vaccine"]
+        }
+      }
+    ]
+  },
+  "hasPart": [
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hib-menc-vaccine/#overview",
+      "description": "The Hib/Men C vaccine is given to babies when they’re 1 year old to protect them against Haemophilus influenzae type b (Hib) and meningitis C.",
+      "hasPart": [
+        { "@type": "WebPageElement", "headline": "Hib/MenC vaccine", "text": "What it's for" },
+        { "@type": "WebPageElement", "headline": "Hib/MenC vaccine", "text": "Who it's for" },
+        { "@type": "WebPageElement", "headline": "Hib/MenC vaccine", "text": "Contraindications" },
+        { "@type": "WebPageElement", "headline": "Hib/MenC vaccine", "text": "How to get it" },
+        { "@type": "WebPageElement", "headline": "Hib/MenC vaccine", "text": "Side effects" },
+        {
+          "text": "<p>The Hib/MenC vaccine helps prevent Haemophilus influenzae type b (Hib) and meningitis C, which are serious, life-threatening bacterial infections.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>1-year-old babies (if they were born on or before 30 June 2024) are given the Hib/MenC vaccine as part of the NHS vaccination schedule.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Most children can have the Hib/MenC vaccine. They only need to avoid it if they've had a reaction to an ingredient in it or to the 6-in-1 vaccine.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Your GP surgery will usually contact you to arrange your child's Hib/MenC vaccination. Speak to your GP surgery if you've not been contacted.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Common side effects of the Hib/MenC vaccine include pain and swelling where the injection is given, a slightly high temperature and feeling irritable.</p> ",
+          "@type": "WebPageElement"
+        }
+      ],
+      "headline": ""
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hib-menc-vaccine/#what-its-for",
+      "description": "The Hib/MenC vaccine helps prevent Haemophilus influenzae type b (Hib) and meningitis C, which are serious, life-threatening bacterial infections.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The Hib/MenC vaccine helps prevent <a href=\"https://www.nhs.uk/conditions/hib/\">Haemophilus influenzae type b (Hib)</a> and the type of <a href=\"https://www.nhs.uk/conditions/meningitis/\">meningitis</a> caused by group C bacteria.</p><p>These infections can be serious and life-threatening.</p><p>The Hib/MenC vaccine is given to 1-year-old babies (if they were born on or before 30 June 2024) after they've had 3 doses of the <a href=\"https://www.nhs.uk/vaccinations/6-in-1-vaccine/\">6-in-1 vaccine</a>, which also protects against Hib.</p>"
+        }
+      ],
+      "headline": "What the Hib/MenC vaccine is for"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hib-menc-vaccine/#who-its-for",
+      "description": "1-year-old babies (if they were born on or before 30 June 2024) are given the Hib/MenC vaccine as part of the NHS vaccination schedule.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The Hib/MenC vaccine is given to babies when they're 1 year old (if they were born on or before 30 June 2024) as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>If your child has missed their Hib/MenC vaccine, contact their GP surgery.</p><p>It's best to have the Hib/MenC vaccine on time, but your child can still have it up to the age of 10 if they've had all 3 doses of the 6-in-1 vaccine.</p>"
+        }
+      ],
+      "headline": "Who should have the Hib/MenC vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hib-menc-vaccine/#contraindications",
+      "description": "Most children can have the Hib/MenC vaccine. They only need to avoid it if they've had a reaction to an ingredient in it or to the 6-in-1 vaccine.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Most babies and young children can have the Hib/MenC vaccine.</p><p>The only reasons they cannot have the vaccine are if either:</p><ul><li>they had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a dose of the 6-in-1 vaccine</li><li>they've had a serious allergic reaction to an ingredient used in the Hib/MenC vaccine</li></ul>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Information",
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>Your child can have the Hib/MenC vaccine if they're unwell but do not have a high temperature.</p><p>If they have a high temperature, wait until they're feeling better before taking them to have the vaccine.</p>"
+        }
+      ],
+      "headline": "Who cannot have the Hib/MenC vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hib-menc-vaccine/#ingredients",
+      "description": "You can check the ingredients in the Hib/MenC vaccine by asking to see the patient leaflet or searching for it online.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>There is 1 type of Hib/MenC vaccine used in the UK. You can check the ingredients in the patient leaflet:</p><p><a href=\"https://www.medicines.org.uk/emc/files/pil.167.pdf\">Menitorix patient information leaflet (Electronic Medicines Compendium website; PDF only, 239KB)</a></p>"
+        }
+      ],
+      "headline": "Hib/MenC vaccine ingredients"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hib-menc-vaccine/#how-to-get-it",
+      "description": "Your GP surgery will usually contact you to arrange your child's Hib/MenC vaccination. Speak to your GP surgery if you've not been contacted.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Your GP surgery will usually contact you about your child's Hib/MenC vaccination. This may be by letter, text, phone call or email.</p><p>It's best if your child has the Hib/MenC vaccine on time, but they can still have it up to the age of 10.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "identifier": "primary",
+          "headline": "Speak to your GP surgery if:",
+          "text": "<ul>\n<li>\n  you've not been contacted to get your child's Hib/MenC vaccine\n </li>\n<li>\n  your child has missed their Hib/MenC vaccination, or you're not sure if they've been vaccinated\n </li>\n<li>\n  your child is unwell – they may need to wait until they're feeling better before having the vaccine\n </li>\n<li>\n  you need to change a vaccination appointment\n </li>\n</ul>\n<p>\n Your GP surgery can book or rearrange an appointment.\n</p>\n"
+        }
+      ],
+      "headline": "How to get the Hib/MenC vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/UsageOrScheduleHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hib-menc-vaccine/#how-its-used-previously-dosage-and-administration",
+      "description": "The Hib/MenC vaccine is given as an injection into the arm or thigh. It can be given at the same time as other vaccines.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The Hib/MenC vaccine is given as an injection into the upper arm or thigh.</p><p>Only 1 dose is needed to boost protection against Haemophilus influenzae type b (Hib) and help protect against meningitis C.</p><p>Children are also given a vaccine when they're 13 or 14 years old (school year 9 or 10) to boost protection against meningitis C.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Information",
+          "text": "<h3>Having the Hib/MenC vaccine at the same time as other vaccines</h3><p>The Hib/MenC vaccine can be given at the same time as other vaccines, such as the pneumococcal and MMR vaccines.</p>"
+        }
+      ],
+      "headline": "How the Hib/MenC vaccine is given"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/hib-menc-vaccine/#side-effects",
+      "description": "Common side effects of the Hib/MenC vaccine include pain and swelling where the injection is given, a slightly high temperature and feeling irritable.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Most side effects of the Hib/MenC vaccine are mild and do not last long.</p><p>Common side effects of the vaccine include:</p><ul><li>pain and swelling where the injection was given</li><li>a slightly high temperature</li><li>feeling irritable</li></ul><p>More serious side effects such as a severe allergic reaction are very rare. The person who vaccinates your child will be trained to deal with allergic reactions and treat them immediately.</p><p>The vaccine does not contain live bacteria, so there's no risk of getting the infections from the vaccine.</p>"
+        }
+      ],
+      "headline": "Side effects of the Hib/MenC vaccine"
+    }
+  ],
+  "relatedLink": [
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "name": "Vaccinations",
+      "linkRelationship": "Navigation",
+      "position": 0
+    }
+  ],
+  "contentSubTypes": [],
+  "mainEntityOfPage": [
+    {
+      "position": 0,
+      "identifier": 0,
+      "text": "The Hib/MenC vaccine is given to babies when they're 1 year old to protect them against Haemophilus influenzae type b (Hib) and meningitis C.",
+      "name": "lead paragraph",
+      "@type": "WebPageElement"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 1,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Callout",
+          "identifier": "4",
+          "text": "<h3>Changes to Hib/MenC vaccination</h3><p>Babies who are born on or after 1 July 2024 will not get the Hib/MenC vaccine.</p><p>They will get a new 4th dose of the 6-in-1 vaccine when they are 18 months old instead. You'll be contacted when your child is due for this vaccine.</p><p>Find out more about <a href=\"https://www.gov.uk/government/publications/vaccinations-for-children-aged-18-months/a-guide-to-vaccinations-for-children-aged-18-months\">vaccinations for children aged 18 months (GOV.UK)</a>.</p>"
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Callout",
+          "identifier": "4",
+          "text": "<h3>Changes to Hib/MenC vaccination</h3><p>Babies who are born on or after 1 July 2024 will not get the Hib/MenC vaccine.</p><p>They will get a new 4th dose of the 6-in-1 vaccine when they are 18 months old instead. You'll be contacted when your child is due for this vaccine.</p><p>Find out more about <a href=\"https://www.gov.uk/government/publications/vaccinations-for-children-aged-18-months/a-guide-to-vaccinations-for-children-aged-18-months\">vaccinations for children aged 18 months (GOV.UK)</a>.</p>"
+        }
+      ]
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 2,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The Hib/MenC vaccine helps prevent <a href=\"https://www.nhs.uk/conditions/hib/\">Haemophilus influenzae type b (Hib)</a> and the type of <a href=\"https://www.nhs.uk/conditions/meningitis/\">meningitis</a> caused by group C bacteria.</p><p>These infections can be serious and life-threatening.</p><p>The Hib/MenC vaccine is given to 1-year-old babies (if they were born on or before 30 June 2024) after they've had 3 doses of the <a href=\"https://www.nhs.uk/vaccinations/6-in-1-vaccine/\">6-in-1 vaccine</a>, which also protects against Hib.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "The Hib/MenC vaccine helps prevent Haemophilus influenzae type b (Hib) and meningitis C, which are serious, life-threatening bacterial infections.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The Hib/MenC vaccine helps prevent <a href=\"https://www.nhs.uk/conditions/hib/\">Haemophilus influenzae type b (Hib)</a> and the type of <a href=\"https://www.nhs.uk/conditions/meningitis/\">meningitis</a> caused by group C bacteria.</p><p>These infections can be serious and life-threatening.</p><p>The Hib/MenC vaccine is given to 1-year-old babies (if they were born on or before 30 June 2024) after they've had 3 doses of the <a href=\"https://www.nhs.uk/vaccinations/6-in-1-vaccine/\">6-in-1 vaccine</a>, which also protects against Hib.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
+      "headline": "What the Hib/MenC vaccine is for"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 3,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The Hib/MenC vaccine is given to babies when they're 1 year old (if they were born on or before 30 June 2024) as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>If your child has missed their Hib/MenC vaccine, contact their GP surgery.</p><p>It's best to have the Hib/MenC vaccine on time, but your child can still have it up to the age of 10 if they've had all 3 doses of the 6-in-1 vaccine.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "1-year-old babies (if they were born on or before 30 June 2024) are given the Hib/MenC vaccine as part of the NHS vaccination schedule.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The Hib/MenC vaccine is given to babies when they're 1 year old (if they were born on or before 30 June 2024) as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>If your child has missed their Hib/MenC vaccine, contact their GP surgery.</p><p>It's best to have the Hib/MenC vaccine on time, but your child can still have it up to the age of 10 if they've had all 3 doses of the 6-in-1 vaccine.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
+      "headline": "Who should have the Hib/MenC vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 4,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most babies and young children can have the Hib/MenC vaccine.</p><p>The only reasons they cannot have the vaccine are if either:</p><ul><li>they had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a dose of the 6-in-1 vaccine</li><li>they've had a serious allergic reaction to an ingredient used in the Hib/MenC vaccine</li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>Your child can have the Hib/MenC vaccine if they're unwell but do not have a high temperature.</p><p>If they have a high temperature, wait until they're feeling better before taking them to have the vaccine.</p>"
+        }
+      ],
+      "description": "Most children can have the Hib/MenC vaccine. They only need to avoid it if they've had a reaction to an ingredient in it or to the 6-in-1 vaccine.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most babies and young children can have the Hib/MenC vaccine.</p><p>The only reasons they cannot have the vaccine are if either:</p><ul><li>they had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a dose of the 6-in-1 vaccine</li><li>they've had a serious allergic reaction to an ingredient used in the Hib/MenC vaccine</li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>Your child can have the Hib/MenC vaccine if they're unwell but do not have a high temperature.</p><p>If they have a high temperature, wait until they're feeling better before taking them to have the vaccine.</p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
+      "headline": "Who cannot have the Hib/MenC vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 5,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There is 1 type of Hib/MenC vaccine used in the UK. You can check the ingredients in the patient leaflet:</p><p><a href=\"https://www.medicines.org.uk/emc/files/pil.167.pdf\">Menitorix patient information leaflet (Electronic Medicines Compendium website; PDF only, 239KB)</a></p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "You can check the ingredients in the Hib/MenC vaccine by asking to see the patient leaflet or searching for it online.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There is 1 type of Hib/MenC vaccine used in the UK. You can check the ingredients in the patient leaflet:</p><p><a href=\"https://www.medicines.org.uk/emc/files/pil.167.pdf\">Menitorix patient information leaflet (Electronic Medicines Compendium website; PDF only, 239KB)</a></p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
+      "headline": "Hib/MenC vaccine ingredients"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 6,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Your GP surgery will usually contact you about your child's Hib/MenC vaccination. This may be by letter, text, phone call or email.</p><p>It's best if your child has the Hib/MenC vaccine on time, but they can still have it up to the age of 10.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "non-urgent",
+          "identifier": "5",
+          "text": "<h3>Speak to your GP surgery if:</h3><div class=\"block-richtext\">\n<ul><li>you've not been contacted to get your child's Hib/MenC vaccine</li><li>your child has missed their Hib/MenC vaccination, or you're not sure if they've been vaccinated</li><li>your child is unwell – they may need to wait until they're feeling better before having the vaccine</li><li>you need to change a vaccination appointment</li></ul><p>Your GP surgery can book or rearrange an appointment.</p>\n</div>"
+        }
+      ],
+      "description": "Your GP surgery will usually contact you to arrange your child's Hib/MenC vaccination. Speak to your GP surgery if you've not been contacted.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Your GP surgery will usually contact you about your child's Hib/MenC vaccination. This may be by letter, text, phone call or email.</p><p>It's best if your child has the Hib/MenC vaccine on time, but they can still have it up to the age of 10.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "non-urgent",
+          "identifier": "5",
+          "text": "<h3>Speak to your GP surgery if:</h3><div class=\"block-richtext\">\n<ul><li>you've not been contacted to get your child's Hib/MenC vaccine</li><li>your child has missed their Hib/MenC vaccination, or you're not sure if they've been vaccinated</li><li>your child is unwell – they may need to wait until they're feeling better before having the vaccine</li><li>you need to change a vaccination appointment</li></ul><p>Your GP surgery can book or rearrange an appointment.</p>\n</div>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "headline": "How to get the Hib/MenC vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 7,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Appointment advice for parents</h3><ul><li><a href=\"https://www.nhs.uk/vaccinations/booking-your-childs-vaccination-appointment/\">Booking your child's vaccination appointment</a></li><li><a href=\"https://www.nhs.uk/vaccinations/vaccination-tips-for-parents/\">Vaccination tips for parents</a></li></ul>"
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Appointment advice for parents</h3><ul><li><a href=\"https://www.nhs.uk/vaccinations/booking-your-childs-vaccination-appointment/\">Booking your child's vaccination appointment</a></li><li><a href=\"https://www.nhs.uk/vaccinations/vaccination-tips-for-parents/\">Vaccination tips for parents</a></li></ul>"
+        }
+      ]
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 8,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The Hib/MenC vaccine is given as an injection into the upper arm or thigh.</p><p>Only 1 dose is needed to boost protection against Haemophilus influenzae type b (Hib) and help protect against meningitis C.</p><p>Children are also given a vaccine when they're 13 or 14 years old (school year 9 or 10) to boost protection against meningitis C.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Having the Hib/MenC vaccine at the same time as other vaccines</h3><p>The Hib/MenC vaccine can be given at the same time as other vaccines, such as the pneumococcal and MMR vaccines.</p>"
+        }
+      ],
+      "description": "The Hib/MenC vaccine is given as an injection into the arm or thigh. It can be given at the same time as other vaccines.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The Hib/MenC vaccine is given as an injection into the upper arm or thigh.</p><p>Only 1 dose is needed to boost protection against Haemophilus influenzae type b (Hib) and help protect against meningitis C.</p><p>Children are also given a vaccine when they're 13 or 14 years old (school year 9 or 10) to boost protection against meningitis C.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Having the Hib/MenC vaccine at the same time as other vaccines</h3><p>The Hib/MenC vaccine can be given at the same time as other vaccines, such as the pneumococcal and MMR vaccines.</p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/UsageOrScheduleHealthAspect",
+      "headline": "How the Hib/MenC vaccine is given"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 9,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most side effects of the Hib/MenC vaccine are mild and do not last long.</p><p>Common side effects of the vaccine include:</p><ul><li>pain and swelling where the injection was given</li><li>a slightly high temperature</li><li>feeling irritable</li></ul><p>More serious side effects such as a severe allergic reaction are very rare. The person who vaccinates your child will be trained to deal with allergic reactions and treat them immediately.</p><p>The vaccine does not contain live bacteria, so there's no risk of getting the infections from the vaccine.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "Common side effects of the Hib/MenC vaccine include pain and swelling where the injection is given, a slightly high temperature and feeling irritable.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most side effects of the Hib/MenC vaccine are mild and do not last long.</p><p>Common side effects of the vaccine include:</p><ul><li>pain and swelling where the injection was given</li><li>a slightly high temperature</li><li>feeling irritable</li></ul><p>More serious side effects such as a severe allergic reaction are very rare. The person who vaccinates your child will be trained to deal with allergic reactions and treat them immediately.</p><p>The vaccine does not contain live bacteria, so there's no risk of getting the infections from the vaccine.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
+      "headline": "Side effects of the Hib/MenC vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 10,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h2>More information</h2><ul><li><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Why vaccination is important and the safest way to protect yourself</a></li><li><a href=\"https://www.gov.uk/government/publications/immunisations-between-12-and-13-months-of-age\">GOV.UK: immunisations at 1 year of age</a></li><li><a href=\"https://www.gov.uk/government/publications/what-to-expect-after-vaccinations\">GOV.UK: what to expect after vaccinations</a></li></ul>"
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h2>More information</h2><ul><li><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Why vaccination is important and the safest way to protect yourself</a></li><li><a href=\"https://www.gov.uk/government/publications/immunisations-between-12-and-13-months-of-age\">GOV.UK: immunisations at 1 year of age</a></li><li><a href=\"https://www.gov.uk/government/publications/what-to-expect-after-vaccinations\">GOV.UK: what to expect after vaccinations</a></li></ul>"
+        }
+      ]
+    }
+  ],
+  "webpage": "https://www.nhs.uk/vaccinations/hib-menc-vaccine/"
+}
