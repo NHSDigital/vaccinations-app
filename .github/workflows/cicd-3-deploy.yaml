@@ -67,11 +67,34 @@ jobs:
   deploy-stage:
     name: "Deploy stage"
     needs: [metadata]
-    uses: ./.github/workflows/stage-4-deploy.yaml
-    with:
-      environment: ${{ github.event.inputs.environment }}
-      tag_or_sha_to_deploy: "${{ needs.metadata.outputs.tag }}"
-    secrets: inherit
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.event.inputs.environment }}
+    timeout-minutes: 20
+    concurrency:
+      group: dev-env
+      cancel-in-progress: false
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: "Tag or SHA"
+        id: tag-or-sha
+        run: |
+          echo "value=${{ needs.metadata.outputs.tag }}" >> $GITHUB_OUTPUT
+      - name: "Checkout code"
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ needs.metadata.outputs.tag }}
+      - name: "Deploy ${{ needs.metadata.outputs.tag }} to AWS (${{ github.event.inputs.environment }})"
+        timeout-minutes: 10
+        uses: ./.github/actions/deploy
+        with:
+          environment: ${{ github.event.inputs.environment }}
+          tag_or_sha_to_deploy: ${{ needs.metadata.outputs.tag }}
+          secret_aws_iam_role: ${{ secrets.IAM_ROLE }}
+          secret_aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+          secret_aws_slack_channel_id: ${{ secrets.ALARMS_SLACK_CHANNEL_ID }}
   acceptance-stage:
     name: "Acceptance stage"
     if: ${{ contains(fromJSON('["dev","preprod"]'), github.event.inputs.environment) }}
