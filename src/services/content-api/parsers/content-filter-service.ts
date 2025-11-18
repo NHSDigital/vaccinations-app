@@ -3,6 +3,7 @@ import { getFilteredContentForWhoopingCoughVaccine } from "@src/services/content
 import {
   ContentApiVaccineResponse,
   HasPartSubsection,
+  HeadingWithContent,
   MainEntityOfPage,
   Overview,
   VaccinePageContent,
@@ -113,6 +114,45 @@ const _extractAnyOtherSubsection = (part: HasPartSubsection): VaccinePageSubsect
   };
 };
 
+const _findCalloutElement = (response: ContentApiVaccineResponse): HasPartSubsection | undefined => {
+  for (const section of response.mainEntityOfPage) {
+    if (section.hasPart && Array.isArray(section.hasPart)) {
+      const callout = section.hasPart.find((element) => element.name === "Callout");
+      if (callout) {
+        return callout;
+      }
+    }
+  }
+  return undefined;
+};
+
+function _hasCallout(response: ContentApiVaccineResponse): boolean {
+  return !!_findCalloutElement(response);
+}
+
+function _extractCalloutHeading(response: ContentApiVaccineResponse): string {
+  const calloutElement = _findCalloutElement(response);
+
+  if (!calloutElement || !calloutElement.text) {
+    return "";
+  }
+
+  const match = calloutElement.text.match(/<h3>(.*?)<\/h3>/);
+  return match ? match[1] : "";
+}
+
+function _extractCalloutContent(response: ContentApiVaccineResponse): string {
+  const calloutElement = _findCalloutElement(response);
+
+  if (!calloutElement || !calloutElement.text) {
+    return "";
+  }
+
+  const content = calloutElement.text.replace(/<h3>.*?<\/h3>/, "").trim();
+
+  return content;
+}
+
 const _removeExcludedHyperlinks = (subsections: VaccinePageSubsection[]) => {
   const nbsHyperlinkPattern: RegExp =
     /<a [^>]*?href="[^>]*?\/nhs-services\/vaccination-and-booking-services\/book-[^>]*?>(.*?)<\/a>/g;
@@ -208,6 +248,11 @@ const getFilteredContentForStandardVaccine = (apiContent: string): VaccinePageCo
     subsections: _extractPartsForAspect(content, "SideEffectsHealthAspect"),
   };
 
+  let callout: HeadingWithContent | undefined;
+  if (_hasCallout(content)) {
+    callout = { heading: _extractCalloutHeading(content), content: _extractCalloutContent(content) };
+  }
+
   const webpageLink: URL = new URL(content.webpage);
 
   return {
@@ -217,6 +262,7 @@ const getFilteredContentForStandardVaccine = (apiContent: string): VaccinePageCo
     howToGetVaccine,
     vaccineSideEffects,
     webpageLink,
+    callout,
   };
 };
 

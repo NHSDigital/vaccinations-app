@@ -11,13 +11,14 @@ import {
 } from "@src/services/content-api/parsers/content-filter-service";
 import {
   ContentApiVaccineResponse,
+  HeadingWithContent,
   MainEntityOfPage,
   VaccinePageContent,
   VaccinePageSection,
   VaccinePageSubsection,
 } from "@src/services/content-api/types";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
-import { contentWithoutBenefitsHealthAspect } from "@test-data/content-api/helpers";
+import { contentWithoutBenefitsHealthAspect, contentWithoutCallout } from "@test-data/content-api/helpers";
 
 describe("Content Filter", () => {
   describe("_extractDescriptionForVaccine", () => {
@@ -692,6 +693,31 @@ describe("Content Filter", () => {
       );
 
       expect(pageCopyForFlu.whatVaccineIsFor).toBeUndefined();
+    });
+
+    it("should return all parts for callout section", () => {
+      const expectedCallout: HeadingWithContent = {
+        heading: "Callout heading",
+        content: "<p>Callout content</p>",
+      };
+
+      const pageCopyForRsv: VaccinePageContent = getFilteredContentForVaccine(
+        VaccineType.RSV,
+        JSON.stringify(genericVaccineContentAPIResponse),
+      );
+
+      expect(pageCopyForRsv.callout).toEqual(expectedCallout);
+    });
+
+    it("should not return callout section when Callout is missing", () => {
+      const responseWithoutCallout = contentWithoutCallout();
+
+      const pageCopyForFlu: VaccinePageContent = getFilteredContentForVaccine(
+        VaccineType.RSV,
+        JSON.stringify(responseWithoutCallout),
+      );
+
+      expect(pageCopyForFlu.callout).toBeUndefined();
     });
   });
 });

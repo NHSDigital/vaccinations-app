@@ -554,6 +554,20 @@ export const genericVaccineContentAPIResponse: ContentApiVaccineResponse = {
         },
       ],
     },
+    {
+      identifier: "0",
+      name: "section heading",
+      position: 1,
+      "@type": "WebPageElement",
+      hasPart: [
+        {
+          position: 0,
+          "@type": "WebPageElement",
+          name: "Callout",
+          text: "<h3>Callout heading</h3><p>Callout content</p>",
+        },
+      ],
+    },
   ],
   webpage: new URL("https://www.nhs.uk/vaccinations/generic-vaccine/"),
 };

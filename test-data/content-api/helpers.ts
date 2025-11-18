@@ -11,4 +11,21 @@ const contentWithoutBenefitsHealthAspect = () => {
   return responseWithoutBenefitsHealthAspect;
 };
 
-export { contentWithoutBenefitsHealthAspect };
+const contentWithoutCallout = (): ContentApiVaccineResponse => {
+  const responseWithoutCallout: ContentApiVaccineResponse = {
+    ...genericVaccineContentAPIResponse,
+    mainEntityOfPage: genericVaccineContentAPIResponse.mainEntityOfPage.map((section) => {
+      // Callouts are nested deep inside 'section heading' elements
+      if (section.hasPart && Array.isArray(section.hasPart)) {
+        return {
+          ...section,
+          hasPart: section.hasPart.filter((element) => element.name !== "Callout"),
+        };
+      }
+      return section;
+    }),
+  };
+  return responseWithoutCallout;
+};
+
+export { contentWithoutBenefitsHealthAspect, contentWithoutCallout };

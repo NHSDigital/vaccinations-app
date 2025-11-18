@@ -109,6 +109,7 @@ export type VaccinePageContent = {
   howToGetVaccine: VaccinePageSection;
   vaccineSideEffects: VaccinePageSection;
   webpageLink: URL;
+  callout?: HeadingWithContent;
 };
 
 export type StyledPageSection = {
@@ -128,6 +129,7 @@ export type StyledVaccineContent = {
   howToGetVaccine: StyledPageSection;
   vaccineSideEffects: StyledPageSection;
   webpageLink: URL;
+  callout?: HeadingWithContent;
 };
 
 export type ContentApiVaccinationsResponse = {
