@@ -13,14 +13,21 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
   return actions.map((action: Action) => {
     switch (action.type) {
       case ActionDisplayType.infotext: {
-        return _infotext(action.content, action.delineator);
+        return <InfoText content={action.content} delineator={action.delineator} />;
       }
       case ActionDisplayType.card: {
-        return _card(action.content, action.delineator);
+        return <Card content={action.content} delineator={action.delineator} />;
       }
       case ActionDisplayType.buttonWithCard: {
         const card = action.content && <BasicCard content={action.content} delineator={false} />;
-        const button = action.button && _button(action.button.url, action.button.label, "button", action.delineator);
+        const button = action.button && (
+          <Button
+            url={action.button.url}
+            label={action.button.label}
+            renderAs={"button"}
+            delineator={action.delineator}
+          />
+        );
         return (
           <div key={action.content} data-testid="action-auth-button-components">
             {card}
@@ -30,8 +37,15 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
         );
       }
       case ActionDisplayType.buttonWithInfo: {
-        const info = action.content && _infotext(action.content, false);
-        const button = action.button && _button(action.button.url, action.button.label, "button", action.delineator);
+        const info = action.content && <InfoText content={action.content} delineator={false} />;
+        const button = action.button && (
+          <Button
+            url={action.button.url}
+            label={action.button.label}
+            renderAs={"button"}
+            delineator={action.delineator}
+          />
+        );
         return (
           <div key={action.content} data-testid="action-auth-button-components">
             {info}
@@ -41,7 +55,7 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
         );
       }
       case ActionDisplayType.actionLinkWithInfo: {
-        const info = action.content && _infotext(action.content, false);
+        const info = action.content && <InfoText content={action.content} delineator={false} />;
         const link = action.button && (
           <ActionLink asElement="a" href={action.button.url.href} rel="noopener" target="_blank">
             {action.button.label}
@@ -59,7 +73,12 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
   });
 };
 
-const _infotext = (content: Content, delineator: boolean): JSX.Element => {
+type InfoTextProps = {
+  content: Content;
+  delineator: boolean;
+};
+
+const InfoText = ({ content, delineator }: InfoTextProps): JSX.Element => {
   return (
     <div key={content} data-testid="action-paragraph">
       <MarkdownWithStyling content={content} delineator={delineator} />
@@ -67,7 +86,12 @@ const _infotext = (content: Content, delineator: boolean): JSX.Element => {
   );
 };
 
-const _card = (content: Content, delineator: boolean): JSX.Element => {
+type CardProps = {
+  content: Content;
+  delineator: boolean;
+};
+
+const Card = ({ content, delineator }: CardProps): JSX.Element => {
   return (
     <div key={content} data-testid="action-card-component">
       <BasicCard content={content} delineator={delineator} />
@@ -75,12 +99,14 @@ const _card = (content: Content, delineator: boolean): JSX.Element => {
   );
 };
 
-const _button = (
-  url: ButtonUrl,
-  label: Label,
-  renderAs: "anchor" | "button" | "actionLink",
-  delineator: boolean,
-): JSX.Element => {
+type ButtonProps = {
+  url: ButtonUrl;
+  label: Label;
+  renderAs: "anchor" | "button" | "actionLink";
+  delineator: boolean;
+};
+
+const Button = ({ url, label, renderAs, delineator }: ButtonProps): JSX.Element => {
   return (
     <NBSBookingActionForBaseUrl
       url={url.href}
