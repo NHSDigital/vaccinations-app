@@ -559,7 +559,28 @@ export const genericVaccineContentAPIResponse: ContentApiVaccineResponse = {
 };
 
 export const mockStyledContent: StyledVaccineContent = {
-  overview: "Overview <b>text</b>",
+  overview: { content: "Overview text", containsHtml: false },
+  whatVaccineIsFor: {
+    heading: "what-heading",
+    component: <p>What Section styled component</p>,
+  },
+  whoVaccineIsFor: {
+    heading: "who-heading",
+    component: <h2>Who Section styled component</h2>,
+  },
+  howToGetVaccine: {
+    heading: "how-heading",
+    component: <div>How Section styled component</div>,
+  },
+  vaccineSideEffects: {
+    heading: "side-effects-heading",
+    component: <div>Side effects section styled component</div>,
+  },
+  webpageLink: new URL("https://test.example.com/"),
+};
+
+export const mockStyledContentWithHtmlOverview: StyledVaccineContent = {
+  overview: { content: "Overview <b>text</b>", containsHtml: true },
   whatVaccineIsFor: {
     heading: "what-heading",
     component: <p>What Section styled component</p>,
@@ -580,7 +601,7 @@ export const mockStyledContent: StyledVaccineContent = {
 };
 
 export const mockStyledContentWithoutWhatSection: StyledVaccineContent = {
-  overview: "Overview text",
+  overview: { content: "Overview text", containsHtml: false },
   whoVaccineIsFor: {
     heading: "who-heading",
     component: <h2>Who Section styled component</h2>,

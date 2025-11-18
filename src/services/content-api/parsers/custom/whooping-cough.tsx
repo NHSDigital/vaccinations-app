@@ -9,7 +9,7 @@ export const getFilteredContentForWhoopingCoughVaccine = (apiContent: string): V
     .map((part) => part?.text)
     .filter((text): text is string => !!text);
 
-  const overview = paragraphs[0];
+  const overview = { content: paragraphs[0], containsHtml: true };
   const whatVaccineIsFor: VaccinePageSection = {
     headline: "What the vaccine is for",
     subsections: [{ type: "simpleElement", headline: "", text: paragraphs[1], name: "markdown" }],

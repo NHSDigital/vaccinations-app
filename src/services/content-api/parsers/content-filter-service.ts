@@ -4,6 +4,7 @@ import {
   ContentApiVaccineResponse,
   HasPartSubsection,
   MainEntityOfPage,
+  Overview,
   VaccinePageContent,
   VaccinePageSection,
   VaccinePageSubsection,
@@ -180,7 +181,7 @@ const getFilteredContentForVaccine = (vaccineType: VaccineType, apiContent: stri
 const getFilteredContentForStandardVaccine = (apiContent: string): VaccinePageContent => {
   const content: ContentApiVaccineResponse = JSON.parse(apiContent);
 
-  const overview: string = _extractDescriptionForVaccine(content, "lead paragraph");
+  const overview: Overview = { content: _extractDescriptionForVaccine(content, "lead paragraph"), containsHtml: false };
 
   let whatVaccineIsFor;
   if (_hasHealthAspect(content, "BenefitsHealthAspect")) {

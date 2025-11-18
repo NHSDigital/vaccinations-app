@@ -30,7 +30,10 @@ describe("Content API Read Integration Test ", () => {
 
     expect(styledVaccineContent).not.toBeNull();
     expect(contentError).toBeUndefined();
-    expect(styledVaccineContent?.overview).toEqual(mockRsvVaccineJson.mainEntityOfPage[0].text);
+    expect(styledVaccineContent?.overview).toEqual({
+      content: mockRsvVaccineJson.mainEntityOfPage[0].text,
+      containsHtml: false,
+    });
     expect(styledVaccineContent?.webpageLink.href).toEqual(mockRsvVaccineJson.webpage);
   });
 

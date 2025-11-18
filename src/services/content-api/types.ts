@@ -100,8 +100,10 @@ export type VaccinePageSection = {
   subsections: VaccinePageSubsection[];
 };
 
+export type Overview = { content: string; containsHtml: boolean };
+
 export type VaccinePageContent = {
-  overview: string;
+  overview: Overview;
   whatVaccineIsFor?: VaccinePageSection;
   whoVaccineIsFor: VaccinePageSection;
   howToGetVaccine: VaccinePageSection;
@@ -120,7 +122,7 @@ export type HeadingWithContent = {
 };
 
 export type StyledVaccineContent = {
-  overview: string;
+  overview: Overview;
   whatVaccineIsFor?: StyledPageSection;
   whoVaccineIsFor: StyledPageSection;
   howToGetVaccine: StyledPageSection;

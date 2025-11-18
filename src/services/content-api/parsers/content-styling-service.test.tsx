@@ -214,7 +214,7 @@ describe("ContentStylingService", () => {
         subsections: [mockMarkdownSubsection, mockUrgentSubsection],
       };
       const mockContent: VaccinePageContent = {
-        overview: "This is an overview",
+        overview: { content: "This is an overview", containsHtml: false },
         whatVaccineIsFor: mockWhatSection,
         whoVaccineIsFor: mockWhoSection,
         howToGetVaccine: mockHowSection,
@@ -265,7 +265,7 @@ describe("ContentStylingService", () => {
         subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
       };
       const mockContent: VaccinePageContent = {
-        overview: "This is an overview",
+        overview: { content: "This is an overview", containsHtml: false },
         whoVaccineIsFor: mockWhoSection,
         howToGetVaccine: mockHowSection,
         vaccineSideEffects: mockSideEffectsSection,
@@ -279,7 +279,7 @@ describe("ContentStylingService", () => {
       );
 
       expect(styledVaccineContent).not.toBeNull();
-      expect(styledVaccineContent.overview).toEqual("This is an overview");
+      expect(styledVaccineContent.overview).toEqual({ content: "This is an overview", containsHtml: false });
       expect(styledVaccineContent.whatVaccineIsFor).toBeUndefined();
       expect(isValidElement(styledVaccineContent.whoVaccineIsFor.component)).toBe(true);
       expect(isValidElement(styledVaccineContent.howToGetVaccine.component)).toBe(true);

@@ -2,7 +2,7 @@ import { vitaContentChangedSinceLastApproved } from "@src/_lambda/content-cache-
 import { VaccinePageContent } from "@src/services/content-api/types";
 
 const mockPreviousApprovedVaccineContent: VaccinePageContent = {
-  overview: "This is an overview",
+  overview: { content: "This is an overview", containsHtml: false },
   whatVaccineIsFor: {
     headline: "What Vaccine Is For",
     subsections: [
@@ -58,7 +58,10 @@ describe("vitaContentChangedSinceLastApproved", () => {
   });
 
   it("should return true if content changed since last approved", async () => {
-    const mockChangedContent = { ...mockPreviousApprovedVaccineContent, overview: "changed-overview" };
+    const mockChangedContent = {
+      ...mockPreviousApprovedVaccineContent,
+      overview: { content: "changed-overview", containsHtml: false },
+    };
 
     expect(vitaContentChangedSinceLastApproved(mockChangedContent, mockPreviousApprovedVaccineContent)).toBeTruthy();
   });

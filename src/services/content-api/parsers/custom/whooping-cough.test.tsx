@@ -24,7 +24,7 @@ const apiResponse = JSON.stringify({
 
 describe("getFilteredContentForVaccine", () => {
   it("should return overview text from lead paragraph mainEntityOfPage object", async () => {
-    const expected = { overview: "Whooping Cough Vaccine Lead Paragraph (overview)" };
+    const expected = { overview: { content: "Whooping Cough Vaccine Lead Paragraph (overview)", containsHtml: true } };
 
     const pageCopy = getFilteredContentForWhoopingCoughVaccine(apiResponse);
 

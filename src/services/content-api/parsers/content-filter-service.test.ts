@@ -527,7 +527,7 @@ describe("Content Filter", () => {
   describe("getFilteredContentForVaccine", () => {
     it("should return overview text from lead paragraph mainEntityOfPage object", async () => {
       const expectedOverview = {
-        overview: "Generic Vaccine Lead Paragraph (overview)",
+        overview: { content: "Generic Vaccine Lead Paragraph (overview)", containsHtml: false },
       };
 
       const pageCopyForRsv = getFilteredContentForVaccine(

@@ -26,7 +26,10 @@ describe("getContentForVaccine()", () => {
       const { styledVaccineContent, contentError }: GetContentForVaccineResponse = await getContentForVaccine(vaccine);
 
       expect(styledVaccineContent).toBeDefined();
-      expect(styledVaccineContent?.overview).toEqual(mockRsvVaccineJson.mainEntityOfPage[0].text);
+      expect(styledVaccineContent?.overview).toEqual({
+        content: mockRsvVaccineJson.mainEntityOfPage[0].text,
+        containsHtml: false,
+      });
       expect(styledVaccineContent?.whatVaccineIsFor?.heading).toEqual(mockRsvVaccineJson.mainEntityOfPage[1].headline);
       expect(styledVaccineContent?.webpageLink.href).toEqual(mockRsvVaccineJson.webpage);
       expect(contentError).toBeUndefined();

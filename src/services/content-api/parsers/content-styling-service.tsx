@@ -5,6 +5,7 @@ import { styleHowToGetSectionForRsv } from "@src/services/content-api/parsers/cu
 import { styleHowToGetSectionForRsvPregnancy } from "@src/services/content-api/parsers/custom/rsv-pregnancy";
 import type {
   HeadingWithContent,
+  Overview,
   StyledPageSection,
   StyledVaccineContent,
   VaccinePageContent,
@@ -142,7 +143,7 @@ const getStyledContentForVaccine = async (
   filteredContent: VaccinePageContent,
   fragile: boolean,
 ): Promise<StyledVaccineContent> => {
-  const overview: string = filteredContent.overview;
+  const overview: Overview = filteredContent.overview;
   let whatVaccineIsFor;
   if (filteredContent.whatVaccineIsFor) {
     whatVaccineIsFor = styleSection(filteredContent.whatVaccineIsFor);
