@@ -3,7 +3,7 @@
 import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 import { VaccineType } from "@src/models/vaccine";
 import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
-import { AppConfig, configProvider } from "@src/utils/config";
+import lazyConfig from "@src/utils/lazy-config";
 import { logger } from "@src/utils/logger";
 import { Logger } from "pino";
 
@@ -24,11 +24,12 @@ const nbsVaccinePath: Record<VaccinesWithNBSBookingAvailable, string> = {
 };
 
 const getSSOUrlToNBSForVaccine = async (vaccineType: VaccinesWithNBSBookingAvailable) => {
-  const config: AppConfig = await configProvider();
-
   let redirectUrl;
   try {
-    const nbsURl = new URL(`${config.NBS_URL}${config.NBS_BOOKING_PATH}${nbsVaccinePath[vaccineType]}`);
+    const nbsURl = new URL(
+      `${await lazyConfig.NBS_BOOKING_PATH}${nbsVaccinePath[vaccineType]}`,
+      (await lazyConfig.NBS_URL) as URL,
+    );
     const nbsQueryParams = await getNbsQueryParams();
     nbsQueryParams.forEach((param) => {
       nbsURl.searchParams.append(param.name, param.value);
@@ -43,8 +44,7 @@ const getSSOUrlToNBSForVaccine = async (vaccineType: VaccinesWithNBSBookingAvail
 };
 
 const getNbsQueryParams = async () => {
-  const config: AppConfig = await configProvider();
-  const assertedLoginIdentityJWT = await generateAssertedLoginIdentityJwt(config);
+  const assertedLoginIdentityJWT = await generateAssertedLoginIdentityJwt();
 
   return [
     { name: NBS_QUERY_PARAMS.CAMPAIGN_ID, value: PLACEHOLDER_CAMPAIGN_ID },

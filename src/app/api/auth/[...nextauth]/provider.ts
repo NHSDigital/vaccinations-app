@@ -1,28 +1,26 @@
 import { OIDCConfig } from "@auth/core/providers";
 import pemToCryptoKey from "@src/utils/auth/pem-to-crypto-key";
-import { AppConfig, configProvider } from "@src/utils/config";
+import lazyConfig from "@src/utils/lazy-config";
 import { Profile } from "next-auth";
 
 export const NHS_LOGIN_PROVIDER_ID = "nhs-login";
 
 const NHSLoginAuthProvider = async (): Promise<OIDCConfig<Profile>> => {
-  const config: AppConfig = await configProvider();
-
   return {
     id: NHS_LOGIN_PROVIDER_ID,
     name: "NHS Login Auth Provider",
     type: "oidc",
-    issuer: config.NHS_LOGIN_URL,
-    clientId: config.NHS_LOGIN_CLIENT_ID,
-    wellKnown: `${config.NHS_LOGIN_URL}/.well-known/openid-configuration`,
+    issuer: (await lazyConfig.NHS_LOGIN_URL) as string,
+    clientId: (await lazyConfig.NHS_LOGIN_CLIENT_ID) as string,
+    wellKnown: `${await lazyConfig.NHS_LOGIN_URL}/.well-known/openid-configuration`,
     authorization: {
       params: {
-        scope: `${config.NHS_LOGIN_SCOPE}`,
+        scope: `${await lazyConfig.NHS_LOGIN_SCOPE}`,
         prompt: "none",
       },
     },
     token: {
-      clientPrivateKey: await pemToCryptoKey(config.NHS_LOGIN_PRIVATE_KEY),
+      clientPrivateKey: await pemToCryptoKey((await lazyConfig.NHS_LOGIN_PRIVATE_KEY) as string),
     },
     client: {
       token_endpoint_auth_method: "private_key_jwt",

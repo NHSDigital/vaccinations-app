@@ -88,6 +88,15 @@ class LazyConfigBuilder {
     return this.withNhsLoginClientId(value);
   }
 
+  public withNhsLoginScope(value: string): this {
+    this._configValues.NHS_LOGIN_SCOPE = value;
+    return this;
+  }
+
+  public andNhsLoginScope(value: string): this {
+    return this.withNhsLoginScope(value);
+  }
+
   public withNhsLoginPrivateKey(value: string): this {
     this._configValues.NHS_LOGIN_PRIVATE_KEY = value;
     return this;
@@ -123,6 +132,33 @@ class LazyConfigBuilder {
 
   public andEligibilityApiKey(value: string): this {
     return this.withEligibilityApiKey(value);
+  }
+
+  public withAuthSecret(value: string): this {
+    this._configValues.AUTH_SECRET = value;
+    return this;
+  }
+
+  public andAuthSecret(value: string): this {
+    return this.withAuthSecret(value);
+  }
+
+  public withNbsUrl(value: URL): this {
+    this._configValues.NBS_URL = value;
+    return this;
+  }
+
+  public andNbsUrl(value: URL): this {
+    return this.withNbsUrl(value);
+  }
+
+  public withNbsBookingPath(value: string): this {
+    this._configValues.NBS_BOOKING_PATH = value;
+    return this;
+  }
+
+  public andNbsBookingPath(value: string): this {
+    return this.withNbsBookingPath(value);
   }
 
   public build(): AsyncConfigMock {
