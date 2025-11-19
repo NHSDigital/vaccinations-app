@@ -1,9 +1,9 @@
 import { CONTENT_API_PATH_PREFIX, fetchContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-fetcher";
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
-import { AppConfig, configProvider } from "@src/utils/config";
+import lazyConfig from "@src/utils/lazy-config";
+import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
 import axios from "axios";
 
-jest.mock("@src/utils/config");
 jest.mock("axios");
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
@@ -11,15 +11,14 @@ describe("fetchContentForVaccine", () => {
   const testApiKey: string = "test-key";
   const testApiEndpoint: URL = new URL("https://test-endpoint/");
   const testApiContent = { test: "content" };
+  const mockedConfig = lazyConfig as AsyncConfigMock;
 
   beforeEach(() => {
-    (configProvider as jest.Mock).mockImplementation(
-      (): Partial<AppConfig> => ({
-        CONTENT_CACHE_PATH: "",
-        CONTENT_API_KEY: testApiKey,
-        CONTENT_API_ENDPOINT: testApiEndpoint,
-      }),
-    );
+    const defaultConfig = lazyConfigBuilder()
+      .withContentApiKey(testApiKey)
+      .andContentApiEndpoint(testApiEndpoint)
+      .build();
+    Object.assign(mockedConfig, defaultConfig);
   });
 
   it("should fetch content for vaccine", async () => {

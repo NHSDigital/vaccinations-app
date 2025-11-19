@@ -115,14 +115,18 @@ class LazyConfig {
 
   private async getFromEnvironmentOrSSM(key: string): Promise<string> {
     let value = process.env[key];
+    const initialDelayMillis = 100;
 
     if (value === undefined || value === null) {
       const ssmPrefix = await this.getSsmPrefix();
 
       log.debug({ context: { key, ssmPrefix } }, "getting from SSM");
+      // Get value from SSM, on failure retry won 100ms initially, with retry delays doubling each time
+      // 100ms -> 200ms -> 400ms etc
+      // Total ~ 100s
       value = await retry(() => getSSMParam(`${ssmPrefix}${key}`), {
         retries: 10,
-        delay: (attempt) => 100 * Math.pow(2, attempt - 1),
+        delay: (attempt) => initialDelayMillis * Math.pow(2, attempt - 1),
       });
     }
 
