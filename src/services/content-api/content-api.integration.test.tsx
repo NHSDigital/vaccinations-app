@@ -10,7 +10,6 @@ import lazyConfig from "@src/utils/lazy-config";
 import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
 import { Readable } from "stream";
 
-jest.mock("@src/utils/config");
 jest.mock("@aws-sdk/client-s3");
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
