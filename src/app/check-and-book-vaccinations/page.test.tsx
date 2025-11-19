@@ -9,23 +9,43 @@ describe("Vaccination Hub Page", () => {
     render(<VaccinationsHub />);
   });
 
-  it("renders heading", async () => {
+  it("renders main heading", async () => {
     expectHeadingToBeRendered();
   });
 
-  it("renders  vaccines for all ages button", async () => {
-    const button = screen.getByRole("link", { name: "View vaccines for all ages" });
-    expect(button).toBeVisible();
-    expect(button).toHaveAttribute("href", "/vaccines-for-all-ages");
+  it("renders subheading about pregnancy", () => {
+    const subheading: HTMLElement = getHeading("Vaccines if you are pregnant", 2);
+    expect(subheading).toBeVisible();
+  });
+
+  it("renders subtext about pregnancy", () => {
+    const subtext: HTMLElement = screen.getByText(
+      "Some vaccines are recommended during pregnancy to protect the health of you and your baby.",
+    );
+    expect(subtext).toBeVisible();
+  });
+
+  it("renders vaccines during pregnancy card link", async () => {
+    expectLinkToBeRendered("Vaccines during pregnancy", "/vaccines-during-pregnancy");
+  });
+
+  it("renders vaccines for all ages button", async () => {
+    expectLinkToBeRendered("View vaccines for all ages", "/vaccines-for-all-ages");
   });
 });
 
 const expectHeadingToBeRendered = () => {
-  expect(queryHeading(SERVICE_HEADING, 1)).toBeVisible();
+  expect(getHeading(SERVICE_HEADING, 1)).toBeVisible();
 };
 
-const queryHeading = (text: string, level: number): HTMLElement | null => {
-  return screen.queryByRole("heading", {
+const expectLinkToBeRendered = (text: string, href: string) => {
+  const link: HTMLElement = screen.getByRole("link", { name: text });
+  expect(link).toBeVisible();
+  expect(link).toHaveAttribute("href", href);
+};
+
+const getHeading = (text: string, level: number): HTMLElement => {
+  return screen.getByRole("heading", {
     name: text,
     level: level,
   });
