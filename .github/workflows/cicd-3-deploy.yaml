@@ -41,7 +41,7 @@ jobs:
       - name: "Check version exists"
         shell: bash
         run: |
-          RELEASE_VERSION=$(git tag | grep -oP "^${{inputs.version-to-deploy}}$")
+          RELEASE_VERSION=$(git tag | grep -oFx "${{inputs.version-to-deploy}}")
           if [[ -z "$RELEASE_VERSION" ]]; then
             echo "Invalid version number ${{inputs.version-to-deploy}} does not exist."
             exit 1
