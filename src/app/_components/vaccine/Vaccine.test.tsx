@@ -125,6 +125,14 @@ describe("Any vaccine page", () => {
       expect(overviewText).toBeInTheDocument();
     });
 
+    it("should include callout text", async () => {
+      await renderNamedVaccinePage(VaccineType.HIB_MENC);
+
+      const overviewText: HTMLElement = screen.getByTestId("callout");
+
+      expect(overviewText).toBeInTheDocument();
+    });
+
     it("should include lowercase vaccine name in more information text", async () => {
       const expectedMoreInformationHeading: string = "More information about the RSV vaccine";
 
@@ -185,6 +193,14 @@ describe("Any vaccine page", () => {
       await renderNamedVaccinePage(VaccineType.TD_IPV_3_IN_1);
 
       const overviewText: HTMLElement | null = screen.queryByTestId("overview-text");
+
+      expect(overviewText).not.toBeInTheDocument();
+    });
+
+    it("should not display callout", async () => {
+      await renderNamedVaccinePage(VaccineType.HIB_MENC);
+
+      const overviewText: HTMLElement | null = screen.queryByTestId("callout");
 
       expect(overviewText).not.toBeInTheDocument();
     });

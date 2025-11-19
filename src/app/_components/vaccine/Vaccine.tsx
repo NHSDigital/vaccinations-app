@@ -1,6 +1,7 @@
 "use server";
 
 import { auth } from "@project/auth";
+import { Callout } from "@src/app/_components/content/Callout";
 import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
 import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
 import { MoreInformation } from "@src/app/_components/content/MoreInformation";
@@ -65,8 +66,12 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
   return (
     <div className={styles.tableCellSpanHide}>
       {contentError != ContentErrorTypes.CONTENT_LOADING_ERROR && styledVaccineContent != undefined && (
-        <Overview styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
+        <>
+          <Overview styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
+          <Callout styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
+        </>
       )}
+
       {/* Eligibility section for RSV */}
       {vaccineType === VaccineType.RSV && eligibilityForPerson !== undefined && (
         <EligibilityVaccinePageContent

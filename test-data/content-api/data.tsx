@@ -591,6 +591,7 @@ export const mockStyledContent: StyledVaccineContent = {
     component: <div>Side effects section styled component</div>,
   },
   webpageLink: new URL("https://test.example.com/"),
+  callout: { heading: "Callout Heading", content: "Callout content" },
 };
 
 export const mockStyledContentWithHtmlOverview: StyledVaccineContent = {

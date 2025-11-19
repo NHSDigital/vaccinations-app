@@ -213,6 +213,7 @@ describe("ContentStylingService", () => {
         headline: "Side effects of the generic vaccine",
         subsections: [mockMarkdownSubsection, mockUrgentSubsection],
       };
+      const mockCallout: HeadingWithContent = { heading: "Callout Heading", content: "Callout content" };
       const mockContent: VaccinePageContent = {
         overview: { content: "This is an overview", containsHtml: false },
         whatVaccineIsFor: mockWhatSection,
@@ -220,6 +221,7 @@ describe("ContentStylingService", () => {
         howToGetVaccine: mockHowSection,
         vaccineSideEffects: mockSideEffectsSection,
         webpageLink: new URL("https://test.example.com/"),
+        callout: mockCallout,
       };
 
       const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(vaccine, mockContent, false);
@@ -230,6 +232,7 @@ describe("ContentStylingService", () => {
       expect(styledVaccineContent.whoVaccineIsFor.heading).toEqual(mockWhoSection.headline);
       expect(styledVaccineContent.howToGetVaccine.heading).toEqual(mockHowSection.headline);
       expect(styledVaccineContent.vaccineSideEffects.heading).toEqual(mockSideEffectsSection.headline);
+      expect(styledVaccineContent.callout?.heading).toEqual(mockCallout.heading);
 
       const expectedRsvHowToGetSection = "<div><p>para1</p><p>para2</p></div>";
       const expectedRsvPregnancyHowToGetSection = `<div><div><p>para3</p><p>para4</p></div></div>`;

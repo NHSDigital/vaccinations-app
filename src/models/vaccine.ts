@@ -34,6 +34,7 @@ export type VaccineDetails = {
   contentPath: UrlPathFragment;
   cacheFilename: Filename;
   nboPath: UrlPathFragment;
+  showWarningCallout?: boolean;
 };
 
 type displayName = {
@@ -274,6 +275,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     contentPath: "vaccinations/hib-menc-vaccine" as UrlPathFragment,
     cacheFilename: "hib-menc-vaccine.json" as Filename,
     nboPath: "hib-menc-vaccine" as UrlPathFragment,
+    showWarningCallout: true,
   },
 };
 

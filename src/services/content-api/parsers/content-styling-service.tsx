@@ -138,6 +138,13 @@ const styleHowToGetSection = (
   }
 };
 
+function styleCallout(callout: HeadingWithContent | undefined): HeadingWithContent | undefined {
+  if (callout) {
+    return { heading: callout.heading, content: callout.content };
+  }
+  return undefined;
+}
+
 const getStyledContentForVaccine = async (
   vaccine: VaccineType,
   filteredContent: VaccinePageContent,
@@ -151,6 +158,7 @@ const getStyledContentForVaccine = async (
   const whoVaccineIsFor: StyledPageSection = styleSection(filteredContent.whoVaccineIsFor);
   const howToGetVaccine: StyledPageSection = styleHowToGetSection(vaccine, filteredContent.howToGetVaccine, fragile);
   const vaccineSideEffects: StyledPageSection = styleSection(filteredContent.vaccineSideEffects);
+  const callout: HeadingWithContent | undefined = styleCallout(filteredContent.callout);
   const webpageLink: URL = filteredContent.webpageLink;
 
   return {
@@ -160,6 +168,7 @@ const getStyledContentForVaccine = async (
     howToGetVaccine,
     vaccineSideEffects,
     webpageLink,
+    callout,
   };
 };
 
