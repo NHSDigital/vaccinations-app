@@ -1,5 +1,5 @@
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
-import { AppConfig, configProvider } from "@src/utils/config";
+import lazyConfig from "@src/utils/lazy-config";
 import { logger } from "@src/utils/logger";
 import axios, { AxiosError, AxiosResponse } from "axios";
 
@@ -7,11 +7,9 @@ const log = logger.child({ module: "content-fetcher" });
 const CONTENT_API_PATH_PREFIX = "nhs-website-content/";
 
 const fetchContentForVaccine = async (vaccineType: VaccineType): Promise<string> => {
-  const config: AppConfig = await configProvider();
-
-  const apiEndpoint: URL = config.CONTENT_API_ENDPOINT;
+  const apiEndpoint: URL = (await lazyConfig.CONTENT_API_ENDPOINT) as URL;
   const vaccinePath = VaccineInfo[vaccineType].contentPath;
-  const apiKey: string = config.CONTENT_API_KEY;
+  const apiKey: string = (await lazyConfig.CONTENT_API_KEY) as string;
 
   const uri: string = `${apiEndpoint}${CONTENT_API_PATH_PREFIX}${vaccinePath}`;
   let response: AxiosResponse;

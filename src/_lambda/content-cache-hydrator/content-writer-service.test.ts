@@ -8,10 +8,10 @@ import {
   writeContentForVaccine,
 } from "@src/_lambda/content-cache-hydrator/content-writer-service";
 import { Filename, VaccineInfo, VaccineType } from "@src/models/vaccine";
-import { configProvider } from "@src/utils/config";
+import lazyConfig from "@src/utils/lazy-config";
+import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
 import { writeFile } from "node:fs/promises";
 
-jest.mock("@src/utils/config");
 jest.mock("node:fs/promises");
 
 let mockSend: jest.Mock = jest.fn();
@@ -29,9 +29,12 @@ describe("Content Writer Service", () => {
   const location: string = "test-location/";
   const path: Filename = "test-filename.json" as Filename;
   const content: string = "test-data";
+  const mockedConfig = lazyConfig as AsyncConfigMock;
 
   beforeEach(() => {
     mockSend = jest.fn();
+    const defaultConfig = lazyConfigBuilder().withContentCachePath(location).build();
+    Object.assign(mockedConfig, defaultConfig);
   });
 
   describe("_writeFileS3", () => {
@@ -74,10 +77,6 @@ describe("Content Writer Service", () => {
   });
 
   describe("writeContentForVaccine()", () => {
-    (configProvider as jest.Mock).mockImplementation(() => ({
-      CONTENT_CACHE_PATH: location,
-    }));
-
     it("should return response for rsv vaccine from content cache", async () => {
       const vaccine: VaccineType = VaccineType.RSV;
       await writeContentForVaccine(vaccine, content);
