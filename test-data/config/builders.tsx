@@ -120,6 +120,33 @@ class LazyConfigBuilder {
     return this;
   }
 
+  public withContentApiKey(value: string): this {
+    this._configValues.CONTENT_API_KEY = value;
+    return this;
+  }
+
+  public andContentApiKey(value: string): this {
+    return this.withContentApiKey(value);
+  }
+
+  public withContentApiEndpoint(value: URL): this {
+    this._configValues.CONTENT_API_ENDPOINT = value;
+    return this;
+  }
+
+  public andContentApiEndpoint(value: URL): this {
+    return this.withContentApiEndpoint(value);
+  }
+
+  public withContentCacheIsChangeApprovalEnabled(value: boolean): this {
+    this._configValues.CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED = value;
+    return this;
+  }
+
+  public andContentCacheIsChangeApprovalEnabled(value: boolean): this {
+    return this.withContentCacheIsChangeApprovalEnabled(value);
+  }
+
   public withEligibilityApiEndpoint(value: URL): this {
     this._configValues.ELIGIBILITY_API_ENDPOINT = value;
     return this;

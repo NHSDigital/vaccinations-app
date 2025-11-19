@@ -5,16 +5,16 @@ import {
 import { vitaContentChangedSinceLastApproved } from "@src/_lambda/content-cache-hydrator/content-change-detector";
 import { fetchContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-fetcher";
 import { writeContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-writer-service";
-import { _getConfigsThatThrowsOnColdStarts, handler } from "@src/_lambda/content-cache-hydrator/handler";
+import { handler } from "@src/_lambda/content-cache-hydrator/handler";
 import { invalidateCacheForVaccine } from "@src/_lambda/content-cache-hydrator/invalidate-cache";
 import { VaccineType } from "@src/models/vaccine";
 import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
-import { configProvider } from "@src/utils/config";
+import lazyConfig from "@src/utils/lazy-config";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
+import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
 import { Context } from "aws-lambda";
 
-jest.mock("@src/utils/config");
 jest.mock("@src/_lambda/content-cache-hydrator/content-writer-service");
 jest.mock("@src/_lambda/content-cache-hydrator/content-fetcher");
 jest.mock("@src/_lambda/content-cache-hydrator/content-cache-reader");
@@ -52,28 +52,12 @@ describe("Lambda Handler", () => {
     (writeContentForVaccine as jest.Mock).mockResolvedValue(undefined);
   });
 
-  describe("when config provider is flaky on cold starts", () => {
-    it("tries 3 times and throws when configProvider fails", async () => {
-      (configProvider as jest.Mock).mockRejectedValue(undefined);
-
-      await expect(_getConfigsThatThrowsOnColdStarts(0)).rejects.toThrow("Failed to get configs");
-
-      expect(configProvider).toHaveBeenCalledTimes(3);
-    });
-    it("returns configs when configProvider succeeds", async () => {
-      const testConfig = { test: "test" };
-      (configProvider as jest.Mock).mockResolvedValue(testConfig);
-
-      const configs = await _getConfigsThatThrowsOnColdStarts(0);
-      expect(configs).toBe(testConfig);
-
-      expect(configProvider).toHaveBeenCalledTimes(1);
-    });
-  });
-
   describe("when content-change-approval-needed feature disabled", () => {
+    const mockedConfig = lazyConfig as AsyncConfigMock;
+
     beforeEach(() => {
-      mockConfigProviderWithChangeApprovalSetTo(false);
+      const defaultConfig = lazyConfigBuilder().withContentCacheIsChangeApprovalEnabled(false).build();
+      Object.assign(mockedConfig, defaultConfig);
     });
 
     it("saves new vaccine content when cache was empty", async () => {
@@ -116,8 +100,11 @@ describe("Lambda Handler", () => {
   });
 
   describe("when content-change-approval-needed feature enabled", () => {
+    const mockedConfig = lazyConfig as AsyncConfigMock;
+
     beforeEach(() => {
-      mockConfigProviderWithChangeApprovalSetTo(true);
+      const defaultConfig = lazyConfigBuilder().withContentCacheIsChangeApprovalEnabled(true).build();
+      Object.assign(mockedConfig, defaultConfig);
     });
 
     it("overwrites invalidated cache with new updated content when forceUpdate is true in inbound event", async () => {
@@ -229,12 +216,6 @@ describe("Lambda Handler", () => {
       await expectUpdateOnlyOneVaccineIfNameSetOnInboundEvent();
     });
   });
-
-  const mockConfigProviderWithChangeApprovalSetTo = (changeApprovalEnabled: boolean) => {
-    (configProvider as jest.Mock).mockImplementation(() => ({
-      CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: changeApprovalEnabled,
-    }));
-  };
 
   const mockReadCachedContentForVaccineWith = (mockInvalidatedCacheReadResult: ReadCachedContentResult) => {
     (readCachedContentForVaccine as jest.Mock).mockResolvedValue(mockInvalidatedCacheReadResult);
