@@ -7,6 +7,10 @@ on:
         description: 'Environment to deploy to'
         type: environment
         required: true
+      version-to-deploy:
+        description: 'Version tag to deploy (e.g. v1.0.0)'
+        type: string
+        required: true
       release:
         description: 'Run assurance tests based on Hub URL for'
         type: choice
@@ -32,14 +36,16 @@ jobs:
       version: ${{ steps.variables.outputs.version }}
       tag: ${{ steps.variables.outputs.tag }}
     steps:
-      - name: "Check ref"
-        run: |
-          if ${{ !startsWith(github.ref, 'refs/tags/') }}; then
-            echo "❌ Only tagged deployments allowed."
-            exit 1
-          fi
       - name: "Checkout code"
         uses: actions/checkout@v5
+      - name: "Check version exists"
+        shell: bash
+        run: |
+          RELEASE_VERSION=$(git tag | grep -oP "^${{inputs.version-to-deploy}}$")
+          if [[ -z "$RELEASE_VERSION" ]]; then
+            echo "Invalid version number ${{inputs.version-to-deploy}} does not exist."
+            exit 1
+          fi
       - name: "Set CI/CD variables"
         id: variables
         run: |
@@ -52,7 +58,7 @@ jobs:
           echo "terraform_version=$(grep "^terraform" .tool-versions | cut -f2 -d' ')" | tee -a $GITHUB_OUTPUT
           # TODO: Get the version, but it may not be the .version file as this should come from the CI/CD Pull Request Workflow
           echo "version=$(head -n 1 .version 2> /dev/null || echo unknown)" | tee -a $GITHUB_OUTPUT
-          echo "tag=${{ github.ref_name }}" | tee -a $GITHUB_OUTPUT
+          echo "tag=${{ inputs.version-to-deploy }}" | tee -a $GITHUB_OUTPUT
       - name: "List variables"
         run: |
           export BUILD_DATETIME="${{ steps.variables.outputs.build_datetime }}"
