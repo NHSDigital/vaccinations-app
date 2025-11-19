@@ -3,8 +3,8 @@
  */
 import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
 import { getJwtToken } from "@src/utils/auth/get-jwt-token";
-import { AppConfig } from "@src/utils/config";
-import { appConfigBuilder } from "@test-data/config/builders";
+import lazyConfig from "@src/utils/lazy-config";
+import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
 import jwt from "jsonwebtoken";
 import { jwtDecode } from "jwt-decode";
 
@@ -12,16 +12,11 @@ jest.mock("jsonwebtoken", () => ({
   sign: jest.fn(),
 }));
 jest.mock("jwt-decode");
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 jest.mock("@src/utils/auth/get-jwt-token", () => ({
   getJwtToken: jest.fn(),
 }));
-
-const mockConfig: AppConfig = appConfigBuilder()
-  .withNHS_LOGIN_URL("https://mock.nhs.login")
-  .andNHS_LOGIN_CLIENT_ID("mock-client-id")
-  .andNHS_LOGIN_PRIVATE_KEY("private-key")
-  .build();
 
 const mockSignedJwt = "mock-signed-jwt";
 const mockRandomUUID = "mock-jti";
@@ -35,6 +30,7 @@ const mockJwtToken = {
 
 describe("generate-auth-payload", () => {
   let randomUUIDSpy: jest.SpyInstance;
+  const mockedConfig = lazyConfig as AsyncConfigMock;
 
   beforeAll(() => {
     randomUUIDSpy = jest.spyOn(global.crypto, "randomUUID").mockReturnValue(mockRandomUUID);
@@ -47,6 +43,12 @@ describe("generate-auth-payload", () => {
     (jwtDecode as jest.Mock).mockReturnValue({
       jti: mockJtiFromSessionIdToken,
     });
+    const defaultConfig = lazyConfigBuilder()
+      .withNhsLoginUrl(new URL("https://mock.nhs.login"))
+      .andNhsLoginClientId("mock-client-id")
+      .andNhsLoginPrivateKey("private-key")
+      .build();
+    Object.assign(mockedConfig, defaultConfig);
   });
 
   afterAll(() => {
@@ -62,13 +64,13 @@ describe("generate-auth-payload", () => {
 
       const expectedAssertedLoginPayloadContent = {
         code: mockJtiFromSessionIdToken,
-        iss: mockConfig.NHS_LOGIN_CLIENT_ID,
+        iss: "mock-client-id",
         jti: mockRandomUUID,
         iat: mockNowInSeconds,
         exp: mockNowInSeconds + 60,
       };
 
-      const token = await generateAssertedLoginIdentityJwt(mockConfig);
+      const token = await generateAssertedLoginIdentityJwt();
 
       expect(jwt.sign).toHaveBeenCalledWith(expectedAssertedLoginPayloadContent, "private-key", { algorithm: "RS512" });
       expect(token).toEqual(mockSignedJwt);
@@ -83,7 +85,7 @@ describe("generate-auth-payload", () => {
 
       (getJwtToken as jest.Mock).mockResolvedValue(mockJwtTokenWithMissingJti);
 
-      await expect(generateAssertedLoginIdentityJwt(mockConfig)).rejects.toThrow(
+      await expect(generateAssertedLoginIdentityJwt()).rejects.toThrow(
         "Missing information. hasJwtToken=true, hasNHSLogin=true, hasIDToken=false",
       );
     });
@@ -93,7 +95,7 @@ describe("generate-auth-payload", () => {
 
       (jwt.sign as jest.Mock).mockRejectedValue(new Error("Invalid key"));
 
-      await expect(generateAssertedLoginIdentityJwt(mockConfig)).rejects.toThrow("Invalid key");
+      await expect(generateAssertedLoginIdentityJwt()).rejects.toThrow("Invalid key");
     });
   });
 });
