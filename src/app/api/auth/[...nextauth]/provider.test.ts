@@ -2,7 +2,6 @@ import NHSLoginAuthProvider from "@src/app/api/auth/[...nextauth]/provider";
 import lazyConfig from "@src/utils/lazy-config";
 import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
 
-jest.mock("@src/utils/config");
 jest.mock("@src/utils/auth/pem-to-crypto-key");
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 

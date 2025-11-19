@@ -1,36 +1,5 @@
-import { ApimConfig } from "@src/utils/apimConfig";
-import { AppConfig } from "@src/utils/config";
 import { ConfigValue } from "@src/utils/lazy-config";
-import { createTypeBuilder, randomBoolean, randomInteger, randomString, randomURL } from "@test-data/meta-builder";
-
-export function appConfigBuilder() {
-  return createTypeBuilder<AppConfig>({
-    CONTENT_API_ENDPOINT: randomURL(),
-    ELIGIBILITY_API_ENDPOINT: randomURL(),
-    CONTENT_API_KEY: randomString(10),
-    ELIGIBILITY_API_KEY: randomString(10),
-    CONTENT_CACHE_PATH: randomString(10),
-    NHS_LOGIN_URL: randomString(10),
-    NHS_LOGIN_CLIENT_ID: randomString(10),
-    NHS_LOGIN_SCOPE: randomString(10),
-    NHS_LOGIN_PRIVATE_KEY: randomString(10),
-    NBS_URL: randomString(10),
-    NBS_BOOKING_PATH: randomString(10),
-    NHS_APP_REDIRECT_LOGIN_URL: randomString(10),
-    MAX_SESSION_AGE_MINUTES: randomInteger(1, 999),
-    IS_APIM_AUTH_ENABLED: randomBoolean(),
-    AUTH_SECRET: randomString(10),
-  });
-}
-
-export function apimConfigBuilder() {
-  return createTypeBuilder<ApimConfig>({
-    ELIGIBILITY_API_KEY: randomString(10),
-    APIM_PRIVATE_KEY: randomString(10),
-    APIM_AUTH_URL: randomURL(),
-    APIM_KEY_ID: randomString(10),
-  });
-}
+import { randomBoolean, randomInteger, randomString, randomURL } from "@test-data/meta-builder";
 
 export type AsyncConfigMock = {
   [key: string]: Promise<ConfigValue>;
@@ -115,6 +84,33 @@ class LazyConfigBuilder {
     return this.withIsApimAuthEnabled(value);
   }
 
+  public withApimKeyId(value: string): this {
+    this._configValues.APIM_KEY_ID = value;
+    return this;
+  }
+
+  public andApimKeyId(value: string): this {
+    return this.withApimKeyId(value);
+  }
+
+  public withApimPrivateKey(value: string): this {
+    this._configValues.APIM_PRIVATE_KEY = value;
+    return this;
+  }
+
+  public andApimPrivateKey(value: string): this {
+    return this.withApimPrivateKey(value);
+  }
+
+  public withApimAuthUrl(value: URL): this {
+    this._configValues.APIM_AUTH_URL = value;
+    return this;
+  }
+
+  public andApimAuthUrl(value: URL): this {
+    return this.withApimAuthUrl(value);
+  }
+
   public withContentCachePath(value: string): this {
     this._configValues.CONTENT_CACHE_PATH = value;
     return this;
@@ -186,6 +182,15 @@ class LazyConfigBuilder {
 
   public andNbsBookingPath(value: string): this {
     return this.withNbsBookingPath(value);
+  }
+
+  public withPinoLogLevel(value: string): this {
+    this._configValues.PINO_LOG_LEVEL = value;
+    return this;
+  }
+
+  public andPinoLogLevel(value: string): this {
+    return this.withPinoLogLevel(value);
   }
 
   public build(): AsyncConfigMock {

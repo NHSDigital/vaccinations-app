@@ -1,10 +1,10 @@
 /**
  * @jest-environment node
  */
-import { ApimConfig } from "@src/utils/apimConfig";
 import { generateAPIMTokenPayload } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { APIMTokenPayload, IdToken } from "@src/utils/auth/types";
-import { apimConfigBuilder } from "@test-data/config/builders";
+import lazyConfig from "@src/utils/lazy-config";
+import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
 import jwt from "jsonwebtoken";
 
 jest.mock("jsonwebtoken", () => ({
@@ -17,18 +17,14 @@ const mockSignedJwt = "mock-signed-jwt";
 const mockIdToken = "id-token" as IdToken;
 const mockNowInSeconds = 1749052001;
 
-const apimApiKey = "apim-api-key";
+const eligibilityApiKey = "eligibility-api-key";
 const apimKeyId = "apim-key-id";
 const apimPrivateKey = "apim-private-key";
-const mockApimConfig: ApimConfig = apimConfigBuilder()
-  .withELIGIBILITY_API_KEY(apimApiKey)
-  .andAPIM_AUTH_URL(new URL("https://apim-test-auth-url.com/test"))
-  .andAPIM_KEY_ID(apimKeyId)
-  .andAPIM_PRIVATE_KEY(apimPrivateKey)
-  .build();
+const apimAuthUrl = new URL("https://apim-test-auth-url.com/test");
 
 describe("generateAPIMTokenPayload", () => {
   let randomUUIDSpy: jest.SpyInstance;
+  const mockedConfig = lazyConfig as AsyncConfigMock;
 
   beforeAll(() => {
     randomUUIDSpy = jest.spyOn(global.crypto, "randomUUID").mockReturnValue(mockRandomUUID);
@@ -38,6 +34,13 @@ describe("generateAPIMTokenPayload", () => {
     randomUUIDSpy.mockClear();
     jest.useFakeTimers();
     jest.setSystemTime(mockNowInSeconds * 1000);
+    const defaultConfig = lazyConfigBuilder()
+      .withEligibilityApiKey(eligibilityApiKey)
+      .andApimAuthUrl(apimAuthUrl)
+      .andApimKeyId(apimKeyId)
+      .andApimPrivateKey(apimPrivateKey)
+      .build();
+    Object.assign(mockedConfig, defaultConfig);
   });
 
   afterAll(() => {
@@ -47,28 +50,28 @@ describe("generateAPIMTokenPayload", () => {
   });
 
   describe("new access token requested", () => {
-    it("should include signed client_assertion with expected iss sub and aud values", () => {
+    it("should include signed client_assertion with expected iss sub and aud values", async () => {
       (jwt.sign as jest.Mock).mockReturnValue(mockSignedJwt);
 
       const expectedClientAssertionPayloadContent = {
-        iss: mockApimConfig.ELIGIBILITY_API_KEY,
-        sub: mockApimConfig.ELIGIBILITY_API_KEY,
-        aud: mockApimConfig.APIM_AUTH_URL.href,
+        iss: eligibilityApiKey,
+        sub: eligibilityApiKey,
+        aud: apimAuthUrl.href,
         jti: mockRandomUUID,
         exp: mockNowInSeconds + 300,
       };
 
-      const apimTokenPayload: APIMTokenPayload = generateAPIMTokenPayload(mockApimConfig, mockIdToken);
+      const apimTokenPayload: APIMTokenPayload = await generateAPIMTokenPayload(mockIdToken);
       const clientAssertionJWT = apimTokenPayload.client_assertion;
 
-      expect(jwt.sign).toHaveBeenCalledWith(expectedClientAssertionPayloadContent, mockApimConfig.APIM_PRIVATE_KEY, {
+      expect(jwt.sign).toHaveBeenCalledWith(expectedClientAssertionPayloadContent, apimPrivateKey, {
         algorithm: "RS512",
-        keyid: mockApimConfig.APIM_KEY_ID,
+        keyid: apimKeyId,
       });
       expect(clientAssertionJWT).toEqual(mockSignedJwt);
     });
 
-    it("should use token-exchange grant type & id_token as subject_token field", () => {
+    it("should use token-exchange grant type & id_token as subject_token field", async () => {
       // Given
       (jwt.sign as jest.Mock).mockReturnValue(mockSignedJwt);
 
@@ -81,7 +84,7 @@ describe("generateAPIMTokenPayload", () => {
       };
 
       // When
-      const apimTokenPayload = generateAPIMTokenPayload(mockApimConfig, mockIdToken);
+      const apimTokenPayload = await generateAPIMTokenPayload(mockIdToken);
 
       // Then
       expect(apimTokenPayload).toEqual(expectedTokenPayload);
@@ -92,9 +95,9 @@ describe("generateAPIMTokenPayload", () => {
         throw new Error("Invalid key");
       });
 
-      expect(() => {
-        generateAPIMTokenPayload(mockApimConfig, mockIdToken);
-      }).toThrow("Invalid key");
+      expect(async () => {
+        await generateAPIMTokenPayload(mockIdToken);
+      }).rejects.toThrow("Invalid key");
     });
   });
 });
