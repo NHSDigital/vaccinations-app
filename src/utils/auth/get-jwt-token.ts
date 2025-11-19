@@ -1,9 +1,8 @@
-import { AppConfig, configProvider } from "@src/utils/config";
+import lazyConfig from "@src/utils/lazy-config";
 import { JWT, getToken } from "next-auth/jwt";
 import { cookies, headers } from "next/headers";
 
 const getJwtToken = async (): Promise<JWT | null> => {
-  const config: AppConfig = await configProvider();
   const headerEntries = await headers();
   const cookieEntries = await cookies();
   const req = {
@@ -11,6 +10,6 @@ const getJwtToken = async (): Promise<JWT | null> => {
     cookies: Object.fromEntries(cookieEntries.getAll().map((c) => [c.name, c.value])),
   };
 
-  return await getToken({ req, secret: config.AUTH_SECRET, secureCookie: true });
+  return await getToken({ req, secret: (await lazyConfig.AUTH_SECRET) as string, secureCookie: true });
 };
 export { getJwtToken };

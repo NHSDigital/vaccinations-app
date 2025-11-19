@@ -1,12 +1,12 @@
 import { getJwtToken } from "@src/utils/auth/get-jwt-token";
 import { DecodedIdToken } from "@src/utils/auth/types";
-import { AppConfig } from "@src/utils/config";
+import lazyConfig from "@src/utils/lazy-config";
 import jwt from "jsonwebtoken";
 import { jwtDecode } from "jwt-decode";
 
 const ASSERTED_LOGIN_IDENTITY_EXPIRY_SECONDS = 60;
 
-const generateAssertedLoginIdentityJwt = async (config: AppConfig): Promise<string> => {
+const generateAssertedLoginIdentityJwt = async (): Promise<string> => {
   const token = await getJwtToken();
 
   if (!token?.nhs_login?.id_token) {
@@ -19,14 +19,14 @@ const generateAssertedLoginIdentityJwt = async (config: AppConfig): Promise<stri
 
   const nowInSeconds: number = Math.floor(Date.now() / 1000);
   const payload = {
-    iss: config.NHS_LOGIN_CLIENT_ID,
+    iss: await lazyConfig.NHS_LOGIN_CLIENT_ID,
     jti: crypto.randomUUID(),
     code: jtiFromIdToken,
     exp: nowInSeconds + ASSERTED_LOGIN_IDENTITY_EXPIRY_SECONDS,
     iat: nowInSeconds,
   };
 
-  return jwt.sign(payload, config.NHS_LOGIN_PRIVATE_KEY, { algorithm: "RS512" });
+  return jwt.sign(payload, (await lazyConfig.NHS_LOGIN_PRIVATE_KEY) as string, { algorithm: "RS512" });
 };
 
 export { generateAssertedLoginIdentityJwt };

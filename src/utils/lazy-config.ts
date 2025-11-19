@@ -37,12 +37,12 @@ function createReadOnlyDynamic<T extends object>(instance: T): T & { [key: strin
  * Caches items for CACHE_TTL_MILLIS milliseconds, so we don't get items more than once.
  */
 class LazyConfig {
-  private _cache = new Map<string, ConfigValue>();
+  private readonly _cache = new Map<string, ConfigValue>();
   private ttl: number = Date.now() + LazyConfig.CACHE_TTL_MILLIS;
   static readonly CACHE_TTL_MILLIS: number = 300 * 1000;
 
-  private static toUrl = (value: string): URL => new URL(value);
-  private static toBoolean = (value: string): boolean | undefined => {
+  private static readonly toUrl = (value: string): URL => new URL(value);
+  private static readonly toBoolean = (value: string): boolean | undefined => {
     const lower = value.toLowerCase();
     if (lower === "true") return true;
     if (lower === "false") return false;
@@ -58,7 +58,7 @@ class LazyConfig {
     IS_APIM_AUTH_ENABLED: LazyConfig.toBoolean,
     MAX_SESSION_AGE_MINUTES: (value: string) => {
       const num = Number(value);
-      if (!isNaN(num)) return num;
+      if (!Number.isNaN(num)) return num;
       return undefined;
     },
   };
@@ -73,20 +73,20 @@ class LazyConfig {
       result = undefined;
     } else {
       const converter = LazyConfig.converters[key];
-      if (!converter) {
-        result = value.trim();
-      } else {
+      if (converter) {
         try {
           result = converter(value.trim());
         } catch (error) {
-          log.warn({ context: { key, value }, error }, "Config item type coercion failed");
+          log.warn({ context: { key }, error }, "Config item type coercion failed");
           result = undefined;
         }
+      } else {
+        result = value.trim();
       }
     }
 
     if (result === undefined) {
-      log.error({ context: { key, value } }, "Unable to get config item");
+      log.error({ context: { key } }, "Unable to get config item");
       throw new ConfigError(`Unable to get config item ${key}`);
     }
     return result;
