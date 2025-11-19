@@ -72,7 +72,7 @@ jobs:
       name: ${{ github.event.inputs.environment }}
     timeout-minutes: 20
     concurrency:
-      group: dev-env
+      group: "${{ github.event.inputs.environment }}-env"
       cancel-in-progress: false
     permissions:
       id-token: write
