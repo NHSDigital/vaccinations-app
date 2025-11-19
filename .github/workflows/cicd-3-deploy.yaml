@@ -22,7 +22,7 @@ env:
   AWS_REGION: eu-west-2
 
 jobs:
-  metadata2:
+  metadata:
     name: "Set CI/CD metadata"
     runs-on: ubuntu-latest
     timeout-minutes: 1
