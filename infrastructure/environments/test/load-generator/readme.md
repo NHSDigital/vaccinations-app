@@ -113,9 +113,6 @@ subnets=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=fake-api-proj
 
 sec_group=$(aws ec2 describe-security-groups --filters "Name=tag:Name,Values=fake-api-service-sg" --profile vita-test | jq -r ".SecurityGroups[].GroupId")
 
-rampup="600"
-duration="3600"
-
 aws ecs run-task \
   --cluster fake-api-project-cluster \
   --task-definition load-generator \
@@ -124,7 +121,7 @@ aws ecs run-task \
   --count 10 \
   --group load-generator \
   --network-configuration "awsvpcConfiguration={subnets=[$subnets],securityGroups=[$sec_group],assignPublicIp=ENABLED}" \
-  --overrides '{"containerOverrides": [{"name": "load-generator-container", "environment": [{"name": "DURATION", "value": "${duration}"}, {"name": "RAMPUP", "value": "${rampup}"}, {"name": "THREADS", "value": "40"}, {"name": "ENVIRONMENT", "value": "test"}, {"name": "S3_BUCKET", "value": "gh-vita-741448960880-load-testing"}, {"name": "TEST_PLAN", "value": "vita-user-journey.jmx"}]}]}' \
+  --overrides '{"containerOverrides": [{"name": "load-generator-container", "environment": [{"name": "DURATION", "value": "3600"}, {"name": "RAMPUP", "value": "600"}, {"name": "THREADS", "value": "40"}, {"name": "ENVIRONMENT", "value": "test"}, {"name": "S3_BUCKET", "value": "gh-vita-741448960880-load-testing"}, {"name": "TEST_PLAN", "value": "vita-user-journey.jmx"}]}]}' \
   --profile vita-test
 ```
 
