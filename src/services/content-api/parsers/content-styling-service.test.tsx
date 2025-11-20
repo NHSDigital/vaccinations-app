@@ -30,6 +30,20 @@ describe("ContentStylingService", () => {
     headline: "Headline",
   };
 
+  const mockMarkdown2Subsection: VaccinePageSubsection = {
+    type: "simpleElement",
+    text: "<h2>This is second styled paragraph markdown subsection</h2>",
+    name: "markdown",
+    headline: "Headline2",
+  };
+
+  const mockMarkdown3Subsection: VaccinePageSubsection = {
+    type: "simpleElement",
+    text: "<h2>This is third styled paragraph markdown subsection</h2>",
+    name: "markdown",
+    headline: "Headline3",
+  };
+
   const mockHowToGetMarkdownSubsection: VaccinePageSubsection = {
     type: "simpleElement",
     text: "<p>para</p><h3>If you're aged 75 to 79</h3><p>para1</p><p>para2</p><h3>If you're pregnant</h3><p>para3</p><p>para4</p>",
@@ -66,7 +80,7 @@ describe("ContentStylingService", () => {
 
   describe("styleSubsection", () => {
     it("should return styled markdown component for subsection beginning with headline", async () => {
-      const styledSubsection: JSX.Element | undefined = styleSubsection(mockMarkdownSubsection, 1);
+      const styledSubsection: JSX.Element | undefined = styleSubsection(mockMarkdownSubsection, 1, false);
       render(styledSubsection);
 
       const heading1: HTMLElement = screen.getByRole("heading", {
@@ -87,7 +101,7 @@ describe("ContentStylingService", () => {
         headline: "",
       };
 
-      const styledSubsection: JSX.Element | undefined = styleSubsection(mockMarkdownSubsection, 1);
+      const styledSubsection: JSX.Element | undefined = styleSubsection(mockMarkdownSubsection, 1, false);
       render(styledSubsection);
 
       const div: HTMLElement = screen.getByRole("section");
@@ -105,7 +119,7 @@ describe("ContentStylingService", () => {
         headline: "",
       };
 
-      const styledSubsection: JSX.Element = styleSubsection(mockInformationSubsection, 1);
+      const styledSubsection: JSX.Element = styleSubsection(mockInformationSubsection, 1, false);
       render(styledSubsection);
 
       const text: HTMLElement = screen.getByText("This is a styled paragraph information subsection");
@@ -117,7 +131,7 @@ describe("ContentStylingService", () => {
     });
 
     it("should return styled non-urgent component for subsection", async () => {
-      const styledSubsection: JSX.Element = styleSubsection(mockNonUrgentSubsection, 1);
+      const styledSubsection: JSX.Element = styleSubsection(mockNonUrgentSubsection, 1, false);
       render(styledSubsection);
 
       const text: HTMLElement = screen.getByText("This is a styled paragraph non-urgent subsection");
@@ -130,7 +144,7 @@ describe("ContentStylingService", () => {
     });
 
     it("should return styled urgent component for subsection", async () => {
-      const styledSubsection: JSX.Element = styleSubsection(mockUrgentSubsection, 1);
+      const styledSubsection: JSX.Element = styleSubsection(mockUrgentSubsection, 1, false);
       render(styledSubsection);
 
       const text: HTMLElement = screen.getByText("This is a styled paragraph urgent subsection");
@@ -143,7 +157,7 @@ describe("ContentStylingService", () => {
     });
 
     it("should return table component for subsection", async () => {
-      const styledSubsection: JSX.Element = styleSubsection(mockTableSubsection, 1);
+      const styledSubsection: JSX.Element = styleSubsection(mockTableSubsection, 1, false);
       render(styledSubsection);
 
       const column1: HTMLElement = screen.getByText("Name");
@@ -158,7 +172,7 @@ describe("ContentStylingService", () => {
     });
 
     it("should return styled callout component for subsection", async () => {
-      const styledSubsection: JSX.Element = styleSubsection(mockCalloutSubsection, 1);
+      const styledSubsection: JSX.Element = styleSubsection(mockCalloutSubsection, 1, false);
       render(styledSubsection);
 
       const text: HTMLElement = screen.getByText("This is a styled paragraph callout subsection");
@@ -192,6 +206,23 @@ describe("ContentStylingService", () => {
       expect(nonUrgentSubsection).toBeInTheDocument();
       expect(urgentSubsection).toBeInTheDocument();
       expect(columnOfTable).toBeInTheDocument();
+    });
+
+    it("should display last subsection with zero margin in a section", async () => {
+      const mockSection: VaccinePageSection = {
+        headline: "This is a heading",
+        subsections: [mockMarkdownSubsection, mockMarkdown2Subsection, mockMarkdown3Subsection],
+      };
+
+      const styledSection: StyledPageSection = styleSection(mockSection);
+      render(styledSection.component);
+      const markdownSubsection: HTMLElement = screen.getByText("This is a styled paragraph markdown subsection");
+      const markdown2Subsection: HTMLElement = screen.getByText("This is second styled paragraph markdown subsection");
+      const markdown3Subsection: HTMLElement = screen.getByText("This is third styled paragraph markdown subsection");
+
+      expect(markdownSubsection.parentNode).not.toHaveClass("zeroMarginBottom");
+      expect(markdown2Subsection.parentNode).not.toHaveClass("zeroMarginBottom");
+      expect(markdown3Subsection.parentNode).toHaveClass("zeroMarginBottom");
     });
   });
 
@@ -237,7 +268,7 @@ describe("ContentStylingService", () => {
       const expectedRsvHowToGetSection = "<div><p>para1</p><p>para2</p></div>";
       const expectedRsvPregnancyHowToGetSection = `<div><div><p>para3</p><p>para4</p></div></div>`;
       const expectedGenericVaccineHowToGetSection =
-        "<div><h3>How To Get Headline</h3><p>para</p><h3>If you're aged 75 to 79</h3><p>para1</p><p>para2</p><h3>If you're pregnant</h3><p>para3</p><p>para4</p></div>";
+        "<div class=\"zeroMarginBottom\"><h3>How To Get Headline</h3><p>para</p><h3>If you're aged 75 to 79</h3><p>para1</p><p>para2</p><h3>If you're pregnant</h3><p>para3</p><p>para4</p></div>";
       const { container } = render(styledVaccineContent.howToGetVaccine.component);
       if (vaccine === VaccineType.RSV) {
         expect(container).toContainHTML(expectedRsvHowToGetSection);

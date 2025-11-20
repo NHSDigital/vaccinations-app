@@ -36,7 +36,7 @@ const _getDivWithSanitisedHtml = (html: string) => {
   return <div className={styles.zeroMarginBottom} dangerouslySetInnerHTML={{ __html: sanitiseHtml(html) }} />;
 };
 
-const styleSubsection = (subsection: VaccinePageSubsection, id: number): JSX.Element => {
+const styleSubsection = (subsection: VaccinePageSubsection, id: number, isLastSubsection: boolean): JSX.Element => {
   if (subsection.type === "expanderElement") {
     const content = `<h3>${subsection.headline}</h3>`.concat(subsection.mainEntity);
     return <div key={id} dangerouslySetInnerHTML={{ __html: sanitiseHtml(content) }} />;
@@ -87,19 +87,28 @@ const styleSubsection = (subsection: VaccinePageSubsection, id: number): JSX.Ele
       </WarningCallout>
     );
   } else {
-    return <div key={id} dangerouslySetInnerHTML={{ __html: sanitiseHtml(text) }}></div>;
+    return (
+      <div
+        className={isLastSubsection ? styles.zeroMarginBottom : undefined}
+        key={id}
+        dangerouslySetInnerHTML={{ __html: sanitiseHtml(text) }}
+      ></div>
+    );
   }
 };
 
 const styleSection = (section: VaccinePageSection): StyledPageSection => {
   const heading = section.headline;
+  const indexOfLastChild: number = section.subsections.length - 1;
+
   const styledComponent = (
     <>
       {section.subsections.map((subsection: VaccinePageSubsection, index: number) =>
-        styleSubsection(subsection, index),
+        styleSubsection(subsection, index, index == indexOfLastChild),
       )}
     </>
   );
+
   return {
     heading,
     component: styledComponent,
