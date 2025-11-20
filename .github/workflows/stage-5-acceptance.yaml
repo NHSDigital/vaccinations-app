@@ -30,6 +30,9 @@ jobs:
     concurrency:
       group: ${{ inputs.environment }}-env
       cancel-in-progress: false
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: "Get URL of VitA Hub Page for release"
         id: get-hub-url
