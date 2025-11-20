@@ -32,7 +32,7 @@ test.describe("Navigation", () => {
 
     {
       section: AgeSectionTestId.PREGNANCY,
-      linkText: "Whooping cough vaccination in pregnancy",
+      linkText: "Whooping cough (pertussis) in pregnancy",
       pageName: "whooping-cough",
     },
     { section: AgeSectionTestId.PREGNANCY, linkText: "RSV in pregnancy", pageName: "rsv-pregnancy" },

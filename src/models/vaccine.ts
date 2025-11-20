@@ -250,7 +250,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
       indefiniteArticle: "a",
     },
     heading: "Whooping cough vaccination in pregnancy",
-    cardLinkTitle: "Whooping cough vaccination in pregnancy",
+    cardLinkTitle: "Whooping cough (pertussis) in pregnancy",
     nhsWebpageLink: new URL("https://www.nhs.uk/pregnancy/keeping-well/whooping-cough-vaccination/"),
     nhsHowToGetWebpageLink: new URL(
       "https://www.nhs.uk/pregnancy/keeping-well/whooping-cough-vaccination/#how-to-get-it",
