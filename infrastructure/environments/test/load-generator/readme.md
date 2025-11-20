@@ -1,5 +1,27 @@
 # Load generator for performance testing
 
+## Running load generator locally
+
+Install jmeter and jq: `brew install jmeter jq`
+
+```shell
+cd performance
+
+# Run jmeter load test with defaults
+./run-vita-load-test.sh
+
+# Analyse results
+# Take header from one of the logs and merge all logs into one file
+head -n 1 $(ls *.jtl | head -n 1) > performance.logs
+for file in *.jtl; do
+  tail -n +2 "$file" >> performance.logs
+done
+
+# Generate an HTML report
+jmeter -g performance.logs -o report
+open report/index.html
+```
+
 ## Deploying to Test environment
 
 You'll need to have installed [docker](https://www.docker.com/) and the [AWS CLI tools](https://aws.amazon.com/cli/): `brew install docker colima awscli` if necessary.

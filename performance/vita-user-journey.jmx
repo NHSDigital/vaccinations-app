@@ -146,7 +146,7 @@
           <hashTree/>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="-1512529882">href=&quot;/check-and-book-rsv&quot;&gt;Check and book an RSV vaccination&lt;/a&gt;</stringProp>
+              <stringProp name="2070171466">&lt;span class=&quot;nhsuk-header__service-name&quot;&gt;Check and book vaccinations&lt;/span&gt;</stringProp>
             </collectionProp>
             <stringProp name="Assertion.custom_message"></stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
