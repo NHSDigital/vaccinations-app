@@ -65,7 +65,7 @@ jobs:
           export TAG="${{ steps.variables.outputs.tag }}"
           make list-variables
   deploy-stage:
-    name: "Deploy ${{ needs.metadata.outputs.tag }} to AWS ${{ github.event.inputs.environment }}"
+    name: "Deploy ${{ needs.metadata.outputs.tag }} to ${{ github.event.inputs.environment }}"
     needs: [metadata]
     runs-on: ubuntu-latest
     environment:
@@ -86,7 +86,7 @@ jobs:
         uses: actions/checkout@v5
         with:
           ref: ${{ needs.metadata.outputs.tag }}
-      - name: "Deploy ${{ github.event.inputs.environment }} ${{ needs.metadata.outputs.tag }}"
+      - name: "Deploy ${{ needs.metadata.outputs.tag }} to ${{ github.event.inputs.environment }}"
         timeout-minutes: 10
         uses: ./.github/actions/deploy
         with:
