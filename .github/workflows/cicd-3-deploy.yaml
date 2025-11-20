@@ -86,7 +86,7 @@ jobs:
         uses: actions/checkout@v5
         with:
           ref: ${{ needs.metadata.outputs.tag }}
-      - name: "Deploy ${{ needs.metadata.outputs.tag }} to AWS (${{ github.event.inputs.environment }})"
+      - name: "Deploy ${{ github.event.inputs.environment }} ${{ needs.metadata.outputs.tag }}"
         timeout-minutes: 10
         uses: ./.github/actions/deploy
         with:
