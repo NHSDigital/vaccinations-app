@@ -26,10 +26,9 @@ const nbsVaccinePath: Record<VaccinesWithNBSBookingAvailable, string> = {
 const getSSOUrlToNBSForVaccine = async (vaccineType: VaccinesWithNBSBookingAvailable) => {
   let redirectUrl;
   try {
-    const nbsURl = new URL(
-      `${await lazyConfig.NBS_BOOKING_PATH}${nbsVaccinePath[vaccineType]}`,
-      (await lazyConfig.NBS_URL) as URL,
-    );
+    const nbsBaseUrl = (await lazyConfig.NBS_URL) as URL;
+    const nbsBookingPath = await lazyConfig.NBS_BOOKING_PATH;
+    const nbsURl = new URL(`${nbsBaseUrl.pathname}${nbsBookingPath}${nbsVaccinePath[vaccineType]}`, nbsBaseUrl.origin);
     const nbsQueryParams = await getNbsQueryParams();
     nbsQueryParams.forEach((param) => {
       nbsURl.searchParams.append(param.name, param.value);
