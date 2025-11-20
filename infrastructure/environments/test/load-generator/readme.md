@@ -24,6 +24,8 @@ For the following steps, you need to have deployed the infrastructure at least o
 Ensure you are [configured to access the test environment in AWS via the command line](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html). These instructions assume you've named your profile `vita-test`. All the info you need for that should be available via the [access portal](https://d-9c67018f89.awsapps.com/start/#/?tab=accounts).
 
 ```sh
+aws sso login --profile vita-test
+
 load_generator_ecr_repository_url=$(aws ecr describe-repositories --profile vita-test | jq -r '.repositories[] | select(.repositoryName == "load-generator") | .repositoryUri')
 
 aws ecr get-login-password --region eu-west-2 --profile vita-test | docker login --username AWS --password-stdin $(echo $load_generator_ecr_repository_url | cut -d/ -f1)
@@ -35,7 +37,13 @@ docker push "$load_generator_ecr_repository_url":latest
 
 ### Check it's working
 
-Manually upload the [test plan](/performance/vita-user-journey.jmx) to the s3 path `s3://gh-vita-***-load-testing/plans/`. You should only need to do this if the test plan has been modified.
+Upload the [test plan](/performance/vita-user-journey.jmx) to the s3 path `s3://gh-vita-***-load-testing/plans/`. You should only need to do this if the test plan has been modified.
+
+```shell
+aws sso login --profile vita-test
+
+aws s3 cp performance/vita-user-journey.jmx s3://gh-vita-741448960880-load-testing/plans/ --profile vita-test
+```
 
 #### Triggering the task
 
@@ -77,6 +85,8 @@ Number of concurrent users = (Number of tasks) x (Number of threads/task)
 These instructions assume you've named your profile `vita-test`.
 
 ```shell
+aws sso login --profile vita-test
+
 subnets=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=fake-api-project-public-subnet-1,fake-api-project-public-subnet-2,fake-api-project-private-subnet-1,fake-api-project-private-subnet-2" --profile vita-test | jq -r "[.Subnets[].SubnetId] | join(\",\")")
 
 sec_group=$(aws ec2 describe-security-groups --filters "Name=tag:Name,Values=fake-api-service-sg" --profile vita-test | jq -r ".SecurityGroups[].GroupId")
@@ -98,16 +108,18 @@ aws ecs run-task \
 Download the test logs locally and generate a report using the following commands.
 
 ```shell
-# download the logs locally, replace yyyy/mm/dd with test date
-AWS_PROFILE=vita-test aws s3 sync s3://gh-vita-741448960880-load-testing/results/yyyy/mm/dd/ .
+aws sso login --profile vita-test
 
-# take header from one of the logs and merge all logs into one file
+# Download the logs locally.
+aws s3 sync s3://gh-vita-741448960880-load-testing/results/$(date +%Y/%m/%d)/ . --profile vita-test
+
+# Take header from one of the logs and merge all logs into one file
 head -n 1 $(ls *.jtl | head -n 1) > performance.logs
 for file in *.jtl; do
   tail -n +2 "$file" >> performance.logs
 done
 
-# generate an HTML report
+# Generate an HTML report
 jmeter -g performance.logs -o report
 open report/index.html
 ```
