@@ -51,7 +51,7 @@ jobs:
         with:
             role-session-name: GitHubActionsSession
             role-to-assume: ${{ secrets.IAM_ROLE }}
-            aws-region: ${{ env.AWS_REGION }}
+            aws-region: eu-west-2
 
       - name: "Check expected version is running in ${{inputs.environment}}"
         timeout-minutes: 20
