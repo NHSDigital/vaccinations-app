@@ -19,7 +19,8 @@ Podman
 Python
 repo
 sed
-Splunk
+[Ss]plunk
+deploy_iam
 src
 Syft
 [Tt]erraform
