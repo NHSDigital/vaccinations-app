@@ -7,7 +7,7 @@ import { VaccineType } from "@src/models/vaccine";
 import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
 import { VaccinePageContent } from "@src/services/content-api/types";
-import lazyConfig from "@src/utils/lazy-config";
+import config from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { getVaccineTypeFromLowercaseString } from "@src/utils/path";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
@@ -150,7 +150,7 @@ const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
   for (const vaccine of vaccinesToRunOn) {
     const status = await hydrateCacheForVaccine(
       vaccine,
-      (await lazyConfig.CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED) as boolean,
+      (await config.CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED) as boolean,
       forceUpdate,
     );
     invalidatedCount += status.invalidatedCount;

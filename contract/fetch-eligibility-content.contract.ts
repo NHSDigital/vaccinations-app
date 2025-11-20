@@ -1,13 +1,13 @@
 import { NhsNumber } from "@src/models/vaccine";
 import { EligibilityApiResponse } from "@src/services/eligibility-api/api-types";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
-import lazyConfig from "@src/utils/lazy-config";
+import config from "@src/utils/config";
 import { asyncLocalStorage } from "@src/utils/requestContext";
-import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
+import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
 import { readFileSync } from "fs";
 import { pactWith } from "jest-pact";
 
-jest.mock("@src/utils/lazy-config");
+jest.mock("@src/utils/config");
 jest.mock("next-auth/jwt", () => ({
   getToken: jest.fn(),
 }));
@@ -40,10 +40,10 @@ const successfulResponse: EligibilityApiResponse = {
 };
 
 pactWith({ consumer: "VitA", provider: "EliD", port: 1234, logLevel: "warn" }, (provider) => {
-  const mockedConfig = lazyConfig as AsyncConfigMock;
+  const mockedConfig = config as AsyncConfigMock;
 
   beforeEach(() => {
-    const defaultConfig = lazyConfigBuilder()
+    const defaultConfig = configBuilder()
       .withEligibilityApiEndpoint(new URL("http://localhost:1234/"))
       .andEligibilityApiKey("test-api-key")
       .andIsApimAuthEnabled(false)

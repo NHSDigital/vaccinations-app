@@ -1,15 +1,15 @@
 import NHSLoginAuthProvider from "@src/app/api/auth/[...nextauth]/provider";
-import lazyConfig from "@src/utils/lazy-config";
-import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
+import config from "@src/utils/config";
+import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
 
 jest.mock("@src/utils/auth/pem-to-crypto-key");
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("provider", () => {
-  const mockedConfig = lazyConfig as AsyncConfigMock;
+  const mockedConfig = config as AsyncConfigMock;
 
   beforeEach(() => {
-    const defaultConfig = lazyConfigBuilder().build();
+    const defaultConfig = configBuilder().build();
     Object.assign(mockedConfig, defaultConfig);
   });
 

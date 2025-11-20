@@ -2,9 +2,9 @@ import { auth } from "@project/auth";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { VaccineType } from "@src/models/vaccine";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
-import lazyConfig from "@src/utils/lazy-config";
+import config from "@src/utils/config";
 import { mockNHSAppJSFunctions } from "@src/utils/nhsapp-js.test";
-import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
+import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
 import { eligibilityApiResponseBuilder } from "@test-data/eligibility-api/builders";
 import { render, screen } from "@testing-library/react";
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
@@ -31,12 +31,9 @@ jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 const nhsNumber = "5123456789";
 
 describe("Vaccine", () => {
-  const mockedConfig = lazyConfig as AsyncConfigMock;
+  const mockedConfig = config as AsyncConfigMock;
   beforeAll(() => {
-    const defaultConfig = lazyConfigBuilder()
-      .withContentCachePath("wiremock/__files/")
-      .withPinoLogLevel("info")
-      .build();
+    const defaultConfig = configBuilder().withContentCachePath("wiremock/__files/").withPinoLogLevel("info").build();
     Object.assign(mockedConfig, defaultConfig);
     (fetchEligibilityContent as jest.Mock).mockResolvedValue(eligibilityApiResponseBuilder().build());
     mockNHSAppJSFunctions(jest.fn(), jest.fn());

@@ -1,11 +1,11 @@
-import { ConfigValue } from "@src/utils/lazy-config";
+import { ConfigValue } from "@src/utils/config";
 import { randomBoolean, randomInteger, randomString, randomURL } from "@test-data/meta-builder";
 
 export type AsyncConfigMock = {
   [key: string]: Promise<ConfigValue>;
 };
 
-class LazyConfigBuilder {
+class ConfigBuilder {
   private _configValues: Record<string, ConfigValue> = {};
 
   constructor() {
@@ -204,6 +204,6 @@ class LazyConfigBuilder {
   }
 }
 
-export function lazyConfigBuilder() {
-  return new LazyConfigBuilder();
+export function configBuilder() {
+  return new ConfigBuilder();
 }

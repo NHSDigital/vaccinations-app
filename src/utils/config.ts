@@ -36,9 +36,9 @@ function createReadOnlyDynamic<T extends object>(instance: T): T & { [key: strin
  * Loads config from environment if it exists there, from SSM otherwise.
  * Caches items for CACHE_TTL_MILLIS milliseconds, so we don't get items more than once.
  */
-class LazyConfig {
+class Config {
   private readonly _cache = new Map<string, ConfigValue>();
-  private ttl: number = Date.now() + LazyConfig.CACHE_TTL_MILLIS;
+  private ttlExpiresAt: number = Date.now() + Config.CACHE_TTL_MILLIS;
   static readonly CACHE_TTL_MILLIS: number = 300 * 1000;
 
   private static readonly toUrl = (value: string): URL => new URL(value);
@@ -49,13 +49,13 @@ class LazyConfig {
     return undefined;
   };
   static readonly converters: Record<string, (value: string) => ConfigValue> = {
-    APIM_AUTH_URL: LazyConfig.toUrl,
-    CONTENT_API_ENDPOINT: LazyConfig.toUrl,
-    ELIGIBILITY_API_ENDPOINT: LazyConfig.toUrl,
-    NBS_URL: LazyConfig.toUrl,
-    NHS_LOGIN_URL: LazyConfig.toUrl,
-    CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: LazyConfig.toBoolean,
-    IS_APIM_AUTH_ENABLED: LazyConfig.toBoolean,
+    APIM_AUTH_URL: Config.toUrl,
+    CONTENT_API_ENDPOINT: Config.toUrl,
+    ELIGIBILITY_API_ENDPOINT: Config.toUrl,
+    NBS_URL: Config.toUrl,
+    NHS_LOGIN_URL: Config.toUrl,
+    CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: Config.toBoolean,
+    IS_APIM_AUTH_ENABLED: Config.toBoolean,
     MAX_SESSION_AGE_MINUTES: (value: string) => {
       const num = Number(value);
       if (!Number.isNaN(num)) return num;
@@ -72,7 +72,7 @@ class LazyConfig {
     if (value === undefined || value.trim() === "") {
       result = undefined;
     } else {
-      const converter = LazyConfig.converters[key];
+      const converter = Config.converters[key];
       if (converter) {
         try {
           result = converter(value.trim());
@@ -93,9 +93,8 @@ class LazyConfig {
   }
 
   public async getAttribute(key: string): Promise<ConfigValue> {
-    if (this.ttl < Date.now()) {
+    if (this.ttlExpiresAt < Date.now()) {
       this.resetCache();
-      this.ttl = Date.now() + LazyConfig.CACHE_TTL_MILLIS;
     }
 
     if (this._cache.has(key)) {
@@ -158,7 +157,7 @@ class LazyConfig {
   public resetCache() {
     log.info("reset cache");
     this._cache.clear();
-    this.ttl = Date.now() + LazyConfig.CACHE_TTL_MILLIS;
+    this.ttlExpiresAt = Date.now() + Config.CACHE_TTL_MILLIS;
   }
 }
 
@@ -170,8 +169,8 @@ export class ConfigError extends EligibilityApiError {
   }
 }
 
-const lazyConfigInstance = new LazyConfig();
+const configInstance = new Config();
 
-const lazyConfig = createReadOnlyDynamic(lazyConfigInstance);
+const config = createReadOnlyDynamic(configInstance);
 
-export default lazyConfig;
+export default config;

@@ -1,5 +1,5 @@
 import type { DecodedIdToken } from "@src/utils/auth/types";
-import lazyConfig from "@src/utils/lazy-config";
+import config from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { jwtDecode } from "jwt-decode";
 import { Account } from "next-auth";
@@ -21,8 +21,8 @@ const isValidSignIn = async (account: Account | null | undefined) => {
   const { iss, aud, identity_proofing_level, vot } = decodedToken;
 
   const isValidToken =
-    new URL(iss).href === ((await lazyConfig.NHS_LOGIN_URL) as URL).href &&
-    aud === (await lazyConfig.NHS_LOGIN_CLIENT_ID) &&
+    new URL(iss).href === ((await config.NHS_LOGIN_URL) as URL).href &&
+    aud === (await config.NHS_LOGIN_CLIENT_ID) &&
     identity_proofing_level === "P9" &&
     ACCEPTED_VOTS.includes(vot);
 

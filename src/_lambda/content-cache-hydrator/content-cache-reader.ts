@@ -1,7 +1,7 @@
 import { Filename, VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { readContentFromCache } from "@src/services/content-api/gateway/content-reader-service";
 import { InvalidatedCacheError, S3NoSuchKeyError } from "@src/services/content-api/gateway/exceptions";
-import lazyConfig from "@src/utils/lazy-config";
+import config from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 
 const log = logger.child({ module: "content-cache-reader" });
@@ -16,11 +16,7 @@ const readCachedContentForVaccine = async (vaccineType: VaccineType): Promise<Re
   let cachedContent: string;
 
   try {
-    cachedContent = await readContentFromCache(
-      (await lazyConfig.CONTENT_CACHE_PATH) as string,
-      cacheFilename,
-      vaccineType,
-    );
+    cachedContent = await readContentFromCache((await config.CONTENT_CACHE_PATH) as string, cacheFilename, vaccineType);
   } catch (error) {
     if (error instanceof S3NoSuchKeyError) {
       return { cacheStatus: "empty", cacheContent: "" };

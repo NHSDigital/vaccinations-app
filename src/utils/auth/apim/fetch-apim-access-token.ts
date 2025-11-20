@@ -1,7 +1,7 @@
 import { ApimAuthError, ApimHttpError } from "@src/utils/auth/apim/exceptions";
 import { ApimTokenResponse } from "@src/utils/auth/apim/types";
 import { APIMClientAssertionPayload, APIMTokenPayload, IdToken } from "@src/utils/auth/types";
-import lazyConfig from "@src/utils/lazy-config";
+import config from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import axios, { AxiosResponse, HttpStatusCode } from "axios";
 import jwt from "jsonwebtoken";
@@ -17,7 +17,7 @@ const fetchAPIMAccessToken = async (idToken: IdToken): Promise<ApimTokenResponse
     log.debug({ context: { tokenPayload } }, "APIM token payload");
 
     const response: AxiosResponse<ApimTokenResponse> = await axios.post(
-      ((await lazyConfig.APIM_AUTH_URL) as URL).href,
+      ((await config.APIM_AUTH_URL) as URL).href,
       tokenPayload,
       {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -34,7 +34,7 @@ const fetchAPIMAccessToken = async (idToken: IdToken): Promise<ApimTokenResponse
         {
           error,
           context: {
-            APIM_AUTH_URL: ((await lazyConfig.APIM_AUTH_URL) as URL).href,
+            APIM_AUTH_URL: ((await config.APIM_AUTH_URL) as URL).href,
             response_data: error.response?.data,
           },
         },
@@ -64,17 +64,17 @@ const generateAPIMTokenPayload = async (idToken: IdToken): Promise<APIMTokenPayl
 };
 
 const _generateClientAssertion = async (): Promise<string> => {
-  const privateKey: string = (await lazyConfig.APIM_PRIVATE_KEY) as string;
+  const privateKey: string = (await config.APIM_PRIVATE_KEY) as string;
   const payload: APIMClientAssertionPayload = {
-    iss: (await lazyConfig.ELIGIBILITY_API_KEY) as string,
-    sub: (await lazyConfig.ELIGIBILITY_API_KEY) as string,
-    aud: ((await lazyConfig.APIM_AUTH_URL) as URL).href,
+    iss: (await config.ELIGIBILITY_API_KEY) as string,
+    sub: (await config.ELIGIBILITY_API_KEY) as string,
+    aud: ((await config.APIM_AUTH_URL) as URL).href,
     jti: crypto.randomUUID(),
     exp: Math.floor(Date.now() / 1000) + 300,
   };
   log.debug({ context: { payload } }, "raw APIMClientAssertionPayload");
 
-  return jwt.sign(payload, privateKey, { algorithm: "RS512", keyid: (await lazyConfig.APIM_KEY_ID) as string });
+  return jwt.sign(payload, privateKey, { algorithm: "RS512", keyid: (await config.APIM_KEY_ID) as string });
 };
 
 export { fetchAPIMAccessToken, generateAPIMTokenPayload };

@@ -1,7 +1,7 @@
 import { retrieveApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
 import { ApimAccessCredentials } from "@src/utils/auth/apim/types";
 import { ExpiresSoonAt } from "@src/utils/auth/types";
-import lazyConfig from "@src/utils/lazy-config";
+import config from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { JWT } from "next-auth/jwt";
 import { Logger } from "pino";
@@ -24,7 +24,7 @@ const getOrRefreshApimCredentials = async (token: JWT, nowInSeconds: number) => 
     } else return undefined;
   }
 
-  if ((await lazyConfig.IS_APIM_AUTH_ENABLED) && isNodeJsRuntime) {
+  if ((await config.IS_APIM_AUTH_ENABLED) && isNodeJsRuntime) {
     if (!token.nhs_login?.id_token) {
       log.debug("getOrRefreshApimCredentials: No NHS login ID token available. Not getting APIM creds.");
     } else if (!token.apim?.access_token) {

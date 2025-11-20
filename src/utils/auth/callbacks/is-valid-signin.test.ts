@@ -1,17 +1,17 @@
 import { isValidSignIn } from "@src/utils/auth/callbacks/is-valid-signin";
 import type { DecodedIdToken } from "@src/utils/auth/types";
-import lazyConfig from "@src/utils/lazy-config";
-import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
+import config from "@src/utils/config";
+import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
 import { createTypeBuilder } from "@test-data/meta-builder";
 import { jwtDecode } from "jwt-decode";
 import { Account } from "next-auth";
 
 jest.mock("jwt-decode");
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
-jest.mock("@src/utils/lazy-config");
+jest.mock("@src/utils/config");
 
 describe("isValidSignIn", () => {
-  const mockConfig = lazyConfig as AsyncConfigMock;
+  const mockConfig = config as AsyncConfigMock;
 
   const decodedIdTokenBuilder = () => {
     return createTypeBuilder<DecodedIdToken>({
@@ -23,7 +23,7 @@ describe("isValidSignIn", () => {
   };
 
   beforeEach(() => {
-    const defaultConfig = lazyConfigBuilder()
+    const defaultConfig = configBuilder()
       .withNhsLoginUrl(new URL("https://mock.nhs.login/"))
       .andNhsLoginClientId("mock-client-id")
       .build();

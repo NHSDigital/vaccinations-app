@@ -3,8 +3,8 @@
  */
 import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
 import { getJwtToken } from "@src/utils/auth/get-jwt-token";
-import lazyConfig from "@src/utils/lazy-config";
-import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
+import config from "@src/utils/config";
+import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
 import jwt from "jsonwebtoken";
 import { jwtDecode } from "jwt-decode";
 
@@ -30,7 +30,7 @@ const mockJwtToken = {
 
 describe("generate-auth-payload", () => {
   let randomUUIDSpy: jest.SpyInstance;
-  const mockedConfig = lazyConfig as AsyncConfigMock;
+  const mockedConfig = config as AsyncConfigMock;
 
   beforeAll(() => {
     randomUUIDSpy = jest.spyOn(global.crypto, "randomUUID").mockReturnValue(mockRandomUUID);
@@ -43,7 +43,7 @@ describe("generate-auth-payload", () => {
     (jwtDecode as jest.Mock).mockReturnValue({
       jti: mockJtiFromSessionIdToken,
     });
-    const defaultConfig = lazyConfigBuilder()
+    const defaultConfig = configBuilder()
       .withNhsLoginUrl(new URL("https://mock.nhs.login"))
       .andNhsLoginClientId("mock-client-id")
       .andNhsLoginPrivateKey("private-key")

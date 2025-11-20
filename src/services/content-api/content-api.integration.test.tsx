@@ -6,8 +6,8 @@ import mockRsvVaccineJson from "@project/wiremock/__files/rsv-vaccine.json";
 import { VaccineType } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { GetContentForVaccineResponse } from "@src/services/content-api/types";
-import lazyConfig from "@src/utils/lazy-config";
-import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
+import config from "@src/utils/config";
+import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
 import { Readable } from "stream";
 
 jest.mock("@aws-sdk/client-s3");
@@ -23,7 +23,7 @@ const mockRsvResponse = {
 };
 
 describe("Content API Read Integration Test ", () => {
-  const mockedConfig = lazyConfig as AsyncConfigMock;
+  const mockedConfig = config as AsyncConfigMock;
 
   afterEach(async () => {
     const { styledVaccineContent, contentError }: GetContentForVaccineResponse = await getContentForVaccine(
@@ -40,12 +40,12 @@ describe("Content API Read Integration Test ", () => {
   });
 
   it("should return processed data from local cache", async () => {
-    const defaultConfig = lazyConfigBuilder().withContentCachePath("wiremock/__files/").build();
+    const defaultConfig = configBuilder().withContentCachePath("wiremock/__files/").build();
     Object.assign(mockedConfig, defaultConfig);
   });
 
   it("should return processed data from external cache", async () => {
-    const defaultConfig = lazyConfigBuilder().withContentCachePath("s3://test-bucket").build();
+    const defaultConfig = configBuilder().withContentCachePath("s3://test-bucket").build();
     Object.assign(mockedConfig, defaultConfig);
 
     (S3Client as jest.Mock).mockImplementation(() => ({

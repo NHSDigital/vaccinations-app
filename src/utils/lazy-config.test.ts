@@ -1,5 +1,5 @@
+import config, { ConfigError } from "@src/utils/config";
 import getSSMParam from "@src/utils/get-ssm-param";
-import lazyConfig, { ConfigError } from "@src/utils/lazy-config";
 import { randomString } from "@test-data/meta-builder";
 
 jest.mock("@src/utils/get-ssm-param");
@@ -12,7 +12,7 @@ describe("lazyConfig", () => {
     jest.clearAllMocks();
     jest.useFakeTimers();
     jest.setSystemTime(nowInSeconds * 1000);
-    lazyConfig.resetCache();
+    config.resetCache();
     process.env = {
       NODE_ENV: "test",
     };
@@ -38,8 +38,8 @@ describe("lazyConfig", () => {
     setupTestEnvVars(prefix);
     const mockGetSSMParam = (getSSMParam as jest.Mock).mockResolvedValue("api-key");
 
-    expect(await lazyConfig.CONTENT_API_ENDPOINT).toEqual(new URL("https://api-endpoint"));
-    expect(await lazyConfig.CONTENT_API_KEY).toEqual("api-key");
+    expect(await config.CONTENT_API_ENDPOINT).toEqual(new URL("https://api-endpoint"));
+    expect(await config.CONTENT_API_KEY).toEqual("api-key");
 
     expect(mockGetSSMParam).toHaveBeenCalledWith(`${prefix}CONTENT_API_KEY`);
     expect(mockGetSSMParam).not.toHaveBeenCalledWith(`${prefix}CONTENT_API_ENDPOINT`);
@@ -51,8 +51,8 @@ describe("lazyConfig", () => {
     const mockGetSSMParam = (getSSMParam as jest.Mock).mockResolvedValue(undefined);
 
     await expect(async () => {
-      await lazyConfig.CONTENT_API_ENDPOINT;
-      await lazyConfig.CONTENT_API_KEY;
+      await config.CONTENT_API_ENDPOINT;
+      await config.CONTENT_API_KEY;
     }).rejects.toThrow("Unable to get config item CONTENT_API_ENDPOINT");
     expect(mockGetSSMParam).not.toHaveBeenCalledWith(`${prefix}CONTENT_API_KEY`);
     expect(mockGetSSMParam).toHaveBeenCalledWith(`${prefix}CONTENT_API_ENDPOINT`);
@@ -63,7 +63,7 @@ describe("lazyConfig", () => {
     setupTestEnvVars("test/");
     process.env.IS_APIM_AUTH_ENABLED = "false";
 
-    const actual = await lazyConfig.IS_APIM_AUTH_ENABLED;
+    const actual = await config.IS_APIM_AUTH_ENABLED;
 
     expect(actual).toBe(false);
   });
@@ -72,7 +72,7 @@ describe("lazyConfig", () => {
     setupTestEnvVars("test/");
     process.env.IS_APIM_AUTH_ENABLED = "true";
 
-    const actual = await lazyConfig.IS_APIM_AUTH_ENABLED;
+    const actual = await config.IS_APIM_AUTH_ENABLED;
 
     expect(actual).toBe(true);
   });
@@ -81,7 +81,7 @@ describe("lazyConfig", () => {
     setupTestEnvVars("test/");
     process.env.MAX_SESSION_AGE_MINUTES = "99";
 
-    const actual = await lazyConfig.MAX_SESSION_AGE_MINUTES;
+    const actual = await config.MAX_SESSION_AGE_MINUTES;
 
     expect(actual).toBe(99);
   });
@@ -91,7 +91,7 @@ describe("lazyConfig", () => {
     process.env.APIM_AUTH_URL = "not-a-url";
 
     await expect(async () => {
-      await lazyConfig.APIM_AUTH_URL;
+      await config.APIM_AUTH_URL;
     }).rejects.toThrow(ConfigError);
   });
 
@@ -100,7 +100,7 @@ describe("lazyConfig", () => {
     process.env.MAX_SESSION_AGE_MINUTES = "not-a-number";
 
     await expect(async () => {
-      await lazyConfig.MAX_SESSION_AGE_MINUTES;
+      await config.MAX_SESSION_AGE_MINUTES;
     }).rejects.toThrow(ConfigError);
   });
 
@@ -108,12 +108,12 @@ describe("lazyConfig", () => {
     setupTestEnvVars("test/");
     const mockGetSSMParam = (getSSMParam as jest.Mock).mockImplementation(() => randomString(5));
 
-    await lazyConfig.NHS_LOGIN_CLIENT_ID;
+    await config.NHS_LOGIN_CLIENT_ID;
 
     expect(mockGetSSMParam).toHaveBeenCalled();
     mockGetSSMParam.mockClear();
 
-    await lazyConfig.NHS_LOGIN_CLIENT_ID;
+    await config.NHS_LOGIN_CLIENT_ID;
 
     expect(mockGetSSMParam).not.toHaveBeenCalled();
   });
@@ -122,13 +122,13 @@ describe("lazyConfig", () => {
     setupTestEnvVars("test/");
     const mockGetSSMParam = (getSSMParam as jest.Mock).mockImplementation(() => "test-value");
 
-    await lazyConfig.CONTENT_API_KEY;
+    await config.CONTENT_API_KEY;
 
     expect(mockGetSSMParam).toHaveBeenCalled();
     mockGetSSMParam.mockClear();
     jest.setSystemTime(nowInSeconds * 1000 + 300 * 1000 + 1);
 
-    await lazyConfig.CONTENT_API_KEY;
+    await config.CONTENT_API_KEY;
 
     expect(mockGetSSMParam).toHaveBeenCalled();
   });
@@ -144,7 +144,7 @@ describe("lazyConfig", () => {
       .mockRejectedValueOnce(new Error("SSM is temporarily unavailable"))
       .mockResolvedValue(expectedValue);
 
-    const resultPromise = lazyConfig.API_SECRET;
+    const resultPromise = config.API_SECRET;
     await jest.runOnlyPendingTimersAsync();
     const result = await resultPromise;
 

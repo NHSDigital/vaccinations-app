@@ -2,8 +2,8 @@ import { ApimHttpError } from "@src/utils/auth/apim/exceptions";
 import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import { getToken } from "@src/utils/auth/callbacks/get-token";
 import { MaxAgeInSeconds } from "@src/utils/auth/types";
-import lazyConfig from "@src/utils/lazy-config";
-import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
+import config from "@src/utils/config";
+import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
 import { jwtDecode } from "jwt-decode";
 import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
@@ -23,10 +23,10 @@ jest.mock("next/headers", () => ({
 }));
 jest.mock("jwt-decode");
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
-jest.mock("@src/utils/lazy-config");
+jest.mock("@src/utils/config");
 
 describe("getToken", () => {
-  const mockedConfig = lazyConfig as AsyncConfigMock;
+  const mockedConfig = config as AsyncConfigMock;
 
   beforeAll(async () => {
     const fakeHeaders: ReadonlyHeaders = {
@@ -36,7 +36,7 @@ describe("getToken", () => {
     } as ReadonlyHeaders;
     (headers as jest.Mock).mockResolvedValue(fakeHeaders);
 
-    const defaultConfig = lazyConfigBuilder()
+    const defaultConfig = configBuilder()
       .withNhsLoginUrl(new URL("https://nhs-app-redirect-login-url"))
       .andNhsLoginClientId("mock-client-id")
       .andNhsLoginPrivateKey("mock-private-key")

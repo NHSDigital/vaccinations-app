@@ -3,7 +3,7 @@
 import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 import { VaccineType } from "@src/models/vaccine";
 import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
-import lazyConfig from "@src/utils/lazy-config";
+import config from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { Logger } from "pino";
 
@@ -26,8 +26,8 @@ const nbsVaccinePath: Record<VaccinesWithNBSBookingAvailable, string> = {
 const getSSOUrlToNBSForVaccine = async (vaccineType: VaccinesWithNBSBookingAvailable) => {
   let redirectUrl;
   try {
-    const nbsBaseUrl = (await lazyConfig.NBS_URL) as URL;
-    const nbsBookingPath = await lazyConfig.NBS_BOOKING_PATH;
+    const nbsBaseUrl = (await config.NBS_URL) as URL;
+    const nbsBookingPath = await config.NBS_BOOKING_PATH;
     const nbsURl = new URL(`${nbsBaseUrl.pathname}${nbsBookingPath}${nbsVaccinePath[vaccineType]}`, nbsBaseUrl.origin);
     const nbsQueryParams = await getNbsQueryParams();
     nbsQueryParams.forEach((param) => {

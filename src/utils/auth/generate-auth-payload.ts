@@ -1,6 +1,6 @@
 import { getJwtToken } from "@src/utils/auth/get-jwt-token";
 import { DecodedIdToken } from "@src/utils/auth/types";
-import lazyConfig from "@src/utils/lazy-config";
+import config from "@src/utils/config";
 import jwt from "jsonwebtoken";
 import { jwtDecode } from "jwt-decode";
 
@@ -19,14 +19,14 @@ const generateAssertedLoginIdentityJwt = async (): Promise<string> => {
 
   const nowInSeconds: number = Math.floor(Date.now() / 1000);
   const payload = {
-    iss: await lazyConfig.NHS_LOGIN_CLIENT_ID,
+    iss: await config.NHS_LOGIN_CLIENT_ID,
     jti: crypto.randomUUID(),
     code: jtiFromIdToken,
     exp: nowInSeconds + ASSERTED_LOGIN_IDENTITY_EXPIRY_SECONDS,
     iat: nowInSeconds,
   };
 
-  return jwt.sign(payload, (await lazyConfig.NHS_LOGIN_PRIVATE_KEY) as string, { algorithm: "RS512" });
+  return jwt.sign(payload, (await config.NHS_LOGIN_PRIVATE_KEY) as string, { algorithm: "RS512" });
 };
 
 export { generateAssertedLoginIdentityJwt };

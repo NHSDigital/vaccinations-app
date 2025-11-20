@@ -10,9 +10,9 @@ import { invalidateCacheForVaccine } from "@src/_lambda/content-cache-hydrator/i
 import { VaccineType } from "@src/models/vaccine";
 import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
-import lazyConfig from "@src/utils/lazy-config";
+import config from "@src/utils/config";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
-import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
+import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
 import { Context } from "aws-lambda";
 
 jest.mock("@src/_lambda/content-cache-hydrator/content-writer-service");
@@ -53,10 +53,10 @@ describe("Lambda Handler", () => {
   });
 
   describe("when content-change-approval-needed feature disabled", () => {
-    const mockedConfig = lazyConfig as AsyncConfigMock;
+    const mockedConfig = config as AsyncConfigMock;
 
     beforeEach(() => {
-      const defaultConfig = lazyConfigBuilder().withContentCacheIsChangeApprovalEnabled(false).build();
+      const defaultConfig = configBuilder().withContentCacheIsChangeApprovalEnabled(false).build();
       Object.assign(mockedConfig, defaultConfig);
     });
 
@@ -100,10 +100,10 @@ describe("Lambda Handler", () => {
   });
 
   describe("when content-change-approval-needed feature enabled", () => {
-    const mockedConfig = lazyConfig as AsyncConfigMock;
+    const mockedConfig = config as AsyncConfigMock;
 
     beforeEach(() => {
-      const defaultConfig = lazyConfigBuilder().withContentCacheIsChangeApprovalEnabled(true).build();
+      const defaultConfig = configBuilder().withContentCacheIsChangeApprovalEnabled(true).build();
       Object.assign(mockedConfig, defaultConfig);
     });
 

@@ -1,20 +1,20 @@
 import { retrieveApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
 import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
-import lazyConfig from "@src/utils/lazy-config";
-import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
+import config from "@src/utils/config";
+import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
 import { JWT } from "next-auth/jwt";
 
 jest.mock("@src/utils/auth/apim/get-apim-access-token", () => ({
   retrieveApimCredentials: jest.fn(),
 }));
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
-jest.mock("@src/utils/lazy-config");
+jest.mock("@src/utils/config");
 
 describe("getOrRefreshApimCredentials", () => {
-  const mockedConfig = lazyConfig as AsyncConfigMock;
+  const mockedConfig = config as AsyncConfigMock;
 
   beforeEach(() => {
-    const defaultConfig = lazyConfigBuilder().withIsApimAuthEnabled(true).build();
+    const defaultConfig = configBuilder().withIsApimAuthEnabled(true).build();
     Object.assign(mockedConfig, defaultConfig);
   });
 

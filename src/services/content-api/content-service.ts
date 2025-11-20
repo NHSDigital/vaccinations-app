@@ -9,7 +9,7 @@ import {
   StyledVaccineContent,
   VaccinePageContent,
 } from "@src/services/content-api/types";
-import lazyConfig from "@src/utils/lazy-config";
+import config from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { Logger } from "pino";
@@ -22,7 +22,7 @@ const getContentForVaccine = async (vaccineType: VaccineType): Promise<GetConten
   try {
     profilePerformanceStart(GetVaccineContentPerformanceMarker);
 
-    const cachePath = (await lazyConfig.CONTENT_CACHE_PATH) as string;
+    const cachePath = (await config.CONTENT_CACHE_PATH) as string;
     const vaccineCacheFilename = VaccineInfo[vaccineType].cacheFilename;
 
     // fetch content from api

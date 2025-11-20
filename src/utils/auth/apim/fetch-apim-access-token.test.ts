@@ -3,8 +3,8 @@
  */
 import { generateAPIMTokenPayload } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { APIMTokenPayload, IdToken } from "@src/utils/auth/types";
-import lazyConfig from "@src/utils/lazy-config";
-import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
+import config from "@src/utils/config";
+import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
 import jwt from "jsonwebtoken";
 
 jest.mock("jsonwebtoken", () => ({
@@ -24,7 +24,7 @@ const apimAuthUrl = new URL("https://apim-test-auth-url.com/test");
 
 describe("generateAPIMTokenPayload", () => {
   let randomUUIDSpy: jest.SpyInstance;
-  const mockedConfig = lazyConfig as AsyncConfigMock;
+  const mockedConfig = config as AsyncConfigMock;
 
   beforeAll(() => {
     randomUUIDSpy = jest.spyOn(global.crypto, "randomUUID").mockReturnValue(mockRandomUUID);
@@ -34,7 +34,7 @@ describe("generateAPIMTokenPayload", () => {
     randomUUIDSpy.mockClear();
     jest.useFakeTimers();
     jest.setSystemTime(mockNowInSeconds * 1000);
-    const defaultConfig = lazyConfigBuilder()
+    const defaultConfig = configBuilder()
       .withEligibilityApiKey(eligibilityApiKey)
       .andApimAuthUrl(apimAuthUrl)
       .andApimKeyId(apimKeyId)

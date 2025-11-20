@@ -1,8 +1,8 @@
 import { VaccineType } from "@src/models/vaccine";
 import { getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
 import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
-import lazyConfig from "@src/utils/lazy-config";
-import { AsyncConfigMock, lazyConfigBuilder } from "@test-data/config/builders";
+import config from "@src/utils/config";
+import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
 
 jest.mock("@src/utils/auth/generate-auth-payload", () => ({
   generateAssertedLoginIdentityJwt: jest.fn(),
@@ -15,11 +15,11 @@ const nbsBookingPathFromConfig = "/test/path/book";
 const mockAssertedLoginIdentityJWT = "mock-jwt";
 
 describe("getSSOUrlToNBSForVaccine", () => {
-  const mockedConfig = lazyConfig as AsyncConfigMock;
+  const mockedConfig = config as AsyncConfigMock;
 
   describe("when NBS config is valid", () => {
     beforeEach(() => {
-      const defaultConfig = lazyConfigBuilder()
+      const defaultConfig = configBuilder()
         .withNbsUrl(nbsUrlFromConfig)
         .andNbsBookingPath(nbsBookingPathFromConfig)
         .build();

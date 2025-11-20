@@ -5,7 +5,7 @@ import { getToken } from "@src/utils/auth/callbacks/get-token";
 import { getUpdatedSession } from "@src/utils/auth/callbacks/get-updated-session";
 import { isValidSignIn } from "@src/utils/auth/callbacks/is-valid-signin";
 import { MaxAgeInSeconds } from "@src/utils/auth/types";
-import lazyConfig from "@src/utils/lazy-config";
+import config from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
@@ -21,7 +21,7 @@ const AuthJWTPerformanceMarker = "auth-jwt-callback";
 const AuthSessionPerformanceMarker = "auth-session-callback";
 
 export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
-  const MAX_SESSION_AGE_SECONDS: number = ((await lazyConfig.MAX_SESSION_AGE_MINUTES) as number) * 60;
+  const MAX_SESSION_AGE_SECONDS: number = ((await config.MAX_SESSION_AGE_MINUTES) as number) * 60;
   const headerValues = await headers();
 
   const requestContext: RequestContext = extractRequestContextFromHeaders(headerValues);
@@ -29,7 +29,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
   return await asyncLocalStorage.run(requestContext, async () => {
     return {
       providers: [await NHSLoginAuthProvider()],
-      secret: (await lazyConfig.AUTH_SECRET) as string,
+      secret: (await config.AUTH_SECRET) as string,
       pages: {
         signIn: SSO_FAILURE_ROUTE,
         signOut: SESSION_LOGOUT_ROUTE,
