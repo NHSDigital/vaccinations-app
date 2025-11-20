@@ -65,7 +65,7 @@ jobs:
           export TAG="${{ steps.variables.outputs.tag }}"
           make list-variables
   deploy-stage:
-    name: "Deploy stage"
+    name: "Deploy ${{ needs.metadata.outputs.tag }} to AWS ${{ github.event.inputs.environment }}"
     needs: [metadata]
     runs-on: ubuntu-latest
     environment:
