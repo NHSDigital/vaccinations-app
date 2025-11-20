@@ -165,7 +165,7 @@ From NHS repository template:
 npm run build
 ```
 
-### Run service
+### Run service locally
 
 Serves web content from src folder, so make changes and refresh the browser to see changes immediately.
 
