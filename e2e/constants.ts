@@ -16,7 +16,7 @@ type VaccinePageName =
   | "hib-menc";
 type FailurePageName = "sso-failure" | "service-failure" | "not-found";
 type SessionPageName = "session-timeout" | "session-logout";
-type IndexPageName = "vaccines-for-all-ages" | "vaccine-hub";
+type IndexPageName = "vaccines-for-all-ages" | "vaccine-hub" | "vaccines-during-pregnancy";
 
 export type PageName = IndexPageName | VaccinePageName | FailurePageName | SessionPageName | PoliciesPageName;
 export type PageDetails = {
@@ -42,6 +42,12 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     heading: "Vaccines for all ages",
     title: `Vaccines for all ages - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-vaccines-for-all-ages.png",
+  },
+  "vaccines-during-pregnancy": {
+    url: "/vaccines-during-pregnancy",
+    heading: "Vaccines during pregnancy",
+    title: `Vaccines during pregnancy - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-vaccines-during-pregnancy.png",
   },
 
   // vaccine pages

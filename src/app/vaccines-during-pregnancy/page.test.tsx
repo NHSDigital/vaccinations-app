@@ -17,7 +17,7 @@ describe("VaccinesForPregnantPeople", () => {
   it("should render heading", () => {
     render(<VaccinesForPregnant />);
 
-    const heading: HTMLElement = screen.getByRole("heading", { name: "Vaccines during Pregnancy", level: 1 });
+    const heading: HTMLElement = screen.getByRole("heading", { name: "Vaccines during pregnancy", level: 1 });
 
     expect(heading).toBeVisible();
   });
