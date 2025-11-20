@@ -46,6 +46,23 @@ jobs:
         with:
           ref: ${{ inputs.checkout_ref }}
 
+      - name: "Configure AWS credentials for env"
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+            role-session-name: GitHubActionsSession
+            role-to-assume: ${{ secrets.IAM_ROLE }}
+            aws-region: ${{ env.AWS_REGION }}
+
+      - name: "Check expected version is running in ${{inputs.environment}}"
+        timeout-minutes: 20
+        shell: bash
+        run: |
+          APP_VERSION=$(aws lambda get-function-configuration --function-name gh-vita-${{ secrets.AWS_ACCOUNT_ID }}-server-function | jq -r '.Environment.Variables.APP_VERSION')
+          echo "deployed_app_version=$APP_VERSION"
+          if  [ "$APP_VERSION" != "${{ inputs.checkout_ref }}" ]; then
+            echo "Expected build ${{ inputs.checkout_ref }} is not currently deployed in ${{inputs.environment}} (current deployed version: $APP_VERSION)"
+            exit 1
+          fi
 
       - name: "Run E2E tests on ${{ inputs.checkout_ref }} (${{ inputs.environment }})"
         timeout-minutes: 10
