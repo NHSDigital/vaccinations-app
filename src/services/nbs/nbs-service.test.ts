@@ -9,7 +9,7 @@ jest.mock("@src/utils/auth/generate-auth-payload", () => ({
 }));
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
-const nbsUrlFromConfig = new URL("https://test-nbs-url");
+const nbsUrlFromConfig = new URL("https://test-nbs-url.example.com/sausages");
 const nbsBookingPathFromConfig = "/test/path/book";
 
 const mockAssertedLoginIdentityJWT = "mock-jwt";
@@ -31,7 +31,8 @@ describe("getSSOUrlToNBSForVaccine", () => {
     it("returns sso url of NBS configured in config for RSV vaccine", async () => {
       const nbsRedirectUrl = new URL(await getSSOUrlToNBSForVaccine(VaccineType.RSV));
       expect(nbsRedirectUrl.origin).toEqual(nbsUrlFromConfig.origin);
-      expect(nbsRedirectUrl.pathname).toEqual(`${nbsBookingPathFromConfig}/rsv`);
+      expect(nbsRedirectUrl.pathname).toEqual(`/sausages${nbsBookingPathFromConfig}/rsv`);
+      expect(nbsRedirectUrl.href).toMatch(/^https:\/\/test-nbs-url\.example\.com\/sausages\/test\/path\/book\/rsv.*/);
     });
 
     it("should include campaignID query param in NBS URL", async () => {
