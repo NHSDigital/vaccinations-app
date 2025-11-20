@@ -1,6 +1,7 @@
 export const VACCINATIONS_HUB_PAGE_ROUTE = "/check-and-book-vaccinations";
 export const SERVICE_HEADING = "Check and book vaccinations";
 export const VACCINES_FOR_ALL_AGES_PAGE = "Vaccines for all ages";
+export const VACCINES_FOR_PREGNANT_PAGE = "Vaccines during Pregnancy";
 export const NHS_TITLE_SUFFIX = "NHS";
 export const HUB_FEEDBACK_REFERRER_ID = "hub";
 
