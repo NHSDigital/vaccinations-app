@@ -1,0 +1,7 @@
+.careCardZeroMarginBottom p:last-child {
+  margin-bottom: 0;
+}
+
+.careCardZeroMarginBottom ul:last-child {
+  margin-bottom: 0;
+}
