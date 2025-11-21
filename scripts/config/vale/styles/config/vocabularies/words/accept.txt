@@ -1,11 +1,12 @@
 [A-Z]+s
 Bitwarden
 bot
-CLI
+(?i)CLI
 config
 Cyber
 [Dd]ependabot
 [Dd]ev
+Dockerfile
 env
 gh
 Gitleaks
