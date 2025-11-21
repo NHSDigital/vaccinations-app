@@ -117,8 +117,11 @@ export type StyledPageSection = {
   component: JSX.Element;
 };
 
+export type HeadingLevel = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | undefined;
+
 export type HeadingWithContent = {
   heading: string;
+  headingLevel?: HeadingLevel;
   content: string;
 };
 

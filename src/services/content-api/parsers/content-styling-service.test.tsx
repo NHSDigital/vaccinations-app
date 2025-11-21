@@ -13,7 +13,7 @@ import {
   VaccinePageSection,
   VaccinePageSubsection,
 } from "@src/services/content-api/types";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { JSX, isValidElement } from "react";
 
 const mockNBSBookingActionHTML = "NBS Booking Link Test";
@@ -135,11 +135,16 @@ describe("ContentStylingService", () => {
       render(styledSubsection);
 
       const text: HTMLElement = screen.getByText("This is a styled paragraph non-urgent subsection");
-      const heading: HTMLElement = screen.getByText("Heading for Non Urgent Component");
+      const cardHeading: HTMLElement = screen.getByRole("heading", {
+        level: 3,
+        name: "Non-urgent advice: Heading for Non Urgent Component",
+      });
       const nonUrgent: HTMLElement = screen.getByText("Non-urgent advice:");
+      const visibleHeading: HTMLElement = within(cardHeading).getByText("Heading for Non Urgent Component");
 
       expect(text).toBeInTheDocument();
-      expect(heading).toBeInTheDocument();
+      expect(cardHeading).toBeInTheDocument();
+      expect(visibleHeading).toBeInTheDocument();
       expect(nonUrgent).toBeInTheDocument();
     });
 
@@ -148,11 +153,16 @@ describe("ContentStylingService", () => {
       render(styledSubsection);
 
       const text: HTMLElement = screen.getByText("This is a styled paragraph urgent subsection");
-      const heading: HTMLElement = screen.getByText("Heading for Urgent Component");
+      const cardHeading: HTMLElement = screen.getByRole("heading", {
+        level: 3,
+        name: "Urgent advice: Heading for Urgent Component",
+      });
+      const visibleHeading: HTMLElement = within(cardHeading).getByText("Heading for Urgent Component");
       const nonUrgent: HTMLElement = screen.getByText("Urgent advice:");
 
       expect(text).toBeInTheDocument();
-      expect(heading).toBeInTheDocument();
+      expect(cardHeading).toBeInTheDocument();
+      expect(visibleHeading).toBeInTheDocument();
       expect(nonUrgent).toBeInTheDocument();
     });
 
@@ -339,6 +349,23 @@ describe("ContentStylingService", () => {
 
       expect(headingAndContent.heading).toEqual("Heading");
       expect(headingAndContent.content).toEqual("<p>you have not been contacted</p>");
+    });
+
+    it("should extract heading level", async () => {
+      const headingAndContentFromLevel4: HeadingWithContent = extractHeadingAndContent(
+        "<h4>Heading level 4</h4><p>you have not been contacted</p>",
+      );
+
+      expect(headingAndContentFromLevel4.headingLevel).toEqual("h4");
+    });
+
+    it("should extract first heading at any level from simple non-urgent html string", async () => {
+      const heading: HeadingWithContent = extractHeadingAndContent(
+        "<h3>Heading level 3</h3><p>you have not been contacted</p><h4>heading level 4</h4>",
+      );
+
+      expect(heading.heading).toEqual("Heading level 3");
+      expect(heading.headingLevel).toEqual("h3");
     });
 
     it("should return empty heading and content from empty string", async () => {

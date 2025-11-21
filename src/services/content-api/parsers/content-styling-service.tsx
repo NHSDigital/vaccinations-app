@@ -3,7 +3,8 @@ import UrgentCareCard from "@src/app/_components/nhs-frontend/UrgentCareCard";
 import { VaccineType } from "@src/models/vaccine";
 import { styleHowToGetSectionForRsv } from "@src/services/content-api/parsers/custom/rsv";
 import { styleHowToGetSectionForRsvPregnancy } from "@src/services/content-api/parsers/custom/rsv-pregnancy";
-import type {
+import {
+  HeadingLevel,
   HeadingWithContent,
   Overview,
   StyledPageSection,
@@ -62,20 +63,22 @@ const styleSubsection = (subsection: VaccinePageSubsection, id: number, isLastSu
   if (subsection.name === Subsections.INFORMATION) {
     return <InsetText key={id}>{_getDivWithSanitisedHtml(text)}</InsetText>;
   } else if (subsection.name === Subsections.NON_URGENT) {
-    const { heading, content } = extractHeadingAndContent(subsection.text);
+    const { heading, headingLevel, content } = extractHeadingAndContent(subsection.text);
     return (
       <NonUrgentCareCard
         key={id}
         heading={_getDivWithSanitisedHtml(heading)}
+        headingLevel={headingLevel}
         content={_getDivWithSanitisedHtml(content)}
       />
     );
   } else if (subsection.name === Subsections.URGENT) {
-    const { heading, content } = extractHeadingAndContent(subsection.text);
+    const { heading, headingLevel, content } = extractHeadingAndContent(subsection.text);
     return (
       <UrgentCareCard
         key={id}
         heading={_getDivWithSanitisedHtml(heading)}
+        headingLevel={headingLevel}
         content={_getDivWithSanitisedHtml(content)}
       />
     );
@@ -117,14 +120,15 @@ const styleSection = (section: VaccinePageSection): StyledPageSection => {
 };
 
 const extractHeadingAndContent = (text: string): HeadingWithContent => {
-  const pattern: RegExp = /^<h3>(.*?)<\/h3>/;
+  const pattern: RegExp = /^<(h\d)>(.*?)<\/h\d>/;
   const match: RegExpMatchArray | null = pattern.exec(text);
 
   if (match) {
-    const firstOccurrence: string = match[1];
+    const firstCaptureGroup: HeadingLevel = match[1] as HeadingLevel;
+    const secondCaptureGroup: string = match[2];
     const remainingText: string = text.replace(pattern, "").trim();
 
-    return { heading: firstOccurrence, content: remainingText };
+    return { heading: secondCaptureGroup, headingLevel: firstCaptureGroup, content: remainingText };
   } else {
     return {
       heading: "",
