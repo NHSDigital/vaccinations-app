@@ -38,7 +38,7 @@ const NBSBookingActionForVaccine = ({
   renderAs,
   reduceBottomPadding = false,
 }: NBSBookingActionForVaccineProps): JSX.Element => {
-  const vaccinePath: UrlPathFragment = VaccineInfo[vaccineType].nboPath;
+  const vaccinePath: UrlPathFragment = VaccineInfo[vaccineType].nbsPath;
   const nbsSSOLink = `${SSO_TO_NBS_ROUTE}?vaccine=${vaccinePath}`;
 
   return (

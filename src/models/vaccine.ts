@@ -33,7 +33,7 @@ export type VaccineDetails = {
   removeHowToGetExpanderFromMoreInformationSection?: boolean;
   contentPath: UrlPathFragment;
   cacheFilename: Filename;
-  nboPath: UrlPathFragment;
+  nbsPath: UrlPathFragment;
   showWarningCallout?: boolean;
 };
 
@@ -60,7 +60,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     removeHowToGetExpanderFromMoreInformationSection: true,
     contentPath: "vaccinations/rsv-vaccine" as UrlPathFragment,
     cacheFilename: "rsv-vaccine.json" as Filename,
-    nboPath: "rsv" as UrlPathFragment,
+    nbsPath: "rsv" as UrlPathFragment,
   },
   [VaccineType.RSV_PREGNANCY]: {
     urlPath: "rsv-pregnancy" as UrlPathFragment,
@@ -78,7 +78,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     removeHowToGetExpanderFromMoreInformationSection: true,
     contentPath: "vaccinations/rsv-pregnancy" as UrlPathFragment,
     cacheFilename: "rsv-vaccine.json" as Filename,
-    nboPath: "rsv-pregnancy" as UrlPathFragment,
+    nbsPath: "rsv-pregnancy" as UrlPathFragment,
   },
   [VaccineType.TD_IPV_3_IN_1]: {
     urlPath: "td-ipv-vaccine-3-in-1-teenage-booster" as UrlPathFragment,
@@ -96,7 +96,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/td-ipv-vaccine-3-in-1-teenage-booster" as UrlPathFragment,
     cacheFilename: "td-ipv-vaccine-3-in-1-teenage-booster.json" as Filename,
-    nboPath: "td-ipv-vaccine-3-in-1-teenage-booster" as UrlPathFragment,
+    nbsPath: "td-ipv-vaccine-3-in-1-teenage-booster" as UrlPathFragment,
   },
   [VaccineType.VACCINE_6_IN_1]: {
     urlPath: "6-in-1-vaccine" as UrlPathFragment,
@@ -112,7 +112,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/6-in-1-vaccine" as UrlPathFragment,
     cacheFilename: "6-in-1-vaccine.json" as Filename,
-    nboPath: "6-in-1-vaccine" as UrlPathFragment,
+    nbsPath: "6-in-1-vaccine" as UrlPathFragment,
   },
   [VaccineType.ROTAVIRUS]: {
     urlPath: "rotavirus-vaccine" as UrlPathFragment,
@@ -128,7 +128,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/rotavirus-vaccine" as UrlPathFragment,
     cacheFilename: "rotavirus-vaccine.json" as Filename,
-    nboPath: "rotavirus-vaccine" as UrlPathFragment,
+    nbsPath: "rotavirus-vaccine" as UrlPathFragment,
   },
   [VaccineType.HPV]: {
     urlPath: "hpv-vaccine" as UrlPathFragment,
@@ -144,7 +144,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/hpv-vaccine" as UrlPathFragment,
     cacheFilename: "hpv-vaccine.json" as Filename,
-    nboPath: "hpv-vaccine" as UrlPathFragment,
+    nbsPath: "hpv-vaccine" as UrlPathFragment,
   },
   [VaccineType.MENB_CHILDREN]: {
     urlPath: "menb-vaccine-for-children" as UrlPathFragment,
@@ -160,7 +160,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/menb-vaccine-for-children" as UrlPathFragment,
     cacheFilename: "menb-vaccine-for-children.json" as Filename,
-    nboPath: "menb-vaccine-for-children" as UrlPathFragment,
+    nbsPath: "menb-vaccine-for-children" as UrlPathFragment,
   },
   [VaccineType.MMR]: {
     urlPath: "mmr-vaccine" as UrlPathFragment,
@@ -176,7 +176,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/mmr-vaccine" as UrlPathFragment,
     cacheFilename: "mmr-vaccine.json" as Filename,
-    nboPath: "mmr-vaccine" as UrlPathFragment,
+    nbsPath: "mmr-vaccine" as UrlPathFragment,
   },
   [VaccineType.PNEUMOCOCCAL]: {
     urlPath: "pneumococcal-vaccine" as UrlPathFragment,
@@ -192,7 +192,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/pneumococcal-vaccine" as UrlPathFragment,
     cacheFilename: "pneumococcal-vaccine.json" as Filename,
-    nboPath: "pneumococcal-vaccine" as UrlPathFragment,
+    nbsPath: "pneumococcal-vaccine" as UrlPathFragment,
   },
   [VaccineType.SHINGLES]: {
     urlPath: "shingles-vaccine" as UrlPathFragment,
@@ -208,7 +208,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/shingles-vaccine" as UrlPathFragment,
     cacheFilename: "shingles-vaccine.json" as Filename,
-    nboPath: "shingles-vaccine" as UrlPathFragment,
+    nbsPath: "shingles-vaccine" as UrlPathFragment,
   },
   [VaccineType.MENACWY]: {
     urlPath: "menacwy-vaccine" as UrlPathFragment,
@@ -224,7 +224,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/menacwy-vaccine" as UrlPathFragment,
     cacheFilename: "menacwy-vaccine.json" as Filename,
-    nboPath: "menacwy-vaccine" as UrlPathFragment,
+    nbsPath: "menacwy-vaccine" as UrlPathFragment,
   },
   [VaccineType.VACCINE_4_IN_1]: {
     urlPath: "4-in-1-preschool-booster-vaccine" as UrlPathFragment,
@@ -240,7 +240,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/4-in-1-preschool-booster-vaccine" as UrlPathFragment,
     cacheFilename: "4-in-1-preschool-booster-vaccine.json" as Filename,
-    nboPath: "4-in-1-preschool-booster-vaccine" as UrlPathFragment,
+    nbsPath: "4-in-1-preschool-booster-vaccine" as UrlPathFragment,
   },
   [VaccineType.WHOOPING_COUGH]: {
     urlPath: "whooping-cough-vaccination" as UrlPathFragment,
@@ -258,7 +258,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "pregnancy/keeping-well/whooping-cough-vaccination" as UrlPathFragment,
     cacheFilename: "whooping-cough-vaccination.json" as Filename,
-    nboPath: "whooping-cough-vaccination" as UrlPathFragment,
+    nbsPath: "whooping-cough-vaccination" as UrlPathFragment,
   },
   [VaccineType.HIB_MENC]: {
     urlPath: "hib-menc-vaccine" as UrlPathFragment,
@@ -274,7 +274,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/hib-menc-vaccine" as UrlPathFragment,
     cacheFilename: "hib-menc-vaccine.json" as Filename,
-    nboPath: "hib-menc-vaccine" as UrlPathFragment,
+    nbsPath: "hib-menc-vaccine" as UrlPathFragment,
     showWarningCallout: true,
   },
 };
