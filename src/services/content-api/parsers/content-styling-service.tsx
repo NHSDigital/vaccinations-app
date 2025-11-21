@@ -45,6 +45,7 @@ const styleSubsection = (subsection: VaccinePageSubsection, id: number, isLastSu
   if (subsection.type === "tableElement") {
     return (
       <div
+        className={styles.zeroMarginBottom}
         key={id}
         dangerouslySetInnerHTML={{
           __html: sanitiseHtml(subsection.mainEntity),
