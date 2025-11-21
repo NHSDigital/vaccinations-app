@@ -39,7 +39,7 @@ jobs:
             exit 1
           fi
       - name: "Checkout code"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: "Set CI/CD variables"
         id: variables
         run: |
@@ -83,7 +83,7 @@ jobs:
         run: |
           echo "value=${{ needs.metadata.outputs.tag }}" >> $GITHUB_OUTPUT
       - name: "Checkout code"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ needs.metadata.outputs.tag }}
       - name: "Deploy ${{ needs.metadata.outputs.tag }} to ${{ github.event.inputs.environment }}"
