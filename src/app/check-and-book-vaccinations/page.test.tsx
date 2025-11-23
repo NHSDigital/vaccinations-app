@@ -14,7 +14,7 @@ describe("Vaccination Hub Page", () => {
   });
 
   it("renders subheading about pregnancy", () => {
-    const subheading: HTMLElement = getHeading("Vaccines if you are pregnant", 2);
+    const subheading: HTMLElement = getHeading("Vaccines if you're pregnant", 2);
     expect(subheading).toBeVisible();
   });
 
