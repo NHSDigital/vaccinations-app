@@ -32,7 +32,7 @@ jobs:
   download:
     name: "Download package from ${{ needs.prepare.outputs.PROMOTE_SOURCE_ENVIRONMENT }} env"
     runs-on: ubuntu-latest
-    needs: [prepare]
+    needs: [ prepare ]
     environment:
       name: ${{ needs.prepare.outputs.PROMOTE_SOURCE_ENVIRONMENT }}
     timeout-minutes: 5
@@ -75,7 +75,7 @@ jobs:
   promote:
     name: "Promote to ${{ inputs.environment}} environment"
     runs-on: ubuntu-latest
-    needs: [download]
+    needs: [ download ]
     environment:
       name: ${{ inputs.environment }}
     timeout-minutes: 20
@@ -115,7 +115,7 @@ jobs:
   cleanup:
     name: "Cleanup release package from artifact"
     runs-on: ubuntu-latest
-    needs: [promote]
+    needs: [ promote ]
     steps:
       - name: "Delete workflow artifact"
         uses: geekyeggo/delete-artifact@v5

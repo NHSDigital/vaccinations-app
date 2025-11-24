@@ -52,9 +52,9 @@ jobs:
       - name: "Configure AWS credentials for env"
         uses: aws-actions/configure-aws-credentials@v5
         with:
-            role-session-name: GitHubActionsSession
-            role-to-assume: ${{ secrets.IAM_ROLE }}
-            aws-region: eu-west-2
+          role-session-name: GitHubActionsSession
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+          aws-region: eu-west-2
 
       - name: "Check expected version is running in ${{inputs.environment}}"
         timeout-minutes: 20

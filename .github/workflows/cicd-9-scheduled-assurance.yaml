@@ -33,84 +33,84 @@ jobs:
 
     if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && (inputs.release=='All' || inputs.release=='Latest R1 tag'))) }}
     steps:
-    - name: "Checkout release/v1.0 branch"
-      uses: actions/checkout@v5
-      with:
-        fetch-depth: 0
-        ref: "release/v1.0"
+      - name: "Checkout release/v1.0 branch"
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: "release/v1.0"
 
-    - name: "Get latest tag name on release/v1.0 branch"
-      id: get-latest-tag-name
-      run: |
-        echo "value=$(git describe --tags --abbrev=0 --first-parent)" | tee -a $GITHUB_OUTPUT
+      - name: "Get latest tag name on release/v1.0 branch"
+        id: get-latest-tag-name
+        run: |
+          echo "value=$(git describe --tags --abbrev=0 --first-parent)" | tee -a $GITHUB_OUTPUT
 
-    - name: "Checkout code"
-      uses: actions/checkout@v5
+      - name: "Checkout code"
+        uses: actions/checkout@v5
 
-    - name: "Deploy ${{ steps.get-latest-tag-name.outputs.value }} to AWS (preprod)"
-      timeout-minutes: 10
-      uses: ./.github/actions/deploy
-      with:
-        environment: "preprod"
-        tag_or_sha_to_deploy: ${{ steps.get-latest-tag-name.outputs.value }}
-        secret_aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
-        secret_aws_iam_role: ${{ secrets.IAM_ROLE }}
-        secret_aws_slack_channel_id: ${{ secrets.ALARMS_SLACK_CHANNEL_ID }}
+      - name: "Deploy ${{ steps.get-latest-tag-name.outputs.value }} to AWS (preprod)"
+        timeout-minutes: 10
+        uses: ./.github/actions/deploy
+        with:
+          environment: "preprod"
+          tag_or_sha_to_deploy: ${{ steps.get-latest-tag-name.outputs.value }}
+          secret_aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+          secret_aws_iam_role: ${{ secrets.IAM_ROLE }}
+          secret_aws_slack_channel_id: ${{ secrets.ALARMS_SLACK_CHANNEL_ID }}
 
-    - name: "Run contract tests (sandpit+mocked)"
-      timeout-minutes: 3
-      uses: ./.github/actions/run-contract-tests
-      with:
-        target_ref: ${{ steps.get-latest-tag-name.outputs.value }}
-      env:
-        CONTENT_API_ENDPOINT: ${{ secrets.CONTENT_API_ENDPOINT }}
-        CONTENT_API_KEY: ${{ secrets.CONTENT_API_KEY }}
-        ELIGIBILITY_API_ENDPOINT: ${{ secrets.ELIGIBILITY_API_ENDPOINT }}
-        ELIGIBILITY_API_KEY: ${{ secrets.ELIGIBILITY_API_KEY }}
-        SSM_PREFIX: ${{ secrets.SSM_PREFIX }}
-        IS_APIM_AUTH_ENABLED: ${{ vars.IS_APIM_AUTH_ENABLED }}
-        CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: "false"
-        NHS_APP_REDIRECT_LOGIN_URL: "dummy"
-        CONTENT_CACHE_PATH: "dummy"
-        NHS_LOGIN_URL: "dummy"
-        NHS_LOGIN_CLIENT_ID: "dummy"
-        NHS_LOGIN_SCOPE: "dummy"
-        NHS_LOGIN_PRIVATE_KEY: "dummy"
-        NBS_URL: "dummy"
-        NBS_BOOKING_PATH: "dummy"
-        MAX_SESSION_AGE_MINUTES: 0
-        AUTH_SECRET: "dummy"
+      - name: "Run contract tests (sandpit+mocked)"
+        timeout-minutes: 3
+        uses: ./.github/actions/run-contract-tests
+        with:
+          target_ref: ${{ steps.get-latest-tag-name.outputs.value }}
+        env:
+          CONTENT_API_ENDPOINT: ${{ secrets.CONTENT_API_ENDPOINT }}
+          CONTENT_API_KEY: ${{ secrets.CONTENT_API_KEY }}
+          ELIGIBILITY_API_ENDPOINT: ${{ secrets.ELIGIBILITY_API_ENDPOINT }}
+          ELIGIBILITY_API_KEY: ${{ secrets.ELIGIBILITY_API_KEY }}
+          SSM_PREFIX: ${{ secrets.SSM_PREFIX }}
+          IS_APIM_AUTH_ENABLED: ${{ vars.IS_APIM_AUTH_ENABLED }}
+          CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: "false"
+          NHS_APP_REDIRECT_LOGIN_URL: "dummy"
+          CONTENT_CACHE_PATH: "dummy"
+          NHS_LOGIN_URL: "dummy"
+          NHS_LOGIN_CLIENT_ID: "dummy"
+          NHS_LOGIN_SCOPE: "dummy"
+          NHS_LOGIN_PRIVATE_KEY: "dummy"
+          NBS_URL: "dummy"
+          NBS_BOOKING_PATH: "dummy"
+          MAX_SESSION_AGE_MINUTES: 0
+          AUTH_SECRET: "dummy"
 
-    - name: "Run E2E tests on ${{ steps.get-latest-tag-name.outputs.value }} (preprod)"
-      timeout-minutes: 10
-      uses: ./.github/actions/run-e2e-tests
-      with:
-        checkout_ref: ${{ steps.get-latest-tag-name.outputs.value }}
-        cross_browser: true
-      env:
-        TEST_NHS_APP_URL: ${{ secrets.TEST_NHS_APP_URL }}
-        TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
-        TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
-        TEST_NBS_APP_USERNAME: ${{ secrets.TEST_NBS_APP_USERNAME }}
-        TEST_NBS_APP_PASSWORD: ${{ secrets.TEST_NBS_APP_PASSWORD }}
-        TEST_APP_URL: ${{ vars.TEST_APP_URL_R1 }}
-        NHS_APP_REDIRECT_LOGIN_URL: ${{ secrets.NHS_APP_REDIRECT_LOGIN_URL }}
-        VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
-        DEPLOY_ENVIRONMENT: "preprod"
+      - name: "Run E2E tests on ${{ steps.get-latest-tag-name.outputs.value }} (preprod)"
+        timeout-minutes: 10
+        uses: ./.github/actions/run-e2e-tests
+        with:
+          checkout_ref: ${{ steps.get-latest-tag-name.outputs.value }}
+          cross_browser: true
+        env:
+          TEST_NHS_APP_URL: ${{ secrets.TEST_NHS_APP_URL }}
+          TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
+          TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
+          TEST_NBS_APP_USERNAME: ${{ secrets.TEST_NBS_APP_USERNAME }}
+          TEST_NBS_APP_PASSWORD: ${{ secrets.TEST_NBS_APP_PASSWORD }}
+          TEST_APP_URL: ${{ vars.TEST_APP_URL_R1 }}
+          NHS_APP_REDIRECT_LOGIN_URL: ${{ secrets.NHS_APP_REDIRECT_LOGIN_URL }}
+          VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
+          DEPLOY_ENVIRONMENT: "preprod"
 
-    - name: "Run snapshot tests on ${{ steps.get-latest-tag-name.outputs.value }} (preprod)"
-      uses: ./.github/actions/run-snapshot-tests
-      with:
-        checkout_ref: ${{ steps.get-latest-tag-name.outputs.value }}
-        release_name: "release1"
-      env:
-        SECRET_IAM_ROLE: ${{ secrets.IAM_ROLE }}
-        TEST_NHS_APP_URL: ${{ secrets.TEST_NHS_APP_URL }}
-        TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
-        TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
-        TEST_APP_URL: ${{ vars.TEST_APP_URL_R1 }}
-        VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
-        AWS_S3_ARTEFACTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-preprod
+      - name: "Run snapshot tests on ${{ steps.get-latest-tag-name.outputs.value }} (preprod)"
+        uses: ./.github/actions/run-snapshot-tests
+        with:
+          checkout_ref: ${{ steps.get-latest-tag-name.outputs.value }}
+          release_name: "release1"
+        env:
+          SECRET_IAM_ROLE: ${{ secrets.IAM_ROLE }}
+          TEST_NHS_APP_URL: ${{ secrets.TEST_NHS_APP_URL }}
+          TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
+          TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
+          TEST_APP_URL: ${{ vars.TEST_APP_URL_R1 }}
+          VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
+          AWS_S3_ARTEFACTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-preprod
 
   #################################################################
   # Main branch deployment and assurance (e2e+snapshots+contract)

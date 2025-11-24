@@ -7,7 +7,7 @@ on:
     branches:
       - "**"
   pull_request:
-    types: [opened, reopened]
+    types: [ opened, reopened ]
 
 env:
   AWS_REGION: eu-west-2
@@ -71,7 +71,7 @@ jobs:
           make list-variables
   commit-stage: # Recommended maximum execution time is 2 minutes
     name: "Commit stage"
-    needs: [metadata]
+    needs: [ metadata ]
     uses: ./.github/workflows/stage-1-commit.yaml
     with:
       build_datetime: "${{ needs.metadata.outputs.build_datetime }}"
@@ -84,7 +84,7 @@ jobs:
     secrets: inherit
   test-stage: # Recommended maximum execution time is 5 minutes
     name: "Test stage"
-    needs: [metadata, commit-stage]
+    needs: [ metadata, commit-stage ]
     uses: ./.github/workflows/stage-2-test.yaml
     with:
       build_datetime: "${{ needs.metadata.outputs.build_datetime }}"
@@ -97,7 +97,7 @@ jobs:
     secrets: inherit
   build-stage: # Recommended maximum execution time is 3 minutes
     name: "Build stage"
-    needs: [metadata, test-stage]
+    needs: [ metadata, test-stage ]
     uses: ./.github/workflows/stage-3-build.yaml
     # if: needs.metadata.outputs.does_pull_request_exist == 'true' || (github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'reopened'))
     with:
@@ -111,7 +111,7 @@ jobs:
     secrets: inherit
   deploy-stage:
     name: "Deploy stage"
-    needs: [metadata, build-stage]
+    needs: [ metadata, build-stage ]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: dev
@@ -144,7 +144,7 @@ jobs:
 
   acceptance-stage: # Recommended maximum execution time is 10 minutes
     name: "Acceptance stage"
-    needs: [metadata, deploy-stage]
+    needs: [ metadata, deploy-stage ]
     if: github.ref == 'refs/heads/main'
     uses: ./.github/workflows/stage-5-acceptance.yaml
     with:

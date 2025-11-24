@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: dev
-    needs: [metadata]
+    needs: [ metadata ]
     timeout-minutes: 3
     permissions:
       id-token: write

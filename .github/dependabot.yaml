@@ -13,7 +13,7 @@ updates:
       interval: "daily"
     groups:
       artifact:
-        patterns: ["actions/*artifact"]
+        patterns: [ "actions/*artifact" ]
 
   - package-ecosystem: "npm"
     directory: "/"
@@ -21,19 +21,19 @@ updates:
       interval: "daily"
     groups:
       next:
-        patterns: ["next", "next*", "*next", "*next*"]
+        patterns: [ "next", "next*", "*next", "*next*" ]
       react:
-        patterns: ["react", "react*", "*react", "*react*"]
+        patterns: [ "react", "react*", "*react", "*react*" ]
       aws-sdk:
-        patterns: ["@aws-sdk/*"]
+        patterns: [ "@aws-sdk/*" ]
       jest:
-        patterns: ["jest", "jest*", "*jest", "*jest*"]
+        patterns: [ "jest", "jest*", "*jest", "*jest*" ]
       testing-library:
-        patterns: ["@testing-library/*"]
+        patterns: [ "@testing-library/*" ]
       eslint:
-        patterns: ["eslint", "eslint*", "*eslint", "*eslint*"]
+        patterns: [ "eslint", "eslint*", "*eslint", "*eslint*" ]
       prettier:
-        patterns: ["prettier", "prettier*", "*prettier", "*prettier*"]
+        patterns: [ "prettier", "prettier*", "*prettier", "*prettier*" ]
     ignore:
       - dependency-name: "next"
         versions: [ ">=16.0.0" ]

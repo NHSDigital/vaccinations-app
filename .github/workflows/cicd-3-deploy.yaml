@@ -66,7 +66,7 @@ jobs:
           make list-variables
   deploy-stage:
     name: "Deploy ${{ needs.metadata.outputs.tag }} to ${{ github.event.inputs.environment }}"
-    needs: [metadata]
+    needs: [ metadata ]
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.event.inputs.environment }}
@@ -98,7 +98,7 @@ jobs:
   acceptance-stage:
     name: "Acceptance stage"
     if: ${{ contains(fromJSON('["dev","preprod"]'), github.event.inputs.environment) }}
-    needs: [metadata, deploy-stage]
+    needs: [ metadata, deploy-stage ]
     uses: ./.github/workflows/stage-5-acceptance.yaml
     with:
       environment: ${{ github.event.inputs.environment}}
