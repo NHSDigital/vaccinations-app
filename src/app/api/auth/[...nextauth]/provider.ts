@@ -10,7 +10,7 @@ const NHSLoginAuthProvider = async (): Promise<OIDCConfig<Profile>> => {
     id: NHS_LOGIN_PROVIDER_ID,
     name: "NHS Login Auth Provider",
     type: "oidc",
-    issuer: `${await config.NHS_LOGIN_URL}`,
+    issuer: (await config.NHS_LOGIN_URL).href,
     clientId: await config.NHS_LOGIN_CLIENT_ID,
     wellKnown: `${await config.NHS_LOGIN_URL}/.well-known/openid-configuration`,
     authorization: {
