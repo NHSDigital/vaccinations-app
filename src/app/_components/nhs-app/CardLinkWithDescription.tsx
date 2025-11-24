@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface CardLinkProps {
   title: string;
   description: string;
@@ -9,9 +11,9 @@ const CardLinkWithDescription = ({ title, description, link }: CardLinkProps) =>
     <li className="nhsapp-card">
       <div className="nhsapp-card__container">
         <div className="nhsapp-card__content">
-          <a href={link} className="nhsapp-card__link nhsuk-link--no-visited-state">
+          <Link prefetch={false} href={link} className="nhsapp-card__link nhsuk-link--no-visited-state">
             {title}
-          </a>
+          </Link>
           <div className="nhsapp-card__below">
             <p className="nhsapp-card__description">{description}</p>
           </div>
