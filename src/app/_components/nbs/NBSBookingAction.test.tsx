@@ -23,7 +23,7 @@ describe("NBSBookingAction", () => {
           reduceBottomPadding={false}
         />,
       );
-      let bookingAction;
+      let bookingAction: HTMLElement;
       if (renderAs === "anchor") {
         bookingAction = screen.getByRole("link", { name: displayText });
       } else {

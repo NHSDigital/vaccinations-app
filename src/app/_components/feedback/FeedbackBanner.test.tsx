@@ -7,7 +7,7 @@ describe("FeedbackBanner", () => {
 
     render(<FeedbackBanner referrer={testReferrer} />);
 
-    const feedbackText = screen.getByText(/This is a new NHS App service\. Help us improve it and/i);
+    const feedbackText: HTMLElement = screen.getByText(/This is a new NHS App service\. Help us improve it and/i);
     const feedbackLink: HTMLAnchorElement = screen.getByRole("link", { name: "give your feedback" });
     const feedbackUrl: URL = new URL(feedbackLink.href);
 

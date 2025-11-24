@@ -67,7 +67,7 @@ describe("Dynamic vaccine page", () => {
     });
 
     it("shows vaccine content when content has loaded", async () => {
-      const rsvHeading = screen.getByRole("heading", {
+      const rsvHeading: HTMLElement = screen.getByRole("heading", {
         level: 1,
         name: "RSV vaccine for older adults",
       });

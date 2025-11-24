@@ -30,7 +30,7 @@ describe("BackToNHSAppLink", () => {
 
     it("clicking back link takes user to NHS app services page", async () => {
       render(<BackToNHSAppLink />);
-      const backLink = screen.queryByRole("link", { name: "Back" });
+      const backLink: HTMLElement = screen.getByRole("link", { name: "Back" });
       expect(backLink).toBeVisible();
       backLink?.click();
       expect(mockGoToPage).toHaveBeenCalledWith("services");
@@ -53,8 +53,8 @@ describe("BackToNHSAppLink", () => {
 
     it("back link is not rendered", async () => {
       render(<BackToNHSAppLink />);
-      const backLink = screen.queryByRole("link", { name: "Back" });
-      expect(backLink).toBeNull();
+      const backLink: HTMLElement | null = screen.queryByRole("link", { name: "Back" });
+      expect(backLink).not.toBeInTheDocument();
     });
 
     it("back action is not set", async () => {

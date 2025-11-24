@@ -26,8 +26,8 @@ const expectHeaderVisible = (expectedVisible: boolean) => {
     expect(serviceLink).toBeVisible();
     expect(logo).toBeVisible();
   } else {
-    expect(serviceLink).toBeNull();
-    expect(logo).toBeNull();
+    expect(serviceLink).not.toBeInTheDocument();
+    expect(logo).not.toBeInTheDocument();
   }
 };
 
@@ -52,7 +52,7 @@ describe("AppHeader", () => {
       it("shows the app header with logout link", async () => {
         render(<AppHeader />);
         expectHeaderVisible(true);
-        const logoutLink = screen.getByRole("link", { name: "Log out" });
+        const logoutLink: HTMLElement = screen.getByRole("link", { name: "Log out" });
         expect(logoutLink).toBeVisible();
         expect(logoutLink?.getAttribute("href")).toEqual("#");
       });
@@ -83,8 +83,8 @@ describe("AppHeader", () => {
         mockSession = { status: "unauthenticated" };
         render(<AppHeader />);
         expectHeaderVisible(true);
-        const logoutLink = screen.queryByRole("link", { name: "Log out" });
-        expect(logoutLink).toBeNull();
+        const logoutLink: HTMLElement | null = screen.queryByRole("link", { name: "Log out" });
+        expect(logoutLink).not.toBeInTheDocument();
       });
 
       it("should not include link destination for logo and service name", async () => {

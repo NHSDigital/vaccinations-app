@@ -19,7 +19,7 @@ describe("SessionLogout", () => {
       </BrowserContextProvider>,
     );
     const loggedOutText = screen.queryByText("You have logged out");
-    expect(loggedOutText).toBeNull();
+    expect(loggedOutText).not.toBeInTheDocument();
     expect(mockGoToHomePage).toHaveBeenCalledTimes(1);
   });
 

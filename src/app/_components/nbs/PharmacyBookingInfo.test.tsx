@@ -13,7 +13,7 @@ describe("PharmacyBookingInfo", () => {
   it("should contain NBS booking with props to render as link, vaccine name and pharmacy booking text", () => {
     render(<PharmacyBookingInfo vaccineType={VaccineType.RSV} />);
 
-    const nbsBookingAction = screen.getByText("NBS Booking Link Test");
+    const nbsBookingAction: HTMLElement = screen.getByText("NBS Booking Link Test");
 
     expect(nbsBookingAction).toBeVisible();
     expect(NBSBookingActionForVaccine).toHaveBeenCalledWith(
@@ -30,7 +30,7 @@ describe("PharmacyBookingInfo", () => {
   it("should contain include correct text for older adults", () => {
     render(<PharmacyBookingInfo vaccineType={VaccineType.RSV} />);
 
-    const pharmacyBookingInfo: HTMLElement | null = screen.queryByText(
+    const pharmacyBookingInfo: HTMLElement = screen.getByText(
       /This pharmacy service is only for adults aged 75 to 79./,
     );
 

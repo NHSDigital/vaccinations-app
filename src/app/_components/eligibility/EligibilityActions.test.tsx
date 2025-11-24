@@ -157,7 +157,7 @@ describe("EligibilityActions", () => {
           }),
         );
 
-        const authButtonComponents = screen.getByTestId("action-auth-button-components");
+        const authButtonComponents: HTMLElement = screen.getByTestId("action-auth-button-components");
 
         const card = within(authButtonComponents).queryByTestId("action-auth-button-card");
 

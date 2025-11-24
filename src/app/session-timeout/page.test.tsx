@@ -20,7 +20,7 @@ describe("SessionTimeout", () => {
     );
 
     const loggedOutText = screen.queryByText("You have been logged out");
-    expect(loggedOutText).toBeNull();
+    expect(loggedOutText).not.toBeInTheDocument();
     expect(mockGoToHomePage).toHaveBeenCalledTimes(1);
   });
 

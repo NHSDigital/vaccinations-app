@@ -20,7 +20,7 @@ describe("Eligibility", () => {
         }),
       );
 
-      const careCard: HTMLElement | null = screen.queryByTestId("non-urgent-care-card");
+      const careCard: HTMLElement = screen.getByTestId("non-urgent-care-card");
       expect(careCard).toBeInTheDocument();
     });
 
@@ -112,7 +112,7 @@ describe("Eligibility", () => {
 
     it("should display EligibilityActions component", () => {
       render(Eligibility({ eligibilityContent: eligibilityContentBuilder().build() }));
-      const actions = screen.getByText("Test Eligibility Actions Component");
+      const actions: HTMLElement = screen.getByText("Test Eligibility Actions Component");
 
       expect(actions).toBeVisible();
     });

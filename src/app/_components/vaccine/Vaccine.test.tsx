@@ -149,7 +149,7 @@ describe("Any vaccine page", () => {
     it("should display custom RSV Pregnancy vaccine component with contentApi howToGet section", async () => {
       await renderNamedVaccinePage(VaccineType.RSV_PREGNANCY);
 
-      const rsvPregnancyInfo = screen.queryByTestId("rsv-pregnancy-mock");
+      const rsvPregnancyInfo: HTMLElement = screen.getByTestId("rsv-pregnancy-mock");
 
       expect(rsvPregnancyInfo).toBeInTheDocument();
       expect(RSVPregnancyInfo).toHaveBeenCalledWith(
@@ -164,7 +164,7 @@ describe("Any vaccine page", () => {
     it("should not display RSV Pregnancy component when vaccineType is not RSV_PREGNANCY", async () => {
       await renderNamedVaccinePage(VaccineType.TD_IPV_3_IN_1);
 
-      const rsvPregnancyInfo = screen.queryByTestId("rsv-pregnancy-mock");
+      const rsvPregnancyInfo: HTMLElement | null = screen.queryByTestId("rsv-pregnancy-mock");
 
       expect(rsvPregnancyInfo).not.toBeInTheDocument();
       expect(RSVPregnancyInfo).not.toHaveBeenCalled();
