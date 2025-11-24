@@ -1,10 +1,10 @@
-import VaccinesForPregnant from "@src/app/vaccines-during-pregnancy/page";
+import VaccinesDuringPregnancy from "@src/app/vaccines-during-pregnancy/page";
 import { assertBackLinkIsPresent } from "@test-data/utils/back-link-helpers";
 import { render, screen } from "@testing-library/react";
 
 jest.mock("@src/app/_components/nhs-frontend/BackLink", () => jest.fn(() => <div data-testid="back-link"></div>));
 
-describe("VaccinesForPregnantPeople", () => {
+describe("VaccinesDuringPregnancy", () => {
   const vaccines = [
     {
       name: "Whooping cough (Pertussis)",
@@ -15,7 +15,7 @@ describe("VaccinesForPregnantPeople", () => {
   ];
 
   it("should render heading", () => {
-    render(<VaccinesForPregnant />);
+    render(<VaccinesDuringPregnancy />);
 
     const heading: HTMLElement = screen.getByRole("heading", { name: "Vaccines during pregnancy", level: 1 });
 
@@ -23,13 +23,13 @@ describe("VaccinesForPregnantPeople", () => {
   });
 
   it("should render back link", () => {
-    render(<VaccinesForPregnant />);
+    render(<VaccinesDuringPregnancy />);
 
     assertBackLinkIsPresent(screen);
   });
 
   it.each(vaccines)(`should render card link with description for $name`, ({ name, description, link }) => {
-    render(<VaccinesForPregnant />);
+    render(<VaccinesDuringPregnancy />);
 
     const cardLink: HTMLElement = screen.getByRole("link", { name });
     const cardDescription: HTMLElement = screen.getByText(description);
@@ -40,7 +40,7 @@ describe("VaccinesForPregnantPeople", () => {
   });
 
   it("renders vaccines for all ages button", async () => {
-    render(<VaccinesForPregnant />);
+    render(<VaccinesDuringPregnancy />);
     expectLinkToBeRendered("View vaccines for all ages", "/vaccines-for-all-ages");
   });
 });

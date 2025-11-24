@@ -5,7 +5,7 @@ import { NHS_TITLE_SUFFIX, VACCINES_FOR_PREGNANT_PAGE } from "@src/app/constants
 import Link from "next/link";
 import React, { JSX } from "react";
 
-const VaccinesForPregnant = (): JSX.Element => {
+const VaccinesDuringPregnancy = (): JSX.Element => {
   return (
     <>
       <title>{`${VACCINES_FOR_PREGNANT_PAGE} - ${NHS_TITLE_SUFFIX}`}</title>
@@ -32,4 +32,4 @@ const VaccinesForPregnant = (): JSX.Element => {
   );
 };
 
-export default VaccinesForPregnant;
+export default VaccinesDuringPregnancy;
