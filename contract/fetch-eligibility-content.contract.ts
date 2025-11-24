@@ -3,7 +3,7 @@ import { EligibilityApiResponse } from "@src/services/eligibility-api/api-types"
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
 import config from "@src/utils/config";
 import { asyncLocalStorage } from "@src/utils/requestContext";
-import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
+import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { readFileSync } from "fs";
 import { pactWith } from "jest-pact";
 
@@ -40,7 +40,7 @@ const successfulResponse: EligibilityApiResponse = {
 };
 
 pactWith({ consumer: "VitA", provider: "EliD", port: 1234, logLevel: "warn" }, (provider) => {
-  const mockedConfig = config as AsyncConfigMock;
+  const mockedConfig = config as ConfigMock;
 
   beforeEach(() => {
     const defaultConfig = configBuilder()

@@ -5,7 +5,7 @@ import { auth } from "@project/auth";
 import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
 import { config, middleware } from "@src/middleware";
 import appConfig from "@src/utils/config";
-import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
+import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { NextRequest } from "next/server";
 
 jest.mock("@project/auth", () => ({
@@ -34,7 +34,7 @@ function getMockRequest(testUrl: string) {
 }
 
 describe("middleware", () => {
-  const mockedConfig = appConfig as AsyncConfigMock;
+  const mockedConfig = appConfig as unknown as ConfigMock;
 
   beforeEach(() => {
     const defaultConfig = configBuilder()

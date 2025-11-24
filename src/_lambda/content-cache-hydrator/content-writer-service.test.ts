@@ -9,7 +9,7 @@ import {
 } from "@src/_lambda/content-cache-hydrator/content-writer-service";
 import { Filename, VaccineInfo, VaccineType } from "@src/models/vaccine";
 import config from "@src/utils/config";
-import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
+import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { writeFile } from "node:fs/promises";
 
 jest.mock("node:fs/promises");
@@ -29,7 +29,7 @@ describe("Content Writer Service", () => {
   const location: string = "test-location/";
   const path: Filename = "test-filename.json" as Filename;
   const content: string = "test-data";
-  const mockedConfig = config as AsyncConfigMock;
+  const mockedConfig = config as ConfigMock;
 
   beforeEach(() => {
     mockSend = jest.fn();

@@ -1,7 +1,7 @@
 import { isValidSignIn } from "@src/utils/auth/callbacks/is-valid-signin";
 import type { DecodedIdToken } from "@src/utils/auth/types";
 import config from "@src/utils/config";
-import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
+import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { createTypeBuilder } from "@test-data/meta-builder";
 import { jwtDecode } from "jwt-decode";
 import { Account } from "next-auth";
@@ -11,7 +11,7 @@ jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 jest.mock("@src/utils/config");
 
 describe("isValidSignIn", () => {
-  const mockConfig = config as AsyncConfigMock;
+  const mockConfig = config as ConfigMock;
 
   const decodedIdTokenBuilder = () => {
     return createTypeBuilder<DecodedIdToken>({

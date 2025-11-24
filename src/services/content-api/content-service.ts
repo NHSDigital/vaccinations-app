@@ -22,7 +22,7 @@ const getContentForVaccine = async (vaccineType: VaccineType): Promise<GetConten
   try {
     profilePerformanceStart(GetVaccineContentPerformanceMarker);
 
-    const cachePath = (await config.CONTENT_CACHE_PATH) as string;
+    const cachePath = await config.CONTENT_CACHE_PATH;
     const vaccineCacheFilename = VaccineInfo[vaccineType].cacheFilename;
 
     // fetch content from api

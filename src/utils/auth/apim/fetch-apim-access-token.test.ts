@@ -4,7 +4,7 @@
 import { generateAPIMTokenPayload } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { APIMTokenPayload, IdToken } from "@src/utils/auth/types";
 import config from "@src/utils/config";
-import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
+import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import jwt from "jsonwebtoken";
 
 jest.mock("jsonwebtoken", () => ({
@@ -24,7 +24,7 @@ const apimAuthUrl = new URL("https://apim-test-auth-url.com/test");
 
 describe("generateAPIMTokenPayload", () => {
   let randomUUIDSpy: jest.SpyInstance;
-  const mockedConfig = config as AsyncConfigMock;
+  const mockedConfig = config as ConfigMock;
 
   beforeAll(() => {
     randomUUIDSpy = jest.spyOn(global.crypto, "randomUUID").mockReturnValue(mockRandomUUID);

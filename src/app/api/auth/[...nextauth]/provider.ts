@@ -10,8 +10,8 @@ const NHSLoginAuthProvider = async (): Promise<OIDCConfig<Profile>> => {
     id: NHS_LOGIN_PROVIDER_ID,
     name: "NHS Login Auth Provider",
     type: "oidc",
-    issuer: (await config.NHS_LOGIN_URL) as string,
-    clientId: (await config.NHS_LOGIN_CLIENT_ID) as string,
+    issuer: `${await config.NHS_LOGIN_URL}`,
+    clientId: await config.NHS_LOGIN_CLIENT_ID,
     wellKnown: `${await config.NHS_LOGIN_URL}/.well-known/openid-configuration`,
     authorization: {
       params: {
@@ -20,7 +20,7 @@ const NHSLoginAuthProvider = async (): Promise<OIDCConfig<Profile>> => {
       },
     },
     token: {
-      clientPrivateKey: await pemToCryptoKey((await config.NHS_LOGIN_PRIVATE_KEY) as string),
+      clientPrivateKey: await pemToCryptoKey(await config.NHS_LOGIN_PRIVATE_KEY),
     },
     client: {
       token_endpoint_auth_method: "private_key_jwt",

@@ -26,7 +26,7 @@ const nbsVaccinePath: Record<VaccinesWithNBSBookingAvailable, string> = {
 const getSSOUrlToNBSForVaccine = async (vaccineType: VaccinesWithNBSBookingAvailable) => {
   let redirectUrl;
   try {
-    const nbsBaseUrl = (await config.NBS_URL) as URL;
+    const nbsBaseUrl = await config.NBS_URL;
     const nbsBookingPath = await config.NBS_BOOKING_PATH;
     const nbsURl = new URL(`${nbsBaseUrl.pathname}${nbsBookingPath}${nbsVaccinePath[vaccineType]}`, nbsBaseUrl.origin);
     const nbsQueryParams = await getNbsQueryParams();

@@ -7,7 +7,7 @@ import { VaccineType } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { GetContentForVaccineResponse } from "@src/services/content-api/types";
 import config from "@src/utils/config";
-import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
+import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { Readable } from "stream";
 
 jest.mock("@aws-sdk/client-s3");
@@ -23,7 +23,7 @@ const mockRsvResponse = {
 };
 
 describe("Content API Read Integration Test ", () => {
-  const mockedConfig = config as AsyncConfigMock;
+  const mockedConfig = config as ConfigMock;
 
   afterEach(async () => {
     const { styledVaccineContent, contentError }: GetContentForVaccineResponse = await getContentForVaccine(

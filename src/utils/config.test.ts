@@ -134,7 +134,7 @@ describe("lazyConfig", () => {
   });
 
   it("should retry fetching from SSM if the first attempt fails", async () => {
-    const key = "API_SECRET";
+    const key = "CONTENT_API_KEY";
     const expectedValue = "value-from-ssm-on-second-try";
     const expectedSsmPath = `/test/ci/${key}`;
 
@@ -144,7 +144,7 @@ describe("lazyConfig", () => {
       .mockRejectedValueOnce(new Error("SSM is temporarily unavailable"))
       .mockResolvedValue(expectedValue);
 
-    const resultPromise = config.API_SECRET;
+    const resultPromise = config.CONTENT_API_KEY;
     await jest.runOnlyPendingTimersAsync();
     const result = await resultPromise;
 

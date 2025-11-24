@@ -10,6 +10,6 @@ const getJwtToken = async (): Promise<JWT | null> => {
     cookies: Object.fromEntries(cookieEntries.getAll().map((c) => [c.name, c.value])),
   };
 
-  return await getToken({ req, secret: (await config.AUTH_SECRET) as string, secureCookie: true });
+  return await getToken({ req, secret: await config.AUTH_SECRET, secureCookie: true });
 };
 export { getJwtToken };

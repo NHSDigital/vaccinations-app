@@ -3,7 +3,7 @@ import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh
 import { getToken } from "@src/utils/auth/callbacks/get-token";
 import { MaxAgeInSeconds } from "@src/utils/auth/types";
 import config from "@src/utils/config";
-import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
+import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { jwtDecode } from "jwt-decode";
 import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
@@ -26,7 +26,7 @@ jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 jest.mock("@src/utils/config");
 
 describe("getToken", () => {
-  const mockedConfig = config as AsyncConfigMock;
+  const mockedConfig = config as ConfigMock;
 
   beforeAll(async () => {
     const fakeHeaders: ReadonlyHeaders = {

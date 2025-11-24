@@ -17,7 +17,7 @@ const fetchAPIMAccessToken = async (idToken: IdToken): Promise<ApimTokenResponse
     log.debug({ context: { tokenPayload } }, "APIM token payload");
 
     const response: AxiosResponse<ApimTokenResponse> = await axios.post(
-      ((await config.APIM_AUTH_URL) as URL).href,
+      (await config.APIM_AUTH_URL).href,
       tokenPayload,
       {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -34,7 +34,7 @@ const fetchAPIMAccessToken = async (idToken: IdToken): Promise<ApimTokenResponse
         {
           error,
           context: {
-            APIM_AUTH_URL: ((await config.APIM_AUTH_URL) as URL).href,
+            APIM_AUTH_URL: (await config.APIM_AUTH_URL).href,
             response_data: error.response?.data,
           },
         },
@@ -64,17 +64,17 @@ const generateAPIMTokenPayload = async (idToken: IdToken): Promise<APIMTokenPayl
 };
 
 const _generateClientAssertion = async (): Promise<string> => {
-  const privateKey: string = (await config.APIM_PRIVATE_KEY) as string;
+  const privateKey: string = await config.APIM_PRIVATE_KEY;
   const payload: APIMClientAssertionPayload = {
-    iss: (await config.ELIGIBILITY_API_KEY) as string,
-    sub: (await config.ELIGIBILITY_API_KEY) as string,
-    aud: ((await config.APIM_AUTH_URL) as URL).href,
+    iss: await config.ELIGIBILITY_API_KEY,
+    sub: await config.ELIGIBILITY_API_KEY,
+    aud: (await config.APIM_AUTH_URL).href,
     jti: crypto.randomUUID(),
     exp: Math.floor(Date.now() / 1000) + 300,
   };
   log.debug({ context: { payload } }, "raw APIMClientAssertionPayload");
 
-  return jwt.sign(payload, privateKey, { algorithm: "RS512", keyid: (await config.APIM_KEY_ID) as string });
+  return jwt.sign(payload, privateKey, { algorithm: "RS512", keyid: await config.APIM_KEY_ID });
 };
 
 export { fetchAPIMAccessToken, generateAPIMTokenPayload };

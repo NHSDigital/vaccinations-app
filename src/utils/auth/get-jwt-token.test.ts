@@ -1,7 +1,7 @@
 import { getJwtToken } from "@src/utils/auth/get-jwt-token";
 import { AccessToken } from "@src/utils/auth/types";
 import config from "@src/utils/config";
-import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
+import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { getToken } from "next-auth/jwt";
 import { cookies, headers } from "next/headers";
 
@@ -16,7 +16,7 @@ jest.mock("next/headers", () => ({
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("getJwtToken", () => {
-  const mockedConfig = config as AsyncConfigMock;
+  const mockedConfig = config as ConfigMock;
 
   beforeEach(() => {
     const defaultConfig = configBuilder().withAuthSecret("test-auth-secret").build();

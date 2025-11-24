@@ -150,7 +150,7 @@ const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
   for (const vaccine of vaccinesToRunOn) {
     const status = await hydrateCacheForVaccine(
       vaccine,
-      (await config.CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED) as boolean,
+      await config.CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED,
       forceUpdate,
     );
     invalidatedCount += status.invalidatedCount;

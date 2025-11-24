@@ -4,7 +4,7 @@
 import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
 import { getJwtToken } from "@src/utils/auth/get-jwt-token";
 import config from "@src/utils/config";
-import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
+import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import jwt from "jsonwebtoken";
 import { jwtDecode } from "jwt-decode";
 
@@ -30,7 +30,7 @@ const mockJwtToken = {
 
 describe("generate-auth-payload", () => {
   let randomUUIDSpy: jest.SpyInstance;
-  const mockedConfig = config as AsyncConfigMock;
+  const mockedConfig = config as ConfigMock;
 
   beforeAll(() => {
     randomUUIDSpy = jest.spyOn(global.crypto, "randomUUID").mockReturnValue(mockRandomUUID);

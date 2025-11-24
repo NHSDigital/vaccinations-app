@@ -1,12 +1,10 @@
-import { ConfigValue } from "@src/utils/config";
+import { AppConfig, ConfigValue } from "@src/utils/config";
 import { randomBoolean, randomInteger, randomString, randomURL } from "@test-data/meta-builder";
 
-export type AsyncConfigMock = {
-  [key: string]: Promise<ConfigValue>;
-};
+export type ConfigMock = { [K in keyof AppConfig]: Promise<AppConfig[K]> };
 
 class ConfigBuilder {
-  private _configValues: Record<string, ConfigValue> = {};
+  private _configValues: Partial<AppConfig> & Record<string, ConfigValue> = {};
 
   constructor() {
     this._configValues = {
@@ -15,13 +13,13 @@ class ConfigBuilder {
       CONTENT_API_KEY: randomString(10),
       ELIGIBILITY_API_KEY: randomString(10),
       CONTENT_CACHE_PATH: randomString(10),
-      NHS_LOGIN_URL: randomString(10),
+      NHS_LOGIN_URL: randomURL(),
       NHS_LOGIN_CLIENT_ID: randomString(10),
       NHS_LOGIN_SCOPE: randomString(10),
       NHS_LOGIN_PRIVATE_KEY: randomString(10),
-      NBS_URL: randomString(10),
+      NBS_URL: randomURL(),
       NBS_BOOKING_PATH: randomString(10),
-      NHS_APP_REDIRECT_LOGIN_URL: randomString(10),
+      NHS_APP_REDIRECT_LOGIN_URL: randomURL(),
       MAX_SESSION_AGE_MINUTES: randomInteger(1, 999),
       IS_APIM_AUTH_ENABLED: randomBoolean(),
       AUTH_SECRET: randomString(10),
@@ -33,7 +31,7 @@ class ConfigBuilder {
     return this;
   }
 
-  public withNhsAppRedirectLoginUrl(value: string | URL): this {
+  public withNhsAppRedirectLoginUrl(value: URL): this {
     this._configValues.NHS_APP_REDIRECT_LOGIN_URL = value;
     return this;
   }
@@ -193,14 +191,14 @@ class ConfigBuilder {
     return this.withPinoLogLevel(value);
   }
 
-  public build(): AsyncConfigMock {
-    const asyncMock: AsyncConfigMock = {};
+  public build(): ConfigMock {
+    const asyncMock: Record<string, Promise<ConfigValue>> = {};
     for (const key in this._configValues) {
       if (Object.prototype.hasOwnProperty.call(this._configValues, key)) {
         asyncMock[key] = Promise.resolve(this._configValues[key]);
       }
     }
-    return asyncMock;
+    return asyncMock as ConfigMock;
   }
 }
 

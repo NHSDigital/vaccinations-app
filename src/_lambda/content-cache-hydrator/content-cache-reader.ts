@@ -16,7 +16,7 @@ const readCachedContentForVaccine = async (vaccineType: VaccineType): Promise<Re
   let cachedContent: string;
 
   try {
-    cachedContent = await readContentFromCache((await config.CONTENT_CACHE_PATH) as string, cacheFilename, vaccineType);
+    cachedContent = await readContentFromCache(await config.CONTENT_CACHE_PATH, cacheFilename, vaccineType);
   } catch (error) {
     if (error instanceof S3NoSuchKeyError) {
       return { cacheStatus: "empty", cacheContent: "" };

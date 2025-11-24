@@ -8,11 +8,43 @@ const log: Logger = logger.child({ module: "lazy-config" });
 
 export type ConfigValue = string | number | boolean | URL | undefined;
 
+export interface AppConfig {
+  // SSM Params stored as SecureStrings
+  NHS_LOGIN_CLIENT_ID: string;
+  CONTENT_API_KEY: string;
+  ELIGIBILITY_API_KEY: string;
+  NHS_LOGIN_PRIVATE_KEY: string;
+  AUTH_SECRET: string;
+  APIM_PRIVATE_KEY: string;
+
+  // Environment Variables in Lambda
+  CONTENT_API_ENDPOINT: URL;
+  ELIGIBILITY_API_ENDPOINT: URL;
+  CONTENT_CACHE_PATH: string;
+  CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: boolean;
+  NHS_LOGIN_URL: URL;
+  NHS_LOGIN_SCOPE: string;
+  NBS_URL: URL;
+  NBS_BOOKING_PATH: string;
+  MAX_SESSION_AGE_MINUTES: number;
+  NHS_APP_REDIRECT_LOGIN_URL: URL;
+  IS_APIM_AUTH_ENABLED: boolean;
+  APIM_AUTH_URL: URL;
+  APIM_KEY_ID: string;
+}
+
+/**
+ * Helper type that takes an object type T and makes all its properties return Promises
+ */
+type AsyncConfig<T> = {
+  [K in keyof T]: Promise<T[K]>;
+};
+
 /**
  * A wrapper around an object which intercepts access to properties. If the property really exists on the object,
  * that's what the caller gets, but if it doesn't, the object's getAttribute("property-name") is called instead.
  */
-function createReadOnlyDynamic<T extends object>(instance: T): T & { [key: string]: Promise<unknown> } {
+function createReadOnlyDynamic<T extends object, C extends object>(instance: T): T & AsyncConfig<C> {
   const handler: ProxyHandler<T> = {
     get(target, prop, receiver) {
       if (prop in target) {
@@ -28,7 +60,7 @@ function createReadOnlyDynamic<T extends object>(instance: T): T & { [key: strin
     },
   };
 
-  return new Proxy(instance, handler) as T & { [key: string]: Promise<unknown> };
+  return new Proxy(instance, handler) as T & AsyncConfig<C>;
 }
 
 /**
@@ -55,6 +87,7 @@ class Config {
     NBS_URL: Config.toUrl,
     NHS_LOGIN_URL: Config.toUrl,
     CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: Config.toBoolean,
+    NHS_APP_REDIRECT_LOGIN_URL: Config.toUrl,
     IS_APIM_AUTH_ENABLED: Config.toBoolean,
     MAX_SESSION_AGE_MINUTES: (value: string) => {
       const num = Number(value);
@@ -171,6 +204,6 @@ export class ConfigError extends EligibilityApiError {
 
 const configInstance = new Config();
 
-const config = createReadOnlyDynamic(configInstance);
+const config = createReadOnlyDynamic<Config, AppConfig>(configInstance);
 
 export default config;

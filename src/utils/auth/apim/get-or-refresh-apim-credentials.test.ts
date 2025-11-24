@@ -1,7 +1,7 @@
 import { retrieveApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
 import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import config from "@src/utils/config";
-import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
+import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { JWT } from "next-auth/jwt";
 
 jest.mock("@src/utils/auth/apim/get-apim-access-token", () => ({
@@ -11,7 +11,7 @@ jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 jest.mock("@src/utils/config");
 
 describe("getOrRefreshApimCredentials", () => {
-  const mockedConfig = config as AsyncConfigMock;
+  const mockedConfig = config as ConfigMock;
 
   beforeEach(() => {
     const defaultConfig = configBuilder().withIsApimAuthEnabled(true).build();

@@ -12,7 +12,7 @@ import { getFilteredContentForVaccine } from "@src/services/content-api/parsers/
 import { getStyledContentForVaccine } from "@src/services/content-api/parsers/content-styling-service";
 import config from "@src/utils/config";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
-import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
+import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { Context } from "aws-lambda";
 
 jest.mock("@src/_lambda/content-cache-hydrator/content-writer-service");
@@ -53,7 +53,7 @@ describe("Lambda Handler", () => {
   });
 
   describe("when content-change-approval-needed feature disabled", () => {
-    const mockedConfig = config as AsyncConfigMock;
+    const mockedConfig = config as ConfigMock;
 
     beforeEach(() => {
       const defaultConfig = configBuilder().withContentCacheIsChangeApprovalEnabled(false).build();
@@ -100,7 +100,7 @@ describe("Lambda Handler", () => {
   });
 
   describe("when content-change-approval-needed feature enabled", () => {
-    const mockedConfig = config as AsyncConfigMock;
+    const mockedConfig = config as ConfigMock;
 
     beforeEach(() => {
       const defaultConfig = configBuilder().withContentCacheIsChangeApprovalEnabled(true).build();

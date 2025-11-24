@@ -21,7 +21,7 @@ const isValidSignIn = async (account: Account | null | undefined) => {
   const { iss, aud, identity_proofing_level, vot } = decodedToken;
 
   const isValidToken =
-    new URL(iss).href === ((await config.NHS_LOGIN_URL) as URL).href &&
+    new URL(iss).href === (await config.NHS_LOGIN_URL).href &&
     aud === (await config.NHS_LOGIN_CLIENT_ID) &&
     identity_proofing_level === "P9" &&
     ACCEPTED_VOTS.includes(vot);

@@ -5,14 +5,14 @@ import { readContentFromCache } from "@src/services/content-api/gateway/content-
 import { InvalidatedCacheError, S3NoSuchKeyError } from "@src/services/content-api/gateway/exceptions";
 import { ContentErrorTypes, GetContentForVaccineResponse } from "@src/services/content-api/types";
 import config from "@src/utils/config";
-import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
+import { ConfigMock, configBuilder } from "@test-data/config/builders";
 
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 jest.mock("@src/utils/config");
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("getContentForVaccine()", () => {
-  const mockedConfig = config as AsyncConfigMock;
+  const mockedConfig = config as ConfigMock;
 
   describe("when readContent succeeds", () => {
     beforeEach(() => {

@@ -7,9 +7,9 @@ const log = logger.child({ module: "content-fetcher" });
 const CONTENT_API_PATH_PREFIX = "nhs-website-content/";
 
 const fetchContentForVaccine = async (vaccineType: VaccineType): Promise<string> => {
-  const apiEndpoint: URL = (await config.CONTENT_API_ENDPOINT) as URL;
+  const apiEndpoint: URL = await config.CONTENT_API_ENDPOINT;
   const vaccinePath = VaccineInfo[vaccineType].contentPath;
-  const apiKey: string = (await config.CONTENT_API_KEY) as string;
+  const apiKey: string = await config.CONTENT_API_KEY;
 
   const uri: string = `${apiEndpoint}${CONTENT_API_PATH_PREFIX}${vaccinePath}`;
   let response: AxiosResponse;

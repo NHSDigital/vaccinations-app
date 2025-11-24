@@ -26,7 +26,7 @@ const generateAssertedLoginIdentityJwt = async (): Promise<string> => {
     iat: nowInSeconds,
   };
 
-  return jwt.sign(payload, (await config.NHS_LOGIN_PRIVATE_KEY) as string, { algorithm: "RS512" });
+  return jwt.sign(payload, await config.NHS_LOGIN_PRIVATE_KEY, { algorithm: "RS512" });
 };
 
 export { generateAssertedLoginIdentityJwt };

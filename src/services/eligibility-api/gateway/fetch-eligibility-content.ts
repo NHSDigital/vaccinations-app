@@ -27,8 +27,8 @@ const log = logger.child({ module: "fetch-eligibility-content" });
 const ELIGIBILITY_API_PATH_SUFFIX = "eligibility-signposting-api/patient-check/";
 
 export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<EligibilityApiResponse> => {
-  const apiEndpoint: URL = (await config.ELIGIBILITY_API_ENDPOINT) as URL;
-  const apiKey: string = (await config.ELIGIBILITY_API_KEY) as string;
+  const apiEndpoint: URL = await config.ELIGIBILITY_API_ENDPOINT;
+  const apiKey: string = await config.ELIGIBILITY_API_KEY;
   const vitaTraceId: string | undefined = asyncLocalStorage?.getStore()?.traceId;
 
   const elidUri: string = `${apiEndpoint}${ELIGIBILITY_API_PATH_SUFFIX}${nhsNumber}`;

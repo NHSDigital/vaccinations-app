@@ -21,7 +21,7 @@ const AuthJWTPerformanceMarker = "auth-jwt-callback";
 const AuthSessionPerformanceMarker = "auth-session-callback";
 
 export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
-  const MAX_SESSION_AGE_SECONDS: number = ((await config.MAX_SESSION_AGE_MINUTES) as number) * 60;
+  const MAX_SESSION_AGE_SECONDS: number = (await config.MAX_SESSION_AGE_MINUTES) * 60;
   const headerValues = await headers();
 
   const requestContext: RequestContext = extractRequestContextFromHeaders(headerValues);
@@ -29,7 +29,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
   return await asyncLocalStorage.run(requestContext, async () => {
     return {
       providers: [await NHSLoginAuthProvider()],
-      secret: (await config.AUTH_SECRET) as string,
+      secret: await config.AUTH_SECRET,
       pages: {
         signIn: SSO_FAILURE_ROUTE,
         signOut: SESSION_LOGOUT_ROUTE,

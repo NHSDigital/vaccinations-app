@@ -2,7 +2,7 @@ import { VaccineType } from "@src/models/vaccine";
 import { getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
 import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
 import config from "@src/utils/config";
-import { AsyncConfigMock, configBuilder } from "@test-data/config/builders";
+import { ConfigMock, configBuilder } from "@test-data/config/builders";
 
 jest.mock("@src/utils/auth/generate-auth-payload", () => ({
   generateAssertedLoginIdentityJwt: jest.fn(),
@@ -15,7 +15,7 @@ const nbsBookingPathFromConfig = "/test/path/book";
 const mockAssertedLoginIdentityJWT = "mock-jwt";
 
 describe("getSSOUrlToNBSForVaccine", () => {
-  const mockedConfig = config as AsyncConfigMock;
+  const mockedConfig = config as ConfigMock;
 
   describe("when NBS config is valid", () => {
     beforeEach(() => {
