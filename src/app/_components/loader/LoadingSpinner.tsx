@@ -4,9 +4,14 @@ import styles from "@src/app/_components/loader/styles.module.css";
 
 const LoadingSpinner = () => {
   return (
-    <div className={`${styles.loaderContainer} ${styles.loaderContainerMiddle}`} id="loaderContainer">
+    <div
+      className={`${styles.loaderContainer} ${styles.loaderContainerMiddle}`}
+      id="loaderContainer"
+      data-testid="loader-container"
+    >
       <svg
         className={styles.loaderSpinner}
+        data-testid="loader-spinner"
         xmlns="http://www.w3.org/2000/svg"
         width="64"
         height="64"
