@@ -6,6 +6,8 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    cooldown:
+      - default-days: 4
 
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -14,6 +16,8 @@ updates:
     groups:
       artifact:
         patterns: [ "actions/*artifact" ]
+    cooldown:
+      - default-days: 4
 
   - package-ecosystem: "npm"
     directory: "/"
@@ -39,13 +43,19 @@ updates:
         versions: [ ">=16.0.0" ]
       - dependency-name: "eslint-config-next"
         versions: [ ">=16.0.0" ]
+    cooldown:
+      - default-days: 4
 
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
       interval: "daily"
+    cooldown:
+      - default-days: 4
 
   - package-ecosystem: "terraform"
     directory: "/"
     schedule:
       interval: "daily"
+    cooldown:
+      - default-days: 4
