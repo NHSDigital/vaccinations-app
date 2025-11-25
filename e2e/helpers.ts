@@ -58,7 +58,7 @@ export const benchmark = async (page: Page, target: string) => {
     await page.waitForTimeout(1000);
 
     const lcp = await page.evaluate(() => window.__lcp);
-    if (typeof lcp !== "number" || lcp < 0) {
+    if (lcp < 0) {
       throw new Error(`⚠️ LCP not collected for iteration ${i}`);
     }
 
@@ -66,6 +66,7 @@ export const benchmark = async (page: Page, target: string) => {
   }
 
   const averageLCP = pageLoadTimes.reduce((sum, cur) => sum + cur, 0) / pageLoadTimes.length;
+  console.log("Average LCP", page.url(), averageLCP);
   return averageLCP;
 };
 
