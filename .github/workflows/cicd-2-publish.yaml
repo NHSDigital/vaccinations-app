@@ -11,49 +11,16 @@ env:
   AWS_S3_RELEASES_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-dev
 
 jobs:
-  metadata:
-    name: "Set CI/CD metadata"
-    runs-on: ubuntu-latest
-    timeout-minutes: 1
-    outputs:
-      build_datetime: ${{ steps.variables.outputs.build_datetime }}
-      build_timestamp: ${{ steps.variables.outputs.build_timestamp }}
-      build_epoch: ${{ steps.variables.outputs.build_epoch }}
-      nodejs_version: ${{ steps.variables.outputs.nodejs_version }}
-      python_version: ${{ steps.variables.outputs.python_version }}
-      terraform_version: ${{ steps.variables.outputs.terraform_version }}
-      version: ${{ steps.variables.outputs.version }}
-    steps:
-      - name: "Checkout code"
-        uses: actions/checkout@v6
-      - name: "Set CI/CD variables"
-        id: variables
-        run: |
-          datetime=$(date -u +'%Y-%m-%dT%H:%M:%S%z')
-          echo "build_datetime=$datetime" >> $GITHUB_OUTPUT
-          echo "build_timestamp=$(date --date=$datetime -u +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
-          echo "build_epoch=$(date --date=$datetime -u +'%s')" >> $GITHUB_OUTPUT
-          echo "nodejs_version=$(grep "^nodejs" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
-          echo "python_version=$(grep "^nodejs" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
-          echo "terraform_version=$(grep "^terraform" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
-          # TODO: Get the version, but it may not be the .version file as this should come from the CI/CD Pull Request Workflow
-          echo "version=$(head -n 1 .version 2> /dev/null || echo unknown)" >> $GITHUB_OUTPUT
-      - name: "List variables"
-        run: |
-          export BUILD_DATETIME="${{ steps.variables.outputs.build_datetime }}"
-          export BUILD_TIMESTAMP="${{ steps.variables.outputs.build_timestamp }}"
-          export BUILD_EPOCH="${{ steps.variables.outputs.build_epoch }}"
-          export NODEJS_VERSION="${{ steps.variables.outputs.nodejs_version }}"
-          export PYTHON_VERSION="${{ steps.variables.outputs.python_version }}"
-          export TERRAFORM_VERSION="${{ steps.variables.outputs.terraform_version }}"
-          export VERSION="${{ steps.variables.outputs.version }}"
-          make list-variables
+
+  #################################################################
+  # Publish tag - tag a previously built artefact against the SHA
+  #################################################################
+
   publish:
-    name: "Publish packages"
+    name: "Publish ${{ github.ref_name }}"
     runs-on: ubuntu-latest
     environment:
       name: dev
-    needs: [ metadata ]
     timeout-minutes: 3
     permissions:
       id-token: write
@@ -69,8 +36,8 @@ jobs:
           role-session-name: GitHubActionsSession
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
-      - name: "Copy artefact"
-        id: copy-artefact
+
+      - name: "Copy artefacts from sha=${{ github.sha }} to tag=${{ github.ref_name }}"
         run: |
           TAG=${{ github.ref_name }}
           SHA=${{ github.sha }}
@@ -81,8 +48,8 @@ jobs:
             echo "Error: No build found for SHA: $SHA"
             exit 1
           fi
-      - name: "Get commit history"
-        id: commits
+
+      - name: "Get commit history between tags"
         run: |
           TAG="${{ github.ref_name }}"
           PREVIOUS_TAG=$(git describe --tags --abbrev=0 --first-parent "${TAG}^" 2>/dev/null || echo "")
@@ -94,7 +61,8 @@ jobs:
             COMMIT_RANGE=$(git log --pretty=format:"- %s (%h)" "${PREVIOUS_TAG}..${TAG}")
           fi
           echo "$COMMIT_RANGE" > commit_history.txt
-      - name: "Create release"
+
+      - name: "Create release notes for ${{ github.ref_name }}"
         uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -104,6 +72,7 @@ jobs:
           body_path: commit_history.txt
           draft: false
           prerelease: false
+
 #  TODO: commented till feature flags are implemented and we are ready for automatic promotions
 #  promote-stage:
 #    name: "Promote stage"
