@@ -33,7 +33,7 @@ jobs:
         run: |
           echo "value=${{ inputs.tag_or_sha_to_deploy }}" >> $GITHUB_OUTPUT
       - name: "Checkout code"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ inputs.tag_or_sha_to_deploy }}
       - name: "Identify Terraform version"
