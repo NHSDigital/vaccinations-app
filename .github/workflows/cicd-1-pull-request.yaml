@@ -13,6 +13,11 @@ env:
   AWS_REGION: eu-west-2
 
 jobs:
+
+  #################################################
+  # Set up metadata for the jobs
+  #################################################
+
   metadata:
     name: "Set CI/CD metadata"
     runs-on: ubuntu-latest
@@ -69,6 +74,11 @@ jobs:
           export VERSION="${{ steps.variables.outputs.version }}"
           export DOES_PULL_REQUEST_EXIST="${{ steps.pr_exists.outputs.does_pull_request_exist }}"
           make list-variables
+
+  #################################################
+  # Commit stage - static checks
+  #################################################
+
   commit-stage: # Recommended maximum execution time is 2 minutes
     name: "Commit stage"
     needs: [ metadata ]
@@ -82,6 +92,11 @@ jobs:
       terraform_version: "${{ needs.metadata.outputs.terraform_version }}"
       version: "${{ needs.metadata.outputs.version }}"
     secrets: inherit
+
+  #############################################################
+  # Test stage - unit tests and SonarQube static analysis
+  #############################################################
+
   test-stage: # Recommended maximum execution time is 5 minutes
     name: "Test stage"
     needs: [ metadata, commit-stage ]
@@ -95,6 +110,11 @@ jobs:
       terraform_version: "${{ needs.metadata.outputs.terraform_version }}"
       version: "${{ needs.metadata.outputs.version }}"
     secrets: inherit
+
+  #############################################################
+  # Build stage - build and upload artefacts
+  #############################################################
+
   build-stage: # Recommended maximum execution time is 3 minutes
     name: "Build stage"
     needs: [ metadata, test-stage ]
@@ -109,6 +129,11 @@ jobs:
       terraform_version: "${{ needs.metadata.outputs.terraform_version }}"
       version: "${{ needs.metadata.outputs.version }}"
     secrets: inherit
+
+  #############################################################
+  # Deploy stage - download artefacts and deploy to AWS
+  #############################################################
+
   deploy-stage:
     name: "Deploy stage"
     needs: [ metadata, build-stage ]
@@ -123,15 +148,6 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - name: "Tag or SHA"
-        id: tag-or-sha
-        run: |
-          echo "value=${{ github.sha }}" >> $GITHUB_OUTPUT
-      - name: "Checkout code"
-        uses: actions/checkout@v6
-        with:
-          ref: ${{ github.sha }}
-
       - name: "Deploy ${{ github.sha }} to AWS (dev)"
         timeout-minutes: 10
         uses: ./.github/actions/deploy
@@ -141,6 +157,10 @@ jobs:
           secret_aws_iam_role: ${{ secrets.IAM_ROLE }}
           secret_aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
           secret_aws_slack_channel_id: ${{ secrets.ALARMS_SLACK_CHANNEL_ID }}
+
+  #############################################################
+  # Acceptance stage - E2E and contract tests
+  #############################################################
 
   acceptance-stage: # Recommended maximum execution time is 10 minutes
     name: "Acceptance stage"
