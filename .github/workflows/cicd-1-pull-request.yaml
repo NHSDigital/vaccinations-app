@@ -29,7 +29,7 @@ jobs:
       does_pull_request_exist: ${{ steps.pr_exists.outputs.does_pull_request_exist }}
     steps:
       - name: "Checkout code"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: "Set CI/CD variables"
         id: variables
         run: |
@@ -128,7 +128,7 @@ jobs:
         run: |
           echo "value=${{ github.sha }}" >> $GITHUB_OUTPUT
       - name: "Checkout code"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.sha }}
 
