@@ -48,7 +48,7 @@ jobs:
           role-session-name: GitHubActionsSession
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
-      - name: "Download artefacts from source"
+      - name: "Download artefacts from source for version ${{ inputs.release_tag }}"
         env:
           AWS_S3_SOURCE_RELEASES_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${{ env.ENVIRONMENT }}
         run: |
@@ -85,7 +85,7 @@ jobs:
           role-session-name: GitHubActionsSession
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
-      - name: "Upload artefacts to target"
+      - name: "Upload artefacts to target for version ${{ inputs.release_tag }}"
         env:
           AWS_S3_TARGET_RELEASES_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${{ inputs.environment }}
         run: |

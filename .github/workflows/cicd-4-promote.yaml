@@ -63,6 +63,7 @@ jobs:
 
   promote-stage:
     name: "Promote stage"
+    needs: [ metadata ]
     uses: ./.github/workflows/stage-6-promote.yaml
     with:
       environment: ${{ inputs.environment }}

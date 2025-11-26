@@ -151,7 +151,7 @@ jobs:
       - name: "Checkout code"
         uses: actions/checkout@v6
 
-      - name: "Deploy ${{ github.sha }} to AWS (dev)"
+      - name: "Deploy version ${{ github.sha }} to (dev)"
         timeout-minutes: 10
         uses: ./.github/actions/deploy
         with:

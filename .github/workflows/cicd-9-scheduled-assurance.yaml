@@ -47,7 +47,7 @@ jobs:
       - name: "Checkout code"
         uses: actions/checkout@v6
 
-      - name: "Deploy ${{ steps.get-latest-tag-name.outputs.value }} to AWS (preprod)"
+      - name: "Deploy version ${{ steps.get-latest-tag-name.outputs.value }} to (preprod)"
         timeout-minutes: 10
         uses: ./.github/actions/deploy
         with:
@@ -57,7 +57,7 @@ jobs:
           secret_aws_iam_role: ${{ secrets.IAM_ROLE }}
           secret_aws_slack_channel_id: ${{ secrets.ALARMS_SLACK_CHANNEL_ID }}
 
-      - name: "Run contract tests (sandpit+mocked)"
+      - name: "Run contract tests on ${{ steps.get-latest-tag-name.outputs.value }} (EliD:sandpit, EliD:mocked)"
         timeout-minutes: 3
         uses: ./.github/actions/run-contract-tests
         with:
@@ -147,7 +147,7 @@ jobs:
       - name: "Checkout code"
         uses: actions/checkout@v6
 
-      - name: "Deploy ${{ steps.get-latest-tag-name.outputs.value }} to AWS (preprod)"
+      - name: "Deploy version ${{ steps.get-latest-tag-name.outputs.value }} to (preprod)"
         timeout-minutes: 10
         uses: ./.github/actions/deploy
         with:
@@ -157,7 +157,7 @@ jobs:
           secret_aws_iam_role: ${{ secrets.IAM_ROLE }}
           secret_aws_slack_channel_id: ${{ secrets.ALARMS_SLACK_CHANNEL_ID }}
 
-      - name: "Run contract tests (sandpit+mocked)"
+      - name: "Run contract tests on ${{ steps.get-latest-tag-name.outputs.value }} (EliD:sandpit, EliD:mocked)"
         timeout-minutes: 3
         uses: ./.github/actions/run-contract-tests
         with:

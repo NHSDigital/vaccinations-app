@@ -49,7 +49,7 @@ jobs:
         with:
           ref: ${{ inputs.checkout_ref }}
 
-      - name: "Configure AWS credentials for env"
+      - name: "Configure AWS credentials"
         uses: aws-actions/configure-aws-credentials@v5
         with:
           role-session-name: GitHubActionsSession
@@ -67,7 +67,7 @@ jobs:
             exit 1
           fi
 
-      - name: "Run E2E tests for version - ${{ inputs.checkout_ref }}"
+      - name: "Run E2E tests for version ${{ inputs.checkout_ref }}"
         timeout-minutes: 10
         uses: ./.github/actions/run-e2e-tests
         with:
@@ -95,7 +95,7 @@ jobs:
         with:
           ref: ${{ inputs.checkout_ref }}
 
-      - name: "Run contract tests for version - ${{ inputs.checkout_ref }} (EliD:sandpit, EliD:mocked)"
+      - name: "Run contract tests for version ${{ inputs.checkout_ref }} (EliD:sandpit, EliD:mocked)"
         timeout-minutes: 3
         uses: ./.github/actions/run-contract-tests
         with:
