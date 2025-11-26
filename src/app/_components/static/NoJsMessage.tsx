@@ -6,7 +6,7 @@ export function NoJsMessage() {
       <main className="nhsuk-main-wrapper nhsuk-main-wrapper--s" id="maincontent">
         <div className="nhsuk-grid-row">
           <div className="nhsuk-grid-column-full">
-            <h1 className="app-dynamic-page-title__heading">Cannot show page</h1>
+            <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-5"}>Cannot show page</h1>
             <p>You need to turn on JavaScript to access NHS App services in your browser.</p>
             <p>
               <a

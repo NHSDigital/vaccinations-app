@@ -15,7 +15,7 @@ const ServiceFailure = () => {
 
       <BackToNHSAppLink />
       <MainContent>
-        <h1>There is a problem with the service</h1>
+        <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-5"}>There is a problem with the service</h1>
         <p>This may be a temporary problem.</p>
         <p>
           {hasContextLoaded && (

@@ -23,7 +23,7 @@ const CookiesPolicy = () => {
 
       <BackLink />
       <MainContent>
-        <h1>Cookies</h1>
+        <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-5"}>Cookies</h1>
 
         <ContentsList>
           {[summary, necessaryCookies, changes].map((value: IdAndHeading, index: number): JSX.Element => {

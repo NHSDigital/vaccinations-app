@@ -20,7 +20,7 @@ const SessionTimeout = () => {
     <>
       <title>{`You have been logged out - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`}</title>
       <MainContent>
-        <h1>You have been logged out</h1>
+        <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-5"}>You have been logged out</h1>
         <p>
           For security reasons, you&#39;re automatically logged out if you have not used the service for 10 minutes.
         </p>

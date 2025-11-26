@@ -15,7 +15,7 @@ const SSOFailure = () => {
 
       <BackToNHSAppLink />
       <MainContent>
-        <h1>There is a problem</h1>
+        <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-5"}>There is a problem</h1>
         <p>There was an issue with NHS login. This may be a temporary problem.</p>
         <p>
           {hasContextLoaded && (

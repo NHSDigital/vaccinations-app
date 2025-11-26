@@ -26,7 +26,7 @@ const VaccinePage = async ({ params }: VaccinePageProps) => {
       <FeedbackBanner referrer={vaccine} />
       <BackLink />
       <MainContent>
-        <h1 className={"app-dynamic-page-title__heading"}>{`${VaccineInfo[vaccineType].heading}`}</h1>
+        <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-3"}>{`${VaccineInfo[vaccineType].heading}`}</h1>
         <Suspense fallback={<LoadingSpinner />}>
           <Vaccine vaccineType={vaccineType} />
         </Suspense>

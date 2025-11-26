@@ -11,7 +11,7 @@ const VaccinesDuringPregnancy = (): JSX.Element => {
       <title>{`${VACCINES_FOR_PREGNANT_PAGE} - ${NHS_TITLE_SUFFIX}`}</title>
       <BackLink />
       <MainContent>
-        <h1 className={"app-dynamic-page-title__heading"}>{VACCINES_FOR_PREGNANT_PAGE}</h1>
+        <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-5"}>{VACCINES_FOR_PREGNANT_PAGE}</h1>
         <ul className="nhsapp-cards nhsapp-cards--stacked">
           <CardLinkWithDescription
             title={"Whooping cough (Pertussis)"}

@@ -11,7 +11,7 @@ const NotFound = () => {
 
       <BackLink />
       <MainContent>
-        <h1>Page not found</h1>
+        <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-5"}>Page not found</h1>
         <p>We&#39;ll fix this link as soon as possible. Try again later or use a different service.</p>
         <p>
           For urgent medical advice, go to{" "}

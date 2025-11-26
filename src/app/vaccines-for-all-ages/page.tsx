@@ -30,7 +30,7 @@ const VaccinesForAllAges = (): JSX.Element => {
       <title>{`${VACCINES_FOR_ALL_AGES_PAGE} - ${NHS_TITLE_SUFFIX}`}</title>
       <BackLink />
       <MainContent>
-        <h1 className={"app-dynamic-page-title__heading"}>{VACCINES_FOR_ALL_AGES_PAGE}</h1>
+        <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-3"}>{VACCINES_FOR_ALL_AGES_PAGE}</h1>
         <p>
           Find out about vaccinations for babies, children and adults, including why they&#39;re important and how to
           get them.

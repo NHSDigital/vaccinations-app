@@ -12,7 +12,7 @@ const AccessibilityStatement = () => {
 
       <BackLink />
       <MainContent>
-        <h1>Accessibility statement for {SERVICE_HEADING}</h1>
+        <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-5"}>Accessibility statement for {SERVICE_HEADING}</h1>
 
         <article>
           <section>

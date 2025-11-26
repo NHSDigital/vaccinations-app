@@ -11,7 +11,7 @@ const VaccinationsHub = () => {
       <title>{`${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`}</title>
       <BackToNHSAppLink />
       <MainContent>
-        <h1 className={"app-dynamic-page-title__heading"}>{SERVICE_HEADING}</h1>
+        <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-3"}>{SERVICE_HEADING}</h1>
         <h2 className="nhsuk-heading-s">Vaccines if you&#39;re pregnant</h2>
         <p>Some vaccines are recommended during pregnancy to protect the health of you and your baby.</p>
         <ul className="nhsapp-cards nhsapp-cards--stacked" data-testid={"vaccine-cardlinks-adults"}>
