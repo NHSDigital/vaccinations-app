@@ -37,7 +37,7 @@ jobs:
         id: get-hub-url
         shell: bash
         run: |
-          if [[ ${{ inputs.checkout_ref }} == v1.0.* }} ]]; then
+          if [[ "${{ inputs.checkout_ref }}" == v1.0.* ]]; then
             TEST_APP_URL=${{vars.TEST_APP_URL_R1}}
           else
             TEST_APP_URL=${{vars.TEST_APP_URL_MAIN}}
