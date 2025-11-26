@@ -37,6 +37,9 @@ jobs:
             exit 1
           fi
 
+      - name: "Checkout code"
+        uses: actions/checkout@v6
+
       - name: "Deploy application version ${{ github.ref_name }}"
         timeout-minutes: 10
         uses: ./.github/actions/deploy

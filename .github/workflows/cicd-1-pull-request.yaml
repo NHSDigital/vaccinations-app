@@ -148,6 +148,9 @@ jobs:
       id-token: write
       contents: read
     steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v6
+
       - name: "Deploy ${{ github.sha }} to AWS (dev)"
         timeout-minutes: 10
         uses: ./.github/actions/deploy
