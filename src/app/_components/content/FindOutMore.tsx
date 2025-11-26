@@ -1,7 +1,8 @@
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
+import { Url } from "@src/utils/Url";
 import React, { JSX } from "react";
 
-const FindOutMoreLink = (props: { findOutMoreUrl: URL; vaccineType: VaccineType }): JSX.Element => {
+const FindOutMoreLink = (props: { findOutMoreUrl: Url; vaccineType: VaccineType }): JSX.Element => {
   const vaccineInfo = VaccineInfo[props.vaccineType];
 
   return (

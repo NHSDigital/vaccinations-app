@@ -1,3 +1,4 @@
+import { Url } from "@project/src/utils/Url";
 import { VaccineType } from "@src/models/vaccine";
 import {
   _extractDescriptionForVaccine,
@@ -673,7 +674,7 @@ describe("Content Filter", () => {
 
     it("should include nhs webpage link to vaccine info", () => {
       const expectedWebpageLink = {
-        webpageLink: new URL("https://www.nhs.uk/vaccinations/generic-vaccine/"),
+        webpageLink: new Url("https://www.nhs.uk/vaccinations/generic-vaccine/"),
       };
 
       const pageCopyForRsv = getFilteredContentForVaccine(
@@ -681,6 +682,7 @@ describe("Content Filter", () => {
         JSON.stringify(genericVaccineContentAPIResponse),
       );
 
+      expect(pageCopyForRsv.webpageLink).toEqual(expectedWebpageLink.webpageLink);
       expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedWebpageLink));
     });
 

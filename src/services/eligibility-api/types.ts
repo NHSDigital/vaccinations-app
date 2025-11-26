@@ -1,11 +1,12 @@
 import { Brand } from "@project/src/utils/types";
+import { Url } from "@src/utils/Url";
 
 export type Heading = Brand<string, "Heading">;
 export type Introduction = Brand<string, "Introduction">;
 export type Cohort = Brand<string, "Cohort">;
 export type Content = Brand<string, "Content">;
 export type Label = Brand<string, "Label">;
-export type ButtonUrl = Brand<URL, "ButtonUrl">;
+export type ButtonUrl = Brand<Url, "ButtonUrl">;
 
 export enum EligibilityStatus {
   NOT_ELIGIBLE = "NotEligible",

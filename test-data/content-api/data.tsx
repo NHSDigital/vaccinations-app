@@ -1,4 +1,5 @@
 import { ContentApiVaccineResponse, StyledVaccineContent } from "@src/services/content-api/types";
+import { Url } from "@src/utils/Url";
 
 export const genericVaccineContentAPIResponse: ContentApiVaccineResponse = {
   "@context": "http://schema.org",
@@ -569,7 +570,7 @@ export const genericVaccineContentAPIResponse: ContentApiVaccineResponse = {
       ],
     },
   ],
-  webpage: new URL("https://www.nhs.uk/vaccinations/generic-vaccine/"),
+  webpage: "https://www.nhs.uk/vaccinations/generic-vaccine/",
 };
 
 export const mockStyledContent: StyledVaccineContent = {
@@ -590,7 +591,7 @@ export const mockStyledContent: StyledVaccineContent = {
     heading: "side-effects-heading",
     component: <div>Side effects section styled component</div>,
   },
-  webpageLink: new URL("https://test.example.com/"),
+  webpageLink: new Url("https://test.example.com/"),
   callout: { heading: "Callout Heading", content: "Callout content" },
 };
 
@@ -612,7 +613,7 @@ export const mockStyledContentWithHtmlOverview: StyledVaccineContent = {
     heading: "side-effects-heading",
     component: <div>Side effects section styled component</div>,
   },
-  webpageLink: new URL("https://test.example.com/"),
+  webpageLink: new Url("https://test.example.com/"),
 };
 
 export const mockStyledContentWithoutWhatSection: StyledVaccineContent = {
@@ -629,5 +630,5 @@ export const mockStyledContentWithoutWhatSection: StyledVaccineContent = {
     heading: "side-effects-heading",
     component: <div>Side effects section styled component</div>,
   },
-  webpageLink: new URL("https://test.example.com/"),
+  webpageLink: new Url("https://test.example.com/"),
 };

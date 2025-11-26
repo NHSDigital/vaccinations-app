@@ -13,6 +13,7 @@ import {
   VaccinePageSection,
   VaccinePageSubsection,
 } from "@src/services/content-api/types";
+import { Url } from "@src/utils/Url";
 import sanitiseHtml from "@src/utils/sanitise-html";
 import { InsetText, WarningCallout } from "nhsuk-react-components";
 import React, { JSX } from "react";
@@ -173,7 +174,7 @@ const getStyledContentForVaccine = async (
   const howToGetVaccine: StyledPageSection = styleHowToGetSection(vaccine, filteredContent.howToGetVaccine, fragile);
   const vaccineSideEffects: StyledPageSection = styleSection(filteredContent.vaccineSideEffects);
   const callout: HeadingWithContent | undefined = styleCallout(filteredContent.callout);
-  const webpageLink: URL = filteredContent.webpageLink;
+  const webpageLink: Url = filteredContent.webpageLink;
 
   return {
     overview,

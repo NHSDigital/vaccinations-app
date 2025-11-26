@@ -14,8 +14,7 @@ const LinksInterceptor = (): null => {
       const anchor: HTMLAnchorElement | null = target.closest("a");
       if (!anchor) return;
 
-      const url = new URL(anchor.href);
-      const isExternal = url.origin !== window.location.origin;
+      const isExternal = anchor.origin !== window.location.origin;
 
       if (isExternal && hasContextLoaded && isOpenInMobileApp) {
         event.preventDefault(); // Stop default navigation

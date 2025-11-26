@@ -1,6 +1,7 @@
 /**
  * @jest-environment node
  */
+import { Url } from "@src/utils/Url";
 import { generateAPIMTokenPayload } from "@src/utils/auth/apim/fetch-apim-access-token";
 import { APIMTokenPayload, IdToken } from "@src/utils/auth/types";
 import config from "@src/utils/config";
@@ -20,7 +21,7 @@ const mockNowInSeconds = 1749052001;
 const eligibilityApiKey = "eligibility-api-key";
 const apimKeyId = "apim-key-id";
 const apimPrivateKey = "apim-private-key";
-const apimAuthUrl = new URL("https://apim-test-auth-url.com/test");
+const apimAuthUrl = new Url("https://apim-test-auth-url.com/test");
 
 describe("generateAPIMTokenPayload", () => {
   let randomUUIDSpy: jest.SpyInstance;

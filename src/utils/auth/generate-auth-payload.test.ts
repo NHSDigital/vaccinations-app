@@ -1,6 +1,7 @@
 /**
  * @jest-environment node
  */
+import { Url } from "@src/utils/Url";
 import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
 import { getJwtToken } from "@src/utils/auth/get-jwt-token";
 import config from "@src/utils/config";
@@ -44,7 +45,7 @@ describe("generate-auth-payload", () => {
       jti: mockJtiFromSessionIdToken,
     });
     const defaultConfig = configBuilder()
-      .withNhsLoginUrl(new URL("https://mock.nhs.login"))
+      .withNhsLoginUrl(new Url("https://mock.nhs.login"))
       .andNhsLoginClientId("mock-client-id")
       .andNhsLoginPrivateKey("private-key")
       .build();

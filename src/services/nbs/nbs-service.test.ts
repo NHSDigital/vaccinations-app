@@ -1,5 +1,6 @@
 import { VaccineType } from "@src/models/vaccine";
 import { getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
+import { Url } from "@src/utils/Url";
 import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
 import config from "@src/utils/config";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
@@ -9,7 +10,7 @@ jest.mock("@src/utils/auth/generate-auth-payload", () => ({
 }));
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
-const nbsUrlFromConfig = new URL("https://test-nbs-url.example.com/sausages");
+const nbsUrlFromConfig = new Url("https://test-nbs-url.example.com/sausages");
 const nbsBookingPathFromConfig = "/test/path/book";
 
 const mockAssertedLoginIdentityJWT = "mock-jwt";
@@ -29,19 +30,19 @@ describe("getSSOUrlToNBSForVaccine", () => {
     });
 
     it("returns sso url of NBS configured in config for RSV vaccine", async () => {
-      const nbsRedirectUrl = new URL(await getSSOUrlToNBSForVaccine(VaccineType.RSV));
+      const nbsRedirectUrl = new Url(await getSSOUrlToNBSForVaccine(VaccineType.RSV));
       expect(nbsRedirectUrl.origin).toEqual(nbsUrlFromConfig.origin);
-      expect(nbsRedirectUrl.pathname).toEqual(`/sausages${nbsBookingPathFromConfig}/rsv`);
+      expect(nbsRedirectUrl.path).toEqual(`/sausages${nbsBookingPathFromConfig}/rsv`);
       expect(nbsRedirectUrl.href).toMatch(/^https:\/\/test-nbs-url\.example\.com\/sausages\/test\/path\/book\/rsv.*/);
     });
 
     it("should include campaignID query param in NBS URL", async () => {
-      const nbsRedirectUrl = new URL(await getSSOUrlToNBSForVaccine(VaccineType.RSV));
+      const nbsRedirectUrl = new Url(await getSSOUrlToNBSForVaccine(VaccineType.RSV));
       expect(nbsRedirectUrl.searchParams.get("wt.mc_id")).toEqual(expect.any(String));
     });
 
     it("should include assertedLoginIdentity query param in NBS URL", async () => {
-      const nbsRedirectUrl = new URL(await getSSOUrlToNBSForVaccine(VaccineType.RSV));
+      const nbsRedirectUrl = new Url(await getSSOUrlToNBSForVaccine(VaccineType.RSV));
       expect(nbsRedirectUrl.searchParams.get("assertedLoginIdentity")).toEqual(mockAssertedLoginIdentityJWT);
     });
 

@@ -1,4 +1,5 @@
 import { EligibilityApiError } from "@src/services/eligibility-api/gateway/exceptions";
+import { Url } from "@src/utils/Url";
 import getSSMParam from "@src/utils/get-ssm-param";
 import { logger } from "@src/utils/logger";
 import { retry } from "es-toolkit";
@@ -6,7 +7,7 @@ import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "lazy-config" });
 
-export type ConfigValue = string | number | boolean | URL | undefined;
+export type ConfigValue = string | number | boolean | Url | undefined;
 
 export interface AppConfig {
   // SSM Params stored as SecureStrings
@@ -18,27 +19,25 @@ export interface AppConfig {
   APIM_PRIVATE_KEY: string;
 
   // Environment Variables in Lambda
-  CONTENT_API_ENDPOINT: URL;
-  ELIGIBILITY_API_ENDPOINT: URL;
+  CONTENT_API_ENDPOINT: Url;
+  ELIGIBILITY_API_ENDPOINT: Url;
   CONTENT_CACHE_PATH: string;
   CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: boolean;
-  NHS_LOGIN_URL: URL;
+  NHS_LOGIN_URL: Url;
   NHS_LOGIN_SCOPE: string;
-  NBS_URL: URL;
+  NBS_URL: Url;
   NBS_BOOKING_PATH: string;
   MAX_SESSION_AGE_MINUTES: number;
-  NHS_APP_REDIRECT_LOGIN_URL: URL;
+  NHS_APP_REDIRECT_LOGIN_URL: Url;
   IS_APIM_AUTH_ENABLED: boolean;
-  APIM_AUTH_URL: URL;
+  APIM_AUTH_URL: Url;
   APIM_KEY_ID: string;
 }
 
 /**
  * Helper type that takes an object type T and makes all its properties return Promises
  */
-type AsyncConfig<T> = {
-  [K in keyof T]: Promise<T[K]>;
-};
+type AsyncConfig<T> = { [K in keyof T]: Promise<T[K]> };
 
 /**
  * A wrapper around an object which intercepts access to properties. If the property really exists on the object,
@@ -73,7 +72,7 @@ class Config {
   private ttlExpiresAt: number = Date.now() + Config.CACHE_TTL_MILLIS;
   static readonly CACHE_TTL_MILLIS: number = 300 * 1000;
 
-  private static readonly toUrl = (value: string): URL => new URL(value);
+  private static readonly toUrl = (value: string): Url => new Url(value);
   private static readonly toBoolean = (value: string): boolean | undefined => {
     const lower = value.toLowerCase();
     if (lower === "true") return true;

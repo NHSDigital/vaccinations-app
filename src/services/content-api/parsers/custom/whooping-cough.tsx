@@ -1,5 +1,6 @@
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { ContentApiVaccineResponse, VaccinePageContent, VaccinePageSection } from "@src/services/content-api/types";
+import { Url } from "@src/utils/Url";
 
 export const getFilteredContentForWhoopingCoughVaccine = (apiContent: string): VaccinePageContent => {
   const content: ContentApiVaccineResponse = JSON.parse(apiContent);
@@ -26,7 +27,7 @@ export const getFilteredContentForWhoopingCoughVaccine = (apiContent: string): V
     headline: "Side effects of the vaccine",
     subsections: [{ type: "simpleElement", headline: "", text: paragraphs[6], name: "markdown" }],
   };
-  const webpageLink: URL = VaccineInfo[VaccineType.WHOOPING_COUGH].nhsWebpageLink;
+  const webpageLink: Url = VaccineInfo[VaccineType.WHOOPING_COUGH].nhsWebpageLink;
 
   return {
     overview,

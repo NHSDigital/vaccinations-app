@@ -1,4 +1,6 @@
 // Downstream API
+import { Url } from "@src/utils/Url";
+
 export type EligibilityApiResponse = {
   processedSuggestions: ProcessedSuggestion[];
 };
@@ -24,7 +26,7 @@ export type EligibilityCohort = {
 export type Action = {
   actionType: ActionType;
   description: string;
-  url: URL | undefined;
+  url: Url | undefined;
   urlLabel: string | undefined;
 };
 

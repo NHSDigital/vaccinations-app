@@ -1,3 +1,4 @@
+import { Url } from "@src/utils/Url";
 import { JSX } from "react";
 
 export type GetContentForVaccineResponse = ContentForVaccine | ContentForVaccineError;
@@ -55,7 +56,7 @@ export type ContentApiVaccineResponse = {
   "@type": string;
   name: string;
   mainEntityOfPage: MainEntityOfPage[];
-  webpage: URL;
+  webpage: string;
   copyrightHolder: object;
   license: string;
   author: object;
@@ -108,7 +109,7 @@ export type VaccinePageContent = {
   whoVaccineIsFor: VaccinePageSection;
   howToGetVaccine: VaccinePageSection;
   vaccineSideEffects: VaccinePageSection;
-  webpageLink: URL;
+  webpageLink: Url;
   callout?: HeadingWithContent;
 };
 
@@ -131,7 +132,7 @@ export type StyledVaccineContent = {
   whoVaccineIsFor: StyledPageSection;
   howToGetVaccine: StyledPageSection;
   vaccineSideEffects: StyledPageSection;
-  webpageLink: URL;
+  webpageLink: Url;
   callout?: HeadingWithContent;
 };
 

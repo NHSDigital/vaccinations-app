@@ -1,4 +1,5 @@
 import { FeedbackBanner } from "@src/app/_components/feedback/FeedbackBanner";
+import { Url } from "@src/utils/Url";
 import { render, screen } from "@testing-library/react";
 
 describe("FeedbackBanner", () => {
@@ -9,7 +10,7 @@ describe("FeedbackBanner", () => {
 
     const feedbackText: HTMLElement = screen.getByText(/This is a new NHS App service\. Help us improve it and/i);
     const feedbackLink: HTMLAnchorElement = screen.getByRole("link", { name: "give your feedback" });
-    const feedbackUrl: URL = new URL(feedbackLink.href);
+    const feedbackUrl: Url = new Url(feedbackLink.href);
 
     expect(feedbackText).toBeVisible();
     expect(feedbackLink).toBeVisible();

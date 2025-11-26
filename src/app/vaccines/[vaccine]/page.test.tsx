@@ -2,6 +2,7 @@ import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { SERVICE_HEADING } from "@src/app/constants";
 import { VaccineType } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
+import { Url } from "@src/utils/Url";
 import { mockStyledContent } from "@test-data/content-api/data";
 import { assertBackLinkIsPresent } from "@test-data/utils/back-link-helpers";
 import { renderDynamicPage } from "@test-data/utils/dynamic-page-helpers";
@@ -47,7 +48,7 @@ describe("Dynamic vaccine page", () => {
   it("renders the feedback banner with correct url", async () => {
     await renderDynamicPage("rsv");
     const feedbackLink: HTMLAnchorElement = screen.getByRole("link", { name: "give your feedback" });
-    const feedbackUrl: URL = new URL(feedbackLink.href);
+    const feedbackUrl: Url = new Url(feedbackLink.href);
 
     expect(feedbackLink).toBeVisible();
     expect(feedbackUrl.searchParams.get("page")).toBe("rsv");

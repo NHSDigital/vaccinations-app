@@ -1,6 +1,7 @@
 import { NhsNumber } from "@src/models/vaccine";
 import { EligibilityApiResponse } from "@src/services/eligibility-api/api-types";
 import { fetchEligibilityContent } from "@src/services/eligibility-api/gateway/fetch-eligibility-content";
+import { Url } from "@src/utils/Url";
 import config from "@src/utils/config";
 import { asyncLocalStorage } from "@src/utils/requestContext";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
@@ -44,7 +45,7 @@ pactWith({ consumer: "VitA", provider: "EliD", port: 1234, logLevel: "warn" }, (
 
   beforeEach(() => {
     const defaultConfig = configBuilder()
-      .withEligibilityApiEndpoint(new URL("http://localhost:1234/"))
+      .withEligibilityApiEndpoint(new Url("http://localhost:1234/"))
       .andEligibilityApiKey("test-api-key")
       .andIsApimAuthEnabled(false)
       .build();

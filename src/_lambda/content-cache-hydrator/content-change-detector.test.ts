@@ -1,5 +1,6 @@
 import { vitaContentChangedSinceLastApproved } from "@src/_lambda/content-cache-hydrator/content-change-detector";
 import { VaccinePageContent } from "@src/services/content-api/types";
+import { Url } from "@src/utils/Url";
 
 const mockPreviousApprovedVaccineContent: VaccinePageContent = {
   overview: { content: "This is an overview", containsHtml: false },
@@ -47,7 +48,7 @@ const mockPreviousApprovedVaccineContent: VaccinePageContent = {
       },
     ],
   },
-  webpageLink: new URL("https://test.example.com/"),
+  webpageLink: new Url("https://test.example.com/"),
 };
 
 describe("vitaContentChangedSinceLastApproved", () => {

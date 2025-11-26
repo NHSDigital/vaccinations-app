@@ -1,3 +1,4 @@
+import { Url } from "@src/utils/Url";
 import { isValidSignIn } from "@src/utils/auth/callbacks/is-valid-signin";
 import type { DecodedIdToken } from "@src/utils/auth/types";
 import config from "@src/utils/config";
@@ -24,7 +25,7 @@ describe("isValidSignIn", () => {
 
   beforeEach(() => {
     const defaultConfig = configBuilder()
-      .withNhsLoginUrl(new URL("https://mock.nhs.login/"))
+      .withNhsLoginUrl(new Url("https://mock.nhs.login/"))
       .andNhsLoginClientId("mock-client-id")
       .build();
     Object.assign(mockConfig, defaultConfig);

@@ -10,6 +10,7 @@ import {
   VaccinePageSection,
   VaccinePageSubsection,
 } from "@src/services/content-api/types";
+import { Url } from "@src/utils/Url";
 
 type Aspect =
   | "OverviewHealthAspect"
@@ -253,7 +254,7 @@ const getFilteredContentForStandardVaccine = (apiContent: string): VaccinePageCo
     callout = { heading: _extractCalloutHeading(content), content: _extractCalloutContent(content) };
   }
 
-  const webpageLink: URL = new URL(content.webpage);
+  const webpageLink: Url = new Url(content.webpage);
 
   return {
     overview,

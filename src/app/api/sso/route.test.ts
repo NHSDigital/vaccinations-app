@@ -1,5 +1,6 @@
 import { signIn } from "@project/auth";
 import { GET } from "@src/app/api/sso/route";
+import { Url } from "@src/utils/Url";
 import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
@@ -15,7 +16,7 @@ function getMockRequest(testUrl: string, params?: Record<string, string>) {
   return {
     nextUrl: {
       searchParams: new URLSearchParams(params),
-      origin: new URL(testUrl).origin,
+      origin: new Url(testUrl).origin,
       href: testUrl,
     },
   } as NextRequest;

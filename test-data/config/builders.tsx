@@ -1,3 +1,4 @@
+import { Url } from "@src/utils/Url";
 import { AppConfig, ConfigValue } from "@src/utils/config";
 import { randomBoolean, randomInteger, randomString, randomURL } from "@test-data/meta-builder";
 
@@ -31,7 +32,7 @@ class ConfigBuilder {
     return this;
   }
 
-  public withNhsAppRedirectLoginUrl(value: URL): this {
+  public withNhsAppRedirectLoginUrl(value: Url): this {
     this._configValues.NHS_APP_REDIRECT_LOGIN_URL = value;
     return this;
   }
@@ -41,7 +42,7 @@ class ConfigBuilder {
     return this;
   }
 
-  public withNhsLoginUrl(value: URL): this {
+  public withNhsLoginUrl(value: Url): this {
     this._configValues.NHS_LOGIN_URL = value;
     return this;
   }
@@ -100,12 +101,12 @@ class ConfigBuilder {
     return this.withApimPrivateKey(value);
   }
 
-  public withApimAuthUrl(value: URL): this {
+  public withApimAuthUrl(value: Url): this {
     this._configValues.APIM_AUTH_URL = value;
     return this;
   }
 
-  public andApimAuthUrl(value: URL): this {
+  public andApimAuthUrl(value: Url): this {
     return this.withApimAuthUrl(value);
   }
 
@@ -123,12 +124,12 @@ class ConfigBuilder {
     return this.withContentApiKey(value);
   }
 
-  public withContentApiEndpoint(value: URL): this {
+  public withContentApiEndpoint(value: Url): this {
     this._configValues.CONTENT_API_ENDPOINT = value;
     return this;
   }
 
-  public andContentApiEndpoint(value: URL): this {
+  public andContentApiEndpoint(value: Url): this {
     return this.withContentApiEndpoint(value);
   }
 
@@ -141,7 +142,7 @@ class ConfigBuilder {
     return this.withContentCacheIsChangeApprovalEnabled(value);
   }
 
-  public withEligibilityApiEndpoint(value: URL): this {
+  public withEligibilityApiEndpoint(value: Url): this {
     this._configValues.ELIGIBILITY_API_ENDPOINT = value;
     return this;
   }
@@ -164,12 +165,12 @@ class ConfigBuilder {
     return this.withAuthSecret(value);
   }
 
-  public withNbsUrl(value: URL): this {
+  public withNbsUrl(value: Url): this {
     this._configValues.NBS_URL = value;
     return this;
   }
 
-  public andNbsUrl(value: URL): this {
+  public andNbsUrl(value: Url): this {
     return this.withNbsUrl(value);
   }
 

@@ -13,6 +13,7 @@ import {
   VaccinePageSection,
   VaccinePageSubsection,
 } from "@src/services/content-api/types";
+import { Url } from "@src/utils/Url";
 import { render, screen, within } from "@testing-library/react";
 import { JSX, isValidElement } from "react";
 
@@ -261,7 +262,7 @@ describe("ContentStylingService", () => {
         whoVaccineIsFor: mockWhoSection,
         howToGetVaccine: mockHowSection,
         vaccineSideEffects: mockSideEffectsSection,
-        webpageLink: new URL("https://test.example.com/"),
+        webpageLink: new Url("https://test.example.com/"),
         callout: mockCallout,
       };
 
@@ -292,7 +293,7 @@ describe("ContentStylingService", () => {
       expect(isValidElement(styledVaccineContent.whoVaccineIsFor.component)).toBe(true);
       expect(isValidElement(styledVaccineContent.howToGetVaccine.component)).toBe(true);
       expect(isValidElement(styledVaccineContent.vaccineSideEffects.component)).toBe(true);
-      expect(styledVaccineContent.webpageLink).toEqual(new URL("https://test.example.com/"));
+      expect(styledVaccineContent.webpageLink).toEqual(new Url("https://test.example.com/"));
     });
 
     it("should return styled content without what-section when what-section is missing", async () => {
@@ -313,7 +314,7 @@ describe("ContentStylingService", () => {
         whoVaccineIsFor: mockWhoSection,
         howToGetVaccine: mockHowSection,
         vaccineSideEffects: mockSideEffectsSection,
-        webpageLink: new URL("https://test.example.com/"),
+        webpageLink: new Url("https://test.example.com/"),
       };
 
       const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
@@ -328,7 +329,7 @@ describe("ContentStylingService", () => {
       expect(isValidElement(styledVaccineContent.whoVaccineIsFor.component)).toBe(true);
       expect(isValidElement(styledVaccineContent.howToGetVaccine.component)).toBe(true);
       expect(isValidElement(styledVaccineContent.vaccineSideEffects.component)).toBe(true);
-      expect(styledVaccineContent.webpageLink).toEqual(new URL("https://test.example.com/"));
+      expect(styledVaccineContent.webpageLink).toEqual(new Url("https://test.example.com/"));
     });
   });
 

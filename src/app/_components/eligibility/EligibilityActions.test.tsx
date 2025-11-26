@@ -1,4 +1,5 @@
 import { ActionDisplayType, ButtonUrl, Label } from "@src/services/eligibility-api/types";
+import { Url } from "@src/utils/Url";
 import { actionBuilder, buttonBuilder } from "@test-data/eligibility-api/builders";
 import { render, screen, within } from "@testing-library/react";
 import React from "react";
@@ -288,7 +289,7 @@ describe("EligibilityActions", () => {
                 .andButton(
                   buttonBuilder()
                     .withLabel("Action Link Test" as Label)
-                    .andUrl(new URL("https://example.com/bacon/") as ButtonUrl)
+                    .andUrl(new Url("https://example.com/bacon/") as ButtonUrl)
                     .build(),
                 )
                 .build(),

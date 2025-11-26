@@ -1,5 +1,6 @@
 import { Browser, Page } from "@playwright/test";
 import { getEnv } from "@project/e2e/helpers";
+import { Url } from "@src/utils/Url";
 
 interface User {
   nhsAppLoginUrl: string;
@@ -61,7 +62,7 @@ export const login = async (browser: Browser, nhsLoginUsername: string): Promise
   await page.getByRole("button", { name: "Continue" }).click();
 
   await page.waitForURL(/\/(enter-mobile-code|choose-authentication-method)$/, { timeout: 30000 });
-  if (new URL(page.url()).pathname === "/choose-authentication-method") {
+  if (new Url(page.url()).path === "/choose-authentication-method") {
     await page.getByLabel("Use my mobile phone to recieve a security code by text message").click();
     await page.getByRole("button", { name: "Continue" }).click();
   }
@@ -78,7 +79,7 @@ export const login = async (browser: Browser, nhsLoginUsername: string): Promise
     return page;
   } else {
     await page.waitForURL(/\/(terms-and-conditions\?redirect_to=index|patient\/)$/, { timeout: 30000 });
-    if (new URL(page.url()).pathname === "/terms-and-conditions") {
+    if (new Url(page.url()).path === "/terms-and-conditions") {
       await page.locator("#termsAndConditions-agree_checkbox").setChecked(true);
       await page.getByRole("button", { name: "Continue" }).click();
     }

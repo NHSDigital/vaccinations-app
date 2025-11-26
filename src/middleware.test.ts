@@ -4,6 +4,7 @@
 import { auth } from "@project/auth";
 import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
 import { config, middleware } from "@src/middleware";
+import { Url } from "@src/utils/Url";
 import appConfig from "@src/utils/config";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { NextRequest } from "next/server";
@@ -25,8 +26,8 @@ function getMockRequest(testUrl: string) {
   ]);
   return {
     nextUrl: {
-      origin: new URL(testUrl).origin,
-      pathname: new URL(testUrl).pathname,
+      origin: new Url(testUrl).origin,
+      pathname: new Url(testUrl).path,
     },
     url: testUrl,
     headers: headers,
@@ -38,7 +39,7 @@ describe("middleware", () => {
 
   beforeEach(() => {
     const defaultConfig = configBuilder()
-      .withNhsAppRedirectLoginUrl(new URL("https://nhs-app-redirect-login-url"))
+      .withNhsAppRedirectLoginUrl(new Url("https://nhs-app-redirect-login-url"))
       .build();
     Object.assign(mockedConfig, defaultConfig);
 

@@ -1,3 +1,4 @@
+import { Url } from "@src/utils/Url";
 import { Brand } from "@src/utils/types";
 
 export type NhsNumber = Brand<string, "NhsNumber">;
@@ -26,8 +27,8 @@ export type VaccineDetails = {
   displayName: displayName;
   heading: string;
   cardLinkTitle: string;
-  nhsWebpageLink: URL;
-  nhsHowToGetWebpageLink: URL;
+  nhsWebpageLink: Url;
+  nhsHowToGetWebpageLink: Url;
   personalisedEligibilityStatusRequired: boolean;
   forOlderAdults?: boolean;
   removeHowToGetExpanderFromMoreInformationSection?: boolean;
@@ -53,8 +54,8 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     },
     heading: "RSV vaccine for older adults",
     cardLinkTitle: "RSV",
-    nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/"),
-    nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it"),
+    nhsWebpageLink: new Url("https://www.nhs.uk/vaccinations/rsv-vaccine/"),
+    nhsHowToGetWebpageLink: new Url("https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: true,
     forOlderAdults: true,
     removeHowToGetExpanderFromMoreInformationSection: true,
@@ -71,8 +72,8 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     },
     heading: "RSV vaccine in pregnancy",
     cardLinkTitle: "RSV in pregnancy",
-    nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/"),
-    nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it"),
+    nhsWebpageLink: new Url("https://www.nhs.uk/vaccinations/rsv-vaccine/"),
+    nhsHowToGetWebpageLink: new Url("https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
     forOlderAdults: false,
     removeHowToGetExpanderFromMoreInformationSection: true,
@@ -89,8 +90,8 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     },
     heading: "Td/IPV vaccine (3-in-1 teenage booster)",
     cardLinkTitle: "Td/IPV (3-in-1 teenage booster)",
-    nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/"),
-    nhsHowToGetWebpageLink: new URL(
+    nhsWebpageLink: new Url("https://www.nhs.uk/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/"),
+    nhsHowToGetWebpageLink: new Url(
       "https://www.nhs.uk/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#how-to-get-it",
     ),
     personalisedEligibilityStatusRequired: false,
@@ -107,8 +108,8 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     },
     heading: "6-in-1 vaccine",
     cardLinkTitle: "6-in-1",
-    nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/6-in-1-vaccine/"),
-    nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/6-in-1-vaccine/#how-to-get-it"),
+    nhsWebpageLink: new Url("https://www.nhs.uk/vaccinations/6-in-1-vaccine/"),
+    nhsHowToGetWebpageLink: new Url("https://www.nhs.uk/vaccinations/6-in-1-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/6-in-1-vaccine" as UrlPathFragment,
     cacheFilename: "6-in-1-vaccine.json" as Filename,
@@ -123,8 +124,8 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     },
     heading: "Rotavirus vaccine",
     cardLinkTitle: "Rotavirus",
-    nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/rotavirus-vaccine/"),
-    nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/rotavirus-vaccine/#how-to-get-it"),
+    nhsWebpageLink: new Url("https://www.nhs.uk/vaccinations/rotavirus-vaccine/"),
+    nhsHowToGetWebpageLink: new Url("https://www.nhs.uk/vaccinations/rotavirus-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/rotavirus-vaccine" as UrlPathFragment,
     cacheFilename: "rotavirus-vaccine.json" as Filename,
@@ -139,8 +140,8 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     },
     heading: "HPV vaccine",
     cardLinkTitle: "HPV",
-    nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/hpv-vaccine/"),
-    nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/hpv-vaccine/#how-to-get-it"),
+    nhsWebpageLink: new Url("https://www.nhs.uk/vaccinations/hpv-vaccine/"),
+    nhsHowToGetWebpageLink: new Url("https://www.nhs.uk/vaccinations/hpv-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/hpv-vaccine" as UrlPathFragment,
     cacheFilename: "hpv-vaccine.json" as Filename,
@@ -155,8 +156,8 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     },
     heading: "MenB vaccine",
     cardLinkTitle: "MenB",
-    nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/menb-vaccine-for-children/"),
-    nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/menb-vaccine-for-children/#how-to-get-it"),
+    nhsWebpageLink: new Url("https://www.nhs.uk/vaccinations/menb-vaccine-for-children/"),
+    nhsHowToGetWebpageLink: new Url("https://www.nhs.uk/vaccinations/menb-vaccine-for-children/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/menb-vaccine-for-children" as UrlPathFragment,
     cacheFilename: "menb-vaccine-for-children.json" as Filename,
@@ -171,8 +172,8 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     },
     heading: "MMR vaccine",
     cardLinkTitle: "MMR",
-    nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/mmr-vaccine/"),
-    nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/mmr-vaccine/#how-to-get-it"),
+    nhsWebpageLink: new Url("https://www.nhs.uk/vaccinations/mmr-vaccine/"),
+    nhsHowToGetWebpageLink: new Url("https://www.nhs.uk/vaccinations/mmr-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/mmr-vaccine" as UrlPathFragment,
     cacheFilename: "mmr-vaccine.json" as Filename,
@@ -187,8 +188,8 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     },
     heading: "Pneumococcal vaccine",
     cardLinkTitle: "Pneumococcal",
-    nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/pneumococcal-vaccine/"),
-    nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/pneumococcal-vaccine/#how-to-get-it"),
+    nhsWebpageLink: new Url("https://www.nhs.uk/vaccinations/pneumococcal-vaccine/"),
+    nhsHowToGetWebpageLink: new Url("https://www.nhs.uk/vaccinations/pneumococcal-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/pneumococcal-vaccine" as UrlPathFragment,
     cacheFilename: "pneumococcal-vaccine.json" as Filename,
@@ -203,8 +204,8 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     },
     heading: "Shingles vaccine",
     cardLinkTitle: "Shingles",
-    nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/shingles-vaccine/"),
-    nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/shingles-vaccine/#how-to-get-it"),
+    nhsWebpageLink: new Url("https://www.nhs.uk/vaccinations/shingles-vaccine/"),
+    nhsHowToGetWebpageLink: new Url("https://www.nhs.uk/vaccinations/shingles-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/shingles-vaccine" as UrlPathFragment,
     cacheFilename: "shingles-vaccine.json" as Filename,
@@ -219,8 +220,8 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     },
     heading: "MenACWY vaccine",
     cardLinkTitle: "MenACWY",
-    nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/menacwy-vaccine/"),
-    nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/menacwy-vaccine/#how-to-get-it"),
+    nhsWebpageLink: new Url("https://www.nhs.uk/vaccinations/menacwy-vaccine/"),
+    nhsHowToGetWebpageLink: new Url("https://www.nhs.uk/vaccinations/menacwy-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/menacwy-vaccine" as UrlPathFragment,
     cacheFilename: "menacwy-vaccine.json" as Filename,
@@ -235,8 +236,8 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     },
     heading: "4-in-1 pre-school booster vaccine",
     cardLinkTitle: "4-in-1 pre-school booster",
-    nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/4-in-1-preschool-booster-vaccine/"),
-    nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/4-in-1-preschool-booster-vaccine/#how-to-get-it"),
+    nhsWebpageLink: new Url("https://www.nhs.uk/vaccinations/4-in-1-preschool-booster-vaccine/"),
+    nhsHowToGetWebpageLink: new Url("https://www.nhs.uk/vaccinations/4-in-1-preschool-booster-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/4-in-1-preschool-booster-vaccine" as UrlPathFragment,
     cacheFilename: "4-in-1-preschool-booster-vaccine.json" as Filename,
@@ -251,8 +252,8 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     },
     heading: "Whooping cough vaccination in pregnancy",
     cardLinkTitle: "Whooping cough (pertussis) in pregnancy",
-    nhsWebpageLink: new URL("https://www.nhs.uk/pregnancy/keeping-well/whooping-cough-vaccination/"),
-    nhsHowToGetWebpageLink: new URL(
+    nhsWebpageLink: new Url("https://www.nhs.uk/pregnancy/keeping-well/whooping-cough-vaccination/"),
+    nhsHowToGetWebpageLink: new Url(
       "https://www.nhs.uk/pregnancy/keeping-well/whooping-cough-vaccination/#how-to-get-it",
     ),
     personalisedEligibilityStatusRequired: false,
@@ -269,8 +270,8 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     },
     heading: "Hib/MenC vaccine",
     cardLinkTitle: "Hib/MenC",
-    nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/hib-menc-vaccine/"),
-    nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/hib-menc-vaccine/#how-to-get-it"),
+    nhsWebpageLink: new Url("https://www.nhs.uk/vaccinations/hib-menc-vaccine/"),
+    nhsHowToGetWebpageLink: new Url("https://www.nhs.uk/vaccinations/hib-menc-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/hib-menc-vaccine" as UrlPathFragment,
     cacheFilename: "hib-menc-vaccine.json" as Filename,

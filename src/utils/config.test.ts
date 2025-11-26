@@ -1,3 +1,4 @@
+import { Url } from "@src/utils/Url";
 import config, { ConfigError } from "@src/utils/config";
 import getSSMParam from "@src/utils/get-ssm-param";
 import { randomString } from "@test-data/meta-builder";
@@ -38,7 +39,7 @@ describe("lazyConfig", () => {
     setupTestEnvVars(prefix);
     const mockGetSSMParam = (getSSMParam as jest.Mock).mockResolvedValue("api-key");
 
-    expect(await config.CONTENT_API_ENDPOINT).toEqual(new URL("https://api-endpoint"));
+    expect(await config.CONTENT_API_ENDPOINT).toEqual(new Url("https://api-endpoint"));
     expect(await config.CONTENT_API_KEY).toEqual("api-key");
 
     expect(mockGetSSMParam).toHaveBeenCalledWith(`${prefix}CONTENT_API_KEY`);

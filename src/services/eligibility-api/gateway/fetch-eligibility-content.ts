@@ -9,6 +9,7 @@ import {
   EligibilityApiSchemaError,
 } from "@src/services/eligibility-api/gateway/exceptions";
 import { Cohort, Heading } from "@src/services/eligibility-api/types";
+import { Url } from "@src/utils/Url";
 import { getApimAccessToken } from "@src/utils/auth/apim/get-apim-access-token";
 import config from "@src/utils/config";
 import { logger } from "@src/utils/logger";
@@ -27,7 +28,7 @@ const log = logger.child({ module: "fetch-eligibility-content" });
 const ELIGIBILITY_API_PATH_SUFFIX = "eligibility-signposting-api/patient-check/";
 
 export const fetchEligibilityContent = async (nhsNumber: NhsNumber): Promise<EligibilityApiResponse> => {
-  const apiEndpoint: URL = await config.ELIGIBILITY_API_ENDPOINT;
+  const apiEndpoint: Url = await config.ELIGIBILITY_API_ENDPOINT;
   const apiKey: string = await config.ELIGIBILITY_API_KEY;
   const vitaTraceId: string | undefined = asyncLocalStorage?.getStore()?.traceId;
 
@@ -99,7 +100,7 @@ const toDomainModel = (apiResponse: RawEligibilityApiResponse): EligibilityApiRe
       actions: suggestion.actions.map((action) => ({
         actionType: action.actionType as ActionType,
         description: action.description,
-        url: action.urlLink ? new URL(action.urlLink) : undefined,
+        url: action.urlLink ? new Url(action.urlLink) : undefined,
         urlLabel: action.urlLabel,
       })),
       suitabilityRules: suggestion.suitabilityRules.map((rule) => ({

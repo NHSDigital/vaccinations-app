@@ -28,12 +28,12 @@ const getSSOUrlToNBSForVaccine = async (vaccineType: VaccinesWithNBSBookingAvail
   try {
     const nbsBaseUrl = await config.NBS_URL;
     const nbsBookingPath = await config.NBS_BOOKING_PATH;
-    const nbsURl = new URL(`${nbsBaseUrl.pathname}${nbsBookingPath}${nbsVaccinePath[vaccineType]}`, nbsBaseUrl.origin);
+    const nbsURl = nbsBaseUrl.join(nbsBookingPath, nbsVaccinePath[vaccineType]);
     const nbsQueryParams = await getNbsQueryParams();
     nbsQueryParams.forEach((param) => {
       nbsURl.searchParams.append(param.name, param.value);
     });
-    redirectUrl = nbsURl.toString();
+    redirectUrl = nbsURl.href;
   } catch (error) {
     log.error(error, "Error redirecting to NBS");
     redirectUrl = SSO_FAILURE_ROUTE;

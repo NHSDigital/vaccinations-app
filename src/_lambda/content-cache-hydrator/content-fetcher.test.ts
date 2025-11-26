@@ -1,5 +1,6 @@
 import { CONTENT_API_PATH_PREFIX, fetchContentForVaccine } from "@src/_lambda/content-cache-hydrator/content-fetcher";
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
+import { Url } from "@src/utils/Url";
 import config from "@src/utils/config";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import axios from "axios";
@@ -9,7 +10,7 @@ jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("fetchContentForVaccine", () => {
   const testApiKey: string = "test-key";
-  const testApiEndpoint: URL = new URL("https://test-endpoint/");
+  const testApiEndpoint: Url = new Url("https://test-endpoint/");
   const testApiContent = { test: "content" };
   const mockedConfig = config as ConfigMock;
 

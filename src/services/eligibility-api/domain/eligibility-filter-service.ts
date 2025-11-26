@@ -24,6 +24,7 @@ import {
   SuitabilityRule,
   SummaryContent,
 } from "@src/services/eligibility-api/types";
+import { Url } from "@src/utils/Url";
 import { ApimAuthError } from "@src/utils/auth/apim/exceptions";
 import { logger } from "@src/utils/logger";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
@@ -169,7 +170,7 @@ function _linkAction(action: ResponseAction, type: ActionDisplayType, delineator
     ? {
         type: type,
         content: action.description as Content,
-        button: { label: action.urlLabel as Label, url: new URL(action.url) as ButtonUrl },
+        button: { label: action.urlLabel as Label, url: new Url(action.url) as ButtonUrl },
         delineator: delineator,
       }
     : {

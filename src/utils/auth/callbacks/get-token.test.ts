@@ -1,3 +1,4 @@
+import { Url } from "@src/utils/Url";
 import { ApimHttpError } from "@src/utils/auth/apim/exceptions";
 import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import { getToken } from "@src/utils/auth/callbacks/get-token";
@@ -37,7 +38,7 @@ describe("getToken", () => {
     (headers as jest.Mock).mockResolvedValue(fakeHeaders);
 
     const defaultConfig = configBuilder()
-      .withNhsLoginUrl(new URL("https://nhs-app-redirect-login-url"))
+      .withNhsLoginUrl(new Url("https://nhs-app-redirect-login-url"))
       .andNhsLoginClientId("mock-client-id")
       .andNhsLoginPrivateKey("mock-private-key")
       .build();

@@ -1,3 +1,5 @@
+import { Url } from "@src/utils/Url";
+
 /**
  * A utility mapped type that programmatically generates the method signatures for a builder.
  *
@@ -136,7 +138,7 @@ export function randomString(length: number) {
 }
 
 export function randomURL() {
-  return new URL(`https://${randomString(10)}.example.com`);
+  return new Url(`https://${randomString(10)}.example.com`);
 }
 
 export function randomInteger(min: number, max: number) {

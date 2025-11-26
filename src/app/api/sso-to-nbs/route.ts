@@ -1,6 +1,7 @@
 import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 import { VaccineType } from "@src/models/vaccine";
 import { getNbsQueryParams, getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
+import { Url } from "@src/utils/Url";
 import { logger } from "@src/utils/logger";
 import { getVaccineTypeFromLowercaseString } from "@src/utils/path";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
@@ -44,7 +45,7 @@ async function getGivenRedirectTarget(rawRedirectTarget: string | null) {
 
   if (rawRedirectTarget) {
     try {
-      const nbsURl = new URL(decodeURI(rawRedirectTarget ?? ""));
+      const nbsURl = new Url(decodeURI(rawRedirectTarget ?? ""));
       try {
         const nbsQueryParams = await getNbsQueryParams();
         nbsQueryParams.forEach((param) => {
