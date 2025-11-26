@@ -131,11 +131,11 @@ jobs:
     secrets: inherit
 
   #############################################################
-  # Deploy stage - download artefacts and deploy to AWS
+  # Deploy action - download artefacts and deploy to AWS
   #############################################################
 
-  deploy-stage:
-    name: "Deploy stage"
+  deploy-action:
+    name: "Deploy action (main only)"
     needs: [ metadata, build-stage ]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
@@ -163,12 +163,11 @@ jobs:
   #############################################################
 
   acceptance-stage: # Recommended maximum execution time is 10 minutes
-    name: "Acceptance stage"
-    needs: [ metadata, deploy-stage ]
+    name: "Acceptance stage (main only)"
+    needs: [ metadata, deploy-action ]
     if: github.ref == 'refs/heads/main'
     uses: ./.github/workflows/stage-5-acceptance.yaml
     with:
       environment: "dev"
       checkout_ref: "${{ github.sha }}"
-      release: "Latest main tag"
     secrets: inherit

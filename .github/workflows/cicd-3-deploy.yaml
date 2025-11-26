@@ -7,66 +7,18 @@ on:
         description: 'Environment to deploy to'
         type: environment
         required: true
-      release:
-        description: 'Run assurance tests based on Hub URL for'
-        type: choice
-        options:
-          - R1
-          - Latest main
 
 env:
   AWS_REGION: eu-west-2
 
 jobs:
-  metadata:
-    name: "Set CI/CD metadata"
-    runs-on: ubuntu-latest
-    timeout-minutes: 1
-    outputs:
-      build_datetime: ${{ steps.variables.outputs.build_datetime }}
-      build_timestamp: ${{ steps.variables.outputs.build_timestamp }}
-      build_epoch: ${{ steps.variables.outputs.build_epoch }}
-      nodejs_version: ${{ steps.variables.outputs.nodejs_version }}
-      python_version: ${{ steps.variables.outputs.python_version }}
-      terraform_version: ${{ steps.variables.outputs.terraform_version }}
-      version: ${{ steps.variables.outputs.version }}
-      tag: ${{ steps.variables.outputs.tag }}
-    steps:
-      - name: "Check ref"
-        run: |
-          if ${{ !startsWith(github.ref, 'refs/tags/') }}; then
-            echo "❌ Only tagged deployments allowed."
-            exit 1
-          fi
-      - name: "Checkout code"
-        uses: actions/checkout@v6
-      - name: "Set CI/CD variables"
-        id: variables
-        run: |
-          datetime=$(date -u +'%Y-%m-%dT%H:%M:%S%z')
-          echo "build_datetime=$datetime" | tee -a $GITHUB_OUTPUT
-          echo "build_timestamp=$(date --date=$datetime -u +'%Y%m%d%H%M%S')" | tee -a $GITHUB_OUTPUT
-          echo "build_epoch=$(date --date=$datetime -u +'%s')" | tee -a $GITHUB_OUTPUT
-          echo "nodejs_version=$(grep "^nodejs" .tool-versions | cut -f2 -d' ')" | tee -a $GITHUB_OUTPUT
-          echo "python_version=$(grep "^nodejs" .tool-versions | cut -f2 -d' ')" | tee -a $GITHUB_OUTPUT
-          echo "terraform_version=$(grep "^terraform" .tool-versions | cut -f2 -d' ')" | tee -a $GITHUB_OUTPUT
-          # TODO: Get the version, but it may not be the .version file as this should come from the CI/CD Pull Request Workflow
-          echo "version=$(head -n 1 .version 2> /dev/null || echo unknown)" | tee -a $GITHUB_OUTPUT
-          echo "tag=${{ github.ref_name }}" | tee -a $GITHUB_OUTPUT
-      - name: "List variables"
-        run: |
-          export BUILD_DATETIME="${{ steps.variables.outputs.build_datetime }}"
-          export BUILD_TIMESTAMP="${{ steps.variables.outputs.build_timestamp }}"
-          export BUILD_EPOCH="${{ steps.variables.outputs.build_epoch }}"
-          export NODEJS_VERSION="${{ steps.variables.outputs.nodejs_version }}"
-          export PYTHON_VERSION="${{ steps.variables.outputs.python_version }}"
-          export TERRAFORM_VERSION="${{ steps.variables.outputs.terraform_version }}"
-          export VERSION="${{ steps.variables.outputs.version }}"
-          export TAG="${{ steps.variables.outputs.tag }}"
-          make list-variables
-  deploy-stage:
-    name: "Deploy ${{ needs.metadata.outputs.tag }} to ${{ github.event.inputs.environment }}"
-    needs: [ metadata ]
+
+  #############################################################
+  # Deploy action - download artefacts and deploy to AWS
+  #############################################################
+
+  deploy-action:
+    name: "Deploy ${{ github.ref_name }} to (${{ github.event.inputs.environment }})"
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.event.inputs.environment }}
@@ -78,30 +30,33 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - name: "Tag or SHA"
-        id: tag-or-sha
+      - name: "Check is ${{ github.ref }} a tag"
         run: |
-          echo "value=${{ needs.metadata.outputs.tag }}" >> $GITHUB_OUTPUT
-      - name: "Checkout code"
-        uses: actions/checkout@v6
-        with:
-          ref: ${{ needs.metadata.outputs.tag }}
-      - name: "Deploy ${{ needs.metadata.outputs.tag }} to ${{ github.event.inputs.environment }}"
+          if ${{ !startsWith(github.ref, 'refs/tags/') }}; then
+            echo "❌ Only tagged deployments allowed."
+            exit 1
+          fi
+
+      - name: "Deploy application version ${{ github.ref_name }}"
         timeout-minutes: 10
         uses: ./.github/actions/deploy
         with:
           environment: ${{ github.event.inputs.environment }}
-          tag_or_sha_to_deploy: ${{ needs.metadata.outputs.tag }}
+          tag_or_sha_to_deploy: ${{ github.ref_name }}
           secret_aws_iam_role: ${{ secrets.IAM_ROLE }}
           secret_aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
           secret_aws_slack_channel_id: ${{ secrets.ALARMS_SLACK_CHANNEL_ID }}
+
+  #############################################################
+  # Acceptance stage - E2E and contract tests
+  #############################################################
+
   acceptance-stage:
-    name: "Acceptance stage"
+    name: "Acceptance stage (dev/preprod only)"
     if: ${{ contains(fromJSON('["dev","preprod"]'), github.event.inputs.environment) }}
-    needs: [ metadata, deploy-stage ]
+    needs: [ deploy-action ]
     uses: ./.github/workflows/stage-5-acceptance.yaml
     with:
       environment: ${{ github.event.inputs.environment}}
-      checkout_ref: ${{ needs.metadata.outputs.tag }}
-      release: ${{ inputs.release }}
+      checkout_ref: ${{ github.ref_name }}
     secrets: inherit

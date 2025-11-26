@@ -17,7 +17,7 @@ env:
 
 jobs:
   prepare:
-    name: "Prepare lower environment variables"
+    name: "Get source environment"
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     timeout-minutes: 3
@@ -30,7 +30,7 @@ jobs:
           echo "PROMOTE_SOURCE_ENVIRONMENT=${{ vars.PROMOTE_SOURCE_ENVIRONMENT }}" >> $GITHUB_OUTPUT
 
   download:
-    name: "Download package from ${{ needs.prepare.outputs.PROMOTE_SOURCE_ENVIRONMENT }} env"
+    name: "Download artefacts from (${{ needs.prepare.outputs.PROMOTE_SOURCE_ENVIRONMENT }})"
     runs-on: ubuntu-latest
     needs: [ prepare ]
     environment:
@@ -42,27 +42,19 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - name: "Configure AWS credentials for env:${{ env.ENVIRONMENT }}"
+      - name: "Configure AWS credentials"
         uses: aws-actions/configure-aws-credentials@v5
         with:
           role-session-name: GitHubActionsSession
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
-      - name: "Download package from source S3 releases bucket"
+      - name: "Download artefacts from source"
         env:
           AWS_S3_SOURCE_RELEASES_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${{ env.ENVIRONMENT }}
         run: |
-          app_s3_path="s3://${AWS_S3_SOURCE_RELEASES_BUCKET}/tag/${{ inputs.release_tag }}/open-next.zip"
-          echo "Artefact path: $app_s3_path"
-          aws s3 cp "$app_s3_path" .
-          lambda_s3_path="s3://${AWS_S3_SOURCE_RELEASES_BUCKET}/tag/${{ inputs.release_tag }}/lambda.zip"
-          echo "Artefact path: $lambda_s3_path"
-          aws s3 cp "$lambda_s3_path" .
-          workflow_s3_path="s3://${AWS_S3_SOURCE_RELEASES_BUCKET}/tag/${{ inputs.release_tag }}/workflow.log"
-          echo "Artefact path: $workflow_s3_path"
-          aws s3 cp "$workflow_s3_path" .
+          aws s3 sync "s3://${AWS_S3_SOURCE_RELEASES_BUCKET}/tag/${{ inputs.release_tag }}" .
 
-      - name: "Upload release package as artifact"
+      - name: "Upload artefacts to GitHub"
         uses: actions/upload-artifact@v5
         with:
           name: release-package
@@ -73,7 +65,7 @@ jobs:
           retention-days: 1
 
   promote:
-    name: "Promote to ${{ inputs.environment}} environment"
+    name: "Promote artefacts to (${{ inputs.environment}})"
     runs-on: ubuntu-latest
     needs: [ download ]
     environment:
@@ -83,17 +75,17 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - name: "Download release package from artifact"
+      - name: "Download artefacts from GitHub"
         uses: actions/download-artifact@v6
         with:
           name: release-package
-      - name: "Configure AWS credentials for target env:${{ inputs.environment }}"
+      - name: "Configure AWS credentials"
         uses: aws-actions/configure-aws-credentials@v5
         with:
           role-session-name: GitHubActionsSession
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
-      - name: "Upload package to target S3 releases bucket"
+      - name: "Upload artefacts to target"
         env:
           AWS_S3_TARGET_RELEASES_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${{ inputs.environment }}
         run: |
@@ -113,11 +105,11 @@ jobs:
           }
 
   cleanup:
-    name: "Cleanup release package from artifact"
+    name: "Cleanup artefacts from GitHub"
     runs-on: ubuntu-latest
     needs: [ promote ]
     steps:
-      - name: "Delete workflow artifact"
+      - name: "Delete workflow artefact"
         uses: geekyeggo/delete-artifact@v5
         with:
           name: release-package

@@ -14,6 +14,11 @@ env:
   AWS_S3_TARGET_RELEASES_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-releases-${{ github.event.inputs.environment }}
 
 jobs:
+
+  #################################################
+  # Set up metadata for the jobs
+  #################################################
+
   metadata:
     name: "Set CI/CD metadata"
     runs-on: ubuntu-latest
@@ -25,7 +30,7 @@ jobs:
       version: ${{ steps.variables.outputs.version }}
       release_tag: ${{ steps.variables.outputs.release_tag }}
     steps:
-      - name: "Check ref"
+      - name: "Check is ${{ github.ref }} a tag"
         run: |
           if ${{ !startsWith(github.ref, 'refs/tags/') }}; then
             echo "❌ Only tagged promotions allowed."
@@ -51,11 +56,15 @@ jobs:
           export VERSION="${{ steps.variables.outputs.version }}"
           export RELEASE_TAG="${{ steps.variables.outputs.release_tag }}"
           make list-variables
+
+  #################################################################
+  # Promote stage - promote builds from one environment to another
+  #################################################################
+
   promote-stage:
     name: "Promote stage"
-    needs: [ metadata ]
     uses: ./.github/workflows/stage-6-promote.yaml
     with:
       environment: ${{ inputs.environment }}
-      release_tag: ${{ needs.metadata.outputs.release_tag }}
+      release_tag: ${{ github.ref_name }}
     secrets: inherit
