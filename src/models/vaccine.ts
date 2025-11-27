@@ -78,7 +78,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     forOlderAdults: false,
     removeHowToGetExpanderFromMoreInformationSection: true,
-    contentPath: "vaccinations/rsv-pregnancy" as UrlPathFragment,
+    contentPath: "vaccinations/rsv-vaccine" as UrlPathFragment,
     cacheFilename: "rsv-vaccine.json" as Filename,
     nbsPath: "rsv-pregnancy" as UrlPathFragment,
   },
