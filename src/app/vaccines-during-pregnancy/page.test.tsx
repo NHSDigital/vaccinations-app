@@ -7,7 +7,7 @@ jest.mock("@src/app/_components/nhs-frontend/BackLink", () => jest.fn(() => <div
 describe("VaccinesDuringPregnancy", () => {
   const vaccines = [
     {
-      name: "Whooping cough (Pertussis)",
+      name: "Whooping cough (pertussis) in pregnancy",
       description: "Around 20 weeks",
       link: "/vaccines/whooping-cough-vaccination",
     },

@@ -26,6 +26,7 @@ export type VaccineDetails = {
   displayName: displayName;
   heading: string;
   cardLinkTitle: string;
+  cardLinkDescription?: string;
   nhsWebpageLink: URL;
   nhsHowToGetWebpageLink: URL;
   personalisedEligibilityStatusRequired: boolean;
@@ -71,6 +72,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     },
     heading: "RSV vaccine in pregnancy",
     cardLinkTitle: "RSV in pregnancy",
+    cardLinkDescription: "From 28 weeks",
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
@@ -153,7 +155,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
       midSentenceCase: "MenB",
       indefiniteArticle: "an",
     },
-    heading: "MenB vaccine",
+    heading: "MenB vaccine for children",
     cardLinkTitle: "MenB",
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/menb-vaccine-for-children/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/menb-vaccine-for-children/#how-to-get-it"),
@@ -170,7 +172,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
       indefiniteArticle: "an",
     },
     heading: "MMR vaccine",
-    cardLinkTitle: "MMR",
+    cardLinkTitle: "MMR (measles, mumps and rubella)",
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/mmr-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/mmr-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
@@ -229,8 +231,8 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
   [VaccineType.VACCINE_4_IN_1]: {
     urlPath: "4-in-1-preschool-booster-vaccine" as UrlPathFragment,
     displayName: {
-      titleCase: "4-in-1 pre-school booster vaccine",
-      midSentenceCase: "4-in-1 pre-school booster vaccine",
+      titleCase: "4-in-1 pre-school booster",
+      midSentenceCase: "4-in-1 pre-school booster",
       indefiniteArticle: "a",
     },
     heading: "4-in-1 pre-school booster vaccine",
@@ -245,12 +247,13 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
   [VaccineType.WHOOPING_COUGH]: {
     urlPath: "whooping-cough-vaccination" as UrlPathFragment,
     displayName: {
-      titleCase: "Whooping cough vaccination in pregnancy",
-      midSentenceCase: "whooping cough vaccination",
+      titleCase: "Whooping cough vaccine in pregnancy",
+      midSentenceCase: "whooping cough",
       indefiniteArticle: "a",
     },
-    heading: "Whooping cough vaccination in pregnancy",
+    heading: "Whooping cough vaccine in pregnancy",
     cardLinkTitle: "Whooping cough (pertussis) in pregnancy",
+    cardLinkDescription: "Around 20 weeks",
     nhsWebpageLink: new URL("https://www.nhs.uk/pregnancy/keeping-well/whooping-cough-vaccination/"),
     nhsHowToGetWebpageLink: new URL(
       "https://www.nhs.uk/pregnancy/keeping-well/whooping-cough-vaccination/#how-to-get-it",
@@ -263,8 +266,8 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
   [VaccineType.HIB_MENC]: {
     urlPath: "hib-menc-vaccine" as UrlPathFragment,
     displayName: {
-      titleCase: "Hib/MenC vaccine",
-      midSentenceCase: "Hib/MenC vaccine",
+      titleCase: "Hib/MenC",
+      midSentenceCase: "Hib/MenC",
       indefiniteArticle: "a",
     },
     heading: "Hib/MenC vaccine",
@@ -284,4 +287,31 @@ Object.entries(VaccineInfo).forEach(([vaccineType, vaccineDetails]) => {
   vaccineUrlPathToVaccineType.set(vaccineDetails.urlPath, vaccineType as VaccineType);
 });
 
-export { VaccineType, VaccineInfo, vaccineUrlPathToVaccineType };
+const adultVaccines: VaccineType[] = [VaccineType.RSV, VaccineType.SHINGLES, VaccineType.PNEUMOCOCCAL];
+const pregnancyVaccines: VaccineType[] = [VaccineType.WHOOPING_COUGH, VaccineType.RSV_PREGNANCY];
+const childVaccines: VaccineType[] = [
+  VaccineType.TD_IPV_3_IN_1,
+  VaccineType.MENACWY,
+  VaccineType.HPV,
+  VaccineType.VACCINE_4_IN_1,
+  VaccineType.MMR,
+  VaccineType.MENB_CHILDREN,
+  VaccineType.PNEUMOCOCCAL,
+  VaccineType.HIB_MENC,
+];
+const babyVaccines: VaccineType[] = [
+  VaccineType.VACCINE_6_IN_1,
+  VaccineType.ROTAVIRUS,
+  VaccineType.PNEUMOCOCCAL,
+  VaccineType.MENB_CHILDREN,
+];
+
+export {
+  VaccineType,
+  VaccineInfo,
+  vaccineUrlPathToVaccineType,
+  adultVaccines,
+  pregnancyVaccines,
+  childVaccines,
+  babyVaccines,
+};

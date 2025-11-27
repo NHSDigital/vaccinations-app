@@ -2,7 +2,7 @@ import Link from "next/link";
 
 interface CardLinkProps {
   title: string;
-  description: string;
+  description?: string;
   link: string;
 }
 
@@ -14,9 +14,11 @@ const CardLinkWithDescription = ({ title, description, link }: CardLinkProps) =>
           <Link prefetch={false} href={link} className="nhsapp-card__link nhsuk-link--no-visited-state">
             {title}
           </Link>
-          <div className="nhsapp-card__below">
-            <p className="nhsapp-card__description">{description}</p>
-          </div>
+          {description && (
+            <div className="nhsapp-card__below">
+              <p className="nhsapp-card__description">{description}</p>
+            </div>
+          )}
         </div>
         <svg
           className="nhsapp-icon nhsapp-icon--chevron-right"

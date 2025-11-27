@@ -2,29 +2,10 @@ import CardLink from "@src/app/_components/nhs-app/CardLink";
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import { NHS_TITLE_SUFFIX, VACCINES_FOR_ALL_AGES_PAGE } from "@src/app/constants";
-import { VaccineInfo, VaccineType } from "@src/models/vaccine";
+import { VaccineInfo, adultVaccines, babyVaccines, childVaccines, pregnancyVaccines } from "@src/models/vaccine";
 import React, { JSX } from "react";
 
 const VaccinesForAllAges = (): JSX.Element => {
-  const adultVaccines: VaccineType[] = [VaccineType.RSV, VaccineType.SHINGLES, VaccineType.PNEUMOCOCCAL];
-  const pregnancyVaccines: VaccineType[] = [VaccineType.WHOOPING_COUGH, VaccineType.RSV_PREGNANCY];
-  const childVaccines: VaccineType[] = [
-    VaccineType.TD_IPV_3_IN_1,
-    VaccineType.MENACWY,
-    VaccineType.HPV,
-    VaccineType.VACCINE_4_IN_1,
-    VaccineType.MMR,
-    VaccineType.MENB_CHILDREN,
-    VaccineType.PNEUMOCOCCAL,
-    VaccineType.HIB_MENC,
-  ];
-  const babyVaccines: VaccineType[] = [
-    VaccineType.VACCINE_6_IN_1,
-    VaccineType.ROTAVIRUS,
-    VaccineType.PNEUMOCOCCAL,
-    VaccineType.MENB_CHILDREN,
-  ];
-
   return (
     <>
       <title>{`${VACCINES_FOR_ALL_AGES_PAGE} - ${NHS_TITLE_SUFFIX}`}</title>

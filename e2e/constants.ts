@@ -89,8 +89,8 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
   },
   "menb-children": {
     url: "/vaccines/menb-vaccine-for-children",
-    heading: "MenB vaccine",
-    title: `MenB vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    heading: "MenB vaccine for children",
+    title: `MenB vaccine for children - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-menb-vaccine-for-children.png",
   },
   mmr: {
@@ -125,8 +125,8 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
   },
   "whooping-cough": {
     url: "/vaccines/whooping-cough-vaccination",
-    heading: "Whooping cough vaccination in pregnancy",
-    title: `Whooping cough vaccination in pregnancy - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    heading: "Whooping cough vaccine in pregnancy",
+    title: `Whooping cough vaccine in pregnancy - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-whooping-cough.png",
   },
   "hib-menc": {
