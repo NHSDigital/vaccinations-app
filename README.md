@@ -39,7 +39,7 @@ From NHS repository template:
     ```
 
   - Override default OSX tools with their GNU equivalents
-    - On M1 Macs:
+    - On M1 Macs and up:
 
       ```shell
       echo 'export HOMEBREW_PATH="/opt/homebrew"' >> ~/.zshrc
