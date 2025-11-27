@@ -41,7 +41,7 @@ test.describe("Navigation", () => {
     { section: AgeSectionTestId.CHILDREN, linkText: "MenACWY", pageName: "menacwy" },
     { section: AgeSectionTestId.CHILDREN, linkText: "HPV", pageName: "hpv" },
     { section: AgeSectionTestId.CHILDREN, linkText: "4-in-1 pre-school booster", pageName: "4-in-1" },
-    { section: AgeSectionTestId.CHILDREN, linkText: "MMR", pageName: "mmr" },
+    { section: AgeSectionTestId.CHILDREN, linkText: "MMR (measles, mumps and rubella)", pageName: "mmr" },
     { section: AgeSectionTestId.CHILDREN, linkText: "MenB", pageName: "menb-children" },
     { section: AgeSectionTestId.CHILDREN, linkText: "Pneumococcal", pageName: "pneumococcal" },
     { section: AgeSectionTestId.CHILDREN, linkText: "Hib/MenC", pageName: "hib-menc" },
