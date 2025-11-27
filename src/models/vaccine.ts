@@ -200,7 +200,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     urlPath: "shingles-vaccine" as UrlPathFragment,
     displayName: {
       titleCase: "Shingles",
-      midSentenceCase: "Shingles",
+      midSentenceCase: "shingles",
       indefiniteArticle: "a",
     },
     heading: "Shingles vaccine",
