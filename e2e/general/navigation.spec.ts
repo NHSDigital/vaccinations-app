@@ -67,6 +67,25 @@ test.describe("Navigation", () => {
     });
   }
 
+  const linksFromPregnancyHub: { linkText: string; pageName: PageName }[] = [
+    { linkText: "Whooping cough (pertussis) in pregnancy", pageName: "whooping-cough" },
+    { linkText: "RSV in pregnancy", pageName: "rsv-pregnancy" },
+  ];
+  for (const linkFromPregnancyHub of linksFromPregnancyHub) {
+    test(`Link to ${linkFromPregnancyHub.linkText} and backlink from vaccines-during-pregnancy page`, async ({
+      page,
+    }) => {
+      await page.goto(AppPageDetails["vaccines-during-pregnancy"].url);
+
+      await clickLinkAndExpectPageTitle(
+        page,
+        linkFromPregnancyHub.linkText,
+        AppPageDetails[linkFromPregnancyHub.pageName].title,
+      );
+      await clickLinkAndExpectPageTitle(page, "Back", AppPageDetails["vaccines-during-pregnancy"].title);
+    });
+  }
+
   test("Skip link navigation", async ({ page }) => {
     await page.goto(AppPageDetails["vaccine-hub"].url);
     await page.getByTestId("skip-link").focus();
