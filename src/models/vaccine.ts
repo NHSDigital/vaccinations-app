@@ -19,6 +19,7 @@ enum VaccineType {
   VACCINE_4_IN_1 = "VACCINE_4_IN_1",
   WHOOPING_COUGH = "WHOOPING_COUGH",
   HIB_MENC = "HIB_MENC",
+  FLU_IN_PREGNANCY = "FLU_IN_PREGNANCY",
 }
 
 export type VaccineDetails = {
@@ -280,6 +281,23 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     nbsPath: "hib-menc-vaccine" as UrlPathFragment,
     showWarningCallout: true,
   },
+  [VaccineType.FLU_IN_PREGNANCY]: {
+    urlPath: "flu-in-pregnancy" as UrlPathFragment,
+    displayName: {
+      titleCase: "Flu vaccine in pregnancy",
+      midSentenceCase: "flu",
+      indefiniteArticle: "a",
+    },
+    heading: "Flu vaccine in pregnancy",
+    cardLinkTitle: "Flu vaccine in pregnancy",
+    cardLinkDescription: "Around ??? weeks",
+    nhsWebpageLink: new URL("https://www.nhs.uk/pregnancy/keeping-well/flu-jab/"),
+    nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/pregnancy/keeping-well/flu-jab/#how-to-get-it"),
+    personalisedEligibilityStatusRequired: false,
+    contentPath: "pregnancy/keeping-well/flu-jab" as UrlPathFragment,
+    cacheFilename: "flu-jab.json" as Filename,
+    nbsPath: "flu-jab-vaccination" as UrlPathFragment,
+  },
 };
 
 const vaccineUrlPathToVaccineType = new Map<UrlPathFragment, VaccineType>();
@@ -288,7 +306,11 @@ Object.entries(VaccineInfo).forEach(([vaccineType, vaccineDetails]) => {
 });
 
 const adultVaccines: VaccineType[] = [VaccineType.RSV, VaccineType.SHINGLES, VaccineType.PNEUMOCOCCAL];
-const pregnancyVaccines: VaccineType[] = [VaccineType.WHOOPING_COUGH, VaccineType.RSV_PREGNANCY];
+const pregnancyVaccines: VaccineType[] = [
+  VaccineType.WHOOPING_COUGH,
+  VaccineType.RSV_PREGNANCY,
+  VaccineType.FLU_IN_PREGNANCY,
+];
 const childVaccines: VaccineType[] = [
   VaccineType.TD_IPV_3_IN_1,
   VaccineType.MENACWY,
