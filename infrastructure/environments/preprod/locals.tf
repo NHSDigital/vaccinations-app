@@ -29,7 +29,7 @@ locals {
     DEPLOY_ENVIRONMENT  = local.environment
     PROFILE_PERFORMANCE = "true"
 
-    CONTENT_API_ENDPOINT                     = "https://int.api.service.nhs.uk/"
+    CONTENT_API_ENDPOINT                     = "https://api.service.nhs.uk/"
     CONTENT_CACHE_PATH                       = "s3://${local.content_cache_bucket_name}"
     CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED = true
 
