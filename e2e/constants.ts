@@ -140,7 +140,7 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     url: "/vaccines/flu-in-pregnancy",
     heading: "Flu vaccine in pregnancy",
     title: `Flu vaccine in pregnancy - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
-    snapshotFilename: "default-flu-in-pregnancy-cough.png",
+    snapshotFilename: "default-flu-in-pregnancy.png",
   },
 
   // failure pages
