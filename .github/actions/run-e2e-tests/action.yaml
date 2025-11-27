@@ -84,11 +84,7 @@ runs:
       shell: bash
       working-directory: "./code-for-e2e-tests"
       run: |
-        echo "::group::Run Playwright tests"
         npm run e2e
-        EXIT_STATUS=$?
-        echo "::endgroup::"
-        exit $EXIT_STATUS
 
     - name: Run Playwright tests (cross browser)
       if: ${{ inputs.cross_browser == 'true' }}
