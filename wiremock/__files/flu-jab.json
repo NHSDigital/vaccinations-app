@@ -1,0 +1,510 @@
+{
+  "@context": "http://schema.org",
+  "@type": "WebPage",
+  "name": "The flu jab in pregnancy",
+  "copyrightHolder": { "name": "Crown Copyright", "@type": "Organization" },
+  "license": "https://developer.api.nhs.uk/terms",
+  "author": {
+    "url": "https://www.nhs.uk",
+    "logo": "https://assets.nhs.uk/nhsuk-cms/images/nhs-attribution.width-510.png",
+    "email": "nhswebsite.servicedesk@nhs.net",
+    "@type": "Organization",
+    "name": "NHS website"
+  },
+  "about": { "@type": "WebPage", "name": "The flu jab in pregnancy", "alternateName": "" },
+  "description": "Pregnant women should have the flu jab. Find out why it’s needed, where to get it and the risks of flu. The vaccine is safe to have at any stage of pregnancy.",
+  "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/flu-jab/",
+  "genre": ["Advice or information"],
+  "keywords": "",
+  "dateModified": "2025-10-01T08:08:18+00:00",
+  "lastReviewed": ["2022-09-05T00:00:00+00:00", "2025-09-05T00:00:00+00:00"],
+  "breadcrumb": {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 0,
+        "item": {
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/",
+          "name": "Pregnancy",
+          "genre": []
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/",
+          "name": "Keeping well in pregnancy",
+          "genre": []
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@id": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/flu-jab/",
+          "name": "The flu jab in pregnancy",
+          "genre": ["Advice or information"]
+        }
+      }
+    ]
+  },
+  "hasPart": [],
+  "relatedLink": [
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/",
+      "name": "Keeping well in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 0
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/medicines/",
+      "name": "Medicines in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 1
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/travelling/",
+      "name": "Travelling in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 2
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/your-babys-movements/",
+      "name": "Your baby's movements",
+      "linkRelationship": "Navigation",
+      "position": 3
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/foods-to-avoid/",
+      "name": "Foods to avoid in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 4
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/drinking-alcohol-while-pregnant/",
+      "name": "Drinking alcohol while pregnant",
+      "linkRelationship": "Navigation",
+      "position": 5
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/stop-smoking/",
+      "name": "Stop smoking in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 6
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/illegal-drugs/",
+      "name": "Illegal drugs in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 7
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/have-a-healthy-diet/",
+      "name": "Have a healthy diet in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 8
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/vitamins-supplements-and-nutrition/",
+      "name": "Vitamins, supplements and nutrition in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 9
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/vegetarian-or-vegan-and-pregnant/",
+      "name": "Vegetarian or vegan and pregnant",
+      "linkRelationship": "Navigation",
+      "position": 10
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/vaccinations/",
+      "name": "Vaccinations in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 11
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/flu-jab/",
+      "name": "The flu jab in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 12
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/whooping-cough-vaccination/",
+      "name": "Whooping cough vaccination in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 13
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/infections-that-may-affect-your-baby/",
+      "name": "Infections in pregnancy that may affect your baby",
+      "linkRelationship": "Navigation",
+      "position": 14
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/weight-gain/",
+      "name": "Weight gain in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 15
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/overweight/",
+      "name": "Obesity and pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 16
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/pregnancy-and-covid-19/",
+      "name": "Pregnancy and COVID-19",
+      "linkRelationship": "Navigation",
+      "position": 17
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/exercise/",
+      "name": "Exercise in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 18
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/feelings-and-relationships/",
+      "name": "Feelings, relationships and pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 19
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/sex/",
+      "name": "Sex in pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 20
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/your-health-at-work/",
+      "name": "Work and pregnancy",
+      "linkRelationship": "Navigation",
+      "position": 21
+    },
+    {
+      "@type": "LinkRole",
+      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/reducing-the-risk-of-stillbirth/",
+      "name": "Reducing the risk of stillbirth",
+      "linkRelationship": "Navigation",
+      "position": 22
+    }
+  ],
+  "contentSubTypes": [],
+  "mainEntityOfPage": [
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 0,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>It's recommended that all pregnant women have the flu vaccine, whatever stage of pregnancy they're at. It's free for pregnant women.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>It's recommended that all pregnant women have the flu vaccine, whatever stage of pregnancy they're at. It's free for pregnant women.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ]
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 1,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>A flu jab will help protect both you and your baby.</p><p>Pregnancy changes how the body responds to infections such as <a href=\"https://www.nhs.uk/conditions/flu/\">flu</a>. There is good evidence that pregnant women have a higher chance of developing complications if they get flu, particularly in the later stages of pregnancy.</p><p>Young babies also have a higher risk of getting seriously ill if they get flu. Having flu increases the chances of pregnant women and their babies needing intensive care.</p><p>One of the most common complications of flu is <a href=\"https://www.nhs.uk/conditions/bronchitis/\">bronchitis</a>, a chest infection that can become serious and develop into <a href=\"https://www.nhs.uk/conditions/pneumonia/\">pneumonia</a>.</p><p>If you have flu while you're pregnant, it could cause your baby to be born prematurely or have a low birthweight, and may even lead to <a href=\"https://www.nhs.uk/conditions/stillbirth/\">stillbirth</a> or death.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>A flu jab will help protect both you and your baby.</p><p>Pregnancy changes how the body responds to infections such as <a href=\"https://www.nhs.uk/conditions/flu/\">flu</a>. There is good evidence that pregnant women have a higher chance of developing complications if they get flu, particularly in the later stages of pregnancy.</p><p>Young babies also have a higher risk of getting seriously ill if they get flu. Having flu increases the chances of pregnant women and their babies needing intensive care.</p><p>One of the most common complications of flu is <a href=\"https://www.nhs.uk/conditions/bronchitis/\">bronchitis</a>, a chest infection that can become serious and develop into <a href=\"https://www.nhs.uk/conditions/pneumonia/\">pneumonia</a>.</p><p>If you have flu while you're pregnant, it could cause your baby to be born prematurely or have a low birthweight, and may even lead to <a href=\"https://www.nhs.uk/conditions/stillbirth/\">stillbirth</a> or death.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "Why are pregnant women advised to have the flu vaccine?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 2,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Yes. Studies have shown that it's safe to have a flu vaccine during any stage of pregnancy, from the first few weeks up until you go into labour.</p><p>Women who have had a flu vaccine while pregnant also pass some protection on to their babies. This lasts for the first few months after they're born, when they're particularly at risk from flu.</p><p>It's safe to breastfeed if you had the flu vaccine while pregnant.</p><p>If you're already breastfeeding, you can have the flu vaccine if you're eligible (for example, because of a long-term health condition).</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Yes. Studies have shown that it's safe to have a flu vaccine during any stage of pregnancy, from the first few weeks up until you go into labour.</p><p>Women who have had a flu vaccine while pregnant also pass some protection on to their babies. This lasts for the first few months after they're born, when they're particularly at risk from flu.</p><p>It's safe to breastfeed if you had the flu vaccine while pregnant.</p><p>If you're already breastfeeding, you can have the flu vaccine if you're eligible (for example, because of a long-term health condition).</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "Is the flu vaccine safe in pregnancy?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 3,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>You can get the flu vaccine from September. It's best to get vaccinated as soon as you can, especially if you're near to your due date. Getting vaccinated will help protect your baby in the first few months after they're born.</p><p>If you were not vaccinated in the autumn, you can be vaccinated later in the winter although it's better to get it earlier.</p><p>Do not worry if you find that you're pregnant later in the flu season – you can have the vaccine then if you have not already had it.</p><p>If you miss having the flu vaccine for any reason, you can still have it up until you go into labour.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>You can get the flu vaccine from September. It's best to get vaccinated as soon as you can, especially if you're near to your due date. Getting vaccinated will help protect your baby in the first few months after they're born.</p><p>If you were not vaccinated in the autumn, you can be vaccinated later in the winter although it's better to get it earlier.</p><p>Do not worry if you find that you're pregnant later in the flu season – you can have the vaccine then if you have not already had it.</p><p>If you miss having the flu vaccine for any reason, you can still have it up until you go into labour.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "When should I have the flu jab?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 4,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>To get a flu vaccine, you can:</p><ul><li>contact your GP surgery to book an appointment</li><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-flu-vaccination/\">book a free NHS flu vaccination appointment at a pharmacy online</a> or in the <a href=\"https://www.nhs.uk/nhs-app/\">NHS App</a> (if you're aged 18 or over)</li><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-pharmacy-that-offers-free-flu-vaccination/\">find a pharmacy that offers free NHS flu vaccination</a> where you can walk-in and get vaccinated without an appointment (if you're aged 18 or over)</li><li>contact your maternity service (if your maternity service offers the flu vaccine)</li></ul><p>It's best to get vaccinated as soon as you can.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>To get a flu vaccine, you can:</p><ul><li>contact your GP surgery to book an appointment</li><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-flu-vaccination/\">book a free NHS flu vaccination appointment at a pharmacy online</a> or in the <a href=\"https://www.nhs.uk/nhs-app/\">NHS App</a> (if you're aged 18 or over)</li><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-pharmacy-that-offers-free-flu-vaccination/\">find a pharmacy that offers free NHS flu vaccination</a> where you can walk-in and get vaccinated without an appointment (if you're aged 18 or over)</li><li>contact your maternity service (if your maternity service offers the flu vaccine)</li></ul><p>It's best to get vaccinated as soon as you can.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "How do I get the flu vaccine?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 5,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Yes, because the viruses that cause flu change every year. This means the types of flu virus the vaccines are designed to prevent this year may be different from last year. The protection from a flu vaccine also goes down with time.</p><p>If you had the flu vaccine during the last flu season because you were pregnant (same pregnancy or a previous pregnancy), or because you're in a vulnerable group, you need to have it again this year.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Yes, because the viruses that cause flu change every year. This means the types of flu virus the vaccines are designed to prevent this year may be different from last year. The protection from a flu vaccine also goes down with time.</p><p>If you had the flu vaccine during the last flu season because you were pregnant (same pregnancy or a previous pregnancy), or because you're in a vulnerable group, you need to have it again this year.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "If I had the flu jab last year, do I need to have it again now?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 6,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>No. Injected flu vaccines do not contain any live viruses, and cannot cause flu. Some people get a slightly raised temperature and aching muscles for a couple of days afterwards, and you may feel sore at the injection site.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>No. Injected flu vaccines do not contain any live viruses, and cannot cause flu. Some people get a slightly raised temperature and aching muscles for a couple of days afterwards, and you may feel sore at the injection site.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "Will the flu jab give me flu?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 7,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>You can have a flu vaccine at the same time as other pregnancy vaccinations, but it's best to have them as soon as they're offered rather than waiting to have them at the same time.</p><p>You should have your:</p><ul><li>flu vaccine as soon as possible</li><li><a href=\"https://www.nhs.uk/pregnancy/keeping-well/whooping-cough-vaccination/\">whooping cough vaccine</a> at around 20 weeks pregnant</li><li><a href=\"https://www.nhs.uk/vaccinations/rsv-vaccine/\">RSV vaccine</a> from 28 weeks pregnant</li></ul><p>Do not delay getting any of your vaccinations so you can have them at the same time.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>You can have a flu vaccine at the same time as other pregnancy vaccinations, but it's best to have them as soon as they're offered rather than waiting to have them at the same time.</p><p>You should have your:</p><ul><li>flu vaccine as soon as possible</li><li><a href=\"https://www.nhs.uk/pregnancy/keeping-well/whooping-cough-vaccination/\">whooping cough vaccine</a> at around 20 weeks pregnant</li><li><a href=\"https://www.nhs.uk/vaccinations/rsv-vaccine/\">RSV vaccine</a> from 28 weeks pregnant</li></ul><p>Do not delay getting any of your vaccinations so you can have them at the same time.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "Can I have the flu jab at the same time as other vaccines?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 8,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Talk to a GP or midwife as soon as possible. If you do have flu, there's a prescribed medicine you can take that might help your symptoms, or reduce your risk of complications, but it needs to be taken very soon after symptoms appear.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Talk to a GP or midwife as soon as possible. If you do have flu, there's a prescribed medicine you can take that might help your symptoms, or reduce your risk of complications, but it needs to be taken very soon after symptoms appear.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "I'm pregnant and think I have flu. What should I do?"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 9,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<ul><li><a href=\"https://www.gov.uk/government/publications/pregnancy-how-to-help-protect-you-and-your-baby\">GOV.UK: vaccines to protect you and your baby during and after pregnancy</a></li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<ul><li><a href=\"https://www.gov.uk/government/publications/pregnancy-how-to-help-protect-you-and-your-baby\">GOV.UK: vaccines to protect you and your baby during and after pregnancy</a></li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "headline": "More information"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 10,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [],
+      "description": "",
+      "hasPart": []
+    }
+  ],
+  "webpage": "https://www.nhs.uk/pregnancy/keeping-well/flu-jab/"
+}

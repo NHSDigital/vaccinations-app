@@ -10,7 +10,7 @@ fi
 
 API_KEY="$1"
 
-for file in *-vaccine.json *-children.json *-booster.json *-vaccination.json; do
+for file in *-vaccine.json *-children.json *-booster.json *-vaccination.json *-jab.json; do
   if [ -f "$file" ]; then
     filename_no_ext="${file%.json}"
 
