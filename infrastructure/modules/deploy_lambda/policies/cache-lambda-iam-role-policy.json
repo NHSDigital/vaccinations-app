@@ -3,14 +3,8 @@
   "Statement": [
     {
       "Effect": "Allow",
-      "Action": ["kms:Decrypt"],
-      "Resource": "arn:aws:kms:${region}:${account_id}:alias/aws/ssm"
-    },
-
-    {
-      "Effect": "Allow",
-      "Action": ["ssm:GetParameter"],
-      "Resource": "arn:aws:ssm:${region}:${account_id}:parameter/${prefix}/*"
+      "Action": ["secretsmanager:GetSecretValue"],
+      "Resource": "arn:aws:secretsmanager:${region}:${account_id}:secret:/vita/*"
     },
 
     {
