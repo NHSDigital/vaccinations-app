@@ -6,8 +6,9 @@ module "deploy_lambda" {
   cache_lambda_zip_path = local.cache_lambda_zip_path
   application_environment_variables = merge(local.application_environment_variables,
     {
-      ELIGIBILITY_API_ENDPOINT = "${module.deploy_fake_api.application_url}/",
-      APIM_AUTH_URL            = "${module.deploy_fake_api.application_url}/oauth2/token"
+      ELIGIBILITY_API_ENDPOINT          = "${module.deploy_fake_api.application_url}/",
+      APIM_AUTH_URL                     = "${module.deploy_fake_api.application_url}/oauth2/token",
+      CONTENT_API_RATE_LIMIT_PER_MINUTE = 120,
   })
   log_retention_in_days  = local.log_retention_in_days
   default_tags           = local.default_tags

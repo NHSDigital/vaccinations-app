@@ -147,6 +147,7 @@ const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
   let failureCount: number = 0;
   let invalidatedCount: number = 0;
 
+  const rateLimitDelayMillis: number = 1000 / ((await config.CONTENT_API_RATE_LIMIT_PER_MINUTE) / 60);
   for (const vaccine of vaccinesToRunOn) {
     const status = await hydrateCacheForVaccine(
       vaccine,
@@ -155,6 +156,7 @@ const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
     );
     invalidatedCount += status.invalidatedCount;
     failureCount += status.failureCount;
+    await new Promise((f) => setTimeout(f, rateLimitDelayMillis)); // sleep
   }
 
   log.info({ context: { failureCount, invalidatedCount } }, "Finished hydrating content cache: report");

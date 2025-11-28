@@ -19,6 +19,7 @@ export interface AppConfig {
 
   // Environment Variables in Lambda
   CONTENT_API_ENDPOINT: URL;
+  CONTENT_API_RATE_LIMIT_PER_MINUTE: number;
   ELIGIBILITY_API_ENDPOINT: URL;
   CONTENT_CACHE_PATH: string;
   CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: boolean;
@@ -73,6 +74,11 @@ class Config {
   private ttlExpiresAt: number = Date.now() + Config.CACHE_TTL_MILLIS;
   static readonly CACHE_TTL_MILLIS: number = 300 * 1000;
 
+  private static readonly toNumber = (value: string): number | undefined => {
+    const num = Number(value);
+    if (!Number.isNaN(num)) return num;
+    return undefined;
+  };
   private static readonly toUrl = (value: string): URL => new URL(value);
   private static readonly toBoolean = (value: string): boolean | undefined => {
     const lower = value.toLowerCase();
@@ -83,17 +89,14 @@ class Config {
   static readonly converters: Record<string, (value: string) => ConfigValue> = {
     APIM_AUTH_URL: Config.toUrl,
     CONTENT_API_ENDPOINT: Config.toUrl,
+    CONTENT_API_RATE_LIMIT_PER_MINUTE: Config.toNumber,
     ELIGIBILITY_API_ENDPOINT: Config.toUrl,
     NBS_URL: Config.toUrl,
     NHS_LOGIN_URL: Config.toUrl,
     CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: Config.toBoolean,
     NHS_APP_REDIRECT_LOGIN_URL: Config.toUrl,
     IS_APIM_AUTH_ENABLED: Config.toBoolean,
-    MAX_SESSION_AGE_MINUTES: (value: string) => {
-      const num = Number(value);
-      if (!Number.isNaN(num)) return num;
-      return undefined;
-    },
+    MAX_SESSION_AGE_MINUTES: Config.toNumber,
   };
 
   /**

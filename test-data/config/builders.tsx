@@ -9,6 +9,7 @@ class ConfigBuilder {
   constructor() {
     this._configValues = {
       CONTENT_API_ENDPOINT: randomURL(),
+      CONTENT_API_RATE_LIMIT_PER_MINUTE: randomInteger(10000, 100000),
       ELIGIBILITY_API_ENDPOINT: randomURL(),
       CONTENT_API_KEY: randomString(10),
       ELIGIBILITY_API_KEY: randomString(10),
