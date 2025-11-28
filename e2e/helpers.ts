@@ -97,7 +97,7 @@ export const openExpandersIfPresent = async (page: Page) => {
   ];
 
   for (const title of expanderTitles) {
-    const expander: Locator = page.getByText(title);
+    const expander: Locator = page.getByText(title, { exact: true });
     if ((await expander.count()) > 0) {
       await expander.click();
     }
