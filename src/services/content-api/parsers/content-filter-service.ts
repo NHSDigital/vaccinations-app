@@ -1,4 +1,5 @@
 import { VaccineType } from "@src/models/vaccine";
+import { getFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
 import { getFilteredContentForWhoopingCoughVaccine } from "@src/services/content-api/parsers/custom/whooping-cough";
 import {
   ContentApiVaccineResponse,
@@ -213,6 +214,8 @@ const getFilteredContentForVaccine = (vaccineType: VaccineType, apiContent: stri
   switch (vaccineType) {
     case VaccineType.WHOOPING_COUGH:
       return getFilteredContentForWhoopingCoughVaccine(apiContent);
+    case VaccineType.FLU_IN_PREGNANCY:
+      return getFilteredContentForFluInPregnancyVaccine(apiContent);
     default:
       return getFilteredContentForStandardVaccine(apiContent);
   }

@@ -1,32 +1,24 @@
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
-import { getFilteredContentForWhoopingCoughVaccine } from "@src/services/content-api/parsers/custom/whooping-cough";
+import { getFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
 
 const apiResponse = JSON.stringify({
   mainEntityOfPage: [
-    { hasPart: [{ text: "Whooping Cough Vaccine Lead Paragraph (overview)" }] },
-    { hasPart: [{ text: "<p>What the vaccine is for paragraph</p>" }] },
-    { hasPart: [{ text: "<p>Who the vaccine is for paragraph</p>" }] },
-    { hasPart: [{ text: "paragraph 3" }] },
-    { hasPart: [{ text: "paragraph 4" }] },
-    { hasPart: [{ text: "paragraph 5" }] },
-    { hasPart: [{ text: "<p>Side effects of the vaccine paragraph</p>" }] },
-    { hasPart: [{ text: "paragraph 7" }] },
-    { hasPart: [{ text: "paragraph 8" }] },
-    { hasPart: [{ text: "paragraph 9" }] },
-    { hasPart: [{ text: "paragraph 10" }] },
-    { hasPart: [{ text: "paragraph 11" }] },
-    { hasPart: [{ text: "paragraph 12" }] },
-    { hasPart: [{ text: "paragraph 13" }] },
+    { hasPart: [{ text: "Flu in Pregnancy Vaccine Lead Paragraph (overview)" }] },
+    { hasPart: [{ text: "<p>Why pregnant women are offered the vaccine paragraph</p>" }] },
+    { hasPart: [{ text: "<p>Is the vaccine safe in pregnancy paragraph</p>" }] },
+    { hasPart: [{ text: "<p>When should I have the vaccine paragraph</p>" }] },
     { hasPart: [{ text: "<p>How to get the vaccine paragraph</p>" }] },
-    { hasPart: [{ text: "paragraph 15" }] },
+    { hasPart: [{ text: "paragraph 5" }] },
   ],
 });
 
-describe("getFilteredContentForWhoopingCoughVaccine", () => {
+describe("getFilteredContentForFluInPregnancyVaccine", () => {
   it("should return overview text from lead paragraph mainEntityOfPage object", async () => {
-    const expected = { overview: { content: "Whooping Cough Vaccine Lead Paragraph (overview)", containsHtml: true } };
+    const expected = {
+      overview: { content: "Flu in Pregnancy Vaccine Lead Paragraph (overview)", containsHtml: true },
+    };
 
-    const pageCopy = getFilteredContentForWhoopingCoughVaccine(apiResponse);
+    const pageCopy = getFilteredContentForFluInPregnancyVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -34,19 +26,19 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
   it("should return all parts for whatVaccineIsFor section", () => {
     const expected = {
       whatVaccineIsFor: {
-        headline: "What the vaccine is for",
+        headline: "Why pregnant women are offered the vaccine",
         subsections: [
           {
             type: "simpleElement",
             headline: "",
             name: "markdown",
-            text: "<p>What the vaccine is for paragraph</p>",
+            text: "<p>Why pregnant women are offered the vaccine paragraph</p>",
           },
         ],
       },
     };
 
-    const pageCopy = getFilteredContentForWhoopingCoughVaccine(apiResponse);
+    const pageCopy = getFilteredContentForFluInPregnancyVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -54,19 +46,19 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
   it("should return all parts for whoVaccineIsFor section", () => {
     const expected = {
       whoVaccineIsFor: {
-        headline: "Who should have the vaccine",
+        headline: "Is the vaccine safe in pregnancy?",
         subsections: [
           {
             type: "simpleElement",
             headline: "",
             name: "markdown",
-            text: "<p>Who the vaccine is for paragraph</p>",
+            text: "<p>Is the vaccine safe in pregnancy paragraph</p>",
           },
         ],
       },
     };
 
-    const pageCopy = getFilteredContentForWhoopingCoughVaccine(apiResponse);
+    const pageCopy = getFilteredContentForFluInPregnancyVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -86,7 +78,7 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
       },
     };
 
-    const pageCopy = getFilteredContentForWhoopingCoughVaccine(apiResponse);
+    const pageCopy = getFilteredContentForFluInPregnancyVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -94,19 +86,19 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
   it("should return all parts for vaccineSideEffects section", () => {
     const expected = {
       vaccineSideEffects: {
-        headline: "Side effects of the vaccine",
+        headline: "When should I have the vaccine?",
         subsections: [
           {
             type: "simpleElement",
             headline: "",
             name: "markdown",
-            text: "<p>Side effects of the vaccine paragraph</p>",
+            text: "<p>When should I have the vaccine paragraph</p>",
           },
         ],
       },
     };
 
-    const pageCopy = getFilteredContentForWhoopingCoughVaccine(apiResponse);
+    const pageCopy = getFilteredContentForFluInPregnancyVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -116,7 +108,7 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
       webpageLink: VaccineInfo[VaccineType.WHOOPING_COUGH].nhsWebpageLink,
     };
 
-    const pageCopy = getFilteredContentForWhoopingCoughVaccine(apiResponse);
+    const pageCopy = getFilteredContentForFluInPregnancyVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
