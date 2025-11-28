@@ -30,7 +30,7 @@ const getSecret = async (name: string): Promise<string> => {
     return rawAPIResponse.data.SecretString;
   } catch (error) {
     if (error instanceof AxiosError) {
-      log.error(
+      log.warn(
         {
           error: {
             code: error.code,
@@ -43,7 +43,7 @@ const getSecret = async (name: string): Promise<string> => {
         "AxiosError: Error in getting secret from SecretsManager",
       );
     } else {
-      log.error({ context: { param: name } }, "Error in getting secret from SecretsManager");
+      log.warn({ context: { param: name } }, "Error in getting secret from SecretsManager");
     }
     throw error;
   }
