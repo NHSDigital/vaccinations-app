@@ -1,8 +1,8 @@
 import config, { ConfigError } from "@src/utils/config";
-import getSSMParam from "@src/utils/get-ssm-param";
+import getSecret from "@src/utils/get-secret";
 import { randomString } from "@test-data/meta-builder";
 
-jest.mock("@src/utils/get-ssm-param");
+jest.mock("@src/utils/get-secret");
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("lazyConfig", () => {
@@ -27,7 +27,7 @@ describe("lazyConfig", () => {
   });
 
   const setupTestEnvVars = (prefix: string) => {
-    process.env.SSM_PREFIX = prefix;
+    process.env.SECRET_PREFIX = prefix;
     process.env.CONTENT_API_ENDPOINT = "https://api-endpoint";
     process.env.ELIGIBILITY_API_ENDPOINT = "https://elid-endpoint";
     process.env.APIM_AUTH_URL = "https://apim-endpoint";
@@ -36,7 +36,7 @@ describe("lazyConfig", () => {
   it("should return values from env if present, else from getSSMParam", async () => {
     const prefix: string = "test/";
     setupTestEnvVars(prefix);
-    const mockGetSSMParam = (getSSMParam as jest.Mock).mockResolvedValue("api-key");
+    const mockGetSSMParam = (getSecret as jest.Mock).mockResolvedValue("api-key");
 
     expect(await config.CONTENT_API_ENDPOINT).toEqual(new URL("https://api-endpoint"));
     expect(await config.CONTENT_API_KEY).toEqual("api-key");
@@ -45,10 +45,10 @@ describe("lazyConfig", () => {
     expect(mockGetSSMParam).not.toHaveBeenCalledWith(`${prefix}CONTENT_API_ENDPOINT`);
   });
 
-  it("should throw error if values aren't in env or SSM", async () => {
+  it("should throw error if values aren't in env or Secrets Manager", async () => {
     const prefix: string = "test/";
-    process.env.SSM_PREFIX = prefix;
-    const mockGetSSMParam = (getSSMParam as jest.Mock).mockResolvedValue(undefined);
+    process.env.SECRET_PREFIX = prefix;
+    const mockGetSSMParam = (getSecret as jest.Mock).mockResolvedValue(undefined);
 
     await expect(async () => {
       await config.CONTENT_API_ENDPOINT;
@@ -106,7 +106,7 @@ describe("lazyConfig", () => {
 
   it("should reuse config values between subsequent calls", async () => {
     setupTestEnvVars("test/");
-    const mockGetSSMParam = (getSSMParam as jest.Mock).mockImplementation(() => randomString(5));
+    const mockGetSSMParam = (getSecret as jest.Mock).mockImplementation(() => randomString(5));
 
     await config.NHS_LOGIN_CLIENT_ID;
 
@@ -120,7 +120,7 @@ describe("lazyConfig", () => {
 
   it("should expire config after ttl", async () => {
     setupTestEnvVars("test/");
-    const mockGetSSMParam = (getSSMParam as jest.Mock).mockImplementation(() => "test-value");
+    const mockGetSSMParam = (getSecret as jest.Mock).mockImplementation(() => "test-value");
 
     await config.CONTENT_API_KEY;
 
@@ -133,15 +133,15 @@ describe("lazyConfig", () => {
     expect(mockGetSSMParam).toHaveBeenCalled();
   });
 
-  it("should retry fetching from SSM if the first attempt fails", async () => {
+  it("should retry fetching from Secrets Manager if the first attempt fails", async () => {
     const key = "CONTENT_API_KEY";
-    const expectedValue = "value-from-ssm-on-second-try";
+    const expectedValue = "value-from-secretsmanager-on-second-try";
     const expectedSsmPath = `/test/ci/${key}`;
 
-    process.env.SSM_PREFIX = "/test/ci/";
+    process.env.SECRET_PREFIX = "/test/ci/";
 
-    const mockGetSSMParam = (getSSMParam as jest.Mock)
-      .mockRejectedValueOnce(new Error("SSM is temporarily unavailable"))
+    const mockGetSSMParam = (getSecret as jest.Mock)
+      .mockRejectedValueOnce(new Error("SecretsManager is temporarily unavailable"))
       .mockResolvedValue(expectedValue);
 
     const resultPromise = config.CONTENT_API_KEY;

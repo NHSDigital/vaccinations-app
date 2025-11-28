@@ -4,22 +4,36 @@ Our infrastructure sits in the Europe(London) region coded 'eu-west-2' in AWS.
 
 ## Post deployment steps
 
-### Setting up and using secrets
+### Setting up and using secrets in AWS Secrets Manager
+
+Secrets need to be created in AWS Secrets Manager as follows:
+
+1. Click on `Store a new secret` in Secrets Manager
+2. Secret Type: `Other type of secret`
+3. Select `Plaintext` option
+4. Fill in the secret value in the text area
+5. Encryption key: `aws/secretsmanager`, and click next
+6. Add a name for the secret and description
+7. Tags as [below](#tags)
+8. Click next on the screens and then store.
 
 Update the values for the following secrets after generating them: -
 
-- /vita/apim/prod-1.pem - APIM private key used to sign JWTs generated from [here](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/user-restricted-restful-apis-nhs-login-separate-authentication-and-authorisation#step-3-generate-a-key-pair). 'prod-1' here is the key id used during generation.
+- /vita/apim/prod-1.pem - APIM private key used to sign JWTs to access user-restricted APIs via APIM, generated from [here](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/user-restricted-restful-apis-nhs-login-separate-authentication-and-authorisation#step-3-generate-a-key-pair). 'prod-1' here is the key id used during generation.
 - /vita/apim/prod-1.json - APIM public key in JWKS format generated above
 - /vita/nhslogin/private_key.pem - NHS Login private key generated from [here](https://nhsconnect.github.io/nhslogin/generating-pem/)
 - /vita/nhslogin/public_key.pem - NHS Login public key generated above
 - /vita/splunk/hec/endpoint - HEC endpoint of Splunk
 - /vita/splunk/hec/token - HEC token of Splunk endpoint to store operational logs
 
-Now fill the values used by the application below: -
+The following secrets need to be created and set before running the application:
 
-- Go to AWS service "Systems Manager"
-- Click on "Parameter Store" under application tools section
-- Update the values as per integrations in that environment
+- `/vita/APIM_PRIVATE_KEY`: Same value as `/vita/apim/prod-1.pem`
+- `/vita/AUTH_SECRET`: A randomly generated string used to sign JWTs for authentication (NextAuth)
+- `/vita/CONTENT_API_KEY`: NHS UK Content API Key
+- `/vita/ELIGIBILITY_API_KEY`: EliD API Key
+- `/vita/NHS_LOGIN_CLIENT_ID`: NHS Login OIDC Client ID for VitA App
+- `/vita/NHS_LOGIN_PRIVATE_KEY`: Same value as `/vita/nhslogin/private_key.pem`
 
 ### Setting up Cloudfront error pages
 
@@ -38,12 +52,10 @@ Manually create the following error routes.
 
 ### Setting default limits and settings
 
-- Increase the default throughput limit of the parameter store, instructions [here](https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-throughput.html#parameter-store-throughput-increasing)
 - Also setup [service quotas automatic management](https://docs.aws.amazon.com/servicequotas/latest/userguide/automatic-management.html) to alert on Slack channel
 - Review AWS > Service Quotas
   - AWS Lambda > Concurrent executions: Default is 1000 counts.
-  - AWS Systems Manager > Rate of GetParameter requests: Currently 10,000 per second. Cannot request an increase via AWS console.
-  - AWS Key Management Service (AWS KMS) > Cryptographic operations (symmetric) request rate: Currently 20,000 per second (used by SSM and Lambda)
+  - AWS Key Management Service (AWS KMS) > Cryptographic operations (symmetric) request rate: Currently 20,000 per second (used by Secrets Manager and Lambda)
 - Setup important notifications
   - AWS > User Notifications > Delivery Channels > Chat channels. Select the channel
   - Turn ON all 4 AWS managed subscriptions

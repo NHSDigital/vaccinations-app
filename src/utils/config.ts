@@ -1,5 +1,5 @@
 import { EligibilityApiError } from "@src/services/eligibility-api/gateway/exceptions";
-import getSSMParam from "@src/utils/get-ssm-param";
+import getSecret from "@src/utils/get-secret";
 import { logger } from "@src/utils/logger";
 import { retry } from "es-toolkit";
 import { Logger } from "pino";
@@ -9,7 +9,7 @@ const log: Logger = logger.child({ module: "lazy-config" });
 export type ConfigValue = string | number | boolean | URL | undefined;
 
 export interface AppConfig {
-  // SSM Params stored as SecureStrings
+  // SecretsManager secrets stored as SecureStrings
   NHS_LOGIN_CLIENT_ID: string;
   CONTENT_API_KEY: string;
   ELIGIBILITY_API_KEY: string;
@@ -65,7 +65,7 @@ function createReadOnlyDynamic<T extends object, C extends object>(instance: T):
 
 /**
  * Config object which only loads config items when, and crucially if, they are used.
- * Loads config from environment if it exists there, from SSM otherwise.
+ * Loads config from environment if it exists there, from SecretsManager otherwise.
  * Caches items for CACHE_TTL_MILLIS milliseconds, so we don't get items more than once.
  */
 class Config {
@@ -136,7 +136,7 @@ class Config {
     }
 
     log.debug({ context: { key } }, "cache miss");
-    const value = await this.getFromEnvironmentOrSSM(key);
+    const value = await this.getFromEnvironmentOrSecretsManager(key);
 
     const coercedValue = this._coerceType(key, value);
 
@@ -145,18 +145,18 @@ class Config {
     return coercedValue;
   }
 
-  private async getFromEnvironmentOrSSM(key: string): Promise<string> {
+  private async getFromEnvironmentOrSecretsManager(key: string): Promise<string> {
     let value = process.env[key];
     const initialDelayMillis = 100;
 
     if (value === undefined || value === null) {
-      const ssmPrefix = await this.getSsmPrefix();
+      const ssmPrefix = await this.getSecretPrefix();
 
-      log.debug({ context: { key, ssmPrefix } }, "getting from SSM");
-      // Get value from SSM, on failure retry won 100ms initially, with retry delays doubling each time
+      log.debug({ context: { key, ssmPrefix } }, "getting from SecretsManager");
+      // Get value from SecretsManager, on failure retry won 100ms initially, with retry delays doubling each time
       // 100ms -> 200ms -> 400ms etc
       // Total ~ 100s
-      value = await retry(() => getSSMParam(`${ssmPrefix}${key}`), {
+      value = await retry(() => getSecret(`${ssmPrefix}${key}`), {
         retries: 10,
         delay: (attempt) => initialDelayMillis * Math.pow(2, attempt - 1),
       });
@@ -170,21 +170,16 @@ class Config {
     return value;
   }
 
-  private async getSsmPrefix(): Promise<string> {
-    const key = "SSM_PREFIX";
-
-    if (this._cache.has(key)) {
-      return this._cache.get(key) as string;
-    }
+  private async getSecretPrefix(): Promise<string> {
+    const key = "SECRET_PREFIX";
 
     const prefix = process.env[key];
-    if (typeof prefix === "string" && prefix !== "") {
-      this._cache.set(key, prefix);
+    if (prefix) {
       return prefix;
     }
 
-    log.error({ context: { key } }, "SSM_PREFIX is not configured in the environment.");
-    throw new ConfigError("SSM_PREFIX is not configured correctly in the environment.");
+    log.error({ context: { key } }, "SECRET_PREFIX is not configured in the environment.");
+    throw new ConfigError("SECRET_PREFIX is not configured correctly in the environment.");
   }
 
   public resetCache() {

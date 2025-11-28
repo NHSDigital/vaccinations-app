@@ -23,7 +23,7 @@ locals {
   splunk_log_retention_in_days = 7
 
   application_environment_variables = {
-    SSM_PREFIX = "/${local.prefix}/"
+    SECRET_PREFIX = "/${local.project_identifier_shortcode}/"
 
     PINO_LOG_LEVEL      = "info"
     DEPLOY_ENVIRONMENT  = local.environment
@@ -48,7 +48,7 @@ locals {
     NBS_URL          = "https://f.nhswebsite-integration.nhs.uk/nbs"
     NBS_BOOKING_PATH = "/nhs-app/vita"
 
-    SSM_PARAMETER_STORE_TTL                = 300
+    SECRETS_MANAGER_TTL                    = 300
     PARAMETERS_SECRETS_EXTENSION_LOG_LEVEL = "INFO"
   }
 

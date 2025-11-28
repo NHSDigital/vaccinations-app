@@ -23,7 +23,7 @@ locals {
   splunk_log_retention_in_days = 30
 
   application_environment_variables = {
-    SSM_PREFIX = "/${local.prefix}/"
+    SECRET_PREFIX = "/${local.project_identifier_shortcode}/"
 
     PINO_LOG_LEVEL      = "debug"
     DEPLOY_ENVIRONMENT  = local.environment

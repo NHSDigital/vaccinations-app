@@ -1,3 +1,5 @@
+# TODO: Delete this file when we cut an R2 release
+# The scheduled assurances will fail if SSM parameters are deleted and redeployed whilst we still have R1
 resource "aws_ssm_parameter" "nhs_uk_content_api_key" {
   name             = "/${local.prefix}/CONTENT_API_KEY"
   type             = "SecureString"

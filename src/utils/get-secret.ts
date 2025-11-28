@@ -3,21 +3,20 @@ import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/perfo
 import axios, { AxiosError, HttpStatusCode } from "axios";
 import { Logger } from "pino";
 
-const log: Logger = logger.child({ module: "get-ssm-param" });
-const GetSSMPerformanceMarker = "get-ssm";
+const log: Logger = logger.child({ module: "get-secret" });
+const GetSecretPerformanceMarker = "get-secret";
 
-const getSSMParam = async (name: string): Promise<string> => {
+const getSecret = async (name: string): Promise<string> => {
   try {
-    profilePerformanceStart(GetSSMPerformanceMarker);
+    profilePerformanceStart(GetSecretPerformanceMarker);
 
     const params = {
-      name: name,
-      withDecryption: "true",
+      secretId: name,
     };
     const headers = {
       "X-Aws-Parameters-Secrets-Token": process.env.AWS_SESSION_TOKEN,
     };
-    const rawAPIResponse = await axios.get("http://localhost:2773/systemsmanager/parameters/get", {
+    const rawAPIResponse = await axios.get("http://localhost:2773/secretsmanager/get", {
       params,
       timeout: 10000,
       headers,
@@ -26,9 +25,9 @@ const getSSMParam = async (name: string): Promise<string> => {
       },
     });
 
-    profilePerformanceEnd(GetSSMPerformanceMarker);
+    profilePerformanceEnd(GetSecretPerformanceMarker);
 
-    return rawAPIResponse.data.Parameter.Value;
+    return rawAPIResponse.data.SecretString;
   } catch (error) {
     if (error instanceof AxiosError) {
       log.error(
@@ -41,13 +40,13 @@ const getSSMParam = async (name: string): Promise<string> => {
           },
           context: { param: name },
         },
-        "AxiosError: Error in getting SSM parameter",
+        "AxiosError: Error in getting secret from SecretsManager",
       );
     } else {
-      log.error({ context: { param: name } }, "Error in getting SSM parameter");
+      log.error({ context: { param: name } }, "Error in getting secret from SecretsManager");
     }
     throw error;
   }
 };
 
-export default getSSMParam;
+export default getSecret;

@@ -8,13 +8,13 @@
     },
     {
       "Effect": "Allow",
-      "Action": ["ssm:GetParameter"],
-      "Resource": "arn:aws:ssm:${region}:${account_id}:parameter/${prefix}/*"
+      "Action": ["s3:ListBucket", "s3:GetObject"],
+      "Resource": "arn:aws:s3:::${prefix}*"
     },
     {
       "Effect": "Allow",
-      "Action": ["s3:ListBucket", "s3:GetObject"],
-      "Resource": "arn:aws:s3:::${prefix}*"
+      "Action": ["secretsmanager:GetSecretValue"],
+      "Resource": "arn:aws:secretsmanager:${region}:${account_id}:secret:/vita/*"
     }
   ]
 }
