@@ -282,21 +282,21 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     showWarningCallout: true,
   },
   [VaccineType.FLU_IN_PREGNANCY]: {
-    urlPath: "flu-in-pregnancy" as UrlPathFragment,
+    urlPath: "flu-vaccine-in-pregnancy" as UrlPathFragment,
     displayName: {
-      titleCase: "Flu vaccine in pregnancy",
+      titleCase: "The flu vaccine in pregnancy",
       midSentenceCase: "flu",
       indefiniteArticle: "a",
     },
-    heading: "Flu vaccine in pregnancy",
-    cardLinkTitle: "Flu vaccine in pregnancy",
-    cardLinkDescription: "Around ??? weeks",
+    heading: "The flu vaccine in pregnancy",
+    cardLinkTitle: "Flu in pregnancy",
+    cardLinkDescription: "During flu season",
     nhsWebpageLink: new URL("https://www.nhs.uk/pregnancy/keeping-well/flu-jab/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/pregnancy/keeping-well/flu-jab/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
     contentPath: "pregnancy/keeping-well/flu-jab" as UrlPathFragment,
     cacheFilename: "flu-jab.json" as Filename,
-    nbsPath: "flu-jab-vaccination" as UrlPathFragment,
+    nbsPath: "flu-vaccine-in-pregnancy" as UrlPathFragment,
   },
 };
 
