@@ -37,6 +37,7 @@ export type VaccineDetails = {
   cacheFilename: Filename;
   nbsPath: UrlPathFragment;
   showWarningCallout?: boolean;
+  moreInformationHeadersFromContentApi?: boolean;
 };
 
 type displayName = {
@@ -297,6 +298,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     contentPath: "pregnancy/keeping-well/flu-jab" as UrlPathFragment,
     cacheFilename: "flu-jab.json" as Filename,
     nbsPath: "flu-vaccine-in-pregnancy" as UrlPathFragment,
+    moreInformationHeadersFromContentApi: true,
   },
 };
 

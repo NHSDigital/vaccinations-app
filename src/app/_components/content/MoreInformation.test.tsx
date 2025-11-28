@@ -5,32 +5,64 @@ import { render, screen } from "@testing-library/react";
 import React from "react";
 
 describe("MoreInformation component ", () => {
-  it("should display whatItIsFor expander block", async () => {
-    const vaccineType = VaccineType.RSV;
-    render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
+  describe("moreInformationHeadersFromContentApi false", () => {
+    it("should display whatItIsFor expander block", async () => {
+      const vaccineType = VaccineType.RSV;
+      render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
 
-    expectExpanderBlockToBePresent("What the vaccine is for", "What Section styled component");
+      expectExpanderBlockToBePresent("What the vaccine is for", "What Section styled component");
+    });
+
+    it("should display whoVaccineIsFor expander block", async () => {
+      const vaccineType = VaccineType.RSV;
+      render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
+
+      expectExpanderBlockToBePresent("Who should have the vaccine", "Who Section styled component");
+    });
+
+    it("should display howToGet expander block", async () => {
+      const vaccineType = VaccineType.TD_IPV_3_IN_1;
+      render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
+
+      expectExpanderBlockToBePresent("How to get the vaccine", "How Section styled component");
+    });
+
+    it("should display vaccineSideEffects expander block", async () => {
+      const vaccineType = VaccineType.RSV;
+      render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
+
+      expectExpanderBlockToBePresent("Side effects of the vaccine", "Side effects section styled component");
+    });
   });
 
-  it("should display whoVaccineIsFor expander block", async () => {
-    const vaccineType = VaccineType.RSV;
-    render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
+  describe("moreInformationHeadersFromContentApi true", () => {
+    it("should display whatItIsFor expander block", async () => {
+      const vaccineType = VaccineType.FLU_IN_PREGNANCY;
+      render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
 
-    expectExpanderBlockToBePresent("Who should have the vaccine", "Who Section styled component");
-  });
+      expectExpanderBlockToBePresent("what-heading", "What Section styled component");
+    });
 
-  it("should display howToGet expander block", async () => {
-    const vaccineType = VaccineType.TD_IPV_3_IN_1;
-    render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
+    it("should display whoVaccineIsFor expander block", async () => {
+      const vaccineType = VaccineType.FLU_IN_PREGNANCY;
+      render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
 
-    expectExpanderBlockToBePresent("How to get the vaccine", "How Section styled component");
-  });
+      expectExpanderBlockToBePresent("who-heading", "Who Section styled component");
+    });
 
-  it("should display vaccineSideEffects expander block", async () => {
-    const vaccineType = VaccineType.RSV;
-    render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
+    it("should display howToGet expander block", async () => {
+      const vaccineType = VaccineType.FLU_IN_PREGNANCY;
+      render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
 
-    expectExpanderBlockToBePresent("Side effects of the vaccine", "Side effects section styled component");
+      expectExpanderBlockToBePresent("how-heading", "How Section styled component");
+    });
+
+    it("should display vaccineSideEffects expander block", async () => {
+      const vaccineType = VaccineType.FLU_IN_PREGNANCY;
+      render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
+
+      expectExpanderBlockToBePresent("side-effects-heading", "Side effects section styled component");
+    });
   });
 
   it("should not include 'how to get' section for RSV_PREGNANCY ", async () => {

@@ -21,28 +21,44 @@ const MoreInformation = (props: {
         {/* What-vaccine-is-for expandable section */}
         {props.styledVaccineContent.whatVaccineIsFor && (
           <Details expander>
-            <Details.Summary>{HEADINGS.WHAT_VACCINE_IS_FOR}</Details.Summary>
+            <Details.Summary>
+              {vaccineInfo.moreInformationHeadersFromContentApi
+                ? props.styledVaccineContent.whatVaccineIsFor.heading
+                : HEADINGS.WHAT_VACCINE_IS_FOR}
+            </Details.Summary>
             <Details.Text>{props.styledVaccineContent.whatVaccineIsFor.component}</Details.Text>
           </Details>
         )}
 
         {/* Who-vaccine-is-for expandable section */}
         <Details expander>
-          <Details.Summary>{HEADINGS.WHO_SHOULD_HAVE_VACCINE}</Details.Summary>
+          <Details.Summary>
+            {vaccineInfo.moreInformationHeadersFromContentApi
+              ? props.styledVaccineContent.whoVaccineIsFor.heading
+              : HEADINGS.WHO_SHOULD_HAVE_VACCINE}
+          </Details.Summary>
           <Details.Text>{props.styledVaccineContent.whoVaccineIsFor.component}</Details.Text>
         </Details>
 
         {/* How-to-get-the-vaccine expandable section */}
         {showHowToGetExpander && (
           <Details expander>
-            <Details.Summary>{HEADINGS.HOW_TO_GET_VACCINE}</Details.Summary>
+            <Details.Summary>
+              {vaccineInfo.moreInformationHeadersFromContentApi
+                ? props.styledVaccineContent.howToGetVaccine.heading
+                : HEADINGS.HOW_TO_GET_VACCINE}
+            </Details.Summary>
             <Details.Text>{props.styledVaccineContent.howToGetVaccine.component}</Details.Text>
           </Details>
         )}
 
         {/* Side-effects-of-the-vaccine expandable section */}
         <Details expander>
-          <Details.Summary>{HEADINGS.VACCINE_SIDE_EFFECTS}</Details.Summary>
+          <Details.Summary>
+            {vaccineInfo.moreInformationHeadersFromContentApi
+              ? props.styledVaccineContent.vaccineSideEffects.heading
+              : HEADINGS.VACCINE_SIDE_EFFECTS}
+          </Details.Summary>
           <Details.Text>{props.styledVaccineContent.vaccineSideEffects.component}</Details.Text>
         </Details>
       </Details.ExpanderGroup>

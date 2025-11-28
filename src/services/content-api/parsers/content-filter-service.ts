@@ -195,10 +195,6 @@ const _getDescription = (name: string, description?: string): string => {
   return description;
 };
 
-const _generateWhoVaccineIsForHeading = (): string => {
-  return "Who should have the vaccine";
-};
-
 function _extractHeadlineForContraindicationsAspect(content: ContentApiVaccineResponse): VaccinePageSubsection[] {
   return [
     {
@@ -235,7 +231,7 @@ const getFilteredContentForStandardVaccine = (apiContent: string): VaccinePageCo
   }
 
   const whoVaccineIsFor: VaccinePageSection = {
-    headline: _generateWhoVaccineIsForHeading(),
+    headline: _extractHeadlineForAspect(content, "SuitabilityHealthAspect"),
     subsections: _extractPartsForAspect(content, "SuitabilityHealthAspect")
       .concat(_extractHeadlineForContraindicationsAspect(content))
       .concat(_extractPartsForAspect(content, "ContraindicationsHealthAspect")),
@@ -276,7 +272,6 @@ export {
   _extractPartsForAspect,
   _extractHeadlineForAspect,
   _extractDescriptionForVaccine,
-  _generateWhoVaccineIsForHeading,
   _extractHeadlineForContraindicationsAspect,
   _removeExcludedHyperlinks,
 };
