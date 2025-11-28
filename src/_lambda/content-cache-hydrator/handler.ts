@@ -12,6 +12,7 @@ import { logger } from "@src/utils/logger";
 import { getVaccineTypeFromLowercaseString } from "@src/utils/path";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
 import { Context } from "aws-lambda";
+import { retry } from "es-toolkit";
 
 const log = logger.child({ module: "content-cache-hydrator" });
 
@@ -148,15 +149,20 @@ const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
   let invalidatedCount: number = 0;
 
   const rateLimitDelayMillis: number = 1000 / ((await config.CONTENT_API_RATE_LIMIT_PER_MINUTE) / 60);
+  const rateLimitDelayMarginFactor: number = 2; // to keep ourselves well within the budget
+  log.info(`Rate limit delay for content API is ${rateLimitDelayMillis}ms`);
   for (const vaccine of vaccinesToRunOn) {
-    const status = await hydrateCacheForVaccine(
-      vaccine,
-      await config.CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED,
-      forceUpdate,
+    const status = await retry(
+      async () => hydrateCacheForVaccine(vaccine, await config.CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED, forceUpdate),
+      {
+        retries: 3,
+        delay: (attempt) => rateLimitDelayMillis * Math.pow(2, attempt - 1),
+      },
     );
+
     invalidatedCount += status.invalidatedCount;
     failureCount += status.failureCount;
-    await new Promise((f) => setTimeout(f, rateLimitDelayMillis)); // sleep
+    await new Promise((f) => setTimeout(f, rateLimitDelayMillis * rateLimitDelayMarginFactor)); // sleep
   }
 
   log.info({ context: { failureCount, invalidatedCount } }, "Finished hydrating content cache: report");
