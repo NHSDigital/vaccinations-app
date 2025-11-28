@@ -137,9 +137,9 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     snapshotFilename: "default-hib-menc.png",
   },
   "flu-in-pregnancy": {
-    url: "/vaccines/flu-in-pregnancy",
-    heading: "Flu vaccine in pregnancy",
-    title: `Flu vaccine in pregnancy - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    url: "/vaccines/flu-vaccine-in-pregnancy",
+    heading: "The flu vaccine in pregnancy",
+    title: `The flu vaccine in pregnancy - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-flu-in-pregnancy.png",
   },
 

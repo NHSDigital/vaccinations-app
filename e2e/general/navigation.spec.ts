@@ -36,7 +36,7 @@ test.describe("Navigation", () => {
       pageName: "whooping-cough",
     },
     { section: AgeSectionTestId.PREGNANCY, linkText: "RSV in pregnancy", pageName: "rsv-pregnancy" },
-    { section: AgeSectionTestId.PREGNANCY, linkText: "Flu vaccine in pregnancy", pageName: "flu-in-pregnancy" },
+    { section: AgeSectionTestId.PREGNANCY, linkText: "Flu in pregnancy", pageName: "flu-in-pregnancy" },
 
     { section: AgeSectionTestId.CHILDREN, linkText: "Td/IPV (3-in-1 teenage booster)", pageName: "td-ipv" },
     { section: AgeSectionTestId.CHILDREN, linkText: "MenACWY", pageName: "menacwy" },
@@ -71,7 +71,7 @@ test.describe("Navigation", () => {
   const linksFromPregnancyHub: { linkText: string; pageName: PageName }[] = [
     { linkText: "Whooping cough (pertussis) in pregnancy", pageName: "whooping-cough" },
     { linkText: "RSV in pregnancy", pageName: "rsv-pregnancy" },
-    { linkText: "Flu vaccine in pregnancy", pageName: "flu-in-pregnancy" },
+    { linkText: "Flu in pregnancy", pageName: "flu-in-pregnancy" },
   ];
   for (const linkFromPregnancyHub of linksFromPregnancyHub) {
     test(`Link to ${linkFromPregnancyHub.linkText} and backlink from vaccines-during-pregnancy page`, async ({
