@@ -57,7 +57,13 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
       case ActionDisplayType.actionLinkWithInfo: {
         const info = action.content && <InfoText content={action.content} delineator={false} />;
         const link = action.button && (
-          <ActionLink asElement="a" href={action.button.url.href} rel="noopener" target="_blank">
+          <ActionLink
+            className={action.delineator ? "nhsuk-u-margin-bottom-0" : undefined}
+            asElement="a"
+            href={action.button.url.href}
+            rel="noopener"
+            target="_blank"
+          >
             {action.button.label}
           </ActionLink>
         );
