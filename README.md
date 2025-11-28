@@ -38,6 +38,11 @@ From NHS repository template:
     brew install make gnu-sed gawk coreutils binutils jmeter
     ```
 
+  Find out which homebrew path you have by using this command:
+    ```shell
+     brew --prefix make
+    ```
+  Based on the beginning of the path returned, select which HOMEBREW_PATH to export.
   - Override default OSX tools with their GNU equivalents
     - On M1 Macs and up:
 
