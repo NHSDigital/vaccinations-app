@@ -1,13 +1,13 @@
 "use server";
 
 import { auth } from "@project/auth";
-import { Callout } from "@src/app/_components/content/Callout";
+import Callout from "@src/app/_components/content/Callout";
 import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
 import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
 import { MoreInformation } from "@src/app/_components/content/MoreInformation";
 import { Overview } from "@src/app/_components/content/Overview";
+import Recommendation from "@src/app/_components/content/Recommendation";
 import { EligibilityVaccinePageContent } from "@src/app/_components/eligibility/EligibilityVaccinePageContent";
-import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import { RSVPregnancyInfo } from "@src/app/_components/vaccine-custom/RSVPregnancyInfo";
 import { NhsNumber, VaccineDetails, VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
@@ -69,15 +69,8 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
       {contentError != ContentErrorTypes.CONTENT_LOADING_ERROR && styledVaccineContent != undefined && (
         <>
           <Overview styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
+          <Recommendation styledVaccineContent={styledVaccineContent} />
           <Callout styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
-          {styledVaccineContent.recommendation && (
-            <div data-testid="recommendation">
-              <NonUrgentCareCard
-                heading={styledVaccineContent.recommendation.heading}
-                content={styledVaccineContent.recommendation.component}
-              />
-            </div>
-          )}
         </>
       )}
 

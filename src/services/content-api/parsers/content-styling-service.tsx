@@ -1,3 +1,4 @@
+import { MarkdownWithStyling } from "@project/src/app/_components/markdown/MarkdownWithStyling";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import UrgentCareCard from "@src/app/_components/nhs-frontend/UrgentCareCard";
 import { VaccineType } from "@src/models/vaccine";
@@ -161,7 +162,10 @@ function styleCallout(callout: HeadingWithContent | undefined): HeadingWithConte
 
 function styleRecommendation(recommendation: HeadingWithContent | undefined): StyledPageSection | undefined {
   if (recommendation) {
-    return { heading: recommendation.heading, component: <>{recommendation.content}</> };
+    return {
+      heading: recommendation.heading,
+      component: <MarkdownWithStyling content={recommendation.content} delineator={false} />,
+    };
   }
   return undefined;
 }

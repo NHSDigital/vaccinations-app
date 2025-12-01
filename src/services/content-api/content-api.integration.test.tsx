@@ -12,6 +12,10 @@ import { Readable } from "stream";
 
 jest.mock("@aws-sdk/client-s3");
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
+const mockMarkdownWithStylingHtml = "<ul><li>sausage</li><li>egg</li><li>chips</li></ul>";
+jest.mock("@project/src/app/_components/markdown/MarkdownWithStyling", () => ({
+  MarkdownWithStyling: () => mockMarkdownWithStylingHtml,
+}));
 
 const mockRsvResponse = {
   Body: new Readable({

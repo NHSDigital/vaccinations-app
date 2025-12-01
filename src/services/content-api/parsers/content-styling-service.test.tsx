@@ -20,6 +20,10 @@ const mockNBSBookingActionHTML = "NBS Booking Link Test";
 jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
   NBSBookingAction: () => mockNBSBookingActionHTML,
 }));
+const mockMarkdownWithStylingHtml = "<ul><li>sausage</li><li>egg</li><li>chips</li></ul>";
+jest.mock("@project/src/app/_components/markdown/MarkdownWithStyling", () => ({
+  MarkdownWithStyling: () => mockMarkdownWithStylingHtml,
+}));
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("ContentStylingService", () => {

@@ -1,4 +1,4 @@
-import { Callout } from "@src/app/_components/content/Callout";
+import Callout from "@src/app/_components/content/Callout";
 import { VaccineType } from "@src/models/vaccine";
 import { mockStyledContent } from "@test-data/content-api/data";
 import { render, screen } from "@testing-library/react";

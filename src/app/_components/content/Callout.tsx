@@ -15,4 +15,4 @@ const Callout = (props: { styledVaccineContent: StyledVaccineContent; vaccineTyp
     );
   return element;
 };
-export { Callout };
+export default Callout;
