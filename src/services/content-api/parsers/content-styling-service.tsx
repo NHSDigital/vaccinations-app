@@ -175,7 +175,7 @@ const getStyledContentForVaccine = async (
   filteredContent: VaccinePageContent,
   fragile: boolean,
 ): Promise<StyledVaccineContent> => {
-  const overview: Overview = filteredContent.overview;
+  const overview: Overview | undefined = filteredContent.overview;
   let whatVaccineIsFor;
   if (filteredContent.whatVaccineIsFor) {
     whatVaccineIsFor = styleSection(filteredContent.whatVaccineIsFor);

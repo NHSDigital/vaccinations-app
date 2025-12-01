@@ -13,16 +13,6 @@ const apiResponse = JSON.stringify({
 });
 
 describe("getFilteredContentForFluInPregnancyVaccine", () => {
-  it("should return overview text from lead paragraph mainEntityOfPage object", async () => {
-    const expected = {
-      overview: { content: "Flu in Pregnancy Vaccine Lead Paragraph (overview)", containsHtml: true },
-    };
-
-    const pageCopy = getFilteredContentForFluInPregnancyVaccine(apiResponse);
-
-    expect(pageCopy).toEqual(expect.objectContaining(expected));
-  });
-
   it("should return all parts for whatVaccineIsFor section", () => {
     const expected = {
       whatVaccineIsFor: {
@@ -126,8 +116,8 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
   it("should return recommendation", () => {
     const expected = {
       recommendation: {
-        heading: "The flu vaccine is recommended if you:",
-        content: "* are pregnant\n* have not had the vaccine during this pregnancy",
+        heading: "The flu vaccine is recommended:",
+        content: "* if you are pregnant\n* whatever stage of pregnancy you're at\n\nIt's free on the NHS.",
       },
     };
 

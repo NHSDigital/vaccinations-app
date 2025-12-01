@@ -14,7 +14,6 @@ export const getFilteredContentForFluInPregnancyVaccine = (apiContent: string): 
     .map((part) => part?.text)
     .filter((text): text is string => !!text);
 
-  const overview = { content: paragraphs[0], containsHtml: true };
   const whyOffered: VaccinePageSection = {
     headline: "Why pregnant women are offered the vaccine",
     subsections: [{ type: "simpleElement", headline: "", text: paragraphs[1], name: "markdown" }],
@@ -37,12 +36,14 @@ export const getFilteredContentForFluInPregnancyVaccine = (apiContent: string): 
     content: "Flu vaccine bookings will reopen in autumn 2026",
   };
   const recommendation: HeadingWithContent = {
-    heading: "The flu vaccine is recommended if you:",
-    content: ["* are pregnant", "* have not had the vaccine during this pregnancy"].join("\n"),
+    heading: "The flu vaccine is recommended:",
+    content: ["* if you are pregnant", "* whatever stage of pregnancy you're at", "", "It's free on the NHS."].join(
+      "\n",
+    ),
   };
 
   return {
-    overview,
+    overview: undefined,
     whatVaccineIsFor: whyOffered,
     whoVaccineIsFor: isItSafe,
     howToGetVaccine,
