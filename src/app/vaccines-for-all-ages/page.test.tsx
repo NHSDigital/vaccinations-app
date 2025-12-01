@@ -44,6 +44,7 @@ describe("VaccinesForAllAges", () => {
 
     assertCardLinkIsPresentInSection("RSV", "/vaccines/rsv", AgeSectionTestId.ADULTS);
     assertCardLinkIsPresentInSection("Pneumococcal", "/vaccines/pneumococcal-vaccine", AgeSectionTestId.ADULTS);
+    assertCardLinkIsPresentInSection("COVID-19", "/vaccines/covid-19-vaccine", AgeSectionTestId.ADULTS);
 
     assertCardLinkIsPresentInSection(
       "Whooping cough (pertussis) in pregnancy",
