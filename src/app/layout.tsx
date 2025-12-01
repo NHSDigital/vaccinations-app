@@ -6,6 +6,7 @@ import { StaticFooter } from "@src/app/_components/static/StaticFooter";
 import { StaticHeader } from "@src/app/_components/static/StaticHeader";
 import Script from "next/script";
 import "nhsapp-frontend/dist/nhsapp/all.scss";
+import "nhsuk-frontend/dist/nhsuk/nhsuk.scss";
 import React, { JSX } from "react";
 
 export default function RootLayout({
