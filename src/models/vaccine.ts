@@ -298,6 +298,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     contentPath: "pregnancy/keeping-well/flu-jab" as UrlPathFragment,
     cacheFilename: "flu-jab.json" as Filename,
     nbsPath: "flu-vaccine-in-pregnancy" as UrlPathFragment,
+    showWarningCallout: true,
     moreInformationHeadersFromContentApi: true,
   },
 };

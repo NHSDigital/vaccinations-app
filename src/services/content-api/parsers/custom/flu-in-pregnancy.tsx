@@ -1,5 +1,10 @@
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
-import { ContentApiVaccineResponse, VaccinePageContent, VaccinePageSection } from "@src/services/content-api/types";
+import {
+  ContentApiVaccineResponse,
+  HeadingWithContent,
+  VaccinePageContent,
+  VaccinePageSection,
+} from "@src/services/content-api/types";
 
 export const getFilteredContentForFluInPregnancyVaccine = (apiContent: string): VaccinePageContent => {
   const content: ContentApiVaccineResponse = JSON.parse(apiContent);
@@ -27,6 +32,10 @@ export const getFilteredContentForFluInPregnancyVaccine = (apiContent: string): 
     subsections: [{ type: "simpleElement", headline: "", text: paragraphs[3], name: "markdown" }],
   };
   const webpageLink: URL = VaccineInfo[VaccineType.WHOOPING_COUGH].nhsWebpageLink;
+  const callout: HeadingWithContent = {
+    heading: "Booking service closed",
+    content: "Flu vaccine bookings will reopen in autumn 2026",
+  };
 
   return {
     overview,
@@ -35,5 +44,6 @@ export const getFilteredContentForFluInPregnancyVaccine = (apiContent: string): 
     howToGetVaccine,
     vaccineSideEffects: whenToGet,
     webpageLink,
+    callout: callout,
   };
 };

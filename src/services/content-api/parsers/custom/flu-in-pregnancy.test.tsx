@@ -112,4 +112,14 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
+
+  it("should return warning callout", () => {
+    const expected = {
+      callout: { heading: "Booking service closed", content: "Flu vaccine bookings will reopen in autumn 2026" },
+    };
+
+    const pageCopy = getFilteredContentForFluInPregnancyVaccine(apiResponse);
+
+    expect(pageCopy).toEqual(expect.objectContaining(expected));
+  });
 });
