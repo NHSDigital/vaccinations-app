@@ -109,7 +109,7 @@ export type VaccinePageContent = {
   howToGetVaccine: VaccinePageSection;
   vaccineSideEffects: VaccinePageSection;
   webpageLink: URL;
-  callout?: HeadingWithContent;
+  callout?: HeadingWithTypedContent;
   recommendation?: HeadingWithContent;
 };
 
@@ -126,6 +126,12 @@ export type HeadingWithContent = {
   content: string;
 };
 
+export type HeadingWithTypedContent = {
+  heading: string;
+  content: string;
+  contentType: "markdown" | "html" | "string";
+};
+
 export type StyledVaccineContent = {
   overview?: Overview;
   whatVaccineIsFor?: StyledPageSection;
@@ -133,7 +139,7 @@ export type StyledVaccineContent = {
   howToGetVaccine: StyledPageSection;
   vaccineSideEffects: StyledPageSection;
   webpageLink: URL;
-  callout?: HeadingWithContent;
+  callout?: StyledPageSection;
   recommendation?: StyledPageSection;
 };
 

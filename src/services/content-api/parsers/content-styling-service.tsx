@@ -7,6 +7,7 @@ import { styleHowToGetSectionForRsvPregnancy } from "@src/services/content-api/p
 import {
   HeadingLevel,
   HeadingWithContent,
+  HeadingWithTypedContent,
   Overview,
   StyledPageSection,
   StyledVaccineContent,
@@ -153,9 +154,25 @@ const styleHowToGetSection = (
   }
 };
 
-function styleCallout(callout: HeadingWithContent | undefined): HeadingWithContent | undefined {
+function styleCallout(callout: HeadingWithTypedContent | undefined): StyledPageSection | undefined {
   if (callout) {
-    return { heading: callout.heading, content: callout.content };
+    switch (callout?.contentType) {
+      case "markdown":
+        return {
+          heading: callout.heading,
+          component: <MarkdownWithStyling content={callout.content} delineator={false} />,
+        };
+      case "html":
+        return {
+          heading: callout.heading,
+          component: <div data-testid="callout-html" dangerouslySetInnerHTML={{ __html: callout.content || "" }} />,
+        };
+      case "string":
+        return {
+          heading: callout.heading,
+          component: <div data-testid="callout-string">{callout.content}</div>,
+        };
+    }
   }
   return undefined;
 }
@@ -183,7 +200,7 @@ const getStyledContentForVaccine = async (
   const whoVaccineIsFor: StyledPageSection = styleSection(filteredContent.whoVaccineIsFor);
   const howToGetVaccine: StyledPageSection = styleHowToGetSection(vaccine, filteredContent.howToGetVaccine, fragile);
   const vaccineSideEffects: StyledPageSection = styleSection(filteredContent.vaccineSideEffects);
-  const callout: HeadingWithContent | undefined = styleCallout(filteredContent.callout);
+  const callout: StyledPageSection | undefined = styleCallout(filteredContent.callout);
   const recommendation: StyledPageSection | undefined = styleRecommendation(filteredContent.recommendation);
   const webpageLink: URL = filteredContent.webpageLink;
 
@@ -199,4 +216,4 @@ const getStyledContentForVaccine = async (
   };
 };
 
-export { styleSubsection, styleSection, getStyledContentForVaccine, extractHeadingAndContent };
+export { styleSubsection, styleSection, getStyledContentForVaccine, extractHeadingAndContent, styleCallout };

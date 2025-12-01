@@ -591,7 +591,7 @@ export const mockStyledContent: StyledVaccineContent = {
     component: <div>Side effects section styled component</div>,
   },
   webpageLink: new URL("https://test.example.com/"),
-  callout: { heading: "Callout Heading", content: "Callout content" },
+  callout: { heading: "Callout Heading", component: <div>Callout component</div> },
   recommendation: { heading: "Recommendation Heading", component: <div>Recommendation component</div> },
 };
 
@@ -613,7 +613,7 @@ export const mockStyledContentWithMissingOverview: StyledVaccineContent = {
     component: <div>Side effects section styled component</div>,
   },
   webpageLink: new URL("https://test.example.com/"),
-  callout: { heading: "Callout Heading", content: "Callout content" },
+  callout: { heading: "Callout Heading", component: <div>Callout Component</div> },
   recommendation: { heading: "Recommendation Heading", component: <div>Recommendation component</div> },
 };
 
@@ -636,7 +636,7 @@ export const mockStyledContentWithHtmlOverview: StyledVaccineContent = {
     component: <div>Side effects section styled component</div>,
   },
   webpageLink: new URL("https://test.example.com/"),
-  callout: { heading: "Callout Heading", content: "Callout content" },
+  callout: { heading: "Callout Heading", component: <div>Callout component</div> },
   recommendation: { heading: "Recommendation Heading", component: <div>Recommendation component</div> },
 };
 
@@ -655,7 +655,7 @@ export const mockStyledContentWithoutWhatSection: StyledVaccineContent = {
     component: <div>Side effects section styled component</div>,
   },
   webpageLink: new URL("https://test.example.com/"),
-  callout: { heading: "Callout Heading", content: "Callout content" },
+  callout: { heading: "Callout Heading", component: <div>Callout component</div> },
   recommendation: { heading: "Recommendation Heading", component: <div>Recommendation component</div> },
 };
 
@@ -678,5 +678,5 @@ export const mockStyledContentWithoutRecommendation: StyledVaccineContent = {
     component: <div>Side effects section styled component</div>,
   },
   webpageLink: new URL("https://test.example.com/"),
-  callout: { heading: "Callout Heading", content: "Callout content" },
+  callout: { heading: "Callout Heading", component: <div>Callout component</div> },
 };

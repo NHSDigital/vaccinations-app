@@ -11,7 +11,7 @@ import {
 } from "@src/services/content-api/parsers/content-filter-service";
 import {
   ContentApiVaccineResponse,
-  HeadingWithContent,
+  HeadingWithTypedContent,
   MainEntityOfPage,
   VaccinePageContent,
   VaccinePageSection,
@@ -696,9 +696,10 @@ describe("Content Filter", () => {
     });
 
     it("should return all parts for callout section", () => {
-      const expectedCallout: HeadingWithContent = {
+      const expectedCallout: HeadingWithTypedContent = {
         heading: "Callout heading",
         content: "<p>Callout content</p>",
+        contentType: "html",
       };
 
       const pageCopyForRsv: VaccinePageContent = getFilteredContentForVaccine(

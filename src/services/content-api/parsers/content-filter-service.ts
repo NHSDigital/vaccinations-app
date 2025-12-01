@@ -4,7 +4,7 @@ import { getFilteredContentForWhoopingCoughVaccine } from "@src/services/content
 import {
   ContentApiVaccineResponse,
   HasPartSubsection,
-  HeadingWithContent,
+  HeadingWithTypedContent,
   MainEntityOfPage,
   Overview,
   VaccinePageContent,
@@ -247,9 +247,13 @@ const getFilteredContentForStandardVaccine = (apiContent: string): VaccinePageCo
     subsections: _extractPartsForAspect(content, "SideEffectsHealthAspect"),
   };
 
-  let callout: HeadingWithContent | undefined;
+  let callout: HeadingWithTypedContent | undefined;
   if (_hasCallout(content)) {
-    callout = { heading: _extractCalloutHeading(content), content: _extractCalloutContent(content) };
+    callout = {
+      heading: _extractCalloutHeading(content),
+      content: _extractCalloutContent(content),
+      contentType: "html",
+    };
   }
 
   const webpageLink: URL = new URL(content.webpage);
@@ -267,6 +271,7 @@ const getFilteredContentForStandardVaccine = (apiContent: string): VaccinePageCo
 
 export {
   getFilteredContentForVaccine,
+  getFilteredContentForStandardVaccine,
   _findAspect,
   _hasHealthAspect,
   _extractPartsForAspect,

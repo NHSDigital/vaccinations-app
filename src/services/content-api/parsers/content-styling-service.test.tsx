@@ -2,11 +2,13 @@ import { VaccineType } from "@src/models/vaccine";
 import {
   extractHeadingAndContent,
   getStyledContentForVaccine,
+  styleCallout,
   styleSection,
   styleSubsection,
 } from "@src/services/content-api/parsers/content-styling-service";
 import {
   HeadingWithContent,
+  HeadingWithTypedContent,
   StyledPageSection,
   StyledVaccineContent,
   VaccinePageContent,
@@ -20,10 +22,11 @@ const mockNBSBookingActionHTML = "NBS Booking Link Test";
 jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
   NBSBookingAction: () => mockNBSBookingActionHTML,
 }));
-const mockMarkdownWithStylingHtml = "<ul><li>sausage</li><li>egg</li><li>chips</li></ul>";
+
 jest.mock("@project/src/app/_components/markdown/MarkdownWithStyling", () => ({
-  MarkdownWithStyling: () => mockMarkdownWithStylingHtml,
+  MarkdownWithStyling: jest.fn(),
 }));
+
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("ContentStylingService", () => {
@@ -258,7 +261,11 @@ describe("ContentStylingService", () => {
         headline: "Side effects of the generic vaccine",
         subsections: [mockMarkdownSubsection, mockUrgentSubsection],
       };
-      const mockCallout: HeadingWithContent = { heading: "Callout Heading", content: "Callout content" };
+      const mockCallout: HeadingWithTypedContent = {
+        heading: "Callout Heading",
+        content: "Callout content",
+        contentType: "string",
+      };
       const mockRecommendation: HeadingWithContent = {
         heading: "Recommendation Heading",
         content: "Recommendation content",
@@ -421,6 +428,55 @@ describe("ContentStylingService", () => {
 
       expect(headingAndContent.heading).toEqual("");
       expect(headingAndContent.content).toEqual("<p>Some content<h3>Heading</h3></p>");
+    });
+  });
+
+  describe("styleCallout", () => {
+    it("should return styled callout component for markdown input", async () => {
+      const mockCallout: HeadingWithTypedContent = {
+        heading: "Heading for callout",
+        content: "This is a styled paragraph callout subsection\n\nwith markdown",
+        contentType: "markdown",
+      };
+
+      const styledCallout = styleCallout(mockCallout);
+
+      expect(styledCallout?.heading).toEqual(mockCallout.heading);
+      expect(styledCallout?.component.props.content).toEqual(mockCallout.content);
+    });
+
+    it("should return styled callout component for html input", async () => {
+      const mockCallout: HeadingWithTypedContent = {
+        heading: "Heading for callout",
+        content: "<h1>This is heading</h1><p>This is paragraph</p>",
+        contentType: "html",
+      };
+
+      const styledCallout = styleCallout(mockCallout);
+
+      expect(styledCallout?.heading).toEqual(mockCallout.heading);
+
+      render(styledCallout?.component);
+
+      const htmlCallout = screen.getByTestId("callout-html");
+      expect(htmlCallout).toBeVisible();
+    });
+
+    it("should return styled callout component for string input", async () => {
+      const mockCallout: HeadingWithTypedContent = {
+        heading: "Heading for callout",
+        content: "This is a string",
+        contentType: "string",
+      };
+
+      const styledCallout = styleCallout(mockCallout);
+
+      expect(styledCallout?.heading).toEqual(mockCallout.heading);
+
+      render(styledCallout?.component);
+
+      const stringCallout = screen.getByTestId("callout-string");
+      expect(stringCallout).toBeVisible();
     });
   });
 });

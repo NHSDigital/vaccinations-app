@@ -2,6 +2,7 @@ import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import {
   ContentApiVaccineResponse,
   HeadingWithContent,
+  HeadingWithTypedContent,
   VaccinePageContent,
   VaccinePageSection,
 } from "@src/services/content-api/types";
@@ -31,9 +32,10 @@ export const getFilteredContentForFluInPregnancyVaccine = (apiContent: string): 
     subsections: [{ type: "simpleElement", headline: "", text: paragraphs[3], name: "markdown" }],
   };
   const webpageLink: URL = VaccineInfo[VaccineType.WHOOPING_COUGH].nhsWebpageLink;
-  const callout: HeadingWithContent = {
+  const callout: HeadingWithTypedContent = {
     heading: "Booking service closed",
     content: "Flu vaccine bookings will reopen in autumn 2026",
+    contentType: "string",
   };
   const recommendation: HeadingWithContent = {
     heading: "The flu vaccine is recommended:",

@@ -105,7 +105,11 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
 
   it("should return warning callout", () => {
     const expected = {
-      callout: { heading: "Booking service closed", content: "Flu vaccine bookings will reopen in autumn 2026" },
+      callout: {
+        heading: "Booking service closed",
+        content: "Flu vaccine bookings will reopen in autumn 2026",
+        contentType: "string",
+      },
     };
 
     const pageCopy = getFilteredContentForFluInPregnancyVaccine(apiResponse);
