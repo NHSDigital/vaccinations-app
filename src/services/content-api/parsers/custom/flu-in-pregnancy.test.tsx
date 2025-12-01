@@ -125,7 +125,10 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
 
   it("should return recommendation", () => {
     const expected = {
-      recommendation: { heading: "The flu vaccine is recommended if you:", content: "* are pregnant" },
+      recommendation: {
+        heading: "The flu vaccine is recommended if you:",
+        content: "* are pregnant\n* have not had the vaccine during this pregnancy",
+      },
     };
 
     const pageCopy = getFilteredContentForFluInPregnancyVaccine(apiResponse);

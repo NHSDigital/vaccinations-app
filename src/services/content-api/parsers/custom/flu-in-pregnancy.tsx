@@ -38,7 +38,7 @@ export const getFilteredContentForFluInPregnancyVaccine = (apiContent: string): 
   };
   const recommendation: HeadingWithContent = {
     heading: "The flu vaccine is recommended if you:",
-    content: "* are pregnant",
+    content: ["* are pregnant", "* have not had the vaccine during this pregnancy"].join("\n"),
   };
 
   return {
