@@ -125,10 +125,7 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
 
   it("should return recommendation", () => {
     const expected = {
-      recommendation: {
-        heading: "Breakfast",
-        content: "I'll have:\n\n* Egg\n* Bacon\n* Sausage\n* Bubble\n* Mushrooms\n* Black Pudding\n* Toast",
-      },
+      recommendation: { heading: "The flu vaccine is recommended if you:", content: "* are pregnant" },
     };
 
     const pageCopy = getFilteredContentForFluInPregnancyVaccine(apiResponse);

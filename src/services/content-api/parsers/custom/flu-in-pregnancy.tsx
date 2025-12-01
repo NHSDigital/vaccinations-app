@@ -37,8 +37,8 @@ export const getFilteredContentForFluInPregnancyVaccine = (apiContent: string): 
     content: "Flu vaccine bookings will reopen in autumn 2026",
   };
   const recommendation: HeadingWithContent = {
-    heading: "Breakfast",
-    content: "I'll have:\n\n* Egg\n* Bacon\n* Sausage\n* Bubble\n* Mushrooms\n* Black Pudding\n* Toast",
+    heading: "The flu vaccine is recommended if you:",
+    content: "* are pregnant",
   };
 
   return {
