@@ -3,7 +3,7 @@ import type { PageDetails } from "@project/e2e/constants";
 import { AppPageDetails, MAX_AVG_LCP_DURATION_MS } from "@project/e2e/constants";
 import { accessibilityCheck, benchmarkIfChromium } from "@project/e2e/helpers";
 
-test.describe.configure({ mode: "parallel", retries: 3 });
+test.describe.configure({ mode: "parallel", retries: 1 });
 
 test.describe("Application", () => {
   test.use({ storageState: `./e2e/.auth/default.json` });

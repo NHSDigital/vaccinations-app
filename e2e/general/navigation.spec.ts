@@ -10,7 +10,7 @@ enum AgeSectionTestId {
   BABIES = "vaccine-cardlinks-babies",
 }
 
-test.describe.configure({ mode: "parallel", retries: 3 });
+test.describe.configure({ mode: "parallel", retries: 1 });
 
 test.describe("Navigation", () => {
   test.use({ storageState: `./e2e/.auth/default.json` });

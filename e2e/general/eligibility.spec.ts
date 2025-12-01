@@ -10,7 +10,7 @@ const elidCopyForEnvironment: UserCopy =
     : elidCopyThatDiffersByEnvironment["sandpit"];
 const RSV_PAGE_URL = AppPageDetails["rsv-older-adults"].url;
 
-test.describe.configure({ mode: "parallel", retries: 3 });
+test.describe.configure({ mode: "parallel", retries: 1 });
 
 test.describe("Eligibility", () => {
   test.afterEach(async ({ page }, testInfo: TestInfo) => {
