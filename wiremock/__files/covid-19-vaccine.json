@@ -23,7 +23,7 @@
   "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/",
   "genre": ["Vaccine"],
   "keywords": "",
-  "dateModified": "2025-04-15T14:14:18+00:00",
+  "dateModified": "2025-10-28T16:00:08+00:00",
   "lastReviewed": ["2024-09-02T13:17:00+00:00", "2027-09-02T13:17:00+00:00"],
   "breadcrumb": {
     "@context": "http://schema.org",
@@ -94,7 +94,7 @@
           "@type": "WebPageElement"
         },
         {
-          "text": "<p>Most eligible people can have the COVID-19 vaccine. If you’re under 18 you may only be able to get certain types. Children under 12 get smaller doses.</p> ",
+          "text": "<p>Most eligible people can have the COVID-19 vaccine. If you're under 18 you may only be able to get certain types. Children under 12 get smaller doses.</p> ",
           "@type": "WebPageElement"
         },
         {
@@ -132,12 +132,12 @@
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>You can get a COVID-19 vaccine if you:</p><ul><li>are aged 75 or over (including those who will be 75 by 17 June 2025)</li><li>are aged 6 months to 74 years and have a weakened immune system because of a health condition or treatment</li><li>live in a care home for older adults</li></ul>"
+          "text": "<p>You can get the winter COVID-19 vaccine if you:</p><ul><li>are aged 75 or over (including those who will be 75 by 31 January 2026)</li><li>are aged 6 months to 74 years and have a weakened immune system because of a health condition or treatment</li><li>live in a care home for older adults</li></ul>"
         },
         {
           "@type": "WebPageElement",
           "headline": "Health conditions and treatments that mean you're eligible for the COVID-19 vaccine",
-          "text": "<div class=\"block-richtext\">\n<p>You may be eligible for a COVID-19 vaccine if you have a weakened immune system because of a health condition or treatment. This can include if you:</p><ul><li>have or had blood cancer, such as leukaemia, lymphoma or myeloma</li><li>have had an organ transplant, bone marrow transplant or stem cell transplant</li><li>have HIV</li><li>have a genetic disorder that affects your immune system, such as severe combined immunodeficiency (SCID)</li><li>are having or recently had chemotherapy, biological therapy or radiotherapy</li><li>are taking steroid medicine (depending on the dose)</li><li>are having long term immunosuppressive treatment for a condition such as lupus, rheumatoid arthritis, inflammatory bowel disease (IBD), scleroderma or psoriasis</li></ul><p>This list is a summary and does not include everything. Speak to your local pharmacy, GP surgery or specialist if you're not sure if you're eligible for the COVID-19 vaccine.</p>\n</div>"
+          "text": "<div class=\"block-richtext\">\n<p>You may be eligible for a COVID-19 vaccine if you have a weakened immune system because of a health condition or treatment.</p><p>This can include if you:</p><ul><li>have or had blood cancer, such as leukaemia, lymphoma or myeloma</li><li>have had an organ transplant, bone marrow transplant or stem cell transplant</li><li>have HIV</li><li>have a genetic disorder that affects your immune system, such as severe combined immunodeficiency (SCID)</li><li>are having or recently had chemotherapy, biological therapy or radiotherapy</li><li>are taking steroid medicine (depending on the dose)</li><li>are having long-term immunosuppressive treatment for a condition such as lupus, rheumatoid arthritis, inflammatory bowel disease (IBD), scleroderma or psoriasis</li></ul><p>This list is a summary and does not include everything. Speak to your local pharmacy, GP surgery or specialist if you're not sure if you're eligible for the COVID-19 vaccine.</p>\n</div>"
         }
       ],
       "headline": "Who should have the COVID-19 vaccine"
@@ -151,7 +151,7 @@
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>If you're eligible for the spring COVID-19 vaccine, you can:</p><ul><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-covid-19-vaccination/\">book a COVID-19 vaccination appointment online</a> or in the <a href=\"https://www.nhs.uk/nhs-app/\">NHS App</a></li><li>go to a <a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-walk-in-covid-19-vaccination-site/\">walk-in COVID-19 vaccination site</a></li></ul><p>Some people may be able to get vaccinated at a local service, such as a community pharmacy or GP surgery, or at a care home if they live in a care home.</p><p>You do not need to wait for an invitation before booking an appointment.</p><p>The last date you will be able to get your COVID-19 vaccine is 17 June 2025. Online booking will close on 16 June 2025.</p>"
+          "text": "<p>If you're eligible for the winter COVID-19 vaccine, you can:</p><ul><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-covid-19-vaccination/\">book a COVID-19 vaccination appointment online</a> or in the <a href=\"https://www.nhs.uk/nhs-app/\">NHS App</a> (if you're aged 5 years or over)</li><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-walk-in-covid-19-vaccination-site/\">find a walk-in COVID-19 vaccination site</a> to get vaccinated without an appointment (if you're aged 5 years or over)</li></ul><p>Some people may be able to get vaccinated at a local service, such as a community pharmacy or a GP surgery, or at a care home if they live in a care home.</p><p>You do not need to wait for an invitation before booking an appointment.</p><p>The last date you will be able to get your COVID-19 vaccine is 31 January 2026. Online booking will close on 30 January 2026.</p>"
         }
       ],
       "headline": "How to get the COVID-19 vaccine"
@@ -160,12 +160,12 @@
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/UsageOrScheduleHealthAspect",
       "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/#how-its-used-previously-dosage-and-administration",
-      "description": "Most people only need 1 dose of the spring COVID-19 vaccine. Some people may need an additional dose if they have a severely weakened immune system.",
+      "description": "Most people only need 1 dose of the COVID-19 vaccine when it's available. You may need an extra dose if you have a severely weakened immune system.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>The COVID-19 vaccine is given as an injection.</p><p>Most people only need 1 dose of the COVID-19 vaccine this spring.</p><h3>Extra doses of the COVID-19 vaccine</h3><p>Some people need an extra dose of the COVID-19 vaccine if they have a health condition or treatment that severely weakens their immune system. For example, if they have had a stem cell transplant or CAR-T therapy.</p><p>Your GP or specialist will assess your risk and tell you if you need an extra dose of the vaccine. They will advise you on when to get vaccinated based on your treatment plan, and help you find a local appointment. Speak to your GP or specialist for more information.</p><p>If your GP or specialist cannot arrange an appointment for you, you can contact your local NHS COVID-19 vaccination service.</p>"
+          "text": "<p>The COVID-19 vaccine is given as an injection.</p><p>Most people only need 1 dose of the COVID-19 vaccine when it's available.</p><h3>Extra doses of the COVID-19 vaccine</h3><p>Some people need an extra dose of the COVID-19 vaccine if they have a health condition or treatment that severely weakens their immune system. For example, if they have had a stem cell transplant or CAR-T therapy.</p><p>Your GP or specialist will assess your risk and tell you if you need an extra dose of the vaccine.</p><p>They will advise you on when to get vaccinated based on your treatment plan, and help you find a local appointment.</p><p>Speak to your GP or specialist for more information.</p><p>If your GP or specialist cannot arrange an appointment for you, you can contact your local NHS COVID-19 vaccination service.</p>"
         }
       ],
       "headline": "How the COVID-19 vaccine is given"
@@ -174,17 +174,17 @@
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
       "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/#contraindications",
-      "description": "Most eligible people can have the COVID-19 vaccine. If you’re under 18 you may only be able to get certain types. Children under 12 get smaller doses.",
+      "description": "Most eligible people can have the COVID-19 vaccine. If you're under 18 you may only be able to get certain types. Children under 12 get smaller doses.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>Most people who are eligible for the COVID-19 vaccine can have it.</p><p>Some people are only offered certain vaccines, for example, if you're under 18 years old. Children under 12 years old will be given smaller doses than older children and adults.</p><p>Most people with allergies can have the COVID-19 vaccine, including if you’ve had a mild allergic reaction to a previous dose, such as a rash, swelling, wheezing or hives.</p><p>If you've ever had an allergic reaction, tell the healthcare staff at your appointment before you're vaccinated.</p><p>If you’re at risk of a severe allergic reaction, vaccination staff or your GP may refer you to an expert allergist or specialist to assess your risk. They may advise you to have the COVID-19 vaccine at a specialist clinic or hospital where you can be monitored. This will only happen in rare cases, for example if you have a history of anaphylaxis.</p>"
+          "text": "<p>Most people who are eligible for the COVID-19 vaccine can have it, including if you're pregnant or breastfeeding.</p><p>Some people are only offered certain vaccines – for example, if you're under 18 years old.</p><p>Children under 12 years old will be given smaller doses than older children and adults.</p><p>Most people with allergies can have the COVID-19 vaccine, including if you've had a mild allergic reaction to a previous dose, such as a rash, swelling, wheezing or hives.</p><p>If you've ever had an allergic reaction, tell the healthcare staff at your appointment before you're vaccinated.</p><p>If you're at risk of a severe allergic reaction, vaccination staff or your GP may refer you to an expert allergist or specialist to assess your risk.</p><p>They may advise you to have the COVID-19 vaccine at a specialist clinic or hospital where you can be monitored. This will only happen in rare cases – for example, if you have a history of anaphylaxis.</p>"
         },
         {
           "@type": "WebPageElement",
           "headline": "Information",
-          "text": "<h3>Getting vaccinated if you're unwell</h3><p>If you have, or think you have, COVID-19 wait until you're feeling better before having the vaccine. You should also wait if you have a high temperature or feel very unwell with any illness.</p><p>If you’ve recently recovered from COVID-19, there is no need to wait to get the vaccine.</p>"
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>If you have, or think you have, COVID-19, wait until you're feeling better before having the vaccine.</p><p>You should also wait if you have a high temperature or feel very unwell with any illness.</p><p>If you've recently recovered from COVID-19, there is no need to wait to get the vaccine.</p>"
         }
       ],
       "headline": "Who cannot have the COVID-19 vaccine"
@@ -198,7 +198,7 @@
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>There are 2 main types of COVID-19 vaccine given in the UK.</p><p>If you're eligible for the COVID-19 vaccine on the NHS, you'll be offered a vaccine that’s appropriate for you. You cannot choose which COVID-19 vaccine you have.</p><p>The COVID-19 vaccines used by the NHS do not contain any animal products, including eggs.</p><p>Find out more about the COVID-19 vaccines used by the NHS:</p><ul><li><a href=\"https://www.gov.uk/government/publications/regulatory-approval-of-covid-19-vaccine-moderna\">Spikevax (formerly Moderna) COVID-19 vaccine on GOV.UK</a></li><li><a href=\"https://www.gov.uk/government/publications/regulatory-approval-of-pfizer-biontech-vaccine-for-covid-19\">Pfizer/BioNTech (Comirnaty) COVID-19 vaccine on GOV.UK</a></li></ul>"
+          "text": "<p>The COVID-19 vaccines given in the UK are made by Pfizer.</p><p>You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/files/pil.100163.pdf\">Pfizer/BioNTech (Comirnaty) COVID-19 vaccine for people aged 12 and over (Electronic Medicines Compendium website; PDF only, 207KB)</a></li><li><a href=\"https://www.medicines.org.uk/emc/files/pil.101151.pdf\">Pfizer/BioNTech (Comirnaty) COVID-19 vaccine for children aged 5 to 11 years (Electronic Medicines Compendium website; PDF only, 199KB)</a></li><li><a href=\"https://www.medicines.org.uk/emc/files/pil.101152.pdf\">Pfizer/BioNTech (Comirnaty) COVID-19 vaccine for children aged 6 months to 4 years (Electronic Medicines Compendium website; PDF only, 187KB)</a></li></ul>"
         }
       ],
       "headline": "COVID-19 vaccine ingredients"
@@ -212,7 +212,7 @@
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>The most common side effects of the COVID-19 vaccine are mild and get better within a week.</p><p>They can include:</p><ul><li>a sore arm from the injection</li><li>feeling tired</li><li>a headache</li><li>feeling achy</li><li>mild flu-like symptoms</li></ul><p>If you or your child get side effects, rest and take <a href=\"https://www.nhs.uk/medicines/paracetamol-for-adults/\">paracetamol</a> or <a href=\"https://www.nhs.uk/medicines/paracetamol-for-children/\">paracetamol for children</a> to help you feel better.</p><p>More serious side effects such as a severe allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p><p>There have been rare cases of inflammation of the heart (myocarditis) reported after COVID-19 vaccination. Most people who had this recovered following rest and simple treatments.</p><p>The vaccine cannot give you COVID-19 infection.</p>"
+          "text": "<p>The most common side effects of the COVID-19 vaccine are mild and get better within a week.</p><p>They can include:</p><ul><li>a sore arm from the injection</li><li>feeling tired</li><li>a headache</li><li>feeling achy</li><li>mild flu-like symptoms</li></ul><p>If you or your child get side effects, rest and take <a href=\"https://www.nhs.uk/medicines/paracetamol-for-adults/\">paracetamol</a> or <a href=\"https://www.nhs.uk/medicines/paracetamol-for-children/\">paracetamol for children</a> to help you feel better.</p><p>More serious side effects, such as a severe allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>), are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p><p>There have been rare cases of inflammation of the heart (myocarditis) reported after COVID-19 vaccination. Most people who had this recovered following rest and simple treatments.</p><p>The vaccine cannot give you a COVID-19 infection.</p>"
         },
         {
           "@type": "WebPageElement",
@@ -224,7 +224,7 @@
           "@type": "WebPageElement",
           "identifier": "immediate",
           "headline": "Call 999 or go to A&E if:",
-          "text": "<p>\n You or your child have any of these symptoms within a few days of being vaccinated:\n</p>\n<ul>\n<li>\n  chest pain or feeling of tightness in the chest\n </li>\n<li>\n  severe difficulty breathing – you're gasping, choking or not able to get words out\n </li>\n<li>\n  a fast-beating, fluttering or pounding heart (palpitations)\n </li>\n</ul>\n"
+          "text": "<p>\n You or your child have any of these symptoms within a few days of being vaccinated:\n</p>\n<ul>\n<li>\n  chest pain or a feeling of tightness in the chest\n </li>\n<li>\n  severe difficulty breathing – you're gasping, choking or not able to get words out\n </li>\n<li>\n  a fast-beating, fluttering or pounding heart (palpitations)\n </li>\n</ul>\n"
         },
         {
           "@type": "WebPageElement",
@@ -312,7 +312,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>You can get a COVID-19 vaccine if you:</p><ul><li>are aged 75 or over (including those who will be 75 by 17 June 2025)</li><li>are aged 6 months to 74 years and have a weakened immune system because of a health condition or treatment</li><li>live in a care home for older adults</li></ul>",
+          "text": "<p>You can get the winter COVID-19 vaccine if you:</p><ul><li>are aged 75 or over (including those who will be 75 by 31 January 2026)</li><li>are aged 6 months to 74 years and have a weakened immune system because of a health condition or treatment</li><li>live in a care home for older adults</li></ul>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -323,7 +323,7 @@
           "name": "Expander",
           "subjectOf": "Health conditions and treatments that mean you're eligible for the COVID-19 vaccine",
           "identifier": "18",
-          "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"g6dat\">You may be eligible for a COVID-19 vaccine if you have a weakened immune system because of a health condition or treatment. This can include if you:</p><ul><li data-block-key=\"ausvv\">have or had blood cancer, such as leukaemia, lymphoma or myeloma</li><li data-block-key=\"trbt\">have had an organ transplant, bone marrow transplant or stem cell transplant</li><li data-block-key=\"b60rq\">have HIV</li><li data-block-key=\"c5ena\">have a genetic disorder that affects your immune system, such as severe combined immunodeficiency (SCID)</li><li data-block-key=\"bfdt3\">are having or recently had chemotherapy, biological therapy or radiotherapy</li><li data-block-key=\"83v89\">are taking steroid medicine (depending on the dose)</li><li data-block-key=\"cc8dp\">are having long term immunosuppressive treatment for a condition such as lupus, rheumatoid arthritis, inflammatory bowel disease (IBD), scleroderma or psoriasis</li></ul><p data-block-key=\"b8g13\">This list is a summary and does not include everything. Speak to your local pharmacy, GP surgery or specialist if you're not sure if you're eligible for the COVID-19 vaccine.</p>\n</div>"
+          "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"g6dat\">You may be eligible for a COVID-19 vaccine if you have a weakened immune system because of a health condition or treatment.</p><p data-block-key=\"cb822\">This can include if you:</p><ul><li data-block-key=\"ausvv\">have or had blood cancer, such as leukaemia, lymphoma or myeloma</li><li data-block-key=\"trbt\">have had an organ transplant, bone marrow transplant or stem cell transplant</li><li data-block-key=\"b60rq\">have HIV</li><li data-block-key=\"c5ena\">have a genetic disorder that affects your immune system, such as severe combined immunodeficiency (SCID)</li><li data-block-key=\"bfdt3\">are having or recently had chemotherapy, biological therapy or radiotherapy</li><li data-block-key=\"83v89\">are taking steroid medicine (depending on the dose)</li><li data-block-key=\"cc8dp\">are having long-term immunosuppressive treatment for a condition such as lupus, rheumatoid arthritis, inflammatory bowel disease (IBD), scleroderma or psoriasis</li></ul><p data-block-key=\"b8g13\">This list is a summary and does not include everything. Speak to your local pharmacy, GP surgery or specialist if you're not sure if you're eligible for the COVID-19 vaccine.</p>\n</div>"
         }
       ],
       "description": "The COVID-19 vaccine is recommended for people at increased risk from COVID-19, including people 75 and over, and those with a weakened immune system.",
@@ -331,7 +331,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>You can get a COVID-19 vaccine if you:</p><ul><li>are aged 75 or over (including those who will be 75 by 17 June 2025)</li><li>are aged 6 months to 74 years and have a weakened immune system because of a health condition or treatment</li><li>live in a care home for older adults</li></ul>",
+          "text": "<p>You can get the winter COVID-19 vaccine if you:</p><ul><li>are aged 75 or over (including those who will be 75 by 31 January 2026)</li><li>are aged 6 months to 74 years and have a weakened immune system because of a health condition or treatment</li><li>live in a care home for older adults</li></ul>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -342,7 +342,7 @@
           "name": "Expander",
           "subjectOf": "Health conditions and treatments that mean you're eligible for the COVID-19 vaccine",
           "identifier": "18",
-          "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"g6dat\">You may be eligible for a COVID-19 vaccine if you have a weakened immune system because of a health condition or treatment. This can include if you:</p><ul><li data-block-key=\"ausvv\">have or had blood cancer, such as leukaemia, lymphoma or myeloma</li><li data-block-key=\"trbt\">have had an organ transplant, bone marrow transplant or stem cell transplant</li><li data-block-key=\"b60rq\">have HIV</li><li data-block-key=\"c5ena\">have a genetic disorder that affects your immune system, such as severe combined immunodeficiency (SCID)</li><li data-block-key=\"bfdt3\">are having or recently had chemotherapy, biological therapy or radiotherapy</li><li data-block-key=\"83v89\">are taking steroid medicine (depending on the dose)</li><li data-block-key=\"cc8dp\">are having long term immunosuppressive treatment for a condition such as lupus, rheumatoid arthritis, inflammatory bowel disease (IBD), scleroderma or psoriasis</li></ul><p data-block-key=\"b8g13\">This list is a summary and does not include everything. Speak to your local pharmacy, GP surgery or specialist if you're not sure if you're eligible for the COVID-19 vaccine.</p>\n</div>"
+          "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"g6dat\">You may be eligible for a COVID-19 vaccine if you have a weakened immune system because of a health condition or treatment.</p><p data-block-key=\"cb822\">This can include if you:</p><ul><li data-block-key=\"ausvv\">have or had blood cancer, such as leukaemia, lymphoma or myeloma</li><li data-block-key=\"trbt\">have had an organ transplant, bone marrow transplant or stem cell transplant</li><li data-block-key=\"b60rq\">have HIV</li><li data-block-key=\"c5ena\">have a genetic disorder that affects your immune system, such as severe combined immunodeficiency (SCID)</li><li data-block-key=\"bfdt3\">are having or recently had chemotherapy, biological therapy or radiotherapy</li><li data-block-key=\"83v89\">are taking steroid medicine (depending on the dose)</li><li data-block-key=\"cc8dp\">are having long-term immunosuppressive treatment for a condition such as lupus, rheumatoid arthritis, inflammatory bowel disease (IBD), scleroderma or psoriasis</li></ul><p data-block-key=\"b8g13\">This list is a summary and does not include everything. Speak to your local pharmacy, GP surgery or specialist if you're not sure if you're eligible for the COVID-19 vaccine.</p>\n</div>"
         }
       ],
       "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
@@ -357,7 +357,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>If you're eligible for the spring COVID-19 vaccine, you can:</p><ul><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-covid-19-vaccination/\">book a COVID-19 vaccination appointment online</a> or in the <a href=\"https://www.nhs.uk/nhs-app/\">NHS App</a></li><li>go to a <a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-walk-in-covid-19-vaccination-site/\">walk-in COVID-19 vaccination site</a></li></ul><p>Some people may be able to get vaccinated at a local service, such as a community pharmacy or GP surgery, or at a care home if they live in a care home.</p><p>You do not need to wait for an invitation before booking an appointment.</p><p>The last date you will be able to get your COVID-19 vaccine is 17 June 2025. Online booking will close on 16 June 2025.</p>",
+          "text": "<p>If you're eligible for the winter COVID-19 vaccine, you can:</p><ul><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-covid-19-vaccination/\">book a COVID-19 vaccination appointment online</a> or in the <a href=\"https://www.nhs.uk/nhs-app/\">NHS App</a> (if you're aged 5 years or over)</li><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-walk-in-covid-19-vaccination-site/\">find a walk-in COVID-19 vaccination site</a> to get vaccinated without an appointment (if you're aged 5 years or over)</li></ul><p>Some people may be able to get vaccinated at a local service, such as a community pharmacy or a GP surgery, or at a care home if they live in a care home.</p><p>You do not need to wait for an invitation before booking an appointment.</p><p>The last date you will be able to get your COVID-19 vaccine is 31 January 2026. Online booking will close on 30 January 2026.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -368,7 +368,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>If you're eligible for the spring COVID-19 vaccine, you can:</p><ul><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-covid-19-vaccination/\">book a COVID-19 vaccination appointment online</a> or in the <a href=\"https://www.nhs.uk/nhs-app/\">NHS App</a></li><li>go to a <a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-walk-in-covid-19-vaccination-site/\">walk-in COVID-19 vaccination site</a></li></ul><p>Some people may be able to get vaccinated at a local service, such as a community pharmacy or GP surgery, or at a care home if they live in a care home.</p><p>You do not need to wait for an invitation before booking an appointment.</p><p>The last date you will be able to get your COVID-19 vaccine is 17 June 2025. Online booking will close on 16 June 2025.</p>",
+          "text": "<p>If you're eligible for the winter COVID-19 vaccine, you can:</p><ul><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-covid-19-vaccination/\">book a COVID-19 vaccination appointment online</a> or in the <a href=\"https://www.nhs.uk/nhs-app/\">NHS App</a> (if you're aged 5 years or over)</li><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-walk-in-covid-19-vaccination-site/\">find a walk-in COVID-19 vaccination site</a> to get vaccinated without an appointment (if you're aged 5 years or over)</li></ul><p>Some people may be able to get vaccinated at a local service, such as a community pharmacy or a GP surgery, or at a care home if they live in a care home.</p><p>You do not need to wait for an invitation before booking an appointment.</p><p>The last date you will be able to get your COVID-19 vaccine is 31 January 2026. Online booking will close on 30 January 2026.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -386,18 +386,18 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>The COVID-19 vaccine is given as an injection.</p><p>Most people only need 1 dose of the COVID-19 vaccine this spring.</p><h3>Extra doses of the COVID-19 vaccine</h3><p>Some people need an extra dose of the COVID-19 vaccine if they have a health condition or treatment that severely weakens their immune system. For example, if they have had a stem cell transplant or CAR-T therapy.</p><p>Your GP or specialist will assess your risk and tell you if you need an extra dose of the vaccine. They will advise you on when to get vaccinated based on your treatment plan, and help you find a local appointment. Speak to your GP or specialist for more information.</p><p>If your GP or specialist cannot arrange an appointment for you, you can contact your local NHS COVID-19 vaccination service.</p>",
+          "text": "<p>The COVID-19 vaccine is given as an injection.</p><p>Most people only need 1 dose of the COVID-19 vaccine when it's available.</p><h3>Extra doses of the COVID-19 vaccine</h3><p>Some people need an extra dose of the COVID-19 vaccine if they have a health condition or treatment that severely weakens their immune system. For example, if they have had a stem cell transplant or CAR-T therapy.</p><p>Your GP or specialist will assess your risk and tell you if you need an extra dose of the vaccine.</p><p>They will advise you on when to get vaccinated based on your treatment plan, and help you find a local appointment.</p><p>Speak to your GP or specialist for more information.</p><p>If your GP or specialist cannot arrange an appointment for you, you can contact your local NHS COVID-19 vaccination service.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
         }
       ],
-      "description": "Most people only need 1 dose of the spring COVID-19 vaccine. Some people may need an additional dose if they have a severely weakened immune system.",
+      "description": "Most people only need 1 dose of the COVID-19 vaccine when it's available. You may need an extra dose if you have a severely weakened immune system.",
       "hasPart": [
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>The COVID-19 vaccine is given as an injection.</p><p>Most people only need 1 dose of the COVID-19 vaccine this spring.</p><h3>Extra doses of the COVID-19 vaccine</h3><p>Some people need an extra dose of the COVID-19 vaccine if they have a health condition or treatment that severely weakens their immune system. For example, if they have had a stem cell transplant or CAR-T therapy.</p><p>Your GP or specialist will assess your risk and tell you if you need an extra dose of the vaccine. They will advise you on when to get vaccinated based on your treatment plan, and help you find a local appointment. Speak to your GP or specialist for more information.</p><p>If your GP or specialist cannot arrange an appointment for you, you can contact your local NHS COVID-19 vaccination service.</p>",
+          "text": "<p>The COVID-19 vaccine is given as an injection.</p><p>Most people only need 1 dose of the COVID-19 vaccine when it's available.</p><h3>Extra doses of the COVID-19 vaccine</h3><p>Some people need an extra dose of the COVID-19 vaccine if they have a health condition or treatment that severely weakens their immune system. For example, if they have had a stem cell transplant or CAR-T therapy.</p><p>Your GP or specialist will assess your risk and tell you if you need an extra dose of the vaccine.</p><p>They will advise you on when to get vaccinated based on your treatment plan, and help you find a local appointment.</p><p>Speak to your GP or specialist for more information.</p><p>If your GP or specialist cannot arrange an appointment for you, you can contact your local NHS COVID-19 vaccination service.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -425,7 +425,7 @@
           "@type": "WebPageElement",
           "name": "Information",
           "identifier": "3",
-          "text": "<h3>Having the COVID-19 vaccine at the same time as other vaccines</h3><p>If you're eligible for an RSV vaccine, it's more effective to have it on a different day to your COVID-19 vaccine.</p><p>In winter, you can have the COVID-19 vaccine at the same time as the flu vaccine.</p>"
+          "text": "<h3>Having the COVID-19 vaccine at the same time as other vaccines</h3><p>In winter, you can have the COVID-19 vaccine at the same time as the flu vaccine or RSV vaccine.</p>"
         }
       ],
       "description": "",
@@ -443,7 +443,7 @@
           "@type": "WebPageElement",
           "name": "Information",
           "identifier": "3",
-          "text": "<h3>Having the COVID-19 vaccine at the same time as other vaccines</h3><p>If you're eligible for an RSV vaccine, it's more effective to have it on a different day to your COVID-19 vaccine.</p><p>In winter, you can have the COVID-19 vaccine at the same time as the flu vaccine.</p>"
+          "text": "<h3>Having the COVID-19 vaccine at the same time as other vaccines</h3><p>In winter, you can have the COVID-19 vaccine at the same time as the flu vaccine or RSV vaccine.</p>"
         }
       ]
     },
@@ -456,7 +456,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>Most people who are eligible for the COVID-19 vaccine can have it.</p><p>Some people are only offered certain vaccines, for example, if you're under 18 years old. Children under 12 years old will be given smaller doses than older children and adults.</p><p>Most people with allergies can have the COVID-19 vaccine, including if you’ve had a mild allergic reaction to a previous dose, such as a rash, swelling, wheezing or hives.</p><p>If you've ever had an allergic reaction, tell the healthcare staff at your appointment before you're vaccinated.</p><p>If you’re at risk of a severe allergic reaction, vaccination staff or your GP may refer you to an expert allergist or specialist to assess your risk. They may advise you to have the COVID-19 vaccine at a specialist clinic or hospital where you can be monitored. This will only happen in rare cases, for example if you have a history of anaphylaxis.</p>",
+          "text": "<p>Most people who are eligible for the COVID-19 vaccine can have it, including if you're pregnant or breastfeeding.</p><p>Some people are only offered certain vaccines – for example, if you're under 18 years old.</p><p>Children under 12 years old will be given smaller doses than older children and adults.</p><p>Most people with allergies can have the COVID-19 vaccine, including if you've had a mild allergic reaction to a previous dose, such as a rash, swelling, wheezing or hives.</p><p>If you've ever had an allergic reaction, tell the healthcare staff at your appointment before you're vaccinated.</p><p>If you're at risk of a severe allergic reaction, vaccination staff or your GP may refer you to an expert allergist or specialist to assess your risk.</p><p>They may advise you to have the COVID-19 vaccine at a specialist clinic or hospital where you can be monitored. This will only happen in rare cases – for example, if you have a history of anaphylaxis.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -466,15 +466,15 @@
           "@type": "WebPageElement",
           "name": "Information",
           "identifier": "3",
-          "text": "<h3>Getting vaccinated if you're unwell</h3><p>If you have, or think you have, COVID-19 wait until you're feeling better before having the vaccine. You should also wait if you have a high temperature or feel very unwell with any illness.</p><p>If you’ve recently recovered from COVID-19, there is no need to wait to get the vaccine.</p>"
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>If you have, or think you have, COVID-19, wait until you're feeling better before having the vaccine.</p><p>You should also wait if you have a high temperature or feel very unwell with any illness.</p><p>If you've recently recovered from COVID-19, there is no need to wait to get the vaccine.</p>"
         }
       ],
-      "description": "Most eligible people can have the COVID-19 vaccine. If you’re under 18 you may only be able to get certain types. Children under 12 get smaller doses.",
+      "description": "Most eligible people can have the COVID-19 vaccine. If you're under 18 you may only be able to get certain types. Children under 12 get smaller doses.",
       "hasPart": [
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>Most people who are eligible for the COVID-19 vaccine can have it.</p><p>Some people are only offered certain vaccines, for example, if you're under 18 years old. Children under 12 years old will be given smaller doses than older children and adults.</p><p>Most people with allergies can have the COVID-19 vaccine, including if you’ve had a mild allergic reaction to a previous dose, such as a rash, swelling, wheezing or hives.</p><p>If you've ever had an allergic reaction, tell the healthcare staff at your appointment before you're vaccinated.</p><p>If you’re at risk of a severe allergic reaction, vaccination staff or your GP may refer you to an expert allergist or specialist to assess your risk. They may advise you to have the COVID-19 vaccine at a specialist clinic or hospital where you can be monitored. This will only happen in rare cases, for example if you have a history of anaphylaxis.</p>",
+          "text": "<p>Most people who are eligible for the COVID-19 vaccine can have it, including if you're pregnant or breastfeeding.</p><p>Some people are only offered certain vaccines – for example, if you're under 18 years old.</p><p>Children under 12 years old will be given smaller doses than older children and adults.</p><p>Most people with allergies can have the COVID-19 vaccine, including if you've had a mild allergic reaction to a previous dose, such as a rash, swelling, wheezing or hives.</p><p>If you've ever had an allergic reaction, tell the healthcare staff at your appointment before you're vaccinated.</p><p>If you're at risk of a severe allergic reaction, vaccination staff or your GP may refer you to an expert allergist or specialist to assess your risk.</p><p>They may advise you to have the COVID-19 vaccine at a specialist clinic or hospital where you can be monitored. This will only happen in rare cases – for example, if you have a history of anaphylaxis.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -484,7 +484,7 @@
           "@type": "WebPageElement",
           "name": "Information",
           "identifier": "3",
-          "text": "<h3>Getting vaccinated if you're unwell</h3><p>If you have, or think you have, COVID-19 wait until you're feeling better before having the vaccine. You should also wait if you have a high temperature or feel very unwell with any illness.</p><p>If you’ve recently recovered from COVID-19, there is no need to wait to get the vaccine.</p>"
+          "text": "<h3>Getting vaccinated if you're unwell</h3><p>If you have, or think you have, COVID-19, wait until you're feeling better before having the vaccine.</p><p>You should also wait if you have a high temperature or feel very unwell with any illness.</p><p>If you've recently recovered from COVID-19, there is no need to wait to get the vaccine.</p>"
         }
       ],
       "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
@@ -499,7 +499,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>There are 2 main types of COVID-19 vaccine given in the UK.</p><p>If you're eligible for the COVID-19 vaccine on the NHS, you'll be offered a vaccine that’s appropriate for you. You cannot choose which COVID-19 vaccine you have.</p><p>The COVID-19 vaccines used by the NHS do not contain any animal products, including eggs.</p><p>Find out more about the COVID-19 vaccines used by the NHS:</p><ul><li><a href=\"https://www.gov.uk/government/publications/regulatory-approval-of-covid-19-vaccine-moderna\">Spikevax (formerly Moderna) COVID-19 vaccine on GOV.UK</a></li><li><a href=\"https://www.gov.uk/government/publications/regulatory-approval-of-pfizer-biontech-vaccine-for-covid-19\">Pfizer/BioNTech (Comirnaty) COVID-19 vaccine on GOV.UK</a></li></ul>",
+          "text": "<p>The COVID-19 vaccines given in the UK are made by Pfizer.</p><p>You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/files/pil.100163.pdf\">Pfizer/BioNTech (Comirnaty) COVID-19 vaccine for people aged 12 and over (Electronic Medicines Compendium website; PDF only, 207KB)</a></li><li><a href=\"https://www.medicines.org.uk/emc/files/pil.101151.pdf\">Pfizer/BioNTech (Comirnaty) COVID-19 vaccine for children aged 5 to 11 years (Electronic Medicines Compendium website; PDF only, 199KB)</a></li><li><a href=\"https://www.medicines.org.uk/emc/files/pil.101152.pdf\">Pfizer/BioNTech (Comirnaty) COVID-19 vaccine for children aged 6 months to 4 years (Electronic Medicines Compendium website; PDF only, 187KB)</a></li></ul>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -510,7 +510,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>There are 2 main types of COVID-19 vaccine given in the UK.</p><p>If you're eligible for the COVID-19 vaccine on the NHS, you'll be offered a vaccine that’s appropriate for you. You cannot choose which COVID-19 vaccine you have.</p><p>The COVID-19 vaccines used by the NHS do not contain any animal products, including eggs.</p><p>Find out more about the COVID-19 vaccines used by the NHS:</p><ul><li><a href=\"https://www.gov.uk/government/publications/regulatory-approval-of-covid-19-vaccine-moderna\">Spikevax (formerly Moderna) COVID-19 vaccine on GOV.UK</a></li><li><a href=\"https://www.gov.uk/government/publications/regulatory-approval-of-pfizer-biontech-vaccine-for-covid-19\">Pfizer/BioNTech (Comirnaty) COVID-19 vaccine on GOV.UK</a></li></ul>",
+          "text": "<p>The COVID-19 vaccines given in the UK are made by Pfizer.</p><p>You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/files/pil.100163.pdf\">Pfizer/BioNTech (Comirnaty) COVID-19 vaccine for people aged 12 and over (Electronic Medicines Compendium website; PDF only, 207KB)</a></li><li><a href=\"https://www.medicines.org.uk/emc/files/pil.101151.pdf\">Pfizer/BioNTech (Comirnaty) COVID-19 vaccine for children aged 5 to 11 years (Electronic Medicines Compendium website; PDF only, 199KB)</a></li><li><a href=\"https://www.medicines.org.uk/emc/files/pil.101152.pdf\">Pfizer/BioNTech (Comirnaty) COVID-19 vaccine for children aged 6 months to 4 years (Electronic Medicines Compendium website; PDF only, 187KB)</a></li></ul>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -528,7 +528,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>The most common side effects of the COVID-19 vaccine are mild and get better within a week.</p><p>They can include:</p><ul><li>a sore arm from the injection</li><li>feeling tired</li><li>a headache</li><li>feeling achy</li><li>mild flu-like symptoms</li></ul><p>If you or your child get side effects, rest and take <a href=\"https://www.nhs.uk/medicines/paracetamol-for-adults/\">paracetamol</a> or <a href=\"https://www.nhs.uk/medicines/paracetamol-for-children/\">paracetamol for children</a> to help you feel better.</p><p>More serious side effects such as a severe allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p><p>There have been rare cases of inflammation of the heart (myocarditis) reported after COVID-19 vaccination. Most people who had this recovered following rest and simple treatments.</p><p>The vaccine cannot give you COVID-19 infection.</p>",
+          "text": "<p>The most common side effects of the COVID-19 vaccine are mild and get better within a week.</p><p>They can include:</p><ul><li>a sore arm from the injection</li><li>feeling tired</li><li>a headache</li><li>feeling achy</li><li>mild flu-like symptoms</li></ul><p>If you or your child get side effects, rest and take <a href=\"https://www.nhs.uk/medicines/paracetamol-for-adults/\">paracetamol</a> or <a href=\"https://www.nhs.uk/medicines/paracetamol-for-children/\">paracetamol for children</a> to help you feel better.</p><p>More serious side effects, such as a severe allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>), are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p><p>There have been rare cases of inflammation of the heart (myocarditis) reported after COVID-19 vaccination. Most people who had this recovered following rest and simple treatments.</p><p>The vaccine cannot give you a COVID-19 infection.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -545,7 +545,7 @@
           "@type": "WebPageElement",
           "name": "immediate",
           "identifier": "5",
-          "text": "<h3>Call 999 or go to A&amp;E if:</h3><div class=\"block-richtext\">\n<p>You or your child have any of these symptoms within a few days of being vaccinated:</p><ul><li>chest pain or feeling of tightness in the chest</li><li>severe difficulty breathing – you're gasping, choking or not able to get words out</li><li>a fast-beating, fluttering or pounding heart (palpitations)</li></ul>\n</div>"
+          "text": "<h3>Call 999 or go to A&amp;E if:</h3><div class=\"block-richtext\">\n<p>You or your child have any of these symptoms within a few days of being vaccinated:</p><ul><li>chest pain or a feeling of tightness in the chest</li><li>severe difficulty breathing – you're gasping, choking or not able to get words out</li><li>a fast-beating, fluttering or pounding heart (palpitations)</li></ul>\n</div>"
         },
         {
           "position": 3,
@@ -560,7 +560,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>The most common side effects of the COVID-19 vaccine are mild and get better within a week.</p><p>They can include:</p><ul><li>a sore arm from the injection</li><li>feeling tired</li><li>a headache</li><li>feeling achy</li><li>mild flu-like symptoms</li></ul><p>If you or your child get side effects, rest and take <a href=\"https://www.nhs.uk/medicines/paracetamol-for-adults/\">paracetamol</a> or <a href=\"https://www.nhs.uk/medicines/paracetamol-for-children/\">paracetamol for children</a> to help you feel better.</p><p>More serious side effects such as a severe allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p><p>There have been rare cases of inflammation of the heart (myocarditis) reported after COVID-19 vaccination. Most people who had this recovered following rest and simple treatments.</p><p>The vaccine cannot give you COVID-19 infection.</p>",
+          "text": "<p>The most common side effects of the COVID-19 vaccine are mild and get better within a week.</p><p>They can include:</p><ul><li>a sore arm from the injection</li><li>feeling tired</li><li>a headache</li><li>feeling achy</li><li>mild flu-like symptoms</li></ul><p>If you or your child get side effects, rest and take <a href=\"https://www.nhs.uk/medicines/paracetamol-for-adults/\">paracetamol</a> or <a href=\"https://www.nhs.uk/medicines/paracetamol-for-children/\">paracetamol for children</a> to help you feel better.</p><p>More serious side effects, such as a severe allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>), are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p><p>There have been rare cases of inflammation of the heart (myocarditis) reported after COVID-19 vaccination. Most people who had this recovered following rest and simple treatments.</p><p>The vaccine cannot give you a COVID-19 infection.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -577,7 +577,7 @@
           "@type": "WebPageElement",
           "name": "immediate",
           "identifier": "5",
-          "text": "<h3>Call 999 or go to A&amp;E if:</h3><div class=\"block-richtext\">\n<p>You or your child have any of these symptoms within a few days of being vaccinated:</p><ul><li>chest pain or feeling of tightness in the chest</li><li>severe difficulty breathing – you're gasping, choking or not able to get words out</li><li>a fast-beating, fluttering or pounding heart (palpitations)</li></ul>\n</div>"
+          "text": "<h3>Call 999 or go to A&amp;E if:</h3><div class=\"block-richtext\">\n<p>You or your child have any of these symptoms within a few days of being vaccinated:</p><ul><li>chest pain or a feeling of tightness in the chest</li><li>severe difficulty breathing – you're gasping, choking or not able to get words out</li><li>a fast-beating, fluttering or pounding heart (palpitations)</li></ul>\n</div>"
         },
         {
           "position": 3,
@@ -624,7 +624,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>COVID-19 vaccines in use in the UK have all met strict standards of safety, quality and effectiveness. The safety of the vaccines has been extensively reviewed in both adults and children by the independent Medicines and Healthcare products Regulatory Agency (MHRA).</p><p>The MHRA are continuously monitoring the safety of the COVID-19 vaccines and reports of serious side effects are very rare.</p>",
+          "text": "<p>COVID-19 vaccines in use in the UK have all met strict standards of safety, quality and effectiveness.</p><p>The safety of the vaccines has been extensively reviewed in both adults and children by the independent Medicines and Healthcare products Regulatory Agency (MHRA).</p><p>The MHRA are continuously monitoring the safety of the COVID-19 vaccines and reports of serious side effects are very rare.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -634,7 +634,7 @@
           "@type": "WebPageElement",
           "name": "Information",
           "identifier": "3",
-          "text": "<h3>More information about vaccine safety</h3><ul><li><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Why vaccinations are important and the safest way to protect yourself</a></li><li><a href=\"https://www.gov.uk/government/organisations/medicines-and-healthcare-products-regulatory-agency/about\">About the Medicines and Healthcare Regulatory Agency (MHRA) on GOV.UK</a></li><li><a href=\"https://www.gov.uk/guidance/monitoring-reports-of-the-effectiveness-of-covid-19-vaccination\">Monitoring reports of the effectiveness of COVID-19 vaccination on GOV.UK</a></li></ul>"
+          "text": "<h3>More information about vaccine safety</h3><ul><li><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Why vaccinations are important and the safest way to protect yourself</a></li></ul>"
         }
       ],
       "description": "",
@@ -642,7 +642,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>COVID-19 vaccines in use in the UK have all met strict standards of safety, quality and effectiveness. The safety of the vaccines has been extensively reviewed in both adults and children by the independent Medicines and Healthcare products Regulatory Agency (MHRA).</p><p>The MHRA are continuously monitoring the safety of the COVID-19 vaccines and reports of serious side effects are very rare.</p>",
+          "text": "<p>COVID-19 vaccines in use in the UK have all met strict standards of safety, quality and effectiveness.</p><p>The safety of the vaccines has been extensively reviewed in both adults and children by the independent Medicines and Healthcare products Regulatory Agency (MHRA).</p><p>The MHRA are continuously monitoring the safety of the COVID-19 vaccines and reports of serious side effects are very rare.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -652,7 +652,7 @@
           "@type": "WebPageElement",
           "name": "Information",
           "identifier": "3",
-          "text": "<h3>More information about vaccine safety</h3><ul><li><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Why vaccinations are important and the safest way to protect yourself</a></li><li><a href=\"https://www.gov.uk/government/organisations/medicines-and-healthcare-products-regulatory-agency/about\">About the Medicines and Healthcare Regulatory Agency (MHRA) on GOV.UK</a></li><li><a href=\"https://www.gov.uk/guidance/monitoring-reports-of-the-effectiveness-of-covid-19-vaccination\">Monitoring reports of the effectiveness of COVID-19 vaccination on GOV.UK</a></li></ul>"
+          "text": "<h3>More information about vaccine safety</h3><ul><li><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Why vaccinations are important and the safest way to protect yourself</a></li></ul>"
         }
       ],
       "headline": "COVID-19 vaccine safety"
@@ -666,7 +666,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>This information covers COVID-19 vaccination information for England.</p><p>Information for other parts of the UK:</p><ul><li><a href=\"https://www.nhsinform.scot/covid-19-vaccine\">NHS Inform: COVID-19 vaccination in Scotland</a></li><li><a href=\"https://phw.nhs.wales/topics/immunisation-and-vaccines/covid-19-vaccination-information/\">Public Health Wales: COVID-19 vaccination in Wales</a></li><li><a href=\"https://www.nidirect.gov.uk/articles/get-covid-19-vaccination-northern-ireland\">nidirect: COVID-19 vaccination in Northern Ireland</a></li></ul>",
+          "text": "<p>This information covers COVID-19 vaccination information for England.</p><p>Information for other parts of the UK:</p><ul><li><a href=\"https://www.nhsinform.scot/covid-19-vaccine\">NHS Inform: COVID-19 vaccination in Scotland</a></li><li><a href=\"https://phw.nhs.wales/topics/immunisation-and-vaccines/covid-19-vaccination-information/\">Public Health Wales: COVID-19 vaccination in Wales</a></li><li><a href=\"https://www.nidirect.gov.uk/articles/coronavirus-covid-19-vaccine-safety\">nidirect: COVID-19 vaccination in Northern Ireland</a></li></ul>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -677,7 +677,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>This information covers COVID-19 vaccination information for England.</p><p>Information for other parts of the UK:</p><ul><li><a href=\"https://www.nhsinform.scot/covid-19-vaccine\">NHS Inform: COVID-19 vaccination in Scotland</a></li><li><a href=\"https://phw.nhs.wales/topics/immunisation-and-vaccines/covid-19-vaccination-information/\">Public Health Wales: COVID-19 vaccination in Wales</a></li><li><a href=\"https://www.nidirect.gov.uk/articles/get-covid-19-vaccination-northern-ireland\">nidirect: COVID-19 vaccination in Northern Ireland</a></li></ul>",
+          "text": "<p>This information covers COVID-19 vaccination information for England.</p><p>Information for other parts of the UK:</p><ul><li><a href=\"https://www.nhsinform.scot/covid-19-vaccine\">NHS Inform: COVID-19 vaccination in Scotland</a></li><li><a href=\"https://phw.nhs.wales/topics/immunisation-and-vaccines/covid-19-vaccination-information/\">Public Health Wales: COVID-19 vaccination in Wales</a></li><li><a href=\"https://www.nidirect.gov.uk/articles/coronavirus-covid-19-vaccine-safety\">nidirect: COVID-19 vaccination in Northern Ireland</a></li></ul>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
