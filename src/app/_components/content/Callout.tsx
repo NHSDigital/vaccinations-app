@@ -5,7 +5,7 @@ import { JSX } from "react";
 
 const Callout = (props: { styledVaccineContent: StyledVaccineContent; vaccineType: VaccineType }): JSX.Element => {
   const element =
-    props.styledVaccineContent.callout && VaccineInfo[props.vaccineType].showWarningCallout ? (
+    props.styledVaccineContent.callout && !VaccineInfo[props.vaccineType].supressWarningCallout ? (
       <WarningCallout
         heading={props.styledVaccineContent.callout.heading}
         content={props.styledVaccineContent.callout.content}

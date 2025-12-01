@@ -36,7 +36,7 @@ export type VaccineDetails = {
   contentPath: UrlPathFragment;
   cacheFilename: Filename;
   nbsPath: UrlPathFragment;
-  showWarningCallout?: boolean;
+  supressWarningCallout?: boolean;
   moreInformationHeadersFromContentApi?: boolean;
 };
 
@@ -149,6 +149,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     contentPath: "vaccinations/hpv-vaccine" as UrlPathFragment,
     cacheFilename: "hpv-vaccine.json" as Filename,
     nbsPath: "hpv-vaccine" as UrlPathFragment,
+    supressWarningCallout: true,
   },
   [VaccineType.MENB_CHILDREN]: {
     urlPath: "menb-vaccine-for-children" as UrlPathFragment,
@@ -213,6 +214,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     contentPath: "vaccinations/shingles-vaccine" as UrlPathFragment,
     cacheFilename: "shingles-vaccine.json" as Filename,
     nbsPath: "shingles-vaccine" as UrlPathFragment,
+    supressWarningCallout: true,
   },
   [VaccineType.MENACWY]: {
     urlPath: "menacwy-vaccine" as UrlPathFragment,
@@ -229,6 +231,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     contentPath: "vaccinations/menacwy-vaccine" as UrlPathFragment,
     cacheFilename: "menacwy-vaccine.json" as Filename,
     nbsPath: "menacwy-vaccine" as UrlPathFragment,
+    supressWarningCallout: true,
   },
   [VaccineType.VACCINE_4_IN_1]: {
     urlPath: "4-in-1-preschool-booster-vaccine" as UrlPathFragment,
@@ -280,7 +283,6 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     contentPath: "vaccinations/hib-menc-vaccine" as UrlPathFragment,
     cacheFilename: "hib-menc-vaccine.json" as Filename,
     nbsPath: "hib-menc-vaccine" as UrlPathFragment,
-    showWarningCallout: true,
   },
   [VaccineType.FLU_IN_PREGNANCY]: {
     urlPath: "flu-vaccine-in-pregnancy" as UrlPathFragment,
@@ -298,7 +300,6 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     contentPath: "pregnancy/keeping-well/flu-jab" as UrlPathFragment,
     cacheFilename: "flu-jab.json" as Filename,
     nbsPath: "flu-vaccine-in-pregnancy" as UrlPathFragment,
-    showWarningCallout: true,
     moreInformationHeadersFromContentApi: true,
   },
 };
