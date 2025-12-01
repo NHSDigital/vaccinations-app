@@ -122,4 +122,17 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
+
+  it("should return recommendation", () => {
+    const expected = {
+      recommendation: {
+        heading: "Breakfast",
+        content: "I'll have:\n\n* Egg\n* Bacon\n* Sausage\n* Bubble\n* Mushrooms\n* Black Pudding\n* Toast",
+      },
+    };
+
+    const pageCopy = getFilteredContentForFluInPregnancyVaccine(apiResponse);
+
+    expect(pageCopy).toEqual(expect.objectContaining(expected));
+  });
 });

@@ -159,6 +159,13 @@ function styleCallout(callout: HeadingWithContent | undefined): HeadingWithConte
   return undefined;
 }
 
+function styleRecommendation(recommendation: HeadingWithContent | undefined): StyledPageSection | undefined {
+  if (recommendation) {
+    return { heading: recommendation.heading, component: <>{recommendation.content}</> };
+  }
+  return undefined;
+}
+
 const getStyledContentForVaccine = async (
   vaccine: VaccineType,
   filteredContent: VaccinePageContent,
@@ -173,6 +180,7 @@ const getStyledContentForVaccine = async (
   const howToGetVaccine: StyledPageSection = styleHowToGetSection(vaccine, filteredContent.howToGetVaccine, fragile);
   const vaccineSideEffects: StyledPageSection = styleSection(filteredContent.vaccineSideEffects);
   const callout: HeadingWithContent | undefined = styleCallout(filteredContent.callout);
+  const recommendation: StyledPageSection | undefined = styleRecommendation(filteredContent.recommendation);
   const webpageLink: URL = filteredContent.webpageLink;
 
   return {
@@ -183,6 +191,7 @@ const getStyledContentForVaccine = async (
     vaccineSideEffects,
     webpageLink,
     callout,
+    recommendation,
   };
 };
 

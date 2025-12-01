@@ -36,6 +36,10 @@ export const getFilteredContentForFluInPregnancyVaccine = (apiContent: string): 
     heading: "Booking service closed",
     content: "Flu vaccine bookings will reopen in autumn 2026",
   };
+  const recommendation: HeadingWithContent = {
+    heading: "Breakfast",
+    content: "I'll have:\n\n* Egg\n* Bacon\n* Sausage\n* Bubble\n* Mushrooms\n* Black Pudding\n* Toast",
+  };
 
   return {
     overview,
@@ -45,5 +49,6 @@ export const getFilteredContentForFluInPregnancyVaccine = (apiContent: string): 
     vaccineSideEffects: whenToGet,
     webpageLink,
     callout: callout,
+    recommendation: recommendation,
   };
 };

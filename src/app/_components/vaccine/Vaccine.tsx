@@ -7,6 +7,7 @@ import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVa
 import { MoreInformation } from "@src/app/_components/content/MoreInformation";
 import { Overview } from "@src/app/_components/content/Overview";
 import { EligibilityVaccinePageContent } from "@src/app/_components/eligibility/EligibilityVaccinePageContent";
+import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import { RSVPregnancyInfo } from "@src/app/_components/vaccine-custom/RSVPregnancyInfo";
 import { NhsNumber, VaccineDetails, VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
@@ -69,6 +70,14 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
         <>
           <Overview styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
           <Callout styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
+          {styledVaccineContent.recommendation && (
+            <div data-testid="recommendation">
+              <NonUrgentCareCard
+                heading={styledVaccineContent.recommendation.heading}
+                content={styledVaccineContent.recommendation.component}
+              />
+            </div>
+          )}
         </>
       )}
 

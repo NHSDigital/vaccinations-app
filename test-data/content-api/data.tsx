@@ -592,6 +592,7 @@ export const mockStyledContent: StyledVaccineContent = {
   },
   webpageLink: new URL("https://test.example.com/"),
   callout: { heading: "Callout Heading", content: "Callout content" },
+  recommendation: { heading: "Recommendation Heading", component: <div>Recommendation component</div> },
 };
 
 export const mockStyledContentWithHtmlOverview: StyledVaccineContent = {

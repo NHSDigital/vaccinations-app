@@ -125,12 +125,20 @@ describe("Any vaccine page", () => {
       expect(overviewText).toBeInTheDocument();
     });
 
+    it("should include recommendation text", async () => {
+      await renderNamedVaccinePage(VaccineType.FLU_IN_PREGNANCY);
+
+      const overviewText: HTMLElement = screen.getByTestId("recommendation");
+
+      expect(overviewText).toBeInTheDocument();
+    });
+
     it("should include callout text", async () => {
       await renderNamedVaccinePage(VaccineType.HIB_MENC);
 
-      const overviewText: HTMLElement = screen.getByTestId("callout");
+      const calloutText: HTMLElement = screen.getByTestId("callout");
 
-      expect(overviewText).toBeInTheDocument();
+      expect(calloutText).toBeInTheDocument();
     });
 
     it("should include lowercase vaccine name in more information text", async () => {
