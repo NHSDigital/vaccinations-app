@@ -10,6 +10,7 @@ import {
   getFilteredContentForVaccine,
 } from "@src/services/content-api/parsers/content-filter-service";
 import { getFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
+import { getFilteredContentForFluVaccine } from "@src/services/content-api/parsers/custom/flu-vaccine";
 import { getFilteredContentForWhoopingCoughVaccine } from "@src/services/content-api/parsers/custom/whooping-cough";
 import {
   ContentApiVaccineResponse,
@@ -24,6 +25,7 @@ import { contentWithoutBenefitsHealthAspect, contentWithoutCallout } from "@test
 
 jest.mock("@src/services/content-api/parsers/custom/whooping-cough");
 jest.mock("@src/services/content-api/parsers/custom/flu-in-pregnancy");
+jest.mock("@src/services/content-api/parsers/custom/flu-vaccine");
 
 describe("Content Filter", () => {
   describe("_extractDescriptionForVaccine", () => {
@@ -735,6 +737,14 @@ describe("Content Filter", () => {
         getFilteredContentForVaccine(VaccineType.WHOOPING_COUGH, mockApiContent);
 
         expect(getFilteredContentForWhoopingCoughVaccine).toHaveBeenCalledWith(mockApiContent);
+      });
+
+      it("should call getFilteredContentForFluVaccine for flu vaccine", () => {
+        const mockApiContent = "testContent";
+
+        getFilteredContentForVaccine(VaccineType.FLU_FOR_ADULTS, mockApiContent);
+
+        expect(getFilteredContentForFluVaccine).toHaveBeenCalledWith(mockApiContent);
       });
 
       it("should return standard vaccine content and additional content for COVID-19 vaccine", () => {
