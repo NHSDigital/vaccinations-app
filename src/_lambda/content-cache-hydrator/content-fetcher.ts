@@ -20,23 +20,26 @@ const fetchContentForVaccine = async (vaccineType: VaccineType): Promise<string>
         accept: "application/json",
         apikey: apiKey,
       },
-      timeout: 30000,
+      timeout: 10000,
     });
     log.info({ context: { uri, vaccineType } }, "Successfully fetched content from API");
     return JSON.stringify(response.data);
   } catch (error) {
     if (error instanceof AxiosError) {
-      log.error({
-        error: {
-          code: error.code,
-          status: error.status,
-          message: error.message,
-          response_data: error.response?.data,
+      log.warn(
+        {
+          error: {
+            code: error.code,
+            status: error.status,
+            message: error.message,
+            response_data: error.response?.data,
+          },
+          context: { uri, vaccineType },
         },
-        context: { uri, vaccineType },
-      });
+        "AxiosError in getting vaccine content from nhs.uk API",
+      );
     } else {
-      log.error({ context: { uri, vaccineType } }, "Error in getting vaccine content from nhs.uk API");
+      log.warn({ context: { uri, vaccineType } }, "Error in getting vaccine content from nhs.uk API");
     }
     throw error;
   }

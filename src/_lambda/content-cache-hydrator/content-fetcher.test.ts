@@ -23,7 +23,7 @@ describe("fetchContentForVaccine", () => {
     const actual = await fetchContentForVaccine(VaccineType.RSV);
     expect(axios.get).toHaveBeenCalledWith(
       `${testApiEndpoint}${CONTENT_API_PATH_PREFIX}${VaccineInfo[VaccineType.RSV].contentPath}`,
-      { headers: { accept: "application/json", apikey: testApiKey }, timeout: 30000 },
+      { headers: { accept: "application/json", apikey: testApiKey }, timeout: 10000 },
     );
     expect(actual).toBe(JSON.stringify(testApiContent));
   });

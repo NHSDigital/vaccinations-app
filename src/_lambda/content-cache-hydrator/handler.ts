@@ -49,10 +49,24 @@ async function hydrateCacheForVaccine(
   approvalEnabled: boolean,
   forceUpdate: boolean,
 ): Promise<HydrateCacheStatus> {
+  log.info({ context: { vaccineType } }, "Hydrating cache for given vaccine");
   const status: HydrateCacheStatus = { invalidatedCount: 0, failureCount: 0 };
 
+  const rateLimitDelayMillis: number = 1000 / ((await config.CONTENT_API_RATE_LIMIT_PER_MINUTE) / 60);
+  const rateLimitDelayWithMargin: number = 2 * rateLimitDelayMillis; // to keep ourselves well within the budget
+
   try {
-    const content: string = await fetchContentForVaccine(vaccineType);
+    const content: string = await retry(() => fetchContentForVaccine(vaccineType), {
+      retries: 2,
+      delay: (attempt: number) => {
+        const delayMillis = rateLimitDelayWithMargin * Math.pow(2, attempt + 1);
+        log.warn(
+          { context: { vaccineType, attempt, delayMillis } },
+          "Failed to fetch content for given vaccine, trying again",
+        );
+        return delayMillis;
+      },
+    });
     const filteredContent: VaccinePageContent = getFilteredContentForVaccine(vaccineType, content);
 
     if (!approvalEnabled) {
@@ -151,22 +165,18 @@ const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
   const rateLimitDelayMillis: number = 1000 / ((await config.CONTENT_API_RATE_LIMIT_PER_MINUTE) / 60);
   const rateLimitDelayWithMargin: number = 2 * rateLimitDelayMillis; // to keep ourselves well within the budget
   log.info(`Delay used between calls to rate limit content API is ${rateLimitDelayWithMargin}ms`);
+
   for (const vaccine of vaccinesToRunOn) {
-    const status = await retry(
-      async () => hydrateCacheForVaccine(vaccine, await config.CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED, forceUpdate),
-      {
-        retries: 3,
-        delay: (attempt) => {
-          const delayMillis = rateLimitDelayWithMargin * Math.pow(2, attempt);
-          log.warn({ context: { vaccine, attempt, delayMillis } }, "Failed to hydrate cache, trying again");
-          return delayMillis;
-        },
-      },
+    const status = await hydrateCacheForVaccine(
+      vaccine,
+      await config.CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED,
+      forceUpdate,
     );
 
     invalidatedCount += status.invalidatedCount;
     failureCount += status.failureCount;
-    await new Promise((f) => setTimeout(f, rateLimitDelayWithMargin)); // sleep
+
+    await new Promise((f) => setTimeout(f, rateLimitDelayWithMargin)); // sleep to rate limit
   }
 
   log.info({ context: { failureCount, invalidatedCount } }, "Finished hydrating content cache: report");
