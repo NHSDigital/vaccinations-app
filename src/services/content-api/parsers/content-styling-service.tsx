@@ -1,4 +1,5 @@
 import { MarkdownWithStyling } from "@project/src/app/_components/markdown/MarkdownWithStyling";
+import EmergencyCareCard from "@src/app/_components/nhs-frontend/EmergencyCareCard";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import UrgentCareCard from "@src/app/_components/nhs-frontend/UrgentCareCard";
 import { VaccineType } from "@src/models/vaccine";
@@ -26,12 +27,14 @@ enum SubsectionTypes {
   NON_URGENT = "NON_URGENT",
   URGENT = "URGENT",
   CALLOUT = "CALLOUT",
+  EMERGENCY = "EMERGENCY",
 }
 
 const Subsections: Record<SubsectionTypes, string> = {
   [SubsectionTypes.INFORMATION]: "Information",
   [SubsectionTypes.NON_URGENT]: "non-urgent",
   [SubsectionTypes.URGENT]: "urgent",
+  [SubsectionTypes.EMERGENCY]: "immediate",
   [SubsectionTypes.CALLOUT]: "Callout",
 };
 
@@ -78,6 +81,16 @@ const styleSubsection = (subsection: VaccinePageSubsection, id: number, isLastSu
     const { heading, headingLevel, content } = extractHeadingAndContent(subsection.text);
     return (
       <UrgentCareCard
+        key={id}
+        heading={_getDivWithSanitisedHtml(heading)}
+        headingLevel={headingLevel}
+        content={_getDivWithSanitisedHtml(content)}
+      />
+    );
+  } else if (subsection.name === Subsections.EMERGENCY) {
+    const { heading, headingLevel, content } = extractHeadingAndContent(subsection.text);
+    return (
+      <EmergencyCareCard
         key={id}
         heading={_getDivWithSanitisedHtml(heading)}
         headingLevel={headingLevel}
