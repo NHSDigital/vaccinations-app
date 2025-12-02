@@ -137,6 +137,25 @@ describe("ContentStylingService", () => {
       expect(text).toBeInTheDocument();
     });
 
+    it("should style Common Content subsection as an Information component (inset text)", async () => {
+      const mockCommonContentSubsection: VaccinePageSubsection = {
+        type: "simpleElement",
+        text: "<p>This is a styled paragraph Common Content subsection</p>",
+        name: "Common Content",
+        headline: "",
+      };
+
+      const styledSubsection: JSX.Element = styleSubsection(mockCommonContentSubsection, 1, false);
+      render(styledSubsection);
+
+      const commonContentText: HTMLElement = screen.getByText("This is a styled paragraph Common Content subsection");
+      const information: HTMLElement = screen.getByText("Information:");
+
+      expect(information).toBeInTheDocument();
+      expect(information.className).toEqual("nhsuk-u-visually-hidden");
+      expect(commonContentText).toBeInTheDocument();
+    });
+
     it("should return styled non-urgent component for subsection", async () => {
       const styledSubsection: JSX.Element = styleSubsection(mockNonUrgentSubsection, 1, false);
       render(styledSubsection);

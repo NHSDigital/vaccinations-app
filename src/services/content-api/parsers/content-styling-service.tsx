@@ -28,6 +28,7 @@ enum SubsectionTypes {
   URGENT = "URGENT",
   CALLOUT = "CALLOUT",
   EMERGENCY = "EMERGENCY",
+  COMMON_CONTENT = "COMMON_CONTENT",
 }
 
 const Subsections: Record<SubsectionTypes, string> = {
@@ -36,6 +37,7 @@ const Subsections: Record<SubsectionTypes, string> = {
   [SubsectionTypes.URGENT]: "urgent",
   [SubsectionTypes.EMERGENCY]: "immediate",
   [SubsectionTypes.CALLOUT]: "Callout",
+  [SubsectionTypes.COMMON_CONTENT]: "Common Content",
 };
 
 const _getDivWithSanitisedHtml = (html: string) => {
@@ -65,7 +67,7 @@ const styleSubsection = (subsection: VaccinePageSubsection, id: number, isLastSu
     text = `<h3>${subsection.headline}</h3>`.concat(text);
   }
 
-  if (subsection.name === Subsections.INFORMATION) {
+  if (subsection.name === Subsections.INFORMATION || subsection.name === Subsections.COMMON_CONTENT) {
     return <InsetText key={id}>{_getDivWithSanitisedHtml(text)}</InsetText>;
   } else if (subsection.name === Subsections.NON_URGENT) {
     const { heading, headingLevel, content } = extractHeadingAndContent(subsection.text);
