@@ -2,10 +2,7 @@
   "@context": "http://schema.org",
   "@type": "MedicalWebPage",
   "name": "Flu vaccine",
-  "copyrightHolder": {
-    "name": "Crown Copyright",
-    "@type": "Organization"
-  },
+  "copyrightHolder": { "name": "Crown Copyright", "@type": "Organization" },
   "license": "https://developer.api.nhs.uk/terms",
   "author": {
     "url": "https://www.nhs.uk",
@@ -14,16 +11,12 @@
     "@type": "Organization",
     "name": "NHS website"
   },
-  "about": {
-    "@type": "WebPage",
-    "name": "Flu vaccine",
-    "alternateName": ""
-  },
+  "about": { "@type": "WebPage", "name": "Flu vaccine", "alternateName": "" },
   "description": "Find out about the flu vaccine for adults, including who should have it, how to get it and side effects.",
   "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/",
   "genre": ["Vaccine"],
   "keywords": "",
-  "dateModified": "2025-04-15T14:14:49+00:00",
+  "dateModified": "2025-11-20T17:46:48+00:00",
   "lastReviewed": ["2023-11-23T08:28:00+00:00", "2026-11-23T08:28:00+00:00"],
   "breadcrumb": {
     "@context": "http://schema.org",
@@ -56,26 +49,10 @@
       "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#overview",
       "description": "The flu vaccine helps protect against flu. It's given every year in autumn or early winter to adults at higher risk from flu.",
       "hasPart": [
-        {
-          "@type": "WebPageElement",
-          "headline": "Flu vaccine",
-          "text": "Who it's for"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "Flu vaccine",
-          "text": "Contraindications"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "Flu vaccine",
-          "text": "How to get it"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "Flu vaccine",
-          "text": "Side effects"
-        },
+        { "@type": "WebPageElement", "headline": "Flu vaccine", "text": "Who it's for" },
+        { "@type": "WebPageElement", "headline": "Flu vaccine", "text": "Contraindications" },
+        { "@type": "WebPageElement", "headline": "Flu vaccine", "text": "How to get it" },
+        { "@type": "WebPageElement", "headline": "Flu vaccine", "text": "Side effects" },
         {
           "text": "<p>The flu vaccine is recommended for people at higher risk from flu, including all adults aged 65 and over and people with certain health conditions.</p> ",
           "@type": "WebPageElement"
@@ -85,7 +62,7 @@
           "@type": "WebPageElement"
         },
         {
-          "text": "<p>Most adults can get a flu vaccine from a GP surgery or some pharmacies. Some people get it through their employer, care home or an antenatal clinic.</p> ",
+          "text": "<p>Most adults can get a flu vaccine from a GP surgery or some pharmacies. Some people get it through their employer, care home or a maternity service.</p> ",
           "@type": "WebPageElement"
         },
         {
@@ -104,7 +81,7 @@
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>The flu vaccine is recommended for people at higher risk of getting seriously ill from <a href=\"https://www.nhs.uk/conditions/flu/\">flu</a>.</p><p>It's offered on the NHS every year in autumn or early winter.</p><p>You can get the free NHS flu vaccine if you:</p><ul><li>are aged 65 or over</li><li>have certain long-term health conditions</li><li>are pregnant</li><li>live in a care home</li><li>are the main carer for an older or disabled person, or receive a carer's allowance</li><li>live with someone who has a weakened immune system</li></ul><p>Frontline health and social care workers can also get a flu vaccine through their employer.</p>"
+          "text": "<p>The flu vaccine is recommended for people at higher risk of getting seriously ill from <a href=\"https://www.nhs.uk/conditions/flu/\">flu</a>.</p><p>It's offered on the NHS every year in autumn or early winter.</p><p>You can get the free NHS flu vaccine if you:</p><ul><li>are aged 65 or over (including those who will be 65 by 31 March 2026)</li><li>have certain long-term health conditions</li><li>are pregnant</li><li>live in a care home</li><li>are the main carer for an older or disabled person, or receive a carer's allowance</li><li>live with someone who has a weakened immune system</li></ul><p>Frontline health and social care workers can also get a flu vaccine through their employer.</p>"
         },
         {
           "@type": "WebPageElement",
@@ -118,22 +95,17 @@
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
       "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#how-to-get-it",
-      "description": "Most adults can get a flu vaccine from a GP surgery or some pharmacies. Some people get it through their employer, care home or an antenatal clinic.",
+      "description": "Most adults can get a flu vaccine from a GP surgery or some pharmacies. Some people get it through their employer, care home or a maternity service.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>The NHS will let you know in autumn or early winter when you can get your flu vaccine.</p><p>If you're eligible for an NHS flu vaccine, you will be able to get your vaccine from:</p><ul><li>your GP surgery</li><li>a pharmacy that offers NHS flu vaccination (if you're aged 18 or over)</li></ul><p>Some people may be able to get vaccinated through their maternity service, care home, or their employer if they are a frontline health or social care worker.</p>"
+          "text": "<p>If you're eligible for an NHS flu vaccine, you can:</p><ul><li>contact your GP surgery to book an appointment</li><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-flu-vaccination/\">book a free NHS flu vaccination appointment at a pharmacy online</a> or in the <a href=\"https://www.nhs.uk/nhs-app/\">NHS App</a> (if you're aged 18 or over)</li><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-pharmacy-that-offers-free-flu-vaccination/\">find a pharmacy that offers free NHS flu vaccination</a> where you can walk-in and get vaccinated without an appointment (if you're aged 18 or over)</li></ul><p>Some people may be able to get vaccinated through their maternity service or care home, or through their employer if they're a frontline health or social care worker.</p><p>The last date you will be able to get your flu vaccine is 31 March 2026, but it's best to get vaccinated sooner to protect yourself during winter. Online booking will close on 30 March 2026.</p>"
         },
         {
           "@type": "WebPageElement",
           "headline": "Frontline health or social care workers",
           "text": "<div class=\"block-richtext\">\n<p>Frontline health and social care workers should get the flu vaccine through their employer.</p><p>If you cannot get a flu vaccine through your employer, you can get it at a pharmacy or your GP surgery if you're employed:</p><ul><li>by a registered residential care or nursing home</li><li>by a registered domiciliary care provider</li><li>by a voluntary managed hospice provider</li><li>through direct payments or personal health budgets</li></ul>\n</div>"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "Information",
-          "text": "<h3>Having the flu vaccine at the same time as other vaccines</h3><p>You can have the flu vaccine at the same time as other vaccines such as the COVID-19 and shingles vaccines.</p><p>It's not usually given at the same time as the RSV vaccine, but you can have them at the same time if a doctor or nurse thinks it's needed.</p>"
         }
       ],
       "headline": "How to get the flu vaccine"
@@ -171,7 +143,7 @@
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<listvalue: 'vaccines=\"\" ('body',=\"\" 0x7fd64ad5d400=\"\" 65=\"\" <streamvalue=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" [structvalue([('title',=\"\" aged=\"\" and=\"\" at=\"\" for=\"\" object=\"\" over'),=\"\" people=\"\" richtext:=\"\">&gt;]&gt;)]), StructValue([('title', 'Vaccines for people aged 60 to 64'), ('body', <streamvalue 0x7fd64ad5dc10=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)]), StructValue([('title', 'Vaccines for people aged 18 to 59'), ('body', <streamvalue 0x7fd64ad5d160=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)])]&gt;</streamvalue></streamvalue></listvalue:>"
+          "text": "<listvalue: 'vaccines=\"\" ('body',=\"\" 0x7fc1a7195150=\"\" 65=\"\" <streamvalue=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" [structvalue([('title',=\"\" aged=\"\" and=\"\" at=\"\" for=\"\" object=\"\" over'),=\"\" people=\"\" richtext:=\"\">&gt;]&gt;)]), StructValue([('title', 'Vaccines for people aged 60 to 64'), ('body', <streamvalue 0x7fc1a7196810=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)]), StructValue([('title', 'Vaccines for people aged 50 to 59'), ('body', <streamvalue 0x7fc1a7195710=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)]), StructValue([('title', 'Vaccines for people aged 18 to 49'), ('body', <streamvalue 0x7fc1a71963d0=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)])]&gt;</streamvalue></streamvalue></streamvalue></listvalue:>"
         }
       ],
       "headline": "Flu vaccine ingredients"
@@ -232,6 +204,14 @@
         {
           "position": 0,
           "@type": "WebPageElement",
+          "name": "Expander",
+          "subjectOf": "Extra places to get your flu vaccine from 22 November",
+          "identifier": "18",
+          "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"mnz89\">Extra appointments and pop-up clinics will be available across England from Saturday 22 November to make it as easy as possible to get your flu vaccine.</p><p data-block-key=\"cs8kg\">Check the area you live to find a vaccination clinic near you:</p><ul><li data-block-key=\"b10pn\"><a href=\"https://www.england.nhs.uk/east-of-england/nhs-england-and-nhs-improvement-east-of-englands-work/winter-vaccinations/\">East of England</a></li><li data-block-key=\"73hq4\"><a href=\"https://www.england.nhs.uk/london/our-work/winter-health-advice/getting-your-winter-vaccines-in-london/\">London</a></li><li data-block-key=\"dlujv\"><a href=\"https://www.england.nhs.uk/midlands/nhs-england-and-nhs-improvement-midlands-work/winter-vaccination-2025/#black-country\">Midlands</a></li><li data-block-key=\"7hndt\"><a href=\"https://www.england.nhs.uk/north-east-yorkshire/winter-vaccinations/\">North East and Yorkshire</a></li><li data-block-key=\"b8orp\"><a href=\"https://www.england.nhs.uk/north-west/keeping-you-well/nhs-vaccination-information/\">North West</a></li><li data-block-key=\"etu2j\"><a href=\"https://www.england.nhs.uk/south-east/our-work/get-protected-this-winter/\">South East</a></li><li data-block-key=\"5pqg3\"><a href=\"https://www.england.nhs.uk/south/our-work/stay-well/boost-your-immunity/\">South West</a></li></ul>\n</div>"
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
           "name": "Information",
           "identifier": "3",
           "text": "<p>This page is about the flu vaccine for adults. There are also pages about the <a href=\"https://www.nhs.uk/vaccinations/child-flu-vaccine/\">children's flu vaccine</a> and <a href=\"https://www.nhs.uk/pregnancy/keeping-well/flu-jab/\">flu jab in pregnancy</a>.</p>"
@@ -241,6 +221,14 @@
       "hasPart": [
         {
           "position": 0,
+          "@type": "WebPageElement",
+          "name": "Expander",
+          "subjectOf": "Extra places to get your flu vaccine from 22 November",
+          "identifier": "18",
+          "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"mnz89\">Extra appointments and pop-up clinics will be available across England from Saturday 22 November to make it as easy as possible to get your flu vaccine.</p><p data-block-key=\"cs8kg\">Check the area you live to find a vaccination clinic near you:</p><ul><li data-block-key=\"b10pn\"><a href=\"https://www.england.nhs.uk/east-of-england/nhs-england-and-nhs-improvement-east-of-englands-work/winter-vaccinations/\">East of England</a></li><li data-block-key=\"73hq4\"><a href=\"https://www.england.nhs.uk/london/our-work/winter-health-advice/getting-your-winter-vaccines-in-london/\">London</a></li><li data-block-key=\"dlujv\"><a href=\"https://www.england.nhs.uk/midlands/nhs-england-and-nhs-improvement-midlands-work/winter-vaccination-2025/#black-country\">Midlands</a></li><li data-block-key=\"7hndt\"><a href=\"https://www.england.nhs.uk/north-east-yorkshire/winter-vaccinations/\">North East and Yorkshire</a></li><li data-block-key=\"b8orp\"><a href=\"https://www.england.nhs.uk/north-west/keeping-you-well/nhs-vaccination-information/\">North West</a></li><li data-block-key=\"etu2j\"><a href=\"https://www.england.nhs.uk/south-east/our-work/get-protected-this-winter/\">South East</a></li><li data-block-key=\"5pqg3\"><a href=\"https://www.england.nhs.uk/south/our-work/stay-well/boost-your-immunity/\">South West</a></li></ul>\n</div>"
+        },
+        {
+          "position": 1,
           "@type": "WebPageElement",
           "name": "Information",
           "identifier": "3",
@@ -257,7 +245,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>The flu vaccine is recommended for people at higher risk of getting seriously ill from <a href=\"https://www.nhs.uk/conditions/flu/\">flu</a>.</p><p>It's offered on the NHS every year in autumn or early winter.</p><p>You can get the free NHS flu vaccine if you:</p><ul><li>are aged 65 or over</li><li>have certain long-term health conditions</li><li>are pregnant</li><li>live in a care home</li><li>are the main carer for an older or disabled person, or receive a carer's allowance</li><li>live with someone who has a weakened immune system</li></ul><p>Frontline health and social care workers can also get a flu vaccine through their employer.</p>",
+          "text": "<p>The flu vaccine is recommended for people at higher risk of getting seriously ill from <a href=\"https://www.nhs.uk/conditions/flu/\">flu</a>.</p><p>It's offered on the NHS every year in autumn or early winter.</p><p>You can get the free NHS flu vaccine if you:</p><ul><li>are aged 65 or over (including those who will be 65 by 31 March 2026)</li><li>have certain long-term health conditions</li><li>are pregnant</li><li>live in a care home</li><li>are the main carer for an older or disabled person, or receive a carer's allowance</li><li>live with someone who has a weakened immune system</li></ul><p>Frontline health and social care workers can also get a flu vaccine through their employer.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -276,7 +264,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>The flu vaccine is recommended for people at higher risk of getting seriously ill from <a href=\"https://www.nhs.uk/conditions/flu/\">flu</a>.</p><p>It's offered on the NHS every year in autumn or early winter.</p><p>You can get the free NHS flu vaccine if you:</p><ul><li>are aged 65 or over</li><li>have certain long-term health conditions</li><li>are pregnant</li><li>live in a care home</li><li>are the main carer for an older or disabled person, or receive a carer's allowance</li><li>live with someone who has a weakened immune system</li></ul><p>Frontline health and social care workers can also get a flu vaccine through their employer.</p>",
+          "text": "<p>The flu vaccine is recommended for people at higher risk of getting seriously ill from <a href=\"https://www.nhs.uk/conditions/flu/\">flu</a>.</p><p>It's offered on the NHS every year in autumn or early winter.</p><p>You can get the free NHS flu vaccine if you:</p><ul><li>are aged 65 or over (including those who will be 65 by 31 March 2026)</li><li>have certain long-term health conditions</li><li>are pregnant</li><li>live in a care home</li><li>are the main carer for an older or disabled person, or receive a carer's allowance</li><li>live with someone who has a weakened immune system</li></ul><p>Frontline health and social care workers can also get a flu vaccine through their employer.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -302,7 +290,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>The NHS will let you know in autumn or early winter when you can get your flu vaccine.</p><p>If you're eligible for an NHS flu vaccine, you will be able to get your vaccine from:</p><ul><li>your GP surgery</li><li>a pharmacy that offers NHS flu vaccination (if you're aged 18 or over)</li></ul><p>Some people may be able to get vaccinated through their maternity service, care home, or their employer if they are a frontline health or social care worker.</p>",
+          "text": "<p>If you're eligible for an NHS flu vaccine, you can:</p><ul><li>contact your GP surgery to book an appointment</li><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-flu-vaccination/\">book a free NHS flu vaccination appointment at a pharmacy online</a> or in the <a href=\"https://www.nhs.uk/nhs-app/\">NHS App</a> (if you're aged 18 or over)</li><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-pharmacy-that-offers-free-flu-vaccination/\">find a pharmacy that offers free NHS flu vaccination</a> where you can walk-in and get vaccinated without an appointment (if you're aged 18 or over)</li></ul><p>Some people may be able to get vaccinated through their maternity service or care home, or through their employer if they're a frontline health or social care worker.</p><p>The last date you will be able to get your flu vaccine is 31 March 2026, but it's best to get vaccinated sooner to protect yourself during winter. Online booking will close on 30 March 2026.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -314,21 +302,14 @@
           "subjectOf": "Frontline health or social care workers",
           "identifier": "18",
           "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"tgjtn\">Frontline health and social care workers should get the flu vaccine through their employer.</p><p data-block-key=\"efnva\">If you cannot get a flu vaccine through your employer, you can get it at a pharmacy or your GP surgery if you're employed:</p><ul><li data-block-key=\"e18lp\">by a registered residential care or nursing home</li><li data-block-key=\"bij31\">by a registered domiciliary care provider</li><li data-block-key=\"ae6lp\">by a voluntary managed hospice provider</li><li data-block-key=\"5jqcs\">through direct payments or personal health budgets</li></ul>\n</div>"
-        },
-        {
-          "position": 2,
-          "@type": "WebPageElement",
-          "name": "Information",
-          "identifier": "3",
-          "text": "<h3>Having the flu vaccine at the same time as other vaccines</h3><p>You can have the flu vaccine at the same time as other vaccines such as the COVID-19 and shingles vaccines.</p><p>It's not usually given at the same time as the RSV vaccine, but you can have them at the same time if a doctor or nurse thinks it's needed.</p>"
         }
       ],
-      "description": "Most adults can get a flu vaccine from a GP surgery or some pharmacies. Some people get it through their employer, care home or an antenatal clinic.",
+      "description": "Most adults can get a flu vaccine from a GP surgery or some pharmacies. Some people get it through their employer, care home or a maternity service.",
       "hasPart": [
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>The NHS will let you know in autumn or early winter when you can get your flu vaccine.</p><p>If you're eligible for an NHS flu vaccine, you will be able to get your vaccine from:</p><ul><li>your GP surgery</li><li>a pharmacy that offers NHS flu vaccination (if you're aged 18 or over)</li></ul><p>Some people may be able to get vaccinated through their maternity service, care home, or their employer if they are a frontline health or social care worker.</p>",
+          "text": "<p>If you're eligible for an NHS flu vaccine, you can:</p><ul><li>contact your GP surgery to book an appointment</li><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-flu-vaccination/\">book a free NHS flu vaccination appointment at a pharmacy online</a> or in the <a href=\"https://www.nhs.uk/nhs-app/\">NHS App</a> (if you're aged 18 or over)</li><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-pharmacy-that-offers-free-flu-vaccination/\">find a pharmacy that offers free NHS flu vaccination</a> where you can walk-in and get vaccinated without an appointment (if you're aged 18 or over)</li></ul><p>Some people may be able to get vaccinated through their maternity service or care home, or through their employer if they're a frontline health or social care worker.</p><p>The last date you will be able to get your flu vaccine is 31 March 2026, but it's best to get vaccinated sooner to protect yourself during winter. Online booking will close on 30 March 2026.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -340,13 +321,6 @@
           "subjectOf": "Frontline health or social care workers",
           "identifier": "18",
           "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"tgjtn\">Frontline health and social care workers should get the flu vaccine through their employer.</p><p data-block-key=\"efnva\">If you cannot get a flu vaccine through your employer, you can get it at a pharmacy or your GP surgery if you're employed:</p><ul><li data-block-key=\"e18lp\">by a registered residential care or nursing home</li><li data-block-key=\"bij31\">by a registered domiciliary care provider</li><li data-block-key=\"ae6lp\">by a voluntary managed hospice provider</li><li data-block-key=\"5jqcs\">through direct payments or personal health budgets</li></ul>\n</div>"
-        },
-        {
-          "position": 2,
-          "@type": "WebPageElement",
-          "name": "Information",
-          "identifier": "3",
-          "text": "<h3>Having the flu vaccine at the same time as other vaccines</h3><p>You can have the flu vaccine at the same time as other vaccines such as the COVID-19 and shingles vaccines.</p><p>It's not usually given at the same time as the RSV vaccine, but you can have them at the same time if a doctor or nurse thinks it's needed.</p>"
         }
       ],
       "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
@@ -356,6 +330,31 @@
       "identifier": "0",
       "name": "section heading",
       "position": 4,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Having the flu vaccine at the same time as other vaccines</h3><p>You can have the flu vaccine at the same time as other vaccines such as the COVID-19 and shingles vaccines.</p><p>It's not usually given at the same time as the RSV vaccine, but you can have them at the same time if a doctor or nurse thinks it's needed.</p>"
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Having the flu vaccine at the same time as other vaccines</h3><p>You can have the flu vaccine at the same time as other vaccines such as the COVID-19 and shingles vaccines.</p><p>It's not usually given at the same time as the RSV vaccine, but you can have them at the same time if a doctor or nurse thinks it's needed.</p>"
+        }
+      ]
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 5,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {
@@ -398,7 +397,7 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 5,
+      "position": 6,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {
@@ -421,7 +420,7 @@
               "name": "Expander",
               "subjectOf": "Vaccines for people aged 65 and over",
               "identifier": "18",
-              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <ul><li data-block-key=\"tgjtn\"><a href=\"https://www.medicines.org.uk/emc/product/12881/pil\">Adjuvanted quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"1fp0u\"><a href=\"https://www.medicines.org.uk/emc/product/15735/pil\">High dose quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"dq9ku\"><a href=\"https://www.medicines.org.uk/emc/files/pil.12882.pdf\">Cell-based quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 170KB)</a></li></ul>\n</div>"
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <ul><li data-block-key=\"tgjtn\"><a href=\"https://www.medicines.org.uk/emc/files/pil.10444.pdf\">Adjuvanted influenza vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 163KB)</a></li><li data-block-key=\"2682n\"><a href=\"https://www.medicines.org.uk/emc/product/100678/pil\">High dose influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"blgbu\"><a href=\"https://www.medicines.org.uk/emc/product/100729/pil#gref\">Recombinant influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"fpibe\"><a href=\"https://www.medicines.org.uk/emc/product/15818/pil\">Cell-based influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li></ul>\n</div>"
             },
             {
               "position": 1,
@@ -429,15 +428,23 @@
               "name": "Expander",
               "subjectOf": "Vaccines for people aged 60 to 64",
               "identifier": "18",
-              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <ul><li data-block-key=\"7sz7u\"><a href=\"https://www.medicines.org.uk/emc/product/15735/pil\">High dose quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"6jtnv\"><a href=\"https://www.medicines.org.uk/emc/files/pil.12882.pdf\">Cell-based quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 170KB)</a></li></ul>\n</div>"
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <ul><li data-block-key=\"7sz7u\"><a href=\"https://www.medicines.org.uk/emc/files/pil.10444.pdf\">Adjuvanted influenza vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 163KB)</a></li><li data-block-key=\"dtc76\"><a href=\"https://www.medicines.org.uk/emc/product/15818/pil\">Cell-based influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"1oopl\"><a href=\"https://www.medicines.org.uk/emc/product/100678/pil\">High dose influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"39eiv\"><a href=\"https://www.medicines.org.uk/emc/product/100729/pil#gref\">Recombinant influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"54a54\"><a href=\"https://mhraproducts4853.blob.core.windows.net/docs/950f19ff3aa2aac4d4d7bb90eeb2fd44a233037c\">Egg-cultured influenza vaccine patient leaflet – MYL (Medicines and Healthcare products Regulatory Agency; PDF only, 76KB)</a></li><li data-block-key=\"3isfq\"><a href=\"https://www.medicines.org.uk/emc/product/100673/pil\">Egg-cultured influenza vaccine patient leaflet – Vaxigrip (Electronic Medicines Compendium website)</a></li></ul>\n</div>"
             },
             {
               "position": 2,
               "@type": "WebPageElement",
               "name": "Expander",
-              "subjectOf": "Vaccines for people aged 18 to 59",
+              "subjectOf": "Vaccines for people aged 50 to 59",
               "identifier": "18",
-              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <ul><li data-block-key=\"tgjtn\"><a href=\"https://www.medicines.org.uk/emc/files/pil.12882.pdf\">Cell-based quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 170KB)</a></li><li data-block-key=\"701cj\"><a href=\"https://www.medicines.org.uk/emc/product/666/pil\">Quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"17nkb\"><a href=\"https://www.medicines.org.uk/emc/files/pil.15928.pdf\">Influenza Tetra MYL vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 163KB)</a></li></ul>\n</div>"
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <ul><li data-block-key=\"qjgjl\"><a href=\"https://www.medicines.org.uk/emc/files/pil.10444.pdf\">Adjuvanted influenza vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 163KB)</a></li><li data-block-key=\"dafnc\"><a href=\"https://www.medicines.org.uk/emc/product/15818/pil\">Cell-based influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"c3dju\"><a href=\"https://www.medicines.org.uk/emc/product/100729/pil#gref\">Recombinant influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"6ptuu\"><a href=\"https://mhraproducts4853.blob.core.windows.net/docs/950f19ff3aa2aac4d4d7bb90eeb2fd44a233037c\">Egg-cultured influenza vaccine patient leaflet – MYL (Medicines and Healthcare products Regulatory Agency; PDF only, 76KB)</a></li><li data-block-key=\"1pnr9\"><a href=\"https://www.medicines.org.uk/emc/product/100673/pil\">Egg-cultured influenza vaccine patient leaflet – Vaxigrip (Electronic Medicines Compendium website)</a></li></ul>\n</div>"
+            },
+            {
+              "position": 3,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "Vaccines for people aged 18 to 49",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <ul><li data-block-key=\"tgjtn\"><a href=\"https://www.medicines.org.uk/emc/product/15818/pil\">Cell-based influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"3f2p0\"><a href=\"https://www.medicines.org.uk/emc/product/100729/pil#gref\">Recombinant influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"7bces\"><a href=\"https://mhraproducts4853.blob.core.windows.net/docs/950f19ff3aa2aac4d4d7bb90eeb2fd44a233037c\">Egg-cultured influenza vaccine patient leaflet – MYL (Medicines and Healthcare products Regulatory Agency; PDF only, 76KB)</a></li><li data-block-key=\"baf79\"><a href=\"https://www.medicines.org.uk/emc/product/100673/pil\">Egg-cultured influenza vaccine patient leaflet – Vaxigrip (Electronic Medicines Compendium website)</a></li></ul>\n</div>"
             }
           ]
         }
@@ -464,7 +471,7 @@
               "name": "Expander",
               "subjectOf": "Vaccines for people aged 65 and over",
               "identifier": "18",
-              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <ul><li data-block-key=\"tgjtn\"><a href=\"https://www.medicines.org.uk/emc/product/12881/pil\">Adjuvanted quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"1fp0u\"><a href=\"https://www.medicines.org.uk/emc/product/15735/pil\">High dose quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"dq9ku\"><a href=\"https://www.medicines.org.uk/emc/files/pil.12882.pdf\">Cell-based quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 170KB)</a></li></ul>\n</div>"
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <ul><li data-block-key=\"tgjtn\"><a href=\"https://www.medicines.org.uk/emc/files/pil.10444.pdf\">Adjuvanted influenza vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 163KB)</a></li><li data-block-key=\"2682n\"><a href=\"https://www.medicines.org.uk/emc/product/100678/pil\">High dose influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"blgbu\"><a href=\"https://www.medicines.org.uk/emc/product/100729/pil#gref\">Recombinant influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"fpibe\"><a href=\"https://www.medicines.org.uk/emc/product/15818/pil\">Cell-based influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li></ul>\n</div>"
             },
             {
               "position": 1,
@@ -472,15 +479,23 @@
               "name": "Expander",
               "subjectOf": "Vaccines for people aged 60 to 64",
               "identifier": "18",
-              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <ul><li data-block-key=\"7sz7u\"><a href=\"https://www.medicines.org.uk/emc/product/15735/pil\">High dose quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"6jtnv\"><a href=\"https://www.medicines.org.uk/emc/files/pil.12882.pdf\">Cell-based quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 170KB)</a></li></ul>\n</div>"
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <ul><li data-block-key=\"7sz7u\"><a href=\"https://www.medicines.org.uk/emc/files/pil.10444.pdf\">Adjuvanted influenza vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 163KB)</a></li><li data-block-key=\"dtc76\"><a href=\"https://www.medicines.org.uk/emc/product/15818/pil\">Cell-based influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"1oopl\"><a href=\"https://www.medicines.org.uk/emc/product/100678/pil\">High dose influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"39eiv\"><a href=\"https://www.medicines.org.uk/emc/product/100729/pil#gref\">Recombinant influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"54a54\"><a href=\"https://mhraproducts4853.blob.core.windows.net/docs/950f19ff3aa2aac4d4d7bb90eeb2fd44a233037c\">Egg-cultured influenza vaccine patient leaflet – MYL (Medicines and Healthcare products Regulatory Agency; PDF only, 76KB)</a></li><li data-block-key=\"3isfq\"><a href=\"https://www.medicines.org.uk/emc/product/100673/pil\">Egg-cultured influenza vaccine patient leaflet – Vaxigrip (Electronic Medicines Compendium website)</a></li></ul>\n</div>"
             },
             {
               "position": 2,
               "@type": "WebPageElement",
               "name": "Expander",
-              "subjectOf": "Vaccines for people aged 18 to 59",
+              "subjectOf": "Vaccines for people aged 50 to 59",
               "identifier": "18",
-              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <ul><li data-block-key=\"tgjtn\"><a href=\"https://www.medicines.org.uk/emc/files/pil.12882.pdf\">Cell-based quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 170KB)</a></li><li data-block-key=\"701cj\"><a href=\"https://www.medicines.org.uk/emc/product/666/pil\">Quadrivalent influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"17nkb\"><a href=\"https://www.medicines.org.uk/emc/files/pil.15928.pdf\">Influenza Tetra MYL vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 163KB)</a></li></ul>\n</div>"
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <ul><li data-block-key=\"qjgjl\"><a href=\"https://www.medicines.org.uk/emc/files/pil.10444.pdf\">Adjuvanted influenza vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 163KB)</a></li><li data-block-key=\"dafnc\"><a href=\"https://www.medicines.org.uk/emc/product/15818/pil\">Cell-based influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"c3dju\"><a href=\"https://www.medicines.org.uk/emc/product/100729/pil#gref\">Recombinant influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"6ptuu\"><a href=\"https://mhraproducts4853.blob.core.windows.net/docs/950f19ff3aa2aac4d4d7bb90eeb2fd44a233037c\">Egg-cultured influenza vaccine patient leaflet – MYL (Medicines and Healthcare products Regulatory Agency; PDF only, 76KB)</a></li><li data-block-key=\"1pnr9\"><a href=\"https://www.medicines.org.uk/emc/product/100673/pil\">Egg-cultured influenza vaccine patient leaflet – Vaxigrip (Electronic Medicines Compendium website)</a></li></ul>\n</div>"
+            },
+            {
+              "position": 3,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "Vaccines for people aged 18 to 49",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <ul><li data-block-key=\"tgjtn\"><a href=\"https://www.medicines.org.uk/emc/product/15818/pil\">Cell-based influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"3f2p0\"><a href=\"https://www.medicines.org.uk/emc/product/100729/pil#gref\">Recombinant influenza vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li data-block-key=\"7bces\"><a href=\"https://mhraproducts4853.blob.core.windows.net/docs/950f19ff3aa2aac4d4d7bb90eeb2fd44a233037c\">Egg-cultured influenza vaccine patient leaflet – MYL (Medicines and Healthcare products Regulatory Agency; PDF only, 76KB)</a></li><li data-block-key=\"baf79\"><a href=\"https://www.medicines.org.uk/emc/product/100673/pil\">Egg-cultured influenza vaccine patient leaflet – Vaxigrip (Electronic Medicines Compendium website)</a></li></ul>\n</div>"
             }
           ]
         }
@@ -491,7 +506,7 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 6,
+      "position": 7,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {
@@ -520,7 +535,7 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 7,
+      "position": 8,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {
@@ -545,7 +560,7 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 8,
+      "position": 9,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {

@@ -21,6 +21,7 @@ enum VaccineType {
   HIB_MENC = "HIB_MENC",
   FLU_IN_PREGNANCY = "FLU_IN_PREGNANCY",
   COVID_19 = "COVID_19",
+  FLU_FOR_ADULTS = "FLU_FOR_ADULTS",
 }
 
 export type VaccineDetails = {
@@ -319,6 +320,22 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     cacheFilename: "covid-19-vaccine.json" as Filename,
     nbsPath: "covid-19-vaccine" as UrlPathFragment, // TODO VIA-603: Is this correct?
   },
+  [VaccineType.FLU_FOR_ADULTS]: {
+    urlPath: "flu-vaccine" as UrlPathFragment,
+    displayName: {
+      titleCase: "Flu",
+      midSentenceCase: "flu",
+      indefiniteArticle: "a",
+    },
+    heading: "Flu vaccine",
+    cardLinkTitle: "Flu",
+    nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/flu-vaccine/"),
+    nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/flu-vaccine/#how-to-get-it"),
+    personalisedEligibilityStatusRequired: false,
+    contentPath: "vaccinations/flu-vaccine" as UrlPathFragment,
+    cacheFilename: "flu-vaccine.json" as Filename,
+    nbsPath: "path-to-be-removed" as UrlPathFragment,
+  },
 };
 
 const vaccineUrlPathToVaccineType = new Map<UrlPathFragment, VaccineType>();
@@ -327,10 +344,11 @@ Object.entries(VaccineInfo).forEach(([vaccineType, vaccineDetails]) => {
 });
 
 const adultVaccines: VaccineType[] = [
+  VaccineType.COVID_19,
+  VaccineType.FLU_FOR_ADULTS,
   VaccineType.RSV,
   VaccineType.SHINGLES,
   VaccineType.PNEUMOCOCCAL,
-  VaccineType.COVID_19,
 ];
 
 const pregnancyVaccines: VaccineType[] = [
