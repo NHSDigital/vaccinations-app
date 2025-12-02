@@ -14,7 +14,8 @@ type VaccinePageName =
   | "4-in-1"
   | "whooping-cough"
   | "hib-menc"
-  | "flu-in-pregnancy";
+  | "flu-in-pregnancy"
+  | "flu-vaccine";
 type FailurePageName = "sso-failure" | "service-failure" | "not-found";
 type SessionPageName = "session-timeout" | "session-logout";
 type IndexPageName = "vaccines-for-all-ages" | "vaccine-hub" | "vaccines-during-pregnancy";
@@ -141,6 +142,12 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     heading: "The flu vaccine in pregnancy",
     title: `The flu vaccine in pregnancy - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-flu-in-pregnancy.png",
+  },
+  "flu-vaccine": {
+    url: "/vaccines/flu-vaccine",
+    heading: "Flu vaccine",
+    title: `Flu vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-flu-vaccine.png",
   },
 
   // failure pages

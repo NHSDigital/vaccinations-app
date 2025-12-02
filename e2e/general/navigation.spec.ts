@@ -26,6 +26,7 @@ test.describe("Navigation", () => {
   });
 
   const linksFromAllAges: { section: AgeSectionTestId; linkText: string; pageName: PageName }[] = [
+    { section: AgeSectionTestId.ADULTS, linkText: "Flu", pageName: "flu-vaccine" },
     { section: AgeSectionTestId.ADULTS, linkText: "RSV", pageName: "rsv-older-adults" },
     { section: AgeSectionTestId.ADULTS, linkText: "Shingles", pageName: "shingles" },
     { section: AgeSectionTestId.ADULTS, linkText: "Pneumococcal", pageName: "pneumococcal" },
