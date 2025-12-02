@@ -4,7 +4,7 @@ export function getAdditionalContentForCovid19Vaccine() {
   const callout: HeadingWithTypedContent = {
     heading: "Booking service closed",
     content: [
-      "You can no longer book a COVID-19 vaccinations using this online service",
+      "You can no longer book a COVID-19 vaccination using this online service",
       "Bookings can also no longer be made through the 119 service.",
       "COVID-19 vaccinations will be available again in spring.",
     ].join("\n\n"),
