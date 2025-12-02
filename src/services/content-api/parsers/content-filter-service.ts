@@ -1,4 +1,5 @@
 import { VaccineType } from "@src/models/vaccine";
+import { getAdditionalContentForCovid19Vaccine } from "@src/services/content-api/parsers/custom/covid-19";
 import { getFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
 import { getFilteredContentForFluVaccine } from "@src/services/content-api/parsers/custom/flu-vaccine";
 import { getFilteredContentForWhoopingCoughVaccine } from "@src/services/content-api/parsers/custom/whooping-cough";
@@ -215,6 +216,13 @@ const getFilteredContentForVaccine = (vaccineType: VaccineType, apiContent: stri
       return getFilteredContentForFluInPregnancyVaccine(apiContent);
     case VaccineType.FLU_FOR_ADULTS:
       return getFilteredContentForFluVaccine(apiContent);
+    case VaccineType.COVID_19:
+      const standardVaccineContent = getFilteredContentForStandardVaccine(apiContent);
+      const additionalCovid19VaccineContent = getAdditionalContentForCovid19Vaccine();
+      return {
+        ...standardVaccineContent,
+        ...additionalCovid19VaccineContent,
+      };
     default:
       return getFilteredContentForStandardVaccine(apiContent);
   }

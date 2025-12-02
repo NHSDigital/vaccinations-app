@@ -9,6 +9,8 @@ import {
   _removeExcludedHyperlinks,
   getFilteredContentForVaccine,
 } from "@src/services/content-api/parsers/content-filter-service";
+import { getFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
+import { getFilteredContentForWhoopingCoughVaccine } from "@src/services/content-api/parsers/custom/whooping-cough";
 import {
   ContentApiVaccineResponse,
   HeadingWithTypedContent,
@@ -19,6 +21,9 @@ import {
 } from "@src/services/content-api/types";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 import { contentWithoutBenefitsHealthAspect, contentWithoutCallout } from "@test-data/content-api/helpers";
+
+jest.mock("@src/services/content-api/parsers/custom/whooping-cough");
+jest.mock("@src/services/content-api/parsers/custom/flu-in-pregnancy");
 
 describe("Content Filter", () => {
   describe("_extractDescriptionForVaccine", () => {
@@ -526,199 +531,239 @@ describe("Content Filter", () => {
   });
 
   describe("getFilteredContentForVaccine", () => {
-    it("should return overview text from lead paragraph mainEntityOfPage object", async () => {
-      const expectedOverview = {
-        overview: { content: "Generic Vaccine Lead Paragraph (overview)", containsHtml: false },
-      };
+    describe("for standard vaccines", () => {
+      it("should return overview text from lead paragraph mainEntityOfPage object", async () => {
+        const expectedOverview = {
+          overview: { content: "Generic Vaccine Lead Paragraph (overview)", containsHtml: false },
+        };
 
-      const pageCopyForRsv = getFilteredContentForVaccine(
-        VaccineType.RSV,
-        JSON.stringify(genericVaccineContentAPIResponse),
-      );
+        const pageCopyForRsv = getFilteredContentForVaccine(
+          VaccineType.RSV,
+          JSON.stringify(genericVaccineContentAPIResponse),
+        );
 
-      expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedOverview));
-    });
+        expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedOverview));
+      });
 
-    it("should return all parts for whatVaccineIsFor section", () => {
-      const expectedWhatVaccineIsFor = {
-        whatVaccineIsFor: {
-          headline: "Benefits Health Aspect headline",
+      it("should return all parts for whatVaccineIsFor section", () => {
+        const expectedWhatVaccineIsFor = {
+          whatVaccineIsFor: {
+            headline: "Benefits Health Aspect headline",
+            subsections: [
+              {
+                type: "simpleElement",
+                headline: "",
+                name: "markdown",
+                text: "<p>Benefits Health Aspect paragraph 1</p>",
+              },
+            ],
+          },
+        };
+
+        const pageCopyForRsv = getFilteredContentForVaccine(
+          VaccineType.RSV,
+          JSON.stringify(genericVaccineContentAPIResponse),
+        );
+
+        expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedWhatVaccineIsFor));
+      });
+
+      it("should return all parts for whoVaccineIsFor section", () => {
+        const expectedWhoVaccineIsFor = {
+          whoVaccineIsFor: {
+            headline: "Suitability Health Aspect headline",
+            subsections: [
+              {
+                type: "simpleElement",
+                headline: "",
+                name: "markdown",
+                text: "<p>Suitability Health Aspect paragraph 1</p><p>Suitability Health Aspect paragraph 2</p>",
+              },
+              {
+                type: "simpleElement",
+                headline: "",
+                name: "markdown",
+                text: "<p>Suitability Health Aspect paragraph 3</p><p>Suitability Health Aspect paragraph 4</p>",
+              },
+              {
+                type: "simpleElement",
+                headline: "Contraindications Health Aspect headline",
+                name: "",
+                text: "",
+              },
+              {
+                type: "simpleElement",
+                headline: "",
+                name: "markdown",
+                text: "<p>Contraindications Health Aspect paragraph 1</p><p>Contraindications Health Aspect paragraph 2</p>",
+              },
+              {
+                type: "simpleElement",
+                headline: "",
+                name: "Information",
+                text: "<h3>Contraindications Health Aspect information heading</h3><p>Contraindications Health Aspect information paragraph</p>",
+              },
+            ],
+          },
+        };
+
+        const pageCopyForRsv = getFilteredContentForVaccine(
+          VaccineType.RSV,
+          JSON.stringify(genericVaccineContentAPIResponse),
+        );
+
+        expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedWhoVaccineIsFor));
+      });
+
+      it("should return all parts for howToGetVaccine section", () => {
+        const expectedHowToGetVaccine = {
+          howToGetVaccine: {
+            headline: "Getting Access Health Aspect headline",
+            subsections: [
+              {
+                type: "simpleElement",
+                headline: "",
+                name: "markdown",
+                text: "<p>Getting Access Health Aspect paragraph 1</p>",
+              },
+              {
+                type: "simpleElement",
+                headline: "",
+                name: "non-urgent",
+                text: "<h3>Getting Access Health Aspect urgent heading</h3><div>Getting Access Health Aspect urgent div</div>",
+              },
+            ],
+          },
+        };
+
+        const pageCopyForRsv = getFilteredContentForVaccine(
+          VaccineType.RSV,
+          JSON.stringify(genericVaccineContentAPIResponse),
+        );
+
+        expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedHowToGetVaccine));
+      });
+
+      it("should return all parts for vaccineSideEffects section", () => {
+        const expectedVaccineSideEffects: VaccinePageSection = {
+          headline: "Side effects of the generic vaccine",
           subsections: [
             {
               type: "simpleElement",
               headline: "",
               name: "markdown",
-              text: "<p>Benefits Health Aspect paragraph 1</p>",
+              text: "<p>Like all medicines, the generic vaccine can cause side effects, but not all babies get them.</p><h3>Common side effects</h3><p>Common side effects of the generic vaccine include:</p><ul><li>swelling or pain where the injection was given</li><li>a high temperature</li><li>feeling tired</li><li>loss of appetite</li><li>being sick or diarrhoea</li><li>irritability</li></ul><p>You can give babies <a href=\"https://www.nhs.uk/medicines/paracetamol-for-children/\">child's paracetamol</a> to ease any symptoms.</p><p>Check the packaging or leaflet to make sure the medicine is suitable for your child, or speak to a pharmacist or doctor if you're not sure.</p>",
+            },
+            {
+              type: "simpleElement",
+              headline: "",
+              name: "urgent",
+              text: '<h3>Ask for an urgent GP appointment or call 111 if your baby:</h3><div class="block-richtext">\n<ul><li>is under 3 months old and has a temperature of 38C or higher, or you think they have a high temperature</li><li>is 3 to 6 months old and has a temperature of 39C or higher, or you think they have a high temperature</li><li>is unwell and you\'re worried about them</li></ul>\n</div>',
+            },
+            {
+              type: "simpleElement",
+              headline: "Allergic reactions",
+              name: "markdown",
+              text: '<p>More serious side effects such as a severe allergic reaction (<a href="https://www.nhs.uk/conditions/anaphylaxis/">anaphylaxis</a>) are very rare and usually happen within minutes.</p><p>The person who vaccinates your child will be trained to deal with allergic reactions and treat them immediately.</p>',
             },
           ],
-        },
-      };
+        };
 
-      const pageCopyForRsv = getFilteredContentForVaccine(
-        VaccineType.RSV,
-        JSON.stringify(genericVaccineContentAPIResponse),
-      );
+        const pageCopyForRsv: VaccinePageContent = getFilteredContentForVaccine(
+          VaccineType.RSV,
+          JSON.stringify(genericVaccineContentAPIResponse),
+        );
 
-      expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedWhatVaccineIsFor));
+        expect(pageCopyForRsv.vaccineSideEffects).toEqual(expectedVaccineSideEffects);
+      });
+
+      it("should include nhs webpage link to vaccine info", () => {
+        const expectedWebpageLink = {
+          webpageLink: new URL("https://www.nhs.uk/vaccinations/generic-vaccine/"),
+        };
+
+        const pageCopyForRsv = getFilteredContentForVaccine(
+          VaccineType.RSV,
+          JSON.stringify(genericVaccineContentAPIResponse),
+        );
+
+        expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedWebpageLink));
+      });
+
+      it("should not return whatVaccineIsFor section when BenefitsHealthAspect is missing", () => {
+        const responseWithoutBenefitsHealthAspect = contentWithoutBenefitsHealthAspect();
+
+        const pageCopyForFlu: VaccinePageContent = getFilteredContentForVaccine(
+          VaccineType.RSV,
+          JSON.stringify(responseWithoutBenefitsHealthAspect),
+        );
+
+        expect(pageCopyForFlu.whatVaccineIsFor).toBeUndefined();
+      });
+
+      it("should return all parts for callout section", () => {
+        const expectedCallout: HeadingWithTypedContent = {
+          heading: "Callout heading",
+          content: "<p>Callout content</p>",
+          contentType: "html",
+        };
+
+        const pageCopyForRsv: VaccinePageContent = getFilteredContentForVaccine(
+          VaccineType.RSV,
+          JSON.stringify(genericVaccineContentAPIResponse),
+        );
+
+        expect(pageCopyForRsv.callout).toEqual(expectedCallout);
+      });
+
+      it("should not return callout section when Callout is missing", () => {
+        const responseWithoutCallout = contentWithoutCallout();
+
+        const pageCopyForFlu: VaccinePageContent = getFilteredContentForVaccine(
+          VaccineType.RSV,
+          JSON.stringify(responseWithoutCallout),
+        );
+
+        expect(pageCopyForFlu.callout).toBeUndefined();
+      });
     });
 
-    it("should return all parts for whoVaccineIsFor section", () => {
-      const expectedWhoVaccineIsFor = {
-        whoVaccineIsFor: {
-          headline: "Suitability Health Aspect headline",
-          subsections: [
-            {
-              type: "simpleElement",
-              headline: "",
-              name: "markdown",
-              text: "<p>Suitability Health Aspect paragraph 1</p><p>Suitability Health Aspect paragraph 2</p>",
-            },
-            {
-              type: "simpleElement",
-              headline: "",
-              name: "markdown",
-              text: "<p>Suitability Health Aspect paragraph 3</p><p>Suitability Health Aspect paragraph 4</p>",
-            },
-            {
-              type: "simpleElement",
-              headline: "Contraindications Health Aspect headline",
-              name: "",
-              text: "",
-            },
-            {
-              type: "simpleElement",
-              headline: "",
-              name: "markdown",
-              text: "<p>Contraindications Health Aspect paragraph 1</p><p>Contraindications Health Aspect paragraph 2</p>",
-            },
-            {
-              type: "simpleElement",
-              headline: "",
-              name: "Information",
-              text: "<h3>Contraindications Health Aspect information heading</h3><p>Contraindications Health Aspect information paragraph</p>",
-            },
-          ],
-        },
-      };
+    describe("for specific vaccines", () => {
+      it("should call getFilteredContentForWhoopingCoughVaccine for whooping cough vaccine", () => {
+        const mockApiContent = "testContent";
 
-      const pageCopyForRsv = getFilteredContentForVaccine(
-        VaccineType.RSV,
-        JSON.stringify(genericVaccineContentAPIResponse),
-      );
+        getFilteredContentForVaccine(VaccineType.WHOOPING_COUGH, mockApiContent);
 
-      expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedWhoVaccineIsFor));
-    });
+        expect(getFilteredContentForWhoopingCoughVaccine).toHaveBeenCalledWith(mockApiContent);
+      });
 
-    it("should return all parts for howToGetVaccine section", () => {
-      const expectedHowToGetVaccine = {
-        howToGetVaccine: {
-          headline: "Getting Access Health Aspect headline",
-          subsections: [
-            {
-              type: "simpleElement",
-              headline: "",
-              name: "markdown",
-              text: "<p>Getting Access Health Aspect paragraph 1</p>",
-            },
-            {
-              type: "simpleElement",
-              headline: "",
-              name: "non-urgent",
-              text: "<h3>Getting Access Health Aspect urgent heading</h3><div>Getting Access Health Aspect urgent div</div>",
-            },
-          ],
-        },
-      };
+      it("should return standard vaccine content and additional content for COVID-19 vaccine", () => {
+        const pageCopyForCovid19Vaccine = getFilteredContentForVaccine(
+          VaccineType.COVID_19,
+          JSON.stringify(genericVaccineContentAPIResponse),
+        );
 
-      const pageCopyForRsv = getFilteredContentForVaccine(
-        VaccineType.RSV,
-        JSON.stringify(genericVaccineContentAPIResponse),
-      );
+        expect(pageCopyForCovid19Vaccine.overview).toBeDefined();
+        expect(pageCopyForCovid19Vaccine.whatVaccineIsFor).toBeDefined();
+        expect(pageCopyForCovid19Vaccine.whoVaccineIsFor).toBeDefined();
+        expect(pageCopyForCovid19Vaccine.howToGetVaccine).toBeDefined();
+        expect(pageCopyForCovid19Vaccine.vaccineSideEffects).toBeDefined();
+        expect(pageCopyForCovid19Vaccine.webpageLink).toBeDefined();
 
-      expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedHowToGetVaccine));
-    });
+        // Additional COVID-19 vaccine content
+        expect(pageCopyForCovid19Vaccine.callout?.heading).toEqual("Booking service closed");
+        expect(pageCopyForCovid19Vaccine.recommendation?.heading).toEqual(
+          "The COVID-19 vaccine is recommended if you:",
+        );
+      });
 
-    it("should return all parts for vaccineSideEffects section", () => {
-      const expectedVaccineSideEffects: VaccinePageSection = {
-        headline: "Side effects of the generic vaccine",
-        subsections: [
-          {
-            type: "simpleElement",
-            headline: "",
-            name: "markdown",
-            text: "<p>Like all medicines, the generic vaccine can cause side effects, but not all babies get them.</p><h3>Common side effects</h3><p>Common side effects of the generic vaccine include:</p><ul><li>swelling or pain where the injection was given</li><li>a high temperature</li><li>feeling tired</li><li>loss of appetite</li><li>being sick or diarrhoea</li><li>irritability</li></ul><p>You can give babies <a href=\"https://www.nhs.uk/medicines/paracetamol-for-children/\">child's paracetamol</a> to ease any symptoms.</p><p>Check the packaging or leaflet to make sure the medicine is suitable for your child, or speak to a pharmacist or doctor if you're not sure.</p>",
-          },
-          {
-            type: "simpleElement",
-            headline: "",
-            name: "urgent",
-            text: '<h3>Ask for an urgent GP appointment or call 111 if your baby:</h3><div class="block-richtext">\n<ul><li>is under 3 months old and has a temperature of 38C or higher, or you think they have a high temperature</li><li>is 3 to 6 months old and has a temperature of 39C or higher, or you think they have a high temperature</li><li>is unwell and you\'re worried about them</li></ul>\n</div>',
-          },
-          {
-            type: "simpleElement",
-            headline: "Allergic reactions",
-            name: "markdown",
-            text: '<p>More serious side effects such as a severe allergic reaction (<a href="https://www.nhs.uk/conditions/anaphylaxis/">anaphylaxis</a>) are very rare and usually happen within minutes.</p><p>The person who vaccinates your child will be trained to deal with allergic reactions and treat them immediately.</p>',
-          },
-        ],
-      };
+      it("should call getFilteredContentForFluInPregnancyVaccine for flu in pregnancy vaccine", () => {
+        const mockApiContent = "testContent";
 
-      const pageCopyForRsv: VaccinePageContent = getFilteredContentForVaccine(
-        VaccineType.RSV,
-        JSON.stringify(genericVaccineContentAPIResponse),
-      );
+        getFilteredContentForVaccine(VaccineType.FLU_IN_PREGNANCY, mockApiContent);
 
-      expect(pageCopyForRsv.vaccineSideEffects).toEqual(expectedVaccineSideEffects);
-    });
-
-    it("should include nhs webpage link to vaccine info", () => {
-      const expectedWebpageLink = {
-        webpageLink: new URL("https://www.nhs.uk/vaccinations/generic-vaccine/"),
-      };
-
-      const pageCopyForRsv = getFilteredContentForVaccine(
-        VaccineType.RSV,
-        JSON.stringify(genericVaccineContentAPIResponse),
-      );
-
-      expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedWebpageLink));
-    });
-
-    it("should not return whatVaccineIsFor section when BenefitsHealthAspect is missing", () => {
-      const responseWithoutBenefitsHealthAspect = contentWithoutBenefitsHealthAspect();
-
-      const pageCopyForFlu: VaccinePageContent = getFilteredContentForVaccine(
-        VaccineType.RSV,
-        JSON.stringify(responseWithoutBenefitsHealthAspect),
-      );
-
-      expect(pageCopyForFlu.whatVaccineIsFor).toBeUndefined();
-    });
-
-    it("should return all parts for callout section", () => {
-      const expectedCallout: HeadingWithTypedContent = {
-        heading: "Callout heading",
-        content: "<p>Callout content</p>",
-        contentType: "html",
-      };
-
-      const pageCopyForRsv: VaccinePageContent = getFilteredContentForVaccine(
-        VaccineType.RSV,
-        JSON.stringify(genericVaccineContentAPIResponse),
-      );
-
-      expect(pageCopyForRsv.callout).toEqual(expectedCallout);
-    });
-
-    it("should not return callout section when Callout is missing", () => {
-      const responseWithoutCallout = contentWithoutCallout();
-
-      const pageCopyForFlu: VaccinePageContent = getFilteredContentForVaccine(
-        VaccineType.RSV,
-        JSON.stringify(responseWithoutCallout),
-      );
-
-      expect(pageCopyForFlu.callout).toBeUndefined();
+        expect(getFilteredContentForFluInPregnancyVaccine).toHaveBeenCalledWith(mockApiContent);
+      });
     });
   });
 });
