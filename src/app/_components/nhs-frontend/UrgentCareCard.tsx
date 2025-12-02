@@ -13,6 +13,7 @@ interface NonUrgentCareCardProps {
   content: JSX.Element;
 }
 
+// Ref: https://service-manual.nhs.uk/design-system/patterns/help-users-decide-when-and-where-to-get-care
 const UrgentCareCard = ({ heading, headingLevel, content }: NonUrgentCareCardProps) => {
   return (
     <Card cardType="urgent" data-testid="urgent-care-card">

@@ -2,13 +2,15 @@ import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { StyledVaccineContent } from "@src/services/content-api/types";
 import { JSX } from "react";
 
+import styles from "./styles.module.css";
+
 const WarningCallout = (props: {
   styledVaccineContent: StyledVaccineContent;
   vaccineType: VaccineType;
 }): JSX.Element => {
   const element =
     props.styledVaccineContent.callout && !VaccineInfo[props.vaccineType].supressWarningCallout ? (
-      <div data-testid="callout" className="nhsuk-warning-callout">
+      <div data-testid="callout" className={`nhsuk-warning-callout  ${styles.warningCalloutZeroMarginBottom}`}>
         <h3 className="nhsuk-warning-callout__label">
           <span role="text">
             <span className="nhsuk-u-visually-hidden">Important: </span>

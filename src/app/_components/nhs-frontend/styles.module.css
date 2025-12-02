@@ -5,3 +5,7 @@
 .careCardZeroMarginBottom ul:last-child {
   margin-bottom: 0;
 }
+
+.warningCalloutZeroMarginBottom p:last-child {
+  margin-bottom: 0;
+}

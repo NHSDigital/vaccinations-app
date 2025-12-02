@@ -6,8 +6,8 @@ import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVa
 import { MoreInformation } from "@src/app/_components/content/MoreInformation";
 import { Overview } from "@src/app/_components/content/Overview";
 import Recommendation from "@src/app/_components/content/Recommendation";
-import WarningCallout from "@src/app/_components/content/WarningCallout";
 import { EligibilityVaccinePageContent } from "@src/app/_components/eligibility/EligibilityVaccinePageContent";
+import WarningCallout from "@src/app/_components/nhs-frontend/WarningCallout";
 import { RSVPregnancyInfo } from "@src/app/_components/vaccine-custom/RSVPregnancyInfo";
 import { NhsNumber, VaccineDetails, VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
