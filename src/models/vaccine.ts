@@ -367,13 +367,13 @@ const adultVaccines: VaccineType[] = [
   VaccineType.SHINGLES,
   VaccineType.PNEUMOCOCCAL,
 ];
-
 const pregnancyVaccines: VaccineType[] = [
   VaccineType.WHOOPING_COUGH,
   VaccineType.RSV_PREGNANCY,
   VaccineType.FLU_IN_PREGNANCY,
 ];
 const childVaccines: VaccineType[] = [
+  VaccineType.FLU_FOR_CHILDREN,
   VaccineType.TD_IPV_3_IN_1,
   VaccineType.MENACWY,
   VaccineType.HPV,
@@ -382,7 +382,6 @@ const childVaccines: VaccineType[] = [
   VaccineType.MENB_CHILDREN,
   VaccineType.PNEUMOCOCCAL,
   VaccineType.HIB_MENC,
-  VaccineType.FLU_FOR_CHILDREN,
 ];
 const babyVaccines: VaccineType[] = [
   VaccineType.VACCINE_6_IN_1,
