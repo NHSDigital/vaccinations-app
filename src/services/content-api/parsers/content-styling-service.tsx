@@ -170,7 +170,11 @@ function styleCallout(callout: HeadingWithTypedContent | undefined): StyledPageS
       case "string":
         return {
           heading: callout.heading,
-          component: <div data-testid="callout-string">{callout.content}</div>,
+          component: (
+            <div data-testid="callout-string">
+              <p>{callout.content}</p>
+            </div>
+          ),
         };
     }
   }
