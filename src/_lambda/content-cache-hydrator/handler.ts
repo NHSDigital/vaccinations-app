@@ -12,7 +12,7 @@ import { logger } from "@src/utils/logger";
 import { getVaccineTypeFromLowercaseString } from "@src/utils/path";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
 import { Context } from "aws-lambda";
-import { retry } from "es-toolkit";
+import { delay, retry } from "es-toolkit";
 
 const log = logger.child({ module: "content-cache-hydrator" });
 
@@ -56,7 +56,7 @@ async function hydrateCacheForVaccine(
   const rateLimitDelayWithMargin: number = 2 * rateLimitDelayMillis; // to keep ourselves well within the budget
 
   try {
-    const content: string = await retry(() => fetchContentForVaccine(vaccineType), {
+    const content: string = await retry(async () => fetchContentForVaccine(vaccineType), {
       retries: 2,
       delay: (attempt: number) => {
         const delayMillis = rateLimitDelayWithMargin * Math.pow(2, attempt + 1);
@@ -163,7 +163,7 @@ const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
   let invalidatedCount: number = 0;
 
   const rateLimitDelayMillis: number = 1000 / ((await config.CONTENT_API_RATE_LIMIT_PER_MINUTE) / 60);
-  const rateLimitDelayWithMargin: number = 2 * rateLimitDelayMillis; // to keep ourselves well within the budget
+  const rateLimitDelayWithMargin: number = 2.5 * rateLimitDelayMillis; // to keep ourselves well within the budget
   log.info(`Delay used between calls to rate limit content API is ${rateLimitDelayWithMargin}ms`);
 
   for (const vaccine of vaccinesToRunOn) {
@@ -176,7 +176,7 @@ const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
     invalidatedCount += status.invalidatedCount;
     failureCount += status.failureCount;
 
-    await new Promise((f) => setTimeout(f, rateLimitDelayWithMargin)); // sleep to rate limit
+    await delay(rateLimitDelayWithMargin); // sleep to rate limit
   }
 
   log.info({ context: { failureCount, invalidatedCount } }, "Finished hydrating content cache: report");
