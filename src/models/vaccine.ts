@@ -22,6 +22,7 @@ enum VaccineType {
   FLU_IN_PREGNANCY = "FLU_IN_PREGNANCY",
   COVID_19 = "COVID_19",
   FLU_FOR_ADULTS = "FLU_FOR_ADULTS",
+  FLU_FOR_CHILDREN = "FLU_FOR_CHILDREN",
 }
 
 export type VaccineDetails = {
@@ -336,6 +337,22 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     cacheFilename: "flu-vaccine.json" as Filename,
     nbsPath: "path-to-be-removed" as UrlPathFragment,
   },
+  [VaccineType.FLU_FOR_CHILDREN]: {
+    urlPath: "flu-vaccine-for-children" as UrlPathFragment,
+    displayName: {
+      titleCase: "Flu",
+      midSentenceCase: "flu",
+      indefiniteArticle: "a",
+    },
+    heading: "Flu vaccine for children aged 2 to 3",
+    cardLinkTitle: "Flu for children aged 2 to 3",
+    nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/child-flu-vaccine/"),
+    nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/child-flu-vaccine/#how-to-get-it"),
+    personalisedEligibilityStatusRequired: false,
+    contentPath: "vaccinations/flu-vaccine-for-children" as UrlPathFragment,
+    cacheFilename: "child-flu-vaccine.json" as Filename,
+    nbsPath: "path-to-be-removed" as UrlPathFragment,
+  },
 };
 
 const vaccineUrlPathToVaccineType = new Map<UrlPathFragment, VaccineType>();
@@ -365,6 +382,7 @@ const childVaccines: VaccineType[] = [
   VaccineType.MENB_CHILDREN,
   VaccineType.PNEUMOCOCCAL,
   VaccineType.HIB_MENC,
+  VaccineType.FLU_FOR_CHILDREN,
 ];
 const babyVaccines: VaccineType[] = [
   VaccineType.VACCINE_6_IN_1,

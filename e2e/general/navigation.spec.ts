@@ -48,6 +48,7 @@ test.describe("Navigation", () => {
     { section: AgeSectionTestId.CHILDREN, linkText: "MenB", pageName: "menb-children" },
     { section: AgeSectionTestId.CHILDREN, linkText: "Pneumococcal", pageName: "pneumococcal" },
     { section: AgeSectionTestId.CHILDREN, linkText: "Hib/MenC", pageName: "hib-menc" },
+    { section: AgeSectionTestId.CHILDREN, linkText: "Flu for children aged 2 to 3", pageName: "flu-for-children" },
 
     { section: AgeSectionTestId.BABIES, linkText: "6-in-1", pageName: "6-in-1" },
     { section: AgeSectionTestId.BABIES, linkText: "Rotavirus", pageName: "rotavirus" },

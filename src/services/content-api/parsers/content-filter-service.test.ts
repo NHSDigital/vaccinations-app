@@ -9,6 +9,7 @@ import {
   _removeExcludedHyperlinks,
   getFilteredContentForVaccine,
 } from "@src/services/content-api/parsers/content-filter-service";
+import { getFilteredContentForFluForChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-children";
 import { getFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
 import { getFilteredContentForFluVaccine } from "@src/services/content-api/parsers/custom/flu-vaccine";
 import { getFilteredContentForWhoopingCoughVaccine } from "@src/services/content-api/parsers/custom/whooping-cough";
@@ -26,6 +27,7 @@ import { contentWithoutBenefitsHealthAspect, contentWithoutCallout } from "@test
 jest.mock("@src/services/content-api/parsers/custom/whooping-cough");
 jest.mock("@src/services/content-api/parsers/custom/flu-in-pregnancy");
 jest.mock("@src/services/content-api/parsers/custom/flu-vaccine");
+jest.mock("@src/services/content-api/parsers/custom/flu-for-children");
 
 describe("Content Filter", () => {
   describe("_extractDescriptionForVaccine", () => {
@@ -773,6 +775,14 @@ describe("Content Filter", () => {
         getFilteredContentForVaccine(VaccineType.FLU_IN_PREGNANCY, mockApiContent);
 
         expect(getFilteredContentForFluInPregnancyVaccine).toHaveBeenCalledWith(mockApiContent);
+      });
+
+      it("should call getFilteredContentForFluForChildrenVaccine for flu for children vaccine", () => {
+        const mockApiContent = "testContent";
+
+        getFilteredContentForVaccine(VaccineType.FLU_FOR_CHILDREN, mockApiContent);
+
+        expect(getFilteredContentForFluForChildrenVaccine).toHaveBeenCalledWith(mockApiContent);
       });
     });
   });

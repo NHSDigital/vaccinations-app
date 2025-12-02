@@ -16,7 +16,8 @@ type VaccinePageName =
   | "hib-menc"
   | "flu-in-pregnancy"
   | "flu-vaccine"
-  | "covid-19-vaccine";
+  | "covid-19-vaccine"
+  | "flu-for-children";
 type FailurePageName = "sso-failure" | "service-failure" | "not-found";
 type SessionPageName = "session-timeout" | "session-logout";
 type IndexPageName = "vaccines-for-all-ages" | "vaccine-hub" | "vaccines-during-pregnancy";
@@ -155,6 +156,12 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     heading: "COVID-19 vaccine",
     title: `COVID-19 vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-covid-19-vaccine.png",
+  },
+  "flu-for-children": {
+    url: "/vaccines/flu-vaccine-for-children",
+    heading: "Flu vaccine for children aged 2 to 3",
+    title: `Flu vaccine for children aged 2 to 3 - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-flu-vaccine-for-children.png",
   },
 
   // failure pages
