@@ -50,8 +50,10 @@ runs:
       run: |
         echo "::group::Get current week number and playwright version"
         echo "week_num=$(date -u +'%Y-%V')" | tee -a $GITHUB_OUTPUT
-        echo "playwright_version=$(npm info @playwright/test version)" | tee -a $GITHUB_OUTPUT
+        echo "playwright_version=$(node -p "require('@playwright/test/package.json').version")" | tee -a $GITHUB_OUTPUT
+        EXIT_STATUS=$?
         echo "::endgroup::"
+        exit $EXIT_STATUS
 
     - name: "Get current date"
       shell: bash
