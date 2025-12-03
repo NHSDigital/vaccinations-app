@@ -22,13 +22,16 @@
 </script>
 
 <noscript>
-  <style>#maincontent { display: none !important; }</style>
+  <style>
+    .nhsuk-header { display: block !important; }
+    .with-script-maincontent { display: none !important; }
+  </style>
 </noscript>
 
 <div id="app-root" class="appLayout">
   <a class="nhsuk-skip-link" href="#maincontent" data-testid="skip-link">Skip to main content</a>
 
-  <header class="nhsuk-header" role="banner" data-module="nhsuk-header">
+  <header class="nhsuk-header" style="display: none" role="banner" data-module="nhsuk-header">
     <div class="nhsuk-header__container nhsuk-width-container">
       <div class="nhsuk-header__service">
         <a class="nhsuk-header__service-logo" href="/check-and-book-vaccinations" aria-label="Check and book vaccinations homepage">
@@ -45,10 +48,10 @@
   </header>
 
   <div class="nhsuk-width-container">
-    <a class="nhsuk-back-link" href="#">Back</a>
+    <a class="nhsuk-back-link" style="display: none" href="#">Back</a>
 
     <noscript>
-      <main class="nhsuk-main-wrapper nhsuk-main-wrapper--s" id="maincontent-noscript">
+      <main class="nhsuk-main-wrapper nhsuk-main-wrapper--s" id="maincontent">
         <div class="nhsuk-grid-row">
           <div class="nhsuk-grid-column-full">
             <h1 class="nhsuk-heading-xl nhsuk-u-margin-bottom-5">Cannot show page</h1>
@@ -67,14 +70,12 @@
       </main>
     </noscript>
 
-    <main class="nhsuk-main-wrapper nhsuk-main-wrapper--s" id="maincontent">
+    <main class="nhsuk-main-wrapper nhsuk-main-wrapper--s with-script-maincontent" id="maincontent">
       <div class="nhsuk-grid-row">
         <div class="nhsuk-grid-column-full">
           <h1 class="nhsuk-heading-xl nhsuk-u-margin-bottom-5">There is a problem with the service</h1>
           <p>This may be a temporary problem.</p>
-          <p>
-            Go back and try logging in again. If you cannot log in, try again later.
-          </p>
+          <p id="guidance">&nbsp;</p>
           <p>
             For urgent medical advice, go to <a href="https://111.nhs.uk/" target="_blank" rel="noopener">111.nhs.uk</a> or call 111.
           </p>
@@ -111,32 +112,44 @@
     </div>
   </footer>
   <script>
-    function showHeaderIfOutsideNHSApp() {
-      if (!window.nhsapp) {
-        setTimeout(showHeaderIfOutsideNHSApp, 100);
-        return;
-      }
+    function showComponentsBasedOnDevice() {
+      window.onload = () => {
+        const handleClick = (event) => {
+          event.preventDefault();
+          window.nhsapp.navigation.goToPage(window.nhsapp.navigation.AppPage.SERVICES);
+        }
 
-      if (!window.nhsapp.tools.isOpenInNHSApp()) {
-        const waitForHeader = () => {
-          const header = document.querySelector('#app-root .nhsuk-header');
-          if (header) {
-            setTimeout(() => {
-              header.style.display = 'block';
-            }, 50);
-          } else {
-            setTimeout(waitForHeader, 50);
-          }
-        };
+        const handleSkipLink = (event) => {
+          event.preventDefault();
+          const contentTitle = document.getElementsByTagName("h1").item(0);
+          contentTitle?.setAttribute("tabindex", "-1");
+          contentTitle?.focus();
+        }
 
-        waitForHeader();
-      } else {
-        const header = document.querySelector('#app-root .nhsuk-header');
-        if (header) header.style.display = 'none';
+        const skipLink = document.querySelector('.nhsuk-skip-link');
+        skipLink.addEventListener('click', handleSkipLink);
+
+        const guidance = document.getElementById('guidance');
+        if (window.nhsapp.tools.isOpenInNHSApp()) {
+          // mobile
+          const backLink = document.querySelector('.nhsuk-back-link');
+          backLink.style.display = 'block';
+
+          window.nhsapp.navigation.setBackAction(handleClick);
+          backLink.addEventListener('click', handleClick);
+
+          guidance.innerHTML = 'Go back and try logging in again. If you cannot log in, try again later.';
+        } else {
+          // desktop
+          const header = document.querySelector('.nhsuk-header');
+          header.style.display = 'block';
+
+          guidance.innerHTML = 'Close this tab and try logging in again. If you cannot log in, try again later.';
+        }
       }
     }
 
-    showHeaderIfOutsideNHSApp();
+    showComponentsBasedOnDevice();
   </script>
 </div>
 </body>
