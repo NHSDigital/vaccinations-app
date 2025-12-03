@@ -110,6 +110,34 @@
       </div>
     </div>
   </footer>
+  <script>
+    function showHeaderIfOutsideNHSApp() {
+      if (!window.nhsapp) {
+        setTimeout(showHeaderIfOutsideNHSApp, 100);
+        return;
+      }
+
+      if (!window.nhsapp.tools.isOpenInNHSApp()) {
+        const waitForHeader = () => {
+          const header = document.querySelector('#app-root .nhsuk-header');
+          if (header) {
+            setTimeout(() => {
+              header.style.display = 'block';
+            }, 50);
+          } else {
+            setTimeout(waitForHeader, 50);
+          }
+        };
+
+        waitForHeader();
+      } else {
+        const header = document.querySelector('#app-root .nhsuk-header');
+        if (header) header.style.display = 'none';
+      }
+    }
+
+    showHeaderIfOutsideNHSApp();
+  </script>
 </div>
 </body>
 </html>
