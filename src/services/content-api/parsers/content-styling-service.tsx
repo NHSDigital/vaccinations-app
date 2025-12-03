@@ -17,6 +17,7 @@ import {
   VaccinePageSubsection,
 } from "@src/services/content-api/types";
 import sanitiseHtml from "@src/utils/sanitise-html";
+import { load as loadHtml } from "cheerio";
 import { InsetText, WarningCallout } from "nhsuk-react-components";
 import React, { JSX } from "react";
 
@@ -178,9 +179,11 @@ function styleCallout(callout: HeadingWithTypedContent | undefined): StyledPageS
           component: <MarkdownWithStyling content={callout.content} delineator={false} />,
         };
       case "html":
+        const $ = loadHtml(callout.content, null, false);
+        $("a").attr("target", "_blank");
         return {
           heading: callout.heading,
-          component: <div data-testid="callout-html" dangerouslySetInnerHTML={{ __html: callout.content || "" }} />,
+          component: <div data-testid="callout-html" dangerouslySetInnerHTML={{ __html: $.html() || "" }} />,
         };
       case "string":
         return {

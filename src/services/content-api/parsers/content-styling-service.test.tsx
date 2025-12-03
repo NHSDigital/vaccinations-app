@@ -28,6 +28,19 @@ jest.mock("@project/src/app/_components/markdown/MarkdownWithStyling", () => ({
 }));
 
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
+jest.mock("cheerio", () => ({
+  load: jest.fn(() => {
+    const selectorImpl = jest.fn(() => ({
+      attr: jest.fn(),
+    }));
+
+    const $ = Object.assign(selectorImpl, {
+      html: jest.fn(() => "<p>HTML fragment</p>"),
+    });
+
+    return $;
+  }),
+}));
 
 describe("ContentStylingService", () => {
   const mockMarkdownSubsection: VaccinePageSubsection = {
