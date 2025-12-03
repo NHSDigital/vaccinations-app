@@ -19,7 +19,7 @@ type VaccinePageName =
   | "covid-19-vaccine"
   | "flu-for-children"
   | "flu-for-school-aged-children";
-type FailurePageName = "sso-failure" | "service-failure" | "not-found";
+type FailurePageName = "sso-failure" | "service-failure" | "service-failure-static" | "not-found";
 type SessionPageName = "session-timeout" | "session-logout";
 type IndexPageName = "vaccines-for-all-ages" | "vaccine-hub" | "vaccines-during-pregnancy";
 
@@ -180,6 +180,12 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
   },
   "service-failure": {
     url: "/service-failure",
+    heading: "There is a problem with the service",
+    title: `There is a problem with the service - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-service-failure.png",
+  },
+  "service-failure-static": {
+    url: "/assets/static/service-failure.html",
     heading: "There is a problem with the service",
     title: `There is a problem with the service - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-service-failure.png",
