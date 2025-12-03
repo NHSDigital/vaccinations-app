@@ -23,6 +23,7 @@ enum VaccineType {
   COVID_19 = "COVID_19",
   FLU_FOR_ADULTS = "FLU_FOR_ADULTS",
   FLU_FOR_CHILDREN = "FLU_FOR_CHILDREN",
+  FLU_FOR_SCHOOL_AGED_CHILDREN = "FLU_FOR_SCHOOL_AGED_CHILDREN",
 }
 
 export type VaccineDetails = {
@@ -341,7 +342,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     urlPath: "flu-vaccine-for-children" as UrlPathFragment,
     displayName: {
       titleCase: "Flu",
-      midSentenceCase: "flu",
+      midSentenceCase: "children's flu",
       indefiniteArticle: "a",
     },
     heading: "Flu vaccine for children aged 2 to 3",
@@ -350,6 +351,23 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/child-flu-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/flu-vaccine-for-children" as UrlPathFragment,
+    cacheFilename: "child-flu-vaccine.json" as Filename,
+    nbsPath: "path-to-be-removed" as UrlPathFragment,
+  },
+  [VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN]: {
+    urlPath: "flu-vaccine-for-school-aged-children" as UrlPathFragment,
+    displayName: {
+      titleCase: "Flu",
+      midSentenceCase: "children's flu",
+      indefiniteArticle: "a",
+    },
+    heading: "Flu vaccine for school-aged children",
+    cardLinkTitle: "Flu for school-aged children",
+    nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/child-flu-vaccine/"),
+    nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/child-flu-vaccine/#how-to-get-it"),
+    removeHowToGetExpanderFromMoreInformationSection: true,
+    personalisedEligibilityStatusRequired: false,
+    contentPath: "vaccinations/flu-vaccine-for-school-aged-children" as UrlPathFragment,
     cacheFilename: "child-flu-vaccine.json" as Filename,
     nbsPath: "path-to-be-removed" as UrlPathFragment,
   },
@@ -374,6 +392,7 @@ const pregnancyVaccines: VaccineType[] = [
 ];
 const childVaccines: VaccineType[] = [
   VaccineType.FLU_FOR_CHILDREN,
+  VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN,
   VaccineType.TD_IPV_3_IN_1,
   VaccineType.MENACWY,
   VaccineType.HPV,

@@ -10,6 +10,7 @@ import {
   getFilteredContentForVaccine,
 } from "@src/services/content-api/parsers/content-filter-service";
 import { getFilteredContentForFluForChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-children";
+import { getFilteredContentForFluForSchoolAgedChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-school-aged-children";
 import { getFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
 import { getFilteredContentForFluVaccine } from "@src/services/content-api/parsers/custom/flu-vaccine";
 import { getFilteredContentForWhoopingCoughVaccine } from "@src/services/content-api/parsers/custom/whooping-cough";
@@ -28,6 +29,7 @@ jest.mock("@src/services/content-api/parsers/custom/whooping-cough");
 jest.mock("@src/services/content-api/parsers/custom/flu-in-pregnancy");
 jest.mock("@src/services/content-api/parsers/custom/flu-vaccine");
 jest.mock("@src/services/content-api/parsers/custom/flu-for-children");
+jest.mock("@src/services/content-api/parsers/custom/flu-for-school-aged-children");
 
 describe("Content Filter", () => {
   describe("_extractDescriptionForVaccine", () => {
@@ -783,6 +785,13 @@ describe("Content Filter", () => {
         getFilteredContentForVaccine(VaccineType.FLU_FOR_CHILDREN, mockApiContent);
 
         expect(getFilteredContentForFluForChildrenVaccine).toHaveBeenCalledWith(mockApiContent);
+      });
+
+      it("should return standard vaccine content and recommendation for school aged children's flu vaccine", () => {
+        const mockApiContent = "testContent";
+
+        getFilteredContentForVaccine(VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, mockApiContent);
+        expect(getFilteredContentForFluForSchoolAgedChildrenVaccine).toHaveBeenCalledWith(mockApiContent);
       });
     });
   });

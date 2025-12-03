@@ -41,6 +41,11 @@ test.describe("Navigation", () => {
     { section: AgeSectionTestId.PREGNANCY, linkText: "Flu in pregnancy", pageName: "flu-in-pregnancy" },
 
     { section: AgeSectionTestId.CHILDREN, linkText: "Flu for children aged 2 to 3", pageName: "flu-for-children" },
+    {
+      section: AgeSectionTestId.CHILDREN,
+      linkText: "Flu for school-aged children",
+      pageName: "flu-for-school-aged-children",
+    },
     { section: AgeSectionTestId.CHILDREN, linkText: "Td/IPV (3-in-1 teenage booster)", pageName: "td-ipv" },
     { section: AgeSectionTestId.CHILDREN, linkText: "MenACWY", pageName: "menacwy" },
     { section: AgeSectionTestId.CHILDREN, linkText: "HPV", pageName: "hpv" },
