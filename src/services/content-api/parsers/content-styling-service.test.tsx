@@ -35,7 +35,10 @@ jest.mock("cheerio", () => ({
     }));
 
     const $ = Object.assign(selectorImpl, {
-      html: jest.fn(() => "<p>HTML fragment</p>"),
+      html: jest.fn(
+        () =>
+          '<h1>This is heading</h1><p>This is paragraph</p><a href="https://example.com" target=\"_blank\"">This is a link</a>',
+      ),
     });
 
     return $;
@@ -480,7 +483,7 @@ describe("ContentStylingService", () => {
     it("should return styled callout component for html input", async () => {
       const mockCallout: HeadingWithTypedContent = {
         heading: "Heading for callout",
-        content: "<h1>This is heading</h1><p>This is paragraph</p>",
+        content: '<h1>This is heading</h1><p>This is paragraph</p><a href="https://example.com">This is a link</a>',
         contentType: "html",
       };
 
@@ -492,6 +495,21 @@ describe("ContentStylingService", () => {
 
       const htmlCallout = screen.getByTestId("callout-html");
       expect(htmlCallout).toBeVisible();
+    });
+
+    it("should return styled callout with target attributes on anchor tags for html input", async () => {
+      const mockCallout: HeadingWithTypedContent = {
+        heading: "Heading for callout",
+        content: '<a href="https://example.com">This is a link</a>',
+        contentType: "html",
+      };
+
+      const styledCallout = styleCallout(mockCallout);
+
+      render(styledCallout?.component);
+
+      const link = screen.getByRole("link");
+      expect(link).toHaveAttribute("target", "_blank");
     });
 
     it("should return styled callout component for string input", async () => {
