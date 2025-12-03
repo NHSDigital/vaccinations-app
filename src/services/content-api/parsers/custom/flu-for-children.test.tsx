@@ -1,4 +1,4 @@
-import { getFilteredContentForFluForChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-children";
+import { buildFilteredContentForFluForChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-children";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 
 describe("getFilteredContentForFluVaccine", () => {
@@ -7,7 +7,7 @@ describe("getFilteredContentForFluVaccine", () => {
       overview: { content: "Generic Vaccine Lead Paragraph (overview)", containsHtml: false },
     };
 
-    const pageCopy = getFilteredContentForFluForChildrenVaccine(JSON.stringify(genericVaccineContentAPIResponse));
+    const pageCopy = buildFilteredContentForFluForChildrenVaccine(JSON.stringify(genericVaccineContentAPIResponse));
 
     expect(pageCopy).toEqual(expect.objectContaining(expectedOverview));
   });
@@ -21,7 +21,7 @@ describe("getFilteredContentForFluVaccine", () => {
       },
     };
 
-    const pageCopy = getFilteredContentForFluForChildrenVaccine(JSON.stringify(genericVaccineContentAPIResponse));
+    const pageCopy = buildFilteredContentForFluForChildrenVaccine(JSON.stringify(genericVaccineContentAPIResponse));
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -34,7 +34,7 @@ describe("getFilteredContentForFluVaccine", () => {
       },
     };
 
-    const pageCopy = getFilteredContentForFluForChildrenVaccine(JSON.stringify(genericVaccineContentAPIResponse));
+    const pageCopy = buildFilteredContentForFluForChildrenVaccine(JSON.stringify(genericVaccineContentAPIResponse));
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });

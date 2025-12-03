@@ -1,5 +1,5 @@
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
-import { getFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
+import { buildFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
 
 const apiResponse = JSON.stringify({
   mainEntityOfPage: [
@@ -28,7 +28,7 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
       },
     };
 
-    const pageCopy = getFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = buildFilteredContentForFluInPregnancyVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -48,7 +48,7 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
       },
     };
 
-    const pageCopy = getFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = buildFilteredContentForFluInPregnancyVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -68,7 +68,7 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
       },
     };
 
-    const pageCopy = getFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = buildFilteredContentForFluInPregnancyVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -88,7 +88,7 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
       },
     };
 
-    const pageCopy = getFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = buildFilteredContentForFluInPregnancyVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -98,7 +98,7 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
       webpageLink: VaccineInfo[VaccineType.WHOOPING_COUGH].nhsWebpageLink,
     };
 
-    const pageCopy = getFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = buildFilteredContentForFluInPregnancyVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -112,7 +112,7 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
       },
     };
 
-    const pageCopy = getFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = buildFilteredContentForFluInPregnancyVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -125,7 +125,7 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
       },
     };
 
-    const pageCopy = getFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = buildFilteredContentForFluInPregnancyVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });

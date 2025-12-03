@@ -1,7 +1,7 @@
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { ContentApiVaccineResponse, VaccinePageContent, VaccinePageSection } from "@src/services/content-api/types";
 
-export const getFilteredContentForWhoopingCoughVaccine = (apiContent: string): VaccinePageContent => {
+export const buildFilteredContentForWhoopingCoughVaccine = (apiContent: string): VaccinePageContent => {
   const content: ContentApiVaccineResponse = JSON.parse(apiContent);
 
   const paragraphs: string[] = content.mainEntityOfPage

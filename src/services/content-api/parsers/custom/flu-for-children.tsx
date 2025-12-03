@@ -1,8 +1,8 @@
-import { getFilteredContentForStandardVaccine } from "@src/services/content-api/parsers/content-filter-service";
+import { buildFilteredContentForStandardVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { HeadingWithContent, HeadingWithTypedContent, VaccinePageContent } from "@src/services/content-api/types";
 
-export const getFilteredContentForFluForChildrenVaccine = (apiContent: string): VaccinePageContent => {
-  const standardFilteredContent = getFilteredContentForStandardVaccine(apiContent);
+export const buildFilteredContentForFluForChildrenVaccine = (apiContent: string): VaccinePageContent => {
+  const standardFilteredContent = buildFilteredContentForStandardVaccine(apiContent);
 
   const callout: HeadingWithTypedContent = {
     heading: "Booking service closed",

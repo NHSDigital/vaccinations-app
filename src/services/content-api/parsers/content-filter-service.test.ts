@@ -9,11 +9,11 @@ import {
   _removeExcludedHyperlinks,
   getFilteredContentForVaccine,
 } from "@src/services/content-api/parsers/content-filter-service";
-import { getFilteredContentForFluForChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-children";
-import { getFilteredContentForFluForSchoolAgedChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-school-aged-children";
-import { getFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
-import { getFilteredContentForFluVaccine } from "@src/services/content-api/parsers/custom/flu-vaccine";
-import { getFilteredContentForWhoopingCoughVaccine } from "@src/services/content-api/parsers/custom/whooping-cough";
+import { buildFilteredContentForFluForChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-children";
+import { buildFilteredContentForFluForSchoolAgedChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-school-aged-children";
+import { buildFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
+import { buildFilteredContentForFluVaccine } from "@src/services/content-api/parsers/custom/flu-vaccine";
+import { buildFilteredContentForWhoopingCoughVaccine } from "@src/services/content-api/parsers/custom/whooping-cough";
 import {
   ContentApiVaccineResponse,
   HeadingWithTypedContent,
@@ -740,7 +740,7 @@ describe("Content Filter", () => {
 
         getFilteredContentForVaccine(VaccineType.WHOOPING_COUGH, mockApiContent);
 
-        expect(getFilteredContentForWhoopingCoughVaccine).toHaveBeenCalledWith(mockApiContent);
+        expect(buildFilteredContentForWhoopingCoughVaccine).toHaveBeenCalledWith(mockApiContent);
       });
 
       it("should call getFilteredContentForFluVaccine for flu vaccine", () => {
@@ -748,7 +748,7 @@ describe("Content Filter", () => {
 
         getFilteredContentForVaccine(VaccineType.FLU_FOR_ADULTS, mockApiContent);
 
-        expect(getFilteredContentForFluVaccine).toHaveBeenCalledWith(mockApiContent);
+        expect(buildFilteredContentForFluVaccine).toHaveBeenCalledWith(mockApiContent);
       });
 
       it("should return standard vaccine content and additional content for COVID-19 vaccine", () => {
@@ -776,7 +776,7 @@ describe("Content Filter", () => {
 
         getFilteredContentForVaccine(VaccineType.FLU_IN_PREGNANCY, mockApiContent);
 
-        expect(getFilteredContentForFluInPregnancyVaccine).toHaveBeenCalledWith(mockApiContent);
+        expect(buildFilteredContentForFluInPregnancyVaccine).toHaveBeenCalledWith(mockApiContent);
       });
 
       it("should call getFilteredContentForFluForChildrenVaccine for flu for children vaccine", () => {
@@ -784,14 +784,14 @@ describe("Content Filter", () => {
 
         getFilteredContentForVaccine(VaccineType.FLU_FOR_CHILDREN, mockApiContent);
 
-        expect(getFilteredContentForFluForChildrenVaccine).toHaveBeenCalledWith(mockApiContent);
+        expect(buildFilteredContentForFluForChildrenVaccine).toHaveBeenCalledWith(mockApiContent);
       });
 
       it("should return standard vaccine content and recommendation for school aged children's flu vaccine", () => {
         const mockApiContent = "testContent";
 
         getFilteredContentForVaccine(VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, mockApiContent);
-        expect(getFilteredContentForFluForSchoolAgedChildrenVaccine).toHaveBeenCalledWith(mockApiContent);
+        expect(buildFilteredContentForFluForSchoolAgedChildrenVaccine).toHaveBeenCalledWith(mockApiContent);
       });
     });
   });

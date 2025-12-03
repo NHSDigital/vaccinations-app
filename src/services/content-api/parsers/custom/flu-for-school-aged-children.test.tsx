@@ -1,4 +1,4 @@
-import { getFilteredContentForFluForSchoolAgedChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-school-aged-children";
+import { buildFilteredContentForFluForSchoolAgedChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-school-aged-children";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 
 describe("getFilteredContentForFluVaccine", () => {
@@ -7,7 +7,7 @@ describe("getFilteredContentForFluVaccine", () => {
       overview: { content: "Generic Vaccine Lead Paragraph (overview)", containsHtml: false },
     };
 
-    const pageCopy = getFilteredContentForFluForSchoolAgedChildrenVaccine(
+    const pageCopy = buildFilteredContentForFluForSchoolAgedChildrenVaccine(
       JSON.stringify(genericVaccineContentAPIResponse),
     );
 
@@ -15,7 +15,7 @@ describe("getFilteredContentForFluVaccine", () => {
   });
 
   it("should set the standard vaccine content", async () => {
-    const pageCopy = getFilteredContentForFluForSchoolAgedChildrenVaccine(
+    const pageCopy = buildFilteredContentForFluForSchoolAgedChildrenVaccine(
       JSON.stringify(genericVaccineContentAPIResponse),
     );
 
@@ -34,7 +34,7 @@ describe("getFilteredContentForFluVaccine", () => {
       },
     };
 
-    const pageCopy = getFilteredContentForFluForSchoolAgedChildrenVaccine(
+    const pageCopy = buildFilteredContentForFluForSchoolAgedChildrenVaccine(
       JSON.stringify(genericVaccineContentAPIResponse),
     );
 

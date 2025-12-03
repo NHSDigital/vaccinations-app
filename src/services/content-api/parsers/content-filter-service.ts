@@ -1,10 +1,10 @@
 import { VaccineType } from "@src/models/vaccine";
 import { getAdditionalContentForCovid19Vaccine } from "@src/services/content-api/parsers/custom/covid-19";
-import { getFilteredContentForFluForChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-children";
-import { getFilteredContentForFluForSchoolAgedChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-school-aged-children";
-import { getFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
-import { getFilteredContentForFluVaccine } from "@src/services/content-api/parsers/custom/flu-vaccine";
-import { getFilteredContentForWhoopingCoughVaccine } from "@src/services/content-api/parsers/custom/whooping-cough";
+import { buildFilteredContentForFluForChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-children";
+import { buildFilteredContentForFluForSchoolAgedChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-school-aged-children";
+import { buildFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
+import { buildFilteredContentForFluVaccine } from "@src/services/content-api/parsers/custom/flu-vaccine";
+import { buildFilteredContentForWhoopingCoughVaccine } from "@src/services/content-api/parsers/custom/whooping-cough";
 import {
   ContentApiVaccineResponse,
   HasPartSubsection,
@@ -212,25 +212,25 @@ function _extractHeadlineForContraindicationsAspect(content: ContentApiVaccineRe
 
 const getFilteredContentForVaccine = (vaccineType: VaccineType, apiContent: string): VaccinePageContent => {
   const filteredContentBuilders = new Map([
-    [VaccineType.WHOOPING_COUGH, getFilteredContentForWhoopingCoughVaccine],
-    [VaccineType.FLU_IN_PREGNANCY, getFilteredContentForFluInPregnancyVaccine],
-    [VaccineType.FLU_FOR_ADULTS, getFilteredContentForFluVaccine],
-    [VaccineType.FLU_FOR_CHILDREN, getFilteredContentForFluForChildrenVaccine],
-    [VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, getFilteredContentForFluForSchoolAgedChildrenVaccine],
+    [VaccineType.WHOOPING_COUGH, buildFilteredContentForWhoopingCoughVaccine],
+    [VaccineType.FLU_IN_PREGNANCY, buildFilteredContentForFluInPregnancyVaccine],
+    [VaccineType.FLU_FOR_ADULTS, buildFilteredContentForFluVaccine],
+    [VaccineType.FLU_FOR_CHILDREN, buildFilteredContentForFluForChildrenVaccine],
+    [VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, buildFilteredContentForFluForSchoolAgedChildrenVaccine],
     [
       VaccineType.COVID_19,
       (apiContent) => {
-        const standardVaccineContent = getFilteredContentForStandardVaccine(apiContent);
+        const standardVaccineContent = buildFilteredContentForStandardVaccine(apiContent);
         const additionalCovid19VaccineContent = getAdditionalContentForCovid19Vaccine();
         return { ...standardVaccineContent, ...additionalCovid19VaccineContent };
       },
     ],
   ]);
-  const filteredContentBuilder = filteredContentBuilders.get(vaccineType) || getFilteredContentForStandardVaccine;
+  const filteredContentBuilder = filteredContentBuilders.get(vaccineType) || buildFilteredContentForStandardVaccine;
   return filteredContentBuilder(apiContent);
 };
 
-const getFilteredContentForStandardVaccine = (apiContent: string): VaccinePageContent => {
+const buildFilteredContentForStandardVaccine = (apiContent: string): VaccinePageContent => {
   const content: ContentApiVaccineResponse = JSON.parse(apiContent);
 
   const overview: Overview = { content: _extractDescriptionForVaccine(content, "lead paragraph"), containsHtml: false };
@@ -284,7 +284,7 @@ const getFilteredContentForStandardVaccine = (apiContent: string): VaccinePageCo
 
 export {
   getFilteredContentForVaccine,
-  getFilteredContentForStandardVaccine,
+  buildFilteredContentForStandardVaccine,
   _findAspect,
   _hasHealthAspect,
   _extractPartsForAspect,
