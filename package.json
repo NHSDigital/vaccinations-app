@@ -11,7 +11,8 @@
   "scripts": {
     "dev": "next dev --turbopack --experimental-https",
     "app": "npm run build && npm run start",
-    "build": "next build",
+    "build": "next build && npm run build:assets",
+    "build:assets": "STATIC_FOLDER=public/assets/static; cp public/css/* $STATIC_FOLDER; cp node_modules/nhsapp-frontend/dist/nhsapp*.min.css $STATIC_FOLDER/nhsapp.min.css; cp node_modules/nhsuk-frontend/dist/nhsuk/nhsuk-frontend*.min.css $STATIC_FOLDER/nhsuk-frontend.min.css",
     "build:opennext": "npx --yes @opennextjs/aws@3.x.x build --streaming",
     "build:lambda": "node esbuild.config.mjs",
     "start": "next start",
