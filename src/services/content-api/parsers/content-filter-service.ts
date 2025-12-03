@@ -211,27 +211,23 @@ function _extractHeadlineForContraindicationsAspect(content: ContentApiVaccineRe
 }
 
 const getFilteredContentForVaccine = (vaccineType: VaccineType, apiContent: string): VaccinePageContent => {
-  switch (vaccineType) {
-    case VaccineType.WHOOPING_COUGH:
-      return getFilteredContentForWhoopingCoughVaccine(apiContent);
-    case VaccineType.FLU_IN_PREGNANCY:
-      return getFilteredContentForFluInPregnancyVaccine(apiContent);
-    case VaccineType.FLU_FOR_ADULTS:
-      return getFilteredContentForFluVaccine(apiContent);
-    case VaccineType.FLU_FOR_CHILDREN:
-      return getFilteredContentForFluForChildrenVaccine(apiContent);
-    case VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN:
-      return getFilteredContentForFluForSchoolAgedChildrenVaccine(apiContent);
-    case VaccineType.COVID_19:
-      const standardVaccineContent = getFilteredContentForStandardVaccine(apiContent);
-      const additionalCovid19VaccineContent = getAdditionalContentForCovid19Vaccine();
-      return {
-        ...standardVaccineContent,
-        ...additionalCovid19VaccineContent,
-      };
-    default:
-      return getFilteredContentForStandardVaccine(apiContent);
-  }
+  const filteredContentBuilders = new Map([
+    [VaccineType.WHOOPING_COUGH, getFilteredContentForWhoopingCoughVaccine],
+    [VaccineType.FLU_IN_PREGNANCY, getFilteredContentForFluInPregnancyVaccine],
+    [VaccineType.FLU_FOR_ADULTS, getFilteredContentForFluVaccine],
+    [VaccineType.FLU_FOR_CHILDREN, getFilteredContentForFluForChildrenVaccine],
+    [VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, getFilteredContentForFluForSchoolAgedChildrenVaccine],
+    [
+      VaccineType.COVID_19,
+      (apiContent) => {
+        const standardVaccineContent = getFilteredContentForStandardVaccine(apiContent);
+        const additionalCovid19VaccineContent = getAdditionalContentForCovid19Vaccine();
+        return { ...standardVaccineContent, ...additionalCovid19VaccineContent };
+      },
+    ],
+  ]);
+  const filteredContentBuilder = filteredContentBuilders.get(vaccineType) || getFilteredContentForStandardVaccine;
+  return filteredContentBuilder(apiContent);
 };
 
 const getFilteredContentForStandardVaccine = (apiContent: string): VaccinePageContent => {
