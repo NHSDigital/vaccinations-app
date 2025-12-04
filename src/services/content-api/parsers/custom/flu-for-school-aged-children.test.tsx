@@ -27,7 +27,7 @@ childFluVaccineContentAPIResponse.mainEntityOfPage.unshift({
   position: 1,
   identifier: "20",
   name: "Expander Group",
-  hasHealthAspect: "http://schema.org/GettingAccessHealthAspect",
+  hasHealthAspect: "https://schema.org/GettingAccessHealthAspect",
   headline: "How to get the children's flu vaccine",
   mainEntityOfPage: expanderGroup,
   hasPart: expanderGroup,
