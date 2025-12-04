@@ -68,9 +68,10 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
     <div className={styles.tableCellSpanHide}>
       {contentError != ContentErrorTypes.CONTENT_LOADING_ERROR && styledVaccineContent != undefined && (
         <>
-          <Overview styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
+          <Overview overview={styledVaccineContent.overview} vaccineType={vaccineType} />
           <Recommendation styledVaccineContent={styledVaccineContent} />
           <WarningCallout styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
+          <Overview overview={styledVaccineContent.overviewConclusion} vaccineType={vaccineType} />
         </>
       )}
 

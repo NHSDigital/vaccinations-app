@@ -8,11 +8,25 @@ import {
 import { render, screen } from "@testing-library/react";
 import React from "react";
 
+jest.mock("cheerio", () => ({
+  load: jest.fn(() => {
+    const selectorImpl = jest.fn(() => ({
+      attr: jest.fn(),
+    }));
+
+    const $ = Object.assign(selectorImpl, {
+      html: jest.fn(() => "Overview <b>text</b>"),
+    });
+
+    return $;
+  }),
+}));
+
 describe("Overview component", () => {
   it("renders overview without HTML correctly", () => {
     const vaccineType = VaccineType.SHINGLES;
 
-    render(<Overview styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
+    render(<Overview overview={mockStyledContent.overview} vaccineType={vaccineType} />);
 
     const overviewText: HTMLElement = screen.getByTestId("overview-text");
 
@@ -22,7 +36,7 @@ describe("Overview component", () => {
   it("renders overview with HTML correctly", () => {
     const vaccineType = VaccineType.SHINGLES;
 
-    render(<Overview styledVaccineContent={mockStyledContentWithHtmlOverview} vaccineType={vaccineType} />);
+    render(<Overview overview={mockStyledContentWithHtmlOverview.overview} vaccineType={vaccineType} />);
 
     const overviewText: HTMLElement = screen.getByTestId("overview-text");
 
@@ -38,7 +52,7 @@ describe("Overview component", () => {
   it("does not render missing overview", () => {
     const vaccineType = VaccineType.FLU_IN_PREGNANCY;
 
-    render(<Overview styledVaccineContent={mockStyledContentWithMissingOverview} vaccineType={vaccineType} />);
+    render(<Overview overview={mockStyledContentWithMissingOverview.overview} vaccineType={vaccineType} />);
 
     const overviewText: HTMLElement | null = screen.queryByTestId("overview-text");
 

@@ -85,7 +85,7 @@ type TableSubsection = {
   mainEntity: string;
 };
 
-type ExpanderSubsection = {
+export type ExpanderSubsection = {
   type: "expanderElement";
   name: string;
   mainEntity: string;
@@ -104,13 +104,14 @@ export type Overview = { content: string; containsHtml: boolean };
 
 export type VaccinePageContent = {
   overview?: Overview;
+  callout?: HeadingWithTypedContent;
+  recommendation?: HeadingWithContent;
+  overviewConclusion?: Overview;
   whatVaccineIsFor?: VaccinePageSection;
   whoVaccineIsFor: VaccinePageSection;
   howToGetVaccine: VaccinePageSection;
   vaccineSideEffects: VaccinePageSection;
   webpageLink: URL;
-  callout?: HeadingWithTypedContent;
-  recommendation?: HeadingWithContent;
 };
 
 export type StyledPageSection = {
@@ -134,13 +135,14 @@ export type HeadingWithTypedContent = {
 
 export type StyledVaccineContent = {
   overview?: Overview;
+  callout?: StyledPageSection;
+  recommendation?: StyledPageSection;
+  overviewConclusion?: Overview;
   whatVaccineIsFor?: StyledPageSection;
   whoVaccineIsFor: StyledPageSection;
   howToGetVaccine: StyledPageSection;
   vaccineSideEffects: StyledPageSection;
   webpageLink: URL;
-  callout?: StyledPageSection;
-  recommendation?: StyledPageSection;
 };
 
 export type ContentApiVaccinationsResponse = {

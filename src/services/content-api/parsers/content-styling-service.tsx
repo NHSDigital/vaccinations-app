@@ -16,8 +16,8 @@ import {
   VaccinePageSection,
   VaccinePageSubsection,
 } from "@src/services/content-api/types";
+import { fixupHtmlFragment } from "@src/utils/html";
 import sanitiseHtml from "@src/utils/sanitise-html";
-import { load as loadHtml } from "cheerio";
 import { InsetText, WarningCallout } from "nhsuk-react-components";
 import React, { JSX } from "react";
 
@@ -179,11 +179,14 @@ function styleCallout(callout: HeadingWithTypedContent | undefined): StyledPageS
           component: <MarkdownWithStyling content={callout.content} delineator={false} />,
         };
       case "html":
-        const $ = loadHtml(callout.content, null, false);
-        $("a").attr("target", "_blank");
         return {
           heading: callout.heading,
-          component: <div data-testid="callout-html" dangerouslySetInnerHTML={{ __html: $.html() || "" }} />,
+          component: (
+            <div
+              data-testid="callout-html"
+              dangerouslySetInnerHTML={{ __html: fixupHtmlFragment(callout.content) || "" }}
+            />
+          ),
         };
       case "string":
         return {
@@ -215,6 +218,9 @@ const getStyledContentForVaccine = async (
   fragile: boolean,
 ): Promise<StyledVaccineContent> => {
   const overview: Overview | undefined = filteredContent.overview;
+  const callout: StyledPageSection | undefined = styleCallout(filteredContent.callout);
+  const recommendation: StyledPageSection | undefined = styleRecommendation(filteredContent.recommendation);
+  const overviewConclusion: Overview | undefined = filteredContent.overviewConclusion;
   let whatVaccineIsFor;
   if (filteredContent.whatVaccineIsFor) {
     whatVaccineIsFor = styleSection(filteredContent.whatVaccineIsFor);
@@ -222,19 +228,18 @@ const getStyledContentForVaccine = async (
   const whoVaccineIsFor: StyledPageSection = styleSection(filteredContent.whoVaccineIsFor);
   const howToGetVaccine: StyledPageSection = styleHowToGetSection(vaccine, filteredContent.howToGetVaccine, fragile);
   const vaccineSideEffects: StyledPageSection = styleSection(filteredContent.vaccineSideEffects);
-  const callout: StyledPageSection | undefined = styleCallout(filteredContent.callout);
-  const recommendation: StyledPageSection | undefined = styleRecommendation(filteredContent.recommendation);
   const webpageLink: URL = filteredContent.webpageLink;
 
   return {
     overview,
+    callout,
+    recommendation,
+    overviewConclusion,
     whatVaccineIsFor,
     whoVaccineIsFor,
     howToGetVaccine,
     vaccineSideEffects,
     webpageLink,
-    callout,
-    recommendation,
   };
 };
 

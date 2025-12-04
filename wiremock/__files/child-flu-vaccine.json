@@ -16,7 +16,6 @@
   "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/",
   "genre": ["Vaccine"],
   "keywords": "",
-  "dateModified": "2025-10-10T11:00:56+00:00",
   "lastReviewed": ["2023-12-13T08:33:00+00:00", "2026-12-13T08:33:00+00:00"],
   "breadcrumb": {
     "@context": "http://schema.org",

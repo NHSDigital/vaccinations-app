@@ -55,6 +55,19 @@ jest.mock("next/headers", () => ({
   headers: jest.fn(),
 }));
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
+jest.mock("cheerio", () => ({
+  load: jest.fn(() => {
+    const selectorImpl = jest.fn(() => ({
+      attr: jest.fn(),
+    }));
+
+    const $ = Object.assign(selectorImpl, {
+      html: jest.fn(() => "<p>HTML fragment</p>"),
+    });
+
+    return $;
+  }),
+}));
 
 const nhsNumber = "5123456789";
 
