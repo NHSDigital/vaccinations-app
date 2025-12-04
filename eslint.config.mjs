@@ -1,16 +1,20 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import tsPlugin from "@typescript-eslint/eslint-plugin";
+import nextTs from "eslint-config-next/typescript";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [{
-  ignores: [
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
+  {
+    rules: {
+      "@typescript-eslint/no-unused-vars": "error",
+    },
+    plugins: {
+      "@typescript-eslint": tsPlugin,
+    }
+  },
+  globalIgnores([
     "node_modules/**",
     ".next/**",
     "out/**",
@@ -25,16 +29,7 @@ const eslintConfig = [{
     "playwright-report/**",
     "pact/**",
     "performance/report",
-  ]
-}, ...compat.extends(
-  "next/core-web-vitals",
-  "next/typescript",
-  "prettier",
-  "next",
-), {
-  "rules": {
-    "@typescript-eslint/no-unused-vars": "error",
-  }
-}];
+  ]),
+]);
 
 export default eslintConfig;

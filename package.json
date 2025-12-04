@@ -75,6 +75,7 @@
     "@aws-sdk/signature-v4-crt": "^3.940.0",
     "@opennextjs/aws": "^3.9.1",
     "@types/aws-lambda": "^8.10.159",
+    "@typescript-eslint/eslint-plugin": "^8.48.1",
     "axios": "^1.13.2",
     "cheerio": "^1.1.2",
     "dotenv": "^17.2.3",
