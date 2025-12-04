@@ -188,7 +188,7 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     url: "/assets/static/service-failure.html",
     heading: "There is a problem with the service",
     title: `There is a problem with the service - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
-    snapshotFilename: "default-service-failure.png",
+    snapshotFilename: "default-service-failure-static.png",
   },
   "not-found": {
     url: "/page-does-not-exist",

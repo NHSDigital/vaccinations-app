@@ -14,7 +14,11 @@ const testPageSnapshot = async (
 ) => {
   const screenshotPath: string = pathForCustomScreenshots(testFileName, snapshotFileName, projectName);
   await page.goto(pageRoute);
-  await page.getByRole("link", { name: "Log out" }).waitFor();
+
+  // wait for specific elements on the page, as they may take longer to load
+  if (pageRoute !== AppPageDetails["service-failure-static"].url) {
+    await page.getByRole("link", { name: "Log out" }).waitFor();
+  }
 
   await openExpandersIfPresent(page);
 
