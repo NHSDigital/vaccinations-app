@@ -10,7 +10,7 @@ const FindOutMoreLink = (props: { findOutMoreUrl: URL; vaccineType: VaccineType 
         href={props.findOutMoreUrl.href}
         target="_blank"
         rel="noopener"
-      >{`Find out more about the ${vaccineInfo.displayName.midSentenceCase} vaccine`}</a>
+      >{`Find out more about the ${vaccineInfo.displayName.midSentenceCase} ${vaccineInfo.displayName.suffix}`}</a>
       , including allergies and ingredients.
     </p>
   );

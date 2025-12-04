@@ -91,7 +91,7 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
       {!vaccineInfo.personalisedEligibilityStatusRequired && <hr data-testid="more-information-hr" />}
 
       {/* Sections heading - H2 */}
-      <h2 className="nhsuk-heading-s">{`More information about the ${vaccineInfo.displayName.midSentenceCase} vaccine`}</h2>
+      <h2 className="nhsuk-heading-s">{`More information about the ${vaccineInfo.displayName.midSentenceCase} ${vaccineInfo.displayName.suffix}`}</h2>
       {/* Expandable sections */}
       {contentError != ContentErrorTypes.CONTENT_LOADING_ERROR && styledVaccineContent != undefined ? (
         <MoreInformation styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
