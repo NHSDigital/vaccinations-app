@@ -8,17 +8,17 @@ import { Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Logger } from "pino";
 
-const log: Logger = logger.child({ module: "middleware" });
-const MiddlewarePerformanceMarker = "middleware";
+const log: Logger = logger.child({ module: "proxy" });
+const ProxyPerformanceMarker = "proxy";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const requestContext: RequestContext = extractRequestContextFromHeaders(request?.headers);
 
-  return await asyncLocalStorage.run(requestContext, () => middlewareWrapper(request));
+  return await asyncLocalStorage.run(requestContext, () => proxyWrapper(request));
 }
 
-const middlewareWrapper = async (request: NextRequest) => {
-  profilePerformanceStart(MiddlewarePerformanceMarker);
+const proxyWrapper = async (request: NextRequest) => {
+  profilePerformanceStart(ProxyPerformanceMarker);
   log.info({ context: { nextUrl: request.nextUrl.href } }, "Inspecting request");
 
   // Add URL to request headers to make available for logging in the nodejs layer
@@ -37,14 +37,14 @@ const middlewareWrapper = async (request: NextRequest) => {
     });
   }
 
-  profilePerformanceEnd(MiddlewarePerformanceMarker);
+  profilePerformanceEnd(ProxyPerformanceMarker);
   return response;
 };
 
 export const config = {
   matcher: [
     /*
-      Apply middleware to all pages except:
+      Apply proxy to all pages except:
       * /api/auth (exclude all NextAuth routes)
       * /api/sso (exclude sso jump off routes)
       * /session-logout (exclude session logout route)

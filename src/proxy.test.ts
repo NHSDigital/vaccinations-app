@@ -3,7 +3,7 @@
  */
 import { auth } from "@project/auth";
 import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
-import { config, middleware } from "@src/middleware";
+import { config, proxy } from "@src/proxy";
 import appConfig from "@src/utils/config";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { NextRequest } from "next/server";
@@ -15,7 +15,7 @@ jest.mock("@project/auth", () => ({
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 jest.mock("@src/utils/config");
 
-const middlewareRegex = new RegExp(config.matcher[0]);
+const proxyRegex = new RegExp(config.matcher[0]);
 const otherExcludedPaths = ["/favicon.ico", "/assets", "/js", "/css", "/_next"];
 
 function getMockRequest(testUrl: string) {
@@ -33,7 +33,7 @@ function getMockRequest(testUrl: string) {
   };
 }
 
-describe("middleware", () => {
+describe("proxy", () => {
   const mockedConfig = appConfig as unknown as ConfigMock;
 
   beforeEach(() => {
@@ -51,7 +51,7 @@ describe("middleware", () => {
 
     (auth as jest.Mock).mockResolvedValue(null); // No authenticated session
 
-    const result = await middleware(mockRequest as NextRequest);
+    const result = await proxy(mockRequest as NextRequest);
 
     expect(result.status).toBe(307);
     expect(result.headers.get("Location")).toEqual(testUrl);
@@ -64,22 +64,22 @@ describe("middleware", () => {
 
     (auth as jest.Mock).mockResolvedValue({ user: "test" });
 
-    const result = await middleware(mockRequest as NextRequest);
+    const result = await proxy(mockRequest as NextRequest);
     expect(result.status).toBe(200);
   });
 
   it.each(unprotectedUrlPaths)("is skipped for unprotected path %s", async (path: string) => {
     // verify the regex does not match unprotected paths
-    expect(middlewareRegex.test(path)).toBe(false);
+    expect(proxyRegex.test(path)).toBe(false);
   });
 
   it.each(otherExcludedPaths)("is skipped for static path %s", async (path: string) => {
     // verify the regex does not match the path
-    expect(middlewareRegex.test(path)).toBe(false);
+    expect(proxyRegex.test(path)).toBe(false);
   });
 
   it("runs for protected paths", async () => {
     // verify the regex matches for protected paths
-    expect(middlewareRegex.test("/schedule")).toBe(true);
+    expect(proxyRegex.test("/schedule")).toBe(true);
   });
 });
