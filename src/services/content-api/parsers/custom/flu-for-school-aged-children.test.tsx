@@ -75,7 +75,10 @@ describe("buildFilteredContentForFluForSchoolAgedChildrenVaccine", () => {
 
   it("should return overviewConclusion", () => {
     const expected = {
-      overviewConclusion: { content: "<p>School age how-to-get</p>", containsHtml: true },
+      overviewConclusion: {
+        content: '<h2 class="nhsuk-heading-m">How to get the vaccine</h2><p>School age how-to-get</p>',
+        containsHtml: true,
+      },
     };
 
     const pageCopy = buildFilteredContentForFluForSchoolAgedChildrenVaccine(

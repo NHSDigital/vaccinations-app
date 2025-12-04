@@ -8,7 +8,10 @@ export const buildFilteredContentForFluForSchoolAgedChildrenVaccine = (apiConten
     (subsection) => subsection.type == "expanderElement" && subsection.headline.startsWith("School"),
   ) as ExpanderSubsection | undefined;
   const overviewConclusion = schoolAgeHowToGet?.mainEntity
-    ? { content: schoolAgeHowToGet.mainEntity, containsHtml: true }
+    ? {
+        content: `<h2 class="nhsuk-heading-m">How to get the vaccine</h2>${schoolAgeHowToGet.mainEntity}`,
+        containsHtml: true,
+      }
     : undefined;
 
   const recommendation: HeadingWithContent = {
