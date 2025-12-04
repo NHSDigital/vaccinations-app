@@ -37,7 +37,7 @@ The following secrets need to be created and set before running the application:
 
 ### Setting up Cloudfront error pages
 
-Manually create the following error routes.
+Manually create the following error routes. The current library we use doesn't update once created due to lifecycle rules, hence manual.
 
 - Go to AWS service "Cloudfront"
 - Select the distribution that serves VitA website (vaccinations.nhs.uk)
@@ -49,6 +49,12 @@ Manually create the following error routes.
   - Response page path: /service-failure
   - HTTP Response code: 500
 - Repeat the previous step for all other 5xx codes.
+- Click "Create custom error response" button
+    - HTTP error code: 403
+    - Error caching minimum TTL: 0
+    - Customise error response: yes
+    - Response page path: /assets/static/service-failure.html
+    - HTTP Response code: 403
 
 ### Setting default limits and settings
 

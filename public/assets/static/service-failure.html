@@ -111,15 +111,16 @@
       </div>
     </div>
   </footer>
+
   <script>
     function showComponentsBasedOnDevice() {
       window.onload = () => {
-        const handleClick = (event) => {
+        const handleBackLinkClick = (event) => {
           event.preventDefault();
           window.nhsapp.navigation.goToPage(window.nhsapp.navigation.AppPage.SERVICES);
         }
 
-        const handleSkipLink = (event) => {
+        const handleSkipLinkClick = (event) => {
           event.preventDefault();
           const contentTitle = document.getElementsByTagName("h1").item(0);
           contentTitle?.setAttribute("tabindex", "-1");
@@ -127,7 +128,7 @@
         }
 
         const skipLink = document.querySelector('.nhsuk-skip-link');
-        skipLink.addEventListener('click', handleSkipLink);
+        skipLink.addEventListener('click', handleSkipLinkClick);
 
         const guidance = document.getElementById('guidance');
         if (window.nhsapp.tools.isOpenInNHSApp()) {
@@ -135,8 +136,8 @@
           const backLink = document.querySelector('.nhsuk-back-link');
           backLink.style.display = 'block';
 
-          window.nhsapp.navigation.setBackAction(handleClick);
-          backLink.addEventListener('click', handleClick);
+          window.nhsapp.navigation.setBackAction(handleBackLinkClick);
+          backLink.addEventListener('click', handleBackLinkClick);
 
           guidance.innerHTML = 'Go back and try logging in again. If you cannot log in, try again later.';
         } else {
