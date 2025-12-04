@@ -1,6 +1,6 @@
 import { VaccineType } from "@src/models/vaccine";
 import { Overview as StyledOverview } from "@src/services/content-api/types";
-import { fixupHtmlFragment } from "@src/utils/html";
+import { linksOpenCorrectly } from "@src/utils/html";
 import { JSX } from "react";
 
 const Overview = (props: { overview: StyledOverview | undefined; vaccineType: VaccineType }): JSX.Element => {
@@ -8,7 +8,7 @@ const Overview = (props: { overview: StyledOverview | undefined; vaccineType: Va
     props.overview.containsHtml ? (
       <div
         data-testid="overview-text"
-        dangerouslySetInnerHTML={{ __html: fixupHtmlFragment(props.overview.content) || "" }}
+        dangerouslySetInnerHTML={{ __html: linksOpenCorrectly(props.overview.content) || "" }}
       />
     ) : (
       <p data-testid="overview-text">{props.overview.content}</p>

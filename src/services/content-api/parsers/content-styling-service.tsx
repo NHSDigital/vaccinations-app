@@ -16,7 +16,7 @@ import {
   VaccinePageSection,
   VaccinePageSubsection,
 } from "@src/services/content-api/types";
-import { fixupHtmlFragment } from "@src/utils/html";
+import { linksOpenCorrectly } from "@src/utils/html";
 import sanitiseHtml from "@src/utils/sanitise-html";
 import { InsetText, WarningCallout } from "nhsuk-react-components";
 import React, { JSX } from "react";
@@ -184,7 +184,7 @@ function styleCallout(callout: HeadingWithTypedContent | undefined): StyledPageS
           component: (
             <div
               data-testid="callout-html"
-              dangerouslySetInnerHTML={{ __html: fixupHtmlFragment(callout.content) || "" }}
+              dangerouslySetInnerHTML={{ __html: linksOpenCorrectly(callout.content) || "" }}
             />
           ),
         };
