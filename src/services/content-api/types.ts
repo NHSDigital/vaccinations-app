@@ -48,6 +48,7 @@ export type MainEntityOfPage = {
   hasPart?: HasPartSubsection[];
   mainEntityOfPage?: MainEntityOfPage[];
   description?: string;
+  mainEntity?: string | MainEntity[];
 };
 
 export type ContentApiVaccineResponse = {
