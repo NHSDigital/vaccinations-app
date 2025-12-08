@@ -115,6 +115,15 @@ export type VaccinePageContent = {
   webpageLink: URL;
 };
 
+// TODO Refactor VaccinePageContent to something like this:
+// export type OverviewSection = SimpleOverviewSection | CalloutSubsection | RecommendationSubsection;
+// export type VaccinePageContent = {
+//   overviewSections: OverviewSection[];
+//   moreInformationSections: VaccinePageSection[];
+//   webpageLink: URL;
+// }
+// This would allow us to have a variable number of overview sections, of various types, in any order, and the same thing with more info expanders.
+
 export type StyledPageSection = {
   heading: string;
   component: JSX.Element;
