@@ -564,7 +564,7 @@ export const genericVaccineContentAPIResponse: ContentApiVaccineResponse = {
           position: 0,
           "@type": "WebPageElement",
           name: "Callout",
-          text: "<h3>Callout heading</h3><p>Callout content</p>",
+          text: "<h2>Callout heading</h2><p>Callout content</p>",
         },
       ],
     },

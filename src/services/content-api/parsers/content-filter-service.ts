@@ -142,7 +142,7 @@ function _extractCalloutHeading(response: ContentApiVaccineResponse): string {
     return "";
   }
 
-  const match = calloutElement.text.match(/<h3>(.*?)<\/h3>/);
+  const match = calloutElement.text.match(/<h\d>(.*?)<\/h\d>/);
   return match ? match[1] : "";
 }
 
@@ -153,8 +153,7 @@ function _extractCalloutContent(response: ContentApiVaccineResponse): string {
     return "";
   }
 
-  const content = calloutElement.text.replace(/<h3>.*?<\/h3>/, "").trim();
-
+  const content = calloutElement.text.replace(/<h\d>.*?<\/h\d>/, "").trim();
   return content;
 }
 
