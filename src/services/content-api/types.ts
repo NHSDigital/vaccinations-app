@@ -220,3 +220,10 @@ export type ContentApiVaccinationsResponse = {
   ];
   webpage: string;
 };
+
+export interface Campaign {
+  start: Date;
+  end: Date;
+}
+
+export type Campaigns = Record<string, Campaign[]>;

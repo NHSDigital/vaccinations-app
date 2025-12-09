@@ -86,6 +86,33 @@ describe("lazyConfig", () => {
     expect(actual).toBe(99);
   });
 
+  it("should convert CAMPAIGNS to a Campaigns ", async () => {
+    setupTestEnvVars("test/");
+    process.env.CAMPAIGNS = JSON.stringify({
+      covid: [
+        { start: "20251112", end: "20260301" },
+        { start: "20260901", end: "20270301" },
+      ],
+      flu: [
+        { start: "20251112", end: "20260301" },
+        { start: "20260901", end: "20270301" },
+      ],
+    });
+
+    const actual = await config.CAMPAIGNS;
+
+    expect(actual).toStrictEqual({
+      covid: [
+        { start: new Date("2025-11-12"), end: new Date("2026-03-01") },
+        { start: new Date("2026-09-01"), end: new Date("2027-03-01") },
+      ],
+      flu: [
+        { start: new Date("2025-11-12"), end: new Date("2026-03-01") },
+        { start: new Date("2026-09-01"), end: new Date("2027-03-01") },
+      ],
+    });
+  });
+
   it("should throw for invalid URL", async () => {
     setupTestEnvVars("test/");
     process.env.APIM_AUTH_URL = "not-a-url";
@@ -101,6 +128,26 @@ describe("lazyConfig", () => {
 
     await expect(async () => {
       await config.MAX_SESSION_AGE_MINUTES;
+    }).rejects.toThrow(ConfigError);
+  });
+
+  it("should throw for invalid CAMPAIGNS", async () => {
+    setupTestEnvVars("test/");
+    process.env.CAMPAIGNS = "Sausages";
+
+    await expect(async () => {
+      await config.CAMPAIGNS;
+    }).rejects.toThrow(ConfigError);
+  });
+
+  it("should throw for CAMPAIGNS with invalid date", async () => {
+    setupTestEnvVars("test/");
+    process.env.CAMPAIGNS = JSON.stringify({
+      covid: [{ start: "20251312", end: "20260301" }],
+    });
+
+    await expect(async () => {
+      await config.CAMPAIGNS;
     }).rejects.toThrow(ConfigError);
   });
 
