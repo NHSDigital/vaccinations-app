@@ -80,7 +80,7 @@
     "dotenv": "^17.2.3",
     "es-toolkit": "^1.42.0",
     "isomorphic-dompurify": "^2.33.0",
-    "jsonwebtoken": "^9.0.2",
+    "jsonwebtoken": "^9.0.3",
     "jwt-decode": "^4.0.0",
     "next": "15.5.7",
     "next-auth": "^5.0.0-beta.30",
