@@ -101,7 +101,7 @@ const NBSBookingAction = ({
     case "actionLink": {
       // Ref: https://main--65aa76b29d00a047fe683b95.chromatic.com/?path=/docs/navigation-actionlink--docs
       return (
-        <ActionLink asElement={"a"} rel="noopener" target={"_blank"} href={url}>
+        <ActionLink asElement={"a"} rel="noopener" target={"_blank"} href={url} onClick={handleClick}>
           {displayText}
         </ActionLink>
       );

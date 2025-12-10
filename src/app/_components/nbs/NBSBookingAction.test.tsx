@@ -13,168 +13,96 @@ describe("NBSBookingAction", () => {
     window.open = jest.fn() as never;
   });
 
+  const renderVariants = [
+    { type: "button", index: 0 },
+    { type: "anchor", index: 0 },
+    { type: "actionLink", index: 1 },
+  ] as const;
+
+  const testScenarios = [
+    {
+      name: "should open NBS SSO link in same window when action is clicked within NHS app",
+      context: { hasContextLoaded: true, isOpenInMobileApp: true },
+      expectedTarget: "_self",
+      shouldCall: true,
+    },
+    {
+      name: "should open NBS SSO link in new window when action is clicked outside NHS app",
+      context: { hasContextLoaded: true, isOpenInMobileApp: false },
+      expectedTarget: "_blank",
+      shouldCall: true,
+    },
+    {
+      name: "given browser context has not loaded, should do nothing when action is clicked",
+      context: { hasContextLoaded: false, isOpenInMobileApp: undefined },
+      expectedTarget: "",
+      shouldCall: false,
+    },
+  ];
+
   describe("Given vaccine type", () => {
-    const renderAndClickNBSBookingAction = (
-      displayText: string,
-      renderAs: "anchor" | "button" | "actionLink",
-      whichElement: number = 0,
-    ): HTMLElement => {
+    const renderAndClick = (renderAs: "anchor" | "button" | "actionLink", whichElement: number) => {
       render(
         <NBSBookingActionForVaccine
           vaccineType={VaccineType.RSV}
-          displayText={displayText}
+          displayText="test"
           renderAs={renderAs}
           reduceBottomPadding={false}
         />,
       );
-
-      const role: "button" | "link" = renderAs === "button" ? "button" : "link"; // "anchor" and "actionLink" are both links
-
-      const element: HTMLElement = screen.getAllByRole(role, { name: displayText })[whichElement];
-      expect(element).toBeVisible();
+      const role = renderAs === "button" ? "button" : "link";
+      const element = screen.getAllByRole(role, { name: "test" })[whichElement];
       element.click();
-
-      return element;
     };
 
-    it("should open NBS SSO link in same window when action is clicked within NHS app", () => {
-      (useBrowserContext as jest.Mock).mockReturnValue({
-        hasContextLoaded: true,
-        isOpenInMobileApp: true,
+    it.each(testScenarios)("$name", ({ context, expectedTarget, shouldCall }) => {
+      (useBrowserContext as jest.Mock).mockReturnValue(context);
+
+      renderVariants.forEach(({ type, index }) => {
+        jest.clearAllMocks();
+
+        renderAndClick(type, index);
+
+        if (shouldCall) {
+          expect(window.open).toHaveBeenCalledWith("/api/sso-to-nbs?vaccine=rsv", expectedTarget);
+        } else {
+          expect(window.open).not.toHaveBeenCalled();
+        }
       });
-
-      // render as button
-      renderAndClickNBSBookingAction("test", "button");
-      expect(window.open).toHaveBeenCalledWith("/api/sso-to-nbs?vaccine=rsv", "_self");
-
-      // render as anchor
-      renderAndClickNBSBookingAction("test", "anchor");
-      expect(window.open).toHaveBeenCalledWith("/api/sso-to-nbs?vaccine=rsv", "_self");
-
-      // render as action link
-      renderAndClickNBSBookingAction("test", "actionLink", 1);
-      expect(window.open).toHaveBeenCalledWith("/api/sso-to-nbs?vaccine=rsv", "_self");
-    });
-
-    it("should open NBS SSO link in new window when action is clicked outside NHS app", () => {
-      (useBrowserContext as jest.Mock).mockReturnValue({
-        hasContextLoaded: true,
-        isOpenInMobileApp: false,
-      });
-
-      // render as button
-      renderAndClickNBSBookingAction("test", "button");
-      expect(window.open).toHaveBeenCalledWith("/api/sso-to-nbs?vaccine=rsv", "_blank");
-
-      // render as anchor
-      renderAndClickNBSBookingAction("test", "anchor");
-      expect(window.open).toHaveBeenCalledWith("/api/sso-to-nbs?vaccine=rsv", "_blank");
-
-      // render as action link
-      renderAndClickNBSBookingAction("test", "actionLink", 1);
-      expect(window.open).toHaveBeenCalledWith("/api/sso-to-nbs?vaccine=rsv", "_blank");
-    });
-
-    it("given browser context has not loaded, should do nothing when action is clicked", () => {
-      (useBrowserContext as jest.Mock).mockReturnValue({
-        hasContextLoaded: false,
-        isOpenInMobileApp: undefined,
-      });
-
-      // render as button
-      renderAndClickNBSBookingAction("test", "button");
-      expect(window.open).not.toHaveBeenCalled();
-
-      // render as anchor
-      renderAndClickNBSBookingAction("test", "anchor");
-      expect(window.open).not.toHaveBeenCalled();
-
-      // render as action link
-      renderAndClickNBSBookingAction("test", "actionLink", 1);
-      expect(window.open).not.toHaveBeenCalled();
     });
   });
 
   describe("Given base URL", () => {
     const url = randomURL();
 
-    const renderAndClickNBSBookingAction = (
-      displayText: string,
-      renderAs: "anchor" | "button" | "actionLink",
-      whichElement: number = 0,
-    ): HTMLElement => {
+    const renderAndClick = (renderAs: "anchor" | "button" | "actionLink", whichElement: number) => {
       render(
         <NBSBookingActionForBaseUrl
           url={url.href}
-          displayText={displayText}
+          displayText="test"
           renderAs={renderAs}
           reduceBottomPadding={false}
         />,
       );
-
-      const role: "button" | "link" = renderAs === "button" ? "button" : "link"; // "anchor" and "actionLink" are both links
-
-      const element: HTMLElement = screen.getAllByRole(role, { name: displayText })[whichElement];
+      const role = renderAs === "button" ? "button" : "link";
+      const element = screen.getAllByRole(role, { name: "test" })[whichElement];
       element.click();
-
-      return element;
     };
 
-    it("should open NBS SSO link in same window when action is clicked within NHS app", () => {
-      (useBrowserContext as jest.Mock).mockReturnValue({
-        hasContextLoaded: true,
-        isOpenInMobileApp: true,
+    it.each(testScenarios)("$name", ({ context, expectedTarget, shouldCall }) => {
+      (useBrowserContext as jest.Mock).mockReturnValue(context);
+
+      renderVariants.forEach(({ type, index }) => {
+        jest.clearAllMocks();
+
+        renderAndClick(type, index);
+
+        if (shouldCall) {
+          expect(window.open).toHaveBeenCalledWith(`/api/sso-to-nbs?redirectTarget=${url.href}`, expectedTarget);
+        } else {
+          expect(window.open).not.toHaveBeenCalled();
+        }
       });
-
-      // render as button
-      renderAndClickNBSBookingAction("test", "button");
-      expect(window.open).toHaveBeenCalledWith(`/api/sso-to-nbs?redirectTarget=${url.href}`, "_self");
-
-      // render as anchor
-      renderAndClickNBSBookingAction("test", "anchor");
-      expect(window.open).toHaveBeenCalledWith(`/api/sso-to-nbs?redirectTarget=${url.href}`, "_self");
-
-      // render as action link
-      renderAndClickNBSBookingAction("test", "actionLink", 1);
-      expect(window.open).toHaveBeenCalledWith(`/api/sso-to-nbs?redirectTarget=${url.href}`, "_self");
-    });
-
-    it("should open NBS SSO link in new window when action is clicked outside NHS app", () => {
-      (useBrowserContext as jest.Mock).mockReturnValue({
-        hasContextLoaded: true,
-        isOpenInMobileApp: false,
-      });
-
-      // render as button
-      renderAndClickNBSBookingAction("test", "button");
-      expect(window.open).toHaveBeenCalledWith(`/api/sso-to-nbs?redirectTarget=${url.href}`, "_blank");
-
-      // render as anchor
-      renderAndClickNBSBookingAction("test", "anchor");
-      expect(window.open).toHaveBeenCalledWith(`/api/sso-to-nbs?redirectTarget=${url.href}`, "_blank");
-
-      // render as action link
-      renderAndClickNBSBookingAction("test", "actionLink", 1);
-      expect(window.open).toHaveBeenCalledWith(`/api/sso-to-nbs?redirectTarget=${url.href}`, "_blank");
-    });
-
-    it("given browser context has not loaded, should do nothing when action is clicked", () => {
-      (useBrowserContext as jest.Mock).mockReturnValue({
-        hasContextLoaded: false,
-        isOpenInMobileApp: undefined,
-      });
-
-      // render as button
-      renderAndClickNBSBookingAction("test", "button");
-      expect(window.open).not.toHaveBeenCalled();
-
-      // render as anchor
-      renderAndClickNBSBookingAction("test", "anchor");
-      expect(window.open).not.toHaveBeenCalled();
-
-      // render as action link
-      renderAndClickNBSBookingAction("test", "actionLink", 1);
-      expect(window.open).not.toHaveBeenCalled();
     });
   });
 });
