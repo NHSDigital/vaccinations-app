@@ -2,6 +2,8 @@ import { buildFilteredContentForFluForSchoolAgedChildrenVaccine } from "@src/ser
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 import { cloneDeep } from "es-toolkit";
 
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
+
 const childFluVaccineContentAPIResponse = cloneDeep(genericVaccineContentAPIResponse);
 
 const expanderGroup = [

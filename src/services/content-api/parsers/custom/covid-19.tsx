@@ -1,23 +1,33 @@
+import { VaccineType } from "@src/models/vaccine";
 import { buildFilteredContentForStandardVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { HeadingWithContent, HeadingWithTypedContent, VaccinePageContent } from "@src/services/content-api/types";
+import config from "@src/utils/config";
+import { logger } from "@src/utils/logger";
+import { Logger } from "pino";
 
-export const buildFilteredContentForCovid19Vaccine = (apiContent: string): VaccinePageContent => {
-  const standardVaccineContent = buildFilteredContentForStandardVaccine(apiContent);
-  const additionalCovid19VaccineContent = getAdditionalContentForCovid19Vaccine();
+const log: Logger = logger.child({ module: "covid-19" });
 
-  return { ...standardVaccineContent, ...additionalCovid19VaccineContent };
-};
+export const buildFilteredContentForCovid19Vaccine = async (apiContent: string): Promise<VaccinePageContent> => {
+  const campaigns = await config.CAMPAIGNS;
 
-function getAdditionalContentForCovid19Vaccine() {
-  const callout: HeadingWithTypedContent = {
-    heading: "Booking service closed",
-    content: [
-      "You can no longer book a COVID-19 vaccination using this online service",
-      "Bookings can also no longer be made through the 119 service.",
-      "COVID-19 vaccinations will be available again in spring.",
-    ].join("\n\n"),
-    contentType: "markdown",
-  };
+  const standardFilteredContent = buildFilteredContentForStandardVaccine(apiContent);
+
+  let callout: HeadingWithTypedContent | undefined;
+  if (campaigns.isActive(VaccineType.COVID_19)) {
+    log.info("Campaign active");
+    callout = undefined;
+  } else {
+    log.info("No campaign active");
+    callout = {
+      heading: "Booking service closed",
+      content: [
+        "You can no longer book a COVID-19 vaccination using this online service",
+        "Bookings can also no longer be made through the 119 service.",
+        "COVID-19 vaccinations will be available again in spring.",
+      ].join("\n\n"),
+      contentType: "markdown",
+    };
+  }
   const recommendation: HeadingWithContent = {
     heading: "The COVID-19 vaccine is recommended if you:",
     content: [
@@ -26,8 +36,6 @@ function getAdditionalContentForCovid19Vaccine() {
       "* live in a care home for older adults",
     ].join("\n"),
   };
-  return {
-    callout,
-    recommendation,
-  };
-}
+
+  return { ...standardFilteredContent, callout, recommendation };
+};

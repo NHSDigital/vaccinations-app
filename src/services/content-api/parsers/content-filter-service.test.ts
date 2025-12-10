@@ -9,6 +9,7 @@ import {
   _removeExcludedHyperlinks,
   getFilteredContentForVaccine,
 } from "@src/services/content-api/parsers/content-filter-service";
+import { buildFilteredContentForCovid19Vaccine } from "@src/services/content-api/parsers/custom/covid-19";
 import { buildFilteredContentForFluForChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-children";
 import { buildFilteredContentForFluForSchoolAgedChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-school-aged-children";
 import { buildFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
@@ -30,6 +31,9 @@ jest.mock("@src/services/content-api/parsers/custom/flu-in-pregnancy");
 jest.mock("@src/services/content-api/parsers/custom/flu-vaccine");
 jest.mock("@src/services/content-api/parsers/custom/flu-for-children");
 jest.mock("@src/services/content-api/parsers/custom/flu-for-school-aged-children");
+jest.mock("@src/services/content-api/parsers/custom/covid-19");
+
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("Content Filter", () => {
   describe("_extractDescriptionForVaccine", () => {
@@ -751,26 +755,6 @@ describe("Content Filter", () => {
         expect(buildFilteredContentForFluVaccine).toHaveBeenCalledWith(mockApiContent);
       });
 
-      it("should return standard vaccine content and additional content for COVID-19 vaccine", () => {
-        const pageCopyForCovid19Vaccine = getFilteredContentForVaccine(
-          VaccineType.COVID_19,
-          JSON.stringify(genericVaccineContentAPIResponse),
-        );
-
-        expect(pageCopyForCovid19Vaccine.overview).toBeDefined();
-        expect(pageCopyForCovid19Vaccine.whatVaccineIsFor).toBeDefined();
-        expect(pageCopyForCovid19Vaccine.whoVaccineIsFor).toBeDefined();
-        expect(pageCopyForCovid19Vaccine.howToGetVaccine).toBeDefined();
-        expect(pageCopyForCovid19Vaccine.vaccineSideEffects).toBeDefined();
-        expect(pageCopyForCovid19Vaccine.webpageLink).toBeDefined();
-
-        // Additional COVID-19 vaccine content
-        expect(pageCopyForCovid19Vaccine.callout?.heading).toEqual("Booking service closed");
-        expect(pageCopyForCovid19Vaccine.recommendation?.heading).toEqual(
-          "The COVID-19 vaccine is recommended if you:",
-        );
-      });
-
       it("should call getFilteredContentForFluInPregnancyVaccine for flu in pregnancy vaccine", () => {
         const mockApiContent = "testContent";
 
@@ -792,6 +776,14 @@ describe("Content Filter", () => {
 
         getFilteredContentForVaccine(VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, mockApiContent);
         expect(buildFilteredContentForFluForSchoolAgedChildrenVaccine).toHaveBeenCalledWith(mockApiContent);
+      });
+
+      it("should call buildFilteredContentForCovid19Vaccine for flu in pregnancy vaccine", () => {
+        const mockApiContent = "testContent";
+
+        getFilteredContentForVaccine(VaccineType.COVID_19, mockApiContent);
+
+        expect(buildFilteredContentForCovid19Vaccine).toHaveBeenCalledWith(mockApiContent);
       });
     });
   });

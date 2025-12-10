@@ -1,6 +1,8 @@
 import { buildFilteredContentForFluForChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-children";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
+
 describe("getFilteredContentForFluVaccine", () => {
   it("should return overview text from lead paragraph mainEntityOfPage object", async () => {
     const expectedOverview = {
