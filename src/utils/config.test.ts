@@ -89,12 +89,14 @@ describe("lazyConfig", () => {
 
   it("should convert CAMPAIGNS to a Campaigns ", async () => {
     setupTestEnvVars("test/");
-    process.env.CAMPAIGNS = JSON.stringify({ COVID_19: [{ start: "2025-11-12", end: "2026-03-01" }] });
+    process.env.CAMPAIGNS = JSON.stringify({
+      COVID_19: [{ start: "2025-11-12T09:00:00Z", end: "2026-03-01T09:00:00+02:00" }],
+    });
 
     const actual = await config.CAMPAIGNS;
 
     expect(actual.get(VaccineType.COVID_19)).toStrictEqual([
-      { start: new Date("2025-11-12"), end: new Date("2026-03-01") },
+      { start: new Date("2025-11-12T09:00:00Z"), end: new Date("2026-03-01T07:00:00Z") },
     ]);
   });
 

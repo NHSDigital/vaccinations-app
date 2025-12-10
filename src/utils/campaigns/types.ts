@@ -1,5 +1,5 @@
 import { VaccineType } from "@src/models/vaccine";
-import { UtcDateFromStringSchema } from "@src/utils/date";
+import { UtcDateTimeFromStringSchema } from "@src/utils/date";
 import { logger } from "@src/utils/logger";
 import { Logger } from "pino";
 import { z } from "zod";
@@ -8,8 +8,8 @@ const log: Logger = logger.child({ module: "campaigns" });
 
 const CampaignSchema = z
   .object({
-    start: UtcDateFromStringSchema,
-    end: UtcDateFromStringSchema,
+    start: UtcDateTimeFromStringSchema,
+    end: UtcDateTimeFromStringSchema,
   })
   .refine((data) => data.end >= data.start, {
     message: "End date must be after start date",
