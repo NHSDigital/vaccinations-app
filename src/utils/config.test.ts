@@ -1,3 +1,4 @@
+import { VaccineType } from "@src/models/vaccine";
 import config, { ConfigError } from "@src/utils/config";
 import getSecret from "@src/utils/get-secret";
 import { randomString } from "@test-data/meta-builder";
@@ -88,29 +89,13 @@ describe("lazyConfig", () => {
 
   it("should convert CAMPAIGNS to a Campaigns ", async () => {
     setupTestEnvVars("test/");
-    process.env.CAMPAIGNS = JSON.stringify({
-      covid: [
-        { start: "20251112", end: "20260301" },
-        { start: "20260901", end: "20270301" },
-      ],
-      flu: [
-        { start: "20251112", end: "20260301" },
-        { start: "20260901", end: "20270301" },
-      ],
-    });
+    process.env.CAMPAIGNS = JSON.stringify({ COVID_19: [{ start: "20251112", end: "20260301" }] });
 
     const actual = await config.CAMPAIGNS;
 
-    expect(actual).toStrictEqual({
-      covid: [
-        { start: new Date("2025-11-12"), end: new Date("2026-03-01") },
-        { start: new Date("2026-09-01"), end: new Date("2027-03-01") },
-      ],
-      flu: [
-        { start: new Date("2025-11-12"), end: new Date("2026-03-01") },
-        { start: new Date("2026-09-01"), end: new Date("2027-03-01") },
-      ],
-    });
+    expect(actual.get(VaccineType.COVID_19)).toStrictEqual([
+      { start: new Date("2025-11-12"), end: new Date("2026-03-01") },
+    ]);
   });
 
   it("should throw for invalid URL", async () => {

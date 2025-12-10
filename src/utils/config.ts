@@ -1,6 +1,5 @@
-import { Campaigns } from "@src/services/content-api/types";
 import { EligibilityApiError } from "@src/services/eligibility-api/gateway/exceptions";
-import { UtcDateFromStringSchema } from "@src/utils/date";
+import { Campaigns } from "@src/utils/campaigns/types";
 import getSecret from "@src/utils/get-secret";
 import { logger } from "@src/utils/logger";
 import { retry } from "es-toolkit";
@@ -89,29 +88,7 @@ class Config {
     if (lower === "false") return false;
     return undefined;
   };
-  private static readonly toCampaigns = (rawValue: string): Campaigns | undefined => {
-    try {
-      interface RawCampaign {
-        start: string;
-        end: string;
-      }
 
-      const rawObj: Record<string, RawCampaign[]> = JSON.parse(rawValue);
-
-      const parsedSchedule: Campaigns = {};
-
-      for (const [vaccineName, campaigns] of Object.entries(rawObj)) {
-        parsedSchedule[vaccineName] = campaigns.map((c) => ({
-          start: UtcDateFromStringSchema.parse(c.start),
-          end: UtcDateFromStringSchema.parse(c.end),
-        }));
-      }
-
-      return parsedSchedule;
-    } catch {
-      return undefined;
-    }
-  };
   static readonly converters: Record<string, (value: string) => ConfigValue> = {
     APIM_AUTH_URL: Config.toUrl,
     CONTENT_API_ENDPOINT: Config.toUrl,
@@ -123,7 +100,7 @@ class Config {
     NHS_APP_REDIRECT_LOGIN_URL: Config.toUrl,
     IS_APIM_AUTH_ENABLED: Config.toBoolean,
     MAX_SESSION_AGE_MINUTES: Config.toNumber,
-    CAMPAIGNS: Config.toCampaigns,
+    CAMPAIGNS: Campaigns.fromJson,
   };
 
   /**
