@@ -10,7 +10,7 @@ const log: Logger = logger.child({ module: "covid-19" });
 export const buildFilteredContentForCovid19Vaccine = async (apiContent: string): Promise<VaccinePageContent> => {
   const campaigns = await config.CAMPAIGNS;
 
-  const standardFilteredContent = buildFilteredContentForStandardVaccine(apiContent);
+  const standardFilteredContent = await buildFilteredContentForStandardVaccine(apiContent);
 
   let callout: HeadingWithTypedContent | undefined;
   if (campaigns.isActive(VaccineType.COVID_19)) {

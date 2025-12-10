@@ -41,7 +41,7 @@ describe("buildFilteredContentForFluForSchoolAgedChildrenVaccine", () => {
       overview: { content: "Generic Vaccine Lead Paragraph (overview)", containsHtml: false },
     };
 
-    const pageCopy = buildFilteredContentForFluForSchoolAgedChildrenVaccine(
+    const pageCopy = await buildFilteredContentForFluForSchoolAgedChildrenVaccine(
       JSON.stringify(genericVaccineContentAPIResponse),
     );
 
@@ -49,7 +49,7 @@ describe("buildFilteredContentForFluForSchoolAgedChildrenVaccine", () => {
   });
 
   it("should set the standard vaccine content", async () => {
-    const pageCopy = buildFilteredContentForFluForSchoolAgedChildrenVaccine(
+    const pageCopy = await buildFilteredContentForFluForSchoolAgedChildrenVaccine(
       JSON.stringify(genericVaccineContentAPIResponse),
     );
 
@@ -60,7 +60,7 @@ describe("buildFilteredContentForFluForSchoolAgedChildrenVaccine", () => {
     expect(pageCopy.webpageLink).toBeDefined();
   });
 
-  it("should return recommendation", () => {
+  it("should return recommendation", async () => {
     const expected = {
       recommendation: {
         heading: "The flu vaccine is recommended for children who:",
@@ -68,14 +68,14 @@ describe("buildFilteredContentForFluForSchoolAgedChildrenVaccine", () => {
       },
     };
 
-    const pageCopy = buildFilteredContentForFluForSchoolAgedChildrenVaccine(
+    const pageCopy = await buildFilteredContentForFluForSchoolAgedChildrenVaccine(
       JSON.stringify(genericVaccineContentAPIResponse),
     );
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
 
-  it("should return overviewConclusion", () => {
+  it("should return overviewConclusion", async () => {
     const expected = {
       overviewConclusion: {
         content: '<h2 class="nhsuk-heading-m">How to get the vaccine</h2><p>School age how-to-get</p>',
@@ -83,7 +83,7 @@ describe("buildFilteredContentForFluForSchoolAgedChildrenVaccine", () => {
       },
     };
 
-    const pageCopy = buildFilteredContentForFluForSchoolAgedChildrenVaccine(
+    const pageCopy = await buildFilteredContentForFluForSchoolAgedChildrenVaccine(
       JSON.stringify(childFluVaccineContentAPIResponse),
     );
 

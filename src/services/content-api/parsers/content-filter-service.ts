@@ -209,7 +209,10 @@ function _extractHeadlineForContraindicationsAspect(content: ContentApiVaccineRe
   ];
 }
 
-const getFilteredContentForVaccine = (vaccineType: VaccineType, apiContent: string): VaccinePageContent => {
+const getFilteredContentForVaccine = async (
+  vaccineType: VaccineType,
+  apiContent: string,
+): Promise<VaccinePageContent> => {
   const filteredContentBuilders = new Map([
     [VaccineType.WHOOPING_COUGH, buildFilteredContentForWhoopingCoughVaccine],
     [VaccineType.FLU_IN_PREGNANCY, buildFilteredContentForFluInPregnancyVaccine],
@@ -219,10 +222,10 @@ const getFilteredContentForVaccine = (vaccineType: VaccineType, apiContent: stri
     [VaccineType.COVID_19, buildFilteredContentForCovid19Vaccine],
   ]);
   const filteredContentBuilder = filteredContentBuilders.get(vaccineType) || buildFilteredContentForStandardVaccine;
-  return filteredContentBuilder(apiContent);
+  return await filteredContentBuilder(apiContent);
 };
 
-const buildFilteredContentForStandardVaccine = (apiContent: string): VaccinePageContent => {
+const buildFilteredContentForStandardVaccine = async (apiContent: string): Promise<VaccinePageContent> => {
   const content: ContentApiVaccineResponse = JSON.parse(apiContent);
 
   const overview: Overview = { content: _extractDescriptionForVaccine(content, "lead paragraph"), containsHtml: false };

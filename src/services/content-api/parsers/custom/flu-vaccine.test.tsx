@@ -9,12 +9,12 @@ describe("getFilteredContentForFluVaccine", () => {
       overview: { content: "Generic Vaccine Lead Paragraph (overview)", containsHtml: false },
     };
 
-    const pageCopy = buildFilteredContentForFluVaccine(JSON.stringify(genericVaccineContentAPIResponse));
+    const pageCopy = await buildFilteredContentForFluVaccine(JSON.stringify(genericVaccineContentAPIResponse));
 
     expect(pageCopy).toEqual(expect.objectContaining(expectedOverview));
   });
 
-  it("should return warning callout", () => {
+  it("should return warning callout", async () => {
     const expected = {
       callout: {
         heading: "Booking service closed",
@@ -23,12 +23,12 @@ describe("getFilteredContentForFluVaccine", () => {
       },
     };
 
-    const pageCopy = buildFilteredContentForFluVaccine(JSON.stringify(genericVaccineContentAPIResponse));
+    const pageCopy = await buildFilteredContentForFluVaccine(JSON.stringify(genericVaccineContentAPIResponse));
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
 
-  it("should return recommendation", () => {
+  it("should return recommendation", async () => {
     const expected = {
       recommendation: {
         heading: "The flu vaccine is recommended if you:",
@@ -42,7 +42,7 @@ describe("getFilteredContentForFluVaccine", () => {
       },
     };
 
-    const pageCopy = buildFilteredContentForFluVaccine(JSON.stringify(genericVaccineContentAPIResponse));
+    const pageCopy = await buildFilteredContentForFluVaccine(JSON.stringify(genericVaccineContentAPIResponse));
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });

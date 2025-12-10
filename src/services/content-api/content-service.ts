@@ -29,7 +29,7 @@ const getContentForVaccine = async (vaccineType: VaccineType): Promise<GetConten
     const vaccineContent = await readContentFromCache(cachePath, vaccineCacheFilename, vaccineType);
 
     // filter and style content
-    const filteredContent: VaccinePageContent = getFilteredContentForVaccine(vaccineType, vaccineContent);
+    const filteredContent: VaccinePageContent = await getFilteredContentForVaccine(vaccineType, vaccineContent);
     const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
       vaccineType,
       filteredContent,

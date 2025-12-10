@@ -13,7 +13,7 @@ const apiResponse = JSON.stringify({
 });
 
 describe("getFilteredContentForFluInPregnancyVaccine", () => {
-  it("should return all parts for whatVaccineIsFor section", () => {
+  it("should return all parts for whatVaccineIsFor section", async () => {
     const expected = {
       whatVaccineIsFor: {
         headline: "Why pregnant women are offered the vaccine",
@@ -28,12 +28,12 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
       },
     };
 
-    const pageCopy = buildFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
 
-  it("should return all parts for whoVaccineIsFor section", () => {
+  it("should return all parts for whoVaccineIsFor section", async () => {
     const expected = {
       whoVaccineIsFor: {
         headline: "Is the vaccine safe in pregnancy?",
@@ -48,12 +48,12 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
       },
     };
 
-    const pageCopy = buildFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
 
-  it("should return all parts for howToGetVaccine section", () => {
+  it("should return all parts for howToGetVaccine section", async () => {
     const expected = {
       howToGetVaccine: {
         headline: "How to get the vaccine",
@@ -68,12 +68,12 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
       },
     };
 
-    const pageCopy = buildFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
 
-  it("should return all parts for vaccineSideEffects section", () => {
+  it("should return all parts for vaccineSideEffects section", async () => {
     const expected = {
       vaccineSideEffects: {
         headline: "When should I have the vaccine?",
@@ -88,22 +88,22 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
       },
     };
 
-    const pageCopy = buildFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
 
-  it("should include nhs webpage link to vaccine info", () => {
+  it("should include nhs webpage link to vaccine info", async () => {
     const expected = {
       webpageLink: VaccineInfo[VaccineType.FLU_IN_PREGNANCY].nhsWebpageLink,
     };
 
-    const pageCopy = buildFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
 
-  it("should return warning callout", () => {
+  it("should return warning callout", async () => {
     const expected = {
       callout: {
         heading: "Booking service closed",
@@ -112,12 +112,12 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
       },
     };
 
-    const pageCopy = buildFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
 
-  it("should return recommendation", () => {
+  it("should return recommendation", async () => {
     const expected = {
       recommendation: {
         heading: "The flu vaccine is recommended:",
@@ -125,7 +125,7 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
       },
     };
 
-    const pageCopy = buildFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });

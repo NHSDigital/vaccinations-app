@@ -547,7 +547,7 @@ describe("Content Filter", () => {
           overview: { content: "Generic Vaccine Lead Paragraph (overview)", containsHtml: false },
         };
 
-        const pageCopyForRsv = getFilteredContentForVaccine(
+        const pageCopyForRsv = await getFilteredContentForVaccine(
           VaccineType.RSV,
           JSON.stringify(genericVaccineContentAPIResponse),
         );
@@ -555,7 +555,7 @@ describe("Content Filter", () => {
         expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedOverview));
       });
 
-      it("should return all parts for whatVaccineIsFor section", () => {
+      it("should return all parts for whatVaccineIsFor section", async () => {
         const expectedWhatVaccineIsFor = {
           whatVaccineIsFor: {
             headline: "Benefits Health Aspect headline",
@@ -570,7 +570,7 @@ describe("Content Filter", () => {
           },
         };
 
-        const pageCopyForRsv = getFilteredContentForVaccine(
+        const pageCopyForRsv = await getFilteredContentForVaccine(
           VaccineType.RSV,
           JSON.stringify(genericVaccineContentAPIResponse),
         );
@@ -578,7 +578,7 @@ describe("Content Filter", () => {
         expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedWhatVaccineIsFor));
       });
 
-      it("should return all parts for whoVaccineIsFor section", () => {
+      it("should return all parts for whoVaccineIsFor section", async () => {
         const expectedWhoVaccineIsFor = {
           whoVaccineIsFor: {
             headline: "Suitability Health Aspect headline",
@@ -617,7 +617,7 @@ describe("Content Filter", () => {
           },
         };
 
-        const pageCopyForRsv = getFilteredContentForVaccine(
+        const pageCopyForRsv = await getFilteredContentForVaccine(
           VaccineType.RSV,
           JSON.stringify(genericVaccineContentAPIResponse),
         );
@@ -625,7 +625,7 @@ describe("Content Filter", () => {
         expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedWhoVaccineIsFor));
       });
 
-      it("should return all parts for howToGetVaccine section", () => {
+      it("should return all parts for howToGetVaccine section", async () => {
         const expectedHowToGetVaccine = {
           howToGetVaccine: {
             headline: "Getting Access Health Aspect headline",
@@ -646,7 +646,7 @@ describe("Content Filter", () => {
           },
         };
 
-        const pageCopyForRsv = getFilteredContentForVaccine(
+        const pageCopyForRsv = await getFilteredContentForVaccine(
           VaccineType.RSV,
           JSON.stringify(genericVaccineContentAPIResponse),
         );
@@ -654,7 +654,7 @@ describe("Content Filter", () => {
         expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedHowToGetVaccine));
       });
 
-      it("should return all parts for vaccineSideEffects section", () => {
+      it("should return all parts for vaccineSideEffects section", async () => {
         const expectedVaccineSideEffects: VaccinePageSection = {
           headline: "Side effects of the generic vaccine",
           subsections: [
@@ -679,7 +679,7 @@ describe("Content Filter", () => {
           ],
         };
 
-        const pageCopyForRsv: VaccinePageContent = getFilteredContentForVaccine(
+        const pageCopyForRsv: VaccinePageContent = await getFilteredContentForVaccine(
           VaccineType.RSV,
           JSON.stringify(genericVaccineContentAPIResponse),
         );
@@ -687,12 +687,12 @@ describe("Content Filter", () => {
         expect(pageCopyForRsv.vaccineSideEffects).toEqual(expectedVaccineSideEffects);
       });
 
-      it("should include nhs webpage link to vaccine info", () => {
+      it("should include nhs webpage link to vaccine info", async () => {
         const expectedWebpageLink = {
           webpageLink: new URL("https://www.nhs.uk/vaccinations/generic-vaccine/"),
         };
 
-        const pageCopyForRsv = getFilteredContentForVaccine(
+        const pageCopyForRsv = await getFilteredContentForVaccine(
           VaccineType.RSV,
           JSON.stringify(genericVaccineContentAPIResponse),
         );
@@ -700,10 +700,10 @@ describe("Content Filter", () => {
         expect(pageCopyForRsv).toEqual(expect.objectContaining(expectedWebpageLink));
       });
 
-      it("should not return whatVaccineIsFor section when BenefitsHealthAspect is missing", () => {
+      it("should not return whatVaccineIsFor section when BenefitsHealthAspect is missing", async () => {
         const responseWithoutBenefitsHealthAspect = contentWithoutBenefitsHealthAspect();
 
-        const pageCopyForFlu: VaccinePageContent = getFilteredContentForVaccine(
+        const pageCopyForFlu: VaccinePageContent = await getFilteredContentForVaccine(
           VaccineType.RSV,
           JSON.stringify(responseWithoutBenefitsHealthAspect),
         );
@@ -711,14 +711,14 @@ describe("Content Filter", () => {
         expect(pageCopyForFlu.whatVaccineIsFor).toBeUndefined();
       });
 
-      it("should return all parts for callout section", () => {
+      it("should return all parts for callout section", async () => {
         const expectedCallout: HeadingWithTypedContent = {
           heading: "Callout heading",
           content: "<p>Callout content</p>",
           contentType: "html",
         };
 
-        const pageCopyForRsv: VaccinePageContent = getFilteredContentForVaccine(
+        const pageCopyForRsv: VaccinePageContent = await getFilteredContentForVaccine(
           VaccineType.RSV,
           JSON.stringify(genericVaccineContentAPIResponse),
         );
@@ -726,10 +726,10 @@ describe("Content Filter", () => {
         expect(pageCopyForRsv.callout).toEqual(expectedCallout);
       });
 
-      it("should not return callout section when Callout is missing", () => {
+      it("should not return callout section when Callout is missing", async () => {
         const responseWithoutCallout = contentWithoutCallout();
 
-        const pageCopyForFlu: VaccinePageContent = getFilteredContentForVaccine(
+        const pageCopyForFlu: VaccinePageContent = await getFilteredContentForVaccine(
           VaccineType.RSV,
           JSON.stringify(responseWithoutCallout),
         );
@@ -739,49 +739,49 @@ describe("Content Filter", () => {
     });
 
     describe("for specific vaccines", () => {
-      it("should call getFilteredContentForWhoopingCoughVaccine for whooping cough vaccine", () => {
+      it("should call getFilteredContentForWhoopingCoughVaccine for whooping cough vaccine", async () => {
         const mockApiContent = "testContent";
 
-        getFilteredContentForVaccine(VaccineType.WHOOPING_COUGH, mockApiContent);
+        await getFilteredContentForVaccine(VaccineType.WHOOPING_COUGH, mockApiContent);
 
         expect(buildFilteredContentForWhoopingCoughVaccine).toHaveBeenCalledWith(mockApiContent);
       });
 
-      it("should call getFilteredContentForFluVaccine for flu vaccine", () => {
+      it("should call getFilteredContentForFluVaccine for flu vaccine", async () => {
         const mockApiContent = "testContent";
 
-        getFilteredContentForVaccine(VaccineType.FLU_FOR_ADULTS, mockApiContent);
+        await getFilteredContentForVaccine(VaccineType.FLU_FOR_ADULTS, mockApiContent);
 
         expect(buildFilteredContentForFluVaccine).toHaveBeenCalledWith(mockApiContent);
       });
 
-      it("should call getFilteredContentForFluInPregnancyVaccine for flu in pregnancy vaccine", () => {
+      it("should call getFilteredContentForFluInPregnancyVaccine for flu in pregnancy vaccine", async () => {
         const mockApiContent = "testContent";
 
-        getFilteredContentForVaccine(VaccineType.FLU_IN_PREGNANCY, mockApiContent);
+        await getFilteredContentForVaccine(VaccineType.FLU_IN_PREGNANCY, mockApiContent);
 
         expect(buildFilteredContentForFluInPregnancyVaccine).toHaveBeenCalledWith(mockApiContent);
       });
 
-      it("should call getFilteredContentForFluForChildrenVaccine for flu for children vaccine", () => {
+      it("should call getFilteredContentForFluForChildrenVaccine for flu for children vaccine", async () => {
         const mockApiContent = "testContent";
 
-        getFilteredContentForVaccine(VaccineType.FLU_FOR_CHILDREN, mockApiContent);
+        await getFilteredContentForVaccine(VaccineType.FLU_FOR_CHILDREN, mockApiContent);
 
         expect(buildFilteredContentForFluForChildrenVaccine).toHaveBeenCalledWith(mockApiContent);
       });
 
-      it("should return standard vaccine content and recommendation for school aged children's flu vaccine", () => {
+      it("should return standard vaccine content and recommendation for school aged children's flu vaccine", async () => {
         const mockApiContent = "testContent";
 
-        getFilteredContentForVaccine(VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, mockApiContent);
+        await getFilteredContentForVaccine(VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, mockApiContent);
         expect(buildFilteredContentForFluForSchoolAgedChildrenVaccine).toHaveBeenCalledWith(mockApiContent);
       });
 
-      it("should call buildFilteredContentForCovid19Vaccine for flu in pregnancy vaccine", () => {
+      it("should call buildFilteredContentForCovid19Vaccine for flu in pregnancy vaccine", async () => {
         const mockApiContent = "testContent";
 
-        getFilteredContentForVaccine(VaccineType.COVID_19, mockApiContent);
+        await getFilteredContentForVaccine(VaccineType.COVID_19, mockApiContent);
 
         expect(buildFilteredContentForCovid19Vaccine).toHaveBeenCalledWith(mockApiContent);
       });

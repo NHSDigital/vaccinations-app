@@ -67,7 +67,7 @@ async function hydrateCacheForVaccine(
         return delayMillis;
       },
     });
-    const filteredContent: VaccinePageContent = getFilteredContentForVaccine(vaccineType, content);
+    const filteredContent: VaccinePageContent = await getFilteredContentForVaccine(vaccineType, content);
 
     if (!approvalEnabled) {
       await checkContentPassesStylingAndWriteToCache(vaccineType, content, filteredContent);
@@ -96,7 +96,10 @@ async function hydrateCacheForVaccine(
 
     if (cacheStatus === "valid") {
       if (
-        vitaContentChangedSinceLastApproved(filteredContent, getFilteredContentForVaccine(vaccineType, cacheContent))
+        vitaContentChangedSinceLastApproved(
+          filteredContent,
+          await getFilteredContentForVaccine(vaccineType, cacheContent),
+        )
       ) {
         log.info(
           { context: { vaccineType } },

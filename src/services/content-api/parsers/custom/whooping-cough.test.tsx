@@ -26,12 +26,12 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
   it("should return overview text from lead paragraph mainEntityOfPage object", async () => {
     const expected = { overview: { content: "Whooping Cough Vaccine Lead Paragraph (overview)", containsHtml: true } };
 
-    const pageCopy = buildFilteredContentForWhoopingCoughVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
 
-  it("should return all parts for whatVaccineIsFor section", () => {
+  it("should return all parts for whatVaccineIsFor section", async () => {
     const expected = {
       whatVaccineIsFor: {
         headline: "What the vaccine is for",
@@ -46,12 +46,12 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
       },
     };
 
-    const pageCopy = buildFilteredContentForWhoopingCoughVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
 
-  it("should return all parts for whoVaccineIsFor section", () => {
+  it("should return all parts for whoVaccineIsFor section", async () => {
     const expected = {
       whoVaccineIsFor: {
         headline: "Who should have the vaccine",
@@ -66,12 +66,12 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
       },
     };
 
-    const pageCopy = buildFilteredContentForWhoopingCoughVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
 
-  it("should return all parts for howToGetVaccine section", () => {
+  it("should return all parts for howToGetVaccine section", async () => {
     const expected = {
       howToGetVaccine: {
         headline: "How to get the vaccine",
@@ -86,12 +86,12 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
       },
     };
 
-    const pageCopy = buildFilteredContentForWhoopingCoughVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
 
-  it("should return all parts for vaccineSideEffects section", () => {
+  it("should return all parts for vaccineSideEffects section", async () => {
     const expected = {
       vaccineSideEffects: {
         headline: "Side effects of the vaccine",
@@ -106,17 +106,17 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
       },
     };
 
-    const pageCopy = buildFilteredContentForWhoopingCoughVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
 
-  it("should include nhs webpage link to vaccine info", () => {
+  it("should include nhs webpage link to vaccine info", async () => {
     const expected = {
       webpageLink: VaccineInfo[VaccineType.WHOOPING_COUGH].nhsWebpageLink,
     };
 
-    const pageCopy = buildFilteredContentForWhoopingCoughVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(apiResponse);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
