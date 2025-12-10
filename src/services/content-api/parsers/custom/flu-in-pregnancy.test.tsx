@@ -1,6 +1,8 @@
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { buildFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
 
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
+
 const apiResponse = JSON.stringify({
   mainEntityOfPage: [
     { hasPart: [{ text: "Flu in Pregnancy Vaccine Lead Paragraph (overview)" }] },
@@ -53,7 +55,24 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
 
-  it("should return all parts for howToGetVaccine section", async () => {
+  it("should return all parts for howToGetVaccine section, without booking links", async () => {
+    const actual = JSON.stringify({
+      mainEntityOfPage: [
+        { hasPart: [{ text: "Flu in Pregnancy Vaccine Lead Paragraph (overview)" }] },
+        { hasPart: [{ text: "<p>Why pregnant women are offered the vaccine paragraph</p>" }] },
+        { hasPart: [{ text: "<p>Is the vaccine safe in pregnancy paragraph</p>" }] },
+        { hasPart: [{ text: "<p>When should I have the vaccine paragraph</p>" }] },
+        {
+          hasPart: [
+            {
+              text: '<p><a href="https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-flu-vaccination/">book a free NHS flu vaccination appointment at a pharmacy online</a> or in the <a href="https://www.nhs.uk/nhs-app/">NHS App</a></p>',
+            },
+          ],
+        },
+        { hasPart: [{ text: "paragraph 5" }] },
+        { hasPart: [{ text: "Flu in Pregnancy Vaccine Lead Paragraph (overview)" }] },
+      ],
+    });
     const expected = {
       howToGetVaccine: {
         headline: "How to get the vaccine",
@@ -62,13 +81,13 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
             type: "simpleElement",
             headline: "",
             name: "markdown",
-            text: "<p>How to get the vaccine paragraph</p>",
+            text: "<p>book a free NHS flu vaccination appointment at a pharmacy online or in the NHS App</p>",
           },
         ],
       },
     };
 
-    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(actual);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });

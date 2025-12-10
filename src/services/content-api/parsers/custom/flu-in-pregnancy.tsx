@@ -1,4 +1,5 @@
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
+import { removeExcludedHyperlinks } from "@src/services/content-api/parsers/content-filter-service";
 import {
   ContentApiVaccineResponse,
   HeadingWithContent,
@@ -25,7 +26,9 @@ export const buildFilteredContentForFluInPregnancyVaccine = async (apiContent: s
   };
   const howToGetVaccine: VaccinePageSection = {
     headline: "How to get the vaccine",
-    subsections: [{ type: "simpleElement", headline: "", text: paragraphs[4], name: "markdown" }],
+    subsections: removeExcludedHyperlinks([
+      { type: "simpleElement", headline: "", text: paragraphs[4], name: "markdown" },
+    ]),
   };
   const whenToGet: VaccinePageSection = {
     headline: "When should I have the vaccine?",

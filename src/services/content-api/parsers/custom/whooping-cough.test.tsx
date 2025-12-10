@@ -1,6 +1,8 @@
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { buildFilteredContentForWhoopingCoughVaccine } from "@src/services/content-api/parsers/custom/whooping-cough";
 
+jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
+
 const apiResponse = JSON.stringify({
   mainEntityOfPage: [
     { hasPart: [{ text: "Whooping Cough Vaccine Lead Paragraph (overview)" }] },
@@ -117,6 +119,51 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
     };
 
     const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(apiResponse);
+
+    expect(pageCopy).toEqual(expect.objectContaining(expected));
+  });
+
+  it("should return all parts for howToGetVaccine section, without booking links", async () => {
+    const actual = JSON.stringify({
+      mainEntityOfPage: [
+        { hasPart: [{ text: "Whooping Cough Vaccine Lead Paragraph (overview)" }] },
+        { hasPart: [{ text: "<p>What the vaccine is for paragraph</p>" }] },
+        { hasPart: [{ text: "<p>Who the vaccine is for paragraph</p>" }] },
+        { hasPart: [{ text: "paragraph 3" }] },
+        { hasPart: [{ text: "paragraph 4" }] },
+        { hasPart: [{ text: "paragraph 5" }] },
+        { hasPart: [{ text: "<p>Side effects of the vaccine paragraph</p>" }] },
+        { hasPart: [{ text: "paragraph 7" }] },
+        { hasPart: [{ text: "paragraph 8" }] },
+        { hasPart: [{ text: "paragraph 9" }] },
+        { hasPart: [{ text: "paragraph 10" }] },
+        { hasPart: [{ text: "paragraph 11" }] },
+        { hasPart: [{ text: "paragraph 12" }] },
+        { hasPart: [{ text: "paragraph 13" }] },
+        {
+          hasPart: [
+            {
+              text: '<p><a href="https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-flu-vaccination/">book a free vaccination appointment at a pharmacy online</a> or in the <a href="https://www.nhs.uk/nhs-app/">NHS App</a></p>',
+            },
+          ],
+        },
+        { hasPart: [{ text: "paragraph 15" }] },
+      ],
+    });
+    const expected = {
+      howToGetVaccine: {
+        headline: "How to get the vaccine",
+        subsections: [
+          {
+            type: "simpleElement",
+            headline: "",
+            name: "markdown",
+            text: "<p>book a free vaccination appointment at a pharmacy online or in the NHS App</p>",
+          },
+        ],
+      },
+    };
+    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(actual);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });

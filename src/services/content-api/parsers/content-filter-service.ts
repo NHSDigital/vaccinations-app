@@ -62,7 +62,7 @@ const _extractPartsForAspect = (response: ContentApiVaccineResponse, aspectName:
   if (!subsections) {
     throw new Error(`Missing subsections for Aspect: ${aspectName}`);
   } else {
-    const subsectionsWithExcludedLinksRemoved = _removeExcludedHyperlinks(subsections);
+    const subsectionsWithExcludedLinksRemoved = removeExcludedHyperlinks(subsections);
     return subsectionsWithExcludedLinksRemoved;
   }
 };
@@ -157,7 +157,7 @@ function _extractCalloutContent(response: ContentApiVaccineResponse): string {
   return content;
 }
 
-const _removeExcludedHyperlinks = (subsections: VaccinePageSubsection[]) => {
+const removeExcludedHyperlinks = (subsections: VaccinePageSubsection[]) => {
   const nbsHyperlinkPattern: RegExp =
     /<a [^>]*?href="[^>]*?\/nhs-services\/vaccination-and-booking-services\/book-[^>]*?>(.*?)<\/a>/g;
   const nhsAppPattern: RegExp = /<a [^>]*?href="[^>]*?\/nhs-app[^>]*?>(.*?)<\/a>/g;
@@ -286,5 +286,5 @@ export {
   _extractHeadlineForAspect,
   _extractDescriptionForVaccine,
   _extractHeadlineForContraindicationsAspect,
-  _removeExcludedHyperlinks,
+  removeExcludedHyperlinks,
 };

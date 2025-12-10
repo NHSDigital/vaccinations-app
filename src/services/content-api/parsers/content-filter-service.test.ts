@@ -6,8 +6,8 @@ import {
   _extractPartsForAspect,
   _findAspect,
   _hasHealthAspect,
-  _removeExcludedHyperlinks,
   getFilteredContentForVaccine,
+  removeExcludedHyperlinks,
 } from "@src/services/content-api/parsers/content-filter-service";
 import { buildFilteredContentForCovid19Vaccine } from "@src/services/content-api/parsers/custom/covid-19";
 import { buildFilteredContentForFluForChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-children";
@@ -420,7 +420,7 @@ describe("Content Filter", () => {
 
       const expectedTextAttr = "<p>Book by going to NBS or via the NHS app</p>";
 
-      const actualSubsections = _removeExcludedHyperlinks(subsectionsWithMainEntity);
+      const actualSubsections = removeExcludedHyperlinks(subsectionsWithMainEntity);
 
       actualSubsections.forEach((subsection) => {
         if (subsection.type === "expanderElement" || subsection.type === "tableElement") {
@@ -442,7 +442,7 @@ describe("Content Filter", () => {
       ];
       const expectedTextAttr = "<p>Book by going to NBS or via the NHS app</p>";
 
-      const actualSubsections = _removeExcludedHyperlinks(subsectionsWithTextElement);
+      const actualSubsections = removeExcludedHyperlinks(subsectionsWithTextElement);
 
       actualSubsections.forEach((subsection) => {
         if (subsection.type === "simpleElement") {
@@ -466,7 +466,7 @@ describe("Content Filter", () => {
         },
       ];
 
-      const actualSubsections = _removeExcludedHyperlinks(subsections);
+      const actualSubsections = removeExcludedHyperlinks(subsections);
 
       actualSubsections.forEach((subsection) => {
         if (subsection.type === "simpleElement") {
