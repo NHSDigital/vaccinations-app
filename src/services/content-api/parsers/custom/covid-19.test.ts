@@ -55,7 +55,7 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
 
   it("should not return a callout when no campaign is active", async () => {
     // Given
-    jest.useFakeTimers().setSystemTime(new Date("2025-12-01"));
+    jest.setSystemTime(new Date("2025-12-01"));
 
     // When
     const pageCopy = await buildFilteredContentForCovid19Vaccine(JSON.stringify(genericVaccineContentAPIResponse));
