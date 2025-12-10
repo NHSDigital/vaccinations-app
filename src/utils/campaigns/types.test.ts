@@ -7,12 +7,12 @@ describe("Campaigns", () => {
   it("should convert json to a Campaigns ", async () => {
     const jsonString = JSON.stringify({
       COVID_19: [
-        { start: "20251112", end: "20260301" },
-        { start: "20260901", end: "20270301" },
+        { start: "2025-11-12", end: "2026-03-01" },
+        { start: "2026-09-01", end: "2027-03-01" },
       ],
       FLU_FOR_ADULTS: [
-        { start: "20251112", end: "20260301" },
-        { start: "20260901", end: "20270301" },
+        { start: "2025-11-12", end: "2026-03-01" },
+        { start: "2026-09-01", end: "2027-03-01" },
       ],
     });
 
@@ -30,7 +30,7 @@ describe("Campaigns", () => {
   });
 
   describe("isActive", () => {
-    const jsonString = JSON.stringify({ COVID_19: [{ start: "20251112", end: "20260301" }] });
+    const jsonString = JSON.stringify({ COVID_19: [{ start: "2025-11-12", end: "2026-03-01" }] });
     const campaigns = Campaigns.fromJson(jsonString)!;
 
     it.each([

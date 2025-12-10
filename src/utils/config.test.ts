@@ -89,7 +89,7 @@ describe("lazyConfig", () => {
 
   it("should convert CAMPAIGNS to a Campaigns ", async () => {
     setupTestEnvVars("test/");
-    process.env.CAMPAIGNS = JSON.stringify({ COVID_19: [{ start: "20251112", end: "20260301" }] });
+    process.env.CAMPAIGNS = JSON.stringify({ COVID_19: [{ start: "2025-11-12", end: "2026-03-01" }] });
 
     const actual = await config.CAMPAIGNS;
 
@@ -128,7 +128,7 @@ describe("lazyConfig", () => {
   it("should throw for CAMPAIGNS with invalid date", async () => {
     setupTestEnvVars("test/");
     process.env.CAMPAIGNS = JSON.stringify({
-      covid: [{ start: "20251312", end: "20260301" }],
+      covid: [{ start: "2025-13-12", end: "2026-03-01" }],
     });
 
     await expect(async () => {

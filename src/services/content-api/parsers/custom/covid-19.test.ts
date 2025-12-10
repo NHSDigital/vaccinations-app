@@ -6,8 +6,8 @@ jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 describe("buildFilteredContentForCovid19Vaccine", () => {
   process.env.CAMPAIGNS = JSON.stringify({
     COVID_19: [
-      { start: "20251101", end: "20260131" },
-      { start: "20261101", end: "20270131" },
+      { start: "2025-11-01", end: "2026-01-31" },
+      { start: "2026-11-01", end: "2027-01-31" },
     ],
   });
   jest.useFakeTimers();
