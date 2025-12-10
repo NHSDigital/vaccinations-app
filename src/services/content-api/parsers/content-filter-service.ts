@@ -1,5 +1,5 @@
 import { VaccineType } from "@src/models/vaccine";
-import { getAdditionalContentForCovid19Vaccine } from "@src/services/content-api/parsers/custom/covid-19";
+import { buildFilteredContentForCovid19Vaccine } from "@src/services/content-api/parsers/custom/covid-19";
 import { buildFilteredContentForFluForChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-children";
 import { buildFilteredContentForFluForSchoolAgedChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-school-aged-children";
 import { buildFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
@@ -216,14 +216,7 @@ const getFilteredContentForVaccine = (vaccineType: VaccineType, apiContent: stri
     [VaccineType.FLU_FOR_ADULTS, buildFilteredContentForFluVaccine],
     [VaccineType.FLU_FOR_CHILDREN, buildFilteredContentForFluForChildrenVaccine],
     [VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, buildFilteredContentForFluForSchoolAgedChildrenVaccine],
-    [
-      VaccineType.COVID_19,
-      (apiContent) => {
-        const standardVaccineContent = buildFilteredContentForStandardVaccine(apiContent);
-        const additionalCovid19VaccineContent = getAdditionalContentForCovid19Vaccine();
-        return { ...standardVaccineContent, ...additionalCovid19VaccineContent };
-      },
-    ],
+    [VaccineType.COVID_19, buildFilteredContentForCovid19Vaccine],
   ]);
   const filteredContentBuilder = filteredContentBuilders.get(vaccineType) || buildFilteredContentForStandardVaccine;
   return filteredContentBuilder(apiContent);

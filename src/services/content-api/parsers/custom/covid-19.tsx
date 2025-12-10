@@ -1,6 +1,14 @@
-import { HeadingWithContent, HeadingWithTypedContent } from "@src/services/content-api/types";
+import { buildFilteredContentForStandardVaccine } from "@src/services/content-api/parsers/content-filter-service";
+import { HeadingWithContent, HeadingWithTypedContent, VaccinePageContent } from "@src/services/content-api/types";
 
-export function getAdditionalContentForCovid19Vaccine() {
+export const buildFilteredContentForCovid19Vaccine = (apiContent: string): VaccinePageContent => {
+  const standardVaccineContent = buildFilteredContentForStandardVaccine(apiContent);
+  const additionalCovid19VaccineContent = getAdditionalContentForCovid19Vaccine();
+
+  return { ...standardVaccineContent, ...additionalCovid19VaccineContent };
+};
+
+function getAdditionalContentForCovid19Vaccine() {
   const callout: HeadingWithTypedContent = {
     heading: "Booking service closed",
     content: [
