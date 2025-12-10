@@ -31,7 +31,7 @@ export const buildFilteredContentForFluInPregnancyVaccine = (apiContent: string)
     headline: "When should I have the vaccine?",
     subsections: [{ type: "simpleElement", headline: "", text: paragraphs[3], name: "markdown" }],
   };
-  const webpageLink: URL = VaccineInfo[VaccineType.WHOOPING_COUGH].nhsWebpageLink;
+  const webpageLink: URL = VaccineInfo[VaccineType.FLU_IN_PREGNANCY].nhsWebpageLink;
   const callout: HeadingWithTypedContent = {
     heading: "Booking service closed",
     content: "Flu vaccine bookings will reopen in autumn 2026",

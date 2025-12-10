@@ -95,7 +95,7 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
 
   it("should include nhs webpage link to vaccine info", () => {
     const expected = {
-      webpageLink: VaccineInfo[VaccineType.WHOOPING_COUGH].nhsWebpageLink,
+      webpageLink: VaccineInfo[VaccineType.FLU_IN_PREGNANCY].nhsWebpageLink,
     };
 
     const pageCopy = buildFilteredContentForFluInPregnancyVaccine(apiResponse);
