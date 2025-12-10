@@ -57,7 +57,7 @@ export class Campaigns {
 
   /** Get all campaigns for a specific vaccine */
   get(vaccine: VaccineType): Campaign[] {
-    return this.schedule[vaccine] ?? [];
+    return this.schedule[vaccine] || [];
   }
 
   /** Check if a vaccine is currently active */

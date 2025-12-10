@@ -52,5 +52,13 @@ describe("Campaigns", () => {
 
       expect(actual).toBe(expected);
     });
+
+    it("should return false for vaccine with no campaign", () => {
+      const campaigns = Campaigns.fromJson(jsonString)!;
+
+      const active = campaigns.isActive(VaccineType.FLU_FOR_CHILDREN);
+
+      expect(active).toBe(false);
+    });
   });
 });
