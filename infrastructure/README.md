@@ -278,6 +278,25 @@ Use the steps below to deploy with restricted role instead of administrator, in 
   AWS_PROFILE=my-assumed-role AWS_REGION=eu-west-2 TF_ENV=dev make terraform-apply
   ```
 
+## Terraform upgrade
+
+To upgrade terraform itself and its module versions, it requires careful process
+
+- go to infrastructure/environments/dev directory
+- reset local environment
+  - cleanup local - delete .terraform directory in the dev folder to remove previous local copies
+  - initialise your workspace - terraform init and terraform workspace select <your 4-letter code>
+- build and deploy to your workspace
+  - npm run local-build-package (only once as the code is not changing for this process)
+  - terraform apply (don't actually apply)
+- repeat the following for each incremental upgrade
+  - upgrade - starting with the provider and then moving to third party modules, bump the version to next major version
+  - do the "reset local environment" steps above
+  - terraform init --upgrade
+  - terraform providers lock -platform=linux_amd64 -platform=linux_arm64q
+  - do the "build and deploy to your workspace" steps above
+- expect that no changes to your infrastructure are needed
+
 ## OpenNext
 
 OpenNext takes the Next.js build output and converts it into packages that can be deployed across a variety of environments.
