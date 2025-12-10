@@ -11,10 +11,18 @@ runs:
       shell: bash
       run: |
         check_only=true scripts/githooks/check-terraform-format.sh
+
+    - name: "Identify Terraform version"
+      shell: bash
+      id: identify-terraform-version
+      run: |
+        echo "terraform_version=$(grep "^terraform" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
+
     - name: "Install Terraform"
       uses: hashicorp/setup-terraform@v3
       with:
-        terraform_version: "1.11.2"
+        terraform_version: "${{ steps.identify-terraform-version.outputs.terraform_version }}"
+
     - name: "Validate Terraform"
       shell: bash
       run: |
