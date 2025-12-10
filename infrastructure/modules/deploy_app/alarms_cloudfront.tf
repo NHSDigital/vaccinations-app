@@ -36,7 +36,7 @@ module "alarms_cloudfront" {
   for_each = local.alarms_cloudfront
 
   source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarm"
-  version = "~> 5.7.1"
+  version = "~> 5.0"
 
   alarm_name        = "${var.prefix}-${each.key}"
   alarm_description = each.value.alarm_description

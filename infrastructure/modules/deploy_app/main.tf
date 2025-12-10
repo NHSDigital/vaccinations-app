@@ -1,6 +1,6 @@
 module "deploy_app" {
   source                = "RJPearson94/open-next/aws//modules/tf-aws-open-next-zone"
-  version               = "3.6.1"
+  version               = "3.6.2"
   open_next_version     = "v3.x.x"
   function_architecture = "arm64"
   prefix                = var.prefix
