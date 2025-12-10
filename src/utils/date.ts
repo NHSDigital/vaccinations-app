@@ -15,3 +15,16 @@ export const UtcDateFromStringSchema = z
     }
     return date;
   });
+
+export const UtcDateTimeFromStringSchema = z.iso
+  .datetime({ offset: true, message: "Invalid ISO 8601 datetime format" })
+  .transform((str, ctx) => {
+    const date = new Date(str);
+
+    if (isNaN(date.getTime())) {
+      ctx.addIssue({ code: "custom", message: "Invalid date value" });
+      return z.NEVER;
+    }
+
+    return date;
+  });
