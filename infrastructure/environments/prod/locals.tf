@@ -52,6 +52,8 @@ locals {
 
     SSM_PARAMETER_STORE_TTL                = 300
     PARAMETERS_SECRETS_EXTENSION_LOG_LEVEL = "INFO"
+
+    CAMPAIGNS = file("${path.module}/campaigns.json")
   }
 
   default_tags = {
