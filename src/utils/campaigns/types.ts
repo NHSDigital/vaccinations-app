@@ -19,7 +19,7 @@ const CampaignSchema = z
 export type Campaign = z.infer<typeof CampaignSchema>;
 
 export class Campaigns {
-  private schedule: Partial<Record<VaccineType, Campaign[]>>;
+  private readonly schedule: Partial<Record<VaccineType, Campaign[]>>;
 
   constructor(schedule: Partial<Record<VaccineType, Campaign[]>>) {
     this.schedule = schedule;
