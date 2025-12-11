@@ -1,3 +1,5 @@
+import { Age } from "@src/utils/auth/types";
+import { differenceInYears } from "date-fns";
 import { z } from "zod";
 
 export const UtcDateFromStringSchema = z
@@ -28,3 +30,10 @@ export const UtcDateTimeFromStringSchema = z.iso
 
     return date;
   });
+
+export const calculateAge = (date: string): Age => {
+  const today: Date = new Date();
+  const birthDate: Date = UtcDateFromStringSchema.parse(date);
+
+  return differenceInYears(today, birthDate) as Age;
+};
