@@ -18,6 +18,7 @@ const REDACT_KEYS: string[] = [
   "api_key",
   "apimToken",
   "aud",
+  "birthdate",
   "clientAssertion",
   "client_assertion",
   "elidUri",
