@@ -10,9 +10,6 @@ import { ConfigMock, configBuilder } from "@test-data/config/builders";
 jest.mock("@src/services/content-api/gateway/content-reader-service");
 jest.mock("@src/utils/config");
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
-jest.mock("@src/services/nbs/nbs-service", () => ({
-  buildNbsUrlWithQueryParams: jest.fn(),
-}));
 const mockMarkdownWithStylingHtml = "<ul><li>sausage</li><li>egg</li><li>chips</li></ul>";
 jest.mock("@project/src/app/_components/markdown/MarkdownWithStyling", () => ({
   MarkdownWithStyling: () => mockMarkdownWithStylingHtml,

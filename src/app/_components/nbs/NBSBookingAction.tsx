@@ -2,14 +2,15 @@
 
 import { useBrowserContext } from "@src/app/_components/context/BrowserContext";
 import { SSO_TO_NBS_ROUTE } from "@src/app/api/sso-to-nbs/constants";
-import { UrlPathFragment, VaccineInfo, VaccineType } from "@src/models/vaccine";
+import { UrlPathFragment, VaccineInfo } from "@src/models/vaccine";
+import { VaccinesWithNBSBookingAvailable } from "@src/services/nbs/nbs-service";
 import { ActionLink } from "nhsuk-react-components";
 import React, { JSX } from "react";
 
 type RenderOptions = "anchor" | "button" | "actionLink";
 
 interface NBSBookingActionForVaccineProps {
-  vaccineType: VaccineType;
+  vaccineType: VaccinesWithNBSBookingAvailable;
   displayText: string;
   renderAs: RenderOptions;
   reduceBottomPadding: boolean;

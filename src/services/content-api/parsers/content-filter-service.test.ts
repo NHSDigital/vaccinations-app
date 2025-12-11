@@ -34,9 +34,6 @@ jest.mock("@src/services/content-api/parsers/custom/flu-for-school-aged-children
 jest.mock("@src/services/content-api/parsers/custom/covid-19");
 
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
-jest.mock("@src/services/nbs/nbs-service", () => ({
-  buildNbsUrlWithQueryParams: jest.fn(),
-}));
 
 describe("Content Filter", () => {
   describe("_extractDescriptionForVaccine", () => {

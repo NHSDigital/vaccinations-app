@@ -1,4 +1,4 @@
-import { VaccineType } from "@src/models/vaccine";
+import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { buildFilteredContentForStandardVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { HeadingWithContent, HeadingWithTypedContent, VaccinePageContent } from "@src/services/content-api/types";
 import {
@@ -9,7 +9,6 @@ import {
   Content,
   Label,
 } from "@src/services/eligibility-api/types";
-import { buildNbsUrlWithQueryParams } from "@src/services/nbs/nbs-service";
 import config from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { Logger } from "pino";
@@ -52,7 +51,12 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
 };
 
 async function _buildActions(): Promise<Action[]> {
-  const nbsURl = (await buildNbsUrlWithQueryParams(VaccineType.COVID_19)) as ButtonUrl;
+  const nbsBaseUrl = await config.NBS_URL;
+  const nbsBookingPath = await config.NBS_BOOKING_PATH;
+  const nbsURl = new URL(
+    `${nbsBaseUrl.pathname}${nbsBookingPath}/${VaccineInfo.COVID_19.nbsPath}`,
+    nbsBaseUrl.origin,
+  ) as ButtonUrl;
 
   const nbsBooking: ActionWithButton = {
     type: ActionDisplayType.buttonWithInfo,
