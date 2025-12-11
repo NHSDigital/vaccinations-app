@@ -49,6 +49,7 @@ export const buildFilteredContentForFluInPregnancyVaccine = async (apiContent: s
 
   return {
     overview: undefined,
+    actions: [],
     whatVaccineIsFor: whyOffered,
     whoVaccineIsFor: isItSafe,
     howToGetVaccine,

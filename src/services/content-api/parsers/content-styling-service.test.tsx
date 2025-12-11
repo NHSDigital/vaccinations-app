@@ -307,6 +307,7 @@ describe("ContentStylingService", () => {
       };
       const mockContent: VaccinePageContent = {
         overview: { content: "This is an overview", containsHtml: false },
+        actions: [],
         whatVaccineIsFor: mockWhatSection,
         whoVaccineIsFor: mockWhoSection,
         howToGetVaccine: mockHowSection,
@@ -362,6 +363,7 @@ describe("ContentStylingService", () => {
       };
       const mockContent: VaccinePageContent = {
         overview: { content: "This is an overview", containsHtml: false },
+        actions: [],
         whoVaccineIsFor: mockWhoSection,
         howToGetVaccine: mockHowSection,
         vaccineSideEffects: mockSideEffectsSection,
@@ -398,6 +400,7 @@ describe("ContentStylingService", () => {
       };
       const mockContent: VaccinePageContent = {
         overview: { content: "This is an overview", containsHtml: false },
+        actions: [],
         whoVaccineIsFor: mockWhoSection,
         howToGetVaccine: mockHowSection,
         vaccineSideEffects: mockSideEffectsSection,

@@ -1,4 +1,5 @@
 import { buildFilteredContentForCovid19Vaccine } from "@src/services/content-api/parsers/custom/covid-19";
+import { ActionDisplayType, ButtonUrl, Content, Label } from "@src/services/eligibility-api/types";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
@@ -31,7 +32,7 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
     expect(pageCopyForCovid19Vaccine.recommendation?.heading).toEqual("The COVID-19 vaccine is recommended if you:");
   });
 
-  it("should return a callout when no campaign is active", async () => {
+  it("should return a callout but no actions when no campaign is active", async () => {
     // Given
     jest.setSystemTime(new Date("2025-10-01"));
 
@@ -51,16 +52,37 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
 
     // Then
     expect(pageCopy).toEqual(expect.objectContaining(expected));
+    expect(pageCopy.actions).toHaveLength(0);
   });
 
-  it("should not return a callout when no campaign is active", async () => {
+  it("should return actions but no callout when no campaign is active", async () => {
     // Given
     jest.setSystemTime(new Date("2025-12-01"));
+
+    const expected = {
+      actions: [
+        {
+          type: ActionDisplayType.actionLinkWithInfo,
+          content: [
+            "## Get vaccinated without an appointment",
+            "You can find a walk-in COVID-19 vaccination site to get a vaccination without an appointment. You do not need to be registered with a GP.",
+          ].join("\n\n") as Content,
+          button: {
+            label: "Find a walk-in COVID-19 vaccination site" as Label,
+            url: new URL(
+              "https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-walk-in-covid-19-vaccination-site/",
+            ) as ButtonUrl,
+          },
+          delineator: false,
+        },
+      ],
+    };
 
     // When
     const pageCopy = await buildFilteredContentForCovid19Vaccine(JSON.stringify(genericVaccineContentAPIResponse));
 
     // Then
+    expect(pageCopy).toEqual(expect.objectContaining(expected));
     expect(pageCopy.callout).toBeUndefined();
   });
 });

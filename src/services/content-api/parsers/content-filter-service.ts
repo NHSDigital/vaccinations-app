@@ -274,6 +274,7 @@ const buildFilteredContentForStandardVaccine = async (apiContent: string): Promi
     vaccineSideEffects,
     webpageLink,
     callout,
+    actions: [],
   };
 };
 

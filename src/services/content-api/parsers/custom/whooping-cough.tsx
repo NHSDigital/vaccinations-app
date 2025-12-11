@@ -33,6 +33,7 @@ export const buildFilteredContentForWhoopingCoughVaccine = async (apiContent: st
 
   return {
     overview,
+    actions: [],
     whatVaccineIsFor,
     whoVaccineIsFor,
     howToGetVaccine,

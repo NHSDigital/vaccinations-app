@@ -1,3 +1,4 @@
+import { Action } from "@src/services/eligibility-api/types";
 import { JSX } from "react";
 
 export type GetContentForVaccineResponse = ContentForVaccine | ContentForVaccineError;
@@ -108,15 +109,18 @@ export type VaccinePageContent = {
   callout?: HeadingWithTypedContent;
   recommendation?: HeadingWithContent;
   overviewConclusion?: Overview;
+  actions: Action[];
+
   whatVaccineIsFor?: VaccinePageSection;
   whoVaccineIsFor: VaccinePageSection;
   howToGetVaccine: VaccinePageSection;
   vaccineSideEffects: VaccinePageSection;
+
   webpageLink: URL;
 };
 
 // TODO Refactor VaccinePageContent to something like this:
-// export type OverviewSection = SimpleOverviewSection | CalloutSubsection | RecommendationSubsection;
+// export type OverviewSection = SimpleOverviewSection | CalloutSubsection | RecommendationSubsection | Actions[];
 // export type VaccinePageContent = {
 //   overviewSections: OverviewSection[];
 //   moreInformationSections: VaccinePageSection[];
@@ -148,10 +152,13 @@ export type StyledVaccineContent = {
   callout?: StyledPageSection;
   recommendation?: StyledPageSection;
   overviewConclusion?: Overview;
+  actions: Action[];
+
   whatVaccineIsFor?: StyledPageSection;
   whoVaccineIsFor: StyledPageSection;
   howToGetVaccine: StyledPageSection;
   vaccineSideEffects: StyledPageSection;
+
   webpageLink: URL;
 };
 

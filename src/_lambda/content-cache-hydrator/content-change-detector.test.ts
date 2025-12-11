@@ -3,6 +3,7 @@ import { VaccinePageContent } from "@src/services/content-api/types";
 
 const mockPreviousApprovedVaccineContent: VaccinePageContent = {
   overview: { content: "This is an overview", containsHtml: false },
+  actions: [],
   whatVaccineIsFor: {
     headline: "What Vaccine Is For",
     subsections: [

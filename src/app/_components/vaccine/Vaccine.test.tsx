@@ -48,6 +48,9 @@ jest.mock("@src/app/_components/content/HowToGetVaccineFallback", () => ({
     .fn()
     .mockImplementation(() => <div data-testid="how-to-get-content-fallback-mock">How to get content fallback</div>),
 }));
+jest.mock("@src/app/_components/eligibility/EligibilityActions", () => ({
+  EligibilityActions: jest.fn().mockImplementation(() => <div data-testid="eligibility-actions-mock">Actions</div>),
+}));
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
 }));
@@ -150,6 +153,14 @@ describe("Any vaccine page", () => {
       await renderNamedVaccinePage(VaccineType.HIB_MENC);
 
       const calloutText: HTMLElement = screen.getByTestId("callout");
+
+      expect(calloutText).toBeInTheDocument();
+    });
+
+    it("should include actions", async () => {
+      await renderNamedVaccinePage(VaccineType.COVID_19);
+
+      const calloutText: HTMLElement = screen.getByTestId("eligibility-actions-mock");
 
       expect(calloutText).toBeInTheDocument();
     });

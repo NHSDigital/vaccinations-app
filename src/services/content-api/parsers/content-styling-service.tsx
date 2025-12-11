@@ -221,6 +221,7 @@ const getStyledContentForVaccine = async (
   const callout: StyledPageSection | undefined = styleCallout(filteredContent.callout);
   const recommendation: StyledPageSection | undefined = styleRecommendation(filteredContent.recommendation);
   const overviewConclusion: Overview | undefined = filteredContent.overviewConclusion;
+  const actions = filteredContent.actions;
   let whatVaccineIsFor;
   if (filteredContent.whatVaccineIsFor) {
     whatVaccineIsFor = styleSection(filteredContent.whatVaccineIsFor);
@@ -234,6 +235,7 @@ const getStyledContentForVaccine = async (
     overview,
     callout,
     recommendation,
+    actions,
     overviewConclusion,
     whatVaccineIsFor,
     whoVaccineIsFor,

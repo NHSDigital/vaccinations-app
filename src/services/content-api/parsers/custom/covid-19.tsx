@@ -1,6 +1,7 @@
 import { VaccineType } from "@src/models/vaccine";
 import { buildFilteredContentForStandardVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { HeadingWithContent, HeadingWithTypedContent, VaccinePageContent } from "@src/services/content-api/types";
+import { Action, ActionDisplayType, ButtonUrl, Content, Label } from "@src/services/eligibility-api/types";
 import config from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { Logger } from "pino";
@@ -13,9 +14,24 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
   const standardFilteredContent = await buildFilteredContentForStandardVaccine(apiContent);
 
   let callout: HeadingWithTypedContent | undefined;
+  const actions: Action[] = [];
   if (campaigns.isActive(VaccineType.COVID_19)) {
     log.info("Campaign active");
     callout = undefined;
+    actions.push({
+      type: ActionDisplayType.actionLinkWithInfo,
+      content: [
+        "## Get vaccinated without an appointment",
+        "You can find a walk-in COVID-19 vaccination site to get a vaccination without an appointment. You do not need to be registered with a GP.",
+      ].join("\n\n") as Content,
+      button: {
+        label: "Find a walk-in COVID-19 vaccination site" as Label,
+        url: new URL(
+          "https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-walk-in-covid-19-vaccination-site/",
+        ) as ButtonUrl,
+      },
+      delineator: false,
+    });
   } else {
     log.info("No campaign active");
     callout = {
@@ -37,5 +53,5 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
     ].join("\n"),
   };
 
-  return { ...standardFilteredContent, callout, recommendation };
+  return { ...standardFilteredContent, callout, recommendation, actions };
 };

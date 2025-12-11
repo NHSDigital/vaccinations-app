@@ -6,6 +6,7 @@ import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVa
 import { MoreInformation } from "@src/app/_components/content/MoreInformation";
 import { Overview } from "@src/app/_components/content/Overview";
 import Recommendation from "@src/app/_components/content/Recommendation";
+import { EligibilityActions } from "@src/app/_components/eligibility/EligibilityActions";
 import { EligibilityVaccinePageContent } from "@src/app/_components/eligibility/EligibilityVaccinePageContent";
 import WarningCallout from "@src/app/_components/nhs-frontend/WarningCallout";
 import { RSVPregnancyInfo } from "@src/app/_components/vaccine-custom/RSVPregnancyInfo";
@@ -71,6 +72,7 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
           <Overview overview={styledVaccineContent.overview} vaccineType={vaccineType} />
           <Recommendation styledVaccineContent={styledVaccineContent} />
           <WarningCallout styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
+          <EligibilityActions actions={styledVaccineContent.actions} />
           <Overview overview={styledVaccineContent.overviewConclusion} vaccineType={vaccineType} />
         </>
       )}
