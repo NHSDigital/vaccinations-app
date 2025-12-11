@@ -77,6 +77,7 @@
     "@types/aws-lambda": "^8.10.159",
     "axios": "^1.13.2",
     "cheerio": "^1.1.2",
+    "date-fns": "^4.1.0",
     "dotenv": "^17.2.3",
     "es-toolkit": "^1.42.0",
     "isomorphic-dompurify": "^2.33.0",
