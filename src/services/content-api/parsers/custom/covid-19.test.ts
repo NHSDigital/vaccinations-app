@@ -1,23 +1,22 @@
 import { buildFilteredContentForCovid19Vaccine } from "@src/services/content-api/parsers/custom/covid-19";
 import { ActionDisplayType, ButtonUrl, Content, Label } from "@src/services/eligibility-api/types";
+import { buildNbsUrlWithQueryParams } from "@src/services/nbs/nbs-service";
 import { Campaigns } from "@src/utils/campaigns/types";
 import config from "@src/utils/config";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
-
-const nbsUrlFromConfig = new URL("https://test-nbs-url.example.com/sausages");
-const nbsBookingPathFromConfig = "/test/path/book";
+jest.mock("@src/services/nbs/nbs-service", () => ({
+  buildNbsUrlWithQueryParams: jest.fn(),
+}));
 
 describe("buildFilteredContentForCovid19Vaccine", () => {
   const mockedConfig = config as ConfigMock;
 
   beforeEach(() => {
     const defaultConfig = configBuilder()
-      .withNbsUrl(nbsUrlFromConfig)
-      .andNbsBookingPath(nbsBookingPathFromConfig)
-      .andCampaigns(
+      .withCampaigns(
         Campaigns.fromJson(
           JSON.stringify({
             COVID_19: [
@@ -29,6 +28,8 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
       )
       .build();
     Object.assign(mockedConfig, defaultConfig);
+
+    (buildNbsUrlWithQueryParams as jest.Mock).mockResolvedValue(new URL("https://test-nbs-url.example.com/sausages"));
   });
 
   jest.useFakeTimers();
@@ -86,7 +87,7 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
           content: "## If this applies to you\n\n### Book an appointment online at a pharmacy" as Content,
           button: {
             label: "Continue to booking" as Label,
-            url: new URL("https://test-nbs-url.example.com/sausages/test/path/book/covid") as ButtonUrl,
+            url: new URL("https://test-nbs-url.example.com/sausages") as ButtonUrl,
           },
           delineator: true,
         },

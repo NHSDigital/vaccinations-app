@@ -1,13 +1,10 @@
 import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import { HEADINGS } from "@src/app/constants";
-import { VaccinesWithNBSBookingAvailable } from "@src/services/nbs/nbs-service";
+import { VaccineType } from "@src/models/vaccine";
 import React, { JSX } from "react";
 
-const RSVPregnancyInfo = (props: {
-  vaccineType: VaccinesWithNBSBookingAvailable;
-  howToGetVaccineOrFallback: JSX.Element;
-}): JSX.Element => {
+const RSVPregnancyInfo = (props: { vaccineType: VaccineType; howToGetVaccineOrFallback: JSX.Element }): JSX.Element => {
   return (
     <>
       <NonUrgentCareCard

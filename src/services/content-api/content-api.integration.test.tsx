@@ -16,6 +16,9 @@ const mockMarkdownWithStylingHtml = "<ul><li>sausage</li><li>egg</li><li>chips</
 jest.mock("@project/src/app/_components/markdown/MarkdownWithStyling", () => ({
   MarkdownWithStyling: () => mockMarkdownWithStylingHtml,
 }));
+jest.mock("@src/services/nbs/nbs-service", () => ({
+  buildNbsUrlWithQueryParams: jest.fn(),
+}));
 
 const mockRsvResponse = {
   Body: new Readable({
