@@ -1,7 +1,7 @@
 "use server";
 
 import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
-import { VaccineType } from "@src/models/vaccine";
+import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
 import config from "@src/utils/config";
 import { logger } from "@src/utils/logger";
@@ -14,26 +14,26 @@ const NBS_QUERY_PARAMS = {
   ASSERTED_LOGIN_IDENTITY: "assertedLoginIdentity",
 };
 
-const PLACEHOLDER_CAMPAIGN_ID = "vita-RSV-booking";
+export async function buildNbsUrl(vaccineType: VaccineType) {
+  const nbsBaseUrl = await config.NBS_URL;
+  const nbsBookingPath = await config.NBS_BOOKING_PATH;
+  return new URL(`${nbsBaseUrl.pathname}${nbsBookingPath}/${VaccineInfo[vaccineType].nbsPath}`, nbsBaseUrl.origin);
+}
 
-export type VaccinesWithNBSBookingAvailable = VaccineType.RSV | VaccineType.RSV_PREGNANCY;
+export async function buildNbsUrlWithQueryParams(vaccineType: VaccineType) {
+  const nbsURl = await buildNbsUrl(vaccineType);
+  const nbsQueryParams = await getNbsQueryParams(vaccineType);
+  nbsQueryParams.forEach((param) => {
+    nbsURl.searchParams.append(param.name, param.value);
+  });
+  return nbsURl;
+}
 
-const nbsVaccinePath: Record<VaccinesWithNBSBookingAvailable, string> = {
-  [VaccineType.RSV]: "/rsv",
-  [VaccineType.RSV_PREGNANCY]: "/rsv",
-};
-
-const getSSOUrlToNBSForVaccine = async (vaccineType: VaccinesWithNBSBookingAvailable) => {
+const getSSOUrlToNBSForVaccine = async (vaccineType: VaccineType) => {
   let redirectUrl;
   try {
-    const nbsBaseUrl = await config.NBS_URL;
-    const nbsBookingPath = await config.NBS_BOOKING_PATH;
-    const nbsURl = new URL(`${nbsBaseUrl.pathname}${nbsBookingPath}${nbsVaccinePath[vaccineType]}`, nbsBaseUrl.origin);
-    const nbsQueryParams = await getNbsQueryParams();
-    nbsQueryParams.forEach((param) => {
-      nbsURl.searchParams.append(param.name, param.value);
-    });
-    redirectUrl = nbsURl.toString();
+    const nbsURl = await buildNbsUrlWithQueryParams(vaccineType);
+    redirectUrl = nbsURl.href;
   } catch (error) {
     log.error(error, "Error redirecting to NBS");
     redirectUrl = SSO_FAILURE_ROUTE;
@@ -42,13 +42,14 @@ const getSSOUrlToNBSForVaccine = async (vaccineType: VaccinesWithNBSBookingAvail
   return redirectUrl;
 };
 
-const getNbsQueryParams = async () => {
+const getNbsQueryParams = async (vaccineType: VaccineType | undefined = undefined) => {
   const assertedLoginIdentityJWT = await generateAssertedLoginIdentityJwt();
 
-  return [
-    { name: NBS_QUERY_PARAMS.CAMPAIGN_ID, value: PLACEHOLDER_CAMPAIGN_ID },
-    { name: NBS_QUERY_PARAMS.ASSERTED_LOGIN_IDENTITY, value: assertedLoginIdentityJWT },
-  ];
+  const queryParams = [{ name: NBS_QUERY_PARAMS.ASSERTED_LOGIN_IDENTITY, value: assertedLoginIdentityJWT }];
+  if (vaccineType) {
+    queryParams.push({ name: NBS_QUERY_PARAMS.CAMPAIGN_ID, value: VaccineInfo[vaccineType].nbsCampaign });
+  }
+  return queryParams;
 };
 
 export { getSSOUrlToNBSForVaccine, getNbsQueryParams };
