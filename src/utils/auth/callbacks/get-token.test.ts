@@ -48,7 +48,7 @@ describe("getToken", () => {
 
   const nowInSeconds = 1749052001;
 
-  const profile = {
+  const profile: Profile = {
     nhs_number: "test_nhs_number",
   };
 
@@ -101,6 +101,7 @@ describe("getToken", () => {
       expectResultToMatchTokenWith(
         result,
         profile.nhs_number,
+        "",
         "newIdToken",
         "new-apim-access-token",
         nowInSeconds + 1111,
@@ -118,7 +119,7 @@ describe("getToken", () => {
 
       const result = await getToken(undefinedToken, undefinedAccount, undefinedProfile, maxAgeInSeconds);
 
-      expectResultToMatchTokenWith(result, "", "", "", 0, maxAgeInSeconds);
+      expectResultToMatchTokenWith(result, "", "", "", "", 0, maxAgeInSeconds);
     });
 
     it("should fill in missing values in token with default empty string", async () => {
@@ -166,7 +167,7 @@ describe("getToken", () => {
 
       const result = await getToken(token, account, profile, maxAgeInSeconds);
 
-      expectResultToMatchTokenWith(result, profile.nhs_number, "newIdToken", "", 0, maxAgeInSeconds);
+      expectResultToMatchTokenWith(result, profile.nhs_number, "","newIdToken", "", 0, maxAgeInSeconds);
     });
   });
 
@@ -182,13 +183,14 @@ describe("getToken", () => {
 
       const result = await getToken(token, account, profile, maxAgeInSeconds);
 
-      expectResultToMatchTokenWith(result, profile.nhs_number, "newIdToken", "", 0, maxAgeInSeconds);
+      expectResultToMatchTokenWith(result, profile.nhs_number, "", "newIdToken", "", 0, maxAgeInSeconds);
     });
   });
 
   const expectResultToMatchTokenWith = (
     result: JWT | null,
     nhsNumber: string,
+    birthdate: string,
     idToken: string,
     apimToken: string,
     apimExpiresAt: number,
@@ -198,6 +200,7 @@ describe("getToken", () => {
     expect(result).toMatchObject({
       user: {
         nhs_number: nhsNumber,
+        birthdate: birthdate,
       },
       nhs_login: {
         id_token: idToken,

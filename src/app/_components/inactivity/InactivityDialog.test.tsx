@@ -5,11 +5,13 @@ import useInactivityTimer from "@src/utils/auth/inactivity-timer";
 import { userLogout } from "@src/utils/auth/user-logout";
 import { render, screen } from "@testing-library/react";
 import { Session } from "next-auth";
+import { Age } from "@src/utils/auth/types";
 
 const mockSessionValue: Partial<Session> = {
   expires: new Date(Date.now() + 60000).toISOString(),
   user: {
     nhs_number: "" as NhsNumber,
+    age: 20 as Age,
   },
 };
 let mockSession = { data: mockSessionValue, status: "authenticated" };
