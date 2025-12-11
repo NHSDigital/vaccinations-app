@@ -1,6 +1,6 @@
 import { NhsNumber } from "@src/models/vaccine";
 import { getUpdatedSession } from "@src/utils/auth/callbacks/get-updated-session";
-import { AccessToken, ExpiresAt, IdToken } from "@src/utils/auth/types";
+import { AccessToken, Age, BirthDate, ExpiresAt, IdToken } from "@src/utils/auth/types";
 import { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
@@ -11,6 +11,7 @@ describe("getSession", () => {
     const session: Session = {
       user: {
         nhs_number: "" as NhsNumber,
+        age: 0 as Age,
       },
       expires: "some-date",
     };
@@ -18,6 +19,7 @@ describe("getSession", () => {
     const token = {
       user: {
         nhs_number: "test-nhs-number" as NhsNumber,
+        birthdate: "1995-01-01"
       },
       nhs_login: {
         id_token: "test-id-token" as IdToken,
@@ -31,12 +33,14 @@ describe("getSession", () => {
     const result: Session = getUpdatedSession(session, token);
 
     expect(result.user.nhs_number).toBe("test-nhs-number");
+    expect(result.user.age).toBe(30);
   });
 
   it("does not update session if token.user is missing", () => {
     const session: Session = {
       user: {
         nhs_number: "old-nhs-number" as NhsNumber,
+        age: 36 as Age,
       },
       expires: "some-date",
     };
@@ -46,6 +50,7 @@ describe("getSession", () => {
     const result: Session = getUpdatedSession(session, token);
 
     expect(result.user.nhs_number).toBe("old-nhs-number");
+    expect(result.user.age).toBe(36);
   });
 
   it("does not update session if session.user is missing", () => {

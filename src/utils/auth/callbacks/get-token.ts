@@ -1,7 +1,7 @@
 import { NhsNumber } from "@src/models/vaccine";
 import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import { ApimAccessCredentials } from "@src/utils/auth/apim/types";
-import { IdToken, MaxAgeInSeconds, NowInSeconds } from "@src/utils/auth/types";
+import { BirthDate, IdToken, MaxAgeInSeconds, NowInSeconds } from "@src/utils/auth/types";
 import { logger } from "@src/utils/logger";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
 import { extractRequestContextFromHeaders } from "@src/utils/requestScopedStorageWrapper";
@@ -9,6 +9,22 @@ import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import { headers } from "next/headers";
 import { Logger } from "pino";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const log: Logger = logger.child({ module: "utils-auth-callbacks-get-token" });
 
@@ -86,10 +102,11 @@ const fillMissingFieldsInTokenWithDefaultValues = (token: JWT, apimAccessCredent
   return {
     ...token,
     user: {
-      nhs_number: token.user?.nhs_number ?? "",
+      nhs_number: token.user?.nhs_number ?? "" as NhsNumber,
+      birthdate: token.user?.birthdate ?? "" as BirthDate,
     },
     nhs_login: {
-      id_token: token.nhs_login?.id_token ?? "",
+      id_token: token.nhs_login?.id_token ?? "" as IdToken,
     },
     apim: {
       access_token: (apimAccessCredentials ? apimAccessCredentials.accessToken : token.apim?.access_token) ?? "",
@@ -108,11 +125,12 @@ const updateTokenWithValuesFromAccountAndProfile = (
   profile: Profile,
   nowInSeconds: NowInSeconds,
   maxAgeInSeconds: MaxAgeInSeconds,
-) => {
+): JWT => {
   const updatedToken: JWT = {
     ...token,
     user: {
       nhs_number: (profile.nhs_number ?? "") as NhsNumber,
+      birthdate: token.user?.birthdate ?? "" as BirthDate,
     },
     nhs_login: {
       id_token: (account.id_token ?? "") as IdToken,
