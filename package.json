@@ -8,6 +8,17 @@
     "doc": "docs",
     "test": "tests"
   },
+  "browserslist": [
+    "> 0.1% in GB and not dead",
+    "last 6 Chrome versions",
+    "last 6 Firefox versions",
+    "last 6 Edge versions",
+    "last 2 Samsung versions",
+    "Firefox ESR",
+    "Safari >= 11",
+    "iOS >= 11",
+    "IE 11"
+  ],
   "scripts": {
     "dev": "next dev --turbopack --experimental-https",
     "app": "npm run build && npm run start",
@@ -56,10 +67,12 @@
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+    "es-check": "^9.5.2",
     "esbuild": "0.27.1",
     "eslint": "^9.39.1",
     "eslint-config-next": "15.5.7",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-compat": "^6.0.2",
     "jest": "^30.2.0",
     "jest-environment-jsdom": "^30.2.0",
     "jest-pact": "^0.13.0",

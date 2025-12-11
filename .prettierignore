@@ -4,7 +4,6 @@
 /public/*
 /scripts/*
 /**/*.md
-/**/*.mjs
 project.code-workspace
 /**/.terraform/*
 /package-lock.json
