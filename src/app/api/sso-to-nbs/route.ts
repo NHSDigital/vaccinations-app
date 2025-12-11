@@ -22,11 +22,11 @@ export const GET = async (request: NextRequest) => {
 
     profilePerformanceStart(ApiSSONBSPerformanceMarker);
 
+    const vaccine: string | null = request.nextUrl.searchParams.get(VACCINE_PARAM);
     if (request.nextUrl.searchParams.has(REDIRECT_TARGET_PARAM)) {
       const rawRedirectTarget = request.nextUrl.searchParams.get(REDIRECT_TARGET_PARAM);
-      ({ finalRedirectUrl, shouldReturnNotFound } = await getGivenRedirectTarget(rawRedirectTarget));
+      ({ finalRedirectUrl, shouldReturnNotFound } = await getGivenRedirectTarget(rawRedirectTarget, vaccine));
     } else {
-      const vaccine: string | null = request.nextUrl.searchParams.get(VACCINE_PARAM);
       ({ finalRedirectUrl, shouldReturnNotFound } = await getGivenVaccine(vaccine));
     }
 
@@ -38,15 +38,17 @@ export const GET = async (request: NextRequest) => {
   });
 };
 
-async function getGivenRedirectTarget(rawRedirectTarget: string | null) {
+async function getGivenRedirectTarget(rawRedirectTarget: string | null, vaccine: string | null) {
+  log.debug({ rawRedirectTarget }, "getGivenRedirectTarget");
   let shouldReturnNotFound = false;
   let finalRedirectUrl: string = "";
+  const vaccineType: VaccineType | undefined = vaccine ? getVaccineTypeFromLowercaseString(vaccine) : undefined;
 
   if (rawRedirectTarget) {
     try {
       const nbsURl = new URL(decodeURI(rawRedirectTarget ?? ""));
       try {
-        const nbsQueryParams = await getNbsQueryParams();
+        const nbsQueryParams = await getNbsQueryParams(vaccineType);
         nbsQueryParams.forEach((param) => {
           nbsURl.searchParams.append(param.name, param.value);
         });
@@ -73,11 +75,13 @@ async function getGivenRedirectTarget(rawRedirectTarget: string | null) {
 }
 
 async function getGivenVaccine(vaccine: string | null) {
+  log.debug({ vaccine }, "getGivenVaccine");
   let shouldReturnNotFound = false;
   let finalRedirectUrl: string = "";
   const vaccineType: VaccineType | undefined = vaccine ? getVaccineTypeFromLowercaseString(vaccine) : undefined;
 
-  if (vaccine && vaccineType && (vaccineType === VaccineType.RSV || vaccineType === VaccineType.RSV_PREGNANCY)) {
+  log.debug({ vaccineType }, "getGivenVaccine");
+  if (vaccine && vaccineType) {
     try {
       finalRedirectUrl = await getSSOUrlToNBSForVaccine(vaccineType);
     } catch (error) {

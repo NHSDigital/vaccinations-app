@@ -1,15 +1,13 @@
 import { buildFilteredContentForCovid19Vaccine } from "@src/services/content-api/parsers/custom/covid-19";
 import { ActionDisplayType, ButtonUrl, Content, Label } from "@src/services/eligibility-api/types";
-import { buildNbsUrlWithQueryParams } from "@src/services/nbs/nbs-service";
+import { buildNbsUrl } from "@src/services/nbs/nbs-service";
 import { Campaigns } from "@src/utils/campaigns/types";
 import config from "@src/utils/config";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
-jest.mock("@src/services/nbs/nbs-service", () => ({
-  buildNbsUrlWithQueryParams: jest.fn(),
-}));
+jest.mock("@src/services/nbs/nbs-service", () => ({ buildNbsUrl: jest.fn() }));
 
 describe("buildFilteredContentForCovid19Vaccine", () => {
   const mockedConfig = config as ConfigMock;
@@ -29,7 +27,7 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
       .build();
     Object.assign(mockedConfig, defaultConfig);
 
-    (buildNbsUrlWithQueryParams as jest.Mock).mockResolvedValue(new URL("https://test-nbs-url.example.com/sausages"));
+    (buildNbsUrl as jest.Mock).mockResolvedValue(new URL("https://test-nbs-url.example.com/sausages"));
   });
 
   jest.useFakeTimers();

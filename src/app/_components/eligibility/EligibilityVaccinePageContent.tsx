@@ -15,7 +15,10 @@ const EligibilityVaccinePageContent = (props: {
         !props.eligibilityForPerson.eligibilityError &&
         props.eligibilityForPerson.eligibility?.content &&
         props.eligibilityForPerson.eligibility?.status && (
-          <EligibilityComponent eligibilityContent={props.eligibilityForPerson.eligibility.content} />
+          <EligibilityComponent
+            eligibilityContent={props.eligibilityForPerson.eligibility.content}
+            vaccineType={props.vaccineType}
+          />
         )}
       {/* Fallback eligibility section for RSV */}
       {props.vaccineType === VaccineType.RSV && props.eligibilityForPerson.eligibilityError && (

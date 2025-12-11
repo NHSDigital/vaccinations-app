@@ -17,6 +17,7 @@ interface NBSBookingActionForVaccineProps {
 
 interface NBSBookingActionForBaseUrlProps {
   url: string; // I wanted a URL here, but something is coercing it to a string, so...
+  vaccineType: VaccineType;
   displayText: string;
   renderAs: RenderOptions;
   reduceBottomPadding: boolean;
@@ -51,12 +52,14 @@ const NBSBookingActionForVaccine = ({
 };
 
 const NBSBookingActionForBaseUrl = ({
+  vaccineType,
   url,
   displayText,
   renderAs,
   reduceBottomPadding = false,
 }: NBSBookingActionForBaseUrlProps): JSX.Element => {
-  const nbsSSOLink = `${SSO_TO_NBS_ROUTE}?redirectTarget=${encodeURI(url)}`;
+  const urlPath: UrlPathFragment = VaccineInfo[vaccineType].urlPath;
+  const nbsSSOLink = `${SSO_TO_NBS_ROUTE}?redirectTarget=${encodeURI(url)}&vaccine=${urlPath}`;
   return (
     <NBSBookingAction
       url={nbsSSOLink}

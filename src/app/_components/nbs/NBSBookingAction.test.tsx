@@ -78,6 +78,7 @@ describe("NBSBookingAction", () => {
     const renderAndClick = (renderAs: "anchor" | "button" | "actionLink", whichElement: number) => {
       render(
         <NBSBookingActionForBaseUrl
+          vaccineType={VaccineType.COVID_19}
           url={url.href}
           displayText="test"
           renderAs={renderAs}
@@ -98,7 +99,10 @@ describe("NBSBookingAction", () => {
         renderAndClick(type, index);
 
         if (shouldCall) {
-          expect(window.open).toHaveBeenCalledWith(`/api/sso-to-nbs?redirectTarget=${url.href}`, expectedTarget);
+          expect(window.open).toHaveBeenCalledWith(
+            `/api/sso-to-nbs?redirectTarget=${url.href}&vaccine=covid-19-vaccine`,
+            expectedTarget,
+          );
         } else {
           expect(window.open).not.toHaveBeenCalled();
         }

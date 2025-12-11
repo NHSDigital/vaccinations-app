@@ -2,9 +2,7 @@ import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { buildFilteredContentForWhoopingCoughVaccine } from "@src/services/content-api/parsers/custom/whooping-cough";
 
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
-jest.mock("@src/services/nbs/nbs-service", () => ({
-  buildNbsUrlWithQueryParams: jest.fn(),
-}));
+jest.mock("@src/services/nbs/nbs-service", () => ({}));
 
 const apiResponse = JSON.stringify({
   mainEntityOfPage: [

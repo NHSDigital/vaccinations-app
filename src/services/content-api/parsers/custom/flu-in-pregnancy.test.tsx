@@ -2,9 +2,7 @@ import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { buildFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
 
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
-jest.mock("@src/services/nbs/nbs-service", () => ({
-  buildNbsUrlWithQueryParams: jest.fn(),
-}));
+jest.mock("@src/services/nbs/nbs-service", () => ({}));
 
 const apiResponse = JSON.stringify({
   mainEntityOfPage: [

@@ -1,3 +1,4 @@
+import { VaccineType } from "@src/models/vaccine";
 import { ActionDisplayType, ButtonUrl, Label } from "@src/services/eligibility-api/types";
 import { actionBuilder, buttonBuilder } from "@test-data/eligibility-api/builders";
 import { render, screen, within } from "@testing-library/react";
@@ -21,6 +22,7 @@ describe("EligibilityActions", () => {
         render(
           EligibilityActions({
             actions: [actionBuilder().withType(ActionDisplayType.infotext).andContent("Test Content").build()],
+            vaccineType: VaccineType.RSV,
           }),
         );
 
@@ -34,6 +36,7 @@ describe("EligibilityActions", () => {
               actionBuilder().withType(ActionDisplayType.infotext).andContent("Test Content 1").build(),
               actionBuilder().withType(ActionDisplayType.infotext).andContent("Test Content 2").build(),
             ],
+            vaccineType: VaccineType.RSV,
           }),
         );
 
@@ -55,6 +58,7 @@ describe("EligibilityActions", () => {
                 .andDelineator(false)
                 .build(),
             ],
+            vaccineType: VaccineType.RSV,
           }),
         );
 
@@ -71,6 +75,7 @@ describe("EligibilityActions", () => {
         render(
           EligibilityActions({
             actions: [actionBuilder().withType(ActionDisplayType.card).andContent("Test Content").build()],
+            vaccineType: VaccineType.RSV,
           }),
         );
 
@@ -84,6 +89,7 @@ describe("EligibilityActions", () => {
               actionBuilder().withType(ActionDisplayType.card).andContent("Test Content 1").build(),
               actionBuilder().withType(ActionDisplayType.card).andContent("Test Content 2").build(),
             ],
+            vaccineType: VaccineType.RSV,
           }),
         );
 
@@ -101,6 +107,7 @@ describe("EligibilityActions", () => {
                 .build(),
               actionBuilder().withType(ActionDisplayType.card).andContent("Test Content 2").andDelineator(true).build(),
             ],
+            vaccineType: VaccineType.RSV,
           }),
         );
 
@@ -119,6 +126,7 @@ describe("EligibilityActions", () => {
             actions: [
               actionBuilder().withType(ActionDisplayType.buttonWithCard).andContent("Test Auth Action Content").build(),
             ],
+            vaccineType: VaccineType.RSV,
           }),
         );
 
@@ -129,6 +137,7 @@ describe("EligibilityActions", () => {
         render(
           EligibilityActions({
             actions: [actionBuilder().withType(ActionDisplayType.buttonWithCard).andContent("Test Content").build()],
+            vaccineType: VaccineType.RSV,
           }),
         );
 
@@ -144,6 +153,7 @@ describe("EligibilityActions", () => {
               actionBuilder().withType(ActionDisplayType.buttonWithCard).andContent("Test Content 1").build(),
               actionBuilder().withType(ActionDisplayType.buttonWithCard).andContent("Test Content 2").build(),
             ],
+            vaccineType: VaccineType.RSV,
           }),
         );
 
@@ -154,6 +164,7 @@ describe("EligibilityActions", () => {
         render(
           EligibilityActions({
             actions: [actionBuilder().withType(ActionDisplayType.buttonWithCard).andContent("").build()],
+            vaccineType: VaccineType.RSV,
           }),
         );
 
@@ -179,6 +190,7 @@ describe("EligibilityActions", () => {
                 .andDelineator(false)
                 .build(),
             ],
+            vaccineType: VaccineType.RSV,
           }),
         );
 
@@ -194,6 +206,7 @@ describe("EligibilityActions", () => {
             actions: [
               actionBuilder().withType(ActionDisplayType.buttonWithInfo).andContent("Test Auth Action Content").build(),
             ],
+            vaccineType: VaccineType.RSV,
           }),
         );
 
@@ -204,6 +217,7 @@ describe("EligibilityActions", () => {
         render(
           EligibilityActions({
             actions: [actionBuilder().withType(ActionDisplayType.buttonWithInfo).andContent("Test Content").build()],
+            vaccineType: VaccineType.RSV,
           }),
         );
 
@@ -219,6 +233,7 @@ describe("EligibilityActions", () => {
               actionBuilder().withType(ActionDisplayType.buttonWithInfo).andContent("Test Content 1").build(),
               actionBuilder().withType(ActionDisplayType.buttonWithInfo).andContent("Test Content 2").build(),
             ],
+            vaccineType: VaccineType.RSV,
           }),
         );
 
@@ -229,6 +244,7 @@ describe("EligibilityActions", () => {
         render(
           EligibilityActions({
             actions: [actionBuilder().withType(ActionDisplayType.buttonWithInfo).andContent("").build()],
+            vaccineType: VaccineType.RSV,
           }),
         );
 
@@ -254,6 +270,7 @@ describe("EligibilityActions", () => {
                 .andDelineator(false)
                 .build(),
             ],
+            vaccineType: VaccineType.RSV,
           }),
         );
 
@@ -272,6 +289,7 @@ describe("EligibilityActions", () => {
                 .andContent("Test Auth Action Content")
                 .build(),
             ],
+            vaccineType: VaccineType.RSV,
           }),
         );
 
@@ -293,6 +311,7 @@ describe("EligibilityActions", () => {
                 )
                 .build(),
             ],
+            vaccineType: VaccineType.RSV,
           }),
         );
 
@@ -308,6 +327,7 @@ describe("EligibilityActions", () => {
               actionBuilder().withType(ActionDisplayType.actionLinkWithInfo).andContent("Test Content 1").build(),
               actionBuilder().withType(ActionDisplayType.actionLinkWithInfo).andContent("Test Content 2").build(),
             ],
+            vaccineType: VaccineType.RSV,
           }),
         );
 
@@ -318,6 +338,7 @@ describe("EligibilityActions", () => {
         render(
           EligibilityActions({
             actions: [actionBuilder().withType(ActionDisplayType.actionLinkWithInfo).andContent("").build()],
+            vaccineType: VaccineType.RSV,
           }),
         );
 
@@ -343,6 +364,7 @@ describe("EligibilityActions", () => {
                 .andDelineator(false)
                 .build(),
             ],
+            vaccineType: VaccineType.RSV,
           }),
         );
 

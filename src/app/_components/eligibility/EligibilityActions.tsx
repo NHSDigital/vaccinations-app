@@ -1,15 +1,17 @@
 import { MarkdownWithStyling } from "@src/app/_components/markdown/MarkdownWithStyling";
 import { NBSBookingActionForBaseUrl } from "@src/app/_components/nbs/NBSBookingAction";
 import { BasicCard } from "@src/app/_components/nhs-frontend/BasicCard";
+import { VaccineType } from "@src/models/vaccine";
 import { Action, ActionDisplayType, ButtonUrl, Content, Label } from "@src/services/eligibility-api/types";
 import { ActionLink } from "nhsuk-react-components";
 import React, { JSX } from "react";
 
 interface EligibilityActionProps {
   actions: Action[];
+  vaccineType: VaccineType;
 }
 
-const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element | undefined)[] => {
+const EligibilityActions = ({ actions, vaccineType }: EligibilityActionProps): (JSX.Element | undefined)[] => {
   return actions.map((action: Action) => {
     switch (action.type) {
       case ActionDisplayType.infotext: {
@@ -22,6 +24,7 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
         const card = action.content && <BasicCard content={action.content} delineator={false} />;
         const button = action.button && (
           <Button
+            vaccineType={vaccineType}
             url={action.button.url}
             label={action.button.label}
             renderAs={"button"}
@@ -40,6 +43,7 @@ const EligibilityActions = ({ actions }: EligibilityActionProps): (JSX.Element |
         const info = action.content && <InfoText content={action.content} delineator={false} />;
         const button = action.button && (
           <Button
+            vaccineType={vaccineType}
             url={action.button.url}
             label={action.button.label}
             renderAs={"button"}
@@ -106,15 +110,17 @@ const Card = ({ content, delineator }: CardProps): JSX.Element => {
 };
 
 type ButtonProps = {
+  vaccineType: VaccineType;
   url: ButtonUrl;
   label: Label;
   renderAs: "anchor" | "button" | "actionLink";
   delineator: boolean;
 };
 
-const Button = ({ url, label, renderAs, delineator }: ButtonProps): JSX.Element => {
+const Button = ({ vaccineType, url, label, renderAs, delineator }: ButtonProps): JSX.Element => {
   return (
     <NBSBookingActionForBaseUrl
+      vaccineType={vaccineType}
       url={url.href}
       displayText={label}
       renderAs={renderAs}

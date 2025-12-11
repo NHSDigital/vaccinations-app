@@ -22,9 +22,7 @@ jest.mock("@src/_lambda/content-cache-hydrator/content-change-detector");
 jest.mock("@src/_lambda/content-cache-hydrator/invalidate-cache");
 jest.mock("@src/services/content-api/parsers/content-filter-service");
 jest.mock("@src/services/content-api/parsers/content-styling-service");
-jest.mock("@src/services/nbs/nbs-service", () => ({
-  buildNbsUrlWithQueryParams: jest.fn(),
-}));
+jest.mock("@src/services/nbs/nbs-service", () => ({}));
 
 jest.mock("@src/utils/requestContext", () => ({
   asyncLocalStorage: {

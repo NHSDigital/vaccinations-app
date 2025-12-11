@@ -9,7 +9,7 @@ import {
   Content,
   Label,
 } from "@src/services/eligibility-api/types";
-import { buildNbsUrlWithQueryParams } from "@src/services/nbs/nbs-service";
+import { buildNbsUrl } from "@src/services/nbs/nbs-service";
 import config from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { Logger } from "pino";
@@ -52,7 +52,7 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
 };
 
 async function _buildActions(): Promise<Action[]> {
-  const nbsURl = (await buildNbsUrlWithQueryParams(VaccineType.COVID_19)) as ButtonUrl;
+  const nbsURl = (await buildNbsUrl(VaccineType.COVID_19)) as ButtonUrl;
 
   const nbsBooking: ActionWithButton = {
     type: ActionDisplayType.buttonWithInfo,

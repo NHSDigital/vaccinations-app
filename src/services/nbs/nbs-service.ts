@@ -42,14 +42,13 @@ const getSSOUrlToNBSForVaccine = async (vaccineType: VaccineType) => {
   return redirectUrl;
 };
 
-const getNbsQueryParams = async (vaccineType: VaccineType | undefined = undefined) => {
+const getNbsQueryParams = async (vaccineType: VaccineType | undefined) => {
   const assertedLoginIdentityJWT = await generateAssertedLoginIdentityJwt();
 
-  const queryParams = [{ name: NBS_QUERY_PARAMS.ASSERTED_LOGIN_IDENTITY, value: assertedLoginIdentityJWT }];
-  if (vaccineType) {
-    queryParams.push({ name: NBS_QUERY_PARAMS.CAMPAIGN_ID, value: VaccineInfo[vaccineType].nbsCampaign });
-  }
-  return queryParams;
+  return [
+    { name: NBS_QUERY_PARAMS.CAMPAIGN_ID, value: vaccineType ? VaccineInfo[vaccineType].nbsCampaign : "unknown" },
+    { name: NBS_QUERY_PARAMS.ASSERTED_LOGIN_IDENTITY, value: assertedLoginIdentityJWT },
+  ];
 };
 
 export { getSSOUrlToNBSForVaccine, getNbsQueryParams };

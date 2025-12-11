@@ -1,14 +1,16 @@
 import { EligibilityActions } from "@src/app/_components/eligibility/EligibilityActions";
 import { SuitabilityRules } from "@src/app/_components/eligibility/SuitabilityRules";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
+import { VaccineType } from "@src/models/vaccine";
 import { EligibilityContent } from "@src/services/eligibility-api/types";
 import React, { JSX } from "react";
 
 interface EligibilityProps {
   eligibilityContent: EligibilityContent;
+  vaccineType: VaccineType;
 }
 
-const Eligibility = ({ eligibilityContent }: EligibilityProps): JSX.Element => {
+const Eligibility = ({ eligibilityContent, vaccineType }: EligibilityProps): JSX.Element => {
   return (
     <div data-testid="Eligibility">
       {eligibilityContent?.summary && (
@@ -27,7 +29,7 @@ const Eligibility = ({ eligibilityContent }: EligibilityProps): JSX.Element => {
         />
       )}
       <SuitabilityRules suitabilityRules={eligibilityContent.suitabilityRules} />
-      <EligibilityActions actions={eligibilityContent.actions} />
+      <EligibilityActions actions={eligibilityContent.actions} vaccineType={vaccineType} />
     </div>
   );
 };

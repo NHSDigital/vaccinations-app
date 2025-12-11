@@ -2,9 +2,7 @@ import { buildFilteredContentForFluForChildrenVaccine } from "@src/services/cont
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
-jest.mock("@src/services/nbs/nbs-service", () => ({
-  buildNbsUrlWithQueryParams: jest.fn(),
-}));
+jest.mock("@src/services/nbs/nbs-service", () => ({}));
 
 describe("getFilteredContentForFluVaccine", () => {
   it("should return overview text from lead paragraph mainEntityOfPage object", async () => {

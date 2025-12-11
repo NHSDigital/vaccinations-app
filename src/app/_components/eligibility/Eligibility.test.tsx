@@ -1,4 +1,5 @@
 import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
+import { VaccineType } from "@src/models/vaccine";
 import { Cohort, Heading, Introduction } from "@src/services/eligibility-api/types";
 import { eligibilityContentBuilder, summaryContentBuilder } from "@test-data/eligibility-api/builders";
 import { render, screen } from "@testing-library/react";
@@ -16,6 +17,7 @@ describe("Eligibility", () => {
     it("should show the care card if content summary is present", async () => {
       render(
         Eligibility({
+          vaccineType: VaccineType.RSV,
           eligibilityContent: eligibilityContentBuilder().build(),
         }),
       );
@@ -27,6 +29,7 @@ describe("Eligibility", () => {
     it("should not show the care card if content summary is undefined", async () => {
       render(
         Eligibility({
+          vaccineType: VaccineType.RSV,
           eligibilityContent: eligibilityContentBuilder().withSummary(undefined).build(),
         }),
       );
@@ -40,6 +43,7 @@ describe("Eligibility", () => {
     it("should show the care card", async () => {
       render(
         Eligibility({
+          vaccineType: VaccineType.RSV,
           eligibilityContent: eligibilityContentBuilder().build(),
         }),
       );
@@ -56,6 +60,7 @@ describe("Eligibility", () => {
 
       render(
         Eligibility({
+          vaccineType: VaccineType.RSV,
           eligibilityContent: eligibilityContent,
         }),
       );
@@ -72,6 +77,7 @@ describe("Eligibility", () => {
 
       render(
         Eligibility({
+          vaccineType: VaccineType.RSV,
           eligibilityContent: eligibilityContent,
         }),
       );
@@ -88,6 +94,7 @@ describe("Eligibility", () => {
 
       render(
         Eligibility({
+          vaccineType: VaccineType.RSV,
           eligibilityContent: eligibilityContent,
         }),
       );
@@ -102,6 +109,7 @@ describe("Eligibility", () => {
     it("should not show the care card if summary is undefined", async () => {
       render(
         Eligibility({
+          vaccineType: VaccineType.RSV,
           eligibilityContent: eligibilityContentBuilder().withSummary(undefined).build(),
         }),
       );
@@ -111,14 +119,24 @@ describe("Eligibility", () => {
     });
 
     it("should display EligibilityActions component", () => {
-      render(Eligibility({ eligibilityContent: eligibilityContentBuilder().build() }));
+      render(
+        Eligibility({
+          vaccineType: VaccineType.RSV,
+          eligibilityContent: eligibilityContentBuilder().build(),
+        }),
+      );
       const actions: HTMLElement = screen.getByText("Test Eligibility Actions Component");
 
       expect(actions).toBeVisible();
     });
 
     it("should display SuitabilityRules component", () => {
-      render(Eligibility({ eligibilityContent: eligibilityContentBuilder().build() }));
+      render(
+        Eligibility({
+          vaccineType: VaccineType.RSV,
+          eligibilityContent: eligibilityContentBuilder().build(),
+        }),
+      );
       const actions = screen.getByText("Test Eligibility SuitabilityRules Component");
 
       expect(actions).toBeVisible();

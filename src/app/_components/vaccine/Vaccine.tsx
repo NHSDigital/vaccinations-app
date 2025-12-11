@@ -72,7 +72,7 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
           <Overview overview={styledVaccineContent.overview} vaccineType={vaccineType} />
           <Recommendation styledVaccineContent={styledVaccineContent} />
           <WarningCallout styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
-          <EligibilityActions actions={styledVaccineContent.actions} />
+          <EligibilityActions actions={styledVaccineContent.actions} vaccineType={vaccineType} />
           <Overview overview={styledVaccineContent.overviewConclusion} vaccineType={vaccineType} />
         </>
       )}

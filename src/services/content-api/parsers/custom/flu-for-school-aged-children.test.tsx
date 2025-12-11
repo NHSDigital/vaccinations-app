@@ -3,9 +3,7 @@ import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 import { cloneDeep } from "es-toolkit";
 
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
-jest.mock("@src/services/nbs/nbs-service", () => ({
-  buildNbsUrlWithQueryParams: jest.fn(),
-}));
+jest.mock("@src/services/nbs/nbs-service", () => ({}));
 
 const childFluVaccineContentAPIResponse = cloneDeep(genericVaccineContentAPIResponse);
 

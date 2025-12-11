@@ -45,7 +45,7 @@ describe("GET /sso-to-nbs", () => {
 
   it("returns 404 if vaccine parameter is not an allowed vaccine", async () => {
     const mockRequest = getMockRequest(testUrl, {
-      vaccine: "td-ipv-vaccine-3-in-1-teenage-booster",
+      vaccine: "sausages",
     });
 
     await expect404WhenGetCalledWith(mockRequest);
