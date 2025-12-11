@@ -25,27 +25,7 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
   if (campaigns.isActive(VaccineType.COVID_19)) {
     log.info("Campaign active");
     callout = undefined;
-    const nbsBooking: ActionWithButton = {
-      type: ActionDisplayType.buttonWithCard,
-      content: ["## If this applies to you", "### Book an appointment online at a pharmacy"].join("\n\n") as Content,
-      button: { label: "Continue to booking" as Label, url: new URL("https://example.com") as ButtonUrl },
-      delineator: true,
-    };
-    const walkIn: ActionWithButton = {
-      type: ActionDisplayType.actionLinkWithInfo,
-      content: [
-        "## Get vaccinated without an appointment",
-        "You can find a walk-in COVID-19 vaccination site to get a vaccination without an appointment. You do not need to be registered with a GP.",
-      ].join("\n\n") as Content,
-      button: {
-        label: "Find a walk-in COVID-19 vaccination site" as Label,
-        url: new URL(
-          "https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-walk-in-covid-19-vaccination-site/",
-        ) as ButtonUrl,
-      },
-      delineator: false,
-    };
-    actions.push(nbsBooking, walkIn);
+    actions.push(..._buildActions());
   } else {
     log.info("No campaign active");
     callout = {
@@ -69,3 +49,27 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
 
   return { ...standardFilteredContent, callout, recommendation, actions };
 };
+
+function _buildActions(): Action[] {
+  const nbsBooking: ActionWithButton = {
+    type: ActionDisplayType.buttonWithInfo,
+    content: ["## If this applies to you", "### Book an appointment online at a pharmacy"].join("\n\n") as Content,
+    button: { label: "Continue to booking" as Label, url: new URL("https://example.com") as ButtonUrl },
+    delineator: true,
+  };
+  const walkIn: ActionWithButton = {
+    type: ActionDisplayType.actionLinkWithInfo,
+    content: [
+      "## Get vaccinated without an appointment",
+      "You can find a walk-in COVID-19 vaccination site to get a vaccination without an appointment. You do not need to be registered with a GP.",
+    ].join("\n\n") as Content,
+    button: {
+      label: "Find a walk-in COVID-19 vaccination site" as Label,
+      url: new URL(
+        "https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-walk-in-covid-19-vaccination-site/",
+      ) as ButtonUrl,
+    },
+    delineator: false,
+  };
+  return [nbsBooking, walkIn];
+}

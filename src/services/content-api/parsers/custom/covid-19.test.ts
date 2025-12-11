@@ -62,7 +62,7 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
     const expected = {
       actions: [
         {
-          type: ActionDisplayType.buttonWithCard,
+          type: ActionDisplayType.buttonWithInfo,
           content: "## If this applies to you\n\n### Book an appointment online at a pharmacy" as Content,
           button: { label: "Continue to booking" as Label, url: new URL("https://example.com") as ButtonUrl },
           delineator: true,
