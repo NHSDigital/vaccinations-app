@@ -292,10 +292,12 @@ To upgrade terraform itself and its module versions, it requires careful process
 - repeat the following for each incremental upgrade
   - upgrade - starting with the provider and then moving to third party modules, bump the version to next major version
   - do the "reset local environment" steps above
-  - terraform init --upgrade
+  - terraform init -upgrade
   - terraform providers lock -platform=linux_amd64 -platform=linux_arm64q
   - do the "build and deploy to your workspace" steps above
 - expect that no changes to your infrastructure are needed
+
+Once done for dev environment, just replay the upgrade changes needed in other environments.
 
 ## OpenNext
 
