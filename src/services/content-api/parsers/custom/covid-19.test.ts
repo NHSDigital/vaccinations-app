@@ -62,11 +62,16 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
     const expected = {
       actions: [
         {
+          type: ActionDisplayType.buttonWithCard,
+          content: "## If this applies to you\n\n### Book an appointment online at a pharmacy" as Content,
+          button: { label: "Continue to booking" as Label, url: new URL("https://example.com") as ButtonUrl },
+          delineator: true,
+        },
+        {
           type: ActionDisplayType.actionLinkWithInfo,
-          content: [
-            "## Get vaccinated without an appointment",
-            "You can find a walk-in COVID-19 vaccination site to get a vaccination without an appointment. You do not need to be registered with a GP.",
-          ].join("\n\n") as Content,
+          content: ("## Get vaccinated without an appointment\n\n" +
+            "You can find a walk-in COVID-19 vaccination site to get a vaccination without an appointment. " +
+            "You do not need to be registered with a GP.") as Content,
           button: {
             label: "Find a walk-in COVID-19 vaccination site" as Label,
             url: new URL(

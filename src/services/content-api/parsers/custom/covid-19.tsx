@@ -1,7 +1,14 @@
 import { VaccineType } from "@src/models/vaccine";
 import { buildFilteredContentForStandardVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { HeadingWithContent, HeadingWithTypedContent, VaccinePageContent } from "@src/services/content-api/types";
-import { Action, ActionDisplayType, ButtonUrl, Content, Label } from "@src/services/eligibility-api/types";
+import {
+  Action,
+  ActionDisplayType,
+  ActionWithButton,
+  ButtonUrl,
+  Content,
+  Label,
+} from "@src/services/eligibility-api/types";
 import config from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { Logger } from "pino";
@@ -18,7 +25,13 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
   if (campaigns.isActive(VaccineType.COVID_19)) {
     log.info("Campaign active");
     callout = undefined;
-    actions.push({
+    const nbsBooking: ActionWithButton = {
+      type: ActionDisplayType.buttonWithCard,
+      content: ["## If this applies to you", "### Book an appointment online at a pharmacy"].join("\n\n") as Content,
+      button: { label: "Continue to booking" as Label, url: new URL("https://example.com") as ButtonUrl },
+      delineator: true,
+    };
+    const walkIn: ActionWithButton = {
       type: ActionDisplayType.actionLinkWithInfo,
       content: [
         "## Get vaccinated without an appointment",
@@ -31,7 +44,8 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
         ) as ButtonUrl,
       },
       delineator: false,
-    });
+    };
+    actions.push(nbsBooking, walkIn);
   } else {
     log.info("No campaign active");
     callout = {
