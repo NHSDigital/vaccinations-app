@@ -337,7 +337,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/covid-19-vaccine" as UrlPathFragment,
     cacheFilename: "covid-19-vaccine.json" as Filename,
-    nbsPath: "covid-19-vaccine" as UrlPathFragment, // TODO VIA-603: Is this correct?
+    nbsPath: "covid" as UrlPathFragment,
   },
   [VaccineType.FLU_FOR_ADULTS]: {
     urlPath: "flu-vaccine" as UrlPathFragment,

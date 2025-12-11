@@ -1,4 +1,4 @@
-import { VaccineType } from "@src/models/vaccine";
+import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { buildFilteredContentForStandardVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { HeadingWithContent, HeadingWithTypedContent, VaccinePageContent } from "@src/services/content-api/types";
 import {
@@ -25,7 +25,7 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
   if (campaigns.isActive(VaccineType.COVID_19)) {
     log.info("Campaign active");
     callout = undefined;
-    actions.push(..._buildActions());
+    actions.push(...(await _buildActions()));
   } else {
     log.info("No campaign active");
     callout = {
@@ -50,11 +50,18 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
   return { ...standardFilteredContent, callout, recommendation, actions };
 };
 
-function _buildActions(): Action[] {
+async function _buildActions(): Promise<Action[]> {
+  const nbsBaseUrl = await config.NBS_URL;
+  const nbsBookingPath = await config.NBS_BOOKING_PATH;
+  const nbsURl = new URL(
+    `${nbsBaseUrl.pathname}${nbsBookingPath}/${VaccineInfo.COVID_19.nbsPath}`,
+    nbsBaseUrl.origin,
+  ) as ButtonUrl;
+
   const nbsBooking: ActionWithButton = {
     type: ActionDisplayType.buttonWithInfo,
     content: ["## If this applies to you", "### Book an appointment online at a pharmacy"].join("\n\n") as Content,
-    button: { label: "Continue to booking" as Label, url: new URL("https://example.com") as ButtonUrl },
+    button: { label: "Continue to booking" as Label, url: nbsURl },
     delineator: true,
   };
   const walkIn: ActionWithButton = {

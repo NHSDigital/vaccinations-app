@@ -1,3 +1,4 @@
+import { Campaigns } from "@src/utils/campaigns/types";
 import { AppConfig, ConfigValue } from "@src/utils/config";
 import { randomBoolean, randomInteger, randomString, randomURL } from "@test-data/meta-builder";
 
@@ -24,6 +25,7 @@ class ConfigBuilder {
       MAX_SESSION_AGE_MINUTES: randomInteger(1, 999),
       IS_APIM_AUTH_ENABLED: randomBoolean(),
       AUTH_SECRET: randomString(10),
+      CAMPAIGNS: Campaigns.fromJson("{}"),
     };
   }
 
@@ -190,6 +192,15 @@ class ConfigBuilder {
 
   public andPinoLogLevel(value: string): this {
     return this.withPinoLogLevel(value);
+  }
+
+  public withCampaigns(value: Campaigns): this {
+    this._configValues.CAMPAIGNS = value;
+    return this;
+  }
+
+  public andCampaigns(value: Campaigns): this {
+    return this.withCampaigns(value);
   }
 
   public build(): ConfigMock {

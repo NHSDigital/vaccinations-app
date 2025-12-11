@@ -1,16 +1,36 @@
 import { buildFilteredContentForCovid19Vaccine } from "@src/services/content-api/parsers/custom/covid-19";
 import { ActionDisplayType, ButtonUrl, Content, Label } from "@src/services/eligibility-api/types";
+import { Campaigns } from "@src/utils/campaigns/types";
+import config from "@src/utils/config";
+import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
+const nbsUrlFromConfig = new URL("https://test-nbs-url.example.com/sausages");
+const nbsBookingPathFromConfig = "/test/path/book";
+
 describe("buildFilteredContentForCovid19Vaccine", () => {
-  process.env.CAMPAIGNS = JSON.stringify({
-    COVID_19: [
-      { start: "2025-11-01T09:00:00Z", end: "2026-01-31T09:00:00Z" },
-      { start: "2026-11-01T09:00:00Z", end: "2027-01-31T09:00:00Z" },
-    ],
+  const mockedConfig = config as ConfigMock;
+
+  beforeEach(() => {
+    const defaultConfig = configBuilder()
+      .withNbsUrl(nbsUrlFromConfig)
+      .andNbsBookingPath(nbsBookingPathFromConfig)
+      .andCampaigns(
+        Campaigns.fromJson(
+          JSON.stringify({
+            COVID_19: [
+              { start: "2025-11-01T09:00:00Z", end: "2026-01-31T09:00:00Z" },
+              { start: "2026-11-01T09:00:00Z", end: "2027-01-31T09:00:00Z" },
+            ],
+          }),
+        )!,
+      )
+      .build();
+    Object.assign(mockedConfig, defaultConfig);
   });
+
   jest.useFakeTimers();
 
   it("should return standard vaccine content and additional content for COVID-19 vaccine", async () => {
@@ -64,7 +84,10 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
         {
           type: ActionDisplayType.buttonWithInfo,
           content: "## If this applies to you\n\n### Book an appointment online at a pharmacy" as Content,
-          button: { label: "Continue to booking" as Label, url: new URL("https://example.com") as ButtonUrl },
+          button: {
+            label: "Continue to booking" as Label,
+            url: new URL("https://test-nbs-url.example.com/sausages/test/path/book/covid") as ButtonUrl,
+          },
           delineator: true,
         },
         {
