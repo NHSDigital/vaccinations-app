@@ -1,5 +1,5 @@
 import { VaccineType } from "@src/models/vaccine";
-import { getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
+import { getNbsQueryParams, getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
 import { generateAssertedLoginIdentityJwt } from "@src/utils/auth/generate-auth-payload";
 import config from "@src/utils/config";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
@@ -63,5 +63,21 @@ describe("getSSOUrlToNBSForVaccine", () => {
       const nbsRedirectUrl = await getSSOUrlToNBSForVaccine(VaccineType.RSV);
       expect(nbsRedirectUrl).toBe("/sso-failure");
     });
+  });
+});
+
+describe("getNbsQueryParams", () => {
+  beforeEach(() => {
+    (generateAssertedLoginIdentityJwt as jest.Mock).mockReturnValue(mockAssertedLoginIdentityJWT);
+  });
+
+  it("should include campaignID query param when vaccineType supplied", async () => {
+    const actual = await getNbsQueryParams(VaccineType.RSV);
+    expect(actual).toEqual(expect.arrayContaining([expect.objectContaining({ name: "wt.mc_id" })]));
+  });
+
+  it("should not include campaignID query param when vaccineType not supplied", async () => {
+    const actual = await getNbsQueryParams();
+    expect(actual).not.toEqual(expect.arrayContaining([expect.objectContaining({ name: "wt.mc_id" })]));
   });
 });
