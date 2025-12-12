@@ -5,9 +5,11 @@ import { Campaigns } from "@src/utils/campaigns/types";
 import config from "@src/utils/config";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
+import { headers } from "next/headers";
 
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 jest.mock("@src/services/nbs/nbs-service", () => ({ buildNbsUrl: jest.fn() }));
+jest.mock("next/headers");
 
 describe("buildFilteredContentForCovid19Vaccine", () => {
   const mockedConfig = config as ConfigMock;
@@ -28,6 +30,11 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
     Object.assign(mockedConfig, defaultConfig);
 
     (buildNbsUrl as jest.Mock).mockResolvedValue(new URL("https://test-nbs-url.example.com/sausages"));
+
+    const mockHeaders = {
+      get: jest.fn(),
+    };
+    (headers as jest.Mock).mockResolvedValue(mockHeaders);
   });
 
   jest.useFakeTimers();
@@ -111,5 +118,37 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
     // Then
     expect(pageCopy).toEqual(expect.objectContaining(expected));
     expect(pageCopy.callout).toBeUndefined();
+  });
+
+  describe("with x-e2e-datetime header set", () => {
+    it("should return a callout but no actions when no campaign is active", async () => {
+      const mockHeaders = {
+        get: jest.fn((key: string) => {
+          if (key === "x-e2e-datetime") return "2025-10-01T12:00:00Z";
+          return null;
+        }),
+      };
+      (headers as jest.Mock).mockResolvedValue(mockHeaders);
+
+      const pageCopy = await buildFilteredContentForCovid19Vaccine(JSON.stringify(genericVaccineContentAPIResponse));
+
+      expect(pageCopy.callout).not.toBeUndefined();
+      expect(pageCopy.actions).toHaveLength(0);
+    });
+
+    it("should return actions but no callout when no campaign is active", async () => {
+      const mockHeaders = {
+        get: jest.fn((key: string) => {
+          if (key === "x-e2e-datetime") return "2025-12-01T12:00:00Z";
+          return null;
+        }),
+      };
+      (headers as jest.Mock).mockResolvedValue(mockHeaders);
+
+      const pageCopy = await buildFilteredContentForCovid19Vaccine(JSON.stringify(genericVaccineContentAPIResponse));
+
+      expect(pageCopy.callout).toBeUndefined();
+      expect(pageCopy.actions).not.toHaveLength(0);
+    });
   });
 });

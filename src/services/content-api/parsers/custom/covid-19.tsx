@@ -11,19 +11,22 @@ import {
 } from "@src/services/eligibility-api/types";
 import { buildNbsUrl } from "@src/services/nbs/nbs-service";
 import config from "@src/utils/config";
+import { UtcDateTimeFromStringSchema } from "@src/utils/date";
 import { logger } from "@src/utils/logger";
+import { headers } from "next/headers";
 import { Logger } from "pino";
 
-const log: Logger = logger.child({ module: "covid-19" });
+const log: Logger = logger.child({ module: "content-api-parsers-custom-covid-19" });
 
 export const buildFilteredContentForCovid19Vaccine = async (apiContent: string): Promise<VaccinePageContent> => {
   const campaigns = await config.CAMPAIGNS;
+  const now = await _getNow();
 
   const standardFilteredContent = await buildFilteredContentForStandardVaccine(apiContent);
 
   let callout: HeadingWithTypedContent | undefined;
   const actions: Action[] = [];
-  if (campaigns.isActive(VaccineType.COVID_19)) {
+  if (campaigns.isActive(VaccineType.COVID_19, now)) {
     log.debug({ context: { campaigns, vaccineType: VaccineType.COVID_19 } }, "Campaign active");
     callout = undefined;
     actions.push(...(await _buildActions()));
@@ -50,6 +53,13 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
 
   return { ...standardFilteredContent, callout, recommendation, actions };
 };
+
+async function _getNow() {
+  const headersList = await headers();
+  const now = UtcDateTimeFromStringSchema.safeParse(headersList.get("x-e2e-datetime")).data ?? new Date();
+  log.debug({ context: { headersList, now: now.toDateString() } }, "headers");
+  return now;
+}
 
 async function _buildActions(): Promise<Action[]> {
   const nbsURl = (await buildNbsUrl(VaccineType.COVID_19)) as ButtonUrl;
