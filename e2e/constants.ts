@@ -159,7 +159,7 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     heading: "COVID-19 vaccine",
     title: `COVID-19 vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-covid-19-vaccine.png",
-    datetimeOverride: new Date("2026-06-01"),
+    datetimeOverride: new Date("2026-03-01"),
   },
   "covid-19-vaccine-active-campaign": {
     url: "/vaccines/covid-19-vaccine",
