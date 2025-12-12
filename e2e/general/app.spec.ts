@@ -12,6 +12,8 @@ test.describe("Application", () => {
     test(`Check title, heading, accessibility, LCP performance for ${pageName} page`, async ({
       page,
     }, testInfo: TestInfo) => {
+      if (pageDetails.datetimeOverride)
+        await page.setExtraHTTPHeaders({ "x-e2e-datetime": pageDetails.datetimeOverride.toISOString() });
       await page.goto(pageDetails.url);
       await expect(page).toHaveTitle(pageDetails.title);
       await expect(page.getByRole("heading", { level: 1, name: pageDetails.heading })).toBeVisible();

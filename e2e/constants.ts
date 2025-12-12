@@ -17,6 +17,7 @@ type VaccinePageName =
   | "flu-in-pregnancy"
   | "flu-vaccine"
   | "covid-19-vaccine"
+  | "covid-19-vaccine-active-campaign"
   | "flu-for-children"
   | "flu-for-school-aged-children";
 type FailurePageName = "sso-failure" | "service-failure" | "service-failure-static" | "not-found";
@@ -29,6 +30,7 @@ export type PageDetails = {
   heading: string;
   title: string;
   snapshotFilename: string;
+  datetimeOverride?: Date;
 };
 
 const SERVICE_HEADING = "Check and book vaccinations";
@@ -157,6 +159,14 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     heading: "COVID-19 vaccine",
     title: `COVID-19 vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-covid-19-vaccine.png",
+    datetimeOverride: new Date("2026-06-01"),
+  },
+  "covid-19-vaccine-active-campaign": {
+    url: "/vaccines/covid-19-vaccine",
+    heading: "COVID-19 vaccine",
+    title: `COVID-19 vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-covid-19-vaccine-active-campaign.png",
+    datetimeOverride: new Date("2025-12-01"),
   },
   "flu-for-children": {
     url: "/vaccines/flu-vaccine-for-children",

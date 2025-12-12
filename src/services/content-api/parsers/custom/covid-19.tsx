@@ -27,11 +27,14 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
   let callout: HeadingWithTypedContent | undefined;
   const actions: Action[] = [];
   if (campaigns.isActive(VaccineType.COVID_19, now)) {
-    log.debug({ context: { campaigns, vaccineType: VaccineType.COVID_19 } }, "Campaign active");
+    log.debug({ context: { campaigns, vaccineType: VaccineType.COVID_19, now: now.toISOString() } }, "Campaign active");
     callout = undefined;
     actions.push(...(await _buildActions()));
   } else {
-    log.debug({ context: { campaigns, vaccineType: VaccineType.COVID_19 } }, "No campaign active");
+    log.debug(
+      { context: { campaigns, vaccineType: VaccineType.COVID_19, now: now.toISOString() } },
+      "No campaign active",
+    );
     callout = {
       heading: "Booking service closed",
       content: [
@@ -56,9 +59,7 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
 
 async function _getNow() {
   const headersList = await headers();
-  const now = UtcDateTimeFromStringSchema.safeParse(headersList.get("x-e2e-datetime")).data ?? new Date();
-  log.debug({ context: { headersList, now: now.toDateString() } }, "headers");
-  return now;
+  return UtcDateTimeFromStringSchema.safeParse(headersList.get("x-e2e-datetime")).data ?? new Date();
 }
 
 async function _buildActions(): Promise<Action[]> {
