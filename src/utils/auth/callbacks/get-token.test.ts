@@ -50,6 +50,7 @@ describe("getToken", () => {
 
   const profile: Profile = {
     nhs_number: "test_nhs_number",
+    birthdate: "1994-08-04",
   };
 
   const account = {
@@ -101,7 +102,7 @@ describe("getToken", () => {
       expectResultToMatchTokenWith(
         result,
         profile.nhs_number,
-        "",
+        profile.birthdate,
         "newIdToken",
         "new-apim-access-token",
         nowInSeconds + 1111,
@@ -109,7 +110,6 @@ describe("getToken", () => {
       );
     });
 
-    // todo: check the apim assertion still holds
     it("should return token with empty values on initial login if account and profile are undefined", async () => {
       const undefinedToken = {} as JWT;
       const undefinedAccount = {} as Account;
@@ -136,6 +136,7 @@ describe("getToken", () => {
       expect(result).toMatchObject({
         user: {
           nhs_number: "",
+          birthdate: "",
         },
         nhs_login: {
           id_token: "",
@@ -167,7 +168,7 @@ describe("getToken", () => {
 
       const result = await getToken(token, account, profile, maxAgeInSeconds);
 
-      expectResultToMatchTokenWith(result, profile.nhs_number, "","newIdToken", "", 0, maxAgeInSeconds);
+      expectResultToMatchTokenWith(result, profile.nhs_number, profile.birthdate, "newIdToken", "", 0, maxAgeInSeconds);
     });
   });
 
@@ -183,14 +184,14 @@ describe("getToken", () => {
 
       const result = await getToken(token, account, profile, maxAgeInSeconds);
 
-      expectResultToMatchTokenWith(result, profile.nhs_number, "", "newIdToken", "", 0, maxAgeInSeconds);
+      expectResultToMatchTokenWith(result, profile.nhs_number, profile.birthdate, "newIdToken", "", 0, maxAgeInSeconds);
     });
   });
 
   const expectResultToMatchTokenWith = (
     result: JWT | null,
     nhsNumber: string,
-    birthdate: string,
+    birthdate: string | null | undefined,
     idToken: string,
     apimToken: string,
     apimExpiresAt: number,

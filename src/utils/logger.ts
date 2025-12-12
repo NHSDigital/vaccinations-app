@@ -13,6 +13,7 @@ const REDACT_KEYS: string[] = [
   "ELIGIBILITY_API_KEY",
   "accessToken",
   "access_token",
+  "age",
   "apiKey",
   "apikey",
   "api_key",

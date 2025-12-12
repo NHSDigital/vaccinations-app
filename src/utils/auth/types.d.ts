@@ -51,6 +51,7 @@ declare module "next-auth" {
 
   interface Profile {
     nhs_number: string;
+    birthdate: string;
   }
 }
 
