@@ -10,22 +10,6 @@ import { JWT } from "next-auth/jwt";
 import { headers } from "next/headers";
 import { Logger } from "pino";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const log: Logger = logger.child({ module: "utils-auth-callbacks-get-token" });
 
 /* from Next Auth documentation:
@@ -102,11 +86,11 @@ const fillMissingFieldsInTokenWithDefaultValues = (token: JWT, apimAccessCredent
   return {
     ...token,
     user: {
-      nhs_number: token.user?.nhs_number ?? "" as NhsNumber,
-      birthdate: token.user?.birthdate ?? "" as BirthDate,
+      nhs_number: token.user?.nhs_number ?? ("" as NhsNumber),
+      birthdate: token.user?.birthdate ?? ("" as BirthDate),
     },
     nhs_login: {
-      id_token: token.nhs_login?.id_token ?? "" as IdToken,
+      id_token: token.nhs_login?.id_token ?? ("" as IdToken),
     },
     apim: {
       access_token: (apimAccessCredentials ? apimAccessCredentials.accessToken : token.apim?.access_token) ?? "",
@@ -130,7 +114,7 @@ const updateTokenWithValuesFromAccountAndProfile = (
     ...token,
     user: {
       nhs_number: (profile.nhs_number ?? "") as NhsNumber,
-      birthdate: token.user?.birthdate ?? "" as BirthDate,
+      birthdate: (profile.birthdate ?? "") as BirthDate,
     },
     nhs_login: {
       id_token: (account.id_token ?? "") as IdToken,

@@ -2,7 +2,7 @@ import { Age } from "@src/utils/auth/types";
 import { differenceInYears } from "date-fns";
 import { z } from "zod";
 
-export const UtcDateFromStringSchema = z
+const UtcDateFromStringSchema = z
   .string()
   .regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format")
   .transform((str, ctx) => {
@@ -18,7 +18,7 @@ export const UtcDateFromStringSchema = z
     return date;
   });
 
-export const UtcDateTimeFromStringSchema = z.iso
+const UtcDateTimeFromStringSchema = z.iso
   .datetime({ offset: true, message: "Invalid ISO 8601 datetime format" })
   .transform((str, ctx) => {
     const date = new Date(str);
@@ -31,9 +31,11 @@ export const UtcDateTimeFromStringSchema = z.iso
     return date;
   });
 
-export const calculateAge = (date: string): Age => {
+const calculateAge = (date: string): Age => {
   const today: Date = new Date();
   const birthDate: Date = UtcDateFromStringSchema.parse(date);
 
   return differenceInYears(today, birthDate) as Age;
 };
+
+export { UtcDateFromStringSchema, UtcDateTimeFromStringSchema, calculateAge };
