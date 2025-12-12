@@ -1,8 +1,8 @@
 # This file is for you! Please, updated to the versions agreed by your team.
 
 terraform 1.14.1
-pre-commit 3.6.0
-vale 3.6.0
+pre-commit 4.5.0
+vale 3.13.0
 nodejs 22.13.1
 
 # ==============================================================================
