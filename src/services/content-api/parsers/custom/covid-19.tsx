@@ -58,8 +58,12 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
 };
 
 async function _getNow() {
-  const headersList = await headers();
-  return UtcDateTimeFromStringSchema.safeParse(headersList.get("x-e2e-datetime")).data ?? new Date();
+  try {
+    const headersList = await headers();
+    return UtcDateTimeFromStringSchema.safeParse(headersList.get("x-e2e-datetime")).data ?? new Date();
+  } catch {
+    return new Date();
+  }
 }
 
 async function _buildActions(): Promise<Action[]> {
