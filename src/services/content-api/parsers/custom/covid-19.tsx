@@ -24,11 +24,11 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
   let callout: HeadingWithTypedContent | undefined;
   const actions: Action[] = [];
   if (campaigns.isActive(VaccineType.COVID_19)) {
-    log.info("Campaign active");
+    log.debug({ context: { campaigns, vaccineType: VaccineType.COVID_19 } }, "Campaign active");
     callout = undefined;
     actions.push(...(await _buildActions()));
   } else {
-    log.info("No campaign active");
+    log.debug({ context: { campaigns, vaccineType: VaccineType.COVID_19 } }, "No campaign active");
     callout = {
       heading: "Booking service closed",
       content: [
