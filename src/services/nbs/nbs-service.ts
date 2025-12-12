@@ -46,7 +46,10 @@ const getNbsQueryParams = async (vaccineType: VaccineType | undefined) => {
   const assertedLoginIdentityJWT = await generateAssertedLoginIdentityJwt();
 
   return [
-    { name: NBS_QUERY_PARAMS.CAMPAIGN_ID, value: vaccineType ? VaccineInfo[vaccineType].nbsCampaign : "unknown" },
+    {
+      name: NBS_QUERY_PARAMS.CAMPAIGN_ID,
+      value: vaccineType ? VaccineInfo[vaccineType].nbsCampaign || "unknown" : "unknown",
+    },
     { name: NBS_QUERY_PARAMS.ASSERTED_LOGIN_IDENTITY, value: assertedLoginIdentityJWT },
   ];
 };

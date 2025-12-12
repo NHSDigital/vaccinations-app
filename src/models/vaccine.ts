@@ -40,8 +40,8 @@ export type VaccineDetails = {
   removeHowToGetExpanderFromMoreInformationSection?: boolean;
   contentPath: UrlPathFragment;
   cacheFilename: Filename;
-  nbsPath: UrlPathFragment;
-  nbsCampaign: NbsCampaign;
+  nbsPath?: UrlPathFragment;
+  nbsCampaign?: NbsCampaign;
   supressWarningCallout?: boolean;
   moreInformationHeadersFromContentApi?: boolean;
 };
@@ -112,8 +112,6 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/td-ipv-vaccine-3-in-1-teenage-booster" as UrlPathFragment,
     cacheFilename: "td-ipv-vaccine-3-in-1-teenage-booster.json" as Filename,
-    nbsPath: "unknown" as UrlPathFragment,
-    nbsCampaign: "unknown" as NbsCampaign,
   },
   [VaccineType.VACCINE_6_IN_1]: {
     urlPath: "6-in-1-vaccine" as UrlPathFragment,
@@ -130,8 +128,6 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/6-in-1-vaccine" as UrlPathFragment,
     cacheFilename: "6-in-1-vaccine.json" as Filename,
-    nbsPath: "unknown" as UrlPathFragment,
-    nbsCampaign: "unknown" as NbsCampaign,
   },
   [VaccineType.ROTAVIRUS]: {
     urlPath: "rotavirus-vaccine" as UrlPathFragment,
@@ -148,8 +144,6 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/rotavirus-vaccine" as UrlPathFragment,
     cacheFilename: "rotavirus-vaccine.json" as Filename,
-    nbsPath: "unknown" as UrlPathFragment,
-    nbsCampaign: "unknown" as NbsCampaign,
   },
   [VaccineType.HPV]: {
     urlPath: "hpv-vaccine" as UrlPathFragment,
@@ -166,8 +160,6 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/hpv-vaccine" as UrlPathFragment,
     cacheFilename: "hpv-vaccine.json" as Filename,
-    nbsPath: "unknown" as UrlPathFragment,
-    nbsCampaign: "unknown" as NbsCampaign,
     supressWarningCallout: true,
   },
   [VaccineType.MENB_CHILDREN]: {
@@ -185,8 +177,6 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/menb-vaccine-for-children" as UrlPathFragment,
     cacheFilename: "menb-vaccine-for-children.json" as Filename,
-    nbsPath: "unknown" as UrlPathFragment,
-    nbsCampaign: "unknown" as NbsCampaign,
   },
   [VaccineType.MMR]: {
     urlPath: "mmr-vaccine" as UrlPathFragment,
@@ -203,8 +193,6 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/mmr-vaccine" as UrlPathFragment,
     cacheFilename: "mmr-vaccine.json" as Filename,
-    nbsPath: "unknown" as UrlPathFragment,
-    nbsCampaign: "unknown" as NbsCampaign,
   },
   [VaccineType.PNEUMOCOCCAL]: {
     urlPath: "pneumococcal-vaccine" as UrlPathFragment,
@@ -221,8 +209,6 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/pneumococcal-vaccine" as UrlPathFragment,
     cacheFilename: "pneumococcal-vaccine.json" as Filename,
-    nbsPath: "unknown" as UrlPathFragment,
-    nbsCampaign: "unknown" as NbsCampaign,
   },
   [VaccineType.SHINGLES]: {
     urlPath: "shingles-vaccine" as UrlPathFragment,
@@ -239,9 +225,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/shingles-vaccine" as UrlPathFragment,
     cacheFilename: "shingles-vaccine.json" as Filename,
-    nbsPath: "unknown" as UrlPathFragment,
     supressWarningCallout: true,
-    nbsCampaign: "unknown" as NbsCampaign,
   },
   [VaccineType.MENACWY]: {
     urlPath: "menacwy-vaccine" as UrlPathFragment,
@@ -258,8 +242,6 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/menacwy-vaccine" as UrlPathFragment,
     cacheFilename: "menacwy-vaccine.json" as Filename,
-    nbsPath: "unknown" as UrlPathFragment,
-    nbsCampaign: "unknown" as NbsCampaign,
     supressWarningCallout: true,
   },
   [VaccineType.VACCINE_4_IN_1]: {
@@ -277,8 +259,6 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/4-in-1-preschool-booster-vaccine" as UrlPathFragment,
     cacheFilename: "4-in-1-preschool-booster-vaccine.json" as Filename,
-    nbsPath: "unknown" as UrlPathFragment,
-    nbsCampaign: "unknown" as NbsCampaign,
   },
   [VaccineType.WHOOPING_COUGH]: {
     urlPath: "whooping-cough-vaccination" as UrlPathFragment,
@@ -298,8 +278,6 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "pregnancy/keeping-well/whooping-cough-vaccination" as UrlPathFragment,
     cacheFilename: "whooping-cough-vaccination.json" as Filename,
-    nbsPath: "unknown" as UrlPathFragment,
-    nbsCampaign: "unknown" as NbsCampaign,
   },
   [VaccineType.HIB_MENC]: {
     urlPath: "hib-menc-vaccine" as UrlPathFragment,
@@ -316,8 +294,6 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/hib-menc-vaccine" as UrlPathFragment,
     cacheFilename: "hib-menc-vaccine.json" as Filename,
-    nbsPath: "unknown" as UrlPathFragment,
-    nbsCampaign: "unknown" as NbsCampaign,
   },
   [VaccineType.FLU_IN_PREGNANCY]: {
     urlPath: "flu-vaccine-in-pregnancy" as UrlPathFragment,
@@ -335,8 +311,6 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "pregnancy/keeping-well/flu-jab" as UrlPathFragment,
     cacheFilename: "flu-jab.json" as Filename,
-    nbsPath: "unknown" as UrlPathFragment,
-    nbsCampaign: "unknown" as NbsCampaign,
     moreInformationHeadersFromContentApi: true,
   },
   [VaccineType.COVID_19]: {
@@ -372,8 +346,6 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/flu-vaccine" as UrlPathFragment,
     cacheFilename: "flu-vaccine.json" as Filename,
-    nbsPath: "unknown" as UrlPathFragment,
-    nbsCampaign: "unknown" as NbsCampaign,
   },
   [VaccineType.FLU_FOR_CHILDREN]: {
     urlPath: "flu-vaccine-for-children" as UrlPathFragment,
@@ -390,8 +362,6 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/child-flu-vaccine" as UrlPathFragment,
     cacheFilename: "child-flu-vaccine.json" as Filename,
-    nbsPath: "unknown" as UrlPathFragment,
-    nbsCampaign: "unknown" as NbsCampaign,
   },
   [VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN]: {
     urlPath: "flu-vaccine-for-school-aged-children" as UrlPathFragment,
@@ -409,8 +379,6 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/child-flu-vaccine" as UrlPathFragment,
     cacheFilename: "child-flu-vaccine.json" as Filename,
-    nbsPath: "unknown" as UrlPathFragment,
-    nbsCampaign: "unknown" as NbsCampaign,
   },
 };
 
