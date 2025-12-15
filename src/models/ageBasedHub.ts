@@ -15,7 +15,7 @@ type AgeSpecificVaccineCardDetails = {
   cardLinkDescription: string;
 };
 
-type AgeBasedHubDetails = {
+export type AgeBasedHubDetails = {
   heading: string;
   vaccines: AgeSpecificVaccineCardDetails[];
 };
