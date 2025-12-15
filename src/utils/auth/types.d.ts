@@ -1,3 +1,4 @@
+import { AgeGroup } from "@src/models/ageBasedHub";
 import { NhsNumber } from "@src/models/vaccine";
 import { Brand } from "@src/utils/types";
 import type { DefaultSession } from "next-auth";
@@ -45,7 +46,8 @@ declare module "next-auth" {
   interface Session {
     user: {
       nhs_number: NhsNumber;
-      age: Age;
+      age?: Age;
+      age_group?: undefined | AgeGroup;
     } & DefaultSession["user"];
   }
 

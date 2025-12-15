@@ -1,3 +1,5 @@
+import { getAgeGroup } from "@src/app/_components/hub/ageGroupHelper";
+import { AgeGroup } from "@src/models/ageBasedHub";
 import { NhsNumber } from "@src/models/vaccine";
 import { getUpdatedSession } from "@src/utils/auth/callbacks/get-updated-session";
 import { AccessToken, Age, BirthDate, ExpiresAt, IdToken } from "@src/utils/auth/types";
@@ -7,20 +9,24 @@ import { JWT } from "next-auth/jwt";
 
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 jest.mock("@src/utils/date", () => ({ calculateAge: jest.fn() }));
+jest.mock("@src/app/_components/hub/ageGroupHelper.ts", () => ({ getAgeGroup: jest.fn() }));
 
 const mockBirthdate = "1995-01-01";
 const mockCalculatedAge = 30;
+const mockAgeGroup = AgeGroup.AGE_75_to_80;
 
-describe("getSession", () => {
+describe("getUpdatedSession", () => {
   beforeEach(() => {
     (calculateAge as jest.Mock).mockImplementation(() => mockCalculatedAge);
+    (getAgeGroup as jest.Mock).mockImplementation(() => mockAgeGroup);
   });
 
-  it("updates session user fields from token when both defined", () => {
+  it("updates session with user fields and age information from token", () => {
     const session: Session = {
       user: {
         nhs_number: "" as NhsNumber,
         age: 0 as Age,
+        age_group: undefined,
       },
       expires: "some-date",
     };
@@ -43,6 +49,7 @@ describe("getSession", () => {
 
     expect(result.user.nhs_number).toBe("test-nhs-number");
     expect(result.user.age).toBe(mockCalculatedAge);
+    expect(result.user.age_group).toBe(mockAgeGroup);
   });
 
   it("does not update session if token.user is missing", () => {
@@ -50,6 +57,7 @@ describe("getSession", () => {
       user: {
         nhs_number: "old-nhs-number" as NhsNumber,
         age: 36 as Age,
+        age_group: AgeGroup.AGE_25_to_64,
       },
       expires: "some-date",
     };
@@ -60,6 +68,7 @@ describe("getSession", () => {
 
     expect(result.user.nhs_number).toBe("old-nhs-number");
     expect(result.user.age).toBe(36);
+    expect(result.user.age_group).toBe(AgeGroup.AGE_25_to_64);
   });
 
   it("does not update session if session.user is missing", () => {
