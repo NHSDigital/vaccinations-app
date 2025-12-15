@@ -21,7 +21,7 @@ describe("Age based hub cards", () => {
 
       render(<AgeBasedHubCards ageGroup={AgeGroup.AGE_65_to_74} />);
 
-      expectedVaccinesFor65to74.map((vaccineType) => {
+      expectedVaccinesFor65to74.forEach((vaccineType) => {
         const link: HTMLElement = screen.getByRole("link", { name: VaccineInfo[vaccineType].displayName.titleCase });
 
         expect(link).toBeVisible();
