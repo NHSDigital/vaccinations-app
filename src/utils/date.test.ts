@@ -65,8 +65,16 @@ describe("utils-date", () => {
     });
   });
   describe("calculateAge", () => {
+    beforeAll(() => {
+      jest.useFakeTimers();
+    });
+
     beforeEach(() => {
-      jest.useFakeTimers().setSystemTime(new Date("2025-01-15T00:00:00.000Z").getTime());
+      jest.setSystemTime(new Date("2025-01-15T00:00:00.000Z").getTime());
+    });
+
+    afterAll(() => {
+      jest.useRealTimers();
     });
 
     it("should return age based on birthdate", () => {

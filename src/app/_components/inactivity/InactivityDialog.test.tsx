@@ -1,17 +1,19 @@
 import { InactivityDialog } from "@src/app/_components/inactivity/InactivityDialog";
 import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
+import { AgeGroup } from "@src/models/ageBasedHub";
 import { NhsNumber } from "@src/models/vaccine";
 import useInactivityTimer from "@src/utils/auth/inactivity-timer";
+import { Age } from "@src/utils/auth/types";
 import { userLogout } from "@src/utils/auth/user-logout";
 import { render, screen } from "@testing-library/react";
 import { Session } from "next-auth";
-import { Age } from "@src/utils/auth/types";
 
 const mockSessionValue: Partial<Session> = {
   expires: new Date(Date.now() + 60000).toISOString(),
   user: {
     nhs_number: "" as NhsNumber,
     age: 20 as Age,
+    age_group: AgeGroup.AGE_17_to_24,
   },
 };
 let mockSession = { data: mockSessionValue, status: "authenticated" };
