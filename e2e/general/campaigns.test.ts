@@ -15,8 +15,8 @@ test.describe("Vaccination campaigns", () => {
 
       await page.goto(pageDetails.url);
 
-      await expect(page.getByText("Booking service closed")).not.toBeVisible();
-      await expect(page.getByText("Book an appointment online at a pharmacy")).toBeVisible();
+      await expect(page.getByRole("heading", { name: "Important:   Booking service" })).not.toBeVisible();
+      await expect(page.getByRole("heading", { name: "Book an appointment online at" })).toBeVisible();
     });
 
     test("while campaign inactive", async ({ page }) => {
@@ -27,8 +27,8 @@ test.describe("Vaccination campaigns", () => {
 
       await page.goto(pageDetails.url);
 
-      await expect(page.getByText("Booking service closed")).toBeVisible();
-      await expect(page.getByText("Book an appointment online at a pharmacy")).not.toBeVisible();
+      await expect(page.getByRole("heading", { name: "Important:   Booking service" })).toBeVisible();
+      await expect(page.getByRole("heading", { name: "Book an appointment online at" })).not.toBeVisible();
     });
   });
 });
