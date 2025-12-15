@@ -25,6 +25,11 @@ on:
           - 4-in-1-preschool-booster-vaccine
           - whooping-cough-vaccination
           - hib-menc-vaccine
+          - flu-vaccine-in-pregnancy
+          - covid-19-vaccine
+          - flu-vaccine
+          - flu-vaccine-for-children
+          - flu-vaccine-for-school-aged-children
         required: true
 
 env:
