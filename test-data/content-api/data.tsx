@@ -596,6 +596,26 @@ export const mockStyledContent: StyledVaccineContent = {
   recommendation: { heading: "Recommendation Heading", component: <div>Recommendation component</div> },
 };
 
+export const mockStyledContentWithoutHowToGet: StyledVaccineContent = {
+  overview: { content: "Overview text", containsHtml: false },
+  actions: [],
+  whatVaccineIsFor: {
+    heading: "what-heading",
+    component: <p>What Section styled component</p>,
+  },
+  whoVaccineIsFor: {
+    heading: "who-heading",
+    component: <h2>Who Section styled component</h2>,
+  },
+  vaccineSideEffects: {
+    heading: "side-effects-heading",
+    component: <div>Side effects section styled component</div>,
+  },
+  webpageLink: new URL("https://test.example.com/"),
+  callout: { heading: "Callout Heading", component: <div>Callout component</div> },
+  recommendation: { heading: "Recommendation Heading", component: <div>Recommendation component</div> },
+};
+
 export const mockStyledContentWithMissingOverview: StyledVaccineContent = {
   actions: [],
   whatVaccineIsFor: {

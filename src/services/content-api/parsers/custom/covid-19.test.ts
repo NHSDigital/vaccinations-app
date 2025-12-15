@@ -1,3 +1,4 @@
+import { VaccineType } from "@src/models/vaccine";
 import { buildFilteredContentForCovid19Vaccine } from "@src/services/content-api/parsers/custom/covid-19";
 import { ActionDisplayType, ButtonUrl, Content, Label } from "@src/services/eligibility-api/types";
 import { buildNbsUrl } from "@src/services/nbs/nbs-service";
@@ -44,6 +45,7 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
 
     const pageCopyForCovid19Vaccine = await buildFilteredContentForCovid19Vaccine(
       JSON.stringify(genericVaccineContentAPIResponse),
+      VaccineType.COVID_19,
     );
 
     expect(pageCopyForCovid19Vaccine.overview).toBeDefined();
@@ -74,7 +76,10 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
     };
 
     // When
-    const pageCopy = await buildFilteredContentForCovid19Vaccine(JSON.stringify(genericVaccineContentAPIResponse));
+    const pageCopy = await buildFilteredContentForCovid19Vaccine(
+      JSON.stringify(genericVaccineContentAPIResponse),
+      VaccineType.COVID_19,
+    );
 
     // Then
     expect(pageCopy).toEqual(expect.objectContaining(expected));
@@ -113,7 +118,10 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
     };
 
     // When
-    const pageCopy = await buildFilteredContentForCovid19Vaccine(JSON.stringify(genericVaccineContentAPIResponse));
+    const pageCopy = await buildFilteredContentForCovid19Vaccine(
+      JSON.stringify(genericVaccineContentAPIResponse),
+      VaccineType.COVID_19,
+    );
 
     // Then
     expect(pageCopy).toEqual(expect.objectContaining(expected));
@@ -130,7 +138,10 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
       };
       (headers as jest.Mock).mockResolvedValue(mockHeaders);
 
-      const pageCopy = await buildFilteredContentForCovid19Vaccine(JSON.stringify(genericVaccineContentAPIResponse));
+      const pageCopy = await buildFilteredContentForCovid19Vaccine(
+        JSON.stringify(genericVaccineContentAPIResponse),
+        VaccineType.COVID_19,
+      );
 
       expect(pageCopy.callout).not.toBeUndefined();
       expect(pageCopy.actions).toHaveLength(0);
@@ -145,7 +156,10 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
       };
       (headers as jest.Mock).mockResolvedValue(mockHeaders);
 
-      const pageCopy = await buildFilteredContentForCovid19Vaccine(JSON.stringify(genericVaccineContentAPIResponse));
+      const pageCopy = await buildFilteredContentForCovid19Vaccine(
+        JSON.stringify(genericVaccineContentAPIResponse),
+        VaccineType.COVID_19,
+      );
 
       expect(pageCopy.callout).toBeUndefined();
       expect(pageCopy.actions).not.toHaveLength(0);

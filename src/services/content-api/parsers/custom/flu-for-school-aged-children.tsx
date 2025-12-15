@@ -1,12 +1,14 @@
+import { VaccineType } from "@src/models/vaccine";
 import { buildFilteredContentForStandardVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { ExpanderSubsection, HeadingWithContent, VaccinePageContent } from "@src/services/content-api/types";
 
 export const buildFilteredContentForFluForSchoolAgedChildrenVaccine = async (
   apiContent: string,
+  vaccineType: VaccineType,
 ): Promise<VaccinePageContent> => {
-  const standardFilteredContent = await buildFilteredContentForStandardVaccine(apiContent);
+  const standardFilteredContent = await buildFilteredContentForStandardVaccine(apiContent, vaccineType);
 
-  const schoolAgeHowToGet = standardFilteredContent.howToGetVaccine.subsections.find(
+  const schoolAgeHowToGet = standardFilteredContent.howToGetVaccine?.subsections.find(
     (subsection) => subsection.type == "expanderElement" && subsection.headline.startsWith("School"),
   ) as ExpanderSubsection | undefined;
   const overviewConclusion = schoolAgeHowToGet?.mainEntity

@@ -11,10 +11,6 @@ const MoreInformation = (props: {
   vaccineType: VaccineType;
 }): JSX.Element => {
   const vaccineInfo = VaccineInfo[props.vaccineType];
-  const showHowToGetExpander =
-    vaccineInfo.removeHowToGetExpanderFromMoreInformationSection === undefined ||
-    !vaccineInfo.removeHowToGetExpanderFromMoreInformationSection;
-
   return (
     <>
       <Details.ExpanderGroup data-testid="more-information-expander-group">
@@ -41,7 +37,7 @@ const MoreInformation = (props: {
         </Details>
 
         {/* How-to-get-the-vaccine expandable section */}
-        {showHowToGetExpander && (
+        {props.styledVaccineContent.howToGetVaccine && (
           <Details expander>
             <Details.Summary>
               {vaccineInfo.moreInformationHeadersFromContentApi

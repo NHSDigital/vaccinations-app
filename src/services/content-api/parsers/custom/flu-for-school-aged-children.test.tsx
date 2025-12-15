@@ -1,3 +1,4 @@
+import { VaccineType } from "@src/models/vaccine";
 import { buildFilteredContentForFluForSchoolAgedChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-school-aged-children";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 import { cloneDeep } from "es-toolkit";
@@ -44,19 +45,21 @@ describe("buildFilteredContentForFluForSchoolAgedChildrenVaccine", () => {
 
     const pageCopy = await buildFilteredContentForFluForSchoolAgedChildrenVaccine(
       JSON.stringify(genericVaccineContentAPIResponse),
+      VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN,
     );
 
     expect(pageCopy).toEqual(expect.objectContaining(expectedOverview));
   });
 
-  it("should set the standard vaccine content", async () => {
+  it("should set the standard vaccine content, without How to Get section", async () => {
     const pageCopy = await buildFilteredContentForFluForSchoolAgedChildrenVaccine(
       JSON.stringify(genericVaccineContentAPIResponse),
+      VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN,
     );
 
     expect(pageCopy.whatVaccineIsFor).toBeDefined();
     expect(pageCopy.whoVaccineIsFor).toBeDefined();
-    expect(pageCopy.howToGetVaccine).toBeDefined();
+    expect(pageCopy.howToGetVaccine).not.toBeDefined();
     expect(pageCopy.vaccineSideEffects).toBeDefined();
     expect(pageCopy.webpageLink).toBeDefined();
   });
@@ -71,6 +74,7 @@ describe("buildFilteredContentForFluForSchoolAgedChildrenVaccine", () => {
 
     const pageCopy = await buildFilteredContentForFluForSchoolAgedChildrenVaccine(
       JSON.stringify(genericVaccineContentAPIResponse),
+      VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN,
     );
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
@@ -86,6 +90,7 @@ describe("buildFilteredContentForFluForSchoolAgedChildrenVaccine", () => {
 
     const pageCopy = await buildFilteredContentForFluForSchoolAgedChildrenVaccine(
       JSON.stringify(childFluVaccineContentAPIResponse),
+      VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN,
     );
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));

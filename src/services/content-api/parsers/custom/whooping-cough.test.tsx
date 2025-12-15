@@ -29,7 +29,7 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
   it("should return overview text from lead paragraph mainEntityOfPage object", async () => {
     const expected = { overview: { content: "Whooping Cough Vaccine Lead Paragraph (overview)", containsHtml: true } };
 
-    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(apiResponse, VaccineType.WHOOPING_COUGH);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -49,7 +49,7 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
       },
     };
 
-    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(apiResponse, VaccineType.WHOOPING_COUGH);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -69,7 +69,7 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
       },
     };
 
-    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(apiResponse, VaccineType.WHOOPING_COUGH);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -89,7 +89,7 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
       },
     };
 
-    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(apiResponse, VaccineType.WHOOPING_COUGH);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -109,7 +109,7 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
       },
     };
 
-    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(apiResponse, VaccineType.WHOOPING_COUGH);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -119,7 +119,7 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
       webpageLink: VaccineInfo[VaccineType.WHOOPING_COUGH].nhsWebpageLink,
     };
 
-    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(apiResponse, VaccineType.WHOOPING_COUGH);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -164,7 +164,7 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
         ],
       },
     };
-    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(actual);
+    const pageCopy = await buildFilteredContentForWhoopingCoughVaccine(actual, VaccineType.WHOOPING_COUGH);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });

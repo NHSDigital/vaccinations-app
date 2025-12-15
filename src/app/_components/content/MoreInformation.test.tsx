@@ -1,6 +1,10 @@
 import { MoreInformation } from "@src/app/_components/content/MoreInformation";
 import { VaccineType } from "@src/models/vaccine";
-import { mockStyledContent, mockStyledContentWithoutWhatSection } from "@test-data/content-api/data";
+import {
+  mockStyledContent,
+  mockStyledContentWithoutHowToGet,
+  mockStyledContentWithoutWhatSection,
+} from "@test-data/content-api/data";
 import { render, screen } from "@testing-library/react";
 import React from "react";
 
@@ -67,7 +71,7 @@ describe("MoreInformation component ", () => {
 
   it("should not include 'how to get' section for RSV_PREGNANCY ", async () => {
     const vaccineType = VaccineType.RSV_PREGNANCY;
-    render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
+    render(<MoreInformation styledVaccineContent={mockStyledContentWithoutHowToGet} vaccineType={vaccineType} />);
 
     const heading: HTMLElement | null = screen.queryByText("How to get the vaccine");
 
@@ -76,7 +80,7 @@ describe("MoreInformation component ", () => {
 
   it("should not include 'how to get' section for RSV ", async () => {
     const vaccineType = VaccineType.RSV;
-    render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
+    render(<MoreInformation styledVaccineContent={mockStyledContentWithoutHowToGet} vaccineType={vaccineType} />);
 
     const heading: HTMLElement | null = screen.queryByText("How to get the vaccine");
 

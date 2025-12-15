@@ -1,4 +1,4 @@
-import { VaccineType } from "@src/models/vaccine";
+import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { buildFilteredContentForCovid19Vaccine } from "@src/services/content-api/parsers/custom/covid-19";
 import { buildFilteredContentForFluForChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-children";
 import { buildFilteredContentForFluForSchoolAgedChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-school-aged-children";
@@ -222,10 +222,13 @@ const getFilteredContentForVaccine = async (
     [VaccineType.COVID_19, buildFilteredContentForCovid19Vaccine],
   ]);
   const filteredContentBuilder = filteredContentBuilders.get(vaccineType) || buildFilteredContentForStandardVaccine;
-  return await filteredContentBuilder(apiContent);
+  return await filteredContentBuilder(apiContent, vaccineType);
 };
 
-const buildFilteredContentForStandardVaccine = async (apiContent: string): Promise<VaccinePageContent> => {
+const buildFilteredContentForStandardVaccine = async (
+  apiContent: string,
+  vaccineType: VaccineType,
+): Promise<VaccinePageContent> => {
   const content: ContentApiVaccineResponse = JSON.parse(apiContent);
 
   const overview: Overview = { content: _extractDescriptionForVaccine(content, "lead paragraph"), containsHtml: false };
@@ -245,10 +248,13 @@ const buildFilteredContentForStandardVaccine = async (apiContent: string): Promi
       .concat(_extractPartsForAspect(content, "ContraindicationsHealthAspect")),
   };
 
-  const howToGetVaccine: VaccinePageSection = {
-    headline: _extractHeadlineForAspect(content, "GettingAccessHealthAspect"),
-    subsections: _extractPartsForAspect(content, "GettingAccessHealthAspect"),
-  };
+  const howToGetVaccine: VaccinePageSection | undefined = VaccineInfo[vaccineType]
+    .removeHowToGetExpanderFromMoreInformationSection
+    ? undefined
+    : {
+        headline: _extractHeadlineForAspect(content, "GettingAccessHealthAspect"),
+        subsections: _extractPartsForAspect(content, "GettingAccessHealthAspect"),
+      };
 
   const vaccineSideEffects: VaccinePageSection = {
     headline: _extractHeadlineForAspect(content, "SideEffectsHealthAspect"),

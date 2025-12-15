@@ -113,7 +113,7 @@ export type VaccinePageContent = {
 
   whatVaccineIsFor?: VaccinePageSection;
   whoVaccineIsFor: VaccinePageSection;
-  howToGetVaccine: VaccinePageSection;
+  howToGetVaccine?: VaccinePageSection;
   vaccineSideEffects: VaccinePageSection;
 
   webpageLink: URL;
@@ -156,7 +156,7 @@ export type StyledVaccineContent = {
 
   whatVaccineIsFor?: StyledPageSection;
   whoVaccineIsFor: StyledPageSection;
-  howToGetVaccine: StyledPageSection;
+  howToGetVaccine?: StyledPageSection;
   vaccineSideEffects: StyledPageSection;
 
   webpageLink: URL;

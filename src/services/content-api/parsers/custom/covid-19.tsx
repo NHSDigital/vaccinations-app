@@ -18,11 +18,14 @@ import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "content-api-parsers-custom-covid-19" });
 
-export const buildFilteredContentForCovid19Vaccine = async (apiContent: string): Promise<VaccinePageContent> => {
+export const buildFilteredContentForCovid19Vaccine = async (
+  apiContent: string,
+  vaccineType: VaccineType,
+): Promise<VaccinePageContent> => {
   const campaigns = await config.CAMPAIGNS;
   const now = await _getNow();
 
-  const standardFilteredContent = await buildFilteredContentForStandardVaccine(apiContent);
+  const standardFilteredContent = await buildFilteredContentForStandardVaccine(apiContent, vaccineType);
 
   let callout: HeadingWithTypedContent | undefined;
   const actions: Action[] = [];

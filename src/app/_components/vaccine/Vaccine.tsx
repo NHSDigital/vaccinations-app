@@ -58,7 +58,7 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
   }
 
   const howToGetVaccineOrFallback = styledVaccineContent ? (
-    styledVaccineContent.howToGetVaccine.component
+    styledVaccineContent.howToGetVaccine?.component || <></>
   ) : (
     <HowToGetVaccineFallback vaccineType={vaccineType} />
   );

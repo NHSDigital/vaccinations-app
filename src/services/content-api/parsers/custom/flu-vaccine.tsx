@@ -1,8 +1,12 @@
+import { VaccineType } from "@src/models/vaccine";
 import { buildFilteredContentForStandardVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { HeadingWithContent, HeadingWithTypedContent, VaccinePageContent } from "@src/services/content-api/types";
 
-export const buildFilteredContentForFluVaccine = async (apiContent: string): Promise<VaccinePageContent> => {
-  const standardFilteredContent = await buildFilteredContentForStandardVaccine(apiContent);
+export const buildFilteredContentForFluVaccine = async (
+  apiContent: string,
+  vaccineType: VaccineType,
+): Promise<VaccinePageContent> => {
+  const standardFilteredContent = await buildFilteredContentForStandardVaccine(apiContent, vaccineType);
 
   const callout: HeadingWithTypedContent = {
     heading: "Booking service closed",

@@ -187,7 +187,7 @@ describe("Any vaccine page", () => {
       expect(RSVPregnancyInfo).toHaveBeenCalledWith(
         {
           vaccineType: VaccineType.RSV_PREGNANCY,
-          howToGetVaccineOrFallback: mockStyledContent.howToGetVaccine.component,
+          howToGetVaccineOrFallback: mockStyledContent.howToGetVaccine?.component,
         },
         undefined,
       );
@@ -293,7 +293,7 @@ describe("Any vaccine page", () => {
       expectRenderEligibilitySectionWith(
         VaccineType.RSV,
         eligibilitySuccessResponse,
-        mockStyledContent.howToGetVaccine.component,
+        mockStyledContent.howToGetVaccine?.component,
       );
     });
 
@@ -335,7 +335,7 @@ describe("Any vaccine page", () => {
       expectRenderEligibilitySectionWith(
         VaccineType.RSV,
         eligibilityResponseWithNoContentSection,
-        mockStyledContent.howToGetVaccine.component,
+        mockStyledContent.howToGetVaccine?.component,
       );
     });
 
@@ -347,7 +347,7 @@ describe("Any vaccine page", () => {
       expectRenderEligibilitySectionWith(
         VaccineType.RSV,
         eligibilityErrorResponse,
-        mockStyledContent.howToGetVaccine.component,
+        mockStyledContent.howToGetVaccine?.component,
       );
     });
 
@@ -374,7 +374,7 @@ describe("Any vaccine page", () => {
       expectRenderEligibilitySectionWith(
         VaccineType.RSV,
         eligibilityErrorResponse,
-        mockStyledContent.howToGetVaccine.component,
+        mockStyledContent.howToGetVaccine?.component,
       );
     });
   });
@@ -401,7 +401,7 @@ describe("Any vaccine page", () => {
   const expectRenderEligibilitySectionWith = (
     vaccineType: VaccineType,
     eligibilityForPerson: EligibilityForPersonType,
-    howToGetVaccineOrFallback: JSX.Element,
+    howToGetVaccineOrFallback?: JSX.Element,
   ) => {
     const eligibilitySection: HTMLElement = screen.getByTestId("eligibility-page-content-mock");
     expect(eligibilitySection).toBeInTheDocument();

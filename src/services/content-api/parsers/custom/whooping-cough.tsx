@@ -2,7 +2,10 @@ import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { removeExcludedHyperlinks } from "@src/services/content-api/parsers/content-filter-service";
 import { ContentApiVaccineResponse, VaccinePageContent, VaccinePageSection } from "@src/services/content-api/types";
 
-export const buildFilteredContentForWhoopingCoughVaccine = async (apiContent: string): Promise<VaccinePageContent> => {
+export const buildFilteredContentForWhoopingCoughVaccine = async (
+  apiContent: string,
+  vaccineType: VaccineType,
+): Promise<VaccinePageContent> => {
   const content: ContentApiVaccineResponse = JSON.parse(apiContent);
 
   const paragraphs: string[] = content.mainEntityOfPage
@@ -19,12 +22,15 @@ export const buildFilteredContentForWhoopingCoughVaccine = async (apiContent: st
     headline: "Who should have the vaccine",
     subsections: [{ type: "simpleElement", headline: "", text: paragraphs[2], name: "markdown" }],
   };
-  const howToGetVaccine: VaccinePageSection = {
-    headline: "How to get the vaccine",
-    subsections: removeExcludedHyperlinks([
-      { type: "simpleElement", headline: "", text: paragraphs[14], name: "markdown" },
-    ]),
-  };
+  const howToGetVaccine: VaccinePageSection | undefined = VaccineInfo[vaccineType]
+    .removeHowToGetExpanderFromMoreInformationSection
+    ? undefined
+    : {
+        headline: "How to get the vaccine",
+        subsections: removeExcludedHyperlinks([
+          { type: "simpleElement", headline: "", text: paragraphs[14], name: "markdown" },
+        ]),
+      };
   const vaccineSideEffects: VaccinePageSection = {
     headline: "Side effects of the vaccine",
     subsections: [{ type: "simpleElement", headline: "", text: paragraphs[6], name: "markdown" }],

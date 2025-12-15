@@ -227,7 +227,9 @@ const getStyledContentForVaccine = async (
     whatVaccineIsFor = styleSection(filteredContent.whatVaccineIsFor);
   }
   const whoVaccineIsFor: StyledPageSection = styleSection(filteredContent.whoVaccineIsFor);
-  const howToGetVaccine: StyledPageSection = styleHowToGetSection(vaccine, filteredContent.howToGetVaccine, fragile);
+  const howToGetVaccine: StyledPageSection | undefined = filteredContent.howToGetVaccine
+    ? styleHowToGetSection(vaccine, filteredContent.howToGetVaccine, fragile)
+    : undefined;
   const vaccineSideEffects: StyledPageSection = styleSection(filteredContent.vaccineSideEffects);
   const webpageLink: URL = filteredContent.webpageLink;
 

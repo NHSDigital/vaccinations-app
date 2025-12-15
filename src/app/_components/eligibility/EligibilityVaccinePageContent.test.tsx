@@ -63,7 +63,7 @@ describe("EligibilityVaccinePageContent", () => {
 
       expect(RSVEligibilityFallback).toHaveBeenCalledWith(
         {
-          howToGetVaccineFallback: mockStyledContent.howToGetVaccine.component,
+          howToGetVaccineFallback: mockStyledContent.howToGetVaccine?.component,
           vaccineType,
         },
         undefined,

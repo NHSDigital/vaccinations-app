@@ -745,7 +745,10 @@ describe("Content Filter", () => {
 
         await getFilteredContentForVaccine(VaccineType.WHOOPING_COUGH, mockApiContent);
 
-        expect(buildFilteredContentForWhoopingCoughVaccine).toHaveBeenCalledWith(mockApiContent);
+        expect(buildFilteredContentForWhoopingCoughVaccine).toHaveBeenCalledWith(
+          mockApiContent,
+          VaccineType.WHOOPING_COUGH,
+        );
       });
 
       it("should call getFilteredContentForFluVaccine for flu vaccine", async () => {
@@ -753,7 +756,7 @@ describe("Content Filter", () => {
 
         await getFilteredContentForVaccine(VaccineType.FLU_FOR_ADULTS, mockApiContent);
 
-        expect(buildFilteredContentForFluVaccine).toHaveBeenCalledWith(mockApiContent);
+        expect(buildFilteredContentForFluVaccine).toHaveBeenCalledWith(mockApiContent, VaccineType.FLU_FOR_ADULTS);
       });
 
       it("should call getFilteredContentForFluInPregnancyVaccine for flu in pregnancy vaccine", async () => {
@@ -761,7 +764,10 @@ describe("Content Filter", () => {
 
         await getFilteredContentForVaccine(VaccineType.FLU_IN_PREGNANCY, mockApiContent);
 
-        expect(buildFilteredContentForFluInPregnancyVaccine).toHaveBeenCalledWith(mockApiContent);
+        expect(buildFilteredContentForFluInPregnancyVaccine).toHaveBeenCalledWith(
+          mockApiContent,
+          VaccineType.FLU_IN_PREGNANCY,
+        );
       });
 
       it("should call getFilteredContentForFluForChildrenVaccine for flu for children vaccine", async () => {
@@ -769,14 +775,20 @@ describe("Content Filter", () => {
 
         await getFilteredContentForVaccine(VaccineType.FLU_FOR_CHILDREN, mockApiContent);
 
-        expect(buildFilteredContentForFluForChildrenVaccine).toHaveBeenCalledWith(mockApiContent);
+        expect(buildFilteredContentForFluForChildrenVaccine).toHaveBeenCalledWith(
+          mockApiContent,
+          VaccineType.FLU_FOR_CHILDREN,
+        );
       });
 
       it("should return standard vaccine content and recommendation for school aged children's flu vaccine", async () => {
         const mockApiContent = "testContent";
 
         await getFilteredContentForVaccine(VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, mockApiContent);
-        expect(buildFilteredContentForFluForSchoolAgedChildrenVaccine).toHaveBeenCalledWith(mockApiContent);
+        expect(buildFilteredContentForFluForSchoolAgedChildrenVaccine).toHaveBeenCalledWith(
+          mockApiContent,
+          VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN,
+        );
       });
 
       it("should call buildFilteredContentForCovid19Vaccine for flu in pregnancy vaccine", async () => {
@@ -784,7 +796,7 @@ describe("Content Filter", () => {
 
         await getFilteredContentForVaccine(VaccineType.COVID_19, mockApiContent);
 
-        expect(buildFilteredContentForCovid19Vaccine).toHaveBeenCalledWith(mockApiContent);
+        expect(buildFilteredContentForCovid19Vaccine).toHaveBeenCalledWith(mockApiContent, VaccineType.COVID_19);
       });
     });
   });

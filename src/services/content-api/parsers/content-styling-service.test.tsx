@@ -323,7 +323,7 @@ describe("ContentStylingService", () => {
       expect(styledVaccineContent.overview).toEqual(mockContent.overview);
       expect(styledVaccineContent.whatVaccineIsFor?.heading).toEqual(mockWhatSection.headline);
       expect(styledVaccineContent.whoVaccineIsFor.heading).toEqual(mockWhoSection.headline);
-      expect(styledVaccineContent.howToGetVaccine.heading).toEqual(mockHowSection.headline);
+      expect(styledVaccineContent.howToGetVaccine?.heading).toEqual(mockHowSection.headline);
       expect(styledVaccineContent.vaccineSideEffects.heading).toEqual(mockSideEffectsSection.headline);
       expect(styledVaccineContent.callout?.heading).toEqual(mockCallout.heading);
       expect(styledVaccineContent.recommendation?.heading).toEqual(mockRecommendation.heading);
@@ -332,7 +332,7 @@ describe("ContentStylingService", () => {
       const expectedRsvPregnancyHowToGetSection = `<div><div><p>para3</p><p>para4</p></div></div>`;
       const expectedGenericVaccineHowToGetSection =
         "<div class=\"zeroMarginBottom\"><h3>How To Get Headline</h3><p>para</p><h3>If you're aged 75 to 79</h3><p>para1</p><p>para2</p><h3>If you're pregnant</h3><p>para3</p><p>para4</p></div>";
-      const { container } = render(styledVaccineContent.howToGetVaccine.component);
+      const { container } = render(styledVaccineContent.howToGetVaccine?.component);
       if (vaccine === VaccineType.RSV) {
         expect(container).toContainHTML(expectedRsvHowToGetSection);
       } else if (vaccine === VaccineType.RSV_PREGNANCY) {
@@ -343,7 +343,7 @@ describe("ContentStylingService", () => {
 
       expect(isValidElement(styledVaccineContent.whatVaccineIsFor?.component)).toBe(true);
       expect(isValidElement(styledVaccineContent.whoVaccineIsFor.component)).toBe(true);
-      expect(isValidElement(styledVaccineContent.howToGetVaccine.component)).toBe(true);
+      expect(isValidElement(styledVaccineContent.howToGetVaccine?.component)).toBe(true);
       expect(isValidElement(styledVaccineContent.vaccineSideEffects.component)).toBe(true);
       expect(styledVaccineContent.webpageLink).toEqual(new URL("https://test.example.com/"));
     });
@@ -380,7 +380,7 @@ describe("ContentStylingService", () => {
       expect(styledVaccineContent.overview).toEqual({ content: "This is an overview", containsHtml: false });
       expect(styledVaccineContent.whatVaccineIsFor).toBeUndefined();
       expect(isValidElement(styledVaccineContent.whoVaccineIsFor.component)).toBe(true);
-      expect(isValidElement(styledVaccineContent.howToGetVaccine.component)).toBe(true);
+      expect(isValidElement(styledVaccineContent.howToGetVaccine?.component)).toBe(true);
       expect(isValidElement(styledVaccineContent.vaccineSideEffects.component)).toBe(true);
       expect(styledVaccineContent.webpageLink).toEqual(new URL("https://test.example.com/"));
     });

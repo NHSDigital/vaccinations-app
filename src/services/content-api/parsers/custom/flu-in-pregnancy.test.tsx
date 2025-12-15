@@ -31,7 +31,7 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
       },
     };
 
-    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(apiResponse, VaccineType.FLU_IN_PREGNANCY);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -51,7 +51,7 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
       },
     };
 
-    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(apiResponse, VaccineType.FLU_IN_PREGNANCY);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -88,7 +88,7 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
       },
     };
 
-    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(actual);
+    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(actual, VaccineType.FLU_IN_PREGNANCY);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -108,7 +108,7 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
       },
     };
 
-    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(apiResponse, VaccineType.FLU_IN_PREGNANCY);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -118,7 +118,7 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
       webpageLink: VaccineInfo[VaccineType.FLU_IN_PREGNANCY].nhsWebpageLink,
     };
 
-    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(apiResponse, VaccineType.FLU_IN_PREGNANCY);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -132,7 +132,7 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
       },
     };
 
-    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(apiResponse, VaccineType.FLU_IN_PREGNANCY);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
@@ -145,7 +145,7 @@ describe("getFilteredContentForFluInPregnancyVaccine", () => {
       },
     };
 
-    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(apiResponse);
+    const pageCopy = await buildFilteredContentForFluInPregnancyVaccine(apiResponse, VaccineType.FLU_IN_PREGNANCY);
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
