@@ -6,7 +6,7 @@ import React from "react";
 
 describe("Callout component", () => {
   it("renders correctly", () => {
-    const vaccineType = VaccineType.HIB_MENC;
+    const vaccineType = VaccineType.MMR;
 
     render(<Callout styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
 

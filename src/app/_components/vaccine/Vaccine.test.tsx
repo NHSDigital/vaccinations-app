@@ -150,7 +150,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should include callout text", async () => {
-      await renderNamedVaccinePage(VaccineType.HIB_MENC);
+      await renderNamedVaccinePage(VaccineType.MMR);
 
       const calloutText: HTMLElement = screen.getByTestId("callout");
 
@@ -230,7 +230,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should not display callout", async () => {
-      await renderNamedVaccinePage(VaccineType.HIB_MENC);
+      await renderNamedVaccinePage(VaccineType.HPV);
 
       const overviewText: HTMLElement | null = screen.queryByTestId("callout");
 

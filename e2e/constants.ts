@@ -13,7 +13,6 @@ type VaccinePageName =
   | "menacwy"
   | "4-in-1"
   | "whooping-cough"
-  | "hib-menc"
   | "flu-in-pregnancy"
   | "flu-vaccine"
   | "covid-19-vaccine"
@@ -135,12 +134,6 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     heading: "Whooping cough vaccine in pregnancy",
     title: `Whooping cough vaccine in pregnancy - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-whooping-cough.png",
-  },
-  "hib-menc": {
-    url: "/vaccines/hib-menc-vaccine",
-    heading: "Hib/MenC vaccine",
-    title: `Hib/MenC vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
-    snapshotFilename: "default-hib-menc.png",
   },
   "flu-in-pregnancy": {
     url: "/vaccines/flu-vaccine-in-pregnancy",
