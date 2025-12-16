@@ -15,9 +15,12 @@ import { getContentForVaccine } from "@src/services/content-api/content-service"
 import { ContentErrorTypes, StyledVaccineContent } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import { EligibilityErrorTypes, EligibilityForPersonType } from "@src/services/eligibility-api/types";
+import config from "@src/utils/config";
+import { UtcDateTimeFromStringSchema } from "@src/utils/date";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { requestScopedStorageWrapper } from "@src/utils/requestScopedStorageWrapper";
 import { Session } from "next-auth";
+import { headers } from "next/headers";
 import React, { JSX } from "react";
 
 import styles from "./styles.module.css";
@@ -38,6 +41,18 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
   const session: Session | null = await auth();
   const nhsNumber: NhsNumber | undefined = session?.user.nhs_number as NhsNumber;
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
+
+  const campaigns = await config.CAMPAIGNS;
+  const now = await _getNow();
+  const isCampaignActive: boolean = campaigns.isActive(vaccineType, now);
+  async function _getNow() {
+    try {
+      const headersList = await headers();
+      return UtcDateTimeFromStringSchema.safeParse(headersList.get("x-e2e-datetime")).data ?? new Date();
+    } catch {
+      return new Date();
+    }
+  }
 
   let styledVaccineContent: StyledVaccineContent | undefined;
   let contentError: ContentErrorTypes | undefined;
@@ -71,8 +86,10 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
         <>
           <Overview overview={styledVaccineContent.overview} vaccineType={vaccineType} />
           <Recommendation styledVaccineContent={styledVaccineContent} />
-          <WarningCallout styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
-          <EligibilityActions actions={styledVaccineContent.actions} vaccineType={vaccineType} />
+          {!isCampaignActive && (
+            <WarningCallout styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
+          )}
+          {isCampaignActive && <EligibilityActions actions={styledVaccineContent.actions} vaccineType={vaccineType} />}
           <Overview overview={styledVaccineContent.overviewConclusion} vaccineType={vaccineType} />
         </>
       )}

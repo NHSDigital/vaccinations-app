@@ -7,17 +7,40 @@ import { VaccineType } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
-import {
-  EligibilityErrorTypes,
-  EligibilityForPersonType,
-  EligibilityStatus,
-} from "@src/services/eligibility-api/types";
+import { EligibilityErrorTypes, EligibilityForPersonType, EligibilityStatus } from "@src/services/eligibility-api/types";
+import { Campaigns } from "@src/utils/campaigns/types";
+import config from "@src/utils/config";
+import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { mockStyledContent } from "@test-data/content-api/data";
 import { eligibilityContentBuilder } from "@test-data/eligibility-api/builders";
 import { render, screen } from "@testing-library/react";
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 import { headers } from "next/headers";
 import React, { JSX } from "react";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 jest.mock("@src/services/content-api/content-service", () => ({
   getContentForVaccine: jest.fn(),
@@ -58,6 +81,7 @@ jest.mock("next/headers", () => ({
   headers: jest.fn(),
 }));
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
+jest.mock("@src/utils/config");
 jest.mock("cheerio", () => ({
   load: jest.fn(() => {
     const selectorImpl = jest.fn(() => ({
@@ -97,6 +121,24 @@ const contentErrorResponse = {
 };
 
 describe("Any vaccine page", () => {
+
+  const mockedConfig = config as ConfigMock;
+
+  beforeEach(() => {
+    const defaultConfig = configBuilder()
+      .withCampaigns(
+        Campaigns.fromJson(
+          JSON.stringify({
+            COVID_19: [
+              { start: "2025-11-01T09:00:00Z", end: "2026-01-31T09:00:00Z" }
+            ],
+          }),
+        )!,
+      )
+      .build();
+    Object.assign(mockedConfig, defaultConfig);
+  });
+
   const renderNamedVaccinePage = async (vaccineType: VaccineType) => {
     render(await Vaccine({ vaccineType: vaccineType }));
   };

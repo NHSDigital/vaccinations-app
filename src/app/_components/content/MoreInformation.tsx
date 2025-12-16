@@ -1,19 +1,35 @@
+"use server";
+
 import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
 import { HEADINGS } from "@src/app/constants";
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { StyledVaccineContent } from "@src/services/content-api/types";
+import config from "@src/utils/config";
+import { UtcDateTimeFromStringSchema } from "@src/utils/date";
+import { headers } from "next/headers";
 import { Details } from "nhsuk-react-components";
 import React, { JSX } from "react";
 
 // Ref: https://main--65aa76b29d00a047fe683b95.chromatic.com/?path=/docs/content-presentation-details--docs#expander-group-2
-const MoreInformation = (props: {
+const MoreInformation = async (props: {
   styledVaccineContent: StyledVaccineContent;
   vaccineType: VaccineType;
-}): JSX.Element => {
+}): Promise<JSX.Element> => {
+  const campaigns = await config.CAMPAIGNS;
+  const now = await _getNow();
+  const isCampaignActive: boolean = campaigns.isActive(props.vaccineType, now);
+
+  async function _getNow() {
+    try {
+      const headersList = await headers();
+      return UtcDateTimeFromStringSchema.safeParse(headersList.get("x-e2e-datetime")).data ?? new Date();
+    } catch {
+      return new Date();
+    }
+  }
+
   const vaccineInfo = VaccineInfo[props.vaccineType];
-  const showHowToGetExpander =
-    vaccineInfo.removeHowToGetExpanderFromMoreInformationSection === undefined ||
-    !vaccineInfo.removeHowToGetExpanderFromMoreInformationSection;
+  const showHowToGetExpander = vaccineInfo.removeHowToGetExpanderFromMoreInformationSection ? false : !isCampaignActive;
 
   return (
     <>
