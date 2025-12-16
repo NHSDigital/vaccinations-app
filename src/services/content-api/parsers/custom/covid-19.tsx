@@ -23,8 +23,7 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
     ].join("\n\n"),
     contentType: "markdown",
   };
-  const actions: Action[] = [];
-  actions.push(...(await _buildActions()));
+  const actions: Action[] = await _buildActions();
 
   const recommendation: HeadingWithContent = {
     heading: "The COVID-19 vaccine is recommended if you:",
