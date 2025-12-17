@@ -1,13 +1,13 @@
-import { AtRiskHubContent } from "@src/app/_components/hub/AtRiskHubContent";
+import { AtRiskHubExpander } from "@src/app/_components/hub/AtRiskHubExpander";
 import { render, screen } from "@testing-library/react";
 
 jest.mock("@src/app/_components/hub/AtRiskText", () => ({
   AtRiskText: jest.fn().mockImplementation(() => <p data-testid={"at-risk-text"}>At risk hub content test</p>),
 }));
 
-describe("At risk hub content", () => {
+describe("At risk hub expander", () => {
   beforeEach(() => {
-    render(AtRiskHubContent());
+    render(AtRiskHubExpander());
   });
 
   it("should render heading as h2", () => {

@@ -2,7 +2,7 @@
 
 import { auth } from "@project/auth";
 import { AgeBasedHubCards } from "@src/app/_components/hub/AgeBasedHubCards";
-import { AtRiskHubContent } from "@src/app/_components/hub/AtRiskHubContent";
+import { AtRiskHubExpander } from "@src/app/_components/hub/AtRiskHubExpander";
 import { PregnancyHubContent } from "@src/app/_components/hub/PregnancyHubContent";
 import BackToNHSAppLink from "@src/app/_components/nhs-app/BackToNHSAppLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
@@ -26,7 +26,7 @@ const VaccinationsHub = async () => {
         <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-3"}>{SERVICE_HEADING}</h1>
         <AgeBasedHubCards ageGroup={ageGroup} />
         {/*TODO VIA-630 control visibility of the following components based on age*/}
-        <AtRiskHubContent />
+        <AtRiskHubExpander />
         <PregnancyHubContent />
         <Link href={"/vaccines-for-all-ages"} className={"nhsuk-button nhsuk-button--secondary"}>
           View vaccines for all ages

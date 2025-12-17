@@ -20,10 +20,10 @@ jest.mock("@src/app/_components/hub/AgeBasedHubCards", () => ({
     .mockImplementation(() => <p data-testid={"age-based-hub-cards"}>Age based hub cards test</p>),
 }));
 
-jest.mock("@src/app/_components/hub/AtRiskHubContent", () => ({
-  AtRiskHubContent: jest
+jest.mock("@src/app/_components/hub/AtRiskHubExpander", () => ({
+  AtRiskHubExpander: jest
     .fn()
-    .mockImplementation(() => <p data-testid={"at-risk-hub-content"}>At risk hub content test</p>),
+    .mockImplementation(() => <p data-testid={"at-risk-hub-expander"}>At risk hub expander test</p>),
 }));
 
 jest.mock("@src/app/_components/hub/PregnancyHubContent", () => ({
@@ -73,9 +73,8 @@ describe("Vaccination Hub Page", () => {
   });
 
   it("should show at risk expander ", () => {
-    const atRiskHubContent: HTMLElement = screen.getByTestId("at-risk-hub-content");
-
-    expect(atRiskHubContent).toBeVisible();
+    const atRiskHubExpander: HTMLElement = screen.getByTestId("at-risk-hub-expander");
+    expect(atRiskHubExpander).toBeVisible();
   });
 
   it("should show pregnancy hub content ", () => {

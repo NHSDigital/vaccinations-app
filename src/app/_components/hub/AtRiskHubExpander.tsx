@@ -1,7 +1,7 @@
 import { AtRiskText } from "@src/app/_components/hub/AtRiskText";
 import React, { JSX } from "react";
 
-const AtRiskHubContent = (): JSX.Element => {
+const AtRiskHubExpander = (): JSX.Element => {
   return (
     <details className="nhsuk-details">
       <summary className="nhsuk-details__summary">
@@ -16,4 +16,4 @@ const AtRiskHubContent = (): JSX.Element => {
   );
 };
 
-export { AtRiskHubContent };
+export { AtRiskHubExpander };
