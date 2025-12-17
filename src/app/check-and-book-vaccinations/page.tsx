@@ -2,8 +2,9 @@
 
 import { auth } from "@project/auth";
 import { AgeBasedHubCards } from "@src/app/_components/hub/AgeBasedHubCards";
+import { AtRiskHubContent } from "@src/app/_components/hub/AtRiskHubContent";
+import { PregnancyHubContent } from "@src/app/_components/hub/PregnancyHubContent";
 import BackToNHSAppLink from "@src/app/_components/nhs-app/BackToNHSAppLink";
-import CardLink from "@src/app/_components/nhs-app/CardLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import { NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
 import { AgeGroup } from "@src/models/ageBasedHub";
@@ -24,11 +25,9 @@ const VaccinationsHub = async () => {
       <MainContent>
         <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-3"}>{SERVICE_HEADING}</h1>
         <AgeBasedHubCards ageGroup={ageGroup} />
-        <h2 className="nhsuk-heading-s">Vaccines if you&#39;re pregnant</h2>
-        <p>Some vaccines are recommended during pregnancy to protect the health of you and your baby.</p>
-        <ul className="nhsapp-cards nhsapp-cards--stacked" data-testid={"vaccine-cardlinks-adults"}>
-          <CardLink title={"Vaccines during pregnancy"} link={"/vaccines-during-pregnancy"} />
-        </ul>
+        {/*TODO VIA-630 control visibility of the following components based on age*/}
+        <AtRiskHubContent />
+        <PregnancyHubContent />
         <Link href={"/vaccines-for-all-ages"} className={"nhsuk-button nhsuk-button--secondary"}>
           View vaccines for all ages
         </Link>

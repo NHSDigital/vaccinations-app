@@ -20,6 +20,18 @@ jest.mock("@src/app/_components/hub/AgeBasedHubCards", () => ({
     .mockImplementation(() => <p data-testid={"age-based-hub-cards"}>Age based hub cards test</p>),
 }));
 
+jest.mock("@src/app/_components/hub/AtRiskHubContent", () => ({
+  AtRiskHubContent: jest
+    .fn()
+    .mockImplementation(() => <p data-testid={"at-risk-hub-content"}>At risk hub content test</p>),
+}));
+
+jest.mock("@src/app/_components/hub/PregnancyHubContent", () => ({
+  PregnancyHubContent: jest
+    .fn()
+    .mockImplementation(() => <p data-testid={"pregnancy-hub-content"}>Pregnancy hub content test</p>),
+}));
+
 const mockAgeGroup = AgeGroup.AGE_25_to_64;
 
 const mockSessionValue: Partial<Session> = {
@@ -60,20 +72,16 @@ describe("Vaccination Hub Page", () => {
     );
   });
 
-  it("renders subheading about pregnancy", () => {
-    const subheading: HTMLElement = getHeading("Vaccines if you're pregnant", 2);
-    expect(subheading).toBeVisible();
+  it("should show at risk expander ", () => {
+    const atRiskHubContent: HTMLElement = screen.getByTestId("at-risk-hub-content");
+
+    expect(atRiskHubContent).toBeVisible();
   });
 
-  it("renders subtext about pregnancy", () => {
-    const subtext: HTMLElement = screen.getByText(
-      "Some vaccines are recommended during pregnancy to protect the health of you and your baby.",
-    );
-    expect(subtext).toBeVisible();
-  });
+  it("should show pregnancy hub content ", () => {
+    const pregnancyHubContent: HTMLElement = screen.getByTestId("pregnancy-hub-content");
 
-  it("renders vaccines during pregnancy card link", async () => {
-    expectLinkToBeRendered("Vaccines during pregnancy", "/vaccines-during-pregnancy");
+    expect(pregnancyHubContent).toBeVisible();
   });
 
   it("renders vaccines for all ages button", async () => {
