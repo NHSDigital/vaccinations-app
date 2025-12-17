@@ -55,7 +55,7 @@ jobs:
           aws s3 sync "s3://${AWS_S3_SOURCE_RELEASES_BUCKET}/tag/${{ inputs.release_tag }}" .
 
       - name: "Upload artefacts to GitHub"
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: release-package
           path: |
@@ -76,7 +76,7 @@ jobs:
       contents: read
     steps:
       - name: "Download artefacts from GitHub"
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: release-package
       - name: "Configure AWS credentials"
