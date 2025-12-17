@@ -5,8 +5,7 @@ import { HEADINGS } from "@src/app/constants";
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { StyledVaccineContent } from "@src/services/content-api/types";
 import config from "@src/utils/config";
-import { UtcDateTimeFromStringSchema } from "@src/utils/date";
-import { headers } from "next/headers";
+import { getNow } from "@src/utils/date";
 import { Details } from "nhsuk-react-components";
 import React, { JSX } from "react";
 
@@ -16,17 +15,7 @@ const MoreInformation = async (props: {
   vaccineType: VaccineType;
 }): Promise<JSX.Element> => {
   const campaigns = await config.CAMPAIGNS;
-  const now = await _getNow();
-  const isCampaignActive: boolean = campaigns.isActive(props.vaccineType, now);
-
-  async function _getNow() {
-    try {
-      const headersList = await headers();
-      return UtcDateTimeFromStringSchema.safeParse(headersList.get("x-e2e-datetime")).data ?? new Date();
-    } catch {
-      return new Date();
-    }
-  }
+  const isCampaignActive: boolean = campaigns.isActive(props.vaccineType, await getNow());
 
   const vaccineInfo = VaccineInfo[props.vaccineType];
   const showHowToGetExpander = vaccineInfo.removeHowToGetExpanderFromMoreInformationSection ? false : !isCampaignActive;
