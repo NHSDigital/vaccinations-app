@@ -46,7 +46,6 @@ declare module "next-auth" {
   interface Session {
     user: {
       nhs_number: NhsNumber;
-      age?: Age;
       age_group?: undefined | AgeGroup;
     } & DefaultSession["user"];
   }

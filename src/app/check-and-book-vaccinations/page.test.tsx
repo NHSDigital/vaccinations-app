@@ -4,7 +4,6 @@ import VaccinationsHub from "@src/app/check-and-book-vaccinations/page";
 import { SERVICE_HEADING } from "@src/app/constants";
 import { AgeGroup } from "@src/models/ageBasedHub";
 import { NhsNumber } from "@src/models/vaccine";
-import { Age } from "@src/utils/auth/types";
 import { render, screen } from "@testing-library/react";
 import { Session } from "next-auth";
 
@@ -38,7 +37,6 @@ const mockSessionValue: Partial<Session> = {
   expires: new Date(Date.now() + 60000).toISOString(),
   user: {
     nhs_number: "" as NhsNumber,
-    age: 25 as Age,
     age_group: mockAgeGroup,
   },
 };

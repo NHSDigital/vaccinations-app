@@ -2,7 +2,7 @@ import { getAgeGroup } from "@src/app/_components/hub/ageGroupHelper";
 import { AgeGroup } from "@src/models/ageBasedHub";
 import { NhsNumber } from "@src/models/vaccine";
 import { getUpdatedSession } from "@src/utils/auth/callbacks/get-updated-session";
-import { AccessToken, Age, BirthDate, ExpiresAt, IdToken } from "@src/utils/auth/types";
+import { AccessToken, BirthDate, ExpiresAt, IdToken } from "@src/utils/auth/types";
 import { calculateAge } from "@src/utils/date";
 import { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
@@ -25,7 +25,6 @@ describe("getUpdatedSession", () => {
     const session: Session = {
       user: {
         nhs_number: "" as NhsNumber,
-        age: 0 as Age,
         age_group: undefined,
       },
       expires: "some-date",
@@ -48,7 +47,6 @@ describe("getUpdatedSession", () => {
     const result: Session = getUpdatedSession(session, token);
 
     expect(result.user.nhs_number).toBe("test-nhs-number");
-    expect(result.user.age).toBe(mockCalculatedAge);
     expect(result.user.age_group).toBe(mockAgeGroup);
   });
 
@@ -56,7 +54,6 @@ describe("getUpdatedSession", () => {
     const session: Session = {
       user: {
         nhs_number: "old-nhs-number" as NhsNumber,
-        age: 36 as Age,
         age_group: AgeGroup.AGE_25_to_64,
       },
       expires: "some-date",
@@ -67,7 +64,6 @@ describe("getUpdatedSession", () => {
     const result: Session = getUpdatedSession(session, token);
 
     expect(result.user.nhs_number).toBe("old-nhs-number");
-    expect(result.user.age).toBe(36);
     expect(result.user.age_group).toBe(AgeGroup.AGE_25_to_64);
   });
 

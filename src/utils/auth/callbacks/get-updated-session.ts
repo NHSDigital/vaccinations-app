@@ -12,8 +12,7 @@ const log: Logger = logger.child({
 const getUpdatedSession = (session: Session, token: JWT): Session => {
   if (token?.user && session.user) {
     session.user.nhs_number = token.user.nhs_number;
-    session.user.age = calculateAge(token.user.birthdate);
-    session.user.age_group = getAgeGroup(session.user.age);
+    session.user.age_group = getAgeGroup(calculateAge(token.user.birthdate));
   } else {
     log.info(
       {
