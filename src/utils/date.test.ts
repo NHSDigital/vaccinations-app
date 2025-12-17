@@ -1,5 +1,7 @@
-import { UtcDateFromStringSchema, UtcDateTimeFromStringSchema } from "@src/utils/date";
-import { calculateAge } from "@src/utils/date";
+import { UtcDateFromStringSchema, UtcDateTimeFromStringSchema, calculateAge, getNow } from "@src/utils/date";
+import { headers } from "next/headers";
+
+jest.mock("next/headers");
 
 describe("utils-date", () => {
   describe("UtcDateFromStringSchema", () => {
@@ -64,6 +66,7 @@ describe("utils-date", () => {
       }).toThrow();
     });
   });
+
   describe("calculateAge", () => {
     beforeAll(() => {
       jest.useFakeTimers();
@@ -115,6 +118,43 @@ describe("utils-date", () => {
       expect(() => {
         calculateAge(birthdate);
       }).toThrow();
+    });
+  });
+
+  describe("getNow", () => {
+    const fakeDateInSystem = "2000-01-01T01:01:01Z";
+    const fakeDateInHeader = "1212-12-12T12:12:12Z";
+
+    beforeEach(() => {
+      jest.useFakeTimers();
+      jest.setSystemTime(new Date(fakeDateInSystem));
+    });
+
+    it("should return current date by default", async () => {
+      expect(await getNow()).toEqual(new Date(fakeDateInSystem));
+    });
+
+    it("should return date set in the header, when it is valid", async () => {
+      const mockHeaders = {
+        get: jest.fn(() => {
+          return fakeDateInHeader;
+        }),
+      };
+      (headers as jest.Mock).mockResolvedValue(mockHeaders);
+
+      expect(await getNow()).toEqual(new Date(fakeDateInHeader));
+    });
+
+    it("should return current date when date set in the header is malformed", async () => {
+      const fakeDateInHeaderInvalid = "invalid-date";
+      const mockHeaders = {
+        get: jest.fn(() => {
+          return fakeDateInHeaderInvalid;
+        }),
+      };
+      (headers as jest.Mock).mockResolvedValue(mockHeaders);
+
+      expect(await getNow()).toEqual(new Date(fakeDateInSystem));
     });
   });
 });
