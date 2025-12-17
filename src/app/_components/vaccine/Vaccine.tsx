@@ -15,6 +15,8 @@ import { getContentForVaccine } from "@src/services/content-api/content-service"
 import { ContentErrorTypes, StyledVaccineContent } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import { EligibilityErrorTypes, EligibilityForPersonType } from "@src/services/eligibility-api/types";
+import config from "@src/utils/config";
+import { getNow } from "@src/utils/date";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { requestScopedStorageWrapper } from "@src/utils/requestScopedStorageWrapper";
 import { Session } from "next-auth";
@@ -38,6 +40,9 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
   const session: Session | null = await auth();
   const nhsNumber: NhsNumber | undefined = session?.user.nhs_number as NhsNumber;
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
+
+  const campaigns = await config.CAMPAIGNS;
+  const isCampaignActive: boolean = campaigns.isActive(vaccineType, await getNow());
 
   let styledVaccineContent: StyledVaccineContent | undefined;
   let contentError: ContentErrorTypes | undefined;
@@ -71,8 +76,10 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
         <>
           <Overview overview={styledVaccineContent.overview} vaccineType={vaccineType} />
           <Recommendation styledVaccineContent={styledVaccineContent} />
-          <WarningCallout styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
-          <EligibilityActions actions={styledVaccineContent.actions} vaccineType={vaccineType} />
+          {!isCampaignActive && (
+            <WarningCallout styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
+          )}
+          {isCampaignActive && <EligibilityActions actions={styledVaccineContent.actions} vaccineType={vaccineType} />}
           <Overview overview={styledVaccineContent.overviewConclusion} vaccineType={vaccineType} />
         </>
       )}
@@ -97,7 +104,11 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
       <h2 className="nhsuk-heading-s">{`More information about the ${vaccineInfo.displayName.midSentenceCase} ${vaccineInfo.displayName.suffix}`}</h2>
       {/* Expandable sections */}
       {contentError != ContentErrorTypes.CONTENT_LOADING_ERROR && styledVaccineContent != undefined ? (
-        <MoreInformation styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
+        <MoreInformation
+          styledVaccineContent={styledVaccineContent}
+          vaccineType={vaccineType}
+          isCampaignActive={isCampaignActive}
+        />
       ) : (
         <FindOutMoreLink findOutMoreUrl={vaccineInfo.nhsWebpageLink} vaccineType={vaccineType} />
       )}

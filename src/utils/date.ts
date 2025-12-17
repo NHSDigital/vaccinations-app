@@ -1,5 +1,6 @@
 import { Age } from "@src/utils/auth/types";
 import { differenceInYears } from "date-fns";
+import { headers } from "next/headers";
 import { z } from "zod";
 
 const UtcDateFromStringSchema = z
@@ -38,4 +39,13 @@ const calculateAge = (date: string): Age => {
   return differenceInYears(today, birthDate) as Age;
 };
 
-export { UtcDateFromStringSchema, UtcDateTimeFromStringSchema, calculateAge };
+const getNow = async (): Promise<Date> => {
+  try {
+    const headersList = await headers();
+    return UtcDateTimeFromStringSchema.safeParse(headersList.get("x-e2e-datetime")).data ?? new Date();
+  } catch {
+    return new Date();
+  }
+};
+
+export { UtcDateFromStringSchema, UtcDateTimeFromStringSchema, calculateAge, getNow };

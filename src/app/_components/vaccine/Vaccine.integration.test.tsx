@@ -7,8 +7,6 @@ import { mockNHSAppJSFunctions } from "@src/utils/nhsapp-js.test";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { eligibilityApiResponseBuilder } from "@test-data/eligibility-api/builders";
 import { render, screen } from "@testing-library/react";
-import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
-import { headers } from "next/headers";
 
 jest.mock("@src/utils/auth/generate-auth-payload", () => jest.fn());
 jest.mock("@src/services/eligibility-api/gateway/fetch-eligibility-content", () => ({
@@ -45,6 +43,7 @@ const nhsNumber = "5123456789";
 
 describe("Vaccine", () => {
   const mockedConfig = config as ConfigMock;
+
   beforeAll(() => {
     const defaultConfig = configBuilder().withContentCachePath("wiremock/__files/").withPinoLogLevel("info").build();
     Object.assign(mockedConfig, defaultConfig);
@@ -55,12 +54,6 @@ describe("Vaccine", () => {
         nhs_number: nhsNumber,
       },
     });
-    const fakeHeaders: ReadonlyHeaders = {
-      get(name: string): string | null {
-        return `fake-${name}-header`;
-      },
-    } as ReadonlyHeaders;
-    (headers as jest.Mock).mockResolvedValue(fakeHeaders);
   });
 
   it.each([VaccineType.RSV, VaccineType.RSV_PREGNANCY])(

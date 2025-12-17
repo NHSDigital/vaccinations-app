@@ -9,11 +9,12 @@ import React, { JSX } from "react";
 const MoreInformation = (props: {
   styledVaccineContent: StyledVaccineContent;
   vaccineType: VaccineType;
+  isCampaignActive?: boolean;
 }): JSX.Element => {
   const vaccineInfo = VaccineInfo[props.vaccineType];
-  const showHowToGetExpander =
-    vaccineInfo.removeHowToGetExpanderFromMoreInformationSection === undefined ||
-    !vaccineInfo.removeHowToGetExpanderFromMoreInformationSection;
+  const showHowToGetExpander = vaccineInfo.removeHowToGetExpanderFromMoreInformationSection
+    ? false
+    : !props.isCampaignActive;
 
   return (
     <>
