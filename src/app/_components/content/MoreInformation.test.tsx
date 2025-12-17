@@ -34,7 +34,6 @@ describe("MoreInformation component for COVID", () => {
 });
 
 describe("MoreInformation component ", () => {
-
   describe("When vaccineInfo.moreInformationHeadersFromContentApi=false", () => {
     it("should display whatItIsFor expander block", async () => {
       const vaccineType = VaccineType.RSV;
