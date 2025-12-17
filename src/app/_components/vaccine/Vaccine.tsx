@@ -16,11 +16,10 @@ import { ContentErrorTypes, StyledVaccineContent } from "@src/services/content-a
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import { EligibilityErrorTypes, EligibilityForPersonType } from "@src/services/eligibility-api/types";
 import config from "@src/utils/config";
-import { UtcDateTimeFromStringSchema } from "@src/utils/date";
+import { getNow } from "@src/utils/date";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { requestScopedStorageWrapper } from "@src/utils/requestScopedStorageWrapper";
 import { Session } from "next-auth";
-import { headers } from "next/headers";
 import React, { JSX } from "react";
 
 import styles from "./styles.module.css";
@@ -43,16 +42,7 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
 
   const campaigns = await config.CAMPAIGNS;
-  const now = await _getNow();
-  const isCampaignActive: boolean = campaigns.isActive(vaccineType, now);
-  async function _getNow() {
-    try {
-      const headersList = await headers();
-      return UtcDateTimeFromStringSchema.safeParse(headersList.get("x-e2e-datetime")).data ?? new Date();
-    } catch {
-      return new Date();
-    }
-  }
+  const isCampaignActive: boolean = campaigns.isActive(vaccineType, await getNow());
 
   let styledVaccineContent: StyledVaccineContent | undefined;
   let contentError: ContentErrorTypes | undefined;

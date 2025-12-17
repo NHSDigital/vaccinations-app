@@ -7,40 +7,18 @@ import { VaccineType } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
-import { EligibilityErrorTypes, EligibilityForPersonType, EligibilityStatus } from "@src/services/eligibility-api/types";
+import {
+  EligibilityErrorTypes,
+  EligibilityForPersonType,
+  EligibilityStatus,
+} from "@src/services/eligibility-api/types";
 import { Campaigns } from "@src/utils/campaigns/types";
 import config from "@src/utils/config";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { mockStyledContent } from "@test-data/content-api/data";
 import { eligibilityContentBuilder } from "@test-data/eligibility-api/builders";
 import { render, screen } from "@testing-library/react";
-import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
-import { headers } from "next/headers";
 import React, { JSX } from "react";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 jest.mock("@src/services/content-api/content-service", () => ({
   getContentForVaccine: jest.fn(),
@@ -88,11 +66,9 @@ jest.mock("cheerio", () => ({
       attr: jest.fn(),
     }));
 
-    const $ = Object.assign(selectorImpl, {
+    return Object.assign(selectorImpl, {
       html: jest.fn(() => "<p>HTML fragment</p>"),
     });
-
-    return $;
   }),
 }));
 
@@ -121,7 +97,6 @@ const contentErrorResponse = {
 };
 
 describe("Any vaccine page", () => {
-
   const mockedConfig = config as ConfigMock;
 
   beforeEach(() => {
@@ -129,19 +104,13 @@ describe("Any vaccine page", () => {
       .withCampaigns(
         Campaigns.fromJson(
           JSON.stringify({
-            COVID_19: [
-              { start: "2025-11-01T09:00:00Z", end: "2026-01-31T09:00:00Z" }
-            ],
+            COVID_19: [{ start: "2025-11-01T09:00:00Z", end: "2026-01-31T09:00:00Z" }],
           }),
         )!,
       )
       .build();
     Object.assign(mockedConfig, defaultConfig);
   });
-
-  const renderNamedVaccinePage = async (vaccineType: VaccineType) => {
-    render(await Vaccine({ vaccineType: vaccineType }));
-  };
 
   const renderRsvVaccinePage = async () => {
     await renderNamedVaccinePage(VaccineType.RSV);
@@ -161,12 +130,6 @@ describe("Any vaccine page", () => {
         nhs_number: nhsNumber,
       },
     });
-    const fakeHeaders: ReadonlyHeaders = {
-      get(name: string): string | null {
-        return `fake-${name}-header`;
-      },
-    } as ReadonlyHeaders;
-    (headers as jest.Mock).mockResolvedValue(fakeHeaders);
   });
 
   describe("shows content section, when content available", () => {
@@ -254,6 +217,61 @@ describe("Any vaccine page", () => {
 
     it("should display hr above MoreInformation section when personalised eligibility not in use", async () => {
       await expectTdIPVPageToHaveHrAboveMoreInformationSection();
+    });
+  });
+
+  describe("shows callouts and actions for Vaccines that handle campaigns (COVID_19)", () => {
+    const mockedConfig = config as ConfigMock;
+    const campaigns = new Campaigns({});
+    const covid19VaccineType = VaccineType.COVID_19;
+
+    beforeEach(() => {
+      (getContentForVaccine as jest.Mock).mockResolvedValue(contentSuccessResponse);
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilitySuccessResponse);
+      const defaultConfig = configBuilder().withCampaigns(campaigns).build();
+      Object.assign(mockedConfig, defaultConfig);
+    });
+
+    it("should include callout text when campaign is inactive", async () => {
+      const inactiveCampaignSpy = jest.spyOn(campaigns, "isActive").mockReturnValue(false);
+      await renderNamedVaccinePage(covid19VaccineType);
+
+      const calloutText: HTMLElement = screen.getByTestId("callout");
+
+      expect(inactiveCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(calloutText).toBeInTheDocument();
+      inactiveCampaignSpy.mockRestore();
+    });
+
+    it("should not include callout text when campaign is active", async () => {
+      const activeCampaignSpy = jest.spyOn(campaigns, "isActive").mockReturnValue(true);
+      await renderNamedVaccinePage(covid19VaccineType);
+
+      const calloutText: HTMLElement | null = screen.queryByTestId("callout");
+
+      expect(activeCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(calloutText).toBeNull();
+      activeCampaignSpy.mockRestore();
+    });
+
+    it("should include actions when campaign is active", async () => {
+      const activeCampaignSpy = jest.spyOn(campaigns, "isActive").mockReturnValue(true);
+      await renderNamedVaccinePage(covid19VaccineType);
+
+      const actions: HTMLElement = screen.getByTestId("eligibility-actions-mock");
+      expect(activeCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(actions).toBeInTheDocument();
+      activeCampaignSpy.mockRestore();
+    });
+
+    it("should not include actions when campaign is inactive", async () => {
+      const inactiveCampaignSpy = jest.spyOn(campaigns, "isActive").mockReturnValue(false);
+      await renderNamedVaccinePage(covid19VaccineType);
+
+      const actions: HTMLElement | null = screen.queryByTestId("eligibility-actions-mock");
+      expect(inactiveCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(actions).toBeNull();
+      inactiveCampaignSpy.mockRestore();
     });
   });
 
@@ -439,6 +457,10 @@ describe("Any vaccine page", () => {
       );
     });
   });
+
+  const renderNamedVaccinePage = async (vaccineType: VaccineType) => {
+    render(await Vaccine({ vaccineType: vaccineType }));
+  };
 
   const expectRenderEligibilitySectionWith = (
     vaccineType: VaccineType,

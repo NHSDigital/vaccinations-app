@@ -6,18 +6,6 @@ import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { mockStyledContent, mockStyledContentWithoutWhatSection } from "@test-data/content-api/data";
 import { render, screen } from "@testing-library/react";
 
-
-
-
-
-
-
-
-
-
-
-
-
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 jest.mock("@src/utils/config");
 
