@@ -1,24 +1,20 @@
-"use server";
-
 import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
 import { HEADINGS } from "@src/app/constants";
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { StyledVaccineContent } from "@src/services/content-api/types";
-import config from "@src/utils/config";
-import { getNow } from "@src/utils/date";
 import { Details } from "nhsuk-react-components";
 import React, { JSX } from "react";
 
 // Ref: https://main--65aa76b29d00a047fe683b95.chromatic.com/?path=/docs/content-presentation-details--docs#expander-group-2
-const MoreInformation = async (props: {
+const MoreInformation = (props: {
   styledVaccineContent: StyledVaccineContent;
   vaccineType: VaccineType;
-}): Promise<JSX.Element> => {
-  const campaigns = await config.CAMPAIGNS;
-  const isCampaignActive: boolean = campaigns.isActive(props.vaccineType, await getNow());
-
+  isCampaignActive?: boolean;
+}): JSX.Element => {
   const vaccineInfo = VaccineInfo[props.vaccineType];
-  const showHowToGetExpander = vaccineInfo.removeHowToGetExpanderFromMoreInformationSection ? false : !isCampaignActive;
+  const showHowToGetExpander = vaccineInfo.removeHowToGetExpanderFromMoreInformationSection
+    ? false
+    : !props.isCampaignActive;
 
   return (
     <>
