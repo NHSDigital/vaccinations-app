@@ -40,11 +40,15 @@ const calculateAge = (date: string): Age => {
 };
 
 const getNow = async (): Promise<Date> => {
-  try {
-    const headersList = await headers();
-    return UtcDateTimeFromStringSchema.safeParse(headersList.get("x-e2e-datetime")).data ?? new Date();
-  } catch {
+  if (process.env.DEPLOY_ENVIRONMENT === "prod") {
     return new Date();
+  } else {
+    try {
+      const headersList = await headers();
+      return UtcDateTimeFromStringSchema.safeParse(headersList.get("x-e2e-datetime")).data ?? new Date();
+    } catch {
+      return new Date();
+    }
   }
 };
 

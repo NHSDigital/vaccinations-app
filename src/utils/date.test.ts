@@ -122,39 +122,77 @@ describe("utils-date", () => {
   });
 
   describe("getNow", () => {
+    const ENVIRONMENT = process.env;
     const fakeDateInSystem = "2000-01-01T01:01:01Z";
     const fakeDateInHeader = "1212-12-12T12:12:12Z";
 
     beforeEach(() => {
-      jest.useFakeTimers();
-      jest.setSystemTime(new Date(fakeDateInSystem));
+      jest.resetModules();
+      process.env = { ...ENVIRONMENT };
     });
 
-    it("should return current date by default", async () => {
-      expect(await getNow()).toEqual(new Date(fakeDateInSystem));
+    afterAll(() => {
+      process.env = ENVIRONMENT;
     });
 
-    it("should return date set in the header, when it is valid", async () => {
-      const mockHeaders = {
-        get: jest.fn(() => {
-          return fakeDateInHeader;
-        }),
-      };
-      (headers as jest.Mock).mockResolvedValue(mockHeaders);
+    describe("getNow  in non-production environments", () => {
+      beforeEach(() => {
+        jest.useFakeTimers();
+        jest.setSystemTime(new Date(fakeDateInSystem));
+      });
 
-      expect(await getNow()).toEqual(new Date(fakeDateInHeader));
+      it("should return current date by default", async () => {
+        expect(await getNow()).toEqual(new Date(fakeDateInSystem));
+      });
+
+      it("should return date set in the header, when it is valid", async () => {
+        const mockHeaders = {
+          get: jest.fn(() => {
+            return fakeDateInHeader;
+          }),
+        };
+        (headers as jest.Mock).mockResolvedValue(mockHeaders);
+
+        expect(await getNow()).toEqual(new Date(fakeDateInHeader));
+      });
+
+      it("should return current date when date set in the header is malformed", async () => {
+        const fakeDateInHeaderInvalid = "invalid-date";
+        const mockHeaders = {
+          get: jest.fn(() => {
+            return fakeDateInHeaderInvalid;
+          }),
+        };
+        (headers as jest.Mock).mockResolvedValue(mockHeaders);
+
+        expect(await getNow()).toEqual(new Date(fakeDateInSystem));
+      });
     });
 
-    it("should return current date when date set in the header is malformed", async () => {
-      const fakeDateInHeaderInvalid = "invalid-date";
-      const mockHeaders = {
-        get: jest.fn(() => {
-          return fakeDateInHeaderInvalid;
-        }),
-      };
-      (headers as jest.Mock).mockResolvedValue(mockHeaders);
+    describe("getNow in production environment", () => {
+      beforeEach(() => {
+        jest.useFakeTimers();
+        jest.setSystemTime(new Date(fakeDateInSystem));
+      });
 
-      expect(await getNow()).toEqual(new Date(fakeDateInSystem));
+      it("should return current date by default in production environment", async () => {
+        process.env.DEPLOY_ENVIRONMENT = "prod";
+        expect(await getNow()).toEqual(new Date(fakeDateInSystem));
+      });
+
+      it("should not check headers when environment is production", async () => {
+        process.env.DEPLOY_ENVIRONMENT = "prod";
+
+        const mockHeaders = {
+          get: jest.fn(() => {
+            return fakeDateInHeader;
+          }),
+        };
+        (headers as jest.Mock).mockResolvedValue(mockHeaders);
+
+        expect(await getNow()).toEqual(new Date(fakeDateInSystem));
+        expect(headers).not.toHaveBeenCalled();
+      });
     });
   });
 });
