@@ -32,7 +32,7 @@ describe("EliD API contract", () => {
       },
     ];
 
-    test.each(successTestCases)(
+    it.each(successTestCases)(
       "$nhsNumber should be $expectedStatus with cohort $expectCohortElement",
       async ({ nhsNumber, expectedStatus, expectCohortElement }) => {
         const eligibilityForPerson = await getEligibilityForPerson(VaccineType.RSV, nhsNumber);
@@ -46,6 +46,7 @@ describe("EliD API contract", () => {
         }
         expect(eligibilityForPerson.eligibilityError).toBeUndefined();
       },
+      10000,
     );
   });
 
@@ -57,12 +58,19 @@ describe("EliD API contract", () => {
       { nhsNumber: "9436793375" as NhsNumber, expectedError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR },
     ];
 
-    it.each(failureTestCases)(`$nhsNumber should have error $expectedError `, async ({ nhsNumber, expectedError }) => {
-      const eligibilityForPerson: EligibilityForPersonType = await getEligibilityForPerson(VaccineType.RSV, nhsNumber);
+    it.each(failureTestCases)(
+      `$nhsNumber should have error $expectedError `,
+      async ({ nhsNumber, expectedError }) => {
+        const eligibilityForPerson: EligibilityForPersonType = await getEligibilityForPerson(
+          VaccineType.RSV,
+          nhsNumber,
+        );
 
-      expect(Object.keys(eligibilityForPerson).length).toEqual(2);
-      expect(eligibilityForPerson.eligibility).toBeUndefined();
-      expect(eligibilityForPerson.eligibilityError).toEqual(expectedError);
-    });
+        expect(Object.keys(eligibilityForPerson).length).toEqual(2);
+        expect(eligibilityForPerson.eligibility).toBeUndefined();
+        expect(eligibilityForPerson.eligibilityError).toEqual(expectedError);
+      },
+      10000,
+    );
   });
 });
