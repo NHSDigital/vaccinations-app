@@ -94,7 +94,11 @@ describe("Vaccination Hub Page", () => {
 
       const pregnancyHubContent: HTMLElement | null = screen.queryByTestId("pregnancy-hub-content");
 
-      shouldShowPregnancyContent ? expect(pregnancyHubContent).toBeVisible() : expect(pregnancyHubContent).toBeNull();
+      if (shouldShowPregnancyContent) {
+        expect(pregnancyHubContent).toBeVisible();
+      } else {
+        expect(pregnancyHubContent).toBeNull();
+      }
     });
   });
 });
