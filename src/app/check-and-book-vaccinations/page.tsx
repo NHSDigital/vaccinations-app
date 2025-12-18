@@ -24,7 +24,7 @@ const VaccinationsHub = async () => {
       <title>{`${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`}</title>
       <BackToNHSAppLink />
       <MainContent>
-        <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-3"}>{SERVICE_HEADING}</h1>
+        <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-5"}>{SERVICE_HEADING}</h1>
         <AgeBasedHubCards ageGroup={ageGroup} />
         <AtRiskHubExpander />
         {(hubInfoForAgeGroup?.showPregnancyHubContent || hubInfoForAgeGroup === undefined) && <PregnancyHubContent />}
