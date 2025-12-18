@@ -7,7 +7,7 @@ import { PregnancyHubContent } from "@src/app/_components/hub/PregnancyHubConten
 import BackToNHSAppLink from "@src/app/_components/nhs-app/BackToNHSAppLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import { NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
-import { AgeGroup } from "@src/models/ageBasedHub";
+import { AgeBasedHubDetails, AgeBasedHubInfo, AgeGroup } from "@src/models/ageBasedHub";
 import { Session } from "next-auth";
 import Link from "next/link";
 import React from "react";
@@ -17,6 +17,7 @@ const VaccinationsHub = async () => {
 
   const session: Session | null = await auth();
   const ageGroup: AgeGroup = session?.user.age_group as AgeGroup;
+  const hubInfoForAgeGroup: AgeBasedHubDetails | undefined = AgeBasedHubInfo[ageGroup];
 
   return (
     <>
@@ -25,9 +26,8 @@ const VaccinationsHub = async () => {
       <MainContent>
         <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-3"}>{SERVICE_HEADING}</h1>
         <AgeBasedHubCards ageGroup={ageGroup} />
-        {/*TODO VIA-630 control visibility of the following components based on age*/}
         <AtRiskHubExpander />
-        <PregnancyHubContent />
+        {(hubInfoForAgeGroup?.showPregnancyHubContent || hubInfoForAgeGroup === undefined) && <PregnancyHubContent />}
         <Link href={"/vaccines-for-all-ages"} className={"nhsuk-button nhsuk-button--secondary"}>
           View vaccines for all ages
         </Link>

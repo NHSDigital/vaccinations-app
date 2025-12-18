@@ -31,58 +31,71 @@ jest.mock("@src/app/_components/hub/PregnancyHubContent", () => ({
     .mockImplementation(() => <p data-testid={"pregnancy-hub-content"}>Pregnancy hub content test</p>),
 }));
 
-const mockAgeGroup = AgeGroup.AGE_25_to_64;
-
-const mockSessionValue: Partial<Session> = {
-  expires: new Date(Date.now() + 60000).toISOString(),
-  user: {
-    nhs_number: "" as NhsNumber,
-    age_group: mockAgeGroup,
-  },
+const mockSessionDataForAgeGroup = (ageGroup: AgeGroup): Partial<Session> => {
+  return {
+    expires: new Date(Date.now() + 60000).toISOString(),
+    user: {
+      nhs_number: "" as NhsNumber,
+      age_group: ageGroup,
+    },
+  };
 };
 
-const mockSession = { data: mockSessionValue, status: "authenticated" };
-
-jest.mock("next-auth/react", () => ({
-  useSession: () => mockSession,
-}));
-
 describe("Vaccination Hub Page", () => {
-  beforeEach(async () => {
-    (auth as jest.Mock).mockResolvedValue(mockSessionValue);
+  describe("for all ages", () => {
+    const mockAgeGroup = AgeGroup.AGE_25_to_64;
 
-    render(await VaccinationsHub());
+    beforeEach(async () => {
+      (auth as jest.Mock).mockResolvedValue(mockSessionDataForAgeGroup(mockAgeGroup));
+
+      render(await VaccinationsHub());
+    });
+
+    it("renders main heading", async () => {
+      expectHeadingToBeRendered();
+    });
+
+    it("renders age based cards for user", () => {
+      const ageBasedHubCards: HTMLElement = screen.getByTestId("age-based-hub-cards");
+
+      expect(ageBasedHubCards).toBeVisible();
+      expect(AgeBasedHubCards).toHaveBeenCalledWith(
+        {
+          ageGroup: mockAgeGroup,
+        },
+        undefined,
+      );
+    });
+
+    it("should show at risk expander ", () => {
+      const atRiskHubExpander: HTMLElement = screen.getByTestId("at-risk-hub-expander");
+      expect(atRiskHubExpander).toBeVisible();
+    });
+
+    it("should show pregnancy hub content ", () => {
+      const pregnancyHubContent: HTMLElement = screen.getByTestId("pregnancy-hub-content");
+
+      expect(pregnancyHubContent).toBeVisible();
+    });
+
+    it("renders vaccines for all ages button", async () => {
+      expectLinkToBeRendered("View vaccines for all ages", "/vaccines-for-all-ages");
+    });
   });
 
-  it("renders main heading", async () => {
-    expectHeadingToBeRendered();
-  });
+  describe("pregnancy hub content", () => {
+    it.each([
+      { description: "hide", ageGroup: AgeGroup.AGE_65_to_74, shouldShowPregnancyContent: false },
+      { description: "show", ageGroup: AgeGroup.UNKNOWN_AGE_GROUP, shouldShowPregnancyContent: true },
+    ])(`$ageGroup should $description pregnancy content`, async ({ ageGroup, shouldShowPregnancyContent }) => {
+      (auth as jest.Mock).mockResolvedValue(mockSessionDataForAgeGroup(ageGroup));
 
-  it("renders age based cards for user", () => {
-    const ageBasedHubCards: HTMLElement = screen.getByTestId("age-based-hub-cards");
+      render(await VaccinationsHub());
 
-    expect(ageBasedHubCards).toBeVisible();
-    expect(AgeBasedHubCards).toHaveBeenCalledWith(
-      {
-        ageGroup: mockAgeGroup,
-      },
-      undefined,
-    );
-  });
+      const pregnancyHubContent: HTMLElement | null = screen.queryByTestId("pregnancy-hub-content");
 
-  it("should show at risk expander ", () => {
-    const atRiskHubExpander: HTMLElement = screen.getByTestId("at-risk-hub-expander");
-    expect(atRiskHubExpander).toBeVisible();
-  });
-
-  it("should show pregnancy hub content ", () => {
-    const pregnancyHubContent: HTMLElement = screen.getByTestId("pregnancy-hub-content");
-
-    expect(pregnancyHubContent).toBeVisible();
-  });
-
-  it("renders vaccines for all ages button", async () => {
-    expectLinkToBeRendered("View vaccines for all ages", "/vaccines-for-all-ages");
+      shouldShowPregnancyContent ? expect(pregnancyHubContent).toBeVisible() : expect(pregnancyHubContent).toBeNull();
+    });
   });
 });
 

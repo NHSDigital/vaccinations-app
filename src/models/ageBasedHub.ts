@@ -18,6 +18,7 @@ type AgeSpecificVaccineCardDetails = {
 export type AgeBasedHubDetails = {
   heading: string;
   vaccines: AgeSpecificVaccineCardDetails[];
+  showPregnancyHubContent: boolean;
 };
 
 // TODO: VIA-630 remove 'undefined' from the type definition below after all hubs are implemented?
@@ -32,6 +33,7 @@ const AgeBasedHubInfo: Record<AgeGroup, AgeBasedHubDetails | undefined> = {
       { vaccineName: VaccineType.FLU_FOR_ADULTS, cardLinkDescription: "65 years and over" },
       { vaccineName: VaccineType.SHINGLES, cardLinkDescription: "65 to 67 and 70 to 79 years" },
     ],
+    showPregnancyHubContent: false,
   },
   AGE_75_to_80: undefined,
   AGE_81_PLUS: undefined,
