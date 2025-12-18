@@ -2,8 +2,17 @@ import { AgeBasedHubCards } from "@src/app/_components/hub/AgeBasedHubCards";
 import { AgeGroup } from "@src/models/ageBasedHub";
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { render, screen } from "@testing-library/react";
+import { redirect } from "next/navigation";
+
+jest.mock("next/navigation", () => ({
+  redirect: jest.fn(),
+}));
 
 describe("Age based hub cards", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   describe("for 65-74 year old group", () => {
     it("should render expected heading for age group", async () => {
       render(<AgeBasedHubCards ageGroup={AgeGroup.AGE_65_to_74} />);
@@ -31,9 +40,13 @@ describe("Age based hub cards", () => {
   });
 
   describe("for unknown age group", () => {
-    it("should render empty component when age group is unknown", () => {
-      const { container } = render(<AgeBasedHubCards ageGroup={AgeGroup.UNKNOWN_AGE_GROUP} />);
-      expect(container).toBeEmptyDOMElement();
+    it("should call redirect with '/service-failure' when age group is unknown", () => {
+      try {
+        render(<AgeBasedHubCards ageGroup={AgeGroup.UNKNOWN_AGE_GROUP} />);
+      } catch {
+        expect(redirect).toHaveBeenCalledTimes(1);
+        expect(redirect).toHaveBeenCalledWith("/service-failure");
+      }
     });
   });
 });
