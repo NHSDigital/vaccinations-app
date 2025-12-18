@@ -8,23 +8,26 @@ interface SuitabilityRuleProps {
 }
 
 const SuitabilityRules = ({ suitabilityRules }: SuitabilityRuleProps): (JSX.Element | undefined)[] => {
-  return suitabilityRules.map((suitabilityRule: SuitabilityRule) => {
+  return suitabilityRules.map((suitabilityRule: SuitabilityRule, index: number) => {
+    const isNotLastRule: boolean = index < suitabilityRules.length - 1;
+
     switch (suitabilityRule.type) {
       case RuleDisplayType.card: {
         return (
           <div key={suitabilityRule.content} data-testid="suitability-rule-card">
-            <BasicCard content={suitabilityRule.content} delineator={suitabilityRule.delineator} />
+            <BasicCard content={suitabilityRule.content} delineator={isNotLastRule} />
           </div>
         );
       }
       case RuleDisplayType.infotext: {
         return (
           <div key={suitabilityRule.content} data-testid="suitability-rule-paragraph">
-            <MarkdownWithStyling content={suitabilityRule.content} delineator={suitabilityRule.delineator} />
+            <MarkdownWithStyling content={suitabilityRule.content} delineator={isNotLastRule} />
           </div>
         );
       }
     }
   });
 };
+
 export { SuitabilityRules };

@@ -69,7 +69,7 @@ describe("eligibility-filter-service", () => {
             "You did not turn 80 between 2nd September 2024 and 31st August 2025",
           ],
         },
-        actions: [{ type: ActionDisplayType.infotext, content: "Text", delineator: true }],
+        actions: [{ type: ActionDisplayType.infotext, content: "Text" }],
         suitabilityRules: [{ content: "Test", type: RuleDisplayType.card, delineator: false }],
       };
 
@@ -225,25 +225,22 @@ describe("eligibility-filter-service", () => {
       const result = _generateActions(processedSuggestion);
 
       expect(result).toEqual([
-        { type: ActionDisplayType.infotext, content: "InfoText Markdown", delineator: true },
-        { type: ActionDisplayType.card, content: "CardWithText Markdown", delineator: false },
+        { type: ActionDisplayType.infotext, content: "InfoText Markdown" },
+        { type: ActionDisplayType.card, content: "CardWithText Markdown" },
         {
           type: ActionDisplayType.buttonWithCard,
           content: "ButtonWithAuthLink Markdown",
           button: { label: "Button 1 Label", url: new URL("https://test.example.com/foo/bar/") },
-          delineator: true,
         },
         {
           type: ActionDisplayType.buttonWithInfo,
           content: "ButtonWithAuthLinkWithInfoText Markdown",
           button: { label: "Button 2 Label", url: new URL("https://test.example.com/baz/qux/") },
-          delineator: true,
         },
         {
           type: ActionDisplayType.actionLinkWithInfo,
           content: "ActionLinkWithInfoText Markdown",
           button: { label: "Button 3 Label", url: new URL("https://test.example.com/quux/") },
-          delineator: true,
         },
       ]);
     });
@@ -259,8 +256,8 @@ describe("eligibility-filter-service", () => {
       const result = _generateActions(processedSuggestion);
 
       expect(result).toEqual([
-        { type: RuleDisplayType.infotext, content: "InfoText Markdown 1", delineator: true },
-        { type: RuleDisplayType.infotext, content: "InfoText Markdown 2", delineator: true },
+        { type: RuleDisplayType.infotext, content: "InfoText Markdown 1" },
+        { type: RuleDisplayType.infotext, content: "InfoText Markdown 2" },
       ]);
     });
 
@@ -275,7 +272,7 @@ describe("eligibility-filter-service", () => {
         .build();
 
       const result = _generateActions(processedSuggestion);
-      expect(result).toEqual([{ type: RuleDisplayType.infotext, content: "InfoText Markdown", delineator: true }]);
+      expect(result).toEqual([{ type: RuleDisplayType.infotext, content: "InfoText Markdown" }]);
     });
   });
 

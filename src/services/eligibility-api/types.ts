@@ -37,14 +37,12 @@ export type ActionWithoutButton = {
   type: ActionDisplayType;
   content: Content;
   button: undefined;
-  delineator: boolean;
 };
 
 export type ActionWithButton = {
   type: ActionDisplayType;
   content: Content;
   button: Button;
-  delineator: boolean;
 };
 
 export type Button = { label: Label; url: ButtonUrl };

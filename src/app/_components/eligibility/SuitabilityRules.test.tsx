@@ -40,7 +40,7 @@ describe("SuitabilityRules", () => {
         expectContentToBeVisible("Test Content 2");
       });
 
-      it("should display delineator depending on flag", () => {
+      it("should display delineator for all but last rule", () => {
         render(
           SuitabilityRules({
             suitabilityRules: [
@@ -93,7 +93,7 @@ describe("SuitabilityRules", () => {
         expectContentToBeVisible("Test Content 2");
       });
 
-      it("should display delineator depending on flag", () => {
+      it("should display delineator for all but last rule", () => {
         render(
           SuitabilityRules({
             suitabilityRules: [

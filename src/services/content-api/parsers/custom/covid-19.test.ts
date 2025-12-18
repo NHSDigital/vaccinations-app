@@ -46,7 +46,6 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
             label: "Continue to booking" as Label,
             url: new URL("https://test-nbs-url.example.com/sausages") as ButtonUrl,
           },
-          delineator: true,
         },
         {
           type: ActionDisplayType.actionLinkWithInfo,
@@ -59,7 +58,6 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
               "https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-walk-in-covid-19-vaccination-site/",
             ) as ButtonUrl,
           },
-          delineator: false,
         },
       ],
     };

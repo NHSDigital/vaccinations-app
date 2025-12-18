@@ -98,9 +98,8 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
         <RSVPregnancyInfo vaccineType={vaccineType} howToGetVaccineOrFallback={howToGetVaccineOrFallback} />
       )}
 
-      {!vaccineInfo.personalisedEligibilityStatusRequired && <hr data-testid="more-information-hr" />}
-
       {/* Sections heading - H2 */}
+      <hr data-testid="more-information-hr" />
       <h2 className="nhsuk-heading-s">{`More information about the ${vaccineInfo.displayName.midSentenceCase} ${vaccineInfo.displayName.suffix}`}</h2>
       {/* Expandable sections */}
       {contentError != ContentErrorTypes.CONTENT_LOADING_ERROR && styledVaccineContent != undefined ? (

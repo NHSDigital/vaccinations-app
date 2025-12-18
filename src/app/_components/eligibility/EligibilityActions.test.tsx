@@ -17,6 +17,62 @@ jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
 
 describe("EligibilityActions", () => {
   describe("when actions are present", () => {
+    describe("should show delineator based on last action", () => {
+      it("does not show for single action", async () => {
+        render(
+          EligibilityActions({
+            actions: [actionBuilder().withType(ActionDisplayType.infotext).andContent("Test Content 1").build()],
+            vaccineType: VaccineType.RSV,
+          }),
+        );
+
+        const content1: HTMLElement = screen.getByText("Test Content 1");
+        expect(content1.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).not.toBe("HR");
+      });
+
+      it("shows below first but not the second for two actions", async () => {
+        render(
+          EligibilityActions({
+            actions: [
+              actionBuilder().withType(ActionDisplayType.infotext).andContent("Test Content 1").build(),
+              actionBuilder().withType(ActionDisplayType.infotext).andContent("Test Content 2").build(),
+            ],
+            vaccineType: VaccineType.RSV,
+          }),
+        );
+
+        const content1: HTMLElement = screen.getByText("Test Content 1");
+        const content2: HTMLElement = screen.getByText("Test Content 2");
+
+        expect(content1.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).toBe("HR");
+        expect(content2.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).not.toBe("HR");
+      });
+
+      it("shows below all but the last one for multiple mixed action types", async () => {
+        render(
+          EligibilityActions({
+            actions: [
+              actionBuilder().withType(ActionDisplayType.infotext).andContent("Test Content 1").build(),
+              actionBuilder().withType(ActionDisplayType.card).andContent("Test Content 2").build(),
+              actionBuilder().withType(ActionDisplayType.buttonWithCard).andContent("Test Content 3").build(),
+              actionBuilder().withType(ActionDisplayType.buttonWithInfo).andContent("Test Content 4").build(),
+              actionBuilder().withType(ActionDisplayType.actionLinkWithInfo).andContent("Test Content 5").build(),
+            ],
+            vaccineType: VaccineType.RSV,
+          }),
+        );
+
+        const content1: HTMLElement = screen.getByText("Test Content 1");
+        const content2: HTMLElement = screen.getByText("Test Content 2");
+
+        expect(content1.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).toBe("HR");
+        expect(content2.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).toBe("HR");
+        expectDelineatorToBePresentAfterElementWithSelector("Test Content 3", ".nhsuk-card");
+        expectDelineatorToBePresentAfterElementWithSelector("Test Content 4", '[data-testid="action-paragraph"]');
+        expectDelineatorToNotBePresentAfterElementWithSelector("Test Content 5", '[data-testid="action-paragraph"]');
+      });
+    });
+
     describe("infotext", () => {
       it("should display infotext content successfully", () => {
         render(
@@ -41,32 +97,6 @@ describe("EligibilityActions", () => {
         );
 
         expectEachContentStringToBeVisible(["Test Content 1", "Test Content 2"]);
-      });
-
-      it("should display delineator depending on flag", () => {
-        render(
-          EligibilityActions({
-            actions: [
-              actionBuilder()
-                .withType(ActionDisplayType.infotext)
-                .andContent("Test Content 1")
-                .andDelineator(true)
-                .build(),
-              actionBuilder()
-                .withType(ActionDisplayType.infotext)
-                .andContent("Test Content 2")
-                .andDelineator(false)
-                .build(),
-            ],
-            vaccineType: VaccineType.RSV,
-          }),
-        );
-
-        const content1: HTMLElement = screen.getByText("Test Content 1");
-        const content2: HTMLElement = screen.getByText("Test Content 2");
-
-        expect(content1.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).toBe("HR");
-        expect(content2.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).not.toBe("HR");
       });
     });
 
@@ -94,28 +124,6 @@ describe("EligibilityActions", () => {
         );
 
         expectEachContentStringToBeVisible(["Test Content 1", "Test Content 2"]);
-      });
-
-      it("should display delineator depending on flag", () => {
-        render(
-          EligibilityActions({
-            actions: [
-              actionBuilder()
-                .withType(ActionDisplayType.card)
-                .andContent("Test Content 1")
-                .andDelineator(false)
-                .build(),
-              actionBuilder().withType(ActionDisplayType.card).andContent("Test Content 2").andDelineator(true).build(),
-            ],
-            vaccineType: VaccineType.RSV,
-          }),
-        );
-
-        const content1: HTMLElement = screen.getByText("Test Content 1");
-        const content2: HTMLElement = screen.getByText("Test Content 2");
-
-        expect(content1.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).not.toBe("HR");
-        expect(content2.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).toBe("HR");
       });
     });
 
@@ -174,29 +182,6 @@ describe("EligibilityActions", () => {
 
         expect(card).not.toBeInTheDocument();
       });
-
-      it("should display delineator depending on flag", () => {
-        render(
-          EligibilityActions({
-            actions: [
-              actionBuilder()
-                .withType(ActionDisplayType.buttonWithCard)
-                .andContent("Test Content 1")
-                .andDelineator(true)
-                .build(),
-              actionBuilder()
-                .withType(ActionDisplayType.buttonWithCard)
-                .andContent("Test Content 2")
-                .andDelineator(false)
-                .build(),
-            ],
-            vaccineType: VaccineType.RSV,
-          }),
-        );
-
-        expectDelineatorToBePresentAfterElementWithSelector("Test Content 1", ".nhsuk-card");
-        expectDelineatorToNotBePresentAfterElementWithSelector("Test Content 2", ".nhsuk-card");
-      });
     });
 
     describe("buttonWithInfo", () => {
@@ -253,29 +238,6 @@ describe("EligibilityActions", () => {
         const card = within(authButtonComponents).queryByTestId("action-auth-button-card");
 
         expect(card).not.toBeInTheDocument();
-      });
-
-      it("should display delineator depending on flag", () => {
-        render(
-          EligibilityActions({
-            actions: [
-              actionBuilder()
-                .withType(ActionDisplayType.buttonWithInfo)
-                .andContent("Test Content 1")
-                .andDelineator(true)
-                .build(),
-              actionBuilder()
-                .withType(ActionDisplayType.buttonWithInfo)
-                .andContent("Test Content 2")
-                .andDelineator(false)
-                .build(),
-            ],
-            vaccineType: VaccineType.RSV,
-          }),
-        );
-
-        expectDelineatorToBePresentAfterElementWithSelector("Test Content 1", '[data-testid="action-paragraph"]');
-        expectDelineatorToNotBePresentAfterElementWithSelector("Test Content 2", '[data-testid="action-paragraph"]');
       });
     });
 
@@ -347,29 +309,6 @@ describe("EligibilityActions", () => {
         const card = within(linkComponents).queryByTestId("action-auth-button-card");
 
         expect(card).not.toBeInTheDocument();
-      });
-
-      it("should display delineator depending on flag", () => {
-        render(
-          EligibilityActions({
-            actions: [
-              actionBuilder()
-                .withType(ActionDisplayType.actionLinkWithInfo)
-                .andContent("Test Content 1")
-                .andDelineator(true)
-                .build(),
-              actionBuilder()
-                .withType(ActionDisplayType.actionLinkWithInfo)
-                .andContent("Test Content 2")
-                .andDelineator(false)
-                .build(),
-            ],
-            vaccineType: VaccineType.RSV,
-          }),
-        );
-
-        expectDelineatorToBePresentAfterElementWithSelector("Test Content 1", '[data-testid="action-paragraph"]');
-        expectDelineatorToNotBePresentAfterElementWithSelector("Test Content 2", '[data-testid="action-paragraph"]');
       });
     });
   });

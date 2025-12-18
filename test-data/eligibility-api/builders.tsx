@@ -101,7 +101,6 @@ export function actionBuilder() {
     type: randomValue(Object.values(ActionDisplayType)),
     content: randomString(10) as Content,
     button: buttonBuilder().build(),
-    delineator: randomBoolean(),
   });
 }
 

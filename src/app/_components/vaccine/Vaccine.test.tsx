@@ -411,13 +411,12 @@ describe("Any vaccine page", () => {
       );
     });
 
-    it("should not display hr above MoreInformation section when personalised eligibility is use", async () => {
-      // Personalised actions are always separated by hr; avoids duplicate line appearing after final element
+    it("should display hr above MoreInformation section always", async () => {
       await renderRsvVaccinePage();
 
       const hrAboveMoreInformation: HTMLElement | null = screen.queryByTestId("more-information-hr");
 
-      expect(hrAboveMoreInformation).not.toBeInTheDocument();
+      expect(hrAboveMoreInformation).toBeInTheDocument();
     });
   });
 

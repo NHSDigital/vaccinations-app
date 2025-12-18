@@ -44,7 +44,6 @@ async function _buildActions(): Promise<Action[]> {
     type: ActionDisplayType.buttonWithInfo,
     content: ["## If this applies to you", "### Book an appointment online at a pharmacy"].join("\n\n") as Content,
     button: { label: "Continue to booking" as Label, url: nbsURl },
-    delineator: true,
   };
   const walkIn: ActionWithButton = {
     type: ActionDisplayType.actionLinkWithInfo,
@@ -58,7 +57,6 @@ async function _buildActions(): Promise<Action[]> {
         "https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-walk-in-covid-19-vaccination-site/",
       ) as ButtonUrl,
     },
-    delineator: false,
   };
   return [nbsBooking, walkIn];
 }

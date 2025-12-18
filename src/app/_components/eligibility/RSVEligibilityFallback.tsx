@@ -24,7 +24,6 @@ const RSVEligibilityFallback = (props: {
       <h3>{HEADINGS.IF_THIS_APPLIES}</h3>
       {props.howToGetVaccineFallback}
       <PharmacyBookingInfo vaccineType={props.vaccineType} />
-      <hr />
     </div>
   );
 };

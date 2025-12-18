@@ -12,14 +12,18 @@ interface EligibilityActionProps {
 }
 
 const EligibilityActions = ({ actions, vaccineType }: EligibilityActionProps): (JSX.Element | undefined)[] => {
-  return actions.map((action: Action) => {
+  return actions.map((action: Action, index: number) => {
+    const isNotLastAction: boolean = index < actions.length - 1;
+
     switch (action.type) {
       case ActionDisplayType.infotext: {
-        return <InfoText content={action.content} delineator={action.delineator} />;
+        return <InfoText key={index} content={action.content} delineator={isNotLastAction} />;
       }
+
       case ActionDisplayType.card: {
-        return <Card content={action.content} delineator={action.delineator} />;
+        return <Card key={index} content={action.content} delineator={isNotLastAction} />;
       }
+
       case ActionDisplayType.buttonWithCard: {
         const card = action.content && <BasicCard content={action.content} delineator={false} />;
         const button = action.button && (
@@ -28,17 +32,18 @@ const EligibilityActions = ({ actions, vaccineType }: EligibilityActionProps): (
             url={action.button.url}
             label={action.button.label}
             renderAs={"button"}
-            delineator={action.delineator}
+            delineator={false}
           />
         );
         return (
-          <div key={action.content} data-testid="action-auth-button-components">
+          <div key={index} data-testid="action-auth-button-components">
             {card}
             {button}
-            {action.delineator && <hr />}
+            {isNotLastAction && <hr />}
           </div>
         );
       }
+
       case ActionDisplayType.buttonWithInfo: {
         const info = action.content && <InfoText content={action.content} delineator={false} />;
         const button = action.button && (
@@ -47,22 +52,23 @@ const EligibilityActions = ({ actions, vaccineType }: EligibilityActionProps): (
             url={action.button.url}
             label={action.button.label}
             renderAs={"button"}
-            delineator={action.delineator}
+            delineator={false}
           />
         );
         return (
-          <div key={action.content} data-testid="action-auth-button-components">
+          <div key={index} data-testid="action-auth-button-components">
             {info}
             {button}
-            {action.delineator && <hr />}
+            {isNotLastAction && <hr />}
           </div>
         );
       }
+
       case ActionDisplayType.actionLinkWithInfo: {
         const info = action.content && <InfoText content={action.content} delineator={false} />;
         const link = action.button && (
           <ActionLink
-            className={action.delineator ? "nhsuk-u-margin-bottom-0" : undefined}
+            className={"nhsuk-u-margin-bottom-0"} // we can remove margin as there is no text below the action link currently
             asElement="a"
             href={action.button.url.href}
             rel="noopener"
@@ -72,10 +78,10 @@ const EligibilityActions = ({ actions, vaccineType }: EligibilityActionProps): (
           </ActionLink>
         );
         return (
-          <div key={action.content} data-testid="action-auth-link-components">
+          <div key={index} data-testid="action-auth-link-components">
             {info}
             {link}
-            {action.delineator && <hr />}
+            {isNotLastAction && <hr />}
           </div>
         );
       }
@@ -117,14 +123,14 @@ type ButtonProps = {
   delineator: boolean;
 };
 
-const Button = ({ vaccineType, url, label, renderAs, delineator }: ButtonProps): JSX.Element => {
+const Button = ({ vaccineType, url, label, renderAs }: ButtonProps): JSX.Element => {
   return (
     <NBSBookingActionForBaseUrl
       vaccineType={vaccineType}
       url={url.href}
       displayText={label}
       renderAs={renderAs}
-      reduceBottomPadding={delineator}
+      reduceBottomPadding={true}
     />
   );
 };

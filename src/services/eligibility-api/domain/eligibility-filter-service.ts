@@ -124,7 +124,6 @@ const _generateActions = (suggestion: ProcessedSuggestion): Action[] => {
             type: ActionDisplayType.infotext,
             content: action.description as Content,
             button: undefined,
-            delineator: true,
           },
         ];
       }
@@ -134,18 +133,17 @@ const _generateActions = (suggestion: ProcessedSuggestion): Action[] => {
             type: ActionDisplayType.card,
             content: action.description as Content,
             button: undefined,
-            delineator: false,
           },
         ];
       }
       case "ButtonWithAuthLink": {
-        return [_linkAction(action, ActionDisplayType.buttonWithCard, true)];
+        return [_linkAction(action, ActionDisplayType.buttonWithCard)];
       }
       case "ButtonWithAuthLinkWithInfoText": {
-        return [_linkAction(action, ActionDisplayType.buttonWithInfo, true)];
+        return [_linkAction(action, ActionDisplayType.buttonWithInfo)];
       }
       case "ActionLinkWithInfoText": {
-        return [_linkAction(action, ActionDisplayType.actionLinkWithInfo, true)];
+        return [_linkAction(action, ActionDisplayType.actionLinkWithInfo)];
       }
       default: {
         log.warn({ context: { actionType: action.actionType } }, "Action type not yet implemented.");
@@ -154,7 +152,6 @@ const _generateActions = (suggestion: ProcessedSuggestion): Action[] => {
             type: ActionDisplayType.infotext,
             content: action.description as Content,
             button: undefined,
-            delineator: true,
           },
         ];
       }
@@ -164,19 +161,17 @@ const _generateActions = (suggestion: ProcessedSuggestion): Action[] => {
   return content;
 };
 
-function _linkAction(action: ResponseAction, type: ActionDisplayType, delineator: boolean): Action {
+function _linkAction(action: ResponseAction, type: ActionDisplayType): Action {
   return action.url && action.urlLabel
     ? {
         type: type,
         content: action.description as Content,
         button: { label: action.urlLabel as Label, url: new URL(action.url) as ButtonUrl },
-        delineator: delineator,
       }
     : {
         type: type,
         content: action.description as Content,
         button: undefined,
-        delineator: delineator,
       };
 }
 
