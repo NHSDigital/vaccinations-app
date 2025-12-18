@@ -94,5 +94,13 @@
     "elidPostmanRef": "5_3",
     "e2e": false,
     "snapshot": true
+  },
+  "12-16-age-range": {
+    "nhsNumber": "9461135831",
+    "emailSuffix": "34",
+    "reportLabel": "12-16 age range",
+    "elidPostmanRef": "",
+    "e2e": true,
+    "snapshot": true
   }
 }
