@@ -1,7 +1,6 @@
 import CardLinkWithDescription from "@src/app/_components/nhs-app/CardLinkWithDescription";
 import { AgeBasedHubDetails, AgeBasedHubInfo, AgeGroup } from "@src/models/ageBasedHub";
 import { VaccineInfo } from "@src/models/vaccine";
-import { redirect } from "next/navigation";
 import React, { JSX } from "react";
 
 type AgeBasedHubProps = {
@@ -27,7 +26,7 @@ const AgeBasedHubCards = ({ ageGroup }: AgeBasedHubProps): JSX.Element => {
         </ul>
       </>
     );
-  } else redirect("/service-failure");
+  } else return <></>;
 };
 
 export { AgeBasedHubCards };
