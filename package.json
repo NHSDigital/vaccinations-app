@@ -67,7 +67,7 @@
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "es-check": "^9.5.2",
-    "esbuild": "0.27.1",
+    "esbuild": "0.27.2",
     "eslint": "^9.39.2",
     "eslint-config-next": "15.5.9",
     "eslint-config-prettier": "^10.1.8",
