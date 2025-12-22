@@ -6,6 +6,11 @@ import { AgeGroup } from "@src/models/ageBasedHub";
 import { NhsNumber } from "@src/models/vaccine";
 import { render, screen } from "@testing-library/react";
 import { Session } from "next-auth";
+import { redirect } from "next/navigation";
+
+jest.mock("next/navigation", () => ({
+  redirect: jest.fn(),
+}));
 
 jest.mock("@src/app/_components/nhs-app/BackToNHSAppLink");
 
@@ -67,6 +72,17 @@ describe("Vaccination Hub Page", () => {
       );
     });
 
+    it("should redirect to service failure page if user age unknown", async () => {
+      (auth as jest.Mock).mockResolvedValue(mockSessionDataForAgeGroup(AgeGroup.UNKNOWN_AGE_GROUP));
+
+      try {
+        render(await VaccinationsHub());
+      } catch {
+        expect(redirect).toHaveBeenCalledTimes(1);
+        expect(redirect).toHaveBeenCalledWith("/service-failure");
+      }
+    });
+
     it("should show at risk expander ", () => {
       const atRiskHubExpander: HTMLElement = screen.getByTestId("at-risk-hub-expander");
       expect(atRiskHubExpander).toBeVisible();
@@ -84,22 +100,22 @@ describe("Vaccination Hub Page", () => {
   });
 
   describe("pregnancy hub content", () => {
-    it.each([
-      { description: "hide", ageGroup: AgeGroup.AGE_65_to_74, shouldShowPregnancyContent: false },
-      { description: "show", ageGroup: AgeGroup.UNKNOWN_AGE_GROUP, shouldShowPregnancyContent: true },
-    ])(`$ageGroup should $description pregnancy content`, async ({ ageGroup, shouldShowPregnancyContent }) => {
-      (auth as jest.Mock).mockResolvedValue(mockSessionDataForAgeGroup(ageGroup));
+    it.each([{ description: "hide", ageGroup: AgeGroup.AGE_65_to_74, shouldShowPregnancyContent: false }])(
+      `$ageGroup should $description pregnancy content`,
+      async ({ ageGroup, shouldShowPregnancyContent }) => {
+        (auth as jest.Mock).mockResolvedValue(mockSessionDataForAgeGroup(ageGroup));
 
-      render(await VaccinationsHub());
+        render(await VaccinationsHub());
 
-      const pregnancyHubContent: HTMLElement | null = screen.queryByTestId("pregnancy-hub-content");
+        const pregnancyHubContent: HTMLElement | null = screen.queryByTestId("pregnancy-hub-content");
 
-      if (shouldShowPregnancyContent) {
-        expect(pregnancyHubContent).toBeVisible();
-      } else {
-        expect(pregnancyHubContent).toBeNull();
-      }
-    });
+        if (shouldShowPregnancyContent) {
+          expect(pregnancyHubContent).toBeVisible();
+        } else {
+          expect(pregnancyHubContent).toBeNull();
+        }
+      },
+    );
   });
 });
 
