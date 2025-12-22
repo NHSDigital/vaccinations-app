@@ -1,3 +1,5 @@
+import { getAgeGroupOfUser } from "@src/app/_components/hub/ageGroupHelper";
+import { AgeGroup } from "@src/models/ageBasedHub";
 import { NhsNumber } from "@src/models/vaccine";
 import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import { ApimAccessCredentials } from "@src/utils/auth/apim/types";
@@ -88,6 +90,7 @@ const fillMissingFieldsInTokenWithDefaultValues = (token: JWT, apimAccessCredent
     user: {
       nhs_number: token.user?.nhs_number ?? ("" as NhsNumber),
       birthdate: token.user?.birthdate ?? ("" as BirthDate),
+      age_group: token.user?.age_group ?? AgeGroup.UNKNOWN_AGE_GROUP,
     },
     nhs_login: {
       id_token: token.nhs_login?.id_token ?? ("" as IdToken),
@@ -110,11 +113,14 @@ const updateTokenWithValuesFromAccountAndProfile = (
   nowInSeconds: NowInSeconds,
   maxAgeInSeconds: MaxAgeInSeconds,
 ): JWT => {
+  const ageGroupOfUser = getAgeGroupOfUser(profile.birthdate ?? "");
+
   const updatedToken: JWT = {
     ...token,
     user: {
       nhs_number: (profile.nhs_number ?? "") as NhsNumber,
       birthdate: (profile.birthdate ?? "") as BirthDate,
+      age_group: ageGroupOfUser,
     },
     nhs_login: {
       id_token: (account.id_token ?? "") as IdToken,

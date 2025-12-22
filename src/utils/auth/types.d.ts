@@ -61,6 +61,7 @@ declare module "next-auth/jwt" {
     user: {
       nhs_number: NhsNumber;
       birthdate: BirthDate;
+      age_group: AgeGroup;
     };
     nhs_login: {
       id_token: IdToken;

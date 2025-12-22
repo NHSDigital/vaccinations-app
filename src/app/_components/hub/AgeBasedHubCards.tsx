@@ -10,6 +10,9 @@ type AgeBasedHubProps = {
 const AgeBasedHubCards = ({ ageGroup }: AgeBasedHubProps): JSX.Element => {
   const hubInfoForAgeGroup: AgeBasedHubDetails | undefined = AgeBasedHubInfo[ageGroup];
 
+  // TODO VIA-161 Age-Based Hub epic: hubInfo info will be undefined for the age ranges we have not implemented yet
+  //  This is expected for now; fail gracefully and do not render anything
+  //  This boolean check can likely be removed once all ages are implemented
   if (hubInfoForAgeGroup) {
     return (
       <>

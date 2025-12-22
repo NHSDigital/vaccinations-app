@@ -1,3 +1,4 @@
+import { AgeGroup } from "@src/models/ageBasedHub";
 import { ApimHttpError } from "@src/utils/auth/apim/exceptions";
 import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import { getToken } from "@src/utils/auth/callbacks/get-token";
@@ -52,6 +53,7 @@ describe("getToken", () => {
     nhs_number: "test_nhs_number",
     birthdate: "1994-08-04",
   };
+  const expectedAgeGroupForBirthdate = AgeGroup.AGE_25_to_64;
 
   const account = {
     expires_at: nowInSeconds + 1000,
@@ -103,6 +105,7 @@ describe("getToken", () => {
         result,
         profile.nhs_number,
         profile.birthdate,
+        expectedAgeGroupForBirthdate,
         "newIdToken",
         "new-apim-access-token",
         nowInSeconds + 1111,
@@ -119,7 +122,7 @@ describe("getToken", () => {
 
       const result = await getToken(undefinedToken, undefinedAccount, undefinedProfile, maxAgeInSeconds);
 
-      expectResultToMatchTokenWith(result, "", "", "", "", 0, maxAgeInSeconds);
+      expectResultToMatchTokenWith(result, "", "", AgeGroup.UNKNOWN_AGE_GROUP, "", "", 0, maxAgeInSeconds);
     });
 
     it("should fill in missing values in token with default empty string", async () => {
@@ -137,6 +140,7 @@ describe("getToken", () => {
         user: {
           nhs_number: "",
           birthdate: "",
+          age_group: AgeGroup.UNKNOWN_AGE_GROUP,
         },
         nhs_login: {
           id_token: "",
@@ -168,7 +172,16 @@ describe("getToken", () => {
 
       const result = await getToken(token, account, profile, maxAgeInSeconds);
 
-      expectResultToMatchTokenWith(result, profile.nhs_number, profile.birthdate, "newIdToken", "", 0, maxAgeInSeconds);
+      expectResultToMatchTokenWith(
+        result,
+        profile.nhs_number,
+        profile.birthdate,
+        expectedAgeGroupForBirthdate,
+        "newIdToken",
+        "",
+        0,
+        maxAgeInSeconds,
+      );
     });
   });
 
@@ -184,7 +197,16 @@ describe("getToken", () => {
 
       const result = await getToken(token, account, profile, maxAgeInSeconds);
 
-      expectResultToMatchTokenWith(result, profile.nhs_number, profile.birthdate, "newIdToken", "", 0, maxAgeInSeconds);
+      expectResultToMatchTokenWith(
+        result,
+        profile.nhs_number,
+        profile.birthdate,
+        expectedAgeGroupForBirthdate,
+        "newIdToken",
+        "",
+        0,
+        maxAgeInSeconds,
+      );
     });
   });
 
@@ -192,6 +214,7 @@ describe("getToken", () => {
     result: JWT | null,
     nhsNumber: string,
     birthdate: string | null | undefined,
+    ageGroup: AgeGroup,
     idToken: string,
     apimToken: string,
     apimExpiresAt: number,
@@ -202,6 +225,7 @@ describe("getToken", () => {
       user: {
         nhs_number: nhsNumber,
         birthdate: birthdate,
+        age_group: ageGroup,
       },
       nhs_login: {
         id_token: idToken,

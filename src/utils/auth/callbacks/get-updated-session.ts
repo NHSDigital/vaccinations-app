@@ -1,5 +1,3 @@
-import { getAgeGroup } from "@src/app/_components/hub/ageGroupHelper";
-import { calculateAge } from "@src/utils/date";
 import { logger } from "@src/utils/logger";
 import { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
@@ -12,7 +10,7 @@ const log: Logger = logger.child({
 const getUpdatedSession = (session: Session, token: JWT): Session => {
   if (token?.user && session.user) {
     session.user.nhs_number = token.user.nhs_number;
-    session.user.age_group = getAgeGroup(calculateAge(token.user.birthdate));
+    session.user.age_group = token.user.age_group;
   } else {
     log.info(
       {

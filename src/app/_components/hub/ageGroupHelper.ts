@@ -1,4 +1,11 @@
 import { AgeGroup } from "@src/models/ageBasedHub";
+import { calculateAge } from "@src/utils/date";
+import { logger } from "@src/utils/logger";
+import { Logger } from "pino";
+
+const log: Logger = logger.child({
+  module: "age-group-helper",
+});
 
 const getAgeGroup = (age: number): AgeGroup => {
   if (12 <= age && age <= 16) {
@@ -21,4 +28,22 @@ const getAgeGroup = (age: number): AgeGroup => {
   } else return AgeGroup.UNKNOWN_AGE_GROUP;
 };
 
-export { getAgeGroup };
+const getAgeGroupOfUser = (dateOfBirth: string): AgeGroup => {
+  let ageGroupOfUser;
+
+  try {
+    const age = calculateAge(dateOfBirth);
+    ageGroupOfUser = getAgeGroup(age);
+  } catch (error) {
+    ageGroupOfUser = AgeGroup.UNKNOWN_AGE_GROUP;
+    const errorMessage = error instanceof Error && error?.message != undefined ? error.message : "unknown error";
+    const errorCause = error instanceof Error ? error.cause : "";
+    log.error(
+      { error: { message: errorMessage, cause: errorCause } },
+      "User data error; unable to determine age of user",
+    );
+  }
+  return ageGroupOfUser;
+};
+
+export { getAgeGroup, getAgeGroupOfUser };
