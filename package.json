@@ -54,7 +54,7 @@
     "@axe-core/playwright": "^4.11.0",
     "@eslint/eslintrc": "^3.3.3",
     "@estruyf/github-actions-reporter": "^1.10.0",
-    "@pact-foundation/pact": "^16.0.3",
+    "@pact-foundation/pact": "^16.0.4",
     "@playwright/test": "^1.57.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
