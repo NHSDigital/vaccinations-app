@@ -1,3 +1,5 @@
+import { AgeGroup } from "@src/models/ageBasedHub";
+
 type PoliciesPageName = "cookies-policy" | "accessibility-statement";
 type VaccinePageName =
   | "rsv-older-adults"
@@ -228,6 +230,20 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     snapshotFilename: "default-accessibility-statement.png",
   },
 };
+
+type AgeBasedTestUser = {
+  ageGroup: AgeGroup;
+  userSession: string;
+};
+
+export const AgeBasedHubTestUsers: AgeBasedTestUser[] = [
+  // { ageGroup: AgeGroup.AGE_12_to_16, userSession: "12-16-age-range"}, // user 34
+  // { ageGroup: AgeGroup.AGE_17_to_24, userSession: "eligibility-error-400"}, // user 16
+  // { ageGroup: AgeGroup.AGE_25_to_64, userSession: "actionable-with-other-setting-suitability-rule"}, // user 12
+  { ageGroup: AgeGroup.AGE_65_to_74, userSession: "actionable-with-booking-link" }, // user 19
+  // { ageGroup: AgeGroup.AGE_75_to_80, userSession: "actionable-with-booking-button"}, // user 21
+  // { ageGroup: AgeGroup.AGE_81_PLUS, userSession: "actionable-with-infotext-action"}, //user 01
+];
 
 export const BOOKING_PAGE_URL_REGEX =
   /^https:\/\/.+nhs\.uk\/book-an-rsv-vaccination\/app-start-page\?wt\.mc_id=vita-RSV-booking$/;

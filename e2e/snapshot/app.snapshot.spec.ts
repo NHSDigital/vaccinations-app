@@ -1,5 +1,5 @@
 import { Page, TestInfo, expect, test } from "@playwright/test";
-import { AppPageDetails, type PageDetails } from "@project/e2e/constants";
+import { AgeBasedHubTestUsers, AppPageDetails, type PageDetails } from "@project/e2e/constants";
 import { getEnv, openExpandersIfPresent, pathForCustomScreenshots } from "@project/e2e/helpers";
 
 const currentDatetime = getEnv("CURRENT_DATETIME");
@@ -36,6 +36,24 @@ test.describe(`Snapshot Testing - ${currentDatetime}-${checkoutRef}`, () => {
       const testFileName = testInfo.file.split("/").pop()!;
 
       await testPageSnapshot(page, pageDetails, testFileName, projectName);
+    });
+  });
+});
+
+test.describe(`Snapshot Testing - Age-Based Hub - ${currentDatetime}-${checkoutRef}`, () => {
+  AgeBasedHubTestUsers.forEach(({ ageGroup, userSession }) => {
+    test.describe(`for ${ageGroup}`, () => {
+      test.use({ storageState: `./e2e/.auth/${userSession}.json` });
+
+      test(`Testing snapshot for ${ageGroup} hub page`, async ({ page }, testInfo: TestInfo) => {
+        const hubPageDetails = AppPageDetails["vaccine-hub"];
+        hubPageDetails.snapshotFilename = hubPageDetails.snapshotFilename.replace("default", ageGroup);
+
+        const projectName = testInfo.project.name;
+        const testFileName = testInfo.file.split("/").pop()!;
+
+        await testPageSnapshot(page, hubPageDetails, testFileName, projectName);
+      });
     });
   });
 });
