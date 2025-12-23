@@ -77,7 +77,7 @@
     "reportLabel": "Actionable with booking button",
     "elidPostmanRef": "",
     "e2e": true,
-    "snapshot": false
+    "snapshot": true
   },
   "actionable-with-managing-button": {
     "nhsNumber": "9735548844",
