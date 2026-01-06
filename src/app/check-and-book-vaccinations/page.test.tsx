@@ -102,6 +102,7 @@ describe("Vaccination Hub Page", () => {
   describe("pregnancy hub content", () => {
     it.each([
       { description: "hide", ageGroup: AgeGroup.AGE_12_to_16, shouldShowPregnancyContent: false },
+      { description: "show", ageGroup: AgeGroup.AGE_17_to_24, shouldShowPregnancyContent: true },
       { description: "hide", ageGroup: AgeGroup.AGE_65_to_74, shouldShowPregnancyContent: false },
       { description: "hide", ageGroup: AgeGroup.AGE_75_to_80, shouldShowPregnancyContent: false },
       { description: "hide", ageGroup: AgeGroup.AGE_81_PLUS, shouldShowPregnancyContent: false },
@@ -116,6 +117,28 @@ describe("Vaccination Hub Page", () => {
         expect(pregnancyHubContent).toBeVisible();
       } else {
         expect(pregnancyHubContent).toBeNull();
+      }
+    });
+  });
+
+  describe("age groups with warning callout", () => {
+    it.each([
+      { description: "hide", ageGroup: AgeGroup.AGE_12_to_16, showWarningCallout: false },
+      { description: "show", ageGroup: AgeGroup.AGE_17_to_24, showWarningCallout: true },
+      { description: "hide", ageGroup: AgeGroup.AGE_65_to_74, showWarningCallout: false },
+      { description: "hide", ageGroup: AgeGroup.AGE_75_to_80, showWarningCallout: false },
+      { description: "hide", ageGroup: AgeGroup.AGE_81_PLUS, showWarningCallout: false },
+    ])(`$ageGroup should $description warning callout`, async ({ ageGroup, showWarningCallout }) => {
+      (auth as jest.Mock).mockResolvedValue(mockSessionDataForAgeGroup(ageGroup));
+
+      render(await VaccinationsHub());
+
+      const warningCalloutContent: HTMLElement | null = screen.queryByTestId("callout");
+
+      if (showWarningCallout) {
+        expect(warningCalloutContent).toBeVisible();
+      } else {
+        expect(warningCalloutContent).toBeNull();
       }
     });
   });

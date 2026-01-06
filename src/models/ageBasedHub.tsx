@@ -1,4 +1,6 @@
-import { VaccineType } from "@src/models/vaccine";
+import HubWarningCallout from "@src/app/_components/hub/HubWarningCallout";
+import { VaccineInfo, VaccineType } from "@src/models/vaccine";
+import { JSX } from "react";
 
 enum AgeGroup {
   AGE_12_to_16 = "AGE_12_to_16",
@@ -19,6 +21,7 @@ export type AgeBasedHubDetails = {
   heading: string;
   vaccines: AgeSpecificVaccineCardDetails[];
   showPregnancyHubContent: boolean;
+  styledWarningCallout?: JSX.Element;
 };
 
 // TODO: VIA-630 remove 'undefined' from the type definition below after all hubs are implemented?
@@ -33,7 +36,43 @@ const AgeBasedHubInfo: Record<AgeGroup, AgeBasedHubDetails | undefined> = {
     ],
     showPregnancyHubContent: false,
   },
-  AGE_17_to_24: undefined,
+  AGE_17_to_24: {
+    heading: "Routine vaccines for young people aged 17 to 24",
+    vaccines: [],
+    showPregnancyHubContent: true,
+    styledWarningCallout: (
+      <HubWarningCallout
+        heading={"Important"}
+        content={
+          <>
+            <p>You can ask your GP about getting vaccines you might have missed. Make sure you&#39;ve had:</p>
+            <ul>
+              <li>
+                2 doses of the <a href={`/vaccines/${VaccineInfo[VaccineType.MMR].urlPath}`}>MMR vaccine</a> – which
+                protects against measles, mumps and rubella. If you have not previously had 2 doses of MMR, you can
+                still have the vaccine at any age.
+              </li>
+              <li>
+                The completed course of{" "}
+                <a href={`/vaccines/${VaccineInfo[VaccineType.TD_IPV_3_IN_1].urlPath}`}>Td/IPV vaccine</a> (also called
+                the 3-in-1 teenage booster) - which protects against tetanus, diphtheria and polio. You can ask for this
+                at any age.
+              </li>
+              <li>
+                The <a href={`/vaccines/${VaccineInfo[VaccineType.HPV].urlPath}`}>HPV vaccine</a> – which helps protect
+                against genital warts and cancers caused by the human papilloma virus (HPV), such as cervical cancer.
+                You can ask for this until your 25th birthday.
+              </li>
+              <li>
+                The <a href={`/vaccines/${VaccineInfo[VaccineType.MENACWY].urlPath}`}>MenACWY vaccine</a> – which
+                protects against serious infections including meningitis. You can ask for this until your 25th birthday.
+              </li>
+            </ul>
+          </>
+        }
+      />
+    ),
+  },
   AGE_25_to_64: undefined,
   AGE_65_to_74: {
     heading: "Adults aged 65 to 74 should get these routine vaccines",

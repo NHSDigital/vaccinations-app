@@ -32,6 +32,7 @@ const VaccinationsHub = async () => {
         <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-5"}>{SERVICE_HEADING}</h1>
         <AgeBasedHubCards ageGroup={ageGroup} />
         <AtRiskHubExpander />
+        {hubInfoForAgeGroup?.styledWarningCallout}
         {(hubInfoForAgeGroup?.showPregnancyHubContent || hubInfoForAgeGroup === undefined) && <PregnancyHubContent />}
         <Link href={"/vaccines-for-all-ages"} className={"nhsuk-button nhsuk-button--secondary"}>
           View vaccines for all ages
