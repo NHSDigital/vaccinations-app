@@ -94,6 +94,7 @@ export const openExpandersIfPresent = async (page: Page) => {
     "Who should have the vaccine",
     "How to get the vaccine",
     "Side effects of the vaccine",
+    "Recommended vaccines for at-risk groups",
   ];
 
   for (const title of expanderTitles) {
