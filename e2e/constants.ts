@@ -241,7 +241,7 @@ export const AgeBasedHubTestUsers: AgeBasedTestUser[] = [
   // { ageGroup: AgeGroup.AGE_17_to_24, userSession: "actionable-with-already-vaccinated-suitability-rule"}, // user 13
   // { ageGroup: AgeGroup.AGE_25_to_64, userSession: "actionable-with-other-setting-suitability-rule"}, // user 12
   { ageGroup: AgeGroup.AGE_65_to_74, userSession: "actionable-with-booking-link" }, // user 19
-  // { ageGroup: AgeGroup.AGE_75_to_80, userSession: "actionable-with-booking-button"}, // user 21
+  { ageGroup: AgeGroup.AGE_75_to_80, userSession: "actionable-with-booking-button" }, // user 21
   // { ageGroup: AgeGroup.AGE_81_PLUS, userSession: "actionable-with-infotext-action"}, //user 01
 ];
 

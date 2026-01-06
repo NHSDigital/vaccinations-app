@@ -35,7 +35,17 @@ const AgeBasedHubInfo: Record<AgeGroup, AgeBasedHubDetails | undefined> = {
     ],
     showPregnancyHubContent: false,
   },
-  AGE_75_to_80: undefined,
+  AGE_75_to_80: {
+    heading: "Adults aged 75 to 80 should get these routine vaccines",
+    vaccines: [
+      { vaccineName: VaccineType.PNEUMOCOCCAL, cardLinkDescription: "65 years and over" },
+      { vaccineName: VaccineType.FLU_FOR_ADULTS, cardLinkDescription: "65 years and over" },
+      { vaccineName: VaccineType.SHINGLES, cardLinkDescription: "65 to 67 and 70 to 79 years" },
+      { vaccineName: VaccineType.RSV, cardLinkDescription: "75 years and over" },
+      { vaccineName: VaccineType.COVID_19, cardLinkDescription: "75 years and over" },
+    ],
+    showPregnancyHubContent: false,
+  },
   AGE_81_PLUS: undefined,
   UNKNOWN_AGE_GROUP: undefined,
 };

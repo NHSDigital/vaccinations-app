@@ -100,22 +100,22 @@ describe("Vaccination Hub Page", () => {
   });
 
   describe("pregnancy hub content", () => {
-    it.each([{ description: "hide", ageGroup: AgeGroup.AGE_65_to_74, shouldShowPregnancyContent: false }])(
-      `$ageGroup should $description pregnancy content`,
-      async ({ ageGroup, shouldShowPregnancyContent }) => {
-        (auth as jest.Mock).mockResolvedValue(mockSessionDataForAgeGroup(ageGroup));
+    it.each([
+      { description: "hide", ageGroup: AgeGroup.AGE_65_to_74, shouldShowPregnancyContent: false },
+      { description: "hide", ageGroup: AgeGroup.AGE_75_to_80, shouldShowPregnancyContent: false },
+    ])(`$ageGroup should $description pregnancy content`, async ({ ageGroup, shouldShowPregnancyContent }) => {
+      (auth as jest.Mock).mockResolvedValue(mockSessionDataForAgeGroup(ageGroup));
 
-        render(await VaccinationsHub());
+      render(await VaccinationsHub());
 
-        const pregnancyHubContent: HTMLElement | null = screen.queryByTestId("pregnancy-hub-content");
+      const pregnancyHubContent: HTMLElement | null = screen.queryByTestId("pregnancy-hub-content");
 
-        if (shouldShowPregnancyContent) {
-          expect(pregnancyHubContent).toBeVisible();
-        } else {
-          expect(pregnancyHubContent).toBeNull();
-        }
-      },
-    );
+      if (shouldShowPregnancyContent) {
+        expect(pregnancyHubContent).toBeVisible();
+      } else {
+        expect(pregnancyHubContent).toBeNull();
+      }
+    });
   });
 });
 
