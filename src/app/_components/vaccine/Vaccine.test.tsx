@@ -105,6 +105,7 @@ describe("Any vaccine page", () => {
         Campaigns.fromJson(
           JSON.stringify({
             COVID_19: [{ start: "2025-11-01T09:00:00Z", end: "2026-01-31T09:00:00Z" }],
+            FLU_FOR_ADULTS: [{ start: "2025-11-30T09:00:00Z", end: "2026-03-31T09:00:00Z" }],
           }),
         )!,
       )

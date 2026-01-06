@@ -329,6 +329,8 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/flu-vaccine" as UrlPathFragment,
     cacheFilename: "flu-vaccine.json" as Filename,
+    nbsPath: "flu" as UrlPathFragment,
+    nbsCampaign: "vita-flu-booking" as NbsCampaign,
   },
   [VaccineType.FLU_FOR_CHILDREN]: {
     urlPath: "flu-vaccine-for-children" as UrlPathFragment,
