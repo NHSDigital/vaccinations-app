@@ -103,6 +103,7 @@ describe("Vaccination Hub Page", () => {
     it.each([
       { description: "hide", ageGroup: AgeGroup.AGE_65_to_74, shouldShowPregnancyContent: false },
       { description: "hide", ageGroup: AgeGroup.AGE_75_to_80, shouldShowPregnancyContent: false },
+      { description: "hide", ageGroup: AgeGroup.AGE_81_PLUS, shouldShowPregnancyContent: false },
     ])(`$ageGroup should $description pregnancy content`, async ({ ageGroup, shouldShowPregnancyContent }) => {
       (auth as jest.Mock).mockResolvedValue(mockSessionDataForAgeGroup(ageGroup));
 

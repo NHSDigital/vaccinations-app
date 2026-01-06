@@ -46,7 +46,16 @@ const AgeBasedHubInfo: Record<AgeGroup, AgeBasedHubDetails | undefined> = {
     ],
     showPregnancyHubContent: false,
   },
-  AGE_81_PLUS: undefined,
+  AGE_81_PLUS: {
+    heading: "Adults aged 81 and over should get these routine vaccines",
+    vaccines: [
+      { vaccineName: VaccineType.PNEUMOCOCCAL, cardLinkDescription: "65 years and over" },
+      { vaccineName: VaccineType.FLU_FOR_ADULTS, cardLinkDescription: "65 years and over" },
+      { vaccineName: VaccineType.RSV, cardLinkDescription: "75 years and over" },
+      { vaccineName: VaccineType.COVID_19, cardLinkDescription: "75 years and over" },
+    ],
+    showPregnancyHubContent: false,
+  },
   UNKNOWN_AGE_GROUP: undefined,
 };
 
