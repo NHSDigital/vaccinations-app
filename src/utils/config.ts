@@ -5,7 +5,7 @@ import { logger } from "@src/utils/logger";
 import { retry } from "es-toolkit";
 import { Logger } from "pino";
 
-const log: Logger = logger.child({ module: "lazy-config" });
+const log: Logger = logger.child({ module: "config" });
 
 export type ConfigValue = string | number | boolean | URL | Campaigns | undefined;
 
