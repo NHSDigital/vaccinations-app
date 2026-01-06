@@ -18,7 +18,7 @@ export const buildFilteredContentForFluForSchoolAgedChildrenVaccine = async (
 
   const recommendation: HeadingWithContent = {
     heading: "The flu vaccine is recommended for children who:",
-    content: ["* are of school age (Reception to Year 1)"].join("\n"),
+    content: ["* are of school age (Reception to Year 11)"].join("\n"),
   };
   return { ...standardFilteredContent, recommendation, overviewConclusion };
 };

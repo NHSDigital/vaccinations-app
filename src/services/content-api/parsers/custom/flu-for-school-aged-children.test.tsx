@@ -65,7 +65,7 @@ describe("buildFilteredContentForFluForSchoolAgedChildrenVaccine", () => {
     const expected = {
       recommendation: {
         heading: "The flu vaccine is recommended for children who:",
-        content: "* are of school age (Reception to Year 1)",
+        content: "* are of school age (Reception to Year 11)",
       },
     };
 
