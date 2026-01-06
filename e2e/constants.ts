@@ -246,7 +246,7 @@ type AgeBasedTestUser = {
 };
 
 export const AgeBasedHubTestUsers: AgeBasedTestUser[] = [
-  // { ageGroup: AgeGroup.AGE_12_to_16, userSession: "12-16-age-range"}, // user 34
+  { ageGroup: AgeGroup.AGE_12_to_16, userSession: "12-16-age-range" }, // user 34
   // { ageGroup: AgeGroup.AGE_17_to_24, userSession: "actionable-with-already-vaccinated-suitability-rule"}, // user 13
   // { ageGroup: AgeGroup.AGE_25_to_64, userSession: "actionable-with-other-setting-suitability-rule"}, // user 12
   { ageGroup: AgeGroup.AGE_65_to_74, userSession: "actionable-with-booking-link" }, // user 19

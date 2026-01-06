@@ -3,100 +3,67 @@ import { AgeGroup } from "@src/models/ageBasedHub";
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { render, screen } from "@testing-library/react";
 
+const testData = [
+  {
+    ageGroup: AgeGroup.AGE_12_to_16,
+    expectedHeading: "Routine vaccines for children and teenagers aged 12 to 16",
+    expectedVaccines: [
+      VaccineType.HPV,
+      VaccineType.MENACWY,
+      VaccineType.TD_IPV_3_IN_1,
+      VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN,
+    ],
+  },
+  {
+    ageGroup: AgeGroup.AGE_65_to_74,
+    expectedHeading: "Adults aged 65 to 74 should get these routine vaccines",
+    expectedVaccines: [VaccineType.PNEUMOCOCCAL, VaccineType.FLU_FOR_ADULTS, VaccineType.SHINGLES],
+  },
+  {
+    ageGroup: AgeGroup.AGE_75_to_80,
+    expectedHeading: "Adults aged 75 to 80 should get these routine vaccines",
+    expectedVaccines: [
+      VaccineType.PNEUMOCOCCAL,
+      VaccineType.FLU_FOR_ADULTS,
+      VaccineType.SHINGLES,
+      VaccineType.RSV,
+      VaccineType.COVID_19,
+    ],
+  },
+  {
+    ageGroup: AgeGroup.AGE_81_PLUS,
+    expectedHeading: "Adults aged 81 and over should get these routine vaccines",
+    expectedVaccines: [VaccineType.PNEUMOCOCCAL, VaccineType.FLU_FOR_ADULTS, VaccineType.RSV, VaccineType.COVID_19],
+  },
+];
+
 describe("Age based hub cards", () => {
-  describe("for 65-74 year old group", () => {
-    it("should render expected heading for age group", async () => {
-      render(<AgeBasedHubCards ageGroup={AgeGroup.AGE_65_to_74} />);
+  it.each(testData)(`should have expected heading for $ageGroup`, async ({ ageGroup, expectedHeading }) => {
+    render(<AgeBasedHubCards ageGroup={ageGroup} />);
 
-      const heading: HTMLElement = screen.getByRole("heading", {
-        name: "Adults aged 65 to 74 should get these routine vaccines",
-        level: 2,
-      });
-
-      expect(heading).toBeVisible();
+    const heading: HTMLElement = screen.getByRole("heading", {
+      name: expectedHeading,
+      level: 2,
     });
 
-    it("should render card for each vaccine for age group", async () => {
-      const expectedVaccinesFor65to74 = [VaccineType.PNEUMOCOCCAL, VaccineType.FLU_FOR_ADULTS, VaccineType.SHINGLES];
+    expect(heading).toBeVisible();
+  });
 
-      render(<AgeBasedHubCards ageGroup={AgeGroup.AGE_65_to_74} />);
+  it.each(testData)("should render card for each vaccine for $ageGroup", async () => {
+    const expectedVaccinesFor65to74 = [VaccineType.PNEUMOCOCCAL, VaccineType.FLU_FOR_ADULTS, VaccineType.SHINGLES];
 
-      expectedVaccinesFor65to74.forEach((vaccineType) => {
-        const link: HTMLElement = screen.getByRole("link", { name: VaccineInfo[vaccineType].displayName.titleCase });
+    render(<AgeBasedHubCards ageGroup={AgeGroup.AGE_65_to_74} />);
 
-        expect(link).toBeVisible();
-        expect(link.getAttribute("href")).toEqual(`/vaccines/${VaccineInfo[vaccineType].urlPath}`);
-      });
+    expectedVaccinesFor65to74.forEach((vaccineType) => {
+      const link: HTMLElement = screen.getByRole("link", { name: VaccineInfo[vaccineType].displayName.titleCase });
+
+      expect(link).toBeVisible();
+      expect(link.getAttribute("href")).toEqual(`/vaccines/${VaccineInfo[vaccineType].urlPath}`);
     });
   });
 
-  describe("for 75-80 year old group", () => {
-    it("should render expected heading for age group", async () => {
-      render(<AgeBasedHubCards ageGroup={AgeGroup.AGE_75_to_80} />);
-
-      const heading: HTMLElement = screen.getByRole("heading", {
-        name: "Adults aged 75 to 80 should get these routine vaccines",
-        level: 2,
-      });
-
-      expect(heading).toBeVisible();
-    });
-
-    it("should render card for each vaccine for age group", async () => {
-      const expectedVaccinesFor75to80 = [
-        VaccineType.PNEUMOCOCCAL,
-        VaccineType.FLU_FOR_ADULTS,
-        VaccineType.SHINGLES,
-        VaccineType.RSV,
-        VaccineType.COVID_19,
-      ];
-
-      render(<AgeBasedHubCards ageGroup={AgeGroup.AGE_75_to_80} />);
-
-      expectedVaccinesFor75to80.forEach((vaccineType) => {
-        const link: HTMLElement = screen.getByRole("link", { name: VaccineInfo[vaccineType].displayName.titleCase });
-
-        expect(link).toBeVisible();
-        expect(link.getAttribute("href")).toEqual(`/vaccines/${VaccineInfo[vaccineType].urlPath}`);
-      });
-    });
-  });
-
-  describe("for 81-plus year old group", () => {
-    it("should render expected heading for age group", async () => {
-      render(<AgeBasedHubCards ageGroup={AgeGroup.AGE_81_PLUS} />);
-
-      const heading: HTMLElement = screen.getByRole("heading", {
-        name: "Adults aged 81 and over should get these routine vaccines",
-        level: 2,
-      });
-
-      expect(heading).toBeVisible();
-    });
-
-    it("should render card for each vaccine for age group", async () => {
-      const expectedVaccinesFor75to80 = [
-        VaccineType.PNEUMOCOCCAL,
-        VaccineType.FLU_FOR_ADULTS,
-        VaccineType.RSV,
-        VaccineType.COVID_19,
-      ];
-
-      render(<AgeBasedHubCards ageGroup={AgeGroup.AGE_81_PLUS} />);
-
-      expectedVaccinesFor75to80.forEach((vaccineType) => {
-        const link: HTMLElement = screen.getByRole("link", { name: VaccineInfo[vaccineType].displayName.titleCase });
-
-        expect(link).toBeVisible();
-        expect(link.getAttribute("href")).toEqual(`/vaccines/${VaccineInfo[vaccineType].urlPath}`);
-      });
-    });
-  });
-
-  describe("for unknown age group", () => {
-    it("should render empty component when age group is unknown", () => {
-      const { container } = render(<AgeBasedHubCards ageGroup={AgeGroup.UNKNOWN_AGE_GROUP} />);
-      expect(container).toBeEmptyDOMElement();
-    });
+  it("should render empty component when age group is unknown", () => {
+    const { container } = render(<AgeBasedHubCards ageGroup={AgeGroup.UNKNOWN_AGE_GROUP} />);
+    expect(container).toBeEmptyDOMElement();
   });
 });

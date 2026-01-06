@@ -23,7 +23,16 @@ export type AgeBasedHubDetails = {
 
 // TODO: VIA-630 remove 'undefined' from the type definition below after all hubs are implemented?
 const AgeBasedHubInfo: Record<AgeGroup, AgeBasedHubDetails | undefined> = {
-  AGE_12_to_16: undefined,
+  AGE_12_to_16: {
+    heading: "Routine vaccines for children and teenagers aged 12 to 16",
+    vaccines: [
+      { vaccineName: VaccineType.HPV, cardLinkDescription: "School year 8" },
+      { vaccineName: VaccineType.MENACWY, cardLinkDescription: "School year 9" },
+      { vaccineName: VaccineType.TD_IPV_3_IN_1, cardLinkDescription: "School year 9" },
+      { vaccineName: VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, cardLinkDescription: "Reception to school year 11" },
+    ],
+    showPregnancyHubContent: false,
+  },
   AGE_17_to_24: undefined,
   AGE_25_to_64: undefined,
   AGE_65_to_74: {
