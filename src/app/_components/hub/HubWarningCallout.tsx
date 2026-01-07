@@ -1,4 +1,3 @@
-import styles from "@src/app/_components/hub/styles.module.css";
 import { JSX } from "react";
 
 type HubWarningCalloutProps = {
@@ -15,9 +14,7 @@ const HubWarningCallout = (props: HubWarningCalloutProps) => {
           {props.heading}
         </span>
       </h3>
-      <div data-testid="callout-text" className={styles.warningCalloutZeroMarginBottom}>
-        {props.content}
-      </div>
+      <div data-testid="callout-text">{props.content}</div>
     </div>
   );
 };

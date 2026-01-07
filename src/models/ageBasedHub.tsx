@@ -46,7 +46,7 @@ const AgeBasedHubInfo: Record<AgeGroup, AgeBasedHubDetails | undefined> = {
         content={
           <>
             <p>You can ask your GP about getting vaccines you might have missed. Make sure you&#39;ve had:</p>
-            <ul>
+            <ul style={{ marginBottom: 0 }}>
               <li>
                 2 doses of the <a href={`/vaccines/${VaccineInfo[VaccineType.MMR].urlPath}`}>MMR vaccine</a> – which
                 protects against measles, mumps and rubella. If you have not previously had 2 doses of MMR, you can
