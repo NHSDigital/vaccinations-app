@@ -21,6 +21,7 @@ type VaccinePageName =
   | "covid-19-vaccine"
   | "covid-19-vaccine-active-campaign"
   | "flu-for-children"
+  | "flu-for-children-active-campaign"
   | "flu-for-school-aged-children";
 type FailurePageName = "sso-failure" | "service-failure" | "service-failure-static" | "not-found";
 type SessionPageName = "session-timeout" | "session-logout";
@@ -177,6 +178,14 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     heading: "Flu vaccine for children aged 2 to 3",
     title: `Flu vaccine for children aged 2 to 3 - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-flu-vaccine-for-children.png",
+    datetimeOverride: new Date("2020-03-01"),
+  },
+  "flu-for-children-active-campaign": {
+    url: "/vaccines/flu-vaccine-for-children",
+    heading: "Flu vaccine for children aged 2 to 3",
+    title: `Flu vaccine for children aged 2 to 3 - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-flu-vaccine-for-children-active-campaign.png",
+    datetimeOverride: new Date("2025-12-01"),
   },
   "flu-for-school-aged-children": {
     url: "/vaccines/flu-vaccine-for-school-aged-children",

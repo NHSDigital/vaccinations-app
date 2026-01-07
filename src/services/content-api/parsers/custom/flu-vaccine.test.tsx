@@ -6,7 +6,7 @@ import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 jest.mock("@src/services/nbs/nbs-service", () => ({ buildNbsUrl: jest.fn() }));
 
-describe("getFilteredContentForFluVaccine", () => {
+describe("buildFilteredContentForFluVaccine", () => {
   beforeEach(() => {
     (buildNbsUrl as jest.Mock).mockResolvedValue(new URL("https://test-nbs-url.example.com/sausages"));
   });
