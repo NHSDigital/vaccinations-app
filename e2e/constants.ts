@@ -261,15 +261,40 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
 type AgeBasedTestUser = {
   ageGroup: AgeGroup;
   userSession: string;
+  ageBasedHeading: string;
 };
 
 export const AgeBasedHubTestUsers: AgeBasedTestUser[] = [
-  { ageGroup: AgeGroup.AGE_12_to_16, userSession: "12-16-age-range" }, // user 34
-  { ageGroup: AgeGroup.AGE_17_to_24, userSession: "actionable-with-already-vaccinated-suitability-rule" }, // user 13
-  // { ageGroup: AgeGroup.AGE_25_to_64, userSession: "actionable-with-other-setting-suitability-rule"}, // user 12
-  { ageGroup: AgeGroup.AGE_65_to_74, userSession: "actionable-with-booking-link" }, // user 19
-  { ageGroup: AgeGroup.AGE_75_to_80, userSession: "actionable-with-booking-button" }, // user 21
-  { ageGroup: AgeGroup.AGE_81_PLUS, userSession: "actionable-with-infotext-action" }, //user 01
+  {
+    ageGroup: AgeGroup.AGE_12_to_16,
+    userSession: "12-16-age-range",
+    ageBasedHeading: "Routine vaccines for children and teenagers aged 12 to 16",
+  }, // user 34
+  {
+    ageGroup: AgeGroup.AGE_17_to_24,
+    userSession: "actionable-with-already-vaccinated-suitability-rule",
+    ageBasedHeading: "Routine vaccines for young people aged 17 to 24",
+  }, // user 13
+  {
+    ageGroup: AgeGroup.AGE_25_to_64,
+    userSession: "actionable-with-other-setting-suitability-rule",
+    ageBasedHeading: "Routine vaccines for adults aged 25 to 64",
+  }, // user 12
+  {
+    ageGroup: AgeGroup.AGE_65_to_74,
+    userSession: "actionable-with-booking-link",
+    ageBasedHeading: "Adults aged 65 to 74 should get these routine vaccines",
+  }, // user 19
+  {
+    ageGroup: AgeGroup.AGE_75_to_80,
+    userSession: "actionable-with-booking-button",
+    ageBasedHeading: "Adults aged 75 to 80 should get these routine vaccines",
+  }, // user 21
+  {
+    ageGroup: AgeGroup.AGE_81_PLUS,
+    userSession: "actionable-with-infotext-action",
+    ageBasedHeading: "Adults aged 81 and over should get these routine vaccines",
+  }, //user 01
 ];
 
 export const BOOKING_PAGE_URL_REGEX =
