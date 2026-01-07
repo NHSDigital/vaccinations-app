@@ -1,86 +1,52 @@
 import { expect, test } from "@playwright/test";
-import { AppPageDetails } from "@project/e2e/constants";
+import { AppPageDetails, PageName } from "@project/e2e/constants";
 
 test.describe.configure({ mode: "parallel", retries: 1 });
 
 test.describe("Vaccination campaigns", () => {
-  test.use({ storageState: `./e2e/.auth/default.json` });
+  test.describe("Active campaigns", () => {
+    test.use({ storageState: `./e2e/.auth/default.json` });
+    const testDetails: Array<{ vaccineName: string; pageName: PageName }> = [
+      { vaccineName: "covid-19-vaccine", pageName: "covid-19-vaccine-active-campaign" },
+      { vaccineName: "flu-vaccine", pageName: "flu-vaccine-active-campaign" },
+      { vaccineName: "flu-for-children", pageName: "flu-for-children-active-campaign" },
+    ];
 
-  test.describe("COVID-19", () => {
-    test("while campaign active", async ({ page }) => {
-      const pageDetails = AppPageDetails["covid-19-vaccine-active-campaign"];
+    testDetails.forEach(({ vaccineName, pageName }) => {
+      test(`should render ${vaccineName} page with active campaign`, async ({ page }) => {
+        const pageDetails = AppPageDetails[pageName];
 
-      if (pageDetails.datetimeOverride)
-        await page.setExtraHTTPHeaders({ "x-e2e-datetime": pageDetails.datetimeOverride.toISOString() });
+        if (pageDetails.datetimeOverride)
+          await page.setExtraHTTPHeaders({ "x-e2e-datetime": pageDetails.datetimeOverride.toISOString() });
 
-      await page.goto(pageDetails.url);
+        await page.goto(pageDetails.url);
 
-      await expect(page.getByRole("heading", { name: "Important:   Booking service" })).not.toBeVisible();
-      await expect(page.getByRole("heading", { name: "Book an appointment online at" })).toBeVisible();
-    });
-
-    test("while campaign inactive", async ({ page }) => {
-      const pageDetails = AppPageDetails["covid-19-vaccine"];
-
-      if (pageDetails.datetimeOverride)
-        await page.setExtraHTTPHeaders({ "x-e2e-datetime": pageDetails.datetimeOverride.toISOString() });
-
-      await page.goto(pageDetails.url);
-
-      await expect(page.getByRole("heading", { name: "Important:   Booking service" })).toBeVisible();
-      await expect(page.getByRole("heading", { name: "Book an appointment online at" })).not.toBeVisible();
+        await expect(page.getByRole("heading", { name: "Important:   Booking service" })).not.toBeVisible();
+        await expect(page.getByRole("heading", { name: "Book an appointment online at" })).toBeVisible();
+      });
     });
   });
 
-  test.describe("FLU_FOR_ADULTS", () => {
-    test("while campaign active", async ({ page }) => {
-      const pageDetails = AppPageDetails["flu-vaccine-active-campaign"];
+  test.describe("Inactive campaigns", () => {
+    test.use({ storageState: `./e2e/.auth/default.json` });
+    const testDetails: Array<{ vaccineName: string; pageName: PageName }> = [
+      { vaccineName: "covid-19-vaccine", pageName: "covid-19-vaccine" },
+      { vaccineName: "flu-vaccine", pageName: "flu-vaccine" },
+      { vaccineName: "flu-for-children", pageName: "flu-for-children" },
+    ];
 
-      if (pageDetails.datetimeOverride)
-        await page.setExtraHTTPHeaders({ "x-e2e-datetime": pageDetails.datetimeOverride.toISOString() });
+    testDetails.forEach(({ vaccineName, pageName }) => {
+      test(`should render ${vaccineName} page with inactive campaign`, async ({ page }) => {
+        const pageDetails = AppPageDetails[pageName];
 
-      await page.goto(pageDetails.url);
+        if (pageDetails.datetimeOverride)
+          await page.setExtraHTTPHeaders({ "x-e2e-datetime": pageDetails.datetimeOverride.toISOString() });
 
-      await expect(page.getByRole("heading", { name: "Important:   Booking service" })).not.toBeVisible();
-      await expect(page.getByRole("heading", { name: "Book an appointment online at" })).toBeVisible();
-    });
+        await page.goto(pageDetails.url);
 
-    test("while campaign inactive", async ({ page }) => {
-      const pageDetails = AppPageDetails["flu-vaccine"];
-
-      if (pageDetails.datetimeOverride)
-        await page.setExtraHTTPHeaders({ "x-e2e-datetime": pageDetails.datetimeOverride.toISOString() });
-
-      await page.goto(pageDetails.url);
-
-      await expect(page.getByRole("heading", { name: "Important:   Booking service" })).toBeVisible();
-      await expect(page.getByRole("heading", { name: "Book an appointment online at" })).not.toBeVisible();
-    });
-  });
-
-  test.describe("FLU_FOR_CHILDREN", () => {
-    test("while campaign active", async ({ page }) => {
-      const pageDetails = AppPageDetails["flu-for-children-active-campaign"];
-
-      if (pageDetails.datetimeOverride)
-        await page.setExtraHTTPHeaders({ "x-e2e-datetime": pageDetails.datetimeOverride.toISOString() });
-
-      await page.goto(pageDetails.url);
-
-      await expect(page.getByRole("heading", { name: "Important:   Booking service" })).not.toBeVisible();
-      await expect(page.getByRole("heading", { name: "Book an appointment online at" })).toBeVisible();
-    });
-
-    test("while campaign inactive", async ({ page }) => {
-      const pageDetails = AppPageDetails["flu-for-children"];
-
-      if (pageDetails.datetimeOverride)
-        await page.setExtraHTTPHeaders({ "x-e2e-datetime": pageDetails.datetimeOverride.toISOString() });
-
-      await page.goto(pageDetails.url);
-
-      await expect(page.getByRole("heading", { name: "Important:   Booking service" })).toBeVisible();
-      await expect(page.getByRole("heading", { name: "Book an appointment online at" })).not.toBeVisible();
+        await expect(page.getByRole("heading", { name: "Important:   Booking service" })).toBeVisible();
+        await expect(page.getByRole("heading", { name: "Book an appointment online at" })).not.toBeVisible();
+      });
     });
   });
 });
