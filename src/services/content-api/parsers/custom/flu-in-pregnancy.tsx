@@ -7,9 +7,21 @@ import {
   VaccinePageContent,
   VaccinePageSection,
 } from "@src/services/content-api/types";
+import {
+  Action,
+  ActionDisplayType,
+  ActionWithButton,
+  ActionWithoutButton,
+  ButtonUrl,
+  Content,
+  Label,
+} from "@src/services/eligibility-api/types";
+import { buildNbsUrl } from "@src/services/nbs/nbs-service";
 
 export const buildFilteredContentForFluInPregnancyVaccine = async (apiContent: string): Promise<VaccinePageContent> => {
   const content: ContentApiVaccineResponse = JSON.parse(apiContent);
+
+  const actions: Action[] = await _buildActions();
 
   const paragraphs: string[] = content.mainEntityOfPage
     .flatMap((entity) => entity.hasPart ?? [])
@@ -49,7 +61,6 @@ export const buildFilteredContentForFluInPregnancyVaccine = async (apiContent: s
 
   return {
     overview: undefined,
-    actions: [],
     whatVaccineIsFor: whyOffered,
     whoVaccineIsFor: isItSafe,
     howToGetVaccine,
@@ -57,5 +68,41 @@ export const buildFilteredContentForFluInPregnancyVaccine = async (apiContent: s
     webpageLink,
     callout: callout,
     recommendation: recommendation,
+    actions: actions,
   };
 };
+
+async function _buildActions(): Promise<Action[]> {
+  const nbsURl = (await buildNbsUrl(VaccineType.FLU_IN_PREGNANCY)) as ButtonUrl;
+
+  const bookWithGP: ActionWithoutButton = {
+    type: ActionDisplayType.infotext,
+    content: [
+      "## If this applied to you",
+      "### Get vaccinated at your GP surgery or maternity service",
+      "Contact your GP surgery or maternity service (if your maternity service offers the flu vaccine) to book an appointment.",
+    ].join("\n\n") as Content,
+    button: undefined,
+  };
+
+  const nbsBooking: ActionWithButton = {
+    type: ActionDisplayType.buttonWithInfo,
+    content: ["### Book an appointment online"].join("\n\n") as Content,
+    button: { label: "Continue to booking" as Label, url: nbsURl },
+  };
+
+  const walkIn: ActionWithButton = {
+    type: ActionDisplayType.actionLinkWithInfo,
+    content: [
+      "## Get vaccinated without an appointment",
+      "You can find a pharmacy that offers walk-in appointments without booking.",
+    ].join("\n\n") as Content,
+    button: {
+      label: "Find a pharmacy where you can get a free flu vaccination" as Label,
+      url: new URL(
+        "https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-pharmacy-that-offers-free-flu-vaccination/",
+      ) as ButtonUrl,
+    },
+  };
+  return [bookWithGP, nbsBooking, walkIn];
+}

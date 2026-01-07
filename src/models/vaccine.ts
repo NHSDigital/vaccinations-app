@@ -295,6 +295,8 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     contentPath: "pregnancy/keeping-well/flu-jab" as UrlPathFragment,
     cacheFilename: "flu-jab.json" as Filename,
     moreInformationHeadersFromContentApi: true,
+    nbsPath: "flu" as UrlPathFragment,
+    nbsCampaign: "vita-flu-booking" as NbsCampaign,
   },
   [VaccineType.COVID_19]: {
     urlPath: "covid-19-vaccine" as UrlPathFragment,

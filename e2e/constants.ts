@@ -16,6 +16,7 @@ type VaccinePageName =
   | "4-in-1"
   | "whooping-cough"
   | "flu-in-pregnancy"
+  | "flu-in-pregnancy-active-campaign"
   | "flu-vaccine"
   | "flu-vaccine-active-campaign"
   | "covid-19-vaccine"
@@ -144,6 +145,14 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     heading: "The flu vaccine in pregnancy",
     title: `The flu vaccine in pregnancy - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-flu-in-pregnancy.png",
+    datetimeOverride: new Date("2020-03-01"),
+  },
+  "flu-in-pregnancy-active-campaign": {
+    url: "/vaccines/flu-vaccine-in-pregnancy",
+    heading: "The flu vaccine in pregnancy",
+    title: `The flu vaccine in pregnancy - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-flu-in-pregnancy-active-campaign.png",
+    datetimeOverride: new Date("2026-02-01"),
   },
   "flu-vaccine": {
     url: "/vaccines/flu-vaccine",

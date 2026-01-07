@@ -10,6 +10,7 @@ test.describe("Vaccination campaigns", () => {
       { vaccineName: "covid-19-vaccine", pageName: "covid-19-vaccine-active-campaign" },
       { vaccineName: "flu-vaccine", pageName: "flu-vaccine-active-campaign" },
       { vaccineName: "flu-for-children", pageName: "flu-for-children-active-campaign" },
+      { vaccineName: "flu-in-pregnancy", pageName: "flu-in-pregnancy-active-campaign" },
     ];
 
     testDetails.forEach(({ vaccineName, pageName }) => {
@@ -22,7 +23,7 @@ test.describe("Vaccination campaigns", () => {
         await page.goto(pageDetails.url);
 
         await expect(page.getByRole("heading", { name: "Important:   Booking service" })).not.toBeVisible();
-        await expect(page.getByRole("heading", { name: "Book an appointment online at" })).toBeVisible();
+        await expect(page.getByRole("heading", { name: "Book an appointment online" })).toBeVisible();
       });
     });
   });
@@ -33,6 +34,7 @@ test.describe("Vaccination campaigns", () => {
       { vaccineName: "covid-19-vaccine", pageName: "covid-19-vaccine" },
       { vaccineName: "flu-vaccine", pageName: "flu-vaccine" },
       { vaccineName: "flu-for-children", pageName: "flu-for-children" },
+      { vaccineName: "flu-in-pregnancy", pageName: "flu-in-pregnancy" },
     ];
 
     testDetails.forEach(({ vaccineName, pageName }) => {
