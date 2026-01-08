@@ -65,7 +65,7 @@ describe("Age based hub cards", () => {
       render(<AgeBasedHubCards ageGroup={ageGroup} />);
 
       expectedVaccines.forEach((vaccineType) => {
-        const link: HTMLElement = screen.getByRole("link", { name: VaccineInfo[vaccineType].displayName.titleCase });
+        const link: HTMLElement = screen.getByRole("link", { name: VaccineInfo[vaccineType].cardLinkTitle });
 
         expect(link).toBeVisible();
         expect(link.getAttribute("href")).toEqual(`/vaccines/${VaccineInfo[vaccineType].urlPath}`);

@@ -19,7 +19,7 @@ const AgeBasedHubCards = ({ ageGroup }: AgeBasedHubProps): JSX.Element => {
             {hubInfoForAgeGroup.vaccines.map((ageSpecificVaccineCardDetails) => (
               <CardLinkWithDescription
                 key={ageSpecificVaccineCardDetails.vaccineName}
-                title={VaccineInfo[ageSpecificVaccineCardDetails.vaccineName].displayName.titleCase}
+                title={VaccineInfo[ageSpecificVaccineCardDetails.vaccineName].cardLinkTitle}
                 description={ageSpecificVaccineCardDetails.cardLinkDescription}
                 link={`/vaccines/${VaccineInfo[ageSpecificVaccineCardDetails.vaccineName].urlPath}`}
               />
