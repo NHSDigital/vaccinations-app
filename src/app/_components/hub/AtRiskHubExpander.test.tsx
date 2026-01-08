@@ -11,7 +11,7 @@ describe("At risk hub expander", () => {
   });
 
   it("should render heading as h2", () => {
-    const atRiskHeading: HTMLElement = getHeading("Recommended vaccines for at-risk groups", 2);
+    const atRiskHeading: HTMLElement = getHeading("Who should get extra vaccines?", 2);
     expect(atRiskHeading).toBeVisible();
   });
 

@@ -6,7 +6,7 @@ const AtRiskHubExpander = (): JSX.Element => {
     <details className="nhsuk-details">
       <summary className="nhsuk-details__summary">
         <h2 className="nhsuk-heading-xs nhsuk-u-margin-0 nhsuk-u-font-weight-normal">
-          <span className="nhsuk-details__summary-text">Recommended vaccines for at-risk groups</span>
+          <span className="nhsuk-details__summary-text">Who should get extra vaccines?</span>
         </h2>
       </summary>
       <div className="nhsuk-details__text">
