@@ -37,7 +37,7 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
   it("should return all parts for whatVaccineIsFor section", async () => {
     const expected = {
       whatVaccineIsFor: {
-        headline: "What the vaccine is for",
+        headline: "Why are pregnancy women offered the vaccine?",
         subsections: [
           {
             type: "simpleElement",
@@ -57,7 +57,7 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
   it("should return all parts for whoVaccineIsFor section", async () => {
     const expected = {
       whoVaccineIsFor: {
-        headline: "Who should have the vaccine",
+        headline: "Is the vaccine safe in pregnancy?",
         subsections: [
           {
             type: "simpleElement",
