@@ -52,7 +52,7 @@
     "emailSuffix": "12",
     "reportLabel": "Not Actionable - other setting",
     "elidPostmanRef": "5_11",
-    "e2e": false,
+    "e2e": true,
     "snapshot": true
   },
   "actionable-with-already-vaccinated-suitability-rule": {
