@@ -1,6 +1,6 @@
 module "content_cache_hydrator_lambda_function" {
   source  = "terraform-aws-modules/lambda/aws"
-  version = "~> 8.0"
+  version = "~> 8.1.2"
 
   function_name         = "${var.prefix}-content-cache-hydrator"
   description           = "Content cache hydrator lambda"
