@@ -101,7 +101,7 @@ describe("Vaccination Hub Page", () => {
 
   describe("pregnancy hub content", () => {
     it.each([
-      { description: "hide", ageGroup: AgeGroup.AGE_12_to_16, shouldShowPregnancyContent: false },
+      { description: "show", ageGroup: AgeGroup.AGE_12_to_16, shouldShowPregnancyContent: true },
       { description: "show", ageGroup: AgeGroup.AGE_17_to_24, shouldShowPregnancyContent: true },
       { description: "show", ageGroup: AgeGroup.AGE_25_to_64, shouldShowPregnancyContent: true },
       { description: "hide", ageGroup: AgeGroup.AGE_65_to_74, shouldShowPregnancyContent: false },

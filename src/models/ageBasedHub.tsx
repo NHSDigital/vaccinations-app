@@ -33,7 +33,7 @@ const AgeBasedHubInfo: Record<AgeGroup, AgeBasedHubDetails | undefined> = {
       { vaccineName: VaccineType.TD_IPV_3_IN_1, cardLinkDescription: "School year 9" },
       { vaccineName: VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, cardLinkDescription: "Reception to school year 11" },
     ],
-    showPregnancyHubContent: false,
+    showPregnancyHubContent: true,
   },
   AGE_17_to_24: {
     heading: "Routine vaccines for young people aged 17 to 24",
