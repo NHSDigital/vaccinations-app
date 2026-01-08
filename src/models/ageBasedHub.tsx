@@ -24,7 +24,6 @@ export type AgeBasedHubDetails = {
   styledWarningCallout?: JSX.Element;
 };
 
-// TODO: VIA-630 remove 'undefined' from the type definition below after all hubs are implemented?
 const AgeBasedHubInfo: Record<AgeGroup, AgeBasedHubDetails | undefined> = {
   AGE_12_to_16: {
     heading: "Routine vaccines for children and teenagers aged 12 to 16",

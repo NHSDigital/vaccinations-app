@@ -14,8 +14,6 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 const VaccinationsHub = async () => {
-  // TODO: VIA-630 add missing request scoped storage wrapper. Check other new pages and add as required
-
   const session: Session | null = await auth();
   const ageGroup: AgeGroup = session?.user.age_group as AgeGroup;
   if (ageGroup === AgeGroup.UNKNOWN_AGE_GROUP) {
