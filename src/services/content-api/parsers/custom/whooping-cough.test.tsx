@@ -37,7 +37,7 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
   it("should return all parts for whatVaccineIsFor section", async () => {
     const expected = {
       whatVaccineIsFor: {
-        headline: "Why are pregnancy women offered the vaccine?",
+        headline: "Why are pregnant women offered the vaccine?",
         subsections: [
           {
             type: "simpleElement",

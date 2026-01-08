@@ -12,7 +12,7 @@ export const buildFilteredContentForWhoopingCoughVaccine = async (apiContent: st
 
   const overview = { content: paragraphs[0], containsHtml: true };
   const whatVaccineIsFor: VaccinePageSection = {
-    headline: "Why are pregnancy women offered the vaccine?",
+    headline: "Why are pregnant women offered the vaccine?",
     subsections: [{ type: "simpleElement", headline: "", text: paragraphs[1], name: "markdown" }],
   };
   const whoVaccineIsFor: VaccinePageSection = {
