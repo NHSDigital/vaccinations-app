@@ -103,6 +103,7 @@ describe("Vaccination Hub Page", () => {
     it.each([
       { description: "hide", ageGroup: AgeGroup.AGE_12_to_16, shouldShowPregnancyContent: false },
       { description: "show", ageGroup: AgeGroup.AGE_17_to_24, shouldShowPregnancyContent: true },
+      { description: "show", ageGroup: AgeGroup.AGE_25_to_64, shouldShowPregnancyContent: true },
       { description: "hide", ageGroup: AgeGroup.AGE_65_to_74, shouldShowPregnancyContent: false },
       { description: "hide", ageGroup: AgeGroup.AGE_75_to_80, shouldShowPregnancyContent: false },
       { description: "hide", ageGroup: AgeGroup.AGE_81_PLUS, shouldShowPregnancyContent: false },
@@ -125,6 +126,7 @@ describe("Vaccination Hub Page", () => {
     it.each([
       { description: "hide", ageGroup: AgeGroup.AGE_12_to_16, showWarningCallout: false },
       { description: "show", ageGroup: AgeGroup.AGE_17_to_24, showWarningCallout: true },
+      { description: "show", ageGroup: AgeGroup.AGE_25_to_64, showWarningCallout: true },
       { description: "hide", ageGroup: AgeGroup.AGE_65_to_74, showWarningCallout: false },
       { description: "hide", ageGroup: AgeGroup.AGE_75_to_80, showWarningCallout: false },
       { description: "hide", ageGroup: AgeGroup.AGE_81_PLUS, showWarningCallout: false },

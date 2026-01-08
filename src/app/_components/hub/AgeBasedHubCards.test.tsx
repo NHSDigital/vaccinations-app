@@ -20,6 +20,11 @@ const testData = [
     expectedVaccines: [],
   },
   {
+    ageGroup: AgeGroup.AGE_25_to_64,
+    expectedHeading: "Routine vaccines for adults aged 25 to 64",
+    expectedVaccines: [],
+  },
+  {
     ageGroup: AgeGroup.AGE_65_to_74,
     expectedHeading: "Adults aged 65 to 74 should get these routine vaccines",
     expectedVaccines: [VaccineType.PNEUMOCOCCAL, VaccineType.FLU_FOR_ADULTS, VaccineType.SHINGLES],

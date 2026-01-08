@@ -275,11 +275,11 @@ export const AgeBasedHubTestUsers: AgeBasedTestUser[] = [
     userSession: "actionable-with-already-vaccinated-suitability-rule",
     ageBasedHeading: "Routine vaccines for young people aged 17 to 24",
   }, // user 13
-  // {
-  //   ageGroup: AgeGroup.AGE_25_to_64,
-  //   userSession: "actionable-with-other-setting-suitability-rule",
-  //   ageBasedHeading: "Routine vaccines for adults aged 25 to 64",
-  // }, // user 12
+  {
+    ageGroup: AgeGroup.AGE_25_to_64,
+    userSession: "actionable-with-other-setting-suitability-rule",
+    ageBasedHeading: "Routine vaccines for adults aged 25 to 64",
+  }, // user 12
   {
     ageGroup: AgeGroup.AGE_65_to_74,
     userSession: "actionable-with-booking-link",

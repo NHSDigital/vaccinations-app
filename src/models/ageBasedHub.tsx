@@ -72,7 +72,34 @@ const AgeBasedHubInfo: Record<AgeGroup, AgeBasedHubDetails | undefined> = {
       />
     ),
   },
-  AGE_25_to_64: undefined,
+  AGE_25_to_64: {
+    heading: "Routine vaccines for adults aged 25 to 64",
+    vaccines: [],
+    showPregnancyHubContent: true,
+    styledWarningCallout: (
+      <HubWarningCallout
+        heading={"Important"}
+        content={
+          <>
+            <p>You can ask your GP about getting vaccines you might have missed. Make sure you&#39;ve had:</p>
+            <ul style={{ marginBottom: 0 }}>
+              <li>
+                2 doses of the <a href={`/vaccines/${VaccineInfo[VaccineType.MMR].urlPath}`}>MMR vaccine</a> – which
+                protects against measles, mumps and rubella. If you have not previously had 2 doses of MMR, you can
+                still have the vaccine at any age.
+              </li>
+              <li>
+                The completed course of{" "}
+                <a href={`/vaccines/${VaccineInfo[VaccineType.TD_IPV_3_IN_1].urlPath}`}>Td/IPV vaccine</a> (also called
+                the 3-in-1 teenage booster) - which protects against tetanus, diphtheria and polio. You can ask for this
+                at any age.
+              </li>
+            </ul>
+          </>
+        }
+      />
+    ),
+  },
   AGE_65_to_74: {
     heading: "Adults aged 65 to 74 should get these routine vaccines",
     vaccines: [
