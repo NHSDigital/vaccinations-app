@@ -161,7 +161,7 @@ describe("buildFilteredContentForFluInPregnancyVaccine", () => {
       actions: [
         {
           type: ActionDisplayType.infotext,
-          content: ("## If this applied to you\n\n### Get vaccinated at your GP surgery or maternity service\n\n" +
+          content: ("## If this applies to you\n\n### Get vaccinated at your GP surgery or maternity service\n\n" +
             "Contact your GP surgery or maternity service (if your maternity service offers the flu vaccine) to book an appointment.") as Content,
         },
         {
@@ -174,7 +174,7 @@ describe("buildFilteredContentForFluInPregnancyVaccine", () => {
         },
         {
           type: ActionDisplayType.actionLinkWithInfo,
-          content: ("## Get vaccinated without an appointment\n\n" +
+          content: ("### Get vaccinated without an appointment\n\n" +
             "You can find a pharmacy that offers walk-in appointments without booking.") as Content,
           button: {
             label: "Find a pharmacy where you can get a free flu vaccination" as Label,

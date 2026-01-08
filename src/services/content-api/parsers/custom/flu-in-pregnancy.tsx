@@ -78,7 +78,7 @@ async function _buildActions(): Promise<Action[]> {
   const bookWithGP: ActionWithoutButton = {
     type: ActionDisplayType.infotext,
     content: [
-      "## If this applied to you",
+      "## If this applies to you",
       "### Get vaccinated at your GP surgery or maternity service",
       "Contact your GP surgery or maternity service (if your maternity service offers the flu vaccine) to book an appointment.",
     ].join("\n\n") as Content,
@@ -94,7 +94,7 @@ async function _buildActions(): Promise<Action[]> {
   const walkIn: ActionWithButton = {
     type: ActionDisplayType.actionLinkWithInfo,
     content: [
-      "## Get vaccinated without an appointment",
+      "### Get vaccinated without an appointment",
       "You can find a pharmacy that offers walk-in appointments without booking.",
     ].join("\n\n") as Content,
     button: {

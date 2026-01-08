@@ -72,7 +72,7 @@ describe("buildFilteredContentForFluForChildrenVaccine", () => {
         },
         {
           type: ActionDisplayType.actionLinkWithInfo,
-          content: ("## Get your child vaccinated without an appointment\n\n" +
+          content: ("### Get your child vaccinated without an appointment\n\n" +
             "You can find a pharmacy that offers walk-in appointments without booking.") as Content,
           button: {
             label: "Find a pharmacy where you can get a free flu vaccination" as Label,

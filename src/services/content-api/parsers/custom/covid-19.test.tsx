@@ -49,7 +49,7 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
         },
         {
           type: ActionDisplayType.actionLinkWithInfo,
-          content: ("## Get vaccinated without an appointment\n\n" +
+          content: ("### Get vaccinated without an appointment\n\n" +
             "You can find a walk-in COVID-19 vaccination site to get a vaccination without an appointment. " +
             "You do not need to be registered with a GP.") as Content,
           button: {

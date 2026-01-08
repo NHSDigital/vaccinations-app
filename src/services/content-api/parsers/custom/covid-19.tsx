@@ -48,7 +48,7 @@ async function _buildActions(): Promise<Action[]> {
   const walkIn: ActionWithButton = {
     type: ActionDisplayType.actionLinkWithInfo,
     content: [
-      "## Get vaccinated without an appointment",
+      "### Get vaccinated without an appointment",
       "You can find a walk-in COVID-19 vaccination site to get a vaccination without an appointment. You do not need to be registered with a GP.",
     ].join("\n\n") as Content,
     button: {
