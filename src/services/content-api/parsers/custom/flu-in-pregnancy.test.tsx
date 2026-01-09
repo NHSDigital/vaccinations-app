@@ -10,7 +10,7 @@ jest.mock("@src/services/nbs/nbs-service", () => ({ buildNbsUrl: jest.fn() }));
 const apiResponse = JSON.stringify({
   mainEntityOfPage: [
     { hasPart: [{ text: "Flu in Pregnancy Vaccine Lead Paragraph (overview)" }] },
-    { hasPart: [{ text: "<p>Why pregnant women are offered the vaccine paragraph</p>" }] },
+    { hasPart: [{ text: "<p>Why are pregnant women offered the vaccine paragraph</p>" }] },
     { hasPart: [{ text: "<p>Is the vaccine safe in pregnancy paragraph</p>" }] },
     { hasPart: [{ text: "<p>When should I have the vaccine paragraph</p>" }] },
     { hasPart: [{ text: "<p>How to get the vaccine paragraph</p>" }] },
@@ -25,13 +25,13 @@ describe("buildFilteredContentForFluInPregnancyVaccine", () => {
   it("should return all parts for whatVaccineIsFor section", async () => {
     const expected = {
       whatVaccineIsFor: {
-        headline: "Why pregnant women are offered the vaccine",
+        headline: "Why are pregnant women offered the vaccine?",
         subsections: [
           {
             type: "simpleElement",
             headline: "",
             name: "markdown",
-            text: "<p>Why pregnant women are offered the vaccine paragraph</p>",
+            text: "<p>Why are pregnant women offered the vaccine paragraph</p>",
           },
         ],
       },
@@ -66,7 +66,7 @@ describe("buildFilteredContentForFluInPregnancyVaccine", () => {
     const actual = JSON.stringify({
       mainEntityOfPage: [
         { hasPart: [{ text: "Flu in Pregnancy Vaccine Lead Paragraph (overview)" }] },
-        { hasPart: [{ text: "<p>Why pregnant women are offered the vaccine paragraph</p>" }] },
+        { hasPart: [{ text: "<p>Why are pregnant women offered the vaccine paragraph</p>" }] },
         { hasPart: [{ text: "<p>Is the vaccine safe in pregnancy paragraph</p>" }] },
         { hasPart: [{ text: "<p>When should I have the vaccine paragraph</p>" }] },
         {

@@ -65,19 +65,21 @@ describe("MoreInformation component ", () => {
   });
 
   describe("When vaccineInfo.moreInformationHeadersFromContentApi=true", () => {
-    it("should display whatItIsFor expander block", async () => {
-      const vaccineType = VaccineType.FLU_IN_PREGNANCY;
-      render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
+    it.each([VaccineType.FLU_IN_PREGNANCY, VaccineType.WHOOPING_COUGH])(
+      "should display whatItIsFor expander block for %s",
+      async (vaccine: VaccineType) => {
+        render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccine} />);
+        expectExpanderBlockToBePresent("what-heading", "What Section styled component");
+      },
+    );
 
-      expectExpanderBlockToBePresent("what-heading", "What Section styled component");
-    });
-
-    it("should display whoVaccineIsFor expander block", async () => {
-      const vaccineType = VaccineType.FLU_IN_PREGNANCY;
-      render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
-
-      expectExpanderBlockToBePresent("who-heading", "Who Section styled component");
-    });
+    it.each([VaccineType.FLU_IN_PREGNANCY, VaccineType.WHOOPING_COUGH])(
+      "should display whoVaccineIsFor expander block for %s",
+      async (vaccine: VaccineType) => {
+        render(<MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccine} />);
+        expectExpanderBlockToBePresent("who-heading", "Who Section styled component");
+      },
+    );
 
     it("should display howToGet expander block", async () => {
       const vaccineType = VaccineType.FLU_IN_PREGNANCY;

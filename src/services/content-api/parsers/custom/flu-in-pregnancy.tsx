@@ -29,7 +29,7 @@ export const buildFilteredContentForFluInPregnancyVaccine = async (apiContent: s
     .filter((text): text is string => !!text);
 
   const whyOffered: VaccinePageSection = {
-    headline: "Why pregnant women are offered the vaccine",
+    headline: "Why are pregnant women offered the vaccine?",
     subsections: [{ type: "simpleElement", headline: "", text: paragraphs[1], name: "markdown" }],
   };
   const isItSafe: VaccinePageSection = {

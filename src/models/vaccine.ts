@@ -277,6 +277,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "pregnancy/keeping-well/whooping-cough-vaccination" as UrlPathFragment,
     cacheFilename: "whooping-cough-vaccination.json" as Filename,
+    moreInformationHeadersFromContentApi: true,
   },
   [VaccineType.FLU_IN_PREGNANCY]: {
     urlPath: "flu-vaccine-in-pregnancy" as UrlPathFragment,
