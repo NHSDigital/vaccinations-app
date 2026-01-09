@@ -107,6 +107,7 @@ export type Overview = { content: string; containsHtml: boolean };
 export type VaccinePageContent = {
   overview?: Overview;
   callout?: HeadingWithTypedContent;
+  additionalInformation?: VaccinePageSection;
   recommendation?: HeadingWithContent;
   overviewConclusion?: Overview;
   actions: Action[];

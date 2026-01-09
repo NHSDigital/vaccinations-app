@@ -14,6 +14,7 @@ enum VaccineType {
   HPV = "HPV",
   MENB_CHILDREN = "MENB_CHILDREN",
   MMR = "MMR",
+  MMRV = "MMRV",
   PNEUMOCOCCAL = "PNEUMOCOCCAL",
   SHINGLES = "SHINGLES",
   MENACWY = "MENACWY",
@@ -192,6 +193,22 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     personalisedEligibilityStatusRequired: false,
     contentPath: "vaccinations/mmr-vaccine" as UrlPathFragment,
     cacheFilename: "mmr-vaccine.json" as Filename,
+  },
+  [VaccineType.MMRV]: {
+    urlPath: "mmrv-vaccine" as UrlPathFragment,
+    displayName: {
+      titleCase: "MMRV",
+      midSentenceCase: "MMRV",
+      indefiniteArticle: "an",
+      suffix: "vaccine",
+    },
+    heading: "MMRV (measles, mumps, rubella and chickenpox) vaccine",
+    cardLinkTitle: "MMRV (measles, mumps, rubella and chickenpox)",
+    nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/mmrv-vaccine/"),
+    nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/mmrv-vaccine/#how-to-get-it"),
+    personalisedEligibilityStatusRequired: false,
+    contentPath: "vaccinations/mmrv-vaccine" as UrlPathFragment,
+    cacheFilename: "mmrv-vaccine.json" as Filename,
   },
   [VaccineType.PNEUMOCOCCAL]: {
     urlPath: "pneumococcal-vaccine" as UrlPathFragment,
@@ -397,6 +414,7 @@ const childVaccines: VaccineType[] = [
   VaccineType.HPV,
   VaccineType.VACCINE_4_IN_1,
   VaccineType.MMR,
+  VaccineType.MMRV,
   VaccineType.MENB_CHILDREN,
   VaccineType.PNEUMOCOCCAL,
 ];

@@ -1,0 +1,655 @@
+{
+  "@context": "http://schema.org",
+  "@type": "MedicalWebPage",
+  "name": "MMRV (measles, mumps, rubella and chickenpox) vaccine",
+  "copyrightHolder": {
+    "name": "Crown Copyright",
+    "@type": "Organization"
+  },
+  "license": "https://developer.api.nhs.uk/terms",
+  "author": {
+    "url": "https://www.nhs.uk",
+    "logo": "https://assets.nhs.uk/nhsuk-cms/images/nhs-attribution.width-510.png",
+    "email": "nhswebsite.servicedesk@nhs.net",
+    "@type": "Organization",
+    "name": "NHS website"
+  },
+  "about": {
+    "@type": "WebPage",
+    "name": "MMRV (measles, mumps, rubella and chickenpox) vaccine",
+    "alternateName": ""
+  },
+  "description": "Find out about the MMRV vaccine for measles, mumps, rubella and chickenpox, including who should have it, when it's given and possible side effects.",
+  "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmrv-vaccine/",
+  "genre": ["Vaccine"],
+  "keywords": "",
+  "dateModified": "2026-01-02T10:25:47+00:00",
+  "lastReviewed": ["2025-12-23T11:16:00+00:00", "2028-12-23T11:16:00+00:00"],
+  "breadcrumb": {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 0,
+        "item": {
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "name": "Vaccinations",
+          "genre": []
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmrv-vaccine/",
+          "name": "MMRV (measles, mumps, rubella and chickenpox) vaccine",
+          "genre": ["Vaccine"]
+        }
+      }
+    ]
+  },
+  "hasPart": [
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmrv-vaccine/#overview",
+      "description": "The MMRV vaccine helps protect against measles, mumps, rubella and chickenpox. It's given to children when they're 12 months and 18 months old.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "MMRV (measles, mumps, rubella and chickenpox) vaccine",
+          "text": "Who it's for"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "MMRV (measles, mumps, rubella and chickenpox) vaccine",
+          "text": "Contraindications"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "MMRV (measles, mumps, rubella and chickenpox) vaccine",
+          "text": "How to get it"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "MMRV (measles, mumps, rubella and chickenpox) vaccine",
+          "text": "Side effects"
+        },
+        {
+          "text": "<p>The MMRV vaccine is recommended for all children. They usually have the 1st dose at 12 months of age and the 2nd dose at 18 months.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Some children cannot have the MMRV vaccine, including if they have a weakened immune system or are allergic to the vaccine ingredients.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>Your GP surgery will usually contact you to arrange your child's MMRV vaccinations. Speak to your GP surgery if you have not been contacted.</p> ",
+          "@type": "WebPageElement"
+        },
+        {
+          "text": "<p>The main side effects of the MMRV vaccine include a rash, tiredness and high temperature. They usually appear 1 to 4 weeks after the vaccination.</p> ",
+          "@type": "WebPageElement"
+        }
+      ],
+      "headline": ""
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmrv-vaccine/#what-its-for",
+      "description": "The MMRV vaccine helps protect against measles, mumps, rubella and chickenpox. These infections can spread easily and can cause serious problems.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The MMRV vaccine helps protect against:</p><ul><li><a href=\"https://www.nhs.uk/conditions/measles/\">measles</a></li><li><a href=\"https://www.nhs.uk/conditions/mumps/\">mumps</a></li><li><a href=\"https://www.nhs.uk/conditions/rubella/\">rubella (german measles)</a></li><li><a href=\"https://www.nhs.uk/conditions/chickenpox/\">chickenpox</a></li></ul><p>These infections spread very easily between people and can lead to serious problems including meningitis, inflammation of the brain (encephalitis), pneumonia, and hearing loss.</p>"
+        }
+      ],
+      "headline": "What the MMRV vaccine is for"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmrv-vaccine/#who-its-for",
+      "description": "The MMRV vaccine is recommended for all children. They usually have the 1st dose at 12 months of age and the 2nd dose at 18 months.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The MMRV vaccine is recommended for young children as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>The number of doses children are given depends on when they were born. Some older children will have already had 1 or 2 doses of the MMR vaccine which also protects against measles, mumps and rubella, but not chickenpox.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Babies aged 11 months and under who are at risk from measles",
+          "text": "<div class=\"block-richtext\">\n<p>Babies do not usually have the MMRV vaccine until they are 12 months old. But babies aged 6 to 11 months may be able to have an early dose of the MMRV or MMR vaccine if:</p><ul><li>they're travelling abroad to an area where there's a higher risk of catching measles</li><li>they've been in close contact with someone who has measles</li><li>there's an outbreak of measles</li></ul><p>Speak to your GP if you think your baby might need an early dose of the MMRV or MMR vaccine.</p>\n</div>"
+        }
+      ],
+      "headline": "Who should have the MMRV vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmrv-vaccine/#how-to-get-it",
+      "description": "Your GP surgery will usually contact you to arrange your child's MMRV vaccinations. Speak to your GP surgery if you have not been contacted.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Your GP surgery will usually contact you about your child's MMRV vaccinations. This will usually be by letter, text message, phone call or email.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "identifier": "primary",
+          "headline": "Speak to your GP surgery if:",
+          "text": "<ul>\n<li>\n  your child is due their MMRV vaccine but you've not been contacted to get it\n </li>\n<li>\n  your child has missed their MMRV vaccine\n </li>\n<li>\n  your child has a high temperature and is due to have the vaccine – they may need to wait until they're feeling better before having the vaccine\n </li>\n<li>\n  you need to change a vaccination appointment\n </li>\n</ul>\n<p>\n Your GP surgery can book or rearrange an appointment.\n</p>\n"
+        }
+      ],
+      "headline": "How to get the MMRV vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmrv-vaccine/#contraindications",
+      "description": "Some children cannot have the MMRV vaccine, including if they have a weakened immune system or are allergic to the vaccine ingredients.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Most children can have the MMRV vaccine.</p><p>But it's not suitable for some children because it's a live vaccine, which means it contains weakened versions of the measles, mumps, rubella and chickenpox viruses.</p><p>The MMRV vaccine is not given if your child:</p><ul><li>has a severely weakened immune system, either because of a health condition or because they are taking medicines that suppress the immune system</li><li>has had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to any ingredients in the vaccine, including gelatine or neomycin</li></ul>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Information",
+          "text": "<h3>Getting vaccinated if your child is unwell</h3><p>Your child can have the MMRV vaccine if they're unwell but they do not have a high temperature.</p><p>If your child has a high temperature or feels very unwell, wait until they feel better before they have the MMRV vaccine.</p>"
+        }
+      ],
+      "headline": "Who cannot have the MMRV vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmrv-vaccine/#ingredients",
+      "description": "You can check the ingredients in the MMRV vaccine by asking to see the patient leaflet or searching for it online.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>There are 2 types of MMRV vaccine in the UK which work equally well. You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/product/101444/pil\">ProQuad MMRV vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li><a href=\"https://www.medicines.org.uk/emc/product/101321/pil\">Priorix-Tetra MMRV vaccine patient leaflet (Electronic Medicines Compendium website)</a></li></ul><p>The ProQuad MMRV vaccine contains a small amount of gelatine from pigs (porcine gelatine). Speak to the person vaccinating your child if you want your child to have the Priorix-Tetra MMRV vaccine instead.</p>"
+        }
+      ],
+      "headline": "MMRV vaccine ingredients"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/UsageOrScheduleHealthAspect",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmrv-vaccine/#how-its-used-previously-dosage-and-administration",
+      "description": "The MMRV vaccine is given as an injection into the upper arm or thigh. Your child will usually need 2 doses for full protection.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>The MMRV vaccine is given as an injection into the upper arm or thigh. It's usually given at the same time as other routine vaccinations.</p><p>Your child will usually need 2 doses for full protection.</p><p>Most children have the 1st dose when they're 12 months old and the 2nd dose when they're 18 months old.</p>"
+        }
+      ],
+      "headline": "How the MMRV vaccine is given"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmrv-vaccine/#side-effects",
+      "description": "The main side effects of the MMRV vaccine include a rash, tiredness and high temperature. They usually appear 1 to 4 weeks after the vaccination.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Like all medicines, the MMRV vaccine can cause side effects, but not everyone will get them.</p><p>Common side effects are usually mild and only last 2 to 3 days. They include:</p><ul><li>a raised, blotchy rash (similar to a measles rash), feeling unwell and a high temperature – this may happen about 6 to 10 days after the vaccination and is not infectious</li><li>swelling around the face and aching in the joints (similar to mild forms of mumps or rubella) – this may happen about 2 to 3 weeks after the vaccination and is not infectious</li><li>a spotty rash in the area where the injection was given (similar to a chickenpox rash) – this may happen about 3 to 4 weeks after the vaccination</li></ul><p>The spotty rash may contain infectious chickenpox virus and should be covered with clothes. As long as the spots are covered, children can go to nursery as normal.</p><p>More serious side effects, such as a severe allergic reaction (anaphylaxis) are rare. The person who vaccinates your child will be trained to deal with allergic reactions and treat them immediately.</p>"
+        }
+      ],
+      "headline": "Side effects of the MMRV vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/EffectivenessHealthAspect",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmrv-vaccine/#effectiveness",
+      "description": "Having 2 doses of the MMRV vaccine is very effective at protecting against measles, mumps, rubella and chickenpox.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>Protection against measles, mumps and rubella starts within 2 weeks of having the MMRV vaccine. Protection against chickenpox starts within 3 weeks of having the vaccine.</p><p>After 2 doses:</p><ul><li>around 99% of children will be protected against measles and rubella</li><li>around 97% of children will be protected against chickenpox</li><li>around 88% of children will be protected against mumps</li></ul><p>If your child gets mumps after being vaccinated, the symptoms will usually be much milder</p>"
+        }
+      ],
+      "headline": "How well the MMRV vaccine works"
+    }
+  ],
+  "relatedLink": [
+    {
+      "@type": "LinkRole",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "name": "Vaccinations",
+      "linkRelationship": "Navigation",
+      "position": 0
+    }
+  ],
+  "contentSubTypes": [],
+  "mainEntityOfPage": [
+    {
+      "position": 0,
+      "identifier": 0,
+      "text": "The MMRV vaccine helps protect children against measles, mumps, rubella and chickenpox (varicella). It's usually given to children when they are 12 months and 18 months old. Some older children are also offered it.",
+      "name": "lead paragraph",
+      "@type": "WebPageElement"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 1,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<p>This page is about the routine MMRV vaccine for young children. MMRV has replaced the <a href=\"https://www.nhs.uk/vaccinations/mmr-vaccine/\">MMR vaccine</a> in the NHS vaccination schedule.</p><p>The MMR vaccine is still available for older children and adults born on or before 31 December 2019 who were not vaccinated against measles, mumps and rubella when they were younger.</p>"
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<p>This page is about the routine MMRV vaccine for young children. MMRV has replaced the <a href=\"https://www.nhs.uk/vaccinations/mmr-vaccine/\">MMR vaccine</a> in the NHS vaccination schedule.</p><p>The MMR vaccine is still available for older children and adults born on or before 31 December 2019 who were not vaccinated against measles, mumps and rubella when they were younger.</p>"
+        }
+      ]
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 2,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The MMRV vaccine helps protect against:</p><ul><li><a href=\"https://www.nhs.uk/conditions/measles/\">measles</a></li><li><a href=\"https://www.nhs.uk/conditions/mumps/\">mumps</a></li><li><a href=\"https://www.nhs.uk/conditions/rubella/\">rubella (german measles)</a></li><li><a href=\"https://www.nhs.uk/conditions/chickenpox/\">chickenpox</a></li></ul><p>These infections spread very easily between people and can lead to serious problems including meningitis, inflammation of the brain (encephalitis), pneumonia, and hearing loss.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "The MMRV vaccine helps protect against measles, mumps, rubella and chickenpox. These infections can spread easily and can cause serious problems.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The MMRV vaccine helps protect against:</p><ul><li><a href=\"https://www.nhs.uk/conditions/measles/\">measles</a></li><li><a href=\"https://www.nhs.uk/conditions/mumps/\">mumps</a></li><li><a href=\"https://www.nhs.uk/conditions/rubella/\">rubella (german measles)</a></li><li><a href=\"https://www.nhs.uk/conditions/chickenpox/\">chickenpox</a></li></ul><p>These infections spread very easily between people and can lead to serious problems including meningitis, inflammation of the brain (encephalitis), pneumonia, and hearing loss.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
+      "headline": "What the MMRV vaccine is for"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 3,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The MMRV vaccine is recommended for young children as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>The number of doses children are given depends on when they were born. Some older children will have already had 1 or 2 doses of the MMR vaccine which also protects against measles, mumps and rubella, but not chickenpox.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "@type": "WebPageElement",
+          "name": "Table",
+          "mainEntity": "\n\n\n<div class=\"nhsuk-table-container\">\n    <table role=\"table\">\n      <caption>When the MMRV vaccine is given</caption>\n      <thead role=\"rowgroup\">\n        <tr role=\"row\">\n          \n          <th role=\"columnheader\" class=\"\" scope=\"col\">\n            Who should have it\n          </th>\n          \n          <th role=\"columnheader\" class=\"\" scope=\"col\">\n            When it&#x27;s given\n          </th>\n          \n        </tr>\n      </thead>\n      <tbody>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"pk994\">Children born on or after 1 January 2025</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      When it&#x27;s given\n                    \n                </span>\n                <p data-block-key=\"pk994\">1 dose given at 12 months and 1 dose given at 18 months</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"pk994\">Children born between 1 July 2024 and 31 December 2024</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      When it&#x27;s given\n                    \n                </span>\n                <p data-block-key=\"pk994\">1 dose given at 18 months and 1 dose given at 3 years 4 months</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"zqbwu\">Children born between 1 September 2022 and 30 June 2024</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      When it&#x27;s given\n                    \n                </span>\n                <p data-block-key=\"zqbwu\">1 dose given at 3 years 4 months</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"zqbwu\">Children born between 1 January 2020 and 31 August 2022 who have not had chickenpox or the chickenpox vaccine</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      When it&#x27;s given\n                    \n                </span>\n                <p data-block-key=\"zqbwu\">1 dose given sometime between 1 November 2026 and 31 March 2028 – your GP will contact you about this nearer the time</p>\n            </td>\n            \n        </tr>\n        \n      </tbody>\n    </table>\n  </div>",
+          "position": 1
+        },
+        {
+          "position": 2,
+          "@type": "WebPageElement",
+          "name": "Reveal",
+          "subjectOf": "Babies aged 11 months and under who are at risk from measles",
+          "identifier": "11",
+          "mainEntity": [
+            {
+              "position": 0,
+              "identifier": "1",
+              "text": "<p>Babies do not usually have the MMRV vaccine until they are 12 months old. But babies aged 6 to 11 months may be able to have an early dose of the MMRV or MMR vaccine if:</p><ul><li>they're travelling abroad to an area where there's a higher risk of catching measles</li><li>they've been in close contact with someone who has measles</li><li>there's an outbreak of measles</li></ul><p>Speak to your GP if you think your baby might need an early dose of the MMRV or MMR vaccine.</p>",
+              "@type": "WebPageElement",
+              "name": "markdown",
+              "headline": ""
+            }
+          ]
+        }
+      ],
+      "description": "The MMRV vaccine is recommended for all children. They usually have the 1st dose at 12 months of age and the 2nd dose at 18 months.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The MMRV vaccine is recommended for young children as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>The number of doses children are given depends on when they were born. Some older children will have already had 1 or 2 doses of the MMR vaccine which also protects against measles, mumps and rubella, but not chickenpox.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "@type": "WebPageElement",
+          "name": "Table",
+          "mainEntity": "\n\n\n<div class=\"nhsuk-table-container\">\n    <table role=\"table\">\n      <caption>When the MMRV vaccine is given</caption>\n      <thead role=\"rowgroup\">\n        <tr role=\"row\">\n          \n          <th role=\"columnheader\" class=\"\" scope=\"col\">\n            Who should have it\n          </th>\n          \n          <th role=\"columnheader\" class=\"\" scope=\"col\">\n            When it&#x27;s given\n          </th>\n          \n        </tr>\n      </thead>\n      <tbody>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"pk994\">Children born on or after 1 January 2025</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      When it&#x27;s given\n                    \n                </span>\n                <p data-block-key=\"pk994\">1 dose given at 12 months and 1 dose given at 18 months</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"pk994\">Children born between 1 July 2024 and 31 December 2024</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      When it&#x27;s given\n                    \n                </span>\n                <p data-block-key=\"pk994\">1 dose given at 18 months and 1 dose given at 3 years 4 months</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"zqbwu\">Children born between 1 September 2022 and 30 June 2024</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      When it&#x27;s given\n                    \n                </span>\n                <p data-block-key=\"zqbwu\">1 dose given at 3 years 4 months</p>\n            </td>\n            \n        </tr>\n        \n        <tr role=\"row\">\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      Who should have it\n                    \n                </span>\n                <p data-block-key=\"zqbwu\">Children born between 1 January 2020 and 31 August 2022 who have not had chickenpox or the chickenpox vaccine</p>\n            </td>\n            \n            <td role=\"cell\">\n                <span>\n                    \n                      When it&#x27;s given\n                    \n                </span>\n                <p data-block-key=\"zqbwu\">1 dose given sometime between 1 November 2026 and 31 March 2028 – your GP will contact you about this nearer the time</p>\n            </td>\n            \n        </tr>\n        \n      </tbody>\n    </table>\n  </div>",
+          "position": 1
+        },
+        {
+          "position": 2,
+          "@type": "WebPageElement",
+          "name": "Reveal",
+          "subjectOf": "Babies aged 11 months and under who are at risk from measles",
+          "identifier": "11",
+          "mainEntity": [
+            {
+              "position": 0,
+              "identifier": "1",
+              "text": "<p>Babies do not usually have the MMRV vaccine until they are 12 months old. But babies aged 6 to 11 months may be able to have an early dose of the MMRV or MMR vaccine if:</p><ul><li>they're travelling abroad to an area where there's a higher risk of catching measles</li><li>they've been in close contact with someone who has measles</li><li>there's an outbreak of measles</li></ul><p>Speak to your GP if you think your baby might need an early dose of the MMRV or MMR vaccine.</p>",
+              "@type": "WebPageElement",
+              "name": "markdown",
+              "headline": ""
+            }
+          ]
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
+      "headline": "Who should have the MMRV vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 4,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Your GP surgery will usually contact you about your child's MMRV vaccinations. This will usually be by letter, text message, phone call or email.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "non-urgent",
+          "identifier": "5",
+          "text": "<h3>Speak to your GP surgery if:</h3><div class=\"block-richtext\">\n<ul><li>your child is due their MMRV vaccine but you've not been contacted to get it</li><li>your child has missed their MMRV vaccine</li><li>your child has a high temperature and is due to have the vaccine – they may need to wait until they're feeling better before having the vaccine</li><li>you need to change a vaccination appointment</li></ul><p>Your GP surgery can book or rearrange an appointment.</p>\n</div>"
+        }
+      ],
+      "description": "Your GP surgery will usually contact you to arrange your child's MMRV vaccinations. Speak to your GP surgery if you have not been contacted.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Your GP surgery will usually contact you about your child's MMRV vaccinations. This will usually be by letter, text message, phone call or email.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "non-urgent",
+          "identifier": "5",
+          "text": "<h3>Speak to your GP surgery if:</h3><div class=\"block-richtext\">\n<ul><li>your child is due their MMRV vaccine but you've not been contacted to get it</li><li>your child has missed their MMRV vaccine</li><li>your child has a high temperature and is due to have the vaccine – they may need to wait until they're feeling better before having the vaccine</li><li>you need to change a vaccination appointment</li></ul><p>Your GP surgery can book or rearrange an appointment.</p>\n</div>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "headline": "How to get the MMRV vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 5,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Advice for parents</h3><ul><li><a href=\"https://www.nhs.uk/vaccinations/booking-your-childs-vaccination-appointment/\">Booking your child's vaccination appointment</a></li><li><a href=\"https://www.nhs.uk/vaccinations/vaccination-tips-for-parents/\">Vaccination tips for parents</a></li></ul>"
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Advice for parents</h3><ul><li><a href=\"https://www.nhs.uk/vaccinations/booking-your-childs-vaccination-appointment/\">Booking your child's vaccination appointment</a></li><li><a href=\"https://www.nhs.uk/vaccinations/vaccination-tips-for-parents/\">Vaccination tips for parents</a></li></ul>"
+        }
+      ]
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 6,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most children can have the MMRV vaccine.</p><p>But it's not suitable for some children because it's a live vaccine, which means it contains weakened versions of the measles, mumps, rubella and chickenpox viruses.</p><p>The MMRV vaccine is not given if your child:</p><ul><li>has a severely weakened immune system, either because of a health condition or because they are taking medicines that suppress the immune system</li><li>has had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to any ingredients in the vaccine, including gelatine or neomycin</li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Getting vaccinated if your child is unwell</h3><p>Your child can have the MMRV vaccine if they're unwell but they do not have a high temperature.</p><p>If your child has a high temperature or feels very unwell, wait until they feel better before they have the MMRV vaccine.</p>"
+        }
+      ],
+      "description": "Some children cannot have the MMRV vaccine, including if they have a weakened immune system or are allergic to the vaccine ingredients.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most children can have the MMRV vaccine.</p><p>But it's not suitable for some children because it's a live vaccine, which means it contains weakened versions of the measles, mumps, rubella and chickenpox viruses.</p><p>The MMRV vaccine is not given if your child:</p><ul><li>has a severely weakened immune system, either because of a health condition or because they are taking medicines that suppress the immune system</li><li>has had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to any ingredients in the vaccine, including gelatine or neomycin</li></ul>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>Getting vaccinated if your child is unwell</h3><p>Your child can have the MMRV vaccine if they're unwell but they do not have a high temperature.</p><p>If your child has a high temperature or feels very unwell, wait until they feel better before they have the MMRV vaccine.</p>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
+      "headline": "Who cannot have the MMRV vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 7,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There are 2 types of MMRV vaccine in the UK which work equally well. You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/product/101444/pil\">ProQuad MMRV vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li><a href=\"https://www.medicines.org.uk/emc/product/101321/pil\">Priorix-Tetra MMRV vaccine patient leaflet (Electronic Medicines Compendium website)</a></li></ul><p>The ProQuad MMRV vaccine contains a small amount of gelatine from pigs (porcine gelatine). Speak to the person vaccinating your child if you want your child to have the Priorix-Tetra MMRV vaccine instead.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "You can check the ingredients in the MMRV vaccine by asking to see the patient leaflet or searching for it online.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>There are 2 types of MMRV vaccine in the UK which work equally well. You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/product/101444/pil\">ProQuad MMRV vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li><a href=\"https://www.medicines.org.uk/emc/product/101321/pil\">Priorix-Tetra MMRV vaccine patient leaflet (Electronic Medicines Compendium website)</a></li></ul><p>The ProQuad MMRV vaccine contains a small amount of gelatine from pigs (porcine gelatine). Speak to the person vaccinating your child if you want your child to have the Priorix-Tetra MMRV vaccine instead.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
+      "headline": "MMRV vaccine ingredients"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 8,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p><a href=\"https://www.gov.uk/government/publications/vaccines-and-porcine-gelatine\">Find out more about vaccines and porcine gelatine, including leaflets translated into Arabic, Bengali and Urdu (GOV.UK)</a></p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p><a href=\"https://www.gov.uk/government/publications/vaccines-and-porcine-gelatine\">Find out more about vaccines and porcine gelatine, including leaflets translated into Arabic, Bengali and Urdu (GOV.UK)</a></p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ]
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 9,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The MMRV vaccine is given as an injection into the upper arm or thigh. It's usually given at the same time as other routine vaccinations.</p><p>Your child will usually need 2 doses for full protection.</p><p>Most children have the 1st dose when they're 12 months old and the 2nd dose when they're 18 months old.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "The MMRV vaccine is given as an injection into the upper arm or thigh. Your child will usually need 2 doses for full protection.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>The MMRV vaccine is given as an injection into the upper arm or thigh. It's usually given at the same time as other routine vaccinations.</p><p>Your child will usually need 2 doses for full protection.</p><p>Most children have the 1st dose when they're 12 months old and the 2nd dose when they're 18 months old.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/UsageOrScheduleHealthAspect",
+      "headline": "How the MMRV vaccine is given"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 10,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Like all medicines, the MMRV vaccine can cause side effects, but not everyone will get them.</p><p>Common side effects are usually mild and only last 2 to 3 days. They include:</p><ul><li>a raised, blotchy rash (similar to a measles rash), feeling unwell and a high temperature – this may happen about 6 to 10 days after the vaccination and is not infectious</li><li>swelling around the face and aching in the joints (similar to mild forms of mumps or rubella) – this may happen about 2 to 3 weeks after the vaccination and is not infectious</li><li>a spotty rash in the area where the injection was given (similar to a chickenpox rash) – this may happen about 3 to 4 weeks after the vaccination</li></ul><p>The spotty rash may contain infectious chickenpox virus and should be covered with clothes. As long as the spots are covered, children can go to nursery as normal.</p><p>More serious side effects, such as a severe allergic reaction (anaphylaxis) are rare. The person who vaccinates your child will be trained to deal with allergic reactions and treat them immediately.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "The main side effects of the MMRV vaccine include a rash, tiredness and high temperature. They usually appear 1 to 4 weeks after the vaccination.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Like all medicines, the MMRV vaccine can cause side effects, but not everyone will get them.</p><p>Common side effects are usually mild and only last 2 to 3 days. They include:</p><ul><li>a raised, blotchy rash (similar to a measles rash), feeling unwell and a high temperature – this may happen about 6 to 10 days after the vaccination and is not infectious</li><li>swelling around the face and aching in the joints (similar to mild forms of mumps or rubella) – this may happen about 2 to 3 weeks after the vaccination and is not infectious</li><li>a spotty rash in the area where the injection was given (similar to a chickenpox rash) – this may happen about 3 to 4 weeks after the vaccination</li></ul><p>The spotty rash may contain infectious chickenpox virus and should be covered with clothes. As long as the spots are covered, children can go to nursery as normal.</p><p>More serious side effects, such as a severe allergic reaction (anaphylaxis) are rare. The person who vaccinates your child will be trained to deal with allergic reactions and treat them immediately.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
+      "headline": "Side effects of the MMRV vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 11,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Protection against measles, mumps and rubella starts within 2 weeks of having the MMRV vaccine. Protection against chickenpox starts within 3 weeks of having the vaccine.</p><p>After 2 doses:</p><ul><li>around 99% of children will be protected against measles and rubella</li><li>around 97% of children will be protected against chickenpox</li><li>around 88% of children will be protected against mumps</li></ul><p>If your child gets mumps after being vaccinated, the symptoms will usually be much milder</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "description": "Having 2 doses of the MMRV vaccine is very effective at protecting against measles, mumps, rubella and chickenpox.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Protection against measles, mumps and rubella starts within 2 weeks of having the MMRV vaccine. Protection against chickenpox starts within 3 weeks of having the vaccine.</p><p>After 2 doses:</p><ul><li>around 99% of children will be protected against measles and rubella</li><li>around 97% of children will be protected against chickenpox</li><li>around 88% of children will be protected against mumps</li></ul><p>If your child gets mumps after being vaccinated, the symptoms will usually be much milder</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/EffectivenessHealthAspect",
+      "headline": "How well the MMRV vaccine works"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 12,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h2>More information</h2><ul><li><a href=\"https://www.gov.uk/government/publications/mmrv-vaccination/mmrv-vaccination-a-guide-for-parents-and-carers\">MMRV vaccination: a guide for parents and carers (GOV.UK)</a></li><li><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Why vaccinations are important and the safest way to protect yourself</a></li></ul>"
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h2>More information</h2><ul><li><a href=\"https://www.gov.uk/government/publications/mmrv-vaccination/mmrv-vaccination-a-guide-for-parents-and-carers\">MMRV vaccination: a guide for parents and carers (GOV.UK)</a></li><li><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Why vaccinations are important and the safest way to protect yourself</a></li></ul>"
+        }
+      ]
+    }
+  ],
+  "webpage": "https://www.nhs.uk/vaccinations/mmrv-vaccine/"
+}

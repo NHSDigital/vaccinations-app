@@ -65,6 +65,11 @@ describe("VaccinesForAllAges", () => {
       "/vaccines/mmr-vaccine",
       AgeSectionTestId.CHILDREN,
     );
+    assertCardLinkIsPresentInSection(
+      "MMRV (measles, mumps, rubella and chickenpox)",
+      "/vaccines/mmrv-vaccine",
+      AgeSectionTestId.CHILDREN,
+    );
     assertCardLinkIsPresentInSection("MenB", "/vaccines/menb-vaccine-for-children", AgeSectionTestId.CHILDREN);
     assertCardLinkIsPresentInSection("Pneumococcal", "/vaccines/pneumococcal-vaccine", AgeSectionTestId.CHILDREN);
     assertCardLinkIsPresentInSection(

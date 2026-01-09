@@ -282,6 +282,7 @@ export {
   getFilteredContentForVaccine,
   buildFilteredContentForStandardVaccine,
   _findAspect,
+  _getSubsection,
   _hasHealthAspect,
   _extractPartsForAspect,
   _extractHeadlineForAspect,

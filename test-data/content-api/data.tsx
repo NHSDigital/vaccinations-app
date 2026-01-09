@@ -226,7 +226,7 @@ export const genericVaccineContentAPIResponse: ContentApiVaccineResponse = {
     {
       identifier: "0",
       name: "section heading",
-      position: 1,
+      position: 100,
       "@type": "WebPageElement",
       mainEntityOfPage: [
         {
@@ -557,7 +557,7 @@ export const genericVaccineContentAPIResponse: ContentApiVaccineResponse = {
     {
       identifier: "0",
       name: "section heading",
-      position: 1,
+      position: 99,
       "@type": "WebPageElement",
       hasPart: [
         {
@@ -565,6 +565,45 @@ export const genericVaccineContentAPIResponse: ContentApiVaccineResponse = {
           "@type": "WebPageElement",
           name: "Callout",
           text: "<h2>Callout heading</h2><p>Callout content</p>",
+        },
+      ],
+    },
+    {
+      identifier: "0",
+      name: "section heading",
+      position: 1,
+      "@type": "WebPageElement",
+      mainEntityOfPage: [
+        {
+          position: 0,
+          "@type": "WebPageElement",
+          name: "markdown",
+          identifier: "3",
+          text: "<p>This is additional information paragraph 1</p>",
+        },
+        {
+          position: 0,
+          "@type": "WebPageElement",
+          name: "Information",
+          identifier: "3",
+          text: "<p>This is additional information paragraph 2</p>",
+        },
+      ],
+      description: "",
+      hasPart: [
+        {
+          position: 0,
+          "@type": "WebPageElement",
+          name: "markdown",
+          identifier: "3",
+          text: "<p>This is additional information paragraph 1</p>",
+        },
+        {
+          position: 0,
+          "@type": "WebPageElement",
+          name: "Information",
+          identifier: "3",
+          text: "<p>This is additional information paragraph 2</p>",
         },
       ],
     },
