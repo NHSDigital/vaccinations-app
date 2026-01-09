@@ -46,7 +46,7 @@ test.describe(`Snapshot Testing - Age-Based Hub - ${currentDatetime}-${checkoutR
       test.use({ storageState: `./e2e/.auth/${userSession}.json` });
 
       test(`Testing snapshot for ${ageGroup} hub page`, async ({ page }, testInfo: TestInfo) => {
-        const hubPageDetails = AppPageDetails["vaccine-hub"];
+        const hubPageDetails = { ...AppPageDetails["vaccine-hub"] };
         hubPageDetails.snapshotFilename = hubPageDetails.snapshotFilename.replace("default", ageGroup);
 
         const projectName = testInfo.project.name;

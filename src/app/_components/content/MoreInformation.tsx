@@ -1,6 +1,7 @@
 import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
 import { HEADINGS } from "@src/app/constants";
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
+import styles from "@src/services/content-api/parsers/styles.module.css";
 import { StyledVaccineContent } from "@src/services/content-api/types";
 import { Details } from "nhsuk-react-components";
 import React, { JSX } from "react";
@@ -27,7 +28,9 @@ const MoreInformation = (props: {
                 ? props.styledVaccineContent.whatVaccineIsFor.heading
                 : HEADINGS.WHAT_VACCINE_IS_FOR}
             </Details.Summary>
-            <Details.Text>{props.styledVaccineContent.whatVaccineIsFor.component}</Details.Text>
+            <Details.Text className={styles.zeroMarginBottom}>
+              {props.styledVaccineContent.whatVaccineIsFor.component}
+            </Details.Text>
           </Details>
         )}
 
@@ -49,7 +52,9 @@ const MoreInformation = (props: {
                 ? props.styledVaccineContent.howToGetVaccine.heading
                 : HEADINGS.HOW_TO_GET_VACCINE}
             </Details.Summary>
-            <Details.Text>{props.styledVaccineContent.howToGetVaccine.component}</Details.Text>
+            <Details.Text className={styles.zeroMarginBottom}>
+              {props.styledVaccineContent.howToGetVaccine.component}
+            </Details.Text>
           </Details>
         )}
 
@@ -60,7 +65,9 @@ const MoreInformation = (props: {
               ? props.styledVaccineContent.vaccineSideEffects.heading
               : HEADINGS.VACCINE_SIDE_EFFECTS}
           </Details.Summary>
-          <Details.Text>{props.styledVaccineContent.vaccineSideEffects.component}</Details.Text>
+          <Details.Text className={styles.zeroMarginBottom}>
+            {props.styledVaccineContent.vaccineSideEffects.component}
+          </Details.Text>
         </Details>
       </Details.ExpanderGroup>
 
