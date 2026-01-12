@@ -55,6 +55,8 @@ const _extractPartsForAspect = (response: ContentApiVaccineResponse, aspectName:
   const subsections: VaccinePageSubsection[] | undefined = aspect.hasPart?.flatMap((part: HasPartSubsection) => {
     if (part.name === "Expander Group") {
       return _extractAllElementsFromExpanderGroup(part, aspectName);
+    } else if (part.name === "Reveal") {
+      return _extractAllElementsFromReveal(part, aspectName);
     } else {
       return _getSubsection(part);
     }
@@ -76,6 +78,23 @@ const _extractAllElementsFromExpanderGroup = (part: HasPartSubsection, aspectNam
     return mainEntitySubsections;
   } else {
     throw new Error(`Expander Group mainEntity does not contain list of expanders for Aspect: ${aspectName}`);
+  }
+};
+
+const _extractAllElementsFromReveal = (part: HasPartSubsection, aspectName: Aspect): VaccinePageSubsection[] => {
+  const revealSubParts = _extractAllElementsFromExpanderGroup(part, aspectName);
+
+  if (part.subjectOf) {
+    const revealHeading: VaccinePageSubsection = {
+      type: "simpleElement",
+      headline: part.subjectOf ?? "",
+      text: "",
+      name: "",
+    };
+
+    return [revealHeading, ...revealSubParts];
+  } else {
+    throw new Error("Reveal property subjectOf not found");
   }
 };
 
@@ -182,6 +201,9 @@ const _getSubsection = (part: HasPartSubsection): VaccinePageSubsection => {
   if (part.name === "Expander") {
     return _extractExpander(part);
   }
+  if (part.name === "Reveal") {
+    console.log("-------------- Reveal not yet supported ------------");
+  }
   return _extractAnyOtherSubsection(part);
 };
 
@@ -287,6 +309,7 @@ export {
   _getSubsection,
   _hasHealthAspect,
   _extractPartsForAspect,
+  _extractAllElementsFromReveal,
   _extractHeadlineForAspect,
   _extractDescriptionForVaccine,
   _extractHeadlineForContraindicationsAspect,

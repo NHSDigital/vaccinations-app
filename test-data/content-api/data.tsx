@@ -293,6 +293,22 @@ export const genericVaccineContentAPIResponse: ContentApiVaccineResponse = {
           name: "markdown",
           headline: "",
         },
+        {
+          position: 2,
+          "@type": "WebPageElement",
+          name: "Reveal",
+          subjectOf: "Suitability Health Aspect reveal headline",
+          identifier: "11",
+          mainEntity: [
+            {
+              position: 0,
+              identifier: "1",
+              text: "<p>Suitability Health Aspect reveal text</p>",
+              "@type": "WebPageElement",
+              name: "markdown",
+            },
+          ],
+        },
       ],
       hasHealthAspect: "http://schema.org/SuitabilityHealthAspect",
       headline: "Suitability Health Aspect headline",

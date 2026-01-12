@@ -10,6 +10,7 @@ type VaccinePageName =
   | "hpv"
   | "menb-children"
   | "mmr"
+  | "mmrv"
   | "pneumococcal"
   | "shingles"
   | "menacwy"
@@ -109,6 +110,12 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     heading: "MMR vaccine",
     title: `MMR vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-mmr.png",
+  },
+  mmrv: {
+    url: "/vaccines/mmrv-vaccine",
+    heading: "MMRV vaccine",
+    title: `MMRV (measles, mumps, rubella and chickenpox) vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-mmrv.png",
   },
   pneumococcal: {
     url: "/vaccines/pneumococcal-vaccine",

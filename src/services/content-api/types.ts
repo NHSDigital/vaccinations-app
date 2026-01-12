@@ -22,9 +22,9 @@ export type MainEntity = {
   text?: string;
   position: number;
   name: string;
-  subjectOf: string;
+  subjectOf?: string;
   identifier: string;
-  mainEntity: string;
+  mainEntity?: string;
 };
 
 export type HasPartSubsection = {

@@ -600,6 +600,18 @@ describe("Content Filter", () => {
               },
               {
                 type: "simpleElement",
+                headline: "Suitability Health Aspect reveal headline",
+                name: "",
+                text: "",
+              },
+              {
+                type: "simpleElement",
+                headline: "",
+                name: "markdown",
+                text: "<p>Suitability Health Aspect reveal text</p>",
+              },
+              {
+                type: "simpleElement",
                 headline: "Contraindications Health Aspect headline",
                 name: "",
                 text: "",
