@@ -151,6 +151,7 @@ export type HeadingWithTypedContent = {
 export type StyledVaccineContent = {
   overview?: Overview;
   callout?: StyledPageSection;
+  additionalInformation?: StyledPageSection;
   recommendation?: StyledPageSection;
   overviewConclusion?: Overview;
   actions: Action[];

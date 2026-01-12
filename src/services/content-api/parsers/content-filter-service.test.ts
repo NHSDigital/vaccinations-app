@@ -14,6 +14,7 @@ import { buildFilteredContentForFluForChildrenVaccine } from "@src/services/cont
 import { buildFilteredContentForFluForSchoolAgedChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-school-aged-children";
 import { buildFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
 import { buildFilteredContentForFluVaccine } from "@src/services/content-api/parsers/custom/flu-vaccine";
+import { buildFilteredContentForMMRVVaccine } from "@src/services/content-api/parsers/custom/mmrv";
 import { buildFilteredContentForWhoopingCoughVaccine } from "@src/services/content-api/parsers/custom/whooping-cough";
 import {
   ContentApiVaccineResponse,
@@ -32,6 +33,7 @@ jest.mock("@src/services/content-api/parsers/custom/flu-vaccine");
 jest.mock("@src/services/content-api/parsers/custom/flu-for-children");
 jest.mock("@src/services/content-api/parsers/custom/flu-for-school-aged-children");
 jest.mock("@src/services/content-api/parsers/custom/covid-19");
+jest.mock("@src/services/content-api/parsers/custom/mmrv");
 
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 jest.mock("@src/services/nbs/nbs-service", () => ({}));
@@ -785,6 +787,14 @@ describe("Content Filter", () => {
         await getFilteredContentForVaccine(VaccineType.COVID_19, mockApiContent);
 
         expect(buildFilteredContentForCovid19Vaccine).toHaveBeenCalledWith(mockApiContent);
+      });
+
+      it("should call buildFilteredContentForMMRVVaccine for MMRV vaccine", async () => {
+        const mockApiContent = "testContent";
+
+        await getFilteredContentForVaccine(VaccineType.MMRV, mockApiContent);
+
+        expect(buildFilteredContentForMMRVVaccine).toHaveBeenCalledWith(mockApiContent);
       });
     });
   });

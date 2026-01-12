@@ -101,6 +101,13 @@ describe("ContentStylingService", () => {
     headline: "",
   };
 
+  const mockInformationSubsection: VaccinePageSubsection = {
+    type: "simpleElement",
+    text: "<p>This is a styled paragraph information subsection.</p>",
+    name: "Information",
+    headline: "",
+  };
+
   describe("styleSubsection", () => {
     it("should return styled markdown component for subsection beginning with headline", async () => {
       const styledSubsection: JSX.Element | undefined = styleSubsection(mockMarkdownSubsection, 1, false);
@@ -279,44 +286,49 @@ describe("ContentStylingService", () => {
   });
 
   describe("getStyledContentForVaccine", () => {
-    it.each(Object.values(VaccineType))("should return styled content for %s", async (vaccine: VaccineType) => {
-      const mockWhatSection: VaccinePageSection = {
-        headline: "What Vaccine Is For",
-        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
-      };
-      const mockWhoSection: VaccinePageSection = {
-        headline: "Who is this Vaccine For",
-        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
-      };
-      const mockHowSection: VaccinePageSection = {
-        headline: "How to get this Vaccine",
-        subsections: [mockHowToGetMarkdownSubsection],
-      };
-      const mockSideEffectsSection: VaccinePageSection = {
-        headline: "Side effects of the generic vaccine",
-        subsections: [mockMarkdownSubsection, mockUrgentSubsection],
-      };
-      const mockCallout: HeadingWithTypedContent = {
-        heading: "Callout Heading",
-        content: "Callout content",
-        contentType: "string",
-      };
-      const mockRecommendation: HeadingWithContent = {
-        heading: "Recommendation Heading",
-        content: "Recommendation content",
-      };
-      const mockContent: VaccinePageContent = {
-        overview: { content: "This is an overview", containsHtml: false },
-        actions: [],
-        whatVaccineIsFor: mockWhatSection,
-        whoVaccineIsFor: mockWhoSection,
-        howToGetVaccine: mockHowSection,
-        vaccineSideEffects: mockSideEffectsSection,
-        webpageLink: new URL("https://test.example.com/"),
-        callout: mockCallout,
-        recommendation: mockRecommendation,
-      };
+    const mockWhatSection: VaccinePageSection = {
+      headline: "What Vaccine Is For",
+      subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
+    };
+    const mockWhoSection: VaccinePageSection = {
+      headline: "Who is this Vaccine For",
+      subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
+    };
+    const mockHowSection: VaccinePageSection = {
+      headline: "How to get this Vaccine",
+      subsections: [mockHowToGetMarkdownSubsection],
+    };
+    const mockSideEffectsSection: VaccinePageSection = {
+      headline: "Side effects of the generic vaccine",
+      subsections: [mockMarkdownSubsection, mockUrgentSubsection],
+    };
+    const mockAdditionalInformationSection: VaccinePageSection = {
+      headline: "",
+      subsections: [mockInformationSubsection],
+    };
+    const mockCallout: HeadingWithTypedContent = {
+      heading: "Callout Heading",
+      content: "Callout content",
+      contentType: "string",
+    };
+    const mockRecommendation: HeadingWithContent = {
+      heading: "Recommendation Heading",
+      content: "Recommendation content",
+    };
+    const mockContent: VaccinePageContent = {
+      overview: { content: "This is an overview", containsHtml: false },
+      actions: [],
+      whatVaccineIsFor: mockWhatSection,
+      whoVaccineIsFor: mockWhoSection,
+      howToGetVaccine: mockHowSection,
+      vaccineSideEffects: mockSideEffectsSection,
+      webpageLink: new URL("https://test.example.com/"),
+      callout: mockCallout,
+      recommendation: mockRecommendation,
+      additionalInformation: mockAdditionalInformationSection,
+    };
 
+    it.each(Object.values(VaccineType))("should return styled content for %s", async (vaccine: VaccineType) => {
       const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(vaccine, mockContent, false);
 
       expect(styledVaccineContent).not.toBeNull();
@@ -327,6 +339,7 @@ describe("ContentStylingService", () => {
       expect(styledVaccineContent.vaccineSideEffects.heading).toEqual(mockSideEffectsSection.headline);
       expect(styledVaccineContent.callout?.heading).toEqual(mockCallout.heading);
       expect(styledVaccineContent.recommendation?.heading).toEqual(mockRecommendation.heading);
+      expect(styledVaccineContent.additionalInformation?.heading).toEqual(mockAdditionalInformationSection.headline);
 
       const expectedRsvHowToGetSection = "<div><p>para1</p><p>para2</p></div>";
       const expectedRsvPregnancyHowToGetSection = `<div><div><p>para3</p><p>para4</p></div></div>`;
@@ -345,34 +358,17 @@ describe("ContentStylingService", () => {
       expect(isValidElement(styledVaccineContent.whoVaccineIsFor.component)).toBe(true);
       expect(isValidElement(styledVaccineContent.howToGetVaccine.component)).toBe(true);
       expect(isValidElement(styledVaccineContent.vaccineSideEffects.component)).toBe(true);
+      expect(isValidElement(styledVaccineContent.additionalInformation?.component)).toBe(true);
       expect(styledVaccineContent.webpageLink).toEqual(new URL("https://test.example.com/"));
     });
 
     it("should return styled content without what-section when what-section is missing", async () => {
-      const mockWhoSection: VaccinePageSection = {
-        headline: "Who is this Vaccine For",
-        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
-      };
-      const mockHowSection: VaccinePageSection = {
-        headline: "How to get this Vaccine",
-        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
-      };
-      const mockSideEffectsSection: VaccinePageSection = {
-        headline: "Side effects of the generic vaccine",
-        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
-      };
-      const mockContent: VaccinePageContent = {
-        overview: { content: "This is an overview", containsHtml: false },
-        actions: [],
-        whoVaccineIsFor: mockWhoSection,
-        howToGetVaccine: mockHowSection,
-        vaccineSideEffects: mockSideEffectsSection,
-        webpageLink: new URL("https://test.example.com/"),
-      };
+      const mockContentWithoutWhatSection = { ...mockContent };
+      delete mockContentWithoutWhatSection.whatVaccineIsFor;
 
       const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
         VaccineType.RSV,
-        mockContent,
+        mockContentWithoutWhatSection,
         false,
       );
 
@@ -386,35 +382,29 @@ describe("ContentStylingService", () => {
     });
 
     it("should return styled content without recommendation when recommendation is missing", async () => {
-      const mockWhoSection: VaccinePageSection = {
-        headline: "Who is this Vaccine For",
-        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
-      };
-      const mockHowSection: VaccinePageSection = {
-        headline: "How to get this Vaccine",
-        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
-      };
-      const mockSideEffectsSection: VaccinePageSection = {
-        headline: "Side effects of the generic vaccine",
-        subsections: [mockMarkdownSubsection, mockNonUrgentSubsection],
-      };
-      const mockContent: VaccinePageContent = {
-        overview: { content: "This is an overview", containsHtml: false },
-        actions: [],
-        whoVaccineIsFor: mockWhoSection,
-        howToGetVaccine: mockHowSection,
-        vaccineSideEffects: mockSideEffectsSection,
-        webpageLink: new URL("https://test.example.com/"),
-        recommendation: undefined,
-      };
+      const mockContentWithoutRecommendation = { ...mockContent };
+      delete mockContentWithoutRecommendation.recommendation;
 
       const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
         VaccineType.RSV,
-        mockContent,
+        mockContentWithoutRecommendation,
         false,
       );
 
       expect(styledVaccineContent.recommendation).toBeUndefined();
+    });
+
+    it("should return styled content without additionalInformation when additionalInformation is missing", async () => {
+      const mockContentWithoutAdditionalInformation = { ...mockContent };
+      delete mockContentWithoutAdditionalInformation.additionalInformation;
+
+      const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
+        VaccineType.RSV,
+        mockContentWithoutAdditionalInformation,
+        false,
+      );
+
+      expect(styledVaccineContent.additionalInformation).toBeUndefined();
     });
   });
 

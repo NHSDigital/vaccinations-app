@@ -219,6 +219,10 @@ const getStyledContentForVaccine = async (
 ): Promise<StyledVaccineContent> => {
   const overview: Overview | undefined = filteredContent.overview;
   const callout: StyledPageSection | undefined = styleCallout(filteredContent.callout);
+  let additionalInformation: StyledPageSection | undefined;
+  if (filteredContent.additionalInformation) {
+    additionalInformation = styleSection(filteredContent.additionalInformation);
+  }
   const recommendation: StyledPageSection | undefined = styleRecommendation(filteredContent.recommendation);
   const overviewConclusion: Overview | undefined = filteredContent.overviewConclusion;
   const actions = filteredContent.actions;
@@ -234,6 +238,7 @@ const getStyledContentForVaccine = async (
   return {
     overview,
     callout,
+    additionalInformation,
     recommendation,
     actions,
     overviewConclusion,

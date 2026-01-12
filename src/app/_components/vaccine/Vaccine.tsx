@@ -79,6 +79,9 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
           {!isCampaignActive && (
             <WarningCallout styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
           )}
+          {styledVaccineContent.additionalInformation?.component && (
+            <div data-testid="additional-information">{styledVaccineContent.additionalInformation.component}</div>
+          )}
           {isCampaignActive && <EligibilityActions actions={styledVaccineContent.actions} vaccineType={vaccineType} />}
           <Overview overview={styledVaccineContent.overviewConclusion} vaccineType={vaccineType} />
         </>

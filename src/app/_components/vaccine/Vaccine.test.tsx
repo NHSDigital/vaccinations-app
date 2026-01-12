@@ -157,6 +157,14 @@ describe("Any vaccine page", () => {
       expect(overviewText).toBeInTheDocument();
     });
 
+    it("should include additionalInformation text", async () => {
+      await renderNamedVaccinePage(VaccineType.MMRV);
+
+      const additionalInformation: HTMLElement = screen.getByTestId("additional-information");
+
+      expect(additionalInformation).toBeInTheDocument();
+    });
+
     it("should include callout text", async () => {
       await renderNamedVaccinePage(VaccineType.MMR);
 
@@ -296,6 +304,14 @@ describe("Any vaccine page", () => {
       await renderNamedVaccinePage(VaccineType.HPV);
 
       const overviewText: HTMLElement | null = screen.queryByTestId("callout");
+
+      expect(overviewText).not.toBeInTheDocument();
+    });
+
+    it("should not display additionalInformation", async () => {
+      await renderNamedVaccinePage(VaccineType.MMRV);
+
+      const overviewText: HTMLElement | null = screen.queryByTestId("additional-information");
 
       expect(overviewText).not.toBeInTheDocument();
     });
