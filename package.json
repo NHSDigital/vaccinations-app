@@ -33,6 +33,7 @@
     "test:watch": "jest --watch",
     "e2e": "SUITE=e2e npx playwright test e2e/general/",
     "e2e:ui": "SUITE=e2e npx playwright test e2e/general/ --ui",
+    "e2e:nbs": "SUITE=nbs RUN_NBS_TESTS=true npx playwright test e2e/general/nbs.spec.ts --ui",
     "e2e:snapshot": "SUITE=snapshot CURRENT_DATETIME=${CURRENT_DATETIME:-$(date -u +'%Y-%m-%dT%H%M%SZ')} CHECKOUT_REF=${CHECKOUT_REF:-'local'} npx playwright test e2e/snapshot/",
     "e2e:snapshot-update": "SUITE=snapshot CURRENT_DATETIME=${CURRENT_DATETIME:-$(date -u +'%Y-%m-%dT%H%M%SZ')} CHECKOUT_REF=${CHECKOUT_REF:-'local'} npx playwright test e2e/snapshot/ --update-snapshots",
     "contract": "jest --config=contract/contract.jest.config.ts",

@@ -3,6 +3,7 @@ import { AppPageDetails, BOOKING_PAGE_TITLE_REGEX, BOOKING_PAGE_URL_REGEX } from
 import { getEnv } from "@project/e2e/helpers";
 
 const environment = getEnv("DEPLOY_ENVIRONMENT");
+const runNBSTests = process.env["RUN_NBS_TESTS"];
 
 const loadNBSAuthEnvironmentVariables = () => {
   return {
@@ -27,7 +28,7 @@ export const loginToNBS = async (browser: Browser) => {
 const testLinkToBookAppointmentForPregnantPeople = () => {
   test("link to book appointment at pharmacy on RSV page for pregnant people", async ({ browser }) => {
     test.skip(
-      environment === "preprod",
+      environment === "preprod" && runNBSTests != "true",
       "Temporarily skip in Preprod until NBS re-deploy changes required by VIA-335, eta 2025-10-08",
     );
 
@@ -53,7 +54,7 @@ test.describe.configure({ mode: "parallel", retries: 0 });
 
 test.describe("NBS booking redirection - user 19", () => {
   test.skip(
-    environment === "preprod",
+    environment === "preprod" && runNBSTests != "true",
     "Temporarily skip in Preprod until NBS re-deploy changes required by VIA-335, eta 2025-10-08",
   );
 
@@ -82,7 +83,7 @@ test.describe("NBS booking redirection - user 19", () => {
 
 test.describe("NBS booking redirection - user 21", () => {
   test.skip(
-    environment === "preprod",
+    environment === "preprod" && runNBSTests != "true",
     "Temporarily skip in Preprod until NBS re-deploy changes required by VIA-335, eta 2025-10-08",
   );
 
@@ -111,7 +112,7 @@ test.describe("NBS booking redirection - user 21", () => {
 
 test.describe("NBS booking redirection - user 22", () => {
   test.skip(
-    environment === "preprod",
+    environment === "preprod" && runNBSTests != "true",
     "Temporarily skip in Preprod until NBS re-deploy changes required by VIA-335, eta 2025-10-08",
   );
 

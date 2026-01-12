@@ -5,7 +5,8 @@
     "reportLabel": "Actionable, in CP area",
     "elidPostmanRef": "5_1",
     "e2e": true,
-    "snapshot": true
+    "snapshot": true,
+    "nbs": false
   },
   "not-eligible-with-infotext-action": {
     "nhsNumber": "9657933617",
@@ -13,7 +14,8 @@
     "reportLabel": "Not Eligible",
     "elidPostmanRef": "5_14",
     "e2e": true,
-    "snapshot": true
+    "snapshot": true,
+    "nbs": false
   },
   "actionable-with-infotext-action": {
     "nhsNumber": "9686368906",
@@ -21,7 +23,8 @@
     "reportLabel": "Actionable, out of CP area",
     "elidPostmanRef": "5_2",
     "e2e": true,
-    "snapshot": true
+    "snapshot": true,
+    "nbs": false
   },
   "actionable-with-buttonwithauthlink-action": {
     "nhsNumber": "9658218881",
@@ -29,7 +32,8 @@
     "reportLabel": "Actionable - Existing NBS booking",
     "elidPostmanRef": "5_4",
     "e2e": true,
-    "snapshot": true
+    "snapshot": true,
+    "nbs": false
   },
   "actionable-with-cardwithtext-action": {
     "nhsNumber": "9658218903",
@@ -37,7 +41,8 @@
     "reportLabel": "Actionable - Existing non-NBS booking",
     "elidPostmanRef": "5_5",
     "e2e": true,
-    "snapshot": true
+    "snapshot": true,
+    "nbs": false
   },
   "eligibility-error-400": {
     "nhsNumber": "9800878378",
@@ -45,7 +50,8 @@
     "reportLabel": "HTTP status 400 (Bad request) from EliD",
     "elidPostmanRef": "",
     "e2e": false,
-    "snapshot": false
+    "snapshot": false,
+    "nbs": false
   },
   "actionable-with-other-setting-suitability-rule": {
     "nhsNumber": "9658220150",
@@ -53,7 +59,8 @@
     "reportLabel": "Not Actionable - other setting",
     "elidPostmanRef": "5_11",
     "e2e": true,
-    "snapshot": true
+    "snapshot": true,
+    "nbs": false
   },
   "actionable-with-already-vaccinated-suitability-rule": {
     "nhsNumber": "9450114080",
@@ -61,7 +68,8 @@
     "reportLabel": "Not Actionable - already vaccinated",
     "elidPostmanRef": "5_12",
     "e2e": true,
-    "snapshot": true
+    "snapshot": true,
+    "nbs": false
   },
   "actionable-with-booking-link": {
     "nhsNumber": "9436793375",
@@ -69,7 +77,8 @@
     "reportLabel": "HTTP status 500 (Internal server error) from EliD",
     "elidPostmanRef": "",
     "e2e": true,
-    "snapshot": true
+    "snapshot": true,
+    "nbs": true
   },
   "actionable-with-booking-button": {
     "nhsNumber": "9735548852",
@@ -77,7 +86,8 @@
     "reportLabel": "Actionable with booking button",
     "elidPostmanRef": "",
     "e2e": true,
-    "snapshot": true
+    "snapshot": true,
+    "nbs": true
   },
   "actionable-with-managing-button": {
     "nhsNumber": "9735548844",
@@ -85,7 +95,8 @@
     "reportLabel": "Actionable with managing button",
     "elidPostmanRef": "",
     "e2e": true,
-    "snapshot": false
+    "snapshot": false,
+    "nbs": true
   },
   "actionable-catchup": {
     "nhsNumber": "9658218873",
@@ -93,7 +104,8 @@
     "reportLabel": "Actionable, in CP area, catchup",
     "elidPostmanRef": "5_3",
     "e2e": false,
-    "snapshot": true
+    "snapshot": true,
+    "nbs": false
   },
   "12-16-age-range": {
     "nhsNumber": "9461135831",
@@ -101,6 +113,7 @@
     "reportLabel": "12-16 age range",
     "elidPostmanRef": "",
     "e2e": true,
-    "snapshot": true
+    "snapshot": true,
+    "nbs": false
   }
 }

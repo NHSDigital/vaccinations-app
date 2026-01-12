@@ -1,0 +1,91 @@
+name: "Run NBS E2E tests"
+description: "Run NBS E2E tests"
+
+inputs:
+  checkout_ref:
+    description: "Ref to checkout"
+    required: true
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Checkout target code
+      uses: actions/checkout@v5
+      with:
+        ref: ${{ inputs.checkout_ref }}
+        path: "code-for-e2e-tests"
+
+    - name: Cache node modules
+      id: cache-npm
+      uses: actions/cache@v4
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./code-for-e2e-tests/**/package-lock.json') }}
+
+    - name: Install dependencies
+      shell: bash
+      working-directory: "./code-for-e2e-tests"
+      run: |
+        echo "::group::Installing dependencies"
+        npm ci --ignore-scripts
+        EXIT_STATUS=$?
+        echo "::endgroup::"
+        exit $EXIT_STATUS
+
+    - name: Get current week number and playwright version
+      shell: bash
+      working-directory: "./code-for-e2e-tests"
+      id: cache_key_values
+      run: |
+        echo "::group::Get current week number and playwright version"
+        echo "week_num=$(date -u +'%Y-%V')" | tee -a $GITHUB_OUTPUT
+        echo "playwright_version=$(node -p "require('@playwright/test/package.json').version")" | tee -a $GITHUB_OUTPUT
+        EXIT_STATUS=$?
+        echo "::endgroup::"
+        exit $EXIT_STATUS
+
+    - name: Cache Playwright browsers
+      uses: actions/cache@v4
+      id: playwright-cache
+      with:
+        path: ~/.cache/ms-playwright
+        key: ${{ runner.os }}-playwright-${{ steps.cache_key_values.outputs.week_num }}-${{ steps.cache_key_values.outputs.playwright_version }}-${{ hashFiles('**/playwright.config*') }}
+
+    - name: Install Playwright browsers (Chromium, Firefox)
+      if: ${{ steps.playwright-cache.outputs.cache-hit != 'true' }}
+      shell: bash
+      working-directory: "./code-for-e2e-tests"
+      run: |
+        echo "::group::Install Playwright browsers (Chromium, Firefox)"
+        npx playwright install chromium firefox --with-deps
+        EXIT_STATUS=$?
+        echo "::endgroup::"
+        exit $EXIT_STATUS
+
+    - name: Install Playwright browsers (Webkit)
+      if: ${{ inputs.cross_browser == 'true' }}
+      shell: bash
+      working-directory: "./code-for-e2e-tests"
+      run: |
+        echo "::group::Install Playwright browsers (Webkit)"
+        npx playwright install webkit --with-deps
+        EXIT_STATUS=$?
+        echo "::endgroup::"
+        exit $EXIT_STATUS
+
+    - name: Run Playwright NBS tests
+      shell: bash
+      working-directory: "./code-for-e2e-tests"
+      run: |
+        npm run e2e:nbs
+
+    - name: Upload report
+      uses: actions/upload-artifact@v5
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report-nbs-e2e-${{ inputs.checkout_ref }}
+        path: "./code-for-e2e-tests/playwright-report/"
+        retention-days: 30

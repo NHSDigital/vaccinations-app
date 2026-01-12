@@ -1,0 +1,131 @@
+name: "NBS scheduled assurance"
+
+on:
+  schedule:
+    - cron: '05 7 * * MON-FRI'  # Runs at 07:05 UTC every weekday
+  workflow_dispatch:
+    inputs:
+      release:
+        description: 'Deploy and run assurance tests on'
+        type: choice
+        options:
+          - Latest R1 tag
+          - Latest main tag
+          - All
+
+jobs:
+  run-nbs-tests-r1:
+    name: "NBS Assurance R1"
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 10
+    concurrency:
+      group: "preprod-env"
+      cancel-in-progress: false
+    permissions:
+      id-token: write
+      contents: read
+    environment:
+      name: "preprod"
+
+    if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && (inputs.release=='All' || inputs.release=='Latest R1 tag'))) }}
+    steps:
+      - name: "Checkout release/v1.0 branch"
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          ref: "release/v1.0"
+
+      - name: "Get latest tag name on release/v1.0 branch"
+        id: get-latest-tag-name
+        run: |
+          echo "value=$(git describe --tags --abbrev=0 --first-parent)" | tee -a $GITHUB_OUTPUT
+
+      - name: "Checkout code"
+        uses: actions/checkout@v6
+
+      - name: "Deploy version ${{ steps.get-latest-tag-name.outputs.value }} to (preprod)"
+        timeout-minutes: 10
+        uses: ./.github/actions/deploy
+        with:
+          environment: "preprod"
+          tag_or_sha_to_deploy: ${{ steps.get-latest-tag-name.outputs.value }}
+          secret_aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+          secret_aws_iam_role: ${{ secrets.IAM_ROLE }}
+          secret_aws_slack_channel_id: ${{ secrets.ALARMS_SLACK_CHANNEL_ID }}
+
+      - name: "Run NBS E2E tests on ${{ steps.get-latest-tag-name.outputs.value }} (preprod)"
+        timeout-minutes: 10
+        uses: ./.github/actions/run-nbs-e2e-tests
+        with:
+          checkout_ref: ${{ steps.get-latest-tag-name.outputs.value }}
+        env:
+          TEST_NHS_APP_URL: ${{ secrets.TEST_NHS_APP_URL }}
+          TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
+          TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
+          TEST_NBS_APP_USERNAME: ${{ secrets.TEST_NBS_APP_USERNAME }}
+          TEST_NBS_APP_PASSWORD: ${{ secrets.TEST_NBS_APP_PASSWORD }}
+          TEST_APP_URL: ${{ vars.TEST_APP_URL_R1 }}
+          NHS_APP_REDIRECT_LOGIN_URL: ${{ secrets.NHS_APP_REDIRECT_LOGIN_URL }}
+          VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
+          DEPLOY_ENVIRONMENT: "preprod"
+
+  #################################################################
+  # Main branch deployment and assurance (e2e+snapshots+contract)
+  #################################################################
+
+  run-nbs-tests-main:
+    name: "NBS Assurance Main Branch"
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 30
+    concurrency:
+      group: "preprod-env"
+      cancel-in-progress: false
+    permissions:
+      id-token: write
+      contents: read
+    environment:
+      name: "preprod"
+
+    needs: [ run-nbs-tests-r1 ]
+    if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && (inputs.release=='All' || inputs.release=='Latest main tag'))) }}
+    steps:
+      - name: "Checkout main branch"
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          ref: "main"
+
+      - name: "Get latest tag name on main branch"
+        id: get-latest-tag-name
+        run: |
+          echo "value=$(git describe --tags --abbrev=0 --first-parent)" | tee -a $GITHUB_OUTPUT
+          echo "Latest tag name on main branch is : ${value}"
+
+      - name: "Checkout code"
+        uses: actions/checkout@v6
+
+      - name: "Deploy version ${{ steps.get-latest-tag-name.outputs.value }} to (preprod)"
+        timeout-minutes: 10
+        uses: ./.github/actions/deploy
+        with:
+          environment: "preprod"
+          tag_or_sha_to_deploy: ${{ steps.get-latest-tag-name.outputs.value }}
+          secret_aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+          secret_aws_iam_role: ${{ secrets.IAM_ROLE }}
+          secret_aws_slack_channel_id: ${{ secrets.ALARMS_SLACK_CHANNEL_ID }}
+
+      - name: "Run NBS E2E tests on ${{ steps.get-latest-tag-name.outputs.value }} (preprod)"
+        timeout-minutes: 10
+        uses: ./.github/actions/run-nbs-e2e-tests
+        with:
+          checkout_ref: ${{ steps.get-latest-tag-name.outputs.value }}
+        env:
+          TEST_NHS_APP_URL: ${{ secrets.TEST_NHS_APP_URL }}
+          TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
+          TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
+          TEST_NBS_APP_USERNAME: ${{ secrets.TEST_NBS_APP_USERNAME }}
+          TEST_NBS_APP_PASSWORD: ${{ secrets.TEST_NBS_APP_PASSWORD }}
+          TEST_APP_URL: ${{ vars.TEST_APP_URL_MAIN }}
+          NHS_APP_REDIRECT_LOGIN_URL: ${{ secrets.NHS_APP_REDIRECT_LOGIN_URL }}
+          VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
+          DEPLOY_ENVIRONMENT: "preprod"
