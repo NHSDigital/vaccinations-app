@@ -113,7 +113,7 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
   },
   mmrv: {
     url: "/vaccines/mmrv-vaccine",
-    heading: "MMRV vaccine",
+    heading: "MMRV (measles, mumps, rubella and chickenpox) vaccine",
     title: `MMRV (measles, mumps, rubella and chickenpox) vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-mmrv.png",
   },
