@@ -186,7 +186,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
       indefiniteArticle: "an",
       suffix: "vaccine",
     },
-    heading: "MMR vaccine",
+    heading: "MMR (measles, mumps and rubella) vaccine",
     cardLinkTitle: "MMR (measles, mumps and rubella)",
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/mmr-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/mmr-vaccine/#how-to-get-it"),

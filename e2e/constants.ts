@@ -107,8 +107,8 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
   },
   mmr: {
     url: "/vaccines/mmr-vaccine",
-    heading: "MMR vaccine",
-    title: `MMR vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    heading: "MMR (measles, mumps and rubella) vaccine",
+    title: `MMR (measles, mumps and rubella) vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
     snapshotFilename: "default-mmr.png",
   },
   mmrv: {

@@ -1,4 +1,4 @@
-import { buildFilteredContentForMMRVVaccine } from "@src/services/content-api/parsers/custom/mmrv";
+import { buildFilteredContentForMMRandMMRVVaccines } from "@src/services/content-api/parsers/custom/mmr-and-mmrv";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
@@ -23,7 +23,7 @@ describe("getFilteredContentForMMRVVaccine", () => {
         },
       ],
     };
-    const pageCopy = await buildFilteredContentForMMRVVaccine(JSON.stringify(genericVaccineContentAPIResponse));
+    const pageCopy = await buildFilteredContentForMMRandMMRVVaccines(JSON.stringify(genericVaccineContentAPIResponse));
     expect(pageCopy.additionalInformation).toEqual(expect.objectContaining(expected));
   });
 });

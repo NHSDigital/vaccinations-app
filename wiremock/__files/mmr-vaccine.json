@@ -2,7 +2,10 @@
   "@context": "http://schema.org",
   "@type": "MedicalWebPage",
   "name": "MMR (measles, mumps and rubella) vaccine",
-  "copyrightHolder": { "name": "Crown Copyright", "@type": "Organization" },
+  "copyrightHolder": {
+    "name": "Crown Copyright",
+    "@type": "Organization"
+  },
   "license": "https://developer.api.nhs.uk/terms",
   "author": {
     "url": "https://www.nhs.uk",
@@ -11,12 +14,16 @@
     "@type": "Organization",
     "name": "NHS website"
   },
-  "about": { "@type": "WebPage", "name": "MMR (measles, mumps and rubella) vaccine", "alternateName": "" },
+  "about": {
+    "@type": "WebPage",
+    "name": "MMR (measles, mumps and rubella) vaccine",
+    "alternateName": ""
+  },
   "description": "Find out about the MMR vaccine for measles, mumps and rubella, including who should have it, when it's given and possible side effects.",
-  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/",
+  "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/",
   "genre": ["Vaccine"],
   "keywords": "",
-  "dateModified": "2025-04-15T14:16:16+00:00",
+  "dateModified": "2026-01-02T10:25:18+00:00",
   "lastReviewed": ["2024-03-08T08:43:00+00:00", "2027-03-08T08:43:00+00:00"],
   "breadcrumb": {
     "@context": "http://schema.org",
@@ -26,7 +33,7 @@
         "@type": "ListItem",
         "position": 0,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
           "name": "Vaccinations",
           "genre": []
         }
@@ -35,7 +42,7 @@
         "@type": "ListItem",
         "position": 1,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/",
           "name": "MMR (measles, mumps and rubella) vaccine",
           "genre": ["Vaccine"]
         }
@@ -46,23 +53,35 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/#overview",
-      "description": "The MMR vaccine helps protect against measles, mumps and rubella. It's is given to babies and young children as part of the NHS vaccination schedule.",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/#overview",
+      "description": "The MMR vaccine helps protect against measles, mumps and rubella. It's given to people born in 2019 or earlier who missed it when they were younger.",
       "hasPart": [
-        { "@type": "WebPageElement", "headline": "MMR (measles, mumps and rubella) vaccine", "text": "Who it's for" },
-        { "@type": "WebPageElement", "headline": "MMR (measles, mumps and rubella) vaccine", "text": "How to get it" },
-        { "@type": "WebPageElement", "headline": "MMR (measles, mumps and rubella) vaccine", "text": "Side effects" },
+        {
+          "@type": "WebPageElement",
+          "headline": "MMR (measles, mumps and rubella) vaccine",
+          "text": "Who it's for"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "MMR (measles, mumps and rubella) vaccine",
+          "text": "How to get it"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "MMR (measles, mumps and rubella) vaccine",
+          "text": "Side effects"
+        },
         {
           "@type": "WebPageElement",
           "headline": "MMR (measles, mumps and rubella) vaccine",
           "text": "Contraindications"
         },
         {
-          "text": "<p>The MMR vaccine is recommended for all babies and young children. They usually have the 1st dose at 1 year of age and the 2nd at 3 years 4 months.</p> ",
+          "text": "<p>The MMR vaccine is recommended for anyone born in 2019 or earlier who missed having this vaccination when they were younger.</p> ",
           "@type": "WebPageElement"
         },
         {
-          "text": "<p>The MMR vaccine is usually given by your GP surgery but can also sometimes be given at school or by your employer's occupational health service.</p> ",
+          "text": "<p>The MMR vaccine is usually given by your GP surgery but can also sometimes be given by your employer's occupational health service.</p> ",
           "@type": "WebPageElement"
         },
         {
@@ -79,13 +98,13 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/#what-its-for",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/#what-its-for",
       "description": "The MMR vaccine helps protect against measles, mumps and rubella. These infections can spread easily and can cause serious problems if not treated.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>The MMR vaccine protects against:</p><ul><li><a href=\"https://www.nhs.uk/conditions/measles/\">measles</a></li><li><a href=\"https://www.nhs.uk/conditions/mumps/\">mumps</a></li><li><a href=\"https://www.nhs.uk/conditions/rubella/\">rubella (german measles)</a></li></ul><p>These 3 infections spread easily between people and can lead to serious problems including meningitis, blindness and hearing loss.</p><p>If you're pregnant, getting measles can cause premature birth, miscarriage or still birth. And getting rubella can cause serious problems for your baby such as damage to their sight and hearing.</p><p>2 doses of the MMR vaccine gives you long-term protection.</p><p>Getting vaccinated also helps protect people who cannot be vaccinated, such as unborn babies, newborn babies and anyone with a weakened immune system.</p>"
+          "text": "<p>The MMR vaccine helps protect against:</p><ul><li><a href=\"https://www.nhs.uk/conditions/measles/\">measles</a></li><li><a href=\"https://www.nhs.uk/conditions/mumps/\">mumps</a></li><li><a href=\"https://www.nhs.uk/conditions/rubella/\">rubella (german measles)</a></li></ul><p>These 3 infections spread easily between people and can lead to serious problems including meningitis, blindness and hearing loss.</p><p>If you're pregnant, getting measles can cause premature birth, miscarriage or still birth. And getting rubella can cause serious problems for your baby such as damage to their sight and hearing.</p><p>2 doses of the MMR vaccine gives you long-term protection.</p><p>Getting vaccinated also helps protect people who cannot be vaccinated, such as unborn babies, newborn babies and anyone with a weakened immune system.</p>"
         }
       ],
       "headline": "What the MMR vaccine is for"
@@ -93,27 +112,57 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/#who-its-for",
-      "description": "The MMR vaccine is recommended for all babies and young children. They usually have the 1st dose at 1 year of age and the 2nd at 3 years 4 months.",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/#who-its-for",
+      "description": "The MMR vaccine is recommended for anyone born in 2019 or earlier who missed having this vaccination when they were younger.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>The MMR vaccine is recommended for all babies and young children, but older children and adults can have it if they were not vaccinated when they were younger.</p><h3>Babies and young children</h3><p>Babies and young children are given 2 doses of the MMR vaccine as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>They're given a dose at:</p><ul><li>1 year old</li><li>3 years 4 months old</li></ul><p>Babies between 6 and 12 months can have an extra dose of the MMR vaccine before this if they need it to protect them if:</p><ul><li>they're travelling abroad to an area with a lot of measles</li><li>they've been close to someone with measles</li><li>there's an outbreak of measles</li></ul><h3>Older children and adults</h3><p>The MMR vaccine can be given at any age.</p><p>Speak to a GP about getting vaccinated if you did not have it as a child, you only had 1 dose or you're not sure if you've been fully vaccinated.</p><p>It's especially important to make sure you're vaccinated if:</p><ul><li>you're a child, teenager or young adult</li><li>you could become pregnant</li><li>you're travelling to, or living in, a country where there is a higher risk of getting measles, mumps or rubella</li><li>you're a healthcare worker</li><li>you were born between 1970 and 1990 (as you may not have been vaccinated against all 3 infections)</li></ul><p>Your GP surgery should be able to tell you which vaccinations you've already had.</p><p>If you were born before 1970 and have not had measles, mumps or rubella (german measles) or their vaccines, you can ask your GP surgery for the MMR vaccine.</p>"
+          "text": "<p>The MMR vaccine is recommended for adults and children born on or before 31 December 2019 who did not have the MMR vaccine when they were younger.</p><p>It's especially important to make sure you're vaccinated if:</p><ul><li>you're a child, teenager or young adult</li><li>you could become pregnant</li><li>you're travelling to, or living in, a country where there is a higher risk of getting measles, mumps or rubella</li><li>you're a healthcare worker</li><li>you were born between 1970 and 1990 (as you may not have been vaccinated against all 3 infections)</li></ul><p>Your GP surgery should be able to tell you which vaccinations you've already had.</p><p>If you were born before 1970 and have not had measles, mumps or rubella (german measles) or the vaccines that protect against these diseases, you can ask your GP surgery for the MMR vaccine.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Can I have the MMR vaccine during Ramadan?",
+          "text": "<div class=\"block-richtext\">\n<p>Many Muslim scholars say you can have the MMR vaccine when you're fasting for Ramadan. This is because it's injected into the muscle and does not give you food or water.</p><p>You can speak to your GP for advice on when to have your MMR vaccine.</p>\n</div>"
+        },
+        {
+          "@type": "WebPageElement",
+          "headline": "Babies and young children",
+          "text": "<p>Children are now given the <a href=\"https://www.nhs.uk/vaccinations/mmrv-vaccine/\">MMRV vaccine</a> instead of the MMR vaccine as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>. The MMRV vaccine helps protect against measles, mumps, rubella and chickenpox.</p><p>Children are offered 2 doses of the MMRV vaccine when they are 12 months and 18 months old. Older children born on or after 1 January 2020 are also offered 1 or 2 doses of the vaccine.</p><p>Babies aged 6 to 11 months can have an early dose of the MMR or MMRV vaccine if:</p><ul><li>they're travelling abroad to an area where there's a higher risk of catching measles</li><li>they've been in close contact with someone who has measles</li><li>there's an outbreak of measles</li></ul><p>Speak to your GP if you think your baby might need an early dose of the MMRV or MMR vaccine.</p>"
         }
       ],
       "headline": "Who should have the MMR vaccine"
     },
     {
       "@type": "HealthTopicContent",
+      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/#how-to-get-it",
+      "description": "The MMR vaccine is usually given by your GP surgery but can also sometimes be given by your employer's occupational health service.",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "headline": "",
+          "text": "<p>If you or your child needs the MMR vaccine, your GP surgery will be able to arrange it. Your child may also be able to get it through their school.</p><p>If you need the MMR vaccine for your work, you should also be able to get it through your employer's occupational health service.</p>"
+        },
+        {
+          "@type": "WebPageElement",
+          "identifier": "primary",
+          "headline": "Speak to your GP surgery if:",
+          "text": "<ul>\n<li>\n  your child was born on or before 31 December 2019 and they missed their MMR vaccine, or you're not sure if they had both doses of the vaccine\n </li>\n<li>\n  you think you might need the MMR vaccine\n </li>\n<li>\n  your child has a temperature and is due to have the vaccine – they may need to wait until they're feeling better before having the vaccine\n </li>\n<li>\n  you need to change a vaccination appointment\n </li>\n</ul>\n<p>\n Your GP surgery can book or rearrange an appointment.\n</p>\n"
+        }
+      ],
+      "headline": "How to get the MMR vaccine"
+    },
+    {
+      "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/#contraindications",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/#contraindications",
       "description": "Some people cannot have the MMR vaccine, including if you're pregnant, have a weakened immune system or are allergic to the vaccine ingredients.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>Most people who need the MMR vaccine can have it.</p><p>But because it's a live vaccine, which means it contains a weakened version of measles, mumps and rubella, it's not suitable for everyone.</p><p>The MMR vaccine is not given if:</p><ul><li>you're pregnant</li><li>you have a weakened immune system, either because of a health condition or because you are taking medicines that suppress the immune system</li><li>you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to any ingredients in the vaccine, including gelatine or neomycin</li></ul>"
+          "text": "<p>Most people who need the MMR vaccine can have it.</p><p>But because it's a live vaccine, which means it contains a weakened version of measles, mumps and rubella, it's not suitable for everyone.</p><p>The MMR vaccine is not suitable if:</p><ul><li>you're pregnant</li><li>you have a weakened immune system, either because of a health condition or because you are taking medicines that suppress the immune system</li><li>you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to any ingredients in the vaccine, including gelatine or neomycin</li></ul>"
         },
         {
           "@type": "WebPageElement",
@@ -126,52 +175,32 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/#ingredients",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/#ingredients",
       "description": "You can check the ingredients in the MMR vaccine by asking to see the patient leaflet or searching for it online.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>There are 2 types of MMR vaccine in the UK. You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/product/6307/pil\">MMRVaXPro MMR vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li><a href=\"https://www.medicines.org.uk/emc/files/pil.1159.pdf\">Priorix MMR vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 179KB)</a></li></ul><p>The MMR VaxPro vaccine contains a small amount of gelatine from pigs (porcine gelatine). Speak to the person vaccinating your child if you want your child to have the Priorix MMR vaccine instead.</p>"
+          "text": "<p>There are 2 types of MMR vaccine in the UK. You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/product/6307/pil\">MMRVaXPro MMR vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li><a href=\"https://www.medicines.org.uk/emc/files/pil.1159.pdf\">Priorix MMR vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 179KB)</a></li></ul><p>The MMR VaxPro vaccine contains a small amount of gelatine from pigs (porcine gelatine). Speak to the person vaccinating you or your child if you want the Priorix MMR vaccine instead.</p>"
         }
       ],
       "headline": "MMR vaccine ingredients"
     },
     {
       "@type": "HealthTopicContent",
-      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/#how-to-get-it",
-      "description": "The MMR vaccine is usually given by your GP surgery but can also sometimes be given at school or by your employer's occupational health service.",
-      "hasPart": [
-        {
-          "@type": "WebPageElement",
-          "headline": "",
-          "text": "<p>Your GP surgery will usually contact you about your child's MMR vaccinations. This will usually be by letter, text message, phone call or email.</p><p>Older children who missed being vaccinated when they were younger may also be able to get the MMR vaccine through their school.</p><p>If you need the MMR vaccine for your work, you should be able to get it through your employer's occupational health service.</p>"
-        },
-        {
-          "@type": "WebPageElement",
-          "identifier": "primary",
-          "headline": "Speak to your GP surgery if:",
-          "text": "<ul>\n<li>\n  you have not been contacted to get your child's MMR vaccine\n </li>\n<li>\n  your child has missed their MMR vaccine, or you're not sure if they've had both doses of the vaccine\n </li>\n<li>\n  you think you might need the MMR vaccine\n </li>\n<li>\n  your child has a temperature and is due to have the vaccine – they may need to wait until they're feeling better before having the vaccine\n </li>\n<li>\n  you need to change a vaccination appointment\n </li>\n</ul>\n<p>\n Your GP surgery can book or rearrange an appointment.\n</p>\n"
-        }
-      ],
-      "headline": "How to get the MMR vaccine"
-    },
-    {
-      "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/UsageOrScheduleHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/#how-its-used-previously-dosage-and-administration",
-      "description": "The MMR vaccine is given as an injection into the arm. You'll need 2 doses for full protection.",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/#how-its-used-previously-dosage-and-administration",
+      "description": "The MMR vaccine is given as an injection into the arm or thigh. You'll need 2 doses for full protection.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>The MMR vaccine is given as an injection into the upper arm or thigh. It's often given at the same time as other routine vaccinations.</p><p>You'll need 2 doses for full protection.</p><p>Young children have the 1st dose when they're 1 year old and the second when they're between 3 years 4 months and 5 years old.</p><p>If you have the vaccine when you're older, you'll have 2 doses at least 1 month apart.</p>"
+          "text": "<p>The MMR vaccine is given as an injection into the upper arm or thigh.</p><p>You'll need 2 doses for full protection. You'll be given the doses at least 1 month apart.</p>"
         },
         {
           "@type": "WebPageElement",
           "headline": "Information",
-          "text": "<h3>Having the MMR vaccine at the same time as other vaccines</h3><p>The MMR vaccine can be given at the same time as most other vaccines except for the <a href=\"https://www.nhs.uk/conditions/yellow-fever/vaccination/\">yellow fever vaccine</a>.</p><p>You will need to wait 4 weeks between having the MMR vaccine and the yellow fever vaccine.</p><p>The MMR vaccine can be given on the same day as the <a href=\"https://www.nhs.uk/vaccinations/chickenpox-vaccine/\">chickenpox vaccine</a>, but if they are not given on the same day you will need to wait 4 weeks between the vaccines.</p>"
+          "text": "<h3>Having the MMR vaccine at the same time as other vaccines</h3><p>The MMR vaccine can be given at the same time as most other vaccines except for the <a href=\"https://www.nhs.uk/conditions/yellow-fever/vaccination/\">yellow fever vaccine</a>.</p><p>You will need to wait 4 weeks between having the MMR vaccine and the yellow fever vaccine.</p>"
         }
       ],
       "headline": "How the MMR vaccine is given"
@@ -179,7 +208,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/#side-effects",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/#side-effects",
       "description": "The main side effects of the MMR vaccine include a blotchy rash, tiredness and fever. Side effects usually appear 1 to 3 weeks after the vaccination.",
       "hasPart": [
         {
@@ -198,7 +227,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/EffectivenessHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/#effectiveness",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/#effectiveness",
       "description": "Having 2 doses of the MMR vaccine is very effective at protecting against measles, mumps and rubella.",
       "hasPart": [
         {
@@ -213,7 +242,7 @@
   "relatedLink": [
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
       "name": "Vaccinations",
       "linkRelationship": "Navigation",
       "position": 0
@@ -224,7 +253,7 @@
     {
       "position": 0,
       "identifier": 0,
-      "text": "The MMR vaccine gives long-term protection against measles, mumps and rubella.",
+      "text": "The MMR vaccine helps protect against measles, mumps and rubella. It's recommended for anyone born on or before 31 December 2019 who missed having this vaccine when they were younger.",
       "name": "lead paragraph",
       "@type": "WebPageElement"
     },
@@ -236,8 +265,33 @@
       "mainEntityOfPage": [
         {
           "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h2>MMRV vaccine for children</h2><p>This page is about the MMR vaccine for people who did not get vaccinated against measles, mumps and rubella as a young child. The MMR vaccine is no longer offered to all young children.</p><p>Children are now offered the MMRV vaccine, which protects against measles, mumps, rubella and chickenpox (varicella). They are offered 2 doses of the vaccine when they are 12 months and 18 months old. Older children born on or after 1 January 2020 are also offered 1 or 2 doses of the vaccine.</p><p><a href=\"https://www.nhs.uk/vaccinations/mmrv-vaccine/\">Find out more about the MMRV vaccine</a></p>"
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h2>MMRV vaccine for children</h2><p>This page is about the MMR vaccine for people who did not get vaccinated against measles, mumps and rubella as a young child. The MMR vaccine is no longer offered to all young children.</p><p>Children are now offered the MMRV vaccine, which protects against measles, mumps, rubella and chickenpox (varicella). They are offered 2 doses of the vaccine when they are 12 months and 18 months old. Older children born on or after 1 January 2020 are also offered 1 or 2 doses of the vaccine.</p><p><a href=\"https://www.nhs.uk/vaccinations/mmrv-vaccine/\">Find out more about the MMRV vaccine</a></p>"
+        }
+      ]
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 2,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
           "identifier": "1",
-          "text": "<p>The MMR vaccine protects against:</p><ul><li><a href=\"https://www.nhs.uk/conditions/measles/\">measles</a></li><li><a href=\"https://www.nhs.uk/conditions/mumps/\">mumps</a></li><li><a href=\"https://www.nhs.uk/conditions/rubella/\">rubella (german measles)</a></li></ul><p>These 3 infections spread easily between people and can lead to serious problems including meningitis, blindness and hearing loss.</p><p>If you're pregnant, getting measles can cause premature birth, miscarriage or still birth. And getting rubella can cause serious problems for your baby such as damage to their sight and hearing.</p><p>2 doses of the MMR vaccine gives you long-term protection.</p><p>Getting vaccinated also helps protect people who cannot be vaccinated, such as unborn babies, newborn babies and anyone with a weakened immune system.</p>",
+          "text": "<p>The MMR vaccine helps protect against:</p><ul><li><a href=\"https://www.nhs.uk/conditions/measles/\">measles</a></li><li><a href=\"https://www.nhs.uk/conditions/mumps/\">mumps</a></li><li><a href=\"https://www.nhs.uk/conditions/rubella/\">rubella (german measles)</a></li></ul><p>These 3 infections spread easily between people and can lead to serious problems including meningitis, blindness and hearing loss.</p><p>If you're pregnant, getting measles can cause premature birth, miscarriage or still birth. And getting rubella can cause serious problems for your baby such as damage to their sight and hearing.</p><p>2 doses of the MMR vaccine gives you long-term protection.</p><p>Getting vaccinated also helps protect people who cannot be vaccinated, such as unborn babies, newborn babies and anyone with a weakened immune system.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -248,7 +302,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>The MMR vaccine protects against:</p><ul><li><a href=\"https://www.nhs.uk/conditions/measles/\">measles</a></li><li><a href=\"https://www.nhs.uk/conditions/mumps/\">mumps</a></li><li><a href=\"https://www.nhs.uk/conditions/rubella/\">rubella (german measles)</a></li></ul><p>These 3 infections spread easily between people and can lead to serious problems including meningitis, blindness and hearing loss.</p><p>If you're pregnant, getting measles can cause premature birth, miscarriage or still birth. And getting rubella can cause serious problems for your baby such as damage to their sight and hearing.</p><p>2 doses of the MMR vaccine gives you long-term protection.</p><p>Getting vaccinated also helps protect people who cannot be vaccinated, such as unborn babies, newborn babies and anyone with a weakened immune system.</p>",
+          "text": "<p>The MMR vaccine helps protect against:</p><ul><li><a href=\"https://www.nhs.uk/conditions/measles/\">measles</a></li><li><a href=\"https://www.nhs.uk/conditions/mumps/\">mumps</a></li><li><a href=\"https://www.nhs.uk/conditions/rubella/\">rubella (german measles)</a></li></ul><p>These 3 infections spread easily between people and can lead to serious problems including meningitis, blindness and hearing loss.</p><p>If you're pregnant, getting measles can cause premature birth, miscarriage or still birth. And getting rubella can cause serious problems for your baby such as damage to their sight and hearing.</p><p>2 doses of the MMR vaccine gives you long-term protection.</p><p>Getting vaccinated also helps protect people who cannot be vaccinated, such as unborn babies, newborn babies and anyone with a weakened immune system.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -260,40 +314,19 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 2,
-      "@type": "WebPageElement",
-      "mainEntityOfPage": [
-        {
-          "position": 0,
-          "identifier": "1",
-          "text": "<p>The MMR vaccine is recommended for all babies and young children, but older children and adults can have it if they were not vaccinated when they were younger.</p><h3>Babies and young children</h3><p>Babies and young children are given 2 doses of the MMR vaccine as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>They're given a dose at:</p><ul><li>1 year old</li><li>3 years 4 months old</li></ul><p>Babies between 6 and 12 months can have an extra dose of the MMR vaccine before this if they need it to protect them if:</p><ul><li>they're travelling abroad to an area with a lot of measles</li><li>they've been close to someone with measles</li><li>there's an outbreak of measles</li></ul><h3>Older children and adults</h3><p>The MMR vaccine can be given at any age.</p><p>Speak to a GP about getting vaccinated if you did not have it as a child, you only had 1 dose or you're not sure if you've been fully vaccinated.</p><p>It's especially important to make sure you're vaccinated if:</p><ul><li>you're a child, teenager or young adult</li><li>you could become pregnant</li><li>you're travelling to, or living in, a country where there is a higher risk of getting measles, mumps or rubella</li><li>you're a healthcare worker</li><li>you were born between 1970 and 1990 (as you may not have been vaccinated against all 3 infections)</li></ul><p>Your GP surgery should be able to tell you which vaccinations you've already had.</p><p>If you were born before 1970 and have not had measles, mumps or rubella (german measles) or their vaccines, you can ask your GP surgery for the MMR vaccine.</p>",
-          "@type": "WebPageElement",
-          "name": "markdown",
-          "headline": ""
-        }
-      ],
-      "description": "The MMR vaccine is recommended for all babies and young children. They usually have the 1st dose at 1 year of age and the 2nd at 3 years 4 months.",
-      "hasPart": [
-        {
-          "position": 0,
-          "identifier": "1",
-          "text": "<p>The MMR vaccine is recommended for all babies and young children, but older children and adults can have it if they were not vaccinated when they were younger.</p><h3>Babies and young children</h3><p>Babies and young children are given 2 doses of the MMR vaccine as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>They're given a dose at:</p><ul><li>1 year old</li><li>3 years 4 months old</li></ul><p>Babies between 6 and 12 months can have an extra dose of the MMR vaccine before this if they need it to protect them if:</p><ul><li>they're travelling abroad to an area with a lot of measles</li><li>they've been close to someone with measles</li><li>there's an outbreak of measles</li></ul><h3>Older children and adults</h3><p>The MMR vaccine can be given at any age.</p><p>Speak to a GP about getting vaccinated if you did not have it as a child, you only had 1 dose or you're not sure if you've been fully vaccinated.</p><p>It's especially important to make sure you're vaccinated if:</p><ul><li>you're a child, teenager or young adult</li><li>you could become pregnant</li><li>you're travelling to, or living in, a country where there is a higher risk of getting measles, mumps or rubella</li><li>you're a healthcare worker</li><li>you were born between 1970 and 1990 (as you may not have been vaccinated against all 3 infections)</li></ul><p>Your GP surgery should be able to tell you which vaccinations you've already had.</p><p>If you were born before 1970 and have not had measles, mumps or rubella (german measles) or their vaccines, you can ask your GP surgery for the MMR vaccine.</p>",
-          "@type": "WebPageElement",
-          "name": "markdown",
-          "headline": ""
-        }
-      ],
-      "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
-      "headline": "Who should have the MMR vaccine"
-    },
-    {
-      "identifier": "0",
-      "name": "section heading",
       "position": 3,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {
           "position": 0,
+          "identifier": "1",
+          "text": "<p>The MMR vaccine is recommended for adults and children born on or before 31 December 2019 who did not have the MMR vaccine when they were younger.</p><p>It's especially important to make sure you're vaccinated if:</p><ul><li>you're a child, teenager or young adult</li><li>you could become pregnant</li><li>you're travelling to, or living in, a country where there is a higher risk of getting measles, mumps or rubella</li><li>you're a healthcare worker</li><li>you were born between 1970 and 1990 (as you may not have been vaccinated against all 3 infections)</li></ul><p>Your GP surgery should be able to tell you which vaccinations you've already had.</p><p>If you were born before 1970 and have not had measles, mumps or rubella (german measles) or the vaccines that protect against these diseases, you can ask your GP surgery for the MMR vaccine.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
           "@type": "WebPageElement",
           "name": "Reveal",
           "subjectOf": "Can I have the MMR vaccine during Ramadan?",
@@ -310,17 +343,26 @@
           ]
         },
         {
-          "position": 1,
+          "position": 2,
+          "identifier": "1",
+          "text": "<p>Children are now given the <a href=\"https://www.nhs.uk/vaccinations/mmrv-vaccine/\">MMRV vaccine</a> instead of the MMR vaccine as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>. The MMRV vaccine helps protect against measles, mumps, rubella and chickenpox.</p><p>Children are offered 2 doses of the MMRV vaccine when they are 12 months and 18 months old. Older children born on or after 1 January 2020 are also offered 1 or 2 doses of the vaccine.</p><p>Babies aged 6 to 11 months can have an early dose of the MMR or MMRV vaccine if:</p><ul><li>they're travelling abroad to an area where there's a higher risk of catching measles</li><li>they've been in close contact with someone who has measles</li><li>there's an outbreak of measles</li></ul><p>Speak to your GP if you think your baby might need an early dose of the MMRV or MMR vaccine.</p>",
           "@type": "WebPageElement",
-          "name": "Information",
-          "identifier": "3",
-          "text": "<h3>Polio and MMR vaccinations in London</h3><p>From May 2023, children aged 1 to 11 in London who are not up to date with their routine vaccinations are being offered polio and MMR vaccinations through GP surgeries, primary schools and community clinics.</p><p><a href=\"http://www.transformationpartnersinhealthandcare.nhs.uk/London-polio-mmr\">Find out more about the London polio and MMR vaccinations</a></p>"
+          "name": "markdown",
+          "headline": "Babies and young children"
         }
       ],
-      "description": "",
+      "description": "The MMR vaccine is recommended for anyone born in 2019 or earlier who missed having this vaccination when they were younger.",
       "hasPart": [
         {
           "position": 0,
+          "identifier": "1",
+          "text": "<p>The MMR vaccine is recommended for adults and children born on or before 31 December 2019 who did not have the MMR vaccine when they were younger.</p><p>It's especially important to make sure you're vaccinated if:</p><ul><li>you're a child, teenager or young adult</li><li>you could become pregnant</li><li>you're travelling to, or living in, a country where there is a higher risk of getting measles, mumps or rubella</li><li>you're a healthcare worker</li><li>you were born between 1970 and 1990 (as you may not have been vaccinated against all 3 infections)</li></ul><p>Your GP surgery should be able to tell you which vaccinations you've already had.</p><p>If you were born before 1970 and have not had measles, mumps or rubella (german measles) or the vaccines that protect against these diseases, you can ask your GP surgery for the MMR vaccine.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
           "@type": "WebPageElement",
           "name": "Reveal",
           "subjectOf": "Can I have the MMR vaccine during Ramadan?",
@@ -337,13 +379,16 @@
           ]
         },
         {
-          "position": 1,
+          "position": 2,
+          "identifier": "1",
+          "text": "<p>Children are now given the <a href=\"https://www.nhs.uk/vaccinations/mmrv-vaccine/\">MMRV vaccine</a> instead of the MMR vaccine as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>. The MMRV vaccine helps protect against measles, mumps, rubella and chickenpox.</p><p>Children are offered 2 doses of the MMRV vaccine when they are 12 months and 18 months old. Older children born on or after 1 January 2020 are also offered 1 or 2 doses of the vaccine.</p><p>Babies aged 6 to 11 months can have an early dose of the MMR or MMRV vaccine if:</p><ul><li>they're travelling abroad to an area where there's a higher risk of catching measles</li><li>they've been in close contact with someone who has measles</li><li>there's an outbreak of measles</li></ul><p>Speak to your GP if you think your baby might need an early dose of the MMRV or MMR vaccine.</p>",
           "@type": "WebPageElement",
-          "name": "Information",
-          "identifier": "3",
-          "text": "<h3>Polio and MMR vaccinations in London</h3><p>From May 2023, children aged 1 to 11 in London who are not up to date with their routine vaccinations are being offered polio and MMR vaccinations through GP surgeries, primary schools and community clinics.</p><p><a href=\"http://www.transformationpartnersinhealthandcare.nhs.uk/London-polio-mmr\">Find out more about the London polio and MMR vaccinations</a></p>"
+          "name": "markdown",
+          "headline": "Babies and young children"
         }
-      ]
+      ],
+      "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
+      "headline": "Who should have the MMR vaccine"
     },
     {
       "identifier": "0",
@@ -354,7 +399,50 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>Most people who need the MMR vaccine can have it.</p><p>But because it's a live vaccine, which means it contains a weakened version of measles, mumps and rubella, it's not suitable for everyone.</p><p>The MMR vaccine is not given if:</p><ul><li>you're pregnant</li><li>you have a weakened immune system, either because of a health condition or because you are taking medicines that suppress the immune system</li><li>you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to any ingredients in the vaccine, including gelatine or neomycin</li></ul>",
+          "text": "<p>If you or your child needs the MMR vaccine, your GP surgery will be able to arrange it. Your child may also be able to get it through their school.</p><p>If you need the MMR vaccine for your work, you should also be able to get it through your employer's occupational health service.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "non-urgent",
+          "identifier": "5",
+          "text": "<h3>Speak to your GP surgery if:</h3><div class=\"block-richtext\">\n<ul><li>your child was born on or before 31 December 2019 and they missed their MMR vaccine, or you're not sure if they had both doses of the vaccine</li><li>you think you might need the MMR vaccine</li><li>your child has a temperature and is due to have the vaccine – they may need to wait until they're feeling better before having the vaccine</li><li>you need to change a vaccination appointment</li></ul><p>Your GP surgery can book or rearrange an appointment.</p>\n</div>"
+        }
+      ],
+      "description": "The MMR vaccine is usually given by your GP surgery but can also sometimes be given by your employer's occupational health service.",
+      "hasPart": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>If you or your child needs the MMR vaccine, your GP surgery will be able to arrange it. Your child may also be able to get it through their school.</p><p>If you need the MMR vaccine for your work, you should also be able to get it through your employer's occupational health service.</p>",
+          "@type": "WebPageElement",
+          "name": "markdown",
+          "headline": ""
+        },
+        {
+          "position": 1,
+          "@type": "WebPageElement",
+          "name": "non-urgent",
+          "identifier": "5",
+          "text": "<h3>Speak to your GP surgery if:</h3><div class=\"block-richtext\">\n<ul><li>your child was born on or before 31 December 2019 and they missed their MMR vaccine, or you're not sure if they had both doses of the vaccine</li><li>you think you might need the MMR vaccine</li><li>your child has a temperature and is due to have the vaccine – they may need to wait until they're feeling better before having the vaccine</li><li>you need to change a vaccination appointment</li></ul><p>Your GP surgery can book or rearrange an appointment.</p>\n</div>"
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
+      "headline": "How to get the MMR vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 5,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "identifier": "1",
+          "text": "<p>Most people who need the MMR vaccine can have it.</p><p>But because it's a live vaccine, which means it contains a weakened version of measles, mumps and rubella, it's not suitable for everyone.</p><p>The MMR vaccine is not suitable if:</p><ul><li>you're pregnant</li><li>you have a weakened immune system, either because of a health condition or because you are taking medicines that suppress the immune system</li><li>you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to any ingredients in the vaccine, including gelatine or neomycin</li></ul>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -372,7 +460,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>Most people who need the MMR vaccine can have it.</p><p>But because it's a live vaccine, which means it contains a weakened version of measles, mumps and rubella, it's not suitable for everyone.</p><p>The MMR vaccine is not given if:</p><ul><li>you're pregnant</li><li>you have a weakened immune system, either because of a health condition or because you are taking medicines that suppress the immune system</li><li>you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to any ingredients in the vaccine, including gelatine or neomycin</li></ul>",
+          "text": "<p>Most people who need the MMR vaccine can have it.</p><p>But because it's a live vaccine, which means it contains a weakened version of measles, mumps and rubella, it's not suitable for everyone.</p><p>The MMR vaccine is not suitable if:</p><ul><li>you're pregnant</li><li>you have a weakened immune system, either because of a health condition or because you are taking medicines that suppress the immune system</li><li>you've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to any ingredients in the vaccine, including gelatine or neomycin</li></ul>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -391,13 +479,13 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 5,
+      "position": 6,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>There are 2 types of MMR vaccine in the UK. You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/product/6307/pil\">MMRVaXPro MMR vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li><a href=\"https://www.medicines.org.uk/emc/files/pil.1159.pdf\">Priorix MMR vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 179KB)</a></li></ul><p>The MMR VaxPro vaccine contains a small amount of gelatine from pigs (porcine gelatine). Speak to the person vaccinating your child if you want your child to have the Priorix MMR vaccine instead.</p>",
+          "text": "<p>There are 2 types of MMR vaccine in the UK. You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/product/6307/pil\">MMRVaXPro MMR vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li><a href=\"https://www.medicines.org.uk/emc/files/pil.1159.pdf\">Priorix MMR vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 179KB)</a></li></ul><p>The MMR VaxPro vaccine contains a small amount of gelatine from pigs (porcine gelatine). Speak to the person vaccinating you or your child if you want the Priorix MMR vaccine instead.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -408,7 +496,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>There are 2 types of MMR vaccine in the UK. You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/product/6307/pil\">MMRVaXPro MMR vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li><a href=\"https://www.medicines.org.uk/emc/files/pil.1159.pdf\">Priorix MMR vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 179KB)</a></li></ul><p>The MMR VaxPro vaccine contains a small amount of gelatine from pigs (porcine gelatine). Speak to the person vaccinating your child if you want your child to have the Priorix MMR vaccine instead.</p>",
+          "text": "<p>There are 2 types of MMR vaccine in the UK. You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/product/6307/pil\">MMRVaXPro MMR vaccine patient leaflet (Electronic Medicines Compendium website)</a></li><li><a href=\"https://www.medicines.org.uk/emc/files/pil.1159.pdf\">Priorix MMR vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 179KB)</a></li></ul><p>The MMR VaxPro vaccine contains a small amount of gelatine from pigs (porcine gelatine). Speak to the person vaccinating you or your child if you want the Priorix MMR vaccine instead.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -420,7 +508,7 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 6,
+      "position": 7,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {
@@ -443,49 +531,6 @@
           "headline": ""
         }
       ]
-    },
-    {
-      "identifier": "0",
-      "name": "section heading",
-      "position": 7,
-      "@type": "WebPageElement",
-      "mainEntityOfPage": [
-        {
-          "position": 0,
-          "identifier": "1",
-          "text": "<p>Your GP surgery will usually contact you about your child's MMR vaccinations. This will usually be by letter, text message, phone call or email.</p><p>Older children who missed being vaccinated when they were younger may also be able to get the MMR vaccine through their school.</p><p>If you need the MMR vaccine for your work, you should be able to get it through your employer's occupational health service.</p>",
-          "@type": "WebPageElement",
-          "name": "markdown",
-          "headline": ""
-        },
-        {
-          "position": 1,
-          "@type": "WebPageElement",
-          "name": "non-urgent",
-          "identifier": "5",
-          "text": "<h3>Speak to your GP surgery if:</h3><div class=\"block-richtext\">\n<ul><li>you have not been contacted to get your child's MMR vaccine</li><li>your child has missed their MMR vaccine, or you're not sure if they've had both doses of the vaccine</li><li>you think you might need the MMR vaccine</li><li>your child has a temperature and is due to have the vaccine – they may need to wait until they're feeling better before having the vaccine</li><li>you need to change a vaccination appointment</li></ul><p>Your GP surgery can book or rearrange an appointment.</p>\n</div>"
-        }
-      ],
-      "description": "The MMR vaccine is usually given by your GP surgery but can also sometimes be given at school or by your employer's occupational health service.",
-      "hasPart": [
-        {
-          "position": 0,
-          "identifier": "1",
-          "text": "<p>Your GP surgery will usually contact you about your child's MMR vaccinations. This will usually be by letter, text message, phone call or email.</p><p>Older children who missed being vaccinated when they were younger may also be able to get the MMR vaccine through their school.</p><p>If you need the MMR vaccine for your work, you should be able to get it through your employer's occupational health service.</p>",
-          "@type": "WebPageElement",
-          "name": "markdown",
-          "headline": ""
-        },
-        {
-          "position": 1,
-          "@type": "WebPageElement",
-          "name": "non-urgent",
-          "identifier": "5",
-          "text": "<h3>Speak to your GP surgery if:</h3><div class=\"block-richtext\">\n<ul><li>you have not been contacted to get your child's MMR vaccine</li><li>your child has missed their MMR vaccine, or you're not sure if they've had both doses of the vaccine</li><li>you think you might need the MMR vaccine</li><li>your child has a temperature and is due to have the vaccine – they may need to wait until they're feeling better before having the vaccine</li><li>you need to change a vaccination appointment</li></ul><p>Your GP surgery can book or rearrange an appointment.</p>\n</div>"
-        }
-      ],
-      "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
-      "headline": "How to get the MMR vaccine"
     },
     {
       "identifier": "0",
@@ -495,33 +540,8 @@
       "mainEntityOfPage": [
         {
           "position": 0,
-          "@type": "WebPageElement",
-          "name": "Information",
-          "identifier": "3",
-          "text": "<h3>Advice for parents</h3><ul><li><a href=\"https://www.nhs.uk/vaccinations/booking-your-childs-vaccination-appointment/\">Booking your child's vaccination appointment</a></li><li><a href=\"https://www.nhs.uk/vaccinations/vaccination-tips-for-parents/\">Vaccination tips for parents</a></li></ul>"
-        }
-      ],
-      "description": "",
-      "hasPart": [
-        {
-          "position": 0,
-          "@type": "WebPageElement",
-          "name": "Information",
-          "identifier": "3",
-          "text": "<h3>Advice for parents</h3><ul><li><a href=\"https://www.nhs.uk/vaccinations/booking-your-childs-vaccination-appointment/\">Booking your child's vaccination appointment</a></li><li><a href=\"https://www.nhs.uk/vaccinations/vaccination-tips-for-parents/\">Vaccination tips for parents</a></li></ul>"
-        }
-      ]
-    },
-    {
-      "identifier": "0",
-      "name": "section heading",
-      "position": 9,
-      "@type": "WebPageElement",
-      "mainEntityOfPage": [
-        {
-          "position": 0,
           "identifier": "1",
-          "text": "<p>The MMR vaccine is given as an injection into the upper arm or thigh. It's often given at the same time as other routine vaccinations.</p><p>You'll need 2 doses for full protection.</p><p>Young children have the 1st dose when they're 1 year old and the second when they're between 3 years 4 months and 5 years old.</p><p>If you have the vaccine when you're older, you'll have 2 doses at least 1 month apart.</p>",
+          "text": "<p>The MMR vaccine is given as an injection into the upper arm or thigh.</p><p>You'll need 2 doses for full protection. You'll be given the doses at least 1 month apart.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -531,15 +551,15 @@
           "@type": "WebPageElement",
           "name": "Information",
           "identifier": "3",
-          "text": "<h3>Having the MMR vaccine at the same time as other vaccines</h3><p>The MMR vaccine can be given at the same time as most other vaccines except for the <a href=\"https://www.nhs.uk/conditions/yellow-fever/vaccination/\">yellow fever vaccine</a>.</p><p>You will need to wait 4 weeks between having the MMR vaccine and the yellow fever vaccine.</p><p>The MMR vaccine can be given on the same day as the <a href=\"https://www.nhs.uk/vaccinations/chickenpox-vaccine/\">chickenpox vaccine</a>, but if they are not given on the same day you will need to wait 4 weeks between the vaccines.</p>"
+          "text": "<h3>Having the MMR vaccine at the same time as other vaccines</h3><p>The MMR vaccine can be given at the same time as most other vaccines except for the <a href=\"https://www.nhs.uk/conditions/yellow-fever/vaccination/\">yellow fever vaccine</a>.</p><p>You will need to wait 4 weeks between having the MMR vaccine and the yellow fever vaccine.</p>"
         }
       ],
-      "description": "The MMR vaccine is given as an injection into the arm. You'll need 2 doses for full protection.",
+      "description": "The MMR vaccine is given as an injection into the arm or thigh. You'll need 2 doses for full protection.",
       "hasPart": [
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>The MMR vaccine is given as an injection into the upper arm or thigh. It's often given at the same time as other routine vaccinations.</p><p>You'll need 2 doses for full protection.</p><p>Young children have the 1st dose when they're 1 year old and the second when they're between 3 years 4 months and 5 years old.</p><p>If you have the vaccine when you're older, you'll have 2 doses at least 1 month apart.</p>",
+          "text": "<p>The MMR vaccine is given as an injection into the upper arm or thigh.</p><p>You'll need 2 doses for full protection. You'll be given the doses at least 1 month apart.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -549,7 +569,7 @@
           "@type": "WebPageElement",
           "name": "Information",
           "identifier": "3",
-          "text": "<h3>Having the MMR vaccine at the same time as other vaccines</h3><p>The MMR vaccine can be given at the same time as most other vaccines except for the <a href=\"https://www.nhs.uk/conditions/yellow-fever/vaccination/\">yellow fever vaccine</a>.</p><p>You will need to wait 4 weeks between having the MMR vaccine and the yellow fever vaccine.</p><p>The MMR vaccine can be given on the same day as the <a href=\"https://www.nhs.uk/vaccinations/chickenpox-vaccine/\">chickenpox vaccine</a>, but if they are not given on the same day you will need to wait 4 weeks between the vaccines.</p>"
+          "text": "<h3>Having the MMR vaccine at the same time as other vaccines</h3><p>The MMR vaccine can be given at the same time as most other vaccines except for the <a href=\"https://www.nhs.uk/conditions/yellow-fever/vaccination/\">yellow fever vaccine</a>.</p><p>You will need to wait 4 weeks between having the MMR vaccine and the yellow fever vaccine.</p>"
         }
       ],
       "hasHealthAspect": "http://schema.org/UsageOrScheduleHealthAspect",
@@ -558,7 +578,7 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 10,
+      "position": 9,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {
@@ -601,7 +621,7 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 11,
+      "position": 10,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {
@@ -630,7 +650,7 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 12,
+      "position": 11,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {

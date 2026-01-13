@@ -12,7 +12,7 @@ import {
   VaccinePageSubsection,
 } from "@src/services/content-api/types";
 
-const buildFilteredContentForMMRVVaccine = async (apiContent: string): Promise<VaccinePageContent> => {
+const buildFilteredContentForMMRandMMRVVaccines = async (apiContent: string): Promise<VaccinePageContent> => {
   const content: ContentApiVaccineResponse = JSON.parse(apiContent);
   const standardFilteredContent = await buildFilteredContentForStandardVaccine(apiContent);
   let additionalInformation: VaccinePageSection | undefined;
@@ -34,4 +34,4 @@ const buildFilteredContentForMMRVVaccine = async (apiContent: string): Promise<V
   return { ...standardFilteredContent, additionalInformation };
 };
 
-export { buildFilteredContentForMMRVVaccine };
+export { buildFilteredContentForMMRandMMRVVaccines };
