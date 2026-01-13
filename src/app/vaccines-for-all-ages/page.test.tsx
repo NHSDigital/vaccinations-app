@@ -54,72 +54,62 @@ describe("VaccinesForAllAges", () => {
     assertSubheadingIsPresent("Routine vaccines for babies under 1 year old");
   });
 
-  it("should render all vaccine card links", () => {
-    render(<VaccinesForAllAges />);
+  const expectedVaccinesForEachAgeSection = [
+    { section: AgeSectionTestId.ADULTS, cardTitle: "Pneumococcal", path: "/vaccines/pneumococcal-vaccine" },
+    { section: AgeSectionTestId.ADULTS, cardTitle: "Flu", path: "/vaccines/flu-vaccine" },
+    { section: AgeSectionTestId.ADULTS, cardTitle: "Shingles", path: "/vaccines/shingles-vaccine" },
+    { section: AgeSectionTestId.ADULTS, cardTitle: "RSV", path: "/vaccines/rsv" },
+    { section: AgeSectionTestId.ADULTS, cardTitle: "COVID-19", path: "/vaccines/covid-19-vaccine" },
+    {
+      section: AgeSectionTestId.PREGNANCY,
+      cardTitle: "Whooping cough (pertussis) in pregnancy",
+      path: "/vaccines/whooping-cough-vaccination",
+    },
+    { section: AgeSectionTestId.PREGNANCY, cardTitle: "RSV in pregnancy", path: "/vaccines/rsv-pregnancy" },
+    { section: AgeSectionTestId.PREGNANCY, cardTitle: "Flu in pregnancy", path: "/vaccines/flu-vaccine-in-pregnancy" },
+    { section: AgeSectionTestId.CHILDREN_SCHOOL_AGED, cardTitle: "HPV", path: "/vaccines/hpv-vaccine" },
+    { section: AgeSectionTestId.CHILDREN_SCHOOL_AGED, cardTitle: "MenACWY", path: "/vaccines/menacwy-vaccine" },
+    {
+      section: AgeSectionTestId.CHILDREN_SCHOOL_AGED,
+      cardTitle: "Td/IPV (3-in-1 teenage booster)",
+      path: "/vaccines/td-ipv-vaccine-3-in-1-teenage-booster",
+    },
+    {
+      section: AgeSectionTestId.CHILDREN_SCHOOL_AGED,
+      cardTitle: "Flu for school-aged children (Reception to Year 11)",
+      path: "/vaccines/flu-vaccine-for-school-aged-children",
+    },
+    {
+      section: AgeSectionTestId.CHILDREN_PRESCHOOL,
+      cardTitle: "MMRV (measles, mumps, rubella and chickenpox)",
+      path: "/vaccines/mmrv-vaccine",
+    },
+    { section: AgeSectionTestId.CHILDREN_PRESCHOOL, cardTitle: "MenB", path: "/vaccines/menb-vaccine-for-children" },
+    { section: AgeSectionTestId.CHILDREN_PRESCHOOL, cardTitle: "Pneumococcal", path: "/vaccines/pneumococcal-vaccine" },
+    { section: AgeSectionTestId.CHILDREN_PRESCHOOL, cardTitle: "6-in-1", path: "/vaccines/6-in-1-vaccine" },
+    {
+      section: AgeSectionTestId.CHILDREN_PRESCHOOL,
+      cardTitle: "4-in-1 pre-school booster",
+      path: "/vaccines/4-in-1-preschool-booster-vaccine",
+    },
+    {
+      section: AgeSectionTestId.CHILDREN_PRESCHOOL,
+      cardTitle: "Flu for children aged 2 to 3",
+      path: "/vaccines/flu-vaccine-for-children",
+    },
+    { section: AgeSectionTestId.BABIES, cardTitle: "6-in-1", path: "/vaccines/6-in-1-vaccine" },
+    { section: AgeSectionTestId.BABIES, cardTitle: "Rotavirus", path: "/vaccines/rotavirus-vaccine" },
+    { section: AgeSectionTestId.BABIES, cardTitle: "MenB", path: "/vaccines/menb-vaccine-for-children" },
+  ];
 
-    assertCardLinkIsPresentInSection("Pneumococcal", "/vaccines/pneumococcal-vaccine", AgeSectionTestId.ADULTS);
-    assertCardLinkIsPresentInSection("Flu", "/vaccines/flu-vaccine", AgeSectionTestId.ADULTS);
-    assertCardLinkIsPresentInSection("Shingles", "/vaccines/shingles-vaccine", AgeSectionTestId.ADULTS);
-    assertCardLinkIsPresentInSection("RSV", "/vaccines/rsv", AgeSectionTestId.ADULTS);
-    assertCardLinkIsPresentInSection("COVID-19", "/vaccines/covid-19-vaccine", AgeSectionTestId.ADULTS);
+  it.each(expectedVaccinesForEachAgeSection)(
+    `should render $cardTitle link for $section`,
+    ({ section, cardTitle, path }) => {
+      render(<VaccinesForAllAges />);
 
-    assertCardLinkIsPresentInSection(
-      "Whooping cough (pertussis) in pregnancy",
-      "/vaccines/whooping-cough-vaccination",
-      AgeSectionTestId.PREGNANCY,
-    );
-    assertCardLinkIsPresentInSection("RSV in pregnancy", "/vaccines/rsv-pregnancy", AgeSectionTestId.PREGNANCY);
-    assertCardLinkIsPresentInSection(
-      "Flu in pregnancy",
-      "/vaccines/flu-vaccine-in-pregnancy",
-      AgeSectionTestId.PREGNANCY,
-    );
-
-    assertCardLinkIsPresentInSection("HPV", "/vaccines/hpv-vaccine", AgeSectionTestId.CHILDREN_SCHOOL_AGED);
-    assertCardLinkIsPresentInSection("MenACWY", "/vaccines/menacwy-vaccine", AgeSectionTestId.CHILDREN_SCHOOL_AGED);
-    assertCardLinkIsPresentInSection(
-      "Td/IPV (3-in-1 teenage booster)",
-      "/vaccines/td-ipv-vaccine-3-in-1-teenage-booster",
-      AgeSectionTestId.CHILDREN_SCHOOL_AGED,
-    );
-    assertCardLinkIsPresentInSection(
-      "Flu for school-aged children (Reception to Year 11)",
-      "/vaccines/flu-vaccine-for-school-aged-children",
-      AgeSectionTestId.CHILDREN_SCHOOL_AGED,
-    );
-
-    assertCardLinkIsPresentInSection(
-      "MMRV (measles, mumps, rubella and chickenpox)",
-      "/vaccines/mmrv-vaccine",
-      AgeSectionTestId.CHILDREN_PRESCHOOL,
-    );
-    assertCardLinkIsPresentInSection(
-      "MenB",
-      "/vaccines/menb-vaccine-for-children",
-      AgeSectionTestId.CHILDREN_PRESCHOOL,
-    );
-    assertCardLinkIsPresentInSection(
-      "Pneumococcal",
-      "/vaccines/pneumococcal-vaccine",
-      AgeSectionTestId.CHILDREN_PRESCHOOL,
-    );
-    assertCardLinkIsPresentInSection("6-in-1", "/vaccines/6-in-1-vaccine", AgeSectionTestId.CHILDREN_PRESCHOOL);
-    assertCardLinkIsPresentInSection(
-      "4-in-1 pre-school booster",
-      "/vaccines/4-in-1-preschool-booster-vaccine",
-      AgeSectionTestId.CHILDREN_PRESCHOOL,
-    );
-    assertCardLinkIsPresentInSection(
-      "Flu for children aged 2 to 3",
-      "/vaccines/flu-vaccine-for-children",
-      AgeSectionTestId.CHILDREN_PRESCHOOL,
-    );
-
-    assertCardLinkIsPresentInSection("6-in-1", "/vaccines/6-in-1-vaccine", AgeSectionTestId.BABIES);
-    assertCardLinkIsPresentInSection("Rotavirus", "/vaccines/rotavirus-vaccine", AgeSectionTestId.BABIES);
-    assertCardLinkIsPresentInSection("MenB", "/vaccines/menb-vaccine-for-children", AgeSectionTestId.BABIES);
-    assertCardLinkIsPresentInSection("Pneumococcal", "/vaccines/pneumococcal-vaccine", AgeSectionTestId.BABIES);
-  });
+      assertCardLinkIsPresentInSection(cardTitle, path, section);
+    },
+  );
 
   it("should render back link", () => {
     render(<VaccinesForAllAges />);
