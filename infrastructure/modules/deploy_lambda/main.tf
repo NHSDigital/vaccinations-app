@@ -11,7 +11,7 @@ module "content_cache_hydrator_lambda_function" {
   architectures                  = ["arm64"]
   runtime                        = var.nodejs_version
   reserved_concurrent_executions = 1
-  timeout                        = 60
+  timeout                        = 120
   memory_size                    = 512
   publish                        = true
 

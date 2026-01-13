@@ -57,7 +57,7 @@ async function hydrateCacheForVaccine(
 
   try {
     const content: string = await retry(async () => fetchContentForVaccine(vaccineType), {
-      retries: 2,
+      retries: 5,
       delay: (attempt: number) => {
         const delayMillis = rateLimitDelayWithMargin * Math.pow(2, attempt + 1);
         log.warn(
