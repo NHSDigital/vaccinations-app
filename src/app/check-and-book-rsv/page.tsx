@@ -1,5 +1,6 @@
 import BackToNHSAppLink from "@src/app/_components/nhs-app/BackToNHSAppLink";
 import CardLink from "@src/app/_components/nhs-app/CardLink";
+import InsetText from "@src/app/_components/nhs-frontend/InsetText";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import { HUB_FEEDBACK_REFERRER_ID, NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
 import { VaccineContentUrlPaths, VaccineInfo, VaccineTypes } from "@src/models/vaccine";
@@ -39,6 +40,14 @@ const vaccinationsHubPage = async () => {
         {ifContentHasLoadedSuccessfully(styledVaccineContent, contentError) && (
           <p data-testid="overview-text">{styledVaccineContent?.overview}</p>
         )}
+
+        <InsetText
+          content={
+            <p>
+              We&apos;re expanding this service. Soon you&apos;ll be able to check and book more NHS vaccinations here.
+            </p>
+          }
+        />
 
         {/* List of vaccines */}
         <div className="nhsapp-cards nhsapp-cards--stacked">
