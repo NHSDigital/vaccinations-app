@@ -6,7 +6,8 @@ import { SERVICE_HEADING } from "@src/app/constants";
 enum AgeSectionTestId {
   ADULTS = "vaccine-cardlinks-adults",
   PREGNANCY = "vaccine-cardlinks-pregnancy",
-  CHILDREN = "vaccine-cardlinks-children",
+  CHILDREN_SCHOOL_AGED = "vaccine-cardlinks-children-school-aged",
+  CHILDREN_PRESCHOOL = "vaccine-cardlinks-children-preschool",
   BABIES = "vaccine-cardlinks-babies",
 }
 
@@ -26,11 +27,11 @@ test.describe("Navigation", () => {
   });
 
   const linksFromAllAges: { section: AgeSectionTestId; linkText: string; pageName: PageName }[] = [
-    { section: AgeSectionTestId.ADULTS, linkText: "COVID-19", pageName: "covid-19-vaccine" },
-    { section: AgeSectionTestId.ADULTS, linkText: "Flu", pageName: "flu-vaccine" },
-    { section: AgeSectionTestId.ADULTS, linkText: "RSV", pageName: "rsv-older-adults" },
-    { section: AgeSectionTestId.ADULTS, linkText: "Shingles", pageName: "shingles" },
     { section: AgeSectionTestId.ADULTS, linkText: "Pneumococcal", pageName: "pneumococcal" },
+    { section: AgeSectionTestId.ADULTS, linkText: "Flu", pageName: "flu-vaccine" },
+    { section: AgeSectionTestId.ADULTS, linkText: "Shingles", pageName: "shingles" },
+    { section: AgeSectionTestId.ADULTS, linkText: "RSV", pageName: "rsv-older-adults" },
+    { section: AgeSectionTestId.ADULTS, linkText: "COVID-19", pageName: "covid-19-vaccine" },
 
     {
       section: AgeSectionTestId.PREGNANCY,
@@ -40,23 +41,34 @@ test.describe("Navigation", () => {
     { section: AgeSectionTestId.PREGNANCY, linkText: "RSV in pregnancy", pageName: "rsv-pregnancy" },
     { section: AgeSectionTestId.PREGNANCY, linkText: "Flu in pregnancy", pageName: "flu-in-pregnancy" },
 
-    { section: AgeSectionTestId.CHILDREN, linkText: "Flu for children aged 2 to 3", pageName: "flu-for-children" },
+    { section: AgeSectionTestId.CHILDREN_SCHOOL_AGED, linkText: "HPV", pageName: "hpv" },
+    { section: AgeSectionTestId.CHILDREN_SCHOOL_AGED, linkText: "MenACWY", pageName: "menacwy" },
+    { section: AgeSectionTestId.CHILDREN_SCHOOL_AGED, linkText: "Td/IPV (3-in-1 teenage booster)", pageName: "td-ipv" },
     {
-      section: AgeSectionTestId.CHILDREN,
-      linkText: "Flu for school-aged children",
+      section: AgeSectionTestId.CHILDREN_SCHOOL_AGED,
+      linkText: "Flu for school-aged children (Reception to Year 11)",
       pageName: "flu-for-school-aged-children",
     },
-    { section: AgeSectionTestId.CHILDREN, linkText: "Td/IPV (3-in-1 teenage booster)", pageName: "td-ipv" },
-    { section: AgeSectionTestId.CHILDREN, linkText: "MenACWY", pageName: "menacwy" },
-    { section: AgeSectionTestId.CHILDREN, linkText: "HPV", pageName: "hpv" },
-    { section: AgeSectionTestId.CHILDREN, linkText: "4-in-1 pre-school booster", pageName: "4-in-1" },
-    { section: AgeSectionTestId.CHILDREN, linkText: "MMR (measles, mumps and rubella)", pageName: "mmr" },
-    { section: AgeSectionTestId.CHILDREN, linkText: "MenB", pageName: "menb-children" },
-    { section: AgeSectionTestId.CHILDREN, linkText: "Pneumococcal", pageName: "pneumococcal" },
+
+    {
+      section: AgeSectionTestId.CHILDREN_PRESCHOOL,
+      linkText: "MMRV (measles, mumps, rubella and chickenpox)",
+      pageName: "mmrv",
+    },
+    { section: AgeSectionTestId.CHILDREN_PRESCHOOL, linkText: "MenB", pageName: "menb-children" },
+    { section: AgeSectionTestId.CHILDREN_PRESCHOOL, linkText: "Pneumococcal", pageName: "pneumococcal" },
+    { section: AgeSectionTestId.CHILDREN_PRESCHOOL, linkText: "6-in-1", pageName: "6-in-1" },
+    { section: AgeSectionTestId.CHILDREN_PRESCHOOL, linkText: "4-in-1 pre-school booster", pageName: "4-in-1" },
+    {
+      section: AgeSectionTestId.CHILDREN_PRESCHOOL,
+      linkText: "Flu for children aged 2 to 3",
+      pageName: "flu-for-children",
+    },
+
     { section: AgeSectionTestId.BABIES, linkText: "6-in-1", pageName: "6-in-1" },
     { section: AgeSectionTestId.BABIES, linkText: "Rotavirus", pageName: "rotavirus" },
-    { section: AgeSectionTestId.BABIES, linkText: "Pneumococcal", pageName: "pneumococcal" },
     { section: AgeSectionTestId.BABIES, linkText: "MenB", pageName: "menb-children" },
+    { section: AgeSectionTestId.BABIES, linkText: "Pneumococcal", pageName: "pneumococcal" },
   ];
   for (const linkFromAllAges of linksFromAllAges) {
     test(`Link to ${linkFromAllAges.linkText} in ${linkFromAllAges.section} section, and backlink from vaccines-for-all-ages page`, async ({

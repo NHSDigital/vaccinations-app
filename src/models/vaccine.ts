@@ -395,34 +395,36 @@ Object.entries(VaccineInfo).forEach(([vaccineType, vaccineDetails]) => {
 });
 
 const adultVaccines: VaccineType[] = [
-  VaccineType.COVID_19,
-  VaccineType.FLU_FOR_ADULTS,
-  VaccineType.RSV,
-  VaccineType.SHINGLES,
   VaccineType.PNEUMOCOCCAL,
+  VaccineType.FLU_FOR_ADULTS,
+  VaccineType.SHINGLES,
+  VaccineType.RSV,
+  VaccineType.COVID_19,
 ];
 const pregnancyVaccines: VaccineType[] = [
   VaccineType.WHOOPING_COUGH,
   VaccineType.RSV_PREGNANCY,
   VaccineType.FLU_IN_PREGNANCY,
 ];
-const childVaccines: VaccineType[] = [
-  VaccineType.FLU_FOR_CHILDREN,
-  VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN,
-  VaccineType.TD_IPV_3_IN_1,
-  VaccineType.MENACWY,
+const childSchoolAgedVaccines: VaccineType[] = [
   VaccineType.HPV,
-  VaccineType.VACCINE_4_IN_1,
-  VaccineType.MMR,
+  VaccineType.MENACWY,
+  VaccineType.TD_IPV_3_IN_1,
+  VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN,
+];
+const childPreschoolVaccines: VaccineType[] = [
   VaccineType.MMRV,
   VaccineType.MENB_CHILDREN,
   VaccineType.PNEUMOCOCCAL,
+  VaccineType.VACCINE_6_IN_1,
+  VaccineType.VACCINE_4_IN_1,
+  VaccineType.FLU_FOR_CHILDREN,
 ];
 const babyVaccines: VaccineType[] = [
   VaccineType.VACCINE_6_IN_1,
   VaccineType.ROTAVIRUS,
-  VaccineType.PNEUMOCOCCAL,
   VaccineType.MENB_CHILDREN,
+  VaccineType.PNEUMOCOCCAL,
 ];
 
 export {
@@ -431,6 +433,7 @@ export {
   vaccineUrlPathToVaccineType,
   adultVaccines,
   pregnancyVaccines,
-  childVaccines,
+  childSchoolAgedVaccines,
+  childPreschoolVaccines,
   babyVaccines,
 };
