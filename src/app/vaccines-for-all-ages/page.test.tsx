@@ -55,59 +55,141 @@ describe("VaccinesForAllAges", () => {
   });
 
   const expectedVaccinesForEachAgeSection = [
-    { section: AgeSectionTestId.ADULTS, cardTitle: "Pneumococcal", path: "/vaccines/pneumococcal-vaccine" },
-    { section: AgeSectionTestId.ADULTS, cardTitle: "Flu", path: "/vaccines/flu-vaccine" },
-    { section: AgeSectionTestId.ADULTS, cardTitle: "Shingles", path: "/vaccines/shingles-vaccine" },
-    { section: AgeSectionTestId.ADULTS, cardTitle: "RSV", path: "/vaccines/rsv" },
-    { section: AgeSectionTestId.ADULTS, cardTitle: "COVID-19", path: "/vaccines/covid-19-vaccine" },
+    {
+      section: AgeSectionTestId.ADULTS,
+      cardTitle: "Pneumococcal",
+      description: "65 years and over",
+      path: "/vaccines/pneumococcal-vaccine",
+    },
+    {
+      section: AgeSectionTestId.ADULTS,
+      cardTitle: "Flu",
+      description: "65 years and over",
+      path: "/vaccines/flu-vaccine",
+    },
+    {
+      section: AgeSectionTestId.ADULTS,
+      cardTitle: "Shingles",
+      description: "65 to 67 and 70 to 79 years",
+      path: "/vaccines/shingles-vaccine",
+    },
+    { section: AgeSectionTestId.ADULTS, cardTitle: "RSV", description: "75 years and over", path: "/vaccines/rsv" },
+    {
+      section: AgeSectionTestId.ADULTS,
+      cardTitle: "COVID-19",
+      description: "75 years and over",
+      path: "/vaccines/covid-19-vaccine",
+    },
     {
       section: AgeSectionTestId.PREGNANCY,
       cardTitle: "Whooping cough (pertussis) in pregnancy",
+      description: "From 16 weeks",
       path: "/vaccines/whooping-cough-vaccination",
     },
-    { section: AgeSectionTestId.PREGNANCY, cardTitle: "RSV in pregnancy", path: "/vaccines/rsv-pregnancy" },
-    { section: AgeSectionTestId.PREGNANCY, cardTitle: "Flu in pregnancy", path: "/vaccines/flu-vaccine-in-pregnancy" },
-    { section: AgeSectionTestId.CHILDREN_SCHOOL_AGED, cardTitle: "HPV", path: "/vaccines/hpv-vaccine" },
-    { section: AgeSectionTestId.CHILDREN_SCHOOL_AGED, cardTitle: "MenACWY", path: "/vaccines/menacwy-vaccine" },
+    {
+      section: AgeSectionTestId.PREGNANCY,
+      cardTitle: "RSV in pregnancy",
+      description: "From 28 weeks",
+      path: "/vaccines/rsv-pregnancy",
+    },
+    {
+      section: AgeSectionTestId.PREGNANCY,
+      cardTitle: "Flu in pregnancy",
+      description: "During autumn or winter",
+      path: "/vaccines/flu-vaccine-in-pregnancy",
+    },
+    {
+      section: AgeSectionTestId.CHILDREN_SCHOOL_AGED,
+      cardTitle: "HPV",
+      description: "School year 8",
+      path: "/vaccines/hpv-vaccine",
+    },
+    {
+      section: AgeSectionTestId.CHILDREN_SCHOOL_AGED,
+      cardTitle: "MenACWY",
+      description: "School year 9",
+      path: "/vaccines/menacwy-vaccine",
+    },
     {
       section: AgeSectionTestId.CHILDREN_SCHOOL_AGED,
       cardTitle: "Td/IPV (3-in-1 teenage booster)",
+      description: "School year 9",
       path: "/vaccines/td-ipv-vaccine-3-in-1-teenage-booster",
     },
     {
       section: AgeSectionTestId.CHILDREN_SCHOOL_AGED,
       cardTitle: "Flu for school-aged children (Reception to Year 11)",
+      description: "Annually, during autumn or winter",
       path: "/vaccines/flu-vaccine-for-school-aged-children",
     },
     {
       section: AgeSectionTestId.CHILDREN_PRESCHOOL,
       cardTitle: "MMRV (measles, mumps, rubella and chickenpox)",
+      description: "From 12 months",
       path: "/vaccines/mmrv-vaccine",
     },
-    { section: AgeSectionTestId.CHILDREN_PRESCHOOL, cardTitle: "MenB", path: "/vaccines/menb-vaccine-for-children" },
-    { section: AgeSectionTestId.CHILDREN_PRESCHOOL, cardTitle: "Pneumococcal", path: "/vaccines/pneumococcal-vaccine" },
-    { section: AgeSectionTestId.CHILDREN_PRESCHOOL, cardTitle: "6-in-1", path: "/vaccines/6-in-1-vaccine" },
+    {
+      section: AgeSectionTestId.CHILDREN_PRESCHOOL,
+      cardTitle: "MenB",
+      description: "From 12 months",
+      path: "/vaccines/menb-vaccine-for-children",
+    },
+    {
+      section: AgeSectionTestId.CHILDREN_PRESCHOOL,
+      cardTitle: "Pneumococcal",
+      description: "From 12 months",
+      path: "/vaccines/pneumococcal-vaccine",
+    },
+    {
+      section: AgeSectionTestId.CHILDREN_PRESCHOOL,
+      cardTitle: "6-in-1",
+      description: "From 18 months",
+      path: "/vaccines/6-in-1-vaccine",
+    },
     {
       section: AgeSectionTestId.CHILDREN_PRESCHOOL,
       cardTitle: "4-in-1 pre-school booster",
+      description: "From 3 years 4 months",
       path: "/vaccines/4-in-1-preschool-booster-vaccine",
     },
     {
       section: AgeSectionTestId.CHILDREN_PRESCHOOL,
       cardTitle: "Flu for children aged 2 to 3",
+      description: "Annually, during autumn or winter",
       path: "/vaccines/flu-vaccine-for-children",
     },
-    { section: AgeSectionTestId.BABIES, cardTitle: "6-in-1", path: "/vaccines/6-in-1-vaccine" },
-    { section: AgeSectionTestId.BABIES, cardTitle: "Rotavirus", path: "/vaccines/rotavirus-vaccine" },
-    { section: AgeSectionTestId.BABIES, cardTitle: "MenB", path: "/vaccines/menb-vaccine-for-children" },
+    {
+      section: AgeSectionTestId.BABIES,
+      cardTitle: "6-in-1",
+      description: "From 8 weeks",
+      path: "/vaccines/6-in-1-vaccine",
+    },
+    {
+      section: AgeSectionTestId.BABIES,
+      cardTitle: "Rotavirus",
+      description: "From 8 weeks",
+      path: "/vaccines/rotavirus-vaccine",
+    },
+    {
+      section: AgeSectionTestId.BABIES,
+      cardTitle: "MenB",
+      description: "From 8 weeks",
+      path: "/vaccines/menb-vaccine-for-children",
+    },
+    {
+      section: AgeSectionTestId.BABIES,
+      cardTitle: "Pneumococcal",
+      description: "From 16 weeks",
+      path: "/vaccines/pneumococcal-vaccine",
+    },
   ];
 
   it.each(expectedVaccinesForEachAgeSection)(
     `should render $cardTitle link for $section`,
-    ({ section, cardTitle, path }) => {
+    ({ section, cardTitle, description, path }) => {
       render(<VaccinesForAllAges />);
 
-      assertCardLinkIsPresentInSection(cardTitle, path, section);
+      assertCardLinkIsPresentInSection(cardTitle, path, description, section);
     },
   );
 
@@ -124,11 +206,15 @@ const assertSubheadingIsPresent = (text: string) => {
   expect(subheading).toBeVisible();
 };
 
-const assertCardLinkIsPresentInSection = (text: string, path: string, section: string) => {
+const assertCardLinkIsPresentInSection = (cardTitle: string, path: string, description: string, section: string) => {
   const ageSection = screen.getByTestId(section);
 
-  const link: HTMLElement = within(ageSection).getByRole("link", { name: text });
+  const link: HTMLElement = within(ageSection).getByRole("link", { name: cardTitle });
+  const cardDescription = within(ageSection).getByTestId(cardTitle + "-description");
 
   expect(link).toBeVisible();
   expect(link.getAttribute("href")).toEqual(path);
+
+  expect(cardDescription).toBeVisible();
+  expect(cardDescription).toHaveTextContent(description);
 };

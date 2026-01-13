@@ -14,12 +14,12 @@ const VaccinesDuringPregnancy = (): JSX.Element => {
       <MainContent>
         <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-5"}>{VACCINES_FOR_PREGNANT_PAGE}</h1>
         <ul className="nhsapp-cards nhsapp-cards--stacked">
-          {pregnancyVaccines.map((type) => (
+          {pregnancyVaccines.map((cardDetails) => (
             <CardLinkWithDescription
-              key={type}
-              title={VaccineInfo[type].cardLinkTitle}
-              description={VaccineInfo[type].cardLinkDescription}
-              link={`/vaccines/${VaccineInfo[type].urlPath}`}
+              key={cardDetails.vaccineName}
+              title={VaccineInfo[cardDetails.vaccineName].cardLinkTitle}
+              description={cardDetails.cardLinkDescription}
+              link={`/vaccines/${VaccineInfo[cardDetails.vaccineName].urlPath}`}
             />
           ))}
         </ul>

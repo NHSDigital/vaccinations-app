@@ -1,5 +1,5 @@
 import { AtRiskHubExpander } from "@src/app/_components/hub/AtRiskHubExpander";
-import CardLink from "@src/app/_components/nhs-app/CardLink";
+import CardLinkWithDescription from "@src/app/_components/nhs-app/CardLinkWithDescription";
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import { NHS_TITLE_SUFFIX, VACCINES_FOR_ALL_AGES_PAGE } from "@src/app/constants";
@@ -29,55 +29,60 @@ const VaccinesForAllAges = (): JSX.Element => {
 
         <h2 className="nhsuk-heading-s">Routine vaccines for adults</h2>
         <ul className="nhsapp-cards nhsapp-cards--stacked" data-testid={"vaccine-cardlinks-adults"}>
-          {adultVaccines.map((type) => (
-            <CardLink
-              key={type}
-              title={VaccineInfo[type].cardLinkTitle}
-              link={`/vaccines/${VaccineInfo[type].urlPath}`}
+          {adultVaccines.map((cardDetails) => (
+            <CardLinkWithDescription
+              key={cardDetails.vaccineName}
+              title={VaccineInfo[cardDetails.vaccineName].cardLinkTitle}
+              description={cardDetails.cardLinkDescription}
+              link={`/vaccines/${VaccineInfo[cardDetails.vaccineName].urlPath}`}
             />
           ))}
         </ul>
 
         <h2 className="nhsuk-heading-s">Routine vaccines for pregnancy</h2>
         <ul className="nhsapp-cards nhsapp-cards--stacked" data-testid="vaccine-cardlinks-pregnancy">
-          {pregnancyVaccines.map((type) => (
-            <CardLink
-              key={type}
-              title={VaccineInfo[type].cardLinkTitle}
-              link={`/vaccines/${VaccineInfo[type].urlPath}`}
+          {pregnancyVaccines.map((cardDetails) => (
+            <CardLinkWithDescription
+              key={cardDetails.vaccineName}
+              title={VaccineInfo[cardDetails.vaccineName].cardLinkTitle}
+              description={cardDetails.cardLinkDescription}
+              link={`/vaccines/${VaccineInfo[cardDetails.vaccineName].urlPath}`}
             />
           ))}
         </ul>
 
         <h2 className="nhsuk-heading-s">Routine vaccines for school-aged children 4 to 16 (Reception to Year 11)</h2>
         <ul className="nhsapp-cards nhsapp-cards--stacked" data-testid="vaccine-cardlinks-children-school-aged">
-          {childSchoolAgedVaccines.map((type) => (
-            <CardLink
-              key={type}
-              title={VaccineInfo[type].cardLinkTitle}
-              link={`/vaccines/${VaccineInfo[type].urlPath}`}
+          {childSchoolAgedVaccines.map((cardDetails) => (
+            <CardLinkWithDescription
+              key={cardDetails.vaccineName}
+              title={VaccineInfo[cardDetails.vaccineName].cardLinkTitle}
+              description={cardDetails.cardLinkDescription}
+              link={`/vaccines/${VaccineInfo[cardDetails.vaccineName].urlPath}`}
             />
           ))}
         </ul>
 
         <h2 className="nhsuk-heading-s">Routine vaccines for pre-school children under 4</h2>
         <ul className="nhsapp-cards nhsapp-cards--stacked" data-testid="vaccine-cardlinks-children-preschool">
-          {childPreschoolVaccines.map((type) => (
-            <CardLink
-              key={type}
-              title={VaccineInfo[type].cardLinkTitle}
-              link={`/vaccines/${VaccineInfo[type].urlPath}`}
+          {childPreschoolVaccines.map((cardDetails) => (
+            <CardLinkWithDescription
+              key={cardDetails.vaccineName}
+              title={VaccineInfo[cardDetails.vaccineName].cardLinkTitle}
+              description={cardDetails.cardLinkDescription}
+              link={`/vaccines/${VaccineInfo[cardDetails.vaccineName].urlPath}`}
             />
           ))}
         </ul>
 
         <h2 className="nhsuk-heading-s">Routine vaccines for babies under 1 year old</h2>
         <ul className="nhsapp-cards nhsapp-cards--stacked" data-testid={"vaccine-cardlinks-babies"}>
-          {babyVaccines.map((type) => (
-            <CardLink
-              key={type}
-              title={VaccineInfo[type].cardLinkTitle}
-              link={`/vaccines/${VaccineInfo[type].urlPath}`}
+          {babyVaccines.map((cardDetails) => (
+            <CardLinkWithDescription
+              key={cardDetails.vaccineName}
+              title={VaccineInfo[cardDetails.vaccineName].cardLinkTitle}
+              description={cardDetails.cardLinkDescription}
+              link={`/vaccines/${VaccineInfo[cardDetails.vaccineName].urlPath}`}
             />
           ))}
         </ul>

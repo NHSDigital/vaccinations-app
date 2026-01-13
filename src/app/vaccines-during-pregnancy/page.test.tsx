@@ -8,7 +8,7 @@ describe("VaccinesDuringPregnancy", () => {
   const vaccines = [
     {
       name: "Whooping cough (pertussis) in pregnancy",
-      description: "Around 20 weeks",
+      description: "From 16 weeks",
       link: "/vaccines/whooping-cough-vaccination",
     },
     { name: "RSV in pregnancy", description: "From 28 weeks", link: "/vaccines/rsv-pregnancy" },

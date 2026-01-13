@@ -12,14 +12,14 @@ enum AgeGroup {
   UNKNOWN_AGE_GROUP = "UNKNOWN_AGE_GROUP",
 }
 
-type AgeSpecificVaccineCardDetails = {
+export type VaccineCardDetails = {
   vaccineName: VaccineType;
   cardLinkDescription: string;
 };
 
 export type AgeBasedHubDetails = {
   heading: string;
-  vaccines: AgeSpecificVaccineCardDetails[];
+  vaccines: VaccineCardDetails[];
   showPregnancyHubContent: boolean;
   styledWarningCallout?: JSX.Element;
 };

@@ -17,7 +17,9 @@ const CardLinkWithDescription = ({ title, description, link }: CardLinkProps) =>
           </Link>
           {description && (
             <div className="nhsapp-card__below">
-              <p className="nhsapp-card__description">{description}</p>
+              <p className="nhsapp-card__description" data-testid={title + "-description"}>
+                {description}
+              </p>
             </div>
           )}
         </div>

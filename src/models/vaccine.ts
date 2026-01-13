@@ -1,3 +1,4 @@
+import { VaccineCardDetails } from "@src/models/ageBasedHub";
 import { Brand } from "@src/utils/types";
 
 export type NhsNumber = Brand<string, "NhsNumber">;
@@ -394,37 +395,37 @@ Object.entries(VaccineInfo).forEach(([vaccineType, vaccineDetails]) => {
   vaccineUrlPathToVaccineType.set(vaccineDetails.urlPath, vaccineType as VaccineType);
 });
 
-const adultVaccines: VaccineType[] = [
-  VaccineType.PNEUMOCOCCAL,
-  VaccineType.FLU_FOR_ADULTS,
-  VaccineType.SHINGLES,
-  VaccineType.RSV,
-  VaccineType.COVID_19,
+const adultVaccines: VaccineCardDetails[] = [
+  { vaccineName: VaccineType.PNEUMOCOCCAL, cardLinkDescription: "65 years and over" },
+  { vaccineName: VaccineType.FLU_FOR_ADULTS, cardLinkDescription: "65 years and over" },
+  { vaccineName: VaccineType.SHINGLES, cardLinkDescription: "65 to 67 and 70 to 79 years" },
+  { vaccineName: VaccineType.RSV, cardLinkDescription: "75 years and over" },
+  { vaccineName: VaccineType.COVID_19, cardLinkDescription: "75 years and over" },
 ];
-const pregnancyVaccines: VaccineType[] = [
-  VaccineType.WHOOPING_COUGH,
-  VaccineType.RSV_PREGNANCY,
-  VaccineType.FLU_IN_PREGNANCY,
+const pregnancyVaccines: VaccineCardDetails[] = [
+  { vaccineName: VaccineType.WHOOPING_COUGH, cardLinkDescription: "From 16 weeks" },
+  { vaccineName: VaccineType.RSV_PREGNANCY, cardLinkDescription: "From 28 weeks" },
+  { vaccineName: VaccineType.FLU_IN_PREGNANCY, cardLinkDescription: "During autumn or winter" },
 ];
-const childSchoolAgedVaccines: VaccineType[] = [
-  VaccineType.HPV,
-  VaccineType.MENACWY,
-  VaccineType.TD_IPV_3_IN_1,
-  VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN,
+const childSchoolAgedVaccines: VaccineCardDetails[] = [
+  { vaccineName: VaccineType.HPV, cardLinkDescription: "School year 8" },
+  { vaccineName: VaccineType.MENACWY, cardLinkDescription: "School year 9" },
+  { vaccineName: VaccineType.TD_IPV_3_IN_1, cardLinkDescription: "School year 9" },
+  { vaccineName: VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, cardLinkDescription: "Annually, during autumn or winter" },
 ];
-const childPreschoolVaccines: VaccineType[] = [
-  VaccineType.MMRV,
-  VaccineType.MENB_CHILDREN,
-  VaccineType.PNEUMOCOCCAL,
-  VaccineType.VACCINE_6_IN_1,
-  VaccineType.VACCINE_4_IN_1,
-  VaccineType.FLU_FOR_CHILDREN,
+const childPreschoolVaccines: VaccineCardDetails[] = [
+  { vaccineName: VaccineType.MMRV, cardLinkDescription: "From 12 months" },
+  { vaccineName: VaccineType.MENB_CHILDREN, cardLinkDescription: "From 12 months" },
+  { vaccineName: VaccineType.PNEUMOCOCCAL, cardLinkDescription: "From 12 months" },
+  { vaccineName: VaccineType.VACCINE_6_IN_1, cardLinkDescription: "From 18 months" },
+  { vaccineName: VaccineType.VACCINE_4_IN_1, cardLinkDescription: "From 3 years 4 months" },
+  { vaccineName: VaccineType.FLU_FOR_CHILDREN, cardLinkDescription: "Annually, during autumn or winter" },
 ];
-const babyVaccines: VaccineType[] = [
-  VaccineType.VACCINE_6_IN_1,
-  VaccineType.ROTAVIRUS,
-  VaccineType.MENB_CHILDREN,
-  VaccineType.PNEUMOCOCCAL,
+const babyVaccines: VaccineCardDetails[] = [
+  { vaccineName: VaccineType.VACCINE_6_IN_1, cardLinkDescription: "From 8 weeks" },
+  { vaccineName: VaccineType.ROTAVIRUS, cardLinkDescription: "From 8 weeks" },
+  { vaccineName: VaccineType.MENB_CHILDREN, cardLinkDescription: "From 8 weeks" },
+  { vaccineName: VaccineType.PNEUMOCOCCAL, cardLinkDescription: "From 16 weeks" },
 ];
 
 export {
