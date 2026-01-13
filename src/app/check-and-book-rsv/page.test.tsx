@@ -79,6 +79,12 @@ describe("Vaccination Hub Page", () => {
       expectHeadingToBeRendered();
     });
 
+    it("renders vaccines coming soon callout", () => {
+      const expectedComingSoonText =
+        "We're expanding this service. Soon you'll be able to check and book more NHS vaccinations here.";
+      expect(screen.getByText(expectedComingSoonText)).toBeVisible();
+    });
+
     it("renders RSV vaccine link", async () => {
       expectRSVLinkToBeRendered();
     });
