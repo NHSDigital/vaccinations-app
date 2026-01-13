@@ -1,6 +1,7 @@
 const AtRiskText = () => {
   return (
     <>
+      <p> There are additional vaccines available for some people.</p>
       <h3 className="nhsuk-heading-xs nhsuk-u-margin-bottom-0">At-risk babies and children</h3>
       <p> Speak to your GP or health visitor.</p>
       <h3 className="nhsuk-heading-xs nhsuk-u-margin-bottom-0">Long-term health conditions</h3>

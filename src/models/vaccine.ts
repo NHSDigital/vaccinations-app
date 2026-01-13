@@ -379,7 +379,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
       suffix: "vaccine",
     },
     heading: "Flu vaccine for school-aged children",
-    cardLinkTitle: "Flu for school-aged children",
+    cardLinkTitle: "Flu for school-aged children (Reception to Year 11)",
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/child-flu-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/child-flu-vaccine/#how-to-get-it"),
     removeHowToGetExpanderFromMoreInformationSection: true,
