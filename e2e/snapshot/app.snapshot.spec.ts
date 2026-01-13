@@ -47,7 +47,10 @@ test.describe(`Snapshot Testing - Age-Based Hub - ${currentDatetime}-${checkoutR
 
       test(`Testing snapshot for ${ageGroup} hub page`, async ({ page }, testInfo: TestInfo) => {
         const hubPageDetails = { ...AppPageDetails["vaccine-hub"] };
-        hubPageDetails.snapshotFilename = hubPageDetails.snapshotFilename.replace("default", ageGroup);
+        hubPageDetails.snapshotFilename = hubPageDetails.snapshotFilename.replace(
+          "default",
+          ageGroup.replace(/_/g, "-"),
+        );
 
         const projectName = testInfo.project.name;
         const testFileName = testInfo.file.split("/").pop()!;
