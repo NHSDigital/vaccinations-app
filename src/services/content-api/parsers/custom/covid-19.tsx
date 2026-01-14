@@ -5,6 +5,7 @@ import {
   Action,
   ActionDisplayType,
   ActionWithButton,
+  ActionWithoutButton,
   ButtonUrl,
   Content,
   Label,
@@ -16,11 +17,7 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
 
   const callout: HeadingWithTypedContent = {
     heading: "Booking service closed",
-    content: [
-      "You can no longer book a COVID-19 vaccination using this online service",
-      "Bookings can also no longer be made through the 119 service.",
-      "COVID-19 vaccinations will be available again in spring.",
-    ].join("\n\n"),
+    content: "COVID-19 vaccinations will be available in spring 2026",
     contentType: "markdown",
   };
   const actions: Action[] = await _buildActions();
@@ -40,9 +37,18 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
 async function _buildActions(): Promise<Action[]> {
   const nbsURl = (await buildNbsUrl(VaccineType.COVID_19)) as ButtonUrl;
 
+  const contactGP: ActionWithoutButton = {
+    type: ActionDisplayType.infotext,
+    content: [
+      "## If this applies to you",
+      "### Get vaccinated at your GP surgery",
+      "Contact your GP surgery to book an appointment.",
+    ].join("\n\n") as Content,
+    button: undefined,
+  };
   const nbsBooking: ActionWithButton = {
     type: ActionDisplayType.buttonWithInfo,
-    content: ["## If this applies to you", "### Book an appointment online at a pharmacy"].join("\n\n") as Content,
+    content: "### Book an appointment online" as Content,
     button: { label: "Continue to booking" as Label, url: nbsURl },
   };
   const walkIn: ActionWithButton = {
@@ -58,5 +64,6 @@ async function _buildActions(): Promise<Action[]> {
       ) as ButtonUrl,
     },
   };
-  return [nbsBooking, walkIn];
+
+  return [contactGP, nbsBooking, walkIn];
 }

@@ -32,16 +32,21 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
     const expected = {
       callout: {
         heading: "Booking service closed",
-        content:
-          "You can no longer book a COVID-19 vaccination using this online service\n\n" +
-          "Bookings can also no longer be made through the 119 service.\n\n" +
-          "COVID-19 vaccinations will be available again in spring.",
+        content: "COVID-19 vaccinations will be available in spring 2026",
         contentType: "markdown",
       },
       actions: [
         {
+          type: ActionDisplayType.infotext,
+          content: [
+            "## If this applies to you",
+            "### Get vaccinated at your GP surgery",
+            "Contact your GP surgery to book an appointment.",
+          ].join("\n\n") as Content,
+        },
+        {
           type: ActionDisplayType.buttonWithInfo,
-          content: "## If this applies to you\n\n### Book an appointment online at a pharmacy" as Content,
+          content: "### Book an appointment online" as Content,
           button: {
             label: "Continue to booking" as Label,
             url: new URL("https://test-nbs-url.example.com/sausages") as ButtonUrl,
