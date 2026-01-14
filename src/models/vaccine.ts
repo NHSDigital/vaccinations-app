@@ -33,7 +33,6 @@ export type VaccineDetails = {
   displayName: displayName;
   heading: string;
   cardLinkTitle: string;
-  cardLinkDescription?: string;
   nhsWebpageLink: URL;
   nhsHowToGetWebpageLink: URL;
   personalisedEligibilityStatusRequired: boolean;
@@ -85,7 +84,6 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     },
     heading: "RSV vaccine in pregnancy",
     cardLinkTitle: "RSV in pregnancy",
-    cardLinkDescription: "From 28 weeks",
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/rsv-vaccine/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
@@ -287,7 +285,6 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     },
     heading: "Whooping cough vaccine in pregnancy",
     cardLinkTitle: "Whooping cough (pertussis) in pregnancy",
-    cardLinkDescription: "Around 20 weeks",
     nhsWebpageLink: new URL("https://www.nhs.uk/pregnancy/keeping-well/whooping-cough-vaccination/"),
     nhsHowToGetWebpageLink: new URL(
       "https://www.nhs.uk/pregnancy/keeping-well/whooping-cough-vaccination/#how-to-get-it",
@@ -307,7 +304,6 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     },
     heading: "The flu vaccine in pregnancy",
     cardLinkTitle: "Flu in pregnancy",
-    cardLinkDescription: "During flu season",
     nhsWebpageLink: new URL("https://www.nhs.uk/pregnancy/keeping-well/flu-jab/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/pregnancy/keeping-well/flu-jab/#how-to-get-it"),
     personalisedEligibilityStatusRequired: false,
