@@ -31,7 +31,10 @@ const AgeBasedHubInfo: Record<AgeGroup, AgeBasedHubDetails | undefined> = {
       { vaccineName: VaccineType.HPV, cardLinkDescription: "School year 8" },
       { vaccineName: VaccineType.MENACWY, cardLinkDescription: "School year 9" },
       { vaccineName: VaccineType.TD_IPV_3_IN_1, cardLinkDescription: "School year 9" },
-      { vaccineName: VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, cardLinkDescription: "Reception to school year 11" },
+      {
+        vaccineName: VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN,
+        cardLinkDescription: "Annually, during autumn or winter",
+      },
     ],
     showPregnancyHubContent: true,
   },
