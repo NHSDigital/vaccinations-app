@@ -32,7 +32,7 @@ const VaccinationsHub = async () => {
         <AtRiskHubExpander />
         {hubInfoForAgeGroup?.styledWarningCallout}
         {(hubInfoForAgeGroup?.showPregnancyHubContent || hubInfoForAgeGroup === undefined) && <PregnancyHubContent />}
-        <Link href={"/vaccines-for-all-ages"} className={"nhsuk-button nhsuk-button--secondary"}>
+        <Link prefetch={false} href={"/vaccines-for-all-ages"} className={"nhsuk-button nhsuk-button--secondary"}>
           View vaccines for all ages
         </Link>
       </MainContent>
