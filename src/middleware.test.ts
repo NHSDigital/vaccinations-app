@@ -3,7 +3,7 @@
  */
 import { auth } from "@project/auth";
 import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
-import { config, middleware } from "@src/middleware";
+import { _getHeadersForLogging, config, middleware } from "@src/middleware";
 import appConfig from "@src/utils/config";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { NextRequest } from "next/server";
@@ -22,6 +22,7 @@ function getMockRequest(testUrl: string) {
   const headers = new Headers([
     ["X-Amzn-Trace-Id", "sausages"],
     ["X-Clacks-Overhead", "GNU Terry Pratchett"],
+    ["referer", "testing"],
   ]);
   return {
     nextUrl: {
@@ -66,6 +67,15 @@ describe("middleware", () => {
 
     const result = await middleware(mockRequest as NextRequest);
     expect(result.status).toBe(200);
+  });
+
+  it("_getHeadersForLogging() contains map of special headers", async () => {
+    const testUrl = "https://nhs-app-redirect-login-url/";
+    const mockRequest = getMockRequest(testUrl);
+
+    expect(_getHeadersForLogging(mockRequest as NextRequest)).toEqual(
+      expect.objectContaining({ referer: "testing", "user-agent": "-" }),
+    );
   });
 
   it.each(unprotectedUrlPaths)("is skipped for unprotected path %s", async (path: string) => {
