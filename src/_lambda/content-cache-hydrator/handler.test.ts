@@ -227,7 +227,10 @@ describe("Lambda Handler", () => {
 
       await handler({}, contextWithRequestId);
 
-      expect(asyncLocalStorage.run).toHaveBeenCalledWith({ traceId: requestId, nextUrl: "" }, expect.anything());
+      expect(asyncLocalStorage.run).toHaveBeenCalledWith(
+        { traceId: requestId, nextUrl: "", sessionId: "content-cache-hydrator" },
+        expect.anything(),
+      );
     });
 
     it("should only update one vaccine if vaccine name is set in inbound event", async () => {

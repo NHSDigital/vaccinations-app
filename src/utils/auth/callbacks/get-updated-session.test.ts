@@ -31,16 +31,18 @@ const token = {
     access_token: "test-access-token" as AccessToken,
     expires_at: 0 as ExpiresAt,
   },
+  sessionId: "test-session-id",
 } as JWT;
 
 describe("getUpdatedSession", () => {
   beforeEach(() => {});
 
-  it("updates session with user fields and age information from token", () => {
+  it("updates session with user fields age and session information from token", () => {
     const result: Session = getUpdatedSession(session, token);
 
     expect(result.user.nhs_number).toBe("test-nhs-number");
     expect(result.user.age_group).toBe(mockAgeGroup);
+    expect(result.user.session_id).toBe("test-session-id");
   });
 
   it("does not update session if token.user is missing", () => {
@@ -48,6 +50,7 @@ describe("getUpdatedSession", () => {
       user: {
         nhs_number: "old-nhs-number" as NhsNumber,
         age_group: AgeGroup.AGE_25_to_64,
+        session_id: "old-session-id",
       },
       expires: "some-date",
     };
@@ -58,6 +61,7 @@ describe("getUpdatedSession", () => {
 
     expect(result.user.nhs_number).toBe("old-nhs-number");
     expect(result.user.age_group).toBe(AgeGroup.AGE_25_to_64);
+    expect(result.user.session_id).toBe("old-session-id");
   });
 
   it("does not update session if session.user is missing", () => {

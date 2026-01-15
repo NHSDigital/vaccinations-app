@@ -47,6 +47,7 @@ declare module "next-auth" {
     user: {
       nhs_number: NhsNumber;
       age_group?: undefined | AgeGroup;
+      session_id?: string;
     } & DefaultSession["user"];
   }
 
@@ -70,6 +71,7 @@ declare module "next-auth/jwt" {
       access_token: AccessToken;
       expires_at: ExpiresAt;
     };
+    sessionId: string;
     fixedExpiry: number;
   }
 }

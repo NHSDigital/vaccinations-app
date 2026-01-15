@@ -195,6 +195,7 @@ export const handler = async (event: object, context: Context): Promise<void> =>
   const requestContext: RequestContext = {
     traceId: context.awsRequestId,
     nextUrl: "",
+    sessionId: "content-cache-hydrator",
   };
 
   await asyncLocalStorage.run(requestContext, () => runContentCacheHydrator(event));

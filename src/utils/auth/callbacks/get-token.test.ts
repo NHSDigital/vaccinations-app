@@ -28,6 +28,8 @@ jest.mock("@src/utils/config");
 
 describe("getToken", () => {
   const mockedConfig = config as ConfigMock;
+  const mockRandomUUID = "mock-random-uuid";
+  let randomUUIDSpy: jest.SpyInstance;
 
   beforeAll(async () => {
     const fakeHeaders: ReadonlyHeaders = {
@@ -63,6 +65,8 @@ describe("getToken", () => {
   } as Account;
 
   beforeEach(() => {
+    randomUUIDSpy = jest.spyOn(global.crypto, "randomUUID").mockReturnValue(mockRandomUUID);
+
     jest.clearAllMocks();
     jest.useFakeTimers().setSystemTime(nowInSeconds * 1000);
     process.env.NEXT_RUNTIME = "nodejs";
@@ -78,6 +82,7 @@ describe("getToken", () => {
   });
 
   afterAll(() => {
+    randomUUIDSpy.mockRestore();
     jest.useRealTimers();
   });
 
@@ -110,6 +115,7 @@ describe("getToken", () => {
         "new-apim-access-token",
         nowInSeconds + 1111,
         maxAgeInSeconds,
+        mockRandomUUID,
       );
     });
 
@@ -122,7 +128,17 @@ describe("getToken", () => {
 
       const result = await getToken(undefinedToken, undefinedAccount, undefinedProfile, maxAgeInSeconds);
 
-      expectResultToMatchTokenWith(result, "", "", AgeGroup.UNKNOWN_AGE_GROUP, "", "", 0, maxAgeInSeconds);
+      expectResultToMatchTokenWith(
+        result,
+        "",
+        "",
+        AgeGroup.UNKNOWN_AGE_GROUP,
+        "",
+        "",
+        0,
+        maxAgeInSeconds,
+        mockRandomUUID,
+      );
     });
 
     it("should fill in missing values in token with default empty string", async () => {
@@ -149,6 +165,7 @@ describe("getToken", () => {
           access_token: "",
           expires_at: 0,
         },
+        sessionId: "",
       });
     });
 
@@ -181,6 +198,7 @@ describe("getToken", () => {
         "",
         0,
         maxAgeInSeconds,
+        mockRandomUUID,
       );
     });
   });
@@ -206,6 +224,7 @@ describe("getToken", () => {
         "",
         0,
         maxAgeInSeconds,
+        mockRandomUUID,
       );
     });
   });
@@ -219,6 +238,7 @@ describe("getToken", () => {
     apimToken: string,
     apimExpiresAt: number,
     maxAgeInSeconds: number,
+    sessionId: string,
   ) => {
     expect(result).not.toBeNull();
     expect(result).toMatchObject({
@@ -234,6 +254,7 @@ describe("getToken", () => {
         access_token: apimToken,
         expires_at: apimExpiresAt,
       },
+      sessionId: sessionId,
       fixedExpiry: nowInSeconds + maxAgeInSeconds,
     });
   };

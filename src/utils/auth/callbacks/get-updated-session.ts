@@ -11,6 +11,7 @@ const getUpdatedSession = (session: Session, token: JWT): Session => {
   if (token?.user && session.user) {
     session.user.nhs_number = token.user.nhs_number;
     session.user.age_group = token.user.age_group;
+    session.user.session_id = token.sessionId;
   } else {
     log.info(
       {
