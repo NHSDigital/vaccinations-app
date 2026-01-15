@@ -17,7 +17,7 @@ export const buildFilteredContentForFluVaccine = async (apiContent: string): Pro
 
   const callout: HeadingWithTypedContent = {
     heading: "Booking service closed",
-    content: "Flu vaccine bookings will reopen in autumn 2026",
+    content: "Flu vaccinations will be available in autumn 2026.",
     contentType: "string",
   };
   const actions: Action[] = await _buildActions();
@@ -25,7 +25,7 @@ export const buildFilteredContentForFluVaccine = async (apiContent: string): Pro
   const recommendation: HeadingWithContent = {
     heading: "The flu vaccine is recommended if you:",
     content: [
-      "* are aged 65 or older (including those who will be 65 by 31 March 2026",
+      "* are aged 65 or older (including those who will be 65 by 31 March 2026)",
       "* have certain long-term health conditions",
       "* are pregnant",
       "* live in a care home",
@@ -51,7 +51,7 @@ async function _buildActions(): Promise<Action[]> {
 
   const nbsBooking: ActionWithButton = {
     type: ActionDisplayType.buttonWithInfo,
-    content: ["### Book an appointment online at a pharmacy"].join("\n\n") as Content,
+    content: ["### Book an appointment online"].join("\n\n") as Content,
     button: { label: "Continue to booking" as Label, url: nbsURl },
   };
   const walkIn: ActionWithButton = {

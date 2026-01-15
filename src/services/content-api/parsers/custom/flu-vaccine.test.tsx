@@ -26,7 +26,7 @@ describe("buildFilteredContentForFluVaccine", () => {
       recommendation: {
         heading: "The flu vaccine is recommended if you:",
         content:
-          "* are aged 65 or older (including those who will be 65 by 31 March 2026\n" +
+          "* are aged 65 or older (including those who will be 65 by 31 March 2026)\n" +
           "* have certain long-term health conditions\n" +
           "* are pregnant\n" +
           "* live in a care home\n" +
@@ -44,7 +44,7 @@ describe("buildFilteredContentForFluVaccine", () => {
     const expected = {
       callout: {
         heading: "Booking service closed",
-        content: "Flu vaccine bookings will reopen in autumn 2026",
+        content: "Flu vaccinations will be available in autumn 2026.",
         contentType: "string",
       },
       actions: [
@@ -55,7 +55,7 @@ describe("buildFilteredContentForFluVaccine", () => {
         },
         {
           type: ActionDisplayType.buttonWithInfo,
-          content: "### Book an appointment online at a pharmacy" as Content,
+          content: "### Book an appointment online" as Content,
           button: {
             label: "Continue to booking" as Label,
             url: new URL("https://test-nbs-url.example.com/sausages") as ButtonUrl,
