@@ -16,6 +16,7 @@ export const GET = async (request: NextRequest) => {
   const requestContext: RequestContext = extractRequestContextFromHeaders(request?.headers);
 
   await asyncLocalStorage.run(requestContext, async () => {
+    log.info("SSO route invoked");
     const assertedLoginIdentity: string | null = request.nextUrl.searchParams.get(ASSERTED_LOGIN_IDENTITY_PARAM);
 
     if (assertedLoginIdentity) {
@@ -33,7 +34,7 @@ export const GET = async (request: NextRequest) => {
       }
       redirect(redirectUrl ?? SSO_FAILURE_ROUTE);
     } else {
-      log.warn("SSO without assertedLoginIdentity parameter");
+      log.warn("SSO route called without assertedLoginIdentity parameter");
       redirect(SSO_FAILURE_ROUTE);
     }
   });

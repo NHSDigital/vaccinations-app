@@ -3,7 +3,7 @@ import appConfig from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
-import { extractRequestContextFromHeaders } from "@src/utils/requestScopedStorageWrapper";
+import { extractRequestContextFromHeaders, setSessionIdOnRequestContext } from "@src/utils/requestScopedStorageWrapper";
 import { Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Logger } from "pino";
@@ -16,13 +16,6 @@ export async function middleware(request: NextRequest) {
 
   return await asyncLocalStorage.run(requestContext, () => middlewareWrapper(request));
 }
-
-const setSessionIdOnRequestContext = (sessionId: string) => {
-  const requestContext = asyncLocalStorage.getStore();
-  if (requestContext) {
-    requestContext.sessionId = sessionId;
-  }
-};
 
 const middlewareWrapper = async (request: NextRequest) => {
   profilePerformanceStart(MiddlewarePerformanceMarker);
