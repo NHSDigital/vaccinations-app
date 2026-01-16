@@ -27,7 +27,7 @@ const NHSLoginAuthProvider = async (): Promise<OIDCConfig<Profile>> => {
       userinfo_signed_response_alg: "RS512",
     },
     idToken: true,
-    checks: ["state"],
+    checks: ["state", "nonce"],
   };
 };
 
