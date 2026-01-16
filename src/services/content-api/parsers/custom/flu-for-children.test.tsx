@@ -27,7 +27,7 @@ describe("buildFilteredContentForFluForChildrenVaccine", () => {
     const expected = {
       callout: {
         heading: "Booking service closed",
-        content: "Flu vaccine bookings will reopen in autumn 2026",
+        content: "Flu vaccinations will be available in autumn 2026",
         contentType: "string",
       },
     };
@@ -64,7 +64,7 @@ describe("buildFilteredContentForFluForChildrenVaccine", () => {
         },
         {
           type: ActionDisplayType.buttonWithInfo,
-          content: "### Book an appointment online at a pharmacy" as Content,
+          content: "### Book an appointment online" as Content,
           button: {
             label: "Continue to booking" as Label,
             url: new URL("https://test-nbs-url.example.com/sausages") as ButtonUrl,
@@ -72,7 +72,7 @@ describe("buildFilteredContentForFluForChildrenVaccine", () => {
         },
         {
           type: ActionDisplayType.actionLinkWithInfo,
-          content: ("### Get your child vaccinated without an appointment\n\n" +
+          content: ("### Get vaccinated without an appointment\n\n" +
             "You can find a pharmacy that offers walk-in appointments without booking.") as Content,
           button: {
             label: "Find a pharmacy where you can get a free flu vaccination" as Label,
