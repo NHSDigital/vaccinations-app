@@ -49,7 +49,7 @@ export const buildFilteredContentForFluInPregnancyVaccine = async (apiContent: s
   const webpageLink: URL = VaccineInfo[VaccineType.FLU_IN_PREGNANCY].nhsWebpageLink;
   const callout: HeadingWithTypedContent = {
     heading: "Booking service closed",
-    content: "Flu vaccine bookings will reopen in autumn 2026",
+    content: "Flu vaccinations will be available in autumn 2026",
     contentType: "string",
   };
   const recommendation: HeadingWithContent = {
