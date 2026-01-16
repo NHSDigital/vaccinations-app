@@ -17,6 +17,9 @@ describe("Age group helper", () => {
       { age: 65, expectedAgeGroup: AgeGroup.AGE_65_to_74 },
       { age: 74, expectedAgeGroup: AgeGroup.AGE_65_to_74 },
       { age: 75, expectedAgeGroup: AgeGroup.AGE_75_to_80 },
+      { age: 80, expectedAgeGroup: AgeGroup.AGE_75_to_80 },
+      { age: 81, expectedAgeGroup: AgeGroup.AGE_81_PLUS },
+      { age: 91, expectedAgeGroup: AgeGroup.AGE_81_PLUS },
     ];
 
     it.each(expectedGroupsForEachAge)(`returns $expectedAgeGroup for user age $age`, ({ age, expectedAgeGroup }) => {
