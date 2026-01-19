@@ -13,18 +13,21 @@ if (!testUserPattern) {
 for (const scenario in users) {
   const key = scenario as keyof typeof users;
 
-  setup(`authenticate ${key}`, async ({ browser }, testInfo: TestInfo) => {
-    testInfo.setTimeout(60000);
+  setup(
+    `authenticate ${key} (${users[key].nhsNumber} england.vita+test${users[key].emailSuffix}@nhs.net)`,
+    async ({ browser }, testInfo: TestInfo) => {
+      testInfo.setTimeout(60000);
 
-    const user = users[key];
-    const suite = getEnv("SUITE") as keyof typeof user;
+      const user = users[key];
+      const suite = getEnv("SUITE") as keyof typeof user;
 
-    if (user[suite]) {
-      const userEmail = testUserPattern.replace("{id}", user.emailSuffix);
-      const authFile = `./e2e/.auth/${key}.json`;
+      if (user[suite]) {
+        const userEmail = testUserPattern.replace("{id}", user.emailSuffix);
+        const authFile = `./e2e/.auth/${key}.json`;
 
-      const page = await login(browser, userEmail);
-      await page.context().storageState({ path: authFile });
-    }
-  });
+        const page = await login(browser, userEmail);
+        await page.context().storageState({ path: authFile });
+      }
+    },
+  );
 }
