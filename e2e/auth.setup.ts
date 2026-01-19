@@ -27,6 +27,8 @@ for (const scenario in users) {
 
         const page = await login(browser, userEmail);
         await page.context().storageState({ path: authFile });
+      } else {
+        console.log("Skipping", user);
       }
     },
   );
