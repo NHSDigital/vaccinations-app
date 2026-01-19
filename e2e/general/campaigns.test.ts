@@ -46,8 +46,8 @@ test.describe("Vaccination campaigns", () => {
 
         await page.goto(pageDetails.url);
 
-        await expect(page.getByRole("heading", { name: "Important:   Booking service" })).toBeVisible();
-        await expect(page.getByRole("heading", { name: "Book an appointment online at" })).not.toBeVisible();
+        await expect(page.getByRole("heading", { name: "Important:   Service closed" })).toBeVisible();
+        await expect(page.getByRole("heading", { name: "Book an appointment online" })).not.toBeVisible();
       });
     });
   });
