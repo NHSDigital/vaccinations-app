@@ -3,7 +3,7 @@ name: "CI/CD publish"
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - '*'
 
 env:
   AWS_REGION: eu-west-2
