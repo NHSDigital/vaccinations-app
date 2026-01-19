@@ -16,7 +16,7 @@ export const buildFilteredContentForFluForChildrenVaccine = async (apiContent: s
   const standardFilteredContent = await buildFilteredContentForStandardVaccine(apiContent);
 
   const callout: HeadingWithTypedContent = {
-    heading: "Booking service closed",
+    heading: "Service closed",
     content: "Flu vaccinations will be available in autumn 2026",
     contentType: "string",
   };

@@ -16,7 +16,7 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
   const standardFilteredContent = await buildFilteredContentForStandardVaccine(apiContent);
 
   const callout: HeadingWithTypedContent = {
-    heading: "Booking service closed",
+    heading: "Service closed",
     content: "COVID-19 vaccinations will be available in spring 2026",
     contentType: "markdown",
   };

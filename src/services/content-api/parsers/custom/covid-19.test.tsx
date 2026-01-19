@@ -24,14 +24,14 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
     expect(pageCopyForCovid19Vaccine.webpageLink).toBeDefined();
 
     // Additional COVID-19 vaccine content
-    expect(pageCopyForCovid19Vaccine.callout?.heading).toEqual("Booking service closed");
+    expect(pageCopyForCovid19Vaccine.callout?.heading).toEqual("Service closed");
     expect(pageCopyForCovid19Vaccine.recommendation?.heading).toEqual("The COVID-19 vaccine is recommended if you:");
   });
 
   it("should return callout and actions", async () => {
     const expected = {
       callout: {
-        heading: "Booking service closed",
+        heading: "Service closed",
         content: "COVID-19 vaccinations will be available in spring 2026",
         contentType: "markdown",
       },

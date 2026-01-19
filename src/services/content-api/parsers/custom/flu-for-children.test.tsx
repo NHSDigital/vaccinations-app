@@ -26,7 +26,7 @@ describe("buildFilteredContentForFluForChildrenVaccine", () => {
   it("should return warning callout", async () => {
     const expected = {
       callout: {
-        heading: "Booking service closed",
+        heading: "Service closed",
         content: "Flu vaccinations will be available in autumn 2026",
         contentType: "string",
       },
