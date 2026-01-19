@@ -6,6 +6,8 @@ import { Profile } from "next-auth";
 export const NHS_LOGIN_PROVIDER_ID = "nhs-login";
 
 const NHSLoginAuthProvider = async (): Promise<OIDCConfig<Profile>> => {
+  const usingFakeLogin: boolean = (await config.NHS_LOGIN_URL).port === "9123";
+
   return {
     id: NHS_LOGIN_PROVIDER_ID,
     name: "NHS Login Auth Provider",
@@ -27,7 +29,7 @@ const NHSLoginAuthProvider = async (): Promise<OIDCConfig<Profile>> => {
       userinfo_signed_response_alg: "RS512",
     },
     idToken: true,
-    checks: ["state", "nonce"],
+    checks: usingFakeLogin ? ["state"] : ["state", "nonce"],
   };
 };
 
