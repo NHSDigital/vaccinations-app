@@ -23,6 +23,7 @@ jest.mock("@project/auth", () => ({
 }));
 jest.mock("next/headers", () => ({
   headers: jest.fn(),
+  cookies: jest.fn(),
 }));
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 jest.mock("cheerio", () => ({

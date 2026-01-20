@@ -6,10 +6,10 @@ import { ApimAccessCredentials } from "@src/utils/auth/apim/types";
 import { BirthDate, IdToken, MaxAgeInSeconds, NowInSeconds } from "@src/utils/auth/types";
 import { logger } from "@src/utils/logger";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
-import { extractRequestContextFromHeaders } from "@src/utils/requestScopedStorageWrapper";
+import { extractRequestContextFromHeadersAndCookies } from "@src/utils/requestScopedStorageWrapper";
 import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "utils-auth-callbacks-get-token" });
@@ -28,8 +28,9 @@ const getToken = async (
   maxAgeInSeconds: MaxAgeInSeconds,
 ) => {
   const headerValues = await headers();
+  const requestCookies = await cookies();
 
-  const requestContext: RequestContext = extractRequestContextFromHeaders(headerValues);
+  const requestContext: RequestContext = extractRequestContextFromHeadersAndCookies(headerValues, requestCookies);
 
   return await asyncLocalStorage.run(requestContext, async () => {
     if (!token) {
@@ -99,7 +100,6 @@ const fillMissingFieldsInTokenWithDefaultValues = (token: JWT, apimAccessCredent
       access_token: (apimAccessCredentials ? apimAccessCredentials.accessToken : token.apim?.access_token) ?? "",
       expires_at: (apimAccessCredentials ? apimAccessCredentials.expiresAt : token.apim?.expires_at) ?? 0,
     },
-    sessionId: token.sessionId ?? "",
   };
 };
 
@@ -115,7 +115,6 @@ const updateTokenWithValuesFromAccountAndProfile = (
   maxAgeInSeconds: MaxAgeInSeconds,
 ): JWT => {
   const ageGroupOfUser = getAgeGroupOfUser(profile.birthdate ?? "");
-  const sessionId = crypto.randomUUID();
 
   const updatedToken: JWT = {
     ...token,
@@ -127,7 +126,6 @@ const updateTokenWithValuesFromAccountAndProfile = (
     nhs_login: {
       id_token: (account.id_token ?? "") as IdToken,
     },
-    sessionId: sessionId,
     fixedExpiry: nowInSeconds + maxAgeInSeconds,
   };
 

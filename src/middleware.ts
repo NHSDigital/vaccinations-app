@@ -3,7 +3,7 @@ import appConfig from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
-import { extractRequestContextFromHeaders, setSessionIdOnRequestContext } from "@src/utils/requestScopedStorageWrapper";
+import { extractRequestContextFromHeadersAndCookies } from "@src/utils/requestScopedStorageWrapper";
 import { Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Logger } from "pino";
@@ -12,7 +12,7 @@ const log: Logger = logger.child({ module: "middleware" });
 const MiddlewarePerformanceMarker = "middleware";
 
 export async function middleware(request: NextRequest) {
-  const requestContext: RequestContext = extractRequestContextFromHeaders(request?.headers);
+  const requestContext: RequestContext = extractRequestContextFromHeadersAndCookies(request?.headers, request?.cookies);
 
   return await asyncLocalStorage.run(requestContext, () => middlewareWrapper(request));
 }
@@ -24,7 +24,7 @@ const middlewareWrapper = async (request: NextRequest) => {
     "Inspecting request",
   );
 
-  // Add URL to request headers to make available for logging in the nodejs layer
+  // Add URL and sessionId to request headers to make available for logging in the nodejs layer
   const headers = new Headers(request.headers);
   headers.set("nextUrl", request.nextUrl.href);
 
@@ -35,8 +35,6 @@ const middlewareWrapper = async (request: NextRequest) => {
     response = NextResponse.redirect(await appConfig.NHS_APP_REDIRECT_LOGIN_URL);
     response.headers.set("Cache-Control", "no-cache, no-store, max-age=0, must-revalidate");
   } else {
-    setSessionIdOnRequestContext(session.user.session_id ?? "unknown_session_id");
-    headers.set("sessionId", session.user.session_id ?? "unknown_session_id");
     log.info({ context: { nextUrl: request.nextUrl.href } }, "Session found for request");
     response = NextResponse.next({
       request: { headers: headers },

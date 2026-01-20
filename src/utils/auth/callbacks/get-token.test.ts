@@ -8,8 +8,10 @@ import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { jwtDecode } from "jwt-decode";
 import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
-import { headers } from "next/headers";
+import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
+import { cookies, headers } from "next/headers";
 
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
@@ -21,24 +23,17 @@ jest.mock("@src/utils/auth/apim/get-or-refresh-apim-credentials", () => ({
 
 jest.mock("next/headers", () => ({
   headers: jest.fn(),
+  cookies: jest.fn(),
 }));
+
 jest.mock("jwt-decode");
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 jest.mock("@src/utils/config");
 
 describe("getToken", () => {
   const mockedConfig = config as ConfigMock;
-  const mockRandomUUID = "mock-random-uuid";
-  let randomUUIDSpy: jest.SpyInstance;
 
   beforeAll(async () => {
-    const fakeHeaders: ReadonlyHeaders = {
-      get(name: string): string | null {
-        return `fake-${name}-header`;
-      },
-    } as ReadonlyHeaders;
-    (headers as jest.Mock).mockResolvedValue(fakeHeaders);
-
     const defaultConfig = configBuilder()
       .withNhsLoginUrl(new URL("https://nhs-app-redirect-login-url"))
       .andNhsLoginClientId("mock-client-id")
@@ -65,11 +60,26 @@ describe("getToken", () => {
   } as Account;
 
   beforeEach(() => {
-    randomUUIDSpy = jest.spyOn(global.crypto, "randomUUID").mockReturnValue(mockRandomUUID);
-
     jest.clearAllMocks();
     jest.useFakeTimers().setSystemTime(nowInSeconds * 1000);
     process.env.NEXT_RUNTIME = "nodejs";
+
+    const fakeHeaders: ReadonlyHeaders = {
+      get(name: string): string | null {
+        return `fake-${name}-header`;
+      },
+    } as ReadonlyHeaders;
+    (headers as jest.Mock).mockResolvedValue(fakeHeaders);
+
+    const fakeRequestCookies: ReadonlyRequestCookies = {
+      get(name: string): RequestCookie | undefined {
+        return {
+          name: `fake-${name}-name`,
+          value: `fake-${name}-value`,
+        };
+      },
+    } as ReadonlyRequestCookies;
+    (cookies as jest.Mock).mockResolvedValue(fakeRequestCookies);
 
     (jwtDecode as jest.Mock).mockReturnValue({
       jti: "jti_test",
@@ -82,7 +92,6 @@ describe("getToken", () => {
   });
 
   afterAll(() => {
-    randomUUIDSpy.mockRestore();
     jest.useRealTimers();
   });
 
@@ -115,7 +124,6 @@ describe("getToken", () => {
         "new-apim-access-token",
         nowInSeconds + 1111,
         maxAgeInSeconds,
-        mockRandomUUID,
       );
     });
 
@@ -128,17 +136,7 @@ describe("getToken", () => {
 
       const result = await getToken(undefinedToken, undefinedAccount, undefinedProfile, maxAgeInSeconds);
 
-      expectResultToMatchTokenWith(
-        result,
-        "",
-        "",
-        AgeGroup.UNKNOWN_AGE_GROUP,
-        "",
-        "",
-        0,
-        maxAgeInSeconds,
-        mockRandomUUID,
-      );
+      expectResultToMatchTokenWith(result, "", "", AgeGroup.UNKNOWN_AGE_GROUP, "", "", 0, maxAgeInSeconds);
     });
 
     it("should fill in missing values in token with default empty string", async () => {
@@ -165,7 +163,6 @@ describe("getToken", () => {
           access_token: "",
           expires_at: 0,
         },
-        sessionId: "",
       });
     });
 
@@ -198,7 +195,6 @@ describe("getToken", () => {
         "",
         0,
         maxAgeInSeconds,
-        mockRandomUUID,
       );
     });
   });
@@ -224,7 +220,6 @@ describe("getToken", () => {
         "",
         0,
         maxAgeInSeconds,
-        mockRandomUUID,
       );
     });
   });
@@ -238,7 +233,6 @@ describe("getToken", () => {
     apimToken: string,
     apimExpiresAt: number,
     maxAgeInSeconds: number,
-    sessionId: string,
   ) => {
     expect(result).not.toBeNull();
     expect(result).toMatchObject({
@@ -254,7 +248,6 @@ describe("getToken", () => {
         access_token: apimToken,
         expires_at: apimExpiresAt,
       },
-      sessionId: sessionId,
       fixedExpiry: nowInSeconds + maxAgeInSeconds,
     });
   };

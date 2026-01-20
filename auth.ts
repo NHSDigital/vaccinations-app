@@ -9,10 +9,10 @@ import config from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
-import { extractRequestContextFromHeaders, setSessionIdOnRequestContext } from "@src/utils/requestScopedStorageWrapper";
+import { extractRequestContextFromHeadersAndCookies } from "@src/utils/requestScopedStorageWrapper";
 import NextAuth from "next-auth";
 import "next-auth/jwt";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 
 const log = logger.child({ module: "auth" });
 
@@ -23,8 +23,9 @@ const AuthSessionPerformanceMarker = "auth-session-callback";
 export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
   const MAX_SESSION_AGE_SECONDS: number = (await config.MAX_SESSION_AGE_MINUTES) * 60;
   const headerValues = await headers();
+  const requestCookies = await cookies();
 
-  const requestContext: RequestContext = extractRequestContextFromHeaders(headerValues);
+  const requestContext: RequestContext = extractRequestContextFromHeadersAndCookies(headerValues, requestCookies);
 
   return await asyncLocalStorage.run(requestContext, async () => {
     return {
@@ -80,7 +81,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
           try {
             profilePerformanceStart(AuthSessionPerformanceMarker);
             response = getUpdatedSession(session, token);
-            setSessionIdOnRequestContext(session.user.session_id ?? "unknown_session_id");
             log.info("session() callback fetched session");
             profilePerformanceEnd(AuthSessionPerformanceMarker);
           } catch (error) {
