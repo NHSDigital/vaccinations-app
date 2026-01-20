@@ -1,5 +1,6 @@
 import HubWarningCallout from "@src/app/_components/hub/HubWarningCallout";
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
+import Link from "next/link";
 import { JSX } from "react";
 
 enum AgeGroup {
@@ -50,24 +51,52 @@ const AgeBasedHubInfo: Record<AgeGroup, AgeBasedHubDetails | undefined> = {
             <p>You can ask your GP about getting vaccines you might have missed. Make sure you&#39;ve had:</p>
             <ul style={{ marginBottom: 0 }}>
               <li>
-                2 doses of the <a href={`/vaccines/${VaccineInfo[VaccineType.MMR].urlPath}`}>MMR vaccine</a> – which
-                protects against measles, mumps and rubella. If you have not previously had 2 doses of MMR, you can
-                still have the vaccine at any age.
+                2 doses of the{" "}
+                <Link
+                  prefetch={false}
+                  className={"nhsuk-link  nhsuk-link--no-visited-state"}
+                  href={`/vaccines/${VaccineInfo[VaccineType.MMR].urlPath}`}
+                >
+                  MMR vaccine
+                </Link>{" "}
+                – which protects against measles, mumps and rubella. If you have not previously had 2 doses of MMR, you
+                can still have the vaccine at any age.
               </li>
               <li>
                 The completed course of{" "}
-                <a href={`/vaccines/${VaccineInfo[VaccineType.TD_IPV_3_IN_1].urlPath}`}>Td/IPV vaccine</a> (also called
-                the 3-in-1 teenage booster) - which protects against tetanus, diphtheria and polio. You can ask for this
-                at any age.
+                <Link
+                  prefetch={false}
+                  className={"nhsuk-link  nhsuk-link--no-visited-state"}
+                  href={`/vaccines/${VaccineInfo[VaccineType.TD_IPV_3_IN_1].urlPath}`}
+                >
+                  Td/IPV vaccine
+                </Link>{" "}
+                (also called the 3-in-1 teenage booster) - which protects against tetanus, diphtheria and polio. You can
+                ask for this at any age.
               </li>
               <li>
-                The <a href={`/vaccines/${VaccineInfo[VaccineType.HPV].urlPath}`}>HPV vaccine</a> – which helps protect
-                against genital warts and cancers caused by the human papilloma virus (HPV), such as cervical cancer.
-                You can ask for this until your 25th birthday.
+                The{" "}
+                <Link
+                  prefetch={false}
+                  className={"nhsuk-link  nhsuk-link--no-visited-state"}
+                  href={`/vaccines/${VaccineInfo[VaccineType.HPV].urlPath}`}
+                >
+                  HPV vaccine
+                </Link>{" "}
+                – which helps protect against genital warts and cancers caused by the human papilloma virus (HPV), such
+                as cervical cancer. You can ask for this until your 25th birthday.
               </li>
               <li>
-                The <a href={`/vaccines/${VaccineInfo[VaccineType.MENACWY].urlPath}`}>MenACWY vaccine</a> – which
-                protects against serious infections including meningitis. You can ask for this until your 25th birthday.
+                The{" "}
+                <Link
+                  prefetch={false}
+                  className={"nhsuk-link  nhsuk-link--no-visited-state"}
+                  href={`/vaccines/${VaccineInfo[VaccineType.MENACWY].urlPath}`}
+                >
+                  MenACWY vaccine
+                </Link>{" "}
+                – which protects against serious infections including meningitis. You can ask for this until your 25th
+                birthday.
               </li>
             </ul>
           </>
@@ -87,15 +116,28 @@ const AgeBasedHubInfo: Record<AgeGroup, AgeBasedHubDetails | undefined> = {
             <p>You can ask your GP about getting vaccines you might have missed. Make sure you&#39;ve had:</p>
             <ul style={{ marginBottom: 0 }}>
               <li>
-                2 doses of the <a href={`/vaccines/${VaccineInfo[VaccineType.MMR].urlPath}`}>MMR vaccine</a> – which
-                protects against measles, mumps and rubella. If you have not previously had 2 doses of MMR, you can
-                still have the vaccine at any age.
+                2 doses of the{" "}
+                <Link
+                  prefetch={false}
+                  className={"nhsuk-link  nhsuk-link--no-visited-state"}
+                  href={`/vaccines/${VaccineInfo[VaccineType.MMR].urlPath}`}
+                >
+                  MMR vaccine
+                </Link>{" "}
+                – which protects against measles, mumps and rubella. If you have not previously had 2 doses of MMR, you
+                can still have the vaccine at any age.
               </li>
               <li>
                 The completed course of{" "}
-                <a href={`/vaccines/${VaccineInfo[VaccineType.TD_IPV_3_IN_1].urlPath}`}>Td/IPV vaccine</a> (also called
-                the 3-in-1 teenage booster) - which protects against tetanus, diphtheria and polio. You can ask for this
-                at any age.
+                <Link
+                  prefetch={false}
+                  className={"nhsuk-link  nhsuk-link--no-visited-state"}
+                  href={`/vaccines/${VaccineInfo[VaccineType.TD_IPV_3_IN_1].urlPath}`}
+                >
+                  Td/IPV vaccine
+                </Link>{" "}
+                (also called the 3-in-1 teenage booster) - which protects against tetanus, diphtheria and polio. You can
+                ask for this at any age.
               </li>
             </ul>
           </>
