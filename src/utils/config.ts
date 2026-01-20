@@ -1,4 +1,5 @@
 import { EligibilityApiError } from "@src/services/eligibility-api/gateway/exceptions";
+import { DeployEnvironment } from "@src/types/environments";
 import { Campaigns } from "@src/utils/campaigns/types";
 import getSecret from "@src/utils/get-secret";
 import { logger } from "@src/utils/logger";
@@ -8,14 +9,6 @@ import { Logger } from "pino";
 const log: Logger = logger.child({ module: "config" });
 
 export type ConfigValue = string | number | boolean | URL | Campaigns | undefined;
-export enum DeployEnvironment {
-  dev = "dev",
-  test = "test",
-  preprod = "preprod",
-  prod = "prod",
-  local = "local",
-  unknown = "unknown",
-}
 
 export interface AppConfig {
   // SecretsManager secrets stored as SecureStrings

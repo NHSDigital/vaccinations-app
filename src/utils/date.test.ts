@@ -1,3 +1,4 @@
+import { DeployEnvironment } from "@src/types/environments";
 import { UtcDateFromStringSchema, UtcDateTimeFromStringSchema, calculateAge, getNow } from "@src/utils/date";
 import { headers } from "next/headers";
 
@@ -142,7 +143,7 @@ describe("utils-date", () => {
       });
 
       it("should return current date by default", async () => {
-        expect(await getNow()).toEqual(new Date(fakeDateInSystem));
+        expect(await getNow(DeployEnvironment.test)).toEqual(new Date(fakeDateInSystem));
       });
 
       it("should return date set in the header, when it is valid", async () => {
@@ -153,7 +154,7 @@ describe("utils-date", () => {
         };
         (headers as jest.Mock).mockResolvedValue(mockHeaders);
 
-        expect(await getNow()).toEqual(new Date(fakeDateInHeader));
+        expect(await getNow(DeployEnvironment.test)).toEqual(new Date(fakeDateInHeader));
       });
 
       it("should return current date when date set in the header is malformed", async () => {
@@ -165,7 +166,7 @@ describe("utils-date", () => {
         };
         (headers as jest.Mock).mockResolvedValue(mockHeaders);
 
-        expect(await getNow()).toEqual(new Date(fakeDateInSystem));
+        expect(await getNow(DeployEnvironment.test)).toEqual(new Date(fakeDateInSystem));
       });
     });
 
@@ -176,13 +177,10 @@ describe("utils-date", () => {
       });
 
       it("should return current date by default in production environment", async () => {
-        process.env.DEPLOY_ENVIRONMENT = "prod";
-        expect(await getNow()).toEqual(new Date(fakeDateInSystem));
+        expect(await getNow(DeployEnvironment.prod)).toEqual(new Date(fakeDateInSystem));
       });
 
       it("should not check headers when environment is production", async () => {
-        process.env.DEPLOY_ENVIRONMENT = "prod";
-
         const mockHeaders = {
           get: jest.fn(() => {
             return fakeDateInHeader;
@@ -190,7 +188,7 @@ describe("utils-date", () => {
         };
         (headers as jest.Mock).mockResolvedValue(mockHeaders);
 
-        expect(await getNow()).toEqual(new Date(fakeDateInSystem));
+        expect(await getNow(DeployEnvironment.prod)).toEqual(new Date(fakeDateInSystem));
         expect(headers).not.toHaveBeenCalled();
       });
     });

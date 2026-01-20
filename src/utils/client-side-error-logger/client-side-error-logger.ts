@@ -1,5 +1,7 @@
 "use server";
 
+import { DeployEnvironment } from "@src/types/environments";
+import config from "@src/utils/config";
 import { ClientSideErrorTypes } from "@src/utils/constants";
 import { logger } from "@src/utils/logger";
 import { requestScopedStorageWrapper } from "@src/utils/requestScopedStorageWrapper";
@@ -19,7 +21,8 @@ const logClientSideErrorAction = async (clientSideErrorType: ClientSideErrorType
 
   log.error({ context: { clientSideErrorType: validatedErrorType } }, "Client side error occurred");
 
-  return process.env.DEPLOY_ENVIRONMENT !== "prod" && process.env.DEPLOY_ENVIRONMENT !== "production";
+  const deployEnvironment: DeployEnvironment = await config.DEPLOY_ENVIRONMENT;
+  return deployEnvironment !== DeployEnvironment.unknown && deployEnvironment !== DeployEnvironment.prod;
 };
 
 export default logClientSideError;

@@ -42,7 +42,7 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
 
   const campaigns = await config.CAMPAIGNS;
-  const isCampaignActive: boolean = campaigns.isActive(vaccineType, await getNow());
+  const isCampaignActive: boolean = campaigns.isActive(vaccineType, await getNow(await config.DEPLOY_ENVIRONMENT));
 
   let styledVaccineContent: StyledVaccineContent | undefined;
   let contentError: ContentErrorTypes | undefined;

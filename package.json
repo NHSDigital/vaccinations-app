@@ -20,11 +20,12 @@
   ],
   "scripts": {
     "dev": "next dev --turbopack --experimental-https",
-    "app": "npm run build && npm run start",
+    "app": "npm run clean && npm run build && npm run start",
     "build": "next build && npm run build:assets",
     "build:assets": "sass 'src/styles/global.scss' 'public/assets/static/global.min.css' --style=compressed  --no-source-map --load-path=node_modules",
     "build:opennext": "npx --yes @opennextjs/aws@3.x.x build --streaming",
     "build:lambda": "node esbuild.config.mjs",
+    "clean": "rm -rf .next .open-next dist lambda.zip public/assets/static/*.min.css",
     "start": "next start",
     "lint": "eslint .",
     "format": "npx prettier . --write",

@@ -1,3 +1,4 @@
+import { DeployEnvironment } from "@src/types/environments";
 import { Campaigns } from "@src/utils/campaigns/types";
 import { AppConfig, ConfigValue } from "@src/utils/config";
 import { randomBoolean, randomInteger, randomString, randomURL } from "@test-data/meta-builder";
@@ -9,6 +10,7 @@ class ConfigBuilder {
 
   constructor() {
     this._configValues = {
+      DEPLOY_ENVIRONMENT: DeployEnvironment.test,
       CONTENT_API_ENDPOINT: randomURL(),
       CONTENT_API_RATE_LIMIT_PER_MINUTE: randomInteger(1000000, 100000000),
       ELIGIBILITY_API_ENDPOINT: randomURL(),
@@ -27,6 +29,15 @@ class ConfigBuilder {
       AUTH_SECRET: randomString(10),
       CAMPAIGNS: Campaigns.fromJson("{}"),
     };
+  }
+
+  public withDeployEnvironment(value: DeployEnvironment): this {
+    this._configValues.DEPLOY_ENVIRONMENT = value;
+    return this;
+  }
+
+  public andDeployEnvironment(value: DeployEnvironment): this {
+    return this.withDeployEnvironment(value);
   }
 
   public withSsmPrefix(value: string): this {

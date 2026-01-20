@@ -1,3 +1,4 @@
+import { DeployEnvironment } from "@src/types/environments";
 import { Age } from "@src/utils/auth/types";
 import { differenceInYears } from "date-fns";
 import { headers } from "next/headers";
@@ -39,8 +40,8 @@ const calculateAge = (date: string): Age => {
   return differenceInYears(today, birthDate) as Age;
 };
 
-const getNow = async (): Promise<Date> => {
-  if (process.env.DEPLOY_ENVIRONMENT === "prod") {
+const getNow = async (deployEnvironment: DeployEnvironment): Promise<Date> => {
+  if (deployEnvironment === DeployEnvironment.prod) {
     return new Date();
   } else {
     try {

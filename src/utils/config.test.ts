@@ -1,5 +1,6 @@
 import { VaccineType } from "@src/models/vaccine";
-import config, { ConfigError, DeployEnvironment } from "@src/utils/config";
+import { DeployEnvironment } from "@src/types/environments";
+import config, { ConfigError } from "@src/utils/config";
 import getSecret from "@src/utils/get-secret";
 import { randomString } from "@test-data/meta-builder";
 
