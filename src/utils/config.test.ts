@@ -1,5 +1,5 @@
 import { VaccineType } from "@src/models/vaccine";
-import config, { ConfigError } from "@src/utils/config";
+import config, { ConfigError, DeployEnvironment } from "@src/utils/config";
 import getSecret from "@src/utils/get-secret";
 import { randomString } from "@test-data/meta-builder";
 
@@ -76,6 +76,22 @@ describe("lazyConfig", () => {
     const actual = await config.IS_APIM_AUTH_ENABLED;
 
     expect(actual).toBe(true);
+  });
+
+  it("should convert valid DEPLOY_ENVIRONMENT to the appropriate enum value", async () => {
+    process.env.DEPLOY_ENVIRONMENT = "preprod";
+
+    const actual = await config.DEPLOY_ENVIRONMENT;
+
+    expect(actual).toBe(DeployEnvironment.preprod);
+  });
+
+  it("should convert unknown DEPLOY_ENVIRONMENT to unknown enum value", async () => {
+    process.env.DEPLOY_ENVIRONMENT = "invalid";
+
+    const actual = await config.DEPLOY_ENVIRONMENT;
+
+    expect(actual).toBe(DeployEnvironment.unknown);
   });
 
   it("should convert MAX_SESSION_AGE_MINUTES to a number", async () => {

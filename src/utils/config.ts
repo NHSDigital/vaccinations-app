@@ -8,6 +8,14 @@ import { Logger } from "pino";
 const log: Logger = logger.child({ module: "config" });
 
 export type ConfigValue = string | number | boolean | URL | Campaigns | undefined;
+export enum DeployEnvironment {
+  dev = "dev",
+  test = "test",
+  preprod = "preprod",
+  prod = "prod",
+  local = "local",
+  unknown = "unknown",
+}
 
 export interface AppConfig {
   // SecretsManager secrets stored as SecureStrings
@@ -19,6 +27,7 @@ export interface AppConfig {
   APIM_PRIVATE_KEY: string;
 
   // Environment Variables in Lambda
+  DEPLOY_ENVIRONMENT: DeployEnvironment;
   CONTENT_API_ENDPOINT: URL;
   CONTENT_API_RATE_LIMIT_PER_MINUTE: number;
   ELIGIBILITY_API_ENDPOINT: URL;
@@ -88,6 +97,15 @@ class Config {
     if (lower === "false") return false;
     return undefined;
   };
+  private static readonly toDeployEnvironment = (value: string): DeployEnvironment => {
+    let valueFound: DeployEnvironment | undefined;
+    Object.entries(DeployEnvironment).forEach(([envKey, envValue]) => {
+      if (!valueFound && envKey === value) {
+        valueFound = envValue;
+      }
+    });
+    return valueFound || DeployEnvironment.unknown;
+  };
 
   static readonly converters: Record<string, (value: string) => ConfigValue> = {
     APIM_AUTH_URL: Config.toUrl,
@@ -100,6 +118,7 @@ class Config {
     NHS_APP_REDIRECT_LOGIN_URL: Config.toUrl,
     IS_APIM_AUTH_ENABLED: Config.toBoolean,
     MAX_SESSION_AGE_MINUTES: Config.toNumber,
+    DEPLOY_ENVIRONMENT: Config.toDeployEnvironment,
     CAMPAIGNS: Campaigns.fromJson,
   };
 
