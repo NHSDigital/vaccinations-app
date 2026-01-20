@@ -1,12 +1,10 @@
-import "@public/css/app.css";
 import { ClientUnhandledErrorLogger } from "@src/app/_components/client-unhandled-error-logger/ClientUnhandledErrorLogger";
 import { ClientProviders } from "@src/app/_components/context/ClientProviders";
 import { NoJsMessage } from "@src/app/_components/static/NoJsMessage";
 import { StaticFooter } from "@src/app/_components/static/StaticFooter";
 import { StaticHeader } from "@src/app/_components/static/StaticHeader";
-import "@src/styles/nhsuk-frontend.scss";
+import "@src/styles/global.scss";
 import Script from "next/script";
-import "nhsapp-frontend/dist/nhsapp/all.scss";
 import React, { JSX } from "react";
 
 export default function RootLayout({

@@ -1,8 +1,0 @@
-@forward "nhsuk-frontend/dist/nhsuk" with (
-  $nhsuk-include-dynamic-type: true
-);
-
-main a {
-  @extend .nhsuk-link;
-  @extend .nhsuk-link--no-visited-state;
-}
