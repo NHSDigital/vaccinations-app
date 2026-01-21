@@ -1,4 +1,5 @@
 import NHSLoginAuthProvider from "@src/app/api/auth/[...nextauth]/provider";
+import { DeployEnvironment } from "@src/types/environments";
 import config from "@src/utils/config";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
 
@@ -10,7 +11,10 @@ describe("provider", () => {
 
   describe("not using fake NHS login", () => {
     beforeEach(() => {
-      const defaultConfig = configBuilder().withNhsLoginUrl(new URL("https://abc")).build();
+      const defaultConfig = configBuilder()
+        .withNhsLoginUrl(new URL("https://abc"))
+        .andDeployEnvironment(DeployEnvironment.preprod)
+        .build();
       Object.assign(mockedConfig, defaultConfig);
     });
 
@@ -24,12 +28,16 @@ describe("provider", () => {
   });
 
   describe("using fake NHS login", () => {
-    beforeEach(() => {
+    it("should not use NONCE check when using fake login port", async () => {
       const defaultConfig = configBuilder().withNhsLoginUrl(new URL("https://abc:9123")).build();
       Object.assign(mockedConfig, defaultConfig);
+      const provider = await NHSLoginAuthProvider();
+      expect(provider.checks).toEqual(["state"]);
     });
 
-    it("should not use NONCE check", async () => {
+    it("should not use NONCE check when in test environment", async () => {
+      const defaultConfig = configBuilder().withDeployEnvironment(DeployEnvironment.test).build();
+      Object.assign(mockedConfig, defaultConfig);
       const provider = await NHSLoginAuthProvider();
       expect(provider.checks).toEqual(["state"]);
     });

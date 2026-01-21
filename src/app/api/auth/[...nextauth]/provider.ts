@@ -1,4 +1,5 @@
 import { OIDCConfig } from "@auth/core/providers";
+import { DeployEnvironment } from "@src/types/environments";
 import pemToCryptoKey from "@src/utils/auth/pem-to-crypto-key";
 import config from "@src/utils/config";
 import { Profile } from "next-auth";
@@ -6,7 +7,8 @@ import { Profile } from "next-auth";
 export const NHS_LOGIN_PROVIDER_ID = "nhs-login";
 
 const NHSLoginAuthProvider = async (): Promise<OIDCConfig<Profile>> => {
-  const usingFakeLogin: boolean = (await config.NHS_LOGIN_URL).port === "9123";
+  const usingFakeLogin: boolean =
+    (await config.DEPLOY_ENVIRONMENT) === DeployEnvironment.test || (await config.NHS_LOGIN_URL).port === "9123";
 
   return {
     id: NHS_LOGIN_PROVIDER_ID,
