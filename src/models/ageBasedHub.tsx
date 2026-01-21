@@ -1,17 +1,8 @@
 import HubWarningCallout from "@src/app/_components/hub/HubWarningCallout";
+import { AgeGroup } from "@src/models/ageGroup";
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import Link from "next/link";
 import { JSX } from "react";
-
-enum AgeGroup {
-  AGE_12_to_16 = "AGE_12_to_16",
-  AGE_17_to_24 = "AGE_17_to_24",
-  AGE_25_to_64 = "AGE_25_to_64",
-  AGE_65_to_74 = "AGE_65_to_74",
-  AGE_75_to_80 = "AGE_75_to_80",
-  AGE_81_PLUS = "AGE_81_PLUS",
-  UNKNOWN_AGE_GROUP = "UNKNOWN_AGE_GROUP",
-}
 
 export type VaccineCardDetails = {
   vaccineName: VaccineType;

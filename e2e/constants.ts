@@ -1,4 +1,4 @@
-import { AgeGroup } from "@src/models/ageBasedHub";
+import { AgeGroup } from "@src/models/ageGroup";
 
 type PoliciesPageName = "cookies-policy" | "accessibility-statement";
 type VaccinePageName =
