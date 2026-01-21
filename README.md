@@ -9,7 +9,7 @@ Within the NHS app, vaccinations app will increase the rate of booking by:
 
 - Informing individuals with personalised information about which vaccinations they still need to have and how to book
 - Providing information on eligibility and how to book where eligibility is not available
-- Providing personalised vaccination availability and booking journeys, based on local availability.
+- Providing personalised vaccination availability and booking journeys, based on local availability
 
 We will increase appointment attendance and reduce the number of 'did not attend' and therefore increase appointment availability by:
 
