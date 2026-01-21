@@ -4,6 +4,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   devIndicators: false,
   serverExternalPackages: ["pino"],
+  sassOptions: {
+    silenceDeprecations: ["import", "legacy-js-api", "if-function", "global-builtin"],
+  },
   transpilePackages: ["react-error-boundary"],
   redirects: () =>
     Promise.resolve([
