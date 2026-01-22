@@ -46,7 +46,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
       trustHost: true,
       callbacks: {
         async signIn({ account }) {
-          log.info("signIn() callback invoked");
+          log.debug("signIn() callback invoked");
           let response: boolean;
           try {
             profilePerformanceStart(AuthSignInPerformanceMarker);
@@ -62,7 +62,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
         },
 
         async jwt({ token, account, profile }) {
-          log.info("jwt() callback invoked");
+          log.debug("jwt() callback invoked");
           let response;
           try {
             profilePerformanceStart(AuthJWTPerformanceMarker);
@@ -76,12 +76,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
         },
 
         async session({ session, token }) {
-          log.info("session() callback invoked");
+          log.debug("session() callback invoked");
           let response;
           try {
             profilePerformanceStart(AuthSessionPerformanceMarker);
             response = getUpdatedSession(session, token);
-            log.info("session() callback fetched session");
+            log.debug("session() callback fetched session");
             profilePerformanceEnd(AuthSessionPerformanceMarker);
           } catch (error) {
             log.error({ error: error }, "session() callback error");
