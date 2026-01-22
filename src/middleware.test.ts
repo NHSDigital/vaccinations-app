@@ -5,7 +5,7 @@ import { auth } from "@project/auth";
 import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
 import { _getHeadersForLogging, config, middleware } from "@src/middleware";
 import appConfig from "@src/utils/config";
-import { SESSION_ID_COOKIE_NAME } from "@src/utils/requestScopedStorageWrapper";
+import { SESSION_ID_COOKIE_NAME } from "@src/utils/constants";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { RequestCookies } from "next/dist/compiled/@edge-runtime/cookies";
 import { NextRequest } from "next/server";
