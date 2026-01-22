@@ -3,7 +3,7 @@ import { GET } from "@src/app/api/sso/route";
 import config from "@src/utils/config";
 import { SESSION_ID_COOKIE_NAME } from "@src/utils/constants";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
-import { RequestCookies } from "next/dist/compiled/@edge-runtime/cookies";
+import { ResponseCookie, ResponseCookies } from "next/dist/compiled/@edge-runtime/cookies";
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -26,6 +26,7 @@ let randomUUIDSpy: jest.SpyInstance;
 const mockRandomUUID = "mock-random-uuid";
 const mockedConfig = config as ConfigMock;
 const mockMaxSessionAgeMinutes = 8;
+const mockNowTimeInSeconds = 1749052001;
 
 const getMockRequest = (testUrl: string, params?: Record<string, string>) => {
   const headers = new Headers([
@@ -44,25 +45,27 @@ const getMockRequest = (testUrl: string, params?: Record<string, string>) => {
   } as NextRequest;
 };
 
-let requestCookies: RequestCookies;
+let responseCookies: ResponseCookies;
 
 describe("GET handler", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.useFakeTimers().setSystemTime(mockNowTimeInSeconds * 1000);
     const defaultConfig = configBuilder().withMaxSessionAgeMinutes(mockMaxSessionAgeMinutes).build();
     Object.assign(mockedConfig, defaultConfig);
 
     const fakeHeaders: ReadonlyHeaders = new Headers([["X-Amzn-Trace-Id", "trace-id"]]);
     (headers as jest.Mock).mockResolvedValue(fakeHeaders);
 
-    requestCookies = new RequestCookies(fakeHeaders);
-    (cookies as jest.Mock).mockResolvedValue(requestCookies);
+    responseCookies = new ResponseCookies(fakeHeaders);
+    (cookies as jest.Mock).mockResolvedValue(responseCookies);
 
     randomUUIDSpy = jest.spyOn(global.crypto, "randomUUID").mockReturnValue(mockRandomUUID);
   });
 
   afterAll(() => {
     randomUUIDSpy.mockRestore();
+    jest.useRealTimers();
   });
 
   it("redirects to sso-failure if assertedLoginIdentity parameter is missing", async () => {
@@ -100,7 +103,7 @@ describe("GET handler", () => {
     expect(redirect).toHaveBeenCalledWith("https://testurl/path");
   });
 
-  it("should generate and set a session-id cookie", async () => {
+  it("should generate and set a session-id cookie with expiry time equal to session expiry", async () => {
     const testUrl = "https://testurl";
     const mockRequest = getMockRequest(testUrl, {
       assertedLoginIdentity: "test-identity",
@@ -108,6 +111,9 @@ describe("GET handler", () => {
 
     await GET(mockRequest);
 
-    expect(requestCookies?.get(SESSION_ID_COOKIE_NAME)?.value).toBe(mockRandomUUID);
+    const sessionIdCookie: ResponseCookie | undefined = responseCookies?.get(SESSION_ID_COOKIE_NAME);
+    expect(sessionIdCookie?.value).toBe(mockRandomUUID);
+    const expectedSessionCookieExpiry = new Date(mockNowTimeInSeconds * 1000 + mockMaxSessionAgeMinutes * 60 * 1000);
+    expect(sessionIdCookie?.expires).toEqual(expectedSessionCookieExpiry); // now + mockMaxSessionAgeMinutes
   });
 });
