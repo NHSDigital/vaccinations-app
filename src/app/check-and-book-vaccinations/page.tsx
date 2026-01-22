@@ -1,12 +1,13 @@
 "use server";
 
 import { auth } from "@project/auth";
+import { FeedbackBanner } from "@src/app/_components/feedback/FeedbackBanner";
 import { AgeBasedHubCards } from "@src/app/_components/hub/AgeBasedHubCards";
 import { AtRiskHubExpander } from "@src/app/_components/hub/AtRiskHubExpander";
 import { PregnancyHubContent } from "@src/app/_components/hub/PregnancyHubContent";
 import BackToNHSAppLink from "@src/app/_components/nhs-app/BackToNHSAppLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
-import { NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
+import { HUB_FEEDBACK_REFERRER_ID, NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
 import { AgeBasedHubDetails, AgeBasedHubInfo, AgeGroup } from "@src/models/ageBasedHub";
 import { Session } from "next-auth";
 import Link from "next/link";
@@ -25,6 +26,8 @@ const VaccinationsHub = async () => {
   return (
     <>
       <title>{`${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`}</title>
+
+      <FeedbackBanner referrer={HUB_FEEDBACK_REFERRER_ID} />
       <BackToNHSAppLink />
       <MainContent>
         <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-5"}>{SERVICE_HEADING}</h1>

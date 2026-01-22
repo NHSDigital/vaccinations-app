@@ -1,5 +1,6 @@
 "use client";
 
+import { FeedbackBanner } from "@src/app/_components/feedback/FeedbackBanner";
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import { NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
@@ -10,6 +11,7 @@ const AccessibilityStatement = () => {
     <>
       <title>{`Accessibility statement - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`}</title>
 
+      <FeedbackBanner referrer={"accessibility-statement"} />
       <BackLink />
       <MainContent>
         <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-5"}>Accessibility statement for {SERVICE_HEADING}</h1>

@@ -22,6 +22,13 @@ describe("VaccinesDuringPregnancy", () => {
     expect(heading).toBeVisible();
   });
 
+  it("displays feedback banner", () => {
+    render(<VaccinesDuringPregnancy />);
+    const link: HTMLLinkElement = screen.getByRole("link", { name: "give your feedback" });
+    expect(link).toBeVisible();
+    expect(link).toHaveAttribute("href", "https://feedback.digital.nhs.uk/jfe/form/SV_cDd4qebuAblVBZ4?page=hub");
+  });
+
   it("should render back link", () => {
     render(<VaccinesDuringPregnancy />);
 

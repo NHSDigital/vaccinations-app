@@ -1,7 +1,8 @@
+import { FeedbackBanner } from "@src/app/_components/feedback/FeedbackBanner";
 import CardLinkWithDescription from "@src/app/_components/nhs-app/CardLinkWithDescription";
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
-import { NHS_TITLE_SUFFIX, VACCINES_FOR_PREGNANT_PAGE } from "@src/app/constants";
+import { HUB_FEEDBACK_REFERRER_ID, NHS_TITLE_SUFFIX, VACCINES_FOR_PREGNANT_PAGE } from "@src/app/constants";
 import { VaccineInfo, pregnancyVaccines } from "@src/models/vaccine";
 import Link from "next/link";
 import React, { JSX } from "react";
@@ -10,6 +11,8 @@ const VaccinesDuringPregnancy = (): JSX.Element => {
   return (
     <>
       <title>{`${VACCINES_FOR_PREGNANT_PAGE} - ${NHS_TITLE_SUFFIX}`}</title>
+
+      <FeedbackBanner referrer={HUB_FEEDBACK_REFERRER_ID} />
       <BackLink />
       <MainContent>
         <h1 className={"nhsuk-heading-xl nhsuk-u-margin-bottom-5"}>{VACCINES_FOR_PREGNANT_PAGE}</h1>

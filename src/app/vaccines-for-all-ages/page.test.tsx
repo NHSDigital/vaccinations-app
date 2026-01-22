@@ -27,6 +27,13 @@ describe("VaccinesForAllAges", () => {
     expect(mainHeading).toBeVisible();
   });
 
+  it("displays feedback banner", () => {
+    render(<VaccinesForAllAges />);
+    const link: HTMLLinkElement = screen.getByRole("link", { name: "give your feedback" });
+    expect(link).toBeVisible();
+    expect(link).toHaveAttribute("href", "https://feedback.digital.nhs.uk/jfe/form/SV_cDd4qebuAblVBZ4?page=hub");
+  });
+
   it("should render overview text", () => {
     render(<VaccinesForAllAges />);
 

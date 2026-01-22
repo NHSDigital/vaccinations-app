@@ -48,28 +48,33 @@ const mockSessionDataForAgeGroup = (ageGroup: AgeGroup): Partial<Session> => {
 
 describe("Vaccination Hub Page", () => {
   describe("for all ages", () => {
-    const mockAgeGroup = AgeGroup.AGE_25_to_64;
-
-    beforeEach(async () => {
-      (auth as jest.Mock).mockResolvedValue(mockSessionDataForAgeGroup(mockAgeGroup));
+    it.each(Object.entries(AgeGroup))(`renders main heading for %s`, async (ageGroupString, ageGroup) => {
+      (auth as jest.Mock).mockResolvedValue(mockSessionDataForAgeGroup(ageGroup));
 
       render(await VaccinationsHub());
-    });
 
-    it("renders main heading", async () => {
       expectHeadingToBeRendered();
     });
 
-    it("renders age based cards for user", () => {
-      const ageBasedHubCards: HTMLElement = screen.getByTestId("age-based-hub-cards");
+    it.each(Object.entries(AgeGroup))(`renders feedback banner for %s`, async (ageGroupString, ageGroup) => {
+      (auth as jest.Mock).mockResolvedValue(mockSessionDataForAgeGroup(ageGroup));
 
-      expect(ageBasedHubCards).toBeVisible();
-      expect(AgeBasedHubCards).toHaveBeenCalledWith(
-        {
-          ageGroup: mockAgeGroup,
-        },
-        undefined,
+      render(await VaccinationsHub());
+
+      expectLinkToBeRendered(
+        "give your feedback",
+        "https://feedback.digital.nhs.uk/jfe/form/SV_cDd4qebuAblVBZ4?page=hub",
       );
+    });
+
+    it.each(Object.entries(AgeGroup))(`renders age based cards for %s`, async (ageGroupString, ageGroup) => {
+      (auth as jest.Mock).mockResolvedValue(mockSessionDataForAgeGroup(ageGroup));
+
+      render(await VaccinationsHub());
+
+      const ageBasedHubCards: HTMLElement = screen.getByTestId("age-based-hub-cards");
+      expect(ageBasedHubCards).toBeVisible();
+      expect(AgeBasedHubCards).toHaveBeenCalledWith({ ageGroup: ageGroup }, undefined);
     });
 
     it("should redirect to service failure page if user age unknown", async () => {
@@ -83,20 +88,25 @@ describe("Vaccination Hub Page", () => {
       }
     });
 
-    it("should show at risk expander ", () => {
+    it.each(Object.entries(AgeGroup))("should show at risk expander for %s", async (ageGroupString, ageGroup) => {
+      (auth as jest.Mock).mockResolvedValue(mockSessionDataForAgeGroup(ageGroup));
+
+      render(await VaccinationsHub());
+
       const atRiskHubExpander: HTMLElement = screen.getByTestId("at-risk-hub-expander");
       expect(atRiskHubExpander).toBeVisible();
     });
 
-    it("should show pregnancy hub content ", () => {
-      const pregnancyHubContent: HTMLElement = screen.getByTestId("pregnancy-hub-content");
+    it.each(Object.entries(AgeGroup))(
+      "renders vaccines for all ages button for %s",
+      async (ageGroupString, ageGroup) => {
+        (auth as jest.Mock).mockResolvedValue(mockSessionDataForAgeGroup(ageGroup));
 
-      expect(pregnancyHubContent).toBeVisible();
-    });
+        render(await VaccinationsHub());
 
-    it("renders vaccines for all ages button", async () => {
-      expectLinkToBeRendered("View vaccines for all ages", "/vaccines-for-all-ages");
-    });
+        expectLinkToBeRendered("View vaccines for all ages", "/vaccines-for-all-ages");
+      },
+    );
   });
 
   describe("pregnancy hub content", () => {
@@ -151,7 +161,7 @@ const expectHeadingToBeRendered = () => {
 };
 
 const expectLinkToBeRendered = (text: string, href: string) => {
-  const link: HTMLElement = screen.getByRole("link", { name: text });
+  const link: HTMLLinkElement = screen.getByRole("link", { name: text });
   expect(link).toBeVisible();
   expect(link).toHaveAttribute("href", href);
 };

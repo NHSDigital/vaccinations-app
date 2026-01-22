@@ -12,6 +12,16 @@ describe("CookiesPolicy Component", () => {
     expect(title).toBeVisible();
   });
 
+  it("displays feedback banner", () => {
+    render(<CookiesPolicy />);
+    const link: HTMLLinkElement = screen.getByRole("link", { name: "give your feedback" });
+    expect(link).toBeVisible();
+    expect(link).toHaveAttribute(
+      "href",
+      "https://feedback.digital.nhs.uk/jfe/form/SV_cDd4qebuAblVBZ4?page=cookies-policy",
+    );
+  });
+
   it("displays contents list", () => {
     render(<CookiesPolicy />);
     const firstContentLink: HTMLElement = screen.getAllByText("Summary")[0];
