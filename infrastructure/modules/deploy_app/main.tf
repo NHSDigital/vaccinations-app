@@ -27,6 +27,24 @@ module "deploy_app" {
     }
   }
 
+  waf = {
+    deployment = "CREATE",
+    aws_managed_rules = [
+      {
+        name                  = "amazon-ip-reputation-list"
+        aws_managed_rule_name = "AWSManagedRulesAmazonIpReputationList"
+      },
+      {
+        name                  = "common-rule-set"
+        aws_managed_rule_name = "AWSManagedRulesCommonRuleSet"
+      },
+      {
+        name                  = "known-bad-inputs"
+        aws_managed_rule_name = "AWSManagedRulesKnownBadInputsRuleSet"
+      }
+    ]
+  }
+
   server_function = {
     additional_iam_policies          = [aws_iam_policy.server_lambda_additional_policy]
     additional_environment_variables = var.application_environment_variables
