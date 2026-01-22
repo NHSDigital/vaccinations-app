@@ -9,7 +9,10 @@ import config from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
-import { extractRequestContextFromHeadersAndCookies } from "@src/utils/requestScopedStorageWrapper";
+import {
+  extractRequestContextFromHeadersAndCookies,
+  requestScopedStorageWrapper,
+} from "@src/utils/requestScopedStorageWrapper";
 import NextAuth from "next-auth";
 import "next-auth/jwt";
 import { cookies, headers } from "next/headers";
@@ -46,48 +49,54 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
       trustHost: true,
       callbacks: {
         async signIn({ account }) {
-          log.debug("signIn() callback invoked");
-          let response: boolean;
-          try {
-            profilePerformanceStart(AuthSignInPerformanceMarker);
-            response = await isValidSignIn(account);
-            profilePerformanceEnd(AuthSignInPerformanceMarker);
-          } catch (error) {
-            log.error({ error: error }, "signIn() callback error");
-            response = false;
-          }
+          return await requestScopedStorageWrapper(async () => {
+            log.debug("signIn() callback invoked");
+            let response: boolean;
+            try {
+              profilePerformanceStart(AuthSignInPerformanceMarker);
+              response = await isValidSignIn(account);
+              profilePerformanceEnd(AuthSignInPerformanceMarker);
+            } catch (error) {
+              log.error({ error: error }, "signIn() callback error");
+              response = false;
+            }
 
-          log.info({ context: { isValidSignIn: response } }, "NHS-Login callback");
-          return response;
+            log.info({ context: { isValidSignIn: response } }, "NHS-Login signIn() callback result");
+            return response;
+          });
         },
 
         async jwt({ token, account, profile }) {
-          log.debug("jwt() callback invoked");
-          let response;
-          try {
-            profilePerformanceStart(AuthJWTPerformanceMarker);
-            response = getToken(token, account, profile, MAX_SESSION_AGE_SECONDS as MaxAgeInSeconds);
-            profilePerformanceEnd(AuthJWTPerformanceMarker);
-          } catch (error) {
-            log.error({ error: error }, "jwt() callback error");
-            response = null;
-          }
-          return response;
+          return await requestScopedStorageWrapper(async () => {
+            log.debug("jwt() callback invoked");
+            let response;
+            try {
+              profilePerformanceStart(AuthJWTPerformanceMarker);
+              response = getToken(token, account, profile, MAX_SESSION_AGE_SECONDS as MaxAgeInSeconds);
+              profilePerformanceEnd(AuthJWTPerformanceMarker);
+            } catch (error) {
+              log.error({ error: error }, "jwt() callback error");
+              response = null;
+            }
+            return response;
+          });
         },
 
         async session({ session, token }) {
-          log.debug("session() callback invoked");
-          let response;
-          try {
-            profilePerformanceStart(AuthSessionPerformanceMarker);
-            response = getUpdatedSession(session, token);
-            log.debug("session() callback fetched session");
-            profilePerformanceEnd(AuthSessionPerformanceMarker);
-          } catch (error) {
-            log.error({ error: error }, "session() callback error");
-            response = { expires: new Date().toISOString() };
-          }
-          return response;
+          return await requestScopedStorageWrapper(async () => {
+            log.debug("session() callback invoked");
+            let response;
+            try {
+              profilePerformanceStart(AuthSessionPerformanceMarker);
+              response = getUpdatedSession(session, token);
+              log.debug("session() callback fetched session");
+              profilePerformanceEnd(AuthSessionPerformanceMarker);
+            } catch (error) {
+              log.error({ error: error }, "session() callback error");
+              response = { expires: new Date().toISOString() };
+            }
+            return response;
+          });
         },
       },
     };
