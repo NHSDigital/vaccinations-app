@@ -1,30 +1,51 @@
 "use client";
 
-import { Footer } from "nhsuk-react-components";
+import Link from "next/link";
 import React from "react";
 
-// Ref: https://main--65aa76b29d00a047fe683b95.chromatic.com/?path=/docs/navigation-footer--docs
+// Ref: https://service-manual.nhs.uk/design-system/components/footer
 const AppFooter = () => {
   return (
-    <Footer>
-      <Footer.Meta>
-        <Footer.ListItem
-          href="https://www.nhs.uk/nhs-app/nhs-app-help-and-support/vaccinations/check-and-book-an-rsv-vaccination"
-          target={"_blank"}
-        >
-          Help and support
-        </Footer.ListItem>
-        <Footer.ListItem href="/our-policies/cookies-policy">Cookies</Footer.ListItem>
-        <Footer.ListItem
-          href="https://www.england.nhs.uk/contact-us/privacy-notice/national-flu-vaccination-programme/"
-          target={"_blank"}
-        >
-          Privacy policy
-        </Footer.ListItem>
-        <Footer.ListItem href="/our-policies/accessibility">Accessibility statement</Footer.ListItem>
-        <Footer.Copyright />
-      </Footer.Meta>
-    </Footer>
+    <footer className="nhsuk-footer" role="contentinfo">
+      <div className="nhsuk-width-container">
+        <div className="nhsuk-footer__meta">
+          <h2 className="nhsuk-u-visually-hidden">Support links</h2>
+          <ul className="nhsuk-footer__list">
+            <li className="nhsuk-footer__list-item">
+              <Link
+                prefetch={false}
+                className="nhsuk-footer__list-item-link"
+                href="https://www.nhs.uk/nhs-app/nhs-app-help-and-support/vaccinations/check-and-book-an-rsv-vaccination"
+                target={"_blank"}
+              >
+                Help and support
+              </Link>
+            </li>
+            <li className="nhsuk-footer__list-item">
+              <Link prefetch={false} className="nhsuk-footer__list-item-link" href="/our-policies/cookies-policy">
+                Cookies
+              </Link>
+            </li>
+            <li className="nhsuk-footer__list-item">
+              <Link
+                prefetch={false}
+                className="nhsuk-footer__list-item-link"
+                href="https://www.england.nhs.uk/contact-us/privacy-notice/national-flu-vaccination-programme/"
+                target={"_blank"}
+              >
+                Privacy policy
+              </Link>
+            </li>
+            <li className="nhsuk-footer__list-item">
+              <Link prefetch={false} className="nhsuk-footer__list-item-link" href="/our-policies/accessibility">
+                Accessibility statement
+              </Link>
+            </li>
+          </ul>
+          <p className="nhsuk-body-s">© NHS England</p>
+        </div>
+      </div>
+    </footer>
   );
 };
 
