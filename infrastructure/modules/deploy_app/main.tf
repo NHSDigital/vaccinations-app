@@ -28,7 +28,7 @@ module "deploy_app" {
   }
 
   waf = {
-    deployment = var.environment == "prod" || var.environment == "test" ? "CREATE" : "NONE",
+    deployment = var.environment != "dev" ? "CREATE" : "NONE",
     aws_managed_rules = [
       {
         name                  = "amazon-ip-reputation-list"
