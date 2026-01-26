@@ -41,14 +41,15 @@ module "deploy" {
       ELIGIBILITY_API_ENDPOINT = "${module.deploy_fake_api.application_url}/",
       APIM_AUTH_URL            = "${module.deploy_fake_api.application_url}/oauth2/token"
   })
-  acm_certificate_arn    = data.aws_acm_certificate.website.arn
-  domain                 = local.domain
-  sub_domain             = local.sub_domain
-  default_tags           = local.default_tags
-  region                 = local.region
-  account_id             = data.aws_caller_identity.current.account_id
-  alerting_sns_topic_arn = module.deploy_monitoring.alerting_sns_topic_arn
-  environment            = local.environment
+  acm_certificate_arn           = data.aws_acm_certificate.website.arn
+  domain                        = local.domain
+  sub_domain                    = local.sub_domain
+  default_tags                  = local.default_tags
+  region                        = local.region
+  account_id                    = data.aws_caller_identity.current.account_id
+  alerting_sns_topic_arn        = module.deploy_monitoring.alerting_sns_topic_arn
+  alerting_global_sns_topic_arn = module.deploy_monitoring.alerting_global_sns_topic_arn
+  environment                   = local.environment
 }
 
 resource "aws_cloudfront_monitoring_subscription" "enable_more_cloudfront_metrics" {
