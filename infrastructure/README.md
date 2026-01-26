@@ -44,14 +44,14 @@ Manually create the following error routes. The current library we use doesn't u
 - Select "Error pages" tab
 - Click "Create custom error response" button
   - HTTP error code: 500
-  - Error caching minimum TTL: 300
+  - Error caching minimum TTL: 10
   - Customise error response: yes
-  - Response page path: /service-failure
+  - Response page path: /assets/static/service-failure.html
   - HTTP Response code: 500
 - Repeat the previous step for all other 5xx codes.
 - Click "Create custom error response" button
     - HTTP error code: 403
-    - Error caching minimum TTL: 0
+    - Error caching minimum TTL: 300
     - Customise error response: yes
     - Response page path: /assets/static/service-failure.html
     - HTTP Response code: 403
