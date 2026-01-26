@@ -105,10 +105,18 @@ describe("Any vaccine page", () => {
       .withCampaigns(
         Campaigns.fromJson(
           JSON.stringify({
-            COVID_19: [{ start: "2025-11-01T09:00:00Z", end: "2026-01-31T09:00:00Z" }],
-            FLU_FOR_ADULTS: [{ start: "2025-11-30T09:00:00Z", end: "2026-03-31T09:00:00Z" }],
-            FLU_FOR_CHILDREN: [{ start: "2025-11-30T09:00:00Z", end: "2026-03-31T09:00:00Z" }],
-            FLU_IN_PREGNANCY: [{ start: "2025-11-30T09:00:00Z", end: "2026-03-31T09:00:00Z" }],
+            COVID_19: [
+              { preStart: "2025-10-15T09:00:00Z", start: "2025-11-01T09:00:00Z", end: "2026-01-31T09:00:00Z" },
+            ],
+            FLU_FOR_ADULTS: [
+              { preStart: "2025-11-30T09:00:00Z", start: "2025-11-30T09:00:00Z", end: "2026-03-31T09:00:00Z" },
+            ],
+            FLU_FOR_CHILDREN: [
+              { preStart: "2025-11-30T09:00:00Z", start: "2025-11-30T09:00:00Z", end: "2026-03-31T09:00:00Z" },
+            ],
+            FLU_IN_PREGNANCY: [
+              { preStart: "2025-11-30T09:00:00Z", start: "2025-11-30T09:00:00Z", end: "2026-03-31T09:00:00Z" },
+            ],
           }),
         )!,
       )

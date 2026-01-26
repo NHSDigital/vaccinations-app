@@ -6,12 +6,12 @@ jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 describe("Campaigns", () => {
   const jsonString = JSON.stringify({
     COVID_19: [
-      { start: "2025-11-12T09:00:00Z", end: "2026-03-01T09:00:00+02:00" },
-      { start: "2026-09-01T09:00:00+02:00", end: "2027-03-01T09:00:00Z" },
+      { preStart: "2025-11-03T09:00:00Z", start: "2025-11-12T09:00:00Z", end: "2026-03-01T09:00:00+02:00" },
+      { preStart: "2026-08-15T09:00:00Z", start: "2026-09-01T09:00:00+02:00", end: "2027-03-01T09:00:00Z" },
     ],
     FLU_FOR_ADULTS: [
-      { start: "2025-11-12T09:00:00+02:00", end: "2026-03-01T09:00:00Z" },
-      { start: "2026-09-01T09:00:00Z", end: "2027-03-01T09:00:00+02:00" },
+      { preStart: "2025-11-12T09:00:00+02:00", start: "2025-11-12T09:00:00+02:00", end: "2026-03-01T09:00:00Z" },
+      { preStart: "2026-09-01T09:00:00Z", start: "2026-09-01T09:00:00Z", end: "2027-03-01T09:00:00+02:00" },
     ],
   });
 
@@ -19,13 +19,29 @@ describe("Campaigns", () => {
     const actual = Campaigns.fromJson(jsonString);
 
     expect(actual!.get(VaccineType.COVID_19)).toStrictEqual([
-      { start: new Date("2025-11-12T09:00:00Z"), end: new Date("2026-03-01T07:00:00Z") },
-      { start: new Date("2026-09-01T07:00:00Z"), end: new Date("2027-03-01T09:00:00Z") },
+      {
+        preStart: new Date("2025-11-03T09:00:00Z"),
+        start: new Date("2025-11-12T09:00:00Z"),
+        end: new Date("2026-03-01T07:00:00Z"),
+      },
+      {
+        preStart: new Date("2026-08-15T09:00:00Z"),
+        start: new Date("2026-09-01T07:00:00Z"),
+        end: new Date("2027-03-01T09:00:00Z"),
+      },
     ]);
 
     expect(actual!.get(VaccineType.FLU_FOR_ADULTS)).toStrictEqual([
-      { start: new Date("2025-11-12T07:00:00Z"), end: new Date("2026-03-01T09:00:00Z") },
-      { start: new Date("2026-09-01T09:00:00Z"), end: new Date("2027-03-01T07:00:00Z") },
+      {
+        preStart: new Date("2025-11-12T09:00:00+02:00"),
+        start: new Date("2025-11-12T07:00:00Z"),
+        end: new Date("2026-03-01T09:00:00Z"),
+      },
+      {
+        preStart: new Date("2026-09-01T09:00:00Z"),
+        start: new Date("2026-09-01T09:00:00Z"),
+        end: new Date("2027-03-01T07:00:00Z"),
+      },
     ]);
   });
 
@@ -59,6 +75,50 @@ describe("Campaigns", () => {
       const active = campaigns.isActive(VaccineType.FLU_FOR_CHILDREN);
 
       expect(active).toBe(false);
+    });
+  });
+
+  describe("isPreOpen", () => {
+    const campaigns = Campaigns.fromJson(jsonString)!;
+
+    it.each([
+      ["closed campaign 1: before pre-start", "2025-11-03T08:59:59Z", false],
+      ["pre-start campaign 1: exact pre-start", "2025-11-03T09:00:00Z", true],
+      ["pre-start campaign 1: during pre-start range", "2025-11-04T12:00:00Z", true],
+      ["open campaign 1: exact start", "2025-11-12T09:00:00Z", false],
+      ["closed campaign 1: in the gap (May)", "2026-05-01T09:00:00Z", false],
+      ["pre-start campaign 2: exact pre-start", "2026-08-15T09:00:00Z", true],
+      ["pre-start campaign 2: during pre-start range", "2026-08-17T09:00:00Z", true],
+      ["pre-start campaign 2: 1 sec before start", "2026-09-01T06:59:59Z", true],
+      ["closed campaign 2: after end", "2027-03-01T09:00:01Z", false],
+      ["closed campaign: way before", "2020-01-01T00:00:00Z", false],
+      ["closed campaign: way after", "2030-01-01T00:00:00Z", false],
+    ])("%s (%s) -> %s", (_, dateStr, expected) => {
+      const dateToCheck = new Date(dateStr);
+      const actual = campaigns.isPreOpen(VaccineType.COVID_19, dateToCheck);
+
+      expect(actual).toBe(expected);
+    });
+
+    it.each([
+      ["closed campaign 1: before pre-start", "2025-11-11T09:00:00+02:00", false],
+      ["pre-start campaign 1: exact pre-start", "2025-11-12T09:00:00+02:00", false],
+      ["open campaign 1: exact start", "2025-11-12T09:00:00+02:00", false],
+      ["closed campaign: way before", "2015-11-12T09:00:00+02:00", false],
+      ["closed campaign: way after", "2035-11-12T09:00:00+02:00", false],
+    ])("%s (%s) -> %s", (_, dateStr, expected) => {
+      const dateToCheck = new Date(dateStr);
+      const actual = campaigns.isPreOpen(VaccineType.FLU_FOR_ADULTS, dateToCheck);
+
+      expect(actual).toBe(expected);
+    });
+
+    it("should return false for vaccine with no campaign", () => {
+      const campaigns = Campaigns.fromJson(jsonString)!;
+
+      const preOpen = campaigns.isPreOpen(VaccineType.FLU_FOR_CHILDREN);
+
+      expect(preOpen).toBe(false);
     });
   });
 });

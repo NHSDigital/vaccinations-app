@@ -8,6 +8,7 @@ const log: Logger = logger.child({ module: "campaigns" });
 
 const CampaignSchema = z
   .object({
+    preStart: UtcDateTimeFromStringSchema,
     start: UtcDateTimeFromStringSchema,
     end: UtcDateTimeFromStringSchema,
   })
@@ -64,6 +65,12 @@ export class Campaigns {
   isActive(vaccine: VaccineType, date: Date = new Date()): boolean {
     const campaigns = this.get(vaccine);
     return campaigns.some((c) => date >= c.start && date <= c.end);
+  }
+
+  /** Check if a vaccine is currently pre-open */
+  isPreOpen(vaccine: VaccineType, date: Date = new Date()): boolean {
+    const campaigns = this.get(vaccine);
+    return campaigns.some((c) => date >= c.preStart && date < c.start);
   }
 
   /** Get a list of all vaccine names in the schedule */
