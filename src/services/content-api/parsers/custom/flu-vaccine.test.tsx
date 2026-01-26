@@ -54,7 +54,7 @@ describe("buildFilteredContentForFluVaccine", () => {
             "Contact your GP surgery to book an appointment.") as Content,
         },
         {
-          type: ActionDisplayType.buttonWithInfo,
+          type: ActionDisplayType.nbsAuthLinkButtonWithInfo,
           content: "### Book an appointment online" as Content,
           button: {
             label: "Continue to booking" as Label,

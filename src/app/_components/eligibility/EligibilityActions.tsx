@@ -1,5 +1,8 @@
 import { MarkdownWithStyling } from "@src/app/_components/markdown/MarkdownWithStyling";
-import { NBSBookingActionForBaseUrl } from "@src/app/_components/nbs/NBSBookingAction";
+import {
+  NBSBookingActionWithAuthSSOForBaseUrl,
+  NBSBookingActionWithoutAuthForUrl,
+} from "@src/app/_components/nbs/NBSBookingAction";
 import { BasicCard } from "@src/app/_components/nhs-frontend/BasicCard";
 import { VaccineType } from "@src/models/vaccine";
 import { Action, ActionDisplayType, ButtonUrl, Content, Label } from "@src/services/eligibility-api/types";
@@ -24,10 +27,10 @@ const EligibilityActions = ({ actions, vaccineType }: EligibilityActionProps): (
         return <Card key={index} content={action.content} delineator={isNotLastAction} />;
       }
 
-      case ActionDisplayType.buttonWithCard: {
+      case ActionDisplayType.nbsAuthLinkButtonWithCard: {
         const card = action.content && <BasicCard content={action.content} delineator={false} />;
         const button = action.button && (
-          <Button
+          <NBSAuthSSOBookingButton
             vaccineType={vaccineType}
             url={action.button.url}
             label={action.button.label}
@@ -44,10 +47,10 @@ const EligibilityActions = ({ actions, vaccineType }: EligibilityActionProps): (
         );
       }
 
-      case ActionDisplayType.buttonWithInfo: {
+      case ActionDisplayType.nbsAuthLinkButtonWithInfo: {
         const info = action.content && <InfoText content={action.content} delineator={false} />;
         const button = action.button && (
-          <Button
+          <NBSAuthSSOBookingButton
             vaccineType={vaccineType}
             url={action.button.url}
             label={action.button.label}
@@ -57,6 +60,25 @@ const EligibilityActions = ({ actions, vaccineType }: EligibilityActionProps): (
         );
         return (
           <div key={index} data-testid="action-auth-button-components">
+            {info}
+            {button}
+            {isNotLastAction && <hr />}
+          </div>
+        );
+      }
+
+      case ActionDisplayType.buttonWithoutAuthLinkWithInfo: {
+        const info = action.content && <InfoText content={action.content} delineator={false} />;
+        const button = action.button && (
+          <NBSBookingActionWithoutAuthForUrl
+            url={action.button.url.href}
+            displayText={action.button.label}
+            renderAs={"button"}
+            reduceBottomPadding={true}
+          />
+        );
+        return (
+          <div key={index} data-testid="action-button-without-auth-components">
             {info}
             {button}
             {isNotLastAction && <hr />}
@@ -123,9 +145,9 @@ type ButtonProps = {
   delineator: boolean;
 };
 
-const Button = ({ vaccineType, url, label, renderAs }: ButtonProps): JSX.Element => {
+const NBSAuthSSOBookingButton = ({ vaccineType, url, label, renderAs }: ButtonProps): JSX.Element => {
   return (
-    <NBSBookingActionForBaseUrl
+    <NBSBookingActionWithAuthSSOForBaseUrl
       vaccineType={vaccineType}
       url={url.href}
       displayText={label}

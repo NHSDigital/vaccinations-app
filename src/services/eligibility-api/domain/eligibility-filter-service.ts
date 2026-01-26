@@ -137,10 +137,10 @@ const _generateActions = (suggestion: ProcessedSuggestion): Action[] => {
         ];
       }
       case "ButtonWithAuthLink": {
-        return [_linkAction(action, ActionDisplayType.buttonWithCard)];
+        return [_linkAction(action, ActionDisplayType.nbsAuthLinkButtonWithCard)];
       }
       case "ButtonWithAuthLinkWithInfoText": {
-        return [_linkAction(action, ActionDisplayType.buttonWithInfo)];
+        return [_linkAction(action, ActionDisplayType.nbsAuthLinkButtonWithInfo)];
       }
       case "ActionLinkWithInfoText": {
         return [_linkAction(action, ActionDisplayType.actionLinkWithInfo)];

@@ -63,11 +63,13 @@ describe("buildFilteredContentForFluForChildrenVaccine", () => {
             "Contact your GP surgery to book an appointment.") as Content,
         },
         {
-          type: ActionDisplayType.buttonWithInfo,
+          type: ActionDisplayType.buttonWithoutAuthLinkWithInfo,
           content: "### Book an appointment online" as Content,
           button: {
             label: "Continue to booking" as Label,
-            url: new URL("https://test-nbs-url.example.com/sausages") as ButtonUrl,
+            url: new URL(
+              "https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-flu-vaccination/",
+            ) as ButtonUrl,
           },
         },
         {

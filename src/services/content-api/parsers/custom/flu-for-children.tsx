@@ -1,4 +1,3 @@
-import { VaccineType } from "@src/models/vaccine";
 import { buildFilteredContentForStandardVaccine } from "@src/services/content-api/parsers/content-filter-service";
 import { HeadingWithContent, HeadingWithTypedContent, VaccinePageContent } from "@src/services/content-api/types";
 import {
@@ -10,7 +9,6 @@ import {
   Content,
   Label,
 } from "@src/services/eligibility-api/types";
-import { buildNbsUrl } from "@src/services/nbs/nbs-service";
 
 export const buildFilteredContentForFluForChildrenVaccine = async (apiContent: string): Promise<VaccinePageContent> => {
   const standardFilteredContent = await buildFilteredContentForStandardVaccine(apiContent);
@@ -31,8 +29,6 @@ export const buildFilteredContentForFluForChildrenVaccine = async (apiContent: s
 };
 
 async function _buildActions(): Promise<Action[]> {
-  const nbsURl = (await buildNbsUrl(VaccineType.FLU_FOR_CHILDREN)) as ButtonUrl;
-
   const bookWithGP: ActionWithoutButton = {
     type: ActionDisplayType.infotext,
     content: [
@@ -43,10 +39,15 @@ async function _buildActions(): Promise<Action[]> {
     button: undefined,
   };
 
-  const nbsBooking: ActionWithButton = {
-    type: ActionDisplayType.buttonWithInfo,
+  const bookOnline: ActionWithButton = {
+    type: ActionDisplayType.buttonWithoutAuthLinkWithInfo,
     content: "### Book an appointment online" as Content,
-    button: { label: "Continue to booking" as Label, url: nbsURl },
+    button: {
+      label: "Continue to booking" as Label,
+      url: new URL(
+        "https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-flu-vaccination/",
+      ) as ButtonUrl,
+    },
   };
 
   const walkIn: ActionWithButton = {
@@ -62,5 +63,5 @@ async function _buildActions(): Promise<Action[]> {
       ) as ButtonUrl,
     },
   };
-  return [bookWithGP, nbsBooking, walkIn];
+  return [bookWithGP, bookOnline, walkIn];
 }

@@ -165,7 +165,7 @@ describe("buildFilteredContentForFluInPregnancyVaccine", () => {
             "Contact your GP surgery or maternity service (if your maternity service offers the flu vaccine) to book an appointment.") as Content,
         },
         {
-          type: ActionDisplayType.buttonWithInfo,
+          type: ActionDisplayType.nbsAuthLinkButtonWithInfo,
           content: "### Book an appointment online" as Content,
           button: {
             label: "Continue to booking" as Label,

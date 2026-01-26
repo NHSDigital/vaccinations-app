@@ -1,4 +1,4 @@
-import { NBSBookingActionForVaccine } from "@src/app/_components/nbs/NBSBookingAction";
+import { NBSBookingActionWithAuthSSOForVaccine } from "@src/app/_components/nbs/NBSBookingAction";
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import React, { JSX } from "react";
 
@@ -12,7 +12,7 @@ const PharmacyBookingInfo = ({ vaccineType }: PharmacyBookingProps): JSX.Element
   return (
     <p data-testid="pharmacy-booking-info">
       {vaccineInfo.forOlderAdults ? "In some areas you can " : "In some areas you can also "}
-      <NBSBookingActionForVaccine
+      <NBSBookingActionWithAuthSSOForVaccine
         displayText={`book ${vaccineInfo.displayName.indefiniteArticle} ${vaccineInfo.displayName.midSentenceCase} vaccination in a pharmacy`}
         vaccineType={vaccineType}
         renderAs={"anchor"}

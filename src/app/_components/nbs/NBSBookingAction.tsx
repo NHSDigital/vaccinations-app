@@ -23,7 +23,7 @@ interface NBSBookingActionForBaseUrlProps {
   reduceBottomPadding: boolean;
 }
 
-interface NBSBookingActionProps {
+interface NBSBookingButtonProps {
   url: string;
   displayText: string;
   renderAs: RenderOptions;
@@ -32,7 +32,7 @@ interface NBSBookingActionProps {
 
 type ActionClickEvent = React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>;
 
-const NBSBookingActionForVaccine = ({
+const NBSBookingActionWithAuthSSOForVaccine = ({
   vaccineType,
   displayText,
   renderAs,
@@ -42,7 +42,7 @@ const NBSBookingActionForVaccine = ({
   const nbsSSOLink = `${SSO_TO_NBS_ROUTE}?vaccine=${vaccinePath}`;
 
   return (
-    <NBSBookingAction
+    <NBSBookingButton
       url={nbsSSOLink}
       displayText={displayText}
       renderAs={renderAs}
@@ -51,7 +51,7 @@ const NBSBookingActionForVaccine = ({
   );
 };
 
-const NBSBookingActionForBaseUrl = ({
+const NBSBookingActionWithAuthSSOForBaseUrl = ({
   vaccineType,
   url,
   displayText,
@@ -61,7 +61,7 @@ const NBSBookingActionForBaseUrl = ({
   const urlPath: UrlPathFragment = VaccineInfo[vaccineType].urlPath;
   const nbsSSOLink = `${SSO_TO_NBS_ROUTE}?redirectTarget=${encodeURI(url)}&vaccine=${urlPath}`;
   return (
-    <NBSBookingAction
+    <NBSBookingButton
       url={nbsSSOLink}
       displayText={displayText}
       renderAs={renderAs}
@@ -70,12 +70,28 @@ const NBSBookingActionForBaseUrl = ({
   );
 };
 
-const NBSBookingAction = ({
+const NBSBookingActionWithoutAuthForUrl = ({
   url,
   displayText,
   renderAs,
   reduceBottomPadding = false,
-}: NBSBookingActionProps): JSX.Element => {
+}: NBSBookingButtonProps): JSX.Element => {
+  return (
+    <NBSBookingButton
+      url={url}
+      displayText={displayText}
+      renderAs={renderAs}
+      reduceBottomPadding={reduceBottomPadding}
+    />
+  );
+};
+
+const NBSBookingButton = ({
+  url,
+  displayText,
+  renderAs,
+  reduceBottomPadding = false,
+}: NBSBookingButtonProps): JSX.Element => {
   const { hasContextLoaded, isOpenInMobileApp } = useBrowserContext();
 
   const handleClick = (e: ActionClickEvent) => {
@@ -111,4 +127,8 @@ const NBSBookingAction = ({
   }
 };
 
-export { NBSBookingActionForVaccine, NBSBookingActionForBaseUrl };
+export {
+  NBSBookingActionWithAuthSSOForVaccine,
+  NBSBookingActionWithAuthSSOForBaseUrl,
+  NBSBookingActionWithoutAuthForUrl,
+};

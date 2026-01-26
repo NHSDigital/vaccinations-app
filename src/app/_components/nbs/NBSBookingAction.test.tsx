@@ -1,5 +1,9 @@
 import { useBrowserContext } from "@src/app/_components/context/BrowserContext";
-import { NBSBookingActionForBaseUrl, NBSBookingActionForVaccine } from "@src/app/_components/nbs/NBSBookingAction";
+import {
+  NBSBookingActionWithAuthSSOForBaseUrl,
+  NBSBookingActionWithAuthSSOForVaccine,
+  NBSBookingActionWithoutAuthForUrl,
+} from "@src/app/_components/nbs/NBSBookingAction";
 import { VaccineType } from "@src/models/vaccine";
 import { randomURL } from "@test-data/meta-builder";
 import { render, screen } from "@testing-library/react";
@@ -43,7 +47,7 @@ describe("NBSBookingAction", () => {
   describe("Given vaccine type", () => {
     const renderAndClick = (renderAs: "anchor" | "button" | "actionLink", whichElement: number) => {
       render(
-        <NBSBookingActionForVaccine
+        <NBSBookingActionWithAuthSSOForVaccine
           vaccineType={VaccineType.RSV}
           displayText="test"
           renderAs={renderAs}
@@ -77,7 +81,7 @@ describe("NBSBookingAction", () => {
 
     const renderAndClick = (renderAs: "anchor" | "button" | "actionLink", whichElement: number) => {
       render(
-        <NBSBookingActionForBaseUrl
+        <NBSBookingActionWithAuthSSOForBaseUrl
           vaccineType={VaccineType.COVID_19}
           url={url.href}
           displayText="test"
@@ -103,6 +107,40 @@ describe("NBSBookingAction", () => {
             `/api/sso-to-nbs?redirectTarget=${url.href}&vaccine=covid-19-vaccine`,
             expectedTarget,
           );
+        } else {
+          expect(window.open).not.toHaveBeenCalled();
+        }
+      });
+    });
+  });
+
+  describe("Given full URL without SSO auth", () => {
+    const url = randomURL();
+
+    const renderAndClick = (renderAs: "anchor" | "button" | "actionLink", whichElement: number) => {
+      render(
+        <NBSBookingActionWithoutAuthForUrl
+          url={url.href}
+          displayText="test"
+          renderAs={renderAs}
+          reduceBottomPadding={false}
+        />,
+      );
+      const role = renderAs === "button" ? "button" : "link";
+      const element = screen.getAllByRole(role, { name: "test" })[whichElement];
+      element.click();
+    };
+
+    it.each(testScenarios)("$name", ({ context, expectedTarget, shouldCall }) => {
+      (useBrowserContext as jest.Mock).mockReturnValue(context);
+
+      renderVariants.forEach(({ type, index }) => {
+        jest.clearAllMocks();
+
+        renderAndClick(type, index);
+
+        if (shouldCall) {
+          expect(window.open).toHaveBeenCalledWith(url.href, expectedTarget);
         } else {
           expect(window.open).not.toHaveBeenCalled();
         }

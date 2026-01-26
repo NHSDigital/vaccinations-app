@@ -228,12 +228,12 @@ describe("eligibility-filter-service", () => {
         { type: ActionDisplayType.infotext, content: "InfoText Markdown" },
         { type: ActionDisplayType.card, content: "CardWithText Markdown" },
         {
-          type: ActionDisplayType.buttonWithCard,
+          type: ActionDisplayType.nbsAuthLinkButtonWithCard,
           content: "ButtonWithAuthLink Markdown",
           button: { label: "Button 1 Label", url: new URL("https://test.example.com/foo/bar/") },
         },
         {
-          type: ActionDisplayType.buttonWithInfo,
+          type: ActionDisplayType.nbsAuthLinkButtonWithInfo,
           content: "ButtonWithAuthLinkWithInfoText Markdown",
           button: { label: "Button 2 Label", url: new URL("https://test.example.com/baz/qux/") },
         },

@@ -47,7 +47,7 @@ async function _buildActions(): Promise<Action[]> {
     button: undefined,
   };
   const nbsBooking: ActionWithButton = {
-    type: ActionDisplayType.buttonWithInfo,
+    type: ActionDisplayType.nbsAuthLinkButtonWithInfo,
     content: "### Book an appointment online" as Content,
     button: { label: "Continue to booking" as Label, url: nbsURl },
   };

@@ -12,7 +12,10 @@ jest.mock("react-markdown", () => {
   };
 });
 jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
-  NBSBookingActionForBaseUrl: () => <a href="https://nbs-test-link">NBS Booking Link Test</a>,
+  NBSBookingActionWithAuthSSOForBaseUrl: () => <a href="https://nbs-test-link">NBS Booking Link Test</a>,
+  NBSBookingActionWithoutAuthForUrl: () => (
+    <a href="https://nbs-without-auth-test-link">NBS Booking Without Auth Link Test</a>
+  ),
 }));
 
 describe("EligibilityActions", () => {
@@ -54,8 +57,14 @@ describe("EligibilityActions", () => {
             actions: [
               actionBuilder().withType(ActionDisplayType.infotext).andContent("Test Content 1").build(),
               actionBuilder().withType(ActionDisplayType.card).andContent("Test Content 2").build(),
-              actionBuilder().withType(ActionDisplayType.buttonWithCard).andContent("Test Content 3").build(),
-              actionBuilder().withType(ActionDisplayType.buttonWithInfo).andContent("Test Content 4").build(),
+              actionBuilder()
+                .withType(ActionDisplayType.nbsAuthLinkButtonWithCard)
+                .andContent("Test Content 3")
+                .build(),
+              actionBuilder()
+                .withType(ActionDisplayType.nbsAuthLinkButtonWithInfo)
+                .andContent("Test Content 4")
+                .build(),
               actionBuilder().withType(ActionDisplayType.actionLinkWithInfo).andContent("Test Content 5").build(),
             ],
             vaccineType: VaccineType.RSV,
@@ -127,12 +136,15 @@ describe("EligibilityActions", () => {
       });
     });
 
-    describe("buttonWithCard", () => {
+    describe("nbsAuthLinkButtonWithCard", () => {
       it("should display auth action card content successfully", () => {
         render(
           EligibilityActions({
             actions: [
-              actionBuilder().withType(ActionDisplayType.buttonWithCard).andContent("Test Auth Action Content").build(),
+              actionBuilder()
+                .withType(ActionDisplayType.nbsAuthLinkButtonWithCard)
+                .andContent("Test Auth Action Content")
+                .build(),
             ],
             vaccineType: VaccineType.RSV,
           }),
@@ -144,7 +156,9 @@ describe("EligibilityActions", () => {
       it("should display button content successfully", () => {
         render(
           EligibilityActions({
-            actions: [actionBuilder().withType(ActionDisplayType.buttonWithCard).andContent("Test Content").build()],
+            actions: [
+              actionBuilder().withType(ActionDisplayType.nbsAuthLinkButtonWithCard).andContent("Test Content").build(),
+            ],
             vaccineType: VaccineType.RSV,
           }),
         );
@@ -158,8 +172,14 @@ describe("EligibilityActions", () => {
         render(
           EligibilityActions({
             actions: [
-              actionBuilder().withType(ActionDisplayType.buttonWithCard).andContent("Test Content 1").build(),
-              actionBuilder().withType(ActionDisplayType.buttonWithCard).andContent("Test Content 2").build(),
+              actionBuilder()
+                .withType(ActionDisplayType.nbsAuthLinkButtonWithCard)
+                .andContent("Test Content 1")
+                .build(),
+              actionBuilder()
+                .withType(ActionDisplayType.nbsAuthLinkButtonWithCard)
+                .andContent("Test Content 2")
+                .build(),
             ],
             vaccineType: VaccineType.RSV,
           }),
@@ -171,7 +191,7 @@ describe("EligibilityActions", () => {
       it("should display button without card if no description present", () => {
         render(
           EligibilityActions({
-            actions: [actionBuilder().withType(ActionDisplayType.buttonWithCard).andContent("").build()],
+            actions: [actionBuilder().withType(ActionDisplayType.nbsAuthLinkButtonWithCard).andContent("").build()],
             vaccineType: VaccineType.RSV,
           }),
         );
@@ -184,12 +204,15 @@ describe("EligibilityActions", () => {
       });
     });
 
-    describe("buttonWithInfo", () => {
+    describe("nbsAuthLinkButtonWithInfo", () => {
       it("should display info content successfully", () => {
         render(
           EligibilityActions({
             actions: [
-              actionBuilder().withType(ActionDisplayType.buttonWithInfo).andContent("Test Auth Action Content").build(),
+              actionBuilder()
+                .withType(ActionDisplayType.nbsAuthLinkButtonWithInfo)
+                .andContent("Test Auth Action Content")
+                .build(),
             ],
             vaccineType: VaccineType.RSV,
           }),
@@ -201,7 +224,9 @@ describe("EligibilityActions", () => {
       it("should display button content successfully", () => {
         render(
           EligibilityActions({
-            actions: [actionBuilder().withType(ActionDisplayType.buttonWithInfo).andContent("Test Content").build()],
+            actions: [
+              actionBuilder().withType(ActionDisplayType.nbsAuthLinkButtonWithInfo).andContent("Test Content").build(),
+            ],
             vaccineType: VaccineType.RSV,
           }),
         );
@@ -215,8 +240,14 @@ describe("EligibilityActions", () => {
         render(
           EligibilityActions({
             actions: [
-              actionBuilder().withType(ActionDisplayType.buttonWithInfo).andContent("Test Content 1").build(),
-              actionBuilder().withType(ActionDisplayType.buttonWithInfo).andContent("Test Content 2").build(),
+              actionBuilder()
+                .withType(ActionDisplayType.nbsAuthLinkButtonWithInfo)
+                .andContent("Test Content 1")
+                .build(),
+              actionBuilder()
+                .withType(ActionDisplayType.nbsAuthLinkButtonWithInfo)
+                .andContent("Test Content 2")
+                .build(),
             ],
             vaccineType: VaccineType.RSV,
           }),
@@ -228,7 +259,7 @@ describe("EligibilityActions", () => {
       it("should display button without info if no description present", () => {
         render(
           EligibilityActions({
-            actions: [actionBuilder().withType(ActionDisplayType.buttonWithInfo).andContent("").build()],
+            actions: [actionBuilder().withType(ActionDisplayType.nbsAuthLinkButtonWithInfo).andContent("").build()],
             vaccineType: VaccineType.RSV,
           }),
         );
@@ -236,6 +267,77 @@ describe("EligibilityActions", () => {
         const authButtonComponents = screen.getByTestId("action-auth-button-components");
 
         const card = within(authButtonComponents).queryByTestId("action-auth-button-card");
+
+        expect(card).not.toBeInTheDocument();
+      });
+    });
+
+    describe("buttonWithoutAuthLinkWithInfo", () => {
+      it("should display info content successfully", () => {
+        render(
+          EligibilityActions({
+            actions: [
+              actionBuilder()
+                .withType(ActionDisplayType.buttonWithoutAuthLinkWithInfo)
+                .andContent("Test Button Action Content")
+                .build(),
+            ],
+            vaccineType: VaccineType.FLU_FOR_CHILDREN,
+          }),
+        );
+
+        expectContentStringToBeVisible("Test Button Action Content");
+      });
+
+      it("should display button content successfully", () => {
+        render(
+          EligibilityActions({
+            actions: [
+              actionBuilder()
+                .withType(ActionDisplayType.buttonWithoutAuthLinkWithInfo)
+                .andContent("Test Content")
+                .build(),
+            ],
+            vaccineType: VaccineType.FLU_FOR_CHILDREN,
+          }),
+        );
+
+        expectContentStringToBeVisible("Test Content");
+        const bookingButton: HTMLElement = screen.getByText("NBS Booking Without Auth Link Test");
+        expect(bookingButton).toBeInTheDocument();
+      });
+
+      it("should display multiple button content components successfully", () => {
+        render(
+          EligibilityActions({
+            actions: [
+              actionBuilder()
+                .withType(ActionDisplayType.buttonWithoutAuthLinkWithInfo)
+                .andContent("Test Content 1")
+                .build(),
+              actionBuilder()
+                .withType(ActionDisplayType.buttonWithoutAuthLinkWithInfo)
+                .andContent("Test Content 2")
+                .build(),
+            ],
+            vaccineType: VaccineType.FLU_FOR_CHILDREN,
+          }),
+        );
+
+        expectEachContentStringToBeVisible(["Test Content 1", "Test Content 2"]);
+      });
+
+      it("should display button without info if no description present", () => {
+        render(
+          EligibilityActions({
+            actions: [actionBuilder().withType(ActionDisplayType.buttonWithoutAuthLinkWithInfo).andContent("").build()],
+            vaccineType: VaccineType.FLU_FOR_CHILDREN,
+          }),
+        );
+
+        const buttonComponents = screen.getByTestId("action-button-without-auth-components");
+
+        const card = within(buttonComponents).queryByTestId("action-auth-button-card");
 
         expect(card).not.toBeInTheDocument();
       });

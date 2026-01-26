@@ -45,7 +45,7 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
           ].join("\n\n") as Content,
         },
         {
-          type: ActionDisplayType.buttonWithInfo,
+          type: ActionDisplayType.nbsAuthLinkButtonWithInfo,
           content: "### Book an appointment online" as Content,
           button: {
             label: "Continue to booking" as Label,
