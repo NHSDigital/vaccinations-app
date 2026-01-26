@@ -30,6 +30,7 @@ module "deploy" {
   region                            = local.region
   account_id                        = data.aws_caller_identity.current.account_id
   alerting_sns_topic_arn            = module.deploy_monitoring.alerting_sns_topic_arn
+  alerting_global_sns_topic_arn     = module.deploy_monitoring.alerting_global_sns_topic_arn
   environment                       = local.environment
 }
 
