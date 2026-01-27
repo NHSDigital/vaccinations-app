@@ -155,6 +155,7 @@ export type StyledVaccineContent = {
   additionalInformation?: StyledPageSection;
   recommendation?: StyledPageSection;
   overviewConclusion?: Overview;
+  preOpenActions?: Action[];
   actions: Action[];
 
   whatVaccineIsFor?: StyledPageSection;

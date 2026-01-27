@@ -1,7 +1,7 @@
 import { buildFilteredContentForCovid19Vaccine } from "@src/services/content-api/parsers/custom/covid-19";
-import { ActionDisplayType, ButtonUrl, Content, Label } from "@src/services/eligibility-api/types";
+import { VaccinePageContent } from "@src/services/content-api/types";
 import { buildNbsUrl } from "@src/services/nbs/nbs-service";
-import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
+import { genericVaccineContentAPIResponse, mockStyledContent } from "@test-data/content-api/data";
 
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 jest.mock("@src/services/nbs/nbs-service", () => ({ buildNbsUrl: jest.fn() }));
@@ -35,63 +35,13 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
         content: "COVID-19 vaccinations will be available in spring 2026",
         contentType: "markdown",
       },
-      preOpenActions: [
-        {
-          type: ActionDisplayType.nbsAuthLinkButtonWithInfo,
-          content: [
-            "## If this applies to you",
-            "You can book a COVID-19 vaccination appointment online now.",
-            "Vaccination appointments will take place from 13 April.",
-          ].join("\n\n") as Content,
-          button: {
-            label: "Book, cancel or change an appointment" as Label,
-            url: new URL("https://test-nbs-url.example.com/sausages") as ButtonUrl,
-          },
-        },
-        {
-          type: ActionDisplayType.infotext,
-          content: [
-            "From 13 April, you may also be able to get vaccinated at:",
-            "* your GP surgery",
-            "* a walk-in COVID-19 vaccination site",
-            "* your care home (if you live in a care home)",
-            "You do not need to wait for an invitation before booking an appointment.",
-          ].join("\n\n") as Content,
-        },
-      ],
-      actions: [
-        {
-          type: ActionDisplayType.infotext,
-          content: [
-            "## If this applies to you",
-            "### Get vaccinated at your GP surgery",
-            "Contact your GP surgery to book an appointment.",
-          ].join("\n\n") as Content,
-        },
-        {
-          type: ActionDisplayType.nbsAuthLinkButtonWithInfo,
-          content: "### Book an appointment online" as Content,
-          button: {
-            label: "Continue to booking" as Label,
-            url: new URL("https://test-nbs-url.example.com/sausages") as ButtonUrl,
-          },
-        },
-        {
-          type: ActionDisplayType.actionLinkWithInfo,
-          content: ("### Get vaccinated without an appointment\n\n" +
-            "You can find a walk-in COVID-19 vaccination site to get a vaccination without an appointment. " +
-            "You do not need to be registered with a GP.") as Content,
-          button: {
-            label: "Find a walk-in COVID-19 vaccination site" as Label,
-            url: new URL(
-              "https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-walk-in-covid-19-vaccination-site/",
-            ) as ButtonUrl,
-          },
-        },
-      ],
+      preOpenActions: mockStyledContent.preOpenActions,
+      actions: mockStyledContent.actions,
     };
 
-    const pageCopy = await buildFilteredContentForCovid19Vaccine(JSON.stringify(genericVaccineContentAPIResponse));
+    const pageCopy: VaccinePageContent = await buildFilteredContentForCovid19Vaccine(
+      JSON.stringify(genericVaccineContentAPIResponse),
+    );
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });

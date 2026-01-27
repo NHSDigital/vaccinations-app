@@ -1,4 +1,5 @@
 import { ContentApiVaccineResponse, StyledVaccineContent } from "@src/services/content-api/types";
+import { ActionDisplayType, ButtonUrl, Content, Label } from "@src/services/eligibility-api/types";
 
 export const genericVaccineContentAPIResponse: ContentApiVaccineResponse = {
   "@context": "http://schema.org",
@@ -629,7 +630,62 @@ export const genericVaccineContentAPIResponse: ContentApiVaccineResponse = {
 
 export const mockStyledContent: StyledVaccineContent = {
   overview: { content: "Overview text", containsHtml: false },
-  actions: [],
+  preOpenActions: [
+    {
+      type: ActionDisplayType.nbsAuthLinkButtonWithInfo,
+      content: [
+        "## If this applies to you",
+        "You can book a COVID-19 vaccination appointment online now.",
+        "Vaccination appointments will take place from 13 April.",
+      ].join("\n\n") as Content,
+      button: {
+        label: "Book, cancel or change an appointment" as Label,
+        url: new URL("https://test-nbs-url.example.com/sausages") as ButtonUrl,
+      },
+    },
+    {
+      type: ActionDisplayType.infotext,
+      content: [
+        "From 13 April, you may also be able to get vaccinated at:",
+        "* your GP surgery",
+        "* a walk-in COVID-19 vaccination site",
+        "* your care home (if you live in a care home)",
+        "You do not need to wait for an invitation before booking an appointment.",
+      ].join("\n\n") as Content,
+      button: undefined,
+    },
+  ],
+  actions: [
+    {
+      type: ActionDisplayType.infotext,
+      content: [
+        "## If this applies to you",
+        "### Get vaccinated at your GP surgery",
+        "Contact your GP surgery to book an appointment.",
+      ].join("\n\n") as Content,
+      button: undefined,
+    },
+    {
+      type: ActionDisplayType.nbsAuthLinkButtonWithInfo,
+      content: "### Book an appointment online" as Content,
+      button: {
+        label: "Continue to booking" as Label,
+        url: new URL("https://test-nbs-url.example.com/sausages") as ButtonUrl,
+      },
+    },
+    {
+      type: ActionDisplayType.actionLinkWithInfo,
+      content: ("### Get vaccinated without an appointment\n\n" +
+        "You can find a walk-in COVID-19 vaccination site to get a vaccination without an appointment. " +
+        "You do not need to be registered with a GP.") as Content,
+      button: {
+        label: "Find a walk-in COVID-19 vaccination site" as Label,
+        url: new URL(
+          "https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-walk-in-covid-19-vaccination-site/",
+        ) as ButtonUrl,
+      },
+    },
+  ],
   whatVaccineIsFor: {
     heading: "what-heading",
     component: <p>What Section styled component</p>,
@@ -653,6 +709,7 @@ export const mockStyledContent: StyledVaccineContent = {
 };
 
 export const mockStyledContentWithMissingOverview: StyledVaccineContent = {
+  preOpenActions: [],
   actions: [],
   whatVaccineIsFor: {
     heading: "what-heading",
@@ -677,6 +734,7 @@ export const mockStyledContentWithMissingOverview: StyledVaccineContent = {
 
 export const mockStyledContentWithHtmlOverview: StyledVaccineContent = {
   overview: { content: "Overview <b>text</b>", containsHtml: true },
+  preOpenActions: [],
   actions: [],
   whatVaccineIsFor: {
     heading: "what-heading",
@@ -701,6 +759,7 @@ export const mockStyledContentWithHtmlOverview: StyledVaccineContent = {
 
 export const mockStyledContentWithoutWhatSection: StyledVaccineContent = {
   overview: { content: "Overview text", containsHtml: false },
+  preOpenActions: [],
   actions: [],
   whoVaccineIsFor: {
     heading: "who-heading",
@@ -721,6 +780,7 @@ export const mockStyledContentWithoutWhatSection: StyledVaccineContent = {
 
 export const mockStyledContentWithoutRecommendation: StyledVaccineContent = {
   overview: { content: "Overview text", containsHtml: false },
+  preOpenActions: [],
   actions: [],
   whatVaccineIsFor: {
     heading: "what-heading",

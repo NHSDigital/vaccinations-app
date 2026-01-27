@@ -43,6 +43,7 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
 
   const campaigns = await config.CAMPAIGNS;
   const isCampaignOpen: boolean = campaigns.isOpen(vaccineType, await getNow(await config.DEPLOY_ENVIRONMENT));
+  const isCampaignPreOpen: boolean = campaigns.isPreOpen(vaccineType, await getNow(await config.DEPLOY_ENVIRONMENT));
 
   let styledVaccineContent: StyledVaccineContent | undefined;
   let contentError: ContentErrorTypes | undefined;
@@ -76,9 +77,17 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
         <>
           <Overview overview={styledVaccineContent.overview} vaccineType={vaccineType} />
           <Recommendation styledVaccineContent={styledVaccineContent} />
-          {!isCampaignOpen && <WarningCallout styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />}
+          {!isCampaignOpen && !isCampaignPreOpen && (
+            <WarningCallout styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
+          )}
           {styledVaccineContent.additionalInformation?.component && (
             <div data-testid="additional-information">{styledVaccineContent.additionalInformation.component}</div>
+          )}
+          {!isCampaignOpen && isCampaignPreOpen && (
+            <EligibilityActions
+              actions={styledVaccineContent.preOpenActions ? styledVaccineContent.preOpenActions : []}
+              vaccineType={vaccineType}
+            />
           )}
           {isCampaignOpen && <EligibilityActions actions={styledVaccineContent.actions} vaccineType={vaccineType} />}
           <Overview overview={styledVaccineContent.overviewConclusion} vaccineType={vaccineType} />

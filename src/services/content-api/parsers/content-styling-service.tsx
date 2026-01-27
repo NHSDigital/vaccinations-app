@@ -226,6 +226,7 @@ const getStyledContentForVaccine = async (
   const recommendation: StyledPageSection | undefined = styleRecommendation(filteredContent.recommendation);
   const overviewConclusion: Overview | undefined = filteredContent.overviewConclusion;
   const actions = filteredContent.actions;
+  const preOpenActions = filteredContent.preOpenActions;
   let whatVaccineIsFor;
   if (filteredContent.whatVaccineIsFor) {
     whatVaccineIsFor = styleSection(filteredContent.whatVaccineIsFor);
@@ -241,6 +242,7 @@ const getStyledContentForVaccine = async (
     additionalInformation,
     recommendation,
     actions,
+    preOpenActions,
     overviewConclusion,
     whatVaccineIsFor,
     whoVaccineIsFor,

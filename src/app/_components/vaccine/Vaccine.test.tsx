@@ -49,9 +49,11 @@ jest.mock("@src/app/_components/content/HowToGetVaccineFallback", () => ({
     .fn()
     .mockImplementation(() => <div data-testid="how-to-get-content-fallback-mock">How to get content fallback</div>),
 }));
-jest.mock("@src/app/_components/eligibility/EligibilityActions", () => ({
-  EligibilityActions: jest.fn().mockImplementation(() => <div data-testid="eligibility-actions-mock">Actions</div>),
-}));
+jest.mock("react-markdown", () =>
+  jest.fn(function MockMarkdown(props) {
+    return <div data-testid="markdown">{props.children}</div>;
+  }),
+);
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
 }));
@@ -185,9 +187,9 @@ describe("Any vaccine page", () => {
     it("should include actions", async () => {
       await renderNamedVaccinePage(VaccineType.COVID_19);
 
-      const calloutText: HTMLElement = screen.getByTestId("eligibility-actions-mock");
+      const actions: HTMLElement = screen.getByRole("button", { name: "Continue to booking" });
 
-      expect(calloutText).toBeInTheDocument();
+      expect(actions).toBeInTheDocument();
     });
 
     it("should include lowercase vaccine name in more information text", async () => {
@@ -254,44 +256,132 @@ describe("Any vaccine page", () => {
 
     it("should include callout text when campaign is closed", async () => {
       const closedCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(false);
+      const preOpenCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(false);
       await renderNamedVaccinePage(covid19VaccineType);
 
       const calloutText: HTMLElement = screen.getByTestId("callout");
 
       expect(closedCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(preOpenCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
       expect(calloutText).toBeInTheDocument();
       closedCampaignSpy.mockRestore();
+      preOpenCampaignSpy.mockRestore();
     });
 
     it("should not include callout text when campaign is open", async () => {
       const openCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(true);
+      const preOpenCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(false);
       await renderNamedVaccinePage(covid19VaccineType);
 
       const calloutText: HTMLElement | null = screen.queryByTestId("callout");
 
       expect(openCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(preOpenCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
       expect(calloutText).toBeNull();
       openCampaignSpy.mockRestore();
+      preOpenCampaignSpy.mockRestore();
     });
 
-    it("should include actions when campaign is open", async () => {
-      const openCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(true);
-      await renderNamedVaccinePage(covid19VaccineType);
-
-      const actions: HTMLElement = screen.getByTestId("eligibility-actions-mock");
-      expect(openCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(actions).toBeInTheDocument();
-      openCampaignSpy.mockRestore();
-    });
-
-    it("should not include actions when campaign is closed", async () => {
+    it("should not include callout text when campaign is pre-open", async () => {
+      const openCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(true);
       const closedCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(false);
       await renderNamedVaccinePage(covid19VaccineType);
 
-      const actions: HTMLElement | null = screen.queryByTestId("eligibility-actions-mock");
+      const calloutText: HTMLElement | null = screen.queryByTestId("callout");
+
+      expect(openCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(closedCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(calloutText).toBeNull();
+      openCampaignSpy.mockRestore();
+      closedCampaignSpy.mockRestore();
+    });
+
+    it("should include actions when campaign is open", async () => {
+      const preOpenCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(false);
+      const openCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(true);
+      await renderNamedVaccinePage(covid19VaccineType);
+
+      const actions: HTMLElement = screen.getByRole("button", { name: "Continue to booking" });
+
+      expect(preOpenCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(openCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(actions).toBeInTheDocument();
+      preOpenCampaignSpy.mockRestore();
+      openCampaignSpy.mockRestore();
+    });
+
+    it("should not include open campaign actions when campaign is pre-open", async () => {
+      const preOpenCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(true);
+      const closedCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(false);
+      await renderNamedVaccinePage(covid19VaccineType);
+
+      const actions: HTMLElement | null = screen.queryByRole("button", { name: "Continue to booking" });
+
+      expect(preOpenCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
       expect(closedCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
       expect(actions).toBeNull();
+      preOpenCampaignSpy.mockRestore();
       closedCampaignSpy.mockRestore();
+    });
+
+    it("should not include actions when campaign is closed", async () => {
+      const preOpenCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(false);
+      const closedCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(false);
+      await renderNamedVaccinePage(covid19VaccineType);
+
+      const actions: HTMLElement | null = screen.queryByRole("button", { name: "Continue to booking" });
+
+      expect(preOpenCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(closedCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(actions).toBeNull();
+      preOpenCampaignSpy.mockRestore();
+      closedCampaignSpy.mockRestore();
+    });
+
+    it("should include pre-open actions when campaign is pre-open", async () => {
+      const preOpenCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(true);
+      const closedCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(false);
+      await renderNamedVaccinePage(covid19VaccineType);
+
+      const preOpenActions: HTMLElement = screen.getByRole("button", { name: "Book, cancel or change an appointment" });
+
+      expect(preOpenCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(closedCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(preOpenActions).toBeInTheDocument();
+      preOpenCampaignSpy.mockRestore();
+      closedCampaignSpy.mockRestore();
+    });
+
+    it("should not include pre-open actions when campaign is open", async () => {
+      const openCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(true);
+      const closedPreOpenCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(false);
+      await renderNamedVaccinePage(covid19VaccineType);
+
+      const preOpenActions: HTMLElement | null = screen.queryByRole("button", {
+        name: "Book, cancel or change an appointment",
+      });
+
+      expect(openCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(closedPreOpenCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(preOpenActions).toBeNull();
+      openCampaignSpy.mockRestore();
+      closedPreOpenCampaignSpy.mockRestore();
+    });
+
+    it("should not include pre-open actions when campaign is closed", async () => {
+      const closedCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(false);
+      const closedPreOpenCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(false);
+      await renderNamedVaccinePage(covid19VaccineType);
+
+      const preOpenActions: HTMLElement | null = screen.queryByRole("button", {
+        name: "Book, cancel or change an appointment",
+      });
+
+      expect(closedCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(closedPreOpenCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(preOpenActions).toBeNull();
+      closedCampaignSpy.mockRestore();
+      closedPreOpenCampaignSpy.mockRestore();
     });
   });
 
@@ -486,7 +576,7 @@ describe("Any vaccine page", () => {
   });
 
   const renderNamedVaccinePage = async (vaccineType: VaccineType) => {
-    render(await Vaccine({ vaccineType: vaccineType }));
+    render(await Vaccine({ vaccineType }));
   };
 
   const expectRenderEligibilitySectionWith = (
