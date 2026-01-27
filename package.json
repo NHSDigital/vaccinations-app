@@ -110,7 +110,7 @@
     "react-error-boundary": "^6.1.0",
     "react-markdown": "^10.1.0",
     "sanitize-data": "^1.0.5",
-    "zod": "^4.3.5"
+    "zod": "^4.3.6"
   },
   "overrides": {
     "jsdom": "^26.0.0",
