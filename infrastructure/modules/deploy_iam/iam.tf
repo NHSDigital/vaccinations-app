@@ -1,5 +1,6 @@
 locals {
-  trust_for = var.is_local ? "developer" : "github"
+  trust_for     = var.is_local ? "developer" : "github"
+  global_region = "us-east-1"
 }
 
 resource "aws_iam_role" "terraform_iam_role" {
@@ -17,6 +18,7 @@ resource "aws_iam_policy" "terraform_iam_role_permissions" {
     account_id : var.account_id
     prefix : var.prefix
     region : var.region
+    global_region : local.global_region
     environment : var.environment
     project_shortcode : var.project_shortcode
   })

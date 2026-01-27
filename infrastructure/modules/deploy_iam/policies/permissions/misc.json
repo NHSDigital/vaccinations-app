@@ -43,7 +43,10 @@
         "cloudwatch:ListTagsForResource",
         "cloudwatch:PutMetricAlarm"
       ],
-      "Resource": "arn:aws:cloudwatch:${region}:${account_id}:alarm:${prefix}-*"
+      "Resource": [
+        "arn:aws:cloudwatch:${region}:${account_id}:alarm:${prefix}-*",
+        "arn:aws:cloudwatch:${global_region}:${account_id}:alarm:${prefix}-*"
+      ]
     },
 
     {
@@ -149,7 +152,10 @@
         "SNS:SetTopicAttributes",
         "SNS:TagResource"
       ],
-      "Resource": "arn:aws:sns:${region}:${account_id}:${prefix}-*"
+      "Resource": [
+        "arn:aws:sns:${region}:${account_id}:${prefix}-*",
+        "arn:aws:sns:${global_region}:${account_id}:${prefix}-*"
+      ]
     },
 
     {

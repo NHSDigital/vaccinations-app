@@ -57,3 +57,8 @@ variable "alerting_sns_topic_arn" {
   type        = string
   description = "SNS topic identifier for alerting"
 }
+
+variable "alerting_global_sns_topic_arn" {
+  type        = string
+  description = "Global SNS topic identifier for alerting"
+}
