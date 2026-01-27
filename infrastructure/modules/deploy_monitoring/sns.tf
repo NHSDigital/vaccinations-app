@@ -13,7 +13,7 @@ module "sns" {
 
 module "sns_global" {
   source  = "terraform-aws-modules/sns/aws"
-  version = "~> 7.0.0"
+  version = "~> 6.2.0"
   providers = {
     aws = aws.global
   }
