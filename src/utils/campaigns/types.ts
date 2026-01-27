@@ -93,13 +93,13 @@ export class Campaigns {
     return this.schedule[vaccine] || [];
   }
 
-  /** Check if a vaccine is currently active */
-  isActive(vaccine: VaccineType, date: Date = new Date()): boolean {
+  /** Check if a vaccine is currently in Open state (between start and end dates) */
+  isOpen(vaccine: VaccineType, date: Date = new Date()): boolean {
     const campaigns = this.get(vaccine);
     return campaigns.some((c) => date >= c.start && date <= c.end);
   }
 
-  /** Check if a vaccine is currently pre-open */
+  /** Check if a vaccine is currently pre-open (between preStart and start dates) */
   isPreOpen(vaccine: VaccineType, date: Date = new Date()): boolean {
     const campaigns = this.get(vaccine);
     return campaigns.some((c) => date >= c.preStart && date < c.start);

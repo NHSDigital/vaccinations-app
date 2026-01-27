@@ -42,7 +42,7 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
   const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
 
   const campaigns = await config.CAMPAIGNS;
-  const isCampaignActive: boolean = campaigns.isActive(vaccineType, await getNow(await config.DEPLOY_ENVIRONMENT));
+  const isCampaignOpen: boolean = campaigns.isOpen(vaccineType, await getNow(await config.DEPLOY_ENVIRONMENT));
 
   let styledVaccineContent: StyledVaccineContent | undefined;
   let contentError: ContentErrorTypes | undefined;
@@ -76,13 +76,11 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
         <>
           <Overview overview={styledVaccineContent.overview} vaccineType={vaccineType} />
           <Recommendation styledVaccineContent={styledVaccineContent} />
-          {!isCampaignActive && (
-            <WarningCallout styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
-          )}
+          {!isCampaignOpen && <WarningCallout styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />}
           {styledVaccineContent.additionalInformation?.component && (
             <div data-testid="additional-information">{styledVaccineContent.additionalInformation.component}</div>
           )}
-          {isCampaignActive && <EligibilityActions actions={styledVaccineContent.actions} vaccineType={vaccineType} />}
+          {isCampaignOpen && <EligibilityActions actions={styledVaccineContent.actions} vaccineType={vaccineType} />}
           <Overview overview={styledVaccineContent.overviewConclusion} vaccineType={vaccineType} />
         </>
       )}
@@ -109,7 +107,7 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
         <MoreInformation
           styledVaccineContent={styledVaccineContent}
           vaccineType={vaccineType}
-          isCampaignActive={isCampaignActive}
+          isCampaignOpen={isCampaignOpen}
         />
       ) : (
         <FindOutMoreLink findOutMoreUrl={vaccineInfo.nhsWebpageLink} vaccineType={vaccineType} />

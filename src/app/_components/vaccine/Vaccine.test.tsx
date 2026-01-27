@@ -252,46 +252,46 @@ describe("Any vaccine page", () => {
       Object.assign(mockedConfig, defaultConfig);
     });
 
-    it("should include callout text when campaign is inactive", async () => {
-      const inactiveCampaignSpy = jest.spyOn(campaigns, "isActive").mockReturnValue(false);
+    it("should include callout text when campaign is closed", async () => {
+      const closedCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(false);
       await renderNamedVaccinePage(covid19VaccineType);
 
       const calloutText: HTMLElement = screen.getByTestId("callout");
 
-      expect(inactiveCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(closedCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
       expect(calloutText).toBeInTheDocument();
-      inactiveCampaignSpy.mockRestore();
+      closedCampaignSpy.mockRestore();
     });
 
-    it("should not include callout text when campaign is active", async () => {
-      const activeCampaignSpy = jest.spyOn(campaigns, "isActive").mockReturnValue(true);
+    it("should not include callout text when campaign is open", async () => {
+      const openCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(true);
       await renderNamedVaccinePage(covid19VaccineType);
 
       const calloutText: HTMLElement | null = screen.queryByTestId("callout");
 
-      expect(activeCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(openCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
       expect(calloutText).toBeNull();
-      activeCampaignSpy.mockRestore();
+      openCampaignSpy.mockRestore();
     });
 
-    it("should include actions when campaign is active", async () => {
-      const activeCampaignSpy = jest.spyOn(campaigns, "isActive").mockReturnValue(true);
+    it("should include actions when campaign is open", async () => {
+      const openCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(true);
       await renderNamedVaccinePage(covid19VaccineType);
 
       const actions: HTMLElement = screen.getByTestId("eligibility-actions-mock");
-      expect(activeCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(openCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
       expect(actions).toBeInTheDocument();
-      activeCampaignSpy.mockRestore();
+      openCampaignSpy.mockRestore();
     });
 
-    it("should not include actions when campaign is inactive", async () => {
-      const inactiveCampaignSpy = jest.spyOn(campaigns, "isActive").mockReturnValue(false);
+    it("should not include actions when campaign is closed", async () => {
+      const closedCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(false);
       await renderNamedVaccinePage(covid19VaccineType);
 
       const actions: HTMLElement | null = screen.queryByTestId("eligibility-actions-mock");
-      expect(inactiveCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
+      expect(closedCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
       expect(actions).toBeNull();
-      inactiveCampaignSpy.mockRestore();
+      closedCampaignSpy.mockRestore();
     });
   });
 

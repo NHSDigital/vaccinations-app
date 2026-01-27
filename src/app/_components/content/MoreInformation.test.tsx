@@ -6,25 +6,25 @@ import { render, screen } from "@testing-library/react";
 describe("MoreInformation component for COVID", () => {
   const covid19VaccineType: VaccineType = VaccineType.COVID_19;
 
-  it("should not show how-to-get expander section when campaign is active", async () => {
+  it("should not show how-to-get expander section when campaign is open", async () => {
     render(
       <MoreInformation
         styledVaccineContent={mockStyledContent}
         vaccineType={covid19VaccineType}
-        isCampaignActive={true}
+        isCampaignOpen={true}
       />,
     );
 
-    // COVID-19 vaccine content (active campaign)
+    // COVID-19 vaccine content (open campaign)
     expectExpanderBlockToNotBePresent("How to get the vaccine", "How Section styled component");
   });
 
-  it("should show how-to-get expander section when campaign is inactive", async () => {
+  it("should show how-to-get expander section when campaign is closed", async () => {
     render(
       <MoreInformation
         styledVaccineContent={mockStyledContent}
         vaccineType={covid19VaccineType}
-        isCampaignActive={false}
+        isCampaignOpen={false}
       />,
     );
 
