@@ -110,6 +110,7 @@ export type VaccinePageContent = {
   additionalInformation?: VaccinePageSection;
   recommendation?: HeadingWithContent;
   overviewConclusion?: Overview;
+  preOpenActions?: Action[];
   actions: Action[];
 
   whatVaccineIsFor?: VaccinePageSection;

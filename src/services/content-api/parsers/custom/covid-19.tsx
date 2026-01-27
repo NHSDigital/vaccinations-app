@@ -13,7 +13,7 @@ import {
 import { buildNbsUrl } from "@src/services/nbs/nbs-service";
 
 export const buildFilteredContentForCovid19Vaccine = async (apiContent: string): Promise<VaccinePageContent> => {
-  const standardFilteredContent = await buildFilteredContentForStandardVaccine(apiContent);
+  const standardFilteredContent: VaccinePageContent = await buildFilteredContentForStandardVaccine(apiContent);
 
   const callout: HeadingWithTypedContent = {
     heading: "Service closed",
@@ -21,6 +21,7 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
     contentType: "markdown",
   };
   const actions: Action[] = await _buildActions();
+  const preOpenActions: Action[] = await _buildPreOpenActions();
 
   const recommendation: HeadingWithContent = {
     heading: "The COVID-19 vaccine is recommended if you:",
@@ -31,11 +32,11 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
     ].join("\n"),
   };
 
-  return { ...standardFilteredContent, callout, recommendation, actions };
+  return { ...standardFilteredContent, callout, recommendation, preOpenActions, actions };
 };
 
 async function _buildActions(): Promise<Action[]> {
-  const nbsURl = (await buildNbsUrl(VaccineType.COVID_19)) as ButtonUrl;
+  const nbsURL = (await buildNbsUrl(VaccineType.COVID_19)) as ButtonUrl;
 
   const contactGP: ActionWithoutButton = {
     type: ActionDisplayType.infotext,
@@ -49,7 +50,7 @@ async function _buildActions(): Promise<Action[]> {
   const nbsBooking: ActionWithButton = {
     type: ActionDisplayType.nbsAuthLinkButtonWithInfo,
     content: "### Book an appointment online" as Content,
-    button: { label: "Continue to booking" as Label, url: nbsURl },
+    button: { label: "Continue to booking" as Label, url: nbsURL },
   };
   const walkIn: ActionWithButton = {
     type: ActionDisplayType.actionLinkWithInfo,
@@ -66,4 +67,32 @@ async function _buildActions(): Promise<Action[]> {
   };
 
   return [contactGP, nbsBooking, walkIn];
+}
+
+async function _buildPreOpenActions(): Promise<Action[]> {
+  const nbsURL = (await buildNbsUrl(VaccineType.COVID_19)) as ButtonUrl;
+
+  const nbsBooking: ActionWithButton = {
+    type: ActionDisplayType.nbsAuthLinkButtonWithInfo,
+    content: [
+      "## If this applies to you",
+      "You can book a COVID-19 vaccination appointment online now.",
+      "Vaccination appointments will take place from 13 April.",
+    ].join("\n\n") as Content,
+    button: { label: "Book, cancel or change an appointment" as Label, url: nbsURL },
+  };
+
+  const extraBookingDetails: ActionWithoutButton = {
+    type: ActionDisplayType.infotext,
+    content: [
+      "From 13 April, you may also be able to get vaccinated at:",
+      "* your GP surgery",
+      "* a walk-in COVID-19 vaccination site",
+      "* your care home (if you live in a care home)",
+      "You do not need to wait for an invitation before booking an appointment.",
+    ].join("\n\n") as Content,
+    button: undefined,
+  };
+
+  return [nbsBooking, extraBookingDetails];
 }
