@@ -121,4 +121,34 @@ describe("Campaigns", () => {
       expect(preOpen).toBe(false);
     });
   });
+
+  describe("validating campaigns do not overlap", () => {
+    it("should throw when campaigns are overlapping", () => {
+      const jsonString = JSON.stringify({
+        COVID_19: [
+          { preStart: "2025-10-03T09:00:00Z", start: "2025-11-03T09:00:00Z", end: "2026-01-03T17:00:00Z" },
+          { preStart: "2026-02-03T09:00:00Z", start: "2026-03-03T09:00:00Z", end: "2026-06-03T17:00:00Z" },
+          { preStart: "2026-03-03T09:00:00Z", start: "2026-07-03T09:00:00Z", end: "2026-10-03T17:00:00Z" },
+          { preStart: "2026-04-03T09:00:00Z", start: "2026-05-03T09:00:00Z", end: "2026-06-03T17:00:00Z" },
+        ],
+      });
+
+      const campaigns = Campaigns.fromJson(jsonString)!;
+      expect(campaigns).not.toBeDefined();
+    });
+
+    it("should not throw when campaigns are overlapping", () => {
+      const jsonString = JSON.stringify({
+        COVID_19: [
+          { preStart: "2025-10-03T09:00:00Z", start: "2025-11-03T09:00:00Z", end: "2026-01-03T17:00:00Z" },
+          { preStart: "2026-02-03T09:00:00Z", start: "2026-03-03T09:00:00Z", end: "2026-04-03T17:00:00Z" },
+          { preStart: "2026-05-03T09:00:00Z", start: "2026-07-03T09:00:00Z", end: "2026-08-03T17:00:00Z" },
+          { preStart: "2026-09-03T09:00:00Z", start: "2026-10-03T09:00:00Z", end: "2026-12-03T17:00:00Z" },
+        ],
+      });
+
+      const campaigns = Campaigns.fromJson(jsonString)!;
+      expect(campaigns).toBeDefined();
+    });
+  });
 });
