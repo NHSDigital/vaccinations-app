@@ -22,7 +22,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
           <collectionProp name="Arguments.arguments">
             <elementProp name="Threads" elementType="Argument">
               <stringProp name="Argument.name">Threads</stringProp>
@@ -61,7 +61,7 @@
           <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
         </ConfigTestElement>
         <hashTree/>
-        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
           <collectionProp name="HeaderManager.headers">
             <elementProp name="accept" elementType="Header">
               <stringProp name="Header.name">Accept</stringProp>
@@ -118,13 +118,13 @@
           </collectionProp>
         </HeaderManager>
         <hashTree/>
-        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager">
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
           <collectionProp name="CookieManager.cookies"/>
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
           <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
         </CookieManager>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="api/sso">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="api/sso" enabled="true">
           <stringProp name="HTTPSampler.path">api/sso?assertedLoginIdentity=performance-testing</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -155,7 +155,7 @@
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="api/auth/session">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="api/auth/session" enabled="true">
           <stringProp name="HTTPSampler.path">api/auth/session</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -166,7 +166,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="1095480399">nhs_number</stringProp>
             </collectionProp>
@@ -177,7 +177,7 @@
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="our-policies/accessibility">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="our-policies/accessibility" enabled="true">
           <stringProp name="HTTPSampler.path">our-policies/accessibility</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -188,7 +188,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-660194926">&lt;h1 class=&quot;nhsuk-heading-xl nhsuk-u-margin-bottom-5&quot;&gt;Accessibility statement for &lt;!-- --&gt;Check and book vaccinations&lt;/h1&gt;</stringProp>
             </collectionProp>
@@ -199,7 +199,7 @@
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="our-policies/cookies-policy">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="our-policies/cookies-policy" enabled="true">
           <stringProp name="HTTPSampler.path">our-policies/cookies-policy</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -210,7 +210,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="796908266">&lt;h1 class=&quot;nhsuk-heading-xl nhsuk-u-margin-bottom-5&quot;&gt;Cookies&lt;/h1&gt;</stringProp>
             </collectionProp>
@@ -221,553 +221,670 @@
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines-for-all-ages">
-          <stringProp name="HTTPSampler.path">vaccines-for-all-ages</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-            <collectionProp name="Arguments.arguments"/>
-          </elementProp>
-        </HTTPSamplerProxy>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Vaccine page journey"/>
         <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="-1700356885">&lt;h1 class=&quot;nhsuk-heading-xl nhsuk-u-margin-bottom-3&quot;&gt;Vaccines for all ages&lt;/h1&gt;</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.custom_message"></stringProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">16</intProp>
-          </ResponseAssertion>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler - calc 5% weight pregnancy journey" enabled="true">
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">def randomNumber = Math.random();
+
+if(randomNumber &lt; 0.05) {
+	vars.put(&quot;JOURNEY_SWITCH_VALUE&quot;, &quot;Pregnancy Journey&quot;);
+}
+else {
+	vars.put(&quot;JOURNEY_SWITCH_VALUE&quot;, &quot;All Ages Journey&quot;);
+}</stringProp>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+          </JSR223Sampler>
           <hashTree/>
-        </hashTree>
-        <RandomController guiclass="RandomControlGui" testclass="RandomController" testname="Random Switch (Standard Vaccine Pages)">
-          <intProp name="InterleaveControl.style">1</intProp>
-        </RandomController>
-        <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/pneumococcal-vaccine">
-            <stringProp name="HTTPSampler.path">vaccines/pneumococcal-vaccine</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
+          <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="Switch Controller (AllAges:Pregnancy)">
+            <stringProp name="SwitchController.value">${JOURNEY_SWITCH_VALUE}</stringProp>
+          </SwitchController>
           <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="-772321177">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the pneumococcal vaccine&lt;/h2&gt;</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">48</intProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/shingles-vaccine">
-            <stringProp name="HTTPSampler.path">vaccines/shingles-vaccine</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="1775188449">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the shingles vaccine&lt;/h2&gt;</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">48</intProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/hpv-vaccine">
-            <stringProp name="HTTPSampler.path">vaccines/hpv-vaccine</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="-1874078020">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the HPV vaccine&lt;/h2&gt;</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">48</intProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/menacwy-vaccine">
-            <stringProp name="HTTPSampler.path">vaccines/menacwy-vaccine</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="1805122128">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the MenACWY vaccine&lt;/h2&gt;</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">48</intProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/td-ipv-vaccine-3-in-1-teenage-booster">
-            <stringProp name="HTTPSampler.path">vaccines/td-ipv-vaccine-3-in-1-teenage-booster</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="-840221506">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the Td/IPV vaccine&lt;/h2&gt;</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">48</intProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/flu-vaccine-for-school-aged-children">
-            <stringProp name="HTTPSampler.path">vaccines/flu-vaccine-for-school-aged-children</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="44234210">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the children&amp;#x27;s flu vaccine&lt;/h2&gt;</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">48</intProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/mmrv-vaccine">
-            <stringProp name="HTTPSampler.path">vaccines/mmrv-vaccine</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="-1634273814">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the MMRV vaccine&lt;/h2&gt;</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">48</intProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/menb-vaccine-for-children">
-            <stringProp name="HTTPSampler.path">vaccines/menb-vaccine-for-children</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="-219176574">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the MenB vaccine&lt;/h2&gt;</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">48</intProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/6-in-1-vaccine">
-            <stringProp name="HTTPSampler.path">vaccines/6-in-1-vaccine</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="1797252622">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the 6-in-1 vaccine&lt;/h2&gt;</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">48</intProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/4-in-1-preschool-booster-vaccine">
-            <stringProp name="HTTPSampler.path">vaccines/4-in-1-preschool-booster-vaccine</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="-860295010">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the 4-in-1 pre-school booster vaccine&lt;/h2&gt;</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">48</intProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/flu-vaccine-for-children">
-            <stringProp name="HTTPSampler.path">vaccines/flu-vaccine-for-children</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="44234210">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the children&amp;#x27;s flu vaccine&lt;/h2&gt;</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">48</intProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/rotavirus-vaccine">
-            <stringProp name="HTTPSampler.path">vaccines/rotavirus-vaccine</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="320189655">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the rotavirus vaccine&lt;/h2&gt;</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">48</intProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/whooping-cough-vaccination">
-            <stringProp name="HTTPSampler.path">vaccines/whooping-cough-vaccination</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="579736257">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the whooping cough vaccine&lt;/h2&gt;</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">48</intProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/flu-vaccine-in-pregnancy">
-            <stringProp name="HTTPSampler.path">vaccines/flu-vaccine-in-pregnancy</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="-126222347">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the flu vaccine in pregnancy&lt;/h2&gt;</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">48</intProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-        </hashTree>
-        <RandomController guiclass="RandomControlGui" testclass="RandomController" testname="Random Switch (RSV Pregnancy:Age)">
-          <intProp name="InterleaveControl.style">1</intProp>
-        </RandomController>
-        <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/rsv" enabled="true">
-            <stringProp name="HTTPSampler.path">vaccines/rsv</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments">
-                <elementProp name="_rsc" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">1ii35</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                  <stringProp name="Argument.name">_rsc</stringProp>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="All Ages Journey"/>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines-for-all-ages" enabled="true">
+                <stringProp name="HTTPSampler.path">vaccines-for-all-ages</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                  <collectionProp name="Arguments.arguments"/>
                 </elementProp>
-              </collectionProp>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
-              <collectionProp name="HeaderManager.headers">
-                <elementProp name="accept" elementType="Header">
-                  <stringProp name="Header.name">accept</stringProp>
-                  <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml</stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="-1700356885">&lt;h1 class=&quot;nhsuk-heading-xl nhsuk-u-margin-bottom-3&quot;&gt;Vaccines for all ages&lt;/h1&gt;</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.custom_message"></stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">16</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+              </hashTree>
+              <RandomController guiclass="RandomControlGui" testclass="RandomController" testname="Random Switch (Standard Vaccine Pages)">
+                <intProp name="InterleaveControl.style">1</intProp>
+              </RandomController>
+              <hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/rsv">
+                  <stringProp name="HTTPSampler.path">vaccines/rsv</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                    <collectionProp name="Arguments.arguments">
+                      <elementProp name="_rsc" elementType="HTTPArgument">
+                        <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                        <stringProp name="Argument.value">1ii35</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                        <stringProp name="Argument.name">_rsc</stringProp>
+                      </elementProp>
+                    </collectionProp>
+                  </elementProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                    <collectionProp name="HeaderManager.headers">
+                      <elementProp name="accept" elementType="Header">
+                        <stringProp name="Header.name">accept</stringProp>
+                        <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml</stringProp>
+                      </elementProp>
+                      <elementProp name="accept-encoding" elementType="Header">
+                        <stringProp name="Header.name">accept-encoding</stringProp>
+                        <stringProp name="Header.value">gzip, deflate, br, zstd</stringProp>
+                      </elementProp>
+                      <elementProp name="accept-language" elementType="Header">
+                        <stringProp name="Header.name">accept-language</stringProp>
+                        <stringProp name="Header.value">en-US,en; q=0.9</stringProp>
+                      </elementProp>
+                      <elementProp name="cache-control" elementType="Header">
+                        <stringProp name="Header.name">cache-control</stringProp>
+                        <stringProp name="Header.value">max-age=0</stringProp>
+                      </elementProp>
+                      <elementProp name="priority" elementType="Header">
+                        <stringProp name="Header.name">priority</stringProp>
+                        <stringProp name="Header.value">u=0, i</stringProp>
+                      </elementProp>
+                      <elementProp name="sec-ch-ua" elementType="Header">
+                        <stringProp name="Header.name">sec-ch-ua</stringProp>
+                        <stringProp name="Header.value">&quot;Chromium&quot;</stringProp>
+                      </elementProp>
+                      <elementProp name="sec-ch-ua-mobile" elementType="Header">
+                        <stringProp name="Header.name">sec-ch-ua-mobile</stringProp>
+                        <stringProp name="Header.value">?0</stringProp>
+                      </elementProp>
+                      <elementProp name="sec-ch-ua-platform" elementType="Header">
+                        <stringProp name="Header.name">sec-ch-ua-platform</stringProp>
+                        <stringProp name="Header.value">&quot;Windows&quot;</stringProp>
+                      </elementProp>
+                      <elementProp name="sec-fetch-dest" elementType="Header">
+                        <stringProp name="Header.name">sec-fetch-dest</stringProp>
+                        <stringProp name="Header.value">document</stringProp>
+                      </elementProp>
+                      <elementProp name="sec-fetch-mode" elementType="Header">
+                        <stringProp name="Header.name">sec-fetch-mode</stringProp>
+                        <stringProp name="Header.value">navigate</stringProp>
+                      </elementProp>
+                      <elementProp name="sec-fetch-site" elementType="Header">
+                        <stringProp name="Header.name">sec-fetch-site</stringProp>
+                        <stringProp name="Header.value">same-origin</stringProp>
+                      </elementProp>
+                      <elementProp name="sec-fetch-user" elementType="Header">
+                        <stringProp name="Header.name">sec-fetch-user</stringProp>
+                        <stringProp name="Header.value">?1</stringProp>
+                      </elementProp>
+                      <elementProp name="upgrade-insecure-requests" elementType="Header">
+                        <stringProp name="Header.name">upgrade-insecure-requests</stringProp>
+                        <stringProp name="Header.value">1</stringProp>
+                      </elementProp>
+                      <elementProp name="user-agent" elementType="Header">
+                        <stringProp name="Header.name">user-agent</stringProp>
+                        <stringProp name="Header.value">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36</stringProp>
+                      </elementProp>
+                    </collectionProp>
+                  </HeaderManager>
+                  <hashTree/>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="-473400177">You should have the RSV vaccine</stringProp>
+                      <stringProp name="-645658421">You have an RSV vaccination appointment booked</stringProp>
+                      <stringProp name="666046422">We do not believe you can have it</stringProp>
+                      <stringProp name="1206156459">You&apos;ve had your RSV vaccination</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">48</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                  <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="BookingTrue Extractor" enabled="true">
+                    <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                    <stringProp name="RegexExtractor.refname">BookingTrue</stringProp>
+                    <stringProp name="RegexExtractor.regex">(Continue to booking)</stringProp>
+                    <stringProp name="RegexExtractor.template">$1$</stringProp>
+                    <stringProp name="RegexExtractor.default">False</stringProp>
+                    <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+                    <stringProp name="RegexExtractor.match_number">1</stringProp>
+                  </RegexExtractor>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/covid-19-vaccine">
+                  <stringProp name="HTTPSampler.path">vaccines/covid-19-vaccine</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="-894952610">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the COVID-19 vaccine&lt;/h2&gt;</stringProp>
+                      <stringProp name="-655590034">&lt;h3 class=&quot;nhsuk-heading-s&quot;&gt;Book an appointment online&lt;/h3&gt;</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">16</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                  <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="BookingTrue Extractor" enabled="true">
+                    <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                    <stringProp name="RegexExtractor.refname">BookingTrue</stringProp>
+                    <stringProp name="RegexExtractor.regex">(Continue to booking)</stringProp>
+                    <stringProp name="RegexExtractor.template">$1$</stringProp>
+                    <stringProp name="RegexExtractor.default">False</stringProp>
+                    <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+                    <stringProp name="RegexExtractor.match_number">1</stringProp>
+                  </RegexExtractor>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/flu-vaccine">
+                  <stringProp name="HTTPSampler.path">vaccines/flu-vaccine</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="759095355">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the flu vaccine&lt;/h2&gt;</stringProp>
+                      <stringProp name="-655590034">&lt;h3 class=&quot;nhsuk-heading-s&quot;&gt;Book an appointment online&lt;/h3&gt;</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">16</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                  <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="BookingTrue Extractor" enabled="true">
+                    <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                    <stringProp name="RegexExtractor.refname">BookingTrue</stringProp>
+                    <stringProp name="RegexExtractor.regex">(Continue to booking)</stringProp>
+                    <stringProp name="RegexExtractor.template">$1$</stringProp>
+                    <stringProp name="RegexExtractor.default">False</stringProp>
+                    <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+                    <stringProp name="RegexExtractor.match_number">1</stringProp>
+                  </RegexExtractor>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/flu-vaccine-for-school-aged-children">
+                  <stringProp name="HTTPSampler.path">vaccines/flu-vaccine-for-school-aged-children</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="44234210">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the children&amp;#x27;s flu vaccine&lt;/h2&gt;</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">48</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/flu-vaccine-for-children">
+                  <stringProp name="HTTPSampler.path">vaccines/flu-vaccine-for-children</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="44234210">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the children&amp;#x27;s flu vaccine&lt;/h2&gt;</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">48</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/pneumococcal-vaccine" enabled="true">
+                  <stringProp name="HTTPSampler.path">vaccines/pneumococcal-vaccine</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="-772321177">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the pneumococcal vaccine&lt;/h2&gt;</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">48</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/shingles-vaccine" enabled="true">
+                  <stringProp name="HTTPSampler.path">vaccines/shingles-vaccine</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="1775188449">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the shingles vaccine&lt;/h2&gt;</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">48</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/hpv-vaccine" enabled="true">
+                  <stringProp name="HTTPSampler.path">vaccines/hpv-vaccine</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="-1874078020">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the HPV vaccine&lt;/h2&gt;</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">48</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/menacwy-vaccine" enabled="true">
+                  <stringProp name="HTTPSampler.path">vaccines/menacwy-vaccine</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="1805122128">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the MenACWY vaccine&lt;/h2&gt;</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">48</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/td-ipv-vaccine-3-in-1-teenage-booster" enabled="true">
+                  <stringProp name="HTTPSampler.path">vaccines/td-ipv-vaccine-3-in-1-teenage-booster</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="-840221506">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the Td/IPV vaccine&lt;/h2&gt;</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">48</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/mmrv-vaccine" enabled="true">
+                  <stringProp name="HTTPSampler.path">vaccines/mmrv-vaccine</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="-1634273814">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the MMRV vaccine&lt;/h2&gt;</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">48</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/menb-vaccine-for-children" enabled="true">
+                  <stringProp name="HTTPSampler.path">vaccines/menb-vaccine-for-children</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="-219176574">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the MenB vaccine&lt;/h2&gt;</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">48</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/6-in-1-vaccine" enabled="true">
+                  <stringProp name="HTTPSampler.path">vaccines/6-in-1-vaccine</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="1797252622">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the 6-in-1 vaccine&lt;/h2&gt;</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">48</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/4-in-1-preschool-booster-vaccine" enabled="true">
+                  <stringProp name="HTTPSampler.path">vaccines/4-in-1-preschool-booster-vaccine</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="-860295010">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the 4-in-1 pre-school booster vaccine&lt;/h2&gt;</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">48</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/rotavirus-vaccine" enabled="true">
+                  <stringProp name="HTTPSampler.path">vaccines/rotavirus-vaccine</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="320189655">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the rotavirus vaccine&lt;/h2&gt;</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">48</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
+              </hashTree>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Pregnancy Journey"/>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines-during-pregnancy" enabled="true">
+                <stringProp name="HTTPSampler.path">vaccines-during-pregnancy</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                  <collectionProp name="Arguments.arguments"/>
                 </elementProp>
-                <elementProp name="accept-encoding" elementType="Header">
-                  <stringProp name="Header.name">accept-encoding</stringProp>
-                  <stringProp name="Header.value">gzip, deflate, br, zstd</stringProp>
-                </elementProp>
-                <elementProp name="accept-language" elementType="Header">
-                  <stringProp name="Header.name">accept-language</stringProp>
-                  <stringProp name="Header.value">en-US,en; q=0.9</stringProp>
-                </elementProp>
-                <elementProp name="cache-control" elementType="Header">
-                  <stringProp name="Header.name">cache-control</stringProp>
-                  <stringProp name="Header.value">max-age=0</stringProp>
-                </elementProp>
-                <elementProp name="priority" elementType="Header">
-                  <stringProp name="Header.name">priority</stringProp>
-                  <stringProp name="Header.value">u=0, i</stringProp>
-                </elementProp>
-                <elementProp name="sec-ch-ua" elementType="Header">
-                  <stringProp name="Header.name">sec-ch-ua</stringProp>
-                  <stringProp name="Header.value">&quot;Chromium&quot;</stringProp>
-                </elementProp>
-                <elementProp name="sec-ch-ua-mobile" elementType="Header">
-                  <stringProp name="Header.name">sec-ch-ua-mobile</stringProp>
-                  <stringProp name="Header.value">?0</stringProp>
-                </elementProp>
-                <elementProp name="sec-ch-ua-platform" elementType="Header">
-                  <stringProp name="Header.name">sec-ch-ua-platform</stringProp>
-                  <stringProp name="Header.value">&quot;Windows&quot;</stringProp>
-                </elementProp>
-                <elementProp name="sec-fetch-dest" elementType="Header">
-                  <stringProp name="Header.name">sec-fetch-dest</stringProp>
-                  <stringProp name="Header.value">document</stringProp>
-                </elementProp>
-                <elementProp name="sec-fetch-mode" elementType="Header">
-                  <stringProp name="Header.name">sec-fetch-mode</stringProp>
-                  <stringProp name="Header.value">navigate</stringProp>
-                </elementProp>
-                <elementProp name="sec-fetch-site" elementType="Header">
-                  <stringProp name="Header.name">sec-fetch-site</stringProp>
-                  <stringProp name="Header.value">same-origin</stringProp>
-                </elementProp>
-                <elementProp name="sec-fetch-user" elementType="Header">
-                  <stringProp name="Header.name">sec-fetch-user</stringProp>
-                  <stringProp name="Header.value">?1</stringProp>
-                </elementProp>
-                <elementProp name="upgrade-insecure-requests" elementType="Header">
-                  <stringProp name="Header.name">upgrade-insecure-requests</stringProp>
-                  <stringProp name="Header.value">1</stringProp>
-                </elementProp>
-                <elementProp name="user-agent" elementType="Header">
-                  <stringProp name="Header.name">user-agent</stringProp>
-                  <stringProp name="Header.value">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36</stringProp>
-                </elementProp>
-              </collectionProp>
-            </HeaderManager>
-            <hashTree/>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="-473400177">You should have the RSV vaccine</stringProp>
-                <stringProp name="-645658421">You have an RSV vaccination appointment booked</stringProp>
-                <stringProp name="666046422">We do not believe you can have it</stringProp>
-                <stringProp name="1206156459">You&apos;ve had your RSV vaccination</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">48</intProp>
-            </ResponseAssertion>
-            <hashTree/>
-            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="BookingTrue Extractor" enabled="true">
-              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
-              <stringProp name="RegexExtractor.refname">BookingTrue</stringProp>
-              <stringProp name="RegexExtractor.regex">(Continue to booking)</stringProp>
-              <stringProp name="RegexExtractor.template">$1$</stringProp>
-              <stringProp name="RegexExtractor.default">False</stringProp>
-              <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
-              <stringProp name="RegexExtractor.match_number">1</stringProp>
-            </RegexExtractor>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/rsv-pregnancy" enabled="true">
-            <stringProp name="HTTPSampler.path">vaccines/rsv-pregnancy</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
-              <collectionProp name="HeaderManager.headers">
-                <elementProp name="accept" elementType="Header">
-                  <stringProp name="Header.name">accept</stringProp>
-                  <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml</stringProp>
-                </elementProp>
-                <elementProp name="accept-encoding" elementType="Header">
-                  <stringProp name="Header.name">accept-encoding</stringProp>
-                  <stringProp name="Header.value">gzip, deflate, br, zstd</stringProp>
-                </elementProp>
-                <elementProp name="accept-language" elementType="Header">
-                  <stringProp name="Header.name">accept-language</stringProp>
-                  <stringProp name="Header.value">en-US,en; q=0.9</stringProp>
-                </elementProp>
-                <elementProp name="cache-control" elementType="Header">
-                  <stringProp name="Header.name">cache-control</stringProp>
-                  <stringProp name="Header.value">max-age=0</stringProp>
-                </elementProp>
-                <elementProp name="priority" elementType="Header">
-                  <stringProp name="Header.name">priority</stringProp>
-                  <stringProp name="Header.value">u=0, i</stringProp>
-                </elementProp>
-                <elementProp name="sec-ch-ua" elementType="Header">
-                  <stringProp name="Header.name">sec-ch-ua</stringProp>
-                  <stringProp name="Header.value">&quot;Chromium&quot;</stringProp>
-                </elementProp>
-                <elementProp name="sec-ch-ua-mobile" elementType="Header">
-                  <stringProp name="Header.name">sec-ch-ua-mobile</stringProp>
-                  <stringProp name="Header.value">?0</stringProp>
-                </elementProp>
-                <elementProp name="sec-ch-ua-platform" elementType="Header">
-                  <stringProp name="Header.name">sec-ch-ua-platform</stringProp>
-                  <stringProp name="Header.value">&quot;Windows&quot;</stringProp>
-                </elementProp>
-                <elementProp name="sec-fetch-dest" elementType="Header">
-                  <stringProp name="Header.name">sec-fetch-dest</stringProp>
-                  <stringProp name="Header.value">document</stringProp>
-                </elementProp>
-                <elementProp name="sec-fetch-mode" elementType="Header">
-                  <stringProp name="Header.name">sec-fetch-mode</stringProp>
-                  <stringProp name="Header.value">navigate</stringProp>
-                </elementProp>
-                <elementProp name="sec-fetch-site" elementType="Header">
-                  <stringProp name="Header.name">sec-fetch-site</stringProp>
-                  <stringProp name="Header.value">same-origin</stringProp>
-                </elementProp>
-                <elementProp name="sec-fetch-user" elementType="Header">
-                  <stringProp name="Header.name">sec-fetch-user</stringProp>
-                  <stringProp name="Header.value">?1</stringProp>
-                </elementProp>
-                <elementProp name="upgrade-insecure-requests" elementType="Header">
-                  <stringProp name="Header.name">upgrade-insecure-requests</stringProp>
-                  <stringProp name="Header.value">1</stringProp>
-                </elementProp>
-                <elementProp name="user-agent" elementType="Header">
-                  <stringProp name="Header.name">user-agent</stringProp>
-                  <stringProp name="Header.value">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36</stringProp>
-                </elementProp>
-              </collectionProp>
-            </HeaderManager>
-            <hashTree/>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="-473400177">You should have the RSV vaccine</stringProp>
-                <stringProp name="-645658421">You have an RSV vaccination appointment booked</stringProp>
-                <stringProp name="1175595986">The RSV vaccine is recommended if you</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">48</intProp>
-            </ResponseAssertion>
-            <hashTree/>
-            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="BookingTrue Extractor" enabled="true">
-              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
-              <stringProp name="RegexExtractor.refname">BookingTrue</stringProp>
-              <stringProp name="RegexExtractor.regex">(Continue to booking)</stringProp>
-              <stringProp name="RegexExtractor.template">$1$</stringProp>
-              <stringProp name="RegexExtractor.default">False</stringProp>
-              <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
-              <stringProp name="RegexExtractor.match_number">1</stringProp>
-            </RegexExtractor>
-            <hashTree/>
-            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="VaccinesNotAvailable Extractor" enabled="true">
-              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
-              <stringProp name="RegexExtractor.refname">VaccinesNotAvailable</stringProp>
-              <stringProp name="RegexExtractor.regex">(Vaccinations are not currently available)</stringProp>
-              <stringProp name="RegexExtractor.template">$1$</stringProp>
-              <stringProp name="RegexExtractor.default"></stringProp>
-              <boolProp name="RegexExtractor.default_empty_value">true</boolProp>
-              <stringProp name="RegexExtractor.match_number">1</stringProp>
-            </RegexExtractor>
-            <hashTree/>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                  <collectionProp name="Asserion.test_strings">
+                    <stringProp name="235769289">&lt;h1 class=&quot;nhsuk-heading-xl nhsuk-u-margin-bottom-5&quot;&gt;Vaccines during pregnancy&lt;/h1&gt;</stringProp>
+                  </collectionProp>
+                  <stringProp name="Assertion.custom_message"></stringProp>
+                  <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                  <boolProp name="Assertion.assume_success">false</boolProp>
+                  <intProp name="Assertion.test_type">16</intProp>
+                </ResponseAssertion>
+                <hashTree/>
+              </hashTree>
+              <RandomController guiclass="RandomControlGui" testclass="RandomController" testname="Random Switch (Pregnancy Pages)" enabled="true">
+                <intProp name="InterleaveControl.style">1</intProp>
+              </RandomController>
+              <hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/whooping-cough-vaccination" enabled="true">
+                  <stringProp name="HTTPSampler.path">vaccines/whooping-cough-vaccination</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="579736257">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the whooping cough vaccine&lt;/h2&gt;</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">48</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/rsv-pregnancy" enabled="true">
+                  <stringProp name="HTTPSampler.path">vaccines/rsv-pregnancy</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                    <collectionProp name="HeaderManager.headers">
+                      <elementProp name="accept" elementType="Header">
+                        <stringProp name="Header.name">accept</stringProp>
+                        <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml</stringProp>
+                      </elementProp>
+                      <elementProp name="accept-encoding" elementType="Header">
+                        <stringProp name="Header.name">accept-encoding</stringProp>
+                        <stringProp name="Header.value">gzip, deflate, br, zstd</stringProp>
+                      </elementProp>
+                      <elementProp name="accept-language" elementType="Header">
+                        <stringProp name="Header.name">accept-language</stringProp>
+                        <stringProp name="Header.value">en-US,en; q=0.9</stringProp>
+                      </elementProp>
+                      <elementProp name="cache-control" elementType="Header">
+                        <stringProp name="Header.name">cache-control</stringProp>
+                        <stringProp name="Header.value">max-age=0</stringProp>
+                      </elementProp>
+                      <elementProp name="priority" elementType="Header">
+                        <stringProp name="Header.name">priority</stringProp>
+                        <stringProp name="Header.value">u=0, i</stringProp>
+                      </elementProp>
+                      <elementProp name="sec-ch-ua" elementType="Header">
+                        <stringProp name="Header.name">sec-ch-ua</stringProp>
+                        <stringProp name="Header.value">&quot;Chromium&quot;</stringProp>
+                      </elementProp>
+                      <elementProp name="sec-ch-ua-mobile" elementType="Header">
+                        <stringProp name="Header.name">sec-ch-ua-mobile</stringProp>
+                        <stringProp name="Header.value">?0</stringProp>
+                      </elementProp>
+                      <elementProp name="sec-ch-ua-platform" elementType="Header">
+                        <stringProp name="Header.name">sec-ch-ua-platform</stringProp>
+                        <stringProp name="Header.value">&quot;Windows&quot;</stringProp>
+                      </elementProp>
+                      <elementProp name="sec-fetch-dest" elementType="Header">
+                        <stringProp name="Header.name">sec-fetch-dest</stringProp>
+                        <stringProp name="Header.value">document</stringProp>
+                      </elementProp>
+                      <elementProp name="sec-fetch-mode" elementType="Header">
+                        <stringProp name="Header.name">sec-fetch-mode</stringProp>
+                        <stringProp name="Header.value">navigate</stringProp>
+                      </elementProp>
+                      <elementProp name="sec-fetch-site" elementType="Header">
+                        <stringProp name="Header.name">sec-fetch-site</stringProp>
+                        <stringProp name="Header.value">same-origin</stringProp>
+                      </elementProp>
+                      <elementProp name="sec-fetch-user" elementType="Header">
+                        <stringProp name="Header.name">sec-fetch-user</stringProp>
+                        <stringProp name="Header.value">?1</stringProp>
+                      </elementProp>
+                      <elementProp name="upgrade-insecure-requests" elementType="Header">
+                        <stringProp name="Header.name">upgrade-insecure-requests</stringProp>
+                        <stringProp name="Header.value">1</stringProp>
+                      </elementProp>
+                      <elementProp name="user-agent" elementType="Header">
+                        <stringProp name="Header.name">user-agent</stringProp>
+                        <stringProp name="Header.value">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36</stringProp>
+                      </elementProp>
+                    </collectionProp>
+                  </HeaderManager>
+                  <hashTree/>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="-473400177">You should have the RSV vaccine</stringProp>
+                      <stringProp name="-645658421">You have an RSV vaccination appointment booked</stringProp>
+                      <stringProp name="1175595986">The RSV vaccine is recommended if you</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">48</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                  <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="BookingTrue Extractor" enabled="true">
+                    <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                    <stringProp name="RegexExtractor.refname">BookingTrue</stringProp>
+                    <stringProp name="RegexExtractor.regex">(Continue to booking)</stringProp>
+                    <stringProp name="RegexExtractor.template">$1$</stringProp>
+                    <stringProp name="RegexExtractor.default">False</stringProp>
+                    <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+                    <stringProp name="RegexExtractor.match_number">1</stringProp>
+                  </RegexExtractor>
+                  <hashTree/>
+                  <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="VaccinesNotAvailable Extractor" enabled="true">
+                    <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+                    <stringProp name="RegexExtractor.refname">VaccinesNotAvailable</stringProp>
+                    <stringProp name="RegexExtractor.regex">(Vaccinations are not currently available)</stringProp>
+                    <stringProp name="RegexExtractor.template">$1$</stringProp>
+                    <stringProp name="RegexExtractor.default"></stringProp>
+                    <boolProp name="RegexExtractor.default_empty_value">true</boolProp>
+                    <stringProp name="RegexExtractor.match_number">1</stringProp>
+                  </RegexExtractor>
+                  <hashTree/>
+                </hashTree>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/flu-vaccine-in-pregnancy" enabled="true">
+                  <stringProp name="HTTPSampler.path">vaccines/flu-vaccine-in-pregnancy</stringProp>
+                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                  <stringProp name="HTTPSampler.method">GET</stringProp>
+                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                  <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+                    <collectionProp name="Arguments.arguments"/>
+                  </elementProp>
+                </HTTPSamplerProxy>
+                <hashTree>
+                  <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                    <collectionProp name="Asserion.test_strings">
+                      <stringProp name="-126222347">&lt;h2 class=&quot;nhsuk-heading-s&quot;&gt;More information about the flu vaccine in pregnancy&lt;/h2&gt;</stringProp>
+                    </collectionProp>
+                    <stringProp name="Assertion.custom_message"></stringProp>
+                    <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                    <boolProp name="Assertion.assume_success">false</boolProp>
+                    <intProp name="Assertion.test_type">48</intProp>
+                  </ResponseAssertion>
+                  <hashTree/>
+                </hashTree>
+              </hashTree>
+            </hashTree>
           </hashTree>
         </hashTree>
         <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Booking Allowed Is True" enabled="true">
@@ -837,7 +954,7 @@
           <stringProp name="TestPlan.comments">${Location}/${__groovy(&quot;${__TestPlanName}&quot;.replace(&quot;.jmx&quot;\,&quot;&quot;),)}_${Threads}Users_${__time(yyyyMMdd_HHmm,)}_errors.xml</stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
