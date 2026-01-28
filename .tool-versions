@@ -9,15 +9,15 @@ nodejs 22.13.1
 # The section below is reserved for Docker image versions.
 
 # TODO: Move this section - consider using a different file for the repository template dependencies.
-# docker/ghcr.io/anchore/grype v0.104.1@sha256:e7d3cb36d2ebfb522141d83a5d0df9cda301f7e9f8747ee4af41f12c478fa77c # SEE: https://github.com/anchore/grype/pkgs/container/grype
-# docker/ghcr.io/anchore/syft v0.92.0@sha256:63c60f0a21efb13e80aa1359ab243e49213b6cc2d7e0f8179da38e6913b997e0 # SEE: https://github.com/anchore/syft/pkgs/container/syft
-# docker/ghcr.io/gitleaks/gitleaks v8.18.0@sha256:fd2b5cab12b563d2cc538b14631764a1c25577780e3b7dba71657d58da45d9d9 # SEE: https://github.com/gitleaks/gitleaks/pkgs/container/gitleaks
-# docker/ghcr.io/igorshubovych/markdownlint-cli v0.37.0@sha256:fb3e79946fce78e1cde84d6798c6c2a55f2de11fc16606a40d49411e281d950d # SEE: https://github.com/igorshubovych/markdownlint-cli/pkgs/container/markdownlint-cli
+# docker/ghcr.io/anchore/grype v0.106.0@sha256:f6fa9ac31f97591957edb13b7c7c24fd172cf11b6e2a2df5dd3464ebb8eefefc # SEE: https://github.com/anchore/grype/pkgs/container/grype
+# docker/ghcr.io/anchore/syft v1.41.0@sha256:046f0c3b14e4451a1d0cd2f367ce3ba3bd653cbd23a7749556f46592d0281a0d # SEE: https://github.com/anchore/syft/pkgs/container/syft
+# docker/ghcr.io/gitleaks/gitleaks v8.30.0@sha256:691af3c7c5a48b16f187ce3446d5f194838f91238f27270ed36eef6359a574d9 # SEE: https://github.com/gitleaks/gitleaks/pkgs/container/gitleaks
+# docker/ghcr.io/igorshubovych/markdownlint-cli v0.47.0@sha256:9f06c8c9a75aa08b87b235b66d618f7df351f09f08faf703177f670e38ee6511 # SEE: https://github.com/igorshubovych/markdownlint-cli/pkgs/container/markdownlint-cli
 # docker/ghcr.io/make-ops-tools/gocloc latest@sha256:6888e62e9ae693c4ebcfed9f1d86c70fd083868acb8815fe44b561b9a73b5032 # SEE: https://github.com/make-ops-tools/gocloc/pkgs/container/gocloc
 # docker/ghcr.io/nhs-england-tools/github-runner-image 20230909-321fd1e-rt@sha256:ce4fd6035dc450a50d3cbafb4986d60e77cb49a71ab60a053bb1b9518139a646 # SEE: https://github.com/nhs-england-tools/github-runner-image/pkgs/container/github-runner-image
-# docker/hadolint/hadolint 2.12.0-alpine@sha256:7dba9a9f1a0350f6d021fb2f6f88900998a4fb0aaf8e4330aa8c38544f04db42 # SEE: https://hub.docker.com/r/hadolint/hadolint/tags
-# docker/hashicorp/terraform 1.5.6@sha256:180a7efa983386a27b43657ed610e9deed9e6c3848d54f9ea9b6cb8a5c8c25f5 # SEE: https://hub.docker.com/r/hashicorp/terraform/tags
-# docker/jdkato/vale v3.6.0@sha256:0ef22c8d537f079633cfff69fc46f69a2196072f69cab1ab232e8a79a388e425 # SEE: https://hub.docker.com/r/jdkato/vale/tags
-# docker/koalaman/shellcheck latest@sha256:e40388688bae0fcffdddb7e4dea49b900c18933b452add0930654b2dea3e7d5c # SEE: https://hub.docker.com/r/koalaman/shellcheck/tags
-# docker/mstruebing/editorconfig-checker 2.7.1@sha256:dd3ca9ea50ef4518efe9be018d669ef9cf937f6bb5cfe2ef84ff2a620b5ddc24 # SEE: https://hub.docker.com/r/mstruebing/editorconfig-checker/tags
-# docker/sonarsource/sonar-scanner-cli 11.3@sha256:7462f132388135e32b948f8f18ff0db9ae28a87c6777f1df5b2207e04a6d7c5c # SEE: https://hub.docker.com/r/sonarsource/sonar-scanner-cli/tags
+# docker/hadolint/hadolint 2.14.0-alpine@sha256:7aba693c1442eb31c0b015c129697cb3b6cb7da589d85c7562f9deb435a6657c # SEE: https://hub.docker.com/r/hadolint/hadolint/tags
+# docker/hashicorp/terraform 1.14.3@sha256:20056ea0d2706f2a944e202befa8a558dbcc5798da0b64f884b2647aab82a4ef # SEE: https://hub.docker.com/r/hashicorp/terraform/tags
+# docker/jdkato/vale v3.22.2@sha256:04bb8794dff4505bcf588522e860ba9547b73f02dd8b2de0faecb155472da672 # SEE: https://hub.docker.com/r/jdkato/vale/tags
+# docker/koalaman/shellcheck latest@sha256:a1b840f3995cb1aba4d40a0bdba0823e90735f0bd12810c8766060be4973d340 # SEE: https://hub.docker.com/r/koalaman/shellcheck/tags
+# docker/mstruebing/editorconfig-checker 3.22.2@sha256:3fee6fe35c9ec21367b92ca50b3bea856ffc8a7a186044c329ac8bb23b33284a # SEE: https://hub.docker.com/r/mstruebing/editorconfig-checker/tags
+# docker/sonarsource/sonar-scanner-cli 12.0@sha256:97c145e4f8fe1786906c604272d17901e745051bc6c8173582f31aac8d0eb7fe # SEE: https://hub.docker.com/r/sonarsource/sonar-scanner-cli/tags
