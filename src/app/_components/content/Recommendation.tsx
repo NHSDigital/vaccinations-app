@@ -1,19 +1,13 @@
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
-import { StyledVaccineContent } from "@src/services/content-api/types";
+import { StyledPageSection } from "@src/services/content-api/types";
 import { JSX } from "react";
 
-const Recommendation = (props: { styledVaccineContent: StyledVaccineContent }): JSX.Element => {
-  const element = props.styledVaccineContent.recommendation ? (
-    <div data-testid="recommendation">
-      <NonUrgentCareCard
-        heading={props.styledVaccineContent.recommendation.heading}
-        content={props.styledVaccineContent.recommendation.component}
-      />
-    </div>
+const Recommendation = ({ recommendation }: { recommendation?: StyledPageSection }): JSX.Element => {
+  return recommendation ? (
+    <NonUrgentCareCard heading={recommendation.heading} content={recommendation.component} />
   ) : (
     <></>
   );
-
-  return element;
 };
+
 export default Recommendation;

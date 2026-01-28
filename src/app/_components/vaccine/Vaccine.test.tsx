@@ -163,9 +163,12 @@ describe("Any vaccine page", () => {
     it("should include recommendation text", async () => {
       await renderNamedVaccinePage(VaccineType.FLU_IN_PREGNANCY);
 
-      const overviewText: HTMLElement = screen.getByTestId("recommendation");
+      const recommendationText: HTMLElement = screen.getByRole("heading", {
+        name: "Non-urgent advice: Recommendation Heading",
+        level: 2,
+      });
 
-      expect(overviewText).toBeInTheDocument();
+      expect(recommendationText).toBeInTheDocument();
     });
 
     it("should include additionalInformation text", async () => {

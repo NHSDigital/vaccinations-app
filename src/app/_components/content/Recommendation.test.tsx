@@ -5,18 +5,24 @@ import React from "react";
 
 describe("Recommendation component", () => {
   it("renders correctly", () => {
-    render(<Recommendation styledVaccineContent={mockStyledContent} />);
+    render(<Recommendation recommendation={mockStyledContent.recommendation} />);
 
-    const RecommendationText: HTMLElement = screen.getByTestId("recommendation");
+    const recommendationHeading: HTMLElement = screen.getByRole("heading", {
+      name: "Non-urgent advice: Recommendation Heading",
+      level: 2,
+    });
 
-    expect(RecommendationText).toBeInTheDocument();
+    expect(recommendationHeading).toBeInTheDocument();
   });
 
-  it("does not render if no recommendation present", () => {
-    render(<Recommendation styledVaccineContent={mockStyledContentWithoutRecommendation} />);
+  it("does not render if no recommendation is present", () => {
+    render(<Recommendation recommendation={mockStyledContentWithoutRecommendation.recommendation} />);
 
-    const RecommendationText: HTMLElement | null = screen.queryByTestId("Recommendation component");
+    const recommendationHeading: HTMLElement | null = screen.queryByRole("heading", {
+      name: "Non-urgent advice: Recommendation Heading",
+      level: 2,
+    });
 
-    expect(RecommendationText).not.toBeInTheDocument();
+    expect(recommendationHeading).not.toBeInTheDocument();
   });
 });

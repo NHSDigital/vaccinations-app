@@ -76,7 +76,7 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
       {contentError != ContentErrorTypes.CONTENT_LOADING_ERROR && styledVaccineContent != undefined && (
         <>
           <Overview overview={styledVaccineContent.overview} vaccineType={vaccineType} />
-          <Recommendation styledVaccineContent={styledVaccineContent} />
+          <Recommendation recommendation={styledVaccineContent.recommendation} />
           {!isCampaignOpen && !isCampaignPreOpen && (
             <WarningCallout styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
           )}
