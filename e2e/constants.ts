@@ -17,13 +17,14 @@ type VaccinePageName =
   | "4-in-1"
   | "whooping-cough"
   | "flu-in-pregnancy"
-  | "flu-in-pregnancy-active-campaign"
+  | "flu-in-pregnancy-open-campaign"
   | "flu-vaccine"
-  | "flu-vaccine-active-campaign"
+  | "flu-vaccine-open-campaign"
   | "covid-19-vaccine"
-  | "covid-19-vaccine-active-campaign"
-  | "flu-for-children"
-  | "flu-for-children-active-campaign"
+  | "covid-19-vaccine-pre-open-campaign"
+  | "covid-19-vaccine-open-campaign"
+  | "flu-for-children-aged-2-to-3"
+  | "flu-for-children-aged-2-to-3-open-campaign"
   | "flu-for-school-aged-children";
 type FailurePageName = "sso-failure" | "service-failure" | "service-failure-static" | "not-found";
 type SessionPageName = "session-timeout" | "session-logout";
@@ -154,11 +155,11 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     snapshotFilename: "default-flu-in-pregnancy.png",
     datetimeOverride: new Date("2020-03-01"),
   },
-  "flu-in-pregnancy-active-campaign": {
+  "flu-in-pregnancy-open-campaign": {
     url: "/vaccines/flu-vaccine-in-pregnancy",
     heading: "The flu vaccine in pregnancy",
     title: `The flu vaccine in pregnancy - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
-    snapshotFilename: "default-flu-in-pregnancy-active-campaign.png",
+    snapshotFilename: "default-flu-in-pregnancy-open-campaign.png",
     datetimeOverride: new Date("2026-02-01"),
   },
   "flu-vaccine": {
@@ -168,12 +169,26 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     snapshotFilename: "default-flu-vaccine.png",
     datetimeOverride: new Date("2020-03-01"),
   },
-  "flu-vaccine-active-campaign": {
+  "flu-vaccine-open-campaign": {
     url: "/vaccines/flu-vaccine",
     heading: "Flu vaccine",
     title: `Flu vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
-    snapshotFilename: "default-flu-vaccine-active-campaign.png",
+    snapshotFilename: "default-flu-vaccine-open-campaign.png",
     datetimeOverride: new Date("2026-02-01"),
+  },
+  "covid-19-vaccine-open-campaign": {
+    url: "/vaccines/covid-19-vaccine",
+    heading: "COVID-19 vaccine",
+    title: `COVID-19 vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-covid-19-vaccine-open-campaign.png",
+    datetimeOverride: new Date("2025-12-01"),
+  },
+  "covid-19-vaccine-pre-open-campaign": {
+    url: "/vaccines/covid-19-vaccine",
+    heading: "COVID-19 vaccine",
+    title: `COVID-19 vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
+    snapshotFilename: "default-covid-19-vaccine-pre-open-campaign.png",
+    datetimeOverride: new Date("2025-11-10"),
   },
   "covid-19-vaccine": {
     url: "/vaccines/covid-19-vaccine",
@@ -182,25 +197,18 @@ export const AppPageDetails: Record<PageName, PageDetails> = {
     snapshotFilename: "default-covid-19-vaccine.png",
     datetimeOverride: new Date("2026-03-01"),
   },
-  "covid-19-vaccine-active-campaign": {
-    url: "/vaccines/covid-19-vaccine",
-    heading: "COVID-19 vaccine",
-    title: `COVID-19 vaccine - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
-    snapshotFilename: "default-covid-19-vaccine-active-campaign.png",
-    datetimeOverride: new Date("2025-12-01"),
-  },
-  "flu-for-children": {
+  "flu-for-children-aged-2-to-3": {
     url: "/vaccines/flu-vaccine-for-children",
     heading: "Flu vaccine for children aged 2 to 3",
     title: `Flu vaccine for children aged 2 to 3 - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
-    snapshotFilename: "default-flu-vaccine-for-children.png",
+    snapshotFilename: "default-flu-vaccine-for-children-aged-2-to-3.png",
     datetimeOverride: new Date("2020-03-01"),
   },
-  "flu-for-children-active-campaign": {
+  "flu-for-children-aged-2-to-3-open-campaign": {
     url: "/vaccines/flu-vaccine-for-children",
     heading: "Flu vaccine for children aged 2 to 3",
     title: `Flu vaccine for children aged 2 to 3 - ${SERVICE_HEADING} - ${NHS_TITLE_SUFFIX}`,
-    snapshotFilename: "default-flu-vaccine-for-children-active-campaign.png",
+    snapshotFilename: "default-flu-vaccine-for-children-aged-2-to-3-open-campaign.png",
     datetimeOverride: new Date("2025-12-01"),
   },
   "flu-for-school-aged-children": {

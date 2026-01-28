@@ -62,7 +62,7 @@ test.describe("Navigation", () => {
     {
       section: AgeSectionTestId.CHILDREN_PRESCHOOL,
       linkText: "Flu for children aged 2 to 3",
-      pageName: "flu-for-children",
+      pageName: "flu-for-children-aged-2-to-3",
     },
 
     { section: AgeSectionTestId.BABIES, linkText: "6-in-1", pageName: "6-in-1" },
