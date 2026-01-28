@@ -72,7 +72,7 @@ describe("Campaigns", () => {
     it("should return false for vaccine with no campaign", () => {
       const campaigns = Campaigns.fromJson(jsonString)!;
 
-      const open = campaigns.isOpen(VaccineType.FLU_FOR_CHILDREN);
+      const open = campaigns.isOpen(VaccineType.FLU_FOR_CHILDREN_AGED_2_TO_3);
 
       expect(open).toBe(false);
     });
@@ -116,7 +116,7 @@ describe("Campaigns", () => {
     it("should return false for vaccine with no campaign", () => {
       const campaigns = Campaigns.fromJson(jsonString)!;
 
-      const preOpen = campaigns.isPreOpen(VaccineType.FLU_FOR_CHILDREN);
+      const preOpen = campaigns.isPreOpen(VaccineType.FLU_FOR_CHILDREN_AGED_2_TO_3);
 
       expect(preOpen).toBe(false);
     });

@@ -781,7 +781,7 @@ describe("Content Filter", () => {
       it("should call getFilteredContentForFluForChildrenVaccine for flu for children vaccine", async () => {
         const mockApiContent = "testContent";
 
-        await getFilteredContentForVaccine(VaccineType.FLU_FOR_CHILDREN, mockApiContent);
+        await getFilteredContentForVaccine(VaccineType.FLU_FOR_CHILDREN_AGED_2_TO_3, mockApiContent);
 
         expect(buildFilteredContentForFluForChildrenVaccine).toHaveBeenCalledWith(mockApiContent);
       });

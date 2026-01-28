@@ -3,7 +3,7 @@
   "FLU_FOR_ADULTS": [
     { "preStart": "2025-11-30T09:00:00Z", "start": "2025-11-30T09:00:00Z", "end": "2030-03-31T17:00:00Z" }
   ],
-  "FLU_FOR_CHILDREN": [
+  "FLU_FOR_CHILDREN_AGED_2_TO_3": [
     { "preStart": "2025-11-30T09:00:00Z", "start": "2025-11-30T09:00:00Z", "end": "2030-03-31T17:00:00Z" }
   ],
   "FLU_IN_PREGNANCY": [

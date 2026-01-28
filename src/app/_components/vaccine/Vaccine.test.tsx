@@ -113,7 +113,7 @@ describe("Any vaccine page", () => {
             FLU_FOR_ADULTS: [
               { preStart: "2025-11-30T09:00:00Z", start: "2025-11-30T09:00:00Z", end: "2026-03-31T09:00:00Z" },
             ],
-            FLU_FOR_CHILDREN: [
+            FLU_FOR_CHILDREN_AGED_2_TO_3: [
               { preStart: "2025-11-30T09:00:00Z", start: "2025-11-30T09:00:00Z", end: "2026-03-31T09:00:00Z" },
             ],
             FLU_IN_PREGNANCY: [

@@ -280,7 +280,7 @@ describe("EligibilityActions", () => {
                 .andContent("Test Button Action Content")
                 .build(),
             ],
-            vaccineType: VaccineType.FLU_FOR_CHILDREN,
+            vaccineType: VaccineType.FLU_FOR_CHILDREN_AGED_2_TO_3,
           }),
         );
 
@@ -296,7 +296,7 @@ describe("EligibilityActions", () => {
                 .andContent("Test Content")
                 .build(),
             ],
-            vaccineType: VaccineType.FLU_FOR_CHILDREN,
+            vaccineType: VaccineType.FLU_FOR_CHILDREN_AGED_2_TO_3,
           }),
         );
 
@@ -318,7 +318,7 @@ describe("EligibilityActions", () => {
                 .andContent("Test Content 2")
                 .build(),
             ],
-            vaccineType: VaccineType.FLU_FOR_CHILDREN,
+            vaccineType: VaccineType.FLU_FOR_CHILDREN_AGED_2_TO_3,
           }),
         );
 
@@ -329,7 +329,7 @@ describe("EligibilityActions", () => {
         render(
           EligibilityActions({
             actions: [actionBuilder().withType(ActionDisplayType.buttonWithoutAuthLinkWithInfo).andContent("").build()],
-            vaccineType: VaccineType.FLU_FOR_CHILDREN,
+            vaccineType: VaccineType.FLU_FOR_CHILDREN_AGED_2_TO_3,
           }),
         );
 

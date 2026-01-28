@@ -240,7 +240,7 @@ const getFilteredContentForVaccine = async (
     [VaccineType.WHOOPING_COUGH, buildFilteredContentForWhoopingCoughVaccine],
     [VaccineType.FLU_IN_PREGNANCY, buildFilteredContentForFluInPregnancyVaccine],
     [VaccineType.FLU_FOR_ADULTS, buildFilteredContentForFluVaccine],
-    [VaccineType.FLU_FOR_CHILDREN, buildFilteredContentForFluForChildrenVaccine],
+    [VaccineType.FLU_FOR_CHILDREN_AGED_2_TO_3, buildFilteredContentForFluForChildrenVaccine],
     [VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, buildFilteredContentForFluForSchoolAgedChildrenVaccine],
     [VaccineType.COVID_19, buildFilteredContentForCovid19Vaccine],
     [VaccineType.MMRV, buildFilteredContentForMMRandMMRVVaccines],

@@ -24,7 +24,7 @@ enum VaccineType {
   FLU_IN_PREGNANCY = "FLU_IN_PREGNANCY",
   COVID_19 = "COVID_19",
   FLU_FOR_ADULTS = "FLU_FOR_ADULTS",
-  FLU_FOR_CHILDREN = "FLU_FOR_CHILDREN",
+  FLU_FOR_CHILDREN_AGED_2_TO_3 = "FLU_FOR_CHILDREN_AGED_2_TO_3",
   FLU_FOR_SCHOOL_AGED_CHILDREN = "FLU_FOR_SCHOOL_AGED_CHILDREN",
 }
 
@@ -349,7 +349,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     nbsPath: "flu" as UrlPathFragment,
     nbsCampaign: "vita-flu-booking" as NbsCampaign,
   },
-  [VaccineType.FLU_FOR_CHILDREN]: {
+  [VaccineType.FLU_FOR_CHILDREN_AGED_2_TO_3]: {
     urlPath: "flu-vaccine-for-children" as UrlPathFragment,
     displayName: {
       titleCase: "Flu",
@@ -413,7 +413,7 @@ const childPreschoolVaccines: VaccineCardDetails[] = [
   { vaccineName: VaccineType.PNEUMOCOCCAL, cardLinkDescription: "From 12 months" },
   { vaccineName: VaccineType.VACCINE_6_IN_1, cardLinkDescription: "From 18 months" },
   { vaccineName: VaccineType.VACCINE_4_IN_1, cardLinkDescription: "From 3 years 4 months" },
-  { vaccineName: VaccineType.FLU_FOR_CHILDREN, cardLinkDescription: "Annually, during autumn or winter" },
+  { vaccineName: VaccineType.FLU_FOR_CHILDREN_AGED_2_TO_3, cardLinkDescription: "Annually, during autumn or winter" },
 ];
 const babyVaccines: VaccineCardDetails[] = [
   { vaccineName: VaccineType.VACCINE_6_IN_1, cardLinkDescription: "From 8 weeks" },
