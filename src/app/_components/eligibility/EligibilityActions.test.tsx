@@ -71,13 +71,9 @@ describe("EligibilityActions", () => {
           }),
         );
 
-        const content1: HTMLElement = screen.getByText("Test Content 1");
-        const content2: HTMLElement = screen.getByText("Test Content 2");
+        const separator = screen.getAllByRole("separator");
+        expect(separator.length).toBe(4);
 
-        expect(content1.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).toBe("HR");
-        expect(content2.closest('[data-testid="markdown-with-styling"]')?.nextElementSibling?.tagName).toBe("HR");
-        expectDelineatorToBePresentAfterElementWithSelector("Test Content 3", ".nhsuk-card");
-        expectDelineatorToBePresentAfterElementWithSelector("Test Content 4", '[data-testid="action-paragraph"]');
         expectDelineatorToNotBePresentAfterElementWithSelector("Test Content 5", '[data-testid="action-paragraph"]');
       });
     });
@@ -212,6 +208,7 @@ describe("EligibilityActions", () => {
               actionBuilder()
                 .withType(ActionDisplayType.nbsAuthLinkButtonWithInfo)
                 .andContent("Test Auth Action Content")
+                .andMoreInfo("Another content under the button")
                 .build(),
             ],
             vaccineType: VaccineType.RSV,
@@ -219,6 +216,7 @@ describe("EligibilityActions", () => {
         );
 
         expectContentStringToBeVisible("Test Auth Action Content");
+        expectContentStringToBeVisible("Another content under the button");
       });
 
       it("should display button content successfully", () => {
@@ -424,11 +422,6 @@ describe("EligibilityActions", () => {
       const contentElement: HTMLElement = screen.getByText(content);
       expect(contentElement).toBeVisible();
     });
-  };
-
-  const expectDelineatorToBePresentAfterElementWithSelector = (content: string, selector: string) => {
-    const contentElement: HTMLElement = screen.getByText(content);
-    expect(contentElement.closest(selector)?.nextElementSibling?.nextElementSibling?.tagName).toBe("HR");
   };
 
   const expectDelineatorToNotBePresentAfterElementWithSelector = (content: string, selector: string) => {

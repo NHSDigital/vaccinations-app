@@ -1,5 +1,6 @@
 import { buildFilteredContentForCovid19Vaccine } from "@src/services/content-api/parsers/custom/covid-19";
 import { VaccinePageContent } from "@src/services/content-api/types";
+import { ActionDisplayType, ButtonUrl, Content, Label } from "@src/services/eligibility-api/types";
 import { buildNbsUrl } from "@src/services/nbs/nbs-service";
 import { genericVaccineContentAPIResponse, mockStyledContent } from "@test-data/content-api/data";
 
@@ -29,13 +30,32 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
   });
 
   it("should return callout and actions", async () => {
+    const preOpenActionsValues = [
+      {
+        type: ActionDisplayType.nbsAuthLinkButtonWithInfo,
+        content: [
+          "## If this applies to you",
+          "You can book a COVID-19 vaccination appointment online now.",
+          "Vaccination appointments will take place from 13 April.",
+        ].join("\n\n") as Content,
+        button: {
+          label: "Book, cancel or change an appointment" as Label,
+          url: new URL("https://test-nbs-url.example.com/sausages") as ButtonUrl,
+        },
+        moreInfo: [
+          "From 13 April, you may also be able to get vaccinated at:",
+          "* your GP surgery\n* a walk-in COVID-19 vaccination site\n* your care home (if you live in a care home)",
+          "You do not need to wait for an invitation before booking an appointment.",
+        ].join("\n\n") as Content,
+      },
+    ];
     const expected = {
       callout: {
         heading: "Service closed",
         content: "COVID-19 vaccinations will be available in spring 2026",
         contentType: "markdown",
       },
-      preOpenActions: mockStyledContent.preOpenActions,
+      preOpenActions: preOpenActionsValues,
       actions: mockStyledContent.actions,
     };
 

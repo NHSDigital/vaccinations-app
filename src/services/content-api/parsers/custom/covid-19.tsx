@@ -80,19 +80,12 @@ async function _buildPreOpenActions(): Promise<Action[]> {
       "Vaccination appointments will take place from 13 April.",
     ].join("\n\n") as Content,
     button: { label: "Book, cancel or change an appointment" as Label, url: nbsURL },
-  };
-
-  const extraBookingDetails: ActionWithoutButton = {
-    type: ActionDisplayType.infotext,
-    content: [
+    moreInfo: [
       "From 13 April, you may also be able to get vaccinated at:",
-      "* your GP surgery",
-      "* a walk-in COVID-19 vaccination site",
-      "* your care home (if you live in a care home)",
+      "* your GP surgery\n* a walk-in COVID-19 vaccination site\n* your care home (if you live in a care home)",
       "You do not need to wait for an invitation before booking an appointment.",
     ].join("\n\n") as Content,
-    button: undefined,
   };
 
-  return [nbsBooking, extraBookingDetails];
+  return [nbsBooking];
 }

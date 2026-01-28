@@ -38,12 +38,14 @@ export type ActionWithoutButton = {
   type: ActionDisplayType;
   content: Content;
   button: undefined;
+  moreInfo?: undefined;
 };
 
 export type ActionWithButton = {
   type: ActionDisplayType;
   content: Content;
   button: Button;
+  moreInfo?: Content;
 };
 
 export type Button = { label: Label; url: ButtonUrl };

@@ -49,6 +49,7 @@ const EligibilityActions = ({ actions, vaccineType }: EligibilityActionProps): (
 
       case ActionDisplayType.nbsAuthLinkButtonWithInfo: {
         const info = action.content && <InfoText content={action.content} delineator={false} />;
+        const infoBelowButton = action.moreInfo && <MoreInfoText content={action.moreInfo} delineator={false} />;
         const button = action.button && (
           <NBSAuthSSOBookingButton
             vaccineType={vaccineType}
@@ -62,6 +63,7 @@ const EligibilityActions = ({ actions, vaccineType }: EligibilityActionProps): (
           <div key={index} data-testid="action-auth-button-components">
             {info}
             {button}
+            {infoBelowButton}
             {isNotLastAction && <hr />}
           </div>
         );
@@ -119,6 +121,14 @@ type InfoTextProps = {
 const InfoText = ({ content, delineator }: InfoTextProps): JSX.Element => {
   return (
     <div key={content} data-testid="action-paragraph">
+      <MarkdownWithStyling content={content} delineator={delineator} />
+    </div>
+  );
+};
+
+const MoreInfoText = ({ content, delineator }: InfoTextProps): JSX.Element => {
+  return (
+    <div className="nhsuk-u-margin-top-4" key={content}>
       <MarkdownWithStyling content={content} delineator={delineator} />
     </div>
   );
