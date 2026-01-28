@@ -59,6 +59,7 @@ IS_APIM_AUTH_ENABLED=true
 APIM_AUTH_URL=http://localhost:9123/oauth2/token
 NHS_LOGIN_URL=http://localhost:9123
 NHS_APP_REDIRECT_LOGIN_URL=https://localhost:3000/api/sso?assertedLoginIdentity=sausages
+NBS_URL=http://localhost:9123/nbs
 ```
 
 Start up VitA as normal, then hit [/api/sso](https://localhost:3000/api/sso?assertedLoginIdentity=sausages).
