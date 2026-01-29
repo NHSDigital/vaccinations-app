@@ -23,7 +23,7 @@ env:
 jobs:
   run-elid-api-tests:
     # Only call the reusable workflow when the caller's input matches
-    name: "Run EliD API tests (preprod only)"
+    name: "EliD API tests (preprod only)"
     if: ${{ inputs.environment == 'preprod' }}
     concurrency:
       group: ${{ inputs.environment }}-env
@@ -36,6 +36,8 @@ jobs:
     name: "E2E Tests on (${{inputs.environment}})"
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    needs: run-elid-api-tests
+    if: ${{ needs.run-elid-api-tests.result == 'skipped' || needs.run-elid-api-tests.result == 'success' }}
     environment: ${{ inputs.environment }}
     concurrency:
       group: ${{ inputs.environment }}-env
