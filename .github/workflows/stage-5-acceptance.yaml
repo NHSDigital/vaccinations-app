@@ -22,7 +22,9 @@ env:
 
 jobs:
   run-elid-api-tests:
-    # Only call the reusable workflow when the caller's input matches
+    # Only call the tests for preprod environment
+    # - ensures EliD's database is loaded with expected test scenarios
+    # - ensures E2E tests aren't unnecessarily run if these tests fail
     name: "EliD API tests (preprod only)"
     if: ${{ inputs.environment == 'preprod' }}
     concurrency:
