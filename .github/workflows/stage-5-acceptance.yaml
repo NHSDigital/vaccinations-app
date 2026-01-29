@@ -21,6 +21,17 @@ env:
   AWS_REGION: eu-west-2
 
 jobs:
+  run-elid-api-tests:
+    # Only call the reusable workflow when the caller's input matches
+    name: "Run EliD API tests (preprod only)"
+    if: ${{ inputs.environment == 'preprod' }}
+    concurrency:
+      group: ${{ inputs.environment }}-env
+      cancel-in-progress: false
+    uses: NHSDigital/eligibility-signposting-api-regression-tests/.github/workflows/my-vaccs-int-tests.yml@main
+    secrets:
+      ELID_PREPROD_AWS_ACCOUNT_ID: ${{ secrets.ELID_PREPROD_AWS_ACCOUNT_ID }}
+
   test-e2e:
     name: "E2E Tests on (${{inputs.environment}})"
     runs-on: ubuntu-latest
