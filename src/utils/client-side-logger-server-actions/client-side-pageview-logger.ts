@@ -18,10 +18,10 @@ const logClientSidePageviewAction = async (clientSidePageviewType: ClientSidePag
   if (validatedPageviewType) {
     log.info(
       { context: { clientSidePageviewType: clientSidePageviewType, url: PageviewTypeUrls[clientSidePageviewType] } },
-      "Client side pageview",
+      "Rendering client-side page",
     );
   } else {
-    log.error("Client side pageview logger called with invalid page name");
+    log.error("client-side pageview logger called with invalid page name");
   }
 };
 
