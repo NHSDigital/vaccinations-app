@@ -20,6 +20,7 @@ jobs:
 
   run-elid-api-tests:
     name: "EliD API tests (preprod)"
+    environment: "preprod"
     concurrency:
       group: "preprod-env"
       cancel-in-progress: false
