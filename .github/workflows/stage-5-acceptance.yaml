@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: run-elid-api-tests
-    if: ${{ needs.run-elid-api-tests.result == 'skipped' || needs.run-elid-api-tests.result == 'success' }}
+    if: ${{ always() && (needs.run-elid-api-tests.result == 'skipped' || needs.run-elid-api-tests.result == 'success' || needs.run-elid-api-tests.result == '' || needs.run-elid-api-tests.result == null) }}
     environment: ${{ inputs.environment }}
     concurrency:
       group: ${{ inputs.environment }}-env
