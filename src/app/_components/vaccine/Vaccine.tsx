@@ -81,7 +81,7 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
             <WarningCallout styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
           )}
           {styledVaccineContent.additionalInformation?.component && (
-            <div data-testid="additional-information">{styledVaccineContent.additionalInformation.component}</div>
+            <div>{styledVaccineContent.additionalInformation.component}</div>
           )}
           {!isCampaignOpen && isCampaignPreOpen && (
             <EligibilityActions
@@ -109,7 +109,7 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
       )}
 
       {/* Sections heading - H2 */}
-      <hr data-testid="more-information-hr" />
+      <hr />
       <h2 className="nhsuk-heading-s">{`More information about the ${vaccineInfo.displayName.midSentenceCase} ${vaccineInfo.displayName.suffix}`}</h2>
       {/* Expandable sections */}
       {contentError != ContentErrorTypes.CONTENT_LOADING_ERROR && styledVaccineContent != undefined ? (

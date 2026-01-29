@@ -10,14 +10,14 @@ const WarningCallout = (props: {
 }): JSX.Element => {
   const element =
     props.styledVaccineContent.callout && !VaccineInfo[props.vaccineType].supressWarningCallout ? (
-      <div data-testid="callout" className={`nhsuk-warning-callout  ${styles.warningCalloutZeroMarginBottom}`}>
+      <div className={`nhsuk-warning-callout  ${styles.warningCalloutZeroMarginBottom}`}>
         <h3 className="nhsuk-warning-callout__label">
           <span role="text">
             <span className="nhsuk-u-visually-hidden">Important: </span>
             {props.styledVaccineContent.callout.heading}
           </span>
         </h3>
-        <div data-testid="callout-text">{props.styledVaccineContent.callout.component}</div>
+        <div>{props.styledVaccineContent.callout.component}</div>
       </div>
     ) : (
       <></>

@@ -28,7 +28,7 @@ describe("Overview component", () => {
 
     render(<Overview overview={mockStyledContent.overview} vaccineType={vaccineType} />);
 
-    const overviewText: HTMLElement = screen.getByTestId("overview-text");
+    const overviewText: HTMLElement = screen.getByText("Overview text");
 
     expect(overviewText).toBeInTheDocument();
   });
@@ -38,7 +38,7 @@ describe("Overview component", () => {
 
     render(<Overview overview={mockStyledContentWithHtmlOverview.overview} vaccineType={vaccineType} />);
 
-    const overviewText: HTMLElement = screen.getByTestId("overview-text");
+    const overviewText: HTMLElement = screen.getByText("Overview");
 
     expect(overviewText).toBeInTheDocument();
 
@@ -54,7 +54,7 @@ describe("Overview component", () => {
 
     render(<Overview overview={mockStyledContentWithMissingOverview.overview} vaccineType={vaccineType} />);
 
-    const overviewText: HTMLElement | null = screen.queryByTestId("overview-text");
+    const overviewText: HTMLElement | null = screen.queryByText("Overview text");
 
     expect(overviewText).not.toBeInTheDocument();
   });

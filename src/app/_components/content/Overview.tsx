@@ -6,12 +6,9 @@ import { JSX } from "react";
 const Overview = (props: { overview: StyledOverview | undefined; vaccineType: VaccineType }): JSX.Element => {
   const element = props.overview ? (
     props.overview.containsHtml ? (
-      <div
-        data-testid="overview-text"
-        dangerouslySetInnerHTML={{ __html: linksOpenCorrectly(props.overview.content) || "" }}
-      />
+      <div dangerouslySetInnerHTML={{ __html: linksOpenCorrectly(props.overview.content) || "" }} />
     ) : (
-      <p data-testid="overview-text">{props.overview.content}</p>
+      <p>{props.overview.content}</p>
     )
   ) : (
     <></>

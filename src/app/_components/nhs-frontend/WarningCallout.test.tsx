@@ -10,9 +10,9 @@ describe("Callout component", () => {
 
     render(<Callout styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
 
-    const CalloutText: HTMLElement = screen.getByTestId("callout");
+    const calloutHeading: HTMLElement = screen.getByRole("heading", { name: "Important: Callout Heading" });
 
-    expect(CalloutText).toBeInTheDocument();
+    expect(calloutHeading).toBeInTheDocument();
   });
 
   it("does not render for vaccines for which they should not be shown", () => {
@@ -20,8 +20,8 @@ describe("Callout component", () => {
 
     render(<Callout styledVaccineContent={mockStyledContent} vaccineType={vaccineType} />);
 
-    const CalloutText: HTMLElement | null = screen.queryByTestId("Callout-text");
+    const calloutHeading: HTMLElement | null = screen.queryByRole("heading", { name: "Important: Callout Heading" });
 
-    expect(CalloutText).not.toBeInTheDocument();
+    expect(calloutHeading).not.toBeInTheDocument();
   });
 });

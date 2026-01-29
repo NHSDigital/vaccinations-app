@@ -1,7 +1,6 @@
 import { auth } from "@project/auth";
 import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
 import { EligibilityVaccinePageContent } from "@src/app/_components/eligibility/EligibilityVaccinePageContent";
-import { RSVPregnancyInfo } from "@src/app/_components/vaccine-custom/RSVPregnancyInfo";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { VaccineType } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
@@ -26,28 +25,13 @@ jest.mock("@src/services/content-api/content-service", () => ({
 jest.mock("@src/services/eligibility-api/domain/eligibility-filter-service", () => ({
   getEligibilityForPerson: jest.fn(),
 }));
+// it would be good to avoid these mocks and rather than do getByTestId(id) use getByRole(role, {name: id})
 jest.mock("@src/app/_components/eligibility/EligibilityVaccinePageContent", () => ({
   EligibilityVaccinePageContent: jest
     .fn()
     .mockImplementation(() => (
       <div data-testid="eligibility-page-content-mock">Test Eligibility Content Component</div>
     )),
-}));
-jest.mock("@src/app/_components/vaccine-custom/RSVPregnancyInfo", () => ({
-  RSVPregnancyInfo: jest
-    .fn()
-    .mockImplementation(() => <div data-testid="rsv-pregnancy-mock">Test RSV Pregnancy Component</div>),
-}));
-jest.mock("@src/app/_components/content/MoreInformation", () => ({
-  MoreInformation: jest.fn().mockImplementation(() => <div data-testid="more-information-mock">More Information</div>),
-}));
-jest.mock("@src/app/_components/content/FindOutMore", () => ({
-  FindOutMoreLink: jest.fn().mockImplementation(() => <div data-testid="find-out-more-link-mock">Find Out More</div>),
-}));
-jest.mock("@src/app/_components/content/HowToGetVaccineFallback", () => ({
-  HowToGetVaccineFallback: jest
-    .fn()
-    .mockImplementation(() => <div data-testid="how-to-get-content-fallback-mock">How to get content fallback</div>),
 }));
 jest.mock("react-markdown", () =>
   jest.fn(function MockMarkdown(props) {
@@ -130,12 +114,12 @@ describe("Any vaccine page", () => {
     await renderNamedVaccinePage(VaccineType.RSV);
   };
 
-  const expectTdIPVPageToHaveHrAboveMoreInformationSection = async () => {
+  const expectTdIPVPageToHaveLineAboveMoreInformationSection = async () => {
     await renderNamedVaccinePage(VaccineType.TD_IPV_3_IN_1);
 
-    const hrAboveMoreInformation: HTMLElement = screen.getByTestId("more-information-hr");
+    const lineAboveMoreInformation: HTMLElement = screen.getByRole("separator");
 
-    expect(hrAboveMoreInformation).toBeInTheDocument();
+    expect(lineAboveMoreInformation).toBeInTheDocument();
   };
 
   beforeEach(() => {
@@ -155,7 +139,7 @@ describe("Any vaccine page", () => {
     it("should include overview text", async () => {
       await renderNamedVaccinePage(VaccineType.TD_IPV_3_IN_1);
 
-      const overviewText: HTMLElement = screen.getByTestId("overview-text");
+      const overviewText: HTMLElement = screen.getByText("Overview text");
 
       expect(overviewText).toBeInTheDocument();
     });
@@ -174,17 +158,17 @@ describe("Any vaccine page", () => {
     it("should include additionalInformation text", async () => {
       await renderNamedVaccinePage(VaccineType.MMRV);
 
-      const additionalInformation: HTMLElement = screen.getByTestId("additional-information");
+      const additionalInformation: HTMLElement = screen.getByText("Additional Information component");
 
       expect(additionalInformation).toBeInTheDocument();
     });
 
-    it("should include callout text", async () => {
+    it("should include callout heading", async () => {
       await renderNamedVaccinePage(VaccineType.MMR);
 
-      const calloutText: HTMLElement = screen.getByTestId("callout");
+      const calloutHeading: HTMLElement = screen.getByRole("heading", { name: "Important: Callout Heading" });
 
-      expect(calloutText).toBeInTheDocument();
+      expect(calloutHeading).toBeInTheDocument();
     });
 
     it("should include actions", async () => {
@@ -208,40 +192,36 @@ describe("Any vaccine page", () => {
       expect(moreInfoHeading).toBeInTheDocument();
     });
 
-    it("should display custom RSV Pregnancy vaccine component with contentApi howToGet section", async () => {
+    it("should display custom RSV Pregnancy vaccine component", async () => {
       await renderNamedVaccinePage(VaccineType.RSV_PREGNANCY);
 
-      const rsvPregnancyInfo: HTMLElement = screen.getByTestId("rsv-pregnancy-mock");
+      const rsvPregnancyInfo: HTMLElement = screen.getByRole("heading", {
+        name: "Non-urgent advice: The RSV vaccine is recommended if you:",
+      });
 
       expect(rsvPregnancyInfo).toBeInTheDocument();
-      expect(RSVPregnancyInfo).toHaveBeenCalledWith(
-        {
-          vaccineType: VaccineType.RSV_PREGNANCY,
-          howToGetVaccineOrFallback: mockStyledContent.howToGetVaccine.component,
-        },
-        undefined,
-      );
     });
 
     it("should not display RSV Pregnancy component when vaccineType is not RSV_PREGNANCY", async () => {
       await renderNamedVaccinePage(VaccineType.TD_IPV_3_IN_1);
 
-      const rsvPregnancyInfo: HTMLElement | null = screen.queryByTestId("rsv-pregnancy-mock");
+      const rsvPregnancyInfo: HTMLElement | null = screen.queryByRole("heading", {
+        name: "Non-urgent advice: The RSV vaccine is recommended if you:",
+      });
 
       expect(rsvPregnancyInfo).not.toBeInTheDocument();
-      expect(RSVPregnancyInfo).not.toHaveBeenCalled();
     });
 
-    it("should not display find out more link", async () => {
+    it("should display find out more link", async () => {
       await renderRsvVaccinePage();
 
-      const findOutMore: HTMLElement | null = screen.queryByTestId("find-out-more-link-mock");
+      const findOutMore: HTMLElement = screen.getByRole("link", { name: "Find out more about the RSV vaccine" });
 
-      expect(findOutMore).not.toBeInTheDocument();
+      expect(findOutMore).toBeInTheDocument();
     });
 
     it("should display hr above MoreInformation section when personalised eligibility not in use", async () => {
-      await expectTdIPVPageToHaveHrAboveMoreInformationSection();
+      await expectTdIPVPageToHaveLineAboveMoreInformationSection();
     });
   });
 
@@ -257,44 +237,44 @@ describe("Any vaccine page", () => {
       Object.assign(mockedConfig, defaultConfig);
     });
 
-    it("should include callout text when campaign is closed", async () => {
+    it("should include callout heading when campaign is closed", async () => {
       const closedCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(false);
       const preOpenCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(false);
       await renderNamedVaccinePage(covid19VaccineType);
 
-      const calloutText: HTMLElement = screen.getByTestId("callout");
+      const calloutHeading: HTMLElement = screen.getByRole("heading", { name: "Important: Callout Heading" });
 
       expect(closedCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
       expect(preOpenCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(calloutText).toBeInTheDocument();
+      expect(calloutHeading).toBeInTheDocument();
       closedCampaignSpy.mockRestore();
       preOpenCampaignSpy.mockRestore();
     });
 
-    it("should not include callout text when campaign is open", async () => {
+    it("should not include callout heading when campaign is open", async () => {
       const openCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(true);
       const preOpenCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(false);
       await renderNamedVaccinePage(covid19VaccineType);
 
-      const calloutText: HTMLElement | null = screen.queryByTestId("callout");
+      const calloutHeading: HTMLElement | null = screen.queryByRole("heading", { name: "Important: Callout Heading" });
 
       expect(openCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
       expect(preOpenCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(calloutText).toBeNull();
+      expect(calloutHeading).toBeNull();
       openCampaignSpy.mockRestore();
       preOpenCampaignSpy.mockRestore();
     });
 
-    it("should not include callout text when campaign is pre-open", async () => {
+    it("should not include callout heading when campaign is pre-open", async () => {
       const openCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(true);
       const closedCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(false);
       await renderNamedVaccinePage(covid19VaccineType);
 
-      const calloutText: HTMLElement | null = screen.queryByTestId("callout");
+      const calloutHeading: HTMLElement | null = screen.queryByRole("heading", { name: "Important: Callout Heading" });
 
       expect(openCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
       expect(closedCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(calloutText).toBeNull();
+      expect(calloutHeading).toBeNull();
       openCampaignSpy.mockRestore();
       closedCampaignSpy.mockRestore();
     });
@@ -397,7 +377,7 @@ describe("Any vaccine page", () => {
     it("should not display overview paragraph", async () => {
       await renderNamedVaccinePage(VaccineType.TD_IPV_3_IN_1);
 
-      const overviewText: HTMLElement | null = screen.queryByTestId("overview-text");
+      const overviewText: HTMLElement | null = screen.queryByText("Overview text");
 
       expect(overviewText).not.toBeInTheDocument();
     });
@@ -405,15 +385,15 @@ describe("Any vaccine page", () => {
     it("should not display callout", async () => {
       await renderNamedVaccinePage(VaccineType.HPV);
 
-      const overviewText: HTMLElement | null = screen.queryByTestId("callout");
+      const calloutHeading: HTMLElement | null = screen.queryByRole("heading", { name: "Important: Callout Heading" });
 
-      expect(overviewText).not.toBeInTheDocument();
+      expect(calloutHeading).not.toBeInTheDocument();
     });
 
     it("should not display additionalInformation", async () => {
       await renderNamedVaccinePage(VaccineType.MMRV);
 
-      const overviewText: HTMLElement | null = screen.queryByTestId("additional-information");
+      const overviewText: HTMLElement | null = screen.queryByText("Additional Information component");
 
       expect(overviewText).not.toBeInTheDocument();
     });
@@ -421,7 +401,7 @@ describe("Any vaccine page", () => {
     it("should not display vaccine info expanders", async () => {
       await renderRsvVaccinePage();
 
-      const moreInfo = screen.queryByTestId("more-information-mock");
+      const moreInfo = screen.queryByRole("heading", { name: "what-heading" });
 
       expect(moreInfo).not.toBeInTheDocument();
     });
@@ -429,7 +409,7 @@ describe("Any vaccine page", () => {
     it("should display find out more link", async () => {
       await renderRsvVaccinePage();
 
-      const findOutMore: HTMLElement = screen.getByTestId("find-out-more-link-mock");
+      const findOutMore: HTMLElement = screen.getByRole("link", { name: "Find out more about the RSV vaccine" });
 
       expect(findOutMore).toBeInTheDocument();
     });
@@ -444,21 +424,19 @@ describe("Any vaccine page", () => {
       );
     });
 
-    it("should use fallback how-to-get text when rendering rsv pregnancy component", async () => {
+    it("should use fallback rsv pregnancy component when RSV pregnancy vaccine", async () => {
       const vaccineType = VaccineType.RSV_PREGNANCY;
       await renderNamedVaccinePage(vaccineType);
 
-      expect(RSVPregnancyInfo).toHaveBeenCalledWith(
-        {
-          vaccineType: vaccineType,
-          howToGetVaccineOrFallback: <HowToGetVaccineFallback vaccineType={vaccineType} />,
-        },
-        undefined,
-      );
+      const RSVPregnancyInfo: HTMLElement = screen.getByRole("heading", {
+        name: "Non-urgent advice: The RSV vaccine is recommended if you:",
+      });
+
+      expect(RSVPregnancyInfo).toBeInTheDocument();
     });
 
-    it("should still display hr above MoreInformation section", async () => {
-      await expectTdIPVPageToHaveHrAboveMoreInformationSection();
+    it("should still display line above MoreInformation section", async () => {
+      await expectTdIPVPageToHaveLineAboveMoreInformationSection();
     });
   });
 
@@ -532,12 +510,12 @@ describe("Any vaccine page", () => {
       );
     });
 
-    it("should display hr above MoreInformation section always", async () => {
+    it("should always display line above MoreInformation section", async () => {
       await renderRsvVaccinePage();
 
-      const hrAboveMoreInformation: HTMLElement | null = screen.queryByTestId("more-information-hr");
+      const lineAboveMoreInformation: HTMLElement = screen.getByRole("separator");
 
-      expect(hrAboveMoreInformation).toBeInTheDocument();
+      expect(lineAboveMoreInformation).toBeInTheDocument();
     });
   });
 

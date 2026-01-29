@@ -19,7 +19,7 @@ const MoreInformation = (props: {
 
   return (
     <>
-      <Details.ExpanderGroup data-testid="more-information-expander-group">
+      <Details.ExpanderGroup>
         {/* What-vaccine-is-for expandable section */}
         {props.styledVaccineContent.whatVaccineIsFor && (
           <Details expander>

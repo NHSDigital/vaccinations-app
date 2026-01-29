@@ -12,8 +12,8 @@ jest.mock("@src/app/_components/nbs/PharmacyBookingInfo", () => ({
 }));
 
 describe("RSV Pregnancy Information", () => {
-  it("should display inset text for rsv in pregnancy", async () => {
-    await render(
+  it("should display inset text for rsv in pregnancy", () => {
+    render(
       <RSVPregnancyInfo vaccineType={VaccineType.RSV_PREGNANCY} howToGetVaccineOrFallback={howToGetContentMock} />,
     );
 
@@ -22,8 +22,8 @@ describe("RSV Pregnancy Information", () => {
     expect(recommendedBlock?.innerHTML).toContain("The RSV vaccine is recommended if you:");
   });
 
-  it("should display how to get text outside of expander in rsv pregnancy page", async () => {
-    await render(
+  it("should display how to get text outside of expander in rsv pregnancy page", () => {
+    render(
       <RSVPregnancyInfo vaccineType={VaccineType.RSV_PREGNANCY} howToGetVaccineOrFallback={howToGetContentMock} />,
     );
 
@@ -34,8 +34,8 @@ describe("RSV Pregnancy Information", () => {
     expect(content).toBeInTheDocument();
   });
 
-  it("should contain pharmacy booking link in how to get section", async () => {
-    await render(
+  it("should contain pharmacy booking link in how to get section", () => {
+    render(
       <RSVPregnancyInfo vaccineType={VaccineType.RSV_PREGNANCY} howToGetVaccineOrFallback={howToGetContentMock} />,
     );
 
