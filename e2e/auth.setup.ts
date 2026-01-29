@@ -14,7 +14,7 @@ for (const scenario in users) {
   const key = scenario as keyof typeof users;
 
   setup(
-    `authenticate ${key} (${users[key].nhsNumber} england.vita+test${users[key].emailSuffix}@nhs.net)`,
+    `authenticate ${key} (${users[key].nhsNumber} Test User ${users[key].emailSuffix})`,
     async ({ browser }, testInfo: TestInfo) => {
       testInfo.setTimeout(60000);
 
