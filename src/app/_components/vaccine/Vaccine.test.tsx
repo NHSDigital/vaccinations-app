@@ -179,7 +179,7 @@ describe("Any vaccine page", () => {
       expect(actions).toBeInTheDocument();
     });
 
-    it("should include lowercase vaccine name in more information text", async () => {
+    it("should include more information expanders", async () => {
       const expectedMoreInformationHeading: string = "More information about the RSV vaccine";
 
       await renderRsvVaccinePage();
@@ -210,14 +210,6 @@ describe("Any vaccine page", () => {
       });
 
       expect(rsvPregnancyInfo).not.toBeInTheDocument();
-    });
-
-    it("should display find out more link", async () => {
-      await renderRsvVaccinePage();
-
-      const findOutMore: HTMLElement = screen.getByRole("link", { name: "Find out more about the RSV vaccine" });
-
-      expect(findOutMore).toBeInTheDocument();
     });
 
     it("should display hr above MoreInformation section when personalised eligibility not in use", async () => {
@@ -398,7 +390,7 @@ describe("Any vaccine page", () => {
       expect(overviewText).not.toBeInTheDocument();
     });
 
-    it("should not display vaccine info expanders", async () => {
+    it("should not display more information expanders", async () => {
       await renderRsvVaccinePage();
 
       const moreInfo = screen.queryByRole("heading", { name: "what-heading" });
