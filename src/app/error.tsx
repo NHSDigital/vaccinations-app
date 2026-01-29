@@ -1,7 +1,7 @@
 "use client";
 
 import ServiceFailure from "@src/app/service-failure/page";
-import logClientSideError from "@src/utils/client-side-error-logger/client-side-error-logger";
+import logClientSideError from "@src/utils/client-side-logger-server-actions/client-side-error-logger";
 import { ClientSideErrorTypes } from "@src/utils/constants";
 import "nhsapp-frontend/dist/nhsapp/all.scss";
 import React, { useEffect } from "react";

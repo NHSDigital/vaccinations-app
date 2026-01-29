@@ -21,6 +21,10 @@ const logClientSideErrorAction = async (clientSideErrorType: ClientSideErrorType
 
   log.error({ context: { clientSideErrorType: validatedErrorType } }, "Client side error occurred");
 
+  return shouldErrorsShowInClientConsole();
+};
+
+const shouldErrorsShowInClientConsole = async (): Promise<boolean> => {
   const deployEnvironment: DeployEnvironment = await config.DEPLOY_ENVIRONMENT;
   return deployEnvironment !== DeployEnvironment.unknown && deployEnvironment !== DeployEnvironment.prod;
 };
