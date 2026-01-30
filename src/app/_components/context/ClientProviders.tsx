@@ -1,6 +1,7 @@
 "use client";
 
 import { BrowserContextProvider } from "@src/app/_components/context/BrowserContext";
+import { NavigationProvider } from "@src/app/_components/context/NavigationContext";
 import { InactivityDialog } from "@src/app/_components/inactivity/InactivityDialog";
 import LinksInterceptor from "@src/app/_components/interceptor/LinksInterceptor";
 import AppFooter from "@src/app/_components/nhs-frontend/AppFooter";
@@ -24,10 +25,12 @@ export function ClientProviders({ children }: Readonly<{ children: React.ReactNo
       <LinksInterceptor />
       <SkipLink />
       <SessionProvider refetchInterval={SESSION_REFETCH_SECONDS}>
-        <AppHeader />
-        <InactivityDialog />
-        <div className="nhsuk-width-container">{children}</div>
-        <AppFooter />
+        <NavigationProvider>
+          <AppHeader />
+          <InactivityDialog />
+          <div className="nhsuk-width-container">{children}</div>
+          <AppFooter />
+        </NavigationProvider>
       </SessionProvider>
     </BrowserContextProvider>
   );

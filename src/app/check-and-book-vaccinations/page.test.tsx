@@ -1,4 +1,5 @@
 import { auth } from "@project/auth";
+import { useNavigationTransition } from "@src/app/_components/context/NavigationContext";
 import { AgeBasedHubCards } from "@src/app/_components/hub/AgeBasedHubCards";
 import VaccinationsHub from "@src/app/check-and-book-vaccinations/page";
 import { SERVICE_HEADING } from "@src/app/constants";
@@ -35,6 +36,15 @@ jest.mock("@src/app/_components/hub/PregnancyHubContent", () => ({
     .fn()
     .mockImplementation(() => <p data-testid={"pregnancy-hub-content"}>Pregnancy hub content test</p>),
 }));
+
+jest.mock("@src/app/_components/context/NavigationContext", () => ({
+  useNavigationTransition: jest.fn(),
+}));
+
+(useNavigationTransition as jest.Mock).mockReturnValue({
+  navigate: jest.fn(),
+  isPending: false,
+});
 
 const mockSessionDataForAgeGroup = (ageGroup: AgeGroup): Partial<Session> => {
   return {

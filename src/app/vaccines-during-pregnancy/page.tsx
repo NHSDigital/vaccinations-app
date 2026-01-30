@@ -1,10 +1,10 @@
 import { FeedbackBanner } from "@src/app/_components/feedback/FeedbackBanner";
+import { TransitionLink } from "@src/app/_components/navigation/TransitionLink";
 import CardLinkWithDescription from "@src/app/_components/nhs-app/CardLinkWithDescription";
 import BackLink from "@src/app/_components/nhs-frontend/BackLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import { HUB_FEEDBACK_REFERRER_ID, NHS_TITLE_SUFFIX, VACCINES_FOR_PREGNANT_PAGE } from "@src/app/constants";
 import { VaccineInfo, pregnancyVaccines } from "@src/models/vaccine";
-import Link from "next/link";
 import React, { JSX } from "react";
 
 const VaccinesDuringPregnancy = (): JSX.Element => {
@@ -26,9 +26,9 @@ const VaccinesDuringPregnancy = (): JSX.Element => {
             />
           ))}
         </ul>
-        <Link prefetch={false} href={"/vaccines-for-all-ages"} className={"nhsuk-button nhsuk-button--secondary"}>
+        <TransitionLink href={"/vaccines-for-all-ages"} className="nhsuk-button nhsuk-button--secondary">
           View vaccines for all ages
-        </Link>
+        </TransitionLink>
       </MainContent>
     </>
   );
