@@ -13,8 +13,9 @@ test.describe("Vaccination campaigns", () => {
         await page.setExtraHTTPHeaders({ "x-e2e-datetime": pageDetails.datetimeOverride.toISOString() });
 
       await page.goto(pageDetails.url);
-
-      await expect(page.getByText("You can book a COVID-19 vaccination appointment online now.")).toBeVisible();
+      await expect(
+        page.locator("#maincontent").getByText("You can book a COVID-19 vaccination appointment online now."),
+      ).toBeVisible();
       await expect(page.getByRole("heading", { name: "Get vaccinated at your GP surgery" })).not.toBeVisible();
     });
   });
