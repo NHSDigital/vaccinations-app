@@ -44,6 +44,16 @@ const CookiesTable = (): JSX.Element => {
           </td>
           <td className="nhsuk-table__cell nhsuk-table__cell">After 1 hour</td>
         </tr>
+        <tr className="nhsuk-table__row">
+          <th scope="row" className="nhsuk-table__header">
+            __Host-Http-session-id
+          </th>
+          <td className="nhsuk-table__cell nhsuk-table__cell">
+            Stores a unique, randomly generated session ID used in operational logs to help our IT support team
+            investigate issues
+          </td>
+          <td className="nhsuk-table__cell nhsuk-table__cell">After 1 hour</td>
+        </tr>
       </tbody>
     </table>
   );
