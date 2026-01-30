@@ -1,5 +1,15 @@
+import { useNavigationTransition } from "@src/app/_components/context/NavigationContext";
 import AppFooter from "@src/app/_components/nhs-frontend/AppFooter";
 import { render, screen } from "@testing-library/react";
+
+jest.mock("@src/app/_components/context/NavigationContext", () => ({
+  useNavigationTransition: jest.fn(),
+}));
+
+(useNavigationTransition as jest.Mock).mockReturnValue({
+  navigate: jest.fn(),
+  isPending: false,
+});
 
 describe("AppFooter", () => {
   beforeEach(() => {

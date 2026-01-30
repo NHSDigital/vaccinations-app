@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { TransitionLink } from "@src/app/_components/navigation/TransitionLink";
 
 interface CardLinkProps {
   title: string;
@@ -6,15 +6,14 @@ interface CardLinkProps {
   link: string;
 }
 
-// Ref: https://design-system.nhsapp.service.nhs.uk/components/card-links/
 const CardLinkWithDescription = ({ title, description, link }: CardLinkProps) => {
   return (
     <li className="nhsapp-card">
       <div className="nhsapp-card__container">
         <div className="nhsapp-card__content">
-          <Link prefetch={false} href={link} className="nhsapp-card__link nhsuk-link--no-visited-state">
+          <TransitionLink href={link} className="nhsapp-card__link nhsuk-link--no-visited-state">
             {title}
-          </Link>
+          </TransitionLink>
           {description && (
             <div className="nhsapp-card__below">
               <p className="nhsapp-card__description" data-testid={title + "-description"}>

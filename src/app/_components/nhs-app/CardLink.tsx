@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { TransitionLink } from "@src/app/_components/navigation/TransitionLink";
 
 interface CardProps {
   title: string;
@@ -11,9 +11,9 @@ const CardLink = (cardProps: CardProps) => {
     <li className="nhsapp-card">
       <div className="nhsapp-card__container">
         <div className="nhsapp-card__content">
-          <Link prefetch={false} href={cardProps.link} className="nhsapp-card__link nhsuk-link--no-visited-state">
+          <TransitionLink href={cardProps.link} className="nhsapp-card__link nhsuk-link--no-visited-state">
             {cardProps.title}
-          </Link>
+          </TransitionLink>
         </div>
         <svg
           className="nhsapp-icon nhsapp-icon--chevron-right"

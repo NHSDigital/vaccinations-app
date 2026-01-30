@@ -5,12 +5,12 @@ import { FeedbackBanner } from "@src/app/_components/feedback/FeedbackBanner";
 import { AgeBasedHubCards } from "@src/app/_components/hub/AgeBasedHubCards";
 import { AtRiskHubExpander } from "@src/app/_components/hub/AtRiskHubExpander";
 import { PregnancyHubContent } from "@src/app/_components/hub/PregnancyHubContent";
+import { TransitionLink } from "@src/app/_components/navigation/TransitionLink";
 import BackToNHSAppLink from "@src/app/_components/nhs-app/BackToNHSAppLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import { HUB_FEEDBACK_REFERRER_ID, NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
 import { AgeBasedHubDetails, AgeBasedHubInfo, AgeGroup } from "@src/models/ageBasedHub";
 import { Session } from "next-auth";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -35,9 +35,9 @@ const VaccinationsHub = async () => {
         <AtRiskHubExpander />
         {hubInfoForAgeGroup?.styledWarningCallout}
         {(hubInfoForAgeGroup?.showPregnancyHubContent || hubInfoForAgeGroup === undefined) && <PregnancyHubContent />}
-        <Link prefetch={false} href={"/vaccines-for-all-ages"} className={"nhsuk-button nhsuk-button--secondary"}>
+        <TransitionLink href={"/vaccines-for-all-ages"} className="nhsuk-button nhsuk-button--secondary">
           View vaccines for all ages
-        </Link>
+        </TransitionLink>
       </MainContent>
     </>
   );

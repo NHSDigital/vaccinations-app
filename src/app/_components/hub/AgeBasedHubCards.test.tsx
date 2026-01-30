@@ -1,7 +1,17 @@
+import { useNavigationTransition } from "@src/app/_components/context/NavigationContext";
 import { AgeBasedHubCards } from "@src/app/_components/hub/AgeBasedHubCards";
 import { AgeGroup } from "@src/models/ageBasedHub";
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { render, screen } from "@testing-library/react";
+
+jest.mock("@src/app/_components/context/NavigationContext", () => ({
+  useNavigationTransition: jest.fn(),
+}));
+
+(useNavigationTransition as jest.Mock).mockReturnValue({
+  navigate: jest.fn(),
+  isPending: false,
+});
 
 const testData = [
   {

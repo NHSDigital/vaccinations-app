@@ -1,8 +1,17 @@
+import { useNavigationTransition } from "@src/app/_components/context/NavigationContext";
 import VaccinesDuringPregnancy from "@src/app/vaccines-during-pregnancy/page";
 import { assertBackLinkIsPresent } from "@test-data/utils/back-link-helpers";
 import { render, screen } from "@testing-library/react";
 
 jest.mock("@src/app/_components/nhs-frontend/BackLink", () => jest.fn(() => <div data-testid="back-link"></div>));
+jest.mock("@src/app/_components/context/NavigationContext", () => ({
+  useNavigationTransition: jest.fn(),
+}));
+
+(useNavigationTransition as jest.Mock).mockReturnValue({
+  navigate: jest.fn(),
+  isPending: false,
+});
 
 describe("VaccinesDuringPregnancy", () => {
   const vaccines = [

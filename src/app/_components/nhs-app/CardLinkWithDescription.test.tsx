@@ -1,5 +1,15 @@
+import { useNavigationTransition } from "@src/app/_components/context/NavigationContext";
 import CardLinkWithDescription from "@src/app/_components/nhs-app/CardLinkWithDescription";
 import { render, screen } from "@testing-library/react";
+
+jest.mock("@src/app/_components/context/NavigationContext", () => ({
+  useNavigationTransition: jest.fn(),
+}));
+
+(useNavigationTransition as jest.Mock).mockReturnValue({
+  navigate: jest.fn(),
+  isPending: false,
+});
 
 describe("CardLinkWithDescription", () => {
   it("should render component", () => {

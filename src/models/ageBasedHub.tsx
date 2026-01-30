@@ -1,7 +1,7 @@
 import HubWarningCallout from "@src/app/_components/hub/HubWarningCallout";
+import { TransitionLink } from "@src/app/_components/navigation/TransitionLink";
 import { AgeGroup } from "@src/models/ageGroup";
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
-import Link from "next/link";
 import { JSX } from "react";
 
 export type VaccineCardDetails = {
@@ -43,49 +43,45 @@ const AgeBasedHubInfo: Record<AgeGroup, AgeBasedHubDetails | undefined> = {
             <ul style={{ marginBottom: 0 }}>
               <li>
                 2 doses of the{" "}
-                <Link
-                  prefetch={false}
+                <TransitionLink
                   className={"nhsuk-link  nhsuk-link--no-visited-state"}
                   href={`/vaccines/${VaccineInfo[VaccineType.MMR].urlPath}`}
                 >
                   MMR vaccine
-                </Link>{" "}
+                </TransitionLink>{" "}
                 – which protects against measles, mumps and rubella. If you have not previously had 2 doses of MMR, you
                 can still have the vaccine at any age.
               </li>
               <li>
                 The completed course of{" "}
-                <Link
-                  prefetch={false}
+                <TransitionLink
                   className={"nhsuk-link  nhsuk-link--no-visited-state"}
                   href={`/vaccines/${VaccineInfo[VaccineType.TD_IPV_3_IN_1].urlPath}`}
                 >
                   Td/IPV vaccine
-                </Link>{" "}
+                </TransitionLink>{" "}
                 (also called the 3-in-1 teenage booster) - which protects against tetanus, diphtheria and polio. You can
                 ask for this at any age.
               </li>
               <li>
                 The{" "}
-                <Link
-                  prefetch={false}
+                <TransitionLink
                   className={"nhsuk-link  nhsuk-link--no-visited-state"}
                   href={`/vaccines/${VaccineInfo[VaccineType.HPV].urlPath}`}
                 >
                   HPV vaccine
-                </Link>{" "}
+                </TransitionLink>{" "}
                 – which helps protect against genital warts and cancers caused by the human papilloma virus (HPV), such
                 as cervical cancer. You can ask for this until your 25th birthday.
               </li>
               <li>
                 The{" "}
-                <Link
-                  prefetch={false}
+                <TransitionLink
                   className={"nhsuk-link  nhsuk-link--no-visited-state"}
                   href={`/vaccines/${VaccineInfo[VaccineType.MENACWY].urlPath}`}
                 >
                   MenACWY vaccine
-                </Link>{" "}
+                </TransitionLink>{" "}
                 – which protects against serious infections including meningitis. You can ask for this until your 25th
                 birthday.
               </li>
@@ -108,25 +104,23 @@ const AgeBasedHubInfo: Record<AgeGroup, AgeBasedHubDetails | undefined> = {
             <ul style={{ marginBottom: 0 }}>
               <li>
                 2 doses of the{" "}
-                <Link
-                  prefetch={false}
+                <TransitionLink
                   className={"nhsuk-link  nhsuk-link--no-visited-state"}
                   href={`/vaccines/${VaccineInfo[VaccineType.MMR].urlPath}`}
                 >
                   MMR vaccine
-                </Link>{" "}
+                </TransitionLink>{" "}
                 – which protects against measles, mumps and rubella. If you have not previously had 2 doses of MMR, you
                 can still have the vaccine at any age.
               </li>
               <li>
                 The completed course of{" "}
-                <Link
-                  prefetch={false}
+                <TransitionLink
                   className={"nhsuk-link  nhsuk-link--no-visited-state"}
                   href={`/vaccines/${VaccineInfo[VaccineType.TD_IPV_3_IN_1].urlPath}`}
                 >
                   Td/IPV vaccine
-                </Link>{" "}
+                </TransitionLink>{" "}
                 (also called the 3-in-1 teenage booster) - which protects against tetanus, diphtheria and polio. You can
                 ask for this at any age.
               </li>
