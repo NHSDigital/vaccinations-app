@@ -49,6 +49,15 @@ export const login = async (browser: Browser, nhsLoginUsername: string): Promise
     await page.getByRole("button", { name: "Continue" }).click();
   }
 
+  await page.waitForURL(/\/(passkey-user-login-failed|.*\/login\/)$/, {
+    timeout: 30000,
+  });
+
+  if (new URL(page.url()).pathname === "/passkey-user-login-failed") {
+    await page.getByText("Log in using my password instead").check();
+    await page.getByRole("button", { name: "Continue" }).click();
+  }
+
   await page.waitForURL("**/login", { timeout: 30000 });
   await page.getByLabel("Email address").evaluate((input: HTMLInputElement, fillText) => {
     input.value = fillText;
