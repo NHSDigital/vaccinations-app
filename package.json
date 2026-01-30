@@ -20,7 +20,6 @@
   ],
   "scripts": {
     "dev": "next dev --turbopack --experimental-https",
-    "app": "npm run clean && npm run build && npm run start",
     "build": "next build && npm run build:assets",
     "build:assets": "sass 'src/styles/global.scss' 'public/assets/static/global.min.css' --silence-deprecation=import,global-builtin,if-function,legacy-js-api --style=compressed  --no-source-map --load-path=node_modules",
     "build:opennext": "npx --yes @opennextjs/aws@3.x.x build --streaming",
