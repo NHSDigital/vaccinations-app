@@ -90,7 +90,7 @@
     "@aws-sdk/signature-v4-crt": "^3.972.0",
     "@opennextjs/aws": "^3.9.8",
     "@types/aws-lambda": "^8.10.160",
-    "axios": "^1.13.2",
+    "axios": "^1.13.3",
     "cheerio": "^1.2.0",
     "date-fns": "^4.1.0",
     "dotenv": "^17.2.3",
