@@ -41,6 +41,7 @@ jobs:
     environment:
       name: "preprod"
 
+    needs: [ run-elid-api-tests ]
     if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && (inputs.release=='All' || inputs.release=='Latest R1 tag'))) }}
     steps:
       - name: "Checkout release/v1.0 branch"
