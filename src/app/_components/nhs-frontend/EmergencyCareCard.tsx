@@ -22,7 +22,7 @@ const EmergencyCareCard = ({ heading, headingLevel, content }: EmergencyCareCard
       ) : (
         <Card.Heading>{heading}</Card.Heading>
       )}
-      <Card.Content className={styles.careCardZeroMarginBottom}>{content}</Card.Content>
+      <div className={styles.careCardZeroMarginBottom}>{content}</div>
     </Card>
   );
 };

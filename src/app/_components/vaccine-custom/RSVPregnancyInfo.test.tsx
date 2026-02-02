@@ -18,7 +18,7 @@ describe("RSV Pregnancy Information", () => {
     );
 
     const recommendedBlock: HTMLElement | undefined = screen.getAllByRole("heading", { level: 2 }).at(0);
-    expect(recommendedBlock).toHaveClass("nhsuk-card--care__heading");
+    expect(recommendedBlock).toHaveClass("nhsuk-card__heading");
     expect(recommendedBlock?.innerHTML).toContain("The RSV vaccine is recommended if you:");
   });
 

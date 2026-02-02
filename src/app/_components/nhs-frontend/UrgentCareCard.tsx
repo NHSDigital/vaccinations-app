@@ -22,7 +22,7 @@ const UrgentCareCard = ({ heading, headingLevel, content }: NonUrgentCareCardPro
       ) : (
         <Card.Heading>{heading}</Card.Heading>
       )}
-      <Card.Content className={styles.careCardZeroMarginBottom}>{content}</Card.Content>
+      <div className={styles.careCardZeroMarginBottom}>{content}</div>
     </Card>
   );
 };
