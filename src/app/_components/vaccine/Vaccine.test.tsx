@@ -87,6 +87,7 @@ describe("Any vaccine page", () => {
   const mockedConfig = config as ConfigMock;
 
   beforeEach(() => {
+    jest.useFakeTimers().setSystemTime(new Date("2026-01-30T09:00:00Z"));
     const defaultConfig = configBuilder()
       .withCampaigns(
         Campaigns.fromJson(
