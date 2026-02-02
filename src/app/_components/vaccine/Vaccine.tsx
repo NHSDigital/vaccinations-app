@@ -34,6 +34,18 @@ const Vaccine = async ({ vaccineType }: VaccineProps) => {
   return await requestScopedStorageWrapper(VaccineComponent, { vaccineType });
 };
 
+const shouldShowHowToGetSection = async (
+  vaccineType: VaccineType,
+  isCampaignSupported: boolean,
+  isCampaignOpen: boolean,
+  isCampaignPreOpen: boolean,
+) => {
+  const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
+  const isCampaignClosedAndNotSupported = !isCampaignSupported || (!isCampaignOpen && !isCampaignPreOpen);
+
+  return vaccineInfo.removeHowToGetExpanderFromMoreInformationSection ? false : isCampaignClosedAndNotSupported;
+};
+
 const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
   profilePerformanceStart(VaccinePagePerformanceMarker);
 
@@ -44,10 +56,18 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
   const campaigns = await config.CAMPAIGNS;
   const isCampaignOpen: boolean = campaigns.isOpen(vaccineType, await getNow(await config.DEPLOY_ENVIRONMENT));
   const isCampaignPreOpen: boolean = campaigns.isPreOpen(vaccineType, await getNow(await config.DEPLOY_ENVIRONMENT));
+  const isCampaignSupported: boolean = campaigns.isSupported(vaccineType);
 
   let styledVaccineContent: StyledVaccineContent | undefined;
   let contentError: ContentErrorTypes | undefined;
   let eligibilityForPerson: EligibilityForPersonType | undefined;
+
+  const showHowToGetSection = await shouldShowHowToGetSection(
+    vaccineType,
+    isCampaignSupported,
+    isCampaignOpen,
+    isCampaignPreOpen,
+  );
 
   if (vaccineInfo.personalisedEligibilityStatusRequired) {
     [{ styledVaccineContent, contentError }, eligibilityForPerson] = await Promise.all([
@@ -116,7 +136,7 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
         <MoreInformation
           styledVaccineContent={styledVaccineContent}
           vaccineType={vaccineType}
-          isCampaignOpen={isCampaignOpen}
+          showHowToGetSection={showHowToGetSection}
         />
       ) : (
         <FindOutMoreLink findOutMoreUrl={vaccineInfo.nhsWebpageLink} vaccineType={vaccineType} />
@@ -126,3 +146,4 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
 };
 
 export default Vaccine;
+export { shouldShowHowToGetSection };

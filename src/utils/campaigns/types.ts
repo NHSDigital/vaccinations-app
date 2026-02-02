@@ -105,6 +105,12 @@ export class Campaigns {
     return campaigns.some((c) => date >= c.preStart && date < c.start);
   }
 
+  /** Check if a vaccine has campaigns */
+  isSupported(vaccine: VaccineType): boolean {
+    const campaigns = this.get(vaccine);
+    return campaigns.length > 0;
+  }
+
   /** Get a list of all vaccine names in the schedule */
   listVaccines(): VaccineType[] {
     return Object.keys(this.schedule) as VaccineType[];

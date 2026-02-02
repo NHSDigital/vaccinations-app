@@ -10,12 +10,9 @@ import React, { JSX } from "react";
 const MoreInformation = (props: {
   styledVaccineContent: StyledVaccineContent;
   vaccineType: VaccineType;
-  isCampaignOpen?: boolean;
+  showHowToGetSection: boolean;
 }): JSX.Element => {
   const vaccineInfo = VaccineInfo[props.vaccineType];
-  const showHowToGetExpander = vaccineInfo.removeHowToGetExpanderFromMoreInformationSection
-    ? false
-    : !props.isCampaignOpen;
 
   return (
     <>
@@ -45,7 +42,7 @@ const MoreInformation = (props: {
         </Details>
 
         {/* How-to-get-the-vaccine expandable section */}
-        {showHowToGetExpander && (
+        {props.showHowToGetSection && (
           <Details expander>
             <Details.Summary>
               {vaccineInfo.moreInformationHeadersFromContentApi

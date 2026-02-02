@@ -1,7 +1,7 @@
 import { auth } from "@project/auth";
 import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
 import { EligibilityVaccinePageContent } from "@src/app/_components/eligibility/EligibilityVaccinePageContent";
-import Vaccine from "@src/app/_components/vaccine/Vaccine";
+import Vaccine, { shouldShowHowToGetSection } from "@src/app/_components/vaccine/Vaccine";
 import { VaccineType } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
@@ -569,4 +569,25 @@ describe("Any vaccine page", () => {
       undefined,
     );
   };
+});
+
+describe("shouldShowHowToGetSection", () => {
+  it.each([
+    [VaccineType.TD_IPV_3_IN_1, false, false, false, true],
+    [VaccineType.VACCINE_6_IN_1, true, false, false, true],
+    [VaccineType.ROTAVIRUS, true, true, false, false],
+    [VaccineType.HPV, true, false, true, false],
+    [VaccineType.MENB_CHILDREN, false, true, false, true],
+    [VaccineType.MMR, false, false, true, true],
+    [VaccineType.RSV, false, false, false, false],
+    [VaccineType.RSV_PREGNANCY, false, true, false, false],
+    [VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, true, false, false, false],
+  ])(
+    `should decide if to show hotToGet Section for: %s, campaigns: %s, open: %s, preopen %s, expected: %s`,
+    async (vaccineType, isSupported, isOpen, isPreOpen, expected) => {
+      const actual = await shouldShowHowToGetSection(vaccineType, isSupported, isOpen, isPreOpen);
+
+      expect(actual).toBe(expected);
+    },
+  );
 });

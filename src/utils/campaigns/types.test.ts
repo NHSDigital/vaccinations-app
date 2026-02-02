@@ -13,6 +13,12 @@ describe("Campaigns", () => {
       { preStart: "2025-11-12T09:00:00+02:00", start: "2025-11-12T09:00:00+02:00", end: "2026-03-01T17:00:00Z" },
       { preStart: "2026-09-01T09:00:00Z", start: "2026-09-01T09:00:00Z", end: "2027-03-01T19:00:00+02:00" },
     ],
+    FLU_FOR_CHILDREN_AGED_2_TO_3: [
+      { preStart: "2025-11-30T09:00:00Z", start: "2025-11-30T09:00:00Z", end: "2026-03-31T17:00:00Z" },
+    ],
+    FLU_IN_PREGNANCY: [
+      { preStart: "2025-11-30T09:00:00Z", start: "2025-11-30T09:00:00Z", end: "2026-03-31T17:00:00Z" },
+    ],
   });
 
   it("should convert json to a Campaigns ", async () => {
@@ -72,7 +78,7 @@ describe("Campaigns", () => {
     it("should return false for vaccine with no campaign", () => {
       const campaigns = Campaigns.fromJson(jsonString)!;
 
-      const open = campaigns.isOpen(VaccineType.FLU_FOR_CHILDREN_AGED_2_TO_3);
+      const open = campaigns.isOpen(VaccineType.RSV);
 
       expect(open).toBe(false);
     });
@@ -119,6 +125,28 @@ describe("Campaigns", () => {
       const preOpen = campaigns.isPreOpen(VaccineType.FLU_FOR_CHILDREN_AGED_2_TO_3);
 
       expect(preOpen).toBe(false);
+    });
+  });
+
+  describe("isSupported", () => {
+    const campaigns = Campaigns.fromJson(jsonString)!;
+
+    it.each([
+      ["", VaccineType.COVID_19, true],
+      ["", VaccineType.FLU_FOR_ADULTS, true],
+      ["", VaccineType.FLU_IN_PREGNANCY, true],
+      ["", VaccineType.FLU_FOR_CHILDREN_AGED_2_TO_3, true],
+      ["not", VaccineType.RSV, false],
+      ["not", VaccineType.MMR, false],
+      ["not", VaccineType.VACCINE_4_IN_1, false],
+      ["not", VaccineType.MMRV, false],
+      ["not", VaccineType.VACCINE_6_IN_1, false],
+      ["not", VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, false],
+      ["not", VaccineType.MENACWY, false],
+    ])(`is %s supported for %s`, (_, vaccineType, expected) => {
+      const actual = campaigns.isSupported(vaccineType);
+
+      expect(actual).toBe(expected);
     });
   });
 
