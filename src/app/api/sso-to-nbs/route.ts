@@ -17,6 +17,7 @@ const ApiSSONBSPerformanceMarker = "api-sso-nbs";
 export const GET = async (request: NextRequest) => {
   const requestContext: RequestContext = extractRequestContextFromHeaders(request?.headers);
   await asyncLocalStorage.run(requestContext, async () => {
+    log.info("SSO-to-NBS route invoked");
     let shouldReturnNotFound: boolean;
     let finalRedirectUrl: string;
 
@@ -33,6 +34,7 @@ export const GET = async (request: NextRequest) => {
     profilePerformanceEnd(ApiSSONBSPerformanceMarker);
 
     if (shouldReturnNotFound) {
+      log.info("SSO-to-NBS route returning not found");
       notFound();
     } else redirect(finalRedirectUrl);
   });
