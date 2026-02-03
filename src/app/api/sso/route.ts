@@ -47,7 +47,7 @@ export const GET = async (request: NextRequest) => {
         httpOnly: true,
         secure: true,
         path: "/",
-        sameSite: "strict",
+        sameSite: "lax",
       });
 
       redirect(redirectUrl ?? SSO_FAILURE_ROUTE);
