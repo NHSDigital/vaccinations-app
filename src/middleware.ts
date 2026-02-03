@@ -19,7 +19,10 @@ export async function middleware(request: NextRequest) {
 
 const middlewareWrapper = async (request: NextRequest) => {
   profilePerformanceStart(MiddlewarePerformanceMarker);
-  log.info({ context: { nextUrl: request.nextUrl.href } }, "Inspecting request");
+  log.info(
+    { context: { nextUrl: request.nextUrl.href, headers: _getHeadersForLogging(request) } },
+    "Inspecting request",
+  );
 
   // Add URL to request headers to make available for logging in the nodejs layer
   const headers = new Headers(request.headers);
@@ -41,6 +44,23 @@ const middlewareWrapper = async (request: NextRequest) => {
 
   profilePerformanceEnd(MiddlewarePerformanceMarker);
   return response;
+};
+
+export const _getHeadersForLogging = (request: NextRequest) => {
+  const SAFE_HEADERS = [
+    "cache-control",
+    "cloudfront-is-desktop-viewer",
+    "cloudfront-is-mobile-viewer",
+    "cloudfront-is-tablet-viewer",
+    "referer",
+    "user-agent",
+  ];
+  const headersObj: Record<string, string> = {};
+  SAFE_HEADERS.forEach((header) => {
+    headersObj[header] = request.headers.get(header) ?? "-";
+  });
+
+  return headersObj;
 };
 
 export const config = {
