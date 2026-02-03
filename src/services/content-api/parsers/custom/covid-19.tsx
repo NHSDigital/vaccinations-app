@@ -51,7 +51,7 @@ async function _buildActions(): Promise<Action[]> {
     type: ActionDisplayType.nbsAuthLinkButtonWithInfo,
     content: [
       "### Book an appointment online",
-      "You can book an appointment online at some pharmacies, GP surgeries and vaccination centres",
+      "You can book an appointment online at some pharmacies, GP surgeries and vaccination centres.",
     ].join("\n\n") as Content,
     button: { label: "Book, cancel or change an appointment" as Label, url: nbsURL },
   };
