@@ -141,6 +141,7 @@ const AgeBasedHubInfo: Record<AgeGroup, AgeBasedHubDetails | undefined> = {
       { vaccineName: VaccineType.PNEUMOCOCCAL, cardLinkDescription: "65 years and over" },
       { vaccineName: VaccineType.FLU_FOR_ADULTS, cardLinkDescription: "65 years and over" },
       { vaccineName: VaccineType.SHINGLES, cardLinkDescription: "65 to 67 and 70 to 79 years" },
+      { vaccineName: VaccineType.COVID_19, cardLinkDescription: "If living in a care home for older adults" },
     ],
     showPregnancyHubContent: false,
   },

@@ -134,7 +134,7 @@ describe("AgeBasedHubInfo", () => {
     });
 
     it("has 3 vaccines", () => {
-      expect(info.vaccines).toHaveLength(3);
+      expect(info.vaccines).toHaveLength(4);
     });
 
     it("has correct vaccine names", () => {
@@ -142,6 +142,7 @@ describe("AgeBasedHubInfo", () => {
         VaccineType.PNEUMOCOCCAL,
         VaccineType.FLU_FOR_ADULTS,
         VaccineType.SHINGLES,
+        VaccineType.COVID_19,
       ]);
     });
 
