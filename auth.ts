@@ -9,7 +9,7 @@ import { AppConfig, configProvider } from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
-import { extractRequestContextFromHeaders } from "@src/utils/requestScopedStorageWrapper";
+import { extractRequestContextFromHeaders, setSessionIdOnRequestContext } from "@src/utils/requestScopedStorageWrapper";
 import NextAuth from "next-auth";
 import "next-auth/jwt";
 import { headers } from "next/headers";
@@ -46,6 +46,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
       trustHost: true,
       callbacks: {
         async signIn({ account }) {
+          log.info("signIn() callback invoked");
           let response: boolean;
           try {
             profilePerformanceStart(AuthSignInPerformanceMarker);
@@ -61,6 +62,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
         },
 
         async jwt({ token, account, profile }) {
+          log.info("jwt() callback invoked");
           let response;
           try {
             profilePerformanceStart(AuthJWTPerformanceMarker);
@@ -74,10 +76,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
         },
 
         async session({ session, token }) {
+          log.info("session() callback invoked");
           let response;
           try {
             profilePerformanceStart(AuthSessionPerformanceMarker);
             response = getUpdatedSession(session, token);
+            setSessionIdOnRequestContext(session.user.session_id ?? "unknown_session_id");
+            log.info("session() callback fetched session");
             profilePerformanceEnd(AuthSessionPerformanceMarker);
           } catch (error) {
             log.error({ error: error }, "session() callback error");
