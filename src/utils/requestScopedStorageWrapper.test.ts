@@ -26,12 +26,21 @@ describe("requestScopedStorageWrapper", () => {
     expect(wrappedFunction).toHaveBeenCalled();
   });
 
-  it("should store X-Amzn-Trace-Id header in asynclocalstorage available to the wrapped function", async () => {
+  it("should store X-Amzn-Trace-Id header without Root prefix in asynclocalstorage available to the wrapped function", async () => {
     const wrappedFunction = jest.fn().mockImplementation(() => {
       return asyncLocalStorage?.getStore()?.traceId;
     });
 
     const traceIdFromWrappedLocalStorage = await requestScopedStorageWrapper(wrappedFunction);
     expect(traceIdFromWrappedLocalStorage).toEqual("fake-X-Amzn-Trace-Id-header");
+  });
+
+  it("should store sessionId header in asynclocalstorage available to the wrapped function", async () => {
+    const wrappedFunction = jest.fn().mockImplementation(() => {
+      return asyncLocalStorage?.getStore()?.sessionId;
+    });
+
+    const sessionIdFromWrappedLocalStorage = await requestScopedStorageWrapper(wrappedFunction);
+    expect(sessionIdFromWrappedLocalStorage).toEqual("Root=fake-sessionId-header");
   });
 });

@@ -80,6 +80,7 @@ const pinoLoggerForNode = () => {
       return {
         traceId: asyncLocalStorage?.getStore()?.traceId,
         nextUrl: asyncLocalStorage?.getStore()?.nextUrl,
+        sessionId: asyncLocalStorage?.getStore()?.sessionId,
         ...applicationContextFields,
       };
     },
@@ -95,6 +96,7 @@ const pinoLoggerForEdge = () => {
         logEvent = {
           ...logEvent,
           traceId: asyncLocalStorage?.getStore()?.traceId,
+          sessionId: asyncLocalStorage?.getStore()?.sessionId,
           ...applicationContextFields,
         };
         if (logEvent.level === "error") {

@@ -18,7 +18,8 @@ async function requestScopedStorageWrapper<A extends unknown[]>(
 const extractRequestContextFromHeaders = (headers: Headers): RequestContext => {
   const traceId = extractRootTraceIdFromAmznTraceId(headers?.get("X-Amzn-Trace-Id") ?? "") ?? "undefined-request-id";
   const nextUrl = headers?.get("nextUrl") ?? "";
-  return { traceId: traceId, nextUrl: nextUrl };
+  const sessionId = headers?.get("sessionId") ?? "not-yet-loaded";
+  return { traceId: traceId, nextUrl: nextUrl, sessionId: sessionId };
 };
 
 export { requestScopedStorageWrapper, extractRequestContextFromHeaders };

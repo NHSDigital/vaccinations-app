@@ -25,6 +25,9 @@ jest.mock("jwt-decode");
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("getToken", () => {
+  const mockRandomUUID = "mock-random-uuid";
+  let randomUUIDSpy: jest.SpyInstance;
+
   beforeAll(async () => {
     const fakeHeaders: ReadonlyHeaders = {
       get(name: string): string | null {
@@ -45,6 +48,8 @@ describe("getToken", () => {
   const nowInSeconds = 1749052001;
 
   beforeEach(() => {
+    randomUUIDSpy = jest.spyOn(global.crypto, "randomUUID").mockReturnValue(mockRandomUUID);
+
     jest.clearAllMocks();
     jest.useFakeTimers().setSystemTime(nowInSeconds * 1000);
     process.env.NEXT_RUNTIME = "nodejs";
@@ -56,6 +61,7 @@ describe("getToken", () => {
   });
 
   afterAll(() => {
+    randomUUIDSpy.mockRestore();
     jest.useRealTimers();
   });
 
@@ -104,6 +110,7 @@ describe("getToken", () => {
           access_token: "new-apim-access-token",
           expires_at: nowInSeconds + 1111,
         },
+        sessionId: mockRandomUUID,
         fixedExpiry: nowInSeconds + maxAgeInSeconds,
       });
     });
@@ -133,6 +140,7 @@ describe("getToken", () => {
           access_token: "",
           expires_at: 0,
         },
+        sessionId: mockRandomUUID,
         fixedExpiry: nowInSeconds + maxAgeInSeconds,
       });
     });
@@ -159,6 +167,7 @@ describe("getToken", () => {
           access_token: "",
           expires_at: 0,
         },
+        sessionId: "",
       });
     });
 
@@ -207,6 +216,7 @@ describe("getToken", () => {
           access_token: "",
           expires_at: 0,
         },
+        sessionId: mockRandomUUID,
         fixedExpiry: nowInSeconds + maxAgeInSeconds,
       });
     });
@@ -249,6 +259,7 @@ describe("getToken", () => {
           access_token: "",
           expires_at: 0,
         },
+        sessionId: mockRandomUUID,
         fixedExpiry: nowInSeconds + maxAgeInSeconds,
       });
     });

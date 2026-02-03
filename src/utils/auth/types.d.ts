@@ -43,6 +43,7 @@ declare module "next-auth" {
   interface Session {
     user: {
       nhs_number: NhsNumber;
+      session_id?: string;
     } & DefaultSession["user"];
   }
 
@@ -63,6 +64,7 @@ declare module "next-auth/jwt" {
       access_token: AccessToken;
       expires_at: ExpiresAt;
     };
+    sessionId: string;
     fixedExpiry: number;
   }
 }
