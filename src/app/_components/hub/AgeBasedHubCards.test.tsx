@@ -84,22 +84,14 @@ describe("Age based hub cards", () => {
   );
 
   it.each(testData.filter((value) => value.expectedVaccines.length == 0))(
-    "should render static texts when no routine vaccines for $ageGroup",
+    "should render static text when no routine vaccines for $ageGroup",
     async ({ ageGroup }) => {
       render(<AgeBasedHubCards ageGroup={ageGroup} />);
 
-      const para1: HTMLElement = screen.getByText("There are no routine vaccines for your age group.", {
+      const paragraph: HTMLElement = screen.getByText("There are no routine vaccines for your age group.", {
         exact: true,
       });
-      expect(para1).toBeVisible();
-
-      const para2: HTMLElement = screen.getByText(
-        "People in this age group should make sure they're up to date with their NHS vaccinations. If you think you've missed any vaccines, contact your GP to catch up.",
-        {
-          exact: true,
-        },
-      );
-      expect(para2).toBeVisible();
+      expect(paragraph).toBeVisible();
     },
   );
 

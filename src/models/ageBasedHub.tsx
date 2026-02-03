@@ -36,10 +36,13 @@ const AgeBasedHubInfo: Record<AgeGroup, AgeBasedHubDetails | undefined> = {
     showPregnancyHubContent: true,
     styledWarningCallout: (
       <HubWarningCallout
-        heading={"Important"}
+        heading={"Are you up to date?"}
         content={
           <>
-            <p>You can ask your GP about getting vaccines you might have missed. Make sure you&#39;ve had:</p>
+            <p>
+              People in this age group should make sure they&#39;re up to date with their vaccinations. You can ask your
+              GP about getting vaccines you might have missed. Make sure you&#39;ve had:
+            </p>
             <ul style={{ marginBottom: 0 }}>
               <li>
                 2 doses of the{" "}
@@ -97,10 +100,13 @@ const AgeBasedHubInfo: Record<AgeGroup, AgeBasedHubDetails | undefined> = {
     showPregnancyHubContent: true,
     styledWarningCallout: (
       <HubWarningCallout
-        heading={"Important"}
+        heading={"Are you up to date?"}
         content={
           <>
-            <p>You can ask your GP about getting vaccines you might have missed. Make sure you&#39;ve had:</p>
+            <p>
+              People in this age group should make sure they&#39;re up to date with their vaccinations. You can ask your
+              GP about getting vaccines you might have missed. Make sure you&#39;ve had:
+            </p>
             <ul style={{ marginBottom: 0 }}>
               <li>
                 2 doses of the{" "}
@@ -121,8 +127,7 @@ const AgeBasedHubInfo: Record<AgeGroup, AgeBasedHubDetails | undefined> = {
                 >
                   Td/IPV vaccine
                 </TransitionLink>{" "}
-                (also called the 3-in-1 teenage booster) - which protects against tetanus, diphtheria and polio. You can
-                ask for this at any age.
+                - which protects against tetanus, diphtheria and polio. You can ask for this at any age.
               </li>
             </ul>
           </>
