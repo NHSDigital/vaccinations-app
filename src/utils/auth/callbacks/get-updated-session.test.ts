@@ -26,20 +26,17 @@ describe("getSession", () => {
         access_token: "test-access-token" as AccessToken,
         expires_at: 0 as ExpiresAt,
       },
-      sessionId: "test-session-id",
     } as JWT;
 
     const result: Session = getUpdatedSession(session, token);
 
     expect(result.user.nhs_number).toBe("test-nhs-number");
-    expect(result.user.session_id).toBe("test-session-id");
   });
 
   it("does not update session if token.user is missing", () => {
     const session: Session = {
       user: {
         nhs_number: "old-nhs-number" as NhsNumber,
-        session_id: "old-session-id",
       },
       expires: "some-date",
     };
@@ -49,7 +46,6 @@ describe("getSession", () => {
     const result: Session = getUpdatedSession(session, token);
 
     expect(result.user.nhs_number).toBe("old-nhs-number");
-    expect(result.user.session_id).toBe("old-session-id");
   });
 
   it("does not update session if session.user is missing", () => {

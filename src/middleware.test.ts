@@ -5,6 +5,8 @@ import { auth } from "@project/auth";
 import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
 import { _getHeadersForLogging, config, middleware } from "@src/middleware";
 import { AppConfig, configProvider } from "@src/utils/config";
+import { SESSION_ID_COOKIE_NAME } from "@src/utils/requestScopedStorageWrapper";
+import { RequestCookies } from "next/dist/compiled/@edge-runtime/cookies";
 import { NextRequest } from "next/server";
 
 jest.mock("@project/auth", () => ({
@@ -24,6 +26,9 @@ function getMockRequest(testUrl: string) {
     ["X-Clacks-Overhead", "GNU Terry Pratchett"],
     ["referer", "testing"],
   ]);
+
+  const cookies: RequestCookies = new RequestCookies(headers).set(SESSION_ID_COOKIE_NAME, "session-id-value");
+
   return {
     nextUrl: {
       origin: new URL(testUrl).origin,
@@ -31,6 +36,7 @@ function getMockRequest(testUrl: string) {
     },
     url: testUrl,
     headers: headers,
+    cookies: cookies,
   };
 }
 

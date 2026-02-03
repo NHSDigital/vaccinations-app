@@ -10,6 +10,7 @@ jest.mock("@src/services/content-api/content-service");
 jest.mock("@src/app/_components/nhs-app/BackToNHSAppLink");
 jest.mock("next/headers", () => ({
   headers: jest.fn(),
+  cookies: jest.fn(),
 }));
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
