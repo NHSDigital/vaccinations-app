@@ -2,16 +2,26 @@ const AtRiskText = () => {
   return (
     <>
       <p> There are additional vaccines available for some people.</p>
+
       <h3 className="nhsuk-heading-xs nhsuk-u-margin-bottom-0">At-risk babies and children</h3>
       <p> Speak to your GP or health visitor.</p>
+
       <h3 className="nhsuk-heading-xs nhsuk-u-margin-bottom-0">Long-term health conditions</h3>
       <p>
-        Speak to your GP or{" "}
+        People with certain long-term health conditions or receiving certain treatments are recommended to have some
+        extra vaccines. Speak to your GP or{" "}
         <a href={"https://www.nhs.uk/service-search/pharmacy/find-a-pharmacy/"} target="_blank" rel="noopener">
           pharmacy
         </a>{" "}
         about what vaccinations you might need.
       </p>
+
+      <h3 className="nhsuk-heading-xs nhsuk-u-margin-bottom-0">Care homes for older adults</h3>
+      <p>
+        Speak to your GP or a member of staff where you live about what vaccinations you might need if you are living in
+        a care home for older adults.
+      </p>
+
       <h3 className="nhsuk-heading-xs nhsuk-u-margin-bottom-0">Sexual health</h3>
       <p>
         {" "}
@@ -26,6 +36,7 @@ const AtRiskText = () => {
         </a>
         .
       </p>
+
       <h3 className="nhsuk-heading-xs nhsuk-u-margin-bottom-0">Travel</h3>
       <p>
         {" "}
@@ -34,8 +45,9 @@ const AtRiskText = () => {
           travel outside the UK
         </a>
         , you may need to be vaccinated against some of the serious diseases found in other parts of the world. Speak to
-        your GP.
+        your travel vaccination provider.
       </p>
+
       <h3 className="nhsuk-heading-xs nhsuk-u-margin-bottom-0">Occupation</h3>
       <p> Check with your employer about what vaccinations you might need.</p>
     </>

@@ -36,7 +36,9 @@ describe("AtRiskText", () => {
     render(<AtRiskText />);
 
     const heading: HTMLElement = screen.getByRole("heading", { name: "Long-term health conditions", level: 3 });
-    const descriptionTextBelow1: HTMLElement = screen.getAllByText(/Speak to your GP or/i)[1];
+    const descriptionTextBelow1: HTMLElement = screen.getByText(
+      /People with certain long-term health conditions or receiving certain/i,
+    );
     const descriptionTextBelow2: HTMLElement = screen.getAllByText(/about what vaccinations you might need./i)[0];
 
     expect(heading).toBeVisible();
@@ -55,6 +57,16 @@ describe("AtRiskText", () => {
     expect(webpageLink).toHaveAttribute("href", "https://www.nhs.uk/service-search/pharmacy/find-a-pharmacy/");
     expect(webpageLink).toHaveAttribute("target", "_blank");
     expect(webpageLink).toHaveAttribute("rel", "noopener");
+  });
+
+  it("should display Care homes for older adults heading and its description", () => {
+    render(<AtRiskText />);
+
+    const heading: HTMLElement = screen.getByRole("heading", { name: "Care homes for older adults", level: 3 });
+    const descriptionTextBelow: HTMLElement = screen.getByText(/Speak to your GP or a member of staff where/i);
+
+    expect(heading).toBeVisible();
+    expect(descriptionTextBelow).toBeVisible();
   });
 
   it("should display sexual health heading and its link in the text below", () => {
