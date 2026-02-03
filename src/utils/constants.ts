@@ -6,3 +6,5 @@ export enum ClientSideErrorTypes {
   UNHANDLED_ERROR_DURING_RENDER = "UNHANDLED_ERROR_DURING_RENDER",
   UNKNOWN_ERROR_REASON = "UNKNOWN_ERROR_REASON",
 }
+
+export const SESSION_ID_COOKIE_NAME = "__Host-Http-session-id";
