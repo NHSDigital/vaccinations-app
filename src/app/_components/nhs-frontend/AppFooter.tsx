@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import React from "react";
 
 import { TransitionLink } from "../navigation/TransitionLink";
@@ -13,13 +14,14 @@ const AppFooter = () => {
           <h2 className="nhsuk-u-visually-hidden">Support links</h2>
           <ul className="nhsuk-footer__list">
             <li className="nhsuk-footer__list-item">
-              <TransitionLink
+              <Link
+                prefetch={false}
                 className="nhsuk-footer__list-item-link"
                 href="https://www.nhs.uk/nhs-app/nhs-app-help-and-support/vaccinations/check-and-book-an-rsv-vaccination"
                 target={"_blank"}
               >
                 Help and support
-              </TransitionLink>
+              </Link>
             </li>
             <li className="nhsuk-footer__list-item">
               <TransitionLink className="nhsuk-footer__list-item-link" href="/our-policies/cookies-policy">
@@ -27,13 +29,14 @@ const AppFooter = () => {
               </TransitionLink>
             </li>
             <li className="nhsuk-footer__list-item">
-              <TransitionLink
+              <Link
+                prefetch={false}
                 className="nhsuk-footer__list-item-link"
                 href="https://www.england.nhs.uk/contact-us/privacy-notice/national-flu-vaccination-programme/"
                 target={"_blank"}
               >
                 Privacy policy
-              </TransitionLink>
+              </Link>
             </li>
             <li className="nhsuk-footer__list-item">
               <TransitionLink className="nhsuk-footer__list-item-link" href="/our-policies/accessibility">
