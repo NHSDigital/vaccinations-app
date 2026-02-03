@@ -26,7 +26,7 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
   const recommendation: HeadingWithContent = {
     heading: "The COVID-19 vaccine is recommended if you:",
     content: [
-      "* are aged 75 or over (including those who will be 75 by 31 January 2026)",
+      "* are aged 75 or over",
       "* are aged 6 months to 74 years and have a weakened immune system because of a health condition or treatment",
       "* live in a care home for older adults",
     ].join("\n"),
@@ -49,8 +49,11 @@ async function _buildActions(): Promise<Action[]> {
   };
   const nbsBooking: ActionWithButton = {
     type: ActionDisplayType.nbsAuthLinkButtonWithInfo,
-    content: "### Book an appointment online" as Content,
-    button: { label: "Continue to booking" as Label, url: nbsURL },
+    content: [
+      "### Book an appointment online",
+      "You can book an appointment online at some pharmacies, GP surgeries and vaccination centres",
+    ].join("\n\n") as Content,
+    button: { label: "Book, cancel or change an appointment" as Label, url: nbsURL },
   };
   const walkIn: ActionWithButton = {
     type: ActionDisplayType.actionLinkWithInfo,
