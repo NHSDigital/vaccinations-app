@@ -17,11 +17,13 @@ const ApiSSOPerformanceMarker = "api-sso";
 export const GET = async (request: NextRequest) => {
   const requestContext: RequestContext = extractRequestContextFromHeadersAndCookies(request?.headers, request?.cookies);
 
+  const newSessionId = crypto.randomUUID();
+  requestContext.sessionId = newSessionId;
+
   await asyncLocalStorage.run(requestContext, async () => {
     log.info("SSO route invoked");
     const assertedLoginIdentity: string | null = request.nextUrl.searchParams.get(ASSERTED_LOGIN_IDENTITY_PARAM);
 
-    const sessionId = crypto.randomUUID();
     const config: AppConfig = await configProvider();
     const MAX_SESSION_AGE_MILLISECONDS: number = config.MAX_SESSION_AGE_MINUTES * 60 * 1000;
 
@@ -40,7 +42,7 @@ export const GET = async (request: NextRequest) => {
       }
 
       const cookieStore = await cookies();
-      cookieStore.set("__Host-Http-session-id", sessionId, {
+      cookieStore.set("__Host-Http-session-id", newSessionId, {
         expires: Date.now() + MAX_SESSION_AGE_MILLISECONDS,
         httpOnly: true,
         secure: true,
