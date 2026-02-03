@@ -1,10 +1,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { createContext, useContext, useTransition } from "react";
+import { createContext, useContext, useState, useTransition } from "react";
 
 type NavigationContextType = {
   navigate: (href: string) => void;
+  pendingUrl: string | null;
   isPending: boolean;
 };
 
@@ -13,16 +14,23 @@ const NavigationContext = createContext<NavigationContextType | null>(null);
 const NavigationProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [pendingUrl, setPendingUrl] = useState<string | null>(null);
 
   const navigate = (href: string) => {
-    if (isPending) return;
+    if (isPending && pendingUrl === href) return;
+
+    setPendingUrl(href);
 
     startTransition(() => {
       router.push(href);
     });
   };
 
-  return <NavigationContext.Provider value={{ navigate, isPending }}>{children}</NavigationContext.Provider>;
+  return (
+    <NavigationContext.Provider value={{ navigate, isPending, pendingUrl: isPending ? pendingUrl : null }}>
+      {children}
+    </NavigationContext.Provider>
+  );
 };
 
 const useNavigationTransition = () => {

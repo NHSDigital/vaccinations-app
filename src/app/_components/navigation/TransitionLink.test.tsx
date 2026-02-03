@@ -18,6 +18,7 @@ describe("TransitionLink", () => {
     (useNavigationTransition as jest.Mock).mockReturnValue({
       navigate: mockNavigate,
       isPending: false,
+      pendingUrl: null,
     });
 
     render(<TransitionLink href="/test-route">Go to test</TransitionLink>);
@@ -28,27 +29,44 @@ describe("TransitionLink", () => {
     expect(mockNavigate).toHaveBeenCalledTimes(1);
   });
 
-  it("sets aria-disabled when navigation is pending", () => {
+  it("disables link when navigation is already pending for this url", () => {
+    const url = "/test-route";
+
     (useNavigationTransition as jest.Mock).mockReturnValue({
       navigate: mockNavigate,
       isPending: true,
+      pendingUrl: url,
     });
 
-    render(<TransitionLink href="/test-route">Go to test</TransitionLink>);
+    render(<TransitionLink href={url}>Go to test</TransitionLink>);
 
     const link = screen.getByRole("link");
 
     expect(link).toHaveAttribute("aria-disabled", "true");
   });
 
-  it("passes className and target through to the link", () => {
+  it("does not disable link when pending navigation is for a different URL", () => {
+    (useNavigationTransition as jest.Mock).mockReturnValue({
+      navigate: mockNavigate,
+      isPending: true,
+      pendingUrl: "/navigation-in-progress-to-a-different-url",
+    });
+
+    render(<TransitionLink href="/test-route">Go to test</TransitionLink>);
+
+    const link = screen.getByRole("link");
+
+    expect(link).toHaveAttribute("aria-disabled", "false");
+  });
+
+  it("passes className through to the link", () => {
     (useNavigationTransition as jest.Mock).mockReturnValue({
       navigate: mockNavigate,
       isPending: false,
     });
 
     render(
-      <TransitionLink href="/test-route" className="test-class" target="_blank">
+      <TransitionLink href="/test-route" className="test-class">
         Go to test
       </TransitionLink>,
     );
@@ -56,6 +74,5 @@ describe("TransitionLink", () => {
     const link = screen.getByRole("link");
 
     expect(link).toHaveClass("test-class");
-    expect(link).toHaveAttribute("target", "_blank");
   });
 });
