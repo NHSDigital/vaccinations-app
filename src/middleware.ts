@@ -17,6 +17,13 @@ export async function middleware(request: NextRequest) {
   return await asyncLocalStorage.run(requestContext, () => middlewareWrapper(request));
 }
 
+const setSessionIdOnRequestContext = (sessionId: string) => {
+  const requestContext = asyncLocalStorage.getStore();
+  if (requestContext) {
+    requestContext.sessionId = sessionId;
+  }
+};
+
 const middlewareWrapper = async (request: NextRequest) => {
   profilePerformanceStart(MiddlewarePerformanceMarker);
   log.info(
@@ -37,6 +44,9 @@ const middlewareWrapper = async (request: NextRequest) => {
     response = NextResponse.redirect(new URL(config.NHS_APP_REDIRECT_LOGIN_URL));
     response.headers.set("Cache-Control", "no-cache, no-store, max-age=0, must-revalidate");
   } else {
+    setSessionIdOnRequestContext(session.user.session_id ?? "unknown_session_id");
+    headers.set("sessionId", session.user.session_id ?? "unknown_session_id");
+    log.info({ context: { nextUrl: request.nextUrl.href } }, "Session found for request");
     response = NextResponse.next({
       request: { headers: headers },
     });

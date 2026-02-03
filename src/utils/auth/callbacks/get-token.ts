@@ -97,6 +97,7 @@ const fillMissingFieldsInTokenWithDefaultValues = (token: JWT, apimAccessCredent
       access_token: (apimAccessCredentials ? apimAccessCredentials.accessToken : token.apim?.access_token) ?? "",
       expires_at: (apimAccessCredentials ? apimAccessCredentials.expiresAt : token.apim?.expires_at) ?? 0,
     },
+    sessionId: token.sessionId ?? "",
   };
 };
 
@@ -111,6 +112,8 @@ const updateTokenWithValuesFromAccountAndProfile = (
   nowInSeconds: NowInSeconds,
   maxAgeInSeconds: MaxAgeInSeconds,
 ) => {
+  const sessionId = crypto.randomUUID();
+
   const updatedToken: JWT = {
     ...token,
     user: {
@@ -119,6 +122,7 @@ const updateTokenWithValuesFromAccountAndProfile = (
     nhs_login: {
       id_token: (account.id_token ?? "") as IdToken,
     },
+    sessionId: sessionId,
     fixedExpiry: nowInSeconds + maxAgeInSeconds,
   };
 
