@@ -22,4 +22,11 @@ const extractRequestContextFromHeaders = (headers: Headers): RequestContext => {
   return { traceId: traceId, nextUrl: nextUrl, sessionId: sessionId };
 };
 
-export { requestScopedStorageWrapper, extractRequestContextFromHeaders };
+const setSessionIdOnRequestContext = (sessionId: string) => {
+  const requestContext = asyncLocalStorage.getStore();
+  if (requestContext) {
+    requestContext.sessionId = sessionId;
+  }
+};
+
+export { requestScopedStorageWrapper, extractRequestContextFromHeaders, setSessionIdOnRequestContext };
