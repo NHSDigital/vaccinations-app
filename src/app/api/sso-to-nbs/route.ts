@@ -5,7 +5,7 @@ import { logger } from "@src/utils/logger";
 import { getVaccineTypeFromLowercaseString } from "@src/utils/path";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
-import { extractRequestContextFromHeaders } from "@src/utils/requestScopedStorageWrapper";
+import { extractRequestContextFromHeadersAndCookies } from "@src/utils/requestScopedStorageWrapper";
 import { notFound, redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
@@ -15,7 +15,7 @@ const REDIRECT_TARGET_PARAM = "redirectTarget";
 const ApiSSONBSPerformanceMarker = "api-sso-nbs";
 
 export const GET = async (request: NextRequest) => {
-  const requestContext: RequestContext = extractRequestContextFromHeaders(request?.headers);
+  const requestContext: RequestContext = extractRequestContextFromHeadersAndCookies(request?.headers, request?.cookies);
   await asyncLocalStorage.run(requestContext, async () => {
     log.info("SSO-to-NBS route invoked");
     let shouldReturnNotFound: boolean;
