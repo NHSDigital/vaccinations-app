@@ -37,7 +37,6 @@ const middlewareWrapper = async (request: NextRequest) => {
     response = NextResponse.redirect(new URL(config.NHS_APP_REDIRECT_LOGIN_URL));
     response.headers.set("Cache-Control", "no-cache, no-store, max-age=0, must-revalidate");
   } else {
-    log.info({ context: { nextUrl: request.nextUrl.href } }, "Session found for request");
     response = NextResponse.next({
       request: { headers: headers },
     });
