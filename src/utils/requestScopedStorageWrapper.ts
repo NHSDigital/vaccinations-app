@@ -1,11 +1,10 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
+import { SESSION_ID_COOKIE_NAME } from "@src/utils/constants";
 import { extractRootTraceIdFromAmznTraceId } from "@src/utils/logger";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
 import { RequestCookies } from "next/dist/compiled/@edge-runtime/cookies";
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { cookies, headers } from "next/headers";
-
-export const SESSION_ID_COOKIE_NAME = "__Host-Http-session-id";
 
 async function requestScopedStorageWrapper<A extends unknown[]>(
   wrappedFunction: (...args: A) => Promise<any>,

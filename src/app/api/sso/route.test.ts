@@ -1,7 +1,7 @@
 import { signIn } from "@project/auth";
 import { GET } from "@src/app/api/sso/route";
 import { AppConfig, configProvider } from "@src/utils/config";
-import { SESSION_ID_COOKIE_NAME } from "@src/utils/requestScopedStorageWrapper";
+import { SESSION_ID_COOKIE_NAME } from "@src/utils/constants";
 import { RequestCookies } from "next/dist/compiled/@edge-runtime/cookies";
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 import { cookies, headers } from "next/headers";
