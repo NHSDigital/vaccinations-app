@@ -45,7 +45,7 @@ locals {
     AUTH_TRUST_HOST = "true"
     APP_VERSION     = local.app_version
 
-    NBS_URL          = "https://www.nhswebsite-staging.nhs.uk/nbs"
+    NBS_URL          = "${module.deploy_fake_api.application_url}/nbs"
     NBS_BOOKING_PATH = "/nhs-app/vita"
 
     SSM_PARAMETER_STORE_TTL                = 300
