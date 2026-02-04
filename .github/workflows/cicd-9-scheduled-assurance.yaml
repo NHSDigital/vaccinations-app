@@ -19,7 +19,7 @@ jobs:
   ##########################################################
 
   run-elid-api-tests:
-    name: "EliD API tests (preprod)"
+    name: "Setup EliD with VitA config API tests (preprod)"
     uses: NHSDigital/eligibility-signposting-api-regression-tests/.github/workflows/my-vaccs-int-tests.yml@main
     secrets:
       ELID_PREPROD_AWS_ACCOUNT_ID: ${{ secrets.ELID_PREPROD_AWS_ACCOUNT_ID }}
