@@ -22,7 +22,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
           <collectionProp name="Arguments.arguments">
             <elementProp name="Threads" elementType="Argument">
               <stringProp name="Argument.name">Threads</stringProp>
@@ -61,7 +61,7 @@
           <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
         </ConfigTestElement>
         <hashTree/>
-        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
           <collectionProp name="HeaderManager.headers">
             <elementProp name="accept" elementType="Header">
               <stringProp name="Header.name">Accept</stringProp>
@@ -221,7 +221,7 @@
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Vaccine page journey"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Vaccine page journey" enabled="true"/>
         <hashTree>
           <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler - calc 5% weight pregnancy journey" enabled="true">
             <stringProp name="cacheKey">true</stringProp>
@@ -238,11 +238,11 @@ else {
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
           <hashTree/>
-          <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="Switch Controller (AllAges:Pregnancy)">
+          <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="Switch Controller (AllAges:Pregnancy)" enabled="true">
             <stringProp name="SwitchController.value">${JOURNEY_SWITCH_VALUE}</stringProp>
           </SwitchController>
           <hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="All Ages Journey"/>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="All Ages Journey" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines-for-all-ages" enabled="true">
                 <stringProp name="HTTPSampler.path">vaccines-for-all-ages</stringProp>
@@ -266,11 +266,11 @@ else {
                 </ResponseAssertion>
                 <hashTree/>
               </hashTree>
-              <RandomController guiclass="RandomControlGui" testclass="RandomController" testname="Random Switch (Standard Vaccine Pages)">
+              <RandomController guiclass="RandomControlGui" testclass="RandomController" testname="Random Switch (Standard Vaccine Pages)" enabled="true">
                 <intProp name="InterleaveControl.style">1</intProp>
               </RandomController>
               <hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/rsv">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/rsv" enabled="true">
                   <stringProp name="HTTPSampler.path">vaccines/rsv</stringProp>
                   <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                   <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -374,7 +374,7 @@ else {
                   </RegexExtractor>
                   <hashTree/>
                 </hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/covid-19-vaccine">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/covid-19-vaccine" enabled="true">
                   <stringProp name="HTTPSampler.path">vaccines/covid-19-vaccine</stringProp>
                   <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                   <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -407,7 +407,7 @@ else {
                   </RegexExtractor>
                   <hashTree/>
                 </hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/flu-vaccine">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/flu-vaccine" enabled="true">
                   <stringProp name="HTTPSampler.path">vaccines/flu-vaccine</stringProp>
                   <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                   <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -440,7 +440,7 @@ else {
                   </RegexExtractor>
                   <hashTree/>
                 </hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/flu-vaccine-for-school-aged-children">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/flu-vaccine-for-school-aged-children" enabled="true">
                   <stringProp name="HTTPSampler.path">vaccines/flu-vaccine-for-school-aged-children</stringProp>
                   <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                   <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -462,7 +462,7 @@ else {
                   </ResponseAssertion>
                   <hashTree/>
                 </hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/flu-vaccine-for-children">
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines/flu-vaccine-for-children" enabled="true">
                   <stringProp name="HTTPSampler.path">vaccines/flu-vaccine-for-children</stringProp>
                   <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
                   <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -706,7 +706,7 @@ else {
                 </hashTree>
               </hashTree>
             </hashTree>
-            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Pregnancy Journey"/>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Pregnancy Journey" enabled="true"/>
             <hashTree>
               <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="vaccines-during-pregnancy" enabled="true">
                 <stringProp name="HTTPSampler.path">vaccines-during-pregnancy</stringProp>
@@ -916,7 +916,7 @@ else {
             <hashTree/>
           </hashTree>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
           <boolProp name="ResultCollector.error_logging">true</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -954,7 +954,7 @@ else {
           <stringProp name="TestPlan.comments">${Location}/${__groovy(&quot;${__TestPlanName}&quot;.replace(&quot;.jmx&quot;\,&quot;&quot;),)}_${Threads}Users_${__time(yyyyMMdd_HHmm,)}_errors.xml</stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
