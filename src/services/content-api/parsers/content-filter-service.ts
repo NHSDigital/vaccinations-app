@@ -1,6 +1,6 @@
 import { VaccineType } from "@src/models/vaccine";
 import { buildFilteredContentForCovid19Vaccine } from "@src/services/content-api/parsers/custom/covid-19";
-import { buildFilteredContentForFluForChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-children";
+import { buildFilteredContentForFluForChildrenAged2to3 } from "@src/services/content-api/parsers/custom/flu-for-children-aged-2-to-3";
 import { buildFilteredContentForFluForSchoolAgedChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-school-aged-children";
 import { buildFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
 import { buildFilteredContentForFluVaccine } from "@src/services/content-api/parsers/custom/flu-vaccine";
@@ -240,7 +240,7 @@ const getFilteredContentForVaccine = async (
     [VaccineType.WHOOPING_COUGH, buildFilteredContentForWhoopingCoughVaccine],
     [VaccineType.FLU_IN_PREGNANCY, buildFilteredContentForFluInPregnancyVaccine],
     [VaccineType.FLU_FOR_ADULTS, buildFilteredContentForFluVaccine],
-    [VaccineType.FLU_FOR_CHILDREN_AGED_2_TO_3, buildFilteredContentForFluForChildrenVaccine],
+    [VaccineType.FLU_FOR_CHILDREN_AGED_2_TO_3, buildFilteredContentForFluForChildrenAged2to3],
     [VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, buildFilteredContentForFluForSchoolAgedChildrenVaccine],
     [VaccineType.COVID_19, buildFilteredContentForCovid19Vaccine],
     [VaccineType.MMRV, buildFilteredContentForMMRandMMRVVaccines],

@@ -10,7 +10,9 @@ import {
   Label,
 } from "@src/services/eligibility-api/types";
 
-export const buildFilteredContentForFluForChildrenVaccine = async (apiContent: string): Promise<VaccinePageContent> => {
+export const buildFilteredContentForFluForChildrenAged2to3 = async (
+  apiContent: string,
+): Promise<VaccinePageContent> => {
   const standardFilteredContent = await buildFilteredContentForStandardVaccine(apiContent);
 
   const callout: HeadingWithTypedContent = {
@@ -41,9 +43,12 @@ async function _buildActions(): Promise<Action[]> {
 
   const bookOnline: ActionWithButton = {
     type: ActionDisplayType.buttonWithoutAuthLinkWithInfo,
-    content: "### Book an appointment online" as Content,
+    content: [
+      "### Book an appointment online",
+      "You can book an appointment online at some pharmacies, GP surgeries and vaccination centres.",
+    ].join("\n\n") as Content,
     button: {
-      label: "Continue to booking" as Label,
+      label: "Book, cancel or change an appointment" as Label,
       url: new URL(
         "https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-flu-vaccination/",
       ) as ButtonUrl,

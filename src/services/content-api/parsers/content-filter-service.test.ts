@@ -10,7 +10,7 @@ import {
   removeExcludedHyperlinks,
 } from "@src/services/content-api/parsers/content-filter-service";
 import { buildFilteredContentForCovid19Vaccine } from "@src/services/content-api/parsers/custom/covid-19";
-import { buildFilteredContentForFluForChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-children";
+import { buildFilteredContentForFluForChildrenAged2to3 } from "@src/services/content-api/parsers/custom/flu-for-children-aged-2-to-3";
 import { buildFilteredContentForFluForSchoolAgedChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-school-aged-children";
 import { buildFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
 import { buildFilteredContentForFluVaccine } from "@src/services/content-api/parsers/custom/flu-vaccine";
@@ -30,7 +30,7 @@ import { contentWithoutBenefitsHealthAspect, contentWithoutCallout } from "@test
 jest.mock("@src/services/content-api/parsers/custom/whooping-cough");
 jest.mock("@src/services/content-api/parsers/custom/flu-in-pregnancy");
 jest.mock("@src/services/content-api/parsers/custom/flu-vaccine");
-jest.mock("@src/services/content-api/parsers/custom/flu-for-children");
+jest.mock("@src/services/content-api/parsers/custom/flu-for-children-aged-2-to-3");
 jest.mock("@src/services/content-api/parsers/custom/flu-for-school-aged-children");
 jest.mock("@src/services/content-api/parsers/custom/covid-19");
 jest.mock("@src/services/content-api/parsers/custom/mmr-and-mmrv");
@@ -783,7 +783,7 @@ describe("Content Filter", () => {
 
         await getFilteredContentForVaccine(VaccineType.FLU_FOR_CHILDREN_AGED_2_TO_3, mockApiContent);
 
-        expect(buildFilteredContentForFluForChildrenVaccine).toHaveBeenCalledWith(mockApiContent);
+        expect(buildFilteredContentForFluForChildrenAged2to3).toHaveBeenCalledWith(mockApiContent);
       });
 
       it("should return standard vaccine content and recommendation for school aged children's flu vaccine", async () => {

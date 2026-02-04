@@ -1,4 +1,4 @@
-import { buildFilteredContentForFluForChildrenVaccine } from "@src/services/content-api/parsers/custom/flu-for-children";
+import { buildFilteredContentForFluForChildrenAged2to3 } from "@src/services/content-api/parsers/custom/flu-for-children-aged-2-to-3";
 import { ActionDisplayType, ButtonUrl, Content, Label } from "@src/services/eligibility-api/types";
 import { buildNbsUrl } from "@src/services/nbs/nbs-service";
 import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
@@ -6,7 +6,7 @@ import { genericVaccineContentAPIResponse } from "@test-data/content-api/data";
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 jest.mock("@src/services/nbs/nbs-service", () => ({ buildNbsUrl: jest.fn() }));
 
-describe("buildFilteredContentForFluForChildrenVaccine", () => {
+describe("buildFilteredContentForFluForChildrenAged2to3", () => {
   beforeEach(() => {
     (buildNbsUrl as jest.Mock).mockResolvedValue(new URL("https://test-nbs-url.example.com/sausages"));
   });
@@ -16,7 +16,7 @@ describe("buildFilteredContentForFluForChildrenVaccine", () => {
       overview: { content: "Generic Vaccine Lead Paragraph (overview)", containsHtml: false },
     };
 
-    const pageCopy = await buildFilteredContentForFluForChildrenVaccine(
+    const pageCopy = await buildFilteredContentForFluForChildrenAged2to3(
       JSON.stringify(genericVaccineContentAPIResponse),
     );
 
@@ -32,7 +32,7 @@ describe("buildFilteredContentForFluForChildrenVaccine", () => {
       },
     };
 
-    const pageCopy = await buildFilteredContentForFluForChildrenVaccine(
+    const pageCopy = await buildFilteredContentForFluForChildrenAged2to3(
       JSON.stringify(genericVaccineContentAPIResponse),
     );
 
@@ -47,7 +47,7 @@ describe("buildFilteredContentForFluForChildrenVaccine", () => {
       },
     };
 
-    const pageCopy = await buildFilteredContentForFluForChildrenVaccine(
+    const pageCopy = await buildFilteredContentForFluForChildrenAged2to3(
       JSON.stringify(genericVaccineContentAPIResponse),
     );
 
@@ -64,9 +64,10 @@ describe("buildFilteredContentForFluForChildrenVaccine", () => {
         },
         {
           type: ActionDisplayType.buttonWithoutAuthLinkWithInfo,
-          content: "### Book an appointment online" as Content,
+          content: ("### Book an appointment online\n\n" +
+            "You can book an appointment online at some pharmacies, GP surgeries and vaccination centres.") as Content,
           button: {
-            label: "Continue to booking" as Label,
+            label: "Book, cancel or change an appointment" as Label,
             url: new URL(
               "https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-flu-vaccination/",
             ) as ButtonUrl,
@@ -86,7 +87,7 @@ describe("buildFilteredContentForFluForChildrenVaccine", () => {
       ],
     };
 
-    const pageCopy = await buildFilteredContentForFluForChildrenVaccine(
+    const pageCopy = await buildFilteredContentForFluForChildrenAged2to3(
       JSON.stringify(genericVaccineContentAPIResponse),
     );
 

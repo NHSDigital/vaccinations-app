@@ -166,9 +166,10 @@ describe("buildFilteredContentForFluInPregnancyVaccine", () => {
         },
         {
           type: ActionDisplayType.nbsAuthLinkButtonWithInfo,
-          content: "### Book an appointment online" as Content,
+          content: ("### Book an appointment online\n\n" +
+            "You can book an appointment online at some pharmacies, GP surgeries and vaccination centres.") as Content,
           button: {
-            label: "Continue to booking" as Label,
+            label: "Book, cancel or change an appointment" as Label,
             url: new URL("https://test-nbs-url.example.com/sausages") as ButtonUrl,
           },
         },
