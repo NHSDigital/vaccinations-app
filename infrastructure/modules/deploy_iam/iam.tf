@@ -104,6 +104,7 @@ resource "aws_iam_policy" "waf_iam_role_permissions" {
   policy = templatefile("${path.module}/policies/permissions/waf.json", {
     account_id : var.account_id
     prefix : var.prefix
+    global_region : local.global_region
   })
 }
 
