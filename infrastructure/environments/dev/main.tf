@@ -28,6 +28,7 @@ module "deploy" {
   account_id                        = data.aws_caller_identity.current.account_id
   alerting_sns_topic_arn            = module.deploy_monitoring.alerting_sns_topic_arn
   alerting_global_sns_topic_arn     = module.deploy_monitoring.alerting_global_sns_topic_arn
+  environment                       = local.environment
 }
 
 resource "aws_cloudfront_monitoring_subscription" "enable_more_cloudfront_metrics" {

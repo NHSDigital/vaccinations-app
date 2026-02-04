@@ -1,0 +1,20 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "WAF",
+      "Effect": "Allow",
+      "Action": [
+        "wafv2:CreateWebACL",
+        "wafv2:GetWebACL",
+        "wafv2:ListTagsForResource",
+        "wafv2:UpdateWebACL",
+        "wafv2:DeleteWebACL"
+      ],
+      "Resource": [
+        "arn:aws:wafv2:us-east-1:${account_id}:global/webacl/${prefix}-*",
+        "arn:aws:wafv2:us-east-1:${account_id}:global/managedruleset/*/*"
+      ]
+    }
+  ]
+}

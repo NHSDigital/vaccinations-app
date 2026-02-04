@@ -97,6 +97,22 @@ resource "aws_iam_role_policy_attachment" "lambda_iam_role_policy_attachment" {
 }
 
 ########################
+# Web Application Firewall (WAF) permissions
+########################
+resource "aws_iam_policy" "waf_iam_role_permissions" {
+  name = "${var.prefix}-waf-iam-role-policy"
+  policy = templatefile("${path.module}/policies/permissions/waf.json", {
+    account_id : var.account_id
+    prefix : var.prefix
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "waf_iam_role_policy_attachment" {
+  role       = aws_iam_role.terraform_iam_role.name
+  policy_arn = aws_iam_policy.waf_iam_role_permissions.arn
+}
+
+########################
 # Fake API permissions
 ########################
 resource "aws_iam_policy" "fake_api_iam_role_permissions" {
