@@ -35,13 +35,17 @@ describe("CookiesTable component", () => {
     const cell3: HTMLElement = screen.getByRole("cell", {
       name: "Stores information in an encrypted format that allows us to communicate with other services",
     });
-    const cell4: HTMLElement = screen.getByRole("cell", { name: "After 1 hour" });
+    const cell4: HTMLElement = screen.getByRole("cell", {
+      name: "Stores a unique, randomly generated session ID used in operational logs to help our IT support team investigate issues",
+    });
     const cells5and6: HTMLElement[] = screen.getAllByRole("cell", { name: "When you close the browser" });
+    const cells7and8: HTMLElement[] = screen.getAllByRole("cell", { name: "After 1 hour" });
 
     expect(cell1).toBeVisible();
     expect(cell2).toBeVisible();
     expect(cell3).toBeVisible();
     expect(cell4).toBeVisible();
     expect(cells5and6.length).toBe(2);
+    expect(cells7and8.length).toBe(2);
   });
 });
