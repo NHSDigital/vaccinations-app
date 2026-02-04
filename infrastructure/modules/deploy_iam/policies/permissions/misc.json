@@ -45,7 +45,7 @@
       ],
       "Resource": [
         "arn:aws:cloudwatch:${region}:${account_id}:alarm:${prefix}-*",
-        "arn:aws:cloudwatch:${global_region}:${account_id}:alarm:${prefix}-*:*"
+        "arn:aws:cloudwatch:${global_region}:${account_id}:alarm:${prefix}-*"
       ]
     },
 
