@@ -2,7 +2,7 @@ name: "NBS scheduled assurance"
 
 on:
   schedule:
-    - cron: '05 7 * * MON-FRI'  # Runs at 07:05 UTC every weekday
+    - cron: '50 6 * * MON-FRI'  # Aiming to run between 7:00-7:30 UTC, compensating for GithubActions cron delays
   workflow_dispatch: {}
 
 jobs:
