@@ -9,7 +9,8 @@
         "wafv2:GetWebACL",
         "wafv2:ListTagsForResource",
         "wafv2:UpdateWebACL",
-        "wafv2:DeleteWebACL"
+        "wafv2:DeleteWebACL",
+        "wafv2:TagResource"
       ],
       "Resource": [
         "arn:aws:wafv2:us-east-1:${account_id}:global/webacl/${prefix}-*",
