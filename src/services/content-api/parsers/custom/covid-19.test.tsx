@@ -88,7 +88,7 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
     const expected = {
       callout: {
         heading: "Service closed",
-        content: "COVID-19 vaccinations will be available in spring 2026",
+        content: "COVID-19 vaccinations will be available in spring 2026.",
         contentType: "markdown",
       },
       preOpenActions: preOpenActionsValues,
