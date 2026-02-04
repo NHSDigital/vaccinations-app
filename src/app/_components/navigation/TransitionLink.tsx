@@ -1,7 +1,6 @@
 "use client";
 
 import { useNavigationTransition } from "@src/app/_components/context/NavigationContext";
-import LoadingSpinner from "@src/app/_components/loader/LoadingSpinner";
 import Link from "next/link";
 import { MouseEvent } from "react";
 
@@ -26,7 +25,6 @@ export function TransitionLink({
   return (
     <Link href={href} onClick={onClick} aria-disabled={isLoading} className={className} prefetch={false}>
       {children}
-      {isLoading && <LoadingSpinner />}
     </Link>
   );
 }
