@@ -151,7 +151,8 @@
         "SNS:ListTagsForResource",
         "SNS:SetTopicAttributes",
         "SNS:TagResource",
-        "SNS:Subscribe"
+        "SNS:Subscribe",
+        "SNS:GetSubscriptionAttributes"
       ],
       "Resource": [
         "arn:aws:sns:${region}:${account_id}:${prefix}-*",
