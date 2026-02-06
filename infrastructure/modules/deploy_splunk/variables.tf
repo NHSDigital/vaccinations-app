@@ -28,6 +28,11 @@ variable "alerting_sns_topic_arn" {
   description = "SNS topic identifier for alerting"
 }
 
+variable "alerting_global_sns_topic_arn" {
+  type        = string
+  description = "Global SNS topic identifier for alerting"
+}
+
 variable "python_version" {
   type        = string
   description = "Python Version of lambda runtime to run firehose formatter function"

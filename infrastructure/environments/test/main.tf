@@ -78,11 +78,12 @@ module "deploy_splunk" {
   count  = var.is_github_action ? 1 : 0
   source = "../../modules/deploy_splunk"
 
-  prefix                       = local.prefix
-  default_tags                 = local.default_tags
-  splunk_log_retention_in_days = local.splunk_log_retention_in_days
-  region                       = local.region
-  account_id                   = data.aws_caller_identity.current.account_id
-  alerting_sns_topic_arn       = module.deploy_monitoring.alerting_sns_topic_arn
-  python_version               = local.python_version
+  prefix                        = local.prefix
+  default_tags                  = local.default_tags
+  splunk_log_retention_in_days  = local.splunk_log_retention_in_days
+  region                        = local.region
+  account_id                    = data.aws_caller_identity.current.account_id
+  alerting_sns_topic_arn        = module.deploy_monitoring.alerting_sns_topic_arn
+  alerting_global_sns_topic_arn = module.deploy_monitoring.alerting_global_sns_topic_arn
+  python_version                = local.python_version
 }

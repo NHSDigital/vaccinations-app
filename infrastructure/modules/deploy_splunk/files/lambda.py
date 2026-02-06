@@ -60,6 +60,48 @@ import json
 import gzip
 import boto3
 import os
+import zlib
+from datetime import datetime
+
+def extractFieldsForSplunk(message):
+    FIELDS_TO_EXTRACT = ["AlarmDescription", "AlarmName", "NewStateReason", "NewStateValue", "OldStateValue", "Region", "StateChangeTime", "Trigger"]
+    return {k: message.get(k, f"unknown-{k}") for k in FIELDS_TO_EXTRACT}
+
+def transformSNSEvent(sns_record, arn):
+    """
+    Transforms a raw SNS record for Splunk.
+    """
+    print("Transforming SNS Event.")
+    topic_arn = sns_record.get('TopicArn', 'unknown-topic')
+    sns_time = sns_record.get('Timestamp')
+    epoch_time = datetime.fromisoformat(sns_time).timestamp() if sns_time else None
+    try:
+        message_content = sns_record.get('Message', "")
+        message = json.loads(message_content)
+
+        splunk_event_fields = extractFieldsForSplunk(message)
+
+        return {
+            "time": epoch_time,
+            "host": arn,
+            "source": topic_arn,
+            "sourcetype": "aws:sns:notification",
+            "event": splunk_event_fields,
+            "fields": {
+                "alarm_name": splunk_event_fields["AlarmName"]
+            }
+        }
+    except Exception as e:
+        return {
+            "time": epoch_time,
+            "host": arn,
+            "source": topic_arn,
+            "sourcetype": "aws:sns:notification",
+            "event": {
+                "sns_record": sns_record,
+                "error_message": str(e)
+            },
+        }
 
 def transformLogEvent(log_event,acct,arn,loggrp,logstrm,filterName):
     """Transform each log event.
@@ -114,29 +156,52 @@ def transformLogEvent(log_event,acct,arn,loggrp,logstrm,filterName):
 
 def processRecords(records,arn):
     for r in records:
-        data = loadJsonGzipBase64(r['data'])
         recId = r['recordId']
+        raw_bytes = base64.b64decode(r['data'])
+
+        is_cloudwatch_log = False
+        try:
+            # If decompression succeeds -> Cloudwatch Logs
+            decompressed_data = gzip.decompress(raw_bytes)
+            data = json.loads(decompressed_data)
+            is_cloudwatch_log = True
+        except (OSError, zlib.error):
+            # If decompression fails -> likely SNS (Raw JSON).
+            try:
+                data = json.loads(raw_bytes)
+                is_cloudwatch_log = False
+            except Exception:
+                yield {'result': 'ProcessingFailed', 'recordId': recId}
+                continue
+
         # CONTROL_MESSAGE are sent by CWL to check if the subscription is reachable.
         # They do not contain actual data.
-        if data['messageType'] == 'CONTROL_MESSAGE':
-            yield {
-                'result': 'Dropped',
-                'recordId': recId
-            }
-        elif data['messageType'] == 'DATA_MESSAGE':
-            joinedData = '\n'.join([json.dumps(transformLogEvent(e,data['owner'],arn,data['logGroup'],data['logStream'],data['subscriptionFilters'][0])) for e in data['logEvents']])
-            dataBytes = joinedData.encode("utf-8")
-            encodedData = base64.b64encode(dataBytes).decode('utf-8')
-            yield {
-                'data': encodedData,
-                'result': 'Ok',
-                'recordId': recId
-            }
+        # === PATH 1: CLOUDWATCH LOGS ===
+        if is_cloudwatch_log:
+            if data.get('messageType') == 'CONTROL_MESSAGE':
+                yield {'result': 'Dropped', 'recordId': recId}
+            elif data.get('messageType') == 'DATA_MESSAGE':
+                # Apply CWL transformation
+                joinedData = '\n'.join([json.dumps(transformLogEvent(e, data['owner'], arn, data['logGroup'], data['logStream'], data['subscriptionFilters'][0])) for e in data['logEvents']])
+                encodedData = base64.b64encode(joinedData.encode("utf-8")).decode('utf-8')
+                yield {'data': encodedData, 'result': 'Ok', 'recordId': recId}
+            else:
+                yield {'result': 'ProcessingFailed', 'recordId': recId}
+
+        # === PATH 2: SNS NOTIFICATIONS ===
         else:
-            yield {
-                'result': 'ProcessingFailed',
-                'recordId': recId
-            }
+            # Simple SNS processing. (We skip the complex re-ingestion logic for SNS
+            # as SNS messages are rarely > 6MB. If they are, we error out).
+            try:
+                # Apply SNS transformation
+                transformed_record = transformSNSEvent(data, arn)
+                # Add newline for Splunk batching
+                final_json = json.dumps(transformed_record) + "\n"
+                encodedData = base64.b64encode(final_json.encode("utf-8")).decode('utf-8')
+                yield {'data': encodedData, 'result': 'Ok', 'recordId': recId}
+            except Exception as e:
+                print(f"SNS Processing Error: {str(e)}")
+                yield {'result': 'ProcessingFailed', 'recordId': recId}
 
 def splitCWLRecord(cwlRecord):
     """
@@ -252,15 +317,19 @@ def handler(event, context):
         # processed data). If it's not possible to split because there is only one log event, then mark the record as
         # ProcessingFailed, which sends it to error output.
         if len(rec['data']) > 6000000:
-            cwlRecord = loadJsonGzipBase64(originalRecord['data'])
-            if len(cwlRecord['logEvents']) > 1:
-                rec['result'] = 'Dropped'
-                recordListsToReingest.append(
-                    [createReingestionRecord(isSas, originalRecord, data) for data in splitCWLRecord(cwlRecord)])
-            else:
+            try:
+                cwlRecord = loadJsonGzipBase64(originalRecord['data'])
+                if len(cwlRecord['logEvents']) > 1:
+                    rec['result'] = 'Dropped'
+                    recordListsToReingest.append(
+                        [createReingestionRecord(isSas, originalRecord, data) for data in splitCWLRecord(cwlRecord)])
+                else:
+                    rec['result'] = 'ProcessingFailed'
+                    print(('Record %s contains only one log event but is still too large after processing (%d bytes), ' +
+                        'marking it as %s') % (rec['recordId'], len(rec['data']), rec['result']))
+            except:
                 rec['result'] = 'ProcessingFailed'
-                print(('Record %s contains only one log event but is still too large after processing (%d bytes), ' +
-                       'marking it as %s') % (rec['recordId'], len(rec['data']), rec['result']))
+                print(f"SNS Record {rec['recordId']} is too large ({len(rec['data'])} bytes) and cannot be split.")
             del rec['data']
         else:
             projectedSize += len(rec['data']) + len(rec['recordId'])

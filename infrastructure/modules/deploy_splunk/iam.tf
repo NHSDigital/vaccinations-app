@@ -22,3 +22,15 @@ resource "aws_iam_role_policy" "cloudwatch_to_firehose_log_forwarder_subscriptio
   policy = data.aws_iam_policy_document.cloudwatch_subscription_filter_permissions_policy.json
   role   = aws_iam_role.cloudwatch_to_firehose_subscription_filter_role.id
 }
+
+// IAM permissions for SNS Topic subscription that forwards alarms to firehose
+resource "aws_iam_role" "sns_to_firehose_subscription_filter_role" {
+  name               = "${var.prefix}-alarms-forwarder-subscription-filter-role"
+  assume_role_policy = data.aws_iam_policy_document.sns_firehose_alert_forwarder_trust_policy.json
+}
+
+resource "aws_iam_role_policy" "sns_to_firehose_subscription_filter_policy" {
+  name   = "${var.prefix}-alarms-forwarder-subscription-filter-policy"
+  policy = data.aws_iam_policy_document.sns_firehose_alert_forwarder_permissions_policy.json
+  role   = aws_iam_role.sns_to_firehose_subscription_filter_role.id
+}
