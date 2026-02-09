@@ -34,3 +34,15 @@ resource "aws_iam_role_policy" "sns_to_firehose_subscription_filter_policy" {
   policy = data.aws_iam_policy_document.sns_firehose_alert_forwarder_permissions_policy.json
   role   = aws_iam_role.sns_to_firehose_subscription_filter_role.id
 }
+
+// IAM permissions for Firehose transformer lambda to reingest excess logs back into Firehose
+resource "aws_iam_role" "firehose_transformer_lambda_to_firehose_role" {
+  name               = "${var.prefix}-firehose-transformer-lambda-role"
+  assume_role_policy = data.aws_iam_policy_document.firehose_transformer_lambda_to_firehose_trust_policy.json
+}
+
+resource "aws_iam_role_policy" "firehose_transformer_lambda_to_firehose_policy" {
+  name   = "${var.prefix}-firehose-transformer-lambda-policy"
+  policy = data.aws_iam_policy_document.firehose_transformer_lambda_to_firehose_permissions_policy.json
+  role   = aws_iam_role.firehose_transformer_lambda_to_firehose_role.id
+}

@@ -9,7 +9,8 @@ module "firehose_transformer_lambda_function" {
   runtime = var.python_version
   timeout = 60
 
-  lambda_role = aws_iam_role.firehose_splunk_log_forwarder_role.arn
+  create_role = false
+  lambda_role = aws_iam_role.firehose_transformer_lambda_to_firehose_role.arn
   source_path = "${path.module}/files"
 
   cloudwatch_logs_retention_in_days = var.splunk_log_retention_in_days
