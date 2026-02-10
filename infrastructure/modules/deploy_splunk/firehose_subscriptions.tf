@@ -14,4 +14,5 @@ resource "aws_sns_topic_subscription" "global_sns_to_firehose_subscription" {
   subscription_role_arn = aws_iam_role.sns_to_firehose_subscription_filter_role.arn
   raw_message_delivery  = false
   region                = "us-east-1"
+  provider              = aws.global
 }
