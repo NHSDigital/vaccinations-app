@@ -40,7 +40,8 @@
         "arn:aws:iam::${account_id}:role/${prefix}-image-optimization-function-role",
         "arn:aws:iam::${account_id}:role/${prefix}-revalidation-function-role",
         "arn:aws:iam::${account_id}:role/${prefix}-server-function-role",
-        "arn:aws:iam::${account_id}:role/${prefix}-chatbot-iam-role"
+        "arn:aws:iam::${account_id}:role/${prefix}-chatbot-iam-role",
+        "arn:aws:iam::${account_id}:role/${prefix}-firehose-transformer"
       ]
     }
   ]
