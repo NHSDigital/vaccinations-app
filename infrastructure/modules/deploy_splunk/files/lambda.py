@@ -16,7 +16,7 @@ Cloudwatch Logs sends to Firehose records that look like this:
         "subscription_filter_name"
     ],
     "logEvents": [
-         {
+        {
         "id": "01234567890123456789012345678901234567890123456789012345",
         "timestamp": 1510109208016,
         "message": "log message 1"
@@ -37,22 +37,22 @@ The code below will:
 1) Gunzip the data
 2) Parse the json
 3) Set the result to ProcessingFailed for any record whose messageType is not DATA_MESSAGE, thus redirecting them to the
-     processing error output. Such records do not contain any log events. You can modify the code to set the result to
-     Dropped instead to get rid of these records completely.
+    processing error output. Such records do not contain any log events. You can modify the code to set the result to
+    Dropped instead to get rid of these records completely.
 4) For records whose messageType is DATA_MESSAGE, extract the individual log events from the logEvents field, and pass
-     each one to the transformLogEvent method. You can modify the transformLogEvent method to perform custom
-     transformations on the log events.
+    each one to the transformLogEvent method. You can modify the transformLogEvent method to perform custom
+    transformations on the log events.
 5) Concatenate the result from (4) together and set the result as the data of the record returned to Firehose. Note that
-     this step will not add any delimiters. Delimiters should be appended by the logic within the transformLogEvent
-     method.
+    this step will not add any delimiters. Delimiters should be appended by the logic within the transformLogEvent
+    method.
 6) Any individual record exceeding 6,000,000 bytes in size after decompression, processing and base64-encoding is marked
-     as Dropped, and the original record is split into two and re-ingested back into Firehose or Kinesis. The re-ingested
-     records should be about half the size compared to the original, and should fit within the size limit the second time
-     round.
+    as Dropped, and the original record is split into two and re-ingested back into Firehose or Kinesis. The re-ingested
+    records should be about half the size compared to the original, and should fit within the size limit the second time
+    round.
 7) When the total data size (i.e. the sum over multiple records) after decompression, processing and base64-encoding
-     exceeds 6,000,000 bytes, any additional records are re-ingested back into Firehose or Kinesis.
+    exceeds 6,000,000 bytes, any additional records are re-ingested back into Firehose or Kinesis.
 8) The retry count for intermittent failures during re-ingestion is set 20 attempts. If you wish to retry fewer number
-     of times for intermittent failures you can lower this value.
+    of times for intermittent failures you can lower this value.
 """
 
 import base64
