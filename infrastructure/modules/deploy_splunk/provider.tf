@@ -1,7 +1,8 @@
-provider "aws" {
-  alias  = "global"
-  region = "us-east-1"
-  default_tags {
-    tags = var.default_tags
+terraform {
+  required_providers {
+    aws = {
+      source                = "hashicorp/aws"
+      configuration_aliases = [aws, aws.global]
+    }
   }
 }
