@@ -59,6 +59,10 @@ module "deploy_monitoring" {
 module "deploy_splunk" {
   count  = var.is_github_action ? 1 : 0
   source = "../../modules/deploy_splunk"
+  providers = {
+    aws        = aws
+    aws.global = aws.global
+  }
 
   prefix                        = local.prefix
   default_tags                  = local.default_tags
