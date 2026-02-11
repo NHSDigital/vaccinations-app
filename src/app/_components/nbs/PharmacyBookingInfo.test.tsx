@@ -19,7 +19,7 @@ describe("PharmacyBookingInfo", () => {
     expect(NBSBookingActionWithAuthSSOForVaccine).toHaveBeenCalledWith(
       {
         vaccineType: VaccineType.RSV,
-        displayText: "book an RSV vaccination in a pharmacy",
+        displayText: "book an RSV vaccination in a pharmacy, GP surgery or vaccination centre",
         renderAs: "anchor",
         reduceBottomPadding: false,
       },
