@@ -102,7 +102,7 @@
     "nhsapp-frontend": "^5.0.3",
     "nhsuk-frontend": "^10.3.1",
     "nhsuk-react-components": "^6.0.0-beta.5",
-    "openid-client": "^6.8.1",
+    "openid-client": "^6.8.2",
     "pino": "^10.3.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
