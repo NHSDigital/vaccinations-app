@@ -43,6 +43,8 @@ updates:
         versions: [ ">=16.0.0" ]
       - dependency-name: "eslint-config-next"
         versions: [ ">=16.0.0" ]
+      - dependency-name: "eslint"
+        versions: [ ">=10.0.0"]
     cooldown:
       default-days: 4
 
