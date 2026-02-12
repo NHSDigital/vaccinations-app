@@ -393,7 +393,7 @@ const adultVaccines: VaccineCardDetails[] = [
   { vaccineName: VaccineType.PNEUMOCOCCAL, cardLinkDescription: "65 years and over" },
   { vaccineName: VaccineType.FLU_FOR_ADULTS, cardLinkDescription: "65 years and over" },
   { vaccineName: VaccineType.SHINGLES, cardLinkDescription: "65 to 67 and 70 to 79 years" },
-  { vaccineName: VaccineType.RSV, cardLinkDescription: "75 years and over" },
+  { vaccineName: VaccineType.RSV, cardLinkDescription: "75 years and over, or living in a care home for older adults" },
   { vaccineName: VaccineType.COVID_19, cardLinkDescription: "75 years and over" },
 ];
 const pregnancyVaccines: VaccineCardDetails[] = [

@@ -18,7 +18,7 @@ const PharmacyBookingInfo = ({ vaccineType }: PharmacyBookingProps): JSX.Element
         renderAs={"anchor"}
         reduceBottomPadding={false}
       />
-      {vaccineInfo.forOlderAdults ? ". This pharmacy service is only for adults aged 75 to 79." : "."}
+      {"."}
     </p>
   );
 };

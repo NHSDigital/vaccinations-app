@@ -133,8 +133,8 @@ describe("AgeBasedHubInfo", () => {
       expect(info.heading).toBe("Adults aged 65 to 74 should get these routine vaccines");
     });
 
-    it("has 3 vaccines", () => {
-      expect(info.vaccines).toHaveLength(4);
+    it("has expected #vaccines", () => {
+      expect(info.vaccines).toHaveLength(5);
     });
 
     it("has correct vaccine names", () => {
@@ -142,6 +142,7 @@ describe("AgeBasedHubInfo", () => {
         VaccineType.PNEUMOCOCCAL,
         VaccineType.FLU_FOR_ADULTS,
         VaccineType.SHINGLES,
+        VaccineType.RSV,
         VaccineType.COVID_19,
       ]);
     });
