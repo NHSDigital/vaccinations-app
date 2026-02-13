@@ -161,7 +161,24 @@ jobs:
       - name: "Checkout code"
         uses: actions/checkout@v6
 
+      - name: "Configure AWS credentials"
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-session-name: GitHubActionsSession
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: "Check if ${{ steps.get-latest-tag-name.outputs.value }} is already running on preprod"
+        id: is-app-version-already-deployed
+        timeout-minutes: 20
+        shell: bash
+        run: |
+          APP_VERSION=$(aws lambda get-function-configuration --function-name gh-vita-${{ secrets.AWS_ACCOUNT_ID }}-server-function | jq -r '.Environment.Variables.APP_VERSION')
+          echo "deployed_app_version=$APP_VERSION"
+          echo "value=$APP_VERSION == ${{ steps.get-latest-tag-name.outputs.value }}" | tee -a $GITHUB_OUTPUT
+
       - name: "Deploy version ${{ steps.get-latest-tag-name.outputs.value }} to (preprod)"
+        if: ${{ !steps.is-app-version-already-deployed.outputs.value }}
         timeout-minutes: 10
         uses: ./.github/actions/deploy
         with:
