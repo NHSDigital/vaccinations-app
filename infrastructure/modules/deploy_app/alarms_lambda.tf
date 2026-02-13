@@ -7,7 +7,7 @@ locals {
       statistic           = "Sum"
       extended_statistic  = null // as statistic is used
       comparison_operator = "GreaterThanThreshold"
-      threshold           = 0
+      threshold           = 5
       unit                = "Count"
 
       period              = 60 // 1min
