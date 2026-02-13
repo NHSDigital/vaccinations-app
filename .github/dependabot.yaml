@@ -42,7 +42,7 @@ updates:
       default-days: 4
 
   - package-ecosystem: "terraform"
-    directories: [ "/infrastructures/modules/**" ]
+    directories: [ "/infrastructure/modules/**" ]
     groups:
       infrastructure-updates:
         patterns: [ "*" ]
