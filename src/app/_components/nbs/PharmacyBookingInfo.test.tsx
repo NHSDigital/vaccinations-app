@@ -30,9 +30,7 @@ describe("PharmacyBookingInfo", () => {
   it("should contain include correct text for older adults", () => {
     render(<PharmacyBookingInfo vaccineType={VaccineTypes.RSV} />);
 
-    const pharmacyBookingInfo: HTMLElement | null = screen.queryByText(
-      /This pharmacy service is only for adults aged 75 to 79./,
-    );
+    const pharmacyBookingInfo: HTMLElement | null = screen.queryByText(/In some areas you can /);
 
     expect(pharmacyBookingInfo).toBeInTheDocument();
   });
@@ -40,10 +38,8 @@ describe("PharmacyBookingInfo", () => {
   it("should contain include correct text for younger adults", () => {
     render(<PharmacyBookingInfo vaccineType={VaccineTypes.RSV_PREGNANCY} />);
 
-    const pharmacyBookingInfo: HTMLElement | null = screen.queryByText(
-      /This pharmacy service is only for adults aged 75 to 79./,
-    );
+    const pharmacyBookingInfo: HTMLElement | null = screen.queryByText(/In some areas you can also /);
 
-    expect(pharmacyBookingInfo).not.toBeInTheDocument();
+    expect(pharmacyBookingInfo).toBeInTheDocument();
   });
 });

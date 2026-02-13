@@ -19,8 +19,8 @@ describe("RSVEligibilityFallback", () => {
     );
 
     const fallbackHeading: HTMLElement = screen.getByText("The RSV vaccine is recommended if you:");
-    const fallbackBulletPoint1: HTMLElement = screen.getByText("are aged between 75 and 79");
-    const fallbackBulletPoint2: HTMLElement = screen.getByText("turned 80 after 1 September 2024");
+    const fallbackBulletPoint1: HTMLElement = screen.getByText("are aged 75 or over");
+    const fallbackBulletPoint2: HTMLElement = screen.getByText("live in a care home for older adults");
 
     expect(fallbackHeading).toBeVisible();
     expect(fallbackBulletPoint1).toBeVisible();

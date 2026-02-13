@@ -17,8 +17,8 @@ const RSVEligibilityFallback = (props: {
         content={
           <div className={styles.zeroMarginBottom}>
             <ul>
-              <li>{"are aged between 75 and 79"}</li>
-              <li>{"turned 80 after 1 September 2024"}</li>
+              <li>{"are aged 75 or over"}</li>
+              <li>{"live in a care home for older adults"}</li>
             </ul>
           </div>
         }
