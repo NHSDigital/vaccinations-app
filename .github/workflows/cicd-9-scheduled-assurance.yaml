@@ -58,6 +58,9 @@ jobs:
       - name: "Checkout code"
         uses: actions/checkout@v6
 
+      - name: "Audit npm packages (critical vulnerabilities)"
+        run: npm audit --audit-level=critical
+
       - name: "Deploy version ${{ steps.get-latest-tag-name.outputs.value }} to (preprod)"
         timeout-minutes: 10
         uses: ./.github/actions/deploy
