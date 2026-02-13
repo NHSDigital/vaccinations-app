@@ -12,6 +12,8 @@ on:
           - Latest R1 tag
           - Latest main tag
           - All
+env:
+  AWS_REGION: eu-west-2
 
 jobs:
   ##########################################################
