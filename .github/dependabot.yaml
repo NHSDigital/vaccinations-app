@@ -1,14 +1,7 @@
 version: 2
 
 updates:
-
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "daily"
-    cooldown:
-      default-days: 4
-
+  # The target-branch is main (default branch) by default.
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
@@ -44,20 +37,17 @@ updates:
       - dependency-name: "eslint-config-next"
         versions: [ ">=16.0.0" ]
       - dependency-name: "eslint"
-        versions: [ ">=10.0.0"]
-    cooldown:
-      default-days: 4
-
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      interval: "daily"
+        versions: [ ">=10.0.0" ]
     cooldown:
       default-days: 4
 
   - package-ecosystem: "terraform"
-    directory: "/"
+    directories: [ "/infrastructures/modules/**" ]
+    groups:
+      infrastructure-updates:
+        patterns: [ "*" ]
+    ignore:
+      - dependency-name: "*"
+        update-types: [ "version-update:semver-major" ]
     schedule:
-      interval: "daily"
-    cooldown:
-      default-days: 4
+      interval: "weekly"
