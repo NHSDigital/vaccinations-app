@@ -1,6 +1,6 @@
 module "firehose_transformer_lambda_function" {
   source  = "terraform-aws-modules/lambda/aws"
-  version = "~> 8.1.2"
+  version = "~> 8.5.0"
 
   function_name = "${var.prefix}-firehose-transformer"
   description   = "Firehose Lambda transformer for sending formatted logs to splunk"

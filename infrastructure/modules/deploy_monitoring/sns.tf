@@ -1,6 +1,6 @@
 module "sns" {
   source  = "terraform-aws-modules/sns/aws"
-  version = "~> 7.0.0"
+  version = "~> 7.1.0"
 
   name         = "${var.prefix}-cloudwatch-alarms"
   display_name = "VitA Cloudwatch Alarms"
@@ -13,7 +13,7 @@ module "sns" {
 
 module "sns_global" {
   source  = "terraform-aws-modules/sns/aws"
-  version = "~> 7.0.0"
+  version = "~> 7.1.0"
   providers = {
     aws = aws.global
   }
