@@ -42,12 +42,12 @@ updates:
       default-days: 4
 
   - package-ecosystem: "terraform"
-    directories: [ "/infrastructure/modules/**", "/infrastructure/environments/**" ]
+    directories: [ "/infrastructure/modules/**" ]
     groups:
       infrastructure-updates:
         patterns: [ "*" ]
     ignore:
       - dependency-name: "*"
-        update-types: [ "version-update:semver-major" ]
+        update-types: [ "version-update:semver-major", "version-update:semver-minor" ]
     schedule:
       interval: "weekly"
