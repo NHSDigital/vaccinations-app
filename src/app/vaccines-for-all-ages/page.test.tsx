@@ -93,7 +93,7 @@ describe("VaccinesForAllAges", () => {
     {
       section: AgeSectionTestId.ADULTS,
       cardTitle: "COVID-19",
-      description: "75 years and over",
+      description: "75 years and over, or living in a care home for older adults",
       path: "/vaccines/covid-19-vaccine",
     },
     {
@@ -232,5 +232,5 @@ const assertCardLinkIsPresentInSection = (cardTitle: string, path: string, descr
   expect(link.getAttribute("href")).toEqual(path);
 
   expect(cardDescription).toBeVisible();
-  expect(cardDescription).toHaveTextContent(description);
+  expect(cardDescription).toHaveTextContent(new RegExp(`^${description}$`));
 };
