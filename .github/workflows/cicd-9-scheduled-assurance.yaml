@@ -144,7 +144,7 @@ jobs:
       name: "preprod"
 
     needs: [ deploy-and-test-r1 ]
-    if: ${{ !cancelled() && (github.event_name=='workflow_dispatch' && (inputs.release=='All' || inputs.release=='Latest main tag')) }}
+    if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && (inputs.release=='All' || inputs.release=='Latest main tag'))) }}
     steps:
       - name: "Checkout main branch"
         uses: actions/checkout@v6
