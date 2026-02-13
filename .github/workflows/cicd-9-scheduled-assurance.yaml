@@ -172,6 +172,7 @@ jobs:
           secret_aws_slack_channel_id: ${{ secrets.ALARMS_SLACK_CHANNEL_ID }}
 
       - name: "Run contract tests on ${{ steps.get-latest-tag-name.outputs.value }} (EliD:sandpit, EliD:mocked)"
+        if: ${{ github.event_name!='schedule' }}
         timeout-minutes: 3
         uses: ./.github/actions/run-contract-tests
         with:
@@ -196,6 +197,7 @@ jobs:
           AUTH_SECRET: "dummy"
 
       - name: "Run E2E tests on ${{ steps.get-latest-tag-name.outputs.value }} (preprod)"
+        if: ${{ github.event_name!='schedule' }}
         timeout-minutes: 10
         uses: ./.github/actions/run-e2e-tests
         with:
@@ -213,6 +215,7 @@ jobs:
           DEPLOY_ENVIRONMENT: "preprod"
 
       - name: "Run snapshot tests on ${{ steps.get-latest-tag-name.outputs.value }} (preprod)"
+        if: ${{ github.event_name!='schedule' }}
         uses: ./.github/actions/run-snapshot-tests
         with:
           checkout_ref: ${{ steps.get-latest-tag-name.outputs.value }}
