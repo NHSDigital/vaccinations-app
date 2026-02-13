@@ -6,6 +6,18 @@ on:
   workflow_dispatch: {}
 
 jobs:
+  run-elid-api-tests:
+    # Only call the tests for preprod environment
+    # - ensures EliD's database is loaded with expected test scenarios
+    # - ensures E2E tests aren't unnecessarily run if these tests fail
+    name: "EliD API tests (preprod)"
+    concurrency:
+      group: preprod-env
+      cancel-in-progress: false
+    uses: NHSDigital/eligibility-signposting-api-regression-tests/.github/workflows/my-vaccs-int-tests.yml@main
+    secrets:
+      ELID_PREPROD_AWS_ACCOUNT_ID: ${{ secrets.ELID_PREPROD_AWS_ACCOUNT_ID }}
+
   #################################################################
   # Main branch deployment and assurance (e2e+snapshots+contract)
   #################################################################
