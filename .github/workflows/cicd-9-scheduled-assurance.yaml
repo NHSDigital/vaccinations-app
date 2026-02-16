@@ -52,6 +52,9 @@ jobs:
           fetch-depth: 0
           ref: "release/v1.0"
 
+      - name: "Audit npm packages (critical vulnerabilities)"
+        run: npm audit --audit-level=critical
+
       - name: "Get latest tag name on release/v1.0 branch"
         id: get-latest-tag-name
         run: |
@@ -124,15 +127,6 @@ jobs:
           TEST_APP_URL: ${{ vars.TEST_APP_URL_R1 }}
           VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
           AWS_S3_ARTEFACTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-preprod
-
-      - name: "Checkout release/v1.0 branch"
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-          ref: "release/v1.0"
-
-      - name: "Audit npm packages (critical vulnerabilities)"
-        run: npm audit --audit-level=critical
 
   #################################################################
   # Main branch deployment and assurance (e2e+snapshots+contract)
