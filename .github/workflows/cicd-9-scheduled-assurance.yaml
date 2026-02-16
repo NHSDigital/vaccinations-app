@@ -31,7 +31,7 @@ jobs:
   ##########################################################
 
   deploy-and-test-r1:
-    name: "R1.0 Assurance"
+    name: "R1.0 Assurance (E2E, Contract, Snapshot)"
     runs-on: "ubuntu-latest"
     timeout-minutes: 30
     concurrency:
@@ -133,7 +133,7 @@ jobs:
   #################################################################
 
   deploy-and-test-main:
-    name: "Main Branch Assurance"
+    name: "Main Branch Assurance (E2E, Contract)"
     runs-on: "ubuntu-latest"
     timeout-minutes: 30
     concurrency:
@@ -191,7 +191,6 @@ jobs:
           secret_aws_slack_channel_id: ${{ secrets.ALARMS_SLACK_CHANNEL_ID }}
 
       - name: "Run contract tests on ${{ steps.get-latest-tag-name.outputs.value }} (EliD:sandpit, EliD:mocked)"
-        if: ${{ github.event_name!='schedule' }}
         timeout-minutes: 3
         uses: ./.github/actions/run-contract-tests
         with:
@@ -216,7 +215,6 @@ jobs:
           AUTH_SECRET: "dummy"
 
       - name: "Run E2E tests on ${{ steps.get-latest-tag-name.outputs.value }} (preprod)"
-        if: ${{ github.event_name!='schedule' }}
         timeout-minutes: 10
         uses: ./.github/actions/run-e2e-tests
         with:
@@ -232,18 +230,3 @@ jobs:
           NHS_APP_REDIRECT_LOGIN_URL: ${{ secrets.NHS_APP_REDIRECT_LOGIN_URL }}
           VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
           DEPLOY_ENVIRONMENT: "preprod"
-
-      - name: "Run snapshot tests on ${{ steps.get-latest-tag-name.outputs.value }} (preprod)"
-        if: ${{ github.event_name!='schedule' }}
-        uses: ./.github/actions/run-snapshot-tests
-        with:
-          checkout_ref: ${{ steps.get-latest-tag-name.outputs.value }}
-          release_name: "latest-main-tag"
-        env:
-          SECRET_IAM_ROLE: ${{ secrets.IAM_ROLE }}
-          TEST_NHS_APP_URL: ${{ secrets.TEST_NHS_APP_URL }}
-          TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
-          TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
-          TEST_APP_URL: ${{ vars.TEST_APP_URL_MAIN }}
-          VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
-          AWS_S3_ARTEFACTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-preprod

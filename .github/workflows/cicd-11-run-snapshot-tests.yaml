@@ -1,0 +1,51 @@
+name: "Snapshot Tests (Preprod)"
+
+on:
+  workflow_dispatch: {}
+
+env:
+  AWS_REGION: eu-west-2
+
+jobs:
+  run-snapshot-tests:
+    name: "Snapshot tests"
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 30
+    concurrency:
+      group: "preprod-env"
+      cancel-in-progress: false
+    permissions:
+      id-token: write
+      contents: read
+    environment:
+      name: "preprod"
+
+    steps:
+      - name: "Configure AWS credentials"
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-session-name: GitHubActionsSession
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: "Get tag name of deployed version in Preprod"
+        id: deployed-version-tag
+        timeout-minutes: 5
+        shell: bash
+        run: |
+          APP_VERSION=$(aws lambda get-function-configuration --function-name gh-vita-${{ secrets.AWS_ACCOUNT_ID }}-server-function | jq -r '.Environment.Variables.APP_VERSION')
+          echo "value=$APP_VERSION" | tee -a $GITHUB_OUTPUT
+
+      - name: "Run snapshot tests on ${{ steps.deployed-version-tag.outputs.value }} (preprod)"
+        uses: ./.github/actions/run-snapshot-tests
+        with:
+          checkout_ref: ${{ steps.deployed-version-tag.outputs.value }}
+          release_name: "latest-main-tag"
+        env:
+          SECRET_IAM_ROLE: ${{ secrets.IAM_ROLE }}
+          TEST_NHS_APP_URL: ${{ secrets.TEST_NHS_APP_URL }}
+          TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
+          TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
+          TEST_APP_URL: ${{ vars.TEST_APP_URL_MAIN }}
+          VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
+          AWS_S3_ARTEFACTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-preprod
