@@ -11,7 +11,7 @@ runs:
 
   steps:
     - name: Checkout target code
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       with:
         ref: ${{ inputs.checkout_ref }}
         path: "code-for-e2e-tests"
