@@ -14,6 +14,7 @@ on:
           - All
 env:
   AWS_REGION: eu-west-2
+  RELEASE_BRANCH: "release/v1.0"
 
 jobs:
   ##########################################################
@@ -46,22 +47,16 @@ jobs:
     needs: [ run-elid-api-tests ]
     if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && (inputs.release=='All' || inputs.release=='Latest R1 tag'))) }}
     steps:
-      - name: "Checkout release/v1.0 branch"
+      - name: "Checkout code"
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
-          ref: "release/v1.0"
 
-      - name: "Audit npm packages (critical vulnerabilities)"
-        run: npm audit --audit-level=critical
-
-      - name: "Get latest tag name on release/v1.0 branch"
+      - name: "Get latest tag name on ${{ env.RELEASE_BRANCH }} branch"
         id: get-latest-tag-name
         run: |
-          echo "value=$(git describe --tags --abbrev=0 --first-parent)" | tee -a $GITHUB_OUTPUT
-
-      - name: "Checkout code"
-        uses: actions/checkout@v6
+          git fetch origin ${{ env.RELEASE_BRANCH }}
+          echo "value=$(git describe --tags --abbrev=0 --first-parent origin/${{ env.RELEASE_BRANCH }})" | tee -a $GITHUB_OUTPUT
 
       - name: "Deploy version ${{ steps.get-latest-tag-name.outputs.value }} to (preprod)"
         timeout-minutes: 10
@@ -127,6 +122,18 @@ jobs:
           TEST_APP_URL: ${{ vars.TEST_APP_URL_R1 }}
           VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
           AWS_S3_ARTEFACTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-preprod
+
+      - name: "Checkout ${{ env.RELEASE_BRANCH }} for audit"
+        if: ${{ !cancelled() }}
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ env.RELEASE_BRANCH }}
+          path: "release-audit"
+
+      - name: "Audit npm packages (critical vulnerabilities)"
+        if: ${{ !cancelled() }}
+        working-directory: release-audit
+        run: npm audit --audit-level=critical
 
   #################################################################
   # Main branch deployment and assurance (e2e+snapshots+contract)
