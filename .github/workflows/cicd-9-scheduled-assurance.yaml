@@ -53,7 +53,7 @@ jobs:
           ref: "release/v1.0"
 
       - name: "Audit npm packages (critical vulnerabilities)"
-        run: npm audit --audit-level=moderate
+        run: npm audit --audit-level=critical
 
       - name: "Get latest tag name on release/v1.0 branch"
         id: get-latest-tag-name
