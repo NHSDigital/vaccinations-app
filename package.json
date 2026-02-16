@@ -92,7 +92,7 @@
     "axios": "^1.13.5",
     "cheerio": "^1.2.0",
     "date-fns": "^4.1.0",
-    "dotenv": "^17.2.3",
+    "dotenv": "^17.3.1",
     "es-toolkit": "^1.44.0",
     "isomorphic-dompurify": "^2.36.0",
     "jsonwebtoken": "^9.0.3",
