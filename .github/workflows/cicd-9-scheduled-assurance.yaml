@@ -52,6 +52,9 @@ jobs:
           fetch-depth: 0
           ref: "release/v1.0"
 
+      - name: "Audit npm packages (critical vulnerabilities)"
+        run: npm audit --audit-level=moderate
+
       - name: "Get latest tag name on release/v1.0 branch"
         id: get-latest-tag-name
         run: |
@@ -59,9 +62,6 @@ jobs:
 
       - name: "Checkout code"
         uses: actions/checkout@v6
-
-      - name: "Audit npm packages (critical vulnerabilities)"
-        run: npm audit --audit-level=critical
 
       - name: "Deploy version ${{ steps.get-latest-tag-name.outputs.value }} to (preprod)"
         timeout-minutes: 10
