@@ -57,7 +57,6 @@ jobs:
         run: |
           git fetch origin ${{ env.RELEASE_BRANCH }}
           echo "value=$(git describe --tags --abbrev=0 --first-parent origin/${{ env.RELEASE_BRANCH }})" | tee -a $GITHUB_OUTPUT
-          exit 1
 
       - name: "Deploy version ${{ steps.get-latest-tag-name.outputs.value }} to (preprod)"
         timeout-minutes: 10
@@ -134,7 +133,7 @@ jobs:
       - name: "Audit npm packages (critical vulnerabilities)"
         if: ${{ !cancelled() }}
         working-directory: release-audit
-        run: npm audit --audit-level=critical
+        run: npm audit --audit-level=moderate
 
   #################################################################
   # Main branch deployment and assurance (e2e+snapshots+contract)
