@@ -71,7 +71,10 @@ export const config = {
       * /session-timeout (exclude session timeout route)
       * /sso-failure (exclude the SSO routes)
       * /service-failure (exclude the service failure routes)
-      */
-    "/((?!api/auth|api/sso$|api/fake-login|session-logout|session-timeout|sso-failure|service-failure).*)",
+      * The following are required for local startup only; deployed envs serve directly from Cloudfront S3
+      * /assets (exclude the assets like icons)
+      * /_next (exclude js and css assets)
+     */
+    "/((?!api/auth|api/sso$|api/fake-login|session-logout|session-timeout|sso-failure|service-failure|assets|_next).*)",
   ],
 };

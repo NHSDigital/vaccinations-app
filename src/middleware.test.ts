@@ -18,6 +18,7 @@ jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 jest.mock("@src/utils/config");
 
 const middlewareRegex = new RegExp(config.matcher[0]);
+const otherExcludedPaths = ["assets", "_next"];
 
 function getMockRequest(testUrl: string) {
   const headers = new Headers([
@@ -85,6 +86,11 @@ describe("middleware", () => {
 
   it.each(unprotectedUrlPaths)("is skipped for unprotected path %s", async (path: string) => {
     // verify the regex does not match unprotected paths
+    expect(middlewareRegex.test(path)).toBe(false);
+  });
+
+  it.each(otherExcludedPaths)("is skipped for static path %s", async (path: string) => {
+    // verify the regex does not match the path
     expect(middlewareRegex.test(path)).toBe(false);
   });
 
