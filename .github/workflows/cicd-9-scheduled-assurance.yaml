@@ -133,7 +133,7 @@ jobs:
       - name: "Audit npm packages (critical vulnerabilities)"
         if: ${{ !cancelled() }}
         working-directory: release-audit
-        run: npm audit --audit-level=moderate
+        run: npm audit --audit-level=critical
 
   #################################################################
   # Main branch deployment and assurance (e2e+snapshots+contract)
