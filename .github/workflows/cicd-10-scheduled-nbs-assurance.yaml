@@ -12,7 +12,7 @@ jobs:
     # - ensures E2E tests aren't unnecessarily run if these tests fail
     name: "EliD API tests (preprod)"
     concurrency:
-      group: preprod-env
+      group: "preprod-env"
       cancel-in-progress: false
     uses: NHSDigital/eligibility-signposting-api-regression-tests/.github/workflows/my-vaccs-int-tests.yml@main
     secrets:
@@ -35,6 +35,7 @@ jobs:
     environment:
       name: "preprod"
 
+    needs: [ run-elid-api-tests ]
     if: ${{ !cancelled() }}
     steps:
       - name: "Checkout main branch"
