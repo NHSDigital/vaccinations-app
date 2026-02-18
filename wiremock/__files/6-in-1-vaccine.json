@@ -2,10 +2,7 @@
   "@context": "http://schema.org",
   "@type": "MedicalWebPage",
   "name": "6-in-1 vaccine",
-  "copyrightHolder": {
-    "name": "Crown Copyright",
-    "@type": "Organization"
-  },
+  "copyrightHolder": { "name": "Crown Copyright", "@type": "Organization" },
   "license": "https://developer.api.nhs.uk/terms",
   "author": {
     "url": "https://www.nhs.uk",
@@ -14,16 +11,12 @@
     "@type": "Organization",
     "name": "NHS website"
   },
-  "about": {
-    "@type": "WebPage",
-    "name": "6-in-1 vaccine",
-    "alternateName": ""
-  },
+  "about": { "@type": "WebPage", "name": "6-in-1 vaccine", "alternateName": "" },
   "description": "NHS information about the 6-in-1 vaccine, including what the vaccine helps protect against, who should have it, how to get it and side effects.",
-  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/",
+  "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/",
   "genre": ["Vaccine"],
   "keywords": "",
-  "dateModified": "2024-03-20T11:02:02+00:00",
+  "dateModified": "2026-01-01T13:03:29+00:00",
   "lastReviewed": ["2023-06-26T15:54:00+00:00", "2026-06-26T15:54:00+00:00"],
   "breadcrumb": {
     "@context": "http://schema.org",
@@ -33,7 +26,7 @@
         "@type": "ListItem",
         "position": 0,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
           "name": "Vaccinations",
           "genre": []
         }
@@ -42,7 +35,7 @@
         "@type": "ListItem",
         "position": 1,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/",
           "name": "6-in-1 vaccine",
           "genre": ["Vaccine"]
         }
@@ -53,44 +46,24 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#overview",
-      "description": "The 6-in-1 vaccine helps protect against serious illnesses like polio and whooping cough. It's given to babies when they're 8, 12 and 16 weeks old.",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#overview",
+      "description": "The 6-in-1 vaccine helps protect children against 6 serious illnesses. It's given to children when they're 8 weeks, 12 weeks, 16 weeks and 18 months.",
       "hasPart": [
+        { "@type": "WebPageElement", "headline": "6-in-1 vaccine", "text": "What it's for" },
+        { "@type": "WebPageElement", "headline": "6-in-1 vaccine", "text": "Who it's for" },
+        { "@type": "WebPageElement", "headline": "6-in-1 vaccine", "text": "Contraindications" },
+        { "@type": "WebPageElement", "headline": "6-in-1 vaccine", "text": "How to get it" },
+        { "@type": "WebPageElement", "headline": "6-in-1 vaccine", "text": "Side effects" },
         {
-          "@type": "WebPageElement",
-          "headline": "6-in-1 vaccine",
-          "text": "What it's for"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "6-in-1 vaccine",
-          "text": "Who it's for"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "6-in-1 vaccine",
-          "text": "Contraindications"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "6-in-1 vaccine",
-          "text": "How to get it"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "6-in-1 vaccine",
-          "text": "Side effects"
-        },
-        {
-          "text": "<p>The 6-in-1 vaccine protects babies against diphtheria, hepatitis B, Hib (haemophilus influenzae type b), polio, tetanus and whooping cough.</p> ",
+          "text": "<p>The 6-in-1 vaccine protects children against diphtheria, hepatitis B, Hib (haemophilus influenzae type b), polio, tetanus and whooping cough.</p> ",
           "@type": "WebPageElement"
         },
         {
-          "text": "<p>The 6-in-1 vaccine is for babies. They're given a dose of the vaccine at 8 weeks old, 12 weeks old and 16 weeks old.</p> ",
+          "text": "<p>The 6-in-1 vaccine is for children. They're given a dose of the vaccine at 8 weeks old, 12 weeks old, 16 weeks old and 18 months old.</p> ",
           "@type": "WebPageElement"
         },
         {
-          "text": "<p>Most babies can have the 6-in-1 vaccine. They only cannot have it if they've had a serious allergic reaction to the vaccine or an ingredient in it.</p> ",
+          "text": "<p>Most children can have the 6-in-1 vaccine. They only cannot have it if they've had a serious allergic reaction to the vaccine or an ingredient in it.</p> ",
           "@type": "WebPageElement"
         },
         {
@@ -107,13 +80,13 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#what-its-for",
-      "description": "The 6-in-1 vaccine protects babies against diphtheria, hepatitis B, Hib (haemophilus influenzae type b), polio, tetanus and whooping cough.",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#what-its-for",
+      "description": "The 6-in-1 vaccine protects children against diphtheria, hepatitis B, Hib (haemophilus influenzae type b), polio, tetanus and whooping cough.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>The 6-in-1 vaccine protects babies against 6 serious illnesses:</p><ul><li><a href=\"https://www.nhs.uk/conditions/diphtheria/\">diphtheria</a></li><li><a href=\"https://www.nhs.uk/conditions/hepatitis-b/\">hepatitis B</a></li><li><a href=\"https://www.nhs.uk/conditions/hib/\">Hib (Haemophilus influenzae type b)</a></li><li><a href=\"https://www.nhs.uk/conditions/polio/\">polio</a></li><li><a href=\"https://www.nhs.uk/conditions/tetanus/\">tetanus</a></li><li><a href=\"https://www.nhs.uk/conditions/whooping-cough/\">whooping cough</a></li></ul>"
+          "text": "<p>The 6-in-1 vaccine protects children against 6 serious illnesses:</p><ul><li><a href=\"https://www.nhs.uk/conditions/diphtheria/\">diphtheria</a></li><li><a href=\"https://www.nhs.uk/conditions/hepatitis-b/\">hepatitis B</a></li><li><a href=\"https://www.nhs.uk/conditions/hib/\">Hib (Haemophilus influenzae type b)</a></li><li><a href=\"https://www.nhs.uk/conditions/polio/\">polio</a></li><li><a href=\"https://www.nhs.uk/conditions/tetanus/\">tetanus</a></li><li><a href=\"https://www.nhs.uk/conditions/whooping-cough/\">whooping cough</a></li></ul>"
         }
       ],
       "headline": "What the 6-in-1 vaccine is for"
@@ -121,27 +94,27 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#who-its-for",
-      "description": "The 6-in-1 vaccine is for babies. They're given a dose of the vaccine at 8 weeks old, 12 weeks old and 16 weeks old.",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#who-its-for",
+      "description": "The 6-in-1 vaccine is for children. They're given a dose of the vaccine at 8 weeks old, 12 weeks old, 16 weeks old and 18 months old.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>Babies are given 3 doses of the 6-in-1 vaccine as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>They are given the vaccine at:</p><ul><li>8 weeks old</li><li>12 weeks old</li><li>16 weeks old</li></ul><p>If your child has missed their 6-in-1 vaccinations, contact their GP surgery. It's best to have them on time, but they can still have the 6-in-1 vaccine up to the age of 10.</p>"
+          "text": "<p>Children are given 4 doses of the 6-in-1 vaccine as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>They are given the vaccine when they are:</p><ul><li>8 weeks old</li><li>12 weeks old</li><li>16 weeks old</li><li>18 months old (if they were born on or after 1 July 2024)</li></ul><p>If your child has missed their 6-in-1 vaccinations, contact their GP surgery. It's best to have them on time, but they can still have the 6-in-1 vaccine up to the age of 10.</p>"
         }
       ],
-      "headline": "When babies should have the 6-in-1 vaccine"
+      "headline": "When children should have the 6-in-1 vaccine"
     },
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#contraindications",
-      "description": "Most babies can have the 6-in-1 vaccine. They only cannot have it if they've had a serious allergic reaction to the vaccine or an ingredient in it.",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#contraindications",
+      "description": "Most children can have the 6-in-1 vaccine. They only cannot have it if they've had a serious allergic reaction to the vaccine or an ingredient in it.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>Most babies can have the 6-in-1 vaccine.</p><p>They only cannot have the vaccine if:</p><ul><li>they've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine</li><li>they've had a serious allergic reaction to anything in the vaccine (including neomycin, polymyxin, formaldehyde or polysorbate 80)</li></ul><p>If your child has a condition that affects their brain, such as epilepsy, speak to a doctor, nurse or health visitor before they have the vaccine.</p>"
+          "text": "<p>Most children can have the 6-in-1 vaccine.</p><p>They only cannot have the vaccine if:</p><ul><li>they've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine</li><li>they've had a serious allergic reaction to anything in the vaccine (including neomycin, polymyxin, formaldehyde or polysorbate 80)</li></ul><p>If your child has a condition that affects their brain, such as epilepsy, speak to a doctor, nurse or health visitor before they have the vaccine.</p>"
         },
         {
           "@type": "WebPageElement",
@@ -149,18 +122,18 @@
           "text": "<h3>Getting vaccinated if your child is unwell</h3><p>If your child has a high temperature, wait until they're feeling better before having the vaccine.</p><p>If they are unwell but do not have a high temperature, check with a doctor, nurse or health visitor if they can still have the vaccine.</p>"
         }
       ],
-      "headline": "Babies who cannot have the 6-in-1 vaccine"
+      "headline": "Children who cannot have the 6-in-1 vaccine"
     },
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#ingredients",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#ingredients",
       "description": "You can check the ingredients in the 6-in-1 vaccine by asking to see the patient leaflet or searching for it online.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>There are 2 types of 6-in-1 vaccine given in the UK. You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/files/pil.2586.pdf\">Infranix hexa 6-in-1 vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 167kb)</a></li><li><a href=\"https://www.medicines.org.uk/emc/product/12264/pil\">Vaxelis 6-in-1 vaccine patient leaflet (Electronic Medicines Compendium website)</a></li></ul>"
+          "text": "<p>There is 1 type of 6-in-1 vaccine given in the UK. You can check the ingredients in the patient leaflet:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/files/pil.2586.pdf\">Infanrix hexa 6-in-1 vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 167kb)</a></li></ul>"
         }
       ],
       "headline": "6-in-1 vaccine ingredients"
@@ -168,7 +141,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#how-to-get-it",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#how-to-get-it",
       "description": "Your GP surgery will usually contact you to arrange your child's 6-in-1 vaccinations. Speak to your GP surgery if you have not been contacted.",
       "hasPart": [
         {
@@ -180,7 +153,7 @@
           "@type": "WebPageElement",
           "identifier": "primary",
           "headline": "Speak to your GP surgery if:",
-          "text": "<ul>\n<li>\n  you have not been contacted to get your child's 6-in-1 vaccinations\n </li>\n<li>\n  your child has missed their 6-in-1 vaccinations, or you're not sure if they've had all 3 doses of the vaccine\n </li>\n<li>\n  your child is unwell and is due to have the vaccine – they may need to wait until they're feeling better before having the vaccine\n </li>\n<li>\n  you need to change a vaccination appointment\n </li>\n</ul>\n<p>\n Your GP surgery can book or rearrange an appointment.\n</p>\n"
+          "text": "<ul>\n<li>\n  you have not been contacted to get your child's 6-in-1 vaccinations\n </li>\n<li>\n  your child has missed their 6-in-1 vaccinations, or you're not sure if they've had all 4 doses of the vaccine\n </li>\n<li>\n  your child is unwell and is due to have the vaccine – they may need to wait until they're feeling better before having the vaccine\n </li>\n<li>\n  you need to change a vaccination appointment\n </li>\n</ul>\n<p>\n Your GP surgery can book or rearrange an appointment.\n</p>\n"
         }
       ],
       "headline": "How to get the 6-in-1 vaccine"
@@ -188,18 +161,18 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#side-effects",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/6-in-1-vaccine/#side-effects",
       "description": "Common side effects of the 6-in-1 vaccine include swelling or pain where the injection was given, a high temperature, tiredness and loss of appetite.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>Like all medicines, the 6-in-1 vaccine can cause side effects, but not all babies get them.</p><h3>Common side effects</h3><p>Common side effects of the 6-in-1 vaccine include:</p><ul><li>swelling or pain where the injection was given</li><li>a high temperature</li><li>feeling tired</li><li>loss of appetite</li><li>being sick or diarrhoea</li><li>irritability</li></ul><p>You can give babies <a href=\"https://www.nhs.uk/medicines/paracetamol-for-children/\">child's paracetamol</a> to ease any symptoms.</p><p>Check the packaging or leaflet to make sure the medicine is suitable for your child, or speak to a pharmacist or doctor if you're not sure.</p>"
+          "text": "<p>Like all medicines, the 6-in-1 vaccine can cause side effects, but not all children get them.</p><h3>Common side effects</h3><p>Common side effects of the 6-in-1 vaccine include:</p><ul><li>swelling or pain where the injection was given</li><li>a high temperature</li><li>feeling tired</li><li>loss of appetite</li><li>being sick or diarrhoea</li><li>irritability</li></ul><p>You can give children <a href=\"https://www.nhs.uk/medicines/paracetamol-for-children/\">children's paracetamol</a> to ease any symptoms.</p><p>Check the packaging or leaflet to make sure the medicine is suitable for your child, or speak to a pharmacist or doctor if you're not sure.</p>"
         },
         {
           "@type": "WebPageElement",
           "identifier": "urgent",
-          "headline": "Ask for an urgent GP appointment or call 111 if your baby:",
+          "headline": "Ask for an urgent GP appointment or call 111 if your child:",
           "text": "<ul>\n<li>\n  is under 3 months old and has a temperature of 38C or higher, or you think they have a high temperature\n </li>\n<li>\n  is 3 to 6 months old and has a temperature of 39C or higher, or you think they have a high temperature\n </li>\n<li>\n  is unwell and you're worried about them\n </li>\n</ul>\n"
         },
         {
@@ -214,7 +187,7 @@
   "relatedLink": [
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
       "name": "Vaccinations",
       "linkRelationship": "Navigation",
       "position": 0
@@ -225,7 +198,7 @@
     {
       "position": 0,
       "identifier": 0,
-      "text": "The 6-in-1 vaccine helps protect against serious illnesses like polio and whooping cough. It's given to babies when they're 8, 12 and 16 weeks old.",
+      "text": "The 6-in-1 vaccine helps protect children against 6 serious illnesses. It's given when they're 8 weeks, 12 weeks, 16 weeks and 18 months old.",
       "name": "lead paragraph",
       "@type": "WebPageElement"
     },
@@ -238,18 +211,18 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>The 6-in-1 vaccine protects babies against 6 serious illnesses:</p><ul><li><a href=\"https://www.nhs.uk/conditions/diphtheria/\">diphtheria</a></li><li><a href=\"https://www.nhs.uk/conditions/hepatitis-b/\">hepatitis B</a></li><li><a href=\"https://www.nhs.uk/conditions/hib/\">Hib (Haemophilus influenzae type b)</a></li><li><a href=\"https://www.nhs.uk/conditions/polio/\">polio</a></li><li><a href=\"https://www.nhs.uk/conditions/tetanus/\">tetanus</a></li><li><a href=\"https://www.nhs.uk/conditions/whooping-cough/\">whooping cough</a></li></ul>",
+          "text": "<p>The 6-in-1 vaccine protects children against 6 serious illnesses:</p><ul><li><a href=\"https://www.nhs.uk/conditions/diphtheria/\">diphtheria</a></li><li><a href=\"https://www.nhs.uk/conditions/hepatitis-b/\">hepatitis B</a></li><li><a href=\"https://www.nhs.uk/conditions/hib/\">Hib (Haemophilus influenzae type b)</a></li><li><a href=\"https://www.nhs.uk/conditions/polio/\">polio</a></li><li><a href=\"https://www.nhs.uk/conditions/tetanus/\">tetanus</a></li><li><a href=\"https://www.nhs.uk/conditions/whooping-cough/\">whooping cough</a></li></ul>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
         }
       ],
-      "description": "The 6-in-1 vaccine protects babies against diphtheria, hepatitis B, Hib (haemophilus influenzae type b), polio, tetanus and whooping cough.",
+      "description": "The 6-in-1 vaccine protects children against diphtheria, hepatitis B, Hib (haemophilus influenzae type b), polio, tetanus and whooping cough.",
       "hasPart": [
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>The 6-in-1 vaccine protects babies against 6 serious illnesses:</p><ul><li><a href=\"https://www.nhs.uk/conditions/diphtheria/\">diphtheria</a></li><li><a href=\"https://www.nhs.uk/conditions/hepatitis-b/\">hepatitis B</a></li><li><a href=\"https://www.nhs.uk/conditions/hib/\">Hib (Haemophilus influenzae type b)</a></li><li><a href=\"https://www.nhs.uk/conditions/polio/\">polio</a></li><li><a href=\"https://www.nhs.uk/conditions/tetanus/\">tetanus</a></li><li><a href=\"https://www.nhs.uk/conditions/whooping-cough/\">whooping cough</a></li></ul>",
+          "text": "<p>The 6-in-1 vaccine protects children against 6 serious illnesses:</p><ul><li><a href=\"https://www.nhs.uk/conditions/diphtheria/\">diphtheria</a></li><li><a href=\"https://www.nhs.uk/conditions/hepatitis-b/\">hepatitis B</a></li><li><a href=\"https://www.nhs.uk/conditions/hib/\">Hib (Haemophilus influenzae type b)</a></li><li><a href=\"https://www.nhs.uk/conditions/polio/\">polio</a></li><li><a href=\"https://www.nhs.uk/conditions/tetanus/\">tetanus</a></li><li><a href=\"https://www.nhs.uk/conditions/whooping-cough/\">whooping cough</a></li></ul>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -267,25 +240,25 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>Babies are given 3 doses of the 6-in-1 vaccine as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>They are given the vaccine at:</p><ul><li>8 weeks old</li><li>12 weeks old</li><li>16 weeks old</li></ul><p>If your child has missed their 6-in-1 vaccinations, contact their GP surgery. It's best to have them on time, but they can still have the 6-in-1 vaccine up to the age of 10.</p>",
+          "text": "<p>Children are given 4 doses of the 6-in-1 vaccine as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>They are given the vaccine when they are:</p><ul><li>8 weeks old</li><li>12 weeks old</li><li>16 weeks old</li><li>18 months old (if they were born on or after 1 July 2024)</li></ul><p>If your child has missed their 6-in-1 vaccinations, contact their GP surgery. It's best to have them on time, but they can still have the 6-in-1 vaccine up to the age of 10.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
         }
       ],
-      "description": "The 6-in-1 vaccine is for babies. They're given a dose of the vaccine at 8 weeks old, 12 weeks old and 16 weeks old.",
+      "description": "The 6-in-1 vaccine is for children. They're given a dose of the vaccine at 8 weeks old, 12 weeks old, 16 weeks old and 18 months old.",
       "hasPart": [
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>Babies are given 3 doses of the 6-in-1 vaccine as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>They are given the vaccine at:</p><ul><li>8 weeks old</li><li>12 weeks old</li><li>16 weeks old</li></ul><p>If your child has missed their 6-in-1 vaccinations, contact their GP surgery. It's best to have them on time, but they can still have the 6-in-1 vaccine up to the age of 10.</p>",
+          "text": "<p>Children are given 4 doses of the 6-in-1 vaccine as part of the <a href=\"https://www.nhs.uk/vaccinations/nhs-vaccinations-and-when-to-have-them/\">NHS vaccination schedule</a>.</p><p>They are given the vaccine when they are:</p><ul><li>8 weeks old</li><li>12 weeks old</li><li>16 weeks old</li><li>18 months old (if they were born on or after 1 July 2024)</li></ul><p>If your child has missed their 6-in-1 vaccinations, contact their GP surgery. It's best to have them on time, but they can still have the 6-in-1 vaccine up to the age of 10.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
         }
       ],
       "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
-      "headline": "When babies should have the 6-in-1 vaccine"
+      "headline": "When children should have the 6-in-1 vaccine"
     },
     {
       "identifier": "0",
@@ -296,7 +269,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>Most babies can have the 6-in-1 vaccine.</p><p>They only cannot have the vaccine if:</p><ul><li>they've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine</li><li>they've had a serious allergic reaction to anything in the vaccine (including neomycin, polymyxin, formaldehyde or polysorbate 80)</li></ul><p>If your child has a condition that affects their brain, such as epilepsy, speak to a doctor, nurse or health visitor before they have the vaccine.</p>",
+          "text": "<p>Most children can have the 6-in-1 vaccine.</p><p>They only cannot have the vaccine if:</p><ul><li>they've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine</li><li>they've had a serious allergic reaction to anything in the vaccine (including neomycin, polymyxin, formaldehyde or polysorbate 80)</li></ul><p>If your child has a condition that affects their brain, such as epilepsy, speak to a doctor, nurse or health visitor before they have the vaccine.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -309,12 +282,12 @@
           "text": "<h3>Getting vaccinated if your child is unwell</h3><p>If your child has a high temperature, wait until they're feeling better before having the vaccine.</p><p>If they are unwell but do not have a high temperature, check with a doctor, nurse or health visitor if they can still have the vaccine.</p>"
         }
       ],
-      "description": "Most babies can have the 6-in-1 vaccine. They only cannot have it if they've had a serious allergic reaction to the vaccine or an ingredient in it.",
+      "description": "Most children can have the 6-in-1 vaccine. They only cannot have it if they've had a serious allergic reaction to the vaccine or an ingredient in it.",
       "hasPart": [
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>Most babies can have the 6-in-1 vaccine.</p><p>They only cannot have the vaccine if:</p><ul><li>they've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine</li><li>they've had a serious allergic reaction to anything in the vaccine (including neomycin, polymyxin, formaldehyde or polysorbate 80)</li></ul><p>If your child has a condition that affects their brain, such as epilepsy, speak to a doctor, nurse or health visitor before they have the vaccine.</p>",
+          "text": "<p>Most children can have the 6-in-1 vaccine.</p><p>They only cannot have the vaccine if:</p><ul><li>they've had a serious allergic reaction (<a href=\"https://www.nhs.uk/conditions/anaphylaxis/\">anaphylaxis</a>) to a previous dose of the vaccine</li><li>they've had a serious allergic reaction to anything in the vaccine (including neomycin, polymyxin, formaldehyde or polysorbate 80)</li></ul><p>If your child has a condition that affects their brain, such as epilepsy, speak to a doctor, nurse or health visitor before they have the vaccine.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -328,7 +301,7 @@
         }
       ],
       "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
-      "headline": "Babies who cannot have the 6-in-1 vaccine"
+      "headline": "Children who cannot have the 6-in-1 vaccine"
     },
     {
       "identifier": "0",
@@ -339,7 +312,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>There are 2 types of 6-in-1 vaccine given in the UK. You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/files/pil.2586.pdf\">Infranix hexa 6-in-1 vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 167kb)</a></li><li><a href=\"https://www.medicines.org.uk/emc/product/12264/pil\">Vaxelis 6-in-1 vaccine patient leaflet (Electronic Medicines Compendium website)</a></li></ul>",
+          "text": "<p>There is 1 type of 6-in-1 vaccine given in the UK. You can check the ingredients in the patient leaflet:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/files/pil.2586.pdf\">Infanrix hexa 6-in-1 vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 167kb)</a></li></ul>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -350,7 +323,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>There are 2 types of 6-in-1 vaccine given in the UK. You can check the ingredients in the patient leaflets:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/files/pil.2586.pdf\">Infranix hexa 6-in-1 vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 167kb)</a></li><li><a href=\"https://www.medicines.org.uk/emc/product/12264/pil\">Vaxelis 6-in-1 vaccine patient leaflet (Electronic Medicines Compendium website)</a></li></ul>",
+          "text": "<p>There is 1 type of 6-in-1 vaccine given in the UK. You can check the ingredients in the patient leaflet:</p><ul><li><a href=\"https://www.medicines.org.uk/emc/files/pil.2586.pdf\">Infanrix hexa 6-in-1 vaccine patient leaflet (Electronic Medicines Compendium website; PDF only, 167kb)</a></li></ul>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -378,7 +351,7 @@
           "@type": "WebPageElement",
           "name": "non-urgent",
           "identifier": "5",
-          "text": "<h3>Speak to your GP surgery if:</h3><div class=\"block-richtext\">\n<ul><li>you have not been contacted to get your child's 6-in-1 vaccinations</li><li>your child has missed their 6-in-1 vaccinations, or you're not sure if they've had all 3 doses of the vaccine</li><li>your child is unwell and is due to have the vaccine – they may need to wait until they're feeling better before having the vaccine</li><li>you need to change a vaccination appointment</li></ul><p>Your GP surgery can book or rearrange an appointment.</p>\n</div>"
+          "text": "<h3>Speak to your GP surgery if:</h3><div class=\"block-richtext\">\n<ul><li>you have not been contacted to get your child's 6-in-1 vaccinations</li><li>your child has missed their 6-in-1 vaccinations, or you're not sure if they've had all 4 doses of the vaccine</li><li>your child is unwell and is due to have the vaccine – they may need to wait until they're feeling better before having the vaccine</li><li>you need to change a vaccination appointment</li></ul><p>Your GP surgery can book or rearrange an appointment.</p>\n</div>"
         }
       ],
       "description": "Your GP surgery will usually contact you to arrange your child's 6-in-1 vaccinations. Speak to your GP surgery if you have not been contacted.",
@@ -396,7 +369,7 @@
           "@type": "WebPageElement",
           "name": "non-urgent",
           "identifier": "5",
-          "text": "<h3>Speak to your GP surgery if:</h3><div class=\"block-richtext\">\n<ul><li>you have not been contacted to get your child's 6-in-1 vaccinations</li><li>your child has missed their 6-in-1 vaccinations, or you're not sure if they've had all 3 doses of the vaccine</li><li>your child is unwell and is due to have the vaccine – they may need to wait until they're feeling better before having the vaccine</li><li>you need to change a vaccination appointment</li></ul><p>Your GP surgery can book or rearrange an appointment.</p>\n</div>"
+          "text": "<h3>Speak to your GP surgery if:</h3><div class=\"block-richtext\">\n<ul><li>you have not been contacted to get your child's 6-in-1 vaccinations</li><li>your child has missed their 6-in-1 vaccinations, or you're not sure if they've had all 4 doses of the vaccine</li><li>your child is unwell and is due to have the vaccine – they may need to wait until they're feeling better before having the vaccine</li><li>you need to change a vaccination appointment</li></ul><p>Your GP surgery can book or rearrange an appointment.</p>\n</div>"
         }
       ],
       "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
@@ -436,7 +409,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>Like all medicines, the 6-in-1 vaccine can cause side effects, but not all babies get them.</p><h3>Common side effects</h3><p>Common side effects of the 6-in-1 vaccine include:</p><ul><li>swelling or pain where the injection was given</li><li>a high temperature</li><li>feeling tired</li><li>loss of appetite</li><li>being sick or diarrhoea</li><li>irritability</li></ul><p>You can give babies <a href=\"https://www.nhs.uk/medicines/paracetamol-for-children/\">child's paracetamol</a> to ease any symptoms.</p><p>Check the packaging or leaflet to make sure the medicine is suitable for your child, or speak to a pharmacist or doctor if you're not sure.</p>",
+          "text": "<p>Like all medicines, the 6-in-1 vaccine can cause side effects, but not all children get them.</p><h3>Common side effects</h3><p>Common side effects of the 6-in-1 vaccine include:</p><ul><li>swelling or pain where the injection was given</li><li>a high temperature</li><li>feeling tired</li><li>loss of appetite</li><li>being sick or diarrhoea</li><li>irritability</li></ul><p>You can give children <a href=\"https://www.nhs.uk/medicines/paracetamol-for-children/\">children's paracetamol</a> to ease any symptoms.</p><p>Check the packaging or leaflet to make sure the medicine is suitable for your child, or speak to a pharmacist or doctor if you're not sure.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -446,7 +419,7 @@
           "@type": "WebPageElement",
           "name": "urgent",
           "identifier": "5",
-          "text": "<h3>Ask for an urgent GP appointment or call 111 if your baby:</h3><div class=\"block-richtext\">\n<ul><li>is under 3 months old and has a temperature of 38C or higher, or you think they have a high temperature</li><li>is 3 to 6 months old and has a temperature of 39C or higher, or you think they have a high temperature</li><li>is unwell and you're worried about them</li></ul>\n</div>"
+          "text": "<h3>Ask for an urgent GP appointment or call 111 if your child:</h3><div class=\"block-richtext\">\n<ul><li>is under 3 months old and has a temperature of 38C or higher, or you think they have a high temperature</li><li>is 3 to 6 months old and has a temperature of 39C or higher, or you think they have a high temperature</li><li>is unwell and you're worried about them</li></ul>\n</div>"
         },
         {
           "position": 2,
@@ -462,7 +435,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>Like all medicines, the 6-in-1 vaccine can cause side effects, but not all babies get them.</p><h3>Common side effects</h3><p>Common side effects of the 6-in-1 vaccine include:</p><ul><li>swelling or pain where the injection was given</li><li>a high temperature</li><li>feeling tired</li><li>loss of appetite</li><li>being sick or diarrhoea</li><li>irritability</li></ul><p>You can give babies <a href=\"https://www.nhs.uk/medicines/paracetamol-for-children/\">child's paracetamol</a> to ease any symptoms.</p><p>Check the packaging or leaflet to make sure the medicine is suitable for your child, or speak to a pharmacist or doctor if you're not sure.</p>",
+          "text": "<p>Like all medicines, the 6-in-1 vaccine can cause side effects, but not all children get them.</p><h3>Common side effects</h3><p>Common side effects of the 6-in-1 vaccine include:</p><ul><li>swelling or pain where the injection was given</li><li>a high temperature</li><li>feeling tired</li><li>loss of appetite</li><li>being sick or diarrhoea</li><li>irritability</li></ul><p>You can give children <a href=\"https://www.nhs.uk/medicines/paracetamol-for-children/\">children's paracetamol</a> to ease any symptoms.</p><p>Check the packaging or leaflet to make sure the medicine is suitable for your child, or speak to a pharmacist or doctor if you're not sure.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -472,7 +445,7 @@
           "@type": "WebPageElement",
           "name": "urgent",
           "identifier": "5",
-          "text": "<h3>Ask for an urgent GP appointment or call 111 if your baby:</h3><div class=\"block-richtext\">\n<ul><li>is under 3 months old and has a temperature of 38C or higher, or you think they have a high temperature</li><li>is 3 to 6 months old and has a temperature of 39C or higher, or you think they have a high temperature</li><li>is unwell and you're worried about them</li></ul>\n</div>"
+          "text": "<h3>Ask for an urgent GP appointment or call 111 if your child:</h3><div class=\"block-richtext\">\n<ul><li>is under 3 months old and has a temperature of 38C or higher, or you think they have a high temperature</li><li>is 3 to 6 months old and has a temperature of 39C or higher, or you think they have a high temperature</li><li>is unwell and you're worried about them</li></ul>\n</div>"
         },
         {
           "position": 2,

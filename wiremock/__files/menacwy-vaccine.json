@@ -13,10 +13,10 @@
   },
   "about": { "@type": "WebPage", "name": "MenACWY vaccine", "alternateName": "" },
   "description": "Find out about the MenACWY vaccine, including what it’s for, who should have it, how to get it and possible side effects.",
-  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/",
+  "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/",
   "genre": ["Vaccine"],
   "keywords": "",
-  "dateModified": "2025-04-15T14:17:51+00:00",
+  "dateModified": "2025-12-18T12:44:28+00:00",
   "lastReviewed": ["2024-02-28T08:38:00+00:00", "2027-02-28T08:38:00+00:00"],
   "breadcrumb": {
     "@context": "http://schema.org",
@@ -26,7 +26,7 @@
         "@type": "ListItem",
         "position": 0,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
           "name": "Vaccinations",
           "genre": []
         }
@@ -35,7 +35,7 @@
         "@type": "ListItem",
         "position": 1,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/",
           "name": "MenACWY vaccine",
           "genre": ["Vaccine"]
         }
@@ -46,7 +46,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#overview",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#overview",
       "description": "The MenACWY vaccine helps protect against meningitis. It’s given to teenagers and young people up to the age of 25.",
       "hasPart": [
         { "@type": "WebPageElement", "headline": "MenACWY vaccine", "text": "Who it's for" },
@@ -75,7 +75,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#what-its-for",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#what-its-for",
       "description": "The MenACWY vaccine reduces your chances of getting meningitis, a serious, potentially life-threatening infection that affects the brain.",
       "hasPart": [
         {
@@ -89,13 +89,13 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#who-its-for",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#who-its-for",
       "description": "The MenACWY vaccine is given to teenagers as part of the NHS vaccination schedule, but it can be given up to the age of 25 if needed.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>The MenACWY vaccine is recommended for all teenagers. It's usually given to children when they're 13 or 14 years old (school year 9 or 10).</p><p>If you missed having the vaccine when you were at school, you can get it up to the age of 25 years.</p><p>It's also available for some people who are at increased risk of getting meningitis because of:</p><ul><li>a medical condition</li><li>work</li><li>travel</li><li>close contact with someone who's infected</li></ul>"
+          "text": "<p>The MenACWY vaccine is recommended for all teenagers. It's usually given to children when they're 13 or 14 years old (school year 9).</p><p>If you missed having the vaccine when you were at school, you can get it up to the age of 25 years.</p><p>It's also available for some people who are at increased risk of getting meningitis because of:</p><ul><li>a medical condition</li><li>work</li><li>travel</li><li>close contact with someone who's infected</li></ul>"
         },
         {
           "@type": "WebPageElement",
@@ -108,7 +108,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#contraindications",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#contraindications",
       "description": "Most people can have the MenACWY vaccine. You only need to avoid it if you’ve had a reaction to an ingredient in it or to another meningitis vaccine.",
       "hasPart": [
         {
@@ -127,7 +127,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#ingredients",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#ingredients",
       "description": "You can check the ingredients in the MenACWY vaccine by asking to see the patient leaflet or searching for it online.",
       "hasPart": [
         {
@@ -141,13 +141,13 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#how-to-get-it",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#how-to-get-it",
       "description": "Teenagers are usually given the MenACWY vaccine at school. If you missed having it at school, ask your GP surgery if they can vaccinate you.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>Teenagers are usually given the MenACWY vaccine at school when they're 13 or 14 years old (school year 9 or 10).</p><p>If you missed having the vaccine when you were at school, you can still get it up until the age of 25. Ask your GP about getting vaccinated.</p><h3>College and university students</h3><p>If you're under 25 and you've not had the MenACWY vaccine before, you should ideally have it at least 2 weeks before starting college or university. Ask a GP about getting vaccinated.</p><p>If you've already started college or university, get the vaccine as soon as possible. Ask at the health centre on campus or <a href=\"https://www.nhs.uk/nhs-services/gps/how-to-register-with-a-gp-surgery/\">register with a GP</a> to get it.</p>"
+          "text": "<p>Teenagers are usually given the MenACWY vaccine at school when they're 13 or 14 years old (school year 9).</p><p>If you missed having the vaccine when you were at school, you can still get it up until the age of 25. Ask your GP about getting vaccinated.</p><h3>College and university students</h3><p>If you're under 25 and you've not had the MenACWY vaccine before, you should ideally have it at least 2 weeks before starting college or university. Ask a GP about getting vaccinated.</p><p>If you've already started college or university, get the vaccine as soon as possible. Ask at the health centre on campus or <a href=\"https://www.nhs.uk/nhs-services/gps/how-to-register-with-a-gp-surgery/\">register with a GP</a> to get it.</p>"
         }
       ],
       "headline": "How to get the MenACWY vaccine"
@@ -155,7 +155,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/UsageOrScheduleHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#how-its-used-previously-dosage-and-administration",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#how-its-used-previously-dosage-and-administration",
       "description": "The MenACWY vaccine is given as an injection, usually in your upper arm. Most people only need 1 dose.",
       "hasPart": [
         {
@@ -174,7 +174,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#side-effects",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menacwy-vaccine/#side-effects",
       "description": "Side effects of the MenACWY vaccine can include pain, swelling or itchiness where the injection was given, a headache and feeling unwell.",
       "hasPart": [
         {
@@ -189,7 +189,7 @@
   "relatedLink": [
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
       "name": "Vaccinations",
       "linkRelationship": "Navigation",
       "position": 0
@@ -242,7 +242,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>The MenACWY vaccine is recommended for all teenagers. It's usually given to children when they're 13 or 14 years old (school year 9 or 10).</p><p>If you missed having the vaccine when you were at school, you can get it up to the age of 25 years.</p><p>It's also available for some people who are at increased risk of getting meningitis because of:</p><ul><li>a medical condition</li><li>work</li><li>travel</li><li>close contact with someone who's infected</li></ul>",
+          "text": "<p>The MenACWY vaccine is recommended for all teenagers. It's usually given to children when they're 13 or 14 years old (school year 9).</p><p>If you missed having the vaccine when you were at school, you can get it up to the age of 25 years.</p><p>It's also available for some people who are at increased risk of getting meningitis because of:</p><ul><li>a medical condition</li><li>work</li><li>travel</li><li>close contact with someone who's infected</li></ul>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -260,7 +260,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>The MenACWY vaccine is recommended for all teenagers. It's usually given to children when they're 13 or 14 years old (school year 9 or 10).</p><p>If you missed having the vaccine when you were at school, you can get it up to the age of 25 years.</p><p>It's also available for some people who are at increased risk of getting meningitis because of:</p><ul><li>a medical condition</li><li>work</li><li>travel</li><li>close contact with someone who's infected</li></ul>",
+          "text": "<p>The MenACWY vaccine is recommended for all teenagers. It's usually given to children when they're 13 or 14 years old (school year 9).</p><p>If you missed having the vaccine when you were at school, you can get it up to the age of 25 years.</p><p>It's also available for some people who are at increased risk of getting meningitis because of:</p><ul><li>a medical condition</li><li>work</li><li>travel</li><li>close contact with someone who's infected</li></ul>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -382,7 +382,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>Teenagers are usually given the MenACWY vaccine at school when they're 13 or 14 years old (school year 9 or 10).</p><p>If you missed having the vaccine when you were at school, you can still get it up until the age of 25. Ask your GP about getting vaccinated.</p><h3>College and university students</h3><p>If you're under 25 and you've not had the MenACWY vaccine before, you should ideally have it at least 2 weeks before starting college or university. Ask a GP about getting vaccinated.</p><p>If you've already started college or university, get the vaccine as soon as possible. Ask at the health centre on campus or <a href=\"https://www.nhs.uk/nhs-services/gps/how-to-register-with-a-gp-surgery/\">register with a GP</a> to get it.</p>",
+          "text": "<p>Teenagers are usually given the MenACWY vaccine at school when they're 13 or 14 years old (school year 9).</p><p>If you missed having the vaccine when you were at school, you can still get it up until the age of 25. Ask your GP about getting vaccinated.</p><h3>College and university students</h3><p>If you're under 25 and you've not had the MenACWY vaccine before, you should ideally have it at least 2 weeks before starting college or university. Ask a GP about getting vaccinated.</p><p>If you've already started college or university, get the vaccine as soon as possible. Ask at the health centre on campus or <a href=\"https://www.nhs.uk/nhs-services/gps/how-to-register-with-a-gp-surgery/\">register with a GP</a> to get it.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -393,7 +393,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>Teenagers are usually given the MenACWY vaccine at school when they're 13 or 14 years old (school year 9 or 10).</p><p>If you missed having the vaccine when you were at school, you can still get it up until the age of 25. Ask your GP about getting vaccinated.</p><h3>College and university students</h3><p>If you're under 25 and you've not had the MenACWY vaccine before, you should ideally have it at least 2 weeks before starting college or university. Ask a GP about getting vaccinated.</p><p>If you've already started college or university, get the vaccine as soon as possible. Ask at the health centre on campus or <a href=\"https://www.nhs.uk/nhs-services/gps/how-to-register-with-a-gp-surgery/\">register with a GP</a> to get it.</p>",
+          "text": "<p>Teenagers are usually given the MenACWY vaccine at school when they're 13 or 14 years old (school year 9).</p><p>If you missed having the vaccine when you were at school, you can still get it up until the age of 25. Ask your GP about getting vaccinated.</p><h3>College and university students</h3><p>If you're under 25 and you've not had the MenACWY vaccine before, you should ideally have it at least 2 weeks before starting college or university. Ask a GP about getting vaccinated.</p><p>If you've already started college or university, get the vaccine as soon as possible. Ask at the health centre on campus or <a href=\"https://www.nhs.uk/nhs-services/gps/how-to-register-with-a-gp-surgery/\">register with a GP</a> to get it.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""

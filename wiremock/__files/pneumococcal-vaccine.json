@@ -13,7 +13,7 @@
   },
   "about": { "@type": "WebPage", "name": "Pneumococcal vaccine", "alternateName": "" },
   "description": "NHS information about the pneumococcal vaccine, including what the vaccine helps protect against, who should have it, how to get it and side effects.",
-  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/",
+  "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/",
   "genre": ["Vaccine"],
   "keywords": "",
   "dateModified": "2025-10-28T15:59:43+00:00",
@@ -26,7 +26,7 @@
         "@type": "ListItem",
         "position": 0,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
           "name": "Vaccinations",
           "genre": []
         }
@@ -35,7 +35,7 @@
         "@type": "ListItem",
         "position": 1,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/",
           "name": "Pneumococcal vaccine",
           "genre": ["Vaccine"]
         }
@@ -46,7 +46,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/#overview",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/#overview",
       "description": "The pneumococcal vaccine protects against serious illnesses like pneumonia and sepsis. It's recommended for people at higher risk of these illnesses.",
       "hasPart": [
         { "@type": "WebPageElement", "headline": "Pneumococcal vaccine", "text": "What it's for" },
@@ -80,7 +80,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/#what-its-for",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/#what-its-for",
       "description": "The pneumococcal vaccine helps protect against some types of infections that can cause serious illnesses like meningitis, sepsis and pneumonia.",
       "hasPart": [
         {
@@ -94,7 +94,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/#who-its-for",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/#who-its-for",
       "description": "The pneumococcal vaccine is for babies, adults aged 65 and over, and people at higher risk of getting seriously ill from pneumococcal infections.",
       "hasPart": [
         {
@@ -118,7 +118,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/#contraindications",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/#contraindications",
       "description": "Most people who need it can have the pneumococcal vaccine. You cannot have it if you've had a serious allergic reaction to it or an ingredient in it.",
       "hasPart": [
         {
@@ -137,7 +137,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/#ingredients",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/#ingredients",
       "description": "You can check the ingredients in the pneumococcal vaccine by asking to see the patient leaflet or searching for it online.",
       "hasPart": [
         {
@@ -151,7 +151,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/#how-to-get-it",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/#how-to-get-it",
       "description": "Your GP surgery should contact you to arrange you or your child's pneumococcal vaccinations. Welders and metal workers should speak to their employer.",
       "hasPart": [
         {
@@ -176,7 +176,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/#side-effects",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/#side-effects",
       "description": "Side effects of the pneumococcal vaccine include swelling or pain where the injection was given, a high temperature, tiredness and loss of appetite.",
       "hasPart": [
         {
@@ -201,7 +201,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/EffectivenessHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/#effectiveness",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/pneumococcal-vaccine/#effectiveness",
       "description": "The pneumococcal vaccine gives some protection by about 3 weeks from when you've had it. Most adults only need 1 dose for long-term protection.",
       "hasPart": [
         {
@@ -216,7 +216,7 @@
   "relatedLink": [
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
       "name": "Vaccinations",
       "linkRelationship": "Navigation",
       "position": 0

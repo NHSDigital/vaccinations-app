@@ -2,10 +2,7 @@
   "@context": "http://schema.org",
   "@type": "MedicalWebPage",
   "name": "COVID-19 vaccine",
-  "copyrightHolder": {
-    "name": "Crown Copyright",
-    "@type": "Organization"
-  },
+  "copyrightHolder": { "name": "Crown Copyright", "@type": "Organization" },
   "license": "https://developer.api.nhs.uk/terms",
   "author": {
     "url": "https://www.nhs.uk",
@@ -14,16 +11,12 @@
     "@type": "Organization",
     "name": "NHS website"
   },
-  "about": {
-    "@type": "WebPage",
-    "name": "COVID-19 vaccine",
-    "alternateName": ""
-  },
+  "about": { "@type": "WebPage", "name": "COVID-19 vaccine", "alternateName": "" },
   "description": "NHS information about the COVID-19 vaccine, including what the vaccine helps protect against, who should have it and when, how to get it and side effects.",
-  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/",
+  "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/",
   "genre": ["Vaccine"],
   "keywords": "",
-  "dateModified": "2025-10-28T16:00:08+00:00",
+  "dateModified": "2026-02-02T09:19:55+00:00",
   "lastReviewed": ["2024-09-02T13:17:00+00:00", "2027-09-02T13:17:00+00:00"],
   "breadcrumb": {
     "@context": "http://schema.org",
@@ -33,7 +26,7 @@
         "@type": "ListItem",
         "position": 0,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
           "name": "Vaccinations",
           "genre": []
         }
@@ -42,7 +35,7 @@
         "@type": "ListItem",
         "position": 1,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/",
           "name": "COVID-19 vaccine",
           "genre": ["Vaccine"]
         }
@@ -53,34 +46,14 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/#overview",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/#overview",
       "description": "The COVID-19 vaccine helps protect against COVID-19, which can be a serious or life-threatening illness.",
       "hasPart": [
-        {
-          "@type": "WebPageElement",
-          "headline": "COVID-19 vaccine",
-          "text": "Who it's for"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "COVID-19 vaccine",
-          "text": "What it's for"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "COVID-19 vaccine",
-          "text": "How to get it"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "COVID-19 vaccine",
-          "text": "Contraindications"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "COVID-19 vaccine",
-          "text": "Side effects"
-        },
+        { "@type": "WebPageElement", "headline": "COVID-19 vaccine", "text": "Who it's for" },
+        { "@type": "WebPageElement", "headline": "COVID-19 vaccine", "text": "What it's for" },
+        { "@type": "WebPageElement", "headline": "COVID-19 vaccine", "text": "How to get it" },
+        { "@type": "WebPageElement", "headline": "COVID-19 vaccine", "text": "Contraindications" },
+        { "@type": "WebPageElement", "headline": "COVID-19 vaccine", "text": "Side effects" },
         {
           "text": "<p>The COVID-19 vaccine is recommended for people at increased risk from COVID-19, including people 75 and over, and those with a weakened immune system.</p> ",
           "@type": "WebPageElement"
@@ -107,7 +80,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/#what-its-for",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/#what-its-for",
       "description": "The COVID-19 vaccine is offered to people at increased risk from COVID-19 to help speed up recovery and reduce the risk of severe symptoms and dying.",
       "hasPart": [
         {
@@ -126,13 +99,13 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/#who-its-for",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/#who-its-for",
       "description": "The COVID-19 vaccine is recommended for people at increased risk from COVID-19, including people 75 and over, and those with a weakened immune system.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>You can get the winter COVID-19 vaccine if you:</p><ul><li>are aged 75 or over (including those who will be 75 by 31 January 2026)</li><li>are aged 6 months to 74 years and have a weakened immune system because of a health condition or treatment</li><li>live in a care home for older adults</li></ul>"
+          "text": "<p>You may be offered a COVID-19 vaccine in spring if you:</p><ul><li>are aged 75 or over</li><li>are aged 6 months to 74 years and have a weakened immune system because of a health condition or treatment</li><li>live in a care home for older adults</li></ul>"
         },
         {
           "@type": "WebPageElement",
@@ -145,13 +118,13 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/#how-to-get-it",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/#how-to-get-it",
       "description": "If you're eligible for a COVID-19 vaccine, you can usually get it by booking online, going to a walk-in centre, or from your GP surgery or care home.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>If you're eligible for the winter COVID-19 vaccine, you can:</p><ul><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-covid-19-vaccination/\">book a COVID-19 vaccination appointment online</a> or in the <a href=\"https://www.nhs.uk/nhs-app/\">NHS App</a> (if you're aged 5 years or over)</li><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-walk-in-covid-19-vaccination-site/\">find a walk-in COVID-19 vaccination site</a> to get vaccinated without an appointment (if you're aged 5 years or over)</li></ul><p>Some people may be able to get vaccinated at a local service, such as a community pharmacy or a GP surgery, or at a care home if they live in a care home.</p><p>You do not need to wait for an invitation before booking an appointment.</p><p>The last date you will be able to get your COVID-19 vaccine is 31 January 2026. Online booking will close on 30 January 2026.</p>"
+          "text": "<p>The NHS will contact you if you're eligible for the COVID-19 vaccine.</p><p>It's usually offered on the NHS in spring and early winter.</p><p>When the COVID-19 vaccine is available, there will be different ways to get the vaccine. You may be able to:</p><ul><li>book online</li><li>go to a walk-in COVID-19 vaccination site</li><li>get vaccinated at a local service, such as a community pharmacy or your GP surgery</li><li>get vaccinated at your care home (if you live in a care home)</li></ul>"
         }
       ],
       "headline": "How to get the COVID-19 vaccine"
@@ -159,7 +132,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/UsageOrScheduleHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/#how-its-used-previously-dosage-and-administration",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/#how-its-used-previously-dosage-and-administration",
       "description": "Most people only need 1 dose of the COVID-19 vaccine when it's available. You may need an extra dose if you have a severely weakened immune system.",
       "hasPart": [
         {
@@ -173,7 +146,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/#contraindications",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/#contraindications",
       "description": "Most eligible people can have the COVID-19 vaccine. If you're under 18 you may only be able to get certain types. Children under 12 get smaller doses.",
       "hasPart": [
         {
@@ -192,7 +165,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/#ingredients",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/#ingredients",
       "description": "You can check the ingredients in the COVID-19 vaccines by asking to see the patient leaflet or searching for it online.",
       "hasPart": [
         {
@@ -206,7 +179,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/#side-effects",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/#side-effects",
       "description": "Common side effects of the COVID-19 vaccine include pain or soreness where the injection was given, headache and an aching body.",
       "hasPart": [
         {
@@ -238,14 +211,14 @@
   "relatedLink": [
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
       "name": "Vaccinations",
       "linkRelationship": "Navigation",
       "position": 0
     },
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/covid-19-vaccine/",
       "name": "COVID-19 vaccine",
       "linkRelationship": "Navigation",
       "position": 1
@@ -264,6 +237,31 @@
       "identifier": "0",
       "name": "section heading",
       "position": 1,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Callout",
+          "identifier": "4",
+          "text": "<h2>COVID-19 vaccinations are currently not available.</h2><p>Winter COVID-19 vaccinations have ended.</p><p>The NHS will contact you in spring 2026 if you're eligible for the COVID-19 vaccine.</p>"
+        }
+      ],
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Callout",
+          "identifier": "4",
+          "text": "<h2>COVID-19 vaccinations are currently not available.</h2><p>Winter COVID-19 vaccinations have ended.</p><p>The NHS will contact you in spring 2026 if you're eligible for the COVID-19 vaccine.</p>"
+        }
+      ]
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 2,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {
@@ -306,13 +304,13 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 2,
+      "position": 3,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>You can get the winter COVID-19 vaccine if you:</p><ul><li>are aged 75 or over (including those who will be 75 by 31 January 2026)</li><li>are aged 6 months to 74 years and have a weakened immune system because of a health condition or treatment</li><li>live in a care home for older adults</li></ul>",
+          "text": "<p>You may be offered a COVID-19 vaccine in spring if you:</p><ul><li>are aged 75 or over</li><li>are aged 6 months to 74 years and have a weakened immune system because of a health condition or treatment</li><li>live in a care home for older adults</li></ul>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -331,7 +329,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>You can get the winter COVID-19 vaccine if you:</p><ul><li>are aged 75 or over (including those who will be 75 by 31 January 2026)</li><li>are aged 6 months to 74 years and have a weakened immune system because of a health condition or treatment</li><li>live in a care home for older adults</li></ul>",
+          "text": "<p>You may be offered a COVID-19 vaccine in spring if you:</p><ul><li>are aged 75 or over</li><li>are aged 6 months to 74 years and have a weakened immune system because of a health condition or treatment</li><li>live in a care home for older adults</li></ul>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -351,13 +349,13 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 3,
+      "position": 4,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>If you're eligible for the winter COVID-19 vaccine, you can:</p><ul><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-covid-19-vaccination/\">book a COVID-19 vaccination appointment online</a> or in the <a href=\"https://www.nhs.uk/nhs-app/\">NHS App</a> (if you're aged 5 years or over)</li><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-walk-in-covid-19-vaccination-site/\">find a walk-in COVID-19 vaccination site</a> to get vaccinated without an appointment (if you're aged 5 years or over)</li></ul><p>Some people may be able to get vaccinated at a local service, such as a community pharmacy or a GP surgery, or at a care home if they live in a care home.</p><p>You do not need to wait for an invitation before booking an appointment.</p><p>The last date you will be able to get your COVID-19 vaccine is 31 January 2026. Online booking will close on 30 January 2026.</p>",
+          "text": "<p>The NHS will contact you if you're eligible for the COVID-19 vaccine.</p><p>It's usually offered on the NHS in spring and early winter.</p><p>When the COVID-19 vaccine is available, there will be different ways to get the vaccine. You may be able to:</p><ul><li>book online</li><li>go to a walk-in COVID-19 vaccination site</li><li>get vaccinated at a local service, such as a community pharmacy or your GP surgery</li><li>get vaccinated at your care home (if you live in a care home)</li></ul>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -368,7 +366,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>If you're eligible for the winter COVID-19 vaccine, you can:</p><ul><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-covid-19-vaccination/\">book a COVID-19 vaccination appointment online</a> or in the <a href=\"https://www.nhs.uk/nhs-app/\">NHS App</a> (if you're aged 5 years or over)</li><li><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-walk-in-covid-19-vaccination-site/\">find a walk-in COVID-19 vaccination site</a> to get vaccinated without an appointment (if you're aged 5 years or over)</li></ul><p>Some people may be able to get vaccinated at a local service, such as a community pharmacy or a GP surgery, or at a care home if they live in a care home.</p><p>You do not need to wait for an invitation before booking an appointment.</p><p>The last date you will be able to get your COVID-19 vaccine is 31 January 2026. Online booking will close on 30 January 2026.</p>",
+          "text": "<p>The NHS will contact you if you're eligible for the COVID-19 vaccine.</p><p>It's usually offered on the NHS in spring and early winter.</p><p>When the COVID-19 vaccine is available, there will be different ways to get the vaccine. You may be able to:</p><ul><li>book online</li><li>go to a walk-in COVID-19 vaccination site</li><li>get vaccinated at a local service, such as a community pharmacy or your GP surgery</li><li>get vaccinated at your care home (if you live in a care home)</li></ul>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -380,7 +378,7 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 4,
+      "position": 5,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {
@@ -409,7 +407,7 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 5,
+      "position": 6,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {
@@ -450,7 +448,7 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 6,
+      "position": 7,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {
@@ -493,7 +491,7 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 7,
+      "position": 8,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {
@@ -522,7 +520,7 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 8,
+      "position": 9,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {
@@ -593,7 +591,7 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 9,
+      "position": 10,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {
@@ -618,7 +616,7 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 10,
+      "position": 11,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {
@@ -660,7 +658,7 @@
     {
       "identifier": "0",
       "name": "section heading",
-      "position": 11,
+      "position": 12,
       "@type": "WebPageElement",
       "mainEntityOfPage": [
         {

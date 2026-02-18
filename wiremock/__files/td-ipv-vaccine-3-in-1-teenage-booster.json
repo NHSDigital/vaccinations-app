@@ -2,10 +2,7 @@
   "@context": "http://schema.org",
   "@type": "MedicalWebPage",
   "name": "Td/IPV vaccine (3-in-1 teenage booster)",
-  "copyrightHolder": {
-    "name": "Crown Copyright",
-    "@type": "Organization"
-  },
+  "copyrightHolder": { "name": "Crown Copyright", "@type": "Organization" },
   "license": "https://developer.api.nhs.uk/terms",
   "author": {
     "url": "https://www.nhs.uk",
@@ -20,10 +17,10 @@
     "alternateName": ["3-in-1 teenage booster vaccine"]
   },
   "description": "Find out about the Td/IPV vaccine (3-in-1 teenage booster) for tetanus, diphtheria and polio, including who it's for, how to get it and possible side effects.",
-  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/",
+  "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/",
   "genre": ["Vaccine"],
   "keywords": "",
-  "dateModified": "2025-04-15T14:21:01+00:00",
+  "dateModified": "2026-01-29T14:37:32+00:00",
   "lastReviewed": ["2024-02-12T08:48:00+00:00", "2027-02-12T08:48:00+00:00"],
   "breadcrumb": {
     "@context": "http://schema.org",
@@ -33,7 +30,7 @@
         "@type": "ListItem",
         "position": 0,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
           "name": "Vaccinations",
           "genre": []
         }
@@ -42,7 +39,7 @@
         "@type": "ListItem",
         "position": 1,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/",
           "name": "Td/IPV vaccine (3-in-1 teenage booster)",
           "genre": ["Vaccine"]
         }
@@ -53,29 +50,17 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#overview",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#overview",
       "description": "The Td/IPV vaccine (also called the 3-in-1 teenager booster) helps protect against tetanus, diphtheria and polio.",
       "hasPart": [
-        {
-          "@type": "WebPageElement",
-          "headline": "Td/IPV vaccine (3-in-1 teenage booster)",
-          "text": "Who it's for"
-        },
+        { "@type": "WebPageElement", "headline": "Td/IPV vaccine (3-in-1 teenage booster)", "text": "Who it's for" },
         {
           "@type": "WebPageElement",
           "headline": "Td/IPV vaccine (3-in-1 teenage booster)",
           "text": "Contraindications"
         },
-        {
-          "@type": "WebPageElement",
-          "headline": "Td/IPV vaccine (3-in-1 teenage booster)",
-          "text": "How to get it"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "Td/IPV vaccine (3-in-1 teenage booster)",
-          "text": "Side effects"
-        },
+        { "@type": "WebPageElement", "headline": "Td/IPV vaccine (3-in-1 teenage booster)", "text": "How to get it" },
+        { "@type": "WebPageElement", "headline": "Td/IPV vaccine (3-in-1 teenage booster)", "text": "Side effects" },
         {
           "text": "<p>The Td/IPV vaccine is recommended for children in school year 9 and people at higher risk of tetanus, diphtheria or polio.</p> ",
           "@type": "WebPageElement"
@@ -98,7 +83,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#what-its-for",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#what-its-for",
       "description": "The Td/IPV vaccine helps protect against 3 serious illnesses called tetanus, diphtheria and polio.",
       "hasPart": [
         {
@@ -112,7 +97,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#who-its-for",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#who-its-for",
       "description": "The Td/IPV vaccine is recommended for children in school year 9 and people at higher risk of tetanus, diphtheria or polio.",
       "hasPart": [
         {
@@ -126,7 +111,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#contraindications",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#contraindications",
       "description": "Most people can have the Td/IPV vaccine. You only need to avoid it if you've had a serious allergic reaction to the vaccine or an ingredient in it.",
       "hasPart": [
         {
@@ -145,7 +130,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#ingredients",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#ingredients",
       "description": "You can check the ingredients in the Td/IPV vaccine by asking to see the patient leaflet or searching for it online.",
       "hasPart": [
         {
@@ -159,7 +144,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#how-to-get-it",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#how-to-get-it",
       "description": "Children are given the Td/IPV vaccine at school. If you need it for travel, you can get it from some travel clinics, pharmacies or GP surgeries.",
       "hasPart": [
         {
@@ -178,18 +163,13 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#side-effects",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/#side-effects",
       "description": "Common side effects of the Td/IPV vaccine include swelling or pain where the injection was given. Serious side effects are very rare.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
           "text": "<p>Most of the side effects of the Td/IPV vaccine are mild and do not last long.</p><p>They can include:</p><ul><li>swelling or pain where the injection was given</li><li>a high temperature</li><li>a headache</li><li>dizziness</li><li>feeling or being sick</li></ul><p>More serious side effects such as a severe allergic reaction are very rare. The person who vaccinates you will be trained to deal with allergic reactions and treat them immediately.</p><p>The vaccine used in the UK contains killed (destroyed) versions of the illnesses it protects against, so there's no risk of getting the infections from the vaccine.</p>"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "Information",
-          "text": "<h3>More about vaccine safety</h3><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccination is important and the safest way to protect yourself</a></p>"
         }
       ],
       "headline": "Side effects of the Td/IPV vaccine"
@@ -198,7 +178,7 @@
   "relatedLink": [
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
       "name": "Vaccinations",
       "linkRelationship": "Navigation",
       "position": 0
@@ -411,13 +391,6 @@
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
-        },
-        {
-          "position": 1,
-          "@type": "WebPageElement",
-          "name": "Information",
-          "identifier": "3",
-          "text": "<h3>More about vaccine safety</h3><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccination is important and the safest way to protect yourself</a></p>"
         }
       ],
       "description": "Common side effects of the Td/IPV vaccine include swelling or pain where the injection was given. Serious side effects are very rare.",
@@ -429,17 +402,35 @@
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
-        },
+        }
+      ],
+      "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
+      "headline": "Side effects of the Td/IPV vaccine"
+    },
+    {
+      "identifier": "0",
+      "name": "section heading",
+      "position": 7,
+      "@type": "WebPageElement",
+      "mainEntityOfPage": [
         {
-          "position": 1,
+          "position": 0,
           "@type": "WebPageElement",
           "name": "Information",
           "identifier": "3",
           "text": "<h3>More about vaccine safety</h3><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccination is important and the safest way to protect yourself</a></p>"
         }
       ],
-      "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
-      "headline": "Side effects of the Td/IPV vaccine"
+      "description": "",
+      "hasPart": [
+        {
+          "position": 0,
+          "@type": "WebPageElement",
+          "name": "Information",
+          "identifier": "3",
+          "text": "<h3>More about vaccine safety</h3><p><a href=\"https://www.nhs.uk/vaccinations/why-vaccination-is-important-and-the-safest-way-to-protect-yourself/\">Find out more about why vaccination is important and the safest way to protect yourself</a></p>"
+        }
+      ]
     }
   ],
   "webpage": "https://www.nhs.uk/vaccinations/td-ipv-vaccine-3-in-1-teenage-booster/"

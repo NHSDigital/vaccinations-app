@@ -13,9 +13,10 @@
   },
   "about": { "@type": "WebPage", "name": "Children's flu vaccine", "alternateName": "" },
   "description": "Find out about the children's flu vaccine, including who should have it, how to get it and side effects.",
-  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/",
+  "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/",
   "genre": ["Vaccine"],
   "keywords": "",
+  "dateModified": "2026-02-18T09:36:24+00:00",
   "lastReviewed": ["2023-12-13T08:33:00+00:00", "2026-12-13T08:33:00+00:00"],
   "breadcrumb": {
     "@context": "http://schema.org",
@@ -25,7 +26,7 @@
         "@type": "ListItem",
         "position": 0,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
           "name": "Vaccinations",
           "genre": []
         }
@@ -34,7 +35,7 @@
         "@type": "ListItem",
         "position": 1,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/",
           "name": "Children's flu vaccine",
           "genre": ["Vaccine"]
         }
@@ -45,7 +46,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/#overview",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/#overview",
       "description": "The children's flu vaccine helps protect against flu. It's for children aged 2 to 3, most school-aged children and some who have a health condition.",
       "hasPart": [
         { "@type": "WebPageElement", "headline": "Children's flu vaccine", "text": "Who it's for" },
@@ -79,7 +80,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/#what-its-for",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/#what-its-for",
       "description": "Children are offered the flu vaccine because flu can sometimes cause serious problems such as pneumonia. Vaccinating them also helps protect others.",
       "hasPart": [
         {
@@ -93,13 +94,13 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/#who-its-for",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/#who-its-for",
       "description": "The children's flu vaccine is for children aged 2 to 3 years, school-aged children (Reception to Year 11) and children with certain health conditions.",
       "hasPart": [
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<p>The children's flu vaccine is offered on the NHS every year in autumn or early winter.</p><p>It's recommended for:</p><ul><li>children aged 2 or 3 years on 31 August 2025 (born between 1 September 2021 and 31 August 2023)</li><li>school-aged children (Reception to Year 11)</li><li>children aged 6 months to 17 years with certain long-term health conditions</li></ul>"
+          "text": "<p>The children's flu vaccine is offered on the NHS every year in autumn or early winter.</p><p>It's recommended for:</p><ul><li>children aged 2 or 3 years on 31 August 2025 (born between 1 September 2021 and 31 August 2023)</li><li>children aged 4 years who have not started school yet</li><li>school-aged children (Reception to Year 11)</li><li>children aged 6 months to 17 years with certain long-term health conditions</li></ul><p>If your child is 17 years old and over, and does not have a long-term health condition, they are not eligible for the flu vaccine.</p>"
         },
         {
           "@type": "WebPageElement",
@@ -112,7 +113,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/#how-to-get-it",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/#how-to-get-it",
       "description": "Most school-aged children (Reception to Year 11) get their flu vaccine at school. Children aged 2 to 3 years get it at their GP surgery or a pharmacy.",
       "hasPart": [
         {
@@ -123,7 +124,7 @@
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<listvalue: 'children=\"\" ('body',=\"\" 0x7f58e5731210=\"\" 2=\"\" 2025'),=\"\" 3=\"\" 31=\"\" <streamvalue=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" [structvalue([('title',=\"\" aged=\"\" at=\"\" august=\"\" object=\"\" on=\"\" or=\"\" richtext:=\"\" years=\"\">&gt;]&gt;)]), StructValue([('title', 'School-aged children (Reception to Year 11)'), ('body', <streamvalue 0x7f58e57335d0=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)]), StructValue([('title', 'Children with certain long-term health conditions'), ('body', <streamvalue 0x7f58e5730550=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)])]&gt;</streamvalue></streamvalue></listvalue:>"
+          "text": "<listvalue: 'body':=\"\" 'children=\"\" 0x7e4820865970=\"\" 2=\"\" 2025',=\"\" 3=\"\" 31=\"\" <streamvalue=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" [structvalue({'title':=\"\" aged=\"\" at=\"\" august=\"\" object=\"\" on=\"\" or=\"\" richtext:=\"\" years=\"\">&gt;]&gt;}), StructValue({'title': 'Children aged 4 years who have not started school', 'body': <streamvalue 0x7e4820864530=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;}), StructValue({'title': 'School-aged children (Reception to Year 11)', 'body': <streamvalue 0x7e4820866030=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;}), StructValue({'title': 'Children with certain long-term health conditions', 'body': <streamvalue 0x7e481b8d26c0=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;})]&gt;</streamvalue></streamvalue></streamvalue></listvalue:>"
         }
       ],
       "headline": "How to get the children's flu vaccine"
@@ -131,7 +132,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/#contraindications",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/#contraindications",
       "description": "Most children who need it can have the flu vaccine. Children cannot have it if they've had a serious allergic reaction to it or an ingredient in it.",
       "hasPart": [
         {
@@ -150,7 +151,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/#ingredients",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/#ingredients",
       "description": "You can check the ingredients in the children's flu vaccine by asking to see the patient leaflet or searching for it online.",
       "hasPart": [
         {
@@ -164,7 +165,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/UsageOrScheduleHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/#how-its-used-previously-dosage-and-administration",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/#how-its-used-previously-dosage-and-administration",
       "description": "The children's flu vaccine is a nasal spray given in each nostril. Children who cannot have the nasal spray will get a flu vaccine given by injection.",
       "hasPart": [
         {
@@ -183,7 +184,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/#side-effects",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/#side-effects",
       "description": "Side effects of the children's nasal spray flu vaccine include a blocked or runny nose, loss of appetite, feeling tired and a headache.",
       "hasPart": [
         {
@@ -197,7 +198,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/EffectivenessHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/#effectiveness",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/child-flu-vaccine/#effectiveness",
       "description": "The children's flu vaccine aims to protect children against common flu viruses. They might still get flu, but it's likely to be less serious.",
       "hasPart": [
         {
@@ -212,7 +213,7 @@
   "relatedLink": [
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
       "name": "Vaccinations",
       "linkRelationship": "Navigation",
       "position": 0
@@ -290,7 +291,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>The children's flu vaccine is offered on the NHS every year in autumn or early winter.</p><p>It's recommended for:</p><ul><li>children aged 2 or 3 years on 31 August 2025 (born between 1 September 2021 and 31 August 2023)</li><li>school-aged children (Reception to Year 11)</li><li>children aged 6 months to 17 years with certain long-term health conditions</li></ul>",
+          "text": "<p>The children's flu vaccine is offered on the NHS every year in autumn or early winter.</p><p>It's recommended for:</p><ul><li>children aged 2 or 3 years on 31 August 2025 (born between 1 September 2021 and 31 August 2023)</li><li>children aged 4 years who have not started school yet</li><li>school-aged children (Reception to Year 11)</li><li>children aged 6 months to 17 years with certain long-term health conditions</li></ul><p>If your child is 17 years old and over, and does not have a long-term health condition, they are not eligible for the flu vaccine.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -309,7 +310,7 @@
         {
           "position": 0,
           "identifier": "1",
-          "text": "<p>The children's flu vaccine is offered on the NHS every year in autumn or early winter.</p><p>It's recommended for:</p><ul><li>children aged 2 or 3 years on 31 August 2025 (born between 1 September 2021 and 31 August 2023)</li><li>school-aged children (Reception to Year 11)</li><li>children aged 6 months to 17 years with certain long-term health conditions</li></ul>",
+          "text": "<p>The children's flu vaccine is offered on the NHS every year in autumn or early winter.</p><p>It's recommended for:</p><ul><li>children aged 2 or 3 years on 31 August 2025 (born between 1 September 2021 and 31 August 2023)</li><li>children aged 4 years who have not started school yet</li><li>school-aged children (Reception to Year 11)</li><li>children aged 6 months to 17 years with certain long-term health conditions</li></ul><p>If your child is 17 years old and over, and does not have a long-term health condition, they are not eligible for the flu vaccine.</p>",
           "@type": "WebPageElement",
           "name": "markdown",
           "headline": ""
@@ -352,18 +353,26 @@
               "name": "Expander",
               "subjectOf": "Children aged 2 or 3 years on 31 August 2025",
               "identifier": "18",
-              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"4zm3k\">To get a flu vaccine for a child aged 2 or 3 years old, you can:</p><ul><li data-block-key=\"4u85t\">contact their GP surgery to book an appointment</li><li data-block-key=\"bpmgq\"><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-flu-vaccination/\">book a free NHS flu vaccination at a pharmacy online</a> or in the <a href=\"https://www.nhs.uk/nhs-app/\">NHS App</a></li><li data-block-key=\"ftgg0\"><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-pharmacy-that-offers-free-flu-vaccination/\">find a pharmacy that offers free NHS flu vaccination</a> where your child can get vaccinated without an appointment (walk-in)</li></ul><p data-block-key=\"4ndia\">You should get an invitation from your GP surgery, or be able to contact them, in autumn or early winter to book an appointment.</p>\n</div>"
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"4zm3k\">To get a flu vaccine for a child aged 2 or 3 years old, you can:</p><ul><li data-block-key=\"4u85t\">contact their GP surgery to book an appointment</li><li data-block-key=\"bpmgq\"><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-flu-vaccination/\">book a free NHS flu vaccination at a pharmacy online</a> or in the <a href=\"https://www.nhs.uk/nhs-app/\">NHS App</a></li><li data-block-key=\"ftgg0\"><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-pharmacy-that-offers-free-flu-vaccination/\">find a pharmacy that offers free NHS flu vaccination</a> where your child can get vaccinated without an appointment (walk-in)</li></ul>\n</div>"
             },
             {
               "position": 1,
               "@type": "WebPageElement",
               "name": "Expander",
-              "subjectOf": "School-aged children (Reception to Year 11)",
+              "subjectOf": "Children aged 4 years who have not started school",
               "identifier": "18",
-              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"4zm3k\">Most school-aged children (Reception to Year 11) get their flu vaccine at school.</p><p data-block-key=\"ftv01\">You should get an invitation from your child's school or the School Age Immunisation Service to get their vaccine, usually during the autumn term.</p><p data-block-key=\"dmjas\">If your child misses their vaccination at school or if they are home educated (home-schooled), they should be offered a flu vaccine at a community clinic.</p><p data-block-key=\"1t1d1\">If your child is 4 years old but has not started school yet, they can get vaccinated at either:</p><ul><li data-block-key=\"bv36q\">a community clinic – if they turned 4 years of age on or before 31 August 2025</li><li data-block-key=\"nam4\">their GP surgery or a pharmacy that offers flu vaccination – if they turned 4 years of age after 31 August 2025</li></ul>\n</div>"
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"fy6l5\">If your child is 4 years old but has not started school yet, they can get vaccinated at either:</p><ul><li data-block-key=\"3ug6p\">a community clinic – if they turned 4 years old on or before 31 August 2025</li><li data-block-key=\"7k024\">their GP surgery or a pharmacy that offers flu vaccination – if they turned 4 years old after 31 August 2025</li></ul>\n</div>"
             },
             {
               "position": 2,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "School-aged children (Reception to Year 11)",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"4zm3k\">Most school-aged children (Reception to Year 11) get their flu vaccine at school.</p><p data-block-key=\"ftv01\">You should get an invitation from your child's school or the School Age Immunisation Service to get their vaccine, usually during the autumn term.</p><p data-block-key=\"dmjas\">If your child misses their vaccination at school or if they are home educated (home-schooled), they should be offered a flu vaccine at a community clinic.</p>\n</div>"
+            },
+            {
+              "position": 3,
               "@type": "WebPageElement",
               "name": "Expander",
               "subjectOf": "Children with certain long-term health conditions",
@@ -395,18 +404,26 @@
               "name": "Expander",
               "subjectOf": "Children aged 2 or 3 years on 31 August 2025",
               "identifier": "18",
-              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"4zm3k\">To get a flu vaccine for a child aged 2 or 3 years old, you can:</p><ul><li data-block-key=\"4u85t\">contact their GP surgery to book an appointment</li><li data-block-key=\"bpmgq\"><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-flu-vaccination/\">book a free NHS flu vaccination at a pharmacy online</a> or in the <a href=\"https://www.nhs.uk/nhs-app/\">NHS App</a></li><li data-block-key=\"ftgg0\"><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-pharmacy-that-offers-free-flu-vaccination/\">find a pharmacy that offers free NHS flu vaccination</a> where your child can get vaccinated without an appointment (walk-in)</li></ul><p data-block-key=\"4ndia\">You should get an invitation from your GP surgery, or be able to contact them, in autumn or early winter to book an appointment.</p>\n</div>"
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"4zm3k\">To get a flu vaccine for a child aged 2 or 3 years old, you can:</p><ul><li data-block-key=\"4u85t\">contact their GP surgery to book an appointment</li><li data-block-key=\"bpmgq\"><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/book-flu-vaccination/\">book a free NHS flu vaccination at a pharmacy online</a> or in the <a href=\"https://www.nhs.uk/nhs-app/\">NHS App</a></li><li data-block-key=\"ftgg0\"><a href=\"https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-pharmacy-that-offers-free-flu-vaccination/\">find a pharmacy that offers free NHS flu vaccination</a> where your child can get vaccinated without an appointment (walk-in)</li></ul>\n</div>"
             },
             {
               "position": 1,
               "@type": "WebPageElement",
               "name": "Expander",
-              "subjectOf": "School-aged children (Reception to Year 11)",
+              "subjectOf": "Children aged 4 years who have not started school",
               "identifier": "18",
-              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"4zm3k\">Most school-aged children (Reception to Year 11) get their flu vaccine at school.</p><p data-block-key=\"ftv01\">You should get an invitation from your child's school or the School Age Immunisation Service to get their vaccine, usually during the autumn term.</p><p data-block-key=\"dmjas\">If your child misses their vaccination at school or if they are home educated (home-schooled), they should be offered a flu vaccine at a community clinic.</p><p data-block-key=\"1t1d1\">If your child is 4 years old but has not started school yet, they can get vaccinated at either:</p><ul><li data-block-key=\"bv36q\">a community clinic – if they turned 4 years of age on or before 31 August 2025</li><li data-block-key=\"nam4\">their GP surgery or a pharmacy that offers flu vaccination – if they turned 4 years of age after 31 August 2025</li></ul>\n</div>"
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"fy6l5\">If your child is 4 years old but has not started school yet, they can get vaccinated at either:</p><ul><li data-block-key=\"3ug6p\">a community clinic – if they turned 4 years old on or before 31 August 2025</li><li data-block-key=\"7k024\">their GP surgery or a pharmacy that offers flu vaccination – if they turned 4 years old after 31 August 2025</li></ul>\n</div>"
             },
             {
               "position": 2,
+              "@type": "WebPageElement",
+              "name": "Expander",
+              "subjectOf": "School-aged children (Reception to Year 11)",
+              "identifier": "18",
+              "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"4zm3k\">Most school-aged children (Reception to Year 11) get their flu vaccine at school.</p><p data-block-key=\"ftv01\">You should get an invitation from your child's school or the School Age Immunisation Service to get their vaccine, usually during the autumn term.</p><p data-block-key=\"dmjas\">If your child misses their vaccination at school or if they are home educated (home-schooled), they should be offered a flu vaccine at a community clinic.</p>\n</div>"
+            },
+            {
+              "position": 3,
               "@type": "WebPageElement",
               "name": "Expander",
               "subjectOf": "Children with certain long-term health conditions",

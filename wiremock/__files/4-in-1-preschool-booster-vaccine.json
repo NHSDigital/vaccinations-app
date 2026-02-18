@@ -17,7 +17,7 @@
     "alternateName": ["Pre-school booster vaccine"]
   },
   "description": "Find out about the 4-in-1 pre-school booster, including who should have it, how to get it and side effects.",
-  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/4-in-1-preschool-booster-vaccine/",
+  "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/4-in-1-preschool-booster-vaccine/",
   "genre": ["Vaccine"],
   "keywords": "",
   "dateModified": "2025-04-15T14:19:44+00:00",
@@ -30,7 +30,7 @@
         "@type": "ListItem",
         "position": 0,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
           "name": "Vaccinations",
           "genre": []
         }
@@ -39,7 +39,7 @@
         "@type": "ListItem",
         "position": 1,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/4-in-1-preschool-booster-vaccine/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/4-in-1-preschool-booster-vaccine/",
           "name": "4-in-1 pre-school booster vaccine",
           "genre": ["Vaccine"]
         }
@@ -50,7 +50,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/4-in-1-preschool-booster-vaccine/#overview",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/4-in-1-preschool-booster-vaccine/#overview",
       "description": "The 4-in-1 pre-school booster helps protect against serious illnesses such as polio and tetanus. It's given to children aged 3 years, 4 months old.",
       "hasPart": [
         { "@type": "WebPageElement", "headline": "4-in-1 pre-school booster vaccine", "text": "Who it's for" },
@@ -79,7 +79,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/4-in-1-preschool-booster-vaccine/#what-its-for",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/4-in-1-preschool-booster-vaccine/#what-its-for",
       "description": "The 4-in-1 pre-school booster helps protect against diphtheria, polio, tetanus and whooping cough",
       "hasPart": [
         {
@@ -93,7 +93,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/4-in-1-preschool-booster-vaccine/#who-its-for",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/4-in-1-preschool-booster-vaccine/#who-its-for",
       "description": "The 4-in-1 pre-school booster is given to children aged 3 years, 4 months old before they start school.",
       "hasPart": [
         {
@@ -107,7 +107,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/4-in-1-preschool-booster-vaccine/#contraindications",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/4-in-1-preschool-booster-vaccine/#contraindications",
       "description": "Most children can have the 4-in-1 pre-school booster. They cannot have it if they've had a serious allergic reaction to an ingredient in it.",
       "hasPart": [
         {
@@ -126,7 +126,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/4-in-1-preschool-booster-vaccine/#ingredients",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/4-in-1-preschool-booster-vaccine/#ingredients",
       "description": "You can check the ingredients in the 4-in-1 pre-school booster by asking to see the patient leaflet or searching for it online.",
       "hasPart": [
         {
@@ -140,7 +140,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/4-in-1-preschool-booster-vaccine/#how-to-get-it",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/4-in-1-preschool-booster-vaccine/#how-to-get-it",
       "description": "Your GP surgery will usually contact you to arrange your child's 4-in-1 pre-school booster. Speak to your GP surgery if you have not been contacted.",
       "hasPart": [
         {
@@ -160,7 +160,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/4-in-1-preschool-booster-vaccine/#side-effects",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/4-in-1-preschool-booster-vaccine/#side-effects",
       "description": "Side effects of the 4-in-1 pre-school booster include swelling or pain where the injection was given, feeling tired and a high temperature.",
       "hasPart": [
         {
@@ -175,7 +175,7 @@
   "relatedLink": [
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
       "name": "Vaccinations",
       "linkRelationship": "Navigation",
       "position": 0

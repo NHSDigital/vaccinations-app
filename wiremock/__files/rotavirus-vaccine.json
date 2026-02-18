@@ -13,7 +13,7 @@
   },
   "about": { "@type": "WebPage", "name": "Rotavirus vaccine", "alternateName": "" },
   "description": "Find out about the rotavirus vaccine, including why it's given, who should have it and what the possible side effects are.",
-  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/",
+  "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/",
   "genre": ["Vaccine"],
   "keywords": "",
   "dateModified": "2025-04-15T14:21:34+00:00",
@@ -26,7 +26,7 @@
         "@type": "ListItem",
         "position": 0,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
           "name": "Vaccinations",
           "genre": []
         }
@@ -35,7 +35,7 @@
         "@type": "ListItem",
         "position": 1,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/",
           "name": "Rotavirus vaccine",
           "genre": ["Vaccine"]
         }
@@ -46,7 +46,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#overview",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#overview",
       "description": "The rotavirus vaccine helps protect against rotavirus, a common cause of diarrhoea and vomiting. It's given to babies when they're 8 and 12 weeks old.",
       "hasPart": [
         { "@type": "WebPageElement", "headline": "Rotavirus vaccine", "text": "What it's for" },
@@ -80,7 +80,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#what-its-for",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#what-its-for",
       "description": "The rotavirus vaccine is recommended for babies because rotavirus spreads very easily and can make some babies very ill.",
       "hasPart": [
         {
@@ -94,7 +94,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#who-its-for",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#who-its-for",
       "description": "The rotavirus vaccine is for babies. They're given a dose of the vaccine at 8 weeks old and 12 weeks old.",
       "hasPart": [
         {
@@ -108,7 +108,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#contraindications",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#contraindications",
       "description": "A small number of babies cannot have the rotavirus vaccine, such as babies with a rare condition called severe combined immunodeficiency (SCID).",
       "hasPart": [
         {
@@ -127,7 +127,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#ingredients",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#ingredients",
       "description": "You can check the ingredients in the rotavirus vaccine by asking to see the patient leaflet or searching for it online.",
       "hasPart": [
         {
@@ -141,7 +141,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#how-to-get-it",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#how-to-get-it",
       "description": "Your GP surgery will usually contact you to arrange your baby's rotavirus vaccinations. Speak to your GP surgery if you have not been contacted.",
       "hasPart": [
         {
@@ -161,7 +161,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/UsageOrScheduleHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#how-its-used-previously-dosage-and-administration",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#how-its-used-previously-dosage-and-administration",
       "description": "The rotavirus vaccine is a liquid that is squirted into your baby's mouth. They may need to be given another dose if they spit it out straight away.",
       "hasPart": [
         {
@@ -180,7 +180,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#side-effects",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#side-effects",
       "description": "The most common side effects of the rotavirus vaccine are diarrhoea and irritability. More serious side effects are very rare.",
       "hasPart": [
         {
@@ -200,7 +200,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/EffectivenessHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#effectiveness",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/rotavirus-vaccine/#effectiveness",
       "description": "About 8 out of every 10 babies who have the rotavirus vaccine will be protected from diarrhoea and vomiting caused by rotavirus.",
       "hasPart": [
         {
@@ -215,7 +215,7 @@
   "relatedLink": [
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
       "name": "Vaccinations",
       "linkRelationship": "Navigation",
       "position": 0

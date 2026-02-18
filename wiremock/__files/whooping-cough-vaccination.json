@@ -13,7 +13,7 @@
   },
   "about": { "@type": "WebPage", "name": "Whooping cough vaccination in pregnancy", "alternateName": "" },
   "description": "The whooping cough vaccination is recommended for all pregnant women, ideally at 20 weeks pregnant. Find out how this vaccine may help protect your baby's health.",
-  "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/whooping-cough-vaccination/",
+  "url": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/whooping-cough-vaccination/",
   "genre": ["Advice or information"],
   "keywords": "",
   "dateModified": "2024-11-14T22:05:56+00:00",
@@ -25,17 +25,13 @@
       {
         "@type": "ListItem",
         "position": 0,
-        "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/",
-          "name": "Pregnancy",
-          "genre": []
-        }
+        "item": { "@id": "https://api.service.nhs.uk/nhs-website-content/pregnancy/", "name": "Pregnancy", "genre": [] }
       },
       {
         "@type": "ListItem",
         "position": 1,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/",
           "name": "Keeping well in pregnancy",
           "genre": []
         }
@@ -44,7 +40,7 @@
         "@type": "ListItem",
         "position": 2,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/whooping-cough-vaccination/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/whooping-cough-vaccination/",
           "name": "Whooping cough vaccination in pregnancy",
           "genre": ["Advice or information"]
         }
@@ -55,157 +51,129 @@
   "relatedLink": [
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/",
+      "url": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/",
       "name": "Keeping well in pregnancy",
       "linkRelationship": "Navigation",
       "position": 0
     },
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/have-a-healthy-diet/",
-      "name": "Have a healthy diet in pregnancy",
+      "url": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/medicines/",
+      "name": "Medicines in pregnancy",
       "linkRelationship": "Navigation",
       "position": 1
     },
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/vegetarian-or-vegan-and-pregnant/",
-      "name": "Vegetarian or vegan and pregnant",
+      "url": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/travelling/",
+      "name": "Travelling in pregnancy",
       "linkRelationship": "Navigation",
       "position": 2
     },
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/foods-to-avoid/",
-      "name": "Foods to avoid in pregnancy",
+      "url": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/your-babys-movements/",
+      "name": "Your baby's movements",
       "linkRelationship": "Navigation",
       "position": 3
     },
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/vitamins-supplements-and-nutrition/",
-      "name": "Vitamins, supplements and nutrition in pregnancy",
+      "url": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/foods-to-avoid/",
+      "name": "Foods to avoid in pregnancy",
       "linkRelationship": "Navigation",
       "position": 4
     },
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/exercise/",
-      "name": "Exercise in pregnancy",
+      "url": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/drinking-alcohol-while-pregnant/",
+      "name": "Drinking alcohol while pregnant",
       "linkRelationship": "Navigation",
       "position": 5
     },
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/medicines/",
-      "name": "Medicines in pregnancy",
+      "url": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/stop-smoking/",
+      "name": "Stop smoking in pregnancy",
       "linkRelationship": "Navigation",
       "position": 6
     },
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/mental-health/",
-      "name": "Mental health in pregnancy",
+      "url": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/illegal-drugs/",
+      "name": "Illegal drugs in pregnancy",
       "linkRelationship": "Navigation",
       "position": 7
     },
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/depression/",
-      "name": "Depression in pregnancy",
+      "url": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/have-a-healthy-diet/",
+      "name": "Have a healthy diet in pregnancy",
       "linkRelationship": "Navigation",
       "position": 8
     },
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/sex/",
-      "name": "Sex in pregnancy",
+      "url": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/vitamins-supplements-and-nutrition/",
+      "name": "Vitamins, supplements and nutrition in pregnancy",
       "linkRelationship": "Navigation",
       "position": 9
     },
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/travelling/",
-      "name": "Travelling in pregnancy",
+      "url": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/vaccinations/",
+      "name": "Vaccinations in pregnancy",
       "linkRelationship": "Navigation",
       "position": 10
     },
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/your-health-at-work/",
-      "name": "Work and pregnancy",
+      "url": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/flu-jab/",
+      "name": "The flu jab in pregnancy",
       "linkRelationship": "Navigation",
       "position": 11
     },
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/your-babys-movements/",
-      "name": "Your baby's movements",
+      "url": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/whooping-cough-vaccination/",
+      "name": "Whooping cough vaccination in pregnancy",
       "linkRelationship": "Navigation",
       "position": 12
     },
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/reducing-the-risk-of-stillbirth/",
-      "name": "Reducing the risk of stillbirth",
+      "url": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/infections-that-may-affect-your-baby/",
+      "name": "Infections in pregnancy that may affect your baby",
       "linkRelationship": "Navigation",
       "position": 13
     },
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/drinking-alcohol-while-pregnant/",
-      "name": "Drinking alcohol while pregnant",
+      "url": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/weight-gain/",
+      "name": "Weight gain in pregnancy",
       "linkRelationship": "Navigation",
       "position": 14
     },
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/stop-smoking/",
-      "name": "Stop smoking in pregnancy",
+      "url": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/overweight/",
+      "name": "Obesity and pregnancy",
       "linkRelationship": "Navigation",
       "position": 15
     },
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/illegal-drugs/",
-      "name": "Illegal drugs in pregnancy",
+      "url": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/pregnancy-and-covid-19/",
+      "name": "Pregnancy and COVID-19",
       "linkRelationship": "Navigation",
       "position": 16
     },
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/vaccinations/",
-      "name": "Vaccinations in pregnancy",
+      "url": "https://api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/exercise/",
+      "name": "Exercise in pregnancy",
       "linkRelationship": "Navigation",
       "position": 17
-    },
-    {
-      "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/flu-jab/",
-      "name": "The flu jab in pregnancy",
-      "linkRelationship": "Navigation",
-      "position": 18
-    },
-    {
-      "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/whooping-cough-vaccination/",
-      "name": "Whooping cough vaccination in pregnancy",
-      "linkRelationship": "Navigation",
-      "position": 19
-    },
-    {
-      "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/infections-that-may-affect-your-baby/",
-      "name": "Infections in pregnancy that may affect your baby",
-      "linkRelationship": "Navigation",
-      "position": 20
-    },
-    {
-      "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/pregnancy/keeping-well/pregnancy-and-covid-19/",
-      "name": "Pregnancy and COVID-19",
-      "linkRelationship": "Navigation",
-      "position": 21
     }
   ],
   "contentSubTypes": [],

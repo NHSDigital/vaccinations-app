@@ -2,10 +2,7 @@
   "@context": "http://schema.org",
   "@type": "MedicalWebPage",
   "name": "MMRV (measles, mumps, rubella and chickenpox) vaccine",
-  "copyrightHolder": {
-    "name": "Crown Copyright",
-    "@type": "Organization"
-  },
+  "copyrightHolder": { "name": "Crown Copyright", "@type": "Organization" },
   "license": "https://developer.api.nhs.uk/terms",
   "author": {
     "url": "https://www.nhs.uk",
@@ -14,11 +11,7 @@
     "@type": "Organization",
     "name": "NHS website"
   },
-  "about": {
-    "@type": "WebPage",
-    "name": "MMRV (measles, mumps, rubella and chickenpox) vaccine",
-    "alternateName": ""
-  },
+  "about": { "@type": "WebPage", "name": "MMRV (measles, mumps, rubella and chickenpox) vaccine", "alternateName": "" },
   "description": "Find out about the MMRV vaccine for measles, mumps, rubella and chickenpox, including who should have it, when it's given and possible side effects.",
   "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmrv-vaccine/",
   "genre": ["Vaccine"],

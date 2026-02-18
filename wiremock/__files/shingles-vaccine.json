@@ -13,7 +13,7 @@
   },
   "about": { "@type": "WebPage", "name": "Shingles vaccine", "alternateName": "" },
   "description": "Find out about the shingles vaccine, including who it's for, how to get it and possible side effects.",
-  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/",
+  "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/",
   "genre": ["Vaccine"],
   "keywords": "",
   "dateModified": "2025-09-01T06:36:24+00:00",
@@ -26,7 +26,7 @@
         "@type": "ListItem",
         "position": 0,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
           "name": "Vaccinations",
           "genre": []
         }
@@ -35,7 +35,7 @@
         "@type": "ListItem",
         "position": 1,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/",
           "name": "Shingles vaccine",
           "genre": ["Vaccine"]
         }
@@ -46,7 +46,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#overview",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#overview",
       "description": "The shingles vaccine helps protect you against shingles, a common condition in adults that causes a painful rash.",
       "hasPart": [
         { "@type": "WebPageElement", "headline": "Shingles vaccine", "text": "What it's for" },
@@ -80,7 +80,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#what-its-for",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#what-its-for",
       "description": "The shingles vaccine is used to reduce your chances of getting shingles and of getting serious problems if you do get shingles.",
       "hasPart": [
         {
@@ -94,7 +94,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#who-its-for",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#who-its-for",
       "description": "The shingles vaccine is offered to all adults turning 65, those aged 70 to 79 and those aged 18 and over with a severely weakened immune system.",
       "hasPart": [
         {
@@ -105,7 +105,7 @@
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<listvalue: 'people=\"\" ('body',=\"\" 0x7fe6dbd43890=\"\" 1=\"\" 2023'),=\"\" 65=\"\" <streamvalue=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" [structvalue([('title',=\"\" after=\"\" at=\"\" object=\"\" on=\"\" or=\"\" richtext:=\"\" september=\"\" turn=\"\" who=\"\">&gt;, <block 0x7fe6dbd43310=\"\" <wagtail.rich_text.richtext=\"\" at=\"\" inset_text:=\"\" object=\"\" structvalue([('body',=\"\">)])&gt;]&gt;)]), StructValue([('title', 'People aged 70 to 79'), ('body', <streamvalue 0x7fe6dbd42d50=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)]), StructValue([('title', 'People aged 18 and over with a severely weakened immune system'), ('body', <streamvalue 0x7fe6dbd41050=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)])]&gt;</streamvalue></streamvalue></block></listvalue:>"
+          "text": "<listvalue: 'body':=\"\" 'people=\"\" 0x782e32aa09e0=\"\" 1=\"\" 2023',=\"\" 65=\"\" <streamvalue=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" [structvalue({'title':=\"\" after=\"\" at=\"\" object=\"\" on=\"\" or=\"\" richtext:=\"\" september=\"\" turn=\"\" who=\"\">&gt;, <block 0x782e3501da60=\"\" <wagtail.rich_text.richtext=\"\" at=\"\" inset_text:=\"\" object=\"\" structvalue({'body':=\"\">})&gt;]&gt;}), StructValue({'title': 'People aged 70 to 79', 'body': <streamvalue 0x782e3501d340=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;}), StructValue({'title': 'People aged 18 and over with a severely weakened immune system', 'body': <streamvalue 0x782e3501d4c0=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;})]&gt;</streamvalue></streamvalue></block></listvalue:>"
         },
         {
           "@type": "WebPageElement",
@@ -118,7 +118,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#contraindications",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#contraindications",
       "description": "Most people can have the shingles vaccine. You only need to avoid it if you've had a serious allergic reaction to the vaccine, or an ingredient in it.",
       "hasPart": [
         {
@@ -137,7 +137,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#how-to-get-it",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#how-to-get-it",
       "description": "Your GP surgery will usually contact you when you become eligible for the shingles vaccine.",
       "hasPart": [
         {
@@ -162,7 +162,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#side-effects",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/shingles-vaccine/#side-effects",
       "description": "Common side effects of the shingles vaccine include swelling or pain where the injection was given. Serious side effects are very rare.",
       "hasPart": [
         {
@@ -177,7 +177,7 @@
   "relatedLink": [
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
       "name": "Vaccinations",
       "linkRelationship": "Navigation",
       "position": 0

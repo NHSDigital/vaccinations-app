@@ -13,10 +13,10 @@
   },
   "about": { "@type": "WebPage", "name": "Flu vaccine", "alternateName": "" },
   "description": "Find out about the flu vaccine for adults, including who should have it, how to get it and side effects.",
-  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/",
+  "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/",
   "genre": ["Vaccine"],
   "keywords": "",
-  "dateModified": "2025-11-20T17:46:48+00:00",
+  "dateModified": "2026-02-02T12:32:34+00:00",
   "lastReviewed": ["2023-11-23T08:28:00+00:00", "2026-11-23T08:28:00+00:00"],
   "breadcrumb": {
     "@context": "http://schema.org",
@@ -26,7 +26,7 @@
         "@type": "ListItem",
         "position": 0,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
           "name": "Vaccinations",
           "genre": []
         }
@@ -35,7 +35,7 @@
         "@type": "ListItem",
         "position": 1,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/",
           "name": "Flu vaccine",
           "genre": ["Vaccine"]
         }
@@ -46,7 +46,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#overview",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#overview",
       "description": "The flu vaccine helps protect against flu. It's given every year in autumn or early winter to adults at higher risk from flu.",
       "hasPart": [
         { "@type": "WebPageElement", "headline": "Flu vaccine", "text": "Who it's for" },
@@ -75,7 +75,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#who-its-for",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#who-its-for",
       "description": "The flu vaccine is recommended for people at higher risk from flu, including all adults aged 65 and over and people with certain health conditions.",
       "hasPart": [
         {
@@ -94,7 +94,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#how-to-get-it",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#how-to-get-it",
       "description": "Most adults can get a flu vaccine from a GP surgery or some pharmacies. Some people get it through their employer, care home or a maternity service.",
       "hasPart": [
         {
@@ -113,7 +113,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#contraindications",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#contraindications",
       "description": "Most people who need it can have the flu vaccine. You cannot have it if you've had a serious allergic reaction to it or an ingredient in it.",
       "hasPart": [
         {
@@ -132,7 +132,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#ingredients",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#ingredients",
       "description": "You can check the ingredients in the flu vaccine by asking to see the patient leaflet or searching for it online.",
       "hasPart": [
         {
@@ -143,7 +143,7 @@
         {
           "@type": "WebPageElement",
           "headline": "",
-          "text": "<listvalue: 'vaccines=\"\" ('body',=\"\" 0x7fc1a7195150=\"\" 65=\"\" <streamvalue=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" [structvalue([('title',=\"\" aged=\"\" and=\"\" at=\"\" for=\"\" object=\"\" over'),=\"\" people=\"\" richtext:=\"\">&gt;]&gt;)]), StructValue([('title', 'Vaccines for people aged 60 to 64'), ('body', <streamvalue 0x7fc1a7196810=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)]), StructValue([('title', 'Vaccines for people aged 50 to 59'), ('body', <streamvalue 0x7fc1a7195710=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)]), StructValue([('title', 'Vaccines for people aged 18 to 49'), ('body', <streamvalue 0x7fc1a71963d0=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;)])]&gt;</streamvalue></streamvalue></streamvalue></listvalue:>"
+          "text": "<listvalue: 'body':=\"\" 'vaccines=\"\" 0x7d811bfee690=\"\" 65=\"\" <streamvalue=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" [structvalue({'title':=\"\" aged=\"\" and=\"\" at=\"\" for=\"\" object=\"\" over',=\"\" people=\"\" richtext:=\"\">&gt;]&gt;}), StructValue({'title': 'Vaccines for people aged 60 to 64', 'body': <streamvalue 0x7d811bfef950=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;}), StructValue({'title': 'Vaccines for people aged 50 to 59', 'body': <streamvalue 0x7d811bfec6b0=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;}), StructValue({'title': 'Vaccines for people aged 18 to 49', 'body': <streamvalue 0x7d811bfed490=\"\" <wagtail.rich_text.richtext=\"\" [<block=\"\" at=\"\" object=\"\" richtext:=\"\">&gt;]&gt;})]&gt;</streamvalue></streamvalue></streamvalue></listvalue:>"
         }
       ],
       "headline": "Flu vaccine ingredients"
@@ -151,7 +151,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#side-effects",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#side-effects",
       "description": "Side effects of the flu vaccine include pain or soreness where the injection was given, a slightly raised temperature and an aching body.",
       "hasPart": [
         {
@@ -165,7 +165,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/EffectivenessHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#effectiveness",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/flu-vaccine/#effectiveness",
       "description": "The flu vaccine helps protect you against common types of flu viruses. There's still a chance you might get flu, but it's likely to be milder.",
       "hasPart": [
         {
@@ -180,7 +180,7 @@
   "relatedLink": [
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
       "name": "Vaccinations",
       "linkRelationship": "Navigation",
       "position": 0
@@ -204,14 +204,6 @@
         {
           "position": 0,
           "@type": "WebPageElement",
-          "name": "Expander",
-          "subjectOf": "Extra places to get your flu vaccine from 22 November",
-          "identifier": "18",
-          "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"mnz89\">Extra appointments and pop-up clinics will be available across England from Saturday 22 November to make it as easy as possible to get your flu vaccine.</p><p data-block-key=\"cs8kg\">Check the area you live to find a vaccination clinic near you:</p><ul><li data-block-key=\"b10pn\"><a href=\"https://www.england.nhs.uk/east-of-england/nhs-england-and-nhs-improvement-east-of-englands-work/winter-vaccinations/\">East of England</a></li><li data-block-key=\"73hq4\"><a href=\"https://www.england.nhs.uk/london/our-work/winter-health-advice/getting-your-winter-vaccines-in-london/\">London</a></li><li data-block-key=\"dlujv\"><a href=\"https://www.england.nhs.uk/midlands/nhs-england-and-nhs-improvement-midlands-work/winter-vaccination-2025/#black-country\">Midlands</a></li><li data-block-key=\"7hndt\"><a href=\"https://www.england.nhs.uk/north-east-yorkshire/winter-vaccinations/\">North East and Yorkshire</a></li><li data-block-key=\"b8orp\"><a href=\"https://www.england.nhs.uk/north-west/keeping-you-well/nhs-vaccination-information/\">North West</a></li><li data-block-key=\"etu2j\"><a href=\"https://www.england.nhs.uk/south-east/our-work/get-protected-this-winter/\">South East</a></li><li data-block-key=\"5pqg3\"><a href=\"https://www.england.nhs.uk/south/our-work/stay-well/boost-your-immunity/\">South West</a></li></ul>\n</div>"
-        },
-        {
-          "position": 1,
-          "@type": "WebPageElement",
           "name": "Information",
           "identifier": "3",
           "text": "<p>This page is about the flu vaccine for adults. There are also pages about the <a href=\"https://www.nhs.uk/vaccinations/child-flu-vaccine/\">children's flu vaccine</a> and <a href=\"https://www.nhs.uk/pregnancy/keeping-well/flu-jab/\">flu jab in pregnancy</a>.</p>"
@@ -221,14 +213,6 @@
       "hasPart": [
         {
           "position": 0,
-          "@type": "WebPageElement",
-          "name": "Expander",
-          "subjectOf": "Extra places to get your flu vaccine from 22 November",
-          "identifier": "18",
-          "mainEntity": "<div class=\"block-richtext\">\n\n\n\n    <p data-block-key=\"mnz89\">Extra appointments and pop-up clinics will be available across England from Saturday 22 November to make it as easy as possible to get your flu vaccine.</p><p data-block-key=\"cs8kg\">Check the area you live to find a vaccination clinic near you:</p><ul><li data-block-key=\"b10pn\"><a href=\"https://www.england.nhs.uk/east-of-england/nhs-england-and-nhs-improvement-east-of-englands-work/winter-vaccinations/\">East of England</a></li><li data-block-key=\"73hq4\"><a href=\"https://www.england.nhs.uk/london/our-work/winter-health-advice/getting-your-winter-vaccines-in-london/\">London</a></li><li data-block-key=\"dlujv\"><a href=\"https://www.england.nhs.uk/midlands/nhs-england-and-nhs-improvement-midlands-work/winter-vaccination-2025/#black-country\">Midlands</a></li><li data-block-key=\"7hndt\"><a href=\"https://www.england.nhs.uk/north-east-yorkshire/winter-vaccinations/\">North East and Yorkshire</a></li><li data-block-key=\"b8orp\"><a href=\"https://www.england.nhs.uk/north-west/keeping-you-well/nhs-vaccination-information/\">North West</a></li><li data-block-key=\"etu2j\"><a href=\"https://www.england.nhs.uk/south-east/our-work/get-protected-this-winter/\">South East</a></li><li data-block-key=\"5pqg3\"><a href=\"https://www.england.nhs.uk/south/our-work/stay-well/boost-your-immunity/\">South West</a></li></ul>\n</div>"
-        },
-        {
-          "position": 1,
           "@type": "WebPageElement",
           "name": "Information",
           "identifier": "3",

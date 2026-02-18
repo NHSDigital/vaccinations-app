@@ -2,10 +2,7 @@
   "@context": "http://schema.org",
   "@type": "MedicalWebPage",
   "name": "MMR (measles, mumps and rubella) vaccine",
-  "copyrightHolder": {
-    "name": "Crown Copyright",
-    "@type": "Organization"
-  },
+  "copyrightHolder": { "name": "Crown Copyright", "@type": "Organization" },
   "license": "https://developer.api.nhs.uk/terms",
   "author": {
     "url": "https://www.nhs.uk",
@@ -14,11 +11,7 @@
     "@type": "Organization",
     "name": "NHS website"
   },
-  "about": {
-    "@type": "WebPage",
-    "name": "MMR (measles, mumps and rubella) vaccine",
-    "alternateName": ""
-  },
+  "about": { "@type": "WebPage", "name": "MMR (measles, mumps and rubella) vaccine", "alternateName": "" },
   "description": "Find out about the MMR vaccine for measles, mumps and rubella, including who should have it, when it's given and possible side effects.",
   "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/",
   "genre": ["Vaccine"],
@@ -56,21 +49,9 @@
       "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/mmr-vaccine/#overview",
       "description": "The MMR vaccine helps protect against measles, mumps and rubella. It's given to people born in 2019 or earlier who missed it when they were younger.",
       "hasPart": [
-        {
-          "@type": "WebPageElement",
-          "headline": "MMR (measles, mumps and rubella) vaccine",
-          "text": "Who it's for"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "MMR (measles, mumps and rubella) vaccine",
-          "text": "How to get it"
-        },
-        {
-          "@type": "WebPageElement",
-          "headline": "MMR (measles, mumps and rubella) vaccine",
-          "text": "Side effects"
-        },
+        { "@type": "WebPageElement", "headline": "MMR (measles, mumps and rubella) vaccine", "text": "Who it's for" },
+        { "@type": "WebPageElement", "headline": "MMR (measles, mumps and rubella) vaccine", "text": "How to get it" },
+        { "@type": "WebPageElement", "headline": "MMR (measles, mumps and rubella) vaccine", "text": "Side effects" },
         {
           "@type": "WebPageElement",
           "headline": "MMR (measles, mumps and rubella) vaccine",

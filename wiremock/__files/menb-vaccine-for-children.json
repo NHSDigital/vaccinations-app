@@ -13,7 +13,7 @@
   },
   "about": { "@type": "WebPage", "name": "MenB vaccine for children", "alternateName": "" },
   "description": "Find out about the MenB vaccine for children, including who should have it, how to get it, side effects and how well it works.",
-  "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine-for-children/",
+  "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine-for-children/",
   "genre": ["Vaccine"],
   "keywords": "",
   "dateModified": "2025-10-28T15:59:34+00:00",
@@ -26,7 +26,7 @@
         "@type": "ListItem",
         "position": 0,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
           "name": "Vaccinations",
           "genre": []
         }
@@ -35,7 +35,7 @@
         "@type": "ListItem",
         "position": 1,
         "item": {
-          "@id": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine-for-children/",
+          "@id": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine-for-children/",
           "name": "MenB vaccine for children",
           "genre": ["Vaccine"]
         }
@@ -46,7 +46,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/OverviewHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine-for-children/#overview",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine-for-children/#overview",
       "description": "The MenB vaccine helps protect against serious illnesses including meningitis and sepsis. It's given to babies and young children.",
       "hasPart": [
         { "@type": "WebPageElement", "headline": "MenB vaccine for children", "text": "What it's for" },
@@ -80,7 +80,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/BenefitsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine-for-children/#what-its-for",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine-for-children/#what-its-for",
       "description": "The MenB vaccine helps protect against meningococcal group B bacteria which can cause serious illnesses including meningitis and sepsis.",
       "hasPart": [
         {
@@ -94,7 +94,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SuitabilityHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine-for-children/#who-its-for",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine-for-children/#who-its-for",
       "description": "The MenB vaccine is for babies and young children. They're offered a dose of the vaccine at 8 weeks old, 12 weeks old and 1 year old.",
       "hasPart": [
         {
@@ -108,7 +108,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/ContraindicationsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine-for-children/#contraindications",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine-for-children/#contraindications",
       "description": "Most children can have the MenB vaccine. They only cannot have it if they've had a serious allergic reaction to the vaccine or an ingredient in it.",
       "hasPart": [
         {
@@ -127,7 +127,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/IngredientsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine-for-children/#ingredients",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine-for-children/#ingredients",
       "description": "You can check the ingredients in the MenB vaccine by asking to see the patient leaflet or searching for it online.",
       "hasPart": [
         {
@@ -141,7 +141,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/GettingAccessHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine-for-children/#how-to-get-it",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine-for-children/#how-to-get-it",
       "description": "Your GP surgery will usually contact you to arrange your child's MenB vaccinations. Speak to your GP surgery if you have not been contacted.",
       "hasPart": [
         {
@@ -161,7 +161,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/SideEffectsHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine-for-children/#side-effects",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine-for-children/#side-effects",
       "description": "Common side effects of the MenB vaccine include swelling or pain where the injection was given, a high temperature, irritability and loss of appetite.",
       "hasPart": [
         {
@@ -186,7 +186,7 @@
     {
       "@type": "HealthTopicContent",
       "hasHealthAspect": "http://schema.org/EffectivenessHealthAspect",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine-for-children/#effectiveness",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/menb-vaccine-for-children/#effectiveness",
       "description": "Research has shown that the MenB vaccine is very effective at preventing illnesses caused by meningococcal group B bacteria in the UK.",
       "hasPart": [
         {
@@ -201,7 +201,7 @@
   "relatedLink": [
     {
       "@type": "LinkRole",
-      "url": "https://int.api.service.nhs.uk/nhs-website-content/vaccinations/",
+      "url": "https://api.service.nhs.uk/nhs-website-content/vaccinations/",
       "name": "Vaccinations",
       "linkRelationship": "Navigation",
       "position": 0
