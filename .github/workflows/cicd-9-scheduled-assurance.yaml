@@ -15,6 +15,7 @@ on:
 env:
   AWS_REGION: eu-west-2
   RELEASE_BRANCH: "release/v1.0"
+  R2_RELEASE_BRANCH: "release/v2.0"
 
 jobs:
   ##########################################################
@@ -135,6 +136,120 @@ jobs:
         working-directory: release-audit
         run: npm audit --audit-level=critical
 
+  ##########################################################
+  # R2.0 deployment and assurance (e2e+snapshots+contract)
+  ##########################################################
+
+  deploy-and-test-r2:
+    name: "R2.0 Assurance (E2E, Contract, Snapshot)"
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 30
+    concurrency:
+      group: "preprod-env"
+      cancel-in-progress: false
+    permissions:
+      id-token: write
+      contents: read
+    environment:
+      name: "preprod"
+
+    needs: [ deploy-and-test-r1 ]
+    if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && (inputs.release=='All' || inputs.release=='Latest R2 tag'))) }}
+    steps:
+      - name: "Temporary skip until R2 branch created"
+        run: |
+          echo "Temporarily skipping job; remove this step when the release/v2.0 branch is created"
+          exit 1
+
+      - name: "Checkout code"
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: "Get latest tag name on ${{ env.R2_RELEASE_BRANCH }} branch"
+        id: get-latest-tag-name
+        run: |
+          git fetch origin ${{ env.R2_RELEASE_BRANCH }}
+          echo "value=$(git describe --tags --abbrev=0 --first-parent origin/${{ env.R2_RELEASE_BRANCH }})" | tee -a $GITHUB_OUTPUT
+
+      - name: "Deploy version ${{ steps.get-latest-tag-name.outputs.value }} to (preprod)"
+        timeout-minutes: 10
+        uses: ./.github/actions/deploy
+        with:
+          environment: "preprod"
+          tag_or_sha_to_deploy: ${{ steps.get-latest-tag-name.outputs.value }}
+          secret_aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+          secret_aws_iam_role: ${{ secrets.IAM_ROLE }}
+          secret_aws_slack_channel_id: ${{ secrets.ALARMS_SLACK_CHANNEL_ID }}
+
+      - name: "Run contract tests on ${{ steps.get-latest-tag-name.outputs.value }} (EliD:sandpit, EliD:mocked)"
+        timeout-minutes: 3
+        uses: ./.github/actions/run-contract-tests
+        with:
+          target_ref: ${{ steps.get-latest-tag-name.outputs.value }}
+        env:
+          CONTENT_API_ENDPOINT: ${{ secrets.CONTENT_API_ENDPOINT }}
+          CONTENT_API_KEY: ${{ secrets.CONTENT_API_KEY }}
+          ELIGIBILITY_API_ENDPOINT: ${{ secrets.ELIGIBILITY_API_ENDPOINT }}
+          ELIGIBILITY_API_KEY: ${{ secrets.ELIGIBILITY_API_KEY }}
+          SSM_PREFIX: ${{ secrets.SSM_PREFIX }}
+          IS_APIM_AUTH_ENABLED: ${{ vars.IS_APIM_AUTH_ENABLED }}
+          CONTENT_CACHE_IS_CHANGE_APPROVAL_ENABLED: "false"
+          NHS_APP_REDIRECT_LOGIN_URL: "dummy"
+          CONTENT_CACHE_PATH: "dummy"
+          NHS_LOGIN_URL: "dummy"
+          NHS_LOGIN_CLIENT_ID: "dummy"
+          NHS_LOGIN_SCOPE: "dummy"
+          NHS_LOGIN_PRIVATE_KEY: "dummy"
+          NBS_URL: "dummy"
+          NBS_BOOKING_PATH: "dummy"
+          MAX_SESSION_AGE_MINUTES: 0
+          AUTH_SECRET: "dummy"
+
+      - name: "Run E2E tests on ${{ steps.get-latest-tag-name.outputs.value }} (preprod)"
+        timeout-minutes: 10
+        uses: ./.github/actions/run-e2e-tests
+        with:
+          checkout_ref: ${{ steps.get-latest-tag-name.outputs.value }}
+          cross_browser: true
+        env:
+          TEST_NHS_APP_URL: ${{ secrets.TEST_NHS_APP_URL }}
+          TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
+          TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
+          TEST_NBS_APP_USERNAME: ${{ secrets.TEST_NBS_APP_USERNAME }}
+          TEST_NBS_APP_PASSWORD: ${{ secrets.TEST_NBS_APP_PASSWORD }}
+          TEST_APP_URL: ${{ vars.TEST_APP_URL_R2 }}
+          NHS_APP_REDIRECT_LOGIN_URL: ${{ secrets.NHS_APP_REDIRECT_LOGIN_URL }}
+          VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
+          DEPLOY_ENVIRONMENT: "preprod"
+
+      - name: "Run snapshot tests on ${{ steps.get-latest-tag-name.outputs.value }} (preprod)"
+        uses: ./.github/actions/run-snapshot-tests
+        with:
+          checkout_ref: ${{ steps.get-latest-tag-name.outputs.value }}
+          release_name: "release2"
+        env:
+          SECRET_IAM_ROLE: ${{ secrets.IAM_ROLE }}
+          TEST_NHS_APP_URL: ${{ secrets.TEST_NHS_APP_URL }}
+          TEST_NHS_LOGIN_PASSWORD: ${{ secrets.TEST_NHS_LOGIN_PASSWORD }}
+          TEST_NHS_LOGIN_OTP: ${{ secrets.TEST_NHS_LOGIN_OTP }}
+          TEST_APP_URL: ${{ vars.TEST_APP_URL_R2}}
+          VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
+          AWS_S3_ARTEFACTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-preprod
+
+      - name: "Checkout ${{ env.R2_RELEASE_BRANCH }} for audit"
+        if: ${{ !cancelled() }}
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ env.R2_RELEASE_BRANCH }}
+          path: "release-audit"
+
+      - name: "Audit npm packages (critical vulnerabilities)"
+        if: ${{ !cancelled() }}
+        working-directory: release-audit
+        run: npm audit --audit-level=critical
+
+
   #################################################################
   # Main branch deployment and assurance (e2e+snapshots+contract)
   #################################################################
@@ -152,7 +267,7 @@ jobs:
     environment:
       name: "preprod"
 
-    needs: [ deploy-and-test-r1 ]
+    needs: [ deploy-and-test-r2 ]
     if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && (inputs.release=='All' || inputs.release=='Latest main tag'))) }}
     steps:
       - name: "Checkout main branch"
