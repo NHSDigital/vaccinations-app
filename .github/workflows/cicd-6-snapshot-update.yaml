@@ -13,6 +13,7 @@ on:
         type: choice
         options:
           - release1
+          - release2
           - latest-main-tag
 
 env:

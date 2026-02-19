@@ -1,4 +1,4 @@
-name: "Snapshot Tests R2 (Preprod)"
+name: "Snapshot Tests - Latest Main Tag (Preprod)"
 
 on:
   workflow_dispatch: {}
@@ -42,11 +42,12 @@ jobs:
           APP_VERSION=$(aws lambda get-function-configuration --function-name gh-vita-${{ secrets.AWS_ACCOUNT_ID }}-server-function | jq -r '.Environment.Variables.APP_VERSION')
           echo "value=$APP_VERSION" | tee -a $GITHUB_OUTPUT
 
-      - name: "Check deployed version is R2"
+      - name: "Check deployed version is from main branch"
         shell: bash
         run: |
-          if  [[ "${{ steps.deployed-version-tag.outputs.value }}" == v1.0.* ]]; then
-            echo "Exiting; deployed build is not an R2 artifact (current deployed version: ${{ steps.deployed-version-tag.outputs.value }})"
+          if  [[ "${{ steps.deployed-version-tag.outputs.value }}" == v* ]]; then
+            echo "Exiting; deployed build is not an developer main branch artifact"
+            echo " Expected tag name in format YYYY-MM-DD (current deployed tag: ${{ steps.deployed-version-tag.outputs.value }})"
             exit 1
           fi
 
