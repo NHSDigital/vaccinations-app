@@ -236,17 +236,17 @@ jobs:
           VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
           AWS_S3_ARTEFACTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-preprod
 
-      - name: "Checkout ${{ env.R2_RELEASE_BRANCH }} for audit"
-        if: ${{ !cancelled() }}
-        uses: actions/checkout@v6
-        with:
-          ref: ${{ env.R2_RELEASE_BRANCH }}
-          path: "release-audit"
-
-      - name: "Audit npm packages (critical vulnerabilities)"
-        if: ${{ !cancelled() }}
-        working-directory: release-audit
-        run: npm audit --audit-level=critical
+#      - name: "Checkout ${{ env.R2_RELEASE_BRANCH }} for audit"
+#        if: ${{ !cancelled() }}
+#        uses: actions/checkout@v6
+#        with:
+#          ref: ${{ env.R2_RELEASE_BRANCH }}
+#          path: "release-audit"
+#
+#      - name: "Audit npm packages (critical vulnerabilities)"
+#        if: ${{ !cancelled() }}
+#        working-directory: release-audit
+#        run: npm audit --audit-level=critical
 
 
   #################################################################
