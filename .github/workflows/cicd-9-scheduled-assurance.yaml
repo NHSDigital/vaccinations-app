@@ -10,6 +10,7 @@ on:
         type: choice
         options:
           - Latest R1 tag
+          - Latest R2 tag
           - Latest main tag
           - All
 env:
