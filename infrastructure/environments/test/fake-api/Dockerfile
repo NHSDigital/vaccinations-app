@@ -3,6 +3,11 @@ FROM openresty/openresty:alpine
 RUN apk add --no-cache gettext python3 py3-pip
 RUN python3 -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
+RUN pip config set global.trusted-host \
+    "pypi.org files.pythonhosted.org pypi.python.org" \
+    --trusted-host=pypi.python.org \
+    --trusted-host=pypi.org \
+    --trusted-host=files.pythonhosted.org
 RUN pip install flask gunicorn
 RUN rm /etc/nginx/conf.d/default.conf
 

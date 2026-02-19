@@ -199,6 +199,16 @@ RSA Private keys and Client IDs are required for this flow. Steps to enable it:
 
 SSO flow is initiated from the fake client. Directly accessing the application will redirect you to an error page.
 
+#### Enabling APIM Authentication
+
+To generate a key pair you can follow this [guide](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/user-restricted-restful-apis-nhs-login-separate-authentication-and-authorisation#step-3-generate-a-key-pair)
+
+Then export the private key as an environment variable:
+
+  ```shell
+    export APIM_PRIVATE_KEY=`cat <path-to-keys>/apim_private_key.pem`
+  ```
+
 #### Mocking API Responses with Wiremock
 
 Our project utilizes Wiremock to provide mock responses for Eligibility API endpoints. To configure these responses:
