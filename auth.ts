@@ -1,3 +1,4 @@
+import { WarningCode } from "@auth/core/types";
 import NHSLoginAuthProvider from "@src/app/api/auth/[...nextauth]/provider";
 import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
 import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
@@ -29,6 +30,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
   const requestCookies = await cookies();
 
   const requestContext: RequestContext = extractRequestContextFromHeadersAndCookies(headerValues, requestCookies);
+
+  function getHasCookies() {
+    return {
+      hasState: requestCookies.has("__Secure-authjs.state"),
+      hasSessionToken: requestCookies.has("__Secure-authjs.session-token"),
+      hasCSRFToken: requestCookies.has("__Host-authjs.csrf-token"),
+      hasSessionId: requestCookies.has("__Host-Http-session-id"),
+    };
+  }
 
   return await asyncLocalStorage.run(requestContext, async () => {
     return {
@@ -97,6 +107,51 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
             }
             return response;
           });
+        },
+      },
+      logger: {
+        error(error: Error) {
+          const hasCookies = getHasCookies();
+          log.error(
+            {
+              error: {
+                cause: error.cause,
+                message: error.message,
+              },
+              context: {
+                cookies: hasCookies,
+              },
+              ...requestContext,
+            },
+            "Error from NextAuth",
+          );
+        },
+        warn(code: WarningCode) {
+          const hasCookies = getHasCookies();
+          log.warn(
+            {
+              context: {
+                code,
+                cookies: hasCookies,
+              },
+              ...requestContext,
+            },
+            "Warning from NextAuth",
+          );
+        },
+        debug(message: string, metadata?) {
+          const hasCookies = getHasCookies();
+          log.debug(
+            {
+              context: {
+                message,
+                metadata,
+                cookies: hasCookies,
+              },
+              ...requestContext,
+            },
+            "Debug from NextAuth",
+          );
         },
       },
     };
