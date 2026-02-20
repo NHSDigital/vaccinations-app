@@ -29,10 +29,13 @@ test.describe("Eligibility", () => {
         level: 2,
         name: "We do not believe you can have it",
       });
-      const bulletPoint1: Locator = eligibility.getByText("are not aged 75 to 79", { exact: true }).first();
-      const bulletPoint2: Locator = eligibility
-        .getByText(elidCopyForEnvironment.user15.bulletPoint2, { exact: true })
-        .first();
+
+      const bulletPoint1RegEx = new RegExp(`(are not aged 75 to 79|are not aged 75 or over)`);
+      const bulletPoint2RegEx = new RegExp(
+        `(${elidCopyForEnvironment.user15.bulletPoint2v1}|${elidCopyForEnvironment.user15.bulletPoint2v2})`,
+      );
+      const bulletPoint1: Locator = eligibility.getByText(bulletPoint1RegEx, { exact: true }).first();
+      const bulletPoint2: Locator = eligibility.getByText(bulletPoint2RegEx, { exact: true }).first();
 
       await expect(heading).toBeVisible();
       await expect(bulletPoint1).toBeVisible();
@@ -74,9 +77,11 @@ test.describe("Eligibility", () => {
 
       const eligibility: Locator = page.getByTestId("Eligibility");
       const heading: Locator = eligibility.getByRole("heading", { level: 2, name: "You should have the RSV vaccine" });
-      const bulletPoint: Locator = eligibility
-        .getByText(elidCopyForEnvironment.user01.bulletPoint1, { exact: true })
-        .first();
+
+      const bulletPoint1RegEx = new RegExp(
+        `(${elidCopyForEnvironment.user01.bulletPoint1v1}|${elidCopyForEnvironment.user01.bulletPoint1v2})`,
+      );
+      const bulletPoint: Locator = eligibility.getByText(bulletPoint1RegEx, { exact: true }).first();
 
       await expect(heading).toBeVisible();
       await expect(bulletPoint).toBeVisible();
