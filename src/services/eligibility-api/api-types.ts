@@ -39,4 +39,4 @@ export type ActionType =
   | "ButtonWithAuthLink"
   | "ButtonWithAuthLinkWithInfoText"
   | "ActionLinkWithInfoText";
-export type RuleCode = "AlreadyVaccinated" | "NotAvailable" | "NotYetDue" | "TooClose" | "OtherSetting";
+export type RuleCode = "AlreadyVaccinated" | "NotAvailable" | "NotYetDue" | "TooClose" | "OtherSetting" | "CareSetting";
