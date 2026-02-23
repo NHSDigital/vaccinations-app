@@ -117,6 +117,7 @@ export type VaccinePageContent = {
   whoVaccineIsFor: VaccinePageSection;
   howToGetVaccine: VaccinePageSection;
   vaccineSideEffects: VaccinePageSection;
+  extraDosesSchedule?: VaccinePageSection;
 
   webpageLink: URL;
 };

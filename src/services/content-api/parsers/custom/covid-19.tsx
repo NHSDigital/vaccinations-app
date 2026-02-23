@@ -1,6 +1,15 @@
 import { VaccineType } from "@src/models/vaccine";
-import { buildFilteredContentForStandardVaccine } from "@src/services/content-api/parsers/content-filter-service";
-import { HeadingWithContent, HeadingWithTypedContent, VaccinePageContent } from "@src/services/content-api/types";
+import {
+  _extractPartsForAspect,
+  buildFilteredContentForStandardVaccine,
+} from "@src/services/content-api/parsers/content-filter-service";
+import {
+  ContentApiVaccineResponse,
+  HeadingWithContent,
+  HeadingWithTypedContent,
+  VaccinePageContent,
+  VaccinePageSection,
+} from "@src/services/content-api/types";
 import {
   Action,
   ActionDisplayType,
@@ -14,6 +23,13 @@ import { buildNbsUrl } from "@src/services/nbs/nbs-service";
 
 export const buildFilteredContentForCovid19Vaccine = async (apiContent: string): Promise<VaccinePageContent> => {
   const standardFilteredContent: VaccinePageContent = await buildFilteredContentForStandardVaccine(apiContent);
+
+  const content: ContentApiVaccineResponse = JSON.parse(apiContent);
+
+  const extraDosesSchedule: VaccinePageSection = {
+    headline: "Extra doses of the vaccine",
+    subsections: _extractPartsForAspect(content, "UsageOrScheduleHealthAspect"),
+  };
 
   const callout: HeadingWithTypedContent = {
     heading: "Service closed",
@@ -32,7 +48,7 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
     ].join("\n"),
   };
 
-  return { ...standardFilteredContent, callout, recommendation, preOpenActions, actions };
+  return { ...standardFilteredContent, extraDosesSchedule, callout, recommendation, preOpenActions, actions };
 };
 
 async function _buildActions(): Promise<Action[]> {

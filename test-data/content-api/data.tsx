@@ -205,6 +205,21 @@ export const genericVaccineContentAPIResponse: ContentApiVaccineResponse = {
       ],
       headline: "Side effects of the generic vaccine",
     },
+    {
+      "@type": "HealthTopicContent",
+      hasHealthAspect: "http://schema.org/UsageOrScheduleHealthAspect",
+      url: "https://api.service.nhs.uk/nhs-website-content/vaccinations/generic-vaccine/#how-its-used-previously-dosage-and-administration",
+      description:
+        "Most people only need 1 dose of the generic-vaccine. You may need an extra dose if you have a severely weakened immune system.",
+      hasPart: [
+        {
+          "@type": "WebPageElement",
+          headline: "",
+          text: "<p>The generic vaccine is given as an injection.</p><p>Most people only need 1 dose of the generic vaccine.</p><h3>Extra doses of the Generic vaccine</h3><p>Some people need an extra dose of the generic vaccine. For example.</p><p>Your GP or specialist will assess your risk and tell you if you need an extra dose of the vaccine.</p>",
+        },
+      ],
+      headline: "How the Generic vaccine is given",
+    },
   ],
   relatedLink: [
     {
@@ -623,6 +638,36 @@ export const genericVaccineContentAPIResponse: ContentApiVaccineResponse = {
           text: "<p>This is additional information paragraph 2</p>",
         },
       ],
+    },
+    {
+      identifier: "0",
+      name: "section heading",
+      position: 10,
+      "@type": "WebPageElement",
+      mainEntityOfPage: [
+        {
+          position: 0,
+          identifier: "1",
+          text: "<p>The generic vaccine is given as an injection.</p><p>Most people only need 1 dose of the generic vaccine.</p><h3>Extra doses of the Generic vaccine</h3><p>Some people need an extra dose of the generic vaccine. For example.</p><p>Your GP or specialist will assess your risk and tell you if you need an extra dose of the vaccine.</p>",
+          "@type": "WebPageElement",
+          name: "markdown",
+          headline: "",
+        },
+      ],
+      description:
+        "Most people only need 1 dose of the COVID-19 vaccine when it's available. You may need an extra dose if you have a severely weakened immune system.",
+      hasPart: [
+        {
+          position: 0,
+          identifier: "1",
+          text: "<p>The generic vaccine is given as an injection.</p><p>Most people only need 1 dose of the generic vaccine.</p><h3>Extra doses of the Generic vaccine</h3><p>Some people need an extra dose of the generic vaccine. For example.</p><p>Your GP or specialist will assess your risk and tell you if you need an extra dose of the vaccine.</p>",
+          "@type": "WebPageElement",
+          name: "markdown",
+          headline: "",
+        },
+      ],
+      hasHealthAspect: "http://schema.org/UsageOrScheduleHealthAspect",
+      headline: "How the Generic vaccine is given",
     },
   ],
   webpage: new URL("https://www.nhs.uk/vaccinations/generic-vaccine/"),

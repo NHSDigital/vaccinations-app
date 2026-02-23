@@ -23,7 +23,8 @@ type Aspect =
   | "SuitabilityHealthAspect"
   | "ContraindicationsHealthAspect"
   | "GettingAccessHealthAspect"
-  | "SideEffectsHealthAspect";
+  | "SideEffectsHealthAspect"
+  | "UsageOrScheduleHealthAspect";
 
 const _findAspect = (response: ContentApiVaccineResponse, aspectName: Aspect): MainEntityOfPage => {
   const aspect: MainEntityOfPage | undefined = response.mainEntityOfPage.find((page: MainEntityOfPage) =>

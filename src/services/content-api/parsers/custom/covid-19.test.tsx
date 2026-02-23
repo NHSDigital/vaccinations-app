@@ -27,6 +27,7 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
     // Additional COVID-19 vaccine content
     expect(pageCopyForCovid19Vaccine.callout?.heading).toEqual("Service closed");
     expect(pageCopyForCovid19Vaccine.recommendation?.heading).toEqual("The COVID-19 vaccine is recommended if you:");
+    expect(pageCopyForCovid19Vaccine.extraDosesSchedule?.headline).toEqual("Extra doses of the vaccine");
   });
 
   it("should return callout and actions", async () => {
@@ -100,5 +101,24 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
     );
 
     expect(pageCopy).toEqual(expect.objectContaining(expected));
+  });
+
+  it("should return extra doses information from UsageOrScheduleHealthAspect", async () => {
+    const expectedExtraDosesHeadline = "Extra doses of the vaccine";
+    const expectedUsageOrScheduleSubsections = [
+      {
+        type: "simpleElement",
+        headline: "",
+        name: "markdown",
+        text: "<p>The generic vaccine is given as an injection.</p><p>Most people only need 1 dose of the generic vaccine.</p><h3>Extra doses of the Generic vaccine</h3><p>Some people need an extra dose of the generic vaccine. For example.</p><p>Your GP or specialist will assess your risk and tell you if you need an extra dose of the vaccine.</p>",
+      },
+    ];
+
+    const pageCopyForCovid19Vaccine = await buildFilteredContentForCovid19Vaccine(
+      JSON.stringify(genericVaccineContentAPIResponse),
+    );
+
+    expect(pageCopyForCovid19Vaccine.extraDosesSchedule?.headline).toEqual(expectedExtraDosesHeadline);
+    expect(pageCopyForCovid19Vaccine.extraDosesSchedule?.subsections).toEqual(expectedUsageOrScheduleSubsections);
   });
 });
