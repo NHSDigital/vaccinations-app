@@ -31,7 +31,8 @@ describe("buildFilteredContentForFluVaccine", () => {
           "* are pregnant\n" +
           "* live in a care home\n" +
           "* are the main carer for an older or disabled person, or receive a carer's allowance\n" +
-          "* live with someone who has a weakened immune system",
+          "* live with someone who has a weakened immune system\n" +
+          "* are a frontline health worker or a frontline social care worker - you should arrange a vaccine through your employer",
       },
     };
 

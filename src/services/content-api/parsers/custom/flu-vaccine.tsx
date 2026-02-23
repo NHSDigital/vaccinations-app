@@ -31,6 +31,7 @@ export const buildFilteredContentForFluVaccine = async (apiContent: string): Pro
       "* live in a care home",
       "* are the main carer for an older or disabled person, or receive a carer's allowance",
       "* live with someone who has a weakened immune system",
+      "* are a frontline health worker or a frontline social care worker - you should arrange a vaccine through your employer",
     ].join("\n"),
   };
   return { ...standardFilteredContent, callout, recommendation, actions };
