@@ -1,22 +1,24 @@
 {
-  "responseId": "1a233ba5-e1eb-4080-a086-2962f6fc3473",
-  "meta": { "lastUpdated": "2025-02-12T16:11:22Z" },
+  "meta": {
+    "lastUpdated": "2025-07-31T15:36:33.935778+00:00"
+  },
   "processedSuggestions": [
     {
-      "condition": "RSV",
-      "status": "Actionable",
-      "statusText": "You should have the RSV vaccine",
-      "eligibilityCohorts": [],
-      "suitabilityRules": [],
       "actions": [
         {
-          "actionType": "ButtonWithAuthLink",
           "actionCode": "AmendNBS",
+          "actionType": "ButtonWithAuthLink",
           "description": "## You have an RSV vaccination appointment booked\n\nYou can view, change or cancel your appointment below.",
-          "urlLink": "@@NBS_URL@@",
-          "urlLabel": "Manage your appointment"
+          "urlLabel": "Manage your appointment",
+          "urlLink": "https://www.nhswebsite-staging.nhs.uk/nbs/nhs-app/vita/rsv"
         }
-      ]
+      ],
+      "condition": "RSV",
+      "eligibilityCohorts": [],
+      "status": "Actionable",
+      "statusText": "You should have the RSV vaccine",
+      "suitabilityRules": []
     }
-  ]
+  ],
+  "responseId": "4fe9ae68-7347-46f1-91c7-5e723a0b0249"
 }

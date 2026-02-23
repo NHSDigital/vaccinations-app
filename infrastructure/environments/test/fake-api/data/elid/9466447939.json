@@ -1,26 +1,30 @@
 {
-  "responseId": "1a233ba5-e1eb-4080-a086-2962f6fc3473",
-  "meta": { "lastUpdated": "2025-02-12T16:11:22Z" },
+  "meta": {
+    "lastUpdated": "2025-08-29T16:07:13.490700+00:00"
+  },
   "processedSuggestions": [
     {
-      "condition": "RSV",
-      "status": "NotActionable",
-      "statusText": "You should have the RSV vaccine",
-      "eligibilityCohorts": [],
-      "suitabilityRules": [
-        {
-          "ruleType": "S",
-          "ruleCode": "AlreadyVaccinated",
-          "ruleText": "## You've had your RSV vaccination\n\nWe believe you had the RSV vaccination on 3 April 2025."
-        }
-      ],
       "actions": [
         {
+          "actionCode": "AlreadyVaccinatedInfo",
           "actionType": "InfoText",
-          "actionCode": "CheckCorrect",
-          "description": "## If you think this is incorrect\n\nIf you have not had this vaccination and think you should, speak to your healthcare professional.\n\nFor anything else please see our [help and support page](https://www.nhs.uk/nhs-app/nhs-app-help-and-support/)."
+          "description": "### If you think this is incorrect\n\nIf you believe you've not been vaccinated against RSV, speak to your healthcare professional.\n\nFor anything else, visit our [help and support page](https://www.nhs.uk/nhs-app/nhs-app-help-and-support/vaccinations/check-and-book-an-rsv-vaccination).",
+          "urlLabel": "",
+          "urlLink": ""
+        }
+      ],
+      "condition": "RSV",
+      "eligibilityCohorts": [],
+      "status": "NotActionable",
+      "statusText": "You should have the RSV vaccine",
+      "suitabilityRules": [
+        {
+          "ruleCode": "AlreadyVaccinated",
+          "ruleText": "## You've had your RSV vaccination\n\nWe believe you were vaccinated against RSV on 3 April 2025.",
+          "ruleType": "S"
         }
       ]
     }
-  ]
+  ],
+  "responseId": "15eeb2a1-d6d2-465e-8f09-5701000725ac"
 }
