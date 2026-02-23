@@ -35,7 +35,7 @@ const successfulResponse: EligibilityApiResponse = {
           description:
             "## If you think this is incorrect\n\nIf you have not had this vaccination and think you should, speak to your healthcare professional.\n\nFor anything else please see our [help and support page](https://www.nhs.uk/nhs-app/nhs-app-help-and-support/).",
           url: undefined,
-          urlLabel: undefined,
+          urlLabel: "",
         },
       ],
       suitabilityRules: [
