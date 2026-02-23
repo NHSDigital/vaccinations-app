@@ -26,7 +26,7 @@ const successfulResponse: EligibilityApiResponse = {
           description:
             "### If you think this is incorrect\n\nIf you believe you've not been vaccinated against RSV, speak to your healthcare professional.\n\nFor anything else, visit our [help and support page](https://www.nhs.uk/nhs-app/nhs-app-help-and-support/vaccinations/check-and-book-an-rsv-vaccination).",
           url: undefined,
-          urlLabel: undefined,
+          urlLabel: "",
         },
       ],
       suitabilityRules: [
