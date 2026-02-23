@@ -1,20 +1,24 @@
 {
-  "responseId": "1a233ba5-e1eb-4080-a086-2962f6fc3473",
-  "meta": { "lastUpdated": "2025-02-12T16:11:22Z" },
+  "meta": {
+    "lastUpdated": "2025-07-31T15:37:10.340372+00:00"
+  },
   "processedSuggestions": [
     {
-      "condition": "RSV",
-      "status": "Actionable",
-      "statusText": "You should have the RSV vaccine",
-      "eligibilityCohorts": [],
-      "suitabilityRules": [],
       "actions": [
         {
-          "actionType": "CardWithText",
           "actionCode": "ManageLocal",
-          "description": "## You have an RSV vaccination appointment booked\n\nTo change or cancel your appointment, contact the provider you booked with."
+          "actionType": "CardWithText",
+          "description": "## You have an RSV vaccination appointment booked\n\nTo change or cancel your appointment, contact the provider you booked with.",
+          "urlLabel": "",
+          "urlLink": ""
         }
-      ]
+      ],
+      "condition": "RSV",
+      "eligibilityCohorts": [],
+      "status": "Actionable",
+      "statusText": "You should have the RSV vaccine",
+      "suitabilityRules": []
     }
-  ]
+  ],
+  "responseId": "594ce550-9721-4c1a-8dae-92ecdba2e763"
 }

@@ -1,22 +1,36 @@
 {
-  "responseId": "1a233ba5-e1eb-4080-a086-2962f6fc3473",
-  "meta": { "lastUpdated": "2025-02-12T16:11:22Z" },
+  "meta": {
+    "lastUpdated": "2025-09-05T14:51:57.234910+00:00"
+  },
   "processedSuggestions": [
     {
-      "condition": "RSV",
-      "status": "NotActionable",
-      "statusText": "You should have the RSV vaccine",
-      "eligibilityCohorts": [
-        { "cohortCode": "rsv_age_rolling", "cohortText": "are aged 75 to 79", "cohortStatus": "NotActionable" }
-      ],
-      "suitabilityRules": [
+      "actions": [
         {
-          "ruleType": "S",
-          "ruleCode": "OtherSetting",
-          "ruleText": "## Getting the vaccine\n\nWe believe you're living in a setting where care is provided.\n\nSpeak to a member of staff where you live about getting the RSV vaccine."
+          "actionCode": "ManagedSettingInfo",
+          "actionType": "InfoText",
+          "description": "### If you think this is incorrect\n\nIf you have already had this vaccination or your personal details are wrong, visit our [help and support page](https://www.nhs.uk/nhs-app/nhs-app-help-and-support/vaccinations/check-and-book-an-rsv-vaccination).",
+          "urlLabel": "",
+          "urlLink": ""
         }
       ],
-      "actions": []
+      "condition": "RSV",
+      "eligibilityCohorts": [
+        {
+          "cohortCode": "rsv_age",
+          "cohortStatus": "NotActionable",
+          "cohortText": "are aged 75 or over"
+        }
+      ],
+      "status": "NotActionable",
+      "statusText": "You should have the RSV vaccine",
+      "suitabilityRules": [
+        {
+          "ruleCode": "OtherSetting",
+          "ruleText": "### Getting the vaccine\n\nWe believe you're living in a setting where care is provided.\n\nSpeak to a member of staff where you live about getting the RSV vaccine.",
+          "ruleType": "S"
+        }
+      ]
     }
-  ]
+  ],
+  "responseId": "68e372d6-cc59-41c9-a6ad-b2cdf9b25bdb"
 }
