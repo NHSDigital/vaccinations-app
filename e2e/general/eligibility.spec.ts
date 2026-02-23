@@ -155,11 +155,13 @@ test.describe("Eligibility", () => {
 
       const cardHeading = page.getByRole("heading", { level: 2, name: "You've had your RSV vaccination" });
       const cardParagraph = page.locator('h2:has-text("You\'ve had your RSV vaccination") + p').first();
-
+      const cardParagraphText = new RegExp(
+        `(${elidCopyForEnvironment.user13.cardParagraphTextv1}|${elidCopyForEnvironment.user13.cardParagraphTextv2})`,
+      );
       await expect(cardHeading).toBeVisible();
       await expect(cardHeading).toHaveClass("nhsuk-heading-m nhsuk-card__heading");
       await expect(cardParagraph).toBeVisible();
-      await expect(cardParagraph).toHaveText(elidCopyForEnvironment.user13.cardParagraphText);
+      await expect(cardParagraph).toHaveText(cardParagraphText);
       await expect(cardParagraph).toHaveClass("nhsuk-card__description");
     });
   });
