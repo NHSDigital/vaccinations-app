@@ -302,6 +302,10 @@ describe("ContentStylingService", () => {
       headline: "Side effects of the generic vaccine",
       subsections: [mockMarkdownSubsection, mockUrgentSubsection],
     };
+    const mockExtraDosesScheduleSection: VaccinePageSection = {
+      headline: "Extra dose schedule for the generic vaccine",
+      subsections: [mockMarkdownSubsection, mockUrgentSubsection],
+    };
     const mockAdditionalInformationSection: VaccinePageSection = {
       headline: "",
       subsections: [mockInformationSubsection],
@@ -322,6 +326,7 @@ describe("ContentStylingService", () => {
       whoVaccineIsFor: mockWhoSection,
       howToGetVaccine: mockHowSection,
       vaccineSideEffects: mockSideEffectsSection,
+      extraDosesSchedule: mockExtraDosesScheduleSection,
       webpageLink: new URL("https://test.example.com/"),
       callout: mockCallout,
       recommendation: mockRecommendation,
@@ -337,6 +342,7 @@ describe("ContentStylingService", () => {
       expect(styledVaccineContent.whoVaccineIsFor.heading).toEqual(mockWhoSection.headline);
       expect(styledVaccineContent.howToGetVaccine.heading).toEqual(mockHowSection.headline);
       expect(styledVaccineContent.vaccineSideEffects.heading).toEqual(mockSideEffectsSection.headline);
+      expect(styledVaccineContent.extraDosesSchedule?.heading).toEqual(mockExtraDosesScheduleSection.headline);
       expect(styledVaccineContent.callout?.heading).toEqual(mockCallout.heading);
       expect(styledVaccineContent.recommendation?.heading).toEqual(mockRecommendation.heading);
       expect(styledVaccineContent.additionalInformation?.heading).toEqual(mockAdditionalInformationSection.headline);
@@ -353,11 +359,11 @@ describe("ContentStylingService", () => {
       } else {
         expect(container.innerHTML).toBe(expectedGenericVaccineHowToGetSection);
       }
-
       expect(isValidElement(styledVaccineContent.whatVaccineIsFor?.component)).toBe(true);
       expect(isValidElement(styledVaccineContent.whoVaccineIsFor.component)).toBe(true);
       expect(isValidElement(styledVaccineContent.howToGetVaccine.component)).toBe(true);
       expect(isValidElement(styledVaccineContent.vaccineSideEffects.component)).toBe(true);
+
       expect(isValidElement(styledVaccineContent.additionalInformation?.component)).toBe(true);
       expect(styledVaccineContent.webpageLink).toEqual(new URL("https://test.example.com/"));
     });
@@ -405,6 +411,19 @@ describe("ContentStylingService", () => {
       );
 
       expect(styledVaccineContent.additionalInformation).toBeUndefined();
+    });
+
+    it("should return styled content without extraDosesSchedule when extraDosesSchedule is missing", async () => {
+      const mockContentWithoutExtraDosesSchedule = { ...mockContent };
+      delete mockContentWithoutExtraDosesSchedule.extraDosesSchedule;
+
+      const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
+        VaccineType.RSV,
+        mockContentWithoutExtraDosesSchedule,
+        false,
+      );
+
+      expect(styledVaccineContent.extraDosesSchedule).toBeUndefined();
     });
   });
 

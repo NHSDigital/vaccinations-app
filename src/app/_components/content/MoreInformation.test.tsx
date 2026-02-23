@@ -74,6 +74,39 @@ describe("MoreInformation component ", () => {
       expectExpanderBlockToBePresent("How to get the vaccine", "How Section styled component");
     });
 
+    it("should display extraDoseSchedule expander block is present on styled content", async () => {
+      const vaccineType = VaccineType.COVID_19;
+      const extraDosesSchedule = {
+        heading: "extra-dose-heading",
+        component: <div>Extra dose schedule styled component</div>,
+      };
+      const mockContentWithExtraDosesSchedule = { ...mockStyledContent, extraDosesSchedule };
+
+      render(
+        <MoreInformation
+          styledVaccineContent={mockContentWithExtraDosesSchedule}
+          vaccineType={vaccineType}
+          showHowToGetSection={true}
+        />,
+      );
+
+      expectExpanderBlockToBePresent("Extra doses of the vaccine", "Extra dose schedule styled component");
+    });
+
+    it("should not display extraDoseSchedule expander block if not present on styled content", async () => {
+      const vaccineType = VaccineType.COVID_19;
+
+      render(
+        <MoreInformation
+          styledVaccineContent={mockStyledContent}
+          vaccineType={vaccineType}
+          showHowToGetSection={true}
+        />,
+      );
+
+      expectExpanderBlockToNotBePresent("Extra doses of the vaccine", "Extra dose schedule styled component");
+    });
+
     it("should display vaccineSideEffects expander block", async () => {
       const vaccineType = VaccineType.RSV;
       render(
@@ -133,6 +166,39 @@ describe("MoreInformation component ", () => {
       );
 
       expectExpanderBlockToBePresent("side-effects-heading", "Side effects section styled component");
+    });
+
+    it("should display extraDoseSchedule expander block is present on styled content", async () => {
+      const vaccineType = VaccineType.FLU_IN_PREGNANCY;
+      const extraDosesSchedule = {
+        heading: "extra-dose-heading",
+        component: <div>Extra dose schedule styled component</div>,
+      };
+      const mockContentWithExtraDosesSchedule = { ...mockStyledContent, extraDosesSchedule };
+
+      render(
+        <MoreInformation
+          styledVaccineContent={mockContentWithExtraDosesSchedule}
+          vaccineType={vaccineType}
+          showHowToGetSection={true}
+        />,
+      );
+
+      expectExpanderBlockToBePresent("extra-dose-heading", "Extra dose schedule styled component");
+    });
+
+    it("should not display extraDoseSchedule expander block if not present on styled content", async () => {
+      const vaccineType = VaccineType.FLU_IN_PREGNANCY;
+
+      render(
+        <MoreInformation
+          styledVaccineContent={mockStyledContent}
+          vaccineType={vaccineType}
+          showHowToGetSection={true}
+        />,
+      );
+
+      expectExpanderBlockToNotBePresent("extra-dose-heading", "Extra dose schedule styled component");
     });
   });
 

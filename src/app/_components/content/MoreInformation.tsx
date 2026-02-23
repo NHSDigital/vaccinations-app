@@ -55,6 +55,20 @@ const MoreInformation = (props: {
           </Details>
         )}
 
+        {/* Extra-doses-schedule expandable section */}
+        {props.styledVaccineContent.extraDosesSchedule && (
+          <Details expander>
+            <Details.Summary>
+              {vaccineInfo.moreInformationHeadersFromContentApi
+                ? props.styledVaccineContent.extraDosesSchedule.heading
+                : HEADINGS.EXTRA_DOSES_SCHEDULE}
+            </Details.Summary>
+            <Details.Text className={styles.zeroMarginBottom}>
+              {props.styledVaccineContent.extraDosesSchedule.component}
+            </Details.Text>
+          </Details>
+        )}
+
         {/* Side-effects-of-the-vaccine expandable section */}
         <Details expander>
           <Details.Summary>
