@@ -13,7 +13,7 @@ const PharmacyBookingInfo = ({ vaccineType }: PharmacyBookingProps): JSX.Element
     <p data-testid="pharmacy-booking-info">
       {vaccineInfo.forOlderAdults ? "In some areas you can " : "In some areas you can also "}
       <NBSBookingActionWithAuthSSOForVaccine
-        displayText={`book ${vaccineInfo.displayName.indefiniteArticle} ${vaccineInfo.displayName.midSentenceCase} vaccination in a pharmacy, GP surgery or vaccination centre`}
+        displayText={`book ${vaccineInfo.displayName.indefiniteArticle} ${vaccineInfo.displayName.midSentenceCase} vaccination in a pharmacy`}
         vaccineType={vaccineType}
         renderAs={"anchor"}
         reduceBottomPadding={false}
