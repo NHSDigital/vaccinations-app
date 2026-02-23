@@ -190,6 +190,9 @@ const _generateSuitabilityRules = (suggestion: ProcessedSuggestion): Suitability
         case "OtherSetting": {
           return [{ type: RuleDisplayType.infotext, content: rule.ruleText as Content, delineator: true }];
         }
+        case "CareSetting": {
+          return [{ type: RuleDisplayType.infotext, content: rule.ruleText as Content, delineator: true }];
+        }
         default: {
           log.warn({ context: { ruleCode: rule.ruleCode } }, "SuitabilityRule code not yet implemented.");
           return [{ type: RuleDisplayType.infotext, content: rule.ruleText as Content, delineator: true }];
