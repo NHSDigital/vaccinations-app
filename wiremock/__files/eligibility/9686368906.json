@@ -1,22 +1,37 @@
 {
-  "responseId": "1a233ba5-e1eb-4080-a086-2962f6fc3473",
-  "meta": { "lastUpdated": "2025-02-12T16:11:22Z" },
+  "meta": {
+    "lastUpdated": "2025-08-29T15:27:30.337860+00:00"
+  },
   "processedSuggestions": [
     {
-      "condition": "RSV",
-      "status": "Actionable",
-      "statusText": "You should have the RSV vaccine",
-      "eligibilityCohorts": [
-        { "cohortCode": "rsv_age_rolling", "cohortText": "are aged 75 to 79", "cohortStatus": "Actionable" }
-      ],
-      "suitabilityRules": [],
       "actions": [
         {
-          "actionType": "InfoText",
           "actionCode": "BookLocal",
-          "description": "## Getting the vaccine\n\nYou can get an RSV vaccination at your GP surgery.\n\nYour GP surgery may contact you about getting the RSV vaccine. This may be by letter, text, phone call, email or through the NHS App. You do not need to wait to be contacted before booking your vaccination."
+          "actionType": "InfoText",
+          "description": "### Getting the vaccine\n\nYou can get an RSV vaccination at your GP surgery.\n\nYour GP surgery may contact you about getting the RSV vaccine. This may be by letter, text, phone call, email or through the NHS App. You do not need to wait to be contacted before booking your vaccination.",
+          "urlLabel": "",
+          "urlLink": ""
+        },
+        {
+          "actionCode": "HelpSupportInfo",
+          "actionType": "InfoText",
+          "description": "### If you think this is incorrect\n\nIf you have already had this vaccination or your personal details are wrong, visit our [help and support page](https://www.nhs.uk/nhs-app/nhs-app-help-and-support/vaccinations/check-and-book-an-rsv-vaccination).",
+          "urlLabel": "",
+          "urlLink": ""
         }
-      ]
+      ],
+      "condition": "RSV",
+      "eligibilityCohorts": [
+        {
+          "cohortCode": "rsv_age",
+          "cohortStatus": "Actionable",
+          "cohortText": "are aged 75 or over"
+        }
+      ],
+      "status": "Actionable",
+      "statusText": "You should have the RSV vaccine",
+      "suitabilityRules": []
     }
-  ]
+  ],
+  "responseId": "db3354f3-2388-48cf-be82-b32270be2c33"
 }
