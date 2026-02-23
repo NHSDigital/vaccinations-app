@@ -5,16 +5,17 @@ export const elidCopyThatDiffersByEnvironment: Record<string, UserCopy> = {
   ["sandpit"]: {
     user15: {
       bulletPoint2v1: "did not turn 80 between 2nd September 2024 and 31st August 2025",
-      bulletPoint2v2: "did not turn 80 between 2nd September 2024 and 31st August 2025",
+      bulletPoint2v2: "do not live in a care home for older adults",
       infoTextHeading: "If you think you need this vaccine",
       infoTextParagraph: "Speak to your healthcare professional if you think you should be offered this vaccination.",
     },
     user01: {
       bulletPoint1v1: "are aged 75 to 79",
-      bulletPoint1v2: "are aged 75 to 79",
+      bulletPoint1v2: "are aged 75 or over",
     },
     user13: {
-      cardParagraphText: "We believe you had the RSV vaccination on 3 April 2025.",
+      cardParagraphTextv1: "We believe you had the RSV vaccination on 3 April 2025.",
+      cardParagraphTextv2: "We believe you were vaccinated against RSV on 3 April 2025.",
     },
   },
   ["integration"]: {
@@ -29,7 +30,8 @@ export const elidCopyThatDiffersByEnvironment: Record<string, UserCopy> = {
       bulletPoint1v2: "are aged 75 or over",
     },
     user13: {
-      cardParagraphText: "We believe you were vaccinated against RSV on 3 April 2025.",
+      cardParagraphTextv1: "We believe you had the RSV vaccination on 3 April 2025.",
+      cardParagraphTextv2: "We believe you were vaccinated against RSV on 3 April 2025.",
     },
   },
 };
