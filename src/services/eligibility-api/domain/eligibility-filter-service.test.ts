@@ -285,6 +285,7 @@ describe("eligibility-filter-service", () => {
             .andRuleText("AlreadyVaccinated Markdown")
             .build(),
           suitabilityRuleFromApiBuilder().withRuleCode("OtherSetting").andRuleText("OtherSetting Markdown").build(),
+          suitabilityRuleFromApiBuilder().withRuleCode("CareSetting").andRuleText("CareSetting Markdown").build(),
         ])
         .build();
 
@@ -293,6 +294,7 @@ describe("eligibility-filter-service", () => {
       expect(result).toEqual([
         { type: RuleDisplayType.card, content: "AlreadyVaccinated Markdown", delineator: false },
         { type: RuleDisplayType.infotext, content: "OtherSetting Markdown", delineator: true },
+        { type: RuleDisplayType.infotext, content: "CareSetting Markdown", delineator: true },
       ]);
     });
 

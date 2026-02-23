@@ -61,7 +61,14 @@ export function actionFromApiBuilder() {
 
 export function suitabilityRuleFromApiBuilder() {
   return createTypeBuilder<ResponseSuitabilityRule>({
-    ruleCode: randomValue(["AlreadyVaccinated", "NotAvailable", "NotYetDue", "TooClose", "OtherSetting"]),
+    ruleCode: randomValue([
+      "AlreadyVaccinated",
+      "NotAvailable",
+      "NotYetDue",
+      "TooClose",
+      "OtherSetting",
+      "CareSetting",
+    ]),
     ruleText: randomString(10),
   });
 }
