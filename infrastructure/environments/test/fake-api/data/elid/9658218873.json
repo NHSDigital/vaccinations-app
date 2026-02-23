@@ -1,26 +1,36 @@
 {
-  "responseId": "1a233ba5-e1eb-4080-a086-2962f6fc3473",
-  "meta": { "lastUpdated": "2025-02-12T16:11:22Z" },
+  "meta": {
+    "lastUpdated": "2026-02-20T11:50:34.146537+00:00"
+  },
   "processedSuggestions": [
     {
-      "condition": "RSV",
-      "status": "Actionable",
-      "statusText": "You should have the RSV vaccine",
-      "eligibilityCohorts": [
-        {
-          "cohortCode": "rsv_age_catchup",
-          "cohortText": "turned 80 between 2nd September 2024 and 31st August 2025",
-          "cohortStatus": "Actionable"
-        }
-      ],
-      "suitabilityRules": [],
       "actions": [
         {
+          "actionCode": "ManagedSettingInfo",
           "actionType": "InfoText",
-          "actionCode": "BookLocal",
-          "description": "## Getting the vaccine\n\nYou can get an RSV vaccination at your GP surgery.\n\nYour GP surgery may contact you about getting the RSV vaccine. This may be by letter, text, phone call, email or through the NHS App. You do not need to wait to be contacted before booking your vaccination."
+          "description": "### If you think this is incorrect\n\nIf you have already had this vaccination or your personal details are wrong, visit our [help and support page](https://www.nhs.uk/nhs-app/nhs-app-help-and-support/vaccinations/check-and-book-an-rsv-vaccination).",
+          "urlLabel": "",
+          "urlLink": ""
+        }
+      ],
+      "condition": "RSV",
+      "eligibilityCohorts": [
+        {
+          "cohortCode": "rsv_care_home_residents",
+          "cohortStatus": "NotActionable",
+          "cohortText": "live in a care home for older adults"
+        }
+      ],
+      "status": "NotActionable",
+      "statusText": "You should have the RSV vaccine",
+      "suitabilityRules": [
+        {
+          "ruleCode": "CareSetting",
+          "ruleText": "### Getting the vaccine\n\nSpeak to your GP or a member of staff where you live about getting the RSV vaccine.",
+          "ruleType": "S"
         }
       ]
     }
-  ]
+  ],
+  "responseId": "9881e097-587c-48cb-b834-32919aeaf351"
 }
