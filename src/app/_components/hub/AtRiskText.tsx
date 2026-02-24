@@ -1,3 +1,6 @@
+import { TransitionLink } from "@src/app/_components/navigation/TransitionLink";
+import { VaccineInfo, VaccineType } from "@src/models/vaccine";
+
 const AtRiskText = () => {
   return (
     <>
@@ -9,11 +12,38 @@ const AtRiskText = () => {
       <h3 className="nhsuk-heading-xs nhsuk-u-margin-bottom-0">Long-term health conditions</h3>
       <p>
         People with certain long-term health conditions or receiving certain treatments are recommended to have some
-        extra vaccines. Speak to your GP or{" "}
+        extra vaccines. Speak to your GP practice or{" "}
         <a href={"https://www.nhs.uk/service-search/pharmacy/find-a-pharmacy/"} target="_blank" rel="noopener">
           pharmacy
         </a>{" "}
-        about what vaccinations you might need.
+        about what vaccinations you might need. Online booking is available for people who are recommended to get a{" "}
+        <TransitionLink
+          className={"nhsuk-link  nhsuk-link--no-visited-state"}
+          href={`/vaccines/${VaccineInfo[VaccineType.COVID_19].urlPath}`}
+        >
+          COVID-19 vaccine
+        </TransitionLink>{" "}
+        or{" "}
+        <TransitionLink
+          className={"nhsuk-link  nhsuk-link--no-visited-state"}
+          href={`/vaccines/${VaccineInfo[VaccineType.FLU_FOR_ADULTS].urlPath}`}
+        >
+          flu vaccine
+        </TransitionLink>
+        .
+      </p>
+
+      <h3 className="nhsuk-heading-xs nhsuk-u-margin-bottom-0">Carers</h3>
+      <p>
+        The{" "}
+        <TransitionLink
+          className={"nhsuk-link  nhsuk-link--no-visited-state"}
+          href={`/vaccines/${VaccineInfo[VaccineType.FLU_FOR_ADULTS].urlPath}`}
+        >
+          flu vaccine
+        </TransitionLink>{" "}
+        is recommended if you are the main carer for an older or disabled person, or if you receive a carer&#39;s
+        allowance.
       </p>
 
       <h3 className="nhsuk-heading-xs nhsuk-u-margin-bottom-0">Care homes for older adults</h3>

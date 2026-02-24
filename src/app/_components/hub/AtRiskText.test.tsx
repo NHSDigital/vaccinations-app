@@ -1,5 +1,15 @@
+import { useNavigationTransition } from "@src/app/_components/context/NavigationContext";
 import { AtRiskText } from "@src/app/_components/hub/AtRiskText";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
+
+jest.mock("@src/app/_components/context/NavigationContext", () => ({
+  useNavigationTransition: jest.fn(),
+}));
+
+(useNavigationTransition as jest.Mock).mockReturnValue({
+  navigate: jest.fn(),
+  isPending: false,
+});
 
 describe("AtRiskText", () => {
   it("should display upper text", () => {
@@ -24,18 +34,6 @@ describe("AtRiskText", () => {
     render(<AtRiskText />);
 
     const heading: HTMLElement = screen.getByRole("heading", { name: "Long-term health conditions", level: 3 });
-    const descriptionTextBelow1: HTMLElement = screen.getAllByText(/Speak to your GP or/i)[1];
-    const descriptionTextBelow2: HTMLElement = screen.getAllByText(/about what vaccinations you might need./i)[0];
-
-    expect(heading).toBeVisible();
-    expect(descriptionTextBelow1).toBeVisible();
-    expect(descriptionTextBelow2).toBeVisible();
-  });
-
-  it("should display longterm health conditions heading and its description", () => {
-    render(<AtRiskText />);
-
-    const heading: HTMLElement = screen.getByRole("heading", { name: "Long-term health conditions", level: 3 });
     const descriptionTextBelow1: HTMLElement = screen.getByText(
       /People with certain long-term health conditions or receiving certain/i,
     );
@@ -46,17 +44,39 @@ describe("AtRiskText", () => {
     expect(descriptionTextBelow2).toBeVisible();
   });
 
-  it("should display pharmacy as clickable link", () => {
+  it.each([
+    { text: "pharmacy", link: "https://www.nhs.uk/service-search/pharmacy/find-a-pharmacy/" },
+    { text: "flu vaccine", link: "/vaccines/flu-vaccine" },
+    { text: "COVID-19 vaccine", link: "/vaccines/covid-19-vaccine" },
+  ])(`should display longterm health conditions with clickable link ($text)`, ({ text, link }) => {
     render(<AtRiskText />);
 
-    const webpageLink: HTMLElement = screen.getByRole("link", {
-      name: "pharmacy",
+    const heading = screen.getByRole("heading", { name: "Long-term health conditions" });
+    const sectionContainer = heading.nextElementSibling!;
+
+    const webpageLink: HTMLElement = within(sectionContainer as HTMLElement).getByRole("link", {
+      name: text,
     });
 
     expect(webpageLink).toBeVisible();
-    expect(webpageLink).toHaveAttribute("href", "https://www.nhs.uk/service-search/pharmacy/find-a-pharmacy/");
-    expect(webpageLink).toHaveAttribute("target", "_blank");
-    expect(webpageLink).toHaveAttribute("rel", "noopener");
+    expect(webpageLink).toHaveAttribute("href", link);
+  });
+
+  it("should display carers heading and its description", () => {
+    render(<AtRiskText />);
+
+    const heading: HTMLElement = screen.getByRole("heading", { name: "Carers", level: 3 });
+    const sectionContainer = heading.nextElementSibling!;
+
+    const descriptionTextBelow: HTMLElement = within(sectionContainer as HTMLElement).getByText(
+      /is recommended if you are the main carer for an older or disabled person/i,
+    );
+    const webpageLink: HTMLElement = within(sectionContainer as HTMLElement).getByRole("link", { name: "flu vaccine" });
+
+    expect(heading).toBeVisible();
+    expect(descriptionTextBelow).toBeVisible();
+    expect(webpageLink).toBeVisible();
+    expect(webpageLink).toHaveAttribute("href", "/vaccines/flu-vaccine");
   });
 
   it("should display Care homes for older adults heading and its description", () => {
