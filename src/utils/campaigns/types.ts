@@ -1,4 +1,4 @@
-import { VaccineType } from "@src/models/vaccine";
+import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { UtcDateTimeFromStringSchema } from "@src/utils/date";
 import { logger } from "@src/utils/logger";
 import { Logger } from "pino";
@@ -103,6 +103,17 @@ export class Campaigns {
   isPreOpen(vaccine: VaccineType, date: Date = new Date()): boolean {
     const campaigns = this.get(vaccine);
     return campaigns.some((c) => date >= c.preStart && date < c.start);
+  }
+
+  validatePreopenConfig(vaccine: VaccineType): boolean {
+    const campaignsForVaccine = this.get(vaccine);
+    const vaccineDetails = VaccineInfo[vaccine];
+
+    if (vaccineDetails.supportsPreopenCampaigns) {
+      return campaignsForVaccine.every((c) => c.preStart < c.start);
+    } else {
+      return campaignsForVaccine.every((c) => c.preStart.getTime() === c.start.getTime());
+    }
   }
 
   /** Check if a vaccine has campaigns */

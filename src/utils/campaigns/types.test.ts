@@ -128,6 +128,50 @@ describe("Campaigns", () => {
     });
   });
 
+  describe("validatePreopenConfig", () => {
+    it("should return true if COVID-19 vaccine with valid preopen dates", () => {
+      const validCovidPreopenConfig = JSON.stringify({
+        COVID_19: [
+          { preStart: "2025-11-03T09:00:00Z", start: "2025-11-12T09:00:00Z", end: "2026-03-02T19:00:00+02:00" },
+        ],
+      });
+
+      const campaigns = Campaigns.fromJson(validCovidPreopenConfig)!;
+
+      const isPreopenConfigValidForVaccine = campaigns.validatePreopenConfig(VaccineType.COVID_19);
+
+      expect(isPreopenConfigValidForVaccine).toBe(true);
+    });
+
+    it("should return false if Flu vaccine has a different preopen date to the start date", () => {
+      const invalidFluPreopenConfig = JSON.stringify({
+        FLU_FOR_ADULTS: [
+          { preStart: "2026-08-02T09:00:00Z", start: "2026-09-01T09:00:00Z", end: "2027-03-01T19:00:00+02:00" },
+        ],
+      });
+
+      const campaigns = Campaigns.fromJson(invalidFluPreopenConfig)!;
+
+      const isPreopenConfigValidForVaccine = campaigns.validatePreopenConfig(VaccineType.FLU_FOR_ADULTS);
+
+      expect(isPreopenConfigValidForVaccine).toBe(false);
+    });
+
+    it("should return true if Flu vaccine has same preopen date as start date", () => {
+      const invalidFluPreopenConfig = JSON.stringify({
+        FLU_FOR_ADULTS: [
+          { preStart: "2026-09-01T09:00:00Z", start: "2026-09-01T09:00:00Z", end: "2027-03-01T19:00:00+02:00" },
+        ],
+      });
+
+      const campaigns = Campaigns.fromJson(invalidFluPreopenConfig)!;
+
+      const isPreopenConfigValidForVaccine = campaigns.validatePreopenConfig(VaccineType.FLU_FOR_ADULTS);
+
+      expect(isPreopenConfigValidForVaccine).toBe(true);
+    });
+  });
+
   describe("isSupported", () => {
     const campaigns = Campaigns.fromJson(jsonString)!;
 
