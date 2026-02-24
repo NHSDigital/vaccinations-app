@@ -8,8 +8,8 @@ const apiResponse = JSON.stringify({
   mainEntityOfPage: [
     { hasPart: [{ text: "Whooping Cough Vaccine Lead Paragraph (overview)" }] },
     { hasPart: [{ text: "<p>What the vaccine is for paragraph</p>" }] },
-    { hasPart: [{ text: "<p>Who the vaccine is for paragraph</p>" }] },
-    { hasPart: [{ text: "paragraph 3" }] },
+    { hasPart: [{ text: "paragraph 2" }] },
+    { hasPart: [{ text: "<p>Is the vaccine safe paragraph</p>" }] },
     { hasPart: [{ text: "paragraph 4" }] },
     { hasPart: [{ text: "paragraph 5" }] },
     { hasPart: [{ text: "<p>Side effects of the vaccine paragraph</p>" }] },
@@ -54,7 +54,7 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
     expect(pageCopy).toEqual(expect.objectContaining(expected));
   });
 
-  it("should return all parts for whoVaccineIsFor section", async () => {
+  it("should return all parts for the whoVaccineIsFor section using the is vaccine safe paragraph", async () => {
     const expected = {
       whoVaccineIsFor: {
         headline: "Is the vaccine safe in pregnancy?",
@@ -63,7 +63,7 @@ describe("getFilteredContentForWhoopingCoughVaccine", () => {
             type: "simpleElement",
             headline: "",
             name: "markdown",
-            text: "<p>Who the vaccine is for paragraph</p>",
+            text: "<p>Is the vaccine safe paragraph</p>",
           },
         ],
       },
