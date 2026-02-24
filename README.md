@@ -19,7 +19,7 @@ We will increase appointment attendance and reduce the number of 'did not attend
 
 ### GitHub
 
-- As per NHS guidelines, make your GitHub email private by going to [GitHub Settings](https://github.com/settings/emails). There is a checkbox named "Keep my email addresses private". Note down your private email from this setting.
+- As per NHS guidelines, make your GitHub email private by going to [GitHub profile settings](https://github.com/settings/emails). There is a checkbox named "Keep my email addresses private". Note down your private email from this setting.
 - Follow these [instructions](https://nhsd-confluence.digital.nhs.uk/display/Vacc/Developer+setup%3A+Github).
   - Remember to use your private email, noted above, in GitHub config 'user.email'.
   - When on the step to create personal access tokens, remember to also tick 'workflow'. This will allow developers to update workflows
@@ -89,7 +89,7 @@ From NHS repository template:
 
 - **Colima** - or any equivalent Docker container runtime, e.g. [Rancher Desktop](https://rancherdesktop.io/), etc.
 
-- **Act** - tool to run GitHub actions locally. Refer to the [usage guide](https://nektosact.com/usage/index.html).
+- **Act** - tool to run GitHub actions locally. Usage guide is available in this [article](https://nektosact.com/usage/index.html)
 
     ```shell
     brew install act
@@ -260,7 +260,7 @@ make githooks-run
 
 ### Deploy your local changes to AWS dev environment
 
-Refer to the detailed description of our [infrastructure](infrastructure/README.md).
+A detailed description of our infrastructure is outlined in this [guide](infrastructure/README.md).
 
 We use Terraform workspaces to distinguish each developer.
 So make sure you use your own unique combination of initials, to set the workspace.
@@ -409,7 +409,7 @@ Our release strategy is based on Semantic Versioning and utilizes tagged commits
     - A new tagged release in the "Releases" section of the GitHub repository.
     - The corresponding build artifact within the `/tags` folder of the GitHub AWS S3 bucket.
 
-**Refer to the [branching and tagging strategy](https://nhsd-confluence.digital.nhs.uk/spaces/Vacc/pages/989220238/Branching+and+release+strategy#Branchingandreleasestrategy-Fixingdeployedbrokenreleases) to fix broken deployed releases.**
+**The branching and tagging strategy to fix broken deployed releases can be found in this [guide](https://nhsd-confluence.digital.nhs.uk/spaces/Vacc/pages/989220238/Branching+and+release+strategy#Branchingandreleasestrategy-Fixingdeployedbrokenreleases).**
 
 ## Design
 
