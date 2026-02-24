@@ -1,7 +1,12 @@
 import { Eligibility } from "@src/app/_components/eligibility/Eligibility";
 import { VaccineType } from "@src/models/vaccine";
-import { Cohort, Heading, Introduction } from "@src/services/eligibility-api/types";
-import { eligibilityContentBuilder, summaryContentBuilder } from "@test-data/eligibility-api/builders";
+import { Cohort, Heading, Introduction, RuleDisplayType } from "@src/services/eligibility-api/types";
+import {
+  actionBuilder,
+  eligibilityContentBuilder,
+  suitabilityRuleBuilder,
+  summaryContentBuilder,
+} from "@test-data/eligibility-api/builders";
 import { render, screen } from "@testing-library/react";
 import React from "react";
 
@@ -140,6 +145,59 @@ describe("Eligibility", () => {
       const actions = screen.getByText("Test Eligibility SuitabilityRules Component");
 
       expect(actions).toBeVisible();
+    });
+
+    it("should display an extra line when last suitability rule is info text and there is at least one Action", () => {
+      const suitabilityRules = [
+        suitabilityRuleBuilder().withType(RuleDisplayType.card).build(),
+        suitabilityRuleBuilder().withType(RuleDisplayType.infotext).build(),
+      ];
+      render(
+        Eligibility({
+          vaccineType: VaccineType.RSV,
+          eligibilityContent: eligibilityContentBuilder()
+            .withSuitabilityRules(suitabilityRules)
+            .withActions([actionBuilder().build()])
+            .build(),
+        }),
+      );
+      const hr = screen.queryByRole("separator");
+      expect(hr).toBeInTheDocument();
+    });
+
+    it("should display not display line when last suitability rule is not info text and there is at least one Action", () => {
+      const suitabilityRules = [
+        suitabilityRuleBuilder().withType(RuleDisplayType.infotext).build(),
+        suitabilityRuleBuilder().withType(RuleDisplayType.card).build(),
+      ];
+      render(
+        Eligibility({
+          vaccineType: VaccineType.RSV,
+          eligibilityContent: eligibilityContentBuilder()
+            .withSuitabilityRules(suitabilityRules)
+            .withActions([actionBuilder().build()])
+            .build(),
+        }),
+      );
+      const hr = screen.queryByRole("separator");
+      expect(hr).not.toBeInTheDocument();
+    });
+
+    it("should not display line when there are no actions", () => {
+      const suitabilityRules = [suitabilityRuleBuilder().withType(RuleDisplayType.infotext).build()];
+
+      render(
+        Eligibility({
+          vaccineType: VaccineType.RSV,
+          eligibilityContent: eligibilityContentBuilder()
+            .withSuitabilityRules(suitabilityRules)
+            .withActions([])
+            .build(),
+        }),
+      );
+
+      const hr = screen.queryByRole("separator");
+      expect(hr).not.toBeInTheDocument();
     });
   });
 });
