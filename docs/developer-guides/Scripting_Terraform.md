@@ -256,7 +256,7 @@ To create your `test` environment, you run the same commands with `test` where p
 TF_ENV=test AWS_PROFILE=my-test-environment make terraform-apply opts="-auto-approve"
 ```
 
-To use the same `terraform` files in a GitHub action, see the docs [here](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services).
+To use the same `terraform` files in a GitHub action, see the [docs](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services).
 
 ### Your stack implementation
 

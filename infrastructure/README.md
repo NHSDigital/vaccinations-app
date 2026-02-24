@@ -19,9 +19,9 @@ Secrets need to be created in AWS Secrets Manager as follows:
 
 Update the values for the following secrets after generating them: -
 
-- /vita/apim/prod-1.pem - APIM private key used to sign JWTs to access user-restricted APIs via APIM, generated from [here](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/user-restricted-restful-apis-nhs-login-separate-authentication-and-authorisation#step-3-generate-a-key-pair). 'prod-1' here is the key id used during generation.
+- /vita/apim/prod-1.pem - APIM private key used to sign JWTs to access user-restricted APIs via APIM, following this [guide](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/user-restricted-restful-apis-nhs-login-separate-authentication-and-authorisation#step-3-generate-a-key-pair). 'prod-1' here is the key id used during generation.
 - /vita/apim/prod-1.json - APIM public key in JWKS format generated above
-- /vita/nhslogin/private_key.pem - NHS Login private key generated from [here](https://nhsconnect.github.io/nhslogin/generating-pem/)
+- /vita/nhslogin/private_key.pem - NHS Login private key generated from this [guide](https://nhsconnect.github.io/nhslogin/generating-pem/)
 - /vita/nhslogin/public_key.pem - NHS Login public key generated above
 - /vita/splunk/hec/endpoint - HEC endpoint of Splunk
 - /vita/splunk/hec/token - HEC token of Splunk endpoint to store operational logs
@@ -50,11 +50,11 @@ Manually create the following error routes. The current library we use doesn't u
   - HTTP Response code: 500
 - Repeat the previous step for all other 5xx codes.
 - Click "Create custom error response" button
-    - HTTP error code: 403
-    - Error caching minimum TTL: 300
-    - Customise error response: yes
-    - Response page path: /assets/static/service-failure.html
-    - HTTP Response code: 403
+  - HTTP error code: 403
+  - Error caching minimum TTL: 300
+  - Customise error response: yes
+  - Response page path: /assets/static/service-failure.html
+  - HTTP Response code: 403
 
 ### Setting default limits and settings
 

@@ -1,12 +1,12 @@
 # ADR-004: Content caching architecture
 
->|              |                                                      |
->| ------------ |------------------------------------------------------|
->| Date         | `22/04/2025`                                         |
->| Status       | `Accepted`                                           |
->| Deciders     | `Engineering, Architecture`                          |
+>|              |                                                        |
+>| ------------ |--------------------------------------------------------|
+>| Date         | `22/04/2025`                                           |
+>| Status       | `Accepted`                                             |
+>| Deciders     | `Engineering, Architecture`                            |
 >| Significance | `Structure, Nonfunctional characteristics, Interfaces` |
->| Owners       | Ankur Jain, Elena Oanea                              |
+>| Owners       | Ankur Jain, Elena Oanea                                |
 
 ---
 

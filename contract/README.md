@@ -16,7 +16,6 @@ In the MyVaccines codebase there are 2 files for contract testing with EliD:
   - Failure cases:
     - that for each NHS number expected to fail, a 'LOADING_ERROR' response gets returned
 
-
 ### 2. fetch-eligibility-content.contract.ts
 
 - **This does not call a real environment**
