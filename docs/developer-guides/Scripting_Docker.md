@@ -154,8 +154,8 @@ It is usually the case that there is a specific image that you will most often w
 
 ```make
 build: # Build the project artefact @Pipeline
-	DOCKER_IMAGE=my-shiny-app
-	make docker-build
+  DOCKER_IMAGE=my-shiny-app
+  make docker-build
 ```
 
 Now when you run `make build`, it will do the right thing.  Keeping this convention consistent across projects means that new starters can be on-boarded quickly, without needing to learn a new set of conventions each time.
