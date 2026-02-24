@@ -35,7 +35,7 @@ From NHS repository template:
   On macOS, you will need Homebrew installed, then to install make, like so:
 
     ```shell
-    brew install make gnu-sed gawk coreutils binutils jmeter
+    brew install make gnu-sed gawk coreutils binutils editorconfig-checker jmeter
     ```
 
   Find out which homebrew path you have by using this command:
