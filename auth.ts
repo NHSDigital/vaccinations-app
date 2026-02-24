@@ -71,7 +71,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
               response = false;
             }
 
-            log.info({ context: { isValidSignIn: response } }, "NHS-Login signIn() callback result");
+            log.info({ context: { isValidSignIn: response } }, "NHS-Login callback");
             return response;
           });
         },
