@@ -7,11 +7,11 @@ In the MyVaccines codebase there are 2 files for contract testing with EliD:
 ### 1. eligibility-api.contract.ts
 
 - Run against a real EliD environment, set by the environment variable "ELIGIBILITY_API_ENDPOINT" as follows:
-  - Github Actions: the value is defined in the workflow/action .yaml file, passed in as a env var to the contract-test action
+  - GitHub Actions: the value is defined in the workflow/action .yaml file, passed in as a env var to the contract-test action
   - Local: ELIGIBILITY_API_ENDPOINT is set in env.local
 - Assertions verify that in the EliD response:
   - Success cases: For a given NHS number
-    - the eligibilityStatus has the expected value (hardcoded in the test assertion as an expectation)
+    - the eligibilityStatus has the expected value (hard-coded in the test assertion as an expectation)
     - CohortElement is present
   - Failure cases:
     - that for each NHS number expected to fail, a 'LOADING_ERROR' response gets returned

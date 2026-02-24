@@ -35,5 +35,5 @@ After successful set up, you will receive an email where you will get access to 
 
 ### Setup SSO Connection between fake client and VitA app
 
-Reach out to NHS Login Support in Slack, and request the sso connection from Fake Client to VitA app and provide Client ID of each.
+Reach out to NHS Login Support in Slack, and request the SSO connection from Fake Client to VitA app and provide Client ID of each.
 This will have to be done for each SSO Client we create in the different environments.

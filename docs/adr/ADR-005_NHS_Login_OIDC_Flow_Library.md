@@ -34,7 +34,7 @@ for selecting one of these libraries.
 
 ## Decision
 
-We have decided to adopt the next-auth library (also known as [authjs](https://authjs.dev/)). This library offers a clean
+We have decided to adopt the next-auth library (also known as [Auth.js](https://authjs.dev/)). This library offers a clean
 and concise approach to configuring authentication providers and provides flexibility for future use cases. Furthermore,
 next-auth manages sessions and session lifecycle, eliminating the need for a separate session management library.
 Notably, next-auth leverages the well-regarded [openid-client](https://github.com/panva/openid-client) library internally.
