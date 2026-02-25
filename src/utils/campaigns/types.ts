@@ -1,8 +1,8 @@
-import { VaccineType } from "@src/models/vaccine";
+import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { UtcDateTimeFromStringSchema } from "@src/utils/date";
 import { logger } from "@src/utils/logger";
 import { Logger } from "pino";
-import { z } from "zod";
+import { ZodError, z } from "zod";
 
 const log: Logger = logger.child({ module: "campaigns" });
 
@@ -83,7 +83,14 @@ export class Campaigns {
 
       return new Campaigns(validSchedule);
     } catch (error) {
-      log.warn({ context: { jsonString }, error }, "Failed to parse campaigns");
+      let loggableError;
+      if (error instanceof ZodError) {
+        loggableError = {
+          message: error.message,
+          issues: error.issues,
+        };
+      }
+      log.warn({ context: { jsonString }, error: loggableError }, "Failed to parse campaigns");
       return undefined;
     }
   }
@@ -103,6 +110,17 @@ export class Campaigns {
   isPreOpen(vaccine: VaccineType, date: Date = new Date()): boolean {
     const campaigns = this.get(vaccine);
     return campaigns.some((c) => date >= c.preStart && date < c.start);
+  }
+
+  validatePreOpenConfig(vaccine: VaccineType): boolean {
+    const campaignsForVaccine = this.get(vaccine);
+    const vaccineDetails = VaccineInfo[vaccine];
+
+    if (vaccineDetails.supportsPreOpenCampaigns) {
+      return campaignsForVaccine.every((c) => c.preStart < c.start);
+    } else {
+      return campaignsForVaccine.every((c) => c.preStart.getTime() === c.start.getTime());
+    }
   }
 
   /** Check if a vaccine has campaigns */

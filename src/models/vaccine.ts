@@ -44,6 +44,7 @@ export type VaccineDetails = {
   nbsCampaign?: NbsCampaign;
   supressWarningCallout?: boolean;
   moreInformationHeadersFromContentApi?: boolean;
+  supportsPreOpenCampaigns?: boolean;
 };
 
 type displayName = {
@@ -330,6 +331,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     cacheFilename: "covid-19-vaccine.json" as Filename,
     nbsPath: "covid" as UrlPathFragment,
     nbsCampaign: "vita-COVID-booking" as NbsCampaign,
+    supportsPreOpenCampaigns: true,
   },
   [VaccineType.FLU_FOR_ADULTS]: {
     urlPath: "flu-vaccine" as UrlPathFragment,
