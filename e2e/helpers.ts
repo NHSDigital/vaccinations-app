@@ -98,6 +98,7 @@ export const openExpandersIfPresent = async (page: Page) => {
     "Why are pregnant women offered the vaccine?",
     "Is the vaccine safe in pregnancy?",
     "When should I have the vaccine?",
+    "Extra doses of the vaccine",
   ];
 
   for (const title of expanderTitles) {
