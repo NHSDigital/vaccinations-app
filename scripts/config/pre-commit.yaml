@@ -17,6 +17,12 @@ repos:
     language: system
     pass_filenames: false
     verbose: true
+  - id: validate-campaign-config
+    name: Validate Campaign Config (All Envs)
+    entry: npm run validate-campaign-configs
+    language: system
+    pass_filenames: false
+    verbose: true
   - id: run-tests
     name: Run tests
     entry: npm run test
