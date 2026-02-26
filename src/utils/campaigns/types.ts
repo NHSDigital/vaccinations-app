@@ -6,6 +6,13 @@ import { ZodError, z } from "zod";
 
 const log: Logger = logger.child({ module: "campaigns" });
 
+const formatZodErrorForLogging = (zodError: ZodError) => {
+  const loggableZodError = zodError.issues.map((issue) => {
+    return `{${issue.path.toString()} : ${issue.message}}, `;
+  });
+  return loggableZodError;
+};
+
 const CampaignSchema = z
   .object({
     preStart: UtcDateTimeFromStringSchema,
@@ -85,12 +92,11 @@ export class Campaigns {
     } catch (error) {
       let loggableError;
       if (error instanceof ZodError) {
-        loggableError = {
-          message: error.message,
-          issues: error.issues,
-        };
+        loggableError = formatZodErrorForLogging(error);
+      } else if (error instanceof Error) {
+        loggableError = error.message;
       }
-      log.warn({ context: { jsonString }, error: loggableError }, "Failed to parse campaigns");
+      log.warn({ context: { jsonString }, error: loggableError }, `Failed to parse campaigns: ${loggableError}`);
       return undefined;
     }
   }
