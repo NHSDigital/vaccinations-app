@@ -157,11 +157,6 @@ jobs:
     needs: [ deploy-and-test-r1 ]
     if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && (inputs.release=='All' || inputs.release=='Latest R2 tag'))) }}
     steps:
-      - name: "Temporary skip until R2 branch created"
-        run: |
-          echo "Temporarily skipping job; remove this step when the release/v2.0 branch is created"
-          exit 1
-
       - name: "Checkout code"
         uses: actions/checkout@v6
         with:
@@ -238,17 +233,17 @@ jobs:
           VITA_TEST_USER_PATTERN: ${{ secrets.VITA_TEST_USER_PATTERN }}
           AWS_S3_ARTEFACTS_BUCKET: vita-${{ secrets.AWS_ACCOUNT_ID }}-artefacts-preprod
 
-#      - name: "Checkout ${{ env.R2_RELEASE_BRANCH }} for audit"
-#        if: ${{ !cancelled() }}
-#        uses: actions/checkout@v6
-#        with:
-#          ref: ${{ env.R2_RELEASE_BRANCH }}
-#          path: "release-audit"
-#
-#      - name: "Audit npm packages (critical vulnerabilities)"
-#        if: ${{ !cancelled() }}
-#        working-directory: release-audit
-#        run: npm audit --audit-level=critical
+      - name: "Checkout ${{ env.R2_RELEASE_BRANCH }} for audit"
+        if: ${{ !cancelled() }}
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ env.R2_RELEASE_BRANCH }}
+          path: "release-audit"
+
+      - name: "Audit npm packages (critical vulnerabilities)"
+        if: ${{ !cancelled() }}
+        working-directory: release-audit
+        run: npm audit --audit-level=critical
 
 
   #################################################################
