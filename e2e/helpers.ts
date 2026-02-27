@@ -99,6 +99,7 @@ export const openExpandersIfPresent = async (page: Page) => {
     "Is the vaccine safe in pregnancy?",
     "When should I have the vaccine?",
     "Extra doses of the vaccine",
+    "List of necessary cookies that make this service work",
   ];
 
   for (const title of expanderTitles) {
