@@ -45,8 +45,8 @@ const testLinkToBookAppointmentForPregnantPeople = () => {
     await newPage.waitForLoadState("domcontentloaded");
     await newPage.bringToFront();
 
+    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE_REGEX, { timeout: 60_000 });
     expect(newPage.url()).toMatch(BOOKING_PAGE_URL_REGEX);
-    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE_REGEX);
   });
 };
 
@@ -74,7 +74,7 @@ test.describe("NBS booking redirection - user 19", () => {
     await newPage.waitForLoadState("domcontentloaded");
     await newPage.bringToFront();
 
-    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE_REGEX);
+    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE_REGEX, { timeout: 60_000 });
     expect(newPage.url()).toMatch(BOOKING_PAGE_URL_REGEX);
   });
 
@@ -103,7 +103,7 @@ test.describe("NBS booking redirection - user 21", () => {
     await newPage.waitForLoadState("domcontentloaded");
     await newPage.bringToFront();
 
-    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE_REGEX);
+    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE_REGEX, { timeout: 60_000 });
     expect(newPage.url()).toMatch(BOOKING_PAGE_URL_REGEX);
   });
 
@@ -134,7 +134,7 @@ test.describe("NBS booking redirection - user 22", () => {
     await newPage.waitForLoadState("domcontentloaded");
     await newPage.bringToFront();
 
-    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE_REGEX);
+    await expect(newPage).toHaveTitle(BOOKING_PAGE_TITLE_REGEX, { timeout: 60_000 });
     expect(newPage.url()).toMatch(BOOKING_PAGE_URL_REGEX);
   });
 
