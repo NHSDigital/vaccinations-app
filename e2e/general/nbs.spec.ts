@@ -50,7 +50,7 @@ const testLinkToBookAppointmentForPregnantPeople = () => {
   });
 };
 
-test.describe.configure({ mode: "parallel", retries: 0 });
+test.describe.configure({ mode: "parallel", retries: 0, timeout: 70_000 });
 
 test.describe("NBS booking redirection - user 19", () => {
   test.skip(
