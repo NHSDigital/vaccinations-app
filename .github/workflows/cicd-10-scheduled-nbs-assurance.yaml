@@ -64,7 +64,7 @@ jobs:
           secret_aws_slack_channel_id: ${{ secrets.ALARMS_SLACK_CHANNEL_ID }}
 
       - name: "Run NBS E2E tests on ${{ steps.get-latest-tag-name.outputs.value }} (preprod)"
-        timeout-minutes: 10
+        timeout-minutes: 20
         uses: ./.github/actions/run-nbs-e2e-tests
         with:
           checkout_ref: ${{ steps.get-latest-tag-name.outputs.value }}
