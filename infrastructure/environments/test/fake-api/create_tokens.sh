@@ -11,28 +11,11 @@ PRIVATE_KEY_FILE="$1"
 ISSUER_URL="$2"
 EXPIRES_IN="$3"
 
-NHS_NUMBERS=(
-#  "9436793375"
-  "9450114080"
-#  "9451019030"
-  "9466447939"
-  "9657933617"
-  "9658218873"
-  "9658218881"
-  "9658218903"
-  "9658218989"
-  "9658218997"
-#  "9658219004"
-  "9658219012"
-  "9658220142"
-  "9658220150"
-#  "9661033404"
-  "9661033498"
-  "9686368906"
-  "9686368973"
-  "9686369120"
-  "9735548844"
-)
+NHS_NUMBERS=()
+for f in data/elid/*.json; do
+    num="$(basename "${f%.json}")"   # strip directory + extension
+    NHS_NUMBERS+=("$num")
+done
 
 if [ ! -f "$PRIVATE_KEY_FILE" ]; then
     echo "Error: Private key file not found at '$PRIVATE_KEY_FILE'" >&2

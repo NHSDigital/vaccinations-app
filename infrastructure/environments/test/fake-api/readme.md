@@ -29,7 +29,7 @@ The first argument to the `create_tokens` script below is the [VitA application 
 
 docker stop local-fake-api  ## Will fail if the contain doesn't exist, which is fine
 
-docker build --no-cache -t fake-api . && docker run -d --rm -p 9123:9123 -e ELID_DELAY_SECONDS=1 -e APIM_DELAY_SECONDS=1 --name local-fake-api fake-api
+docker build --no-cache -t local-fake-api . && docker run -d --rm -p 9123:9123 -e ELID_DELAY_SECONDS=1 -e APIM_DELAY_SECONDS=1 --name local-fake-api local-fake-api
 
 docker logs local-fake-api --follow | less +F  # If you need to see what's going on in nginx
 
@@ -62,6 +62,8 @@ NHS_APP_REDIRECT_LOGIN_URL=https://localhost:3000/api/sso?assertedLoginIdentity=
 NBS_URL=http://localhost:9123/nbs
 ```
 
+You can log in as a particular NHS number by setting the header 'x-nhs-number' to the number you want.
+If you don't set this header, a random number will be used.
 Start up VitA as normal, then hit [/api/sso](https://localhost:3000/api/sso?assertedLoginIdentity=sausages).
 
 #### Build image for deployment
