@@ -53,17 +53,9 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
 
     const openActions = [
       {
-        type: ActionDisplayType.infotext,
-        content: [
-          "## If this applies to you",
-          "### Get vaccinated at your GP surgery",
-          "Contact your GP surgery to book an appointment.",
-        ].join("\n\n") as Content,
-        button: undefined,
-      },
-      {
         type: ActionDisplayType.nbsAuthLinkButtonWithInfo,
         content: [
+          "## If this applies to you",
           "### Book an appointment online",
           "You can book an appointment online at some pharmacies, GP surgeries and vaccination centres.",
         ].join("\n\n") as Content,
@@ -83,6 +75,13 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
             "https://www.nhs.uk/nhs-services/vaccination-and-booking-services/find-a-walk-in-covid-19-vaccination-site/",
           ) as ButtonUrl,
         },
+      },
+      {
+        type: ActionDisplayType.infotext,
+        content: ["### Get vaccinated at your GP surgery", "Contact your GP surgery to book an appointment."].join(
+          "\n\n",
+        ) as Content,
+        button: undefined,
       },
     ];
 
