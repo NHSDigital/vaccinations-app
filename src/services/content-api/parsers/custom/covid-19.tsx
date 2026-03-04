@@ -54,18 +54,10 @@ export const buildFilteredContentForCovid19Vaccine = async (apiContent: string):
 async function _buildActions(): Promise<Action[]> {
   const nbsURL = (await buildNbsUrl(VaccineType.COVID_19)) as ButtonUrl;
 
-  const contactGP: ActionWithoutButton = {
-    type: ActionDisplayType.infotext,
-    content: [
-      "## If this applies to you",
-      "### Get vaccinated at your GP surgery",
-      "Contact your GP surgery to book an appointment.",
-    ].join("\n\n") as Content,
-    button: undefined,
-  };
   const nbsBooking: ActionWithButton = {
     type: ActionDisplayType.nbsAuthLinkButtonWithInfo,
     content: [
+      "## If this applies to you",
       "### Book an appointment online",
       "You can book an appointment online at some pharmacies, GP surgeries and vaccination centres.",
     ].join("\n\n") as Content,
@@ -84,8 +76,15 @@ async function _buildActions(): Promise<Action[]> {
       ) as ButtonUrl,
     },
   };
+  const contactGP: ActionWithoutButton = {
+    type: ActionDisplayType.infotext,
+    content: ["### Get vaccinated at your GP surgery", "Contact your GP surgery to book an appointment."].join(
+      "\n\n",
+    ) as Content,
+    button: undefined,
+  };
 
-  return [contactGP, nbsBooking, walkIn];
+  return [nbsBooking, walkIn, contactGP];
 }
 
 async function _buildPreOpenActions(): Promise<Action[]> {
