@@ -33,11 +33,25 @@ jest.mock("@src/app/_components/eligibility/EligibilityVaccinePageContent", () =
       <div data-testid="eligibility-page-content-mock">Test Eligibility Content Component</div>
     )),
 }));
-jest.mock("react-markdown", () =>
-  jest.fn(function MockMarkdown(props) {
-    return <div data-testid="markdown">{props.children}</div>;
+jest.mock("@src/app/_components/content/NonPersonalisedVaccinePageContent", () => ({
+  NonPersonalisedVaccinePageContent: jest.fn().mockImplementation((props) => {
+    if (props.isCampaignOpen) {
+      return (
+        <div data-testid="non-personalised-content-mock-open">Test Non-personalised Vaccine Page Content Component</div>
+      );
+    } else if (props.isCampaignPreOpen) {
+      return (
+        <div data-testid="non-personalised-content-mock-preopen">
+          Test Non-personalised Vaccine Page Content Component
+        </div>
+      );
+    } else {
+      return (
+        <div data-testid="non-personalised-content-mock">Test Non-personalised Vaccine Page Content Component</div>
+      );
+    }
   }),
-);
+}));
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
 }));
@@ -47,17 +61,6 @@ jest.mock("next/headers", () => ({
 }));
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 jest.mock("@src/utils/config");
-jest.mock("cheerio", () => ({
-  load: jest.fn(() => {
-    const selectorImpl = jest.fn(() => ({
-      attr: jest.fn(),
-    }));
-
-    return Object.assign(selectorImpl, {
-      html: jest.fn(() => "<p>HTML fragment</p>"),
-    });
-  }),
-}));
 
 const nhsNumber = "5123456789";
 
@@ -137,47 +140,12 @@ describe("Any vaccine page", () => {
       (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilitySuccessResponse);
     });
 
-    it("should include overview text", async () => {
-      await renderNamedVaccinePage(VaccineType.TD_IPV_3_IN_1);
+    it("should display non-personalised vaccine page content", async () => {
+      await renderNamedVaccinePage(VaccineType.RSV);
 
-      const overviewText: HTMLElement = screen.getByText("Overview text");
+      const nonPersonalisedVaccinePageContent = screen.getByTestId("non-personalised-content-mock");
 
-      expect(overviewText).toBeInTheDocument();
-    });
-
-    it("should include recommendation text", async () => {
-      await renderNamedVaccinePage(VaccineType.FLU_IN_PREGNANCY);
-
-      const recommendationText: HTMLElement = screen.getByRole("heading", {
-        name: "Non-urgent advice: Recommendation Heading",
-        level: 2,
-      });
-
-      expect(recommendationText).toBeInTheDocument();
-    });
-
-    it("should include additionalInformation text", async () => {
-      await renderNamedVaccinePage(VaccineType.MMRV);
-
-      const additionalInformation: HTMLElement = screen.getByText("Additional Information component");
-
-      expect(additionalInformation).toBeInTheDocument();
-    });
-
-    it("should include callout heading", async () => {
-      await renderNamedVaccinePage(VaccineType.MMR);
-
-      const calloutHeading: HTMLElement = screen.getByRole("heading", { name: "Important: Callout Heading" });
-
-      expect(calloutHeading).toBeInTheDocument();
-    });
-
-    it("should include actions", async () => {
-      await renderNamedVaccinePage(VaccineType.COVID_19);
-
-      const actions: HTMLElement = screen.getByRole("button", { name: "Continue to booking" });
-
-      expect(actions).toBeInTheDocument();
+      expect(nonPersonalisedVaccinePageContent).toBeInTheDocument();
     });
 
     it("should include more information expanders", async () => {
@@ -218,10 +186,9 @@ describe("Any vaccine page", () => {
     });
   });
 
-  describe("shows callouts and actions for Vaccines that handle campaigns (COVID_19)", () => {
+  describe("shows correct content for Vaccines that handle campaigns (COVID_19)", () => {
     const mockedConfig = config as ConfigMock;
     const campaigns = new Campaigns({});
-    const covid19VaccineType = VaccineType.COVID_19;
 
     beforeEach(() => {
       (getContentForVaccine as jest.Mock).mockResolvedValue(contentSuccessResponse);
@@ -230,134 +197,37 @@ describe("Any vaccine page", () => {
       Object.assign(mockedConfig, defaultConfig);
     });
 
-    it("should include callout heading when campaign is closed", async () => {
-      const closedCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(false);
-      const preOpenCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(false);
-      await renderNamedVaccinePage(covid19VaccineType);
+    it("should display non-personalised vaccine page content for PreOpen Campaign", async () => {
+      jest.spyOn(campaigns, "isPreOpen").mockReturnValue(true);
+      jest.spyOn(campaigns, "isOpen").mockReturnValue(false);
 
-      const calloutHeading: HTMLElement = screen.getByRole("heading", { name: "Important: Callout Heading" });
+      await renderNamedVaccinePage(VaccineType.COVID_19);
 
-      expect(closedCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(preOpenCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(calloutHeading).toBeInTheDocument();
-      closedCampaignSpy.mockRestore();
-      preOpenCampaignSpy.mockRestore();
+      const nonPersonalisedVaccinePageContent = screen.getByTestId("non-personalised-content-mock-preopen");
+
+      expect(nonPersonalisedVaccinePageContent).toBeInTheDocument();
     });
 
-    it("should not include callout heading when campaign is open", async () => {
-      const openCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(true);
-      const preOpenCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(false);
-      await renderNamedVaccinePage(covid19VaccineType);
+    it("should display non-personalised vaccine page content for Open Campaign", async () => {
+      jest.spyOn(campaigns, "isPreOpen").mockReturnValue(false);
+      jest.spyOn(campaigns, "isOpen").mockReturnValue(true);
 
-      const calloutHeading: HTMLElement | null = screen.queryByRole("heading", { name: "Important: Callout Heading" });
+      await renderNamedVaccinePage(VaccineType.COVID_19);
 
-      expect(openCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(preOpenCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(calloutHeading).toBeNull();
-      openCampaignSpy.mockRestore();
-      preOpenCampaignSpy.mockRestore();
+      const nonPersonalisedVaccinePageContent = screen.getByTestId("non-personalised-content-mock-open");
+
+      expect(nonPersonalisedVaccinePageContent).toBeInTheDocument();
     });
 
-    it("should not include callout heading when campaign is pre-open", async () => {
-      const openCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(true);
-      const closedCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(false);
-      await renderNamedVaccinePage(covid19VaccineType);
+    it("should display non-personalised vaccine page content for Closed Campaign", async () => {
+      jest.spyOn(campaigns, "isPreOpen").mockReturnValue(false);
+      jest.spyOn(campaigns, "isOpen").mockReturnValue(false);
 
-      const calloutHeading: HTMLElement | null = screen.queryByRole("heading", { name: "Important: Callout Heading" });
+      await renderNamedVaccinePage(VaccineType.COVID_19);
 
-      expect(openCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(closedCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(calloutHeading).toBeNull();
-      openCampaignSpy.mockRestore();
-      closedCampaignSpy.mockRestore();
-    });
+      const nonPersonalisedVaccinePageContent = screen.getByTestId("non-personalised-content-mock");
 
-    it("should include actions when campaign is open", async () => {
-      const preOpenCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(false);
-      const openCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(true);
-      await renderNamedVaccinePage(covid19VaccineType);
-
-      const actions: HTMLElement = screen.getByRole("button", { name: "Continue to booking" });
-
-      expect(preOpenCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(openCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(actions).toBeInTheDocument();
-      preOpenCampaignSpy.mockRestore();
-      openCampaignSpy.mockRestore();
-    });
-
-    it("should not include open campaign actions when campaign is pre-open", async () => {
-      const preOpenCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(true);
-      const closedCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(false);
-      await renderNamedVaccinePage(covid19VaccineType);
-
-      const actions: HTMLElement | null = screen.queryByRole("button", { name: "Continue to booking" });
-
-      expect(preOpenCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(closedCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(actions).toBeNull();
-      preOpenCampaignSpy.mockRestore();
-      closedCampaignSpy.mockRestore();
-    });
-
-    it("should not include actions when campaign is closed", async () => {
-      const preOpenCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(false);
-      const closedCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(false);
-      await renderNamedVaccinePage(covid19VaccineType);
-
-      const actions: HTMLElement | null = screen.queryByRole("button", { name: "Continue to booking" });
-
-      expect(preOpenCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(closedCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(actions).toBeNull();
-      preOpenCampaignSpy.mockRestore();
-      closedCampaignSpy.mockRestore();
-    });
-
-    it("should include pre-open actions when campaign is pre-open", async () => {
-      const preOpenCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(true);
-      const closedCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(false);
-      await renderNamedVaccinePage(covid19VaccineType);
-
-      const preOpenActions: HTMLElement = screen.getByRole("button", { name: "Book, cancel or change an appointment" });
-
-      expect(preOpenCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(closedCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(preOpenActions).toBeInTheDocument();
-      preOpenCampaignSpy.mockRestore();
-      closedCampaignSpy.mockRestore();
-    });
-
-    it("should not include pre-open actions when campaign is open", async () => {
-      const openCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(true);
-      const closedPreOpenCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(false);
-      await renderNamedVaccinePage(covid19VaccineType);
-
-      const preOpenActions: HTMLElement | null = screen.queryByRole("button", {
-        name: "Book, cancel or change an appointment",
-      });
-
-      expect(openCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(closedPreOpenCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(preOpenActions).toBeNull();
-      openCampaignSpy.mockRestore();
-      closedPreOpenCampaignSpy.mockRestore();
-    });
-
-    it("should not include pre-open actions when campaign is closed", async () => {
-      const closedCampaignSpy = jest.spyOn(campaigns, "isOpen").mockReturnValue(false);
-      const closedPreOpenCampaignSpy = jest.spyOn(campaigns, "isPreOpen").mockReturnValue(false);
-      await renderNamedVaccinePage(covid19VaccineType);
-
-      const preOpenActions: HTMLElement | null = screen.queryByRole("button", {
-        name: "Book, cancel or change an appointment",
-      });
-
-      expect(closedCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(closedPreOpenCampaignSpy).toHaveBeenCalledWith(covid19VaccineType, expect.any(Date));
-      expect(preOpenActions).toBeNull();
-      closedCampaignSpy.mockRestore();
-      closedPreOpenCampaignSpy.mockRestore();
+      expect(nonPersonalisedVaccinePageContent).toBeInTheDocument();
     });
   });
 
@@ -367,28 +237,12 @@ describe("Any vaccine page", () => {
       (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilitySuccessResponse);
     });
 
-    it("should not display overview paragraph", async () => {
-      await renderNamedVaccinePage(VaccineType.TD_IPV_3_IN_1);
+    it("should not display non-personalised vaccine page content", async () => {
+      await renderNamedVaccinePage(VaccineType.RSV);
 
-      const overviewText: HTMLElement | null = screen.queryByText("Overview text");
+      const nonPersonalisedVaccinePageContent = screen.queryByTestId("non-personalised-content-mock");
 
-      expect(overviewText).not.toBeInTheDocument();
-    });
-
-    it("should not display callout", async () => {
-      await renderNamedVaccinePage(VaccineType.HPV);
-
-      const calloutHeading: HTMLElement | null = screen.queryByRole("heading", { name: "Important: Callout Heading" });
-
-      expect(calloutHeading).not.toBeInTheDocument();
-    });
-
-    it("should not display additionalInformation", async () => {
-      await renderNamedVaccinePage(VaccineType.MMRV);
-
-      const overviewText: HTMLElement | null = screen.queryByText("Additional Information component");
-
-      expect(overviewText).not.toBeInTheDocument();
+      expect(nonPersonalisedVaccinePageContent).not.toBeInTheDocument();
     });
 
     it("should not display more information expanders", async () => {
@@ -583,7 +437,7 @@ describe("shouldShowHowToGetSection", () => {
     [VaccineType.RSV_PREGNANCY, false, true, false, false],
     [VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, true, false, false, false],
   ])(
-    `should decide if to show hotToGet Section for: %s, campaigns: %s, open: %s, preopen %s, expected: %s`,
+    `should decide if to show hotToGet Section for: %s, campaigns: %s, open: %s, PreOpen %s, expected: %s`,
     async (vaccineType, isSupported, isOpen, isPreOpen, expected) => {
       const actual = await shouldShowHowToGetSection(vaccineType, isSupported, isOpen, isPreOpen);
 

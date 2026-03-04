@@ -4,11 +4,8 @@ import { auth } from "@project/auth";
 import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
 import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
 import { MoreInformation } from "@src/app/_components/content/MoreInformation";
-import { Overview } from "@src/app/_components/content/Overview";
-import Recommendation from "@src/app/_components/content/Recommendation";
-import { EligibilityActions } from "@src/app/_components/eligibility/EligibilityActions";
+import { NonPersonalisedVaccinePageContent } from "@src/app/_components/content/NonPersonalisedVaccinePageContent";
 import { EligibilityVaccinePageContent } from "@src/app/_components/eligibility/EligibilityVaccinePageContent";
-import WarningCallout from "@src/app/_components/nhs-frontend/WarningCallout";
 import { RSVPregnancyInfo } from "@src/app/_components/vaccine-custom/RSVPregnancyInfo";
 import { NhsNumber, VaccineDetails, VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
@@ -94,28 +91,16 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
   return (
     <div className={styles.tableCellSpanHide}>
       {contentError != ContentErrorTypes.CONTENT_LOADING_ERROR && styledVaccineContent != undefined && (
-        <>
-          <Overview overview={styledVaccineContent.overview} vaccineType={vaccineType} />
-          <Recommendation recommendation={styledVaccineContent.recommendation} />
-          {!isCampaignOpen && !isCampaignPreOpen && (
-            <WarningCallout styledVaccineContent={styledVaccineContent} vaccineType={vaccineType} />
-          )}
-          {styledVaccineContent.additionalInformation?.component && (
-            <div>{styledVaccineContent.additionalInformation.component}</div>
-          )}
-          {!isCampaignOpen && isCampaignPreOpen && (
-            <EligibilityActions
-              actions={styledVaccineContent.preOpenActions ? styledVaccineContent.preOpenActions : []}
-              vaccineType={vaccineType}
-            />
-          )}
-          {isCampaignOpen && <EligibilityActions actions={styledVaccineContent.actions} vaccineType={vaccineType} />}
-          <Overview overview={styledVaccineContent.overviewConclusion} vaccineType={vaccineType} />
-        </>
+        <NonPersonalisedVaccinePageContent
+          styledVaccineContent={styledVaccineContent}
+          vaccineType={vaccineType}
+          isCampaignPreOpen={isCampaignPreOpen}
+          isCampaignOpen={isCampaignOpen}
+        />
       )}
 
       {/* Eligibility section for RSV */}
-      {vaccineType === VaccineType.RSV && eligibilityForPerson !== undefined && (
+      {vaccineInfo.personalisedEligibilityStatusRequired && eligibilityForPerson !== undefined && (
         <EligibilityVaccinePageContent
           vaccineType={vaccineType}
           eligibilityForPerson={eligibilityForPerson}
