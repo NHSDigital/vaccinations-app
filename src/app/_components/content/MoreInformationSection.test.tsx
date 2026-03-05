@@ -61,6 +61,29 @@ describe("MoreInformationSection", () => {
         undefined,
       );
     });
+
+    it("should include find out more link with url from styled vaccine content", () => {
+      const showHowToGetSection = false;
+      const vaccineType = VaccineType.RSV;
+      render(
+        <MoreInformationSection
+          styledVaccineContent={styledVaccineContent}
+          vaccineType={vaccineType}
+          showHowToGetSection={showHowToGetSection}
+        />,
+      );
+
+      const findOurMoreLink: HTMLElement = screen.getByText("Test Find Out More Link");
+
+      expect(findOurMoreLink).toBeInTheDocument();
+      expect(FindOutMoreLink).toHaveBeenCalledWith(
+        {
+          findOutMoreUrl: styledVaccineContent.webpageLink,
+          vaccineType: vaccineType,
+        },
+        undefined,
+      );
+    });
   });
 
   describe("when styled vaccine content is unavailable", () => {

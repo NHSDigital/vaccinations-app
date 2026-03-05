@@ -241,25 +241,6 @@ describe("MoreInformation component ", () => {
       expect(heading).not.toBeInTheDocument();
     });
 
-    it("should display webpage link to more information about vaccine", async () => {
-      const vaccineType = VaccineType.RSV;
-      render(
-        <MoreInformationExpanders
-          styledVaccineContent={mockStyledContent}
-          vaccineType={vaccineType}
-          showHowToGetSection={true}
-        />,
-      );
-
-      const webpageLink: HTMLElement = screen.getByRole("link", {
-        name: "Find out more about the RSV vaccine",
-      });
-
-      expect(webpageLink).toBeInTheDocument();
-      expect(webpageLink).toHaveAttribute("href", "https://test.example.com/");
-      expect(webpageLink).toHaveAttribute("target", "_blank");
-    });
-
     it("should not display whatItIsFor section if undefined in content", async () => {
       const vaccineType = VaccineType.RSV;
       render(

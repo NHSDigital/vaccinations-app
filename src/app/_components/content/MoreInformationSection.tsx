@@ -10,20 +10,22 @@ const MoreInformationSection = (props: {
   showHowToGetSection: boolean;
 }): JSX.Element => {
   const vaccineInfo: VaccineDetails = VaccineInfo[props.vaccineType];
+  const findOutMoreUrl = props.styledVaccineContent
+    ? props.styledVaccineContent.webpageLink
+    : vaccineInfo.nhsWebpageLink;
 
   return (
     <>
       <h2 className="nhsuk-heading-s">{`More information about the ${vaccineInfo.displayName.midSentenceCase} ${vaccineInfo.displayName.suffix}`}</h2>
 
-      {props.styledVaccineContent != undefined ? (
+      {props.styledVaccineContent != undefined && (
         <MoreInformationExpanders
           styledVaccineContent={props.styledVaccineContent}
           vaccineType={props.vaccineType}
           showHowToGetSection={props.showHowToGetSection}
         />
-      ) : (
-        <FindOutMoreLink findOutMoreUrl={vaccineInfo.nhsWebpageLink} vaccineType={props.vaccineType} />
       )}
+      <FindOutMoreLink findOutMoreUrl={findOutMoreUrl} vaccineType={props.vaccineType} />
     </>
   );
 };

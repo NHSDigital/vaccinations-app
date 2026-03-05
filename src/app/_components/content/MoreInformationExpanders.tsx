@@ -1,4 +1,3 @@
-import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
 import { HEADINGS } from "@src/app/constants";
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
 import styles from "@src/services/content-api/parsers/styles.module.css";
@@ -81,8 +80,6 @@ const MoreInformationExpanders = (props: {
           </Details.Text>
         </Details>
       </Details.ExpanderGroup>
-
-      <FindOutMoreLink findOutMoreUrl={props.styledVaccineContent.webpageLink} vaccineType={props.vaccineType} />
     </>
   );
 };
