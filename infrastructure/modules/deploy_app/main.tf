@@ -28,21 +28,8 @@ module "deploy_app" {
   }
 
   waf = {
-    deployment = var.environment == "prod" || var.environment == "test" ? "CREATE" : "NONE",
-    aws_managed_rules = [
-      {
-        name                  = "amazon-ip-reputation-list"
-        aws_managed_rule_name = "AWSManagedRulesAmazonIpReputationList"
-      },
-      {
-        name                  = "common-rule-set"
-        aws_managed_rule_name = "AWSManagedRulesCommonRuleSet"
-      },
-      {
-        name                  = "known-bad-inputs"
-        aws_managed_rule_name = "AWSManagedRulesKnownBadInputsRuleSet"
-      }
-    ]
+    deployment = "USE_EXISTING",
+    web_acl_id = aws_wafv2_web_acl.app_waf.arn
   }
 
   server_function = {
