@@ -314,6 +314,74 @@ Avoid 'gh' as it is reserved for GitHub.
   - Update the environment: the variables are accessible in [Systems Manager / Parameter Store](https://eu-west-2.console.aws.amazon.com/systems-manager/parameters/?region=eu-west-2&tab=Table)
   - The app is accessible via the CDN URL printed after the deployment as an output.
 
+#### Assuming a restricted IAM role
+
+We follow a strict least privilege policy for our IAM roles. The IAM role used by the GitHub Actions workflows for
+deployment is restricted, and there are times when we need to modify the permissions policy for the role (e.g. when
+working on infrastructure changes).
+
+To prevent failed deployment pipelines due to insufficient permissions, a restricted IAM role can be assumed in the
+personal workspace of the developer. This restricted role mimics the permissions of the role used by the GitHub Actions
+workflows.
+
+Steps to create and assume the restricted role:
+
+- (optional) Log into AWS if session has expired - run the following command, ignore the browser window that automatically opens and copy the URL output in terminal into browser for HSCIC profile
+
+    ```shell
+    aws sso login
+    ```
+
+- In the `home` directory
+
+    ```shell
+    TF_ENV=dev/iam make terraform-init         # initialises the iam modules
+    ```
+
+- In the environment `infrastructure/environments/dev/iam` directory
+
+    ```shell
+    terraform workspace new <unique 4 char name> # use the same name as the workspace used for the main app
+    ```
+
+- In the `home` directory
+
+    ```shell
+    TF_ENV=dev/iam make terraform-plan          # compares local vs. remote state, and shows the plan
+    TF_ENV=dev/iam make terraform-apply         # applies the plan, asks for approval
+    ```
+
+- Once the deployment is successful, visit the AWS IAM console and find arn of the restricted role. The role name will be prefixed with the workspace name.
+
+- The following script can be used to easily assume and unset the role. For easier use, add the following to your `.zshrc` file:
+
+    ```shell
+    # Assume the restricted role; If it shows an error, rerun.
+    iamvita() {
+      local credentials=$(aws sts assume-role --role-arn "<restricted role arn>" --role-session-name "<any role name; doesn't really matter>" --output json)
+      export AWS_ACCESS_KEY_ID=$(echo $credentials | jq -r '.Credentials.AccessKeyId')
+      export AWS_SECRET_ACCESS_KEY=$(echo $credentials | jq -r '.Credentials.SecretAccessKey')
+      export AWS_SESSION_TOKEN=$(echo $credentials | jq -r '.Credentials.SessionToken')
+
+      echo "Role assumed successfully."
+    }
+
+    # Unset IAM Role; use default admin role
+    iamunset() {
+      unset AWS_ACCESS_KEY_ID
+      unset AWS_SECRET_ACCESS_KEY
+      unset AWS_SESSION_TOKEN
+
+      echo "AWS environment variables cleared."
+    }
+    ```
+
+- (Optional) To test the role assumption, run the following command:
+
+    ```shell
+    aws sts get-caller-identity                 # will display current assumed role
+    ```
+
 #### Destroying and Re-deploying resources in AWS
 
 To destroy resources in AWS, run the command:
