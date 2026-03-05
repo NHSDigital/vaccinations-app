@@ -1,9 +1,8 @@
 "use server";
 
 import { auth } from "@project/auth";
-import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
 import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
-import { MoreInformation } from "@src/app/_components/content/MoreInformation";
+import { MoreInformationSection } from "@src/app/_components/content/MoreInformationSection";
 import { NonPersonalisedVaccinePageContent } from "@src/app/_components/content/NonPersonalisedVaccinePageContent";
 import { EligibilityVaccinePageContent } from "@src/app/_components/eligibility/EligibilityVaccinePageContent";
 import { RSVPregnancyInfo } from "@src/app/_components/vaccine-custom/RSVPregnancyInfo";
@@ -31,7 +30,7 @@ const Vaccine = async ({ vaccineType }: VaccineProps) => {
   return await requestScopedStorageWrapper(VaccineComponent, { vaccineType });
 };
 
-const shouldShowHowToGetSection = async (
+const shouldShowHowToGetExpander = async (
   vaccineType: VaccineType,
   isCampaignSupported: boolean,
   isCampaignOpen: boolean,
@@ -59,7 +58,7 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
   let contentError: ContentErrorTypes | undefined;
   let eligibilityForPerson: EligibilityForPersonType | undefined;
 
-  const showHowToGetSection = await shouldShowHowToGetSection(
+  const showHowToGetExpander = await shouldShowHowToGetExpander(
     vaccineType,
     isCampaignSupported,
     isCampaignOpen,
@@ -113,22 +112,15 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
         <RSVPregnancyInfo vaccineType={vaccineType} howToGetVaccineOrFallback={howToGetVaccineOrFallback} />
       )}
 
-      {/* Sections heading - H2 */}
       <hr />
-      <h2 className="nhsuk-heading-s">{`More information about the ${vaccineInfo.displayName.midSentenceCase} ${vaccineInfo.displayName.suffix}`}</h2>
-      {/* Expandable sections */}
-      {contentError != ContentErrorTypes.CONTENT_LOADING_ERROR && styledVaccineContent != undefined ? (
-        <MoreInformation
-          styledVaccineContent={styledVaccineContent}
-          vaccineType={vaccineType}
-          showHowToGetSection={showHowToGetSection}
-        />
-      ) : (
-        <FindOutMoreLink findOutMoreUrl={vaccineInfo.nhsWebpageLink} vaccineType={vaccineType} />
-      )}
+      <MoreInformationSection
+        styledVaccineContent={styledVaccineContent}
+        vaccineType={vaccineType}
+        showHowToGetSection={showHowToGetExpander}
+      />
     </div>
   );
 };
 
 export default Vaccine;
-export { shouldShowHowToGetSection };
+export { shouldShowHowToGetExpander };

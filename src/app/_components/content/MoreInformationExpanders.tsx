@@ -7,7 +7,7 @@ import { Details } from "nhsuk-react-components";
 import React, { JSX } from "react";
 
 // Ref: https://main--65aa76b29d00a047fe683b95.chromatic.com/?path=/docs/content-presentation-details--docs#expander-group-2
-const MoreInformation = (props: {
+const MoreInformationExpanders = (props: {
   styledVaccineContent: StyledVaccineContent;
   vaccineType: VaccineType;
   showHowToGetSection: boolean;
@@ -87,4 +87,4 @@ const MoreInformation = (props: {
   );
 };
 
-export { MoreInformation };
+export { MoreInformationExpanders };
