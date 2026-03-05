@@ -1,4 +1,6 @@
 resource "aws_wafv2_web_acl" "app_waf" {
+  count = var.is_local ? 0 : 1
+
   name        = "${var.prefix}-cloudfront-waf"
   scope       = "CLOUDFRONT"
   description = "WAF ACL for CloudFront with managed aws rules, URI allowlist, session check"
@@ -51,7 +53,7 @@ resource "aws_wafv2_web_acl" "app_waf" {
 
     statement {
       rule_group_reference_statement {
-        arn = aws_wafv2_rule_group.app_rule_group.arn
+        arn = aws_wafv2_rule_group.app_rule_group[0].arn
       }
     }
 

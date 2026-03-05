@@ -28,8 +28,8 @@ module "deploy_app" {
   }
 
   waf = {
-    deployment = "USE_EXISTING",
-    web_acl_id = aws_wafv2_web_acl.app_waf.arn
+    deployment = var.is_local ? "NONE" : "USE_EXISTING",
+    web_acl_id = var.is_local ? null : aws_wafv2_web_acl.app_waf[0].arn
   }
 
   server_function = {

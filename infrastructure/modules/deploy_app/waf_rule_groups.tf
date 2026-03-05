@@ -1,4 +1,6 @@
 resource "aws_wafv2_rule_group" "app_rule_group" {
+  count = var.is_local ? 0 : 1
+
   name     = "${var.prefix}-app-rule-group"
   scope    = "CLOUDFRONT"
   region   = "us-east-1"
@@ -17,7 +19,7 @@ resource "aws_wafv2_rule_group" "app_rule_group" {
 
     statement {
       regex_pattern_set_reference_statement {
-        arn = aws_wafv2_regex_pattern_set.allowed_uri_paths.arn
+        arn = aws_wafv2_regex_pattern_set.allowed_uri_paths[0].arn
 
         field_to_match {
           uri_path {}
