@@ -1,6 +1,7 @@
 import { VaccineType } from "@project/src/models/vaccine";
 import { StyledVaccineContent } from "@project/src/services/content-api/types";
 import { mockStyledContent } from "@project/test-data/content-api/data";
+import { CampaignState } from "@src/utils/campaigns/campaignState";
 import { render, screen } from "@testing-library/react";
 
 import { NonPersonalisedVaccinePageContent } from "./NonPersonalisedVaccinePageContent";
@@ -24,45 +25,23 @@ jest.mock("cheerio", () => ({
 
 describe("NonPersonalisedVaccinePageContent", () => {
   describe("shows content section, when content available", () => {
-    const testCases = [
-      {
-        campaignPreOpen: false,
-        campaignOpen: false,
-      },
-      {
-        campaignPreOpen: true,
-        campaignOpen: false,
-      },
-      {
-        campaignPreOpen: false,
-        campaignOpen: true,
-      },
-      {
-        campaignPreOpen: true,
-        campaignOpen: true,
-      },
+    const campaignStates = [
+      CampaignState.OPEN,
+      CampaignState.PRE_OPEN,
+      CampaignState.CLOSED,
+      CampaignState.UNSUPPORTED,
     ];
 
-    it.each(testCases)("should include overview text when %s", async ({ campaignPreOpen, campaignOpen }) => {
-      await renderNonPersonalisedVaccinePage(
-        mockStyledContent,
-        VaccineType.TD_IPV_3_IN_1,
-        campaignOpen,
-        campaignPreOpen,
-      );
+    it.each(campaignStates)("should include overview text when campaign is %s", async (campaignState) => {
+      await renderNonPersonalisedVaccinePage(mockStyledContent, VaccineType.TD_IPV_3_IN_1, campaignState);
 
       const overviewText: HTMLElement = screen.getByText("Overview text");
 
       expect(overviewText).toBeInTheDocument();
     });
 
-    it.each(testCases)("should include recommendation text when %s", async ({ campaignPreOpen, campaignOpen }) => {
-      await renderNonPersonalisedVaccinePage(
-        mockStyledContent,
-        VaccineType.FLU_IN_PREGNANCY,
-        campaignOpen,
-        campaignPreOpen,
-      );
+    it.each(campaignStates)("should include recommendation text when campaign is %s", async (campaignState) => {
+      await renderNonPersonalisedVaccinePage(mockStyledContent, VaccineType.FLU_IN_PREGNANCY, campaignState);
 
       const recommendationText: HTMLElement = screen.getByRole("heading", {
         name: "Non-urgent advice: Recommendation Heading",
@@ -72,40 +51,30 @@ describe("NonPersonalisedVaccinePageContent", () => {
       expect(recommendationText).toBeInTheDocument();
     });
 
-    it.each(testCases)(
-      "should include additionalInformation text when %s",
-      async ({ campaignPreOpen, campaignOpen }) => {
-        await renderNonPersonalisedVaccinePage(mockStyledContent, VaccineType.MMRV, campaignOpen, campaignPreOpen);
+    it.each(campaignStates)("should include additionalInformation text when %s", async (campaignState) => {
+      await renderNonPersonalisedVaccinePage(mockStyledContent, VaccineType.MMRV, campaignState);
 
-        const additionalInformation: HTMLElement = screen.getByText("Additional Information component");
+      const additionalInformation: HTMLElement = screen.getByText("Additional Information component");
 
-        expect(additionalInformation).toBeInTheDocument();
-      },
-    );
+      expect(additionalInformation).toBeInTheDocument();
+    });
 
-    it.each(testCases)(
-      "should not include additionalInformation text when %s",
-      async ({ campaignPreOpen, campaignOpen }) => {
-        await renderNonPersonalisedVaccinePage(
-          { ...mockStyledContent, additionalInformation: undefined },
-          VaccineType.MMRV,
-          campaignOpen,
-          campaignPreOpen,
-        );
+    it.each(campaignStates)("should not include additionalInformation text when %s", async (campaignState) => {
+      await renderNonPersonalisedVaccinePage(
+        { ...mockStyledContent, additionalInformation: undefined },
+        VaccineType.MMRV,
+        campaignState,
+      );
 
-        const additionalInformation: HTMLElement | null = screen.queryByText("Additional Information component");
+      const additionalInformation: HTMLElement | null = screen.queryByText("Additional Information component");
 
-        expect(additionalInformation).not.toBeInTheDocument();
-      },
-    );
+      expect(additionalInformation).not.toBeInTheDocument();
+    });
   });
 
-  describe("shows content section, when content available for Vaccines that do not have campagins", () => {
-    const campaignPreOpen = false;
-    const campaignOpen = false;
-
+  describe("shows content section, when content available for Vaccines that do not have campaigns", () => {
     it("should not include actions", async () => {
-      await renderNonPersonalisedVaccinePage(mockStyledContent, VaccineType.COVID_19, campaignOpen, campaignPreOpen);
+      await renderNonPersonalisedVaccinePage(mockStyledContent, VaccineType.COVID_19, CampaignState.UNSUPPORTED);
 
       const actions: HTMLElement | null = screen.queryByRole("button", { name: "Continue to booking" });
 
@@ -113,7 +82,7 @@ describe("NonPersonalisedVaccinePageContent", () => {
     });
 
     it("should not include PreOpen actions", async () => {
-      await renderNonPersonalisedVaccinePage(mockStyledContent, VaccineType.COVID_19, campaignOpen, campaignPreOpen);
+      await renderNonPersonalisedVaccinePage(mockStyledContent, VaccineType.COVID_19, CampaignState.UNSUPPORTED);
 
       const preOpenActions: HTMLElement | null = screen.queryByRole("button", {
         name: "Book, cancel or change an appointment",
@@ -127,10 +96,7 @@ describe("NonPersonalisedVaccinePageContent", () => {
     const covid19VaccineType = VaccineType.COVID_19;
 
     it("should include callout heading when campaign is closed", async () => {
-      const campaignOpen = false;
-      const campaignPreOpen = false;
-
-      await renderNonPersonalisedVaccinePage(mockStyledContent, covid19VaccineType, campaignOpen, campaignPreOpen);
+      await renderNonPersonalisedVaccinePage(mockStyledContent, covid19VaccineType, CampaignState.CLOSED);
 
       const calloutHeading: HTMLElement = screen.getByRole("heading", { name: "Important: Callout Heading" });
 
@@ -138,10 +104,7 @@ describe("NonPersonalisedVaccinePageContent", () => {
     });
 
     it("should not include callout heading when campaign is open", async () => {
-      const campaignOpen = true;
-      const campaignPreOpen = false;
-
-      await renderNonPersonalisedVaccinePage(mockStyledContent, covid19VaccineType, campaignOpen, campaignPreOpen);
+      await renderNonPersonalisedVaccinePage(mockStyledContent, covid19VaccineType, CampaignState.OPEN);
 
       const calloutHeading: HTMLElement | null = screen.queryByRole("heading", { name: "Important: Callout Heading" });
 
@@ -149,10 +112,7 @@ describe("NonPersonalisedVaccinePageContent", () => {
     });
 
     it("should not include callout heading when campaign is pre-open", async () => {
-      const campaignOpen = false;
-      const campaignPreOpen = true;
-
-      await renderNonPersonalisedVaccinePage(mockStyledContent, covid19VaccineType, campaignOpen, campaignPreOpen);
+      await renderNonPersonalisedVaccinePage(mockStyledContent, covid19VaccineType, CampaignState.PRE_OPEN);
 
       const calloutHeading: HTMLElement | null = screen.queryByRole("heading", { name: "Important: Callout Heading" });
 
@@ -160,10 +120,7 @@ describe("NonPersonalisedVaccinePageContent", () => {
     });
 
     it("should include actions when campaign is open", async () => {
-      const campaignOpen = true;
-      const campaignPreOpen = false;
-
-      await renderNonPersonalisedVaccinePage(mockStyledContent, covid19VaccineType, campaignOpen, campaignPreOpen);
+      await renderNonPersonalisedVaccinePage(mockStyledContent, covid19VaccineType, CampaignState.OPEN);
 
       const actions: HTMLElement = screen.getByRole("button", { name: "Continue to booking" });
 
@@ -171,10 +128,7 @@ describe("NonPersonalisedVaccinePageContent", () => {
     });
 
     it("should not include open campaign actions when campaign is pre-open", async () => {
-      const campaignOpen = false;
-      const campaignPreOpen = true;
-
-      await renderNonPersonalisedVaccinePage(mockStyledContent, covid19VaccineType, campaignOpen, campaignPreOpen);
+      await renderNonPersonalisedVaccinePage(mockStyledContent, covid19VaccineType, CampaignState.PRE_OPEN);
 
       const actions: HTMLElement | null = screen.queryByRole("button", { name: "Continue to booking" });
 
@@ -182,10 +136,7 @@ describe("NonPersonalisedVaccinePageContent", () => {
     });
 
     it("should not include actions when campaign is closed", async () => {
-      const campaignOpen = false;
-      const campaignPreOpen = false;
-
-      await renderNonPersonalisedVaccinePage(mockStyledContent, covid19VaccineType, campaignOpen, campaignPreOpen);
+      await renderNonPersonalisedVaccinePage(mockStyledContent, covid19VaccineType, CampaignState.CLOSED);
 
       const actions: HTMLElement | null = screen.queryByRole("button", { name: "Continue to booking" });
 
@@ -193,10 +144,7 @@ describe("NonPersonalisedVaccinePageContent", () => {
     });
 
     it("should include pre-open actions when campaign is pre-open", async () => {
-      const campaignOpen = false;
-      const campaignPreOpen = true;
-
-      await renderNonPersonalisedVaccinePage(mockStyledContent, covid19VaccineType, campaignOpen, campaignPreOpen);
+      await renderNonPersonalisedVaccinePage(mockStyledContent, covid19VaccineType, CampaignState.PRE_OPEN);
 
       const preOpenActions: HTMLElement = screen.getByRole("button", { name: "Book, cancel or change an appointment" });
 
@@ -204,10 +152,7 @@ describe("NonPersonalisedVaccinePageContent", () => {
     });
 
     it("should not include pre-open actions when campaign is open", async () => {
-      const campaignOpen = true;
-      const campaignPreOpen = false;
-
-      await renderNonPersonalisedVaccinePage(mockStyledContent, covid19VaccineType, campaignOpen, campaignPreOpen);
+      await renderNonPersonalisedVaccinePage(mockStyledContent, covid19VaccineType, CampaignState.OPEN);
 
       const preOpenActions: HTMLElement | null = screen.queryByRole("button", {
         name: "Book, cancel or change an appointment",
@@ -217,10 +162,7 @@ describe("NonPersonalisedVaccinePageContent", () => {
     });
 
     it("should not include pre-open actions when campaign is closed", async () => {
-      const campaignOpen = false;
-      const campaignPreOpen = false;
-
-      await renderNonPersonalisedVaccinePage(mockStyledContent, covid19VaccineType, campaignOpen, campaignPreOpen);
+      await renderNonPersonalisedVaccinePage(mockStyledContent, covid19VaccineType, CampaignState.CLOSED);
 
       const preOpenActions: HTMLElement | null = screen.queryByRole("button", {
         name: "Book, cancel or change an appointment",
@@ -234,15 +176,13 @@ describe("NonPersonalisedVaccinePageContent", () => {
 const renderNonPersonalisedVaccinePage = async (
   styledVaccineContent: StyledVaccineContent,
   vaccineType: VaccineType,
-  isCampaignOpen: boolean,
-  isCampaignPreOpen: boolean,
+  campaignState: CampaignState,
 ) => {
   render(
-    await NonPersonalisedVaccinePageContent({
+    NonPersonalisedVaccinePageContent({
       styledVaccineContent,
       vaccineType,
-      isCampaignOpen,
-      isCampaignPreOpen,
+      campaignState,
     }),
   );
 };
