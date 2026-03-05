@@ -4,7 +4,7 @@ import { randomURL } from "@test-data/meta-builder";
 import { render, screen } from "@testing-library/react";
 import React from "react";
 
-it("should include 'how to get' link with url from vaccineInfo config ", async () => {
+it("should include 'how to get' link with provided url ", async () => {
   const findOutMoreUrl = randomURL();
   const vaccineType = VaccineType.RSV;
 

@@ -1,7 +1,8 @@
 import { auth } from "@project/auth";
 import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
+import { MoreInformationSection } from "@src/app/_components/content/MoreInformationSection";
 import { EligibilityVaccinePageContent } from "@src/app/_components/eligibility/EligibilityVaccinePageContent";
-import Vaccine, { shouldShowHowToGetSection } from "@src/app/_components/vaccine/Vaccine";
+import Vaccine, { shouldShowHowToGetExpander } from "@src/app/_components/vaccine/Vaccine";
 import { VaccineType } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
@@ -31,6 +32,13 @@ jest.mock("@src/app/_components/eligibility/EligibilityVaccinePageContent", () =
     .fn()
     .mockImplementation(() => (
       <div data-testid="eligibility-page-content-mock">Test Eligibility Content Component</div>
+    )),
+}));
+jest.mock("@src/app/_components/content/MoreInformationSection", () => ({
+  MoreInformationSection: jest
+    .fn()
+    .mockImplementation(() => (
+      <div data-testid="more-information-section">Test More Information Section Component</div>
     )),
 }));
 jest.mock("@src/app/_components/content/NonPersonalisedVaccinePageContent", () => ({
@@ -148,17 +156,20 @@ describe("Any vaccine page", () => {
       expect(nonPersonalisedVaccinePageContent).toBeInTheDocument();
     });
 
-    it("should include more information expanders", async () => {
-      const expectedMoreInformationHeading: string = "More information about the RSV vaccine";
-
+    it("should include more information section", async () => {
       await renderRsvVaccinePage();
 
-      const moreInfoHeading: HTMLElement = screen.getByRole("heading", {
-        level: 2,
-        name: expectedMoreInformationHeading,
-      });
+      const moreInfoSection: HTMLElement = screen.getByText("Test More Information Section Component");
 
-      expect(moreInfoHeading).toBeInTheDocument();
+      expect(moreInfoSection).toBeInTheDocument();
+      expect(MoreInformationSection).toHaveBeenCalledWith(
+        {
+          styledVaccineContent: contentSuccessResponse.styledVaccineContent,
+          vaccineType: VaccineType.RSV,
+          showHowToGetSection: false, //about to refactor out to pass in campaign context instead?
+        },
+        undefined,
+      );
     });
 
     it("should display custom RSV Pregnancy vaccine component", async () => {
@@ -245,20 +256,22 @@ describe("Any vaccine page", () => {
       expect(nonPersonalisedVaccinePageContent).not.toBeInTheDocument();
     });
 
-    it("should not display more information expanders", async () => {
-      await renderRsvVaccinePage();
+    it("should still render More Information section", async () => {
+      const vaccineType = VaccineType.RSV;
+      await renderNamedVaccinePage(vaccineType);
 
-      const moreInfo = screen.queryByRole("heading", { name: "what-heading" });
+      const moreInfoSection: HTMLElement = screen.getByText("Test More Information Section Component");
 
-      expect(moreInfo).not.toBeInTheDocument();
-    });
+      expect(moreInfoSection).toBeInTheDocument();
 
-    it("should display find out more link", async () => {
-      await renderRsvVaccinePage();
-
-      const findOutMore: HTMLElement = screen.getByRole("link", { name: "Find out more about the RSV vaccine" });
-
-      expect(findOutMore).toBeInTheDocument();
+      expect(MoreInformationSection).toHaveBeenCalledWith(
+        {
+          styledVaccineContent: contentErrorResponse.styledVaccineContent,
+          vaccineType: vaccineType,
+          showHowToGetSection: false, //about to refactor out to pass in campaign context instead?
+        },
+        undefined,
+      );
     });
 
     it("should still render eligibility section of vaccine page", async () => {
@@ -439,7 +452,7 @@ describe("shouldShowHowToGetSection", () => {
   ])(
     `should decide if to show hotToGet Section for: %s, campaigns: %s, open: %s, PreOpen %s, expected: %s`,
     async (vaccineType, isSupported, isOpen, isPreOpen, expected) => {
-      const actual = await shouldShowHowToGetSection(vaccineType, isSupported, isOpen, isPreOpen);
+      const actual = await shouldShowHowToGetExpander(vaccineType, isSupported, isOpen, isPreOpen);
 
       expect(actual).toBe(expected);
     },

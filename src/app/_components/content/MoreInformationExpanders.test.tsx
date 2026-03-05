@@ -1,4 +1,4 @@
-import { MoreInformation } from "@src/app/_components/content/MoreInformation";
+import { MoreInformationExpanders } from "@src/app/_components/content/MoreInformationExpanders";
 import { VaccineType } from "@src/models/vaccine";
 import { mockStyledContent, mockStyledContentWithoutWhatSection } from "@test-data/content-api/data";
 import { render, screen } from "@testing-library/react";
@@ -8,7 +8,7 @@ describe("MoreInformation component for COVID", () => {
 
   it("should not show how-to-get expander section when it is not displayed", async () => {
     render(
-      <MoreInformation
+      <MoreInformationExpanders
         styledVaccineContent={mockStyledContent}
         vaccineType={covid19VaccineType}
         showHowToGetSection={false}
@@ -21,7 +21,7 @@ describe("MoreInformation component for COVID", () => {
 
   it("should show how-to-get expander section when it is displayed", async () => {
     render(
-      <MoreInformation
+      <MoreInformationExpanders
         styledVaccineContent={mockStyledContent}
         vaccineType={covid19VaccineType}
         showHowToGetSection={true}
@@ -38,7 +38,7 @@ describe("MoreInformation component ", () => {
     it("should display whatItIsFor expander block", async () => {
       const vaccineType = VaccineType.RSV;
       render(
-        <MoreInformation
+        <MoreInformationExpanders
           styledVaccineContent={mockStyledContent}
           vaccineType={vaccineType}
           showHowToGetSection={true}
@@ -51,7 +51,7 @@ describe("MoreInformation component ", () => {
     it("should display whoVaccineIsFor expander block", async () => {
       const vaccineType = VaccineType.RSV;
       render(
-        <MoreInformation
+        <MoreInformationExpanders
           styledVaccineContent={mockStyledContent}
           vaccineType={vaccineType}
           showHowToGetSection={true}
@@ -64,7 +64,7 @@ describe("MoreInformation component ", () => {
     it("should display howToGet expander block", async () => {
       const vaccineType = VaccineType.TD_IPV_3_IN_1;
       render(
-        <MoreInformation
+        <MoreInformationExpanders
           styledVaccineContent={mockStyledContent}
           vaccineType={vaccineType}
           showHowToGetSection={true}
@@ -83,7 +83,7 @@ describe("MoreInformation component ", () => {
       const mockContentWithExtraDosesSchedule = { ...mockStyledContent, extraDosesSchedule };
 
       render(
-        <MoreInformation
+        <MoreInformationExpanders
           styledVaccineContent={mockContentWithExtraDosesSchedule}
           vaccineType={vaccineType}
           showHowToGetSection={true}
@@ -97,7 +97,7 @@ describe("MoreInformation component ", () => {
       const vaccineType = VaccineType.COVID_19;
 
       render(
-        <MoreInformation
+        <MoreInformationExpanders
           styledVaccineContent={mockStyledContent}
           vaccineType={vaccineType}
           showHowToGetSection={true}
@@ -110,7 +110,7 @@ describe("MoreInformation component ", () => {
     it("should display vaccineSideEffects expander block", async () => {
       const vaccineType = VaccineType.RSV;
       render(
-        <MoreInformation
+        <MoreInformationExpanders
           styledVaccineContent={mockStyledContent}
           vaccineType={vaccineType}
           showHowToGetSection={true}
@@ -126,7 +126,11 @@ describe("MoreInformation component ", () => {
       "should display whatItIsFor expander block for %s",
       async (vaccine: VaccineType) => {
         render(
-          <MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccine} showHowToGetSection={true} />,
+          <MoreInformationExpanders
+            styledVaccineContent={mockStyledContent}
+            vaccineType={vaccine}
+            showHowToGetSection={true}
+          />,
         );
         expectExpanderBlockToBePresent("what-heading", "What Section styled component");
       },
@@ -136,7 +140,11 @@ describe("MoreInformation component ", () => {
       "should display whoVaccineIsFor expander block for %s",
       async (vaccine: VaccineType) => {
         render(
-          <MoreInformation styledVaccineContent={mockStyledContent} vaccineType={vaccine} showHowToGetSection={true} />,
+          <MoreInformationExpanders
+            styledVaccineContent={mockStyledContent}
+            vaccineType={vaccine}
+            showHowToGetSection={true}
+          />,
         );
         expectExpanderBlockToBePresent("who-heading", "Who Section styled component");
       },
@@ -145,7 +153,7 @@ describe("MoreInformation component ", () => {
     it("should display howToGet expander block", async () => {
       const vaccineType = VaccineType.FLU_IN_PREGNANCY;
       render(
-        <MoreInformation
+        <MoreInformationExpanders
           styledVaccineContent={mockStyledContent}
           vaccineType={vaccineType}
           showHowToGetSection={true}
@@ -158,7 +166,7 @@ describe("MoreInformation component ", () => {
     it("should display vaccineSideEffects expander block", async () => {
       const vaccineType = VaccineType.FLU_IN_PREGNANCY;
       render(
-        <MoreInformation
+        <MoreInformationExpanders
           styledVaccineContent={mockStyledContent}
           vaccineType={vaccineType}
           showHowToGetSection={false}
@@ -177,7 +185,7 @@ describe("MoreInformation component ", () => {
       const mockContentWithExtraDosesSchedule = { ...mockStyledContent, extraDosesSchedule };
 
       render(
-        <MoreInformation
+        <MoreInformationExpanders
           styledVaccineContent={mockContentWithExtraDosesSchedule}
           vaccineType={vaccineType}
           showHowToGetSection={true}
@@ -191,7 +199,7 @@ describe("MoreInformation component ", () => {
       const vaccineType = VaccineType.FLU_IN_PREGNANCY;
 
       render(
-        <MoreInformation
+        <MoreInformationExpanders
           styledVaccineContent={mockStyledContent}
           vaccineType={vaccineType}
           showHowToGetSection={true}
@@ -206,7 +214,7 @@ describe("MoreInformation component ", () => {
     it("should not include 'how to get' section for RSV_PREGNANCY ", async () => {
       const vaccineType = VaccineType.RSV_PREGNANCY;
       render(
-        <MoreInformation
+        <MoreInformationExpanders
           styledVaccineContent={mockStyledContent}
           vaccineType={vaccineType}
           showHowToGetSection={false}
@@ -221,7 +229,7 @@ describe("MoreInformation component ", () => {
     it("should not include 'how to get' section for RSV ", async () => {
       const vaccineType = VaccineType.RSV;
       render(
-        <MoreInformation
+        <MoreInformationExpanders
           styledVaccineContent={mockStyledContent}
           vaccineType={vaccineType}
           showHowToGetSection={false}
@@ -236,7 +244,7 @@ describe("MoreInformation component ", () => {
     it("should display webpage link to more information about vaccine", async () => {
       const vaccineType = VaccineType.RSV;
       render(
-        <MoreInformation
+        <MoreInformationExpanders
           styledVaccineContent={mockStyledContent}
           vaccineType={vaccineType}
           showHowToGetSection={true}
@@ -255,7 +263,7 @@ describe("MoreInformation component ", () => {
     it("should not display whatItIsFor section if undefined in content", async () => {
       const vaccineType = VaccineType.RSV;
       render(
-        <MoreInformation
+        <MoreInformationExpanders
           styledVaccineContent={mockStyledContentWithoutWhatSection}
           vaccineType={vaccineType}
           showHowToGetSection={true}
@@ -272,7 +280,7 @@ describe("MoreInformation component ", () => {
     it("should display whoVaccineIsFor section even if whatItIsFor is undefined in content", async () => {
       const vaccineType = VaccineType.RSV;
       render(
-        <MoreInformation
+        <MoreInformationExpanders
           styledVaccineContent={mockStyledContentWithoutWhatSection}
           vaccineType={vaccineType}
           showHowToGetSection={true}
