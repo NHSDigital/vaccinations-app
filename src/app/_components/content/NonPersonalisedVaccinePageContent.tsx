@@ -4,30 +4,30 @@ import { EligibilityActions } from "@src/app/_components/eligibility/Eligibility
 import WarningCallout from "@src/app/_components/nhs-frontend/WarningCallout";
 import { VaccineType } from "@src/models/vaccine";
 import { StyledVaccineContent } from "@src/services/content-api/types";
+import { CampaignState } from "@src/utils/campaigns/campaignState";
 
 const NonPersonalisedVaccinePageContent = (props: {
   styledVaccineContent: StyledVaccineContent;
   vaccineType: VaccineType;
-  isCampaignOpen: boolean;
-  isCampaignPreOpen: boolean;
+  campaignState: CampaignState;
 }) => {
   return (
     <>
       <Overview overview={props.styledVaccineContent.overview} vaccineType={props.vaccineType} />
       <Recommendation recommendation={props.styledVaccineContent.recommendation} />
-      {!props.isCampaignOpen && !props.isCampaignPreOpen && (
+      {props.campaignState === CampaignState.CLOSED && (
         <WarningCallout styledVaccineContent={props.styledVaccineContent} vaccineType={props.vaccineType} />
       )}
       {props.styledVaccineContent.additionalInformation?.component && (
         <div>{props.styledVaccineContent.additionalInformation.component}</div>
       )}
-      {!props.isCampaignOpen && props.isCampaignPreOpen && (
+      {props.campaignState === CampaignState.PRE_OPEN && (
         <EligibilityActions
           actions={props.styledVaccineContent.preOpenActions ? props.styledVaccineContent.preOpenActions : []}
           vaccineType={props.vaccineType}
         />
       )}
-      {props.isCampaignOpen && (
+      {props.campaignState === CampaignState.OPEN && (
         <EligibilityActions actions={props.styledVaccineContent.actions} vaccineType={props.vaccineType} />
       )}
       <Overview overview={props.styledVaccineContent.overviewConclusion} vaccineType={props.vaccineType} />
