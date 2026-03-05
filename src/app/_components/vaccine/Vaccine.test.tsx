@@ -12,9 +12,8 @@ import {
   EligibilityForPersonType,
   EligibilityStatus,
 } from "@src/services/eligibility-api/types";
-import { Campaigns } from "@src/utils/campaigns/types";
-import config from "@src/utils/config";
-import { ConfigMock, configBuilder } from "@test-data/config/builders";
+import { getCampaignState } from "@src/utils/campaigns/campaign-state-evaluator";
+import { CampaignState } from "@src/utils/campaigns/campaignState";
 import { mockStyledContent } from "@test-data/content-api/data";
 import { eligibilityContentBuilder } from "@test-data/eligibility-api/builders";
 import { render, screen } from "@testing-library/react";
@@ -25,6 +24,9 @@ jest.mock("@src/services/content-api/content-service", () => ({
 }));
 jest.mock("@src/services/eligibility-api/domain/eligibility-filter-service", () => ({
   getEligibilityForPerson: jest.fn(),
+}));
+jest.mock("@src/utils/campaigns/campaign-state-evaluator", () => ({
+  getCampaignState: jest.fn(),
 }));
 // it would be good to avoid these mocks and rather than do getByTestId(id) use getByRole(role, {name: id})
 jest.mock("@src/app/_components/eligibility/EligibilityVaccinePageContent", () => ({
@@ -43,11 +45,11 @@ jest.mock("@src/app/_components/content/MoreInformationSection", () => ({
 }));
 jest.mock("@src/app/_components/content/NonPersonalisedVaccinePageContent", () => ({
   NonPersonalisedVaccinePageContent: jest.fn().mockImplementation((props) => {
-    if (props.isCampaignOpen) {
+    if (props.campaignState == CampaignState.OPEN) {
       return (
         <div data-testid="non-personalised-content-mock-open">Test Non-personalised Vaccine Page Content Component</div>
       );
-    } else if (props.isCampaignPreOpen) {
+    } else if (props.campaignState == CampaignState.PRE_OPEN) {
       return (
         <div data-testid="non-personalised-content-mock-preopen">
           Test Non-personalised Vaccine Page Content Component
@@ -68,7 +70,6 @@ jest.mock("next/headers", () => ({
   cookies: jest.fn(),
 }));
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
-jest.mock("@src/utils/config");
 
 const nhsNumber = "5123456789";
 
@@ -95,33 +96,6 @@ const contentErrorResponse = {
 };
 
 describe("Any vaccine page", () => {
-  const mockedConfig = config as ConfigMock;
-
-  beforeEach(() => {
-    jest.useFakeTimers().setSystemTime(new Date("2026-01-30T09:00:00Z"));
-    const defaultConfig = configBuilder()
-      .withCampaigns(
-        Campaigns.fromJson(
-          JSON.stringify({
-            COVID_19: [
-              { preStart: "2025-10-15T09:00:00Z", start: "2025-11-01T09:00:00Z", end: "2026-01-31T09:00:00Z" },
-            ],
-            FLU_FOR_ADULTS: [
-              { preStart: "2025-11-30T09:00:00Z", start: "2025-11-30T09:00:00Z", end: "2026-03-31T09:00:00Z" },
-            ],
-            FLU_FOR_CHILDREN_AGED_2_TO_3: [
-              { preStart: "2025-11-30T09:00:00Z", start: "2025-11-30T09:00:00Z", end: "2026-03-31T09:00:00Z" },
-            ],
-            FLU_IN_PREGNANCY: [
-              { preStart: "2025-11-30T09:00:00Z", start: "2025-11-30T09:00:00Z", end: "2026-03-31T09:00:00Z" },
-            ],
-          }),
-        )!,
-      )
-      .build();
-    Object.assign(mockedConfig, defaultConfig);
-  });
-
   const renderRsvVaccinePage = async () => {
     await renderNamedVaccinePage(VaccineType.RSV);
   };
@@ -198,19 +172,13 @@ describe("Any vaccine page", () => {
   });
 
   describe("shows correct content for Vaccines that handle campaigns (COVID_19)", () => {
-    const mockedConfig = config as ConfigMock;
-    const campaigns = new Campaigns({});
-
     beforeEach(() => {
       (getContentForVaccine as jest.Mock).mockResolvedValue(contentSuccessResponse);
       (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilitySuccessResponse);
-      const defaultConfig = configBuilder().withCampaigns(campaigns).build();
-      Object.assign(mockedConfig, defaultConfig);
     });
 
     it("should display non-personalised vaccine page content for PreOpen Campaign", async () => {
-      jest.spyOn(campaigns, "isPreOpen").mockReturnValue(true);
-      jest.spyOn(campaigns, "isOpen").mockReturnValue(false);
+      (getCampaignState as jest.Mock).mockResolvedValue(CampaignState.PRE_OPEN);
 
       await renderNamedVaccinePage(VaccineType.COVID_19);
 
@@ -220,8 +188,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should display non-personalised vaccine page content for Open Campaign", async () => {
-      jest.spyOn(campaigns, "isPreOpen").mockReturnValue(false);
-      jest.spyOn(campaigns, "isOpen").mockReturnValue(true);
+      (getCampaignState as jest.Mock).mockResolvedValue(CampaignState.OPEN);
 
       await renderNamedVaccinePage(VaccineType.COVID_19);
 
@@ -231,8 +198,7 @@ describe("Any vaccine page", () => {
     });
 
     it("should display non-personalised vaccine page content for Closed Campaign", async () => {
-      jest.spyOn(campaigns, "isPreOpen").mockReturnValue(false);
-      jest.spyOn(campaigns, "isOpen").mockReturnValue(false);
+      (getCampaignState as jest.Mock).mockResolvedValue(CampaignState.CLOSED);
 
       await renderNamedVaccinePage(VaccineType.COVID_19);
 
@@ -439,20 +405,22 @@ describe("Any vaccine page", () => {
 });
 
 describe("shouldShowHowToGetSection", () => {
+  // TODO: VIA-832 a lot of these cases are impossible due to how campaigns work (cannot be open and preopen at same time); do we need all of these or only four?
+  // TODO: VIA-832 also consider how show/hide vaccine settings affect this; is this the correct assertion?
   it.each([
-    [VaccineType.TD_IPV_3_IN_1, false, false, false, true],
-    [VaccineType.VACCINE_6_IN_1, true, false, false, true],
-    [VaccineType.ROTAVIRUS, true, true, false, false],
-    [VaccineType.HPV, true, false, true, false],
-    [VaccineType.MENB_CHILDREN, false, true, false, true],
-    [VaccineType.MMR, false, false, true, true],
-    [VaccineType.RSV, false, false, false, false],
-    [VaccineType.RSV_PREGNANCY, false, true, false, false],
-    [VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, true, false, false, false],
+    [VaccineType.TD_IPV_3_IN_1, CampaignState.UNSUPPORTED, true],
+    [VaccineType.VACCINE_6_IN_1, CampaignState.CLOSED, true],
+    [VaccineType.ROTAVIRUS, CampaignState.OPEN, false],
+    [VaccineType.HPV, CampaignState.PRE_OPEN, false],
+    [VaccineType.MENB_CHILDREN, CampaignState.UNSUPPORTED, true],
+    [VaccineType.MMR, CampaignState.UNSUPPORTED, true],
+    [VaccineType.RSV, CampaignState.UNSUPPORTED, false],
+    [VaccineType.RSV_PREGNANCY, CampaignState.UNSUPPORTED, false],
+    [VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, CampaignState.CLOSED, false],
   ])(
     `should decide if to show hotToGet Section for: %s, campaigns: %s, open: %s, PreOpen %s, expected: %s`,
-    async (vaccineType, isSupported, isOpen, isPreOpen, expected) => {
-      const actual = await shouldShowHowToGetExpander(vaccineType, isSupported, isOpen, isPreOpen);
+    async (vaccineType, campaignState, expected) => {
+      const actual = await shouldShowHowToGetExpander(vaccineType, campaignState);
 
       expect(actual).toBe(expected);
     },
