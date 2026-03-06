@@ -159,7 +159,7 @@ describe("Any vaccine page", () => {
       expect(rsvPregnancyInfo).not.toBeInTheDocument();
     });
 
-    it("should display hr above MoreInformation section when personalised eligibility not in use", async () => {
+    it("should display hr above MoreInformation section", async () => {
       await expectTdIPVPageToHaveLineAboveMoreInformationSection();
     });
   });
@@ -289,7 +289,7 @@ describe("Any vaccine page", () => {
       expect(RSVPregnancyInfo).toBeInTheDocument();
     });
 
-    it("should still display line above MoreInformation section", async () => {
+    it("should display line above MoreInformation section", async () => {
       await expectTdIPVPageToHaveLineAboveMoreInformationSection();
     });
   });
