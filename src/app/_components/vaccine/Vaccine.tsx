@@ -1,7 +1,6 @@
 "use server";
 
 import { auth } from "@project/auth";
-import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
 import { MoreInformationSection } from "@src/app/_components/content/MoreInformationSection";
 import { NonPersonalisedVaccinePageContent } from "@src/app/_components/content/NonPersonalisedVaccinePageContent";
 import { EligibilityVaccinePageContent } from "@src/app/_components/eligibility/EligibilityVaccinePageContent";
@@ -56,12 +55,6 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
     [{ styledVaccineContent, contentError }] = await Promise.all([getContentForVaccine(vaccineType)]);
   }
 
-  const howToGetVaccineOrFallback = styledVaccineContent ? (
-    styledVaccineContent.howToGetVaccine.component
-  ) : (
-    <HowToGetVaccineFallback vaccineType={vaccineType} />
-  );
-
   profilePerformanceEnd(VaccinePagePerformanceMarker);
 
   return (
@@ -74,18 +67,18 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
         />
       )}
 
-      {/* Eligibility section for RSV */}
+      {/* Personalised Eligibility section (RSV) */}
       {vaccineInfo.personalisedEligibilityStatusRequired && eligibilityForPerson !== undefined && (
         <EligibilityVaccinePageContent
           vaccineType={vaccineType}
           eligibilityForPerson={eligibilityForPerson}
-          howToGetVaccineOrFallback={howToGetVaccineOrFallback}
+          styledVaccineContent={styledVaccineContent}
         />
       )}
 
       {/* Static eligibility section for RSV in pregnancy */}
       {vaccineType === VaccineType.RSV_PREGNANCY && (
-        <RSVPregnancyInfo vaccineType={vaccineType} howToGetVaccineOrFallback={howToGetVaccineOrFallback} />
+        <RSVPregnancyInfo vaccineType={vaccineType} styledVaccineContent={styledVaccineContent} />
       )}
 
       <hr />
