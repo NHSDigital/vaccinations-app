@@ -10,7 +10,8 @@
   "scripts": {
     "dev": "next dev --turbopack --experimental-https",
     "app": "npm run build && npm run start",
-    "build": "next build",
+    "build": "next build && npm run test:app:routes",
+    "test:app:routes": "jest src/app-routes.test.ts --testPathIgnorePatterns '[]'",
     "build:opennext": "npx --yes @opennextjs/aws@3.x.x build --streaming",
     "build:lambda": "node esbuild.config.mjs",
     "start": "next start",

@@ -1,0 +1,11 @@
+[
+  "^/_next/.+",
+  "^/(assets|css|js)/.+",
+  "^/(favicon\\.ico)$",
+  "^/our-policies/(accessibility|cookies-policy)$",
+  "^/(session-logout|session-timeout|sso-failure|service-failure)$",
+  "^/(check-and-book-rsv)$",
+  "^/vaccines/.+",
+  "^/api/(auth/.+|sso|sso-to-nbs)$",
+  "^/?$"
+]

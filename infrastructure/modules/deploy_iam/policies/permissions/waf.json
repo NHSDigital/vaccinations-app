@@ -10,11 +10,21 @@
         "wafv2:ListTagsForResource",
         "wafv2:UpdateWebACL",
         "wafv2:DeleteWebACL",
-        "wafv2:TagResource"
+        "wafv2:TagResource",
+        "wafv2:CreateRegexPatternSet",
+        "wafv2:GetRegexPatternSet",
+        "wafv2:DeleteRegexPatternSet",
+        "wafv2:UpdateRegexPatternSet",
+        "wafv2:CreateRuleGroup",
+        "wafv2:GetRuleGroup",
+        "wafv2:DeleteRuleGroup",
+        "wafv2:UpdateRuleGroup"
       ],
       "Resource": [
         "arn:aws:wafv2:${global_region}:${account_id}:global/webacl/${prefix}-*",
-        "arn:aws:wafv2:${global_region}:${account_id}:global/managedruleset/*/*"
+        "arn:aws:wafv2:${global_region}:${account_id}:global/managedruleset/*/*",
+        "arn:aws:wafv2:${global_region}:${account_id}:global/regexpatternset/${prefix}-*/*",
+        "arn:aws:wafv2:${global_region}:${account_id}:global/rulegroup/${prefix}-*/*"
       ]
     }
   ]
