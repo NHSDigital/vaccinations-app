@@ -1,8 +1,9 @@
 import { auth } from "@project/auth";
 import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
 import { MoreInformationSection } from "@src/app/_components/content/MoreInformationSection";
+import { NonPersonalisedVaccinePageContent } from "@src/app/_components/content/NonPersonalisedVaccinePageContent";
 import { EligibilityVaccinePageContent } from "@src/app/_components/eligibility/EligibilityVaccinePageContent";
-import Vaccine, { shouldShowHowToGetExpander } from "@src/app/_components/vaccine/Vaccine";
+import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { VaccineType } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { ContentErrorTypes } from "@src/services/content-api/types";
@@ -44,23 +45,11 @@ jest.mock("@src/app/_components/content/MoreInformationSection", () => ({
     )),
 }));
 jest.mock("@src/app/_components/content/NonPersonalisedVaccinePageContent", () => ({
-  NonPersonalisedVaccinePageContent: jest.fn().mockImplementation((props) => {
-    if (props.campaignState == CampaignState.OPEN) {
-      return (
-        <div data-testid="non-personalised-content-mock-open">Test Non-personalised Vaccine Page Content Component</div>
-      );
-    } else if (props.campaignState == CampaignState.PRE_OPEN) {
-      return (
-        <div data-testid="non-personalised-content-mock-preopen">
-          Test Non-personalised Vaccine Page Content Component
-        </div>
-      );
-    } else {
-      return (
-        <div data-testid="non-personalised-content-mock">Test Non-personalised Vaccine Page Content Component</div>
-      );
-    }
-  }),
+  NonPersonalisedVaccinePageContent: jest
+    .fn()
+    .mockImplementation(() => (
+      <div data-testid="non-personalised-content-mock">Test Non-personalised Vaccine Page Content Component</div>
+    )),
 }));
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
@@ -114,12 +103,17 @@ describe("Any vaccine page", () => {
         nhs_number: nhsNumber,
       },
     });
+
+    (getCampaignState as jest.Mock).mockResolvedValue(CampaignState.UNSUPPORTED);
   });
 
   describe("shows content section, when content available", () => {
+    const mockCampaignState = CampaignState.UNSUPPORTED;
+
     beforeEach(() => {
       (getContentForVaccine as jest.Mock).mockResolvedValue(contentSuccessResponse);
       (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilitySuccessResponse);
+      (getCampaignState as jest.Mock).mockResolvedValue(mockCampaignState);
     });
 
     it("should display non-personalised vaccine page content", async () => {
@@ -140,7 +134,7 @@ describe("Any vaccine page", () => {
         {
           styledVaccineContent: contentSuccessResponse.styledVaccineContent,
           vaccineType: VaccineType.RSV,
-          showHowToGetSection: false, //about to refactor out to pass in campaign context instead?
+          campaignState: mockCampaignState,
         },
         undefined,
       );
@@ -182,9 +176,20 @@ describe("Any vaccine page", () => {
 
       await renderNamedVaccinePage(VaccineType.COVID_19);
 
-      const nonPersonalisedVaccinePageContent = screen.getByTestId("non-personalised-content-mock-preopen");
+      const nonPersonalisedVaccinePageContent = screen.getByText(
+        "Test Non-personalised Vaccine Page Content Component",
+      );
 
       expect(nonPersonalisedVaccinePageContent).toBeInTheDocument();
+
+      expect(NonPersonalisedVaccinePageContent).toHaveBeenCalledWith(
+        {
+          styledVaccineContent: contentSuccessResponse.styledVaccineContent,
+          vaccineType: VaccineType.COVID_19,
+          campaignState: CampaignState.PRE_OPEN,
+        },
+        undefined,
+      );
     });
 
     it("should display non-personalised vaccine page content for Open Campaign", async () => {
@@ -192,9 +197,20 @@ describe("Any vaccine page", () => {
 
       await renderNamedVaccinePage(VaccineType.COVID_19);
 
-      const nonPersonalisedVaccinePageContent = screen.getByTestId("non-personalised-content-mock-open");
+      const nonPersonalisedVaccinePageContent = screen.getByText(
+        "Test Non-personalised Vaccine Page Content Component",
+      );
 
       expect(nonPersonalisedVaccinePageContent).toBeInTheDocument();
+
+      expect(NonPersonalisedVaccinePageContent).toHaveBeenCalledWith(
+        {
+          styledVaccineContent: contentSuccessResponse.styledVaccineContent,
+          vaccineType: VaccineType.COVID_19,
+          campaignState: CampaignState.OPEN,
+        },
+        undefined,
+      );
     });
 
     it("should display non-personalised vaccine page content for Closed Campaign", async () => {
@@ -202,16 +218,29 @@ describe("Any vaccine page", () => {
 
       await renderNamedVaccinePage(VaccineType.COVID_19);
 
-      const nonPersonalisedVaccinePageContent = screen.getByTestId("non-personalised-content-mock");
+      const nonPersonalisedVaccinePageContent = screen.getByText(
+        "Test Non-personalised Vaccine Page Content Component",
+      );
 
       expect(nonPersonalisedVaccinePageContent).toBeInTheDocument();
+
+      expect(NonPersonalisedVaccinePageContent).toHaveBeenCalledWith(
+        {
+          styledVaccineContent: contentSuccessResponse.styledVaccineContent,
+          vaccineType: VaccineType.COVID_19,
+          campaignState: CampaignState.CLOSED,
+        },
+        undefined,
+      );
     });
   });
 
   describe("shows content section, when content load fails", () => {
+    const mockCampaignState = CampaignState.UNSUPPORTED;
     beforeEach(() => {
       (getContentForVaccine as jest.Mock).mockResolvedValue(contentErrorResponse);
       (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilitySuccessResponse);
+      (getCampaignState as jest.Mock).mockResolvedValue(mockCampaignState);
     });
 
     it("should not display non-personalised vaccine page content", async () => {
@@ -234,7 +263,7 @@ describe("Any vaccine page", () => {
         {
           styledVaccineContent: contentErrorResponse.styledVaccineContent,
           vaccineType: vaccineType,
-          showHowToGetSection: false, //about to refactor out to pass in campaign context instead?
+          campaignState: mockCampaignState,
         },
         undefined,
       );
@@ -402,27 +431,4 @@ describe("Any vaccine page", () => {
       undefined,
     );
   };
-});
-
-describe("shouldShowHowToGetSection", () => {
-  // TODO: VIA-832 a lot of these cases are impossible due to how campaigns work (cannot be open and preopen at same time); do we need all of these or only four?
-  // TODO: VIA-832 also consider how show/hide vaccine settings affect this; is this the correct assertion?
-  it.each([
-    [VaccineType.TD_IPV_3_IN_1, CampaignState.UNSUPPORTED, true],
-    [VaccineType.VACCINE_6_IN_1, CampaignState.CLOSED, true],
-    [VaccineType.ROTAVIRUS, CampaignState.OPEN, false],
-    [VaccineType.HPV, CampaignState.PRE_OPEN, false],
-    [VaccineType.MENB_CHILDREN, CampaignState.UNSUPPORTED, true],
-    [VaccineType.MMR, CampaignState.UNSUPPORTED, true],
-    [VaccineType.RSV, CampaignState.UNSUPPORTED, false],
-    [VaccineType.RSV_PREGNANCY, CampaignState.UNSUPPORTED, false],
-    [VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, CampaignState.CLOSED, false],
-  ])(
-    `should decide if to show hotToGet Section for: %s, campaigns: %s, open: %s, PreOpen %s, expected: %s`,
-    async (vaccineType, campaignState, expected) => {
-      const actual = await shouldShowHowToGetExpander(vaccineType, campaignState);
-
-      expect(actual).toBe(expected);
-    },
-  );
 });

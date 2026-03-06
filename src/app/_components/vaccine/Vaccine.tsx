@@ -12,7 +12,6 @@ import { ContentErrorTypes, StyledVaccineContent } from "@src/services/content-a
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import { EligibilityErrorTypes, EligibilityForPersonType } from "@src/services/eligibility-api/types";
 import { getCampaignState } from "@src/utils/campaigns/campaign-state-evaluator";
-import { CampaignState } from "@src/utils/campaigns/campaignState";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { requestScopedStorageWrapper } from "@src/utils/requestScopedStorageWrapper";
 import { Session } from "next-auth";
@@ -30,14 +29,6 @@ const Vaccine = async ({ vaccineType }: VaccineProps) => {
   return await requestScopedStorageWrapper(VaccineComponent, { vaccineType });
 };
 
-const shouldShowHowToGetExpander = async (vaccineType: VaccineType, campaignState: CampaignState) => {
-  const vaccineInfo: VaccineDetails = VaccineInfo[vaccineType];
-  const isCampaignClosedOrNotSupported =
-    campaignState === CampaignState.UNSUPPORTED || campaignState === CampaignState.CLOSED;
-
-  return vaccineInfo.removeHowToGetExpanderFromMoreInformationSection ? false : isCampaignClosedOrNotSupported;
-};
-
 const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Element> => {
   profilePerformanceStart(VaccinePagePerformanceMarker);
 
@@ -50,8 +41,6 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
   let styledVaccineContent: StyledVaccineContent | undefined;
   let contentError: ContentErrorTypes | undefined;
   let eligibilityForPerson: EligibilityForPersonType | undefined;
-
-  const showHowToGetExpander = await shouldShowHowToGetExpander(vaccineType, campaignState);
 
   if (vaccineInfo.personalisedEligibilityStatusRequired) {
     [{ styledVaccineContent, contentError }, eligibilityForPerson] = await Promise.all([
@@ -103,11 +92,10 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
       <MoreInformationSection
         styledVaccineContent={styledVaccineContent}
         vaccineType={vaccineType}
-        showHowToGetSection={showHowToGetExpander}
+        campaignState={campaignState}
       />
     </div>
   );
 };
 
 export default Vaccine;
-export { shouldShowHowToGetExpander };
