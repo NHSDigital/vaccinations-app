@@ -1,4 +1,3 @@
-import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
 import { EligibilityVaccinePageContent } from "@src/app/_components/eligibility/EligibilityVaccinePageContent";
 import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
 import { VaccineType } from "@src/models/vaccine";
@@ -27,8 +26,6 @@ const eligibilityUnavailable = {
   eligibility: undefined,
   eligibilityError: EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR,
 };
-const howToGetContent = <div>How Section styled component</div>;
-const howToGetContentFallback = <HowToGetVaccineFallback vaccineType={VaccineType.RSV} />;
 
 describe("EligibilityVaccinePageContent", () => {
   describe("when eligibility data available", () => {
@@ -37,7 +34,7 @@ describe("EligibilityVaccinePageContent", () => {
         <EligibilityVaccinePageContent
           vaccineType={VaccineType.RSV}
           eligibilityForPerson={eligibilityForPerson}
-          howToGetVaccineOrFallback={howToGetContent}
+          styledVaccineContent={mockStyledContent}
         />,
       );
 
@@ -47,14 +44,14 @@ describe("EligibilityVaccinePageContent", () => {
   });
 
   describe("when eligibility data not available", () => {
-    it("should display fallback RSV eligibility component using howToGet text from content-api when eligibility API has failed", async () => {
+    it("should display fallback RSV eligibility component using content-api when eligibility API has failed", async () => {
       const vaccineType = VaccineType.RSV;
 
       render(
         <EligibilityVaccinePageContent
           vaccineType={VaccineType.RSV}
           eligibilityForPerson={eligibilityUnavailable}
-          howToGetVaccineOrFallback={howToGetContent}
+          styledVaccineContent={mockStyledContent}
         />,
       );
 
@@ -63,7 +60,7 @@ describe("EligibilityVaccinePageContent", () => {
 
       expect(RSVEligibilityFallback).toHaveBeenCalledWith(
         {
-          howToGetVaccineFallback: mockStyledContent.howToGetVaccine.component,
+          styledVaccineContent: mockStyledContent,
           vaccineType,
         },
         undefined,
@@ -77,7 +74,7 @@ describe("EligibilityVaccinePageContent", () => {
         <EligibilityVaccinePageContent
           vaccineType={VaccineType.RSV}
           eligibilityForPerson={eligibilityForPerson}
-          howToGetVaccineOrFallback={howToGetContentFallback}
+          styledVaccineContent={undefined}
         />,
       );
 
@@ -87,14 +84,14 @@ describe("EligibilityVaccinePageContent", () => {
   });
 
   describe("when eligibility AND content not available", () => {
-    it("should use fallback how-to-get text when rendering eligibility fallback component", async () => {
+    it("should render eligibility fallback component with undefined styled content", async () => {
       const vaccineType = VaccineType.RSV;
 
       render(
         <EligibilityVaccinePageContent
           vaccineType={VaccineType.RSV}
           eligibilityForPerson={eligibilityUnavailable}
-          howToGetVaccineOrFallback={howToGetContentFallback}
+          styledVaccineContent={undefined}
         />,
       );
 
@@ -103,8 +100,8 @@ describe("EligibilityVaccinePageContent", () => {
 
       expect(RSVEligibilityFallback).toHaveBeenCalledWith(
         {
-          howToGetVaccineFallback: <HowToGetVaccineFallback vaccineType={vaccineType} />,
           vaccineType,
+          styledVaccineContent: undefined,
         },
         undefined,
       );

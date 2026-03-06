@@ -1,10 +1,21 @@
+import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
 import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import { HEADINGS } from "@src/app/constants";
 import { VaccineType } from "@src/models/vaccine";
+import { StyledVaccineContent } from "@src/services/content-api/types";
 import React, { JSX } from "react";
 
-const RSVPregnancyInfo = (props: { vaccineType: VaccineType; howToGetVaccineOrFallback: JSX.Element }): JSX.Element => {
+const RSVPregnancyInfo = (props: {
+  vaccineType: VaccineType;
+  styledVaccineContent: StyledVaccineContent | undefined;
+}): JSX.Element => {
+  const howToGetVaccineOrFallback = props.styledVaccineContent ? (
+    props.styledVaccineContent.howToGetVaccine.component
+  ) : (
+    <HowToGetVaccineFallback vaccineType={props.vaccineType} />
+  );
+
   return (
     <>
       <NonUrgentCareCard
@@ -21,7 +32,7 @@ const RSVPregnancyInfo = (props: { vaccineType: VaccineType; howToGetVaccineOrFa
 
       {/* How-to-get-vaccine section for RSV in pregnancy */}
       <h3>{HEADINGS.HOW_TO_GET_VACCINE}</h3>
-      {props.howToGetVaccineOrFallback}
+      {howToGetVaccineOrFallback}
       <PharmacyBookingInfo vaccineType={props.vaccineType} />
     </>
   );

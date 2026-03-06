@@ -1,12 +1,11 @@
 import { auth } from "@project/auth";
-import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
 import { MoreInformationSection } from "@src/app/_components/content/MoreInformationSection";
 import { NonPersonalisedVaccinePageContent } from "@src/app/_components/content/NonPersonalisedVaccinePageContent";
 import { EligibilityVaccinePageContent } from "@src/app/_components/eligibility/EligibilityVaccinePageContent";
 import Vaccine from "@src/app/_components/vaccine/Vaccine";
 import { VaccineType } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
-import { ContentErrorTypes } from "@src/services/content-api/types";
+import { ContentErrorTypes, StyledVaccineContent } from "@src/services/content-api/types";
 import { getEligibilityForPerson } from "@src/services/eligibility-api/domain/eligibility-filter-service";
 import {
   EligibilityErrorTypes,
@@ -18,7 +17,7 @@ import { CampaignState } from "@src/utils/campaigns/campaignState";
 import { mockStyledContent } from "@test-data/content-api/data";
 import { eligibilityContentBuilder } from "@test-data/eligibility-api/builders";
 import { render, screen } from "@testing-library/react";
-import React, { JSX } from "react";
+import React from "react";
 
 jest.mock("@src/services/content-api/content-service", () => ({
   getContentForVaccine: jest.fn(),
@@ -275,7 +274,7 @@ describe("Any vaccine page", () => {
       expectRenderEligibilitySectionWith(
         VaccineType.RSV,
         eligibilitySuccessResponse,
-        <HowToGetVaccineFallback vaccineType={VaccineType.RSV} />,
+        contentErrorResponse.styledVaccineContent,
       );
     });
 
@@ -307,7 +306,7 @@ describe("Any vaccine page", () => {
       expectRenderEligibilitySectionWith(
         VaccineType.RSV,
         eligibilitySuccessResponse,
-        mockStyledContent.howToGetVaccine.component,
+        contentSuccessResponse.styledVaccineContent,
       );
     });
 
@@ -349,7 +348,7 @@ describe("Any vaccine page", () => {
       expectRenderEligibilitySectionWith(
         VaccineType.RSV,
         eligibilityResponseWithNoContentSection,
-        mockStyledContent.howToGetVaccine.component,
+        contentSuccessResponse.styledVaccineContent,
       );
     });
 
@@ -361,7 +360,7 @@ describe("Any vaccine page", () => {
       expectRenderEligibilitySectionWith(
         VaccineType.RSV,
         eligibilityErrorResponse,
-        mockStyledContent.howToGetVaccine.component,
+        contentSuccessResponse.styledVaccineContent,
       );
     });
 
@@ -387,7 +386,7 @@ describe("Any vaccine page", () => {
       expectRenderEligibilitySectionWith(
         VaccineType.RSV,
         eligibilityErrorResponse,
-        mockStyledContent.howToGetVaccine.component,
+        contentSuccessResponse.styledVaccineContent,
       );
     });
   });
@@ -406,7 +405,7 @@ describe("Any vaccine page", () => {
       expectRenderEligibilitySectionWith(
         vaccineType,
         eligibilityErrorResponse,
-        <HowToGetVaccineFallback vaccineType={vaccineType} />,
+        contentErrorResponse.styledVaccineContent,
       );
     });
   });
@@ -418,7 +417,7 @@ describe("Any vaccine page", () => {
   const expectRenderEligibilitySectionWith = (
     vaccineType: VaccineType,
     eligibilityForPerson: EligibilityForPersonType,
-    howToGetVaccineOrFallback: JSX.Element,
+    styledVaccineContent: StyledVaccineContent | undefined,
   ) => {
     const eligibilitySection: HTMLElement = screen.getByTestId("eligibility-page-content-mock");
     expect(eligibilitySection).toBeInTheDocument();
@@ -426,7 +425,7 @@ describe("Any vaccine page", () => {
       {
         vaccineType: vaccineType,
         eligibilityForPerson: eligibilityForPerson,
-        howToGetVaccineOrFallback: howToGetVaccineOrFallback,
+        styledVaccineContent: styledVaccineContent,
       },
       undefined,
     );
