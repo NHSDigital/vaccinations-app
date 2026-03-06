@@ -1,10 +1,26 @@
 // This test verifies that the URL paths of incoming requests match
 // the expected patterns defined in the allowlist regexes configured in WAF.
-// app-path-routes-manifest.json is a generated file, run 'npm run build'
-import appPathRoutes from "@project/.next/app-path-routes-manifest.json";
 import patterns from "@project/infrastructure/modules/deploy_app/configs/uri-path-regex.json";
+import fs from "node:fs";
+import path from "path";
 
-describe("URL regex allow list", () => {
+const getAppRoutesManifest = (): Record<string, string> => {
+  const manifestPath = path.join(process.cwd(), ".next/app-path-routes-manifest.json");
+
+  if (!fs.existsSync(manifestPath)) {
+    throw new Error(
+      "app-path-routes-manifest.json not found.\n" +
+        "Run 'npm run build' to generate the Next.js routes before running this test.",
+    );
+  }
+
+  const fileContents = fs.readFileSync(manifestPath, "utf-8");
+  return JSON.parse(fileContents);
+};
+
+const appPathRoutes = getAppRoutesManifest();
+
+describe("URI path allowlist", () => {
   const regexes: RegExp[] = patterns.map((p) => new RegExp(p));
 
   // Helper that returns true if any pattern matches the given URL path.
@@ -14,7 +30,7 @@ describe("URL regex allow list", () => {
     return regexes.some((rx) => rx.test(normalized));
   };
 
-  describe("Basic URL path tests", () => {
+  describe("URI path regex", () => {
     // Table of test cases: [url, expected]
     // Adjust expected=true/false to your policy (allowlist or blocklist).
     // Here we assume "true" means "matches at least one regex".
@@ -67,24 +83,24 @@ describe("URL regex allow list", () => {
       ["/", true],
       ["", true],
       ["/does-not-exist", false],
-    ])('"%s" is allowed', (url, expected) => {
+    ])('"%s" is allowed = %s', (url, expected) => {
       expect(isAllowed(url)).toBe(expected);
     });
   });
 
   // Test suite to ensure that generated app routes satisfy at least one of the RegExes in the WAF allowlist
-  describe("Next.js App Routes Manifest", () => {
+  describe("Next.js app routes", () => {
     // Filtering out "/_not-found" because it's an internal Next.js route
     const manifestRoutes: string[] = Object.values(appPathRoutes).filter((route) => route !== "/_not-found");
 
-    test.each(manifestRoutes)('manifest route "%s" is allowed by WAF', (route) => {
+    test.each(manifestRoutes)('App route "%s" is allowed in uri-path-regex.json', (route) => {
       expect(isAllowed(route as string)).toBe(true);
     });
   });
 
   // Test suite to ensure that WAF rules aren't overly permissive,
-  // E.g., if we delete a routett, we want to also delete it from the RegExes in the WAF allowlist.
-  describe("WAF regex allowlist redundancy check (Reverse Check)", () => {
+  // E.g., if we delete a route, we want to also delete it from the RegExes in the WAF allowlist.
+  describe("URI path regex is in sync with app routes", () => {
     // Filtering out "/_not-found" because it's an internal Next.js route
     const manifestRoutes: string[] = Object.values(appPathRoutes).filter((route) => route !== "/_not-found");
 

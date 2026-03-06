@@ -20,6 +20,7 @@ const config: Config = {
     "^@src/(.*)$": "<rootDir>/src/$1",
     "^@test-data/(.*)$": "<rootDir>/mocks/$1",
   },
+  modulePathIgnorePatterns: ["<rootDir>/.open-next/", "<rootDir>/.next/", "<rootDir>/infrastructure/"],
   testPathIgnorePatterns: ["<rootDir>/e2e/", "<rootDir>/.open-next/", "<rootDir>/src/app-routes.test.ts"],
 };
 
