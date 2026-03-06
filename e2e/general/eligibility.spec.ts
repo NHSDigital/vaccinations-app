@@ -5,7 +5,7 @@ import { accessibilityCheck, benchmarkIfChromium, getEnv } from "@project/e2e/he
 
 const environment = getEnv("DEPLOY_ENVIRONMENT");
 const elidCopyForEnvironment: UserCopy =
-  environment === "preprod"
+  environment === "preprod" || environment == "local"
     ? elidCopyThatDiffersByEnvironment["integration"]
     : elidCopyThatDiffersByEnvironment["sandpit"];
 const RSV_PAGE_URL = AppPageDetails["rsv-older-adults"].url;
@@ -47,7 +47,7 @@ test.describe("Eligibility", () => {
 
       let infoTextHeading, infoTextParagraph;
 
-      if (environment === "preprod") {
+      if (environment === "preprod" || environment === "local") {
         infoTextHeading = page.getByRole("heading", {
           level: 3,
           name: elidCopyForEnvironment.user15.infoTextHeading,
@@ -91,7 +91,7 @@ test.describe("Eligibility", () => {
       await page.goto(RSV_PAGE_URL);
 
       let infoTextHeading, infoTextParagraph;
-      if (environment === "preprod") {
+      if (environment === "preprod" || environment === "local") {
         infoTextHeading = page.getByRole("heading", { level: 3, name: "Getting the vaccine" });
         infoTextParagraph = page.locator('h3:has-text("Getting the vaccine") + p').first();
       } else {
