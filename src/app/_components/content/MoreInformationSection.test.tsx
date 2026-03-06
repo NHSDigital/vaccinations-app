@@ -1,7 +1,11 @@
 import { FindOutMoreLink } from "@src/app/_components/content/FindOutMore";
 import { MoreInformationExpanders } from "@src/app/_components/content/MoreInformationExpanders";
-import { MoreInformationSection } from "@src/app/_components/content/MoreInformationSection";
+import {
+  MoreInformationSection,
+  shouldShowHowToGetExpander,
+} from "@src/app/_components/content/MoreInformationSection";
 import { VaccineInfo, VaccineType } from "@src/models/vaccine";
+import { CampaignState } from "@src/utils/campaigns/campaignState";
 import { mockStyledContent } from "@test-data/content-api/data";
 import { render, screen } from "@testing-library/react";
 
@@ -27,7 +31,7 @@ describe("MoreInformationSection", () => {
         <MoreInformationSection
           styledVaccineContent={styledVaccineContent}
           vaccineType={VaccineType.RSV}
-          showHowToGetSection={false}
+          campaignState={CampaignState.UNSUPPORTED}
         />,
       );
 
@@ -40,12 +44,13 @@ describe("MoreInformationSection", () => {
     });
 
     it("should include more information expanders", () => {
-      const showHowToGetSection = false;
+      const expectedShouldShowHowToGetSection = false;
+
       render(
         <MoreInformationSection
           styledVaccineContent={styledVaccineContent}
           vaccineType={VaccineType.RSV}
-          showHowToGetSection={showHowToGetSection}
+          campaignState={CampaignState.UNSUPPORTED}
         />,
       );
 
@@ -56,20 +61,19 @@ describe("MoreInformationSection", () => {
         {
           styledVaccineContent: styledVaccineContent,
           vaccineType: VaccineType.RSV,
-          showHowToGetSection: showHowToGetSection,
+          showHowToGetSection: expectedShouldShowHowToGetSection,
         },
         undefined,
       );
     });
 
     it("should include find out more link with url from styled vaccine content", () => {
-      const showHowToGetSection = false;
       const vaccineType = VaccineType.RSV;
       render(
         <MoreInformationSection
           styledVaccineContent={styledVaccineContent}
           vaccineType={vaccineType}
-          showHowToGetSection={showHowToGetSection}
+          campaignState={CampaignState.UNSUPPORTED}
         />,
       );
 
@@ -96,7 +100,7 @@ describe("MoreInformationSection", () => {
         <MoreInformationSection
           styledVaccineContent={unavailableStyledVaccineContent}
           vaccineType={VaccineType.RSV}
-          showHowToGetSection={false}
+          campaignState={CampaignState.UNSUPPORTED}
         />,
       );
 
@@ -109,12 +113,11 @@ describe("MoreInformationSection", () => {
     });
 
     it("should not display more information expanders", () => {
-      const showHowToGetSection = false;
       render(
         <MoreInformationSection
           styledVaccineContent={unavailableStyledVaccineContent}
           vaccineType={VaccineType.RSV}
-          showHowToGetSection={showHowToGetSection}
+          campaignState={CampaignState.UNSUPPORTED}
         />,
       );
 
@@ -124,13 +127,12 @@ describe("MoreInformationSection", () => {
     });
 
     it("should display find out more link with nhsWebpageLink from vaccine settings", async () => {
-      const showHowToGetSection = false;
       const vaccineType = VaccineType.RSV;
       render(
         <MoreInformationSection
           styledVaccineContent={unavailableStyledVaccineContent}
           vaccineType={vaccineType}
-          showHowToGetSection={showHowToGetSection}
+          campaignState={CampaignState.UNSUPPORTED}
         />,
       );
 
@@ -145,5 +147,33 @@ describe("MoreInformationSection", () => {
         undefined,
       );
     });
+  });
+});
+
+describe("shouldShowHowToGetSection", () => {
+  describe("when removeHowToGetExpanderFromMoreInformationSection is set in Vaccine settings", () => {
+    it.each([
+      [VaccineType.RSV, CampaignState.UNSUPPORTED],
+      [VaccineType.RSV_PREGNANCY, CampaignState.UNSUPPORTED],
+      [VaccineType.FLU_FOR_SCHOOL_AGED_CHILDREN, CampaignState.CLOSED],
+    ])(`should return false for %s, regardless of campaign state`, async (vaccineType, campaignState) => {
+      const actual = shouldShowHowToGetExpander(vaccineType, campaignState);
+      expect(actual).toBe(false);
+    });
+  });
+
+  describe("using campaign state when removeHowToGetExpanderFromMoreInformationSection is not set", () => {
+    it.each([
+      [VaccineType.TD_IPV_3_IN_1, CampaignState.UNSUPPORTED, true],
+      [VaccineType.VACCINE_6_IN_1, CampaignState.CLOSED, true],
+      [VaccineType.ROTAVIRUS, CampaignState.OPEN, false],
+      [VaccineType.HPV, CampaignState.PRE_OPEN, false],
+    ])(
+      `should return showHowToGet Section as: %s, campaigns: %s, expected: %s`,
+      async (vaccineType, campaignState, expected) => {
+        const actual = shouldShowHowToGetExpander(vaccineType, campaignState);
+        expect(actual).toBe(expected);
+      },
+    );
   });
 });
