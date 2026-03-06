@@ -20,7 +20,8 @@
   ],
   "scripts": {
     "dev": "next dev --turbopack --experimental-https",
-    "build": "next build && npm run build:assets",
+    "build": "next build && npm run build:assets && npm run test:app:routes",
+    "test:app:routes": "jest src/app-routes.test.ts --testPathIgnorePatterns '[]'",
     "build:assets": "sass 'src/styles/global.scss' 'public/assets/static/global.min.css' --silence-deprecation=import,global-builtin,if-function,legacy-js-api --style=compressed  --no-source-map --load-path=node_modules",
     "build:opennext": "npx --yes @opennextjs/aws@3.x.x build --streaming",
     "build:lambda": "node esbuild.config.mjs",

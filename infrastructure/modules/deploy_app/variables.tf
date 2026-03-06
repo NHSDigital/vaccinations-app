@@ -67,3 +67,8 @@ variable "environment" {
   type        = string
   description = "Environment to deploy resources into"
 }
+
+variable "is_local" {
+  type        = bool
+  description = "Useful for turning off certain features for local development"
+}
