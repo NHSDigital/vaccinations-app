@@ -1,9 +1,9 @@
 resource "aws_wafv2_rule_group" "app_rule_group" {
   count = var.is_local ? 0 : 1
 
+  provider = aws.global
   name     = "${var.prefix}-app-rule-group"
   scope    = "CLOUDFRONT"
-  region   = "us-east-1"
   capacity = 100 // Adjust capacity based on the number and complexity of rules
 
   # -----------------------------------------------------------

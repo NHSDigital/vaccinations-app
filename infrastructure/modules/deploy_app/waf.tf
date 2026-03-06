@@ -1,10 +1,10 @@
 resource "aws_wafv2_web_acl" "app_waf" {
   count = var.is_local ? 0 : 1
 
+  provider    = aws.global
   name        = "${var.prefix}-cloudfront-waf"
   scope       = "CLOUDFRONT"
   description = "WAF ACL for CloudFront with managed aws rules, URI allowlist, session check"
-  region      = "us-east-1"
 
   default_action {
     block {
