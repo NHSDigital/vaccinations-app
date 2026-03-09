@@ -22,7 +22,7 @@ const checkContentPassesStylingAndWriteToCache = async (
   filteredContent: VaccinePageContent,
 ): Promise<void> => {
   try {
-    await getStyledContentForVaccine(vaccineType, filteredContent, true);
+    await getStyledContentForVaccine(filteredContent);
     await writeContentForVaccine(vaccineType, content);
     log.info({ context: { vaccineType } }, `Content written to cache for vaccine ${vaccineType} `);
   } catch (error) {

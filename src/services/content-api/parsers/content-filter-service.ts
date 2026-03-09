@@ -5,6 +5,8 @@ import { buildFilteredContentForFluForSchoolAgedChildrenVaccine } from "@src/ser
 import { buildFilteredContentForFluInPregnancyVaccine } from "@src/services/content-api/parsers/custom/flu-in-pregnancy";
 import { buildFilteredContentForFluVaccine } from "@src/services/content-api/parsers/custom/flu-vaccine";
 import { buildFilteredContentForMMRandMMRVVaccines } from "@src/services/content-api/parsers/custom/mmr-and-mmrv";
+import { buildFilteredContentForRSVOlderAdultsVaccine } from "@src/services/content-api/parsers/custom/rsv";
+import { buildFilteredContentForRSVPregnancyVaccine } from "@src/services/content-api/parsers/custom/rsv-pregnancy";
 import { buildFilteredContentForWhoopingCoughVaccine } from "@src/services/content-api/parsers/custom/whooping-cough";
 import {
   ContentApiVaccineResponse,
@@ -246,6 +248,8 @@ const getFilteredContentForVaccine = async (
     [VaccineType.COVID_19, buildFilteredContentForCovid19Vaccine],
     [VaccineType.MMRV, buildFilteredContentForMMRandMMRVVaccines],
     [VaccineType.MMR, buildFilteredContentForMMRandMMRVVaccines],
+    [VaccineType.RSV_PREGNANCY, buildFilteredContentForRSVPregnancyVaccine],
+    [VaccineType.RSV, buildFilteredContentForRSVOlderAdultsVaccine],
   ]);
   const filteredContentBuilder = filteredContentBuilders.get(vaccineType) || buildFilteredContentForStandardVaccine;
   return await filteredContentBuilder(apiContent);

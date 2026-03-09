@@ -2,9 +2,6 @@ import { MarkdownWithStyling } from "@project/src/app/_components/markdown/Markd
 import EmergencyCareCard from "@src/app/_components/nhs-frontend/EmergencyCareCard";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import UrgentCareCard from "@src/app/_components/nhs-frontend/UrgentCareCard";
-import { VaccineType } from "@src/models/vaccine";
-import { styleHowToGetSectionForRsv } from "@src/services/content-api/parsers/custom/rsv";
-import { styleHowToGetSectionForRsvPregnancy } from "@src/services/content-api/parsers/custom/rsv-pregnancy";
 import {
   HeadingLevel,
   HeadingWithContent,
@@ -155,19 +152,8 @@ const extractHeadingAndContent = (text: string): HeadingWithContent => {
   }
 };
 
-const styleHowToGetSection = (
-  vaccineType: VaccineType,
-  section: VaccinePageSection,
-  fragile: boolean,
-): StyledPageSection => {
-  switch (vaccineType) {
-    case VaccineType.RSV:
-      return styleHowToGetSectionForRsv(section, fragile);
-    case VaccineType.RSV_PREGNANCY:
-      return styleHowToGetSectionForRsvPregnancy(section, fragile);
-    default:
-      return styleSection(section);
-  }
+const styleHowToGetSection = (section: VaccinePageSection): StyledPageSection => {
+  return styleSection(section);
 };
 
 function styleCallout(callout: HeadingWithTypedContent | undefined): StyledPageSection | undefined {
@@ -212,11 +198,7 @@ function styleRecommendation(recommendation: HeadingWithContent | undefined): St
   return undefined;
 }
 
-const getStyledContentForVaccine = async (
-  vaccine: VaccineType,
-  filteredContent: VaccinePageContent,
-  fragile: boolean,
-): Promise<StyledVaccineContent> => {
+const getStyledContentForVaccine = async (filteredContent: VaccinePageContent): Promise<StyledVaccineContent> => {
   const overview: Overview | undefined = filteredContent.overview;
   const callout: StyledPageSection | undefined = styleCallout(filteredContent.callout);
   let additionalInformation: StyledPageSection | undefined;
@@ -232,7 +214,7 @@ const getStyledContentForVaccine = async (
     whatVaccineIsFor = styleSection(filteredContent.whatVaccineIsFor);
   }
   const whoVaccineIsFor: StyledPageSection = styleSection(filteredContent.whoVaccineIsFor);
-  const howToGetVaccine: StyledPageSection = styleHowToGetSection(vaccine, filteredContent.howToGetVaccine, fragile);
+  const howToGetVaccine: StyledPageSection = styleHowToGetSection(filteredContent.howToGetVaccine);
   const vaccineSideEffects: StyledPageSection = styleSection(filteredContent.vaccineSideEffects);
   let extraDosesSchedule;
   if (filteredContent.extraDosesSchedule) {

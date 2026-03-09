@@ -139,14 +139,14 @@ describe("Any vaccine page", () => {
       );
     });
 
-    it("should display custom RSV Pregnancy vaccine component", async () => {
+    it("should not display custom Fallback RSV Pregnancy vaccine component", async () => {
       await renderNamedVaccinePage(VaccineType.RSV_PREGNANCY);
 
-      const rsvPregnancyInfo: HTMLElement = screen.getByRole("heading", {
+      const rsvPregnancyInfo: HTMLElement | null = screen.queryByRole("heading", {
         name: "Non-urgent advice: The RSV vaccine is recommended if you:",
       });
 
-      expect(rsvPregnancyInfo).toBeInTheDocument();
+      expect(rsvPregnancyInfo).not.toBeInTheDocument();
     });
 
     it("should not display RSV Pregnancy component when vaccineType is not RSV_PREGNANCY", async () => {
@@ -282,11 +282,11 @@ describe("Any vaccine page", () => {
       const vaccineType = VaccineType.RSV_PREGNANCY;
       await renderNamedVaccinePage(vaccineType);
 
-      const RSVPregnancyInfo: HTMLElement = screen.getByRole("heading", {
+      const RSVPregnancyFallbackInfo: HTMLElement = screen.getByRole("heading", {
         name: "Non-urgent advice: The RSV vaccine is recommended if you:",
       });
 
-      expect(RSVPregnancyInfo).toBeInTheDocument();
+      expect(RSVPregnancyFallbackInfo).toBeInTheDocument();
     });
 
     it("should display line above MoreInformation section", async () => {

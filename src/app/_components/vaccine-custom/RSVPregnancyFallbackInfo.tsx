@@ -6,7 +6,7 @@ import { VaccineType } from "@src/models/vaccine";
 import { StyledVaccineContent } from "@src/services/content-api/types";
 import React, { JSX } from "react";
 
-const RSVPregnancyInfo = (props: {
+const RSVPregnancyFallbackInfo = (props: {
   vaccineType: VaccineType;
   styledVaccineContent: StyledVaccineContent | undefined;
 }): JSX.Element => {
@@ -38,4 +38,4 @@ const RSVPregnancyInfo = (props: {
   );
 };
 
-export { RSVPregnancyInfo };
+export { RSVPregnancyFallbackInfo };
