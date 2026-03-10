@@ -11,7 +11,7 @@ import { Logger } from "pino";
 const log: Logger = logger.child({ module: "middleware" });
 const MiddlewarePerformanceMarker = "middleware";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const requestContext: RequestContext = extractRequestContextFromHeadersAndCookies(request?.headers, request?.cookies);
 
   return await asyncLocalStorage.run(requestContext, () => middlewareWrapper(request));

@@ -73,7 +73,7 @@
     "es-check": "^9.6.2",
     "esbuild": "0.27.3",
     "eslint": "^9.39.3",
-    "eslint-config-next": "15.5.12",
+    "eslint-config-next": "^16.1.6",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-compat": "^7.0.1",
     "jest": "^30.2.0",
@@ -99,7 +99,7 @@
     "isomorphic-dompurify": "^3.0.0",
     "jsonwebtoken": "^9.0.3",
     "jwt-decode": "^4.0.0",
-    "next": "^15.5.10",
+    "next": "^16.1.6",
     "next-auth": "^5.0.0-beta.30",
     "nhsapp-frontend": "^5.0.3",
     "nhsuk-frontend": "^10.3.1",
@@ -116,6 +116,8 @@
   "overrides": {
     "jsdom": "^26.0.0",
     "glob": "^11.1.0",
-    "fast-xml-parser": "^5.3.6"
+    "fast-xml-parser": "^5.3.6",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3"
   }
 }
