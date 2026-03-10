@@ -31,6 +31,7 @@ const RSVEligibilityFallback = (props: {
       />
       <h3>{HEADINGS.IF_THIS_APPLIES}</h3>
       {howToGetVaccineOrFallback}
+      <div style={{ marginBottom: "24px" }}> </div>
       <PharmacyBookingInfo vaccineType={props.vaccineType} />
     </div>
   );
