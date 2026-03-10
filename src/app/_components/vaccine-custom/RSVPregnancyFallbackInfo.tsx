@@ -21,12 +21,10 @@ const RSVPregnancyFallbackInfo = (props: {
       <NonUrgentCareCard
         heading={"The RSV vaccine is recommended if you:"}
         content={
-          <>
-            <ul>
-              <li>are over 28 weeks pregnant</li>
-              <li>have not had the vaccine during this pregnancy</li>
-            </ul>
-          </>
+          <ul>
+            <li>are over 28 weeks pregnant</li>
+            <li>have not had the vaccine during this pregnancy</li>
+          </ul>
         }
       />
 

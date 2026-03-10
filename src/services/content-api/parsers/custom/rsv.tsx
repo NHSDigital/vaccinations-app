@@ -33,7 +33,7 @@ export const buildFilteredContentForRSVOlderAdultsVaccine = async (apiContent: s
 export const filterHowToGetSectionToOnlyRsvOlderAdultsText = (
   howToGetVaccine: VaccinePageSection,
 ): VaccinePageSection => {
-  howToGetVaccine.subsections.map((subsection: VaccinePageSubsection) => {
+  howToGetVaccine.subsections.forEach((subsection: VaccinePageSubsection) => {
     if (subsection.type !== "simpleElement") {
       log.warn({ context: { type: subsection.type } }, "HowToGetSubsection element not found");
       throw new ContentParsingError("HowToGetSubsection element not found");
