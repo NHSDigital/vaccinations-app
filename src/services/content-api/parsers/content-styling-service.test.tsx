@@ -37,7 +37,7 @@ jest.mock("cheerio", () => ({
     const $ = Object.assign(selectorImpl, {
       html: jest.fn(
         () =>
-          '<h1>This is heading</h1><p>This is paragraph</p><a href="https://example.com" target=\"_blank\"">This is a link</a>',
+          `<h1>This is heading</h1><p>This is paragraph</p><a href="https://example.com" target="_blank"">This is a link</a>`,
       ),
     });
 

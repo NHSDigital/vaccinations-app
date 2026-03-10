@@ -57,8 +57,10 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.11.0",
     "@eslint/eslintrc": "^3.3.4",
+    "@eslint/js": "^9.39.4",
     "@estruyf/github-actions-reporter": "^1.10.0",
-    "@pact-foundation/pact": "^16.2.0",
+    "@pact-foundation/pact": "^9.18.1",
+    "@pact-foundation/pact-core": "^19.1.0",
     "@playwright/test": "^1.58.2",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
@@ -70,15 +72,17 @@
     "@types/node": "^25.3.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.57.0",
+    "@typescript-eslint/parser": "^8.57.0",
     "es-check": "^9.6.2",
     "esbuild": "0.27.3",
     "eslint": "^9.39.3",
     "eslint-config-next": "^16.1.6",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-compat": "^7.0.1",
+    "globals": "^17.4.0",
     "jest": "^30.2.0",
     "jest-environment-jsdom": "^30.2.0",
-    "jest-pact": "^0.13.0",
     "prettier": "^3.8.1",
     "sass": "^1.97.3",
     "ts-jest": "^29.4.6",
@@ -116,8 +120,6 @@
   "overrides": {
     "jsdom": "^26.0.0",
     "glob": "^11.1.0",
-    "fast-xml-parser": "^5.3.6",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3"
+    "fast-xml-parser": "^5.3.6"
   }
 }

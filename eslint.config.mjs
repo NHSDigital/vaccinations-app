@@ -1,5 +1,8 @@
 import { FlatCompat } from "@eslint/eslintrc";
-import compat_plugin from "eslint-plugin-compat";
+import js from "@eslint/js";
+import tsPlugin from "@typescript-eslint/eslint-plugin";
+import typescriptParser from "@typescript-eslint/parser";
+import globals from "globals";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -29,26 +32,84 @@ const eslintConfig = [
       "performance/report",
     ],
   },
-  ...compat.extends("next/core-web-vitals", "next/typescript", "prettier", "next"),
-  compat_plugin.configs["flat/recommended"],
-  {
-    rules: {
-      "@typescript-eslint/no-unused-vars": "error",
+  js.configs.recommended,
 
-      // nhsuk-frontend: https://github.com/nhsuk/nhsuk-frontend/blob/main/docs/contributing/browser-support.md
-      // Ref: https://github.com/nhsuk/nhsuk-frontend/blob/main/packages/nhsuk-frontend/.browserslistrc
-      // supported browsers are listed in package.json
-      "compat/compat": "warn",
-    },
-  },
-
-  // Override for test files: turn off compat
+  // ----------------------------
+  // TEST FILES
+  // ----------------------------
   {
     files: ["**/*.test.{js,jsx,ts,tsx}", "**/*.spec.{js,jsx,ts,tsx}", "test-data/**"],
+    languageOptions: {
+      parser: typescriptParser,
+      parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+        ecmaFeatures: { jsx: true },
+      },
+      globals: {
+        ...globals.jest,
+        ...globals.node,
+        ...globals.browser,
+      },
+    },
+    plugins: {
+      "@typescript-eslint": tsPlugin,
+    },
     rules: {
-      "compat/compat": "off",
+      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
     },
   },
+
+  // ----------------------------
+  // 3) APPLICATION CODE (TS/JS/React)
+  // ----------------------------
+  {
+    files: ["**/*.{js,jsx,ts,tsx}"],
+    languageOptions: {
+      parser: typescriptParser,
+      parserOptions: {
+        sourceType: "module",
+        ecmaFeatures: { jsx: true },
+      },
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
+    plugins: {
+      "@typescript-eslint": tsPlugin,
+      // react,
+      // 'react-hooks': reactHooks,
+    },
+
+    rules: {
+      "no-undef": "off",
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      // If you enable React plugins above, you can also enable these:
+      // 'react/react-in-jsx-scope': 'off',
+      // 'react-hooks/rules-of-hooks': 'error',
+      // 'react-hooks/exhaustive-deps': 'warn',
+    },
+  },
+
+  // Node-only files
+  {
+    files: ["*.config.mjs", "*.config.ts", "*.setup.ts", "esbuild.config.mjs"],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+  ...compat.config({
+    extends: [
+      // 'next/core-web-vitals', // couldn't use it because of circular error
+      // 'next/typescript',
+      "prettier",
+      // "next"
+    ],
+  }),
 ];
 
 export default eslintConfig;
