@@ -90,8 +90,10 @@ describe("URI path allowlist", () => {
 
   // Test suite to ensure that generated app routes satisfy at least one of the RegExes in the WAF allowlist
   describe("Next.js app routes", () => {
-    // Filtering out "/_not-found" because it's an internal Next.js route
-    const manifestRoutes: string[] = Object.values(appPathRoutes).filter((route) => route !== "/_not-found");
+    // Filtering out internal Next.js routes that are never directly navigated to by users
+    const manifestRoutes: string[] = Object.values(appPathRoutes).filter(
+      (route) => route !== "/_not-found" && route !== "/_global-error",
+    );
 
     test.each(manifestRoutes)('App route "%s" is allowed in uri-path-regex.json', (route) => {
       expect(isAllowed(route as string)).toBe(true);
@@ -101,8 +103,10 @@ describe("URI path allowlist", () => {
   // Test suite to ensure that WAF rules aren't overly permissive,
   // E.g., if we delete a route, we want to also delete it from the RegExes in the WAF allowlist.
   describe("URI path regex is in sync with app routes", () => {
-    // Filtering out "/_not-found" because it's an internal Next.js route
-    const manifestRoutes: string[] = Object.values(appPathRoutes).filter((route) => route !== "/_not-found");
+    // Filtering out internal Next.js routes that are never directly navigated to by users
+    const manifestRoutes: string[] = Object.values(appPathRoutes).filter(
+      (route) => route !== "/_not-found" && route !== "/_global-error",
+    );
 
     // Static paths we know exist but not present in the app-path-routes-manifest.json
     // Will have to be maintained

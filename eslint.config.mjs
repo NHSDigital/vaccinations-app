@@ -49,8 +49,6 @@ const eslintConfig = [
       compat: compat_plugin,
     },
     rules: {
-      "no-undef": "off",
-      "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
       "compat/compat": "warn",
     },
@@ -69,7 +67,7 @@ const eslintConfig = [
   // TEST FILES
   // ----------------------------
   {
-    files: ["**/*.test.{js,jsx,ts,tsx}", "**/*.spec.{js,jsx,ts,tsx}", "**/*.contract.{js,jsx,ts,tsx}", "test-data/**"],
+    files: ["**/*.test.{js,jsx,ts,tsx}", "**/*.spec.{js,jsx,ts,tsx}", "test-data/**"],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
@@ -89,7 +87,6 @@ const eslintConfig = [
     },
     rules: {
       "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
-      "@typescript-eslint/no-explicit-any": "off",
       "compat/compat": "off",
     },
   },
