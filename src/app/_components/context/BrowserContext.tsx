@@ -1,6 +1,6 @@
 "use client";
 
-import React, { JSX, ReactNode, createContext, useContext, useEffect, useState } from "react";
+import React, { JSX, ReactNode, createContext, useContext, useSyncExternalStore } from "react";
 
 interface BrowserContextType {
   hasContextLoaded: boolean;
@@ -14,20 +14,21 @@ const BrowserContext = createContext<BrowserContextType>({
 
 const useBrowserContext = (): BrowserContextType => useContext(BrowserContext);
 
+const noopSubscribe = () => () => {};
+
 const BrowserContextProvider = ({ children }: { children: ReactNode }): JSX.Element => {
-  const [browserContext, setBrowserContext] = useState<BrowserContextType>({
-    hasContextLoaded: false,
-    isOpenInMobileApp: true,
-  });
+  const hasContextLoaded = useSyncExternalStore(noopSubscribe, () => true, () => false);
+  const isOpenInMobileApp = useSyncExternalStore(
+    noopSubscribe,
+    () => window.nhsapp?.tools.isOpenInNHSApp() ?? true,
+    () => true,
+  );
 
-  useEffect(() => {
-    setBrowserContext({
-      hasContextLoaded: true,
-      isOpenInMobileApp: window.nhsapp?.tools.isOpenInNHSApp(),
-    });
-  }, []);
-
-  return <BrowserContext.Provider value={browserContext}>{children}</BrowserContext.Provider>;
+  return (
+    <BrowserContext.Provider value={{ hasContextLoaded, isOpenInMobileApp }}>
+      {children}
+    </BrowserContext.Provider>
+  );
 };
 
 export { useBrowserContext, BrowserContextProvider };
