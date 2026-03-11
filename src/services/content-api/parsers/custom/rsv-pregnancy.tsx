@@ -51,7 +51,6 @@ const filterHowToGetSectionToOnlyRsvPregnancyText = (howToGetVaccine: VaccinePag
 };
 
 const createOverviewConclusionFromHowToGetSection = (howToGetContent: VaccinePageSection): Overview => {
-  // TODO: VIA-832 attempt to remove hardcoding for array element zero?
   const howToGetContentText: SimpleSubsection = howToGetContent.subsections[0] as SimpleSubsection;
 
   const pharmacyBookingInfo = buildPharmacyBookingNBSInfo();
