@@ -15,8 +15,8 @@
     "last 6 Edge versions",
     "last 2 Samsung versions",
     "Firefox ESR",
-    "Safari >= 11",
-    "iOS >= 11"
+    "Safari >= 15",
+    "iOS >= 15"
   ],
   "scripts": {
     "dev": "next dev --turbopack --experimental-https",
@@ -56,8 +56,6 @@
   "homepage": "https://github.com/NHSDigital/vaccinations-app#readme",
   "devDependencies": {
     "@axe-core/playwright": "^4.11.0",
-    "@eslint/eslintrc": "^3.3.4",
-    "@eslint/js": "^9.39.4",
     "@estruyf/github-actions-reporter": "^1.10.0",
     "@pact-foundation/pact": "^9.18.1",
     "@pact-foundation/pact-core": "^19.1.0",

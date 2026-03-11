@@ -1,17 +1,10 @@
-import { FlatCompat } from "@eslint/eslintrc";
-import js from "@eslint/js";
 import tsPlugin from "@typescript-eslint/eslint-plugin";
 import typescriptParser from "@typescript-eslint/parser";
 import globals from "globals";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+import compat_plugin from "eslint-plugin-compat";
+import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
+import nextTypescript from "eslint-config-next/typescript";
+import prettierConfig from "eslint-config-prettier";
 
 const eslintConfig = [
   {
@@ -32,8 +25,46 @@ const eslintConfig = [
       "performance/report",
     ],
   },
-  js.configs.recommended,
+  ...nextCoreWebVitals,
+  ...nextTypescript,
+  prettierConfig,
+  // ----------------------------
+  // APPLICATION CODE (TS/JS/React)
+  // ----------------------------
+  {
+    files: ["**/*.{js,jsx,ts,tsx}"],
+    languageOptions: {
+      parser: typescriptParser,
+      parserOptions: {
+        sourceType: "module",
+        ecmaFeatures: { jsx: true },
+      },
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
+    plugins: {
+      "@typescript-eslint": tsPlugin,
+      compat: compat_plugin
+    },
+    rules: {
+      "no-undef": "off",
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      "compat/compat": "warn"
+    },
+  },
 
+  // Node-only files
+  {
+    files: ["*.config.mjs", "*.config.ts", "*.setup.ts", "esbuild.config.mjs"],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
   // ----------------------------
   // TEST FILES
   // ----------------------------
@@ -54,62 +85,29 @@ const eslintConfig = [
     },
     plugins: {
       "@typescript-eslint": tsPlugin,
+      compat: compat_plugin
     },
     rules: {
       "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      "compat/compat": "off"
     },
   },
-
-  // ----------------------------
-  // 3) APPLICATION CODE (TS/JS/React)
-  // ----------------------------
+  // Override for server-only files: browser compat is irrelevant for code that runs in Node.js
   {
-    files: ["**/*.{js,jsx,ts,tsx}"],
-    languageOptions: {
-      parser: typescriptParser,
-      parserOptions: {
-        sourceType: "module",
-        ecmaFeatures: { jsx: true },
-      },
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-      },
-    },
-    plugins: {
-      "@typescript-eslint": tsPlugin,
-      // react,
-      // 'react-hooks': reactHooks,
-    },
-
-    rules: {
-      "no-undef": "off",
-      "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
-      // If you enable React plugins above, you can also enable these:
-      // 'react/react-in-jsx-scope': 'off',
-      // 'react-hooks/rules-of-hooks': 'error',
-      // 'react-hooks/exhaustive-deps': 'warn',
-    },
-  },
-
-  // Node-only files
-  {
-    files: ["*.config.mjs", "*.config.ts", "*.setup.ts", "esbuild.config.mjs"],
-    languageOptions: {
-      globals: {
-        ...globals.node,
-      },
-    },
-  },
-  ...compat.config({
-    extends: [
-      // 'next/core-web-vitals', // couldn't use it because of circular error
-      // 'next/typescript',
-      "prettier",
-      // "next"
+    files: [
+      "src/_lambda/**",
+      "src/app/api/**",
+      "src/services/**",
+      "src/utils/auth/apim/**",
+      "src/utils/auth/callbacks/**",
+      "src/utils/auth/generate-auth-payload.ts",
+      "src/utils/auth/get-jwt-token.ts",
+      "src/utils/auth/pem-to-crypto-key.ts",
     ],
-  }),
+    rules: {
+      "compat/compat": "off",
+    },
+  },
 ];
 
 export default eslintConfig;

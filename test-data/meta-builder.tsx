@@ -111,7 +111,8 @@ export function createTypeBuilder<T extends object>(defaults?: Partial<T>) {
         }
 
         return (value: T[keyof T]) => {
-          (target.instance as any)[finalKey] = value;
+          // @ts-expect-error it complains about the type of the target value
+          (target.instance)[finalKey] = value;
           return receiver; // Return the proxy for chaining
         };
       }
@@ -120,7 +121,7 @@ export function createTypeBuilder<T extends object>(defaults?: Partial<T>) {
     },
   });
 
-  return proxy as any as TypeBuilder<T> & BuilderMethods<T, any>;
+  return proxy as never as TypeBuilder<T> & BuilderMethods<T, never>;
 }
 
 export function randomString(length: number) {
