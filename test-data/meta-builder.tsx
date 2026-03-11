@@ -111,8 +111,8 @@ export function createTypeBuilder<T extends object>(defaults?: Partial<T>) {
         }
 
         return (value: T[keyof T]) => {
-          // @ts-expect-error it complains about the type of the target value
-          target.instance[finalKey] = value;
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (target.instance as any)[finalKey] = value;
           return receiver; // Return the proxy for chaining
         };
       }
