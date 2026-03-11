@@ -1,10 +1,10 @@
 import tsPlugin from "@typescript-eslint/eslint-plugin";
 import typescriptParser from "@typescript-eslint/parser";
-import globals from "globals";
-import compat_plugin from "eslint-plugin-compat";
 import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
 import nextTypescript from "eslint-config-next/typescript";
 import prettierConfig from "eslint-config-prettier";
+import compat_plugin from "eslint-plugin-compat";
+import globals from "globals";
 
 const eslintConfig = [
   {
@@ -46,13 +46,13 @@ const eslintConfig = [
     },
     plugins: {
       "@typescript-eslint": tsPlugin,
-      compat: compat_plugin
+      compat: compat_plugin,
     },
     rules: {
       "no-undef": "off",
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
-      "compat/compat": "warn"
+      "compat/compat": "warn",
     },
   },
 
@@ -69,7 +69,7 @@ const eslintConfig = [
   // TEST FILES
   // ----------------------------
   {
-    files: ["**/*.test.{js,jsx,ts,tsx}", "**/*.spec.{js,jsx,ts,tsx}", "test-data/**"],
+    files: ["**/*.test.{js,jsx,ts,tsx}", "**/*.spec.{js,jsx,ts,tsx}", "**/*.contract.{js,jsx,ts,tsx}", "test-data/**"],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
@@ -85,11 +85,12 @@ const eslintConfig = [
     },
     plugins: {
       "@typescript-eslint": tsPlugin,
-      compat: compat_plugin
+      compat: compat_plugin,
     },
     rules: {
       "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
-      "compat/compat": "off"
+      "@typescript-eslint/no-explicit-any": "off",
+      "compat/compat": "off",
     },
   },
   // Override for server-only files: browser compat is irrelevant for code that runs in Node.js
