@@ -1,7 +1,7 @@
 import { SSO_TO_NBS_ROUTE } from "@src/app/api/sso-to-nbs/constants";
 import { UrlPathFragment, VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { buildFilteredContentForStandardVaccine } from "@src/services/content-api/parsers/content-filter-service";
-import { ContentParsingError } from "@src/services/content-api/parsers/custom/exceptions";
+import { extractHtmlFromSubSectionByHeading } from "@src/services/content-api/parsers/custom/extract-html";
 import {
   HeadingWithContent,
   Overview,
@@ -10,13 +10,8 @@ import {
   VaccinePageSection,
   VaccinePageSubsection,
 } from "@src/services/content-api/types";
-import { logger } from "@src/utils/logger";
-import { Logger } from "pino";
-
-const log: Logger = logger.child({ module: "services-content-api-parsers-custom-rsv-pregnancy" });
 
 const rsvInPregnancyRegExp: RegExp = /<h3>If you're pregnant<\/h3>((?:\s*<p>.*?<\/p>)+)/i;
-const paragraphsRegExp: RegExp = /<p>.*?<\/p>/g;
 
 export const buildFilteredContentForRSVPregnancyVaccine = async (apiContent: string): Promise<VaccinePageContent> => {
   const standardFilteredContent: VaccinePageContent = await buildFilteredContentForStandardVaccine(apiContent);
@@ -44,38 +39,15 @@ export const buildFilteredContentForRSVPregnancyVaccine = async (apiContent: str
   };
 };
 
-export const filterHowToGetSectionToOnlyRsvPregnancyText = (
-  howToGetVaccine: VaccinePageSection,
-): VaccinePageSection => {
-  howToGetVaccine.subsections.forEach((subsection: VaccinePageSubsection) => {
-    if (subsection.type !== "simpleElement") {
-      log.warn({ context: { type: subsection.type } }, "HowToGetSubsection element not found");
-      throw new ContentParsingError("HowToGetSubsection element not found");
-    }
-
-    const rsvInPregnancyMatches = rsvInPregnancyRegExp.exec(subsection.text);
-    if (!rsvInPregnancyMatches) {
-      log.warn(
-        { context: { text: subsection.text } },
-        "HowToGetSubsection header not found - has the content changed?",
-      );
-      throw new ContentParsingError("HowToGetSubsection header not found - has the content changed?");
-    }
-
-    const paragraphsMatches = rsvInPregnancyMatches[1].match(paragraphsRegExp);
-    if (!paragraphsMatches) {
-      log.warn(
-        { context: { text: rsvInPregnancyMatches[1] } },
-        "HowToGetSubsection paragraph not found - has the content changed?",
-      );
-      throw new ContentParsingError("HowToGetSubsection paragraph not found - has the content changed?");
-    }
-
-    subsection.text = paragraphsMatches.join("");
-    return subsection;
+const filterHowToGetSectionToOnlyRsvPregnancyText = (howToGetVaccine: VaccinePageSection): VaccinePageSection => {
+  const subsections = howToGetVaccine.subsections.map((subsection: VaccinePageSubsection) => {
+    return {
+      ...subsection,
+      text: extractHtmlFromSubSectionByHeading(subsection, rsvInPregnancyRegExp),
+    };
   });
 
-  return howToGetVaccine;
+  return { ...howToGetVaccine, subsections };
 };
 
 const createOverviewConclusionFromHowToGetSection = (howToGetContent: VaccinePageSection): Overview => {

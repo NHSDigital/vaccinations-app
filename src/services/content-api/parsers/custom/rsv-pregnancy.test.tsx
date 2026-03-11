@@ -1,38 +1,25 @@
-import { ContentParsingError } from "@src/services/content-api/parsers/custom/exceptions";
-import {
-  buildFilteredContentForRSVPregnancyVaccine,
-  filterHowToGetSectionToOnlyRsvPregnancyText,
-} from "@src/services/content-api/parsers/custom/rsv-pregnancy";
-import { SimpleSubsection, VaccinePageSection, VaccinePageSubsection } from "@src/services/content-api/types";
+import { extractHtmlFromSubSectionByHeading } from "@src/services/content-api/parsers/custom/extract-html";
+import { buildFilteredContentForRSVPregnancyVaccine } from "@src/services/content-api/parsers/custom/rsv-pregnancy";
+import { SimpleSubsection } from "@src/services/content-api/types";
 import { genericVaccineContentAPIResponseWithRSVGettingAccess } from "@test-data/content-api/data-rsv";
 
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 jest.mock("@src/services/nbs/nbs-service", () => ({ buildNbsUrl: jest.fn() }));
+jest.mock("@src/services/content-api/parsers/custom/extract-html");
 
-const mockNonSimpleSubsection: VaccinePageSubsection = {
-  type: "tableElement",
-  name: "",
-  mainEntity: "",
-};
-
-const howToGetVaccineRSV: VaccinePageSection = {
-  headline: "How to get the RSV vaccine",
-  subsections: [
-    {
-      type: "simpleElement",
-      headline: "",
-      text: "<p>There are different ways to get the RSV vaccine.</p><h3>If you're pregnant</h3><p>You should be offered the RSV vaccine around the time of your 28-week antenatal appointment.</p><p>Getting vaccinated as soon as possible from 28 weeks will provide the best protection for your baby. But the vaccine can be given later if needed, including up until you go into labour.</p><p>Speak to your maternity service or GP surgery if you're 28 weeks pregnant or more and have not been offered the vaccine.</p><h3>If you're aged 75 to 79 (or turned 80 after 1 September 2024)</h3><p>If you're aged 75 to 79 (or turned 80 after 1 September 2024) contact your GP surgery to book your RSV vaccination.</p><p>Your GP surgery may contact you about getting the RSV vaccine. This may be by letter, text, phone call or email.</p><p>You do not need to wait to be contacted before booking your vaccination.</p>",
-      name: "markdown",
-    },
-  ],
-};
-
+const expectedHowToGetUnFilteredText =
+  "<p>There are different ways to get the RSV vaccine.</p><h3>If you're pregnant</h3><p>You should be offered the RSV vaccine around the time of your 28-week antenatal appointment.</p><p>Getting vaccinated as soon as possible from 28 weeks will provide the best protection for your baby. But the vaccine can be given later if needed, including up until you go into labour.</p><p>Speak to your maternity service or GP surgery if you're 28 weeks pregnant or more and have not been offered the vaccine.</p><h3>If you're aged 75 to 79 (or turned 80 after 1 September 2024)</h3><p>If you're aged 75 to 79 (or turned 80 after 1 September 2024) contact your GP surgery to book your RSV vaccination.</p><p>Your GP surgery may contact you about getting the RSV vaccine. This may be by letter, text, phone call or email.</p><p>You do not need to wait to be contacted before booking your vaccination.</p>";
 const expectedHowToGetFilteredText =
   "<p>You should be offered the RSV vaccine around the time of your 28-week antenatal appointment.</p><p>Getting vaccinated as soon as possible from 28 weeks will provide the best protection for your baby. But the vaccine can be given later if needed, including up until you go into labour.</p><p>Speak to your maternity service or GP surgery if you're 28 weeks pregnant or more and have not been offered the vaccine.</p>";
+const expectedRsvInPregnancyRegExp: RegExp = /<h3>If you're pregnant<\/h3>((?:\s*<p>.*?<\/p>)+)/i;
 
 const apiResponse = JSON.stringify(genericVaccineContentAPIResponseWithRSVGettingAccess);
 
 describe("buildFilteredContentForRSVPregnancyVaccine", () => {
+  beforeEach(() => {
+    (extractHtmlFromSubSectionByHeading as jest.Mock).mockReturnValue(expectedHowToGetFilteredText);
+  });
+
   it("should return standard vaccine content for most fields", async () => {
     const pageCopyForRSVPregnancyVaccine = await buildFilteredContentForRSVPregnancyVaccine(apiResponse);
 
@@ -55,6 +42,10 @@ describe("buildFilteredContentForRSVPregnancyVaccine", () => {
     const howToGetSubsection: SimpleSubsection = pageCopyForRSVPregnancyVaccine.howToGetVaccine
       .subsections[0] as SimpleSubsection;
     expect(howToGetSubsection.text).toBe(expectedHowToGetFilteredText);
+    expect(extractHtmlFromSubSectionByHeading).toHaveBeenCalledWith(
+      expect.objectContaining({ text: expectedHowToGetUnFilteredText }),
+      expectedRsvInPregnancyRegExp,
+    );
   });
 
   it("should return custom recommendation for RSV Pregnancy", async () => {
@@ -78,59 +69,5 @@ describe("buildFilteredContentForRSVPregnancyVaccine", () => {
     expect(pageCopyForRSVPregnancyVaccine.overviewConclusion?.content).toEqual(expectedOverviewConclusion);
     expect(pageCopyForRSVPregnancyVaccine.overviewConclusion?.containsHtml).toEqual(true);
     expect(pageCopyForRSVPregnancyVaccine.overviewConclusion?.content).toContain(expectedPharmacyBookingLinkForRsv);
-  });
-});
-
-describe("extractRsvPregnancyFromHowToGetSection", () => {
-  it("should return howToGet section with selected pregnancy related text only", () => {
-    const filteredHowToGetSection = filterHowToGetSectionToOnlyRsvPregnancyText(howToGetVaccineRSV);
-
-    expect(filteredHowToGetSection.subsections.length).toBe(1);
-    const subsection: SimpleSubsection = filteredHowToGetSection.subsections[0] as SimpleSubsection;
-    expect(subsection.text).toEqual(expectedHowToGetFilteredText);
-  });
-
-  it("throws ContentParsingError if no h3 is found for rsv in pregnancy", () => {
-    const howToGetWithoutPregnancyHeading: VaccinePageSection = {
-      headline: "How to get the RSV vaccine",
-      subsections: [
-        {
-          type: "simpleElement",
-          headline: "",
-          text: "<p>There are different ways to get the RSV vaccine.</p><h3>If you're aged 75 to 79 (or turned 80 after 1 September 2024)</h3><p>If you're aged 75 to 79 (or turned 80 after 1 September 2024)</p>",
-          name: "markdown",
-        },
-      ],
-    };
-    expect(() => {
-      filterHowToGetSectionToOnlyRsvPregnancyText(howToGetWithoutPregnancyHeading);
-    }).toThrow(ContentParsingError);
-  });
-
-  it("throws ContentParsingError if no paragraphs found for rsv in pregnancy", () => {
-    const howToGetWithoutParagraphsInPregnancy: VaccinePageSection = {
-      headline: "How to get the RSV vaccine",
-      subsections: [
-        {
-          type: "simpleElement",
-          headline: "",
-          text: "<p>There are different ways to get the RSV vaccine.</p><h3>If you're pregnant</h3><h3>If you're aged 75 to 79 (or turned 80 after 1 September 2024)</h3><p>If you're aged 75 to 79 (or turned 80 after 1 September 2024)</p>",
-          name: "markdown",
-        },
-      ],
-    };
-    expect(() => {
-      filterHowToGetSectionToOnlyRsvPregnancyText(howToGetWithoutParagraphsInPregnancy);
-    }).toThrow(ContentParsingError);
-  });
-
-  it("throws ContentParsingError if type is not 'simpleElement'", () => {
-    const howToGetWithoutSimpleElement: VaccinePageSection = {
-      headline: "How to get the RSV vaccine",
-      subsections: [mockNonSimpleSubsection],
-    };
-    expect(() => {
-      filterHowToGetSectionToOnlyRsvPregnancyText(howToGetWithoutSimpleElement);
-    }).toThrow(ContentParsingError);
   });
 });

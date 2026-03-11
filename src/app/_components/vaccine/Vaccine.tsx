@@ -77,7 +77,7 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
       )}
 
       {/* Static eligibility fallback section for RSV in pregnancy when ContentAPI is down */}
-      {(contentError == ContentErrorTypes.CONTENT_LOADING_ERROR || styledVaccineContent == undefined) &&
+      {(contentError === ContentErrorTypes.CONTENT_LOADING_ERROR || styledVaccineContent === undefined) &&
         vaccineType === VaccineType.RSV_PREGNANCY && (
           <RSVPregnancyFallbackInfo vaccineType={vaccineType} styledVaccineContent={styledVaccineContent} />
         )}
