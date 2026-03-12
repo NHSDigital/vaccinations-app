@@ -11,11 +11,12 @@ const RSVEligibilityFallback = (props: {
   vaccineType: VaccineType.RSV;
 }): JSX.Element => {
   const howToGetVaccineOrFallback = props.styledVaccineContent ? (
-    props.styledVaccineContent.howToGetVaccine.component
+    <>
+      <div className={"nhsuk-body"}>{props.styledVaccineContent.howToGetVaccine.component}</div>
+    </>
   ) : (
     <HowToGetVaccineFallback vaccineType={props.vaccineType} />
   );
-
   return (
     <div data-testid="elid-fallback">
       <NonUrgentCareCard
@@ -31,7 +32,6 @@ const RSVEligibilityFallback = (props: {
       />
       <h3>{HEADINGS.IF_THIS_APPLIES}</h3>
       {howToGetVaccineOrFallback}
-      <div style={{ marginBottom: "24px" }}> </div>
       <PharmacyBookingInfo vaccineType={props.vaccineType} />
     </div>
   );
