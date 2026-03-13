@@ -19,6 +19,21 @@ env:
   R2_RELEASE_BRANCH: "release/v2.0"
 
 jobs:
+
+  metadata:
+    name: "Set CI/CD metadata"
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    outputs:
+      nodejs_version: ${{ steps.variables.outputs.nodejs_version }}
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v6
+      - name: "Set CI/CD variables"
+        id: variables
+        run: |
+          echo "nodejs_version=$(grep "^nodejs" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
+
   ##########################################################
   # EliD API tests - to load their DB with test scenarios
   ##########################################################
@@ -46,13 +61,18 @@ jobs:
     environment:
       name: "preprod"
 
-    needs: [ run-elid-api-tests ]
+    needs: [ metadata, run-elid-api-tests ]
     if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && (inputs.release=='All' || inputs.release=='Latest R1 tag'))) }}
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+
+      - name: "Setup nodejs ${{ needs.metadata.outputs.nodejs_version }}"
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ needs.metadata.outputs.nodejs_version }}
 
       - name: "Get latest tag name on ${{ env.RELEASE_BRANCH }} branch"
         id: get-latest-tag-name
@@ -154,13 +174,18 @@ jobs:
     environment:
       name: "preprod"
 
-    needs: [ deploy-and-test-r1 ]
+    needs: [ metadata, deploy-and-test-r1 ]
     if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && (inputs.release=='All' || inputs.release=='Latest R2 tag'))) }}
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+
+      - name: "Setup nodejs ${{ needs.metadata.outputs.nodejs_version }}"
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ needs.metadata.outputs.nodejs_version }}
 
       - name: "Get latest tag name on ${{ env.R2_RELEASE_BRANCH }} branch"
         id: get-latest-tag-name
@@ -263,7 +288,7 @@ jobs:
     environment:
       name: "preprod"
 
-    needs: [ deploy-and-test-r2 ]
+    needs: [ metadata, deploy-and-test-r2 ]
     if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && (inputs.release=='All' || inputs.release=='Latest main tag'))) }}
     steps:
       - name: "Checkout main branch"
@@ -271,6 +296,11 @@ jobs:
         with:
           fetch-depth: 0
           ref: "main"
+
+      - name: "Setup nodejs ${{ needs.metadata.outputs.nodejs_version }}"
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ needs.metadata.outputs.nodejs_version }}
 
       - name: "Get latest tag name on main branch"
         id: get-latest-tag-name
