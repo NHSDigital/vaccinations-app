@@ -19,16 +19,13 @@ describe("getOrRefreshApimCredentials", () => {
   });
 
   describe("when AUTH APIM is available", () => {
-    const oldNEXT_RUNTIME = process.env.NEXT_RUNTIME;
-
-    mockedConfig.IS_APIM_AUTH_ENABLED = Promise.resolve(true);
-
     const nowInSeconds = 1749052001;
 
     beforeEach(() => {
+      mockedConfig.IS_APIM_AUTH_ENABLED = Promise.resolve(true);
+
       jest.clearAllMocks();
       jest.useFakeTimers().setSystemTime(nowInSeconds * 1000);
-      process.env.NEXT_RUNTIME = "nodejs";
     });
 
     beforeEach(async () => {
@@ -40,7 +37,6 @@ describe("getOrRefreshApimCredentials", () => {
 
     afterEach(() => {
       jest.resetAllMocks();
-      process.env.NEXT_RUNTIME = oldNEXT_RUNTIME;
     });
 
     afterAll(() => {
@@ -110,39 +106,14 @@ describe("getOrRefreshApimCredentials", () => {
         expiresAt: nowInSeconds + 600,
       });
     });
-
-    describe("when invoked from Edge runtime", () => {
-      it("should return stored APIM creds without checking expiry", async () => {
-        process.env.NEXT_RUNTIME = "edge";
-        const token = {
-          apim: { access_token: "stored-access-token", expires_at: 88 },
-          nhs_login: { id_token: "id-token" },
-        } as JWT;
-
-        const result = await getOrRefreshApimCredentials(token, nowInSeconds);
-
-        expect(result).toEqual({
-          accessToken: "stored-access-token",
-          expiresAt: 88,
-        });
-      });
-
-      it("should return undefined if APIM creds empty", async () => {
-        process.env.NEXT_RUNTIME = "edge";
-        const token = { apim: {}, nhs_login: { id_token: "id-token" } } as JWT;
-
-        const result = await getOrRefreshApimCredentials(token, nowInSeconds);
-        expect(result).toBeUndefined();
-      });
-    });
   });
 
-  describe("when AUTH APIM is not available", () => {
-    mockedConfig.IS_APIM_AUTH_ENABLED = Promise.resolve(true);
-
+  describe("when AUTH APIM is not enabled", () => {
     const nowInSeconds = 1749052001;
 
     beforeEach(() => {
+      mockedConfig.IS_APIM_AUTH_ENABLED = Promise.resolve(false);
+
       jest.clearAllMocks();
       jest.useFakeTimers().setSystemTime(nowInSeconds * 1000);
     });
@@ -155,7 +126,7 @@ describe("getOrRefreshApimCredentials", () => {
       jest.useRealTimers();
     });
 
-    it("should return undefined if APIM auth is not enabled", async () => {
+    it("should return undefined", async () => {
       const token = { apim: {}, nhs_login: { id_token: "id-token" } } as JWT;
 
       const result = await getOrRefreshApimCredentials(token, nowInSeconds);
