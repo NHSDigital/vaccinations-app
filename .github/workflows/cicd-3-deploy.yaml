@@ -17,6 +17,20 @@ jobs:
   # Deploy action - download artefacts and deploy to AWS
   #############################################################
 
+  metadata:
+    name: "Set CI/CD metadata"
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    outputs:
+      nodejs_version: ${{ steps.variables.outputs.nodejs_version }}
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v6
+      - name: "Set CI/CD variables"
+        id: variables
+        run: |
+          echo "nodejs_version=$(grep "^nodejs" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
+
   deploy-action:
     name: "Deploy ${{ github.ref_name }} to (${{ github.event.inputs.environment }})"
     runs-on: ubuntu-latest
@@ -57,9 +71,10 @@ jobs:
   acceptance-stage:
     name: "Acceptance stage (dev/preprod only)"
     if: ${{ contains(fromJSON('["dev","preprod"]'), github.event.inputs.environment) }}
-    needs: [ deploy-action ]
+    needs: [ metadata, deploy-action ]
     uses: ./.github/workflows/stage-5-acceptance.yaml
     with:
       environment: ${{ github.event.inputs.environment}}
       checkout_ref: ${{ github.ref_name }}
+      nodejs_version: ${{ needs.metadata.outputs.nodejs_version }}
     secrets: inherit
