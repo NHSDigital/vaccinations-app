@@ -5,7 +5,7 @@ import { getEnv } from "@project/e2e/helpers";
 test.describe.configure({ mode: "parallel", retries: 1 });
 
 test.describe("Application - User Not Logged In", () => {
-  test.beforeAll(async (_, testInfo) => {
+  test.beforeAll(async ({}, testInfo) => {
     testInfo.setTimeout(60_000);
   });
 
