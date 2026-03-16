@@ -12,7 +12,6 @@ let router;
 const reportClientSideUnhandledError = (errorEvent: ErrorEvent) => {
   errorEvent.preventDefault();
 
-  //
   const errorContext: ClientSideErrorContext = {
     message: String(errorEvent.message ?? ""),
     filename: String(errorEvent.filename ?? ""),
