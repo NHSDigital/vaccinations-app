@@ -31,7 +31,8 @@ export const login = async (browser: Browser, nhsLoginUsername: string): Promise
   const user = loadUserFromEnvironment(nhsLoginUsername);
   let page;
 
-  const useFakeAuth = user.nhsAppLoginUrl.endsWith("localhost:3000");
+  const useFakeAuth =
+    user.nhsAppLoginUrl.endsWith("localhost:3000") || getEnv("USE_FAKE_AUTH")?.toLowerCase() === "true";
   if (useFakeAuth) {
     const fakeAuthConfig = loadFakeAuthEnvironmentVariables();
     const context = await browser.newContext({
