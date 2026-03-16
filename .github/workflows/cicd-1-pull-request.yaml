@@ -173,4 +173,5 @@ jobs:
     with:
       environment: "dev"
       checkout_ref: "${{ github.sha }}"
+      nodejs_version: "${{ needs.metadata.outputs.nodejs_version }}"
     secrets: inherit

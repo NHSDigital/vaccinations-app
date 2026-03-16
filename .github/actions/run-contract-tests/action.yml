@@ -19,6 +19,17 @@ runs:
         ref: ${{ inputs.target_ref }}
         path: "code-for-contract-tests"
 
+    - name: "Read nodejs version from .tool-versions"
+      shell: bash
+      id: variables
+      run: |
+        echo "nodejs_version=$(grep "^nodejs" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
+
+    - name: "Setup nodejs ${{ steps.variables.outputs.nodejs_version }}"
+      uses: actions/setup-node@v6
+      with:
+        node-version: ${{ steps.variables.outputs.nodejs_version }}
+
     - name: "Cache node modules"
       uses: actions/cache@v4
       env:

@@ -131,6 +131,10 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v6
+      - name: "Setup nodejs ${{ inputs.nodejs_version }}"
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ inputs.nodejs_version }}
       - name: Cache node modules
         id: cache-npm
         uses: actions/cache@v5

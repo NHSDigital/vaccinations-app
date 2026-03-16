@@ -22,6 +22,7 @@ const mockNBSBookingActionHTML = "NBS Booking Link Test";
 jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
   NBSBookingAction: () => mockNBSBookingActionHTML,
 }));
+jest.mock("@src/services/nbs/nbs-service", () => ({ buildNbsUrl: jest.fn() }));
 
 jest.mock("@project/src/app/_components/markdown/MarkdownWithStyling", () => ({
   MarkdownWithStyling: jest.fn(),
@@ -333,8 +334,8 @@ describe("ContentStylingService", () => {
       additionalInformation: mockAdditionalInformationSection,
     };
 
-    it.each(Object.values(VaccineType))("should return styled content for %s", async (vaccine: VaccineType) => {
-      const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(vaccine, mockContent, false);
+    it.each(Object.values(VaccineType))("should return styled content for %s", async () => {
+      const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(mockContent);
 
       expect(styledVaccineContent).not.toBeNull();
       expect(styledVaccineContent.overview).toEqual(mockContent.overview);
@@ -347,18 +348,11 @@ describe("ContentStylingService", () => {
       expect(styledVaccineContent.recommendation?.heading).toEqual(mockRecommendation.heading);
       expect(styledVaccineContent.additionalInformation?.heading).toEqual(mockAdditionalInformationSection.headline);
 
-      const expectedRsvHowToGetSection = "<div><p>para1</p><p>para2</p></div>";
-      const expectedRsvPregnancyHowToGetSection = `<div><div><p>para3</p><p>para4</p></div></div>`;
       const expectedGenericVaccineHowToGetSection =
         "<div class=\"zeroMarginBottom\"><h3>How To Get Headline</h3><p>para</p><h3>If you're aged 75 to 79</h3><p>para1</p><p>para2</p><h3>If you're pregnant</h3><p>para3</p><p>para4</p></div>";
       const { container } = render(styledVaccineContent.howToGetVaccine.component);
-      if (vaccine === VaccineType.RSV) {
-        expect(container).toContainHTML(expectedRsvHowToGetSection);
-      } else if (vaccine === VaccineType.RSV_PREGNANCY) {
-        expect(container.innerHTML).toBe(expectedRsvPregnancyHowToGetSection);
-      } else {
-        expect(container.innerHTML).toBe(expectedGenericVaccineHowToGetSection);
-      }
+      expect(container.innerHTML).toBe(expectedGenericVaccineHowToGetSection);
+
       expect(isValidElement(styledVaccineContent.whatVaccineIsFor?.component)).toBe(true);
       expect(isValidElement(styledVaccineContent.whoVaccineIsFor.component)).toBe(true);
       expect(isValidElement(styledVaccineContent.howToGetVaccine.component)).toBe(true);
@@ -372,11 +366,8 @@ describe("ContentStylingService", () => {
       const mockContentWithoutWhatSection = { ...mockContent };
       delete mockContentWithoutWhatSection.whatVaccineIsFor;
 
-      const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
-        VaccineType.RSV,
-        mockContentWithoutWhatSection,
-        false,
-      );
+      const styledVaccineContent: StyledVaccineContent =
+        await getStyledContentForVaccine(mockContentWithoutWhatSection);
 
       expect(styledVaccineContent).not.toBeNull();
       expect(styledVaccineContent.overview).toEqual({ content: "This is an overview", containsHtml: false });
@@ -392,9 +383,7 @@ describe("ContentStylingService", () => {
       delete mockContentWithoutRecommendation.recommendation;
 
       const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
-        VaccineType.RSV,
         mockContentWithoutRecommendation,
-        false,
       );
 
       expect(styledVaccineContent.recommendation).toBeUndefined();
@@ -405,9 +394,7 @@ describe("ContentStylingService", () => {
       delete mockContentWithoutAdditionalInformation.additionalInformation;
 
       const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
-        VaccineType.RSV,
         mockContentWithoutAdditionalInformation,
-        false,
       );
 
       expect(styledVaccineContent.additionalInformation).toBeUndefined();
@@ -418,9 +405,7 @@ describe("ContentStylingService", () => {
       delete mockContentWithoutExtraDosesSchedule.extraDosesSchedule;
 
       const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
-        VaccineType.RSV,
         mockContentWithoutExtraDosesSchedule,
-        false,
       );
 
       expect(styledVaccineContent.extraDosesSchedule).toBeUndefined();

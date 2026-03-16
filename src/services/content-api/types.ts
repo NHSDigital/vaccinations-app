@@ -74,7 +74,7 @@ export type ContentApiVaccineResponse = {
   contentSubTypes: object;
 };
 
-type SimpleSubsection = {
+export type SimpleSubsection = {
   type: "simpleElement";
   headline: string;
   text: string;

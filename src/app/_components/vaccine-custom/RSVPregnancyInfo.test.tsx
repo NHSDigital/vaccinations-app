@@ -1,5 +1,5 @@
 import { HowToGetVaccineFallback } from "@src/app/_components/content/HowToGetVaccineFallback";
-import { RSVPregnancyInfo } from "@src/app/_components/vaccine-custom/RSVPregnancyInfo";
+import { RSVPregnancyFallbackInfo } from "@src/app/_components/vaccine-custom/RSVPregnancyFallbackInfo";
 import { VaccineType } from "@src/models/vaccine";
 import { mockStyledContent } from "@test-data/content-api/data";
 import { render, screen } from "@testing-library/react";
@@ -19,7 +19,9 @@ jest.mock("@src/app/_components/content/HowToGetVaccineFallback", () => ({
 
 describe("RSV Pregnancy Information", () => {
   it("should display inset text for rsv in pregnancy", () => {
-    render(<RSVPregnancyInfo vaccineType={VaccineType.RSV_PREGNANCY} styledVaccineContent={mockStyledContent} />);
+    render(
+      <RSVPregnancyFallbackInfo vaccineType={VaccineType.RSV_PREGNANCY} styledVaccineContent={mockStyledContent} />,
+    );
 
     const recommendedBlock: HTMLElement | undefined = screen.getAllByRole("heading", { level: 2 }).at(0);
     expect(recommendedBlock).toHaveClass("nhsuk-card__heading");
@@ -27,7 +29,9 @@ describe("RSV Pregnancy Information", () => {
   });
 
   it("should display howToGet text outside expander in rsv pregnancy page when content API available", () => {
-    render(<RSVPregnancyInfo vaccineType={VaccineType.RSV_PREGNANCY} styledVaccineContent={mockStyledContent} />);
+    render(
+      <RSVPregnancyFallbackInfo vaccineType={VaccineType.RSV_PREGNANCY} styledVaccineContent={mockStyledContent} />,
+    );
 
     const heading: HTMLElement = screen.getByText("How to get the vaccine");
     const howToGetFromContentAPI: HTMLElement = screen.getByText("How Section styled component");
@@ -40,7 +44,7 @@ describe("RSV Pregnancy Information", () => {
   });
 
   it("should display fallback how to get text when styled content API unavailable", () => {
-    render(<RSVPregnancyInfo vaccineType={VaccineType.RSV_PREGNANCY} styledVaccineContent={undefined} />);
+    render(<RSVPregnancyFallbackInfo vaccineType={VaccineType.RSV_PREGNANCY} styledVaccineContent={undefined} />);
 
     const heading: HTMLElement = screen.getByText("How to get the vaccine");
     const howToGetFallback: HTMLElement = screen.getByText("How to get fallback");
@@ -57,7 +61,9 @@ describe("RSV Pregnancy Information", () => {
   });
 
   it("should contain pharmacy booking link in how to get section", () => {
-    render(<RSVPregnancyInfo vaccineType={VaccineType.RSV_PREGNANCY} styledVaccineContent={mockStyledContent} />);
+    render(
+      <RSVPregnancyFallbackInfo vaccineType={VaccineType.RSV_PREGNANCY} styledVaccineContent={mockStyledContent} />,
+    );
 
     const pharmacyBookingLink = screen.getByTestId("pharmacy-booking-link-mock");
 

@@ -6,7 +6,7 @@ import { VaccineType } from "@src/models/vaccine";
 import { StyledVaccineContent } from "@src/services/content-api/types";
 import React, { JSX } from "react";
 
-const RSVPregnancyInfo = (props: {
+const RSVPregnancyFallbackInfo = (props: {
   vaccineType: VaccineType;
   styledVaccineContent: StyledVaccineContent | undefined;
 }): JSX.Element => {
@@ -21,12 +21,10 @@ const RSVPregnancyInfo = (props: {
       <NonUrgentCareCard
         heading={"The RSV vaccine is recommended if you:"}
         content={
-          <>
-            <ul>
-              <li>are over 28 weeks pregnant</li>
-              <li>have not had the vaccine during this pregnancy</li>
-            </ul>
-          </>
+          <ul>
+            <li>are over 28 weeks pregnant</li>
+            <li>have not had the vaccine during this pregnancy</li>
+          </ul>
         }
       />
 
@@ -38,4 +36,4 @@ const RSVPregnancyInfo = (props: {
   );
 };
 
-export { RSVPregnancyInfo };
+export { RSVPregnancyFallbackInfo };
