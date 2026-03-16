@@ -70,6 +70,7 @@
     "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@types/validator": "^13.15.10",
     "es-check": "^9.6.2",
     "esbuild": "0.27.4",
     "eslint": "^9.39.4",
@@ -111,6 +112,7 @@
     "react-error-boundary": "^6.1.1",
     "react-markdown": "^10.1.0",
     "sanitize-data": "^1.0.5",
+    "validator": "^13.15.26",
     "zod": "^4.3.6"
   },
   "overrides": {
