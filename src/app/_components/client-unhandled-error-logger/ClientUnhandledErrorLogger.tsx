@@ -1,6 +1,8 @@
 "use client";
 
-import logClientSideError from "@src/utils/client-side-logger-server-actions/client-side-error-logger";
+import logClientSideError, {
+  ClientSideErrorContext,
+} from "@src/utils/client-side-logger-server-actions/client-side-error-logger";
 import { ClientSideErrorTypes } from "@src/utils/constants";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -10,7 +12,15 @@ let router;
 const reportClientSideUnhandledError = (errorEvent: ErrorEvent) => {
   errorEvent.preventDefault();
 
-  logClientSideError(ClientSideErrorTypes.UNHANDLED_ERROR)
+  //
+  const errorContext: ClientSideErrorContext = {
+    message: String(errorEvent.message ?? ""),
+    filename: String(errorEvent.filename ?? ""),
+    lineno: String(errorEvent.lineno ?? ""),
+    colno: String(errorEvent.colno ?? ""),
+  };
+
+  logClientSideError(ClientSideErrorTypes.UNHANDLED_ERROR, errorContext)
     .then((logOnClientConsole: boolean) => {
       if (logOnClientConsole) {
         console.log("Unhandled error event", errorEvent);
@@ -26,7 +36,12 @@ const reportClientSideUnhandledError = (errorEvent: ErrorEvent) => {
 const reportClientSideUnhandledPromiseRejectionError = (promiseRejectionEvent: PromiseRejectionEvent) => {
   promiseRejectionEvent.preventDefault();
 
-  logClientSideError(ClientSideErrorTypes.UNHANDLED_PROMISE_REJECT_ERROR)
+  const errorContext: ClientSideErrorContext = {
+    message: String(promiseRejectionEvent.reason ?? ""),
+    stack: String(promiseRejectionEvent.reason?.stack ?? ""),
+  };
+
+  logClientSideError(ClientSideErrorTypes.UNHANDLED_PROMISE_REJECT_ERROR, errorContext)
     .then((logOnClientConsole: boolean) => {
       if (logOnClientConsole) {
         console.log("Unhandled promise rejection event", promiseRejectionEvent);

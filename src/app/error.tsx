@@ -1,7 +1,9 @@
 "use client";
 
 import ServiceFailure from "@src/app/service-failure/page";
-import logClientSideError from "@src/utils/client-side-logger-server-actions/client-side-error-logger";
+import logClientSideError, {
+  ClientSideErrorContext,
+} from "@src/utils/client-side-logger-server-actions/client-side-error-logger";
 import { ClientSideErrorTypes } from "@src/utils/constants";
 import "nhsapp-frontend/dist/nhsapp/all.scss";
 import React, { useEffect } from "react";
@@ -12,7 +14,13 @@ interface GlobalErrorProps {
 
 const UncaughtError = (props: GlobalErrorProps) => {
   useEffect(() => {
-    logClientSideError(ClientSideErrorTypes.UNHANDLED_ERROR_DURING_RENDER)
+    const errorContext: ClientSideErrorContext = {
+      message: String(props.error.message ?? ""),
+      stack: String(props.error.stack ?? ""),
+      digest: String(props.error?.digest ?? ""),
+    };
+
+    logClientSideError(ClientSideErrorTypes.UNHANDLED_ERROR_DURING_RENDER, errorContext)
       .then((logOnClientConsole: boolean) => {
         if (logOnClientConsole) {
           console.log("From error component", props.error);
