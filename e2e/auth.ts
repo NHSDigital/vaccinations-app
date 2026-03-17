@@ -9,6 +9,9 @@ interface User {
   vaccinationsHubUrl: string;
 }
 
+// TODO: 17/03/2026; Remove after NHS App AOS (preprod) changes to "Check and book vaccinations"
+const environment = getEnv("DEPLOY_ENVIRONMENT");
+
 const loadFakeAuthEnvironmentVariables = () => {
   return {
     fakeAppUsername: getEnv("TEST_NHS_APP_USERNAME"),
@@ -104,7 +107,14 @@ export const login = async (browser: Browser, nhsLoginUsername: string): Promise
     await page.waitForURL("**/patient/services", { timeout: 30000 });
 
     const newTabPromise = page.context().waitForEvent("page");
-    await page.getByRole("link", { name: "Check and book an RSV vaccination" }).click();
+
+    // TODO: 17/03/2026; Remove conditional after NHS App AOS (preprod) changes to "Check and book vaccinations"
+    if (environment === "sandpit") {
+      await page.getByRole("link", { name: "Check and book vaccinations" }).click();
+    } else {
+      await page.getByRole("link", { name: "Check and book an RSV vaccination" }).click();
+    }
+
     const newTabPage = await newTabPromise;
 
     await newTabPage.waitForURL(user.vaccinationsHubUrl, { timeout: 60000, waitUntil: "networkidle" });
