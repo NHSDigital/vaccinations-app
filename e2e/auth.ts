@@ -109,7 +109,7 @@ export const login = async (browser: Browser, nhsLoginUsername: string): Promise
     const newTabPromise = page.context().waitForEvent("page");
 
     // TODO: 17/03/2026; Remove conditional after NHS App AOS (preprod) changes to "Check and book vaccinations"
-    if (environment === "sandpit") {
+    if (environment === "dev") {
       await page.getByRole("link", { name: "Check and book vaccinations" }).click();
     } else {
       await page.getByRole("link", { name: "Check and book an RSV vaccination" }).click();
