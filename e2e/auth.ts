@@ -89,11 +89,18 @@ export const login = async (browser: Browser, nhsLoginUsername: string): Promise
     await page.waitForURL(user.vaccinationsHubUrl, { timeout: 60000, waitUntil: "domcontentloaded" });
     return page;
   } else {
-    await page.waitForURL(/\/(terms-and-conditions\?redirect_to=index|passkey\/setup-passkey|patient\/)$/, {
+    await page.waitForURL(/\/(terms-and-conditions\?redirect_to=index|passkey\/setup-passkey|patient\/whats-new)$/, {
       timeout: 30000,
     });
     if (new URL(page.url()).pathname === "/passkey/setup-passkey") {
       await page.getByRole("link", { name: "Skip passkey setup and continue to NHS App" }).click();
+    }
+
+    await page.waitForURL(/\/(terms-and-conditions\?redirect_to=index|patient\/|patient\/whats-new)$/, {
+      timeout: 30000,
+    });
+    if (new URL(page.url()).pathname === "/patient/whats-new") {
+      await page.getByRole("button", { name: "Continue" }).click();
     }
 
     await page.waitForURL(/\/(terms-and-conditions\?redirect_to=index|patient\/)$/, { timeout: 30000 });
@@ -103,8 +110,8 @@ export const login = async (browser: Browser, nhsLoginUsername: string): Promise
     }
 
     await page.waitForURL("**/patient/", { timeout: 30000 });
-    await page.getByRole("heading", { name: "Services" }).locator("..").getByRole("link", { name: "View all" }).click();
-    await page.waitForURL("**/patient/services", { timeout: 30000 });
+    await page.locator('li[data-qa="vaccination-panel-link"]').getByRole("link", { name: "Vaccinations" }).click();
+    await page.waitForURL("**/patient/vaccinations", { timeout: 30000 });
 
     const newTabPromise = page.context().waitForEvent("page");
 
