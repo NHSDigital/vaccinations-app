@@ -65,7 +65,7 @@ const AccessibilityStatement = () => {
               </a>
               .
             </p>
-            <h2>How accessible is Check and book an RSV vaccination?</h2>
+            <h2>How accessible is {SERVICE_HEADING}?</h2>
             <p>
               We regularly test our content to Web Content Accessibility Guidelines (WCAG) 2.2 on both mobile and
               desktop devices. We follow the NHS service manual guidance on{" "}
@@ -105,7 +105,7 @@ const AccessibilityStatement = () => {
               .
             </p>
 
-            <h2>Technical information about the accessibility of Check and book an RSV vaccination</h2>
+            <h2>Technical information about the accessibility of {SERVICE_HEADING}</h2>
             <p>
               NHS England is committed to making this service accessible, in accordance with the{" "}
               <a href="https://www.legislation.gov.uk/uksi/2018/952/contents/made" target="_blank">
