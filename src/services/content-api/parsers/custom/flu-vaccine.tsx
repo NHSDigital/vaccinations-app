@@ -25,7 +25,7 @@ export const buildFilteredContentForFluVaccine = async (apiContent: string): Pro
   const recommendation: HeadingWithContent = {
     heading: "The flu vaccine is recommended if you:",
     content: [
-      "* are aged 65 or older (including those who will be 65 by 31 March 2026)",
+      "* are aged 65 or older",
       "* have certain long-term health conditions",
       "* are pregnant",
       "* live in a care home",
