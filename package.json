@@ -74,7 +74,7 @@
     "es-check": "^9.6.2",
     "esbuild": "0.27.4",
     "eslint": "^9.39.4",
-    "eslint-config-next": "15.5.12",
+    "eslint-config-next": "15.5.13",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-compat": "^7.0.1",
     "jest": "^30.3.0",
