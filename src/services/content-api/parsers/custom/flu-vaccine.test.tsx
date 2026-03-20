@@ -26,7 +26,7 @@ describe("buildFilteredContentForFluVaccine", () => {
       recommendation: {
         heading: "The flu vaccine is recommended if you:",
         content:
-          "* are aged 65 or older (including those who will be 65 by 31 March 2026)\n" +
+          "* are aged 65 or older\n" +
           "* have certain long-term health conditions\n" +
           "* are pregnant\n" +
           "* live in a care home\n" +
