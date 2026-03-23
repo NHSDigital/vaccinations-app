@@ -18,12 +18,12 @@ const generatePrivateKeyStub = (): string => {
 };
 
 describe("pemToCryptoKey", () => {
-  it("throws error for invalid key", () => {
-    expect(pemToCryptoKey("invalid-key")).rejects.toThrow("Import key error");
+  it("throws error for invalid key", async () => {
+    await expect(pemToCryptoKey("invalid-key")).rejects.toThrow("Import key error");
   });
 
-  it("return CryptoKey for valid key", () => {
+  it("return CryptoKey for valid key", async () => {
     const testPEMString: string = generatePrivateKeyStub();
-    expect(pemToCryptoKey(testPEMString)).resolves.toBeDefined();
+    await expect(pemToCryptoKey(testPEMString)).resolves.toBeDefined();
   });
 });

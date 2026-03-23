@@ -90,12 +90,12 @@ describe("generateAPIMTokenPayload", () => {
       expect(apimTokenPayload).toEqual(expectedTokenPayload);
     });
 
-    it("should propagate errors thrown by jwt.sign", () => {
+    it("should propagate errors thrown by jwt.sign", async () => {
       (jwt.sign as jest.Mock).mockImplementation(() => {
         throw new Error("Invalid key");
       });
 
-      expect(async () => {
+      await expect(async () => {
         await generateAPIMTokenPayload(mockIdToken);
       }).rejects.toThrow("Invalid key");
     });
