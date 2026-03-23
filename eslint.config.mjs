@@ -28,6 +28,7 @@ const eslintConfig = [
   ...nextCoreWebVitals,
   ...nextTypescript,
   prettierConfig,
+
   // ----------------------------
   // APPLICATION CODE (TS/JS/React)
   // ----------------------------
@@ -63,9 +64,24 @@ const eslintConfig = [
       },
     },
   },
+
+  // Type-aware rules
+  {
+    files: ["**/*.{ts,tsx}"],
+    languageOptions: {
+      parserOptions: {
+        project: true,
+      },
+    },
+    rules: {
+      "@typescript-eslint/no-floating-promises": "error",
+    },
+  },
+
   // ----------------------------
   // TEST FILES
   // ----------------------------
+
   {
     files: ["**/*.test.{js,jsx,ts,tsx}", "**/*.spec.{js,jsx,ts,tsx}", "test-data/**"],
     languageOptions: {

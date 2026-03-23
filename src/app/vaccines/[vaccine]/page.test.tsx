@@ -54,12 +54,12 @@ describe("Dynamic vaccine page", () => {
   });
 
   describe("when content loads successfully", () => {
-    beforeEach(() => {
+    beforeEach(async () => {
       (getContentForVaccine as jest.Mock).mockResolvedValue({
         styledVaccineContent: mockStyledContent,
       });
       (Vaccine as jest.Mock).mockImplementation(() => <div />);
-      renderDynamicPage("rsv");
+      await renderDynamicPage("rsv");
     });
 
     it("shows back link", async () => {
