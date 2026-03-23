@@ -49,7 +49,7 @@ const eslintConfig = [
       compat: compat_plugin,
     },
     rules: {
-      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      "@typescript-eslint/no-unused-vars": "error",
       "compat/compat": "warn",
     },
   },
@@ -82,11 +82,9 @@ const eslintConfig = [
       },
     },
     plugins: {
-      "@typescript-eslint": tsPlugin,
       compat: compat_plugin,
     },
     rules: {
-      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
       "compat/compat": "off",
     },
   },
