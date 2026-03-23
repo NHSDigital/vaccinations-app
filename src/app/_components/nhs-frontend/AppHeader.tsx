@@ -5,18 +5,21 @@ import { SERVICE_HEADING, VACCINATIONS_HUB_PAGE_ROUTE } from "@src/app/constants
 import { userLogout } from "@src/utils/auth/user-logout";
 import { useSession } from "next-auth/react";
 import { Header } from "nhsuk-react-components";
-import React, { useEffect, useState } from "react";
-
-const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-  e.preventDefault();
-  userLogout();
-};
+import React, { useEffect, useRef, useState } from "react";
 
 // Ref: https://main--65aa76b29d00a047fe683b95.chromatic.com/?path=/docs/navigation-header--docs#header-with-account-1
 const AppHeader = () => {
   const { hasContextLoaded, isOpenInMobileApp } = useBrowserContext();
   const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(false);
   const { status } = useSession();
+  const isLoggingOut = useRef(false);
+
+  const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (isLoggingOut.current) return;
+    isLoggingOut.current = true;
+    await userLogout();
+  };
 
   useEffect(() => {
     setUserIsLoggedIn(status === "authenticated");

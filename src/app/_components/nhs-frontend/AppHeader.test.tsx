@@ -72,6 +72,15 @@ describe("AppHeader", () => {
         screen.getByRole("link", { name: "Log out" }).click();
         expect(userLogout).toHaveBeenCalled();
       });
+
+      it("does not call userLogout more than once when logout link is clicked multiple times in quick succession", async () => {
+        render(<AppHeader />);
+        const logoutLink = screen.getByRole("link", { name: "Log out" });
+        logoutLink.click();
+        logoutLink.click();
+        logoutLink.click();
+        expect(userLogout).toHaveBeenCalledTimes(1);
+      });
     });
 
     describe("when unauthenticated", () => {
