@@ -26,7 +26,7 @@ const InactivityDialog = (): JSX.Element => {
     if (status === "authenticated") {
       if (isTimedOut) {
         dialogRef.current?.close();
-        userLogout(true);
+        void userLogout(true);
       } else if (isIdle) {
         dialogRef.current?.showModal();
       }
@@ -35,7 +35,7 @@ const InactivityDialog = (): JSX.Element => {
     // logout unauthorised users on protected pages
     if (status === "unauthenticated") {
       dialogRef.current?.close();
-      userLogout(true);
+      void userLogout(true);
     }
   }, [dialogRef, isIdle, isTimedOut, pathname, status]);
 
@@ -58,9 +58,9 @@ const InactivityDialog = (): JSX.Element => {
         <button
           data-module={"nhsuk-button"}
           className={"nhsuk-button nhsuk-button--secondary nhsapp-button"}
-          onClick={() => {
+          onClick={async () => {
             dialogRef.current?.close();
-            userLogout();
+            await userLogout();
           }}
         >
           Log out

@@ -42,9 +42,9 @@ describe("getSSMParam", () => {
     expect(actualValue).toBe(expectedValue);
   });
 
-  it("should throw error when api call fails", () => {
+  it("should throw error when api call fails", async () => {
     (axios.get as jest.Mock).mockRejectedValue(new Error("error"));
 
-    expect(getSecret("anything")).rejects.toThrow("error");
+    await expect(getSecret("anything")).rejects.toThrow("error");
   });
 });
