@@ -40,3 +40,7 @@ JMeter
 asdf
 nodejs
 [Hh]omebrew
+(?i)JWT(s?)
+(?i)tfstate
+NHSDigital
+[Ss]ubnet(s?)
