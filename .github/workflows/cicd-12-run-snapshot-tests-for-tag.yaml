@@ -28,10 +28,6 @@ jobs:
         id: variables
         run: |
           echo "nodejs_version=$(grep "^nodejs" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
-      - name: "List variables"
-        run: |
-          export NODEJS_VERSION="${{ steps.variables.outputs.nodejs_version }}"
-          make list-variables
 
   run-snapshot-tests:
     name: "Snapshot tests"
