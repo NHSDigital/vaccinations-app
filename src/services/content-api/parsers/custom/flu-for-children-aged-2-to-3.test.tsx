@@ -43,7 +43,7 @@ describe("buildFilteredContentForFluForChildrenAged2to3", () => {
     const expected = {
       recommendation: {
         heading: "The flu vaccine is recommended for children who:",
-        content: "* are aged 2 or 3 years (born between September 2021 and 31 August 2023)",
+        content: "* are aged 2 or 3 years",
       },
     };
 
