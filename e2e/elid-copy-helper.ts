@@ -25,7 +25,7 @@ export const elidCopyThatDiffersByEnvironment: Record<string, UserCopy> = {
       infoTextParagraph: "Speak to your healthcare professional if you think you should be offered this vaccine.",
     },
     user01: {
-      bulletPoint1: "are aged between 75 or over",
+      bulletPoint1: "are aged 75 or over",
     },
     user13: {
       cardParagraphTextv1: "We believe you had the RSV vaccination on 3 April 2025.",
