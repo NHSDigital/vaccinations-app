@@ -20,6 +20,9 @@ const mockNBSBookingActionHTML = "NBS Booking Link Test";
 jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
   NBSBookingAction: () => mockNBSBookingActionHTML,
 }));
+jest.mock("@src/app/_components/nbs/PharmacyBookingInfo", () => ({
+  PharmacyBookingInfo: () => <div>Pharmacy Booking Info</div>,
+}));
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("ContentStylingService", () => {
@@ -32,7 +35,7 @@ describe("ContentStylingService", () => {
 
   const mockRsvMarkdownSubsection: VaccinePageSubsection = {
     type: "simpleElement",
-    text: "<p>para</p><h3>If you're aged 75 to 79</h3><p>para1</p><p>para2</p><h3>If you're pregnant</h3><p>para3</p><p>para4</p>",
+    text: "<p>para</p><h3>If you're aged 75 or over</h3><p>para1</p><p>para2</p><h3>If you live in a care home for older adults</h3><p>para3</p><p>para4</p><h3>If you're pregnant</h3><p>para5</p><p>para6</p>",
     name: "markdown",
     headline: "Headline",
   };
@@ -209,8 +212,9 @@ describe("ContentStylingService", () => {
         expect(styledVaccineContent.whoVaccineIsFor.heading).toEqual("Who is this Vaccine For");
         expect(styledVaccineContent.howToGetVaccine.heading).toEqual("How to get this Vaccine");
 
-        const expectedRsvSection = "<div><p>para1</p><p>para2</p></div>";
-        const expectedRsvPregnancySection = `<div><div><p>para3</p><p>para4</p></div></div>`;
+        const expectedRsvSection =
+          "<div><h3>If you're aged 75 or over</h3><p>para1</p><p>para2</p></div><div>Pharmacy Booking Info</div><div><h3>If you live in a care home for older adults</h3><p>para3</p><p>para4</p></div>";
+        const expectedRsvPregnancySection = `<div><div><p>para5</p><p>para6</p></div></div>`;
         const { container } = render(styledVaccineContent.howToGetVaccine.component);
         if (vaccine === VaccineTypes.RSV) {
           expect(container).toContainHTML(expectedRsvSection);

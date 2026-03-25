@@ -6,6 +6,9 @@ import { render } from "@testing-library/react";
 import React from "react";
 
 const mockNBSBookingActionHTML = "NBS Booking Link Test";
+jest.mock("@src/app/_components/nbs/PharmacyBookingInfo", () => ({
+  PharmacyBookingInfo: () => <p data-testid="pharmacy-booking-info">test</p>,
+}));
 jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
   NBSBookingAction: () => mockNBSBookingActionHTML,
 }));
@@ -26,14 +29,7 @@ const mockRsvInPregnancySubsection: VaccinePageSubsection = {
 
 const mockRsvForOlderAdultsSubsection: VaccinePageSubsection = {
   type: "simpleElement",
-  text: "<h3>If you're aged 75 to 79</h3><p>Paragraph 1</p><p>Paragraph 2</p>",
-  headline: "",
-  name: "",
-};
-
-const mockRsvForOlderAdultsNewerSubsection: VaccinePageSubsection = {
-  type: "simpleElement",
-  text: "<h3>If you're aged 75 to 79 (or turned 80 after 1 September 2024)</h3><p>Paragraph 1</p><p>Paragraph 2</p>",
+  text: "<h3>If you're aged 75 or over</h3><p>Paragraph 1</p><p>Paragraph 2</p><h3>If you live in a care home for older adults</h3><p>Paragraph 3</p><p>Paragraph 4</p>",
   headline: "",
   name: "",
 };
@@ -63,12 +59,9 @@ describe("styleHowToGetSubsection for rsv in older adults", () => {
 
   it("renders HTML if subsection contains rsv for older adults", () => {
     const { container } = render(<>{styleHowToGetSubsectionForRsv(mockRsvForOlderAdultsSubsection, 0, false)}</>);
-    expect(container.innerHTML).toBe("<div><p>Paragraph 1</p><p>Paragraph 2</p></div>");
-  });
-
-  it("renders HTML if newer subsection contains rsv for older adults", () => {
-    const { container } = render(<>{styleHowToGetSubsectionForRsv(mockRsvForOlderAdultsNewerSubsection, 0, false)}</>);
-    expect(container.innerHTML).toBe("<div><p>Paragraph 1</p><p>Paragraph 2</p></div>");
+    expect(container.innerHTML).toBe(
+      '<div><div><h3>If you\'re aged 75 or over</h3><p>Paragraph 1</p><p>Paragraph 2</p></div><p data-testid="pharmacy-booking-info">test</p><div><h3>If you live in a care home for older adults</h3><p>Paragraph 3</p><p>Paragraph 4</p></div></div>',
+    );
   });
 });
 

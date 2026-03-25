@@ -47,21 +47,19 @@ export const styleHowToGetSubsection = (subsection: VaccinePageSubsection, index
   }
 
   return (
-    <>
+    <div key={index}>
       <div
-        key={index}
         dangerouslySetInnerHTML={{
           __html: sanitiseHtml(olderAdultsMatches[0]),
         }}
       />
       <PharmacyBookingInfo vaccineType={VaccineTypes.RSV} />
       <div
-        key={index + 1}
         dangerouslySetInnerHTML={{
           __html: sanitiseHtml(olderAdultsInCareHomeMatches[0]),
         }}
       />
-    </>
+    </div>
   );
 };
 
