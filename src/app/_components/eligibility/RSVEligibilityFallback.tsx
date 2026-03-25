@@ -1,8 +1,6 @@
-import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
 import Expander from "@src/app/_components/nhs-frontend/Expander";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import styles from "@src/app/_components/vaccine/styles.module.css";
-import { HEADINGS } from "@src/app/constants";
 import { VaccineTypes } from "@src/models/vaccine";
 import React, { JSX } from "react";
 
@@ -23,8 +21,7 @@ const RSVEligibilityFallback = (props: {
           </div>
         }
       />
-      <Expander title={HEADINGS.IF_THIS_APPLIES} component={props.howToGetVaccineFallback} notExpandable={true} />
-      <PharmacyBookingInfo vaccineType={props.vaccineType} />
+      <Expander title={""} component={props.howToGetVaccineFallback} notExpandable={true} />
       <hr />
     </div>
   );
