@@ -28,7 +28,7 @@ test.describe("Eligibility", () => {
         level: 2,
         name: "We do not believe you can have it",
       });
-      const bulletPoint1: Locator = eligibility.getByText("are not aged 75 to 79", { exact: true }).first();
+      const bulletPoint1: Locator = eligibility.getByText("are not aged 75 or over", { exact: true }).first();
       const bulletPoint2: Locator = eligibility
         .getByText(elidCopyForEnvironment.user15.bulletPoint2, { exact: true })
         .first();
