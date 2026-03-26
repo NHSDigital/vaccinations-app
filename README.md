@@ -13,7 +13,7 @@ Within the NHS app, vaccinations app will increase the rate of booking by:
 
 We will increase appointment attendance and reduce the number of 'did not attend' and therefore increase appointment availability by:
 
-- Providing people with details of all their upcoming vaccination appointments, with simple, easy options to cancel or change.
+- Providing people with details of all their upcoming vaccination appointments, with simple, easy options to cancel or change
 
 ## Developer Setup
 
