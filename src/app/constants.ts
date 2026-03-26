@@ -11,5 +11,4 @@ export const HEADINGS = {
   HOW_TO_GET_VACCINE: "How to get the vaccine",
   EXTRA_DOSES_SCHEDULE: "Extra doses of the vaccine",
   VACCINE_SIDE_EFFECTS: "Side effects of the vaccine",
-  IF_THIS_APPLIES: "If this applies to you",
 };

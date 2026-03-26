@@ -27,6 +27,10 @@ jest.mock("@project/src/app/_components/markdown/MarkdownWithStyling", () => ({
   MarkdownWithStyling: jest.fn(),
 }));
 
+jest.mock("@src/app/_components/nbs/PharmacyBookingInfo", () => ({
+  PharmacyBookingInfo: () => <div>Pharmacy Booking Info</div>,
+}));
+
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 jest.mock("cheerio", () => ({
   load: jest.fn(() => {
@@ -69,7 +73,7 @@ describe("ContentStylingService", () => {
 
   const mockHowToGetMarkdownSubsection: VaccinePageSubsection = {
     type: "simpleElement",
-    text: "<p>para</p><h3>If you're aged 75 to 79</h3><p>para1</p><p>para2</p><h3>If you're pregnant</h3><p>para3</p><p>para4</p>",
+    text: "<p>para</p><h3>If you're aged 75 or over</h3><p>para1</p><p>para2</p><h3>If you live in a care home for older adults</h3><p>para3</p><p>para4</p><h3>If you're pregnant</h3><p>para5</p><p>para6</p>",
     name: "markdown",
     headline: "How To Get Headline",
   };
@@ -347,10 +351,11 @@ describe("ContentStylingService", () => {
       expect(styledVaccineContent.recommendation?.heading).toEqual(mockRecommendation.heading);
       expect(styledVaccineContent.additionalInformation?.heading).toEqual(mockAdditionalInformationSection.headline);
 
-      const expectedRsvHowToGetSection = "<div><p>para1</p><p>para2</p></div>";
-      const expectedRsvPregnancyHowToGetSection = `<div><div><p>para3</p><p>para4</p></div></div>`;
+      const expectedRsvHowToGetSection =
+        "<div><div><h3>If you're aged 75 or over</h3><p>para1</p><p>para2</p></div><div>Pharmacy Booking Info</div><div><h3>If you live in a care home for older adults</h3><p>para3</p><p>para4</p></div></div>";
+      const expectedRsvPregnancyHowToGetSection = `<div><div><p>para5</p><p>para6</p></div></div>`;
       const expectedGenericVaccineHowToGetSection =
-        "<div class=\"zeroMarginBottom\"><h3>How To Get Headline</h3><p>para</p><h3>If you're aged 75 to 79</h3><p>para1</p><p>para2</p><h3>If you're pregnant</h3><p>para3</p><p>para4</p></div>";
+        "<div class=\"zeroMarginBottom\"><h3>How To Get Headline</h3><p>para</p><h3>If you're aged 75 or over</h3><p>para1</p><p>para2</p><h3>If you live in a care home for older adults</h3><p>para3</p><p>para4</p><h3>If you're pregnant</h3><p>para5</p><p>para6</p></div>";
       const { container } = render(styledVaccineContent.howToGetVaccine.component);
       if (vaccine === VaccineType.RSV) {
         expect(container).toContainHTML(expectedRsvHowToGetSection);

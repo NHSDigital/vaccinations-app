@@ -1,13 +1,6 @@
 import { RSVEligibilityFallback } from "@src/app/_components/eligibility/RSVEligibilityFallback";
-import { PharmacyBookingInfo } from "@src/app/_components/nbs/PharmacyBookingInfo";
 import { VaccineType } from "@src/models/vaccine";
 import { render, screen, within } from "@testing-library/react";
-
-jest.mock("@src/app/_components/nbs/PharmacyBookingInfo", () => ({
-  PharmacyBookingInfo: jest
-    .fn()
-    .mockImplementation(() => <p data-testid={"pharmacy-booking-info"}>Pharmacy booking test</p>),
-}));
 
 describe("RSVEligibilityFallback", () => {
   const vaccineType = VaccineType.RSV;
@@ -25,32 +18,13 @@ describe("RSVEligibilityFallback", () => {
     expect(fallbackBulletPoint2).toBeVisible();
   });
 
-  it("should include Pharmacy booking info for specified vaccine", () => {
-    render(<RSVEligibilityFallback howToGetVaccineFallback={howToGetVaccineFallback} vaccineType={vaccineType} />);
-
-    const pharmacyBookingInfo: HTMLElement = screen.getByTestId("pharmacy-booking-info");
-    expect(pharmacyBookingInfo).toBeVisible();
-
-    expect(PharmacyBookingInfo).toHaveBeenCalledWith(
-      {
-        vaccineType: vaccineType,
-      },
-      undefined,
-    );
-  });
-
-  it("should display 'If this applies' paragraph with provided how-to-get content", async () => {
+  it("should display provided how-to-get content", async () => {
     render(<RSVEligibilityFallback howToGetVaccineFallback={howToGetVaccineFallback} vaccineType={vaccineType} />);
 
     const fallback = screen.getByTestId("elid-fallback");
 
-    const fallbackHeading: HTMLElement = within(fallback).getByRole("heading", {
-      name: "If this applies to you",
-      level: 3,
-    });
     const howToGetContent: HTMLElement = within(fallback).getByText("How Section styled component");
 
-    expect(fallbackHeading).toBeVisible();
     expect(howToGetContent).toBeVisible();
   });
 });
