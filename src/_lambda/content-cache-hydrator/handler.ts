@@ -144,7 +144,7 @@ const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
   let vaccinesToRunOn: VaccineType[];
   if (event.vaccineToUpdate) {
     const vaccineType = getVaccineTypeFromLowercaseString(event.vaccineToUpdate);
-    if (typeof vaccineType === "undefined") {
+    if (vaccineType === undefined) {
       const errorMessage = `Bad request: Vaccine name not recognised: ${event.vaccineToUpdate}`;
       log.error({ context: { vaccineType: event.vaccineToUpdate } }, errorMessage);
       throw new Error(errorMessage);

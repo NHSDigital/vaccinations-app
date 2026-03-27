@@ -47,7 +47,7 @@ const retrieveApimCredentials = async (idToken: IdToken): Promise<ApimAccessCred
   const response: ApimTokenResponse = await fetchAPIMAccessToken(idToken);
   return {
     accessToken: response.access_token,
-    expiresAt: Math.floor(now + parseInt(response.expires_in)) as ExpiresAt,
+    expiresAt: Math.floor(now + Number.parseInt(response.expires_in)) as ExpiresAt,
   };
 };
 

@@ -2,7 +2,7 @@
 // the expected patterns defined in the allowlist regexes configured in WAF.
 import patterns from "@project/infrastructure/modules/deploy_app/configs/uri-path-regex.json";
 import fs from "node:fs";
-import path from "path";
+import path from "node:path";
 
 const getAppRoutesManifest = (): Record<string, string> => {
   const manifestPath = path.join(process.cwd(), ".next/app-path-routes-manifest.json");
