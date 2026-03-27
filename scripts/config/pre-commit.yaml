@@ -3,7 +3,7 @@ repos:
   hooks:
   - id: check-types
     name: Check types with tsc
-    entry: tsc --noEmit
+    entry: npx tsc --noEmit
     language: system
     pass_filenames: false
   - id: run-prettier
