@@ -144,7 +144,7 @@ jobs:
           npm ci --strict-peer-deps
       - name: "Check types with tsc"
         run: |
-          tsc --noEmit
+          npx tsc --noEmit
       - name: "Run linting check"
         run: |
           make test-lint
