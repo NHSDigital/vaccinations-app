@@ -191,6 +191,11 @@ const runContentCacheHydrator = async (event: ContentCacheHydratorEvent) => {
   }
 };
 
+const flushLogs = () =>
+  new Promise<void>((resolve) => {
+    logger.flush(() => resolve());
+  });
+
 export const handler = async (event: object, context: Context): Promise<void> => {
   const requestContext: RequestContext = {
     traceId: context.awsRequestId,
@@ -198,5 +203,9 @@ export const handler = async (event: object, context: Context): Promise<void> =>
     sessionId: "content-cache-hydrator",
   };
 
-  await asyncLocalStorage.run(requestContext, () => runContentCacheHydrator(event));
+  try {
+    await asyncLocalStorage.run(requestContext, () => runContentCacheHydrator(event));
+  } finally {
+    await flushLogs();
+  }
 };
