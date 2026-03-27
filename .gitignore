@@ -130,3 +130,6 @@ terraform.tfstate*
 /performance/performance.logs
 /performance/*.jtl
 /performance/report/
+
+# Logs viewer
+/logs-viewer/www/*.json

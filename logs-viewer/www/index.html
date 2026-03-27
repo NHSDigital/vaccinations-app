@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Splunk logs visualisation</title>
+  <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <script type="text/javascript" src="renderjson.js"></script>
+  <style>
+    #network {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 70vw;
+      height: 100vh;
+      border: 0.2vw solid #a39193;
+      border-radius: 0.5vw;
+    }
+
+    #info-display {
+      position: fixed;
+      width: 35vw;
+      min-height: 50vh;
+      max-height: 40vh;
+      right: 0;
+      top: 1vw;
+      padding: 0.5vw;
+      margin: 0;
+      background: #f6e0b5;
+      overflow: auto;
+      border: 0.15vw solid #a39193;
+      border-radius: 0.5vw;
+    }
+
+    #device-display {
+      position: fixed;
+      width: 35vw;
+      min-height: 10vh;
+      max-height: 40vh;
+      right: 0;
+      bottom: 1vw;
+      padding: 0.5vw;
+      margin: 0;
+      background: #f6e0b5;
+      overflow: auto;
+      border: 0.15vw solid #a39193;
+      border-radius: 0.5vw;
+    }
+  </style>
+</head>
+<body>
+<div id="network"></div>
+<div id="info-display">
+  <h3>Select a node to see the corresponding log event.</h3>
+</div>
+<div id="device-display">
+  <h3>User device details are present.</h3>
+</div>
+
+<script>
+  const heading = document.createElement("h3");
+  heading.textContent = "Select a node to see the corresponding log event.";
+  renderjson.set_show_to_level(1); // Start with the first level expanded
+
+  fetch("graph.json?rid=" + Math.random())
+    .then((r) => r.json())
+    .then((data) => {
+      const nodes = new vis.DataSet(
+        data.nodes.map((n) => {
+          n.device && document.getElementById("device-display").appendChild(renderjson(n.device));
+          return {
+            id: n.id,
+            label: n.label,
+            title: n.context || n.label,
+            color: n.color,
+            font: n.font,
+            shape: n.shape,
+            margin: { top: 10, right: 20, bottom: 10, left: 20 },
+            info: n.info,
+            // x: n.x,
+            // y: n.y,
+            size: n.size
+          };
+        })
+      );
+      const edges = new vis.DataSet(data.edges.map((e) => ({ from: e.from, to: e.to, label: e.label })));
+
+      const container = document.getElementById("network");
+
+      const options = {
+        physics: {
+          enabled: true,
+          solver: "repulsion",
+          repulsion: {
+            nodeDistance: 200, // Increase/Decrease spacing
+            centralGravity: 0.2,
+            springLength: 80,
+            springConstant: 0.05
+          }
+        },
+        edges: {
+          arrows: { to: { enabled: true, scaleFactor: 0.5 } },
+          smooth: { enabled: true, type: "dynamic", roundness: 0.5 }
+        }
+      };
+      const network = new vis.Network(container, { nodes, edges }, options);
+      network.on("click", function(params) {
+        // Check if a node was actually clicked (params.nodes is an array of IDs)
+        if (params.nodes.length > 0) {
+          var nodeId = params.nodes[0]; // Get the ID of the clicked node
+          var nodeData = nodes.get(nodeId); // Retrieve the full object from the DataSet
+
+          // Show content in a div
+          document.getElementById("info-display").replaceChildren(heading, renderjson(nodeData.info));
+        } else {
+          // Optional: Clear the div if clicking on the background
+          document.getElementById("info-display").innerHTML =
+            "<h3>Select a node to see the corresponding log event.</h3>";
+        }
+      });
+    });
+</script>
+</body>
+</html>
