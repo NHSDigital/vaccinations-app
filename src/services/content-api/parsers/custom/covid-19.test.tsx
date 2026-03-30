@@ -37,7 +37,7 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
         content: [
           "## If this applies to you",
           "You can book a COVID-19 vaccination appointment online now.",
-          "Vaccination appointments will take place from 13 April.",
+          "Vaccination appointments will take place from 13 April 2026.",
         ].join("\n\n") as Content,
         button: {
           label: "Book, cancel or change an appointment" as Label,
@@ -45,8 +45,7 @@ describe("buildFilteredContentForCovid19Vaccine", () => {
         },
         moreInfo: [
           "From 13 April, you may also be able to get vaccinated at:",
-          "* your GP surgery\n* a walk-in COVID-19 vaccination site\n* your care home (if you live in a care home)",
-          "You do not need to wait for an invitation before booking an appointment.",
+          "* a walk-in COVID-19 vaccination site\n* a local service, such as a community pharmacy or your GP surgery\n* your care home (if you live in a care home)",
         ].join("\n\n") as Content,
       },
     ];

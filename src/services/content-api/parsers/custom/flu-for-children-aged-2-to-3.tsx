@@ -25,7 +25,7 @@ export const buildFilteredContentForFluForChildrenAged2to3 = async (
 
   const recommendation: HeadingWithContent = {
     heading: "The flu vaccine is recommended for children who:",
-    content: ["* are aged 2 or 3 years (born between September 2021 and 31 August 2023)"].join("\n"),
+    content: ["* are aged 2 or 3 years"].join("\n"),
   };
   return { ...standardFilteredContent, callout, recommendation, actions };
 };
