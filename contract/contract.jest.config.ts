@@ -1,9 +1,13 @@
 import type { Config } from "jest";
+import nextJest from "next/jest.js";
+
+const createJestConfig = nextJest({
+  dir: "../",
+});
 
 const config: Config = {
   rootDir: "..",
   verbose: true,
-  preset: "ts-jest",
   testEnvironment: "node",
   clearMocks: true,
   testMatch: ["**/*.contract.ts"],
@@ -14,4 +18,4 @@ const config: Config = {
   },
 };
 
-export default config;
+export default createJestConfig(config);
