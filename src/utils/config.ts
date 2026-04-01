@@ -166,19 +166,24 @@ class Config {
 
   private async getFromEnvironmentOrSecretsManager(key: string): Promise<string> {
     let value = process.env[key];
-    const initialDelayMillis = 100;
+    const initialDelayMillis: number = 200;
+    const maxRetries = 4;
 
     if (value === undefined || value === null) {
       const ssmPrefix = await this.getSecretPrefix();
 
       log.debug({ context: { key, ssmPrefix } }, "getting from SecretsManager");
-      // Get value from SecretsManager, on failure retry won 100ms initially, with retry delays doubling each time
-      // 100ms -> 200ms -> 400ms etc
-      // Total ~ 100s
-      value = await retry(() => getSecret(`${ssmPrefix}${key}`), {
-        retries: 10,
-        delay: (attempt) => initialDelayMillis * Math.pow(2, attempt - 1),
-      });
+      // Retry ssm with exponential backoff
+      value = await retry(
+        () => {
+          log.debug({ context: { key } }, "Attempting to get config item from SecretsManager");
+          return getSecret(`${ssmPrefix}${key}`);
+        },
+        {
+          retries: maxRetries,
+          delay: (attempt) => initialDelayMillis * Math.pow(2, attempt - 1),
+        },
+      );
     }
 
     if (value === undefined || value === null) {
