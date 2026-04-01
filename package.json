@@ -83,7 +83,7 @@
     "sass": "^1.98.0",
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
-    "typescript": "^6.0.2",
+    "typescript": "^5.9.3",
     "wiremock": "^3.13.2"
   },
   "dependencies": {
@@ -116,7 +116,6 @@
   "overrides": {
     "jsdom": "^26.0.0",
     "glob": "^11.1.0",
-    "fast-xml-parser": "^5.3.6",
-    "typescript": "^6.0.2"
+    "fast-xml-parser": "^5.3.6"
   }
 }
