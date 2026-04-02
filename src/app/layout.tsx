@@ -1,3 +1,4 @@
+import { DigitalDataScript } from "@src/app/_components/analytics/DigitalDataScript";
 import { ClientUnhandledErrorLogger } from "@src/app/_components/client-unhandled-error-logger/ClientUnhandledErrorLogger";
 import { ClientProviders } from "@src/app/_components/context/ClientProviders";
 import { NoJsMessage } from "@src/app/_components/static/NoJsMessage";
@@ -29,6 +30,12 @@ export default function RootLayout({
 
         {/* NHS app js - https://nhsconnect.github.io/nhsapp-developer-documentation/js-v2-api-specification/ */}
         <Script src={"https://www.nhsapp.service.nhs.uk/js/v2/nhsapp.js"} strategy="beforeInteractive" />
+        <DigitalDataScript />
+        <Script
+          id="adobe-launch-script"
+          src="https://assets.adobedtm.com/f8560165ec6a/de7c895bef21/launch-284cbaabc37d-development.min.js"
+          strategy="afterInteractive"
+        />
       </head>
 
       <body suppressHydrationWarning>

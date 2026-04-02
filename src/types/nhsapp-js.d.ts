@@ -1,5 +1,6 @@
 interface Window {
   // Reference: https://nhsconnect.github.io/nhsapp-developer-documentation/js-v2-api-specification/
+  digitalData?: unknown;
   nhsapp: {
     // tools functions are available within both native mobile and desktop app
     tools: {
