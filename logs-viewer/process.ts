@@ -84,6 +84,7 @@ function buildGraph(timeline: LogEntry[]) {
   const groups: LogEntry[][] = groupLogsBySessionTraceOrRequest(timeline);
 
   const nodes: LogNode[] = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const edges: any[] = [];
   let uid: number = 0;
 
@@ -119,9 +120,7 @@ function buildGraph(timeline: LogEntry[]) {
       let nodeContext = messageAndContext[1];
       const isLatencyNode = nodeLabel.search("Performance-Profile") >= 0;
       const hasError =
-        e.result.level === "ERROR" ||
-        e.result["message.level"] === "ERROR" ||
-        nodeLabel.search(/Error/i) >= 0;
+        e.result.level === "ERROR" || e.result["message.level"] === "ERROR" || nodeLabel.search(/Error/i) >= 0;
       const userAgent = e.result["message.context.headers.user-agent"];
       const nhsAppPart = userAgent
         ? userAgent.indexOf("nhsapp-android") >= 0

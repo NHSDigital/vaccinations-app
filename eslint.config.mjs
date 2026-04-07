@@ -27,6 +27,7 @@ const eslintConfig = [
       "playwright-report/**",
       "pact/**",
       "performance/report",
+      "logs-viewer/www",
     ],
   },
   ...compat.extends("next/core-web-vitals", "next/typescript", "prettier", "next"),

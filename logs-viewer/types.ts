@@ -1,3 +1,5 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+
 interface LogEntry {
   result: {
     time?: number;
