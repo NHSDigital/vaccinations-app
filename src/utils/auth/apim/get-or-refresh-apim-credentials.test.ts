@@ -1,6 +1,7 @@
 import { retrieveApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
 import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import config from "@src/utils/config";
+import { asyncLocalStorage } from "@src/utils/requestContext";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { JWT } from "next-auth/jwt";
 
@@ -41,6 +42,35 @@ describe("getOrRefreshApimCredentials", () => {
 
     afterAll(() => {
       jest.useRealTimers();
+    });
+
+    describe("when running in proxy context", () => {
+      it("should return existing APIM creds without making any APIM call", async () => {
+        const token = {
+          apim: { access_token: "existing-token", expires_at: nowInSeconds + 600 },
+          nhs_login: { id_token: "id-token" },
+        } as JWT;
+
+        const result = await asyncLocalStorage.run(
+          { traceId: "traceId", nextUrl: "", sessionId: "sessionId", isProxy: true },
+          () => getOrRefreshApimCredentials(token, nowInSeconds),
+        );
+
+        expect(result).toEqual({ accessToken: "existing-token", expiresAt: nowInSeconds + 600 });
+        expect(retrieveApimCredentials).not.toHaveBeenCalled();
+      });
+
+      it("should return undefined without making any APIM call when no existing creds on token", async () => {
+        const token = { apim: {}, nhs_login: { id_token: "id-token" } } as JWT;
+
+        const result = await asyncLocalStorage.run(
+          { traceId: "traceId", nextUrl: "", sessionId: "sessionId", isProxy: true },
+          () => getOrRefreshApimCredentials(token, nowInSeconds),
+        );
+
+        expect(result).toBeUndefined();
+        expect(retrieveApimCredentials).not.toHaveBeenCalled();
+      });
     });
 
     it("should return undefined and logs error if token does not contain id_token", async () => {

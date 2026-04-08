@@ -3,6 +3,7 @@ import { ApimAccessCredentials } from "@src/utils/auth/apim/types";
 import { ExpiresSoonAt } from "@src/utils/auth/types";
 import config from "@src/utils/config";
 import { logger } from "@src/utils/logger";
+import { asyncLocalStorage } from "@src/utils/requestContext";
 import { JWT } from "next-auth/jwt";
 import { Logger } from "pino";
 
@@ -11,6 +12,17 @@ const log: Logger = logger.child({ module: "get-or-refresh-apim-credentials" });
 const getOrRefreshApimCredentials = async (token: JWT, nowInSeconds: number) => {
   // Return the APIM creds from the token if still valid, or fetch new creds from APIM if expiring soon or empty
   let apimCredentials: ApimAccessCredentials | undefined;
+
+  if (asyncLocalStorage.getStore()?.isProxy) {
+    log.debug("getOrRefreshApimCredentials: In proxy context - returning existing APIM creds without refreshing.");
+    if (token?.apim?.access_token && token?.apim?.expires_at) {
+      return {
+        accessToken: token.apim.access_token,
+        expiresAt: token.apim.expires_at,
+      };
+    }
+    return undefined;
+  }
 
   if (await config.IS_APIM_AUTH_ENABLED) {
     if (!token.nhs_login?.id_token) {

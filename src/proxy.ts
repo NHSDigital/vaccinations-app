@@ -12,7 +12,10 @@ const log: Logger = logger.child({ module: "middleware" });
 const MiddlewarePerformanceMarker = "middleware";
 
 export async function proxy(request: NextRequest) {
-  const requestContext: RequestContext = extractRequestContextFromHeadersAndCookies(request?.headers, request?.cookies);
+  const requestContext: RequestContext = {
+    ...extractRequestContextFromHeadersAndCookies(request?.headers, request?.cookies),
+    isProxy: true,
+  };
 
   return await asyncLocalStorage.run(requestContext, () => middlewareWrapper(request));
 }
