@@ -23,6 +23,7 @@ const eslintConfig = [
       "playwright-report/**",
       "pact/**",
       "performance/report",
+      "logs-viewer/www",
     ],
   },
   ...nextCoreWebVitals,
