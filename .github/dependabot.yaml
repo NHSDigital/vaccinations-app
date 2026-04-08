@@ -39,7 +39,7 @@ updates:
       - dependency-name: "eslint"
         versions: [ ">=10.0.0" ]
     cooldown:
-      default-days: 4
+      default-days: 7
 
   - package-ecosystem: "terraform"
     directories: [ "/infrastructure/modules/**" ]
