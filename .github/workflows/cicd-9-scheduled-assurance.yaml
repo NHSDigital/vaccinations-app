@@ -62,7 +62,7 @@ jobs:
       name: "preprod"
 
     needs: [ metadata, run-elid-api-tests ]
-    if: ${{ !cancelled() && (github.event_name=='schedule' || (github.event_name=='workflow_dispatch' && (inputs.release=='All' || inputs.release=='Latest R1 tag'))) }}
+    if: ${{ !cancelled() && github.event_name=='workflow_dispatch' && inputs.release=='Latest R1 tag' }}
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v6
