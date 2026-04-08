@@ -49,7 +49,7 @@ export const login = async (browser: Browser, nhsLoginUsername: string): Promise
     await page.getByRole("button", { name: "Continue" }).click();
   }
 
-  await page.waitForURL(/\/(passkey-user-login-failed|.*\/login\/)$/, {
+  await page.waitForURL(/\/(passkey-user-login-failed|.*\/login\/?)$/, {
     timeout: 30000,
   });
 
