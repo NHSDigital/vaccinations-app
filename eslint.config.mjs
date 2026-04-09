@@ -1,14 +1,10 @@
-import { FlatCompat } from "@eslint/eslintrc";
+import tsPlugin from "@typescript-eslint/eslint-plugin";
+import typescriptParser from "@typescript-eslint/parser";
+import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
+import nextTypescript from "eslint-config-next/typescript";
+import prettierConfig from "eslint-config-prettier";
 import compat_plugin from "eslint-plugin-compat";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+import globals from "globals";
 
 const eslintConfig = [
   {
@@ -30,16 +26,43 @@ const eslintConfig = [
       "logs-viewer/www",
     ],
   },
-  ...compat.extends("next/core-web-vitals", "next/typescript", "prettier", "next"),
-  compat_plugin.configs["flat/recommended"],
+  ...nextCoreWebVitals,
+  ...nextTypescript,
+  prettierConfig,
+
+  // ----------------------------
+  // APPLICATION CODE (TS/JS/React)
+  // ----------------------------
   {
+    files: ["**/*.{js,jsx,ts,tsx}"],
+    languageOptions: {
+      parser: typescriptParser,
+      parserOptions: {
+        sourceType: "module",
+        ecmaFeatures: { jsx: true },
+      },
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
+    plugins: {
+      "@typescript-eslint": tsPlugin,
+      compat: compat_plugin,
+    },
     rules: {
       "@typescript-eslint/no-unused-vars": "error",
-
-      // nhsuk-frontend: https://github.com/nhsuk/nhsuk-frontend/blob/main/docs/contributing/browser-support.md
-      // Ref: https://github.com/nhsuk/nhsuk-frontend/blob/main/packages/nhsuk-frontend/.browserslistrc
-      // supported browsers are listed in package.json
       "compat/compat": "warn",
+    },
+  },
+
+  // Node-only files
+  {
+    files: ["*.config.mjs", "*.config.ts", "*.setup.ts", "esbuild.config.mjs"],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
     },
   },
 
@@ -49,7 +72,6 @@ const eslintConfig = [
     languageOptions: {
       parserOptions: {
         project: true,
-        tsconfigRootDir: __dirname,
       },
     },
     rules: {
@@ -57,9 +79,44 @@ const eslintConfig = [
     },
   },
 
-  // Override for test files: turn off compat
+  // ----------------------------
+  // TEST FILES
+  // ----------------------------
+
   {
     files: ["**/*.test.{js,jsx,ts,tsx}", "**/*.spec.{js,jsx,ts,tsx}", "test-data/**"],
+    languageOptions: {
+      parser: typescriptParser,
+      parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+        ecmaFeatures: { jsx: true },
+      },
+      globals: {
+        ...globals.jest,
+        ...globals.node,
+        ...globals.browser,
+      },
+    },
+    plugins: {
+      compat: compat_plugin,
+    },
+    rules: {
+      "compat/compat": "off",
+    },
+  },
+  // Override for server-only files: browser compat is irrelevant for code that runs in Node.js
+  {
+    files: [
+      "src/_lambda/**",
+      "src/app/api/**",
+      "src/services/**",
+      "src/utils/auth/apim/**",
+      "src/utils/auth/callbacks/**",
+      "src/utils/auth/generate-auth-payload.ts",
+      "src/utils/auth/get-jwt-token.ts",
+      "src/utils/auth/pem-to-crypto-key.ts",
+    ],
     rules: {
       "compat/compat": "off",
     },

@@ -10,7 +10,7 @@ variable "prefix" {
 
 variable "nodejs_version" {
   type        = string
-  description = "Version of the nodejs to use, e.g. 'nodejs22.x'"
+  description = "Version of the nodejs to use, e.g. 'nodejs24.x'"
 }
 
 variable "open-next-path" {

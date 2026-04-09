@@ -1,6 +1,7 @@
 import { retrieveApimCredentials } from "@src/utils/auth/apim/get-apim-access-token";
 import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import config from "@src/utils/config";
+import { asyncLocalStorage } from "@src/utils/requestContext";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { JWT } from "next-auth/jwt";
 
@@ -19,16 +20,13 @@ describe("getOrRefreshApimCredentials", () => {
   });
 
   describe("when AUTH APIM is available", () => {
-    const oldNEXT_RUNTIME = process.env.NEXT_RUNTIME;
-
-    mockedConfig.IS_APIM_AUTH_ENABLED = Promise.resolve(true);
-
     const nowInSeconds = 1749052001;
 
     beforeEach(() => {
+      mockedConfig.IS_APIM_AUTH_ENABLED = Promise.resolve(true);
+
       jest.clearAllMocks();
       jest.useFakeTimers().setSystemTime(nowInSeconds * 1000);
-      process.env.NEXT_RUNTIME = "nodejs";
     });
 
     beforeEach(async () => {
@@ -40,11 +38,39 @@ describe("getOrRefreshApimCredentials", () => {
 
     afterEach(() => {
       jest.resetAllMocks();
-      process.env.NEXT_RUNTIME = oldNEXT_RUNTIME;
     });
 
     afterAll(() => {
       jest.useRealTimers();
+    });
+
+    describe("when running in proxy context", () => {
+      it("should return existing APIM creds without making any APIM call", async () => {
+        const token = {
+          apim: { access_token: "existing-token", expires_at: nowInSeconds + 600 },
+          nhs_login: { id_token: "id-token" },
+        } as JWT;
+
+        const result = await asyncLocalStorage.run(
+          { traceId: "traceId", nextUrl: "", sessionId: "sessionId", isProxy: true },
+          () => getOrRefreshApimCredentials(token, nowInSeconds),
+        );
+
+        expect(result).toEqual({ accessToken: "existing-token", expiresAt: nowInSeconds + 600 });
+        expect(retrieveApimCredentials).not.toHaveBeenCalled();
+      });
+
+      it("should return undefined without making any APIM call when no existing creds on token", async () => {
+        const token = { apim: {}, nhs_login: { id_token: "id-token" } } as JWT;
+
+        const result = await asyncLocalStorage.run(
+          { traceId: "traceId", nextUrl: "", sessionId: "sessionId", isProxy: true },
+          () => getOrRefreshApimCredentials(token, nowInSeconds),
+        );
+
+        expect(result).toBeUndefined();
+        expect(retrieveApimCredentials).not.toHaveBeenCalled();
+      });
     });
 
     it("should return undefined and logs error if token does not contain id_token", async () => {
@@ -110,39 +136,14 @@ describe("getOrRefreshApimCredentials", () => {
         expiresAt: nowInSeconds + 600,
       });
     });
-
-    describe("when invoked from Edge runtime", () => {
-      it("should return stored APIM creds without checking expiry", async () => {
-        process.env.NEXT_RUNTIME = "edge";
-        const token = {
-          apim: { access_token: "stored-access-token", expires_at: 88 },
-          nhs_login: { id_token: "id-token" },
-        } as JWT;
-
-        const result = await getOrRefreshApimCredentials(token, nowInSeconds);
-
-        expect(result).toEqual({
-          accessToken: "stored-access-token",
-          expiresAt: 88,
-        });
-      });
-
-      it("should return undefined if APIM creds empty", async () => {
-        process.env.NEXT_RUNTIME = "edge";
-        const token = { apim: {}, nhs_login: { id_token: "id-token" } } as JWT;
-
-        const result = await getOrRefreshApimCredentials(token, nowInSeconds);
-        expect(result).toBeUndefined();
-      });
-    });
   });
 
-  describe("when AUTH APIM is not available", () => {
-    mockedConfig.IS_APIM_AUTH_ENABLED = Promise.resolve(true);
-
+  describe("when AUTH APIM is not enabled", () => {
     const nowInSeconds = 1749052001;
 
     beforeEach(() => {
+      mockedConfig.IS_APIM_AUTH_ENABLED = Promise.resolve(false);
+
       jest.clearAllMocks();
       jest.useFakeTimers().setSystemTime(nowInSeconds * 1000);
     });
@@ -155,7 +156,7 @@ describe("getOrRefreshApimCredentials", () => {
       jest.useRealTimers();
     });
 
-    it("should return undefined if APIM auth is not enabled", async () => {
+    it("should return undefined", async () => {
       const token = { apim: {}, nhs_login: { id_token: "id-token" } } as JWT;
 
       const result = await getOrRefreshApimCredentials(token, nowInSeconds);

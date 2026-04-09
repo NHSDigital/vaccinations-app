@@ -4,6 +4,7 @@ export type RequestContext = {
   traceId: string;
   nextUrl: string;
   sessionId: string;
+  isProxy?: boolean;
 };
 
 const asyncLocalStorage = new AsyncLocalStorage<RequestContext>();

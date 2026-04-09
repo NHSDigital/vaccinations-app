@@ -41,12 +41,12 @@ export default defineConfig({
       ["html"],
       [
         "@estruyf/github-actions-reporter",
-        <GitHubActionOptions>{
+        {
           title: "E2E Test Results",
           useDetails: true,
           showError: true,
           showTags: false,
-        },
+        } as GitHubActionOptions,
       ],
     ]
     : "html",

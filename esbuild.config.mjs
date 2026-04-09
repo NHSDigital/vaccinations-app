@@ -31,7 +31,7 @@ const buildLambda = async () => {
     minify: true,
     platform: "node",
     jsx: "automatic",
-    target: "node22",
+    target: "node24",
     external: ["./xhr-sync-worker.js"],
     outfile: `${OUTPUT_DIR}/lambda.js`,
   });
