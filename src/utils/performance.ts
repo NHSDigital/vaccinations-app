@@ -6,25 +6,25 @@ const isPerformanceProfilingEnabled = process.env.PROFILE_PERFORMANCE === "true"
 const isInfoLogLevel = process.env.PINO_LOG_LEVEL === "info";
 
 const profilePerformanceStart = (markerName: string) => {
-  if (isPerformanceProfilingEnabled) {
-    performance.mark(`${markerName}`);
-  }
+  // if (isPerformanceProfilingEnabled) {
+  //   performance.mark(`${markerName}`);
+  // }
 };
 
 const profilePerformanceEnd = (markerName: string) => {
-  if (isPerformanceProfilingEnabled) {
-    const measurement = performance.measure(`${markerName}-latency`, markerName);
-    const message = {
-      marker: measurement.name,
-      startTimestamp: measurement.startTime,
-      latencyMillis: measurement.duration,
-    };
-    if (isInfoLogLevel) {
-      log.info({ context: { message } }, "performance profile");
-    } else {
-      log.warn({ context: { message } }, "performance profile");
-    }
-  }
+  // if (isPerformanceProfilingEnabled) {
+  //   const measurement = performance.measure(`${markerName}-latency`, markerName);
+  //   const message = {
+  //     marker: measurement.name,
+  //     startTimestamp: measurement.startTime,
+  //     latencyMillis: measurement.duration,
+  //   };
+  //   if (isInfoLogLevel) {
+  //     log.info({ context: { message } }, "performance profile");
+  //   } else {
+  //     log.warn({ context: { message } }, "performance profile");
+  //   }
+  // }
 };
 
 export { profilePerformanceStart, profilePerformanceEnd };

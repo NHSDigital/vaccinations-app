@@ -18,7 +18,7 @@ export function ClientProviders({ children }: Readonly<{ children: React.ReactNo
   // But not too less to avoid frequent polling.
   // One needs to also account for the polling request latency (assume 5 sec).
   // Update: setting to 60s to mitigate APIM token expiry issue, see VIA-254
-  const SESSION_REFETCH_SECONDS = 60;
+  const SESSION_REFETCH_SECONDS = 1;
 
   return (
     <BrowserContextProvider>

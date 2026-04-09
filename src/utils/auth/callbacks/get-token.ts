@@ -11,6 +11,7 @@ import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import { cookies, headers } from "next/headers";
 import { Logger } from "pino";
+import { SIGNOUT_FLAG_COOKIE_NAME } from "@src/utils/constants";
 
 const log: Logger = logger.child({ module: "utils-auth-callbacks-get-token" });
 
@@ -33,6 +34,13 @@ const getToken = async (
   const requestContext: RequestContext = extractRequestContextFromHeadersAndCookies(headerValues, requestCookies);
 
   return await asyncLocalStorage.run(requestContext, async () => {
+    // VIA-942 todo: sort this silly boolean/string thing
+    if(requestCookies?.get(SIGNOUT_FLAG_COOKIE_NAME)?.value === "true") {
+      log.info("getToken: User has recently been signed out. Returning null");
+      // VIA-942 TODO: confirm if the set cookie directive is skipped at this point or if it does just set them again
+      return null;
+    }
+
     if (!token) {
       log.error("getToken: No token available in jwt callback. Returning null");
       return null;

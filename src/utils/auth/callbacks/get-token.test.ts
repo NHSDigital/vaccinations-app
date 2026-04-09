@@ -12,6 +12,7 @@ import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { cookies, headers } from "next/headers";
+import { SIGNOUT_FLAG_COOKIE_NAME } from "@src/utils/constants";
 
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
@@ -197,6 +198,30 @@ describe("getToken", () => {
         maxAgeInSeconds,
       );
     });
+
+    it("should not return session if signout cookie indicates user has recently signed out", async () => {
+      const mockSignOutCookie = {
+        name: SIGNOUT_FLAG_COOKIE_NAME,
+        value: "true"
+      }
+
+      const fakeRequestCookies: ReadonlyRequestCookies = {
+        get(name: string): RequestCookie | undefined {
+          if(name === SIGNOUT_FLAG_COOKIE_NAME) return mockSignOutCookie
+          else return {
+            name: `fake-${name}-name`,
+            value: `fake-${name}-value`,
+          };
+        },
+      } as ReadonlyRequestCookies;
+      (cookies as jest.Mock).mockResolvedValue(fakeRequestCookies);
+
+      const token = { apim: {}, nhs_login: { id_token: "id-token" } } as JWT;
+      const maxAgeInSeconds = 600 as MaxAgeInSeconds;
+
+      const result = await getToken(token, account, profile, maxAgeInSeconds);
+      expect(result).toBeNull();
+    });
   });
 
   describe("when AUTH APIM is not available", () => {
@@ -221,6 +246,30 @@ describe("getToken", () => {
         0,
         maxAgeInSeconds,
       );
+    });
+
+    it("should not return session if signout cookie indicates user has recently signed out", async () => {
+      const mockSignOutCookie = {
+        name: SIGNOUT_FLAG_COOKIE_NAME,
+        value: "true"
+      }
+
+      const fakeRequestCookies: ReadonlyRequestCookies = {
+        get(name: string): RequestCookie | undefined {
+          if(name === SIGNOUT_FLAG_COOKIE_NAME) return mockSignOutCookie
+          else return {
+            name: `fake-${name}-name`,
+            value: `fake-${name}-value`,
+          };
+        },
+      } as ReadonlyRequestCookies;
+      (cookies as jest.Mock).mockResolvedValue(fakeRequestCookies);
+
+      const token = { apim: {}, nhs_login: { id_token: "id-token" } } as JWT;
+      const maxAgeInSeconds = 600 as MaxAgeInSeconds;
+
+      const result = await getToken(token, account, profile, maxAgeInSeconds);
+      expect(result).toBeNull();
     });
   });
 
