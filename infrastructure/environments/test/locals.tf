@@ -11,7 +11,7 @@ locals {
   deploy_workspace          = var.is_github_action ? "gh" : terraform.workspace
   prefix                    = "${local.deploy_workspace}-${local.project_identifier_shortcode}-${data.aws_caller_identity.current.account_id}"
   open_next_path            = "../../../.open-next"
-  node_version              = "nodejs22.x"
+  node_version              = "nodejs24.x"
   log_retention_in_days     = 30
   cache_lambda_zip_path     = "../../../lambda.zip"
   content_cache_bucket_name = "${local.prefix}-content-cache"

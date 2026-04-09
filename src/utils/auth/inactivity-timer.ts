@@ -12,10 +12,9 @@ const useInactivityTimer = (warningTimeMs: number = WARNING_TIME_MS, logoutTimeM
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const warningRef = useRef<NodeJS.Timeout | null>(null);
 
-  const resetTimer = useCallback(() => {
+  const startTimers = useCallback(() => {
     clearTimeout(timerRef?.current ?? undefined);
     clearTimeout(warningRef?.current ?? undefined);
-    setIsIdle(false);
 
     warningRef.current = setTimeout(() => {
       setIsIdle(true);
@@ -26,10 +25,15 @@ const useInactivityTimer = (warningTimeMs: number = WARNING_TIME_MS, logoutTimeM
     }, logoutTimeMs);
   }, [warningTimeMs, logoutTimeMs]);
 
+  const resetTimer = useCallback(() => {
+    setIsIdle(false);
+    startTimers();
+  }, [startTimers]);
+
   useEffect(() => {
     ACTIVITY_EVENTS.forEach((event) => window.addEventListener(event, resetTimer));
 
-    resetTimer(); // Start timer on component mount
+    startTimers(); // Start timer on component mount
 
     // Stop timer on component unmount
     return () => {
@@ -37,7 +41,7 @@ const useInactivityTimer = (warningTimeMs: number = WARNING_TIME_MS, logoutTimeM
       clearTimeout(timerRef?.current ?? undefined);
       clearTimeout(warningRef?.current ?? undefined);
     };
-  }, [resetTimer]);
+  }, [resetTimer, startTimers]);
 
   return { isIdle, isTimedOut };
 };

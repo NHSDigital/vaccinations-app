@@ -1,8 +1,7 @@
 import { asyncLocalStorage } from "@src/utils/requestContext";
-import pino, { LogDescriptor, Logger } from "pino";
+import pino, { Logger } from "pino";
 import { SanitizerMode, sanitize } from "sanitize-data";
 
-const isEdgeRuntime = process?.env?.NEXT_RUNTIME === "edge";
 const currentLevel = process.env.PINO_LOG_LEVEL ?? "info";
 
 const REDACT_KEYS: string[] = [
@@ -88,28 +87,4 @@ const pinoLoggerForNode = () => {
   });
 };
 
-const pinoLoggerForEdge = () => {
-  return pino({
-    level: currentLevel,
-    browser: {
-      formatters: formatterWithLevelAsText,
-      write: (logEvent: LogDescriptor) => {
-        logEvent = {
-          ...logEvent,
-          traceId: asyncLocalStorage?.getStore()?.traceId,
-          sessionId: asyncLocalStorage?.getStore()?.sessionId,
-          ...applicationContextFields,
-        };
-        if (logEvent.level === "error") {
-          console.error(logEvent);
-        } else if (logEvent.level === "warn") {
-          console.warn(logEvent);
-        } else {
-          console.log(logEvent);
-        }
-      },
-    },
-  });
-};
-
-export const logger: Logger = isEdgeRuntime ? pinoLoggerForEdge() : pinoLoggerForNode();
+export const logger: Logger = pinoLoggerForNode();
