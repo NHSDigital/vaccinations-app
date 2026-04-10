@@ -31,7 +31,7 @@ runs:
         node-version: ${{ steps.variables.outputs.nodejs_version }}
 
     - name: "Configure AWS credentials"
-      uses: aws-actions/configure-aws-credentials@v5
+      uses: aws-actions/configure-aws-credentials@v6
       with:
         role-session-name: GitHubActionsSession
         role-to-assume: ${{ env.SECRET_IAM_ROLE }}
@@ -39,7 +39,7 @@ runs:
 
     - name: "Cache node modules"
       id: cache-npm
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       env:
         cache-name: cache-node-modules
       with:
@@ -76,7 +76,7 @@ runs:
         echo "::endgroup::"
 
     - name: "Cache Playwright browsers"
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       id: playwright-cache
       with:
         path: ~/.cache/ms-playwright
@@ -126,7 +126,7 @@ runs:
         aws s3 sync --delete ./e2e/snapshot/snapshot_review/ s3://${{ env.AWS_S3_ARTEFACTS_BUCKET }}/playwright/snapshots-for-review/${{ inputs.release_name }}/${{ steps.folder_name_value.outputs.current_datetime }}-${{ inputs.checkout_ref }}/
 
     - name: "Upload report"
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v7
       if: ${{ failure() }}
       with:
         name: playwright-report-snapshot-${{ inputs.release_name }}-${{ steps.folder_name_value.outputs.current_datetime }}-${{ inputs.checkout_ref }}

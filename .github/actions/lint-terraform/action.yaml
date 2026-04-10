@@ -19,7 +19,7 @@ runs:
         echo "terraform_version=$(grep "^terraform" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
 
     - name: "Install Terraform"
-      uses: hashicorp/setup-terraform@v3
+      uses: hashicorp/setup-terraform@v4
       with:
         terraform_version: "${{ steps.identify-terraform-version.outputs.terraform_version }}"
 

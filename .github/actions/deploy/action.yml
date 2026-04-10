@@ -28,7 +28,7 @@ runs:
         path: "code-for-app"
 
     - name: "Configure AWS credentials"
-      uses: aws-actions/configure-aws-credentials@v5
+      uses: aws-actions/configure-aws-credentials@v6
       with:
         role-session-name: GitHubActionsSession
         role-to-assume: ${{ inputs.secret_aws_iam_role }}
@@ -46,7 +46,7 @@ runs:
         echo "terraform_version=$(grep "^terraform" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
 
     - name: "Install Terraform version"
-      uses: hashicorp/setup-terraform@v3
+      uses: hashicorp/setup-terraform@v4
       with:
         terraform_version: "${{ steps.identify-terraform-version.outputs.terraform_version }}"
 
