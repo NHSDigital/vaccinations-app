@@ -69,17 +69,24 @@ export const login = async (browser: Browser, nhsLoginUsername: string): Promise
   }, user.nhsLoginPassword);
   await page.getByRole("button", { name: "Continue" }).click();
 
-  await page.waitForURL(/\/(enter-mobile-code|choose-authentication-method)$/, { timeout: 30000 });
+  await page.waitForURL(/\/(enter-mobile-code|choose-authentication-method)/, { timeout: 30000 });
   if (new URL(page.url()).pathname === "/choose-authentication-method") {
     await page.getByLabel("Use my mobile phone to recieve a security code by text message").click();
     await page.getByRole("button", { name: "Continue" }).click();
   }
 
-  await page.waitForURL("**/enter-mobile-code", { waitUntil: "networkidle", timeout: 30000 });
+  await page.waitForURL(/\/enter-mobile-code/, { waitUntil: "networkidle", timeout: 30000 });
   await page.getByRole("textbox", { name: "Security code" }).evaluate((input: HTMLInputElement, fillText) => {
     input.value = fillText;
     input.dispatchEvent(new Event("input"));
   }, user.nhsLoginOTP);
+  await page.getByRole("button", { name: "Continue" }).click();
+
+  await page.waitForURL(/\/trust-device/, {
+    timeout: 30000,
+  });
+
+  await page.locator("#choose-not-now").click();
   await page.getByRole("button", { name: "Continue" }).click();
 
   if (useFakeAuth) {
