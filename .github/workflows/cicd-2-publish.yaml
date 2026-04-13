@@ -63,7 +63,7 @@ jobs:
           echo "$COMMIT_RANGE" > commit_history.txt
 
       - name: "Create release notes for ${{ github.ref_name }}"
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
