@@ -1,4 +1,3 @@
-import tsPlugin from "@typescript-eslint/eslint-plugin";
 import typescriptParser from "@typescript-eslint/parser";
 import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
 import nextTypescript from "eslint-config-next/typescript";
@@ -47,7 +46,6 @@ const eslintConfig = [
       },
     },
     plugins: {
-      "@typescript-eslint": tsPlugin,
       compat: compat_plugin,
     },
     rules: {
