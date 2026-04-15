@@ -10,11 +10,16 @@ import BackToNHSAppLink from "@src/app/_components/nhs-app/BackToNHSAppLink";
 import MainContent from "@src/app/_components/nhs-frontend/MainContent";
 import { HUB_FEEDBACK_REFERRER_ID, NHS_TITLE_SUFFIX, SERVICE_HEADING } from "@src/app/constants";
 import { AgeBasedHubDetails, AgeBasedHubInfo, AgeGroup } from "@src/models/ageBasedHub";
+import { requestScopedStorageWrapper } from "@src/utils/requestScopedStorageWrapper";
 import { Session } from "next-auth";
 import { redirect } from "next/navigation";
 import React from "react";
 
 const VaccinationsHub = async () => {
+  return await requestScopedStorageWrapper(VaccinationsHubContent);
+};
+
+const VaccinationsHubContent = async () => {
   const session: Session | null = await auth();
   const ageGroup: AgeGroup = session?.user.age_group as AgeGroup;
   if (ageGroup === AgeGroup.UNKNOWN_AGE_GROUP) {

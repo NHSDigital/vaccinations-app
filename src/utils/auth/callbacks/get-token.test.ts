@@ -8,10 +8,6 @@ import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { jwtDecode } from "jwt-decode";
 import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
-import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
-import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
-import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
-import { cookies, headers } from "next/headers";
 
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
@@ -19,11 +15,6 @@ jest.mock("@project/auth", () => ({
 
 jest.mock("@src/utils/auth/apim/get-or-refresh-apim-credentials", () => ({
   getOrRefreshApimCredentials: jest.fn(),
-}));
-
-jest.mock("next/headers", () => ({
-  headers: jest.fn(),
-  cookies: jest.fn(),
 }));
 
 jest.mock("jwt-decode");
@@ -63,23 +54,6 @@ describe("getToken", () => {
     jest.clearAllMocks();
     jest.useFakeTimers().setSystemTime(nowInSeconds * 1000);
     process.env.NEXT_RUNTIME = "nodejs";
-
-    const fakeHeaders: ReadonlyHeaders = {
-      get(name: string): string | null {
-        return `fake-${name}-header`;
-      },
-    } as ReadonlyHeaders;
-    (headers as jest.Mock).mockResolvedValue(fakeHeaders);
-
-    const fakeRequestCookies: ReadonlyRequestCookies = {
-      get(name: string): RequestCookie | undefined {
-        return {
-          name: `fake-${name}-name`,
-          value: `fake-${name}-value`,
-        };
-      },
-    } as ReadonlyRequestCookies;
-    (cookies as jest.Mock).mockResolvedValue(fakeRequestCookies);
 
     (jwtDecode as jest.Mock).mockReturnValue({
       jti: "jti_test",

@@ -29,10 +29,12 @@ function getMockRequest(testUrl: string) {
 
   const cookies: RequestCookies = new RequestCookies(headers).set(SESSION_ID_COOKIE_NAME, "session-id-value");
 
+  const nextUrl = new URL(testUrl);
   return {
     nextUrl: {
-      origin: new URL(testUrl).origin,
-      pathname: new URL(testUrl).pathname,
+      origin: nextUrl.origin,
+      pathname: nextUrl.pathname,
+      href: nextUrl.href,
     },
     url: testUrl,
     headers: headers,
@@ -73,6 +75,16 @@ describe("proxy", () => {
 
     const result = await proxy(mockRequest as NextRequest);
     expect(result.status).toBe(200);
+  });
+
+  it("pass add the nextUrl to the request headers for users with active session", async () => {
+    const testUrl = "https://testurl/abc";
+    const mockRequest = getMockRequest(testUrl);
+
+    (auth as jest.Mock).mockResolvedValue({ user: "test" });
+
+    const result = await proxy(mockRequest as NextRequest);
+    expect(result.headers.get("x-middleware-request-nexturl")).toEqual(testUrl);
   });
 
   it("_getHeadersForLogging() contains map of special headers", async () => {

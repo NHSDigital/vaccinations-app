@@ -1,14 +1,11 @@
 # This file is for you! Please, updated to the versions agreed by your team.
-
 terraform 1.14.1
 pre-commit 4.5.0
 vale 3.13.0
 nodejs 24.14.0
 gitleaks 8.30.1
-
 # ==============================================================================
 # The section below is reserved for Docker image versions.
-
 # TODO: Move this section - consider using a different file for the repository template dependencies.
 # docker/ghcr.io/anchore/grype v0.106.0@sha256:f6fa9ac31f97591957edb13b7c7c24fd172cf11b6e2a2df5dd3464ebb8eefefc # SEE: https://github.com/anchore/grype/pkgs/container/grype
 # docker/ghcr.io/anchore/syft v1.41.0@sha256:046f0c3b14e4451a1d0cd2f367ce3ba3bd653cbd23a7749556f46592d0281a0d # SEE: https://github.com/anchore/syft/pkgs/container/syft
