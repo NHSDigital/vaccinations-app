@@ -1,4 +1,6 @@
 import { MarkdownWithStyling } from "@project/src/app/_components/markdown/MarkdownWithStyling";
+import { PharmacyBookingInfo } from "@project/src/app/_components/nbs/PharmacyBookingInfo";
+import { VaccineType } from "@project/src/models/vaccine";
 import EmergencyCareCard from "@src/app/_components/nhs-frontend/EmergencyCareCard";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import UrgentCareCard from "@src/app/_components/nhs-frontend/UrgentCareCard";
@@ -156,6 +158,20 @@ const styleHowToGetSection = (section: VaccinePageSection): StyledPageSection =>
   return styleSection(section);
 };
 
+const styleHowToGetSectionForRSV = (section: VaccinePageSection): StyledPageSection => {
+  const [olderAdultsSubsection, careHomeSubsection] = section.subsections;
+
+  const styledComponent = (
+    <>
+      {styleSubsection(olderAdultsSubsection, 0, false)}
+      <PharmacyBookingInfo vaccineType={VaccineType.RSV} />
+      {styleSubsection(careHomeSubsection, 1, true)}
+    </>
+  );
+
+  return { heading: section.headline, component: styledComponent };
+};
+
 function styleCallout(callout: HeadingWithTypedContent | undefined): StyledPageSection | undefined {
   if (callout) {
     switch (callout?.contentType) {
@@ -198,7 +214,10 @@ function styleRecommendation(recommendation: HeadingWithContent | undefined): St
   return undefined;
 }
 
-const getStyledContentForVaccine = async (filteredContent: VaccinePageContent): Promise<StyledVaccineContent> => {
+const getStyledContentForVaccine = async (
+  filteredContent: VaccinePageContent,
+  vaccineType: VaccineType,
+): Promise<StyledVaccineContent> => {
   const overview: Overview | undefined = filteredContent.overview;
   const callout: StyledPageSection | undefined = styleCallout(filteredContent.callout);
   let additionalInformation: StyledPageSection | undefined;
@@ -214,7 +233,11 @@ const getStyledContentForVaccine = async (filteredContent: VaccinePageContent): 
     whatVaccineIsFor = styleSection(filteredContent.whatVaccineIsFor);
   }
   const whoVaccineIsFor: StyledPageSection = styleSection(filteredContent.whoVaccineIsFor);
-  const howToGetVaccine: StyledPageSection = styleHowToGetSection(filteredContent.howToGetVaccine);
+  const howToGetVaccine: StyledPageSection =
+    vaccineType === VaccineType.RSV
+      ? styleHowToGetSectionForRSV(filteredContent.howToGetVaccine)
+      : styleHowToGetSection(filteredContent.howToGetVaccine);
+
   const vaccineSideEffects: StyledPageSection = styleSection(filteredContent.vaccineSideEffects);
   let extraDosesSchedule;
   if (filteredContent.extraDosesSchedule) {

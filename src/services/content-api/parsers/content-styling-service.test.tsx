@@ -28,6 +28,10 @@ jest.mock("@project/src/app/_components/markdown/MarkdownWithStyling", () => ({
   MarkdownWithStyling: jest.fn(),
 }));
 
+jest.mock("@src/app/_components/nbs/PharmacyBookingInfo", () => ({
+  PharmacyBookingInfo: () => <div>Pharmacy Booking Info</div>,
+}));
+
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 jest.mock("cheerio", () => ({
   load: jest.fn(() => {
@@ -70,7 +74,7 @@ describe("ContentStylingService", () => {
 
   const mockHowToGetMarkdownSubsection: VaccinePageSubsection = {
     type: "simpleElement",
-    text: "<p>para</p><h3>If you're aged 75 to 79</h3><p>para1</p><p>para2</p><h3>If you're pregnant</h3><p>para3</p><p>para4</p>",
+    text: "<p>para</p><h3>If you're aged 75 or over</h3><p>para1</p><p>para2</p><h3>If you live in a care home for older adults</h3><p>para3</p><p>para4</p><h3>If you're pregnant</h3><p>para5</p><p>para6</p>",
     name: "markdown",
     headline: "How To Get Headline",
   };
@@ -334,40 +338,80 @@ describe("ContentStylingService", () => {
       additionalInformation: mockAdditionalInformationSection,
     };
 
-    it.each(Object.values(VaccineType))("should return styled content for %s", async () => {
-      const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(mockContent);
-
+    const assertCommonStyledSections = (
+      styledVaccineContent: StyledVaccineContent,
+      expectedHowToGetHeadline: string,
+    ) => {
       expect(styledVaccineContent).not.toBeNull();
       expect(styledVaccineContent.overview).toEqual(mockContent.overview);
       expect(styledVaccineContent.whatVaccineIsFor?.heading).toEqual(mockWhatSection.headline);
       expect(styledVaccineContent.whoVaccineIsFor.heading).toEqual(mockWhoSection.headline);
-      expect(styledVaccineContent.howToGetVaccine.heading).toEqual(mockHowSection.headline);
+      expect(styledVaccineContent.howToGetVaccine.heading).toEqual(expectedHowToGetHeadline);
       expect(styledVaccineContent.vaccineSideEffects.heading).toEqual(mockSideEffectsSection.headline);
       expect(styledVaccineContent.extraDosesSchedule?.heading).toEqual(mockExtraDosesScheduleSection.headline);
       expect(styledVaccineContent.callout?.heading).toEqual(mockCallout.heading);
       expect(styledVaccineContent.recommendation?.heading).toEqual(mockRecommendation.heading);
       expect(styledVaccineContent.additionalInformation?.heading).toEqual(mockAdditionalInformationSection.headline);
 
-      const expectedGenericVaccineHowToGetSection =
-        "<div class=\"zeroMarginBottom\"><h3>How To Get Headline</h3><p>para</p><h3>If you're aged 75 to 79</h3><p>para1</p><p>para2</p><h3>If you're pregnant</h3><p>para3</p><p>para4</p></div>";
-      const { container } = render(styledVaccineContent.howToGetVaccine.component);
-      expect(container.innerHTML).toBe(expectedGenericVaccineHowToGetSection);
-
       expect(isValidElement(styledVaccineContent.whatVaccineIsFor?.component)).toBe(true);
       expect(isValidElement(styledVaccineContent.whoVaccineIsFor.component)).toBe(true);
       expect(isValidElement(styledVaccineContent.howToGetVaccine.component)).toBe(true);
       expect(isValidElement(styledVaccineContent.vaccineSideEffects.component)).toBe(true);
-
       expect(isValidElement(styledVaccineContent.additionalInformation?.component)).toBe(true);
       expect(styledVaccineContent.webpageLink).toEqual(new URL("https://test.example.com/"));
+    };
+
+    it.each(Object.values(VaccineType).filter((t) => t !== VaccineType.RSV))(
+      "should return styled content for %s",
+      async (vaccineType) => {
+        const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(mockContent, vaccineType);
+
+        assertCommonStyledSections(styledVaccineContent, mockHowSection.headline);
+
+        const expectedGenericVaccineHowToGetSection =
+          "<div class=\"zeroMarginBottom\"><h3>How To Get Headline</h3><p>para</p><h3>If you're aged 75 or over</h3><p>para1</p><p>para2</p><h3>If you live in a care home for older adults</h3><p>para3</p><p>para4</p><h3>If you're pregnant</h3><p>para5</p><p>para6</p></div>";
+        const { container } = render(styledVaccineContent.howToGetVaccine.component);
+        expect(container.innerHTML).toBe(expectedGenericVaccineHowToGetSection);
+      },
+    );
+
+    it("should return styled content for RSV with PharmacyBookingInfo between older adults and care home subsections", async () => {
+      const mockRsvOlderAdultsSubsection: VaccinePageSubsection = {
+        type: "simpleElement",
+        headline: "",
+        name: "markdown",
+        text: "<h3>If you're aged 75 or over</h3><p>para1</p><p>para2</p>",
+      };
+      const mockRsvCareHomeSubsection: VaccinePageSubsection = {
+        type: "simpleElement",
+        headline: "",
+        name: "markdown",
+        text: "<h3>If you live in a care home for older adults</h3><p>para3</p><p>para4</p>",
+      };
+      const mockRsvHowSection: VaccinePageSection = {
+        headline: "How to get this Vaccine",
+        subsections: [mockRsvOlderAdultsSubsection, mockRsvCareHomeSubsection],
+      };
+      const mockRsvContent: VaccinePageContent = { ...mockContent, howToGetVaccine: mockRsvHowSection };
+
+      const styledVaccineContent = await getStyledContentForVaccine(mockRsvContent, VaccineType.RSV);
+
+      assertCommonStyledSections(styledVaccineContent, mockRsvHowSection.headline);
+
+      const expectedRsvHowToGetSection =
+        '<div><h3>If you\'re aged 75 or over</h3><p>para1</p><p>para2</p></div><div>Pharmacy Booking Info</div><div class="zeroMarginBottom"><h3>If you live in a care home for older adults</h3><p>para3</p><p>para4</p></div>';
+      const { container } = render(styledVaccineContent.howToGetVaccine.component);
+      expect(container.innerHTML).toBe(expectedRsvHowToGetSection);
     });
 
     it("should return styled content without what-section when what-section is missing", async () => {
       const mockContentWithoutWhatSection = { ...mockContent };
       delete mockContentWithoutWhatSection.whatVaccineIsFor;
 
-      const styledVaccineContent: StyledVaccineContent =
-        await getStyledContentForVaccine(mockContentWithoutWhatSection);
+      const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
+        mockContentWithoutWhatSection,
+        VaccineType.COVID_19,
+      );
 
       expect(styledVaccineContent).not.toBeNull();
       expect(styledVaccineContent.overview).toEqual({ content: "This is an overview", containsHtml: false });
@@ -384,6 +428,7 @@ describe("ContentStylingService", () => {
 
       const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
         mockContentWithoutRecommendation,
+        VaccineType.COVID_19,
       );
 
       expect(styledVaccineContent.recommendation).toBeUndefined();
@@ -395,6 +440,7 @@ describe("ContentStylingService", () => {
 
       const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
         mockContentWithoutAdditionalInformation,
+        VaccineType.COVID_19,
       );
 
       expect(styledVaccineContent.additionalInformation).toBeUndefined();
@@ -406,6 +452,7 @@ describe("ContentStylingService", () => {
 
       const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
         mockContentWithoutExtraDosesSchedule,
+        VaccineType.COVID_19,
       );
 
       expect(styledVaccineContent.extraDosesSchedule).toBeUndefined();

@@ -76,7 +76,7 @@ describe("Content Filter Service Regex", () => {
 
   it("should extract how to get section text for Rsv Older Adults", async () => {
     const expectedHowToGetContentRsvOlderAdults =
-      "<p>If you're aged 75 to 79 (or turned 80 after 1 September 2024) contact your GP surgery to book your RSV vaccination.</p><p>Your GP surgery may contact you about getting the RSV vaccine. This may be by letter, text, phone call or email.</p><p>You do not need to wait to be contacted before booking your vaccination.</p>";
+      "<h3>If you're aged 75 or over</h3><p>Contact your GP surgery to book your RSV vaccination.</p><p>Your GP surgery may contact you about getting the RSV vaccine. This may be by letter, text, phone call or email.</p><p>You do not need to wait to be contacted before booking your vaccination.</p>";
 
     const defaultConfig = configBuilder().withContentCachePath("wiremock/__files/").build();
     Object.assign(mockedConfig, defaultConfig);

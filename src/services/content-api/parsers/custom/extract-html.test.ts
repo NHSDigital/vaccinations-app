@@ -1,6 +1,6 @@
 import { VaccinePageSubsection } from "../../types";
 import { ContentParsingError } from "./exceptions";
-import { extractHtmlFromSubSectionByHeading } from "./extract-html";
+import { extractHtmlFromSubSectionByHeading, extractHtmlWithHeadingFromSubSectionByHeading } from "./extract-html";
 
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
@@ -54,6 +54,59 @@ describe("extract-html", () => {
       };
       expect(() => {
         extractHtmlFromSubSectionByHeading(subSectionWithoutSimpleElement, rsvInPregnancyRegExp);
+      }).toThrow(ContentParsingError);
+    });
+  });
+
+  describe("extractHtmlWithHeadingFromSubSectionByHeading", () => {
+    const olderAdultsRegExp: RegExp = /<h3>If you're aged \d+ or over<\/h3>((?:\s*<p>.*?<\/p>)+)/i;
+
+    const subSection: VaccinePageSubsection = {
+      type: "simpleElement",
+      headline: "",
+      text: "<p>Intro.</p><h3>If you're aged 75 or over</h3><p>Para one.</p><p>Para two.</p><h3>If you're pregnant</h3><p>Pregnancy para.</p>",
+      name: "markdown",
+    };
+
+    it("should return the heading and paragraphs when matching section header is found", () => {
+      const expectedExtractedHtml = "<h3>If you're aged 75 or over</h3><p>Para one.</p><p>Para two.</p>";
+
+      const extractedHtml = extractHtmlWithHeadingFromSubSectionByHeading(subSection, olderAdultsRegExp);
+
+      expect(extractedHtml).toEqual(expectedExtractedHtml);
+    });
+
+    it("throws ContentParsingError if no heading matching section heading is found", () => {
+      const subSectionWithNoMatchingHeader: VaccinePageSubsection = {
+        ...subSection,
+        text: "<p>Intro.</p><h3>If you're pregnant</h3><p>Pregnancy para.</p>",
+      };
+
+      expect(() => {
+        extractHtmlWithHeadingFromSubSectionByHeading(subSectionWithNoMatchingHeader, olderAdultsRegExp);
+      }).toThrow(ContentParsingError);
+    });
+
+    it("throws ContentParsingError if no paragraphs found for section heading", () => {
+      const subSectionWithNoParagraphs: VaccinePageSubsection = {
+        ...subSection,
+        text: "<p>Intro.</p><h3>If you're aged 75 or over</h3><h3>If you're pregnant</h3><p>Pregnancy para.</p>",
+      };
+
+      expect(() => {
+        extractHtmlWithHeadingFromSubSectionByHeading(subSectionWithNoParagraphs, olderAdultsRegExp);
+      }).toThrow(ContentParsingError);
+    });
+
+    it("throws ContentParsingError if type is not 'simpleElement'", () => {
+      const subSectionWithoutSimpleElement: VaccinePageSubsection = {
+        type: "tableElement",
+        name: "",
+        mainEntity: "",
+      };
+
+      expect(() => {
+        extractHtmlWithHeadingFromSubSectionByHeading(subSectionWithoutSimpleElement, olderAdultsRegExp);
       }).toThrow(ContentParsingError);
     });
   });
