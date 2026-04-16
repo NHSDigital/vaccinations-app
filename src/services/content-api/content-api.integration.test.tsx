@@ -58,3 +58,33 @@ describe("Content API Read Integration Test ", () => {
     }));
   });
 });
+
+describe("Content Filter Service Regex", () => {
+  it("should extract how to get section text for Rsv Pregancy", async () => {
+    const expectedHowToGetContentRsvPregnancy =
+      '<h3>How to get the vaccine</h3><p>You should be offered the RSV vaccine around the time of your 28-week antenatal appointment.</p><p>Getting vaccinated as soon as possible from 28 weeks will provide the best protection for your baby. But the vaccine can be given later if needed, including up until you go into labour.</p><p>Speak to your maternity service or GP surgery if you\'re 28 weeks pregnant or more and have not been offered the vaccine.</p><p>In some areas you can also <a href="/api/sso-to-nbs?vaccine=rsv">book an RSV vaccination in a pharmacy</a>.</p>';
+
+    const defaultConfig = configBuilder().withContentCachePath("wiremock/__files/").build();
+    Object.assign(mockedConfig, defaultConfig);
+
+    const { styledVaccineContent }: GetContentForVaccineResponse = await getContentForVaccine(
+      VaccineType.RSV_PREGNANCY,
+    );
+
+    expect(styledVaccineContent?.overviewConclusion?.content).toBe(expectedHowToGetContentRsvPregnancy);
+  });
+
+  it("should extract how to get section text for Rsv Older Adults", async () => {
+    const expectedHowToGetContentRsvOlderAdults =
+      "<h3>If you're aged 75 or over</h3><p>Contact your GP surgery to book your RSV vaccination.</p><p>Your GP surgery may contact you about getting the RSV vaccine. This may be by letter, text, phone call or email.</p><p>You do not need to wait to be contacted before booking your vaccination.</p>";
+
+    const defaultConfig = configBuilder().withContentCachePath("wiremock/__files/").build();
+    Object.assign(mockedConfig, defaultConfig);
+
+    const { styledVaccineContent }: GetContentForVaccineResponse = await getContentForVaccine(VaccineType.RSV);
+
+    expect(styledVaccineContent?.howToGetVaccine.component.props.children[0].props.dangerouslySetInnerHTML.__html).toBe(
+      expectedHowToGetContentRsvOlderAdults,
+    );
+  });
+});
