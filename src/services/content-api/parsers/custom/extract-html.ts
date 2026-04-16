@@ -10,7 +10,7 @@ const paragraphsRegExp: RegExp = /<p>.*?<\/p>/g;
 const parseSubSectionMatches = (
   subsection: VaccinePageSubsection,
   sectionHeadingRegEx: RegExp,
-): { fullMatch: string; capturedContent: string; paragraphs: string[] } => {
+): { heading: string; paragraphs: string[] } => {
   if (subsection.type !== "simpleElement") {
     log.warn({ context: { type: subsection.type } }, "HowToGetSubsection element not found");
     throw new ContentParsingError("HowToGetSubsection element not found");
@@ -22,16 +22,18 @@ const parseSubSectionMatches = (
     throw new ContentParsingError("HowToGetSubsection header not found - has the content changed?");
   }
 
-  const paragraphsMatches = sectionMatches[1].match(paragraphsRegExp);
+  const [fullMatch, capturedContent] = sectionMatches;
+
+  const paragraphsMatches = capturedContent.match(paragraphsRegExp);
   if (!paragraphsMatches) {
     log.warn(
-      { context: { text: sectionMatches[1] } },
+      { context: { text: capturedContent } },
       "HowToGetSubsection paragraph not found - has the content changed?",
     );
     throw new ContentParsingError("HowToGetSubsection paragraph not found - has the content changed?");
   }
-
-  return { fullMatch: sectionMatches[0], capturedContent: sectionMatches[1], paragraphs: paragraphsMatches };
+  const heading = fullMatch.slice(0, -capturedContent.length);
+  return { heading, paragraphs: paragraphsMatches };
 };
 
 export const extractHtmlFromSubSectionByHeading = (
@@ -46,7 +48,6 @@ export const extractHtmlWithHeadingFromSubSectionByHeading = (
   subsection: VaccinePageSubsection,
   sectionHeadingRegEx: RegExp,
 ): string => {
-  const { fullMatch, capturedContent, paragraphs } = parseSubSectionMatches(subsection, sectionHeadingRegEx);
-  const headingHtml = fullMatch.slice(0, fullMatch.length - capturedContent.length);
-  return `${headingHtml}${paragraphs.join("")}`;
+  const { heading, paragraphs } = parseSubSectionMatches(subsection, sectionHeadingRegEx);
+  return `${heading}${paragraphs.join("")}`;
 };
