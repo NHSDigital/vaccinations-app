@@ -55,7 +55,7 @@ jobs:
           node-version: ${{ inputs.nodejs_version }}
       - name: Cache node modules
         id: cache-npm
-        uses: actions/cache@v5
+        uses: actions/cache@v5.0.4
         env:
           cache-name: cache-node-modules
         with:
