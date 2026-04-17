@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    /* Language & Environment */
+    "target": "ES2021",
+    "lib": ["DOM", "DOM.Iterable", "ES2021"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    /* Output */
+    "noEmit": true,
+    /* Type Safety */
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    /* Chrome Extension / Browser */
+    "types": ["chrome"],
+    /* Interop & Imports */
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    /* Source Maps (useful for extension debugging) */
+    "sourceMap": true,
+    /* Quality of Life */
+    "useDefineForClassFields": true,
+    "baseUrl": ".",
+    "paths": {
+      "@project/*": ["./*"],
+      "@src/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "process-cli.ts", "vite.config.ts"],
+  "exclude": ["node_modules", "dist", "www"]
+}

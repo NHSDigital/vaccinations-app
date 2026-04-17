@@ -29,5 +29,5 @@
   },
   "types": ["node", "jest", "@testing-library/jest-dom"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts"],
-  "exclude": ["node_modules", "docs", "scripts", ".next", ".open-next"]
+  "exclude": ["node_modules", "docs", "scripts", ".next", ".open-next", "logs-viewer"]
 }
