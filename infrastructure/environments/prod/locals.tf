@@ -50,7 +50,7 @@ locals {
     NBS_URL          = "https://www.nhs.uk/nbs"
     NBS_BOOKING_PATH = "/nhs-app/vita"
 
-    SSM_PARAMETER_STORE_TTL                = 300
+    SECRETS_MANAGER_TTL                    = 300
     PARAMETERS_SECRETS_EXTENSION_LOG_LEVEL = "INFO"
 
     CAMPAIGNS = file("${path.module}/campaigns.json")
