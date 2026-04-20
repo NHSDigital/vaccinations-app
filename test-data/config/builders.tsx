@@ -40,11 +40,6 @@ class ConfigBuilder {
     return this.withDeployEnvironment(value);
   }
 
-  public withSsmPrefix(value: string): this {
-    this._configValues.SSM_PREFIX = value;
-    return this;
-  }
-
   public withNhsAppRedirectLoginUrl(value: URL): this {
     this._configValues.NHS_APP_REDIRECT_LOGIN_URL = value;
     return this;
