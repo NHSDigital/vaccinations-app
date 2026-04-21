@@ -50,7 +50,7 @@ jobs:
       - name: "Checkout code"
         uses: actions/checkout@v6
       - name: "Setup nodejs ${{ inputs.nodejs_version }}"
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v6.3.0
         with:
           node-version: ${{ inputs.nodejs_version }}
       - name: Cache node modules
