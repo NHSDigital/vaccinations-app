@@ -77,7 +77,7 @@ describe("proxy", () => {
     expect(result.status).toBe(200);
   });
 
-  it("pass add the nextUrl to the request headers for users with active session", async () => {
+  it("pass the nextUrl to the request headers for users with active session", async () => {
     const testUrl = "https://testurl/abc";
     const mockRequest = getMockRequest(testUrl);
 
