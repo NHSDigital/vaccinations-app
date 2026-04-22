@@ -67,7 +67,8 @@ If you don't set this header, a random number will be used.
 Start up VitA as normal, then hit [/api/sso](https://localhost:3000/api/sso?assertedLoginIdentity=sausages).
 
 ##### Testing OAuthCallbackError
-To test an OAuthCallbackError within NextAuth set the header `x-test-auth-error=true`. This will simulate an access_denied OAuth Error to the callback url.  
+
+To test an OAuthCallbackError within NextAuth set the header `x-test-auth-error=true`. This will simulate an access_denied OAuth Error to the callback url.
 
 #### Build image for deployment
 
