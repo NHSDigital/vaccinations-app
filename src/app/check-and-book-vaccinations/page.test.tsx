@@ -1,4 +1,5 @@
 import { auth } from "@project/auth";
+import { requestScopedStorageWrapper } from "@project/src/utils/requestScopedStorageWrapper";
 import { useNavigationTransition } from "@src/app/_components/context/NavigationContext";
 import { AgeBasedHubCards } from "@src/app/_components/hub/AgeBasedHubCards";
 import VaccinationsHub from "@src/app/check-and-book-vaccinations/page";
@@ -41,6 +42,10 @@ jest.mock("@src/app/_components/context/NavigationContext", () => ({
   useNavigationTransition: jest.fn(),
 }));
 
+jest.mock("@src/utils/requestScopedStorageWrapper", () => ({
+  requestScopedStorageWrapper: jest.fn().mockImplementation((callback: () => unknown) => callback()),
+}));
+
 (useNavigationTransition as jest.Mock).mockReturnValue({
   navigate: jest.fn(),
   isPending: false,
@@ -57,6 +62,11 @@ const mockSessionDataForAgeGroup = (ageGroup: AgeGroup): Partial<Session> => {
 };
 
 describe("Vaccination Hub Page", () => {
+  it("should wrap the component with requestScopedStorageWrapper", async () => {
+    render(await VaccinationsHub());
+    expect(requestScopedStorageWrapper as jest.Mock).toHaveBeenCalledTimes(1);
+  });
+
   describe("for all ages", () => {
     it.each(Object.entries(AgeGroup))(`renders main heading for %s`, async (ageGroupString, ageGroup) => {
       (auth as jest.Mock).mockResolvedValue(mockSessionDataForAgeGroup(ageGroup));

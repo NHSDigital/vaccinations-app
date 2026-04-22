@@ -19,6 +19,7 @@ export const GET = async (request: NextRequest) => {
 
   const newSessionId = crypto.randomUUID();
   requestContext.sessionId = newSessionId;
+  requestContext.nextUrl = request.nextUrl.pathname;
 
   await asyncLocalStorage.run(requestContext, async () => {
     log.info("SSO route invoked");

@@ -40,3 +40,5 @@ JMeter
 asdf
 nodejs
 [Hh]omebrew
+access_denied
+(?i)url
