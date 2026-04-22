@@ -66,6 +66,9 @@ You can log in as a particular NHS number by setting the header 'x-nhs-number' t
 If you don't set this header, a random number will be used.
 Start up VitA as normal, then hit [/api/sso](https://localhost:3000/api/sso?assertedLoginIdentity=sausages).
 
+##### Testing OAuthCallbackError
+To test an OAuthCallbackError within NextAuth set the header `x-test-auth-error=true`. This will simulate an access_denied OAuth Error to the callback url.  
+
 #### Build image for deployment
 
 For the following steps, you need to have deployed the infrastructure at least once, to get the ALB DNS name.
