@@ -68,7 +68,7 @@ jobs:
           fetch-depth: 0
 
       - name: "Setup nodejs ${{ needs.metadata.outputs.nodejs_version }}"
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v6.3.0
         with:
           node-version: ${{ needs.metadata.outputs.nodejs_version }}
 
@@ -182,7 +182,7 @@ jobs:
           ref: "main"
 
       - name: "Setup nodejs ${{ needs.metadata.outputs.nodejs_version }}"
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v6.3.0
         with:
           node-version: ${{ needs.metadata.outputs.nodejs_version }}
 
