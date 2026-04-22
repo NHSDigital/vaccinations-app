@@ -15,6 +15,7 @@ export async function proxy(request: NextRequest) {
   const requestContext: RequestContext = {
     ...extractRequestContextFromHeadersAndCookies(request?.headers, request?.cookies),
     isProxy: true,
+    nextUrl: request.nextUrl.href,
   };
 
   return await asyncLocalStorage.run(requestContext, () => middlewareWrapper(request));
@@ -28,6 +29,8 @@ const middlewareWrapper = async (request: NextRequest) => {
   );
 
   // Add URL and sessionId to request headers to make available for logging in the nodejs layer
+  // context here does not propagate to the nodejs layer, Server Components extract the nextUrl
+  // from the headers using next/headers(), as they do not have access to the full request object
   const headers = new Headers(request.headers);
   headers.set("nextUrl", request.nextUrl.href);
 
