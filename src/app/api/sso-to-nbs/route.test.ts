@@ -3,7 +3,7 @@ import { VaccineType } from "@src/models/vaccine";
 import { getNbsQueryParams, getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
 import config from "@src/utils/config";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
 jest.mock("@src/utils/config");
@@ -13,7 +13,6 @@ jest.mock("@src/services/nbs/nbs-service", () => ({
 }));
 jest.mock("next/navigation", () => ({
   redirect: jest.fn(),
-  notFound: jest.fn(),
 }));
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
@@ -37,26 +36,26 @@ describe("GET /sso-to-nbs", () => {
     Object.assign(mockedConfig, defaultConfig);
   });
 
-  it("returns 404 if both parameters are missing", async () => {
+  it("redirects to /service-failure if both parameters are missing", async () => {
     const mockRequest = getMockRequest(testUrl);
 
-    await expect404WhenGetCalledWith(mockRequest);
+    await expectServiceFailureWhenGetCalledWith(mockRequest);
   });
 
-  it("returns 404 if vaccine parameter is invalid", async () => {
+  it("redirects to /service-failure if vaccine parameter is invalid", async () => {
     const mockRequest = getMockRequest(testUrl, {
       vaccine: "test",
     });
 
-    await expect404WhenGetCalledWith(mockRequest);
+    await expectServiceFailureWhenGetCalledWith(mockRequest);
   });
 
-  it("returns 404 if vaccine parameter is not an allowed vaccine", async () => {
+  it("redirects to /service-failure if vaccine parameter is not an allowed vaccine", async () => {
     const mockRequest = getMockRequest(testUrl, {
       vaccine: "sausages",
     });
 
-    await expect404WhenGetCalledWith(mockRequest);
+    await expectServiceFailureWhenGetCalledWith(mockRequest);
   });
 
   it("redirects to /sso-failure on getSSOUrlToNBSForVaccine error", async () => {
@@ -94,28 +93,28 @@ describe("GET /sso-to-nbs", () => {
     expect(redirect).toHaveBeenCalledWith(`${redirectTargetUrl}?foo=bar`);
   });
 
-  it("returns 404 if redirectTarget does not start with NBS_URL", async () => {
+  it("redirects to /service-failure if redirectTarget does not start with NBS_URL", async () => {
     const mockRequest = getMockRequest(testUrl, {
       redirectTarget: "https://not-nbs.example.com/some/path",
     });
 
-    await expect404WhenGetCalledWith(mockRequest);
+    await expectServiceFailureWhenGetCalledWith(mockRequest);
   });
 
-  it("returns 404 if redirectTarget parameter is empty", async () => {
+  it("redirects to /service-failure if redirectTarget parameter is empty", async () => {
     const mockRequest = getMockRequest(testUrl, {
       redirectTarget: "",
     });
 
-    await expect404WhenGetCalledWith(mockRequest);
+    await expectServiceFailureWhenGetCalledWith(mockRequest);
   });
 
-  it("returns 404 if redirectTarget parameter is invalid", async () => {
+  it("redirects to /service-failure if redirectTarget parameter is invalid", async () => {
     const mockRequest = getMockRequest(testUrl, {
       redirectTarget: "sausages",
     });
 
-    await expect404WhenGetCalledWith(mockRequest);
+    await expectServiceFailureWhenGetCalledWith(mockRequest);
   });
 
   it("redirects to /sso-failure on getNbsQueryParams error", async () => {
@@ -129,9 +128,8 @@ describe("GET /sso-to-nbs", () => {
     expect(redirect).toHaveBeenCalledWith("/sso-failure");
   });
 
-  const expect404WhenGetCalledWith = async (mockRequest: NextRequest) => {
+  const expectServiceFailureWhenGetCalledWith = async (mockRequest: NextRequest) => {
     await GET(mockRequest);
-    expect(notFound).toHaveBeenCalled();
-    expect(redirect).not.toHaveBeenCalled();
+    expect(redirect).toHaveBeenCalledWith("/service-failure");
   };
 });
