@@ -1,9 +1,12 @@
 import { GET } from "@src/app/api/sso-to-nbs/route";
 import { VaccineType } from "@src/models/vaccine";
 import { getNbsQueryParams, getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
+import config from "@src/utils/config";
+import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { notFound, redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
+jest.mock("@src/utils/config");
 jest.mock("@src/services/nbs/nbs-service", () => ({
   getSSOUrlToNBSForVaccine: jest.fn(),
   getNbsQueryParams: jest.fn(),
@@ -15,6 +18,7 @@ jest.mock("next/navigation", () => ({
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 const testUrl = "https://testurl";
+const nbsBaseUrl = new URL("https://nbs.example.com");
 
 function getMockRequest(testUrl: string, params?: Record<string, string>) {
   return {
@@ -25,8 +29,12 @@ function getMockRequest(testUrl: string, params?: Record<string, string>) {
 }
 
 describe("GET /sso-to-nbs", () => {
+  const mockedConfig = config as ConfigMock;
+
   beforeEach(() => {
     jest.clearAllMocks();
+    const defaultConfig = configBuilder().withNbsUrl(nbsBaseUrl).build();
+    Object.assign(mockedConfig, defaultConfig);
   });
 
   it("returns 404 if both parameters are missing", async () => {
@@ -75,7 +83,7 @@ describe("GET /sso-to-nbs", () => {
   });
 
   it("redirects to target with SSO params when redirectTarget supplied", async () => {
-    const redirectTargetUrl = "https://target.url";
+    const redirectTargetUrl = `${nbsBaseUrl.href}some/path`;
     const mockRequest = getMockRequest(redirectTargetUrl, {
       redirectTarget: redirectTargetUrl,
     });
@@ -83,7 +91,15 @@ describe("GET /sso-to-nbs", () => {
 
     await GET(mockRequest);
     expect(getNbsQueryParams).toHaveBeenCalled();
-    expect(redirect).toHaveBeenCalledWith("https://target.url/?foo=bar");
+    expect(redirect).toHaveBeenCalledWith(`${redirectTargetUrl}?foo=bar`);
+  });
+
+  it("returns 404 if redirectTarget does not start with NBS_URL", async () => {
+    const mockRequest = getMockRequest(testUrl, {
+      redirectTarget: "https://not-nbs.example.com/some/path",
+    });
+
+    await expect404WhenGetCalledWith(mockRequest);
   });
 
   it("returns 404 if redirectTarget parameter is empty", async () => {
@@ -103,7 +119,7 @@ describe("GET /sso-to-nbs", () => {
   });
 
   it("redirects to /sso-failure on getNbsQueryParams error", async () => {
-    const redirectTargetUrl = "https://target.url";
+    const redirectTargetUrl = `${nbsBaseUrl.href}some/path`;
     const mockRequest = getMockRequest(redirectTargetUrl, {
       redirectTarget: redirectTargetUrl,
     });
