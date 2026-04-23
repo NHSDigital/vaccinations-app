@@ -1,3 +1,4 @@
+import { SERVICE_FAILURE_ROUTE } from "@src/app/service-failure/constants";
 import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 import { VaccineType } from "@src/models/vaccine";
 import { getNbsQueryParams, getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
@@ -7,7 +8,7 @@ import { getVaccineTypeFromLowercaseString } from "@src/utils/path";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
 import { extractRequestContextFromHeadersAndCookies } from "@src/utils/requestScopedStorageWrapper";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
 const log = logger.child({ module: "api-sso-to-nbs" });
@@ -19,7 +20,6 @@ export const GET = async (request: NextRequest) => {
   const requestContext: RequestContext = extractRequestContextFromHeadersAndCookies(request?.headers, request?.cookies);
   await asyncLocalStorage.run(requestContext, async () => {
     log.info("SSO-to-NBS jump off route invoked");
-    let shouldReturnNotFound: boolean;
     let finalRedirectUrl: string;
 
     profilePerformanceStart(ApiSSONBSPerformanceMarker);
@@ -27,27 +27,21 @@ export const GET = async (request: NextRequest) => {
     const vaccine: string | null = request.nextUrl.searchParams.get(VACCINE_PARAM);
     if (request.nextUrl.searchParams.has(REDIRECT_TARGET_PARAM)) {
       const rawRedirectTarget = request.nextUrl.searchParams.get(REDIRECT_TARGET_PARAM);
-      ({ finalRedirectUrl, shouldReturnNotFound } = await getGivenRedirectTarget(rawRedirectTarget, vaccine));
+      ({ finalRedirectUrl } = await getGivenRedirectTarget(rawRedirectTarget, vaccine));
     } else {
-      ({ finalRedirectUrl, shouldReturnNotFound } = await getGivenVaccine(vaccine));
+      ({ finalRedirectUrl } = await getGivenVaccine(vaccine));
     }
 
     profilePerformanceEnd(ApiSSONBSPerformanceMarker);
 
-    if (shouldReturnNotFound) {
-      log.info("SSO-to-NBS route returning 404 not found - see warning level logs for additional context");
-      notFound();
-    } else {
-      log.info("NBS SSO setup successful; Redirecting user to NBS");
-      redirect(finalRedirectUrl);
-    }
+    log.info("NBS SSO setup complete; Redirecting user");
+    redirect(finalRedirectUrl);
   });
 };
 
 async function getGivenRedirectTarget(rawRedirectTarget: string | null, vaccine: string | null) {
   log.debug("getGivenRedirectTarget");
-  let shouldReturnNotFound = false;
-  let finalRedirectUrl: string = "";
+  let finalRedirectUrl: string = SERVICE_FAILURE_ROUTE;
   const vaccineType: VaccineType | undefined = vaccine ? getVaccineTypeFromLowercaseString(vaccine) : undefined;
 
   if (rawRedirectTarget) {
@@ -55,9 +49,8 @@ async function getGivenRedirectTarget(rawRedirectTarget: string | null, vaccine:
       const nbsURl = new URL(rawRedirectTarget);
       const configNbsBaseUrl: URL = await config.NBS_URL;
       if (!nbsURl.href.startsWith(configNbsBaseUrl.href)) {
-        log.warn("SSO to NBS but redirectTarget does not start with NBS_URL");
-        shouldReturnNotFound = true;
-        return { finalRedirectUrl, shouldReturnNotFound };
+        log.error("SSO to NBS but redirectTarget does not start with NBS_URL");
+        return { finalRedirectUrl };
       }
       try {
         const nbsQueryParams = await getNbsQueryParams(vaccineType);
@@ -71,19 +64,16 @@ async function getGivenRedirectTarget(rawRedirectTarget: string | null, vaccine:
       }
     } catch (error) {
       log.warn({ error }, "SSO to NBS but with invalid redirectTarget parameter");
-      shouldReturnNotFound = true;
     }
   } else {
     log.warn("SSO to NBS but without a valid redirectTarget parameter");
-    shouldReturnNotFound = true;
   }
-  return { finalRedirectUrl, shouldReturnNotFound };
+  return { finalRedirectUrl };
 }
 
 async function getGivenVaccine(vaccine: string | null) {
   log.debug({ vaccine }, "getGivenVaccine");
-  let shouldReturnNotFound = false;
-  let finalRedirectUrl: string = "";
+  let finalRedirectUrl: string = SERVICE_FAILURE_ROUTE;
   const vaccineType: VaccineType | undefined = vaccine ? getVaccineTypeFromLowercaseString(vaccine) : undefined;
 
   log.debug({ vaccineType }, "getGivenVaccine");
@@ -96,7 +86,6 @@ async function getGivenVaccine(vaccine: string | null) {
     }
   } else {
     log.warn({ context: { vaccine } }, "SSO to NBS but without a valid vaccine parameter");
-    shouldReturnNotFound = true;
   }
-  return { finalRedirectUrl, shouldReturnNotFound };
+  return { finalRedirectUrl };
 }
