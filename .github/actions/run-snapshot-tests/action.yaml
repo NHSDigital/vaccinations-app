@@ -6,7 +6,7 @@ inputs:
     description: "Ref to checkout"
     required: true
   release_name:
-    description: "S3 folder to use for references and storing results ('release1' / 'latest-main-tag')"
+    description: "S3 folder to use for references and storing results ('release2' / 'latest-main-tag')"
     required: true
 
 runs:
