@@ -1,6 +1,7 @@
 import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 import { VaccineType } from "@src/models/vaccine";
 import { getNbsQueryParams, getSSOUrlToNBSForVaccine } from "@src/services/nbs/nbs-service";
+import config from "@src/utils/config";
 import { logger } from "@src/utils/logger";
 import { getVaccineTypeFromLowercaseString } from "@src/utils/path";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
@@ -44,14 +45,20 @@ export const GET = async (request: NextRequest) => {
 };
 
 async function getGivenRedirectTarget(rawRedirectTarget: string | null, vaccine: string | null) {
-  log.debug({ rawRedirectTarget }, "getGivenRedirectTarget");
+  log.debug("getGivenRedirectTarget");
   let shouldReturnNotFound = false;
   let finalRedirectUrl: string = "";
   const vaccineType: VaccineType | undefined = vaccine ? getVaccineTypeFromLowercaseString(vaccine) : undefined;
 
   if (rawRedirectTarget) {
     try {
-      const nbsURl = new URL(decodeURI(rawRedirectTarget ?? ""));
+      const nbsURl = new URL(rawRedirectTarget);
+      const configNbsBaseUrl: URL = await config.NBS_URL;
+      if (!nbsURl.href.startsWith(configNbsBaseUrl.href)) {
+        log.warn("SSO to NBS but redirectTarget does not start with NBS_URL");
+        shouldReturnNotFound = true;
+        return { finalRedirectUrl, shouldReturnNotFound };
+      }
       try {
         const nbsQueryParams = await getNbsQueryParams(vaccineType);
         nbsQueryParams.forEach((param) => {
@@ -59,21 +66,15 @@ async function getGivenRedirectTarget(rawRedirectTarget: string | null, vaccine:
         });
         finalRedirectUrl = nbsURl.href;
       } catch (error) {
-        log.error(
-          { context: { REDIRECT_TARGET_PARAM, rawRedirectTarget }, error },
-          "Error building redirect url for NBS",
-        );
+        log.error({ error }, "Error building redirect url for NBS");
         finalRedirectUrl = SSO_FAILURE_ROUTE;
       }
     } catch (error) {
-      log.warn(
-        { error: error, context: { rawRedirectTarget } },
-        "SSO to NBS but with invalid redirectTarget parameter",
-      );
+      log.warn({ error }, "SSO to NBS but with invalid redirectTarget parameter");
       shouldReturnNotFound = true;
     }
   } else {
-    log.warn({ context: { rawRedirectTarget } }, "SSO to NBS but without a valid redirectTarget parameter");
+    log.warn("SSO to NBS but without a valid redirectTarget parameter");
     shouldReturnNotFound = true;
   }
   return { finalRedirectUrl, shouldReturnNotFound };
