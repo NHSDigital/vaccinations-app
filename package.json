@@ -108,7 +108,7 @@
     "nhsapp-frontend": "^5.0.3",
     "nhsuk-frontend": "^10.4.2",
     "nhsuk-react-components": "^6.0.0",
-    "openid-client": "^6.8.2",
+    "openid-client": "^6.8.3",
     "pino": "^10.3.1",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
