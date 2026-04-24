@@ -30,6 +30,18 @@ export default function RootLayout({
 
         {/* NHS app js - https://nhsconnect.github.io/nhsapp-developer-documentation/js-v2-api-specification/ */}
         <Script src={"https://www.nhsapp.service.nhs.uk/js/v2/nhsapp.js"} strategy="beforeInteractive" />
+        {/* <Script id="push-to-data-layer-script">
+  {`
+    window.adobeDataLayer = window.adobeDataLayer || [];
+    window.adobeDataLayer.push({
+      event: "page view",
+      page: {
+        pageInfo: { pageName: "nhs:vds:check-and-book-vaccinations"},
+        category: { primaryCategory: "vaccinations-home", subCategory1: "subcat1", subCategory2: "subcat2", subCategory3: "subcat3", subCategory4: "subcat4"}
+      }
+    });
+  `}
+</Script>  */}
         <DigitalDataScript />
         <Script
           id="adobe-launch-script"

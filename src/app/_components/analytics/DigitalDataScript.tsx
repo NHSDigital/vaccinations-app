@@ -19,6 +19,7 @@ export const DigitalDataScript = () => {
   // Keep window.digitalData current on every client-side navigation
   useEffect(() => {
     window.digitalData = buildDigitalData(pathname);
+    document.dispatchEvent(new CustomEvent("spa:pageview"));
   }, [pathname]);
 
   return <script id="digital-data-script" dangerouslySetInnerHTML={{ __html: digitalDataScript }} />;
