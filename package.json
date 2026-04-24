@@ -119,6 +119,12 @@
   "overrides": {
     "jsdom": "^26.0.0",
     "glob": "^11.1.0",
-    "fast-xml-parser": "^5.3.6"
+    "fast-xml-parser": "^5.3.6",
+    "micromatch": {
+      "picomatch": "2.3.2"
+    },
+    "anymatch": {
+      "picomatch": "2.3.2"
+    }
   }
 }
