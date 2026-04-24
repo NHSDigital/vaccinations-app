@@ -56,7 +56,7 @@
   },
   "homepage": "https://github.com/NHSDigital/vaccinations-app#readme",
   "devDependencies": {
-    "@axe-core/playwright": "^4.11.0",
+    "@axe-core/playwright": "^4.11.2",
     "@eslint/eslintrc": "^3.3.5",
     "@estruyf/github-actions-reporter": "^1.10.0",
     "@pact-foundation/pact": "^16.2.0",
