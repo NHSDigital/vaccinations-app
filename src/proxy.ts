@@ -1,5 +1,6 @@
 import { auth } from "@project/auth";
 import appConfig from "@src/utils/config";
+import { getHeadersForLogging } from "@src/utils/getHeadersForLogging";
 import { logger } from "@src/utils/logger";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
@@ -24,7 +25,7 @@ export async function proxy(request: NextRequest) {
 const middlewareWrapper = async (request: NextRequest) => {
   profilePerformanceStart(MiddlewarePerformanceMarker);
   log.info(
-    { context: { nextUrl: request.nextUrl.href, headers: _getHeadersForLogging(request) } },
+    { context: { method: request.method, nextUrl: request.nextUrl.href, headers: getHeadersForLogging(request) } },
     "Inspecting request",
   );
 
@@ -48,23 +49,6 @@ const middlewareWrapper = async (request: NextRequest) => {
 
   profilePerformanceEnd(MiddlewarePerformanceMarker);
   return response;
-};
-
-export const _getHeadersForLogging = (request: NextRequest) => {
-  const SAFE_HEADERS = [
-    "cache-control",
-    "cloudfront-is-desktop-viewer",
-    "cloudfront-is-mobile-viewer",
-    "cloudfront-is-tablet-viewer",
-    "referer",
-    "user-agent",
-  ];
-  const headersObj: Record<string, string> = {};
-  SAFE_HEADERS.forEach((header) => {
-    headersObj[header] = request.headers.get(header) ?? "-";
-  });
-
-  return headersObj;
 };
 
 export const config = {

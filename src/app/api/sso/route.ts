@@ -2,6 +2,7 @@ import { signIn } from "@project/auth";
 import { NHS_LOGIN_PROVIDER_ID } from "@src/app/api/auth/[...nextauth]/provider";
 import { SSO_FAILURE_ROUTE } from "@src/app/sso-failure/constants";
 import config from "@src/utils/config";
+import { getHeadersForLogging } from "@src/utils/getHeadersForLogging";
 import { logger } from "@src/utils/logger";
 import { profilePerformanceEnd, profilePerformanceStart } from "@src/utils/performance";
 import { RequestContext, asyncLocalStorage } from "@src/utils/requestContext";
@@ -22,7 +23,12 @@ export const GET = async (request: NextRequest) => {
   requestContext.nextUrl = request.nextUrl.pathname;
 
   await asyncLocalStorage.run(requestContext, async () => {
-    log.info("SSO route invoked");
+    log.info(
+      {
+        context: { method: request.method, pathname: request.nextUrl.pathname, headers: getHeadersForLogging(request) },
+      },
+      "SSO route invoked",
+    );
     const assertedLoginIdentity: string | null = request.nextUrl.searchParams.get(ASSERTED_LOGIN_IDENTITY_PARAM);
 
     const MAX_SESSION_AGE_MILLISECONDS: number = (await config.MAX_SESSION_AGE_MINUTES) * 60 * 1000;

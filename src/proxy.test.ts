@@ -3,7 +3,7 @@
  */
 import { auth } from "@project/auth";
 import { unprotectedUrlPaths } from "@src/app/_components/inactivity/constants";
-import { _getHeadersForLogging, config, proxy } from "@src/proxy";
+import { config, proxy } from "@src/proxy";
 import appConfig from "@src/utils/config";
 import { SESSION_ID_COOKIE_NAME } from "@src/utils/constants";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
@@ -77,7 +77,7 @@ describe("proxy", () => {
     expect(result.status).toBe(200);
   });
 
-  it("pass the nextUrl to the request headers for users with active session", async () => {
+  it("adds the nextUrl to the request headers for users with active session", async () => {
     const testUrl = "https://testurl/abc";
     const mockRequest = getMockRequest(testUrl);
 
@@ -85,15 +85,6 @@ describe("proxy", () => {
 
     const result = await proxy(mockRequest as NextRequest);
     expect(result.headers.get("x-middleware-request-nexturl")).toEqual(testUrl);
-  });
-
-  it("_getHeadersForLogging() contains map of special headers", async () => {
-    const testUrl = "https://nhs-app-redirect-login-url/";
-    const mockRequest = getMockRequest(testUrl);
-
-    expect(_getHeadersForLogging(mockRequest as NextRequest)).toEqual(
-      expect.objectContaining({ referer: "testing", "user-agent": "-" }),
-    );
   });
 
   it.each(unprotectedUrlPaths)("is skipped for unprotected path %s", async (path: string) => {

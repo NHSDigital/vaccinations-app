@@ -2,6 +2,7 @@ import { signIn } from "@project/auth";
 import { GET } from "@src/app/api/sso/route";
 import config from "@src/utils/config";
 import { SESSION_ID_COOKIE_NAME } from "@src/utils/constants";
+import { logger } from "@src/utils/logger";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { ResponseCookie, ResponseCookies } from "next/dist/compiled/@edge-runtime/cookies";
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
@@ -15,7 +16,20 @@ jest.mock("@project/auth", () => ({
 jest.mock("next/navigation", () => ({
   redirect: jest.fn(),
 }));
-jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
+jest.mock("@src/utils/getHeadersForLogging", () => ({
+  getHeadersForLogging: jest.fn().mockReturnValue({ "mock-header": "mock-value" }),
+}));
+jest.mock("@src/utils/logger", () => ({
+  logger: {
+    child: jest.fn().mockReturnValue({
+      info: jest.fn(),
+      warn: jest.fn(),
+      error: jest.fn(),
+      debug: jest.fn(),
+    }),
+  },
+  extractRootTraceIdFromAmznTraceId: jest.fn().mockReturnValue("mock-trace-id"),
+}));
 
 jest.mock("next/headers", () => ({
   headers: jest.fn(),
@@ -34,13 +48,16 @@ const getMockRequest = (testUrl: string, params?: Record<string, string>) => {
     ["X-Clacks-Overhead", "GNU Terry Pratchett"],
     ["referer", "testing"],
   ]);
+  const url = new URL(testUrl);
 
   return {
     nextUrl: {
       searchParams: new URLSearchParams(params),
-      origin: new URL(testUrl).origin,
+      origin: url.origin,
       href: testUrl,
+      pathname: url.pathname,
     },
+    method: "GET",
     headers: headers,
   } as NextRequest;
 };
@@ -48,6 +65,8 @@ const getMockRequest = (testUrl: string, params?: Record<string, string>) => {
 let responseCookies: ResponseCookies;
 
 describe("GET handler", () => {
+  const mockLogInfo = (logger.child as jest.Mock).mock.results[0].value.info as jest.Mock;
+
   beforeEach(() => {
     jest.clearAllMocks();
     jest.useFakeTimers().setSystemTime(mockNowTimeInSeconds * 1000);
@@ -66,6 +85,26 @@ describe("GET handler", () => {
   afterAll(() => {
     randomUUIDSpy.mockRestore();
     jest.useRealTimers();
+  });
+
+  it("logs method, pathname and headers when the route is invoked", async () => {
+    const testUrl = "https://testurl/api/sso";
+    const mockRequest = getMockRequest(testUrl, { assertedLoginIdentity: "test-identity" });
+
+    (signIn as jest.Mock).mockResolvedValue("/some-url");
+
+    await GET(mockRequest);
+
+    expect(mockLogInfo).toHaveBeenCalledWith(
+      expect.objectContaining({
+        context: expect.objectContaining({
+          method: "GET",
+          pathname: "/api/sso",
+          headers: { "mock-header": "mock-value" },
+        }),
+      }),
+      "SSO route invoked",
+    );
   });
 
   it("redirects to sso-failure if assertedLoginIdentity parameter is missing", async () => {
