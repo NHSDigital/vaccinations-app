@@ -54,6 +54,16 @@ const CookiesTable = (): JSX.Element => {
           </td>
           <td className="nhsuk-table__cell nhsuk-table__cell">After 1 hour</td>
         </tr>
+        <tr className="nhsuk-table__row">
+          <th scope="row" className="nhsuk-table__header">
+            __Secure-signout
+          </th>
+          <td className="nhsuk-table__cell nhsuk-table__cell">
+            Stores temporary information used to identify when you sign out or are signed out after a period of
+            inactivity.
+          </td>
+          <td className="nhsuk-table__cell nhsuk-table__cell">After 30 seconds</td>
+        </tr>
       </tbody>
     </table>
   );
