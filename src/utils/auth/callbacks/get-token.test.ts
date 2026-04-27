@@ -4,6 +4,7 @@ import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh
 import { getToken } from "@src/utils/auth/callbacks/get-token";
 import { MaxAgeInSeconds } from "@src/utils/auth/types";
 import config from "@src/utils/config";
+import { SESSION_ID_COOKIE_NAME, SIGNOUT_FLAG_COOKIE_NAME } from "@src/utils/constants";
 import { ConfigMock, configBuilder } from "@test-data/config/builders";
 import { jwtDecode } from "jwt-decode";
 import { Account, Profile } from "next-auth";
@@ -11,7 +12,6 @@ import { JWT } from "next-auth/jwt";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { cookies } from "next/headers";
-import { SIGNOUT_FLAG_COOKIE_NAME } from "@src/utils/constants";
 
 jest.mock("@project/auth", () => ({
   auth: jest.fn(),
@@ -28,7 +28,6 @@ jest.mock("next/headers", () => ({
   cookies: jest.fn(),
   headers: jest.fn(),
 }));
-
 
 describe("getToken", () => {
   const mockedConfig = config as ConfigMock;
@@ -191,19 +190,13 @@ describe("getToken", () => {
       );
     });
 
-    it("should not return session if signout cookie indicates user has recently signed out", async () => {
-      const mockSignOutCookie = {
-        name: SIGNOUT_FLAG_COOKIE_NAME,
-        value: (nowInSeconds + 60).toString(),
-      };
-
+    it("should not return session if signout cookie value matches current session id", async () => {
+      const mockSessionId = "test-session-id";
       const fakeRequestCookies: ReadonlyRequestCookies = {
         get(name: string): RequestCookie | undefined {
-          if (name === SIGNOUT_FLAG_COOKIE_NAME) return mockSignOutCookie;
-          else return {
-            name: `fake-${name}-name`,
-            value: `fake-${name}-value`,
-          };
+          if (name === SIGNOUT_FLAG_COOKIE_NAME) return { name: SIGNOUT_FLAG_COOKIE_NAME, value: mockSessionId };
+          if (name === SESSION_ID_COOKIE_NAME) return { name: SESSION_ID_COOKIE_NAME, value: mockSessionId };
+          return { name: `fake-${name}-name`, value: `fake-${name}-value` };
         },
       } as ReadonlyRequestCookies;
       (cookies as jest.Mock).mockResolvedValue(fakeRequestCookies);
@@ -215,19 +208,12 @@ describe("getToken", () => {
       expect(result).toBeNull();
     });
 
-    it("should ignore signout cookie if its expiry timestamp has passed", async () => {
-      const mockSignOutCookie = {
-        name: SIGNOUT_FLAG_COOKIE_NAME,
-        value: (nowInSeconds - 1).toString(),
-      };
-
+    it("should ignore signout cookie if its value does not match current session id", async () => {
       const fakeRequestCookies: ReadonlyRequestCookies = {
         get(name: string): RequestCookie | undefined {
-          if (name === SIGNOUT_FLAG_COOKIE_NAME) return mockSignOutCookie;
-          return {
-            name: `fake-${name}-name`,
-            value: `fake-${name}-value`,
-          };
+          if (name === SIGNOUT_FLAG_COOKIE_NAME) return { name: SIGNOUT_FLAG_COOKIE_NAME, value: "old-session-id" };
+          if (name === SESSION_ID_COOKIE_NAME) return { name: SESSION_ID_COOKIE_NAME, value: "current-session-id" };
+          return { name: `fake-${name}-name`, value: `fake-${name}-value` };
         },
       } as ReadonlyRequestCookies;
       (cookies as jest.Mock).mockResolvedValue(fakeRequestCookies);
@@ -264,19 +250,13 @@ describe("getToken", () => {
       );
     });
 
-    it("should not return session if signout cookie indicates user has recently signed out", async () => {
-      const mockSignOutCookie = {
-        name: SIGNOUT_FLAG_COOKIE_NAME,
-        value: (nowInSeconds + 60).toString(),
-      };
-
+    it("should not return session if signout cookie value matches current session id", async () => {
+      const mockSessionId = "test-session-id";
       const fakeRequestCookies: ReadonlyRequestCookies = {
         get(name: string): RequestCookie | undefined {
-          if (name === SIGNOUT_FLAG_COOKIE_NAME) return mockSignOutCookie;
-          else return {
-            name: `fake-${name}-name`,
-            value: `fake-${name}-value`,
-          };
+          if (name === SIGNOUT_FLAG_COOKIE_NAME) return { name: SIGNOUT_FLAG_COOKIE_NAME, value: mockSessionId };
+          if (name === SESSION_ID_COOKIE_NAME) return { name: SESSION_ID_COOKIE_NAME, value: mockSessionId };
+          return { name: `fake-${name}-name`, value: `fake-${name}-value` };
         },
       } as ReadonlyRequestCookies;
       (cookies as jest.Mock).mockResolvedValue(fakeRequestCookies);

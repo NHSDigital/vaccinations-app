@@ -4,7 +4,7 @@ import { NhsNumber } from "@src/models/vaccine";
 import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import { ApimAccessCredentials } from "@src/utils/auth/apim/types";
 import { BirthDate, IdToken, MaxAgeInSeconds, NowInSeconds } from "@src/utils/auth/types";
-import { SIGNOUT_FLAG_COOKIE_NAME } from "@src/utils/constants";
+import { SESSION_ID_COOKIE_NAME, SIGNOUT_FLAG_COOKIE_NAME } from "@src/utils/constants";
 import { logger } from "@src/utils/logger";
 import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
@@ -29,12 +29,12 @@ const getToken = async (
   const requestCookies = await cookies();
   const nowInSeconds = Math.floor(Date.now() / 1000);
 
-
-    //TODO: This should be updated to check the cookie value is associated with the current session
-    if(requestCookies?.get(SIGNOUT_FLAG_COOKIE_NAME)?.value === "true") {
-      log.info("getToken: User has recently been signed out. Returning null");
-      return null;
-    }
+  const signOutFlagValue = requestCookies?.get(SIGNOUT_FLAG_COOKIE_NAME)?.value;
+  const currentSessionId = requestCookies?.get(SESSION_ID_COOKIE_NAME)?.value;
+  if (signOutFlagValue && currentSessionId && signOutFlagValue === currentSessionId) {
+    log.info("getToken: User has recently been signed out. Returning null");
+    return null;
+  }
 
   if (!token) {
     log.error("getToken: No token available in jwt callback. Returning null");

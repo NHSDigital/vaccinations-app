@@ -1,6 +1,7 @@
 import setSignOutFlagCookie from "@src/utils/auth/setSignOutFlagCookie";
-import { SIGNOUT_FLAG_COOKIE_NAME } from "@src/utils/constants";
+import { SESSION_ID_COOKIE_NAME, SIGNOUT_FLAG_COOKIE_NAME } from "@src/utils/constants";
 
+const mockSessionId = "session-id-123";
 const setCookie = jest.fn();
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 jest.mock("@src/utils/config", () => ({
@@ -12,10 +13,15 @@ jest.mock("@src/utils/config", () => ({
 
 jest.mock("next/headers", () => ({
   cookies: jest.fn(() => ({
-    get: jest.fn(),
-    set: setCookie
+    get: jest.fn((name) => {
+      if (name === SESSION_ID_COOKIE_NAME) {
+        return { value: mockSessionId };
+      }
+      return undefined;
+    }),
+    set: setCookie,
   })),
-  headers: jest.fn()
+  headers: jest.fn(),
 }));
 
 describe("setSignOutFlagCookie", () => {
@@ -27,15 +33,14 @@ describe("setSignOutFlagCookie", () => {
     jest.useRealTimers();
   });
 
-  it("should set signout cookie with expiry duration matching the session max age", async () => {
-    const expectedCookieTTL = 120;
-    const expectedCookieValue = (Math.floor(Date.now() / 1000) + expectedCookieTTL).toString();
+  it("should set signout cookie with the current session id", async () => {
     await setSignOutFlagCookie();
-    expect(setCookie).toHaveBeenCalledWith(SIGNOUT_FLAG_COOKIE_NAME, expectedCookieValue, {
-      maxAge: expectedCookieTTL,
+    const expectedCookieTimeoutSeconds = 30;
+    expect(setCookie).toHaveBeenCalledWith(SIGNOUT_FLAG_COOKIE_NAME, mockSessionId, {
+      maxAge: expectedCookieTimeoutSeconds,
       secure: true,
       httpOnly: true,
-      sameSite: "lax"
+      sameSite: "lax",
     });
   });
 });

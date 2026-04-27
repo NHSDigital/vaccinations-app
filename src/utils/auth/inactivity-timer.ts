@@ -2,8 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export const WARNING_TIME_MS: number = 1 * 60 * 1000;
-const LOGOUT_TIME_MS: number = 2 * 60 * 1000;
+export const WARNING_TIME_MS: number = 9 * 60 * 1000;
+const LOGOUT_TIME_MS: number = 10 * 60 * 1000;
 export const ACTIVITY_EVENTS: string[] = ["keyup", "click", "scroll"];
 
 const useInactivityTimer = (warningTimeMs: number = WARNING_TIME_MS, logoutTimeMs: number = LOGOUT_TIME_MS) => {
