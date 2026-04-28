@@ -2,6 +2,7 @@ import { handlers } from "@project/auth";
 import { RequestContext, asyncLocalStorage } from "@project/src/utils/requestContext";
 import { extractRequestContextFromHeadersAndCookies } from "@project/src/utils/requestScopedStorageWrapper";
 import { NHS_LOGIN_PROVIDER_ID } from "@src/app/api/auth/[...nextauth]/provider";
+import { getHeadersForLogging } from "@src/utils/getHeadersForLogging";
 import { logger } from "@src/utils/logger";
 import { NextRequest } from "next/server";
 
@@ -16,7 +17,10 @@ export const GET = async (req: NextRequest) => {
   requestContext.nextUrl = pathname;
 
   return await asyncLocalStorage.run(requestContext, async () => {
-    log.info({ context: { pathname }, ...requestContext }, "GET NextAuth route");
+    log.info(
+      { context: { method: req.method, pathname, headers: getHeadersForLogging(req) }, ...requestContext },
+      "NextAuth route",
+    );
 
     const error = searchParams.get("error");
     if (pathname.includes(NHS_LOGIN_CALLBACK_PATH) && error) {
@@ -33,4 +37,17 @@ export const GET = async (req: NextRequest) => {
   });
 };
 
-export const { POST } = handlers;
+export const POST = async (req: NextRequest) => {
+  const { pathname } = req.nextUrl;
+
+  const requestContext: RequestContext = extractRequestContextFromHeadersAndCookies(req.headers, req?.cookies);
+  requestContext.nextUrl = pathname;
+
+  return await asyncLocalStorage.run(requestContext, async () => {
+    log.info(
+      { context: { method: req.method, pathname, headers: getHeadersForLogging(req) }, ...requestContext },
+      "NextAuth route",
+    );
+    return await handlers.POST(req);
+  });
+};
