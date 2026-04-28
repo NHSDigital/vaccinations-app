@@ -44,7 +44,7 @@ describe("CookiesTable component", () => {
       name: "Stores a unique, randomly generated session ID used in operational logs to help our IT support team investigate issues",
     });
     const signoutCookieText: HTMLElement = screen.getByRole("cell", {
-      name: "Stores temporary information used to identify when you sign out or are signed out after a period of inactivity.",
+      name: "This cookie is used when you sign out or after a period of inactivity. It temporarily stores the session ID to help securely end your session and keep your information secure.",
     });
 
     const onBrowserCloseCookieTime: HTMLElement[] = screen.getAllByRole("cell", { name: "When you close the browser" });
