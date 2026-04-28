@@ -25,7 +25,10 @@ jest.mock("next/navigation", () => ({
   usePathname: jest.fn(() => mockUrlPath),
 }));
 
-jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
+jest.mock("@src/utils/auth/user-logout", () => ({
+  userLogout: jest.fn(),
+}));
+
 jest.mock("@src/utils/auth/inactivity-timer");
 jest.mock("@src/utils/auth/user-logout");
 

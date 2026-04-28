@@ -3,7 +3,9 @@ import { SESSION_ID_COOKIE_NAME, SIGNOUT_FLAG_COOKIE_NAME } from "@src/utils/con
 
 const mockSessionId = "session-id-123";
 const setCookie = jest.fn();
-jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
+jest.mock("@src/utils/requestScopedStorageWrapper", () => ({
+  requestScopedStorageWrapper: jest.fn((fn) => fn()),
+}));
 jest.mock("@src/utils/config", () => ({
   __esModule: true,
   default: {
