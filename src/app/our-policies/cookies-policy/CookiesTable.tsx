@@ -59,8 +59,8 @@ const CookiesTable = (): JSX.Element => {
             __Secure-signout
           </th>
           <td className="nhsuk-table__cell nhsuk-table__cell">
-            This cookie is used when you sign out or after a period of inactivity. It temporarily stores the session ID
-            to help securely end your session and keep your information secure.
+            Used when you sign out or after a period of inactivity. It temporarily stores the session ID to help
+            securely end your session and keep your information secure.
           </td>
           <td className="nhsuk-table__cell nhsuk-table__cell">After 30 seconds</td>
         </tr>
