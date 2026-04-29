@@ -4,9 +4,11 @@ import { NhsNumber } from "@src/models/vaccine";
 import { getOrRefreshApimCredentials } from "@src/utils/auth/apim/get-or-refresh-apim-credentials";
 import { ApimAccessCredentials } from "@src/utils/auth/apim/types";
 import { BirthDate, IdToken, MaxAgeInSeconds, NowInSeconds } from "@src/utils/auth/types";
+import { SESSION_ID_COOKIE_NAME, SIGNOUT_FLAG_COOKIE_NAME } from "@src/utils/constants";
 import { logger } from "@src/utils/logger";
 import { Account, Profile } from "next-auth";
 import { JWT } from "next-auth/jwt";
+import { cookies } from "next/headers";
 import { Logger } from "pino";
 
 const log: Logger = logger.child({ module: "utils-auth-callbacks-get-token" });
@@ -24,12 +26,20 @@ const getToken = async (
   profile: Profile | undefined,
   maxAgeInSeconds: MaxAgeInSeconds,
 ) => {
+  const requestCookies = await cookies();
+  const nowInSeconds = Math.floor(Date.now() / 1000);
+
+  const signOutFlagValue = requestCookies?.get(SIGNOUT_FLAG_COOKIE_NAME)?.value;
+  const currentSessionId = requestCookies?.get(SESSION_ID_COOKIE_NAME)?.value;
+  if (signOutFlagValue && currentSessionId && signOutFlagValue === currentSessionId) {
+    log.info("getToken: User has recently been signed out. Returning null");
+    return null;
+  }
+
   if (!token) {
     log.error("getToken: No token available in jwt callback. Returning null");
     return null;
   }
-
-  const nowInSeconds = Math.floor(Date.now() / 1000);
 
   // Maximum age reached scenario: invalidate session after fixedExpiry
   if (token.fixedExpiry && nowInSeconds >= token.fixedExpiry) {

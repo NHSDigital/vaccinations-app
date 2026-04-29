@@ -27,3 +27,4 @@ export const PageviewTypeUrls: Record<ClientSidePageviewTypes, string> = {
 };
 
 export const SESSION_ID_COOKIE_NAME = "__Host-Http-session-id";
+export const SIGNOUT_FLAG_COOKIE_NAME = "__Secure-signout";
