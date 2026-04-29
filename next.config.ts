@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ["pino"],
   sassOptions: {
     silenceDeprecations: ["import", "legacy-js-api", "if-function", "global-builtin"],
+    loadPaths: ["node_modules"],
   },
   transpilePackages: ["react-error-boundary"],
   redirects: () =>
