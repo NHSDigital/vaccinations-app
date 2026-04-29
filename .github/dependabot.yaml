@@ -1,49 +1,48 @@
 version: 2
 
 updates:
-  # The target-branch is main (default branch) by default.
+  # Dependabot raises grouped PRs every Wednesday.
+  # Non-security patch/minor updates are merged on sprint Wednesdays (biweekly)
+  # and squash-merged into a single commit before promoting to the release branch.
+  # Security updates (critical/high) are handled immediately outside this cadence.
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+      day: "wednesday"
     groups:
-      artifact:
-        patterns: [ "actions/*artifact" ]
+      all-actions:
+        patterns: ["*"]
     cooldown:
       default-days: 7
 
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+      day: "wednesday"
     groups:
-      next:
-        patterns: [ "next", "next*", "*next", "*next*" ]
-      react:
-        patterns: [ "react", "react*", "*react", "*react*" ]
-      aws-sdk:
-        patterns: [ "@aws-sdk/*" ]
-      jest:
-        patterns: [ "jest", "jest*", "*jest", "*jest*" ]
-      testing-library:
-        patterns: [ "@testing-library/*" ]
-      eslint:
-        patterns: [ "eslint", "eslint*", "*eslint", "*eslint*" ]
-      prettier:
-        patterns: [ "prettier", "prettier*", "*prettier", "*prettier*" ]
+      all-non-major:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
     ignore:
+      - dependency-name: "next"
+        versions: [">=16.0.0"]
+      - dependency-name: "eslint-config-next"
+        versions: [">=16.0.0"]
       - dependency-name: "eslint"
-        versions: [ ">=10.0.0" ]
+        versions: [">=10.0.0"]
     cooldown:
       default-days: 7
 
   - package-ecosystem: "terraform"
-    directories: [ "/infrastructure/modules/**" ]
+    directories: ["/infrastructure/modules/**"]
     groups:
       infrastructure-updates:
-        patterns: [ "*" ]
+        patterns: ["*"]
     ignore:
       - dependency-name: "*"
-        update-types: [ "version-update:semver-major", "version-update:semver-minor" ]
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
     schedule:
       interval: "weekly"
