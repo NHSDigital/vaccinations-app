@@ -1,24 +1,41 @@
+/**
+ * Logic for extracting Splunk logs from the DOM, grouping them by session/trace,
+ * and building the graph data structure (nodes and edges).
+ */
 import DeviceDetector from "device-detector-js";
-import { readFileSync, writeFileSync } from "node:fs";
 
-import { LogEntry, LogNode } from "./types";
-import { getMessageAndContext, mapMessageToNodeLabel, parseTimestamp } from "./utils.js";
+import { LogEntry, LogNode } from "./types/logs.js";
+import { getMessageAndContext, mapMessageToNodeLabel, parseTimestamp } from "./utils";
 
 const detector = new DeviceDetector();
 
-function loadLogs(path: string): LogEntry[] {
-  const raw: string = readFileSync(path, "utf8").trim();
-
-  if (raw.startsWith("[")) {
-    return JSON.parse(raw);
-  }
-
-  return raw.split("\n").map((l) => JSON.parse(l));
+export function buildTimeline(logs: LogEntry[]) {
+  logs.forEach((l: LogEntry): string => (l.__ts = parseTimestamp(l) || new Date().toISOString()));
+  return logs.sort((a: LogEntry, b: LogEntry) => new Date(a.__ts).getTime() - new Date(b.__ts).getTime());
 }
 
-function buildTimeline(logs: LogEntry[]) {
-  logs.forEach((l: LogEntry): string => (l.__ts = parseTimestamp(l)));
-  return logs.sort((a: LogEntry, b: LogEntry) => new Date(a.__ts).getTime() - new Date(b.__ts).getTime());
+function getTraceId(log: LogEntry) {
+  return log.result.traceId || log.result.message?.traceId || log.result["message.traceId"] || undefined;
+}
+
+function getSessionIdOrUnknown(log: LogEntry) {
+  return log.result.sessionId || log.result.message?.sessionId || log.result["message.sessionId"] || undefined;
+}
+
+function getRequestId(log: LogEntry) {
+  return log.result.requestId || log.result.record?.requestId || log.result["record.requestId"] || undefined;
+}
+
+function getModule(log: LogEntry): string | undefined {
+  return log.result.module || log.result.message?.module || log.result["message.module"] || undefined;
+}
+
+function getLogLevel(log: LogEntry): string | undefined {
+  return log.result.level || log.result.message?.level || log.result["message.level"] || undefined;
+}
+
+function getUserAgent(log: LogEntry): string | undefined {
+  return log.result.message?.context?.headers?.["user-agent"] || log.result["message.context.headers.user-agent"];
 }
 
 function groupLogsBySessionTraceOrRequest(logs: LogEntry[]) {
@@ -26,10 +43,10 @@ function groupLogsBySessionTraceOrRequest(logs: LogEntry[]) {
   const idToLogs = new Map<string, LogEntry[]>();
 
   logs.forEach((log: LogEntry) => {
-    const traceId = log.result.traceId || log.result["message.traceId"] || undefined;
-    const sessionIdOrUnknown = log.result.sessionId || log.result["message.sessionId"] || undefined;
+    const traceId = getTraceId(log);
+    const sessionIdOrUnknown = getSessionIdOrUnknown(log);
     const sessionId = sessionIdOrUnknown === "unknown-session-id" ? undefined : sessionIdOrUnknown;
-    const requestId = log.result.requestId || log.result["record.requestId"] || undefined;
+    const requestId = getRequestId(log);
 
     const ids = [sessionId, traceId, requestId].filter(Boolean) as string[];
 
@@ -80,7 +97,7 @@ function groupLogsBySessionTraceOrRequest(logs: LogEntry[]) {
   return Array.from(groups.values());
 }
 
-function buildGraph(timeline: LogEntry[]) {
+export function buildGraph(timeline: LogEntry[]) {
   const groups: LogEntry[][] = groupLogsBySessionTraceOrRequest(timeline);
 
   const nodes: LogNode[] = [];
@@ -119,9 +136,8 @@ function buildGraph(timeline: LogEntry[]) {
       let nodeLabel = mapMessageToNodeLabel(messageAndContext[0]);
       let nodeContext = messageAndContext[1];
       const isLatencyNode = nodeLabel.search("Performance-Profile") >= 0;
-      const hasError =
-        e.result.level === "ERROR" || e.result["message.level"] === "ERROR" || nodeLabel.search(/Error/i) >= 0;
-      const userAgent = e.result["message.context.headers.user-agent"];
+      const hasError = getLogLevel(e) === "ERROR" || nodeLabel.search(/Error/i) >= 0;
+      const userAgent = getUserAgent(e);
       const nhsAppPart = userAgent
         ? userAgent.indexOf("nhsapp-android") >= 0
           ? { isOpenInNHSApp: "android" }
@@ -142,7 +158,7 @@ function buildGraph(timeline: LogEntry[]) {
         id,
         label: nodeLabel,
         millisSinceEpoch: new Date(e.__ts).getTime(),
-        module: e.result.module || e.result["message.module"],
+        module: getModule(e) || "unknown-module",
         context: nodeContext,
         color: isLatencyNode ? "#ffffff" : hasError ? "#eea990" : "#f6e0b5",
         shape: isLatencyNode ? "ellipse" : "box",
@@ -173,13 +189,9 @@ function buildGraph(timeline: LogEntry[]) {
   return { nodes, edges };
 }
 
-console.log("Processing logs...");
-const logsInJson = loadLogs(process.env.LOG_FILE || "logs.json");
-console.log("Loaded", logsInJson.length, "log events.");
-
-const timelineOfLogs = buildTimeline(logsInJson);
-const graph = buildGraph(timelineOfLogs);
-console.log("Graph built with", graph.nodes.length, "nodes and", graph.edges.length, "edges.");
-
-writeFileSync("www/timeline.json", JSON.stringify(timelineOfLogs, null, 2));
-writeFileSync("www/graph.json", JSON.stringify(graph, null, 2));
+export function extractLogsFromDOM(): LogEntry[] {
+  const rows = document.getElementsByClassName("raw-event");
+  return Array.from(rows).map((row) => {
+    return { result: JSON.parse(row.textContent || "{}") };
+  });
+}
