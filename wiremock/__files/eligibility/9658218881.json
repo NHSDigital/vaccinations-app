@@ -18,6 +18,22 @@
       "status": "Actionable",
       "statusText": "You should have the RSV vaccine",
       "suitabilityRules": []
+    },
+    {
+      "actions": [
+        {
+          "actionCode": "AmendNBS",
+          "actionType": "ButtonWithAuthLink",
+          "description": "## You have a COVID-19 vaccination appointment booked\n\nYou can view, change or cancel your appointment below.",
+          "urlLabel": "Manage your appointment",
+          "urlLink": "https://www.nhswebsite-staging.nhs.uk/nbs/nhs-app/vita/covid"
+        }
+      ],
+      "condition": "COVID",
+      "eligibilityCohorts": [],
+      "status": "Actionable",
+      "statusText": "You should have the COVID-19 vaccine",
+      "suitabilityRules": []
     }
   ],
   "responseId": "4fe9ae68-7347-46f1-91c7-5e723a0b0249"

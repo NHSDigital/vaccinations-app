@@ -29,6 +29,58 @@
       "status": "NotEligible",
       "statusText": "We do not believe you can have it",
       "suitabilityRules": []
+    },
+    {
+      "condition": "COVID",
+      "status": "Actionable",
+      "statusText": "You should have the COVID-19 vaccine",
+      "eligibilityCohorts": [
+        {
+          "cohortCode": "covid_care_home_residents",
+          "cohortStatus": "Actionable",
+          "cohortText": "live in a care home for older adults"
+        }
+      ],
+      "suitabilityRules": [],
+      "additionalInfo": [
+        {
+          "infoCode": "EligibilityOtherReasons",
+          "infoType": "InfoText",
+          "infoCategory": "OtherEligibilityReasons",
+          "infoHeading": "Other reasons to get the vaccine",
+          "infoDescription": "Your NHS record suggests you have a weakened immune system caused by a health condition or treatment.",
+          "infoUrlLink": "",
+          "infoUrlLabel": ""
+        },
+        {
+          "infoCode": "EligibilityClinicalRiskExpander",
+          "infoType": "Expander",
+          "infoCategory": "Eligibility",
+          "infoHeading": "Health conditions and treatments that mean you're eligible for the COVID-19 vaccine",
+          "infoDescription": "You may be eligible for a COVID-19 vaccine if you have a weakened immune system because of a health condition or treatment.\nThis can include if you: * have or had blood cancer, such as leukaemia, lymphoma or myeloma * have had an organ transplant, bone marrow transplant or stem cell transplant * have HIV * have a genetic disorder that affects your immune system, such as severe combined immunodeficiency (SCID) * are having or recently had chemotherapy, biological therapy or radiotherapy * are taking steroid medicine (depending on the dose) * are having long-term immunosuppressive treatment for a condition such as lupus, rheumatoid arthritis, inflammatory bowel disease (IBD), scleroderma or psoriasis\nThis list is a summary and does not include everything. Speak to your local pharmacy, GP surgery or specialist if you're not sure if you're eligible for the COVID-19 vaccine.",
+          "infoUrlLink": "",
+          "infoUrlLabel": ""
+        }
+      ],
+      "actions": [
+        {
+          "actionType": "InfoText",
+          "actionCode": "BookLocal",
+          "description": "## Get vaccinated at your GP surgery\n\nContact your GP surgery to book an appointment."
+        },
+        {
+          "actionType": "ButtonWithAuthLinkWithInfoText",
+          "actionCode": "BookNBSInfoText",
+          "description": "## Book an appointment online at a pharmacy\n\nYou can book an appointment online at a pharmacy that offers the COVID-19 vaccination.",
+          "urlLink": "https://www.nhs.uk/book-covid",
+          "urlLabel": "Continue to booking"
+        },
+        {
+          "actionType": "InfoText",
+          "actionCode": "HelpSupportInfo",
+          "description": "## If you think this is incorrect\n\nIf you have already had this vaccination or your personal details are wrong, visit our help and support page."
+        }
+      ]
     }
   ],
   "responseId": "7ca07f73-f8be-4449-9f88-e6c06675cdad"

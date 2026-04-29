@@ -18,6 +18,23 @@
       "status": "Actionable",
       "statusText": "You should have the RSV vaccine",
       "suitabilityRules": []
+    },
+    {
+      "condition": "COVID",
+      "status": "Actionable",
+      "statusText": "You should have the COVID-19 vaccine",
+      "actions": [
+        {
+          "actionCode": "ManageLocal",
+          "actionType": "CardWithText",
+          "description": "## You have a COVID-19 vaccination appointment booked\n\nTo change or cancel your appointment, contact the provider you booked with.",
+          "urlLabel": "",
+          "urlLink": ""
+        }
+      ],
+      "eligibilityCohorts": [],
+      "suitabilityRules": [],
+      "additionalInfo": []
     }
   ],
   "responseId": "594ce550-9721-4c1a-8dae-92ecdba2e763"

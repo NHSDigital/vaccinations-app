@@ -30,6 +30,34 @@
           "ruleType": "S"
         }
       ]
+    },
+    {
+      "condition": "COVID",
+      "status": "Actionable",
+      "statusText": "You should have the COVID-19 vaccine",
+      "eligibilityCohorts": [
+        {
+          "cohortCode": "covid_care_home_residents",
+          "cohortText": "live in a care home for older adults",
+          "cohortStatus": "Actionable"
+        }
+      ],
+      "suitabilityRules": [
+        {
+          "ruleCode": "CareSetting",
+          "ruleText": "### Getting the vaccine\n\nSpeak to your GP or a member of staff where you live about getting the COVID-19 vaccine.",
+          "ruleType": "S"
+        }
+      ],
+      "actions": [
+        {
+          "actionCode": "ManagedSettingInfo",
+          "actionType": "InfoText",
+          "description": "### If you think this is incorrect\n\nIf you have already had this vaccination or your personal details are wrong, visit our [help and support page](https://www.nhs.uk/nhs-app/nhs-app-help-and-support/vaccinations/check-and-book-an-rsv-vaccination).",
+          "urlLabel": "",
+          "urlLink": ""
+        }
+      ]
     }
   ],
   "responseId": "68e372d6-cc59-41c9-a6ad-b2cdf9b25bdb"

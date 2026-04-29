@@ -36,6 +36,41 @@
           "description": "## If you think this is incorrect\n\nIf you have already had this vaccination or your personal details are wrong, visit our [help and support page](https://digital.nhs.uk/services/eligibility-data-product-elid)."
         }
       ]
+    },
+    {
+      "condition": "COVID",
+      "status": "Actionable",
+      "statusText": "You should have the COVID-19 vaccine",
+      "eligibilityCohorts": [
+        {
+          "cohortCode": "covid_age",
+          "cohortText": "are aged 75 or over by 31 January 2026",
+          "cohortStatus": "Actionable"
+        }
+      ],
+      "suitabilityRules": [],
+      "additionalInfo": [],
+      "actions": [
+        {
+          "actionType": "InfoText",
+          "actionCode": "BookLocal",
+          "description": "## Get vaccinated at your GP surgery\n\nContact your GP surgery to book an appointment."
+        },
+        {
+          "actionType": "ButtonWithAuthLinkWithInfoText",
+          "actionCode": "BookNBSInfoText",
+          "description": "## Book an appointment online at a pharmacy\n\nYou can book an appointment online at a pharmacy that offers the COVID-19 vaccination.",
+          "urlLink": "https://www.nhs.uk/book-covid",
+          "urlLabel": "Continue to booking"
+        },
+        {
+          "actionType": "ActionLinkWithInfoText",
+          "actionCode": "WalkIn",
+          "description": "## Get vaccinated without an appointment\n\nYou can find a walk-in COVID-19 vaccination site to get a vaccination without an appointment. You do not need to be registered with a GP.",
+          "urlLink": "https://www.nhs.uk/service-search/vaccination-and-booking-services/find-a-walk-in-covid-19-vaccination-site",
+          "urlLabel": "Find a walk-in COVID-19 vaccination site"
+        }
+      ]
     }
   ]
 }

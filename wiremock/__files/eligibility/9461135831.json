@@ -29,6 +29,52 @@
       "status": "NotEligible",
       "statusText": "We do not believe you can have it",
       "suitabilityRules": []
+    },
+    {
+      "condition": "COVID",
+      "status": "NotEligible",
+      "statusText": "We do not believe you can have it",
+      "eligibilityCohorts": [
+        {
+          "cohortCode": "covid_age",
+          "cohortText": "are not aged 75 or over by 31 January 2026",
+          "cohortStatus": "NotEligible"
+        },
+        {
+          "cohortCode": "covid_clinical_risk",
+          "cohortText": "do not have a weakened immune system caused by a health condition or treatment",
+          "cohortStatus": "NotEligible"
+        },
+        {
+          "cohortCode": "covid_clinical_risk",
+          "cohortText": "do not have a weakened immune system caused by a health condition or treatment",
+          "cohortStatus": "NotEligible"
+        },
+        {
+          "cohortCode": "covid_care_home_resident",
+          "cohortText": "are not a resident of a care home for older adults",
+          "cohortStatus": "NotEligible"
+        }
+      ],
+      "suitabilityRules": [],
+      "additionalInfo": [
+        {
+          "infoCode": "EligibilityClinicalRiskExpander",
+          "infoType": "Expander",
+          "infoCategory": "Eligibility",
+          "infoHeading": "Health conditions and treatments that mean you're eligible for the COVID-19 vaccine",
+          "infoDescription": "You may be eligible for a COVID-19 vaccine if you have a weakened immune system because of a health condition or treatment.\nThis can include if you: * have or had blood cancer, such as leukaemia, lymphoma or myeloma * have had an organ transplant, bone marrow transplant or stem cell transplant * have HIV * have a genetic disorder that affects your immune system, such as severe combined immunodeficiency (SCID) * are having or recently had chemotherapy, biological therapy or radiotherapy * are taking steroid medicine (depending on the dose) * are having long-term immunosuppressive treatment for a condition such as lupus, rheumatoid arthritis, inflammatory bowel disease (IBD), scleroderma or psoriasis\nThis list is a summary and does not include everything. Speak to your local pharmacy, GP surgery or specialist if you're not sure if you're eligible for the COVID-19 vaccine.",
+          "infoUrlLink": "",
+          "infoUrlLabel": ""
+        }
+      ],
+      "actions": [
+        {
+          "actionType": "InfoText",
+          "actionCode": "HealthcareProInfo",
+          "description": "## If you think you need this vaccine\n\nSpeak to your healthcare professional if you think you should be offered this vaccination."
+        }
+      ]
     }
   ],
   "responseId": "7ca07f73-f8be-4449-9f88-e6c06675cdad"
