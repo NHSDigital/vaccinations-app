@@ -22,6 +22,7 @@ const mockNBSBookingActionHTML = "NBS Booking Link Test";
 jest.mock("@src/app/_components/nbs/NBSBookingAction", () => ({
   NBSBookingAction: () => mockNBSBookingActionHTML,
 }));
+jest.mock("@src/services/nbs/nbs-service", () => ({ buildNbsUrl: jest.fn() }));
 
 jest.mock("@project/src/app/_components/markdown/MarkdownWithStyling", () => ({
   MarkdownWithStyling: jest.fn(),
@@ -426,7 +427,6 @@ describe("ContentStylingService", () => {
       delete mockContentWithoutRecommendation.recommendation;
 
       const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
-        VaccineType.RSV,
         mockContentWithoutRecommendation,
         VaccineType.COVID_19,
       );
@@ -439,7 +439,6 @@ describe("ContentStylingService", () => {
       delete mockContentWithoutAdditionalInformation.additionalInformation;
 
       const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
-        VaccineType.RSV,
         mockContentWithoutAdditionalInformation,
         VaccineType.COVID_19,
       );
@@ -452,7 +451,6 @@ describe("ContentStylingService", () => {
       delete mockContentWithoutExtraDosesSchedule.extraDosesSchedule;
 
       const styledVaccineContent: StyledVaccineContent = await getStyledContentForVaccine(
-        VaccineType.RSV,
         mockContentWithoutExtraDosesSchedule,
         VaccineType.COVID_19,
       );

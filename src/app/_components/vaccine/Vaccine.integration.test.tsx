@@ -27,13 +27,13 @@ jest.mock("next/headers", () => ({
 }));
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 jest.mock("cheerio", () => ({
-  load: jest.fn(() => {
+  load: jest.fn((htmlInputFragment) => {
     const selectorImpl = jest.fn(() => ({
       attr: jest.fn(),
     }));
 
     const $ = Object.assign(selectorImpl, {
-      html: jest.fn(() => "<p>HTML fragment</p>"),
+      html: jest.fn(() => htmlInputFragment),
     });
 
     return $;

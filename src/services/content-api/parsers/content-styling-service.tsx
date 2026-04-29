@@ -4,9 +4,6 @@ import { VaccineType } from "@project/src/models/vaccine";
 import EmergencyCareCard from "@src/app/_components/nhs-frontend/EmergencyCareCard";
 import NonUrgentCareCard from "@src/app/_components/nhs-frontend/NonUrgentCareCard";
 import UrgentCareCard from "@src/app/_components/nhs-frontend/UrgentCareCard";
-import { VaccineType } from "@src/models/vaccine";
-import { styleHowToGetSectionForRsv } from "@src/services/content-api/parsers/custom/rsv";
-import { styleHowToGetSectionForRsvPregnancy } from "@src/services/content-api/parsers/custom/rsv-pregnancy";
 import {
   HeadingLevel,
   HeadingWithContent,

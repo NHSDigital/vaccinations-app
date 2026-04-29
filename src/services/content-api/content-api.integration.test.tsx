@@ -27,9 +27,9 @@ const mockRsvResponse = {
   }),
 };
 
-describe("Content API Read Integration Test ", () => {
-  const mockedConfig = config as ConfigMock;
+const mockedConfig = config as ConfigMock;
 
+describe("Content API Read Integration Test ", () => {
   afterEach(async () => {
     const { styledVaccineContent, contentError }: GetContentForVaccineResponse = await getContentForVaccine(
       VaccineType.RSV,

@@ -4,7 +4,7 @@ import { auth } from "@project/auth";
 import { MoreInformationSection } from "@src/app/_components/content/MoreInformationSection";
 import { NonPersonalisedVaccinePageContent } from "@src/app/_components/content/NonPersonalisedVaccinePageContent";
 import { EligibilityVaccinePageContent } from "@src/app/_components/eligibility/EligibilityVaccinePageContent";
-import { RSVPregnancyInfo } from "@src/app/_components/vaccine-custom/RSVPregnancyInfo";
+import { RSVPregnancyFallbackInfo } from "@src/app/_components/vaccine-custom/RSVPregnancyFallbackInfo";
 import { NhsNumber, VaccineDetails, VaccineInfo, VaccineType } from "@src/models/vaccine";
 import { getContentForVaccine } from "@src/services/content-api/content-service";
 import { ContentErrorTypes, StyledVaccineContent } from "@src/services/content-api/types";
@@ -76,10 +76,11 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
         />
       )}
 
-      {/* Static eligibility section for RSV in pregnancy */}
-      {vaccineType === VaccineType.RSV_PREGNANCY && (
-        <RSVPregnancyInfo vaccineType={vaccineType} styledVaccineContent={styledVaccineContent} />
-      )}
+      {/* Static eligibility fallback section for RSV in pregnancy when ContentAPI is down */}
+      {(contentError === ContentErrorTypes.CONTENT_LOADING_ERROR || styledVaccineContent === undefined) &&
+        vaccineType === VaccineType.RSV_PREGNANCY && (
+          <RSVPregnancyFallbackInfo vaccineType={vaccineType} styledVaccineContent={styledVaccineContent} />
+        )}
 
       <hr />
       <MoreInformationSection
