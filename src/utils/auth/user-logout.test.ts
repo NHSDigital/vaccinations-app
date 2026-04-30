@@ -1,17 +1,13 @@
-import { signOut } from "@project/auth";
 import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
 import { SESSION_TIMEOUT_ROUTE } from "@src/app/session-timeout/constants";
 import setSignOutFlagCookie from "@src/utils/auth/setSignOutFlagCookie";
 import { userLogout } from "@src/utils/auth/user-logout";
-import { requestScopedStorageWrapper } from "@src/utils/requestScopedStorageWrapper";
+import { signOut } from "next-auth/react";
 
-jest.mock("@project/auth", () => ({
+jest.mock("next-auth/react", () => ({
   signOut: jest.fn(),
 }));
 jest.mock("@src/utils/auth/setSignOutFlagCookie");
-jest.mock("@src/utils/requestScopedStorageWrapper", () => ({
-  requestScopedStorageWrapper: jest.fn((fn, ...args) => fn(...args)),
-}));
 jest.mock("sanitize-data", () => ({ sanitize: jest.fn() }));
 
 describe("user-logout", () => {
@@ -37,11 +33,5 @@ describe("user-logout", () => {
     await userLogout(true);
 
     expect(setSignOutFlagCookie).toHaveBeenCalled();
-  });
-
-  it("should wrap logout flow in request scoped storage", async () => {
-    await userLogout(true);
-
-    expect(requestScopedStorageWrapper).toHaveBeenCalled();
   });
 });

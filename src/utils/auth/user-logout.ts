@@ -1,16 +1,11 @@
-"use server";
+"use client";
 
-import { signOut } from "@project/auth";
 import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
 import { SESSION_TIMEOUT_ROUTE } from "@src/app/session-timeout/constants";
 import setSignOutFlagCookie from "@src/utils/auth/setSignOutFlagCookie";
-import { requestScopedStorageWrapper } from "@src/utils/requestScopedStorageWrapper";
+import { signOut } from "next-auth/react";
 
 const userLogout = async (reasonTimeout: boolean = false) => {
-  return requestScopedStorageWrapper(userLogoutAction, reasonTimeout);
-};
-
-const userLogoutAction = async (reasonTimeout: boolean = false) => {
   await setSignOutFlagCookie();
   await signOut({
     redirect: true,
