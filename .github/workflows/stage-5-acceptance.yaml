@@ -64,7 +64,7 @@ jobs:
           ref: ${{ inputs.checkout_ref }}
 
       - name: "Setup nodejs ${{ inputs.nodejs_version }}"
-        uses: actions/setup-node@v6.4.0
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ inputs.nodejs_version }}
 
@@ -115,7 +115,7 @@ jobs:
           ref: ${{ inputs.checkout_ref }}
 
       - name: "Setup nodejs ${{ inputs.nodejs_version }}"
-        uses: actions/setup-node@v6.4.0
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ inputs.nodejs_version }}
 
