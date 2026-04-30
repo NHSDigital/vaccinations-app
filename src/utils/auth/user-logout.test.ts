@@ -1,12 +1,11 @@
+import { signOut } from "@project/auth";
 import { SESSION_LOGOUT_ROUTE } from "@src/app/session-logout/constants";
 import { SESSION_TIMEOUT_ROUTE } from "@src/app/session-timeout/constants";
 import setSignOutFlagCookie from "@src/utils/auth/setSignOutFlagCookie";
 import { userLogout } from "@src/utils/auth/user-logout";
 import { requestScopedStorageWrapper } from "@src/utils/requestScopedStorageWrapper";
 
-import { signOut } from "../../../auth";
-
-jest.mock("../../../auth", () => ({
+jest.mock("@project/auth", () => ({
   signOut: jest.fn(),
 }));
 jest.mock("@src/utils/auth/setSignOutFlagCookie");

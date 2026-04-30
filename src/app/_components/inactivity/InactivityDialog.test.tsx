@@ -30,7 +30,6 @@ jest.mock("@src/utils/auth/user-logout", () => ({
 }));
 
 jest.mock("@src/utils/auth/inactivity-timer");
-jest.mock("@src/utils/auth/user-logout");
 
 let idleSession = false;
 let timedOutSession = false;

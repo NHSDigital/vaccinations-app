@@ -26,6 +26,11 @@ const getToken = async (
   profile: Profile | undefined,
   maxAgeInSeconds: MaxAgeInSeconds,
 ) => {
+  if (!token) {
+    log.error("getToken: No token available in jwt callback. Returning null");
+    return null;
+  }
+
   const requestCookies = await cookies();
   const nowInSeconds = Math.floor(Date.now() / 1000);
 
@@ -33,11 +38,6 @@ const getToken = async (
   const currentSessionId = requestCookies?.get(SESSION_ID_COOKIE_NAME)?.value;
   if (signOutFlagValue && currentSessionId && signOutFlagValue === currentSessionId) {
     log.info("getToken: User has recently been signed out. Returning null");
-    return null;
-  }
-
-  if (!token) {
-    log.error("getToken: No token available in jwt callback. Returning null");
     return null;
   }
 
