@@ -56,7 +56,7 @@ const getToken = async (
     // TODO VIA-254 - can we do this only once per request?
     // every time auth() is called, the getToken() callback is invoked by NextAuth
     // this results in fetching APIM access token multiple times ( in case it has expired )
-    apimAccessCredentials = await getOrRefreshApimCredentials(token, nowInSeconds);
+    apimAccessCredentials = await getOrRefreshApimCredentials(updatedToken, nowInSeconds);
   } catch (error) {
     let errorMessage = undefined;
     if (error instanceof Error) {

@@ -79,7 +79,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth(async () => {
         let response;
         try {
           profilePerformanceStart(AuthJWTPerformanceMarker);
-          response = getToken(token, account, profile, MAX_SESSION_AGE_SECONDS as MaxAgeInSeconds);
+          response = await getToken(token, account, profile, MAX_SESSION_AGE_SECONDS as MaxAgeInSeconds);
           profilePerformanceEnd(AuthJWTPerformanceMarker);
         } catch (error) {
           log.error({ error: error }, "jwt() callback error");
