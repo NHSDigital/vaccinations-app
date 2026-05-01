@@ -39,3 +39,4 @@ jq
 JMeter
 access_denied
 (?i)url
+cybersecurity
