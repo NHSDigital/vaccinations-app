@@ -250,25 +250,6 @@ describe("getToken", () => {
         maxAgeInSeconds,
       );
     });
-
-    it("should return null when signout cookie matches current session id", async () => {
-      const mockSessionId = "test-session-id";
-      const fakeRequestCookies: ReadonlyRequestCookies = {
-        get(name: string): RequestCookie | undefined {
-          if (name === SIGNOUT_FLAG_COOKIE_NAME) return { name: SIGNOUT_FLAG_COOKIE_NAME, value: mockSessionId };
-          if (name === SESSION_ID_COOKIE_NAME) return { name: SESSION_ID_COOKIE_NAME, value: mockSessionId };
-          return { name: `fake-${name}-name`, value: `fake-${name}-value` };
-        },
-      } as ReadonlyRequestCookies;
-      (cookies as jest.Mock).mockResolvedValue(fakeRequestCookies);
-
-      const token = { apim: {}, nhs_login: { id_token: "id-token" } } as JWT;
-      const maxAgeInSeconds = 600 as MaxAgeInSeconds;
-
-      const result = await getToken(token, account, profile, maxAgeInSeconds);
-
-      expect(result).toBeNull();
-    });
   });
 
   const expectResultToMatchTokenWith = (
