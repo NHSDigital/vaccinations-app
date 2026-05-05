@@ -3,6 +3,7 @@ bot
 (?i)CLI
 config
 Cyber
+cybersecurity
 [Dd]ependabot
 [Dd]ev
 Dockerfile

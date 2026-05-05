@@ -25,8 +25,11 @@ jest.mock("next/navigation", () => ({
   usePathname: jest.fn(() => mockUrlPath),
 }));
 
+jest.mock("@src/utils/auth/user-logout", () => ({
+  userLogout: jest.fn(),
+}));
+
 jest.mock("@src/utils/auth/inactivity-timer");
-jest.mock("@src/utils/auth/user-logout");
 
 let idleSession = false;
 let timedOutSession = false;
