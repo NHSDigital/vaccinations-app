@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Splunk Logs Graph Viewer",
+  "version": "1.0.0",
+  "description": "Render Splunk logs as interactive graph",
+  "icons": {
+    "128": "public/icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://nhsdigital.splunkcloud.com/en-GB/app/nhse_vita_all_sh_all_viz/*"],
+      "js": ["dist/bundle.js"]
+    }
+  ],
+  "permissions": ["scripting"],
+  "host_permissions": ["https://nhsdigital.splunkcloud.com/*"]
+}

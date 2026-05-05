@@ -1,4 +1,4 @@
-import { LogEntry } from "./types";
+import { LogEntry } from "./types/logs";
 
 const messageMap: { regex: RegExp; label: string }[] = [
   { regex: /Latency/i, label: "Performance-Profile" },
@@ -27,6 +27,7 @@ const messageMap: { regex: RegExp; label: string }[] = [
   { regex: /Client side error occurred/i, label: "ClientSideError" },
   { regex: /Error in getting secret from SecretsManager/i, label: "SecretsManagerError" },
   { regex: /Content changed since last approved/i, label: "CacheInvalidationError" },
+  { regex: /unknown/i, label: "Unknown" },
 
   // Add more as needed...
 ];
@@ -37,18 +38,29 @@ const getMessageAndContext = (entry: LogEntry): [string, string] => {
 
   if (entry.result.msg) {
     message = entry.result.msg;
-    if (entry.result.msg.includes("performance profile")) {
-      message = "Latency " + parseInt(entry.result["context.message.latencyMillis"]) + " ms";
-      context = entry.result["context.message.marker"];
+    if (message.includes("performance profile")) {
+      message =
+        "Latency " +
+        parseInt(entry.result["context.message.latencyMillis"] || entry.result.context.message.latencyMillis) +
+        " ms";
+      context = entry.result["context.message.marker"] || entry.result.context.message.marker;
     }
     return [message, context];
   }
 
-  if (entry.result["message.msg"] && typeof entry.result["message.msg"] === "string") {
-    message = entry.result["message.msg"];
-    if (entry.result["message.msg"].includes("performance profile")) {
-      message = "Latency " + parseInt(entry.result["message.context.message.latencyMillis"]) + " ms";
-      context = entry.result["message.context.message.marker"];
+  if (
+    (entry.result["message.msg"] && typeof entry.result["message.msg"] === "string") ||
+    (entry.result.message?.msg && typeof entry.result.message.msg === "string")
+  ) {
+    message = entry.result["message.msg"] || entry.result.message.msg;
+    if (message.includes("performance profile")) {
+      message =
+        "Latency " +
+        parseInt(
+          entry.result["message.context.message.latencyMillis"] || entry.result.message.context.message.latencyMillis,
+        ) +
+        " ms";
+      context = entry.result["message.context.message.marker"] || entry.result.message.context.message.marker;
     }
     return [message, context];
   }
@@ -57,6 +69,7 @@ const getMessageAndContext = (entry: LogEntry): [string, string] => {
     return ["Lambda", ""];
   }
 
+  console.error("❌ No message found in log entry:", entry);
   return [message, context];
 };
 
@@ -66,25 +79,25 @@ const mapMessageToNodeLabel = (msg: string): string => {
       return rule.label;
     }
   }
-  console.log("No match found, consider adding one to messageMap:", msg);
+  console.error("⚠️ No match found, consider adding one to messageMap:", msg);
   return msg;
 };
 
-const parseTimestamp = (e: LogEntry): string => {
+const parseTimestamp = (e: LogEntry): string | undefined => {
   if (typeof e.result.time === "number") {
     return new Date(e.result.time).toISOString();
   }
 
-  const timestamp = e.result.timestamp || e.result._time || undefined;
+  const timestamp = e.result.timestamp || e.result._time || e.result.time || undefined;
   if (!timestamp) {
-    console.log("No timestamp found in log entry:", e);
-    process.exit(1);
+    console.error("❌ No timestamp found in log entry:", e);
+    return;
   }
 
   const d = new Date(timestamp);
   if (isNaN(d.getTime())) {
     console.error("❌ Invalid timestamp:", timestamp);
-    process.exit(1);
+    return;
   }
 
   return d.toISOString();

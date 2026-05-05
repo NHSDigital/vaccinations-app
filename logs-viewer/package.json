@@ -1,0 +1,22 @@
+{
+  "name": "splunk-log-graph-extension",
+  "version": "1.0.0",
+  "description": "Chrome extension that renders Splunk logs as interactive graph",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "renderjson-2": "^2.0.1",
+    "vis-network": "^9.1.9"
+  },
+  "devDependencies": {
+    "device-detector-js": "^3.0.3",
+    "typescript": "^5.4.0",
+    "tsx": "^4.0.0",
+    "vite": "^8.0.5"
+  }
+}

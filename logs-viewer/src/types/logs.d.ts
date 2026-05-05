@@ -2,7 +2,7 @@
 
 interface LogEntry {
   result: {
-    time?: number;
+    time?: number | string;
     timestamp?: string;
     _time?: string;
     traceId?: string;
@@ -12,6 +12,7 @@ interface LogEntry {
     msg?: string;
     [key: string]: any;
   };
+
   [key: string]: any;
 }
 

@@ -23,6 +23,7 @@ const eslintConfig = [
       "pact/**",
       "performance/report",
       "logs-viewer/www",
+      "logs-viewer/dist",
     ],
   },
   ...nextCoreWebVitals,
