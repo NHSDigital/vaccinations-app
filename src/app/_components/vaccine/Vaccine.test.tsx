@@ -164,7 +164,7 @@ describe("Any vaccine page", () => {
     });
   });
 
-  describe("shows correct content for Vaccines that handle campaigns (COVID_19)", () => {
+  describe("shows correct content for non-personalised Vaccines that handle campaigns (FLU_FOR_ADULTS)", () => {
     beforeEach(() => {
       (getContentForVaccine as jest.Mock).mockResolvedValue(contentSuccessResponse);
       (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilitySuccessResponse);
@@ -173,7 +173,7 @@ describe("Any vaccine page", () => {
     it("should display non-personalised vaccine page content for PreOpen Campaign", async () => {
       (getCampaignState as jest.Mock).mockResolvedValue(CampaignState.PRE_OPEN);
 
-      await renderNamedVaccinePage(VaccineType.COVID_19);
+      await renderNamedVaccinePage(VaccineType.FLU_FOR_ADULTS);
 
       const nonPersonalisedVaccinePageContent = screen.getByText(
         "Test Non-personalised Vaccine Page Content Component",
@@ -184,8 +184,9 @@ describe("Any vaccine page", () => {
       expect(NonPersonalisedVaccinePageContent).toHaveBeenCalledWith(
         {
           styledVaccineContent: contentSuccessResponse.styledVaccineContent,
-          vaccineType: VaccineType.COVID_19,
+          vaccineType: VaccineType.FLU_FOR_ADULTS,
           campaignState: CampaignState.PRE_OPEN,
+          showStaticEligibilityContent: true,
         },
         undefined,
       );
@@ -194,7 +195,7 @@ describe("Any vaccine page", () => {
     it("should display non-personalised vaccine page content for Open Campaign", async () => {
       (getCampaignState as jest.Mock).mockResolvedValue(CampaignState.OPEN);
 
-      await renderNamedVaccinePage(VaccineType.COVID_19);
+      await renderNamedVaccinePage(VaccineType.FLU_FOR_ADULTS);
 
       const nonPersonalisedVaccinePageContent = screen.getByText(
         "Test Non-personalised Vaccine Page Content Component",
@@ -205,8 +206,9 @@ describe("Any vaccine page", () => {
       expect(NonPersonalisedVaccinePageContent).toHaveBeenCalledWith(
         {
           styledVaccineContent: contentSuccessResponse.styledVaccineContent,
-          vaccineType: VaccineType.COVID_19,
+          vaccineType: VaccineType.FLU_FOR_ADULTS,
           campaignState: CampaignState.OPEN,
+          showStaticEligibilityContent: true,
         },
         undefined,
       );
@@ -215,7 +217,7 @@ describe("Any vaccine page", () => {
     it("should display non-personalised vaccine page content for Closed Campaign", async () => {
       (getCampaignState as jest.Mock).mockResolvedValue(CampaignState.CLOSED);
 
-      await renderNamedVaccinePage(VaccineType.COVID_19);
+      await renderNamedVaccinePage(VaccineType.FLU_FOR_ADULTS);
 
       const nonPersonalisedVaccinePageContent = screen.getByText(
         "Test Non-personalised Vaccine Page Content Component",
@@ -226,8 +228,9 @@ describe("Any vaccine page", () => {
       expect(NonPersonalisedVaccinePageContent).toHaveBeenCalledWith(
         {
           styledVaccineContent: contentSuccessResponse.styledVaccineContent,
-          vaccineType: VaccineType.COVID_19,
+          vaccineType: VaccineType.FLU_FOR_ADULTS,
           campaignState: CampaignState.CLOSED,
+          showStaticEligibilityContent: true,
         },
         undefined,
       );
@@ -275,6 +278,7 @@ describe("Any vaccine page", () => {
         VaccineType.RSV,
         eligibilitySuccessResponse,
         contentErrorResponse.styledVaccineContent,
+        true,
       );
     });
 
@@ -300,15 +304,18 @@ describe("Any vaccine page", () => {
       (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilitySuccessResponse);
     });
 
-    it("should display the eligibility on RSV vaccine page", async () => {
-      await renderRsvVaccinePage();
+    it.each([VaccineType.RSV, VaccineType.COVID_19])(
+      "should display the eligibility on %s vaccine page",
+      async (vaccineType) => {
+        await renderNamedVaccinePage(vaccineType);
 
-      expectRenderEligibilitySectionWith(
-        VaccineType.RSV,
-        eligibilitySuccessResponse,
-        contentSuccessResponse.styledVaccineContent,
-      );
-    });
+        expectRenderEligibilitySectionWith(
+          vaccineType,
+          eligibilitySuccessResponse,
+          contentSuccessResponse.styledVaccineContent,
+        );
+      },
+    );
 
     it("should not display the eligibility on RSV pregnancy vaccine page", async () => {
       await renderNamedVaccinePage(VaccineType.RSV_PREGNANCY);
@@ -361,6 +368,7 @@ describe("Any vaccine page", () => {
         VaccineType.RSV,
         eligibilityErrorResponse,
         contentSuccessResponse.styledVaccineContent,
+        false,
       );
     });
 
@@ -370,6 +378,134 @@ describe("Any vaccine page", () => {
       const lineAboveMoreInformation: HTMLElement = screen.getByRole("separator");
 
       expect(lineAboveMoreInformation).toBeInTheDocument();
+    });
+  });
+
+  describe("shows static fallback content from content API, when eligibility response not available for personalised vaccines (COVID-19)", () => {
+    const eligibilityResponseWithNoContentSection = {
+      ...eligibilitySuccessResponse,
+      eligibility: {
+        ...eligibilitySuccessResponse.eligibility,
+        content: undefined,
+      },
+    };
+
+    const eligibilityResponseWithNoEligibilityStatus = {
+      ...eligibilitySuccessResponse,
+      eligibility: {
+        ...eligibilitySuccessResponse.eligibility,
+        status: undefined,
+      },
+    };
+
+    beforeEach(() => {
+      (getContentForVaccine as jest.Mock).mockResolvedValue(contentSuccessResponse);
+    });
+
+    it("should display NonPersonalised component with showStaticEligibilityContent true when eligibility API fails", async () => {
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilityErrorResponse);
+
+      await renderNamedVaccinePage(VaccineType.COVID_19);
+      const nonPersonalisedVaccinePageContent = screen.getByTestId("non-personalised-content-mock");
+
+      expect(nonPersonalisedVaccinePageContent).toBeInTheDocument();
+      expect(NonPersonalisedVaccinePageContent).toHaveBeenCalledWith(
+        {
+          styledVaccineContent: contentSuccessResponse.styledVaccineContent,
+          vaccineType: VaccineType.COVID_19,
+          campaignState: CampaignState.UNSUPPORTED,
+          showStaticEligibilityContent: true,
+        },
+        undefined,
+      );
+    });
+
+    it("should display the NonPersonalised component with showStaticEligibilityContent true when there is no content in EliD response", async () => {
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilityResponseWithNoContentSection);
+
+      await renderNamedVaccinePage(VaccineType.COVID_19);
+      const nonPersonalisedVaccinePageContent = screen.getByTestId("non-personalised-content-mock");
+
+      expect(nonPersonalisedVaccinePageContent).toBeInTheDocument();
+      expect(NonPersonalisedVaccinePageContent).toHaveBeenCalledWith(
+        {
+          styledVaccineContent: contentSuccessResponse.styledVaccineContent,
+          vaccineType: VaccineType.COVID_19,
+          campaignState: CampaignState.UNSUPPORTED,
+          showStaticEligibilityContent: true,
+        },
+        undefined,
+      );
+    });
+
+    it("should display the NonPersonalised component with showStaticEligibilityContent true when there is no eligibility status in EliD response", async () => {
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilityResponseWithNoEligibilityStatus);
+
+      await renderNamedVaccinePage(VaccineType.COVID_19);
+      const nonPersonalisedVaccinePageContent = screen.getByTestId("non-personalised-content-mock");
+
+      expect(nonPersonalisedVaccinePageContent).toBeInTheDocument();
+      expect(NonPersonalisedVaccinePageContent).toHaveBeenCalledWith(
+        {
+          styledVaccineContent: contentSuccessResponse.styledVaccineContent,
+          vaccineType: VaccineType.COVID_19,
+          campaignState: CampaignState.UNSUPPORTED,
+          showStaticEligibilityContent: true,
+        },
+        undefined,
+      );
+    });
+
+    it("should display the Eligibility component with eligibility error when eligibility API fails", async () => {
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilityErrorResponse);
+
+      await renderNamedVaccinePage(VaccineType.COVID_19);
+      const eligibilitySection = screen.getByTestId("eligibility-page-content-mock");
+
+      expect(eligibilitySection).toBeInTheDocument();
+      expect(EligibilityVaccinePageContent).toHaveBeenCalledWith(
+        {
+          vaccineType: VaccineType.COVID_19,
+          eligibilityForPerson: eligibilityErrorResponse,
+          styledVaccineContent: contentSuccessResponse.styledVaccineContent,
+          showDynamicEligibilityContent: false,
+        },
+        undefined,
+      );
+    });
+
+    it("should display the Eligibility component with showDynamicEligibilityContent false when there is no content in EliD response", async () => {
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilityResponseWithNoContentSection);
+
+      await renderNamedVaccinePage(VaccineType.COVID_19);
+      const eligibilitySection = screen.getByTestId("eligibility-page-content-mock");
+      expect(eligibilitySection).toBeInTheDocument();
+      expect(EligibilityVaccinePageContent).toHaveBeenCalledWith(
+        {
+          vaccineType: VaccineType.COVID_19,
+          eligibilityForPerson: eligibilityResponseWithNoContentSection,
+          styledVaccineContent: contentSuccessResponse.styledVaccineContent,
+          showDynamicEligibilityContent: false,
+        },
+        undefined,
+      );
+    });
+
+    it("should display the Eligibility component with showDynamicEligibilityContent false when there is no eligibility status in EliD response", async () => {
+      (getEligibilityForPerson as jest.Mock).mockResolvedValue(eligibilityResponseWithNoEligibilityStatus);
+
+      await renderNamedVaccinePage(VaccineType.COVID_19);
+      const eligibilitySection = screen.getByTestId("eligibility-page-content-mock");
+      expect(eligibilitySection).toBeInTheDocument();
+      expect(EligibilityVaccinePageContent).toHaveBeenCalledWith(
+        {
+          vaccineType: VaccineType.COVID_19,
+          eligibilityForPerson: eligibilityResponseWithNoEligibilityStatus,
+          styledVaccineContent: contentSuccessResponse.styledVaccineContent,
+          showDynamicEligibilityContent: false,
+        },
+        undefined,
+      );
     });
   });
 
@@ -387,6 +523,7 @@ describe("Any vaccine page", () => {
         VaccineType.RSV,
         eligibilityErrorResponse,
         contentSuccessResponse.styledVaccineContent,
+        false,
       );
     });
   });
@@ -406,6 +543,7 @@ describe("Any vaccine page", () => {
         vaccineType,
         eligibilityErrorResponse,
         contentErrorResponse.styledVaccineContent,
+        false,
       );
     });
   });
@@ -418,6 +556,7 @@ describe("Any vaccine page", () => {
     vaccineType: VaccineType,
     eligibilityForPerson: EligibilityForPersonType,
     styledVaccineContent: StyledVaccineContent | undefined,
+    showDynamicEligibilityContent: boolean = true,
   ) => {
     const eligibilitySection: HTMLElement = screen.getByTestId("eligibility-page-content-mock");
     expect(eligibilitySection).toBeInTheDocument();
@@ -426,6 +565,7 @@ describe("Any vaccine page", () => {
         vaccineType: vaccineType,
         eligibilityForPerson: eligibilityForPerson,
         styledVaccineContent: styledVaccineContent,
+        showDynamicEligibilityContent: showDynamicEligibilityContent,
       },
       undefined,
     );

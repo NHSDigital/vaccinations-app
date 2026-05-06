@@ -171,6 +171,55 @@ describe("NonPersonalisedVaccinePageContent", () => {
       expect(preOpenActions).toBeNull();
     });
   });
+
+  describe("when showStaticEligibilityContent is false", () => {
+    const campaignStates = [
+      CampaignState.OPEN,
+      CampaignState.PRE_OPEN,
+      CampaignState.CLOSED,
+      CampaignState.UNSUPPORTED,
+    ];
+
+    it.each(campaignStates)("should include overview text when campaign is %s", (campaignState) => {
+      renderNonPersonalisedVaccinePageWithoutStaticEligibility(mockStyledContent, VaccineType.COVID_19, campaignState);
+
+      expect(screen.getByText("Overview text")).toBeInTheDocument();
+    });
+
+    it.each(campaignStates)("should not include recommendation text when campaign is %s", (campaignState) => {
+      renderNonPersonalisedVaccinePageWithoutStaticEligibility(mockStyledContent, VaccineType.COVID_19, campaignState);
+
+      expect(
+        screen.queryByRole("heading", { name: "Non-urgent advice: Recommendation Heading", level: 2 }),
+      ).not.toBeInTheDocument();
+    });
+
+    it.each(campaignStates)("should not include additionalInformation when campaign is %s", (campaignState) => {
+      renderNonPersonalisedVaccinePageWithoutStaticEligibility(mockStyledContent, VaccineType.COVID_19, campaignState);
+
+      expect(screen.queryByText("Additional Information component")).not.toBeInTheDocument();
+    });
+
+    it("should not include open campaign actions when campaign is open", () => {
+      renderNonPersonalisedVaccinePageWithoutStaticEligibility(
+        mockStyledContent,
+        VaccineType.COVID_19,
+        CampaignState.OPEN,
+      );
+
+      expect(screen.queryByRole("button", { name: "Continue to booking" })).toBeNull();
+    });
+
+    it("should not include pre-open actions when campaign is pre-open", () => {
+      renderNonPersonalisedVaccinePageWithoutStaticEligibility(
+        mockStyledContent,
+        VaccineType.COVID_19,
+        CampaignState.PRE_OPEN,
+      );
+
+      expect(screen.queryByRole("button", { name: "Book, cancel or change an appointment" })).toBeNull();
+    });
+  });
 });
 
 const renderNonPersonalisedVaccinePage = async (
@@ -183,6 +232,22 @@ const renderNonPersonalisedVaccinePage = async (
       styledVaccineContent,
       vaccineType,
       campaignState,
+      showStaticEligibilityContent: true,
+    }),
+  );
+};
+
+const renderNonPersonalisedVaccinePageWithoutStaticEligibility = (
+  styledVaccineContent: StyledVaccineContent,
+  vaccineType: VaccineType,
+  campaignState: CampaignState,
+) => {
+  render(
+    NonPersonalisedVaccinePageContent({
+      styledVaccineContent,
+      vaccineType,
+      campaignState,
+      showStaticEligibilityContent: false,
     }),
   );
 };

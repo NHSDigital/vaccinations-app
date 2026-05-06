@@ -10,24 +10,27 @@ const NonPersonalisedVaccinePageContent = (props: {
   styledVaccineContent: StyledVaccineContent;
   vaccineType: VaccineType;
   campaignState: CampaignState;
+  showStaticEligibilityContent: boolean;
 }) => {
   return (
     <>
       <Overview overview={props.styledVaccineContent.overview} vaccineType={props.vaccineType} />
-      <Recommendation recommendation={props.styledVaccineContent.recommendation} />
+      <Recommendation
+        recommendation={props.showStaticEligibilityContent ? props.styledVaccineContent.recommendation : undefined}
+      />
       {props.campaignState === CampaignState.CLOSED && (
         <WarningCallout styledVaccineContent={props.styledVaccineContent} vaccineType={props.vaccineType} />
       )}
-      {props.styledVaccineContent.additionalInformation?.component && (
+      {props.styledVaccineContent.additionalInformation?.component && props.showStaticEligibilityContent && (
         <div>{props.styledVaccineContent.additionalInformation.component}</div>
       )}
-      {props.campaignState === CampaignState.PRE_OPEN && (
+      {props.campaignState === CampaignState.PRE_OPEN && props.showStaticEligibilityContent && (
         <EligibilityActions
           actions={props.styledVaccineContent.preOpenActions ? props.styledVaccineContent.preOpenActions : []}
           vaccineType={props.vaccineType}
         />
       )}
-      {props.campaignState === CampaignState.OPEN && (
+      {props.campaignState === CampaignState.OPEN && props.showStaticEligibilityContent && (
         <EligibilityActions actions={props.styledVaccineContent.actions} vaccineType={props.vaccineType} />
       )}
       <Overview overview={props.styledVaccineContent.overviewConclusion} vaccineType={props.vaccineType} />

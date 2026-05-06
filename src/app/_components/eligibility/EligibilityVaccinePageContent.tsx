@@ -9,18 +9,16 @@ const EligibilityVaccinePageContent = (props: {
   vaccineType: VaccineType;
   eligibilityForPerson: EligibilityForPersonType;
   styledVaccineContent: StyledVaccineContent | undefined;
+  showDynamicEligibilityContent: boolean;
 }): JSX.Element => {
   return (
     <>
-      {props.vaccineType === VaccineType.RSV &&
-        !props.eligibilityForPerson.eligibilityError &&
-        props.eligibilityForPerson.eligibility?.content &&
-        props.eligibilityForPerson.eligibility?.status && (
-          <EligibilityComponent
-            eligibilityContent={props.eligibilityForPerson.eligibility.content}
-            vaccineType={props.vaccineType}
-          />
-        )}
+      {props.showDynamicEligibilityContent && props.eligibilityForPerson.eligibility?.content && (
+        <EligibilityComponent
+          eligibilityContent={props.eligibilityForPerson.eligibility.content}
+          vaccineType={props.vaccineType}
+        />
+      )}
       {/* Fallback eligibility section for RSV */}
       {props.vaccineType === VaccineType.RSV && props.eligibilityForPerson.eligibilityError && (
         <RSVEligibilityFallback styledVaccineContent={props.styledVaccineContent} vaccineType={props.vaccineType} />

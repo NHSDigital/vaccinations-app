@@ -35,6 +35,7 @@ describe("EligibilityVaccinePageContent", () => {
           vaccineType={VaccineType.RSV}
           eligibilityForPerson={eligibilityForPerson}
           styledVaccineContent={mockStyledContent}
+          showDynamicEligibilityContent={true}
         />,
       );
 
@@ -52,6 +53,7 @@ describe("EligibilityVaccinePageContent", () => {
           vaccineType={VaccineType.RSV}
           eligibilityForPerson={eligibilityUnavailable}
           styledVaccineContent={mockStyledContent}
+          showDynamicEligibilityContent={true}
         />,
       );
 
@@ -75,6 +77,7 @@ describe("EligibilityVaccinePageContent", () => {
           vaccineType={VaccineType.RSV}
           eligibilityForPerson={eligibilityForPerson}
           styledVaccineContent={undefined}
+          showDynamicEligibilityContent={true}
         />,
       );
 
@@ -92,6 +95,7 @@ describe("EligibilityVaccinePageContent", () => {
           vaccineType={VaccineType.RSV}
           eligibilityForPerson={eligibilityUnavailable}
           styledVaccineContent={undefined}
+          showDynamicEligibilityContent={false}
         />,
       );
 

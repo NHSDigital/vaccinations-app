@@ -56,6 +56,11 @@ describe("eligibility-filter-service", () => {
                 suitabilityRuleFromApiBuilder().withRuleCode("AlreadyVaccinated").andRuleText("Test").build(),
               ])
               .build(),
+            processedSuggestionBuilder()
+              .withCondition("COVID")
+              .andStatus("Actionable")
+              .andStatusText("COVID status text")
+              .build(),
           ])
           .build(),
       );
@@ -80,9 +85,28 @@ describe("eligibility-filter-service", () => {
       expect(result.eligibilityError).toEqual(undefined);
     });
 
-    it("should return error response when no suggestion is found for the vaccine", async () => {
+    it("should return error response when no suggestion is found for the vaccine when there are no processed suggestions in response", async () => {
       (fetchEligibilityContent as jest.Mock).mockResolvedValue(
         eligibilityApiResponseBuilder().withProcessedSuggestions([]).build(),
+      );
+
+      const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineType.RSV, nhsNumber);
+
+      expect(result.eligibility).toBeUndefined();
+      expect(result.eligibilityError).toEqual(EligibilityErrorTypes.ELIGIBILITY_LOADING_ERROR);
+    });
+
+    it("should return error response when no suggestion is found for the vaccine when there are processed suggestions in response", async () => {
+      (fetchEligibilityContent as jest.Mock).mockResolvedValue(
+        eligibilityApiResponseBuilder()
+          .withProcessedSuggestions([
+            processedSuggestionBuilder()
+              .withCondition("COVID")
+              .andStatus("Actionable")
+              .andStatusText("COVID status text")
+              .build(),
+          ])
+          .build(),
       );
 
       const result: EligibilityForPersonType = await getEligibilityForPerson(VaccineType.RSV, nhsNumber);

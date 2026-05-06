@@ -1,6 +1,9 @@
+import { CONDITIONS } from "@src/models/vaccine";
 import { z } from "zod";
 
 const StatusSchema = z.enum(["NotEligible", "NotActionable", "Actionable"]);
+
+const ConditionSchema = z.enum(CONDITIONS);
 
 const EligibilityCohortSchema = z
   .object({
@@ -31,7 +34,7 @@ const SuitabilityRuleSchema = z
 
 const ProcessedSuggestionSchema = z
   .object({
-    condition: z.enum(["RSV"]),
+    condition: ConditionSchema,
     status: StatusSchema,
     statusText: z.string(),
     eligibilityCohorts: z.array(EligibilityCohortSchema).default([]),

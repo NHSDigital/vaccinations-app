@@ -76,7 +76,7 @@ describe("elid-schema", () => {
         expect(error.issues[0]).toMatchObject({
           code: "invalid_value",
           path: ["processedSuggestions", 0, "condition"],
-          message: 'Invalid input: expected "RSV"',
+          message: 'Invalid option: expected one of "RSV"|"COVID"',
         });
       }
     }

@@ -6,6 +6,9 @@ export type UrlPathFragment = Brand<string, "UrlPathFragment">;
 export type Filename = Brand<string, "Filename">;
 export type NbsCampaign = Brand<string, "NbsCampaign">;
 
+export const CONDITIONS = ["RSV", "COVID"] as const;
+export type Condition = (typeof CONDITIONS)[number];
+
 enum VaccineType {
   RSV = "RSV",
   RSV_PREGNANCY = "RSV_PREGNANCY",
@@ -45,6 +48,7 @@ export type VaccineDetails = {
   supressWarningCallout?: boolean;
   moreInformationHeadersFromContentApi?: boolean;
   supportsPreOpenCampaigns?: boolean;
+  condition?: Condition;
 };
 
 type displayName = {
@@ -74,6 +78,7 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     cacheFilename: "rsv-vaccine.json" as Filename,
     nbsPath: "rsv" as UrlPathFragment,
     nbsCampaign: "vita-RSV-booking" as NbsCampaign,
+    condition: "RSV",
   },
   [VaccineType.RSV_PREGNANCY]: {
     urlPath: "rsv-pregnancy" as UrlPathFragment,
@@ -326,12 +331,13 @@ const VaccineInfo: Record<VaccineType, VaccineDetails> = {
     cardLinkTitle: "COVID-19",
     nhsWebpageLink: new URL("https://www.nhs.uk/vaccinations/covid-19-vaccine/"),
     nhsHowToGetWebpageLink: new URL("https://www.nhs.uk/vaccinations/covid-19-vaccine/#how-to-get-it"),
-    personalisedEligibilityStatusRequired: false,
+    personalisedEligibilityStatusRequired: true,
     contentPath: "vaccinations/covid-19-vaccine" as UrlPathFragment,
     cacheFilename: "covid-19-vaccine.json" as Filename,
     nbsPath: "covid" as UrlPathFragment,
     nbsCampaign: "vita-COVID-booking" as NbsCampaign,
     supportsPreOpenCampaigns: true,
+    condition: "COVID",
   },
   [VaccineType.FLU_FOR_ADULTS]: {
     urlPath: "flu-vaccine" as UrlPathFragment,

@@ -1,4 +1,4 @@
-import { NhsNumber, VaccineType } from "@src/models/vaccine";
+import { NhsNumber, VaccineInfo, VaccineType } from "@src/models/vaccine";
 import {
   EligibilityApiResponse,
   EligibilityCohort,
@@ -44,7 +44,7 @@ const getEligibilityForPerson = async (
     const eligibilityApiResponse: EligibilityApiResponse = await fetchEligibilityContent(nhsNumber);
 
     const suggestionForVaccine: ProcessedSuggestion | undefined = eligibilityApiResponse.processedSuggestions.find(
-      ({ condition }: ProcessedSuggestion) => condition === vaccineType,
+      ({ condition }: ProcessedSuggestion) => condition === VaccineInfo[vaccineType]?.condition,
     );
 
     if (!suggestionForVaccine) {

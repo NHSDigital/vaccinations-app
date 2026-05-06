@@ -55,6 +55,30 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
     [{ styledVaccineContent, contentError }] = await Promise.all([getContentForVaccine(vaccineType)]);
   }
 
+  /**
+   * For all non-RSV vaccines that have EliD enabled we should show fallback content if:
+   *  the EliD API returns an error eg API is down
+   *  OR is an error determining eligibility for the person
+   *  OR there is no content returned in the eligibility response
+   *  OR there is no eligibility status returned for the person in the eligibility response
+   *
+   * For RSV
+   *  Fields used in NonPersonalisedVaccinePageContent are not populated in the styledVaccineContent
+   *  EligibilityVaccinePageContent component determines whether to display the fallback content
+   *   show fallback if
+   *    there is an error from the EliD API,
+   *    OR there is no content returned in the eligibility response
+   *    OR there is no eligibility status returned for the person in the eligibility response
+   *
+   * For RSV_PREGNANCY
+   *  There is a specific fallback for RSV_PREGNANCY
+   */
+  const showAllNonPersonalisedContent: boolean =
+    !vaccineInfo.personalisedEligibilityStatusRequired ||
+    !!eligibilityForPerson?.eligibilityError ||
+    !eligibilityForPerson?.eligibility?.content ||
+    !eligibilityForPerson?.eligibility?.status;
+
   profilePerformanceEnd(VaccinePagePerformanceMarker);
 
   return (
@@ -64,6 +88,7 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
           styledVaccineContent={styledVaccineContent}
           vaccineType={vaccineType}
           campaignState={campaignState}
+          showStaticEligibilityContent={showAllNonPersonalisedContent}
         />
       )}
 
@@ -73,6 +98,7 @@ const VaccineComponent = async ({ vaccineType }: VaccineProps): Promise<JSX.Elem
           vaccineType={vaccineType}
           eligibilityForPerson={eligibilityForPerson}
           styledVaccineContent={styledVaccineContent}
+          showDynamicEligibilityContent={!showAllNonPersonalisedContent}
         />
       )}
 

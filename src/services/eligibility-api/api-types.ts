@@ -1,3 +1,5 @@
+import { Condition } from "@project/src/models/vaccine";
+
 // Downstream API
 export type EligibilityApiResponse = {
   processedSuggestions: ProcessedSuggestion[];
@@ -12,7 +14,6 @@ export type ProcessedSuggestion = {
   suitabilityRules: SuitabilityRule[];
 };
 
-export type Condition = "RSV";
 export type Status = "NotEligible" | "NotActionable" | "Actionable";
 
 export type EligibilityCohort = {
