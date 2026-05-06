@@ -23,7 +23,7 @@ jobs:
           node-version-file: '.tool-versions'
 
       - name: "Install dependencies"
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: "Check dependency cooldown (changed packages only)"
         run: ./scripts/reports/check-dependency-cooldown.sh 7 "origin/${{ github.base_ref }}"
