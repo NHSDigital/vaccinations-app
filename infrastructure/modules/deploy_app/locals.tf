@@ -14,6 +14,16 @@ locals {
       name                = "${var.prefix}-common-rule-set"
       priority            = 2
       aws_rule_group_name = "AWSManagedRulesCommonRuleSet"
+    },
+    {
+      name                = "${var.prefix}-linux-rule-set"
+      priority            = 3
+      aws_rule_group_name = "AWSManagedRulesLinuxRuleSet"
+    },
+    {
+      name                = "${var.prefix}-unix-rule-set"
+      priority            = 4
+      aws_rule_group_name = "AWSManagedRulesUnixRuleSet"
     }
   ]
 }
